@@ -8,6 +8,7 @@ public class Niwa {
                 + "|_| \\_|_|_| |__/|__/ //  |_|";
 
         printGreet(name, logo); //Print greeting lines
+        printExit(); //Print exit lines
     }
     public static void printHorizontalLine (int numDash)
     {
@@ -21,5 +22,10 @@ public class Niwa {
         printHorizontalLine(40);
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
+    }
+    public static void printExit() {
+        printHorizontalLine(40);
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine(40);
     }
 }
