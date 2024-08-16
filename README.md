@@ -4,7 +4,7 @@ A simple command line interface (CLI) Chat bot.
 
 ```
 Hello from
-   __  __   _   _            
+ __  __   _   _            
 |  \/  | (_) | |           
 | \  / |  _  | | __  _   _
 | |\/| | | | | |/ / | | | |
