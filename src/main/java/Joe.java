@@ -9,5 +9,19 @@ public class Joe {
             + "   _/ |           \n"
             + "  |__/            \n";
         System.out.println("Hello from\n" + logo);
+        joeInteracts();
+    }
+
+    public static void joeInteracts() {
+
+        String greeting = "Hello! I'm Joe.\n";
+        String farewell = "See you soon!\n";
+        System.out.println("____________________________________________________________\n" +
+                greeting);
+
+        System.out.println("\n" +
+                "____________________________________________________________\n" +
+                farewell +
+                "____________________________________________________________\n");
     }
 }
