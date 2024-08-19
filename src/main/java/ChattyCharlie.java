@@ -16,7 +16,7 @@ public class ChattyCharlie {
                 + "What can I help you with today?\n"
                 + "____________________________________________________________\n";
 
-        String farewell = "Bye. Have a pleasant day today!";
+        String farewell = "Bye, have a pleasant day today!";
 
         System.out.println(logo + greeting + farewell);
     }
