@@ -13,10 +13,10 @@ public class ChattyCharlie {
                 + "              \n"
                 + "____________________________________________________________\n";
         String greeting = "Hello! I'm ChattyCharlie\n"
-                + "What can I do for you?\n"
+                + "What can I help you with today?\n"
                 + "____________________________________________________________\n";
 
-        String farewell = "Bye. Hope to see you again soon!";
+        String farewell = "Bye. Have a pleasant day today!";
 
         System.out.println(logo + greeting + farewell);
     }
