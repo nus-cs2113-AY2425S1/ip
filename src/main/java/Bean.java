@@ -1,5 +1,5 @@
 public class Bean {
-    final static String line = "____________________________________________________________________\n";
+    final static String line = "\n____________________________________________________________________\n";
 
     public static void greet() {
         String logo = "  ┏━┓\n" +
@@ -11,14 +11,13 @@ public class Bean {
 
         System.out.println(line +
                 logo +
-                "Howdy, mate! :) I am Bean, your personal assistant.\nLet me know how I can help you out!\n" +
+                "  Howdy, mate! :) I am Bean, your personal assistant.\n  Let me know how I can help you out!\n" +
                 line
         );
     }
 
     public static void exit() {
-        System.out.println(line +
-                " Bye bye, see you again... :(\n" +
+        System.out.println("  Bye bye, glad I could help! See you soon? :'(\n" +
                 line);
     }
 
