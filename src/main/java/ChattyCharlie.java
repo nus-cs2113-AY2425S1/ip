@@ -12,6 +12,12 @@ public class ChattyCharlie {
                 + " |_______|    \n"
                 + "              \n"
                 + "____________________________________________________________\n";
-        System.out.println("Hello from\n" + logo);
+        String greeting = "Hello! I'm ChattyCharlie\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________\n";
+
+        String farewell = "Bye. Hope to see you again soon!";
+
+        System.out.println(logo + greeting + farewell);
     }
 }
