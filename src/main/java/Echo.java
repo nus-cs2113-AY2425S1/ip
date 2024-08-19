@@ -1,10 +1,12 @@
 public class Echo {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        // Define the greeting message and the chatbot name
+        String chatbotName = "Echo";
+        String greetingMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?\n";
+
+        // Print the greeting message
+        System.out.println("____________________________________________________________");
+        System.out.print(greetingMessage);
+        System.out.println("____________________________________________________________");
     }
 }
