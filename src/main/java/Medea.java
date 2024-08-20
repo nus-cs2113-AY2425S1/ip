@@ -11,11 +11,24 @@ public class Medea {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void handleInput(String command, Todo todo){
-        if (command.equals("list")){
-            todo.listTodos();
-        }else{
-            todo.addTodo(command);
+    private static void handleInput(Todo todo, String input){
+        String[] args = input.split(" ");
+        String command = args[0];
+        switch(command){
+            case "list":
+                todo.listTodos();
+                break;
+            case "mark":
+                int markIndex = Integer.parseInt(args[1]) - 1;
+                todo.markTodo(markIndex);
+                break;
+            case "unmark":
+                int unmarkIndex = Integer.parseInt(args[1]) - 1;
+                todo.unmarkTodo(unmarkIndex);
+                break;
+            default:
+                todo.addTodo(input);
+                break;
         }
     }
 
@@ -25,7 +38,7 @@ public class Medea {
         Todo todo = new Todo();
         String input = sc.nextLine();
         while(!input.equals("bye")){
-            handleInput(input, todo);
+            handleInput(todo, input);
             input = sc.nextLine();
         }
         leave();
