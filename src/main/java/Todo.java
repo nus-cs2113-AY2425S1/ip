@@ -1,6 +1,6 @@
 public class Todo {
-    private static String[] todoList;
-    private static int currTodo;
+    private final String[] todoList;
+    private int currTodo;
 
     public Todo(){
         currTodo = 0;
