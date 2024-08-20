@@ -17,7 +17,7 @@ Example: `keyword (optional arguments)`
 // A description of the expected outcome goes here
 
 ```
-expected output
+HELP ME PLSSS
 ```
 
 ## Feature ABC
