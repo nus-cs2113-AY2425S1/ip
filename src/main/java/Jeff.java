@@ -1,11 +1,13 @@
 public class Jeff {
     public static void main(String[] args) {
-        String  text= "____________________________________________________________\n" +
-        "Hello! I'm JEFF\n" +
-        "What can I do for you?\n" +
-        "____________________________________________________________\n" +
-        "Bye. Hope to see you again soon!\n" +
-        "____________________________________________________________\n";
+        String  text= """
+                ____________________________________________________________
+                Hello! I'm JEFF
+                What can I do for you?
+                ____________________________________________________________
+                Bye. Hope to see you again soon!
+                ____________________________________________________________
+                """;
 
         System.out.println(text);
     }
