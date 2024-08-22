@@ -26,8 +26,8 @@ public class Jarvis {
 
         // Print the greetings
         for (String greeting : greetings) {
-            printBreakLine();               // Print a break line before each greeting
-            System.out.println(greeting);   // Print the greeting
+            printBreakLine(); // Print a break line before each greeting
+            System.out.println(greeting); // Print the greeting
         }
         printBreakLine();
         exit(0);
@@ -35,13 +35,36 @@ public class Jarvis {
 
     public static void main(String[] args) {
         String logo = """
+                                  @@@@@@@@@@@@@@@@@@@@@@@
+                              @@%     @@          @@      @@@
+                           @@         @@          @@          @@
+                        @@            @@          @@             @@
+                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                     @                                              *@
+                    @@@                                             @@@
+                   @  @@@                                         @@@  @
+                  @&    @@         @@@@@@@@@@@@@@@@@@@@@         @@.   @@
+                  @      @@@        @@              @@         @@@      @
+                  @       *@@         @@           @(         @@(       @
+                  @       ,@@@@        @@        @@         @@@@        @
+                  @   @@@@@  %@@         @@     @          @@& @@@@@    @
+                  @@@@         @@@        /@  @@         @@@       *@@@@/
+                   @@           @@@         @@          @@@           @@
+                    @@            @@&                 (@@            @@
+                      @       @@@@@@@@               @@@@@@@        @
+                       @@ @@@@*      @@,            @@      @@@@  @&
+                          @@          @@@         @@@          @@
+                            @@@         @@       @@         @@#
+                                @@@@     @@@   @@@     @@@@
+                                       @@@@@@@@@@@@@
+
                      ██╗    █████╗    ██████╗   ██╗   ██╗  ██╗   ███████╗
                      ██║   ██╔══██╗   ██╔══██╗  ██║   ██║  ██║   ██╔════╝
                      ██║   ███████║   ██████╔╝  ██║   ██║  ██║   ███████╗
                 ██   ██║   ██╔══██║   ██╔══██╗  ╚██╗ ██╔╝  ██║   ╚════██║
                 ╚█████╔╝██╗██║  ██║██╗██║  ██║██╗╚████╔╝██╗██║██╗███████║██╗
                  ╚════╝ ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝ ╚═══╝ ╚═╝╚═╝╚═╝╚══════╝╚═╝
-                """;
+                                  """;
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
     }
