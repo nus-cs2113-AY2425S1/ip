@@ -1,21 +1,33 @@
 public class Jarvis {
-    static String chatBotName = "Jarvis"; // Name of the chatbot
+    private static final String chatBotName = "Jarvis"; // Name of the chatbot
 
-    public static void printBreakLine() {
+    /**
+     * Prints a break line to the console.
+     */
+    private static void printBreakLine() {
         System.out.println("────────────────────────────────────────────────────────────");
     }
 
-    public static void exit(int status) {
+    /**
+     * Gracefully exits the program.
+     *
+     * @param status
+     */
+    private static void exit(int status) {
         System.exit(status);
     }
 
-    public static void printGreetingMsgs() {
+    /**
+     * Prints the greeting messages to the console.
+     */
+    private static void printGreetingMsgs() {
         String[] greetings = {"Hello! I'm " + chatBotName + "\nWhat can I do for you?",
-                "Bye. Hope to see you again soon!",};
+                "Bye. Hope to see you again soon!"}; // List of greetings
 
+        // Print the greetings
         for (String greeting : greetings) {
-            printBreakLine();
-            System.out.println(greeting);
+            printBreakLine();               // Print a break line before each greeting
+            System.out.println(greeting);   // Print the greeting
         }
         printBreakLine();
         exit(0);
