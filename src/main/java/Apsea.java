@@ -1,4 +1,4 @@
-public class Duke {
+public class Apsea {
     public static void main(String[] args) {
         String horizontalLine = "____________________________________________________________\n";
 
