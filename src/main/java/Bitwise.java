@@ -7,8 +7,11 @@ public class Bitwise {
                 + "|  _ < | || __|\\ \\ / /| |/ __| / _ \\ \n"
                 + "| |_) || || |_  \\ V  V / | |\\__ \\|  __/\n"
                 + "|____/ |_| \\__|  \\_/\\_/  |_||___/ \\___|\n"
-                + "                                       \n"
                 + "                                       \n";
-        System.out.println("Hello from\n" + logo);
+        String sectionBreak = "==================================================\n";
+        String lineBreak = "--------------------------------------------------\n";
+        System.out.println(sectionBreak + "Hello from\n" + logo);
+        System.out.print("How may I help you today?\n" + lineBreak);
+        System.out.println("Bye, see you soon!\n" + sectionBreak);
     }
 }
