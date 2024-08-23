@@ -1,31 +1,77 @@
-public class Niwa {
-    public static void main(String[] args) {
-        String name = "Niwa";
-        String logo = " _   _\n"
-                + "| \\ | | (_)  _       _  ___\n"
-                + "|  \\| | | | | | __  // //| |\n"
-                + "| |\\  | | | | |/  |// //_| |\n"
-                + "|_| \\_|_|_| |__/|__/ //  |_|";
+import java.util.Scanner;
 
-        printGreet(name, logo); //Print greeting lines
-        printExit(); //Print exit lines
+public class Niwa {
+    static String name = "Niwa";
+    static String logo = "\t _   _\n"
+            + "\t| \\ | | (_)  _       _  ___\n"
+            + "\t|  \\| | | | | | __  // //| |\n"
+            + "\t| |\\  | | | | |/  |// //_| |\n"
+            + "\t|_| \\_|_|_| |__/|__/ //  |_|";
+    boolean isRunning;
+
+    public static String getName() {
+        return name;
     }
-    public static void printHorizontalLine (int numDash)
-    {
+
+    public static void setName(String name) {
+        Niwa.name = name;
+    }
+
+    public static String getLogo() {
+        return logo;
+    }
+
+    public static void setLogo(String logo) {
+        Niwa.logo = logo;
+    }
+
+    public boolean isIsRunning() {
+        return isRunning;
+    }
+
+    public Niwa() {
+        isRunning = true;
+        printGreet(name, logo);
+    }
+    public void processCommand(String command) {
+        if (command.equals("bye")) {
+            printExit();
+            isRunning = false;
+        }
+        else {
+            printHorizontalLine(40);
+            Echo(command);
+        }
+
+    }
+
+    public void Echo (String command) {
+        System.out.println("\t" + command);
+    }
+    public String getCommand() {
+        printHorizontalLine(40);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+    public void printHorizontalLine (int numDash) {
+        System.out.print("\t");
         for (int i = 0; i<numDash; i++) {
             System.out.print("_"); //Print "_" numDash times
         }
         System.out.print("\n");
     }
-    public static void printGreet(String name, String logo) {
+
+    public void printGreet(String name, String logo) {
         System.out.println(logo);
         printHorizontalLine(40);
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
+        System.out.println("\tHello sweeties! I'm " + name +"!");
+        System.out.println("\tWhat can I do for you? Let's chat <3");
+
     }
-    public static void printExit() {
+
+    public void printExit() {
         printHorizontalLine(40);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\tBye bae. Hope to see you again soon! Moah~");
         printHorizontalLine(40);
     }
 }
