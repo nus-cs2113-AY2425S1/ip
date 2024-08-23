@@ -5,7 +5,7 @@ public class Jeremy {
         Scanner scanner = new Scanner(System.in);
         List list = new List(100);
         PrintUtils.greeting();
-        PrintUtils.ascii();
+        PrintUtils.logo();
 
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {

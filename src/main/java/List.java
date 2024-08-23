@@ -8,20 +8,20 @@ public class List {
     }
 
     public void printList() {
-        PrintUtils.line();
+        PrintUtils.lineBreak();
         for (int i = 0; i < size; i++) {
             PrintUtils.print((i + 1) + ".");
             PrintUtils.print("[" + tasks[i].getStatusIcon() + "] ");
             tasks[i].printTask();
         }
-        PrintUtils.line();
+        PrintUtils.lineBreak();
     }
 
     public void addTask(String userInput) {
-        PrintUtils.line();
+        PrintUtils.lineBreak();
         tasks[size++] = new Task(userInput);
         PrintUtils.println("added: " + userInput);
-        PrintUtils.line();
+        PrintUtils.lineBreak();
     }
 
     public void markTaskAsDone(int taskNumber)  {
@@ -33,7 +33,7 @@ public class List {
     }
 
     public void setTaskStatus(int taskNumber, boolean isDone) {
-        PrintUtils.line();
+        PrintUtils.lineBreak();
         if (taskNumber <= 0 || taskNumber >= size) {
             PrintUtils.print("It looks like you entered an invalid task number. " +
                     "Would you like to try again? Please enter a number between " +
@@ -49,6 +49,6 @@ public class List {
             PrintUtils.print("[" + tasks[taskNumber - 1].getStatusIcon() + "] ");
             tasks[taskNumber - 1].printTask();
         }
-        PrintUtils.line();
+        PrintUtils.lineBreak();
     }
 }
