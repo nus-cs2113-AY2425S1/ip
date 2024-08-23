@@ -5,6 +5,10 @@ public class Print {
 
     private static final String name = "Jeremy";
 
+    public static void line() {
+        System.out.println(horizontalLine);
+    }
+
     public static void ascii() {
         String amongus = "                                        \n"
                 + "                .-++++++-.              \n"
@@ -28,19 +32,19 @@ public class Print {
                 + "                                        \n";
 
         System.out.print(amongus);
-        System.out.println(horizontalLine);
+        line();
     }
 
     public static void greeting() {
-        System.out.println(horizontalLine);
+        line();
         System.out.println("Hello! I'm " + name + ".");
         System.out.println("What can I do for you?");
-        System.out.println(horizontalLine);
+        line();
     }
 
     public static void bye() {
-        System.out.println(horizontalLine);
+        line();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
+        line();
     }
 }
