@@ -6,12 +6,24 @@ public class Jeremy {
         Print.greeting();
         Print.ascii();
 
+        String[] list = new String[100];
+        int listSize = 0;
+
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
-            // Echo the input back to the user
-            Print.line();
-            System.out.println(userInput);
-            Print.line();
+            if (userInput.equals("list")) {
+                Print.line();
+                for (int i = 1; i <= listSize; i++) {
+                    System.out.println(i + ". " + list[i - 1]);
+                }
+                Print.line();
+            } else {
+                Print.line();
+                list[listSize] = userInput;
+                listSize++;
+                System.out.println("added: " + userInput);
+                Print.line();
+            }
 
             userInput = scanner.nextLine();
         }
