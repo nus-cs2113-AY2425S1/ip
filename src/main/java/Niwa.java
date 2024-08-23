@@ -8,6 +8,8 @@ public class Niwa {
             + "\t| |\\  | | | | |/  |// //_| |\n"
             + "\t|_| \\_|_|_| |__/|__/ //  |_|";
     boolean isRunning;
+    private String[] tasks = new String[100];
+    private static int taskCount = 0;
 
     public static String getName() {
         return name;
@@ -34,18 +36,31 @@ public class Niwa {
         printGreet(name, logo);
     }
     public void processCommand(String command) {
+        printHorizontalLine(40);
         if (command.equals("bye")) {
             printExit();
             isRunning = false;
-        }
-        else {
-            printHorizontalLine(40);
-            Echo(command);
+        } else if (command.equals("list")) {
+            list();
+        } else {
+            add(command);
         }
 
     }
-
-    public void Echo (String command) {
+    private void list () {
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(i+1 + ". " + tasks[i]);
+        }
+    }
+    private void add (String task) {
+        if (taskCount >= tasks.length) {
+            System.out.println("\tMax command number reached!");
+            return;
+        }
+        tasks[taskCount++] = task.trim();
+        System.out.println("\tadded: " + task.trim());
+    }
+    private void echo (String command) {
         System.out.println("\t" + command);
     }
     public String getCommand() {
@@ -70,7 +85,6 @@ public class Niwa {
     }
 
     public void printExit() {
-        printHorizontalLine(40);
         System.out.println("\tBye bae. Hope to see you again soon! Moah~");
         printHorizontalLine(40);
     }
