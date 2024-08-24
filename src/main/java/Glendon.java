@@ -16,12 +16,25 @@ public class Glendon {
         Scanner in = new Scanner(System.in);
         String response;
         response = in.nextLine();
+        String[] list = new String[100];
+        int taskNumber;
+        int taskCounter = 0;
+
         while (response != null) {
             if (response.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (response.equals("list")){
+                taskNumber = 1;
+                for (int i = 0; i < list.length; i++) {
+                    if (list[i] != null) {
+                        System.out.println(taskNumber + ". " + list[i]);
+                        taskNumber++;
+                    }
+                }
             } else {
-                System.out.println(response);
+                list[taskCounter++] = response;
+                System.out.println("added: " + response);
             }
             response = in.nextLine();
         }
