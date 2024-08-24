@@ -19,6 +19,7 @@ public class Glendon {
         while (response != null) {
             if (response.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
+                break;
             } else {
                 System.out.println(response);
             }
