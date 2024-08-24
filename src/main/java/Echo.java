@@ -22,11 +22,14 @@ public class Echo {
             // Read user input
             userInput = scanner.nextLine();
 
-            // Print user input
-            System.out.println("____________________________________________________________");
-            System.out.println(userInput);
-            System.out.println("____________________________________________________________");
+            // Print user input if bye is not the input
+            if (!userInput.equalsIgnoreCase("bye")) {
+                System.out.println("____________________________________________________________");
+                System.out.println(userInput);
+                System.out.println("____________________________________________________________");
+            }
         }
+
         while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
