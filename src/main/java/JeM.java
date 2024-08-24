@@ -36,6 +36,16 @@ public class JeM {
                 int index = Integer.parseInt(parts[1]);
                 storage.storageDelete(index);
                 storage.storageList();
+            } else if (line.contains("unmark") || line.contains("Unmark")){
+                String[] parts = line.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                storage.storageUnmark(index);
+                storage.storageList();
+            } else if (line.contains("mark") || line.contains("Mark")){
+                String[] parts = line.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                storage.storageMark(index);
+                storage.storageList();
             } else {
                 System.out.println("added: " + line);
                 storage.storageInsert(line);
