@@ -18,8 +18,16 @@ public class Echo {
         System.out.println("____________________________________________________________");
 
         String userInput;
-        // Read user input
-        userInput = scanner.nextLine();
+        do{
+            // Read user input
+            userInput = scanner.nextLine();
+
+            // Print user input
+            System.out.println("____________________________________________________________");
+            System.out.println(userInput);
+            System.out.println("____________________________________________________________");
+        }
+        while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
         System.out.println(exitMessage);
