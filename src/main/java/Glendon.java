@@ -16,9 +16,10 @@ public class Glendon {
         Scanner in = new Scanner(System.in);
         String response;
         response = in.nextLine();
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int taskNumber;
         int taskCounter = 0;
+        Task currentTask;
 
         while (response != null) {
             if (response.equals("bye")) {
@@ -27,16 +28,61 @@ public class Glendon {
             } else if (response.equals("list")){
                 taskNumber = 1;
                 for (int i = 0; i < list.length; i++) {
-                    if (list[i] != null) {
-                        System.out.println(taskNumber + ". " + list[i]);
+                    currentTask = list[i];
+                    if (currentTask != null) {
+                        System.out.println(taskNumber + ". " + currentTask.toString());
                         taskNumber++;
                     }
                 }
+            } else if (response.contains("unmark") && response.indexOf("unmark") == 0) {
+                int taskValue = Integer.valueOf(response.split(" ")[1]) - 1;
+                list[taskValue].setCompletion(false);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(list[taskValue].toString());
+            } else if (response.contains("mark") && response.indexOf("mark") == 0) {
+                int taskValue = Integer.valueOf(response.split(" ")[1]) - 1;
+                list[taskValue].setCompletion(true);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list[taskValue].toString());
             } else {
-                list[taskCounter++] = response;
+                list[taskCounter++] = new Task(response);
                 System.out.println("added: " + response);
             }
             response = in.nextLine();
         }
+    }
+}
+
+class Task {
+    String taskName;
+    boolean completion;
+
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.completion = false;
+    }
+
+    public Task(String taskName, boolean completion) {
+        this.taskName = taskName;
+        this.completion = completion;
+    }
+
+    public boolean isCompletion() {
+        return completion;
+    }
+
+    public void setCompletion(boolean completion) {
+        this.completion = completion;
+    }
+
+    @Override
+    public String toString() {
+        String answer;
+        String marked = "";
+        if (this.isCompletion()) {
+            marked = "X";
+        }
+        answer = "[" + marked + "] " + taskName;
+        return answer;
     }
 }
