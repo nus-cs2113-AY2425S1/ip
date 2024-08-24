@@ -17,6 +17,10 @@ public class Echo {
         System.out.print(greetingMessage);
         System.out.println("____________________________________________________________");
 
+        String userInput;
+        // Read user input
+        userInput = scanner.nextLine();
+
         // Print the exit message from Echo
         System.out.println(exitMessage);
         System.out.println("____________________________________________________________");
