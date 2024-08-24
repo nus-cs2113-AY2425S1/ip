@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.Scanner;
 
 public class Glendon {
     public static void main(String[] args) {
@@ -10,7 +11,18 @@ public class Glendon {
                 + "|_______| |_| \\___| |_| |_| |_____| |_____| |_| |_|\n";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("Hello! I'm Glendon.\n" + "What can I do for you?\n" );
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Hello! I'm Glendon.\n" + "What can I do for you?\n");
+
+        Scanner in = new Scanner(System.in);
+        String response;
+        response = in.nextLine();
+        while (response != null) {
+            if (response.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+            } else {
+                System.out.println(response);
+            }
+            response = in.nextLine();
+        }
     }
 }
