@@ -13,11 +13,15 @@ public class JeM {
         System.out.println("____________________________________________________________");
 
         System.out.println(" Hello! I'm JeM, Your e-Assistant");
-        System.out.println(" What can I do for you? Type bye to end chat");
+        System.out.println(" Personal To-Do list bot! ");
+        System.out.println(" Just type out your tasks you have to complete and i will make a list of them for you");
+        System.out.println(" Type 'List' to see the current list of tasks, and type 'Delete <task number>' to delete that task");
+        System.out.println(" Finally, type bye to end the chat!");
 
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
+        storage storage = new storage();
 
         while(true){
             String line = scanner.nextLine();
@@ -25,13 +29,21 @@ public class JeM {
             if (line.equals("Bye") || line.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (line.equals("List") || line.equals("list")) {
+                storage.storageList();
+            } else if (line.contains("delete") || line.contains("Delete")){
+                String[] parts = line.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                storage.storageDelete(index);
+                storage.storageList();
+            } else {
+                System.out.println("added: " + line);
+                storage.storageInsert(line);
             }
 
-            System.out.println(line);
         }
 
         System.out.println("____________________________________________________________");
         scanner.close();
     }
 }
-
