@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Legin {
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int currentTaskCount = 0;
 
     public static void horizontalLine() {
@@ -24,7 +24,7 @@ public class Legin {
     }
 
     public static void echo(String input) {
-        tasks[currentTaskCount] = input;
+        tasks[currentTaskCount] = new Task(input);
         currentTaskCount++;
         horizontalLine();
         System.out.println("added: " + input);
@@ -34,10 +34,34 @@ public class Legin {
     public static void list() {
         horizontalLine();
         for (int i = 0; i < currentTaskCount; i++ ) {
-            System.out.println(i+1 + ". " + tasks[i]);
+            String marker;
+            if (tasks[i].getIsDone()) {
+                marker = "X";
+            } else {
+                marker = " ";
+            }
+            System.out.println(i+1 + ".[" + marker + "] " + tasks[i].getTask());
         }
         horizontalLine();
     }
+
+    public static void markTask(String input) {
+        horizontalLine();
+        int taskNumber = input.charAt(input.length() - 1) - 49;
+        tasks[taskNumber].setIsDone(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  [X] " + tasks[taskNumber].getTask());
+        horizontalLine();
+    }
+
+    public static void unmarkTask(String input) {
+        int taskNumber = input.charAt(input.length() - 1) - 49;
+        tasks[taskNumber].setIsDone(false);
+        System.out.println("Nice! I've marked this task as not done yet:");
+        System.out.println("  [ ] " + tasks[taskNumber].getTask());
+        horizontalLine();
+    }
+
     public static void main(String[] args) {
         String command;
         Scanner in = new Scanner(System.in);
@@ -48,6 +72,10 @@ public class Legin {
                 break;
             } else if (command.equals("list")) {
                 list();
+            } else if (command.contains("unmark")) {
+                unmarkTask(command);
+            } else if (command.contains("mark")) {
+                markTask(command);
             } else {
                 echo(command);
             }
