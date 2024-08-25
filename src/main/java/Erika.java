@@ -5,7 +5,7 @@ public class Erika {
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();h
+        ArrayList<Task> tasks = new ArrayList<>();
 
         String logo =
                 " _______   ________  ___  ___  __    ________     \n" +
