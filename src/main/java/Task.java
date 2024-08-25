@@ -14,7 +14,7 @@ public class Task {
 
     /**
      * Gets the description of a Task object
-     * 
+     *
      * @return The description of the Task object
      */
     public String getDescription() {
@@ -35,6 +35,11 @@ public class Task {
         return ' ';
     }
 
+    /**
+     * Sets the isDone attribute in the class to the specified boolean value
+     *
+     * @param done The boolean value isDone is to be set to
+     */
     public void setDone(boolean done) {
         isDone = done;
     }
