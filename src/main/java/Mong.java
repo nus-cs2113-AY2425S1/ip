@@ -14,32 +14,47 @@ public class Mong {
 
     /**
      * Prints out an indexed list of commands given to Mong starting from 1.
+     * If the item has been marked as 'completed', the [ ] box will be checked with an '[X]'.
      */
-    public static void printIndexedList(String[] list) {
+    public static void printIndexedList(ListItem[] list) {
         for (int i = 0; i < list.length; i++) {
-            System.out.println(Integer.toString(i + 1) + "." + list[i]);
+            if (list[i].isCompleted()) {
+                System.out.println(Integer.toString(i + 1) + ". " + "[X] " + list[i].getText());
+            } else {
+                System.out.println(Integer.toString(i + 1) + ". " + "[ ] " + list[i].getText());
+            }
         }
     }
 
     /**
      * Adds the command sent by the user into a list.
      * If the command "list" is sent, the list of previous commands will be printed.
+     * If the command's first word is "mark", it will set the isCompleted variable of the ListItem to true.
+     * If the command's first word is "unmark", it will set the isCompleted variable of the ListItem to false.
      * If the command "bye" is sent, the program will exit.
      */
     public static void addItems() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
-        String[] list = new String[100];
-        int listIndex = 0;
+        ListItem[] list = new ListItem[100];
+        int itemIndex = 0;
         while (!command.equals("bye")) {
             printHorizontalLine();
             if (command.equals("list")) {
                 // print items in an indexed list
-                printIndexedList(Arrays.copyOf(list, listIndex));
+                printIndexedList(Arrays.copyOf(list, ListItem.currentIndex));
+            } else if (command.split(" ")[0].equals("mark")) {
+                // the itemIndex is -1 than the input from the user
+                itemIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+                list[itemIndex].setCompleted(true);
+            } else if (command.split(" ")[0].equals("unmark")) {
+                // the itemIndex is -1 than the input from the user
+                itemIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+                list[itemIndex].setCompleted(false);
             } else {
+                // add an item to the list
+                list[ListItem.currentIndex] = new ListItem(command);
                 System.out.println("Mong-ed! This item has been added: " + command);
-                list[listIndex] = command;
-                listIndex++;
             }
             printHorizontalLine();
             command = in.nextLine();
