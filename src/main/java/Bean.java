@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Bean {
     final static String line = "\n____________________________________________________________________\n";
 
@@ -21,8 +23,19 @@ public class Bean {
                 line);
     }
 
+    public static void echo(String string) {
+        System.out.println("  " + string + line);
+    }
+
     public static void main(String[] args) {
+        String line = "";
+        Scanner in = new Scanner(System.in);
+
         greet();
+        while (!line.equals("bye")) {
+            line = in.nextLine();
+            echo(line);
+        }
         exit();
     }
 }
