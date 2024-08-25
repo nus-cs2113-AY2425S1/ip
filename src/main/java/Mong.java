@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Mong {
@@ -12,15 +13,34 @@ public class Mong {
     }
 
     /**
-     * Echoes the command sent by the user.
-     * If the command "bye" is sent, the program exits.
+     * Prints out an indexed list of commands given to Mong starting from 1.
      */
-    public static void echoCommand() {
+    public static void printIndexedList(String[] list) {
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(Integer.toString(i + 1) + "." + list[i]);
+        }
+    }
+
+    /**
+     * Adds the command sent by the user into a list.
+     * If the command "list" is sent, the list of previous commands will be printed.
+     * If the command "bye" is sent, the program will exit.
+     */
+    public static void addItems() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
+        String[] list = new String[100];
+        int listIndex = 0;
         while (!command.equals("bye")) {
             printHorizontalLine();
-            System.out.println("    " + command);
+            if (command.equals("list")) {
+                // print items in an indexed list
+                printIndexedList(Arrays.copyOf(list, listIndex));
+            } else {
+                System.out.println("Mong-ed! This item has been added: " + command);
+                list[listIndex] = command;
+                listIndex++;
+            }
             printHorizontalLine();
             command = in.nextLine();
         }
@@ -42,7 +62,7 @@ public class Mong {
         System.out.println("Hello, I am\n" + logo);
         System.out.println("What can I do for you?");
         printHorizontalLine();
-        echoCommand();
+        addItems();
         printHorizontalLine();
         System.out.println("Mong-mong... See you again next time!");
         printHorizontalLine();
