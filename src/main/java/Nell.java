@@ -24,6 +24,13 @@ public class Nell {
                 isGettingCommands = false;
                 break;
 
+            case "list":
+                // List out remaining tasks
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.printf("-> %d. %s", (i + 1), tasks[i] + System.lineSeparator());
+                }
+                break;
+
             default:
                 // Stores text in task list
                 tasks[taskCount] = command;
