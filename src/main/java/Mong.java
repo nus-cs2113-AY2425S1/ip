@@ -1,10 +1,29 @@
-public class Mong {
+import java.util.Scanner;
 
+public class Mong {
+    /**
+     * Prints a horizontal line with width of 25 characters.
+     */
     public static void printHorizontalLine() {
-        for (int i = 0; i < 15; i += 1) {
+        for (int i = 0; i < 25; i += 1) {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    /**
+     * Echoes the command sent by the user.
+     * If the command "bye" is sent, the program exits.
+     */
+    public static void echoCommand() {
+        Scanner in = new Scanner(System.in);
+        String command = in.nextLine();
+        while (!command.equals("bye")) {
+            printHorizontalLine();
+            System.out.println("    " + command);
+            printHorizontalLine();
+            command = in.nextLine();
+        }
     }
 
     public static void main(String[] args) {
@@ -22,6 +41,8 @@ public class Mong {
         printHorizontalLine();
         System.out.println("Hello, I am\n" + logo);
         System.out.println("What can I do for you?");
+        printHorizontalLine();
+        echoCommand();
         printHorizontalLine();
         System.out.println("Mong-mong... See you again next time!");
         printHorizontalLine();
