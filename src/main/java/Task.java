@@ -8,15 +8,20 @@ public class Task {
         this.isDone = false;
     }
 
+    // Getters and Setters
+    public void setDescription(String string) {
+        this.description = string;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setStatus(Boolean status) {
+        this.isDone = status;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsUndone() {
-        this.isDone = false;
     }
 }

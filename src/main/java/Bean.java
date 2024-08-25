@@ -83,13 +83,11 @@ public class Bean {
                 int taskIndex = taskNum - 1;
 
                 if (userInput.contains("unmark")) {
-                    // Unmark task as done
-                    toDoList[taskIndex].markAsUndone();
+                    toDoList[taskIndex].setStatus(false);
                     // Confirmation message
                     printFormattedReply("Task " + taskNum + " has been marked as UNDONE");
-                } else {
-                    // Mark task as done
-                    toDoList[taskIndex].markAsDone();
+                } else { // "mark"
+                    toDoList[taskIndex].setStatus(true);
                     // Confirmation message
                     printFormattedReply("Task " + taskNum + " has been marked as DONE");
                 }
