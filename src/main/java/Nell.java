@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Nell {
+    private static String[] tasks = new String[100];
+    private static int taskCount = 0;
+
     public static void main(String[] args) {
         // Initialises scanner to take in user input
         Scanner input = new Scanner(System.in);
@@ -22,8 +25,10 @@ public class Nell {
                 break;
 
             default:
-                // Echoes command otherwise
-                System.out.println("-> " + command);
+                // Stores text in task list
+                tasks[taskCount] = command;
+                taskCount++;
+                System.out.printf("-> added: %s%n", command);
                 break;
             }
         }
