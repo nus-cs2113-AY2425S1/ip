@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Erika {
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
+        int taskSize = 0;
         String logo =
                 " _______   ________  ___  ___  __    ________     \n" +
                 "|\\  ___ \\ |\\   __  \\|\\  \\|\\  \\|\\  \\ |\\   __  \\    \n" +
@@ -18,9 +21,20 @@ public class Erika {
         System.out.println("____________________________________________________________");
         line = in.nextLine();
         while (!line.equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(line);
-            System.out.println("____________________________________________________________");
+            line = line.trim();
+            if (line.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < taskSize; i++) {
+                    System.out.println(Integer.toString(i+1) + ". " + tasks.get(i));
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                tasks.add(line);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + line);
+                System.out.println("____________________________________________________________");
+                taskSize++;
+            }
             line = in.nextLine();
         }
         System.out.println("____________________________________________________________");
