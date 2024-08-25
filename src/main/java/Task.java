@@ -1,25 +1,25 @@
 public class Task {
-    private final String taskDescription;
+    private final String description;
     private boolean isDone;
 
-    public Task(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
     public void printTask() {
-        PrintUtils.println(this.taskDescription);
-    }
-
-    public boolean isDone() {
-        return this.isDone;
+        PrintUtils.println(this.description);
     }
 
     public void markDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 }

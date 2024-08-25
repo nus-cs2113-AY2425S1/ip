@@ -11,11 +11,7 @@ public class List {
         PrintUtils.line();
         for (int i = 0; i < size; i++) {
             PrintUtils.print((i + 1) + ".");
-            if (tasks[i].isDone()) {
-                PrintUtils.print("[X] ");
-            } else {
-                PrintUtils.print("[ ] ");
-            }
+            PrintUtils.print("[" + tasks[i].getStatusIcon() + "] ");
             tasks[i].printTask();
         }
         PrintUtils.line();
@@ -28,26 +24,29 @@ public class List {
         PrintUtils.line();
     }
 
-    public void markTaskAsDone(int taskNumber) {
-        PrintUtils.line();
-        if (taskNumber < 0 || taskNumber >= tasks.length) {
-            PrintUtils.print("Invalid task number: " + taskNumber);
-        } else {
-            tasks[taskNumber - 1].markDone();
-            PrintUtils.println("Nice! I've marked this task as done:");
-            PrintUtils.print("[X] ");
-            tasks[taskNumber - 1].printTask();
-        }
-        PrintUtils.line();
+    public void markTaskAsDone(int taskNumber)  {
+        setTaskStatus(taskNumber, true);
     }
 
     public void markTaskAsNotDone(int taskNumber) {
+        setTaskStatus(taskNumber, false);
+    }
+
+    public void setTaskStatus(int taskNumber, boolean isDone) {
         PrintUtils.line();
-        if (taskNumber < 0 || taskNumber >= tasks.length) {
-            PrintUtils.print("Invalid task number: " + taskNumber);
+        if (taskNumber <= 0 || taskNumber >= size) {
+            PrintUtils.print("It looks like you entered an invalid task number. " +
+                    "Would you like to try again? Please enter a number between " +
+                    "1 and " + size + ".");
         } else {
-            tasks[taskNumber - 1].markNotDone();
-            PrintUtils.print("[ ] ");
+            if (isDone) {
+                tasks[taskNumber - 1].markDone();
+                PrintUtils.println("Nice! I've marked this task as done:");
+            } else {
+                tasks[taskNumber - 1].markNotDone();
+                PrintUtils.println("Unmarked this task:");
+            }
+            PrintUtils.print("[" + tasks[taskNumber - 1].getStatusIcon() + "] ");
             tasks[taskNumber - 1].printTask();
         }
         PrintUtils.line();
