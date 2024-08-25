@@ -32,10 +32,15 @@ public class Bean {
         System.out.println(INDENT + string + SEPARATOR_LINE);
     }
 
+    public static void printFormattedReply(String reply) {
+        System.out.println(SEPARATOR_LINE +
+                INDENT + reply + "\n" +
+                SEPARATOR_LINE);
+    }
+
     public static void printList(Task[] toDoList) {
         if (toDoList[0] == null) {
-            System.out.println(SEPARATOR_LINE +
-                    INDENT + "Nothing in your to do list!\n" + SEPARATOR_LINE);
+            printFormattedReply("Nothing in your TO DO LIST");
             return;
         }
 
@@ -80,23 +85,20 @@ public class Bean {
                 if (userInput.contains("unmark")) {
                     // Unmark task as done
                     toDoList[taskIndex].markAsUndone();
-                    System.out.println(SEPARATOR_LINE +
-                            INDENT + "Task " + taskNum + " has been marked as UNDONE\n" +
-                            SEPARATOR_LINE);
+                    // Confirmation message
+                    printFormattedReply("Task " + taskNum + " has been marked as UNDONE");
                 } else {
                     // Mark task as done
                     toDoList[taskIndex].markAsDone();
-                    System.out.println(SEPARATOR_LINE +
-                            INDENT + "Task " + taskNum + " has been marked as DONE\n" +
-                            SEPARATOR_LINE);
+                    // Confirmation message
+                    printFormattedReply("Task " + taskNum + " has been marked as DONE");
                 }
             } else {
                 // Add task
                 toDoList[count] = new Task(userInput);
 
-                System.out.println(SEPARATOR_LINE +
-                        INDENT + "Task '" + userInput + "' has been added!\n" +
-                        SEPARATOR_LINE);
+                // Confirmation message
+                printFormattedReply("Task '" + userInput + "' has been added!");
                 count++;
             }
         }
