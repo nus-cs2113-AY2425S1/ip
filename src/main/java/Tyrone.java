@@ -7,7 +7,12 @@ public class Tyrone {
         String input = scanner.nextLine();
 
         while (!input.equals("bye")) {
-            System.out.println(input);
+            if (input.equals("list")) {
+                TaskList.printList();
+            } else {
+                TaskList.addTask(input);
+                System.out.println("added: " + input);
+            }
             input = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
