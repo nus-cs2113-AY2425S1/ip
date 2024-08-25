@@ -1,21 +1,26 @@
-//public class JerChatBot {
-//    public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-//    }
-//}
+import java.util.Scanner;
 
 public class JerChatBot {
     public static void main(String[] args) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm JerChatBot");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("~~~~~~~~ Welcome to Jer Chat Bot ~~~~~~~~");
+        System.out.println(" What you want?");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        while (true) {
+            String input = in.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println(" Finally done, k bye...");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                break;
+            } else {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println(input);
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            }
+        }
+        in.close();
     }
 }
