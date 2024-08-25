@@ -32,10 +32,29 @@ public class Bean {
         System.out.println(INDENT + string + SEPARATOR_LINE);
     }
 
-    public static void printList(String[] toDoList) {
+//    public static void printList(String[] toDoList) {
+//        if (toDoList[0] == null) {
+//            System.out.println(SEPARATOR_LINE +
+//                    INDENT + "Nothing in your to do list!" + SEPARATOR_LINE);
+//            return;
+//        }
+//
+//        System.out.println(SEPARATOR_LINE +
+//                INDENT + "TO DO LIST:\n");
+//
+//        for (int i = 0; i < toDoList.length; i++) {
+//            if (toDoList[i] == null) {
+//                break;
+//            }
+//            System.out.println(INDENT + (i + 1) + ". " + toDoList[i]);
+//        }
+//        System.out.println(SEPARATOR_LINE);
+//    }
+
+        public static void printList(Task[] toDoList) {
         if (toDoList[0] == null) {
             System.out.println(SEPARATOR_LINE +
-                    INDENT + "Nothing in your to do list!" + SEPARATOR_LINE);
+                    INDENT + "Nothing in your to do list!\n" + SEPARATOR_LINE);
             return;
         }
 
@@ -46,7 +65,7 @@ public class Bean {
             if (toDoList[i] == null) {
                 break;
             }
-            System.out.println(INDENT + (i + 1) + ". " + toDoList[i]);
+            System.out.println(INDENT + (i + 1) + ". " + toDoList[i].description);
         }
         System.out.println(SEPARATOR_LINE);
     }
@@ -55,7 +74,7 @@ public class Bean {
         String userInput;
         Scanner in = new Scanner(System.in);
 
-        String[] toDoList = new String[MAX_LIST_COUNT];
+        Task[] toDoList = new Task[MAX_LIST_COUNT];
         int count = 0;
 
         greet();
@@ -69,7 +88,7 @@ public class Bean {
                 break;
             } else {
                 // Add task
-                toDoList[count] = userInput;
+                toDoList[count] = new Task(userInput);
 
                 System.out.println(SEPARATOR_LINE +
                         INDENT + "Task '" + userInput + "' has been added!\n" +
