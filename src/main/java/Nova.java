@@ -1,15 +1,23 @@
+import java.util.Scanner;
+import java.util.Vector;
+
 public class Nova {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+    public static void print(String info) {
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Nova\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
+                info +
+                "\n____________________________________________________________\n");
+    }
+
+    public static void main(String[] args) {
+        print(" Hello! I'm Nova\n What can I do for you?");
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            String info = sc.nextLine();
+            if (info.equals("bye")) {
+                print("Bye. Hope to see you again soon!");
+                break;
+            }
+            print(info);
+        }
     }
 }
