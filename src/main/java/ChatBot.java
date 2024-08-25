@@ -1,4 +1,5 @@
 import esme.Esme;
+import esme.Task;
 
 import java.util.Scanner;
 
@@ -14,8 +15,10 @@ public class ChatBot {
             if (line.equals("bye")) {
                 esme.farewell();
                 break;
+            } else if (line.equals("list")) {
+                esme.printTaskList();
             } else {
-                esme.echo(line);
+                esme.addTask(new Task(line));
             }
         }
     }

@@ -1,6 +1,24 @@
 package esme;
 
 public class Esme {
+    private TaskList taskList;
+
+    public Esme() {
+        taskList = new TaskList();
+    }
+
+    public void addTask(Task task) {
+        displayLine(true);
+        taskList.addTask(task);
+        System.out.println("\tThe stars have aligned and " + task.getName() + " is now part of your destiny!" );
+        displayLine(true);
+    }
+
+    public void printTaskList () {
+        taskList.printTaskList();
+        displayLine(true);
+    }
+
     public String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
             "|  _| / __| '_ ` _ \\ / _ \\ \n" +
@@ -25,8 +43,7 @@ public class Esme {
     }
     public void farewell () {
         displayLine(true);
-        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune " +
-                "in your favor, and until our paths cross again under a lucky star!");
+        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune in your favor!");
         displayLine(true);
     }
 
