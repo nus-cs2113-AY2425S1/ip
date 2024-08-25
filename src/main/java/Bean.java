@@ -46,7 +46,7 @@ public class Bean {
             if (toDoList[i] == null) {
                 break;
             }
-            System.out.println(INDENT + (i + 1) + ". " + toDoList[i].description);
+            System.out.println(INDENT + (i + 1) + ".[" + toDoList[i].getStatusIcon() + "]  " + toDoList[i].description);
         }
         System.out.println(SEPARATOR_LINE);
     }
@@ -66,7 +66,30 @@ public class Bean {
             if (userInput.equals("list")) {
                 printList(toDoList);
             } else if (userInput.equals("bye")) {
+                // To exit
                 break;
+            } else if (userInput.contains("mark")) {
+                // Either mark or unmark
+
+                // Obtain task number
+                String[] words = userInput.split(" ");
+                // Take second word of input and trim any spaces then parse as int
+                int taskNum = Integer.parseInt(words[1].trim());
+                int taskIndex = taskNum - 1;
+
+                if (userInput.contains("unmark")) {
+                    // Unmark task as done
+                    toDoList[taskIndex].markAsUndone();
+                    System.out.println(SEPARATOR_LINE +
+                            INDENT + "Task " + taskNum + " has been marked as UNDONE\n" +
+                            SEPARATOR_LINE);
+                } else {
+                    // Mark task as done
+                    toDoList[taskIndex].markAsDone();
+                    System.out.println(SEPARATOR_LINE +
+                            INDENT + "Task " + taskNum + " has been marked as DONE\n" +
+                            SEPARATOR_LINE);
+                }
             } else {
                 // Add task
                 toDoList[count] = new Task(userInput);
