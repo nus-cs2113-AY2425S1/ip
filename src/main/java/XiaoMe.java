@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 
 public class XiaoMe {
+    static String[] dataStorage= new String[100];
+    static int NumOfData = 0;
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -19,17 +21,11 @@ public class XiaoMe {
                 Hello! I'm XiaoMe
                 What can I do for you?
                 ____________________________________________________________
-                
                 """);
         while (true) {
             line = in.nextLine();
-            if (!Objects.equals(line, "bye")) {
-                // user did not end programme
-                System.out.println("____________________________________________________________\n"
-                        + line
-                        + "\n____________________________________________________________\n");
-            } else {
-                // user ended programme
+            if (Objects.equals(line, "bye")) {
+                // user input is bye: end programme
                 System.out.println("""
                         ____________________________________________________________
                         Bye. Hope to see you again soon!
@@ -37,15 +33,21 @@ public class XiaoMe {
                         
                         """);
                 break;
+            } else if (Objects.equals(line, "list")) {
+                // user input is list: display past inputs
+                System.out.println("____________________________________________________________\n");
+                for (int i = 0; i < NumOfData; i++) {
+                    System.out.println((i + 1) + ". " + dataStorage[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________\n"
+                        + "added: " + line + "\n"
+                        + "____________________________________________________________\n");
+                dataStorage[NumOfData] = line; // add text to storage
+                NumOfData += 1;
             }
+
         }
-
-//        System.out.println("____________________________________________________________ \n"
-//                        + "Hello! I'm XiaoMe\n"
-//                        + "What can I do for you?\n"
-//                        + "____________________________________________________________\n"
-//                        + "Bye. Hope to see you again soon!\n"
-//                        + "____________________________________________________________");
-
     }
 }
