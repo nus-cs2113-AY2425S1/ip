@@ -2,16 +2,16 @@ import java.util.Scanner;
 
 public class JerChatBot {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
-        int numOfTasks = 0;
+        int taskCount = 0;
 
         System.out.println("~~~~~~~~ Welcome to Jer Chat Bot ~~~~~~~~");
         System.out.println(" What you want?");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         while (true) {
-            String input = in.nextLine().trim();
+            String input = scanner.nextLine().trim();
 
             if (input.isEmpty()) {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -24,16 +24,16 @@ public class JerChatBot {
 
             if (commands[0].equals("bye")) {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println(" Finally done, k bye...");
+                System.out.println(" End of Program");
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 break;
             } else if (commands[0].equals("list")) {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println(" What you have to do:");
-                if (numOfTasks == 0) {
+                System.out.println(" Current Task List:");
+                if (taskCount == 0) {
                     System.out.println(" No tasks in your list currently.");
                 } else {
-                    for (int i = 0; i < numOfTasks; i++) {
+                    for (int i = 0; i < taskCount; i++) {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
                 }
@@ -41,7 +41,7 @@ public class JerChatBot {
             } else if (commands[0].equals("mark")) {
                 try {
                     int taskIndex = Integer.parseInt(commands[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < numOfTasks) {
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
                         tasks[taskIndex].markAsDone();
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println(" Marked this task as done:");
@@ -60,7 +60,7 @@ public class JerChatBot {
             } else if (commands[0].equals("unmark")) {
                 try {
                     int taskIndex = Integer.parseInt(commands[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < numOfTasks) {
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
                         tasks[taskIndex].removeAsDone();
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println(" Marked this task as not done:");
@@ -77,15 +77,14 @@ public class JerChatBot {
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
             } else {
-                // Add a new task, using the full input as the task description
-                tasks[numOfTasks] = new Task(input);
-                numOfTasks++;
+                tasks[taskCount] = new Task(input);
+                taskCount++;
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("added: " + input);
-                System.out.println(" And then what??");
+                System.out.println(" Please provide next task");
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
-        in.close();
+        scanner.close();
     }
 }
