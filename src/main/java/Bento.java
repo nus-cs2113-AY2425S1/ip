@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bento {
     private Scanner in = new Scanner(System.in);
     private boolean isExit = false;
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
     public void printLogo() {
@@ -46,7 +47,7 @@ public class Bento {
     }
 
     public void addTask(String input) {
-        tasks[taskCount] = new Task(input);
+        tasks.add(new Task(input));
         taskCount++;
 
         echoInput(String.format("Roger that! Successfully added task: %s", input));
@@ -55,30 +56,40 @@ public class Bento {
     public void listTasks() {
         printLine();
         System.out.println("\tHere is the list of your existing tasks!");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.printf("\t%d. %s %s\n", i + 1, (tasks[i].isDone()) ? "[x]" : "[ ]", tasks[i].getTaskName());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("\t%d. %s %s\n", i + 1, (tasks.get(i).isDone()) ? "[x]" : "[ ]", tasks.get(i).getTaskName());
         }
         printLine();
     }
 
     public void markTaskAsDone(boolean isDone, String taskIndex) {
-        int index = Integer.parseInt(taskIndex) - 1;
-        tasks[index].setDone(isDone);
-        printLine();
-        if (isDone) {
-            System.out.println("\tYou've crushed this task! I've gone ahead and marked it as done for you.");
-            System.out.printf("\t  [x] %s\n", tasks[index].getTaskName());
-        } else {
-            System.out.println("\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.");
-            System.out.printf("\t  [ ] %s\n", tasks[index].getTaskName());
+        try {
+            int index = Integer.parseInt(taskIndex) - 1;
+            tasks.get(index).setDone(isDone);
+            printLine();
+            if (isDone) {
+                System.out.println("\tYou've crushed this task! I've gone ahead and marked it as done for you.");
+                System.out.printf("\t  [x] %s\n", tasks.get(index).getTaskName());
+            } else {
+                System.out.println("\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.");
+                System.out.printf("\t  [ ] %s\n", tasks.get(index).getTaskName());
+            }
+            printLine();
+        } catch (NumberFormatException e) {
+            printLine();
+            System.out.println("\tHey! The index provided was not a number!");
+            printLine();
+        } catch (IndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("\tHmm... I don't think that task exists... Check again with list!");
+            printLine();
         }
-        printLine();
     }
 
     public void handleUserInput(String input) {
         String[] inputList = input.split(" ");
         switch (inputList[0]) {
-        case "bye" :
+        case "bye":
             saySayonara();
             break;
         case "list":
