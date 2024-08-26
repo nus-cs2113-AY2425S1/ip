@@ -30,7 +30,8 @@ public class November {
     public static void printTaskList(List<Task> taskList) {
         int index = 0;
         while(index < taskList.size()){
-            System.out.println(index+1 + ".[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).getDescription());
+//            System.out.println(index+1 + ".[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).getDescription());
+            System.out.println(index+1 + ". " + taskList.get(index).getDescription());
             index++;
         }
     }
@@ -50,46 +51,44 @@ public class November {
         String input = scan.nextLine();
 
         while(!input.equals("bye")) {
-//            String[] sentence = input.split(" ", 2);
-//            String firstWord = sentence[0];
-//            switch (firstWord) {
-//                case "mark":
-//                    // Marks a task as complete.
-//                    int markIndex = Integer.parseInt(sentence[1]) - 1;
-//                    taskList.get(markIndex).setComplete();
-//                    beginSegment();
-//                    System.out.println("Nice! I've marked this task as done: ");
-//                    System.out.println("  [" + taskList.get(markIndex).getStatusIcon() + "] " + taskList.get(markIndex).getDescription());
-//                    endSegment();
-//                    break;
-//                case "unmark":
-//                    // Marks a task as incomplete.
-//                    int unmarkIndex = Integer.parseInt(sentence[1]) - 1;
-//                    taskList.get(unmarkIndex).setIncomplete();
-//                    beginSegment();
-//                    System.out.println("Ok, I've marked this task as not done yet: ");
-//                    System.out.println("  [" + taskList.get(unmarkIndex).getStatusIcon() + "] " + taskList.get(unmarkIndex).getDescription());
-//                    endSegment();
-//                    break;
-//                case "list":
-//                    // Prints a list of all tasks, indicating their completion status.
-//                    beginSegment();
-//                    System.out.println("Here are the tasks in your list:");
-//                    printTaskList(taskList);
-//                    endSegment();
-//                    break;
-//                default:
-//                    // Creates a new Task and adds it to the task list.
-//                    taskList.add(new Task(input));
-//                    // Prints a statement indicating that the new task has been added.
-//                    beginSegment();
-//                    System.out.println("added: " + input);
-//                    endSegment();
-//                    break;
+            String[] sentence = input.split(" ", 2);
+            String firstWord = sentence[0];
+            switch (firstWord) {
+//            case "mark":
+//                // Marks a task as complete.
+//                int markIndex = Integer.parseInt(sentence[1]) - 1;
+//                taskList.get(markIndex).setComplete();
+//                beginSegment();
+//                System.out.println("Nice! I've marked this task as done: ");
+//                System.out.println("  [" + taskList.get(markIndex).getStatusIcon() + "] " + taskList.get(markIndex).getDescription());
+//                endSegment();
+//                break;
+//            case "unmark":
+//                // Marks a task as incomplete.
+//                int unmarkIndex = Integer.parseInt(sentence[1]) - 1;
+//                taskList.get(unmarkIndex).setIncomplete();
+//                beginSegment();
+//                System.out.println("Ok, I've marked this task as not done yet: ");
+//                System.out.println("  [" + taskList.get(unmarkIndex).getStatusIcon() + "] " + taskList.get(unmarkIndex).getDescription());
+//                endSegment();
+//                break;
+            case "list":
+                // Prints a list of all tasks, indicating their completion status.
+                beginSegment();
+//                System.out.println("Here are the tasks in your list:");
+                printTaskList(taskList);
+                endSegment();
+                break;
+            default:
+                // Creates a new Task and adds it to the task list.
+                taskList.add(new Task(input));
+                // Prints a statement indicating that the new task has been added.
+                beginSegment();
+                System.out.println("added: " + input);
+                endSegment();
+                break;
 //            }
-            beginSegment();
-            System.out.println(input);
-            endSegment();
+            }
             input = scan.nextLine();
         }
 
