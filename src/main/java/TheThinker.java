@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class TheThinker {
 
     public static String name = "TheThinker";
@@ -6,8 +8,20 @@ public class TheThinker {
         separation();
         greet();
         separation();
-        bye();
-        separation();
+        Scanner in = new Scanner(System.in);
+        String userInput;
+        do{
+            userInput = in.nextLine();
+            separation();
+            if(userInput.equals("bye")){
+                bye();
+                separation();
+                break;
+            }else{
+                System.out.println(userInput);
+            }
+            separation();
+        }while(true);
     }
 
     public static void greet(){
