@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Dobby {
     private static final String DASH_LINE = "____________________________________________________________";
     private static final int MAX_LIST_SIZE = 100;
-    private static final Task[] list = new Task[MAX_LIST_SIZE];
+    private static final Task[] taskList = new Task[MAX_LIST_SIZE];
     private static int listSize = 0;
 
     public static void main(String[] args) {
@@ -20,6 +20,8 @@ public class Dobby {
                 printList();
             } else if (line.startsWith("mark ")) {
                 markTaskAsDone(line);
+            } else if (line.startsWith("unmark ")){
+                unmarkTaskAsDone(line);
             } else{
                 addItem(line);
             }
@@ -29,44 +31,59 @@ public class Dobby {
     }
 
     private static void printWelcomeMessage(){
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
         System.out.println("    " + "Hello! Dobby is Dobby!");
         System.out.println("    " + "What can Dobby do for master?");
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
     }
 
     private static void printList(){
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
         System.out.println("    Here are the tasks in master's list:");
         for (int i = 1; i <= listSize; i++) {
-            Task t = list[i-1];
+            Task t = taskList[i-1];
             System.out.println("    " + i + ".[" + t.getStatusIcon() + "] " + t.getDescription());
         }
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
     }
 
     private static void addItem(String line){
-        list[listSize] = new Task(line);
+        taskList[listSize] = new Task(line);
         listSize++;
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
         System.out.println("    added: " + line);
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
     }
 
     private static void printGoodbyeMessage(){
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
         System.out.println("    " + "Thank you master, Dobby is free!!!");
-        System.out.println("  " + DASH_LINE);
+        printSeparator();
     }
 
     private static void markTaskAsDone(String line){
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (taskNumber > 0 && taskNumber <= listSize){
-            list[taskNumber-1].markAsDone();
-            System.out.println("  " + DASH_LINE);
+            taskList[taskNumber-1].markAsDone();
+            printSeparator();
             System.out.println("    Dobby has magically marked this task as done: ");
-            System.out.println("      " + "[" + list[taskNumber-1].getStatusIcon() + "] " + list[taskNumber-1].getDescription());
-            System.out.println("  " + DASH_LINE);
+            System.out.println("      " + "[" + taskList[taskNumber-1].getStatusIcon() + "] " + taskList[taskNumber-1].getDescription());
+            printSeparator();
         }
+    }
+
+    private static void unmarkTaskAsDone(String line){
+        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        if (taskNumber > 0 && taskNumber <= listSize){
+            taskList[taskNumber-1].unmarkAsDone();
+            printSeparator();
+            System.out.println("    Dobby has marked this task as incomplete: ");
+            System.out.println("      " + "[" + taskList[taskNumber-1].getStatusIcon() + "] " + taskList[taskNumber-1].getDescription());
+            printSeparator();
+        }
+    }
+
+    private static void printSeparator(){
+        System.out.println("  " + DASH_LINE);
     }
 }
