@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IO {
@@ -7,29 +8,31 @@ public class IO {
         scanner = new Scanner(System.in);
     }
 
-    public static void printAnswer(String text) {
+    public static void printResponse(String text) {
         String lineSeparator = "-------------------------------";
         text = lineSeparator +  "\n" + text + "\n" + lineSeparator + "\n";
         String formattedText = text.replaceAll("(?m)^", "\t");
         System.out.print(formattedText);
     }
 
-    public static String getQuestion() {
+    public static String getRequest() {
         return scanner.nextLine();
     }
 
-    public static void greet() {
-        String helloMsg =   "Welcome, seeker. I am " + Pythia.botName + ".\n" +
-                            "What brings you here?";
-        printAnswer(helloMsg);
+    public static void printAddedTask(String text) {
+        printResponse(text.toLowerCase());
     }
 
-    public static void echo(String text) {
-        printAnswer(text);
-    }
-
-    public static void sayBye() {
-        String byeMsg = "Your path is set. Until we meet again.";
-        printAnswer(byeMsg);
+    public static void printTaskList(ArrayList<Task> taskList) {
+        StringBuilder taskListString = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            taskListString.append(i + 1);
+            taskListString.append(". ");
+            taskListString.append(taskList.get(i).toString());
+            if (i < taskList.size() - 1) {
+                taskListString.append("\n");
+            }
+        }
+        printResponse(taskListString.toString());
     }
 }
