@@ -33,6 +33,7 @@ public class Echo {
         while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
+        System.out.println("____________________________________________________________");
         System.out.println(exitMessage);
         System.out.println("____________________________________________________________");
     }
