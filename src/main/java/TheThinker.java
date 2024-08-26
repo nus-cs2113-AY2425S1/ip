@@ -10,18 +10,28 @@ public class TheThinker {
         separation();
         Scanner in = new Scanner(System.in);
         String userInput;
+        List toDoList = new List();
+
         do{
             userInput = in.nextLine();
             separation();
-            if(userInput.equals("bye")){
+            switch(userInput){
+            case "bye":
                 bye();
-                separation();
                 break;
-            }else{
-                System.out.println(userInput);
+
+            case "list" :
+                toDoList.listItems();
+                break;
+
+            default:
+                toDoList.addItem(userInput);
+                System.out.println("added: " + userInput);
+                break;
             }
             separation();
-        }while(true);
+
+        }while(!userInput.equals("bye"));
     }
 
     public static void greet(){
