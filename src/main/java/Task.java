@@ -12,6 +12,14 @@ public class Task {
         this.status = false;
     }
 
+    public void markAsDone() {
+        this.status = true;
+    }
+
+    public void markAsNotDone() {
+        this.status = false;
+    }
+
     public String getName() {
         return name;
     }

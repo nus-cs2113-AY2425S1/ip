@@ -26,6 +26,11 @@ public class Pythia {
     public static void sayBye() {
         String byeMsg = "Your path is set. Until we meet again.";
         IO.printResponse(byeMsg);
+        byeSaid = true;
+    }
+
+    public static void listTasks() {
+        IO.printTaskList(taskList);
     }
 
     public static void chooseAction(String request) {
@@ -36,21 +41,29 @@ public class Pythia {
             value = request.substring(key.length() + 1);
         }
 
-        if (key.equals("bye")) {
-            sayBye();
-            byeSaid = true;
-        }
-        else if (key.equals("list")) {
-            IO.printTaskList(taskList);
-        }
-        else if (key.equals("add")) {
-            addTask(value);
-            IO.printAddedTask("added: " + value);
+        switch (key) {
+            case "bye" -> sayBye();
+            case "list" -> listTasks();
+            case "add" -> addTask(value);
+            case "mark" -> markTask(Integer.parseInt(value));
+            default -> IO.printResponse("Hmm. I am not sure what you mean.");
         }
     }
 
-    public static void addTask(String name) {
-        taskList.add(new Task(name));
+    public static void addTask(String taskName) {
+        taskList.add(new Task(taskName));
+        IO.printAddedTask("added: " + taskName);
+    }
+
+    public static void markTask(Integer taskNumber) {
+        if (taskNumber <= taskList.size()) {
+            taskList.get(taskNumber - 1).markAsDone();
+            String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
+            IO.printResponse(msg);
+        }
+        else {
+            IO.printResponse("There is no such task :(");
+        }
     }
     
     public static void main(String[] args) {
