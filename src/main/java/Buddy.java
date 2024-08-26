@@ -4,12 +4,12 @@ public class Buddy {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println(" Hi Daddy, I'm Buddy");
-        System.out.println(" What can I do for you? ⸜(｡˃ ᵕ ˂ )⸝♡");
+        System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in); //Scanner object named "scanner"
-        String[] tasks = new String[100]; //Array to store tasks
-        int task_count = 0; //Counter for the number of tasks
+        Task[] tasks = new Task[100]; //Array of "task" object to store the tasks
+        int taskCount = 0; //Counter for the number of tasks
         String input;
 
         while (true)
@@ -24,16 +24,35 @@ public class Buddy {
             {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are your tasks Daddy:");
-                for (int i = 0; i < task_count; i++)
+                for (int i = 0; i < taskCount; i++)
                 {
-                    System.out.println("     " + (i + 1) + ". " + tasks[i]);
+                    //print each line in proper format
+                    System.out.println("     " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
+                System.out.println("____________________________________________________________");
+            }
+            else if (input.startsWith("mark")) //mark task and print acknowledge message when user marks a task
+            {
+                int taskNumber = Integer.parseInt(input.split(" ")[1])-1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
+                tasks[taskNumber].markAsDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("I have marked this task as done daddy:");
+                System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
+                System.out.println("____________________________________________________________");
+            }
+            else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
+            {
+                int taskNumber = Integer.parseInt(input.split(" ")[1])-1; //get the integer in the text
+                tasks[taskNumber].markAsNotDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("I have marked this task as not done daddy:");
+                System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
                 System.out.println("____________________________________________________________");
             }
             else //store whatever user input in "tasks" array
             {
-                tasks[task_count] = input;
-                task_count++;
+                tasks[taskCount] = new Task(input);
+                taskCount ++;
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + input);
                 System.out.println("____________________________________________________________");
@@ -44,4 +63,6 @@ public class Buddy {
         System.out.println(" Bye Daddy. I will miss you (>ᴗ•) !");
         System.out.println("____________________________________________________________"); //second line after "bye"
     }
+
 }
+
