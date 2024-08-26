@@ -11,7 +11,7 @@ public class Chatbot {
     // Starting Chatbot
     public void start() {
         printWelcomeMessage();
-        echo();
+        taskmaster();
     }
 
     // Welcome Screen
@@ -27,6 +27,37 @@ public class Chatbot {
         System.out.println("_________________________________________________________");
         System.out.println("Bye. Hope to see you again!");
         System.out.println("_________________________________________________________");
+    }
+
+    // List
+    private void taskmaster(){
+        String[] taskList = new String[100];
+        int taskCounter = 0;
+        while(true) {
+            String input = in.nextLine();
+
+            switch(input) {
+                case "bye":
+                    printByeMessage();
+                    return;
+
+                case "list":
+                    System.out.println("_________________________________________________________");
+                    for (int i = 0; i < taskCounter; i++) {
+                        String output = (i + 1) + ". " + taskList[i];
+                        System.out.println(output);
+                    }
+                    System.out.println("_________________________________________________________");
+                    break;
+
+                default:
+                    System.out.println("_________________________________________________________");
+                    taskList[taskCounter] = input;
+                    taskCounter++;
+                    System.out.println("added: " + input);
+                    System.out.println("_________________________________________________________");
+            }
+        }
     }
 
     // Echo
