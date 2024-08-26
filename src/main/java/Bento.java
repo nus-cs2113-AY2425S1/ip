@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Bento {
     private Scanner in = new Scanner(System.in);
     private boolean isExit = false;
+    private Task[] tasks = new Task[100];
+    private int taskCount = 0;
 
     public void printLogo() {
         String logo = "\t  ____             _        \n"
@@ -43,12 +45,34 @@ public class Bento {
         printLine();
     }
 
-    public void handleUserInput(String input) {
-        if (input.equals("bye")) {
-            saySayonara();
-            return;
+    public void addTask(String input) {
+        tasks[taskCount] = new Task(input);
+        taskCount++;
+
+        echoInput(String.format("Roger that! Successfully added task: %s", input));
+    }
+
+    public void listTasks() {
+        printLine();
+        System.out.println("\tHere is the list of your existing tasks!");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.printf("\t%d. %s %s\n", i + 1, (tasks[i].isDone()) ? "[x]" : "[ ]", tasks[i].getTaskName());
         }
-        echoInput(input);
+        printLine();
+    }
+
+    public void handleUserInput(String input) {
+        String[] inputList = input.split(" ");
+        switch (inputList[0]) {
+        case "bye" :
+            saySayonara();
+            break;
+        case "list":
+            listTasks();
+            break;
+        default:
+            addTask(input);
+        }
     }
 
     public void run() {
