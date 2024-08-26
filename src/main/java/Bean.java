@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Bean {
     // Constants
-    final static String SEPARATOR_LINE = "____________________________________________________________________\n";
-    final static String INDENT = "  ";
-    final static int MAX_LIST_COUNT = 100;
-    final static String LOGO = "  ┏━┓\n" +
+    private final static String SEPARATOR_LINE = "____________________________________________________________________\n";
+    private final static String INDENT = "  ";
+    private final static int MAX_LIST_COUNT = 100;
+    private final static String LOGO = "  ┏━┓\n" +
             "  ┃ ┃\n" +
             "  ┃ ┗━━┳━━━┳━━━━┳━━━┓\n" +
             "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
