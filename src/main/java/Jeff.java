@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Jeff {
 
-    private static String randomlyCapitalise(String line){
+    private static String randomlyCapitalise(String line){ //Randomly capitalizes a string
         Random randomBool = new Random();
         StringBuilder randomString = new StringBuilder(line.length());
         for(int i = 0; i < line.length(); i++){
@@ -16,34 +16,52 @@ public class Jeff {
         return randomString.toString();
     }
 
-    public static void updateList(String line, String[] list, int count){
-        list[count] = line;
-    }
-
-    public static void printList(String[] list, int count){
-        for(int i = 0; i < count; i++){
-            System.out.println((i+1) + ". " + list[i]);
+    public static void printList(){ //Prints list of tasks
+        for(int i = 1; i <= Task.getCount(); i++){
+            System.out.println(i + ". [" + Task.getList()[i-1].getStatusIcon() + "] " + Task.getList()[i-1].getDescription());
         }
     }
 
-    public static void echo(String[] list){
+    public static void markTasks(String line){ //Marks task as complete/uncomplete
+        int dividerPosition = line.indexOf(" ");
+        int taskNumber = Integer.parseInt(line.substring(dividerPosition + 1, dividerPosition + 2));
+        Task t = Task.getList()[taskNumber - 1];
+        if(line.startsWith("mark")) {
+            t.isDone = true;
+            System.out.println("ogei marked task dOnE");
+        }
+        else{
+            t.isDone = false;
+            System.out.println("womp womp task not finished :(");
+        }
+        System.out.println("[" + t.getStatusIcon() + "] " + t.getDescription());
+    }
+
+    public static void echo(){
         String divider = "____________________________________________________________";
 
         Scanner in = new Scanner(System.in);
         String line;
         System.out.println("You say:");
-        int count = 0;
         while(!(line = in.nextLine()).equals("bye")){
-            if(line.equals("list")){
-                printList(list, count);
-            } else {
-                updateList(line, list, count);
-                count++;
-                String echo = randomlyCapitalise(line);
-                System.out.println(divider + System.lineSeparator() + "I echo:");
-                System.out.println(echo + System.lineSeparator() + divider);
-                System.out.println("You say:");
+            System.out.print(divider + System.lineSeparator());
+
+            if(line.equals("list")){ //List all tasks
+                System.out.println("orh hor never finish ur tasks:");
+                printList();
+                System.out.print(divider + System.lineSeparator());
             }
+            else if (line.startsWith("mark") || line.startsWith("unmark")) { //Marks tasks
+                markTasks(line);
+                System.out.print(divider + System.lineSeparator());
+            }
+            else {
+                Task t = new Task(line);
+                String echo = randomlyCapitalise(line);
+                System.out.println("I echo:" + System.lineSeparator() + echo + System.lineSeparator() + divider);
+            }
+            System.out.println("You say:");
+
         }
     }
 
@@ -55,6 +73,7 @@ public class Jeff {
                 However, I will echo what you say with random capitalisation!
                 
                 Type 'list' to display everything you've said!
+                Type 'mark'/'unmark' to change the status of inputted tasks!
                 Type 'bye' to exit!
                 ____________________________________________________________
                 """;
@@ -65,9 +84,8 @@ public class Jeff {
                 ____________________________________________________________
                 """;
 
-        String[] list = new String[100];
         System.out.print(introText);
-        echo(list);
+        echo();
         System.out.println(exitText);
     }
 }
