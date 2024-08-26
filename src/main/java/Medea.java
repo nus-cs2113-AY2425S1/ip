@@ -7,23 +7,24 @@ public class Medea {
         System.out.println("What can I do for you?");
     }
 
-    private static void leave(){
+    private static void goodbye(){
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void handleInput(Todo todo, String input){
-        String[] args = input.split(" ");
-        String command = args[0];
-        switch(command){
+        String[] inputArguments = input.split(" ");
+        String inputCommand = inputArguments[0];
+        String inputIndex = inputArguments[1];
+        switch(inputCommand){
             case "list":
                 todo.listTodos();
                 break;
             case "mark":
-                int markIndex = Integer.parseInt(args[1]) - 1;
+                int markIndex = Integer.parseInt(inputIndex) - 1;
                 todo.markTodo(markIndex);
                 break;
             case "unmark":
-                int unmarkIndex = Integer.parseInt(args[1]) - 1;
+                int unmarkIndex = Integer.parseInt(inputIndex) - 1;
                 todo.unmarkTodo(unmarkIndex);
                 break;
             default:
@@ -34,13 +35,13 @@ public class Medea {
 
     public static void main(String[] args) {
         greet();
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Todo todo = new Todo();
-        String input = sc.nextLine();
+        String input = scanner.nextLine();
         while(!input.equals("bye")){
             handleInput(todo, input);
-            input = sc.nextLine();
+            input = scanner.nextLine();
         }
-        leave();
+        goodbye();
     }
 }

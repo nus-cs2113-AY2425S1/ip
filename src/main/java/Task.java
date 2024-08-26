@@ -1,9 +1,9 @@
 public class Task {
-    private final String content;
+    private final String contents;
     private boolean isDone;
 
-    public Task(String content) {
-        this.content = content;
+    public Task(String contents) {
+        this.contents = contents;
         this.isDone = false;
     }
 
@@ -18,7 +18,7 @@ public class Task {
         return (isDone ? "X":" ");
     }
 
-    public String getContent(){
-        return content;
+    public String getContents(){
+        return contents;
     }
 }
