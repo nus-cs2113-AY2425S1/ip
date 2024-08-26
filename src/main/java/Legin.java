@@ -47,7 +47,14 @@ public class Legin {
 
     public static void markTask(String input) {
         horizontalLine();
-        int taskNumber = input.charAt(input.length() - 1) - 49;
+        String[] words = input.split(" ");
+        int taskNumber = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("mark")) {
+                taskNumber = Integer.parseInt(words[i + 1]) - 1;
+                break;
+            }
+        }
         tasks[taskNumber].setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  [X] " + tasks[taskNumber].getTask());
@@ -55,7 +62,14 @@ public class Legin {
     }
 
     public static void unmarkTask(String input) {
-        int taskNumber = input.charAt(input.length() - 1) - 49;
+        String[] words = input.split(" ");
+        int taskNumber = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("mark")) {
+                taskNumber = Integer.parseInt(words[i + 1]) - 1;
+                break;
+            }
+        }
         tasks[taskNumber].setIsDone(false);
         System.out.println("Nice! I've marked this task as not done yet:");
         System.out.println("  [ ] " + tasks[taskNumber].getTask());
