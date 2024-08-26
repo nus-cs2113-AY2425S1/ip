@@ -22,7 +22,7 @@ public class Jeff {
         }
     }
 
-    public static void markTasks(String line){ //Marks task as complete/uncomplete
+    public static void markTask(String line){ //Marks task as complete/uncomplete
         int dividerPosition = line.indexOf(" ");
         int taskNumber = Integer.parseInt(line.substring(dividerPosition + 1, dividerPosition + 2));
         Task t = Task.getList()[taskNumber - 1];
@@ -52,7 +52,7 @@ public class Jeff {
                 System.out.print(divider + System.lineSeparator());
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) { //Marks tasks
-                markTasks(line);
+                markTask(line);
                 System.out.print(divider + System.lineSeparator());
             }
             else {
