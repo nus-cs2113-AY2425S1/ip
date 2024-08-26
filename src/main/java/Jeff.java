@@ -16,17 +16,34 @@ public class Jeff {
         return randomString.toString();
     }
 
-    public static void echo(){
+    public static void updateList(String line, String[] list, int count){
+        list[count] = line;
+    }
+
+    public static void printList(String[] list, int count){
+        for(int i = 0; i < count; i++){
+            System.out.println((i+1) + ". " + list[i]);
+        }
+    }
+
+    public static void echo(String[] list){
         String divider = "____________________________________________________________";
 
         Scanner in = new Scanner(System.in);
         String line;
         System.out.println("You say:");
+        int count = 0;
         while(!(line = in.nextLine()).equals("bye")){
-            String echo = randomlyCapitalise(line);
-            System.out.println(divider + System.lineSeparator() + "I echo:");
-            System.out.println(echo + System.lineSeparator() + divider);
-            System.out.println("You say:");
+            if(line.equals("list")){
+                printList(list, count);
+            } else {
+                updateList(line, list, count);
+                count++;
+                String echo = randomlyCapitalise(line);
+                System.out.println(divider + System.lineSeparator() + "I echo:");
+                System.out.println(echo + System.lineSeparator() + divider);
+                System.out.println("You say:");
+            }
         }
     }
 
@@ -34,8 +51,10 @@ public class Jeff {
         String  introText = """
                 ____________________________________________________________
                 Hello! I'm JEFF
-                I will echo whatever you say!
-                However, I will return them with random capitalisation!
+                I will echo whatever you say, and store them in a list!
+                However, I will echo what you say with random capitalisation!
+                
+                Type 'list' to display everything you've said!
                 Type 'bye' to exit!
                 ____________________________________________________________
                 """;
@@ -45,8 +64,10 @@ public class Jeff {
                 Bye. Hope to see you again soon!
                 ____________________________________________________________
                 """;
+
+        String[] list = new String[100];
         System.out.print(introText);
-        echo();
+        echo(list);
         System.out.println(exitText);
     }
 }
