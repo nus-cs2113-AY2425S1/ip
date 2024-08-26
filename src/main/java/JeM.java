@@ -32,18 +32,18 @@ public class JeM {
             } else if (line.equals("List") || line.equals("list")) {
                 storage.storageList();
             } else if (line.contains("delete") || line.contains("Delete")){
-                String[] parts = line.split(" ");
-                int index = Integer.parseInt(parts[1]);
+                String[] lineParts = line.split(" ");
+                int index = Integer.parseInt(lineParts[1]);
                 storage.storageDelete(index);
                 storage.storageList();
             } else if (line.contains("unmark") || line.contains("Unmark")){
-                String[] parts = line.split(" ");
-                int index = Integer.parseInt(parts[1]);
+                String[] lineParts = line.split(" ");
+                int index = Integer.parseInt(lineParts[1]);
                 storage.storageUnmark(index);
                 storage.storageList();
             } else if (line.contains("mark") || line.contains("Mark")){
-                String[] parts = line.split(" ");
-                int index = Integer.parseInt(parts[1]);
+                String[] lineParts = line.split(" ");
+                int index = Integer.parseInt(lineParts[1]);
                 storage.storageMark(index);
                 storage.storageList();
             } else {

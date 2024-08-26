@@ -4,32 +4,39 @@ import java.util.List;
 
 public class storage {
 
-    private List<String> inputs;
+    private List<String> lineInputs;
 
     public storage() {
-        inputs = new ArrayList<String>();
+
+        lineInputs = new ArrayList<String>();
     }
 
     public void storageInsert(String input) {
-        inputs.add("[ ] " + input);
+
+        lineInputs.add("[ ] " + input);
     }
 
     public void storageDelete(int index) {
-        inputs.remove(index - 1);
+
+        lineInputs.remove(index - 1);
     }
 
     public void storageMark(int index) {
-        inputs.set(index - 1, inputs.get(index - 1).replace("[ ] ", "[X] "));
+
+        lineInputs.set(index - 1, lineInputs.get(index - 1).replace("[ ] ", "[X] "));
     }
 
     public void storageUnmark(int index) {
-        inputs.set(index - 1, inputs.get(index - 1).replace("[X] ", "[ ] "));
+
+        lineInputs.set(index - 1, lineInputs.get(index - 1).replace("[X] ", "[ ] "));
     }
 
     public void storageList() {
+
         System.out.println("Here is your current list: ");
+
         int index = 0;
-            for (String s : inputs) {
+            for (String s : lineInputs) {
                 System.out.println((index + 1)+ "." + s);
                 index++;
             }
