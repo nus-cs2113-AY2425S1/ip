@@ -4,8 +4,7 @@ public class Luke {
 
     private static String horizontalLine = "____________________________________________________________";
 
-    private static String[] storage = new String[100];
-    private static boolean[] isDone = new boolean[100];
+    private static Task[] tasks = new Task[100];
     private static int size = 0;
 
     private static void printReply(String reply) {
@@ -17,17 +16,13 @@ public class Luke {
     private static void list() {
         System.out.println(horizontalLine);
         for (int i = 0; i < size; i++) {
-            String status = (isDone[i] ? "X" : " ");
-            System.out.print(String.format("%d.[%s] %s\n", i+1, status, storage[i]));
+            String status = (tasks[i].isDone() ? "X" : " ");
+            System.out.print(String.format("%d.[%s] %s\n", i+1, status, tasks[i].getDescription()));
         }
         System.out.println(horizontalLine);
     }
 
     public static void main(String[] args) {
-         // Initialize array values
-        for (int i = 0; i < 100; i++) {
-            isDone[i] = false;
-        }
 
         printReply("Hello! I'm Luke\nWhat can I do for you?");
         Scanner in = new Scanner(System.in);
@@ -47,16 +42,36 @@ public class Luke {
             }
             String[] lineArr = line.split(" ");
             if (lineArr[0].equalsIgnoreCase("mark")) {
-                int idx = Integer.parseInt(lineArr[1]) - 1;
-                isDone[idx] = true;
-                printReply(String.format("Marked as done:\n  [X] %s", storage[idx]));
+                int idx;
+                try {
+                    idx = Integer.parseInt(lineArr[1]) - 1;
+                } catch(NumberFormatException e) {
+                    printReply("Please input a number");
+                    continue;
+                }
+                if (idx < 0 || idx >= size) {
+                    printReply("Invalid index");
+                    continue;
+                }
+                tasks[idx].setAsDone();
+                printReply(String.format("Marked as done:\n  [X] %s", tasks[idx].getDescription()));
             } else if (lineArr[0].equalsIgnoreCase("unmark")) {
-                int idx = Integer.parseInt(lineArr[1]) - 1;
-                isDone[idx] = false;
-                printReply(String.format("Unmarked:\n  [ ] %s", storage[idx]));
+                int idx;
+                try {
+                    idx = Integer.parseInt(lineArr[1]) - 1;
+                } catch(NumberFormatException e) {
+                    printReply("Please input a number");
+                    continue;
+                }
+                if (idx < 0 || idx >= size) {
+                    printReply("Invalid index");
+                    continue;
+                }
+                tasks[idx].setAsUndone();
+                printReply(String.format("Unmarked:\n  [ ] %s", tasks[idx].getDescription()));
             } else {
                 printReply(String.format("Added task: %s", line));
-                storage[size] = line;
+                tasks[size] = new Task(line);
                 size++;
             }
         }
