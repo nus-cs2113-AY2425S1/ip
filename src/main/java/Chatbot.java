@@ -11,7 +11,7 @@ public class Chatbot {
     // Starting Chatbot
     public void start() {
         printWelcomeMessage();
-        printByeMessage();
+        echo();
     }
 
     // Welcome Screen
@@ -24,8 +24,23 @@ public class Chatbot {
 
     // Goodbye Screen
     private void printByeMessage() {
+        System.out.println("_________________________________________________________");
         System.out.println("Bye. Hope to see you again!");
         System.out.println("_________________________________________________________");
+    }
+
+    // Echo
+    private void echo(){
+        while(true){
+            String input = in.nextLine();
+            if(input.equals("bye")){
+                printByeMessage();
+                break;
+            }
+            System.out.println("_________________________________________________________");
+            System.out.println(input);
+            System.out.println("_________________________________________________________");
+        }
     }
 
 }
