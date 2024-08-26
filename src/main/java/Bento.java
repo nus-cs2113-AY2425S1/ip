@@ -61,6 +61,20 @@ public class Bento {
         printLine();
     }
 
+    public void markTaskAsDone(boolean isDone, String taskIndex) {
+        int index = Integer.parseInt(taskIndex) - 1;
+        tasks[index].setDone(isDone);
+        printLine();
+        if (isDone) {
+            System.out.println("\tYou've crushed this task! I've gone ahead and marked it as done for you.");
+            System.out.printf("\t  [x] %s\n", tasks[index].getTaskName());
+        } else {
+            System.out.println("\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.");
+            System.out.printf("\t  [ ] %s\n", tasks[index].getTaskName());
+        }
+        printLine();
+    }
+
     public void handleUserInput(String input) {
         String[] inputList = input.split(" ");
         switch (inputList[0]) {
@@ -69,6 +83,12 @@ public class Bento {
             break;
         case "list":
             listTasks();
+            break;
+        case "mark":
+            markTaskAsDone(true, inputList[1]);
+            break;
+        case "unmark":
+            markTaskAsDone(false, inputList[1]);
             break;
         default:
             addTask(input);
