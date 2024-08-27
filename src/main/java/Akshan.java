@@ -16,13 +16,21 @@ public class Akshan {
     private static void printLine(){
         System.out.println("_______________________________________________________________");
     }
-    public static void main(String[] args) {
+
+    private static void init(){
         System.out.println(logo);
         Akshan.printLine();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
         Akshan.printLine();
+    }
+
+    private static void bye(){
         System.out.println( "Bye. Hope to see you again soon!");
-        
+    }
+
+    public static void main(String[] args) {
+       Akshan.init();
+       Akshan.bye();
     }
 }
