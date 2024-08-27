@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
+
 public class Nova {
+    
+    private static final int MAX_TASKS = 100;
 
     public static void displayMessage(String info) {
         System.out.println("____________________________________________________________\n" +
@@ -11,8 +14,8 @@ public class Nova {
     public static void main(String[] args) {
 
         displayMessage(" Hello! I'm Nova\n What can I do for you?");
-        Task[] tasks = new Task[100];
-        
+        Task[] tasks = new Task[MAX_TASKS];
+
         while (true) {
 
             Scanner sc = new Scanner(System.in);
@@ -26,7 +29,8 @@ public class Nova {
                 displayMessage("Bye. Hope to see you again soon!");
                 return;
 
-            case "list": //List out all the tasks
+            case "list":
+                //List out all the tasks
                 System.out.println("____________________________________________________________");
                 for (int i = 1; i <= Task.getNumberOfTasks(); i++) {
                     System.out.println(i + ".[" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].getDescription());
@@ -34,8 +38,9 @@ public class Nova {
                 System.out.println("____________________________________________________________");
                 break;
 
-            case "mark": //Mark a task as completed
-            case "unmark": //Unmark a task completion
+            case "mark":
+            case "unmark":
+                //Mark and Unmark a task completion
                 try {
                     taskIndex = Integer.parseInt(words[1]);
                 } catch (NumberFormatException e) { //Display error if user did not put a number as the second argument
@@ -48,18 +53,21 @@ public class Nova {
 
                 if (taskIndex <= 0 || taskIndex > Task.getNumberOfTasks()) { //Display error if index is invalid
                     displayMessage("Invalid task index: " + taskIndex);
-                } else if (words[0].equals("mark")) { //Mark case
+                } else if (words[0].equals("mark")) {
+                    //Mark case
                     tasks[taskIndex - 1].markDone();
                     displayMessage("Nice! I've marked this task as done:\n" + "  [" +
                             tasks[taskIndex - 1].getStatusIcon() + "] " + tasks[taskIndex - 1].getDescription());
-                } else { //Unmark case
+                } else {
+                    //Unmark case
                     tasks[taskIndex - 1].unmarkDone();
                     displayMessage("OK, I've marked this task as not done yet:\n" + "  [" +
                             tasks[taskIndex - 1].getStatusIcon() + "] " + tasks[taskIndex - 1].getDescription());
                 }
                 break;
 
-            default: //Add input as a task
+            default:
+                //Add input as a task
                 displayMessage(info);
                 tasks[Task.getNumberOfTasks()] = new Task(info);
                 break;
