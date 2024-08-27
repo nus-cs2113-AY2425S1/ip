@@ -3,8 +3,24 @@ import java.util.Scanner;
 
 
 public class XiaoMe {
-    static String[] dataStorage= new String[100];
-    static int NumOfData = 0;
+    static Task[] taskStorage= new Task[100];
+    static int NumOfTasks = 0;
+
+    public static boolean isMark(String line) {
+        // checks if user input is a mark / unmark command
+
+        String[] words = line.trim().split(" ");
+
+        if (words.length != 2) {
+            // input is not 2 words long
+            return false;
+        }
+        // first word is not "mark" or "unmark"
+        return Objects.equals(words[0], "mark") || Objects.equals(words[0], "unmark");
+
+        //todo check if 2nd word is an integer
+    }
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -24,6 +40,7 @@ public class XiaoMe {
                 """);
         while (true) {
             line = in.nextLine();
+
             if (Objects.equals(line, "bye")) {
                 // user input is bye: end programme
                 System.out.println("""
@@ -34,18 +51,39 @@ public class XiaoMe {
                         """);
                 break;
             } else if (Objects.equals(line, "list")) {
-                // user input is list: display past inputs
-                System.out.println("____________________________________________________________\n");
-                for (int i = 0; i < NumOfData; i++) {
-                    System.out.println((i + 1) + ". " + dataStorage[i]);
+                // user input is list: display past tasks
+                System.out.println("""
+                        ____________________________________________________________
+                        Here are the tasks in your list:""");
+                for (int i = 0; i < NumOfTasks; i++) {
+                    System.out.println((i + 1) + ".[" + taskStorage[i].getStatusIcon() + "] " + taskStorage[i].getDescription());
                 }
-                System.out.println("____________________________________________________________");
+                System.out.println("____________________________________________________________\n");
+            } else if (isMark(line)) {
+                String[] words = line.split(" ");
+                int taskCount = Integer.parseInt(words[1]) - 1;
+                if (Objects.equals(words[0], "mark")) {
+                    taskStorage[taskCount].setDone(true);
+
+                    System.out.println("____________________________________________________________\n"
+                            + "Nice! I've marked this task as done:\n"
+                            + "\t[" + taskStorage[taskCount].getStatusIcon() + "] " + taskStorage[taskCount].getDescription()
+                            + "\n____________________________________________________________\n");
+                } else {
+                    taskStorage[taskCount].setDone(false);
+
+                    System.out.println("____________________________________________________________\n"
+                            + "\tOK, I've marked this task as not done yet:\n"
+                            + "[" + taskStorage[taskCount].getStatusIcon() + "] " + taskStorage[taskCount].getDescription()
+                            + "\n____________________________________________________________\n");
+                }
+
             } else {
                 System.out.println("____________________________________________________________\n"
                         + "added: " + line + "\n"
                         + "____________________________________________________________\n");
-                dataStorage[NumOfData] = line; // add text to storage
-                NumOfData += 1;
+                taskStorage[NumOfTasks] = new Task(line); // add task to storage
+                NumOfTasks += 1;
             }
 
         }
