@@ -31,7 +31,7 @@ public class Chatbot {
 
     // List
     private void taskmaster(){
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int taskCounter = 0;
         while(true) {
             String input = in.nextLine();
@@ -44,7 +44,7 @@ public class Chatbot {
                 case "list":
                     System.out.println("_________________________________________________________");
                     for (int i = 0; i < taskCounter; i++) {
-                        String output = (i + 1) + ". " + taskList[i];
+                        String output = (i + 1) + ".[ " + taskList[i].getStatusIcon() + "] "+ taskList[i].description;
                         System.out.println(output);
                     }
                     System.out.println("_________________________________________________________");
@@ -52,7 +52,7 @@ public class Chatbot {
 
                 default:
                     System.out.println("_________________________________________________________");
-                    taskList[taskCounter] = input;
+                    taskList[taskCounter] = new Task(input);
                     taskCounter++;
                     System.out.println("added: " + input);
                     System.out.println("_________________________________________________________");
