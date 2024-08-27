@@ -12,7 +12,7 @@ public class Iris {
         if (numOfTasks == 0) {
             System.out.println("No tasks added.");
         } else {
-            for (int i = 0; i < tasks.length && tasks[i] != null; i++) {
+            for (int i = 0; i < numOfTasks && tasks[i] != null; i++) {
                 Task currentTask = tasks[i];
                 System.out.println((i + 1) + "." + currentTask.getStatusIcon() + currentTask.description);
             }
