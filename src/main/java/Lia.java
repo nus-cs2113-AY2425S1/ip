@@ -1,26 +1,19 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class Lia {
 
     public static void main(String[] args) {
-        // Customizing the chatbot
+        // Customizing the chatbot with the name Lia
         String botName = "Lia";
         Scanner scanner = new Scanner(System.in);
         String input;
-
-        // Array of random responses for unrecognized commands
-        String[] randomResponses = {
-                "Hmm... That's interesting!",
-                "Wow! Never heard of that one.",
-                "You're full of surprises today!",
-                "I need to look that up, hold on...",
-        };
+        String[] tasks = new String[100];  // Fixed-size array to store tasks
+        int taskCount = 0;  // Counter to keep track of the number of tasks
 
         // Greet the user with enthusiasm
         printLine();
-        System.out.println(" Hey there! I'm " + botName);
-        System.out.println(" Ready to take on the world? Just let me know what you need!");
+        System.out.println("    Hello! I'm " + botName);
+        System.out.println("    aWhat can I do for you?");
         printLine();
 
         // Chatbot loop: keep asking for input until "bye" is entered
@@ -30,21 +23,28 @@ public class Lia {
             // If the user types "bye", end the loop with a warm farewell
             if (input.equalsIgnoreCase("bye")) {
                 printLine();
-                System.out.println(" It's been fun! Take care and come back soon!");
+                System.out.println("    Bye. Hope to see you again soon!");
                 printLine();
                 break;
             }
 
-            // If the user types "list", give a custom motivational response
+            // If the user types "list", display all tasks added
             if (input.equalsIgnoreCase("list")) {
                 printLine();
-                System.out.println(" Ah, a list! Let’s get things organized, shall we?");
+                if (taskCount == 0) {
+                    System.out.println(" No tasks found.");
+                } else {
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println("    " + (i + 1) + ". " + tasks[i]);
+                    }
+                }
                 printLine();
             } else {
-                // Randomly choose a fun response for unknown commands
+                // Add the user's input as a new task
+                tasks[taskCount] = input;
+                taskCount++;
                 printLine();
-                System.out.println(" " + input);
-                System.out.println(" " + getRandomResponse(randomResponses));
+                System.out.println("    added: " + input);
                 printLine();
             }
         }
@@ -55,13 +55,6 @@ public class Lia {
 
     // Function to print the line
     public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    // Function to select a random fun response
-    public static String getRandomResponse(String[] responses) {
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(responses.length);
-        return responses[randomIndex];
+        System.out.println("    ___________________________________________________________");
     }
 }
