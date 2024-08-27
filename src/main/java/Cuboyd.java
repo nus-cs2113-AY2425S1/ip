@@ -10,19 +10,69 @@ public class Cuboyd {
         // Initialise List
         ArrayList<Task> items = new ArrayList<>();
 
+        // For Marking/ Unmarking
+        Task currentItem;
+        int index;
+
         // Command Entry
         String line;
+        String[] lineArgs;
         Scanner sc = new Scanner(System.in);
         boolean isAskingInput = true;
         while (isAskingInput){
             System.out.print("> ");
             line = sc.nextLine();
-            switch(line){
+            lineArgs = line.split(" ");
+            switch(lineArgs.length > 0 ? lineArgs[0] : ""){
                 case "list":
+                    System.out.println("Here are the tasks in your list:");
                     for (int currentItemIndex=0; currentItemIndex<items.size(); currentItemIndex++){
-                        System.out.println(String.valueOf(currentItemIndex+1) + ". " +
-                                items.get(currentItemIndex).getDescription());
+                        currentItem = items.get(currentItemIndex);
+                        System.out.println(String.valueOf(currentItemIndex+1) + ".[" +
+                                currentItem.getStatusIcon() + "] " + currentItem.getDescription());
                     }
+                    break;
+                case "mark":
+                    if (lineArgs.length < 2){
+                        System.out.println("No index was given!");
+                        break;
+                    }
+                    try {
+                        index = Integer.parseInt(lineArgs[1]) - 1;
+                    } catch (NumberFormatException e){
+                        System.out.println("That is not a valid index!");
+                        break;
+                    }
+                    if (index < 0 || index >= items.size()){
+                        System.out.println("That is not a valid index!");
+                        break;
+                    }
+                    currentItem = items.get(index);
+                    currentItem.markAsDone();
+
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  [" + currentItem.getStatusIcon() + "] " + currentItem.getDescription());
+                    break;
+                case "unmark":
+                    if (lineArgs.length < 2){
+                        System.out.println("No index was given!");
+                        break;
+                    }
+                    try {
+                        index = Integer.parseInt(lineArgs[1]) - 1;
+                    } catch (NumberFormatException e){
+                        System.out.println("That is not a valid index!");
+                        break;
+                    }
+                    if (index < 0 || index >= items.size()){
+                        System.out.println("That is not a valid index!");
+                        break;
+                    }
+                    currentItem = items.get(index);
+                    currentItem.markAsUndone();
+
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  [" + currentItem.getStatusIcon() + "] " + currentItem.getDescription());
                     break;
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
