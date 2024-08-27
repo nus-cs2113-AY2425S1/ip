@@ -15,15 +15,26 @@ public class SuBOT {
         System.out.println("-------------------------------");
         Scanner sc = new Scanner(System.in);
         String command;
+        String[] commands = new String[100];
+        int commandCount = 0;
         boolean stopFlag = false;
         while (!stopFlag) {
             command = sc.nextLine();
             System.out.println("-------------------------------");
-            if (command.equals("bye"))  {
-                stopFlag = true;
-                System.out.println("Bye bye...");
+            switch (command) {
+                case "bye":
+                    stopFlag = true;
+                    System.out.println("Bye bye...");
+                    break;
+                case "list":
+                    for (int i = 0; i < commandCount; ++i) {
+                        System.out.printf("%d. %s\n", i+1, commands[i]);
+                    }
+                    break;
+                default:
+                    commands[commandCount++] = command;
+                    System.out.println(command);
             }
-            else System.out.println(command);
             System.out.println("-------------------------------");
         }
         System.out.println("System shutting down...");
