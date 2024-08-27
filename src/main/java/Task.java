@@ -11,6 +11,10 @@ public class Task {
         setId(totalTasks);
     }
 
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
+
     public String getTask() {
         return task;
     }
@@ -31,8 +35,8 @@ public class Task {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public static int getTotalTasks() {

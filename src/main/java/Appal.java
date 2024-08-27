@@ -21,12 +21,8 @@ public class Appal {
     }
 
     public void printOneTask(int listNumber) {
-        if (taskList[listNumber].isDone()) {
-            System.out.print("[X] ");
-        } else {
-            System.out.print("[ ] ");
-        }
-        System.out.println(taskList[listNumber].getTask());
+        System.out.println("[" + taskList[listNumber].getStatusIcon() + "] "
+                + taskList[listNumber].getTask());
     }
 
     public void markTask(String instruction, boolean isMark) {
