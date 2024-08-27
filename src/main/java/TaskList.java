@@ -9,4 +9,11 @@ public class TaskList {
         //Assume there will be no more than 100 tasks
         tasks = new String[100];
     }
+
+    public void storeTask(String task){
+        if (taskNumber >= tasks.length){
+            return;
+        }
+        tasks[taskNumber += 1] = task;
+    }
 }
