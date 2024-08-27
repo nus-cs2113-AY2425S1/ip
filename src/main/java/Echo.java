@@ -25,7 +25,11 @@ public class Echo {
             userInput = scanner.nextLine();
 
             // Print user input if bye is not the input
-            if (!userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("____________________________________________________________");
+                System.out.println(taskList.displayTasks());
+                System.out.println("____________________________________________________________");
+            }else if (!userInput.equalsIgnoreCase("bye")) {
                 //Stores new task into the array of tasks
                 taskList.storeTask(userInput);
 
