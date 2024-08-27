@@ -1,11 +1,31 @@
-public class Ellio {
-    public static void main(String[] args) {
-        
-        String lineborder = "______________________________________\n";
-        String welcome = "Hello! I'm Ellio\nWhat can I do for you?";
-        String goodbye = "Bye. Hope to see you again soon!\n";
+import java.util.Objects;
+import java.util.Scanner;
 
-        System.out.println(lineborder + welcome);
-        System.out.println(lineborder + goodbye + lineborder);
+public class Ellio {
+
+    public static void endProgram(){
+        System.out.println(BotText.lineBorder + BotText.goodbyeMessage + BotText.lineBorder);
+    }
+
+    public static void startProgram(){
+        System.out.println(BotText.lineBorder + BotText.welcomeMessage + BotText.lineBorder);
+    }
+
+    public static void getInput(){
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = (in.nextLine()).toLowerCase();
+
+        while(!line.equals("bye")){
+            System.out.println(BotText.lineBorder + line + "\n" + BotText.lineBorder);
+            line = in.nextLine().toLowerCase();
+        }
+        endProgram();
+    }
+
+    public static void main(String[] args) {
+        startProgram();
+        getInput();
+
     }
 }
