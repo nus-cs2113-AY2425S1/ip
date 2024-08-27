@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Akshan {
@@ -36,12 +35,20 @@ public class Akshan {
     public static void main(String[] args) {
         String line;
         Scanner input = new Scanner(System.in);
+        StringList list = new StringList();
 
         init();
         line = input.nextLine();
-        printLine();
-        while (!Objects.equals(line, "bye")) {
-            System.out.println(line);
+
+        while (!line.equals("bye")) {
+            printLine();
+            if (line.equals("list")) {
+                list.printList();
+            }
+            else {
+                list.addItem(line);
+                System.out.println("added: " + line);
+            }
             printLine();
             line = input.nextLine();
         }
