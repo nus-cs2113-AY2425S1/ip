@@ -15,7 +15,8 @@ public class TaskList {
         if (taskNumber >= tasks.length){
             return;
         }
-        tasks[taskNumber += 1] = task;
+        tasks[taskNumber] = task;
+        taskNumber += 1;
     }
 
     //Displaying of all task in array
