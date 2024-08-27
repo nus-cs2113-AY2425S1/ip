@@ -10,6 +10,7 @@ public class Doug {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
          */
+
         String dashedLine = "______________________________________________\n";
         System.out.println(dashedLine + "Howdy partner! My name is Doug Dimmadome.\n"
                             + "Now what can I do for ya?\n" + dashedLine);
@@ -35,7 +36,7 @@ public class Doug {
                 int listIndex = Integer.parseInt(command.substring(5));
 
                 if (listIndex >= counter) {
-                    System.out.println(dashedLine + "No can do bud, your entry is outside the list size!\n" + dashedLine);
+                    System.out.println(dashedLine + "No can do bud, your input exceeds the list size!\n" + dashedLine);
                     continue;
                 }
 
@@ -46,7 +47,7 @@ public class Doug {
                 int listIndex = Integer.parseInt(command.substring(7));
 
                 if (listIndex >= counter) {
-                    System.out.println(dashedLine + "No can do bud, your entry is outside the list size!\n" + dashedLine);
+                    System.out.println(dashedLine + "No can do bud, your input exceeds the list size!\n" + dashedLine);
                     continue;
                 }
 
