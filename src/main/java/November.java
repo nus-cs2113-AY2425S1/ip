@@ -30,7 +30,8 @@ public class November {
     public static void printTaskList(List<Task> taskList) {
         int index = 0;
         while(index < taskList.size()){
-            System.out.println(index+1 + ".[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).getDescription());
+            System.out.println(index+1 + ".[" + taskList.get(index).getStatusIcon() + "] "
+                    + taskList.get(index).getDescription());
             index++;
         }
     }
@@ -59,7 +60,8 @@ public class November {
                 taskList.get(markIndex).setComplete();
                 beginSegment();
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("  [" + taskList.get(markIndex).getStatusIcon() + "] " + taskList.get(markIndex).getDescription());
+                System.out.println("  [" + taskList.get(markIndex).getStatusIcon() + "] "
+                        + taskList.get(markIndex).getDescription());
                 endSegment();
                 break;
             case "unmark":
@@ -68,7 +70,8 @@ public class November {
                 taskList.get(unmarkIndex).setIncomplete();
                 beginSegment();
                 System.out.println("Ok, I've marked this task as not done yet: ");
-                System.out.println("  [" + taskList.get(unmarkIndex).getStatusIcon() + "] " + taskList.get(unmarkIndex).getDescription());
+                System.out.println("  [" + taskList.get(unmarkIndex).getStatusIcon() + "] "
+                        + taskList.get(unmarkIndex).getDescription());
                 endSegment();
                 break;
             case "list":
