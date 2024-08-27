@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Iris {
     public static String[] list = new String[100];
@@ -16,9 +15,8 @@ public class Iris {
             System.out.println("Bye. Hope to see you again soon!");
             isEnded = true;
         } else if (text.equalsIgnoreCase("list")) {
-            String[] listWithoutNull = Arrays.copyOf(list, numInList);
-            for (int i = 0; i < listWithoutNull.length; i++) {
-                System.out.println(i + ": " + listWithoutNull[i]);
+            for (int i = 0; i < list.length && list[i] != null; i++) {
+                System.out.println(i + ": " + list[i]);
             }
         } else {
             list[numInList] = text;
