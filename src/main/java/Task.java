@@ -4,7 +4,7 @@ public class Task {
 
     public Task(String name) {
         this.name = name;
-        this.isDone = false;  // 初始状态为未完成
+        this.isDone = false;
     }
 
     public void markAsDone() {
@@ -16,7 +16,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // 返回状态图标，完成为[X]，未完成为[ ]
+        return (isDone ? "[X]" : "[ ]");
     }
 
     @Override
