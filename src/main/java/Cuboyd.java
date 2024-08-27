@@ -8,7 +8,7 @@ public class Cuboyd {
         System.out.println("What can I do for you?");
 
         // Initialise List
-        ArrayList<String> items = new ArrayList<>();
+        ArrayList<Task> items = new ArrayList<>();
 
         // Command Entry
         String line;
@@ -20,8 +20,8 @@ public class Cuboyd {
             switch(line){
                 case "list":
                     for (int currentItemIndex=0; currentItemIndex<items.size(); currentItemIndex++){
-                        // String.format("%d. %s", currentItemIndex+1, items.get(currentItemIndex)));
-                        System.out.println(String.valueOf(currentItemIndex+1) + ". " + items.get(currentItemIndex));
+                        System.out.println(String.valueOf(currentItemIndex+1) + ". " +
+                                items.get(currentItemIndex).getDescription());
                     }
                     break;
                 case "bye":
@@ -29,7 +29,7 @@ public class Cuboyd {
                     isAskingInput = false;
                     break;
                 default:
-                    items.add(line);
+                    items.add(new Task(line));
                     System.out.println("added: " + line);
                     break;
             }
