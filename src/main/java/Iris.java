@@ -14,7 +14,9 @@ public class Iris {
         } else {
             for (int i = 0; i < numOfTasks && tasks[i] != null; i++) {
                 Task currentTask = tasks[i];
-                System.out.println((i + 1) + "." + currentTask.getStatusIcon() + currentTask.description);
+                System.out.println((i + 1) + "."
+                        + currentTask.getStatusIcon()
+                        + currentTask.description);
             }
         }
     }
@@ -34,10 +36,12 @@ public class Iris {
                 Task taskToEdit = tasks[(numbersInText) - 1];
                 if (text.contains("unmark")) {
                     taskToEdit.unmarkFromDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + taskToEdit.description);
+                    System.out.println("OK, I've marked this task as not done yet:\n"
+                            + "[ ] " + taskToEdit.description);
                 } else {
                     taskToEdit.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n" + "[X] " + taskToEdit.description);
+                    System.out.println("Nice! I've marked this task as done:\n"
+                            + "[X] " + taskToEdit.description);
                 }
             }
         } catch (NumberFormatException e) {
@@ -65,10 +69,11 @@ public class Iris {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Iris!\n" + "What can I do for you?"); // Greets
+        System.out.println("Hello! I'm Iris!\n"
+                + "What can I do for you?");
         printDivider();
         boolean isEnded = false;
-        Scanner in = new Scanner(System.in); // Initialisation
+        Scanner in = new Scanner(System.in);
         while (!isEnded) {
             String line = in.nextLine();
             isEnded = chat(line);
