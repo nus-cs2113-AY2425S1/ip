@@ -22,12 +22,6 @@ public class XiaoMe {
     }
 
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -49,7 +43,7 @@ public class XiaoMe {
                         ____________________________________________________________
                         
                         """);
-                break;
+                break; // stop programme
             } else if (Objects.equals(line, "list")) {
                 // user input is list: display past tasks
                 System.out.println("""
@@ -60,6 +54,7 @@ public class XiaoMe {
                 }
                 System.out.println("____________________________________________________________\n");
             } else if (isMark(line)) {
+                // user input is mark/unmark x: mark corresponding task as done or undone
                 String[] words = line.split(" ");
                 int taskCount = Integer.parseInt(words[1]) - 1;
                 if (Objects.equals(words[0], "mark")) {
@@ -73,15 +68,17 @@ public class XiaoMe {
                     taskStorage[taskCount].setDone(false);
 
                     System.out.println("____________________________________________________________\n"
-                            + "\tOK, I've marked this task as not done yet:\n"
-                            + "[" + taskStorage[taskCount].getStatusIcon() + "] " + taskStorage[taskCount].getDescription()
+                            + "OK, I've marked this task as not done yet:\n"
+                            + "\t[" + taskStorage[taskCount].getStatusIcon() + "] " + taskStorage[taskCount].getDescription()
                             + "\n____________________________________________________________\n");
                 }
 
             } else {
+                // user is creating a new task
                 System.out.println("____________________________________________________________\n"
                         + "added: " + line + "\n"
                         + "____________________________________________________________\n");
+
                 taskStorage[NumOfTasks] = new Task(line); // add task to storage
                 NumOfTasks += 1;
             }
