@@ -5,6 +5,8 @@ public class Echo {
         // Utilise Scanner object to allow user input
         Scanner scanner = new Scanner(System.in);
 
+        TaskList taskList = new TaskList();
+
         // Define the greeting message and the chatbot name as variables
         String chatbotName = "Echo";
         String greetingMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?\n";
@@ -24,8 +26,11 @@ public class Echo {
 
             // Print user input if bye is not the input
             if (!userInput.equalsIgnoreCase("bye")) {
+                //Stores new task into the array of tasks
+                taskList.storeTask(userInput);
+
                 System.out.println("____________________________________________________________");
-                System.out.println(userInput);
+                System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
             }
         }

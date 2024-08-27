@@ -10,10 +10,13 @@ public class TaskList {
         tasks = new String[100];
     }
 
+    //Storage of new task
     public void storeTask(String task){
         if (taskNumber >= tasks.length){
             return;
         }
         tasks[taskNumber += 1] = task;
     }
+
+
 }
