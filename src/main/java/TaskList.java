@@ -18,5 +18,12 @@ public class TaskList {
         tasks[taskNumber += 1] = task;
     }
 
-
+    //Displaying of all task in array
+    public String displayTasks() {
+        String taskList = "";
+        for (int i = 0; i < taskNumber; i += 1) {
+            taskList += (i + 1) + ". " + tasks[i] + "\n";
+        }
+        return taskList;
+    }
 }
