@@ -1,10 +1,12 @@
 public class Task {
-    private String task;
+    protected String task;
     private int id;
+    protected boolean isDone;
     private static int totalTasks = 0;
 
     public Task(String task) {
-        setToDo(task);
+        setTask(task);
+        setDone(false);
         totalTasks += 1;
         setId(totalTasks);
     }
@@ -13,7 +15,7 @@ public class Task {
         return task;
     }
 
-    public void setToDo(String task) {
+    public void setTask(String task) {
         this.task = task;
     }
 
@@ -23,6 +25,14 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     public static int getTotalTasks() {

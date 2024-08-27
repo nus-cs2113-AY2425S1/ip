@@ -20,12 +20,37 @@ public class Appal {
         printSeparator();
     }
 
-    public void printToDoList() {
+    public void printOneTask(int listNumber) {
+        if (taskList[listNumber].isDone()) {
+            System.out.print("[X] ");
+        } else {
+            System.out.print("[ ] ");
+        }
+        System.out.println(taskList[listNumber].getTask());
+    }
+
+    public void markTask(String instruction, boolean isMark) {
+        String[] words = instruction.split(" ");
+        int taskId = Integer.parseInt(words[1]);
+        int listNumber = taskId - 1;
+        taskList[listNumber].setDone(isMark);
+        printSeparator();
+        if (isMark) {
+            System.out.println("Great job! One more step towards success :)");
+        } else {
+            System.out.println("What's next on the agenda? :D");
+        }
+        printOneTask(listNumber);
+        printSeparator();
+    }
+
+    public void printTaskList() {
         printSeparator();
         int totalTasks = Task.getTotalTasks();
         System.out.println("You have " + totalTasks + " to-dos!");
         for (int i = 0; i < totalTasks; i += 1) {
-            System.out.println(taskList[i].getId() + ". " + taskList[i].getTask());
+            System.out.print(taskList[i].getId() + ".");
+            printOneTask(i);
         }
         printSeparator();
     }
@@ -42,7 +67,11 @@ public class Appal {
             isExited = true;
             printBye();
         } else if (line.equals("list")) {
-            printToDoList();
+            printTaskList();
+        } else if (line.contains("unmark")) {
+            markTask(line, false);
+        } else if (line.contains("mark")) {
+            markTask(line, true);
         } else {
             addToList(line);
             printReply(line);
