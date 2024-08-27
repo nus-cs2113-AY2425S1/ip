@@ -2,24 +2,24 @@ import java.util.Scanner;
 
 public class Luke {
 
-    private static String horizontalLine = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     private static Task[] tasks = new Task[100];
     private static int size = 0;
 
     private static void printReply(String reply) {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println(reply);
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void list() {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         for (int i = 0; i < size; i++) {
             String status = (tasks[i].isDone() ? "X" : " ");
             System.out.print(String.format("%d.[%s] %s\n", i+1, status, tasks[i].getDescription()));
         }
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
