@@ -17,18 +17,19 @@ public class Cuboyd {
         // Command Entry
         String line;
         String[] lineArgs;
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         boolean isAskingInput = true;
+
         while (isAskingInput){
             System.out.print("> ");
-            line = sc.nextLine();
+            line = scanner.nextLine();
             lineArgs = line.split(" ");
             switch(lineArgs.length > 0 ? lineArgs[0] : ""){
                 case "list":
                     System.out.println("Here are the tasks in your list:");
-                    for (int currentItemIndex=0; currentItemIndex<items.size(); currentItemIndex++){
-                        currentItem = items.get(currentItemIndex);
-                        System.out.println(String.valueOf(currentItemIndex+1) + ".[" +
+                    for (int i = 0; i < items.size(); i++){
+                        currentItem = items.get(i);
+                        System.out.println(String.valueOf(i + 1) + ".[" +
                                 currentItem.getStatusIcon() + "] " + currentItem.getDescription());
                     }
                     break;
