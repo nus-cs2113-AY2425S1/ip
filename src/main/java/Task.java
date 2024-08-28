@@ -23,7 +23,7 @@ public class Task {
         return description;
     }
 
-    public String taskNameWithStatus() {
+    public String getNameWithStatus() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }

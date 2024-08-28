@@ -16,26 +16,26 @@ public class Tyrone {
                 TaskList.printList();
             } else if (dissectedCommand[0].equals("mark")) {
                 int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
-                if (TaskList.checkValidTaskId(taskId)) {
+                if (TaskList.isValidTaskId(taskId)) {
                     TaskList.markTaskAsDone(taskId);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + TaskList.singleTaskDetails(taskId));
+                    System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
                 } else {
                     System.out.println("Invalid task ID.");
                 }
             } else if (dissectedCommand[0].equals("unmark")) {
                 int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
-                if (TaskList.checkValidTaskId(taskId)) {
+                if (TaskList.isValidTaskId(taskId)) {
                     TaskList.markTaskAsUndone(taskId);
                     System.out.println("Ok, I've marked this task as not done yet:");
-                    System.out.println("  " + TaskList.singleTaskDetails(taskId));
+                    System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
                 } else {
                     System.out.println("Invalid task ID.");
                 }
             } else {
                 Task newTask = new Task(command);
                 TaskList.addTask(newTask);
-                System.out.println("added: " + newTask.taskNameWithStatus());
+                System.out.println("added: " + newTask.getNameWithStatus());
             }
         }
 
