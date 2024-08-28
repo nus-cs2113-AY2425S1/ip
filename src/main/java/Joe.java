@@ -1,8 +1,12 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Joe {
     private static String INTENDATION = "      ";
     private static String SEPARATOR = "_________________________________________________";
+    private static String[] USER_COMMANDS = {"bye", "list"};
+    private static ArrayList<String> userInputs = new ArrayList<>();
+
 
     public static void main(String[] args) {
         String logo = INTENDATION + "     _            \n"
@@ -19,9 +23,9 @@ public class Joe {
         printFarewell();
     }
 
-    public static void printMessage(String input, boolean isFromJoe) {
+    public static void printReply(String input, boolean isFromJoe, String actionPerformed) {
         if (isFromJoe) {
-            System.out.println(INTENDATION + input);
+            System.out.println(INTENDATION + actionPerformed + input);
         } else {
             System.out.println(input);
         }
@@ -40,6 +44,18 @@ public class Joe {
         System.out.println(INTENDATION + SEPARATOR);
     }
 
+    public static void addToList(String input) {
+        userInputs.add(input);
+    }
+
+    public static void  printList() {
+        int counter = 0;
+        for (String input : userInputs) {
+            counter +=1;
+            System.out.println(INTENDATION + counter + ": " + input);
+        }
+    }
+
 
     public static void chatWithJoe() {
         //get and echo user input
@@ -47,7 +63,16 @@ public class Joe {
         String input = "";
         while (!input.equals("bye")) {
             input = in.nextLine();
-            printMessage(input, false);
+            switch (input) {
+            case "bye":
+                break;
+            case "list":
+                printList();
+                break;
+            default:
+                addToList(input);
+                printReply(input, true, "Added: ");
+            }
         }
     }
 }
