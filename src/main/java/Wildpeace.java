@@ -1,3 +1,4 @@
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Wildpeace {
@@ -17,8 +18,10 @@ public class Wildpeace {
     }
     public static void storeData()
     {
+        System.out.println("List your plans one by one");
         String line;
-        String[] storedItems = new String[100];
+        // String[] storedItems = new String[100];
+        Hashtable <String, Boolean> storedItems = new Hashtable<>();
         int dataIndex = 0;
         boolean exit = false;
         while (!exit) {
@@ -28,16 +31,36 @@ public class Wildpeace {
             {
                 exit = true;
             }
-            else if(line.equalsIgnoreCase("list"))
-            {
-                for(int i = 0; i < dataIndex; i++)
-                {
-                    System.out.println(dataIndex + ". " + storedItems[i]);
+            else if(line.equalsIgnoreCase("list")) {
+                for (String key : storedItems.keySet()) {
+                    if (storedItems.get(key)) {
+                        System.out.println("[X] " + key);
+                    } else {
+                        System.out.println("[ ] " + key);
+                    }
+
                 }
             }
-            storedItems[dataIndex] = line;
-            dataIndex++;
-            System.out.println("Added: " + line);
+            else if(line.contains("unmark"))
+            {
+                storedItems.put(line.substring(7), false);
+                System.out.println("I have unmarked the task.");
+                System.out.println("[ ] " + line);
+            }
+            else if (line.contains("mark")) {
+
+                System.out.println("I have marked the [X] ");
+                System.out.println("[X] " + line);
+                storedItems.put(line.substring(5), true);
+
+
+            }
+            //storedItems[dataIndex] = line;
+            else {
+                storedItems.put(line, false);
+                dataIndex++;
+                System.out.println("Added: " + line);
+            }
         }
     }
     public static void echo()
