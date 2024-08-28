@@ -1,11 +1,17 @@
 import java.util.Scanner;
 
 public class Juan {
+    private static String[] Strings = new String[100];
+    private static int stringsCounter = 0;
     public static void main(String[] args) {
         lineMessage();
         helloMessage();
         lineMessage();
-
+        chatFeature();
+        byeMessage();
+        lineMessage();
+    }
+    public static void chatFeature(){
         boolean exit = false;
         Scanner scanner = new Scanner(System.in);
         while (!exit) {
@@ -13,13 +19,22 @@ public class Juan {
             lineMessage();
             if (line.equals("bye")) {
                 exit = true;
+                return;
+            } else if (line.equals("list")) {
+                if (stringsCounter == 0) {
+                    System.out.println("Por Favor? Nothing Here");
+                }
+                for (int i = 0; i < stringsCounter; i++) {
+                    System.out.println((i + 1) + ". " + Strings[i]);
+                }
             } else {
-                System.out.println(line);
-                lineMessage();
+                Strings[stringsCounter] = line;
+                stringsCounter++;
+                System.out.println("Added: " + line);
             }
+
+            lineMessage();
         }
-        byeMessage();
-        lineMessage();
     }
     public static void lineMessage() {
         String line = "____________________________________________________________\n";
