@@ -24,23 +24,30 @@ public class Echo {
             // Read user input
             userInput = scanner.nextLine();
 
-            // Print user input if bye is not the input
+            // Handles different user inputs for list, bye, mark and unmark
             if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 System.out.println(taskList.displayTasks());
                 System.out.println("____________________________________________________________");
-            }else if (!userInput.equalsIgnoreCase("bye")) {
+            } else if (userInput.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+                System.out.println("____________________________________________________________");
+                System.out.println(taskList.markTaskAsDone(taskNumber));
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                System.out.println("____________________________________________________________");
+                System.out.println(taskList.markTaskAsNotDone(taskNumber));
+                System.out.println("____________________________________________________________");
+            } else if (!userInput.equalsIgnoreCase("bye")) {
                 //Stores new task into the array of tasks
                 taskList.storeTask(userInput);
-
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
             }
-        }
-
-        while (!userInput.equalsIgnoreCase("bye"));
+        } while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
         System.out.println("____________________________________________________________");
