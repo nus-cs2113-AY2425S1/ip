@@ -17,6 +17,13 @@ public class Task {
 
     public void setStatus(boolean newStatus) {
         String completion = newStatus ? "X" : " ";
+
+        if (newStatus == this.isDone) {
+            System.out.println("Oops, the task '" + this.name + "' has already been marked as "
+                + "[" + completion + "]!");
+            return;
+        }
+
         if (newStatus) {
             System.out.println("Nice! I've marked this task as done:");
         } else {

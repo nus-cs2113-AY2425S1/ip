@@ -24,6 +24,10 @@ public class TaskList {
     }
 
     public void setItemStatus(int index, boolean status) {
-        this.list.get(index - 1).setStatus(status);
+        try {
+            this.list.get(index - 1).setStatus(status);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oh no, the list item does not exist!");
+        }
     }
 }
