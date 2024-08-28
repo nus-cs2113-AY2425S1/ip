@@ -14,6 +14,7 @@ public class Aether {
         Display.showStartScreen();
         Scanner scanner = new Scanner(System.in);
 
+        // Main loop to keep the program running until the user exits
         while (!isExit) {
             System.out.println("You:");
             String command = scanner.nextLine();
@@ -25,12 +26,14 @@ public class Aether {
     private void handleCommand(String command) {
         int index = 0;
 
+        // Trim leading and trailing spaces and split the command into parts
         command = command.trim();
         String[] commandParts = command.split(" ", 2);
         String commandName = commandParts[0].toLowerCase();
 
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
 
+        // Switch to Handle different commands
         switch (commandName) {
         case "bye":
             isExit = true;
@@ -70,7 +73,8 @@ public class Aether {
         } else {
             Display.response("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ".[" + tasks[i].getStatus() + "] " + tasks[i].getDescription());
+                System.out.println((i + 1) + ".[" + tasks[i].getStatus() + "] "
+                        + tasks[i].getDescription());
             }
         }
     }
@@ -80,7 +84,8 @@ public class Aether {
         String message = isDone
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
-        Display.response(message + (index + 1) + ".[" + tasks[index].getStatus() + "] " + tasks[index].getDescription());
+        Display.response(message + (index + 1) + ".[" + tasks[index].getStatus() + "] "
+                + tasks[index].getDescription());
     }
 }
 
@@ -114,8 +119,7 @@ class Display {
                 + "  / /_| | |  __|     | |   |  __  ||  __|  |  _  /  \n"
                 + " /  __  | | |____    | |   | |  | || |____ | | \\ \\  \n"
                 + "/_/   |_| |______|   |_|   |_|  |_||______||_|  \\_\\ \n";
-        String startScreen = "Aether:\n"
-                + "Hello! I'm Aether, your friendly assistant.\n"
+        String startScreen = "Aether:\n" + "Hello! I'm Aether, your friendly assistant.\n"
                 + "How can I help you today?\n";
 
         System.out.println(logo);
@@ -125,8 +129,7 @@ class Display {
     }
 
     public static void showEndScreen() {
-        String endScreen = "Aether:\n"
-                + "Goodbye! Hope to see you again soon!";
+        String endScreen = "Aether:\n" + "Goodbye! Hope to see you again soon!";
         System.out.println(endScreen);
     }
 
