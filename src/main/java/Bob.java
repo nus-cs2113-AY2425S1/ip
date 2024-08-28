@@ -13,7 +13,7 @@ public class Bob {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
@@ -25,12 +25,29 @@ public class Bob {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i+1) + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
+            } else if (input.startsWith("mark ")) {
+                String[] inputsInString = input.split(" ");
+                int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
+                tasks[taskIndex].markAsDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("unmark ")) {
+                String[] inputsInString = input.split(" ");
+                int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
+                tasks[taskIndex].unmark();
+                System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("____________________________________________________________");
             } else {
-                tasks[taskCount] = input;
+                tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + input);
