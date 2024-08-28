@@ -1,11 +1,14 @@
 public class Task {
 
+    // Keep track of tasks
     private static Task[] tasks = new Task[100];
     private static int taskNumber = 0;
 
+    // Object specific variables
     public String taskString;
     public boolean taskDone = false;
 
+    // Constructor Function
     public Task(String taskString) {
         this.taskString = taskString;
         tasks[taskNumber] = this;
@@ -14,16 +17,30 @@ public class Task {
         System.out.println("I've Added the Task:");
         System.out.println(taskString);
     }
+
+    // Class mark function
     public static void mark(int taskIndex){
+        if (taskIndex < 0 || taskIndex >= taskNumber){ // Validity Check
+            System.out.println("Not possible Amigo, try again");
+            return;
+        }
         tasks[taskIndex].taskDone = true;
         System.out.println("Fantastica!!!! I marked it:");
         System.out.println(tasks[taskIndex].checkboxString());
     }
+
+    // Class unmark function
     public static void unmark(int taskIndex){
+        if (taskIndex < 0 || taskIndex >= taskNumber){ // Validity Check
+            System.out.println("Not possible Amigo, try again");
+            return;
+        }
         tasks[taskIndex].taskDone = false;
         System.out.println("Ay Caramba, I unmarked it:");
         System.out.println(tasks[taskIndex].checkboxString());
     }
+
+    // Function to create String with Checkbox and Task
     public String checkboxString(){
         String returnString = "[";
         if (this.taskDone){
@@ -34,6 +51,8 @@ public class Task {
         returnString += "] " + this.taskString;
         return returnString;
     }
+
+    // Function to print out task checklist
     public static void printTasksList(){
         if (taskNumber == 0){
             System.out.println("Por Favor? Nothing Here");

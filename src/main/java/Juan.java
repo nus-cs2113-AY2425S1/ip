@@ -1,46 +1,54 @@
 import java.util.Scanner;
 
 public class Juan {
-    private static String[] Strings = new String[100];
-    private static int stringsCounter = 0;
     public static void main(String[] args) {
         lineMessage();
         helloMessage();
         lineMessage();
-        chatFeature();
+
+        boolean continueChatting = true;
+        while (continueChatting) {
+            continueChatting = chatFeature();
+        }
         byeMessage();
         lineMessage();
     }
-    public static void chatFeature(){
-        boolean exit = false;
+    public static boolean chatFeature(){
+        // Less efficient to create a new scanner everytime but code is much neater
+        // If return True means continue
+        // Else End
+
         Scanner scanner = new Scanner(System.in);
-        while (!exit) {
-            String line = scanner.nextLine();
-            lineMessage();
-            if (line.equals("bye")) {
-                exit = true;
-                return;
-            } else if (line.equals("list")) {
-                Task.printTasksList();
-            } else {
-                // Check for mark and unmark
-                String[] parts = line.split(" ");
-                if (parts[0].equals("mark")){
-                    // Mark
-                    Task.mark(Integer.parseInt(parts[1]) - 1);
-                } else if (parts[0].equals("unmark")){
-                    // Unmark
-                    Task.unmark(Integer.parseInt(parts[1]) - 1);
-                } else {
-                    // else add task
-                    Task newTask = new Task(line);
-                }
+        String line = scanner.nextLine();
+        lineMessage();
 
-            }
-
-            lineMessage();
+        if (line.equals("bye")) {
+            return false;
+        } else if (line.equals("list")) {
+            Task.printTasksList();
+            return true;
         }
+
+        // Check for mark and unmark or just add task
+        String[] parts = line.split(" ");
+        if (parts[0].equals("mark")){
+            // Mark
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            Task.mark(taskIndex);
+        } else if (parts[0].equals("unmark")){
+            // Unmark
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            Task.unmark(taskIndex);
+        } else {
+            // else add task
+            Task newTask = new Task(line);
+        }
+
+        lineMessage();
+        return true;
     }
+
+    // Message Functions for cleaner main Function
     public static void lineMessage() {
         String line = "____________________________________________________________\n";
         System.out.print(line);
