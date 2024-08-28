@@ -1,17 +1,17 @@
 public class Apsea {
     public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________\n";
+        final String STRAIGHT_LINE = "    ________________________________________________________\n";
 
-        String helloMessage = horizontalLine
-                + "Hello! I'm Apsea!\n"
-                + "What can I do for you?\n"
-                + horizontalLine;
+        String helloMessage = STRAIGHT_LINE
+                + "    Hello! I'm Apsea!\n"
+                + "    What can I do for you?\n"
+                + STRAIGHT_LINE;
 
-        String byeMessage = horizontalLine
-                + "Bye. Hope to see you again soon!\n"
-                + horizontalLine;
+        String byeMessage = STRAIGHT_LINE
+                + "    Bye. Hope to see you again soon!\n"
+                + STRAIGHT_LINE;
 
-        System.out.println(helloMessage);
-        System.out.println(byeMessage);
+        System.out.print(helloMessage);
+        System.out.print(byeMessage);
     }
 }
