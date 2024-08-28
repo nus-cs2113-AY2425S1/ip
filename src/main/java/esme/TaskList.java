@@ -13,15 +13,22 @@ public class TaskList {
         return tasks.size();
     }
 
-    public String getMarkStatus (boolean mark) {
-        return mark? "[X] " : "[ ] ";
+    public String getMarkStatus(boolean isMark) {
+        return isMark ? "[X] " : "[ ] ";
     }
 
-    public void printTaskList () {
+    /**
+     * Prints out the task list. The output will be in the format:
+     * By the light of the moon, these are the tasks that guide your path:
+     * <index>. [X] <task name>
+     * <index>. [ ] <task name>
+     * ...
+     */
+    public void printTaskList() {
         System.out.println("\tBy the light of the moon, these are the tasks that guide your path:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println("\t" + (i + 1)  + "." + getMarkStatus(task.isCompleted()) + task.getName());
+            System.out.println("\t" + (i + 1) + "." + getMarkStatus(task.hasCompleted()) + task.getName());
         }
     }
 

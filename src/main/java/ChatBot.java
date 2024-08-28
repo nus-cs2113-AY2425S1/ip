@@ -4,6 +4,20 @@ import esme.Task;
 import java.util.Scanner;
 
 public class ChatBot {
+    /**
+     * The main entry point for the ChatBot program.
+     * It first greets the user, and then enters an infinite loop where it waits for
+     * user input.
+     * If the input is empty, it will prompt the user.
+     * If the input is "bye", it will say farewell to the user and terminate the
+     * program.
+     * If the input is "mark" or "unmark", it will mark or unmark a task with the
+     * given index.
+     * If the input is "list", it will print out the task list.
+     * Otherwise, it will add the input as a new task to the task list.
+     * 
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         Esme esme = new Esme();
         esme.greet();
@@ -15,36 +29,23 @@ public class ChatBot {
             String[] words = line.split(" ");
             if (words.length == 0) {
                 esme.promptEmptyInput();
-            } else if (words[0].equals("bye")) {
+            }
+            switch (words[0]) {
+            case "bye":
                 esme.farewell();
+                in.close();
+                System.exit(0);
                 break;
-            } else if (words[0].equals("mark")) {
-                if (words.length == 2) {
-                    int index = Integer.parseInt(words[1]);
-                    if (esme.isIndexValid(index)) {
-                        esme.markTaskInList(Integer.parseInt(words[1]));
-                    } else {
-                        System.out.println("Oh dear, it seems the index has wandered beyond the boundaries of our list!");
-                    }
-                } else {
-                    System.out.println("Error: Wrong format! Please use the format: command index (e.g., 'mark 1')");
-                }
-            } else if (words[0].equals("unmark")) {
-                if (words.length == 2) {
-                    int index = Integer.parseInt(words[1]);
-                    if (esme.isIndexValid(index)) {
-                        esme.unmarkTaskInList(Integer.parseInt(words[1]));
-                    } else {
-                        System.out.println("Oh dear, it seems the index has wandered beyond the boundaries of our list!");
-                    }
-                } else {
-                    System.out.println("Error: Wrong format! Please use the format: command index (e.g., 'unmark 1')");
-
-                }
-            } else if (line.equals("list")) {
+            case "mark":
+            case "unmark":
+                esme.handleTaskStatus(words);
+                break;
+            case "list":
                 esme.printTaskList();
-            } else {
+                break;
+            default:
                 esme.addTaskToList(new Task(line));
+                break;
             }
         }
     }

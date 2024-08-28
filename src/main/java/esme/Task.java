@@ -2,22 +2,22 @@ package esme;
 
 public class Task {
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
 
     public Task(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public boolean isCompleted() {
-        return this.completed;
+    public boolean hasCompleted() {
+        return this.isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }
