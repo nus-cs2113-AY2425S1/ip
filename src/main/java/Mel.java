@@ -9,6 +9,7 @@ public class Mel {
 
         String line;
         Scanner in = new Scanner(System.in);
+        List userList = new List();
 
         while (true) {
             line = in.nextLine();
@@ -19,9 +20,14 @@ public class Mel {
                 System.out.println("\tBye. Hope to see you again soon!");
                 System.out.println("\t________________________________________");
                 break;
-            } else {
-                System.out.println("\t" + line);
+            } else if (line.equals("list")) {
+                userList.printList();
                 System.out.println("\t________________________________________");
+
+            } else {
+                    System.out.println("\t" + "added: " + line);
+                    System.out.println("\t________________________________________");
+                    userList.addItem(line);
             }
         }
     }
