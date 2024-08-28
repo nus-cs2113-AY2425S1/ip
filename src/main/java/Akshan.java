@@ -15,10 +15,16 @@ public class Akshan {
             """;
 
 
+    /**
+     * Prints a horizontal line.
+     */
     private static void printLine(){
         System.out.println("_______________________________________________________________");
     }
 
+    /**
+     * Initializes the bot, prints the logo and a welcome message.
+     */
     private static void init(){
         System.out.println(logo);
         printLine();
@@ -27,9 +33,13 @@ public class Akshan {
         printLine();
     }
 
+    /**
+     * Exit bot, prints goodbye sequence.
+     */
     private static void bye(){
         printLine();
         System.out.println( "Bye. Hope to see you again soon!");
+        printLine();
     }
 
     public static void main(String[] args) {
@@ -41,15 +51,15 @@ public class Akshan {
         line = input.nextLine();
 
         while (!line.equals("bye")) {
+            String[] splitInput = line.split(" ");
             printLine();
+
             if (line.equals("list")) {
                 taskList.printList();
-            } else if (line.startsWith("mark")) {
-                String[] splitInput = line.split(" ");
+            } else if (splitInput.length == 2 && line.startsWith("mark")) {
                 int index = Integer.parseInt(splitInput[1]);
                 taskList.setItemStatus(index, true);
-            } else if (line.startsWith("unmark")) {
-                String[] splitInput = line.split(" ");
+            } else if (splitInput.length == 2 && line.startsWith("unmark")) {
                 int index = Integer.parseInt(splitInput[1]);
                 taskList.setItemStatus(index, false);
             } else {
