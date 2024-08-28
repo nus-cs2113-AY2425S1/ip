@@ -1,5 +1,3 @@
-import javax.lang.model.type.NullType;
-import java.nio.file.LinkPermission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,27 +8,28 @@ import java.util.Scanner;
 public class November {
 
     /**
-     * Prints a long line of underscores to mark the start of a print segment
+     * Prints a long line of underscores to mark the start of a print segment.
      */
     public static void beginSegment() {
         System.out.println("____________________________________________________________");
     }
 
     /**
-     * Prints a long line of underscores and newline to mark the end of a print segment
+     * Prints a long line of underscores and newline to mark the end of a print segment.
      */
     public static void endSegment() {
-        System.out.println("____________________________________________________________");
-        System.out.println();
+        System.out.println("____________________________________________________________\n");
     }
 
     /**
-     * Prints a numbered list of tasks with completion status indicator.
+     * Prints a numbered list of tasks with a completion status indicator.
+     *
+     * @param taskList The list of tasks to print, each task displaying its completion status.
      */
     public static void printTaskList(List<Task> taskList) {
         int index = 0;
         while(index < taskList.size()){
-            System.out.println(index+1 + ".[" + taskList.get(index).getStatusIcon() + "] "
+            System.out.println(index + 1 + ".[" + taskList.get(index).getStatusIcon() + "] "
                     + taskList.get(index).getDescription());
             index++;
         }
@@ -38,6 +37,8 @@ public class November {
 
     /**
      * Main method of the November chatbot.
+     *
+     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
         beginSegment();
@@ -77,7 +78,7 @@ public class November {
             case "list":
                 // Prints a list of all tasks, indicating their completion status.
                 beginSegment();
-//                System.out.println("Here are the tasks in your list:");
+                System.out.println("Here are the tasks in your list:");
                 printTaskList(taskList);
                 endSegment();
                 break;
