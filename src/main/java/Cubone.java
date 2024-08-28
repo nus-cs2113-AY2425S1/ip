@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Cubone {
     public static void main(String[] args) {
         String logo =   
@@ -7,19 +8,32 @@ public class Cubone {
             " / /   / / / / __ \\/ __ \\/ __ \\/ _ \\\n"+
             "/ /___/ /_/ / /_/ / /_/ / / / /  __/    \n"+
             "\\____/\\__,_/_.___/\\____/_/ /_/\\___/ \n";
+        String chat_prefix = "\n(Cubone) ";
+        String chat_bar = "---------------------------------";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Cubone\nWhat can I do for you?");
+        System.out.println("Hello! I'm Cubone\nWhat can I do for you?\n" + chat_bar);
+
+        // list to store user input
+        ArrayList<String> user_inputs = new ArrayList<String>();
 
         // loop for user input
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
-            String chat_prefix = "(Cubone) ";
             if (input.equals("bye")) {
-                System.out.println(chat_prefix + "Bye. Hope to see you again soon!");
+                System.out.println(chat_bar + chat_prefix + "Bye. Hope to see you again soon!\n" + chat_bar);
                 break;
+            } else if (input.equals("list")) {
+                // print all user inputs
+                System.out.println(chat_bar + chat_prefix + "Here are the tasks in your list:");
+                for (int i = 0; i < user_inputs.size(); i++) {
+                    System.out.println((i+1) + ". " + user_inputs.get(i));
+                }
+                System.out.println(chat_bar);
             } else {
-                System.out.println(chat_prefix + input);
+                // add user input into list
+                user_inputs.add(input);
+                System.out.println(chat_bar + chat_prefix + "added: "+ input + "\n" + chat_bar);
             }
         }
     }
