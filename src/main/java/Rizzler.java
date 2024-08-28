@@ -1,45 +1,57 @@
 import java.util.Scanner;
 
 public class Rizzler {
+    Emoji emoji = new Emoji();
 
-    public static void echo() {
+    public void displayMenu() {
+        System.out.println("What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji());
+        String menu = """
+                  --------------------------------------------------------
+                  1. Just type in a task, and Rizzler's got it handled!
+                  2. Need the full rundown? Type 'list' and I’ll drop the goods!
+                  3. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
+                  --------------------------------------------------------
+                  """;
+
+        System.out.println(menu);
+    }
+
+    public void echo() {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
-        String coolFaceEmoji = "\uD83D\uDE0E";
-        String fistBumpEmoji = "\uD83D\uDC4A";
-        String rockstarHandEmoji = "\uD83E\uDD1F\uD83C\uDFFD";
-        String fireEmoji = "\uD83D\uDD25";
+        Task task = new Task();
 
         while (!command.equals("bye")) {
-            if (command.contains("!")) {
-                System.out.println(command + " " + rockstarHandEmoji + fireEmoji);
+            if (command.equals("list")) {
+                task.displayTaskList();
             }
             else {
-                System.out.println(command + " " + rockstarHandEmoji);
+                task.addTask(command);
             }
             command = scanner.nextLine();
         }
-
-        System.out.println("Peace out, Rizzler’s got places to be! " + coolFaceEmoji + fistBumpEmoji);
+        System.out.println("Peace out, Rizzler’s got places to be! " + emoji.getCoolFaceEmoji() + emoji.getFistBumpEmoji());
     }
+
     public static void main(String[] args) {
         String logo =
-                  " _____                          _ \n"
-                + "|     \\                        | | \n"
-                + "| |_)  |      ______   ______  | |   ____    _  __ \n"
-                + "|     /  (_) |__   /  |__   /  | | /      \\ | |/  \\ \n"
-                + "| |\\ \\   | |   /  /     /  /   | | |  ____/ |  _/\\_\\ \n"
-                + "| | \\ \\  | |  /  / __  /  / __ | | | |____  | |  \n"
-                + "|_|  \\_\\ |_| /______/ /______/ |_|  \\_____| |_| \n";
+                """
+                         _____                          _\s
+                        |     \\                        | |\s
+                        | |_)  |      ______   ______  | |   ____    _  __\s
+                        |     /  (_) |__   /  |__   /  | | /      \\ | |/  \\\s
+                        | |\\ \\   | |   /  /     /  /   | | |  ____/ |  _/\\_\\\s
+                        | | \\ \\  | |  /  / __  /  / __ | | | |____  | | \s
+                        |_|  \\_\\ |_| /______/ /______/ |_|  \\_____| |_|\s
+                        """;
 
-
-        String partyPopperEmoji = "\uD83C\uDF89";
-        String rocketEmoji = "\uD83D\uDE80";
+        Emoji emoji = new Emoji();
+        Rizzler rizzler = new Rizzler();
 
         System.out.println(logo);
         System.out.println("Yo! I'm Rizzler.");
-        System.out.println("What can I do to make your day pop? " + partyPopperEmoji + rocketEmoji);
-        echo();
+        rizzler.displayMenu();
+        rizzler.echo();
     }
 }
