@@ -22,17 +22,20 @@ public class Blossom {
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
 
-        String line = input.nextLine();
-        if(!line.equalsIgnoreCase("bye")) {
-                while(input.hasNext()) {
-                    System.out.println(horizontalLine);
-                    System.out.println(line);
-                    System.out.println(horizontalLine);
-                }
-        } else {
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println(horizontalLine);
-            input.close(); 
+        // Repeatedly takes in input until it's a key word
+
+        while(input.hasNext()) {
+            String line = input.nextLine();
+            if(!line.equalsIgnoreCase("bye")) {
+                System.out.println(horizontalLine);
+                System.out.println(line);
+                System.out.println(horizontalLine);
+            } else {
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(horizontalLine);
+                input.close();
+                System.exit(0);
+            }
         }
     }
 }
