@@ -1,7 +1,11 @@
 public class Atom {
+    public static void divider() {
+        System.out.println("__________________________________________________");
+    }
+
     public static void main(String[] args) {
 
-        System.out.println("__________________________________________________\n");
+        divider();
 
         String logo = "    ____   __________  ________  __       __\n"
                     + "   / __ \\ |___    ___||  ____  ||  \\     /  |\n"
@@ -11,15 +15,15 @@ public class Atom {
 
         System.out.println(logo);
 
-        System.out.println("__________________________________________________");
+        divider();
 
         System.out.println("Hey there! I'm your friendly chatbot, ATOM!");
         System.out.println("How can i assist you today?");
 
-        System.out.println("__________________________________________________");
+        divider();
 
         System.out.println("Bye Bye. See ya soon!");
 
-        System.out.println("__________________________________________________");
+        divider();
     }
 }
