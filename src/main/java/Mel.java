@@ -12,6 +12,7 @@ public class Mel {
         List userList = new List();
 
         while (true) {
+            System.out.print(System.lineSeparator());
             line = in.nextLine();
             System.out.println("\t________________________________________");
 
@@ -23,7 +24,12 @@ public class Mel {
             } else if (line.equals("list")) {
                 userList.printList();
                 System.out.println("\t________________________________________");
-
+            } else if (line.substring(0, 4).equals("mark")) {
+                userList.markItem(line);
+                System.out.println("\t________________________________________");
+            } else if (line.substring(0, 6).equals("unmark")) {
+                userList.unmarkItem(line);
+                System.out.println("\t________________________________________");
             } else {
                     System.out.println("\t" + "added: " + line);
                     System.out.println("\t________________________________________");
