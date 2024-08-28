@@ -27,6 +27,7 @@ public class Echo {
             // Print user input if bye is not the input
             if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 System.out.println(taskList.displayTasks());
                 System.out.println("____________________________________________________________");
             }else if (!userInput.equalsIgnoreCase("bye")) {

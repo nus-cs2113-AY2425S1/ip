@@ -1,13 +1,13 @@
 public class TaskList {
     private int taskNumber;
-    private String[] tasks;
+    private TaskMarker[] tasks;
 
     //Constructor for TaskList
     public TaskList(){
         taskNumber = 0;
 
         //Assume there will be no more than 100 tasks
-        tasks = new String[100];
+        tasks = new TaskMarker[100];
     }
 
     //Storage of new task
@@ -15,7 +15,7 @@ public class TaskList {
         if (taskNumber >= tasks.length){
             return;
         }
-        tasks[taskNumber] = task;
+        tasks[taskNumber] = new TaskMarker(task);
         taskNumber += 1;
     }
 
@@ -25,6 +25,20 @@ public class TaskList {
         for (int i = 0; i < taskNumber; i += 1) {
             taskList += (i + 1) + ". " + tasks[i] + "\n";
         }
-        return taskList;
+        return taskList.toString();
+    }
+
+    //Method for marking tasks
+    public String markTaskAsDone(int index) {
+        TaskMarker taskmarker = tasks[index - 1];
+        taskmarker.setAsDone();
+        return "Nice! I've marked this task as done:\n" + taskmarker;
+    }
+
+    //Method for unmarking tasks
+    public String markTaskAsNotDone(int index) {
+        TaskMarker taskmarker = tasks[index - 1];
+        taskmarker.setAsUndone();
+        return "OK, I've marked this task as not done yet:\n" + taskmarker;
     }
 }
