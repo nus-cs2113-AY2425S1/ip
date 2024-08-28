@@ -15,25 +15,44 @@ public class Apsea {
         System.out.println("    Bye. Hope to see you again soon");
         printLine();
     }
-    public static void printResponse(String line) {
+    public static void addTask(String line, String[] tasks, int count) {
+        tasks[count] = line;
+
         printLine();
-        System.out.println("    " + line);
+        System.out.println("    added task: " + line);
         printLine();
     }
+    public static void listTasks(String[] tasks, int count) {
+        printLine();
+        for (int i = 0; i < count; i++) {
+            System.out.println("    " + (i+1) + ". " + tasks[i]);
+        }
+        printLine();
+    }
+
     public static void main(String[] args) {
         printHello();
 
         String line;
         boolean isExit = false;
+        String[] tasks = new String[100];
+        int count = 0;
 
         do {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
-            if (line.equals("bye")) {
+            switch (line) {
+            case "bye":
                 isExit = true;
                 printBye();
-            } else {
-                printResponse(line);
+                break;
+            case "list":
+                listTasks(tasks, count);
+                break;
+            default:
+                addTask(line, tasks, count);
+                count++;
+                break;
             }
         } while (!isExit);
     }
