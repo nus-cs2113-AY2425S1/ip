@@ -10,7 +10,11 @@ public class TaskList {
         tasks = new TaskMarker[100];
     }
 
-    //Storage of new task
+    /**
+     * Storage of new task in the task list.
+     *
+     * @param task Name of the task is added.
+     */
     public void storeTask(String task){
         if (taskNumber >= tasks.length){
             return;
@@ -19,7 +23,11 @@ public class TaskList {
         taskNumber += 1;
     }
 
-    //Displaying of all task in array
+    /**
+     * Displays all tasks in the array.
+     *
+     * @return A string representing all the tasks.
+     */
     public String displayTasks() {
         String taskList = "";
         for (int i = 0; i < taskNumber; i += 1) {
@@ -28,23 +36,33 @@ public class TaskList {
         return taskList.toString();
     }
 
-    //Method for marking tasks
+    /**
+     * Marks the task as done.
+     *
+     * @param index The task number to be marked as done.
+     * @return A confirmation message.
+     */
     public String markTaskAsDone(int index) {
         if (index < 1 || index > taskNumber) {
             return "Invalid task number.";
         }
-        TaskMarker taskmarker = tasks[index - 1];
-        taskmarker.setAsDone();
-        return "Nice! I've marked this task as done:\n" + taskmarker;
+        TaskMarker taskMarker = tasks[index - 1];
+        taskMarker.setAsDone();
+        return "Nice! I've marked this task as done:\n" + taskMarker;
     }
 
-    //Method for unmarking tasks
+    /**
+     * Marks the task as undone.
+     *
+     * @param index The task number to be marked as undone.
+     * @return A confirmation message.
+     */
     public String markTaskAsNotDone(int index) {
         if (index < 1 || index > taskNumber) {
             return "Invalid task number.";
         }
-        TaskMarker taskmarker = tasks[index - 1];
-        taskmarker.setAsUndone();
-        return "OK, I've marked this task as not done yet:\n" + taskmarker;
+        TaskMarker taskMarker = tasks[index - 1];
+        taskMarker.setAsUndone();
+        return "OK, I've marked this task as not done yet:\n" + taskMarker;
     }
 }
