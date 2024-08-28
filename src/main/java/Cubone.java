@@ -21,6 +21,7 @@ public class Cubone {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             if (input.equals("bye")) {
+                // exit loop
                 System.out.println(chat_bar + chat_prefix + "Bye. Hope to see you again soon!\n" + chat_bar);
                 break;
             } else if (input.equals("list")) {
@@ -31,17 +32,17 @@ public class Cubone {
                 }
                 System.out.println(chat_bar);
             } else if(input.contains("mark") && !input.contains("unmark")){
+                // mark task as done
                 String[] split = input.split(" ");
                 int index = Integer.parseInt(split[1]);
                 inputed_tasks.get(index-1).markAsDone();
-                System.out.println(chat_bar + chat_prefix + "Nice! I've marked this task as done:\n" + 
-                                    inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
+                System.out.println(chat_bar + chat_prefix + "Nice! I've marked this task as done:\n" + inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
             } else if(input.contains("unmark")){
+                // mark task as undone
                 String[] split = input.split(" ");
                 int index = Integer.parseInt(split[1]);
                 inputed_tasks.get(index-1).markAsUndone();
-                System.out.println(chat_bar + chat_prefix + "Nice! I've unmarked this task as done:\n" + 
-                                    inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
+                System.out.println(chat_bar + chat_prefix + "Nice! I've unmarked this task as done:\n" + inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
             } else {
                 // add user input into list
                 inputed_tasks.add(new Task(input));
