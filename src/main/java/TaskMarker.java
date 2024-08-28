@@ -22,7 +22,11 @@ public class TaskMarker {
         this.isDone = false;
     }
 
-    //Method to convert icon to string
+    /**
+     * Adds status icon and converts to a string for the task.
+     *
+     * @return string of either "[X] description" or "[ ] description".
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
