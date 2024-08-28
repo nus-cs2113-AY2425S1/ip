@@ -27,13 +27,13 @@ public class Blossom {
         System.out.println(horizontalLine);
     }
 
-    public static void markAndUnmarkItem(int itemIndex) {
+    public static void markAndUnmarkItem(int itemIndex, String action) {
         itemIndex--;
         // If this item is marked - change boolean
         Task item = listOfItems.get(itemIndex);
         if (item != null) {
             System.out.println(horizontalLine);
-            if(!item.getStatusIcon().equals("[X]")) {
+            if(action.equalsIgnoreCase("mark")) {
                 item.markAsDone();
                 System.out.println("Yayy~~ Good job in getting this done!");
                 System.out.println(item.toString());
@@ -71,7 +71,7 @@ public class Blossom {
                 else if(line.contains("mark") || line.contains("unmark")) {
                     // Call the unmark and mark function
                     String[] parsedLine = line.split(" ");
-                    markAndUnmarkItem(Integer.parseInt(parsedLine[1]));
+                    markAndUnmarkItem(Integer.parseInt(parsedLine[1]), parsedLine[0]);
                 }
                 else {
                     addTask(line);
