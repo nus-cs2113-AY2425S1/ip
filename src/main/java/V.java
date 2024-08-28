@@ -21,10 +21,11 @@ public class V {
         printBlock("Hi I'm V\nWhat can I do for you?");
     }
 
-    public static void displayList(Task[] list, int length) {
+    public static void displayList(Task[] listOfTasks, int length) {
         System.out.println(LINE_SEPERATOR);
         for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d.[%s] %s", i + 1, list[i].getStatus(), list[i].getDescription()));
+            System.out.println(String.format("%d.[%s] %s", i + 1, listOfTasks[i].getStatus(), 
+                    listOfTasks[i].getDescription()));
         }
         System.out.println(LINE_SEPERATOR);
     }
@@ -33,7 +34,7 @@ public class V {
         greet();
 
         boolean isOnline = true;
-        Task[] list = new Task[100];
+        Task[] listOfTasks = new Task[100];
         int count = 0;
         String line;
         String[] lineArr;
@@ -46,13 +47,13 @@ public class V {
                 input.close();
                 isOnline = false;
             } else if (lineArr[0].equals("list")) {
-                displayList(list, count);
+                displayList(listOfTasks, count);
             } else if (lineArr[0].equals("mark")) {
                 int position = Integer.parseInt(lineArr[1]);
-                list[position - 1].markAsDone();
-                displayList(list, count);
+                listOfTasks[position - 1].setDone();
+                displayList(listOfTasks, count);
             } else {
-                list[count] = new Task(line);
+                listOfTasks[count] = new Task(line);
                 count++;
                 printBlock("added: " + line);
             }
