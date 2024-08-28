@@ -4,6 +4,8 @@ public class lovespiritual {
     public static void main(String[] args) {
         String line = "________________________________________________________";
         Scanner in = new Scanner(System.in);
+        String[] list = new String[100];
+        int count = 0;
 
         System.out.println(line);
         System.out.println("Hello! I'm lovespiritual");
@@ -18,9 +20,17 @@ public class lovespiritual {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(line);
                 break;
-            } else {
+            } else if (input.equalsIgnoreCase("list")) {
                 System.out.println(line);
-                System.out.println(input);
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + list[i]);
+                }
+                System.out.println(line);
+            } else {
+                list[count] = input;
+                count++;
+                System.out.println(line);
+                System.out.println("added: " + input);
                 System.out.println(line);
             }
         }
