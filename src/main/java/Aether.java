@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Aether {
     private boolean isExit = false;
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
     private int taskCount = 0;
 
     public static void main(String[] args) {
@@ -23,13 +23,29 @@ public class Aether {
     }
 
     private void handleCommand(String command) {
-        switch (command.toLowerCase()) {
+        int index = 0;
+
+        command = command.trim();
+        String[] commandParts = command.split(" ", 2);
+        String commandName = commandParts[0].toLowerCase();
+
+        String arguments = commandParts.length > 1 ? commandParts[1] : "";
+
+        switch (commandName) {
         case "bye":
             isExit = true;
             Display.showEndScreen();
             break;
         case "list":
             listTasks();
+            break;
+        case "mark":
+            index = Integer.parseInt(arguments) - 1;
+            markTaskStatus(index, true);
+            break;
+        case "unmark":
+            index = Integer.parseInt(arguments) - 1;
+            markTaskStatus(index, false);
             break;
         default:
             addTask(command);
@@ -38,11 +54,11 @@ public class Aether {
         Display.printSeparator();
     }
 
-    private void addTask(String task) {
+    private void addTask(String description) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = task;
+            tasks[taskCount] = new Task(description);
             taskCount++;
-            Display.response("added: " + task);
+            Display.response("added: " + description);
         } else {
             Display.response("Task list is full. Sorry!");
         }
@@ -54,9 +70,39 @@ public class Aether {
         } else {
             Display.response("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+                System.out.println((i + 1) + ".[" + tasks[i].getStatus() + "] " + tasks[i].getDescription());
             }
         }
+    }
+
+    private void markTaskStatus(int index, boolean isDone) {
+        tasks[index].setDone(isDone);
+        String message = isDone
+                ? "Nice! I've marked this task as done:\n"
+                : "OK, I've marked this task as not done yet:\n";
+        Display.response(message + (index + 1) + ".[" + tasks[index].getStatus() + "] " + tasks[index].getDescription());
+    }
+}
+
+class Task {
+    protected String description;
+    protected boolean isDone;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
+    public String getStatus() {
+        return (isDone ? "✓" : " ");
     }
 }
 
