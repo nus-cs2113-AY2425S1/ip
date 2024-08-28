@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Lia is a simple chatbot program that helps users manage tasks.
+ */
 public class Lia {
 
     public static void main(String[] args) {
@@ -47,7 +50,7 @@ public class Lia {
                     tasks[taskIndex].markAsDone();
                     printLine();
                     System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("       " + tasks[taskIndex].toString());
+                    System.out.println("      " + tasks[taskIndex].toString());
                     printLine();
                 }
             } else if (inputArr[0].equalsIgnoreCase("unmark")) {
@@ -73,7 +76,9 @@ public class Lia {
         scanner.close();
     }
 
-    // Function to print the line
+    /**
+     * Prints a line separator.
+     */
     public static void printLine() {
         System.out.println("    ___________________________________________________________");
     }
