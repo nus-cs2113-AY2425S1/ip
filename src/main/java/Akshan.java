@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Akshan {
 
-    private static final String name = "Akshan";
-    private static final String logo = """
+    private static final String NAME = "Akshan";
+    private static final String LOGO = """
  
              ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░ \s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░\s
@@ -26,9 +26,9 @@ public class Akshan {
      * Initializes the bot, prints the logo and a welcome message.
      */
     private static void init(){
-        System.out.println(logo);
+        System.out.println(LOGO);
         printLine();
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
         printLine();
     }
