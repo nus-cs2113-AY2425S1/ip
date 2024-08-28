@@ -32,7 +32,7 @@ public class Wildpeace {
             {
                 for(int i = 0; i < dataIndex; i++)
                 {
-                    System.out.println(dataIndex + ". " + storedItem);
+                    System.out.println(dataIndex + ". " + storedItems[i]);
                 }
             }
             storedItems[dataIndex] = line;
