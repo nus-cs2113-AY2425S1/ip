@@ -14,7 +14,7 @@ public class Cubone {
         System.out.println("Hello! I'm Cubone\nWhat can I do for you?\n" + chat_bar);
 
         // list to store user input
-        ArrayList<String> user_inputs = new ArrayList<String>();
+        ArrayList<Task> inputed_tasks = new ArrayList<Task>();
 
         // loop for user input
         while (true) {
@@ -26,13 +26,25 @@ public class Cubone {
             } else if (input.equals("list")) {
                 // print all user inputs
                 System.out.println(chat_bar + chat_prefix + "Here are the tasks in your list:");
-                for (int i = 0; i < user_inputs.size(); i++) {
-                    System.out.println((i+1) + ". " + user_inputs.get(i));
+                for (int i = 0; i < inputed_tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + inputed_tasks.get(i).toString());
                 }
                 System.out.println(chat_bar);
+            } else if(input.contains("mark") && !input.contains("unmark")){
+                String[] split = input.split(" ");
+                int index = Integer.parseInt(split[1]);
+                inputed_tasks.get(index-1).markAsDone();
+                System.out.println(chat_bar + chat_prefix + "Nice! I've marked this task as done:\n" + 
+                                    inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
+            } else if(input.contains("unmark")){
+                String[] split = input.split(" ");
+                int index = Integer.parseInt(split[1]);
+                inputed_tasks.get(index-1).markAsUndone();
+                System.out.println(chat_bar + chat_prefix + "Nice! I've unmarked this task as done:\n" + 
+                                    inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
             } else {
                 // add user input into list
-                user_inputs.add(input);
+                inputed_tasks.add(new Task(input));
                 System.out.println(chat_bar + chat_prefix + "added: "+ input + "\n" + chat_bar);
             }
         }
