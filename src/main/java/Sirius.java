@@ -74,7 +74,6 @@ public class Sirius {
                     System.out.println("added: " + userInput);
                     System.out.println("-----------------------\n");
                 }
-
             } else {
                 System.out.println("Bye! Hope to see you soon.");
                 break;
