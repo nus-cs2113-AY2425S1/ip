@@ -7,10 +7,30 @@ public class Esme {
         taskList = new TaskList();
     }
 
-    public void addTask(Task task) {
+    public void addTaskToList(Task task) {
         displayLine(true);
         taskList.addTask(task);
         System.out.println("\tThe stars have aligned and " + task.getName() + " is now part of your destiny!" );
+        displayLine(true);
+    }
+
+    public boolean isIndexValid(int index) {
+        return index <= taskList.numberOfTasks() && index >= 0;
+    }
+
+    public void markTaskInList(int taskIndex) {
+        taskList.markTask(taskIndex - 1);
+        displayLine(true);
+        System.out.println("\tOutstanding! This task is marked as done, and your destiny shines brighter.");
+        System.out.println("\t  [X] " + taskList.getTask(taskIndex - 1).getName());
+        displayLine(true);
+    }
+
+    public void unmarkTaskInList(int taskIndex) {
+        taskList.unmarkTask(taskIndex - 1);
+        displayLine(true);
+        System.out.println("\tFear not, for this task remains unfinished. We shall conquer it in due time!");
+        System.out.println("\t  [] " + taskList.getTask(taskIndex - 1).getName());
         displayLine(true);
     }
 
@@ -27,9 +47,9 @@ public class Esme {
 
     public void displayLine (boolean hasIndent) {
         if (hasIndent) {
-            System.out.println("\t──────────────────────────────────────────────────");
+            System.out.println("\t────────────────────────────────────────────────────────────────────────────────────────────────────");
         } else {
-            System.out.println("──────────────────────────────────────────────────");
+            System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────────");
         }
     }
     public void greet () {
@@ -52,4 +72,9 @@ public class Esme {
         System.out.println("\t" + message);
         displayLine(true);
     }
+
+    public void promptEmptyInput() {
+        System.out.println("The stars are silent... Please share your thoughts so I can guide you on your path.");
+    }
+
 }

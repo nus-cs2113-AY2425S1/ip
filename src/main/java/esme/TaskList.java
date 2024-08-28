@@ -9,6 +9,10 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
+    public int numberOfTasks() {
+        return tasks.size();
+    }
+
     public String getMarkStatus (boolean mark) {
         return mark? "[X] " : "[ ] ";
     }
@@ -25,4 +29,15 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public void markTask(int taskIndex) {
+        tasks.get(taskIndex).setCompleted(true);
+    }
+
+    public void unmarkTask(int taskIndex) {
+        tasks.get(taskIndex).setCompleted(false);
+    }
+
+    public Task getTask(int taskIndex) {
+        return tasks.get(taskIndex);
+    }
 }
