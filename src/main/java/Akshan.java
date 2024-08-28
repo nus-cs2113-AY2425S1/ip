@@ -35,7 +35,7 @@ public class Akshan {
     public static void main(String[] args) {
         String line;
         Scanner input = new Scanner(System.in);
-        StringList list = new StringList();
+        TaskList taskList = new TaskList();
 
         init();
         line = input.nextLine();
@@ -43,10 +43,17 @@ public class Akshan {
         while (!line.equals("bye")) {
             printLine();
             if (line.equals("list")) {
-                list.printList();
-            }
-            else {
-                list.addItem(line);
+                taskList.printList();
+            } else if (line.startsWith("mark")) {
+                String[] splitInput = line.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                taskList.setItemStatus(index, true);
+            } else if (line.startsWith("unmark")) {
+                String[] splitInput = line.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                taskList.setItemStatus(index, false);
+            } else {
+                taskList.addItem(line);
                 System.out.println("added: " + line);
             }
             printLine();
