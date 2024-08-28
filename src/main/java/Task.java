@@ -12,7 +12,7 @@ public class Task {
     }
 
     public void printTask() {
-        PrintUtils.println(this.description);
+        PrintUtils.print(this.description);
     }
 
     public void markDone() {
