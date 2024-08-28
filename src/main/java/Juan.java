@@ -21,16 +21,21 @@ public class Juan {
                 exit = true;
                 return;
             } else if (line.equals("list")) {
-                if (stringsCounter == 0) {
-                    System.out.println("Por Favor? Nothing Here");
-                }
-                for (int i = 0; i < stringsCounter; i++) {
-                    System.out.println((i + 1) + ". " + Strings[i]);
-                }
+                Task.printTasksList();
             } else {
-                Strings[stringsCounter] = line;
-                stringsCounter++;
-                System.out.println("Added: " + line);
+                // Check for mark and unmark
+                String[] parts = line.split(" ");
+                if (parts[0].equals("mark")){
+                    // Mark
+                    Task.mark(Integer.parseInt(parts[1]) - 1);
+                } else if (parts[0].equals("unmark")){
+                    // Unmark
+                    Task.unmark(Integer.parseInt(parts[1]) - 1);
+                } else {
+                    // else add task
+                    Task newTask = new Task(line);
+                }
+
             }
 
             lineMessage();
@@ -41,13 +46,26 @@ public class Juan {
         System.out.print(line);
     }
     public static void helloMessage() {
-        String greeting = "Hola Amigo, I am Juan Jose Santiago from Michoacan\n"
-                + "Welcome to la familia\n"
-                + "What I do for you??\n";
+        String greeting =
+            "               ._-'-_ .\n" +
+            "          . '  /_-_-_\\   ` .\n" +
+            "       .'     |-_-_-_-|      `.\n" +
+            "      (       `.-_-_-.'        )\n" +
+            "      !`.                    .'!\n" +
+            "        ! ` .            . ' !\n" +
+            "          ! ! ! ! ! ! ! !  !\n" +
+            "            / /       \\ \\\n" +
+            "          _-| \\___ ___/ /-_\n" +
+            "         (_ )__\\_)\\(_/__( _)\n" +
+            "             ))))\\X\\ ((((\n" +
+            "               \\/ \\/ \n" +
+            "Hola Amigo, I am Juan Cervantes Salamanca from Michoacan \n" +
+            "Welcome to la familia \n" +
+            "How can we help you? \n";
         System.out.print(greeting);
     }
     public static void byeMessage() {
-        String bye = "Adios amigo mucha gracias\n";
+        String bye = "Adios amigo, la familia will miss you\n";
         System.out.print(bye);
     }
 
