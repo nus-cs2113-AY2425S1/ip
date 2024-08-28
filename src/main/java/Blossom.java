@@ -1,7 +1,7 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Blossom {
-    private static int numberOfItems = 0;
     private static String horizontalLine = "____________________________________________________________";
     private static String logo =
             """
@@ -14,31 +14,41 @@ public class Blossom {
                     | (_{;}_) | `-'`-'|___\\ `"/  \\  ) / \\    `-'  |\\    `-'  | \\ `"/  \\  ) / |  (_,_)  |  |\s
                     |  (_,_)  /  |        \\'. \\_/``".'   \\       /  \\       /   '. \\_/``".'  |  |      |  |\s
                     /_______.'   `--------`  '-----'      `-...-'    `-...-'      '-----'    '--'      '--'""";
-    private static String[] listOfItems = new String[100];
+    private static ArrayList<Task> listOfItems = new ArrayList<Task>();
 
-    public static void printItems(String[] listOfItems) {
+    public static void printItems() {
         // Print items in order
-        int index = 0;
         int orderInList = 1;
-        // Print the list until the current item is empty - we've reached the end of the list
         System.out.println(horizontalLine);
-        while(listOfItems[index] != null) {
-            System.out.println(orderInList+ ". " + listOfItems[index]);
-            index++;
+        for(Task item : listOfItems) {
+            System.out.println(orderInList+ ". " + item.toString());
             orderInList++;
         }
         System.out.println(horizontalLine);
     }
 
-    public static void addItems(String[] listOfItems, String input) {
-        listOfItems[numberOfItems] = input;
-        numberOfItems++;
+    public static void markAndUnmarkItem(int itemIndex) {
+        itemIndex--;
+        // If this item is marked - change boolean
+        Task item = listOfItems.get(itemIndex);
+        if (item != null) {
+            System.out.println(horizontalLine);
+            if(!item.getStatusIcon().equals("[X]")) {
+                item.markAsDone();
+                System.out.println("Yayy~~ Good job in getting this done!");
+                System.out.println(item.toString());
+            } else {
+                item.markAsUndone();
+                System.out.println("Hope you get this done soon! :D");
+                System.out.println(item.toString());
+            }
+            System.out.println(horizontalLine);
+        }
     }
 
-    public static void printItem(String input) {
-        System.out.println(horizontalLine);
-        System.out.println("added: " + input);
-        System.out.println(horizontalLine);
+    public static void addTask(String input) {
+        Task item = new Task(input);
+        listOfItems.add(item);
     }
 
     public static void printIntro() {
@@ -52,16 +62,22 @@ public class Blossom {
         printIntro();
         Scanner input = new Scanner(System.in);
         // Repeatedly takes in input until it's a key word
-
         while(input.hasNext()) {
             String line = input.nextLine();
             if(!line.equalsIgnoreCase("bye")) {
                 if(line.equalsIgnoreCase("list")) {
-                    printItems(listOfItems);
+                    printItems();
+                }
+                else if(line.contains("mark") || line.contains("unmark")) {
+                    // Call the unmark and mark function
+                    String[] parsedLine = line.split(" ");
+                    markAndUnmarkItem(Integer.parseInt(parsedLine[1]));
                 }
                 else {
-                    addItems(listOfItems, line);
-                    printItem(line);
+                    addTask(line);
+                    System.out.println(horizontalLine);
+                    System.out.println("added: " + line);
+                    System.out.println(horizontalLine);
                 }
             } else {
                 System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
