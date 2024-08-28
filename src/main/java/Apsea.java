@@ -1,17 +1,40 @@
+import java.util.Scanner;
+
 public class Apsea {
+    public static void printLine() {
+        System.out.println("    ________________________________________________________");
+    }
+    public static void printHello() {
+        printLine();
+        System.out.println("    Hello! I'm Apsea!\n"
+                + "    What can I do for you?");
+        printLine();
+    }
+    public static void printBye() {
+        printLine();
+        System.out.println("    Bye. Hope to see you again soon");
+        printLine();
+    }
+    public static void printResponse(String line) {
+        printLine();
+        System.out.println("    " + line);
+        printLine();
+    }
     public static void main(String[] args) {
-        final String STRAIGHT_LINE = "    ________________________________________________________\n";
+        printHello();
 
-        final String helloMessage = STRAIGHT_LINE
-                + "    Hello! I'm Apsea!\n"
-                + "    What can I do for you?\n"
-                + STRAIGHT_LINE;
+        String line;
+        boolean isExit = false;
 
-        final String byeMessage = STRAIGHT_LINE
-                + "    Bye. Hope to see you again soon!\n"
-                + STRAIGHT_LINE;
-
-        System.out.print(helloMessage);
-        System.out.print(byeMessage);
+        do {
+            Scanner in = new Scanner(System.in);
+            line = in.nextLine();
+            if (line.equals("bye")) {
+                isExit = true;
+                printBye();
+            } else {
+                printResponse(line);
+            }
+        } while (!isExit);
     }
 }
