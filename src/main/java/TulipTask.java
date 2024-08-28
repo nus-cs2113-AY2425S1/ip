@@ -11,6 +11,8 @@ public class TulipTask {
                 "  `  `---'`---'`|---'  `  `---^`---'`   `\n" +
                 "                |";
 
+        ArrayList<String> list = new ArrayList<String>();
+
         System.out.println(logo);
 
         System.out.println("--------------------------------------------");
@@ -26,6 +28,12 @@ public class TulipTask {
                 break;
             }
 
+            if (Objects.equals(input.toLowerCase(), "list")) {
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i));
+                }
+            }
+            list.add(input);
             echo(input);
         }
 
@@ -37,7 +45,7 @@ public class TulipTask {
 
     public static void echo (String input) {
         System.out.println("--------------------------------------------");
-        System.out.println(input);
+        System.out.println("added: " + input);
         System.out.println("--------------------------------------------");
     }
 }
