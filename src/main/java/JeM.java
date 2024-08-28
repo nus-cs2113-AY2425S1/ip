@@ -25,6 +25,7 @@ public class JeM {
 
         while(true){
             String line = scanner.nextLine();
+            Task task = new Task(line);
 
             if (line.equals("Bye") || line.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
@@ -48,7 +49,7 @@ public class JeM {
                 storage.storageList();
             } else {
                 System.out.println("added: " + line);
-                storage.storageInsert(line);
+                storage.storageInsert(task);
             }
 
         }
