@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Aether {
     private boolean isExit = false;
+    private String[] tasks = new String[100];
+    private int taskCount = 0;
 
     public static void main(String[] args) {
         Aether aether = new Aether();
@@ -22,15 +24,39 @@ public class Aether {
 
     private void handleCommand(String command) {
         switch (command.toLowerCase()) {
-        case "exit":
+        case "bye":
             isExit = true;
             Display.showEndScreen();
             break;
+        case "list":
+            listTasks();
+            break;
         default:
-            Display.echoCommand(command);
+            addTask(command);
             break;
         }
         Display.printSeparator();
+    }
+
+    private void addTask(String task) {
+        if (taskCount < tasks.length) {
+            tasks[taskCount] = task;
+            taskCount++;
+            Display.response("added: " + task);
+        } else {
+            Display.response("Task list is full. Sorry!");
+        }
+    }
+
+    private void listTasks() {
+        if (taskCount == 0) {
+            Display.response("Task list is empty.");
+        } else {
+            Display.response("Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + tasks[i]);
+            }
+        }
     }
 }
 
@@ -62,7 +88,7 @@ class Display {
         System.out.println("____________________________________________________");
     }
 
-    public static void echoCommand(String message) {
+    public static void response(String message) {
         System.out.println("Aether:\n" + message);
     }
 }
