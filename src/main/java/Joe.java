@@ -5,7 +5,7 @@ public class Joe {
     private static String INTENDATION = "      ";
     private static String SEPARATOR = "_________________________________________________";
     private static String[] USER_COMMANDS = {"bye", "list"};
-    private static ArrayList<String> userInputs = new ArrayList<>();
+    private static ArrayList<ToDoItem> toDoItemArrayList = new ArrayList<ToDoItem>();
 
 
     public static void main(String[] args) {
@@ -23,12 +23,8 @@ public class Joe {
         printFarewell();
     }
 
-    public static void printReply(String input, boolean isFromJoe, String actionPerformed) {
-        if (isFromJoe) {
-            System.out.println(INTENDATION + actionPerformed + input);
-        } else {
-            System.out.println(input);
-        }
+    public static void printReply(String input, String actionPerformed) {
+        System.out.println(INTENDATION + actionPerformed + input);
         System.out.println(INTENDATION + SEPARATOR);
     }
 
@@ -45,14 +41,22 @@ public class Joe {
     }
 
     public static void addToList(String input) {
-        userInputs.add(input);
+        ToDoItem item = new ToDoItem(input);
+        toDoItemArrayList.add(item);
     }
 
     public static void  printList() {
         int counter = 0;
-        for (String input : userInputs) {
+        for (ToDoItem input : toDoItemArrayList) {
             counter +=1;
-            System.out.println(INTENDATION + counter + ": " + input);
+            String checkBox;
+            if (input.isToDo) {
+                checkBox = " [" + "not done" + "]";
+            } else {
+                checkBox = " [" + "done" + "]";
+            }
+            System.out.println(INTENDATION + counter  + checkBox
+                    + ": " + input.itemDescription);
         }
     }
 
@@ -70,8 +74,28 @@ public class Joe {
                 printList();
                 break;
             default:
-                addToList(input);
-                printReply(input, true, "Added: ");
+                if (input.contains("unmark")) {
+                    String[] tokens = input.split(" ");
+                    try{
+                        int toDoNumber = Integer.parseInt(tokens[1].strip());
+                        toDoItemArrayList.get(toDoNumber-1).isToDo = false;
+                        printReply(Integer.toString(toDoNumber),"Unmarked: ");
+                    } catch(Exception e) {
+                        printReply("Select a valid list number to unmark.", "Retry: ");
+                    }
+                } else if (input.contains("mark")) {
+                    try {
+                        String[] tokens = input.split(" ");
+                        int toDoNumber = Integer.parseInt(tokens[1].strip());
+                        toDoItemArrayList.get(toDoNumber - 1).isToDo = true;
+                        printReply(Integer.toString(toDoNumber), "Marked: ");
+                    } catch (Exception e) {
+                        printReply("Select a valid list number to unmark.", "Retry: ");
+                    }
+                } else {
+                    addToList(input);
+                    printReply(input, "Added: ");
+                }
             }
         }
     }
