@@ -30,6 +30,9 @@ public class TaskList {
 
     //Method for marking tasks
     public String markTaskAsDone(int index) {
+        if (index < 1 || index > taskNumber) {
+            return "Invalid task number.";
+        }
         TaskMarker taskmarker = tasks[index - 1];
         taskmarker.setAsDone();
         return "Nice! I've marked this task as done:\n" + taskmarker;
@@ -37,6 +40,9 @@ public class TaskList {
 
     //Method for unmarking tasks
     public String markTaskAsNotDone(int index) {
+        if (index < 1 || index > taskNumber) {
+            return "Invalid task number.";
+        }
         TaskMarker taskmarker = tasks[index - 1];
         taskmarker.setAsUndone();
         return "OK, I've marked this task as not done yet:\n" + taskmarker;
