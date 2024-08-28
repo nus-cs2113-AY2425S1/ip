@@ -37,11 +37,9 @@ public class Conglo {
             String[] words = input.description.split(" ");
             if (input.description.equals("list")) {
                 listOut(listing, i);
-            }
-            else if (words[0].equals("mark") || words[0].equals("unmark")) {
+            } else if (words[0].equals("mark") || words[0].equals("unmark")) {
                 markList(words, listing, i);
-            }
-            else {
+            } else {
                 echo(input.description);
                 listing[i] = input;
                 i++;
@@ -50,22 +48,22 @@ public class Conglo {
             input = new Task(command);
         }
         scanner.close();
-        goodbye();
+        sayGoodbye();
     }
 
-    public static void lineSpacing() {
+    public static void printLineSeparator() {
         System.out.println("-------------------------------------");
     }
 
     public static void greetings() {
         System.out.println("Hola! I'm Conglo the friendly bot.");
         System.out.println("What brings you here today?");
-        lineSpacing();
+        printLineSeparator();
     }
 
     public static void echo(String input) {
         System.out.println("added: " + input);
-        lineSpacing();
+        printLineSeparator();
     }
 
     public static void listOut(Task[] listing, int size) {
@@ -75,7 +73,7 @@ public class Conglo {
             System.out.println(listing[i].description);
             i++;
         }
-        lineSpacing();
+        printLineSeparator();
     }
 
     public static void markList(String[] words, Task[] listing, int size) {
@@ -94,9 +92,8 @@ public class Conglo {
         System.out.println("[" + listing[i].getStatusIcon() + "] " + listing[i].description );
     }
 
-    public static void goodbye() {
+    public static void sayGoodbye() {
         System.out.println("Goodbye. See you next time!");
-        lineSpacing();
+        printLineSeparator();
     }
 }
-
