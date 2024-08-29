@@ -33,8 +33,9 @@ public class Cassandra {
             return;
         }
         for(int i=0;i<taksList.size();i++){
-            System.out.println(i + ". " + taksList.get(i));
+            System.out.println((i+1) + ". " + taksList.get(i));
         }
+        line();
     }
 
     private  static  void input(ArrayList<String> taksList){
