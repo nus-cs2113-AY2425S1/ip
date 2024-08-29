@@ -63,11 +63,11 @@ public class DianaAssistantN {
             if (TaskNum >= 0 && TaskNum < list.size()) {
                 Task task = list.get(TaskNum);
                 if (toMark) {
-                    task.MarkAsDone();
+                    task.markAsDone();
                     System.out.println("Nice! I've marked this task as done\n" + task.toString());
                 }
                 else {
-                    task.MarkAsNotDone();
+                    task.markAsNotDone();
                     System.out.println("Okay, I've marked this task as not done yet\n" + task.toString());
                 }
             }
