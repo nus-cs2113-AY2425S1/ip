@@ -1,10 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DBot {
     private static boolean isOn;
+    private static List<String> datas;
 
     public static void main(String[] args) {
         isOn = true;
+        datas = new ArrayList<>();
 
         String greeting = "____________________________________________________________\n" +
                 "Hello! I'm DBot\nWhat can I do for you?\n"
@@ -21,6 +25,8 @@ public class DBot {
                 System.out.println("Bye. Hope to see you again soon!");
                 isOn = false;
             } else {
+                datas.add(line);
+                System.out.print("added: ");
                 System.out.println(line);
             }
             System.out.println("____________________________________________________________");
