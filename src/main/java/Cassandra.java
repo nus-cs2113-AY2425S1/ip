@@ -21,39 +21,39 @@ public class Cassandra {
         line();
     }
 
-    private static void save(ArrayList<String> ram,String input){
-        ram.add(input);
+    private static void saveTask(ArrayList<String> taksList,String input){
+        taksList.add(input);
         System.out.println("Added :"+ input);
         line();
     }
 
-    private static void printRam(ArrayList<String> ram){
-        if(ram.size()==0){
+    private static void printtaksList(ArrayList<String> taksList){
+        if(taksList.size()==0){
             System.out.println("List is empty");
             return;
         }
-        for(int i=0;i<ram.size();i++){
-            System.out.println(i + ". " + ram.get(i));
+        for(int i=0;i<taksList.size();i++){
+            System.out.println(i + ". " + taksList.get(i));
         }
     }
 
-    private  static  void input(ArrayList<String> ram){
+    private  static  void input(ArrayList<String> taksList){
         String input = new Scanner(System.in).nextLine();
         line();
         if(input.equals("list")){
-            printRam(ram);
+            printtaksList(taksList);
         } else if(input.equals("bye")){
             return;
         }else {
-            save(ram, input);
+            saveTask(taksList, input);
         }
-        input(ram);
+        input(taksList);
     }
 
     public static void main(String[] args) {
         intro();
-        ArrayList<String> ram = new ArrayList<String>();
-        input(ram);
+        ArrayList<String> taksList = new ArrayList<String>();
+        input(taksList);
         exit();
     }
 }
