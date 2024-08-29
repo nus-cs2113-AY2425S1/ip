@@ -72,9 +72,9 @@ public class ChattyCharlie {
                 + " |       |    \n"
                 + " |_______|    \n"
                 + "              \n";
-        String charlie = "Smarty:  ";
+        String charlie = "Charlie: ";
 
-        String greeting = "Hello! I'm SmartTasker, your consistent buddy.\n"
+        String greeting = "Hello! I'm ChattyCharlie, your consistent buddy.\n"
                 + "         What shall we do today?\n" ;
 
         String farewell = "All the best in clearing your list!";
