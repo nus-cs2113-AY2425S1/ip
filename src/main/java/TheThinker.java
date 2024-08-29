@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TheThinker {
 
-    public static String name = "TheThinker";
+    public static final String NAME = "TheThinker";
 
     public static void main(String[] args) {
         printSeparation();
@@ -17,7 +17,9 @@ public class TheThinker {
             printSeparation();
 
             if(hasMarkOrUnmark(userInput)){
+
                 String[] actionAndItemNumber = userInput.split(" ");
+
                 if(actionAndItemNumber[0].trim().equalsIgnoreCase("mark")){
                     toDoList.setAsDone(Integer.parseInt(actionAndItemNumber[1].trim()));
                     continue;
@@ -32,7 +34,7 @@ public class TheThinker {
                 printBye();
                 break;
 
-            case "list" :
+            case "list":
                 toDoList.listItems();
                 break;
 
@@ -47,7 +49,7 @@ public class TheThinker {
     }
 
     public static void printGreeting(){
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
     }
 
