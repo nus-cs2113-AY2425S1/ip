@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class Aerus {
     public static void printContent(String content) {
         String dividerLine = "____________________________________________________________";
@@ -12,36 +14,59 @@ public class Aerus {
         String dividerLine = "____________________________________________________________";
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        String tasks[] = new String[100];
-        int taskCount = 0;
+        Task tasks[] = new Task[100];
 
         printContent("Hello! I'm Aerus!\nWhat can I do for you?");
 
+        // while block handling Aerus' main functionality
         while (true) {
             userInput = scanner.nextLine();
+
+            // Case: Terminate program
             if (userInput.equals("bye")) {
                 break;
             }
 
+            // Case: See list
             if (userInput.equals("list")) {
-                if(taskCount == 0) {
+                if (Task.tasksCount == 0) {
                     printContent("You don't have any tasks!");
                     continue;
                 }
 
                 System.out.println(dividerLine);
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println(i+1 + ". " + tasks[i]);
+                for (int taskNumber = 1; taskNumber <= Task.tasksCount; taskNumber++) {
+                    System.out.println(taskNumber + ". " + tasks[taskNumber-1].toString());
                 }
                 System.out.println(dividerLine);
                 continue;
             }
 
-            tasks[taskCount] = userInput;
-            taskCount++;
-            printContent("added: " + userInput);
-        }
+            // Case: Mark & Unmark
+            String[] userInputSplit = userInput.split(" ");
 
+            // Test if the input is formatted like a mark/unmark command
+            if (userInputSplit.length == 2 && userInputSplit[1].matches("\\d+(\\.\\d+)?") &&
+                    parseInt(userInputSplit[1]) <= Task.tasksCount) {
+                int taskNumber = parseInt(userInputSplit[1]) - 1;
+                if (userInputSplit[0].equals("mark")) {
+                    tasks[taskNumber].isDone = true;
+                    printContent("Nice! You have done this task:\n\t" + tasks[taskNumber].toString());
+                    continue;
+                }
+                if (userInputSplit[0].equals("unmark")) {
+                    tasks[taskNumber].isDone = false;
+                    printContent("I have unmarked this task:\n\t" + tasks[taskNumber].toString());
+                    continue;
+                }
+            }
+
+            // Case: Add task
+            if (!userInput.isEmpty()) {
+                tasks[Task.tasksCount] = new Task(userInput);
+                printContent("Added task: " + userInput);
+            }
+        }
         printContent("See you next time!");
     }
 }
