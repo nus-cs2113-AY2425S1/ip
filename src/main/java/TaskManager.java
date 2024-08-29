@@ -1,16 +1,16 @@
 public class TaskManager {
-    private int taskCount;
+    private int totalTaskCount;
     private Task[] taskList;
     Emoji emoji = new Emoji();
 
     public TaskManager() {
-        taskCount = 0;
+        totalTaskCount = 0;
         taskList = new Task[100];
     }
 
     public void addTask(String taskName) {
-        taskList[taskCount] = new Task(taskName, false);
-        taskCount++;
+        taskList[totalTaskCount] = new Task(taskName, false);
+        totalTaskCount++;
 
         System.out.println("Let's make it happen! " + emoji.getRockstarHandEmoji() + emoji.getFireEmoji());
         System.out.println("Task added: " + taskName);
@@ -18,11 +18,11 @@ public class TaskManager {
     }
 
     public void displayTaskList() {
-        if (taskCount == 0) {
+        if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
         } else {
             System.out.println("Here’s the rundown on the tasks!");
-            for (int i = 0; i < taskCount; i++) {
+            for (int i = 0; i < totalTaskCount; i++) {
                 String taskStatus = taskList[i].getIsDone() ? emoji.getTickEmoji() : emoji.getHourglassEmoji();
                 System.out.println((i + 1) + ". " + taskList[i].getTaskName() + " " + taskStatus);
             }
@@ -37,10 +37,10 @@ public class TaskManager {
     }
 
     public void completeTask(int taskNumber) {
-        if (taskCount == 0) {
+        if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!");
         }
-        else if (taskNumber <= 0 || taskNumber > taskCount) {
+        else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
             System.out.println("Invalid task number!");
         }
         else {
@@ -52,10 +52,10 @@ public class TaskManager {
     }
 
     public void undoTask(int taskNumber) {
-        if (taskCount == 0) {
+        if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!");
         }
-        else if (taskNumber <= 0 || taskNumber > taskCount) {
+        else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
             System.out.println("Invalid task number!");
         }
         else {
