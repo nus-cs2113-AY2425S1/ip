@@ -8,7 +8,9 @@ public class Bosco {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String userInput;
-        String userCommand;
+        String[] words;
+        int taskCount = 0;
+        String[] tasks = new String[100];
 
         printHorizontalRule();
         System.out.println("\t Hello! I'm Bosco APD.");
@@ -17,12 +19,20 @@ public class Bosco {
 
         while (true) {
             userInput = in.nextLine();
-            userCommand = userInput.split("\\s+", 2)[0];
-            if (userCommand.equals("bye")) {
+            words = userInput.split(" ");
+            if (words[0].equals("bye")) {
                 break;
             }
             printHorizontalRule();
-            System.out.println("\t " + userInput);
+            if (words[0].equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println("\t " + (i + 1) + ". " + tasks[i]);
+                }
+            } else {
+                tasks[taskCount] = userInput;
+                taskCount++;
+                System.out.println("\t added: " + userInput);
+            }
             printHorizontalRule();
         }
 
