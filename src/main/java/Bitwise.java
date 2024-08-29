@@ -31,7 +31,7 @@ public class Bitwise {
                 return;
             }
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println(Arrays.toString(taskList));
+                printTaskList();
             }
             else {
                 addToList(userInput);
@@ -53,5 +53,10 @@ public class Bitwise {
     public static void addToList(String userInput) {
         taskList[numberOfTasks] = userInput;
         numberOfTasks++;
+    }
+    public static void printTaskList() {
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.println(Integer.toString(i + 1) + ". " + taskList[i]);
+        }
     }
 }
