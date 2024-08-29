@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Boaz {
+public class Melchizedek {
 
     public static boolean isDone = false;
     public static String[] userList = new String[100];
@@ -12,7 +12,7 @@ public class Boaz {
 
     public static void greet() {
         printHorizontalLine();
-        System.out.println("\tHello! I'm Boaz.");
+        System.out.println("\tHello! I'm Melchizedek.");
         System.out.println("\tHow can I assist you?");
         printHorizontalLine();
     }

@@ -1,20 +1,20 @@
 public class TaskList {
-    private String[] allTasks;
+    private Task[] allTasks;
     private int noOfTasks;
 
     public TaskList(String task){
-        allTasks = new String[100];
-        allTasks[0] = task;
+        allTasks = new Task[100];
+        allTasks[0] = new Task(noOfTasks, task);
         noOfTasks = 1;
     }
 
     public TaskList() {
-        allTasks = new String[100];
+        allTasks = new Task[100];
         noOfTasks = 0;
     }
 
     public void addToTaskList(String input) {
-        allTasks[noOfTasks] = input;
+        allTasks[noOfTasks] = new Task(noOfTasks + 1, input);
         noOfTasks++;
         System.out.println("\tadded: " + input);
         printHorizontalLine();
@@ -22,7 +22,7 @@ public class TaskList {
 
     public void printTaskList() {
         for (int i = 0; i < noOfTasks; i++) {
-            System.out.println("\t" + (i + 1) + ". " + allTasks[i]);
+            allTasks[i].printTask();
         }
         printHorizontalLine();
     }
