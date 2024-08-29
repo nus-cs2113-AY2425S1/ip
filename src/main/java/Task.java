@@ -1,31 +1,25 @@
 public class Task {
-    private int taskCount;
-    private String[] taskList;
-    Emoji emoji = new Emoji();
+    private String taskName;
+    private Boolean isDone;
 
-    public Task() {
-        taskCount = 0;
-        taskList = new String[100];
+    public Task(String taskName, Boolean isDone) {
+        setTaskName(taskName);
+        setIsDone(isDone);
     }
 
-    public void addTask(String task) {
-        taskList[taskCount] = task;
-        taskCount++;
-
-        System.out.println("Let's make it happen!");
-        System.out.println("Task added: " + task + " " + emoji.getRockstarHandEmoji() + emoji.getFireEmoji());
-        System.out.println("---------------------------------------------------------------------------");
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void displayTaskList() {
-        if (taskCount == 0) {
-            System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
-        } else {
-            System.out.println("Here’s the rundown on the tasks!");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + taskList[i] + " " + emoji.getMemoEmoji());
-            }
-        }
-        System.out.println("--------------------------------------------------------");
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public Boolean getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(Boolean isDone) {
+        this.isDone = isDone;
     }
 }

@@ -8,26 +8,36 @@ public class Rizzler {
         String menu = """
                   --------------------------------------------------------
                   1. Just type in a task, and Rizzler's got it handled!
-                  2. Need the full rundown? Type 'list' and I’ll drop the goods!
-                  3. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
+                  2. Need the full rundown? Type 'rizz list' and I’ll drop the goods!
+                  3. Crushed a task? Type 'rizz done [task number]' and let's celebrate!
+                  4. Changed your mind? Type 'rizz undo [task number]' and I'll reset that for you!
+                  5. Wanna bounce? Just hit me with 'rizz bye' and I'll catch you on the flip side!
                   --------------------------------------------------------
                   """;
 
         System.out.println(menu);
     }
 
-    public void echo() {
+    public void listenCommand() {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
-        Task task = new Task();
+        TaskManager taskManager = new TaskManager();
 
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                task.displayTaskList();
+        while (!command.equals("rizz bye")) {
+            if (command.equals("rizz list")) {
+                taskManager.displayTaskList();
+            }
+            else if (command.startsWith("rizz done")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[2]);
+                taskManager.completeTask(taskNumber);
+            }
+            else if (command.startsWith("rizz undo")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[2]);
+                taskManager.undoTask(taskNumber);
             }
             else {
-                task.addTask(command);
+                taskManager.addTask(command);
             }
             command = scanner.nextLine();
         }
@@ -46,12 +56,11 @@ public class Rizzler {
                         |_|  \\_\\ |_| /______/ /______/ |_|  \\_____| |_|\s
                         """;
 
-        Emoji emoji = new Emoji();
         Rizzler rizzler = new Rizzler();
 
         System.out.println(logo);
         System.out.println("Yo! I'm Rizzler.");
         rizzler.displayMenu();
-        rizzler.echo();
+        rizzler.listenCommand();
     }
 }

@@ -24,20 +24,20 @@ public class Emoji {
         return "\uD83D\uDE80";
     }
 
-    public String getMemoEmoji() {
-        return "\uD83D\uDCDD";
+    public String getHourglassEmoji() {
+        return "\u23F3";
     }
 
-    public String getGlowingStarEmoji() {
-        return "\uD83C\uDF1F";
-    }
-
-    public String getBullseyeEmoji() {
-        return "\uD83C\uDFAF";
+    public String getTickEmoji() {
+        return "\u2705";
     }
 
     public String getHundredPointsEmoji() {
         return "\uD83D\uDCAF";
+    }
+
+    public String getReverseEmoji() {
+        return "\u1F504";
     }
 }
 
