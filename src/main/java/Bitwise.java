@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Bitwise {
     // ASCII art from https://ascii-generator.site/t/
@@ -12,15 +11,15 @@ public class Bitwise {
             + "                                       \n";
     private static final String sectionBreak = "==================================================\n";
     private static final String lineBreak = "--------------------------------------------------\n";
+    private static final String indentation = "        ";
     private static String[] taskList = new String[100];
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
-        System.out.println(sectionBreak + "Hello from\n" + logo);
-        System.out.print("How may I help you today?\n" + lineBreak);
+        System.out.println(sectionBreak + indentation + "Hello from\n" + logo);
+        System.out.print(indentation + "How may I help you today?\n" + lineBreak);
         mainManager();
-        //echoUserInput();
-        System.out.println(lineBreak + "Bye, see you soon!\n" + sectionBreak);
+        System.out.println(lineBreak + indentation + "Bye, see you soon!\n" + sectionBreak);
     }
     public static void mainManager() {
         String userInput;
@@ -36,7 +35,7 @@ public class Bitwise {
             }
             else {
                 addToList(userInput);
-                System.out.println("Added: " + userInput);
+                System.out.println(indentation + "Added: " + userInput);
             }
             System.out.print(lineBreak);
         }
@@ -49,7 +48,7 @@ public class Bitwise {
             if (userInput.equalsIgnoreCase("bye")) {
                 return;
             }
-            System.out.println(userInput);
+            System.out.print(lineBreak + indentation + userInput + lineBreak);
         }
     }
     public static void addToList(String userInput) {
@@ -58,7 +57,7 @@ public class Bitwise {
     }
     public static void printTaskList() {
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println(Integer.toString(i + 1) + ". " + taskList[i]);
+            System.out.println(indentation + Integer.toString(i + 1) + ". " + taskList[i]);
         }
     }
 }
