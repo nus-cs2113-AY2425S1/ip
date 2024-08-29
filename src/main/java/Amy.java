@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Amy {
-    private static String[] text = new String[100];
-    private static Task[] taskList = new Task[100];
+    private static final int MAX_TASKS = 100;
+    private static Task[] taskList = new Task[MAX_TASKS];
     private static int taskNum = 0;
     public static void doEcho(String line){
         System.out.println(line + "! I wonder what I can do with this information (●'◡'●)");
@@ -60,24 +60,30 @@ public class Amy {
             if(line.equals("list")){
                 getTaskList();
             }
-            else if(line.startsWith("mark")){
+            else if(line.startsWith("mark") || line.startsWith("unmark")){
+
                 int taskNo = Integer.parseInt(line.split(" ")[1]) - 1;
-                if(taskNo > taskNum){
-                    System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
-                }
+                if(taskNo < 0 || taskNo >= taskNum)  System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
                 else{
-                    markTaskDone(taskNo);
+//                try {
+                    if (line.startsWith("mark"))    markTaskDone(taskNo);
+                    else markTaskUndone(taskNo);
+
                 }
+//                catch(ArrayIndexOutOfBoundsException e){
+//                    System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
+//                }
+
             }
-            else if(line.startsWith("unmark")){
-                int taskNo = Integer.parseInt(line.split(" ")[1]) - 1;
-                if(taskNo > taskNum){
-                    System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
-                }
-                else{
-                    markTaskUndone(taskNo);
-                }
-            }
+//            else if(line.startsWith("unmark")){
+//                int taskNo = Integer.parseInt(line.split(" ")[1]) - 1;
+//                if(taskNo > taskNum){
+//                    System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
+//                }
+//                else{
+//                    markTaskUndone(taskNo);
+//                }
+//            }
             else {
                 addTaskList(line);
             }
