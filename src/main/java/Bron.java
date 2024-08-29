@@ -21,13 +21,13 @@ public class Bron {
                 System.out.println("Catch you on the flip cuh");
                 break;
             }
+
             if (line.equalsIgnoreCase("list")) {
                 int listCount = 0;
                 while(tasks[listCount] != null) {
                     System.out.println(listCount + 1 + ". " + tasks[listCount++].printTask());
                 }
-            }
-            else if (line.startsWith("mark")){
+            } else if (line.startsWith("mark")){
                 int taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markAsDone();
@@ -36,8 +36,7 @@ public class Bron {
                 } else {
                     System.out.println("Task not found.");
                 }
-            }
-            else if (line.startsWith("unmark")) {
+            } else if (line.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markAsNotDone();
@@ -46,8 +45,7 @@ public class Bron {
                 } else {
                     System.out.println("Task not found.");
                 }
-            }
-            else {
+            } else {
                 System.out.println("added" + ": " + line);
                 tasks[taskCount++] = new Task(line);
             }
