@@ -13,5 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Readme file in original repo
+README.md
+
+# Files not to track mentioned in course website
+*.class
+*.jar
+*.exe
+
+# Test files
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/runtest.bat
