@@ -5,7 +5,7 @@ public class Crystal {
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("""
                 ____________________________________________________________
                 Hello! I'm Crystal.
@@ -17,12 +17,30 @@ public class Crystal {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 System.out.println("____________________________________________________________");
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i));
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
+            } else if (line.startsWith("mark")){
+                int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                Task t = tasks.get(taskNumber);
+                t.markAsDone();
+                System.out.println("____________________________________________________________\n"
+                        + "Great! This is now done:\n"
+                        + t + "\n"
+                        + "____________________________________________________________");
+
+            } else if (line.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                Task t = tasks.get(taskNumber);
+                t.unmark();
+                System.out.println("____________________________________________________________\n"
+                        + "OK, I have marked this task as not done yet:\n"
+                        + t + "\n"
+                        + "____________________________________________________________");
             } else {
-                list.add(line);
+                Task t = new Task(line);
+                tasks.add(t);
                 System.out.println("____________________________________________________________\n"
                         + "added: " + line + "\n"
                         + "____________________________________________________________");
