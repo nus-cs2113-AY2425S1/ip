@@ -10,7 +10,7 @@ public class Bosco {
         String userInput;
         String[] words;
         int taskCount = 0;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
 
         printHorizontalRule();
         System.out.println("\t Hello! I'm Bosco APD.");
@@ -26,10 +26,11 @@ public class Bosco {
             printHorizontalRule();
             if (words[0].equals("list")) {
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("\t " + (i + 1) + ". " + tasks[i]);
+                    System.out.print("\t " + (i + 1) + ".[");
+                    System.out.println(tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
             } else {
-                tasks[taskCount] = userInput;
+                tasks[taskCount] = new Task(userInput);
                 taskCount++;
                 System.out.println("\t added: " + userInput);
             }
