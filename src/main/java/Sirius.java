@@ -5,7 +5,6 @@ public class Sirius {
         Scanner scanner = new Scanner(System.in);
         System.out.println("-----------------------" );
         System.out.print("Hello! I'm Sirius!\n" + "What can I do for you?\n" + "-----------------------\n" );
-
         class Task{
             private String taskName;
             private boolean isMarked;
@@ -74,7 +73,8 @@ public class Sirius {
                     System.out.println("added: " + userInput);
                     System.out.println("-----------------------\n");
                 }
-            } else {
+            }
+            else {
                 System.out.println("Bye! Hope to see you soon.");
                 break;
             }
