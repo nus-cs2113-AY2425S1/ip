@@ -35,12 +35,12 @@ public class Bitwise {
                 printTasksList();
             }
             else if (userInput.contains("unmark")) {
-                String taskName = userInput.substring(userInput.indexOf(" ") + 1);
-                markCompletionStatus(taskName, false);
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, false);
             }
             else if (userInput.contains("mark")) {
-                String taskName = userInput.substring(userInput.indexOf(" ") + 1);
-                markCompletionStatus(taskName, true);
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, true);
             }
             else {
                 addToList(userInput);
@@ -74,12 +74,9 @@ public class Bitwise {
         }
     }
 
-    public static void markCompletionStatus(String taskName, boolean isCompleted) {
-        for (int i = 0; i < numberOfTasks; i++) {
-            if (tasksList[i].getTaskName().equalsIgnoreCase(taskName)) {
-                tasksList[i].markCompletionStatus(isCompleted);
-            }
-        }
+    public static void markCompletionStatus(int taskNumber, boolean isCompleted) {
+        int taskIndex = taskNumber - 1;
+        tasksList[taskIndex].markCompletionStatus(isCompleted);
         String message = isCompleted ? "Awesome, I've marked this task as completed!" : "I've added the task back in";
         System.out.println(INDENTATION + message);
         printTasksList();
