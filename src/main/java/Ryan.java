@@ -5,7 +5,7 @@ public class Ryan {
     public static void main(String[] args) {
         boolean exit = false;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Utils.horizontalLine();
         System.out.println("Hello! I'm Ryan\nWhat can I do for you?");
@@ -17,16 +17,25 @@ public class Ryan {
             if (command.equals("bye")) {
                 exit = true;
                 Utils.horizontalLine();
-            }
-            else if (command.equals("list")) {
+            } else if (command.equals("tasks")) {
                 Utils.horizontalLine();
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + "." + list.get(i));
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + "." + tasks.get(i));
+                }
+                Utils.horizontalLine();
+            } else if (command.startsWith("mark")){
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index <= tasks.size()){
+                    tasks.get(index).mark();
+                    System.out.println(tasks.get(index));
+                } else {
+                    System.out.println("Invalid task number.");
                 }
                 Utils.horizontalLine();
             } else {
                 Utils.horizontalLine();
-                list.add(command);
+                Task task = new Task(command);
+                tasks.add(task);
                 System.out.println("added: " + command);
                 Utils.horizontalLine();
             }
