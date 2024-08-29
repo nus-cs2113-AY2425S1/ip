@@ -6,12 +6,12 @@ public class Atom {
         System.out.println("__________________________________________________");
     }
 
-    public static void printList(String[] list) {
+    public static void printList(Task[] list) {
         int index = 1;
 
         System.out.println("Here is your list:\n");
-        for (String item : list) {
-            System.out.println(index + ". " + item);
+        for (Task item : list) {
+            System.out.println(index + "." + "[" + item.getStatus() + "] "  + item.getItem());
             index++;
         }
     }
@@ -35,13 +35,14 @@ public class Atom {
         System.out.println("\nTIPS:");
         System.out.println("* \"bye\" -> exit program");
         System.out.println("* \"list\" -> view list of tasks");
+        System.out.println("* \"mark\" <task id no.> -> mark task as DONE");
+        System.out.println("* \"unmark\" <task id no.> -> mark task as UNDONE");
 
         divider();
 
         String line;
         Scanner in = new Scanner(System.in);
-        String[] tasksList = new String[100];
-        int taskCount = 0;
+        Task[] tasksList = new Task[100];
 
         System.out.print("Enter command: ");
         line = in.nextLine();
@@ -50,16 +51,44 @@ public class Atom {
             divider();
 
             if (line.equalsIgnoreCase("list")) {
-                if (taskCount != 0) {
-                    printList(Arrays.copyOf(tasksList, taskCount));
+                if (Task.getTaskCount() != 0) {
+                    printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
                 }
                 else {
                     System.out.println("Oh oh! List is empty.");
                 }
             }
+            else if (line.toLowerCase().startsWith("mark")) {
+                String[] words = line.trim().split(" ");
+                int taskId = Integer.parseInt(words[words.length - 1]) - 1;
+
+                if (taskId < Task.getTaskCount() && taskId >= 0) {
+                    Task currTask = tasksList[taskId];
+                    currTask.markAsDone();
+                    System.out.println("Task successfully marked as DONE!");
+                    System.out.println("[" + currTask.getStatus() + "] " + currTask.getItem());
+                }
+                else {
+                    System.out.println("Whoops! Task id not found.");
+                }
+            }
+            else if (line.toLowerCase().startsWith("unmark")) {
+                String[] words = line.trim().split(" ");
+                int taskId = Integer.parseInt(words[words.length - 1]) - 1;
+
+                if (taskId < Task.getTaskCount() && taskId >= 0) {
+                    Task currTask = tasksList[taskId];
+                    currTask.markAsUndone();
+                    System.out.println("Task successfully marked as UNDONE!");
+                    System.out.println("[" + currTask.getStatus() + "] " + currTask.getItem());
+                }
+                else {
+                    System.out.println("Whoops! Task id not found.");
+                }
+            }
             else {
-                tasksList[taskCount] = line;
-                taskCount++;
+                Task task = new Task(line);
+                tasksList[Task.getTaskCount() - 1] = task;
                 System.out.println("Added \"" + line + "\" to list");
             }
 
