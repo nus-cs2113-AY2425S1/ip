@@ -12,9 +12,8 @@ public class Bitwise {
     private static final String sectionBreak = "==================================================\n";
     private static final String lineBreak = "--------------------------------------------------\n";
     private static final String indentation = "        ";
-    private static String[] taskList = new String[100];
+    private static Task[] taskList = new Task[100];
     private static int numberOfTasks = 0;
-    private static boolean[] isCompleted = new boolean[100];
 
     public static void main(String[] args) {
         System.out.println(sectionBreak + indentation + "Hello from\n" + logo);
@@ -61,22 +60,22 @@ public class Bitwise {
         }
     }
     public static void addToList(String userInput) {
-        taskList[numberOfTasks] = userInput;
+        Task newTask = new Task(userInput);
+        taskList[numberOfTasks] = newTask;
         numberOfTasks++;
     }
     public static void printTaskList() {
         for (int i = 0; i < numberOfTasks; i++) {
-            char completionChar = isCompleted[i] ? 'X' : ' ';
-            System.out.println(indentation + Integer.toString(i + 1) + ". " + "[" + completionChar + "] " + taskList[i]);
+            System.out.println(indentation + Integer.toString(i + 1) + ". " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getTaskName());
         }
     }
-    public static void markCompletionStatus(String taskName, boolean isComplete) {
+    public static void markCompletionStatus(String taskName, boolean isCompleted) {
         for (int i = 0; i < numberOfTasks; i++) {
-            if (taskList[i].equalsIgnoreCase(taskName)) {
-                isCompleted[i] = isComplete;
+            if (taskList[i].getTaskName().equalsIgnoreCase(taskName)) {
+                taskList[i].markCompletionStatus(isCompleted);
             }
         }
-        String message = isComplete ? "Awesome, I've marked this task as completed!" : "I've added the task back in";
+        String message = isCompleted ? "Awesome, I've marked this task as completed!" : "I've added the task back in";
         System.out.println(indentation + message);
         printTaskList();
     }
