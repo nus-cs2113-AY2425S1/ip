@@ -12,6 +12,7 @@ public class Bean {
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";;
 
+    // Print logo with greeting message
     public static void greet() {
         System.out.println(SEPARATOR_LINE +
                 LOGO +
@@ -21,6 +22,7 @@ public class Bean {
         );
     }
 
+    // Print logo with exit message
     public static void exit() {
         System.out.println(SEPARATOR_LINE +
                 LOGO +
@@ -32,6 +34,7 @@ public class Bean {
         System.out.println(INDENT + string + SEPARATOR_LINE);
     }
 
+    // Print message with separator line above and below message, as well as indentation
     public static void printFormattedReply(String reply) {
         System.out.println(SEPARATOR_LINE +
                 INDENT + reply + "\n" +
@@ -56,6 +59,20 @@ public class Bean {
         System.out.println(SEPARATOR_LINE);
     }
 
+    public static void unmarkTaskAsDone (Task[] toDoList, int taskNum) {
+        int taskIndex = taskNum - 1;
+        toDoList[taskIndex].setStatus(false);
+        // Confirmation message
+        printFormattedReply("Task " + taskNum + " '" + toDoList[taskIndex].description + "' has been marked as UNDONE");
+    }
+
+    public static void markTaskAsDone (Task[] toDoList, int taskNum) {
+        int taskIndex = taskNum - 1;
+        toDoList[taskIndex].setStatus(true);
+        // Confirmation message
+        printFormattedReply("Task " + taskNum + " '" + toDoList[taskIndex].description + "' has been marked as DONE");
+    }
+
     public static void main(String[] args) {
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -68,28 +85,20 @@ public class Bean {
         while (count < MAX_LIST_COUNT) {
             userInput = in.nextLine();
 
-            if (userInput.equals("list")) {
-                printList(toDoList);
-            } else if (userInput.equals("bye")) {
+            if (userInput.equals("bye")) {
                 // To exit
                 break;
-            } else if (userInput.contains("mark")) {
-                // Either mark or unmark
-
-                // Obtain task number
+            } else if (userInput.equals("list")) {
+                printList(toDoList);
+            } else if (userInput.contains("mark")) { //Either mark or unmark
+                // Obtain task number by taking second word of input and trim any spaces then parse as int
                 String[] words = userInput.split(" ");
-                // Take second word of input and trim any spaces then parse as int
                 int taskNum = Integer.parseInt(words[1].trim());
-                int taskIndex = taskNum - 1;
 
                 if (userInput.contains("unmark")) {
-                    toDoList[taskIndex].setStatus(false);
-                    // Confirmation message
-                    printFormattedReply("Task " + taskNum + " has been marked as UNDONE");
+                    unmarkTaskAsDone(toDoList, taskNum);
                 } else { // "mark"
-                    toDoList[taskIndex].setStatus(true);
-                    // Confirmation message
-                    printFormattedReply("Task " + taskNum + " has been marked as DONE");
+                    markTaskAsDone(toDoList, taskNum);
                 }
             } else {
                 // Add task
