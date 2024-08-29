@@ -35,8 +35,8 @@ public class Doug {
             } else if (command.startsWith("mark")) {
                 int listIndex = Integer.parseInt(command.substring(5));
 
-                if (listIndex >= counter) {
-                    System.out.println(dashedLine + "No can do bud, your input exceeds the list size!\n" + dashedLine);
+                if (listIndex > counter || listIndex <= 0) {
+                    System.out.println(dashedLine + "No can do bud, your input is invalid!\n" + dashedLine);
                     continue;
                 }
 
@@ -46,8 +46,8 @@ public class Doug {
             } else if (command.startsWith("unmark")) {
                 int listIndex = Integer.parseInt(command.substring(7));
 
-                if (listIndex >= counter) {
-                    System.out.println(dashedLine + "No can do bud, your input exceeds the list size!\n" + dashedLine);
+                if (listIndex > counter || listIndex <= 0) {
+                    System.out.println(dashedLine + "No can do bud, your input is invalid!\n" + dashedLine);
                     continue;
                 }
 
