@@ -10,10 +10,12 @@ public class Bron {
                     + " |____/  |_|  \\_\\  \\____/  |_|  \\__|\n";
         Scanner input = new Scanner(System.in);
         System.out.println(logo + "Hello! I'm Bron\n" + "What can I do for you?\n");
-        String line = input.nextLine();
-        String[] tasks = new String[100];
+
+        Task[] tasks = new Task[100];
         int taskCount = 0;
-        while (line != null) {
+
+        while (true) {
+            String line = input.nextLine();
 
             if (line.equalsIgnoreCase("bye")) {
                 System.out.println("Catch you on the flip cuh");
@@ -22,15 +24,33 @@ public class Bron {
             if (line.equalsIgnoreCase("list")) {
                 int listCount = 0;
                 while(tasks[listCount] != null) {
-                    System.out.println(listCount + 1 + ":" + tasks[listCount++]);
+                    System.out.println(listCount + 1 + ". " + tasks[listCount++].printTask());
+                }
+            }
+            else if (line.startsWith("mark")){
+                int taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsDone();
+                    System.out.println("Good shit kid! I've marked this task as done:");
+                    System.out.println("  " + tasks[taskIndex].printTask());
+                } else {
+                    System.out.println("Task not found.");
+                }
+            }
+            else if (line.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsNotDone();
+                    System.out.println("Get yo shit together son, this task aint done yet:");
+                    System.out.println("  " + tasks[taskIndex].printTask());
+                } else {
+                    System.out.println("Task not found.");
                 }
             }
             else {
-                System.out.println("added" + ". " + line);
-                tasks[taskCount++] = line;
+                System.out.println("added" + ": " + line);
+                tasks[taskCount++] = new Task(line);
             }
-
-            line = input.nextLine();
         }
     }
 }
