@@ -6,12 +6,10 @@ public class Crystal {
         String line;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        System.out.println("""
-                ____________________________________________________________
-                Hello! I'm Crystal.
-                What can I do for you today?
-                ____________________________________________________________
-                """);
+        System.out.println("____________________________________________________________\n"
+                           + "Hello! I'm Crystal.\n"
+                           + "What can I do for you today?\n"
+                           + "____________________________________________________________\n");
         line = in.nextLine();
 
         while (!line.equals("bye")) {
@@ -26,31 +24,31 @@ public class Crystal {
                 Task t = tasks.get(taskNumber);
                 t.markAsDone();
                 System.out.println("____________________________________________________________\n"
-                        + "Great! This is now done:\n"
-                        + t + "\n"
-                        + "____________________________________________________________");
+                                   + "Great! This is now done:\n"
+                                   + t + "\n"
+                                   + "____________________________________________________________");
 
             } else if (line.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
                 Task t = tasks.get(taskNumber);
                 t.unmark();
                 System.out.println("____________________________________________________________\n"
-                        + "OK, I have marked this task as not done yet:\n"
-                        + t + "\n"
-                        + "____________________________________________________________");
+                                   + "OK, I have marked this task as not done yet:\n"
+                                   + t + "\n"
+                                   + "____________________________________________________________");
             } else {
                 Task t = new Task(line);
                 tasks.add(t);
                 System.out.println("____________________________________________________________\n"
-                        + "added: " + line + "\n"
-                        + "____________________________________________________________");
+                                   + "added: " + line + "\n"
+                                   + "____________________________________________________________");
             }
             line = in.nextLine();
 
         }
         System.out.println("____________________________________________________________\n"
-                + "Bye, hope to see you again soon!\n"
-                + "____________________________________________________________");
+                           + "Bye, hope to see you again soon!\n"
+                           + "____________________________________________________________");
 
     }
 }
