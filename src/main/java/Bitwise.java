@@ -1,6 +1,10 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Bitwise {
+    private static String[] taskList = new String[100];
+    private static int numberOfTasks = 0;
+
     public static void main(String[] args) {
         // ASCII art from https://ascii-generator.site/t/
         String logo = " ____   _  _              _            \n"
@@ -14,8 +18,26 @@ public class Bitwise {
         String lineBreak = "--------------------------------------------------\n";
         System.out.println(sectionBreak + "Hello from\n" + logo);
         System.out.print("How may I help you today?\n" + lineBreak);
-        echoUserInput();
+        mainManager();
+        //echoUserInput();
         System.out.println("Bye, see you soon!\n" + sectionBreak);
+    }
+    public static void mainManager() {
+        String userInput;
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            userInput = in.nextLine();
+            if (userInput.equalsIgnoreCase("bye")) {
+                return;
+            }
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println(Arrays.toString(taskList));
+            }
+            else {
+                addToList(userInput);
+                System.out.println("Added: " + userInput);
+            }
+        }
     }
     public static void echoUserInput() {
         String userInput;
@@ -27,5 +49,9 @@ public class Bitwise {
             }
             System.out.println(userInput);
         }
+    }
+    public static void addToList(String userInput) {
+        taskList[numberOfTasks] = userInput;
+        numberOfTasks++;
     }
 }
