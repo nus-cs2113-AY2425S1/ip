@@ -10,8 +10,7 @@ public class Monday {
                 + "                                |___/  \n";
         String line = "____________________________________________________________";
 
-        // Array to store tasks
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         System.out.println("Hello from\n" + logo);
@@ -28,17 +27,34 @@ public class Monday {
             System.out.println(line);
 
             if (input.equalsIgnoreCase("list")) {
-                // Display the list of tasks
+                System.out.println("    Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("    " + (i + 1) + ". " + tasks[i]);
+                    System.out.println("    " + (i + 1) + "." + tasks[i]);
+                }
+            } else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                if (taskNumber >= 0 && taskNumber < taskCount) {
+                    tasks[taskNumber].markAsDone();
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("      " + tasks[taskNumber]);
+                } else {
+                    System.out.println("    Invalid task number.");
+                }
+            } else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                if (taskNumber >= 0 && taskNumber < taskCount) {
+                    tasks[taskNumber].markAsNotDone();
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("      " + tasks[taskNumber]);
+                } else {
+                    System.out.println("    Invalid task number.");
                 }
             } else if (input.equalsIgnoreCase("bye")) {
                 System.out.println("    Bye. Hope to see you again soon!");
                 System.out.println(line);
                 break;
             } else {
-                // Add the task to the list
-                tasks[taskCount] = input;
+                tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println("    added: " + input);
             }
