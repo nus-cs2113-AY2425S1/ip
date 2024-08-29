@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 public class Nateh {
-    public static void printList(String[] list, int length) {
+    public static void printList(Task[] list, int length) {
         String lineBreak = "____________________________________________________________\n";
         System.out.print(lineBreak);
         for (int i = 0; i < length; i++) {
             System.out.print(i+1 + ". ");
-            System.out.println(list[i]);
+            list[i].print();
         }
         System.out.print(lineBreak);
     }
@@ -41,30 +41,48 @@ public class Nateh {
                              ^^\\..___,.--`""";
         Scanner in = new Scanner(System.in);
         String input = "";
-        String[] list = new String[100];
-        int length = 0;
+        Task[] list = new Task[100];
+        list[0] = new Task();
+        int index = 0;
         System.out.print(lineBreak);
         System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(skeleton);
         System.out.print(lineBreak);
         while (!input.equals("bye")) {
             input = in.nextLine();
-            switch (input) {
+            String[] splitInput = input.split(" ");
+            switch (splitInput[0]) {
                 case "list":
-                    printList(list, length);
+                    printList(list, Task.getLength());
+                    break;
+                case "mark":
+                    index = Integer.parseInt(splitInput[1]) - 1;
+                    list[index].setDone(true);
+                    System.out.print(lineBreak);
+                    System.out.println("Wow! Great job! :)");
+                    list[index].print();
+                    System.out.print(lineBreak);
+                    break;
+                case "unmark":
+                    index = Integer.parseInt(splitInput[1]) - 1;
+                    list[index].setDone(false);
+                    System.out.print(lineBreak);
+                    System.out.println("Aw you didn't get to finish. :(");
+                    list[index].print();
+                    System.out.print(lineBreak);
                     break;
                 case "bye":
                     break;
                 default:
-                    list[length] = input;
-                    length++;
+                    list[Task.getLength()] = new Task(input);
                     System.out.print(lineBreak);
                     System.out.println("added: " + input);
                     System.out.print(lineBreak);
+                    break;
             }
         }
         System.out.print(lineBreak);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. See you next time!");
         System.out.print(lineBreak);
     }
 }
