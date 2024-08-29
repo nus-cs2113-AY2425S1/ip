@@ -1,4 +1,3 @@
-import java.awt.Graphics;
 import java.util.Scanner;
 
 public class Glendon {
@@ -39,7 +38,7 @@ public class Glendon {
                 list[taskValue].setCompletion(false);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(list[taskValue].toString());
-            } else if (response.contains("mark") && response.indexOf("mark") == 0) {
+            } else if (response.contains("mark") && response.indexOf("mark") == 0){
                 int taskValue = Integer.valueOf(response.split(" ")[1]) - 1;
                 list[taskValue].setCompletion(true);
                 System.out.println("Nice! I've marked this task as done:");
@@ -50,39 +49,5 @@ public class Glendon {
             }
             response = in.nextLine();
         }
-    }
-}
-
-class Task {
-    String taskName;
-    boolean completion;
-
-    public Task(String taskName) {
-        this.taskName = taskName;
-        this.completion = false;
-    }
-
-    public Task(String taskName, boolean completion) {
-        this.taskName = taskName;
-        this.completion = completion;
-    }
-
-    public boolean isCompletion() {
-        return completion;
-    }
-
-    public void setCompletion(boolean completion) {
-        this.completion = completion;
-    }
-
-    @Override
-    public String toString() {
-        String answer;
-        String marked = "";
-        if (this.isCompletion()) {
-            marked = "X";
-        }
-        answer = "[" + marked + "] " + taskName;
-        return answer;
     }
 }
