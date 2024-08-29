@@ -14,6 +14,14 @@ public class Task {
         return taskCount;
     }
 
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
