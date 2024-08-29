@@ -8,18 +8,24 @@ public class TaskMarker {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
-    //Method to mark as done
-    public void setAsDone() {
-        this.isDone = true;
+    public String getMarker() {
+        String result;
+        if (isDone) {
+            result = "X";
+        } else {
+            result = " ";
+        }
+        return result;
     }
 
     //Method to mark as undone
     public void setAsUndone() {
         this.isDone = false;
+    }
+
+    //Method to mark as done
+    public void setAsDone() {
+        this.isDone = true;
     }
 
     /**
@@ -28,6 +34,6 @@ public class TaskMarker {
      * @return string of either "[X] description" or "[ ] description".
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getMarker() + "] " + description;
     }
 }
