@@ -2,11 +2,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CheonsaBot {
-    public static String horizontalLine = "____________________________________________________________";
-
+    public static final int LINE_LENGTH = 60; // Adjust the length as needed
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        printGreeting();
+        try (Scanner scanner = new Scanner(System.in)) {
+            boolean running = true;
+            while (running) {
+                String userInput = scanner.nextLine();
+                running = parseInput(userInput);
+            }
+        }
+    }
+
+    private static void printGreeting() {
         String logo = """
                        (\\ -=- /)
                        ( \\( )/ )
@@ -15,31 +25,23 @@ public class CheonsaBot {
                         /     \\
                         `-._.-'
                        """;
-        System.out.println(horizontalLine);
+        System.out.println(getHorizontalLine());
         System.out.println("Hello, I'm 천사봇! (AngelBot)");
         System.out.print(logo);
         System.out.println("How may I assist you today?");
-        System.out.println(horizontalLine);
-        Scanner scanner = new Scanner(System.in);
-
-        boolean isRunning = true;
-        while (isRunning) {
-            String userInput = scanner.nextLine();  // Read user input
-            isRunning = parseInput(userInput);
-        }
-
-        sayBye();
-        scanner.close();
+        System.out.println(getHorizontalLine());
     }
 
-    public static boolean parseInput(String userInput) {
-        String[] words = userInput.split(" ", 2);
-        String command = words[0];
-        String argument = words.length > 1 ? words[1] : "";
-        // Normalize the command by removing trailing punctuation
-        command = command.replaceAll("[^a-zA-Z0-9]", "");
+    private static String getHorizontalLine() {
+        return "-".repeat(LINE_LENGTH);
+    }
 
-        switch (command.toLowerCase()) {
+    private static boolean parseInput(String userInput) {
+        String[] words = userInput.split(" ", 2);
+        String command = words[0].replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String argument = words.length > 1 ? words[1] : "";
+
+        switch (command) {
             case "mark":
                 markTask(argument);
                 break;
@@ -47,72 +49,74 @@ public class CheonsaBot {
                 unmarkTask(argument);
                 break;
             case "bye":
+                sayBye();
                 return false;
+            case "list":
+                printTaskList();
+                break;
             default:
                 addTask(userInput);
                 break;
         }
-
         return true;
     }
 
-    public static void markTask(String taskNumber) {
+    private static void markTask(String taskNumber) {
         try {
             int index = Integer.parseInt(taskNumber) - 1;
             if (index >= 0 && index < tasks.size()) {
-                tasks.get(index).markAsDone();
-                System.out.println(horizontalLine);
+                tasks.get(index).setAsDone();
+                System.out.println(getHorizontalLine());
                 System.out.println("Marked task as done: " + tasks.get(index));
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
             } else {
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
                 System.out.println("Task number out of range.");
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
             }
         } catch (NumberFormatException e) {
-            System.out.println(horizontalLine);
+            System.out.println(getHorizontalLine());
             System.out.println("Invalid task number.");
-            System.out.println(horizontalLine);
+            System.out.println(getHorizontalLine());
         }
     }
 
-    public static void unmarkTask(String taskNumber) {
+    private static void unmarkTask(String taskNumber) {
         try {
             int index = Integer.parseInt(taskNumber) - 1;
             if (index >= 0 && index < tasks.size()) {
-                tasks.get(index).markAsUndone();
-                System.out.println(horizontalLine);
+                tasks.get(index).setAsUndone();
+                System.out.println(getHorizontalLine());
                 System.out.println("Unmarked task: " + tasks.get(index));
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
             } else {
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
                 System.out.println("Task number out of range.");
-                System.out.println(horizontalLine);
+                System.out.println(getHorizontalLine());
             }
         } catch (NumberFormatException e) {
-            System.out.println(horizontalLine);
+            System.out.println(getHorizontalLine());
             System.out.println("Invalid task number.");
-            System.out.println(horizontalLine);
+            System.out.println(getHorizontalLine());
         }
     }
 
-
-    public static void sayBye() {
-        System.out.println(horizontalLine);
+    private static void sayBye() {
+        System.out.println(getHorizontalLine());
         System.out.println("Bye, see you again soon!");
-        System.out.println(horizontalLine);
+        System.out.println(getHorizontalLine());
     }
 
-    public static void addTask(String description) {
+    private static void addTask(String description) {
         Task task = new Task(description);
         tasks.add(task);
-        System.out.println(horizontalLine);
+        System.out.println(getHorizontalLine());
         System.out.println("Added: " + task);
-        System.out.println(horizontalLine);
+        System.out.println(getHorizontalLine());
     }
 
-    public static void printTaskList() {
-        System.out.println(horizontalLine);
+    private static void printTaskList() {
+        System.out.println(getHorizontalLine());
         if (tasks.isEmpty()) {
             System.out.println("Your task list is empty!");
         } else {
@@ -120,6 +124,6 @@ public class CheonsaBot {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
-        System.out.println(horizontalLine);
+        System.out.println(getHorizontalLine());
     }
 }
