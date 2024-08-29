@@ -44,6 +44,24 @@ public class Ran {
         System.out.println("____________________________________________________________");
     }
 
+    public static void markTask(Task[] list, String taskNum) {
+        int taskNumber = Integer.parseInt(taskNum) - 1;
+        list[taskNumber].markAsDone();
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  [X] " + list[taskNumber].getDescription());
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void unmarkTask(Task[] list, String taskNum) {
+        int taskNumber = Integer.parseInt(taskNum) - 1;
+        list[taskNumber].markAsUndone();
+        System.out.println("____________________________________________________________");
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  [ ] " + list[taskNumber].getDescription());
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -53,11 +71,18 @@ public class Ran {
 
         while(!isTerminated) {
             input = in.nextLine();
+            String[] instruction = input.split(" ");
             if (input.equals("bye")) {
                 isTerminated = true;
             }
             else if (input.equals("list")) {
                 showList(list);
+            }
+            else if (instruction.length > 1 && instruction[0].equals("mark")) {
+                markTask(list, instruction[1]);
+            }
+            else if (instruction.length > 1 && instruction[0].equals("unmark")) {
+                unmarkTask(list, instruction[1]);
             }
             else {
                 addTask(input, list);
