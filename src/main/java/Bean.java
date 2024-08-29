@@ -78,11 +78,10 @@ public class Bean {
         Scanner in = new Scanner(System.in);
 
         Task[] toDoList = new Task[MAX_LIST_COUNT];
-        int count = 0;
 
         greet();
 
-        while (count < MAX_LIST_COUNT) {
+        while (Task.getNumberOfTasks() < MAX_LIST_COUNT) {
             userInput = in.nextLine();
 
             if (userInput.equals("bye")) {
@@ -102,11 +101,10 @@ public class Bean {
                 }
             } else {
                 // Add task
-                toDoList[count] = new Task(userInput);
+                toDoList[Task.getNumberOfTasks()] = new Task(userInput);
 
                 // Confirmation message
                 printFormattedReply("Task '" + userInput + "' has been added!");
-                count++;
             }
         }
         exit();
