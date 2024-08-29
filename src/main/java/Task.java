@@ -1,28 +1,37 @@
 public class Task {
     private int id;
-    private String task;
-    private boolean isDone;
+    private String description;
+    private boolean isMarkDone;
 
     public Task() {
-        this.isDone = false;
+        this.isMarkDone = false;
     }
 
-    public Task(int id, String task) {
+    public Task(int id, String description) {
         this.id = id;
-        this.task = task;
-        this.isDone = false;
+        this.description = description;
+        this.isMarkDone = false;
     }
 
     public void markTaskDone() {
-        isDone = true;
+        isMarkDone = true;
+    }
+
+    public void unmarkTaskDone() {
+        isMarkDone = false;
+    }
+
+    public String getStatusMark(){
+        if (isMarkDone) {
+            return "X";
+        }
+        return " ";
     }
 
     public void printTask() {
-        if (isDone) {
-            System.out.print("[X] ");
-        } else {
-            System.out.print("[ ] ");
-        }
-        System.out.println(id + ": " + task);
+        System.out.print("[");
+        System.out.print(getStatusMark());
+        System.out.print("] ");
+        System.out.println(description);
     }
 }

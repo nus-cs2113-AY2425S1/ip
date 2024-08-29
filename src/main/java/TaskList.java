@@ -21,9 +21,27 @@ public class TaskList {
     }
 
     public void printTaskList() {
+        System.out.println("\tSure! Here are the tasks on your list:");
         for (int i = 0; i < noOfTasks; i++) {
+            System.out.print("\t" + (i + 1) +".");
             allTasks[i].printTask();
         }
+        printHorizontalLine();
+    }
+
+    public void markTaskDoneByID(int id) {
+        allTasks[id - 1].markTaskDone();
+        System.out.println("\tGreat! I've marked this task as done:");
+        System.out.print("\t");
+        allTasks[id - 1].printTask();
+        printHorizontalLine();
+    }
+
+    public void unmarkTaskDoneByID(int id) {
+        allTasks[id - 1].unmarkTaskDone();
+        System.out.println("\tOK, I've marked this task as undone:");
+        System.out.print("\t");
+        allTasks[id - 1].printTask();
         printHorizontalLine();
     }
 
