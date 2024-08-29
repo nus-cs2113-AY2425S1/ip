@@ -137,7 +137,7 @@ public class ChattyCharlie {
                     }
                 }
                 if(!found) {
-                    System.out.println("        Invalid task description.");
+                    System.out.println("        Invalid task description");
                 }
             } else if (line.startsWith("unmark ")) {
                 String taskDescription = line.substring(7).trim();
