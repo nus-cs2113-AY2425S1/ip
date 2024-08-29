@@ -16,9 +16,17 @@ public class Task {
     }
 
     public void markAsDone() {
+        if(isDone) {
+            System.out.println("Task is already done");
+            return;
+        }
         isDone = true;
     }
     public void markAsNotDone() {
+        if(!isDone) {
+            System.out.println("Task is already not done");
+            return;
+        }
         isDone = false;
     }
 }
