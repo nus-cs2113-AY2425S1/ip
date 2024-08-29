@@ -26,14 +26,23 @@ public class Ryan {
                 Utils.horizontalLine();
             } else if (command.startsWith("mark")){
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                if (index >= 0 && index <= tasks.size()){
+                if (index >= 0 && index < tasks.size()){
                     tasks.get(index).mark();
                     System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
                 } else {
                     System.out.println("Invalid task number.");
                 }
                 Utils.horizontalLine();
-            } else {
+            } else if (command.startsWith("unmark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.get(index).unmark();
+                    System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
+                } else {
+                    System.out.println("Invalid task number.");
+                }
+                Utils.horizontalLine();
+            }else {
                 Utils.horizontalLine();
                 Task task = new Task(command);
                 tasks.add(task);

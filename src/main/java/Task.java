@@ -19,6 +19,10 @@ public class Task {
         this.isMarked = true;
     }
 
+    public void unmark(){
+        this.isMarked = false;
+    }
+
     public String toString(){
         return(isMarked?"[X] ":"[ ] ") + description;
     }
