@@ -27,22 +27,9 @@ public class Boaz {
         printHorizontalLine();
     }
 
-    public static void addToUserList(String input) {
-        userList[listCount] = input;
-        listCount++;
-        System.out.println("\tadded: " + input);
-        printHorizontalLine();
-    }
-
-    public static void printUserList() {
-        for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + ". " + userList[i]);
-        }
-        printHorizontalLine();
-    }
-
     public static void main(String[] args) {
         greet();
+        TaskList taskList = new TaskList();
         Scanner in = new Scanner(System.in);
         while (!isDone) {
             String input = in.nextLine();
@@ -50,9 +37,9 @@ public class Boaz {
             if (input.equalsIgnoreCase("bye")) {
                 isDone = true;
             } else if (input.equalsIgnoreCase("list")) {
-                printUserList();
+                taskList.printTaskList();
             } else {
-                addToUserList(input);
+                taskList.addToTaskList(input);
             }
         }
         exit();
