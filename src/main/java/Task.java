@@ -1,28 +1,28 @@
 public class Task {
     private int id;
     private String description;
-    private boolean isMarkDone;
+    private boolean isMarkAsDone;
 
     public Task() {
-        this.isMarkDone = false;
+        this.isMarkAsDone = false;
     }
 
     public Task(int id, String description) {
         this.id = id;
         this.description = description;
-        this.isMarkDone = false;
+        this.isMarkAsDone = false;
     }
 
-    public void markTaskDone() {
-        isMarkDone = true;
+    public void markTaskAsDone() {
+        isMarkAsDone = true;
     }
 
-    public void unmarkTaskDone() {
-        isMarkDone = false;
+    public void unmarkTaskAsDone() {
+        isMarkAsDone = false;
     }
 
     public String getStatusMark(){
-        if (isMarkDone) {
+        if (isMarkAsDone) {
             return "X";
         }
         return " ";

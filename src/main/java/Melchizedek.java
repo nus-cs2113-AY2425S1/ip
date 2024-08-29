@@ -8,51 +8,34 @@ public class Melchizedek {
         System.out.println("\t____________________________________________________________");
     }
 
-    public static void greet() {
+    public static void greetUser() {
         printHorizontalLine();
         System.out.println("\tHello! I'm Melchizedek.");
         System.out.println("\tHow can I be a blessing to you?");
         printHorizontalLine();
     }
 
-    public static void exit() {
+    public static void sayByeToUser() {
         System.out.println("\tGoodbye. Hope to see you again soon! May peace be upon you.");
         printHorizontalLine();
     }
 
-    public static void echo(String input) {
-        System.out.println("\t" + input);
-        printHorizontalLine();
-    }
-
-    public static void markTask(String input) {
-        //String[] tokens = input.split(" ");
-        int taskID = Integer.parseInt(input);
-        taskList.markTaskDoneByID(taskID);
-    }
-
-    public static void unmarkTask(String input) {
-        //String[] tokens = input.split(" ");
-        int taskID = Integer.parseInt(input);
-        taskList.unmarkTaskDoneByID(taskID);
-    }
-
     public static void main(String[] args) {
-        greet();
+        greetUser();
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
             printHorizontalLine();
             String[] tokens = input.split(" ");
             if (input.equalsIgnoreCase("bye")) {
-                exit();
+                sayByeToUser();
                 return;
             } else if (input.equalsIgnoreCase("list")) {
                 taskList.printTaskList();
             } else if (tokens[0].equalsIgnoreCase("mark")) {
-                taskList.markTaskDoneByID(Integer.parseInt(tokens[1]));
+                taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
             } else if (tokens[0].equalsIgnoreCase("unmark")) {
-                taskList.unmarkTaskDoneByID(Integer.parseInt(tokens[1]));
+                taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
             } else {
                 taskList.addToTaskList(input);
             }

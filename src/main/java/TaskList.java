@@ -4,7 +4,7 @@ public class TaskList {
 
     public TaskList(String task){
         allTasks = new Task[100];
-        allTasks[0] = new Task(noOfTasks, task);
+        allTasks[0] = new Task(1, task);
         noOfTasks = 1;
     }
 
@@ -29,16 +29,16 @@ public class TaskList {
         printHorizontalLine();
     }
 
-    public void markTaskDoneByID(int id) {
-        allTasks[id - 1].markTaskDone();
+    public void markTaskAsDone(int id) {
+        allTasks[id - 1].markTaskAsDone();
         System.out.println("\tGreat! I've marked this task as done:");
         System.out.print("\t");
         allTasks[id - 1].printTask();
         printHorizontalLine();
     }
 
-    public void unmarkTaskDoneByID(int id) {
-        allTasks[id - 1].unmarkTaskDone();
+    public void unmarkTaskAsDone(int id) {
+        allTasks[id - 1].unmarkTaskAsDone();
         System.out.println("\tOK, I've marked this task as undone:");
         System.out.print("\t");
         allTasks[id - 1].printTask();
