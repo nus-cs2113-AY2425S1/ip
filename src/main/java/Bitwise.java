@@ -2,25 +2,26 @@ import java.util.Scanner;
 
 public class Bitwise {
     // ASCII art from https://ascii-generator.site/t/
-    private static final String logo = " ____   _  _              _            \n"
+    private static final String LOGO = " ____   _  _              _            \n"
             + "|  _ \\ (_)| |            (_)           \n"
             + "| |_) | _ | |_ __      __ _  ___   ___ \n"
             + "|  _ < | || __|\\ \\ / /| |/ __| / _ \\ \n"
             + "| |_) || || |_  \\ V  V / | |\\__ \\|  __/\n"
             + "|____/ |_| \\__|  \\_/\\_/  |_||___/ \\___|\n"
             + "                                       \n";
-    private static final String sectionBreak = "==================================================\n";
-    private static final String lineBreak = "--------------------------------------------------\n";
-    private static final String indentation = "        ";
-    private static Task[] taskList = new Task[100];
+    private static final String SECTION_BREAK = "==================================================\n";
+    private static final String LINE_BREAK = "--------------------------------------------------\n";
+    private static final String INDENTATION = "        ";
+    private static Task[] tasksList = new Task[100];
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
-        System.out.println(sectionBreak + indentation + "Hello from\n" + logo);
-        System.out.print(indentation + "How may I help you today?\n" + lineBreak);
+        System.out.println(SECTION_BREAK + INDENTATION + "Hello from\n" + LOGO);
+        System.out.print(INDENTATION + "How may I help you today?\n" + LINE_BREAK);
         mainManager();
-        System.out.println(lineBreak + indentation + "Bye, see you soon!\n" + sectionBreak);
+        System.out.println(LINE_BREAK + INDENTATION + "Bye, see you soon!\n" + SECTION_BREAK);
     }
+
     public static void mainManager() {
         String userInput;
         while (true) {
@@ -29,9 +30,9 @@ public class Bitwise {
             if (userInput.equalsIgnoreCase("bye")) {
                 return;
             }
-            System.out.print(lineBreak);
+            System.out.print(LINE_BREAK);
             if (userInput.equalsIgnoreCase("list")) {
-                printTaskList();
+                printTasksList();
             }
             else if (userInput.contains("unmark")) {
                 String taskName = userInput.substring(userInput.indexOf(" ") + 1);
@@ -43,11 +44,12 @@ public class Bitwise {
             }
             else {
                 addToList(userInput);
-                System.out.println(indentation + "Added: " + userInput);
+                System.out.println(INDENTATION + "Added: " + userInput);
             }
-            System.out.print(lineBreak);
+            System.out.print(LINE_BREAK);
         }
     }
+
     public static void echoUserInput() {
         String userInput;
         while (true) {
@@ -56,27 +58,30 @@ public class Bitwise {
             if (userInput.equalsIgnoreCase("bye")) {
                 return;
             }
-            System.out.print(lineBreak + indentation + userInput + lineBreak);
+            System.out.print(LINE_BREAK + INDENTATION + userInput + LINE_BREAK);
         }
     }
+
     public static void addToList(String userInput) {
         Task newTask = new Task(userInput);
-        taskList[numberOfTasks] = newTask;
+        tasksList[numberOfTasks] = newTask;
         numberOfTasks++;
     }
-    public static void printTaskList() {
+
+    public static void printTasksList() {
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println(indentation + Integer.toString(i + 1) + ". " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getTaskName());
+            System.out.println(INDENTATION + Integer.toString(i + 1) + ". " + "[" + tasksList[i].getStatusIcon() + "] " + tasksList[i].getTaskName());
         }
     }
+
     public static void markCompletionStatus(String taskName, boolean isCompleted) {
         for (int i = 0; i < numberOfTasks; i++) {
-            if (taskList[i].getTaskName().equalsIgnoreCase(taskName)) {
-                taskList[i].markCompletionStatus(isCompleted);
+            if (tasksList[i].getTaskName().equalsIgnoreCase(taskName)) {
+                tasksList[i].markCompletionStatus(isCompleted);
             }
         }
         String message = isCompleted ? "Awesome, I've marked this task as completed!" : "I've added the task back in";
-        System.out.println(indentation + message);
-        printTaskList();
+        System.out.println(INDENTATION + message);
+        printTasksList();
     }
 }
