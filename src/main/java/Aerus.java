@@ -35,8 +35,8 @@ public class Aerus {
                 }
 
                 System.out.println(dividerLine);
-                for (int taskNumber = 1; taskNumber <= Task.tasksCount; taskNumber++) {
-                    System.out.println(taskNumber + ". " + tasks[taskNumber-1].toString());
+                for (int i = 1; i <= Task.tasksCount; i++) {
+                    System.out.println(i + ". " + tasks[i-1].toString());
                 }
                 System.out.println(dividerLine);
                 continue;
