@@ -25,7 +25,7 @@ import java.util.Scanner;
         }
 
 
-        public static void execute() {
+        public void execute() {
             System.out.println("Hello I'm Lambo");
             System.out.println("What can I do for you?");
             Scanner input_reader = new Scanner(System.in);
@@ -41,7 +41,7 @@ import java.util.Scanner;
                         list();
                         break;
                     default:
-                        if(input == "") {
+                        if(input.isEmpty()) {
                             continue SuperLoop;
                         }
                         add(input);
