@@ -24,7 +24,12 @@ public class DBot {
             if(line.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 isOn = false;
-            } else {
+            } else if (line.equalsIgnoreCase("list")) {
+                for (int i = 0; i < datas.size(); i++) {
+                    System.out.printf("%d. ", i + 1);
+                    System.out.println(datas.get(i));
+                }
+            }else {
                 datas.add(line);
                 System.out.print("added: ");
                 System.out.println(line);
