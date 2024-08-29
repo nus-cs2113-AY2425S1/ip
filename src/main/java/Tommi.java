@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Tommi {
     public static void main(String[] args) {
         String logo =
@@ -10,9 +12,19 @@ public class Tommi {
                   "____________________________________________________________\n"
                 +  "Hello! I'm Tommi!\n"
                 +  "What can I do for you?\n"
-                +  "____________________________________________________________\n"
-                +  "Bye. Hope to see you again soon!\n"
                 +  "____________________________________________________________\n";
         System.out.println(intro);
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            }
+            System.out.println(input);
+        }
     }
 }
