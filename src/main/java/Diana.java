@@ -2,7 +2,7 @@
 
 public class Diana {
     public static void main(String[] args) {
-        DianaAssistant dianaAssistant = new DianaAssistant();
+        DianaAssistantN dianaAssistant = new DianaAssistantN();
         dianaAssistant.interact();
     }
 }
