@@ -17,7 +17,7 @@ public class ChattyCharlie {
                 break;
             }
 
-            String response = "Input:   ";
+            String response = "Output:  ";
             System.out.println(response + line);
         }
     }
