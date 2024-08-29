@@ -28,18 +28,18 @@ public class Ran {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String input, String[] list) {
-        list[listCount] = input;
+    public static void addTask(String input, Task[] list) {
+        list[listCount] = new Task(input);
         listCount++;
         System.out.println("____________________________________________________________");
         System.out.println("added: " + input);
         System.out.println("____________________________________________________________");
     }
 
-    public static void showList(String[] list) {
+    public static void showList(Task[] list) {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < listCount; i++) {
-            System.out.println((i + 1) + ". " + list[i]);
+            System.out.println((i + 1) + ".[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
         }
         System.out.println("____________________________________________________________");
     }
@@ -49,7 +49,7 @@ public class Ran {
 
         String input;
         Scanner in = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] list = new Task[100];
 
         while(!isTerminated) {
             input = in.nextLine();
