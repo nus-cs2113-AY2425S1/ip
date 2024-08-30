@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Freedom {
     public static void main(String[] args) {
@@ -67,9 +66,9 @@ public class Freedom {
         System.out.println(logo);
     }
 
-    public static void markTaskStatement(Task task, boolean isMark) {
+    public static void markTaskStatement(Task task, boolean isDone) {
         String logo = "\t_________________________________________\n";
-        String message = isMark ? "\tNice! I've marked this task as done:" : "\tOk, I've marked this task as not done yet:";
+        String message = isDone ? "\tNice! I've marked this task as done:" : "\tOk, I've marked this task as not done yet:";
         System.out.println(logo + message);
         System.out.println("\t  [" + task.getStatusIcon() + "] " + task.getDescription());
         System.out.println(logo);
