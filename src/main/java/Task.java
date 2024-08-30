@@ -15,11 +15,11 @@ public class Task {
         return description;
     }
 
-    public void markAsDone() {
+    public void setAsDone() {
         isDone = true;
     }
 
-    public void markAsUndone() {
+    public void setAsUndone() {
         isDone = false;
     }
 }

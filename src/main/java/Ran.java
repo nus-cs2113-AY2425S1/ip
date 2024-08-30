@@ -7,16 +7,16 @@ public class Ran {
     public static void greet() {
         System.out.println("____________________________________________________________");
         String logo = "     ___           ___           ___\n"
-            + "    /\\  \\         /\\  \\         /\\__\\\n"
-            + "   /::\\  \\       /::\\  \\       /::|  |\n"
-            + "  /:/\\:\\  \\     /:/\\:\\  \\     /:|:|  |\n"
-            + " /::\\~\\:\\  \\   /::\\~\\:\\  \\   /:/|:|  |__\n"
-            + "/:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\\n"
-            + "\\/_|::\\/:/  / \\/__\\:\\/:/  / \\/__|:|/:/  /\n"
-            + "   |:|::/  /       \\::/  /      |:/:/  /\n"
-            + "   |:|\\/__/        /:/  /       |::/  /\n"
-            + "   |:|  |         /:/  /        /:/  /\n"
-            + "    \\|__|         \\/__/         \\/__/\n";
+                + "    /\\  \\         /\\  \\         /\\__\\\n"
+                + "   /::\\  \\       /::\\  \\       /::|  |\n"
+                + "  /:/\\:\\  \\     /:/\\:\\  \\     /:|:|  |\n"
+                + " /::\\~\\:\\  \\   /::\\~\\:\\  \\   /:/|:|  |__\n"
+                + "/:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\\n"
+                + "\\/_|::\\/:/  / \\/__\\:\\/:/  / \\/__|:|/:/  /\n"
+                + "   |:|::/  /       \\::/  /      |:/:/  /\n"
+                + "   |:|\\/__/        /:/  /       |::/  /\n"
+                + "   |:|  |         /:/  /        /:/  /\n"
+                + "    \\|__|         \\/__/         \\/__/\n";
         System.out.println(logo + "Hello! I'm Ran.");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
@@ -46,7 +46,7 @@ public class Ran {
 
     public static void markTask(Task[] list, String taskNum) {
         int taskNumber = Integer.parseInt(taskNum) - 1;
-        list[taskNumber].markAsDone();
+        list[taskNumber].setAsDone();
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  [X] " + list[taskNumber].getDescription());
@@ -55,7 +55,7 @@ public class Ran {
 
     public static void unmarkTask(Task[] list, String taskNum) {
         int taskNumber = Integer.parseInt(taskNum) - 1;
-        list[taskNumber].markAsUndone();
+        list[taskNumber].setAsUndone();
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  [ ] " + list[taskNumber].getDescription());
@@ -74,17 +74,13 @@ public class Ran {
             String[] instruction = input.split(" ");
             if (input.equals("bye")) {
                 isTerminated = true;
-            }
-            else if (input.equals("list")) {
+            } else if (input.equals("list")) {
                 showList(list);
-            }
-            else if (instruction.length > 1 && instruction[0].equals("mark")) {
+            } else if (instruction.length > 1 && instruction[0].equals("mark")) {
                 markTask(list, instruction[1]);
-            }
-            else if (instruction.length > 1 && instruction[0].equals("unmark")) {
+            } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
                 unmarkTask(list, instruction[1]);
-            }
-            else {
+            } else {
                 addTask(input, list);
             }
         }
