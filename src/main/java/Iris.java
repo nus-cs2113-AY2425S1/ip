@@ -18,23 +18,34 @@ public class Iris {
             Task currentTask = tasks[i];
             System.out.println((i + 1) 
                     + "."
-                    + currentTask.getFullDescription());
+                    + currentTask);
         }
     }
 
     public static void addTask(String text) {
+        Task newTask;
         try {
-            tasks[numOfTasks] = new Task(text);
-            numOfTasks++;
+            if (text.contains("todo")) {
+                newTask = new Todo(text);
+            } else if (text.contains("deadline")) {
+                newTask = new Deadline(text);
+            } else if (text.contains("event")) {
+                newTask = new Event(text);
+            } else {
+                System.out.println("Invalid Command");
+                return;
+            }
+            tasks[numOfTasks] = newTask;
             printAddTaskMessage(tasks[numOfTasks]);
-        } catch (RuntimeException e) {
+            numOfTasks++;
+        } catch (RuntimeException e) { // For missing description
             System.out.println(e.getMessage());
         }
     }
 
     private static void printAddTaskMessage(Task newTask) {
         System.out.println("Got it. I've added this task:\n"
-                + newTask.getFullDescription()
+                + newTask
                 + "\nNow you have "
                 + numOfTasks
                 + " tasks in the list");
@@ -59,7 +70,7 @@ public class Iris {
                 taskToEdit.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
             }
-            System.out.println(taskToEdit.getFullDescription());
+            System.out.println(taskToEdit);
         } catch (NumberFormatException e) {
             System.out.println("Please provide a valid task number.");
         }
