@@ -14,7 +14,7 @@ public class ChattyCharlie {
         }
 
         //check if its marked as done
-        public String getStatusIcon() {
+        public String getMarkedStatus() {
             return (isDone ? "X" : " ");
         }
 
@@ -57,7 +57,7 @@ public class ChattyCharlie {
                 list[index].markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println("        Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println("        [" + list[index].getStatusIcon() + "] " + list[index].description);
+                System.out.println("        [" + list[index].getMarkedStatus() + "] " + list[index].description);
             } else {
                 System.out.println("        Invalid task number.");
             }
@@ -69,7 +69,7 @@ public class ChattyCharlie {
                 list[index].unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println("        Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println("        [" + list[index].getStatusIcon() + "] " + list[index].description);
+                System.out.println("        [" + list[index].getMarkedStatus() + "] " + list[index].description);
             } else {
                 System.out.println("        Invalid task number.");
             }
@@ -83,7 +83,7 @@ public class ChattyCharlie {
             System.out.println("pending Task: " + remainingTask);
             for (int i = 0; i < size; i++) {
                 int number = i+1;
-                System.out.println("        " + number + ".[" +list[i].getStatusIcon() + "] " + list[i].description);
+                System.out.println("        " + number + ".[" +list[i].getMarkedStatus() + "] " + list[i].description);
             }
         }
 
