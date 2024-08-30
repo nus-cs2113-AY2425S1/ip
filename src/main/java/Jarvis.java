@@ -6,8 +6,8 @@ public class Jarvis {
     static final int MAX_STRING_LENGTH = 100; // Maximum length of a string
 
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
-    private String[] itemList = new String[MAX_STRING_LENGTH]; // List of items
-    private int itemCount; // Number of items in the list
+    private static String[] itemLists = new String[MAX_STRING_LENGTH]; // List of items
+    private static int itemCount; // Number of items in the list
 
 
     /**
@@ -59,6 +59,33 @@ public class Jarvis {
         exit(0);
     }
 
+    public static void printUserList() {
+        printBreakLine();
+        if (itemCount == 0) {
+            System.out.println("The list is empty.");
+        } else {
+
+            for (int i = 0; i < itemCount; i++) {
+                System.out.println((i + 1) + ". " + itemLists[i]);
+            }
+        }
+        printBreakLine();
+    }
+
+    public static void addUserItem(String item) {
+        printBreakLine();
+        System.out.println("Added: " + item);
+        if (itemCount < MAX_STRING_LENGTH) {
+            itemLists[itemCount] = item;
+            itemCount++;
+        } else {
+            System.out.println("The list is full. Please remove some items before adding more.");
+        }
+
+        printBreakLine();
+
+    }
+
     public static void echoUserInput(Scanner in, String lineBufferString) {
 
         try (in) {
@@ -71,12 +98,13 @@ public class Jarvis {
             } else if (lineBufferString.equalsIgnoreCase("bye")) {
                 printGoodbyeMsgs();
             } else if (lineBufferString.equalsIgnoreCase("list")) {
-
-            } else {
-                printBreakLine();
-                System.out.println("Added:" + lineBufferString);
-                printBreakLine();
+                printUserList();
                 echoUserInput(in, lineBufferString);
+            } else {
+
+                addUserItem(lineBufferString);
+                echoUserInput(in, lineBufferString);
+
             }
         } catch (Exception e) {
             System.err.println("An error occurred. Please try again.");
