@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Cassandra {
 
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
+
     private static void line(){
         System.out.println("____________________________________________________________");
     }
@@ -21,13 +23,13 @@ public class Cassandra {
         line();
     }
 
-    private static void saveTask(ArrayList<Task> taskList,Task input){
+    private static void saveTask(Task input){
         taskList.add(input);
         System.out.println(" Added : "+ input.getTaskName());
         line();
     }
 
-    private static void markTask(ArrayList<Task> taskList,int index){
+    private static void markTask(int index){
         if(index<=0 || index>taskList.size()) {
             System.out.println("Sorry, no task found");
         } else if(taskList.get(index-1).getIsCompleted()){
@@ -40,7 +42,7 @@ public class Cassandra {
         line();
     }
 
-    private static void unmarkTask(ArrayList<Task> taskList,int index){
+    private static void unmarkTask(int index){
         if(index<=0 || index>taskList.size()) {
             System.out.println("Sorry, no task found");
         } else if(!taskList.get(index-1).getIsCompleted()){
@@ -53,7 +55,7 @@ public class Cassandra {
         line();
     }
 
-    private static void printtaskList(ArrayList<Task> taskList){
+    private static void printtaskList(){
         if(taskList.isEmpty()){
             System.out.println("List is empty");
             return;
@@ -65,28 +67,31 @@ public class Cassandra {
         line();
     }
 
-    private  static void input(ArrayList<Task> taskList) {
+    private static void directCode(String code,String input){
+        if(code.equalsIgnoreCase("mark")){
+            markTask(Integer.parseInt(input.substring(input.indexOf(" ")+1)));
+        } else if(code.equalsIgnoreCase("unmark")){
+            unmarkTask(Integer.parseInt(input.substring(input.indexOf(" ")+1)));
+        } else if(code.equalsIgnoreCase("list")){
+            printtaskList();
+        } else if(code.equalsIgnoreCase("bye")){
+            System.exit(0);
+        }else {
+            saveTask(new Task(input));
+        }
+    }
+
+    private  static void input() {
         String input = new Scanner(System.in).nextLine().trim();
         String code = input.split(" ")[0];
         line();
-        if(code.equals("mark")){
-            markTask(taskList,Integer.parseInt(input.substring(input.indexOf(" ")+1)));
-        } else if(code.equals("unmark")){
-            unmarkTask(taskList,Integer.parseInt(input.substring(input.indexOf(" ")+1)));
-        } else if(code.equals("list")){
-            printtaskList(taskList);
-        } else if(code.equals("bye")){
-            return;
-        }else {
-            saveTask(taskList, new Task(input));
-        }
-        input(taskList);
+        directCode(code,input);
+        input();
     }
 
     public static void main(String[] args) {
         intro();
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        input(taskList);
+        input();
         exit();
     }
 }
