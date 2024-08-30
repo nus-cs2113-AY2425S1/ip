@@ -21,8 +21,7 @@ public class Jarvis {
      * Prints the greeting messages to the console.
      */
     private static void printGreetingMsgs() {
-        String[] greetings = {"Hello! I'm " + chatBotName + "\nWhat can I do for you?",
-                "Bye. Hope to see you again soon!"}; // List of greetings
+        String[] greetings = {"Hello! I'm " + chatBotName + "\nWhat can I do for you?", "Bye. Hope to see you again soon!"}; // List of greetings
 
         // Print the greetings
         for (String greeting : greetings) {
