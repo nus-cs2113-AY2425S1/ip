@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Taylor {
@@ -11,9 +13,20 @@ public class Taylor {
         System.out.println(line);
 
         String input = sc.nextLine();
+        List<String> list = new ArrayList<>();
         while(!input.equals("bye")) {
+            if(input.equals("list")) {
+                System.out.println(line);
+                for(int i = 0; i < list.size(); i++) {
+                    System.out.println(i+1 + ". " + list.get(i));
+                }
+                System.out.println(line);
+                input = sc.nextLine();
+                continue;
+            }
             System.out.println(line);
-            System.out.println(input);
+            System.out.println("added: " + input);
+            list.add(input);
             System.out.println(line);
             input = sc.nextLine();
         }
