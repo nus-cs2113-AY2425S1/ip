@@ -1,9 +1,9 @@
-public class Task {
-    private String name;
+class Task {
+    private String description;
     private boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -15,12 +15,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
     @Override
     public String toString() {
-        return getStatusIcon() + " " + name;  // 返回带状态图标的任务字符串
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 }
