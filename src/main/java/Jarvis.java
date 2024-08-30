@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class Jarvis {
     // Constants
-    static final int MAX_STRING_LENGTH = 100; // Maximum length of a string
+    static final int MAX_TASK_LENGTH = 100; // Maximum length of a string
 
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
-    private static String[] itemLists = new String[MAX_STRING_LENGTH]; // List of items
-    private static int itemCount; // Number of items in the list
+
+    private static Task[] taskList = new Task[100]; // Array to store tasks
+    // private static int taskCount = 0; // Number of tasks in the list
 
 
     /**
@@ -59,25 +60,25 @@ public class Jarvis {
         exit(0);
     }
 
-    public static void printUserList() {
+    public static void printTasks() {
         printBreakLine();
-        if (itemCount == 0) {
+        if (Task.getNumberOfTasks() == 0) {
             System.out.println("The list is empty.");
         } else {
 
-            for (int i = 0; i < itemCount; i++) {
-                System.out.println((i + 1) + ". " + itemLists[i]);
+            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+                System.out.print((i + 1) + ". ");
+                taskList[i].printTask();
             }
         }
         printBreakLine();
     }
 
-    public static void addUserItem(String item) {
+    public static void addTask(String item) {
         printBreakLine();
         System.out.println("Added: " + item);
-        if (itemCount < MAX_STRING_LENGTH) {
-            itemLists[itemCount] = item;
-            itemCount++;
+        if (Task.getNumberOfTasks() < MAX_TASK_LENGTH) {
+            taskList[Task.getNumberOfTasks()] = new Task(item);
         } else {
             System.out.println("The list is full. Please remove some items before adding more.");
         }
@@ -86,7 +87,7 @@ public class Jarvis {
 
     }
 
-    public static void echoUserInput(Scanner in, String lineBufferString) {
+    public static void readInput(Scanner in, String lineBufferString) {
 
         try (in) {
             printPrompt();
@@ -98,13 +99,11 @@ public class Jarvis {
             } else if (lineBufferString.equalsIgnoreCase("bye")) {
                 printGoodbyeMsgs();
             } else if (lineBufferString.equalsIgnoreCase("list")) {
-                printUserList();
-                echoUserInput(in, lineBufferString);
+                printTasks();
+                readInput(in, lineBufferString);
             } else {
-
-                addUserItem(lineBufferString);
-                echoUserInput(in, lineBufferString);
-
+                addTask(lineBufferString);
+                readInput(in, lineBufferString);
             }
         } catch (Exception e) {
             System.err.println("An error occurred. Please try again.");
@@ -149,7 +148,7 @@ public class Jarvis {
 
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
-        echoUserInput(in, lineBufferString);
+        readInput(in, lineBufferString);
 
     }
 }
