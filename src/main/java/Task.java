@@ -1,29 +1,54 @@
 /**
  * Represents a task with a description and a completion status.
+ * This is a base class for different types of tasks.
  */
 public class Task {
-    /** Task description */
+    /** Task type (e.g., "todo", "event", "deadline") **/
+    protected String type = " ";
+    /** Short notation for the task type (e.g., "T" for todo, "E" for event) **/
+    protected String shortType = " ";
+    /** Description of the task **/
     protected String description;
-    /** Task completion status */
+    /** Completion status of the task **/
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the specified description and mark as undone.
+     * Constructs a Task with the specified description.
+     * The task is marked as undone by default.
      *
      * @param description The description of the task
      */
     public Task(String description) {
-        setDescription(description);
-        markAsUndone();
+        setDescription(description); // Set the description of the task
+        markAsUndone();             // Mark the task as undone initially
+    }
+
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task as a string
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Returns the short notation for the task type.
+     *
+     * @return The short type of the task as a string
+     */
+    public String getShortType() {
+        return shortType;
     }
 
     /**
      * Returns the status icon for the task.
+     * The icon indicates whether the task is done or not.
      *
      * @return "[X]" if the task is done, "[ ]" if not
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // Mark done task with X
+        return isDone ? "X" : " "; // Return "X" for done, " " for not done
     }
 
     /**
@@ -56,5 +81,15 @@ public class Task {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Returns the full information about the task in a formatted string.
+     * The format is: "[shortType][statusIcon] description".
+     *
+     * @return A formatted string containing the task's full information
+     */
+    public String getFullInfo() {
+        return String.format("[%s][%s] %s", getShortType(), getStatusIcon(), getDescription());
     }
 }
