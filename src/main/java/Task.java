@@ -1,5 +1,5 @@
 public class Task {
-    private String description;
+    private final String description;
     private boolean isMarked;
 
     public Task(String description) {
@@ -15,15 +15,15 @@ public class Task {
         return isMarked;
     }
 
-    public void mark(){
+    public void mark() {
         this.isMarked = true;
     }
 
-    public void unmark(){
+    public void unmark() {
         this.isMarked = false;
     }
 
-    public String toString(){
-        return(isMarked?"[X] ":"[ ] ") + description;
+    public String toString() {
+        return (isMarked ? "[X] " : "[ ] ") + description;
     }
 }
