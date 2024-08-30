@@ -1,10 +1,10 @@
 public class Task {
-    private String taskName;
-    private boolean isCompleted;
+    protected String taskName;
+    protected boolean isCompleted;
 
     Task(String taskName){
-        this.taskName=taskName;
-        this.isCompleted=false;
+        setTaskName(taskName);
+        setCompleted(false);
     }
 
     public void setTaskName(String taskName) {
@@ -18,7 +18,8 @@ public class Task {
         return (this.isCompleted ? "X" : " ");
     }
 
-    public String printTask(){
+    @Override
+    public String toString(){
         return ("["+(this.getStatusIcon())+"] "+this.getTaskName());
     }
 
