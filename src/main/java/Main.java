@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     /**
      * The entry point of the program.
@@ -9,9 +11,11 @@ public class Main {
         Niwa chatBot = new Niwa();
 
         // Continue running the chatbot as long as it is active
-        while (chatBot.getRunning()) {
-            // Retrieve and process the next command from the user
-            String command = chatBot.getCommand();
+        // Retrieve and process the next command from the user
+        Scanner scanner = new Scanner(System.in);
+        while (chatBot.getRunning() && scanner.hasNextLine()) {
+            String command = scanner.nextLine();
+            // Process the input
             chatBot.processCommand(command);
         }
     }

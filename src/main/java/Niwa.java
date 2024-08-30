@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Niwa chatbot class that processes user commands to manage a task list.
@@ -117,7 +116,7 @@ public class Niwa {
     public Niwa() {
         isRunning = true;
         printGreet(NAME, LOGO);
-        help();
+        processCommand(COMMAND_HELP_WORD);
     }
 
     /**
@@ -170,6 +169,7 @@ public class Niwa {
                 break;
             }
         }
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -216,8 +216,8 @@ public class Niwa {
                 temp = new Task(taskInfo);
                 break;
             }
-            tasks.add(temp);
 
+            tasks.add(temp);
             System.out.printf(PREFIX + COMMAND_ADD_SUCCESS, temp.getFullInfo(), tasks.size());
 
         } catch (IndexOutOfBoundsException e) {
@@ -318,18 +318,5 @@ public class Niwa {
      */
     public void printExit() {
         System.out.println(PREFIX + COMMAND_BYE_SUCCESS);
-        System.out.println(SEPARATOR);
-    }
-
-    /**
-     * Retrieves the next command from the user.
-     *
-     * @return The command input by the user.
-     */
-    public String getCommand() {
-        System.out.println(SEPARATOR);
-
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
     }
 }

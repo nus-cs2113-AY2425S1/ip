@@ -1,7 +1,99 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	 _   _
+	| \ | | (_)  _       _  ___
+	|  \| | | | | __  // //| |
+	| |\  | | | |/  |// //_| |
+	|_| \_|_|_| |__/|__/ //  |_|
+	---------------------------------------------
+	Hello sweeties! I'm Niwa!
+	What can I do for you? Let's chat <3
 
+	---------------------------------------------
+	event [task description] /from [time] /to [time]: Add a new event to our list.
+	todo [task description]: Add a new to-do task to our list.
+	deadline [task description] /by [time]:Add a new deadline to our list.
+	delete [task index]: Delete the task at the given index.
+	mark [task index]: Mark the task at the given index as done.
+	unmark [task index]: Mark the task at the given index as undone.
+	list: List all current tasks.
+	bye: End the program.
+	help: Print this guide.
+	---------------------------------------------
+	---------------------------------------------
+	hello
+	---------------------------------------------
+	---------------------------------------------
+	Got it. I've added this task:
+	   [E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	You currently have 1 tasks in the list.
+	---------------------------------------------
+	---------------------------------------------
+	Got it. I've added this task:
+	   [D][ ] Registry (by: Dec 10)
+	You currently have 2 tasks in the list.
+	---------------------------------------------
+	---------------------------------------------
+	Not enough arguments! Please check your syntax.
+	---------------------------------------------
+	---------------------------------------------
+	Not enough arguments! Please check your syntax.
+	---------------------------------------------
+	---------------------------------------------
+	Here are the tasks in your list:
+	1. [E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	2. [D][ ] Registry (by: Dec 10)
+	---------------------------------------------
+	---------------------------------------------
+	OK, I've marked this task as done:
+	[E][X] Anime Festival (from: Dec 10 to: Dec 12)
+	---------------------------------------------
+	---------------------------------------------
+	Index is out of bound!
+	---------------------------------------------
+	---------------------------------------------
+	Here are the tasks in your list:
+	1. [E][X] Anime Festival (from: Dec 10 to: Dec 12)
+	2. [D][ ] Registry (by: Dec 10)
+	---------------------------------------------
+	---------------------------------------------
+	OK, I've marked this task as not done yet:
+	[E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	---------------------------------------------
+	---------------------------------------------
+	Got it. I've added this task:
+	   [T][ ] Read book
+	You currently have 3 tasks in the list.
+	---------------------------------------------
+	---------------------------------------------
+	Here are the tasks in your list:
+	1. [E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	2. [D][ ] Registry (by: Dec 10)
+	3. [T][ ] Read book
+	---------------------------------------------
+	---------------------------------------------
+	OK, I've deleted this task:
+	   [E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	You currently have 2 tasks in the list.
+	---------------------------------------------
+	---------------------------------------------
+	OK, I've marked this task as done:
+	[T][X] Read book
+	---------------------------------------------
+	---------------------------------------------
+	Here are the tasks in your list:
+	1. [D][ ] Registry (by: Dec 10)
+	2. [T][X] Read book
+	---------------------------------------------
+	---------------------------------------------
+	event [task description] /from [time] /to [time]: Add a new event to our list.
+	todo [task description]: Add a new to-do task to our list.
+	deadline [task description] /by [time]:Add a new deadline to our list.
+	delete [task index]: Delete the task at the given index.
+	mark [task index]: Mark the task at the given index as done.
+	unmark [task index]: Mark the task at the given index as undone.
+	list: List all current tasks.
+	bye: End the program.
+	help: Print this guide.
+	---------------------------------------------
+	---------------------------------------------
+	Bye bae. Hope to see you again soon! Moah~
+	---------------------------------------------
