@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class Aly {
 
+    private static final int MAX_TASKS = 100;
+    private static final String LINE_SEPARATOR = "-----------------------------------------------------------------------------";
+
     private static void printLine() {
-        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(LINE_SEPARATOR);
     }
 
     private static void initialise() {
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAX_TASKS];
         boolean isExit = false;
         while (!isExit) {
             printLine();
@@ -121,6 +124,13 @@ public class Aly {
 
     private static Task[] markTask(Task[] taskList) {
         boolean isExit = false;
+        int index = 0;
+        for (int i = 0; i < 101; i++) {
+            if (taskList[i] == null) {
+                index = i;
+                break;
+            }
+        }
         while (!isExit) {
             System.out.println("Enter 'list' to see task list, 'mark' or 'unmark' with a number to toggle task status");
             Scanner in = new Scanner(System.in);
@@ -142,7 +152,7 @@ public class Aly {
             else if (splitInput.length == 2 && input.startsWith("mark")) {
                 printLine();
                 int indexNum = Integer.parseInt(splitInput[1]);
-                if (indexNum > taskList.length || indexNum < 0) {
+                if (indexNum > index || indexNum < 0) {
                     System.out.println("Task number out of bounds!");
                     printLine();
                 }
@@ -155,7 +165,7 @@ public class Aly {
             else if (splitInput.length == 2 && input.startsWith("unmark")) {
                 printLine();
                 int indexNum = Integer.parseInt(splitInput[1]);
-                if (indexNum > taskList.length || indexNum < 0) {
+                if (indexNum > index || indexNum < 0) {
                     System.out.println("Task number out of bounds!");
                     printLine();
                 }
@@ -180,12 +190,12 @@ public class Aly {
 
     public static void main(String[] args) {
         printLine();
-        String logo = "    _      _     _   _\n"
+        String LOGO = "    _      _     _   _\n"
                 + "   / \\    | |   \\ \\ / /\n"
                 + "  / _ \\   | |    \\ V / \n"
                 + " / ___ \\  | |__   | |  \n"
                 + "/_/   \\_\\ |____|  |_|  \n";
-        System.out.print("Hello! My name is \n" + logo);
+        System.out.print("Hello! My name is \n" + LOGO);
         initialise();
     }
 }
