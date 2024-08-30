@@ -1,14 +1,20 @@
 import java.util.Scanner;
 
+
 public class Jarvis {
+    // Constants
+    static final int MAX_STRING_LENGTH = 100; // Maximum length of a string
+
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
+    private String[] itemList = new String[MAX_STRING_LENGTH]; // List of items
+    private int itemCount; // Number of items in the list
 
 
     /**
      * Prints a break line to the console.
      */
     private static void printBreakLine() {
-        System.out.println("    ────────────────────────────────────────────────────────────");
+        System.out.println("────────────────────────────────────────────────────────────");
     }
 
     /**
@@ -21,10 +27,17 @@ public class Jarvis {
     }
 
     /**
+     *
+     */
+    private static void printPrompt() {
+        System.out.print("  ");
+    }
+
+    /**
      * Prints the greeting messages to the console.
      */
     private static void printGreetingMsgs() {
-        String[] greetings = {"    Hello! I'm " + chatBotName + "\n    What can I do for you?"}; // List of greetings
+        String[] greetings = {"Hello! I'm " + chatBotName + "\nWhat can I do for you?"}; // List of greetings
 
         // Print the greetings
         for (String greeting : greetings) {
@@ -35,7 +48,7 @@ public class Jarvis {
     }
 
     private static void printGoodbyeMsgs() {
-        String[] goodbyes = {"    Bye. Hope to see you again soon!"}; // List of goodbye messages
+        String[] goodbyes = {"Bye. Hope to see you again soon!"}; // List of goodbye messages
 
         // Print the goodbye messages
         for (String goodbye : goodbyes) {
@@ -49,6 +62,7 @@ public class Jarvis {
     public static void echoUserInput(Scanner in, String lineBufferString) {
 
         try (in) {
+            printPrompt();
             lineBufferString = in.nextLine();
 
             if (lineBufferString.isEmpty()) {
@@ -56,9 +70,11 @@ public class Jarvis {
                 return;
             } else if (lineBufferString.equalsIgnoreCase("bye")) {
                 printGoodbyeMsgs();
+            } else if (lineBufferString.equalsIgnoreCase("list")) {
+
             } else {
                 printBreakLine();
-                System.out.println("    " + lineBufferString);
+                System.out.println("Added:" + lineBufferString);
                 printBreakLine();
                 echoUserInput(in, lineBufferString);
             }
