@@ -11,13 +11,13 @@ public class Iris {
     public static void listTasks() {
         if (numOfTasks == 0) {
             System.out.println("No tasks added.");
-        } else {
-            for (int i = 0; i < numOfTasks && tasks[i] != null; i++) {
-                Task currentTask = tasks[i];
-                System.out.println((i + 1) + "."
-                        + currentTask.getStatusIcon()
-                        + currentTask.description);
-            }
+            return;
+        }
+        for (int i = 0; i < numOfTasks; i++) {
+            Task currentTask = tasks[i];
+            System.out.println((i + 1) + "."
+                    + currentTask.getStatusIcon()
+                    + currentTask.description);
         }
     }
 
@@ -29,20 +29,25 @@ public class Iris {
 
     public static void editTask(String text) {
         try {
-            int numbersInText = Integer.parseInt(text.replaceAll("[^0-9]", ""));
-            if (numbersInText > numOfTasks || numbersInText < 1) {
+            String numbersInText = text.replaceAll("[^0-9]", "");
+            int taskIndex = Integer.parseInt(numbersInText);
+            boolean isInvalidTaskIndex = taskIndex > numOfTasks || taskIndex < 1;
+            if (isInvalidTaskIndex) {
                 System.out.println("The task does not exist");
+                return;
+            }
+
+            Task taskToEdit = tasks[(taskIndex) - 1];
+            if (text.contains("unmark")) {
+                taskToEdit.unmarkFromDone();
+                System.out.println("OK, I've marked this task as not done yet:\n"
+                        + "[ ] "
+                        + taskToEdit.description);
             } else {
-                Task taskToEdit = tasks[(numbersInText) - 1];
-                if (text.contains("unmark")) {
-                    taskToEdit.unmarkFromDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n"
-                            + "[ ] " + taskToEdit.description);
-                } else {
-                    taskToEdit.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n"
-                            + "[X] " + taskToEdit.description);
-                }
+                taskToEdit.markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n"
+                        + "[X] "
+                        + taskToEdit.description);
             }
         } catch (NumberFormatException e) {
             System.out.println("Please provide a valid task number.");
@@ -51,10 +56,9 @@ public class Iris {
 
     public static boolean chat(String text) {
         printDivider();
-        boolean isEnded = false;
         if (text.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
-            isEnded = true;
+            return true;
         } else if (text.equalsIgnoreCase("list")) {
             listTasks();
         } else if (text.contains("mark")) {
@@ -65,7 +69,7 @@ public class Iris {
             addTask(text);
         }
         printDivider();
-        return isEnded;
+        return false;
     }
 
     public static void main(String[] args) {
