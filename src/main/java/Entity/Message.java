@@ -1,11 +1,12 @@
 package Entity;
 
-public class message {
+public class Message {
     private String message;
     private boolean isDone;
 
-    public message(String message) {
+    public Message(String message) {
         this.message = message;
+        this.isDone = false;
     }
 
     public String getMessage() {

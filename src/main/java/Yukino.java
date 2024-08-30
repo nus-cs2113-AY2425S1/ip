@@ -1,3 +1,5 @@
+import Entity.Message;
+import Entity.messageList;
 import Utils.messageHandler;
 
 import java.util.Scanner;
@@ -25,14 +27,19 @@ public class Yukino {
 
         Scanner scanner = new Scanner(System.in);
         String input = null;
+        messageList list = new messageList();
         while(true) {
             input = scanner.nextLine();
             if(input.equals("bye")) {
                 System.out.println("Bye! Hope to see you soon!\n");
                 break;
             }
+            else if(input.equals("list")) {
+                messageHandler.listShow(list);
+            }
             else {
-                messageHandler.echo(input);
+                Message message = new Message(input);
+                messageHandler.addList(list, message);
             }
         }
     }
