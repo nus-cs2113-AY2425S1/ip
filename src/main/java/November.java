@@ -94,8 +94,8 @@ public class November {
             input = scan.nextLine();
         }
 
-        System.out.println("____________________________________________________________");
+        beginSegment();
         System.out.println("Bye! Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        endSegment();
     }
 }
