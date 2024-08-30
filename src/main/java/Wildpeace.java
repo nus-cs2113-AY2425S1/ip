@@ -2,21 +2,30 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Wildpeace {
-    public static void initialise()
+    public static void initialise(Scanner scanner, LLMChat llmChat)
     {
         System.out.println("What can I do for you, enter '1' for echo, '2' for storing your plan, '0' to exit");
         Scanner initialInputScanner = new Scanner(System.in);
         String initialInput = initialInputScanner.nextLine();
         switch (initialInput) {
         case "1":
-            echo();
+            echo(scanner);
             break;
         case "2":
-            storeData();
+            storeData(scanner);
+            break;
+        case "3":
+            llmChat.chatWithAudience(scanner);
+            initialise(scanner, llmChat);
+            break;
+        default:
+            System.out.println("Invalid input");
+            initialise(scanner, llmChat);
+            break;
 
         }
     }
-    public static void storeData()
+    public static void storeData(Scanner scanner)
     {
         System.out.println("List your plans one by one");
         String line;
@@ -25,8 +34,8 @@ public class Wildpeace {
         int dataIndex = 0;
         boolean exit = false;
         while (!exit) {
-            Scanner in = new Scanner(System.in);
-            line = in.nextLine();
+
+            line = scanner.nextLine();
             if(line.equalsIgnoreCase("bye"))
             {
                 exit = true;
@@ -52,7 +61,7 @@ public class Wildpeace {
                 else
                 {
                     System.out.println(line.substring(7) + " is not in your list yet, do you wish to add it to the list? yes/no");
-                    String response = in.nextLine();
+                    String response = scanner.nextLine();
                     if(response.equalsIgnoreCase("yes"))
                     {
                         storedItems.put(line.substring(7), false);
@@ -79,20 +88,21 @@ public class Wildpeace {
                 System.out.println("Added: " + line);
             }
         }
+        initialise(scanner, new LLMChat());
     }
-    public static void echo()
+    public static void echo(Scanner scanner)
     {
         String line;
         boolean exit = false;
         while (!exit) {
-            Scanner in = new Scanner(System.in);
+            Scanner in = scanner;
             line = in.nextLine();
             if (line.equalsIgnoreCase("bye")) {
                 exit = true;
             }
             System.out.println(line);
         }
-        initialise();
+        initialise(scanner, new LLMChat());
     }
     public static void main(String[] args) {
 
@@ -105,8 +115,9 @@ public class Wildpeace {
         System.out.println("Hello from\n" + logo);
 
 
-
-        initialise();
+        Scanner scanner = new Scanner(System.in);
+        LLMChat llmChat = new LLMChat();
+        initialise(scanner, llmChat);
 
 
         //System.out.println("See you next time, bye!");
