@@ -40,7 +40,7 @@ public class Legin {
             } else {
                 marker = " ";
             }
-            System.out.println(i+1 + ".[" + marker + "] " + tasks[i].getTask());
+            System.out.println(i + 1 + ".[" + marker + "] " + tasks[i].getTask());
         }
         horizontalLine();
     }
