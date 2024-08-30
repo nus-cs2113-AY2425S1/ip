@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Atom {
-    public static void divider() {
+    public static void printDivider() {
         System.out.println("__________________________________________________");
     }
 
@@ -18,7 +18,7 @@ public class Atom {
 
     public static void main(String[] args) {
 
-        divider();
+        printDivider();
 
         String logo = "    ____   __________  ________  __       __\n"
                 + "   / __ \\ |___    ___||  ____  ||  \\     /  |\n"
@@ -28,7 +28,7 @@ public class Atom {
 
         System.out.println(logo);
 
-        divider();
+        printDivider();
 
         System.out.println("Hey there! I'm your friendly chatbot, ATOM!");
         System.out.println("How can i assist you today?");
@@ -38,33 +38,36 @@ public class Atom {
         System.out.println("* \"mark <task id>\" -> mark task as DONE");
         System.out.println("* \"unmark <task id>\" -> mark task as UNDONE");
 
-        divider();
+        printDivider();
 
         String line;
-        Scanner in = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Task[] tasksList = new Task[100];
 
         System.out.print("Enter command: ");
-        line = in.nextLine().trim();
+
+        line = scanner.nextLine().trim();
         String[] words = line.split(" ");
-        String keyword = words[0].toLowerCase();
+        String keyword = words[0];
 
         while (!line.equalsIgnoreCase("bye")) {
-            divider();
+            printDivider();
 
             if (line.equalsIgnoreCase("list")) {
                 if (Task.getTaskCount() != 0) {
                     printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
-                }
-                else {
+                } else {
                     System.out.println("Oh oh! List is empty.");
                 }
             }
-            else if (keyword.equals("mark") || (keyword.equals("unmark"))) {
+            else if (keyword.equalsIgnoreCase("mark") ||
+                    (keyword.equalsIgnoreCase("unmark"))) {
                 try {
                     int taskId = Integer.parseInt(words[1]) - 1;
+
                     if (taskId < Task.getTaskCount() && taskId >= 0) {
                         Task currTask = tasksList[taskId];
+
                         if (keyword.equals("mark")) {
                             currTask.markAsDone();
                             System.out.println("Wonderful! Task successfully marked as DONE!");
@@ -72,34 +75,35 @@ public class Atom {
                             currTask.markAsUndone();
                             System.out.println("Got it. Task successfully marked as UNDONE!");
                         }
+
                         System.out.println("[" + currTask.getStatus() + "] " + currTask.getItem());
                     } else {
-                        System.out.println("Whoops! Task not found.");
+                        System.out.println("Whoops! Task id not found.");
                     }
                 } catch (Exception exception) {
                     System.out.println("Oops! Cannot identify task id.");
-                    System.out.println("Please ensure task id is valid.");
+                    System.out.println("Please input valid task id in the correct format.");
                 }
-            }
-            else {
+            } else {
                 Task task = new Task(line);
                 tasksList[Task.getTaskCount() - 1] = task;
                 System.out.println("Added \"" + line + "\" to list");
             }
 
-            divider();
+            printDivider();
 
             System.out.print("Enter command: ");
-            line = in.nextLine().trim();
+
+            line = scanner.nextLine().trim();
             words = line.split(" ");
             keyword = words[0].toLowerCase();
         }
 
-        divider();
+        printDivider();
 
         System.out.println("Bye Bye. See ya soon!");
 
-        divider();
+        printDivider();
 
     }
 }
