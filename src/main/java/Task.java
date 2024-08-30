@@ -34,8 +34,4 @@ public class Task {
     public static void incrementTaskSize() {
         taskSize++;
     }
-
-    public static void decrementTaskSize() {
-        taskSize--;
-    }
 }

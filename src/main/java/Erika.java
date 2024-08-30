@@ -39,12 +39,12 @@ public class Erika {
                 if (!digitString.isEmpty()) {
                     markIndex = Integer.parseInt(digitString);
                 }
-                if(markIndex > Task.getTaskSize()) {
+                if (markIndex > Task.getTaskSize()) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Error! Task " + markIndex + " is out of bounds!");
                     System.out.println("____________________________________________________________");
                 } else {
-                     if(line.contains("unmark")) {
+                     if (line.contains("unmark")) {
                         tasks.get(markIndex-1).setMark(false);
                         System.out.println("____________________________________________________________");
                         System.out.println("Nice! I've marked this task as not done yet:");
