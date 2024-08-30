@@ -1,5 +1,10 @@
+import java.util.Scanner;
+
 public class Jarvis {
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
+
+    String lineBufferString; // Buffer to store the input from the user
+    Scanner in = new Scanner(System.in);
 
     /**
      * Prints a break line to the console.
@@ -66,5 +71,6 @@ public class Jarvis {
                                   """;
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
+
     }
 }
