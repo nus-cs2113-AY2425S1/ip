@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Freedom {
     public static void main(String[] args) {
-        String[] storage = new String[100];
+        Task[] storage = new Task[100];
         int lastIndex = 0;
         String logo = "\t_________________________________________\n";
         String message = """
@@ -21,8 +21,8 @@ public class Freedom {
             if (line.equals("bye")) {
                 break;
             }
-            handleInput(line, storage, lastIndex);
-            if (!line.equals("list")) {
+            boolean isCommand = handleInput(line, storage, lastIndex);
+            if (!isCommand) {
                 lastIndex++;
             }
         }
@@ -30,24 +30,48 @@ public class Freedom {
         System.out.println(logo + closing + logo);
     }
 
-    public static void handleInput(String input, String[] storage, int lastIndex) {
+    public static boolean handleInput(String input, Task[] storage, int lastIndex) {
         if (input.equals("list")) {
-            printList(Arrays.copyOf(storage, lastIndex));
-            return;
+            printList(storage, lastIndex);
+            return true;
         }
-        storage[lastIndex] = input;
+        String[] words = input.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("mark")) {
+                int listNumber = Integer.parseInt(words[i + 1]);
+                storage[listNumber - 1].markDone();
+                markTaskStatement(storage[listNumber - 1], true);
+                return true;
+            }
+            if (words[i].equals("unmark")) {
+                int listNumber = Integer.parseInt(words[i + 1]);
+                storage[listNumber - 1].markUndone();
+                markTaskStatement(storage[listNumber - 1], false);
+                return true;
+            }
+        }
+        storage[lastIndex] = new Task(input);
         String logo = "\t_________________________________________\n";
         System.out.println(logo + "\tadded: " + input + "\n" + logo);
+        return false;
     }
 
-    public static void printList(String[] storage) {
+    public static void printList(Task[] storage, int lastIndex) {
         String logo = "\t_________________________________________\n";
         int counter = 0;
-        System.out.print(logo);
-        for (String item: storage) {
-            System.out.println("\t" + (counter + 1) + ". " + item);
+        System.out.print(logo + "\tHere are the tasks in your list:\n");
+        for (int i = 0; i < lastIndex; i++) {
+            System.out.println("\t" + (counter + 1) + ".[" + storage[i].getStatusIcon() + "] " + storage[i].getDescription());
             counter++;
         }
-        System.out.print(logo);
+        System.out.println(logo);
+    }
+
+    public static void markTaskStatement(Task task, boolean isMark) {
+        String logo = "\t_________________________________________\n";
+        String message = isMark ? "\tNice! I've marked this task as done:" : "\tOk, I've marked this task as not done yet:";
+        System.out.println(logo + message);
+        System.out.println("\t  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println(logo);
     }
 }
