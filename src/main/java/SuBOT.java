@@ -17,33 +17,32 @@ public class SuBOT {
         int taskIndex;
 
         switch (action) {
-            case "bye":
-                stopFlag = true;
-                System.out.println("Bye bye...");
-                break;
-            case "list":
-                for (int i = 0; i < taskCount; ++i) {
-                    System.out.printf("%d.", i+1);
-                    tasks[i].printTask();
-                }
-                break;
-            case "mark":
-            case "unmark":
-                try {
-                    taskIndex = Integer.parseInt(argv[1]) - 1;
-                    tasks[taskIndex].setDone(action.equals("mark"));
-                    System.out.printf("I have %sed the following task for you:\n", action);
-                    tasks[taskIndex].printTask();
-                }
-                catch (Exception e) {
-                    System.out.println("Invalid argument(s): " + e);
-                    System.out.println("Usage: mark/unmark <taskNumber>");
-                }
-                break;
-            default:
-                tasks[taskCount++] = new Task(command);
-                System.out.println(command);
-                break;
+        case "bye":
+            stopFlag = true;
+            System.out.println("Bye bye...");
+            break;
+        case "list":
+            for (int i = 0; i < taskCount; ++i) {
+                System.out.printf("%d.", i+1);
+                tasks[i].printTask();
+            }
+            break;
+        case "mark":
+        case "unmark":
+            try {
+                taskIndex = Integer.parseInt(argv[1]) - 1;
+                tasks[taskIndex].setDone(action.equals("mark"));
+                System.out.printf("I have %sed the following task for you:\n", action);
+                tasks[taskIndex].printTask();
+            } catch (Exception e) {
+                System.out.println("Invalid argument(s): " + e);
+                System.out.println("Usage: mark/unmark <taskNumber>");
+            }
+            break;
+        default:
+            tasks[taskCount++] = new Task(command);
+            System.out.println(command);
+            break;
         }
     }
 
