@@ -19,7 +19,7 @@ public class Eva {
 
     public static void markTaskAsDone(Task[] tasks, String line) {
         int taskNumber = extractDigit(line) - 1;
-        tasks[taskNumber].markAsDone();
+        tasks[taskNumber].setMarkAsDone();
 
         System.out.println("Great! This task is marked as done: ");
         System.out.println("[" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].description);
@@ -29,7 +29,7 @@ public class Eva {
 
     public static void unmarkTaskAsDone(Task[] tasks, String line) {
         int taskNumber = extractDigit(line) - 1;
-        tasks[taskNumber].markAsNotDone();
+        tasks[taskNumber].setMarkAsNotDone();
 
         System.out.println("Ok, This task is marked as not done yet: ");
         System.out.println("[" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].description);

@@ -11,11 +11,11 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markAsDone() {
+    public void setMarkAsDone() {
         isDone = true;
     }
 
-    public void markAsNotDone() {
+    public void setMarkAsNotDone() {
         isDone = false;
     }
 }
