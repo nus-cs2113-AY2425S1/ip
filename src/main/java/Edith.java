@@ -7,5 +7,6 @@ public class Edith {
         System.out.println(horizontalLine);
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println(horizontalLine);
+
     }
 }
