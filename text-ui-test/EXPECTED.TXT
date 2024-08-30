@@ -1,51 +1,51 @@
 --------------------------------------------------
 Hello, this is
-
-        **
-     *****                                  *
-    *  ***                                 ***
-       ***                                  *
-      *  **                                          ****
-      *  **          ***        ****      ***       * **** *
-     *    **        * ***      *  ***  *   ***     **  ****
-     *    **       *   ***    *    ****     **    ****
-    *      **     **    ***  **     **      **      ***
-    *********     ********   **     **      **        ***
-   *        **    *******    **     **      **          ***
-   *        **    **         **     **      **     ****  **
-  *****      **   ****    *  **     **      **    * **** *
- *   ****    ** *  *******    ********      *** *    ****
-*     **      **    *****       *** ***      ***
-*                                    ***
- **                            ****   ***
-                             *******  **
-                            *     ****
-
+                                                             
+        **                                                   
+     *****                                  *                
+    *  ***                                 ***               
+       ***                                  *                
+      *  **                                          ****    
+      *  **          ***        ****      ***       * **** * 
+     *    **        * ***      *  ***  *   ***     **  ****  
+     *    **       *   ***    *    ****     **    ****       
+    *      **     **    ***  **     **      **      ***      
+    *********     ********   **     **      **        ***    
+   *        **    *******    **     **      **          ***  
+   *        **    **         **     **      **     ****  **  
+  *****      **   ****    *  **     **      **    * **** *   
+ *   ****    ** *  *******    ********      *** *    ****    
+*     **      **    *****       *** ***      ***             
+*                                    ***                     
+ **                            ****   ***                    
+                             *******  **                     
+                            *     ****                       
+                                                             
 --------------------------------------------------
 Hello! This is Aegis, an Anti-Shadow Suppression Weapon and a chatbot.
 What can I do for you?
 
 ---------------BEGIN--OF--PROMPT------------------
- New todo added:
+ New todo added: 
    [T][ ] task_1
  1 tasks needed to be done. Let me assist you!
 
 ---------------BEGIN--OF--PROMPT------------------
- New event added:
+ New event added: 
    [E][ ] event (from: 1am, to: 12pm)
  2 tasks needed to be done. Let me assist you!
 
 ---------------BEGIN--OF--PROMPT------------------
  I could do much more than checking your list, but, if you wish:
-   1.[T][ ] task_1
-   2.[E][ ] event (from: 1am, to: 12pm)
+   1. [T][ ] task_1
+   2. [E][ ] event (from: 1am, to: 12pm)
 
 ---------------BEGIN--OF--PROMPT------------------
  I've marked this task as done:
    [E][X] event (from: 1am, to: 12pm)
 
 ---------------BEGIN--OF--PROMPT------------------
- New deadline added:
+ New deadline added: 
    [D][ ] deadline (by: tomorrow)
  3 tasks needed to be done. Let me assist you!
 
