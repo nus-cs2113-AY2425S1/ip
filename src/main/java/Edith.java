@@ -1,10 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Edith {
     Scanner sc=new Scanner(System.in);
     private static final String myName="Edith";
     private final static String horizontalLine="______________________________________________";
-
+    ArrayList<String> texts= new ArrayList<>();
 
     public void giveIntroduction() {
         System.out.println("Hello I am " + myName + ".");
@@ -19,10 +20,18 @@ public class Edith {
             if(temporyString.equals("bye")){
                 sayGoodbye();
                 return;
+            } else if(temporyString.equals("list")) {
+                int indexNumber=1;
+                for(String text: texts) {
+                    System.out.println(indexNumber + ". " + text);
+                    indexNumber++;
+                }
+                System.out.println(horizontalLine);
+            } else {
+                texts.add(temporyString);
+                System.out.println("added : " + texts.get(texts.size()-1));
+                System.out.println(horizontalLine);
             }
-
-            System.out.println("added : " + temporyString);
-            System.out.println(horizontalLine);
         } while (true);
     }
     public void sayGoodbye() {
