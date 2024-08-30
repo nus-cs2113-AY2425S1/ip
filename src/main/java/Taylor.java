@@ -4,7 +4,7 @@ public class Taylor {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String line = "____________________________________________________________";
+        final String line = "____________________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
@@ -47,7 +47,7 @@ public class Taylor {
                 if(index<0 || index>=tasks.size()) {
                     System.out.println(line);
                     System.out.println("Invalid index");
-                    System.out.println(line);
+//                    System.out.println(line);
                 } else {
                     tasks.get(index).setCompleted(false);
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -60,7 +60,7 @@ public class Taylor {
 
             if(input.startsWith("todo")){
                 Todo todo = new Todo(input.substring(4));
-                tasks.add(todo);
+//                tasks.add(todo);
                 System.out.println(line);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + todo);
@@ -104,7 +104,6 @@ public class Taylor {
 
             System.out.println(line);
             System.out.println("added: " + input);
-            tasks.add(new Task(input));
             System.out.println(line);
             input = sc.nextLine();
         }
