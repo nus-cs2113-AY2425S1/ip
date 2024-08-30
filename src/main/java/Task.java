@@ -1,9 +1,14 @@
 public class Task {
-  protected String description;
-  protected boolean isDone;
+  protected String description; // Description of the task
+  protected boolean isDone;     // Status of the task
 
-  private static int numberOfTasks = 0;
+  private static int numberOfTasks = 0; // Number of tasks in the list
 
+  /**
+   * Constructor for the Task class.
+   *
+   * @param description
+   */
   public Task(String description) {
     this.description = description;
     this.isDone = false;
@@ -11,18 +16,36 @@ public class Task {
     numberOfTasks++;
   }
 
+  /**
+   * Returns the description of the task.
+   *
+   * @return description of the task
+   */
   public String getDescription() {
     return this.description;
   }
 
+  /**
+   * Changes the description of the task.
+   *
+   * @param newDescription
+   */
   public void changeDescription(String newDescription) {
     this.description = newDescription;
   }
 
+  /**
+   * Returns the status icon of the task.
+   *
+   * @return status icon of the task
+   */
   public String getStatusIcon() {
-    return (isDone ? "X" : " ");
+    return (isDone ? "✓" : " ");
   }
 
+  /**
+   * Marks the task as done.
+   */
   public void markAsDone() {
     this.isDone = true;
 
@@ -30,6 +53,9 @@ public class Task {
     printTask();
   }
 
+  /**
+   * Marks the task as not done.
+   */
   public void markAsUndone() {
     this.isDone = false;
 
@@ -37,12 +63,19 @@ public class Task {
     printTask();
   }
 
+  /**
+   * Returns the number of tasks in the list.
+   *
+   * @return number of tasks in the list
+   */
   public static int getNumberOfTasks() {
     return numberOfTasks;
   }
 
+  /**
+   * Prints the task to the console.
+   */
   public void printTask() {
     System.out.println("[" + this.getStatusIcon() + "] " + this.description);
   }
-
 }

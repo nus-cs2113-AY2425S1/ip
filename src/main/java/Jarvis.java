@@ -27,7 +27,7 @@ public class Jarvis {
     }
 
     /**
-     *
+     * Prints the prompt to the console for visual marker for user to type.
      */
     private static void printPrompt() {
         System.out.print("  ");
@@ -47,6 +47,9 @@ public class Jarvis {
         printBreakLine();
     }
 
+    /**
+     * Prints the goodbye messages to the console.
+     */
     private static void printGoodbyeMsgs() {
         String[] goodbyes = {"Bye. Hope to see you again soon!"}; // List of goodbye messages
 
@@ -59,6 +62,9 @@ public class Jarvis {
         exit(0);
     }
 
+    /**
+     * Prints the tasks to the console.
+     */
     public static void printTasks() {
         printBreakLine();
         if (Task.getNumberOfTasks() == 0) {
@@ -73,6 +79,11 @@ public class Jarvis {
         printBreakLine();
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param item
+     */
     public static void addTask(String item) {
         printBreakLine();
         System.out.println("Added: " + item);
@@ -83,18 +94,25 @@ public class Jarvis {
         }
 
         printBreakLine();
-
     }
 
+    /**
+     * Reads the input from the user and processes it.
+     *
+     * @param in
+     * @param lineBufferString
+     */
     public static void readInput(Scanner in, String lineBufferString) {
 
         try (in) {
-            printPrompt();
+            printPrompt();                                                              // Print the prompt to the console
             lineBufferString = in.nextLine();
-            String command;
-            int dividerPosition = 0;
+            String command;                                                             // Variable to store the command
+            int dividerPosition = 0;                                                    // Variable to store the position of the divider
 
+            // Check if the input contains a space
             if (lineBufferString.contains(" ")) {
+                // Suppose the input is "mark 1" or "unmark 1"
                 dividerPosition = lineBufferString.indexOf(" ");
                 command = lineBufferString.substring(0, dividerPosition);
             } else {
@@ -107,15 +125,14 @@ public class Jarvis {
                 break;
             case "list":
                 printTasks();
-
                 break;
             case "mark":
-                int taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));
-                taskList[taskNumber - 1].markAsDone();
+                int taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1)); // Get the task number
+                taskList[taskNumber - 1].markAsDone();                                              // Mark the task as done
                 break;
             case "unmark":
-                taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));
-                taskList[taskNumber - 1].markAsUndone();
+                taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));     // Get the task number
+                taskList[taskNumber - 1].markAsUndone();                                            // Mark the task as undone
                 break;
             case "":
                 System.out.println("You did not enter anything. Please try again.");
@@ -126,20 +143,7 @@ public class Jarvis {
                 break;
             }
 
-            readInput(in, lineBufferString);
-
-            // if (lineBufferString.isEmpty()) {
-            //     System.out.println("You did not enter anything. Please try again.");
-            //     return;
-            // } else if (lineBufferString.equalsIgnoreCase("bye")) {
-            //     printGoodbyeMsgs();
-            // } else if (lineBufferString.equalsIgnoreCase("list")) {
-            //     printTasks();
-            //     readInput(in, lineBufferString);
-            // } else {
-            //     addTask(lineBufferString);
-            //     readInput(in, lineBufferString);
-            // }
+            readInput(in, lineBufferString);                                                        // Recursively call the function to read the next input
         } catch (Exception e) {
             System.err.println("An error occurred. Please try again.");
         }
@@ -178,12 +182,11 @@ public class Jarvis {
                  ╚════╝ ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝ ╚═══╝ ╚═╝╚═╝╚═╝╚══════╝╚═╝
                                   """;
 
-        String lineBufferString = ""; // Buffer to store the input from the user
-        Scanner in = new Scanner(System.in); // Scanner object to read input from the user
+        String lineBufferString = "";           // Buffer to store the input from the user
+        Scanner in = new Scanner(System.in);    // Scanner object to read input from the user
 
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
-        readInput(in, lineBufferString);
-
+        readInput(in, lineBufferString);        // Read the input from the user
     }
 }
