@@ -43,9 +43,26 @@ public class Wildpeace {
             }
             else if(line.contains("unmark"))
             {
-                storedItems.put(line.substring(7), false);
-                System.out.println("I have unmarked the task.");
-                System.out.println("[ ] " + line);
+                if(storedItems.containsKey(line.substring(7)))
+                {
+                    storedItems.put(line.substring(7), false);
+                    System.out.println("I have unmarked the task.");
+                    System.out.println("[ ] " + line);
+                }
+                else
+                {
+                    System.out.println(line.substring(7) + " is not in your list yet, do you wish to add it to the list? yes/no");
+                    String response = in.nextLine();
+                    if(response.equalsIgnoreCase("yes"))
+                    {
+                        storedItems.put(line.substring(7), false);
+                        System.out.println("Added: " + line);
+                    }
+                    else
+                    {
+                        System.out.println("Item not added, resume to normal operation");
+                    }
+                }
             }
             else if (line.contains("mark")) {
 
