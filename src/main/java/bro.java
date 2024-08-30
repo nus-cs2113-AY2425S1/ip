@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class bro {
 
-    private static ArrayList<String> storer = new ArrayList<>();
-    private static ArrayList<String> mark_tracker = new ArrayList<>();
+    private static final ArrayList<String> storer = new ArrayList<>();
+    private static final ArrayList<String> mark_tracker = new ArrayList<>();
 
     public static void level0() {
         System.out.println("Hello! I'm bro");
@@ -29,7 +29,7 @@ public class bro {
 
     }
 
-    public static void add_list() {
+    public static void addList() {
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -112,7 +112,7 @@ public class bro {
 
 //        level0();
 //        echo();
-        add_list();
+        addList();
         mark();
 
     }
