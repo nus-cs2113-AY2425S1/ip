@@ -1,7 +1,9 @@
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONException;
 import java.io.IOException;
+import java.nio.file.*;
 import java.util.Scanner;
 
 public class LLMChat {
@@ -13,10 +15,37 @@ public class LLMChat {
             return "API Key not set.";
         }
 
+        // Example of reading data from a local directory
+        String localData = readLocalDirectory("path/to/your/directory"); // Use the directory path here
+
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        String json = "{ \"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}] }";
+
+        // Combine the local data with the prompt
+        String combinedPrompt = "Local data content: " + localData + "\nUser prompt: " + prompt;
+
+        // Adding parameters to the JSON request
+        String json = null;
+        try {
+            json = new JSONObject()
+                    .put("model", "gpt-3.5-turbo")
+                    .put("messages", new JSONArray()
+                            .put(new JSONObject()
+                                    .put("role", "system")
+                                    .put("content", "Your name is Wildpeace, and you are a virtual assistant specialized in software engineering."))
+                            .put(new JSONObject()
+                                    .put("role", "user")
+                                    .put("content", combinedPrompt)))
+                    .put("temperature", 0.7)
+                    .put("max_tokens", 100)
+                    .put("top_p", 1.0)
+                    .put("frequency_penalty", 0.5)
+                    .put("presence_penalty", 0.5)
+                    .toString();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         RequestBody body = RequestBody.create(mediaType, json);
         Request request = new Request.Builder()
@@ -49,10 +78,33 @@ public class LLMChat {
             JSONObject choice = choices.getJSONObject(0);
             JSONObject message = choice.getJSONObject("message");
             return message.getString("content");
-        } catch (Exception e) {
+        } catch (JSONException e) {
             e.printStackTrace();
             return "Error parsing response.";
         }
+    }
+
+    private String readLocalDirectory(String directoryPath) {
+        StringBuilder allContent = new StringBuilder();
+        try {
+            Path path = Paths.get(directoryPath);
+            if (Files.isDirectory(path)) {
+                // List all files in the directory
+                try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
+                    for (Path entry : stream) {
+                        if (Files.isRegularFile(entry)) {
+                            String content = new String(Files.readAllBytes(entry));
+                            allContent.append(content).append("\n"); // Append file content with a newline
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Provided path is not a directory.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allContent.toString();
     }
 
     public void chatWithAudience(Scanner scanner) {
