@@ -8,7 +8,6 @@ public class Jarvis {
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
 
     private static Task[] taskList = new Task[100]; // Array to store tasks
-    // private static int taskCount = 0; // Number of tasks in the list
 
 
     /**
@@ -65,9 +64,9 @@ public class Jarvis {
         if (Task.getNumberOfTasks() == 0) {
             System.out.println("The list is empty.");
         } else {
-
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.print((i + 1) + ". ");
+                System.out.print((i + 1) + ".");
                 taskList[i].printTask();
             }
         }
@@ -92,19 +91,55 @@ public class Jarvis {
         try (in) {
             printPrompt();
             lineBufferString = in.nextLine();
+            String command;
+            int dividerPosition = 0;
 
-            if (lineBufferString.isEmpty()) {
-                System.out.println("You did not enter anything. Please try again.");
-                return;
-            } else if (lineBufferString.equalsIgnoreCase("bye")) {
-                printGoodbyeMsgs();
-            } else if (lineBufferString.equalsIgnoreCase("list")) {
-                printTasks();
-                readInput(in, lineBufferString);
+            if (lineBufferString.contains(" ")) {
+                dividerPosition = lineBufferString.indexOf(" ");
+                command = lineBufferString.substring(0, dividerPosition);
             } else {
-                addTask(lineBufferString);
-                readInput(in, lineBufferString);
+                command = lineBufferString;
             }
+
+            switch (command) {
+            case "bye":
+                printGoodbyeMsgs();
+                break;
+            case "list":
+                printTasks();
+
+                break;
+            case "mark":
+                int taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));
+                taskList[taskNumber - 1].markAsDone();
+                break;
+            case "unmark":
+                taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));
+                taskList[taskNumber - 1].markAsUndone();
+                break;
+            case "":
+                System.out.println("You did not enter anything. Please try again.");
+                break;
+            default:
+                addTask(lineBufferString);
+
+                break;
+            }
+
+            readInput(in, lineBufferString);
+
+            // if (lineBufferString.isEmpty()) {
+            //     System.out.println("You did not enter anything. Please try again.");
+            //     return;
+            // } else if (lineBufferString.equalsIgnoreCase("bye")) {
+            //     printGoodbyeMsgs();
+            // } else if (lineBufferString.equalsIgnoreCase("list")) {
+            //     printTasks();
+            //     readInput(in, lineBufferString);
+            // } else {
+            //     addTask(lineBufferString);
+            //     readInput(in, lineBufferString);
+            // }
         } catch (Exception e) {
             System.err.println("An error occurred. Please try again.");
         }
