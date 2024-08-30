@@ -19,11 +19,11 @@ public class ChattyCharlie {
         }
 
         //to toggle the task
-        public void marked() {
+        public void markTask() {
             this.isDone = true; //change the variable
         }
 
-        public void unmarked() {
+        public void unmarkTask() {
             this.isDone = false; //change the variable
         }
     }
@@ -42,7 +42,7 @@ public class ChattyCharlie {
         }
 
         //Method to add an item to the list
-        public void add(String text) {
+        public void addTask(String text) {
             //create an instance for Task
             Task newTask = new Task(text);
             //add the text into the list
@@ -54,7 +54,7 @@ public class ChattyCharlie {
         //To mark
         public void mark(int index) {
             if (index >= 0 && index < size) {
-                list[index].marked();
+                list[index].markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println("        Well Done! 1 task down, " + remainingTask + " to go.");
                 System.out.println("        [" + list[index].getStatusIcon() + "] " + list[index].description);
@@ -66,7 +66,7 @@ public class ChattyCharlie {
         //To unmark
         public void unmark(int index) {
             if (index >= 0 && index < size) {
-                list[index].unmarked();
+                list[index].unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println("        Hmmm, not quite done yet, " + remainingTask + " to go.");
                 System.out.println("        [" + list[index].getStatusIcon() + "] " + list[index].description);
@@ -157,7 +157,7 @@ public class ChattyCharlie {
                 }
             } else {
                 //add the item
-                toDo.add(line);
+                toDo.addTask(line);
                 System.out.println("        Added: " + line);
             }
         }
