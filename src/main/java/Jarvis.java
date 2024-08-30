@@ -82,13 +82,13 @@ public class Jarvis {
     /**
      * Adds a task to the task list.
      *
-     * @param item
+     * @param task
      */
-    public static void addTask(String item) {
+    public static void addTask(String task) {
         printBreakLine();
-        System.out.println("Added: " + item);
+        System.out.println("Added: " + task);
         if (Task.getNumberOfTasks() < MAX_TASK_LENGTH) {
-            taskList[Task.getNumberOfTasks()] = new Task(item);
+            taskList[Task.getNumberOfTasks()] = new Task(task);
         } else {
             System.out.println("The list is full. Please remove some items before adding more.");
         }
@@ -127,12 +127,12 @@ public class Jarvis {
                 printTasks();
                 break;
             case "mark":
-                int taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1)); // Get the task number
-                taskList[taskNumber - 1].markAsDone();                                              // Mark the task as done
+                int taskNumberMark = Integer.parseInt(lineBufferString.substring(dividerPosition + 1)); // Get the task number
+                taskList[taskNumberMark - 1].markAsDone();                                              // Mark the task as done
                 break;
             case "unmark":
-                taskNumber = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));     // Get the task number
-                taskList[taskNumber - 1].markAsUndone();                                            // Mark the task as undone
+                int taskNumberUnmark = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));     // Get the task number
+                taskList[taskNumberUnmark - 1].markAsUndone();                                            // Mark the task as undone
                 break;
             case "":
                 System.out.println("You did not enter anything. Please try again.");
@@ -180,7 +180,7 @@ public class Jarvis {
                 ██   ██║   ██╔══██║   ██╔══██╗  ╚██╗ ██╔╝  ██║   ╚════██║
                 ╚█████╔╝██╗██║  ██║██╗██║  ██║██╗╚████╔╝██╗██║██╗███████║██╗
                  ╚════╝ ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝ ╚═══╝ ╚═╝╚═╝╚═╝╚══════╝╚═╝
-                                  """;
+                """;
 
         String lineBufferString = "";           // Buffer to store the input from the user
         Scanner in = new Scanner(System.in);    // Scanner object to read input from the user
