@@ -15,6 +15,51 @@ public class Niwa {
             + "\t| |\\  | | | | |/  |// //_| |\n"
             + "\t|_| \\_|_|_| |__/|__/ //  |_|";
 
+    /** Static variables to format **/
+    private static final String PREFIX = "\t";
+    private static final String SEPARATOR = PREFIX + "---------------------------------------------";
+
+    private static final String HI_MESSAGE = PREFIX + "Hello sweeties! I'm %s!\n"
+            + PREFIX + "What can I do for you? Let's chat <3\n\n";
+    /** Static variables to hold the commands **/
+    private static final String COMMAND_ADD_WORD = "add";
+    private static final String COMMAND_ADD_DESC = "add [task description]: Add a new task to our list.";
+    private static final String COMMAND_ADD_SUCCESS = "added: %s";
+
+    private static final String COMMAND_DELETE_WORD = "delete";
+    private static final String COMMAND_DELETE_DESC = "delete [task index]: Delete the task at the given index.";
+    private static final String COMMAND_DELETE_SUCCESS = "OK, I've deleted this task: %s%n";
+
+    private static final String COMMAND_MARK_WORD = "mark";
+    private static final String COMMAND_MARK_DESC = "mark [task index]: Mark the task at the given index as done.";
+    private static final String COMMAND_MARK_SUCCESS = "OK, I've marked this task as done: %s %s%n";
+
+    private static final String COMMAND_UNMARK_WORD = "unmark";
+    private static final String COMMAND_UNMARK_DESC = "unmark [task index]: Mark the task at the given index as undone.";
+    private static final String COMMAND_UNMARK_SUCCESS = "OK, I've marked this task as not done yet: %s %s%n";
+
+    private static final String COMMAND_LIST_WORD = "list";
+    private static final String COMMAND_LIST_DESC = "list: List all current tasks.";
+    private static final String COMMAND_LIST_SUCCESS = "Here are the tasks in your list:";
+
+    private static final String COMMAND_BYE_WORD = "bye";
+    private static final String COMMAND_BYE_DESC = "bye: End the program.";
+    private static final String COMMAND_BYE_SUCCESS = "Bye bae. Hope to see you again soon! Moah~";
+
+    private static final String COMMAND_HELP_WORD = "help";
+    private static final String COMMAND_HELP_DESC = "help: Print this guide.";
+    private static final String COMMAND_GUIDE = PREFIX + COMMAND_ADD_DESC + "\n"
+            + PREFIX + COMMAND_DELETE_DESC + "\n"
+            + PREFIX + COMMAND_MARK_DESC + "\n"
+            + PREFIX + COMMAND_UNMARK_DESC + "\n"
+            + PREFIX + COMMAND_LIST_DESC + "\n"
+            + PREFIX + COMMAND_BYE_DESC + "\n"
+            + PREFIX + COMMAND_HELP_DESC;
+
+    /** Static variables to alert errors **/
+    private static final String ERR_INDEX_OUT_OF_BOUND = "Index is out of bound!";
+    private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
+
     /** Variable to check if the chatbot is running*/
     private boolean isRunning;
 
@@ -63,21 +108,21 @@ public class Niwa {
      * @param command The user command to process.
      */
     public void processCommand(String command) {
-        printHorizontalLine(40);
+        System.out.println(SEPARATOR);
 
         command = command.trim();
         String[] commandParts = command.split(" ", 2);
 
         if (commandParts.length == 1) { // Handle single-word commands
             switch (commandParts[0]) {
-            case "bye":
+            case COMMAND_BYE_WORD:
                 printExit();
                 isRunning = false;
                 break;
-            case "list":
+            case COMMAND_LIST_WORD:
                 list();
                 break;
-            case "help":
+            case COMMAND_HELP_WORD:
                 help();
                 break;
             default:
@@ -86,33 +131,17 @@ public class Niwa {
             }
         } else if (commandParts.length == 2) { // Handle commands with arguments
             switch (commandParts[0]) {
-            case "mark":
-                try {
-                    int index = Integer.parseInt(commandParts[1]);
-                    mark(index);
-                } catch (NumberFormatException e) {
-                    System.out.println("\tTask's index must be a number!");
-                }
+            case COMMAND_MARK_WORD:
+                mark(commandParts[1]);
                 break;
-            case "unmark":
-                try {
-                    int index = Integer.parseInt(commandParts[1]);
-                    unmark(index);
-                } catch (NumberFormatException e) {
-                    System.out.println("\tTask's index must be a number!");
-                }
+            case COMMAND_UNMARK_WORD:
+                unmark(commandParts[1]);
                 break;
-            case "delete":
-                try {
-                    int index = Integer.parseInt(commandParts[1]);
-                    delete(index);
-                } catch (NumberFormatException e) {
-                    System.out.println("\tTask's index must be a number!");
-                }
+            case COMMAND_DELETE_WORD:
+                delete(commandParts[1]);
                 break;
-            case "add":
-                Task temp = new Task(commandParts[1]);
-                add(temp);
+            case COMMAND_ADD_WORD:
+                add(commandParts[1]);
                 break;
             default:
                 echo(command);
@@ -125,7 +154,7 @@ public class Niwa {
      * Lists all tasks in the task list.
      */
     private void list() {
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println(PREFIX + COMMAND_LIST_SUCCESS);
         int index = 1;
 
         for (Task task : tasks) {
@@ -138,9 +167,10 @@ public class Niwa {
      *
      * @param task The task to add.
      */
-    private void add(Task task) {
-        tasks.add(task);
-        System.out.println("\tadded: " + task.getDescription());
+    private void add(String task) {
+        Task temp = new Task(task);
+        tasks.add(temp);
+        System.out.printf(PREFIX + COMMAND_ADD_SUCCESS, temp.getDescription() + "\n");
     }
 
     /**
@@ -149,62 +179,70 @@ public class Niwa {
      * @param command The command to echo.
      */
     private void echo(String command) {
-        System.out.println("\t" + command);
+        System.out.println(PREFIX + command);
     }
 
     /**
      * Marks a task as done.
      *
-     * @param index The index of the task to mark.
+     * @param indexString The index of the task to mark.
      */
-    private void mark(int index) {
+    private void mark(String indexString) {
         try {
+            int index = Integer.parseInt(indexString);
             index = index - 1; /* Convert to zero-based index */
             Task taskToMark = tasks.get(index);
             taskToMark.markAsDone();
 
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.printf("\t   %s %s%n", taskToMark.getStatusIcon(), taskToMark.getDescription());
+            System.out.printf(PREFIX + COMMAND_MARK_SUCCESS, taskToMark.getStatusIcon(), taskToMark.getDescription());
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tIndex is out of bound!");
+            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
+        } catch (NumberFormatException e) {
+            System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
         }
     }
 
     /**
      * Marks a task as not done yet.
      *
-     * @param index The index of the task to mark.
+     * @param indexString The index of the task to mark.
      */
-    private void unmark(int index) {
+    private void unmark(String indexString) {
         try {
+            int index = Integer.parseInt(indexString);
             index = index - 1; /* Convert to zero-based index */
             Task taskToMark = tasks.get(index);
             taskToMark.markAsUndone();
 
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.printf("\t   %s %s%n", taskToMark.getStatusIcon(), taskToMark.getDescription());
+            System.out.printf(PREFIX + COMMAND_UNMARK_SUCCESS, taskToMark.getStatusIcon(), taskToMark.getDescription());
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tIndex is out of bound!");
+            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
+        } catch (NumberFormatException e) {
+            System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
         }
     }
 
     /**
      * Deletes a task from the task list.
      *
-     * @param index The index of the task to delete.
+     * @param indexString The index of the task to delete.
      */
-    private void delete(int index) {
+    private void delete(String indexString) {
         try {
+            int index = Integer.parseInt(indexString);
             index = index - 1; /* Convert to zero-based index */
             Task task = tasks.get(index);
             tasks.remove(index);
 
-            System.out.println("\tOK, I've deleted this task:");
-            System.out.printf("\t   %s%n", task.getDescription());
-
+            System.out.printf(PREFIX + COMMAND_DELETE_SUCCESS, task.getDescription());
             list(); // Display the updated task list
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tIndex is out of bound!");
+            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
+        } catch (NumberFormatException e) {
+            System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
         }
     }
 
@@ -212,14 +250,7 @@ public class Niwa {
      * Prints a user guide.
      */
     private void help() {
-        String guide = "\t- add [task description]: Add a new task to our list.\n"
-                + "\t- list: List all current tasks.\n"
-                + "\t- delete [task index]: Delete the task at the given index.\n"
-                + "\t- mark [task index]: Mark the task at the given index as done.\n"
-                + "\t- unmark [task index]: Mark the task at the given index as undone.\n"
-                + "\t- help: Print this guide.\n"
-                + "\t- bye: End the program.";
-        System.out.println(guide);
+        System.out.println(COMMAND_GUIDE);
     }
 
     /**
@@ -230,17 +261,16 @@ public class Niwa {
      */
     public void printGreet(String name, String logo) {
         System.out.println(logo);
-        printHorizontalLine(40);
-        System.out.println("\tHello sweeties! I'm " + name + "!");
-        System.out.println("\tWhat can I do for you? Let's chat <3");
+        System.out.println(SEPARATOR);
+        System.out.printf(HI_MESSAGE, name);
     }
 
     /**
      * Prints a farewell message.
      */
     public void printExit() {
-        System.out.println("\tBye bae. Hope to see you again soon! Moah~");
-        printHorizontalLine(40);
+        System.out.println(PREFIX + COMMAND_BYE_SUCCESS);
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -249,24 +279,9 @@ public class Niwa {
      * @return The command input by the user.
      */
     public String getCommand() {
-        printHorizontalLine(40);
+        System.out.println(SEPARATOR);
 
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
-    }
-
-    /**
-     * Prints a horizontal line with a specified number of dashes.
-     *
-     * @param numDash The number of dashes to print.
-     */
-    public void printHorizontalLine(int numDash) {
-        System.out.print("\t");
-
-        for (int i = 0; i < numDash; i++) {
-            System.out.print("_");
-        }
-
-        System.out.print("\n");
     }
 }
