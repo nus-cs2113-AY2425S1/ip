@@ -58,6 +58,50 @@ public class Taylor {
                 continue;
             }
 
+            if(input.startsWith("todo")){
+                Todo todo = new Todo(input.substring(4));
+                tasks.add(todo);
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have "+ tasks.size() +" tasks in the lists");
+                System.out.println(line);
+                input = sc.nextLine();
+                continue;
+            }
+
+            if(input.startsWith("event")){
+                int from = input.indexOf("/from");
+                int to = input.indexOf("/to");
+                String description = input.substring(6,from);
+                String _from = input.substring(from+6,to);
+                String _to = input.substring(to+4);
+                Event event = new Event(description,_from,_to);
+                tasks.add(event);
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have "+ tasks.size() +" tasks in the lists");
+                System.out.println(line);
+                input = sc.nextLine();
+                continue;
+            }
+
+            if(input.startsWith("deadline")){
+                int by = input.indexOf("/by");
+                String description = input.substring(9,by);
+                String _by = input.substring(by+4);
+                Task task = new Deadline(description,_by);
+                tasks.add(task);
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
+                System.out.println("Now you have "+ tasks.size() +" tasks in the lists");
+                System.out.println(line);
+                input = sc.nextLine();
+                continue;
+            }
+
             System.out.println(line);
             System.out.println("added: " + input);
             tasks.add(new Task(input));
