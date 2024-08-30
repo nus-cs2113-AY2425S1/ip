@@ -35,19 +35,17 @@ public class Freedom {
             return true;
         }
         String[] words = input.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equals("mark")) {
-                int listNumber = Integer.parseInt(words[i + 1]);
-                storage[listNumber - 1].markDone();
-                markTaskStatement(storage[listNumber - 1], true);
-                return true;
-            }
-            if (words[i].equals("unmark")) {
-                int listNumber = Integer.parseInt(words[i + 1]);
-                storage[listNumber - 1].markUndone();
-                markTaskStatement(storage[listNumber - 1], false);
-                return true;
-            }
+        if (words[0].equals("mark")) {
+            int listNumber = Integer.parseInt(words[1]);
+            storage[listNumber - 1].markDone();
+            markTaskStatement(storage[listNumber - 1], true);
+            return true;
+        }
+        if (words[0].equals("unmark")) {
+            int listNumber = Integer.parseInt(words[1]);
+            storage[listNumber - 1].markUndone();
+            markTaskStatement(storage[listNumber - 1], false);
+            return true;
         }
         storage[lastIndex] = new Task(input);
         String logo = "\t_________________________________________\n";
