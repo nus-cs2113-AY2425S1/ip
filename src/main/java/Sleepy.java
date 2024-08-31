@@ -1,20 +1,9 @@
 import java.util.Scanner;
 public class Sleepy {
     public static void main(String[] args) {
-        String logo = """
-                  ____   _      ____   ____  ____   __    __
-                 / ___| | |    | ___| | ___| |    \\ \\ \\  / /
-                 \\___ \\ | |    | ===| | ===| | D  |  \\ V  /
-                  ___) || |___ | |__  | |__  |   _/   |  |
-                 |____/ |____| |____| |____| |__|     |__|
-                """;
-
-        System.out.println("____________________________________________________________\n" + logo);
-        String greeting = """
-                Hello...I'm Sleepy
-                What did u wake me up for?
-                ____________________________________________________________
-                """;
+        String logo = getLogo();
+        System.out.println(logo);
+        String greeting = getGreeting();
         System.out.println(greeting);
 
         String line;
@@ -35,11 +24,34 @@ public class Sleepy {
             }
             line = in.nextLine();
         }
-        String goodbye = """
+        String goodbye = getGoodbye();
+        System.out.println(goodbye);
+    }
+
+    private static String getLogo() {
+        return """
+                ____________________________________________________________
+                  ____   _      ____   ____  ____   __    __
+                 / ___| | |    | ___| | ___| |    \\ \\ \\  / /
+                 \\___ \\ | |    | ===| | ===| | D  |  \\ V  /
+                  ___) || |___ | |__  | |__  |   _/   |  |
+                 |____/ |____| |____| |____| |__|     |__|
+                """;
+    }
+
+    private static String getGoodbye() {
+        return """
                 ____________________________________________________________
                 Bye. Going back to sleep...ZZZ
                 ____________________________________________________________
                 """;
-        System.out.println(goodbye);
+    }
+
+    private static String getGreeting() {
+        return """
+                Hello...I'm Sleepy
+                What did u wake me up for?
+                ____________________________________________________________
+                """;
     }
 }
