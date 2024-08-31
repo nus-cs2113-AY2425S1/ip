@@ -21,4 +21,17 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    public String getDoneMarker() {
+        if (isDone) {
+            return "[x]";
+        }
+
+        return "[ ]";
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", getDoneMarker(), getTaskName());
+    }
 }
