@@ -3,21 +3,32 @@ import java.util.Scanner;
 public class Transcendent {
 
     public static void main(String[] args) {
-        printEntry();
+        Printer.printEntry();
         echo();
-        printExit();
+        Printer.printExit();
     }
 
-    private static void printSeparator() {
-        System.out.println("____________________________________________________________");
-    }
+    private static class Printer {
 
-    private static void printEntry() {
-        printSeparator();
-        System.out.println("Greetings.");
-        System.out.println("I am Transcendent.");
-        System.out.println("What do you need assistance with?");
-        printSeparator();
+        private static void printEntry() {
+            Printer.printSeparator();
+            System.out.println("Greetings.");
+            System.out.println("I am Transcendent.");
+            System.out.println("What do you need assistance with?");
+            Printer.printSeparator();
+        }
+
+        private static void printSeparator() {
+            System.out.println("____________________________________________________________");
+        }
+
+        private static void printExit() {
+            Printer.printSeparator();
+            System.out.println("Let me know should you need assistance again.");
+            System.out.println("Farewell.");
+            Printer.printSeparator();
+        }
+
     }
 
     private static void echo() {
@@ -28,16 +39,10 @@ public class Transcendent {
             if (line.equals("bye")) {
                 break;
             }
-            printSeparator();
+            Printer.printSeparator();
             System.out.println(line);
-            printSeparator();
+            Printer.printSeparator();
         }
     }
 
-    private static void printExit() {
-        printSeparator();
-        System.out.println("Let me know should you need assistance again.");
-        System.out.println("Farewell.");
-        printSeparator();
-    }
 }
