@@ -16,10 +16,12 @@ public class List {
         PrintUtils.lineBreak();
     }
 
-    public void addTask(String userInput) {
+    public void addTask(Task task) {
         PrintUtils.lineBreak();
-        tasks[size++] = new Task(userInput);
-        PrintUtils.println("Ok, I've added: " + userInput);
+        tasks[size++] = task;
+        PrintUtils.println("Got it. I've added this task:");
+        PrintUtils.println(task.toString());
+        PrintUtils.println("Now you have " + size + " tasks in the list.");
         PrintUtils.lineBreak();
     }
 
@@ -32,10 +34,10 @@ public class List {
     }
 
     public void setTaskStatus(int taskNumber, boolean isDone) {
-        if (taskNumber < 1 || taskNumber > size) {
+        if (taskNumber < 1 || taskNumber > this.size) {
             PrintUtils.lineBreak();
             PrintUtils.println("Sorry, there is no task " + taskNumber + "."
-            + "Try a number between 1 and " + size + ".");
+                    + "Try a number between 1 and " + this.size + ".");
             PrintUtils.lineBreak();
             return;
         }

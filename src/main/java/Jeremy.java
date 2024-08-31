@@ -24,8 +24,17 @@ public class Jeremy {
             case "unmark":
                 list.markTaskAsNotDone(Integer.parseInt(argument));
                 break;
+            case "todo":
+                list.addTask(new Todo(argument));
+                break;
+            case "deadline":
+                list.addTask(new Deadline(argument));
+                break;
+            case "event":
+                list.addTask(new Event(argument));
+                break;
             default:
-                list.addTask(userInput);
+                list.addTask(new Task(userInput));
                 break;
             }
 

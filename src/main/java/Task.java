@@ -1,6 +1,7 @@
 public class Task {
-    private final String description;
-    private boolean isDone;
+    protected final String description;
+    protected boolean isDone;
+    protected String icon = " ";
 
     public Task(String description) {
         this.description = description;
@@ -12,11 +13,11 @@ public class Task {
     }
 
     public void markDone() {
-        isDone = true;
+        this.isDone = true;
     }
 
     public void markNotDone() {
-        isDone = false;
+        this.isDone = false;
     }
 
     public String toString() {
