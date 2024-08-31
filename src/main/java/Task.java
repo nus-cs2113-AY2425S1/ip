@@ -1,12 +1,22 @@
 public class Task {
-    private String description;
-    private boolean isDone;
-    private static int taskSize = 0;
+    protected String description;
+    protected boolean isDone;
+    private static int taskArraySize = 0;
+
     public Task (String description) {
         this.description = description;
         this.isDone = false;
+        taskArraySize++;
     }
 
+    @Override
+    public void finalize() {
+        taskArraySize--;
+    }
+
+    public String printString() {
+        return "";
+    }
     public void setMark(boolean mark) {
         this.isDone = mark;
     }
@@ -23,15 +33,15 @@ public class Task {
         this.description = description;
     }
 
-    public static int getTaskSize() {
-        return taskSize;
+    public static int getTaskArraySize() {
+        return taskArraySize;
     }
 
-    public static void setTaskSize(int size) {
-        taskSize = size;
+    public static void setTaskArraySize(int size) {
+        taskArraySize = size;
     }
 
-    public static void incrementTaskSize() {
-        taskSize++;
+    public static void incrementTaskArraySize() {
+        taskArraySize++;
     }
 }
