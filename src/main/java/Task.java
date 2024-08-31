@@ -1,66 +1,51 @@
 public class Task {
-	protected String description;
-	protected boolean isDone;
-	protected String date;
+    protected String description;
+    protected boolean isDone;
+    protected String date;
 
-	private static String formatDate(String date) { // from firstDateString /to secondDateString
-		int endIndexOfFirstPreposition = date.indexOf(' ');
-		String firstPreposition = date.substring(0, endIndexOfFirstPreposition) + ": "; // from
-
-		int secondSeparatorIndex = date.indexOf('/');
-		boolean hasNoSecondPart = (secondSeparatorIndex == -1);
-		String firstPart = firstPreposition;
-		if (hasNoSecondPart) {
-			String firstDateString = date.substring(endIndexOfFirstPreposition + 1);
-			return "(" + firstPart + firstDateString + ")";
-		} else {
-			String firstDateString = date.substring(endIndexOfFirstPreposition + 1, secondSeparatorIndex);
-			firstPart += firstDateString;
-		}
-
-		String secondDate = date.substring(secondSeparatorIndex + 1);
-		int endIndexOfSecondPreposition = secondDate.indexOf(' ');
-		String secondPreposition = secondDate.substring(0, endIndexOfSecondPreposition) + ": ";
-		String secondDateString = secondDate.substring(endIndexOfSecondPreposition + 1);
-		String secondPart = secondPreposition + secondDateString;
-		return "(" + firstPart + secondPart + ")";
-	}
+    private static String formatDate(String date) {
+		String[] textParts = date.split(" ", 2);
+		return textParts[0] + ": " + textParts[1];
+    }
 
 
-	public Task(String text) {
-		this.isDone = false;
-		int descriptionIndex = text.indexOf(' ') + 1;
-		boolean hasNoDescription = (descriptionIndex == 0);
-		if (hasNoDescription) {
-			throw new RuntimeException("Missing description");
-		}
+    public Task(String details) {
+        this.isDone = false;
+		String[] textParts = details.split("/", 3);
+		this.description = textParts[0];
 
-		int dateSeparatorIndex = text.indexOf('/', descriptionIndex);
-		boolean hasNoDateInput = (dateSeparatorIndex == -1);
-		if (hasNoDateInput) {
-			this.description = text.substring(descriptionIndex);
+		int numOfParts = textParts.length;
+		switch (numOfParts) {
+		case 1:
 			this.date = "";
-		} else {
-			this.description = text.substring(descriptionIndex, dateSeparatorIndex);
-			String dateString = text.substring(dateSeparatorIndex + 1);
-			this.date = formatDate(dateString);
+			break;
+		case 2:
+			this.date = "("
+					+ formatDate(textParts[1])
+					+ ")";
+			break;
+		case 3:
+			this.date = "("
+					+ formatDate(textParts[1])
+					+ formatDate(textParts[2])
+					+ ")";
 		}
-	}
+    }
 
-	public String getStatus() {
-		return (isDone ? "[X] " : "[ ] ");
-	}
+    public String getStatus() {
+        return (isDone ? "[X] " : "[ ] ");
+    }
 
-	@Override
-	public String toString() {
-		return getStatus() + description + date;
-	}
+    @Override
+    public String toString() {
+        return getStatus() + description + date;
+    }
 
-	public void markAsDone() {
-		isDone = true;
-	}
+    public void markAsDone() {
+        isDone = true;
+    }
 
-	public void unmarkFromDone() {
-		isDone = false;
-	}
+    public void unmarkFromDone() {
+        isDone = false;
+    }
 }

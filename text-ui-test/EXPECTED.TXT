@@ -2,7 +2,7 @@ Hello! I'm Iris!
 What can I do for you?
 ---------------------------------------------
 ---------------------------------------------
-Invalid Command
+Invalid or incomplete command
 ---------------------------------------------
 ---------------------------------------------
 No tasks added.
@@ -10,17 +10,17 @@ No tasks added.
 ---------------------------------------------
 Got it. I've added this task:
 [D][ ] assignment
-Now you have 0 tasks in the list
----------------------------------------------
----------------------------------------------
-Got it. I've added this task:
-[E][ ] networking (on: monday 3pm)
 Now you have 1 tasks in the list
 ---------------------------------------------
 ---------------------------------------------
 Got it. I've added this task:
-[T][ ] homework (from: tuesday 1pm to: thursday 4pm)
+[E][ ] networking (on: monday 3pm)
 Now you have 2 tasks in the list
+---------------------------------------------
+---------------------------------------------
+Got it. I've added this task:
+[T][ ] homework (from: tuesday 1pm to: thursday 4pm)
+Now you have 3 tasks in the list
 ---------------------------------------------
 ---------------------------------------------
 Here are the tasks in your list:

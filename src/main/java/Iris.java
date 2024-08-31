@@ -23,21 +23,33 @@ public class Iris {
     }
 
     public static void addTask(String text) {
+        String[] textParts = text.split(" ", 2);
+        boolean hasNoDetails = textParts.length == 1;
+        if (hasNoDetails) {
+            System.out.println("Invalid or incomplete command");
+            return;
+        }
+
+        String command = textParts[0].toLowerCase();
+        String details = textParts[1];
         Task newTask;
         try {
-            if (text.contains("todo")) {
-                newTask = new Todo(text);
-            } else if (text.contains("deadline")) {
-                newTask = new Deadline(text);
-            } else if (text.contains("event")) {
-                newTask = new Event(text);
-            } else {
+            switch (command) {
+            case "todo":
+                newTask = new Todo(details);
+                break;
+            case "deadline":
+                newTask = new Deadline(details);
+                break;
+            case "event":
+                newTask = new Event(details);
+                break;
+            default:
                 System.out.println("Invalid Command");
                 return;
             }
-            tasks[numOfTasks] = newTask;
-            printAddTaskMessage(tasks[numOfTasks]);
-            numOfTasks++;
+            tasks[numOfTasks++] = newTask;
+            printAddTaskMessage(newTask);
         } catch (RuntimeException e) { // For missing description
             System.out.println(e.getMessage());
         }
@@ -51,43 +63,67 @@ public class Iris {
                 + " tasks in the list");
     }
 
-    public static void editTask(String text) {
+    public static void markTask(String text) {
         try {
-            String numbersInText = text.replaceAll("[^0-9]", "");
-            int taskIndex = Integer.parseInt(numbersInText);
-            boolean isInvalidTaskIndex = taskIndex > numOfTasks || taskIndex < 1;
-            if (isInvalidTaskIndex) {
-                System.out.println("The task does not exist");
-                return;
-            }
+            Task taskToMark = getTaskToEdit(text);
+            taskToMark.markAsDone();
+            System.out.println("Nice! I've marked this task as done:\n"
+                    + taskToMark);
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-            Task taskToEdit = tasks[(taskIndex) - 1];
-            if (text.contains("unmark")) {
-                taskToEdit.unmarkFromDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                        
-            } else {
-                taskToEdit.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
+    public static void unmarkTask(String text) {
+        try {
+            Task taskToUnmark = getTaskToEdit(text);
+            taskToUnmark.unmarkFromDone();
+            System.out.println("OK, I've marked this task as not done yet:\n"
+                    + taskToUnmark);
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static Task getTaskToEdit(String text) {
+        try {
+            String[] textParts = text.split(" ");
+            if (textParts.length == 1) {
+                throw new IllegalArgumentException("Missing task number");
             }
-            System.out.println(taskToEdit);
+            int taskIndex = Integer.parseInt(textParts[1]) - 1;
+            boolean isInvalidTaskIndex = taskIndex >= numOfTasks || taskIndex < 0;
+            if (isInvalidTaskIndex) {
+                throw new IllegalArgumentException("Please provide a valid task number.");
+            }
+            return tasks[taskIndex];
         } catch (NumberFormatException e) {
-            System.out.println("Please provide a valid task number.");
+            throw new IllegalArgumentException("Please provide a valid task number.");
         }
     }
 
     public static boolean chat(String text) {
+        String command = text.split(" ")[0].toLowerCase();
         printDivider();
-        if (text.equalsIgnoreCase("bye")) {
+        switch (command) {
+        case "":
+            System.out.println("Do you need any further assistance?");
+            break;
+        case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return true;
-        } else if (text.equalsIgnoreCase("list")) {
+        case "list":
             listTasks();
-        } else if (text.contains("mark")) {
-            editTask(text);
-        } else if (text.isEmpty()) {
-            System.out.println("Do you need any further assistance?");
-        } else {
+            break;
+        case "mark":
+            markTask(text);
+            break;
+        case "unmark":
+            unmarkTask(text);
+            break;
+        default:
             addTask(text);
         }
         printDivider();

@@ -1,10 +1,10 @@
 public class Todo extends Task {
-	public Todo(String text) {
-		super(text);
-	}
+    public Todo(String text) {
+        super(text);
+    }
 
-	@Override
-	public String toString() {
-		return "[T]" + super.toString();
-	}
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }
