@@ -26,4 +26,10 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public String toString() {
+        return "[ ][" + getStatusIcon() + "] " + getDescription(); // Adds a generic task identifier [G]
+    }
 }
+
+

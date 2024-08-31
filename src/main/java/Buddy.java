@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Buddy {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
-        System.out.println("Hi Daddy, Im Shrek");
+        System.out.println("Im Shrek");
         printShrekFace2();
-        System.out.println(" What can I do for you?");
+        System.out.println("what are you doing in my swamp!??");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in); //Scanner object named "scanner"
@@ -13,8 +13,7 @@ public class Buddy {
         int taskCount = 0; //Counter for the number of tasks
         String input;
 
-        while (true)
-        {
+        while (true) {
             input = scanner.nextLine();
 
             if (input.equals("bye")) //end loop when user inputs "bye"
@@ -24,31 +23,52 @@ public class Buddy {
             else if (input.equals("list")) //display tasks when user inputs "list"
             {
                 System.out.println("____________________________________________________________");
-                System.out.println(" Here are your tasks Daddy:");
-                for (int i = 0; i < taskCount; i++)
-                {
+                System.out.println(" Here is your list of useless tasks, hope you are proud of yourself:");
+                for (int i = 0; i < taskCount; i++) {
                     //print each line in proper format
-                    System.out.println("     " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println("     " + (i + 1) + "." + tasks[i]);
+                    //System.out.println("     " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println("____________________________________________________________");
             }
             else if (input.startsWith("mark")) //mark task and print acknowledge message when user marks a task
             {
-                int taskNumber = Integer.parseInt(input.split(" ")[1])-1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
                 tasks[taskNumber].markAsDone();
                 System.out.println("____________________________________________________________");
-                System.out.println("I have marked this task as done daddy:");
+                System.out.println("It’s done. Now, get lost before I toss you out of my swamp!");
                 System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
                 System.out.println("____________________________________________________________");
             }
             else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
             {
-                int taskNumber = Integer.parseInt(input.split(" ")[1])-1; //get the integer in the text
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text
                 tasks[taskNumber].markAsNotDone();
                 System.out.println("____________________________________________________________");
-                System.out.println("I have marked this task as not done daddy:");
+                System.out.println("It’s unmarked. Gonna change it again? Make up your mind, or get out of my swamp!");
                 System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
                 System.out.println("____________________________________________________________");
+            }
+            else if (input.startsWith("todo"))
+            {
+                String description = input.substring(5); //at index 5 of the string, the description starts
+                tasks[taskCount] = new Todo(description); //put new task todo object in task array
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1], taskCount);
+            }
+            else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split(" /by ");
+                tasks[taskCount] = new Deadline(parts[0], parts[1]);
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1], taskCount);
+            }
+            else if (input.startsWith("event"))
+            {
+                String[] parts = input.substring(6).split(" /from ");
+                String[] time = parts[1].split(" /to ");
+                tasks[taskCount] = new Event(parts[0], time[0], time[1]);
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1], taskCount);
             }
             else //store whatever user input in "tasks" array
             {
@@ -61,10 +81,18 @@ public class Buddy {
         }
 
         System.out.println("____________________________________________________________"); //first line after "bye"
-        System.out.println(" Bye Daddy. I will miss you (>ᴗ•) !");
+        System.out.println(" Finally, you’re leaving. Now I can have some peace in my swamp.");
         printShrekFace();
         System.out.println("____________________________________________________________"); //second line after "bye"
 
+    }
+
+    public static void printAddedTask(Task task, int taskCount) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" ive added this task to your pile of nonsense:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list. Dont expect me to clean it up for you.");
+        System.out.println("____________________________________________________________");
     }
 
     public static void printShrekFace() {
@@ -85,47 +113,6 @@ public class Buddy {
         System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉");
     }
 
-    public static void printShrekBody() {
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠖⠋⠉⠀⠀⠉⠒⠶⣤⡀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣷⣤⡀⠀⠀⢀⣼⣿⣷⣤⣀⠀⠀⠀⠀⠀⣀⣼⣿⡂⠀⠀⠀⣴⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠿⠿⢿⣿⣆⣀⣼⣟⣯⣩⣹⣿⣷⣀⠀⣰⣿⣟⣋⡩⢿⡦⣴⣾⣿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⡿⣿⡟⢿⣿⣿⠆⣿⣿⣿⣟⢻⣷⡏⢿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⠟⠛⠿⠿⢟⢚⠋⠀⠀⠈⠛⠿⠿⠾⠗⠈⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⡏⢀⠀⢀⣾⣿⣾⣧⡀⠀⠀⣀⣄⣦⡀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡿⢿⣿⣿⡛⠛⠛⠛⠛⠛⠛⠉⠉⠉⠻⢷⣢⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣄⣾⢏⣿⠿⣧⣤⣀⠀⠐⠀⣀⣀⣠⡤⠄⠙⢺⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⡿⣍⢻⡜⡼⣫⢝⡲⠯⠽⠭⠭⠭⠁⠀⠀⠀⠀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⡹⣮⡓⢮⡕⡯⢮⣱⠂⡄⢀⠀⠀⠀⠀⠀⠀⠀⡰⠀⠈⠒⠠⢄⣀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣧⡳⣝⡿⣎⡶⡙⣆⠁⠀⠀⠀⠀⠀⠀⠀⠀⣠⠎⠁⠀⠀⠀⠀⠀⠈⠉⠉⠑⠢⢤⣀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣮⣷⢻⡿⣷⣞⣦⣄⠀⠀⡀⢀⣀⣠⠞⢁⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠢⡀⠀⠀");
-        System.out.println("⠀⠀⠀⠴⠚⠙⠉⠛⣿⣿⣿⠿⡉⠍⠉⠛⢿⣷⣿⣽⣿⣿⠿⠿⠛⠛⠉⠉⠁⢠⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢆⠀");
-        System.out.println("⠂⡄⠄⠀⠀⠀⠀⠀⠚⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢆");
-        System.out.println("⡑⢄⠠⠀⠀⠀⢀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈");
-        System.out.println("⠌⡂⠠⠀⡐⢠⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠄⠀⠀⠀⠀⠀⠀⠀⠄⢂");
-        System.out.println("⡘⡤⣑⠢⣜⠢⣉⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣷⣮⡔⡠⢌⡘⠤⡘⢤⠣");
-        System.out.println("⡳⣖⣭⣳⣾⡳⢄⢣⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣀⠂⠄⠀⠀⠀⠀⠀⠀⠀⢀⠀⢄⡒⢌⣣⣿⣿⣿⣽⡷⣍⠚⢤⡙⢆⠃");
-        System.out.println("⣿⣿⣾⣿⣿⣿⣏⣦⢣⢎⡐⠠⠀⠠⠀⠀⠀⠀⠀⠀⢀⠸⣿⣿⣯⡲⣄⢂⢄⡐⢠⠰⣈⠶⣘⢦⣹⣮⣿⣿⠋⠀⠀⠀⠀⠐⠂⠑⠂⠀");
-        System.out.println("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⡝⣥⢃⡆⡤⢠⠀⡄⡐⢎⡍⠃⣿⣿⣿⣿⣦⣍⡶⣌⣦⢧⣝⣾⣽⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣷⣽⣶⣧⣿⣴⣽⣶⡶⠀⢿⣿⣿⣿⣿⣿⢿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣯⠤⠀⢀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⠀⢺⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠋⠀⠀⠀⠀⠈⠙⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢺⡀⢂⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⢬⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡷⢾⠷⠤⢄⠀⣶⡌⠠⠀⠰⠶⢭⡻⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣷⢂⡁⣦⠀⠀⠀⠀⠀⠀");
-        System.out.println("⠀⢦⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⡭⠙⠂⠄⠀⠀⠀⢀⠀⣤⠐⠄⠀⠀⠀⠀⢻⡓⠿⢻⠻⣝⢮⣳⢯⣿⣿⣿⣦⣃⢿⡆⠐⠀⠄⡀⠀");
-        System.out.println("⠘⣦⣿⡿⠈⢿⣿⣿⣿⣿⣿⣧⡛⢿⣭⡓⣌⣆⣏⠀⠸⠂⢷⡠⠀⠀⠀⣀⢈⡄⡘⠀⠁⠉⣎⠷⣽⡞⣯⣿⢿⣿⣟⣾⣿⣮⣙⠄⠀⠀");
-        System.out.println("⣱⢾⣿⠃⠀⠈⢿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⡿⢿⣷⣦⡀⢸⠿⠿⠿⠷⢿⣾⣦⣥⡀⣌⠲⣜⡟⢧⣿⡷⠁⠈⢻⣿⣿⣿⣿⠇⡀⠀⠀");
-        System.out.println("⣿⣿⠇⠀⠀⠀⠈⣿⣿⡜⢤⠉⠙⣿⡧⡀⢄⠀⠀⠀⠌⠙⠀⠄⠀⠀⠀⠀⡀⠛⠿⠟⠛⠙⠢⢙⢻⡟⠀⠀⠀⠀⠹⣿⣿⡿⠀⠀⠀⠀");
-        System.out.println("⡿⠃⠀⠀⠀⠀⠀⣿⡿⢿⣈⡇⢀⣿⣷⡍⢦⠡⠄⠠⠀⠰⣏⠀⠀⠀⠀⢆⠱⣉⠶⠀⠀⠀⣁⠂⣽⠁⠀⠀⠀⠀⠀⣿⠿⠁⠀⠀⠀⠀");
-        System.out.println("⠁⠀⠀⠀⠀⠀⢺⡿⣜⡹⡌⢧⣈⣿⣿⣿⣧⡿⠤⡄⡄⠸⣷⣸⣄⢠⠩⣌⡕⣎⠄⠀⠀⠐⠤⢣⡿⠀⠀⠀⠀⠀⢀⡿⢀⠐⠀⠀⠀⠠");
-        System.out.println("⠀⡀⠀⠀⠀⠀⣿⢣⢇⡳⢜⡀⢘⠷⣯⡍⢩⠙⠋⢠⣿⣷⠉⠛⠻⠎⡟⡴⣫⠜⠀⠀⢀⡑⣎⣷⡇⠀⠀⠀⠀⢀⣼⠁⢂⠐⢀⠈⠄⡙");
-        System.out.println("⡐⠄⡀⠀⠀⠀⣿⣯⢜⣱⢎⠴⣩⢞⡵⣿⡒⣆⡀⠀⠉⠙⡀⢀⢀⠰⣍⢳⡝⠎⠀⠀⠠⣶⢿⣿⠀⠀⠀⠀⠀⠀⣿⡆⠂⠌⠀⠈⠀⠀");
-        System.out.println("⡘⠤⠐⠀⠀⠸⣿⣿⣾⢿⡛⢯⡱⢿⣾⡽⣗⢦⡹⣐⠠⡑⡘⢌⡎⡱⢎⠥⠒⡀⠀⣤⣹⣷⣿⡇⠀⠀⠀⠀⠀⠀⣿⡇⡈⠔⠠⢂⠁⣚");
-        System.out.println("⣡⢃⠌⡀⢠⣰⣿⣿⣿⣎⡷⢢⠝⣯⢿⣽⣿⢮⡵⢪⡱⣥⡙⢦⡚⢵⢫⡼⢁⠠⣱⣾⣿⣿⡟⠀⠀⠀⠀⠀⠀⠸⣷⣿⠹⣮⣑⠠⢎⡴");
-        System.out.println("⢦⡉⢆⠐⢣⣿⣯⢿⣿⣿⡹⣏⢜⡳⣿⢾⣿⣧⣟⣧⢳⡖⣽⢣⣞⠯⡖⢥⢂⢧⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⢿⣿⡇⡘⠍⡳⣦⣟");
-        System.out.println("⡇⠞⣬⣊⣿⣿⡿⢸⣿⣿⣧⡍⣎⣿⢻⣯⣿⢮⢷⣞⡷⣹⣞⣧⡟⣽⡙⣮⣹⣿⣿⠟⣹⡿⣿⣷⡄⠀⠀⠀⠀⠀⢸⣿⡇⢌⠹⣔⠳⣾");
-        System.out.println("⣭⣋⢿⣿⣿⣿⣷⣁⠺⣿⣿⣯⢽⣾⣿⣿⣽⣫⢷⣏⣿⢳⣻⣼⣹⢶⡹⣶⣿⣿⢏⣺⣵⣿⣿⣿⣻⠀⠀⠀⠀⠀⢠⣟⣧⠀⡳⣌⡿⣿");
-        System.out.println("⡖⡭⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣿⣿⣿⣯⣟⣿⣾⣽⣯⡷⣏⣷⣯⣿⣷⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⢸⡿⠸⡗⣵⢯⣿⣿");
-        System.out.println("⡽⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⣸⢇⢣⡹⣞⣿⣿⡏");
-        System.out.println("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠂⠤⣴⣿⢼⠶⠽⣿⣿⡿⠀");
-    }
 
     public static void printShrekFace2() {
         System.out.println("⠀⠀⠀⠀⠀⣀⡤⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
