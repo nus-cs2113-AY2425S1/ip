@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class storage {
+public class Storage {
 
 
     private List<Task> taskList;
 
-    public storage() {
+    public Storage() {
         taskList = new ArrayList<Task>();
     }
 
