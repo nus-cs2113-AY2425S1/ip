@@ -1,14 +1,35 @@
 // Output Text Formatter for Yapper
 public class OutputStringHandler {
-    // TODO use printTask
-    public String printTask(Task task) {
-        return "[" + (task.isDone ? "X" : " ") + "] " + task.taskDesc;
-    }
-
     // For Command: Add
-    public static void printAddedTask(String taskDescription) {
+    public static void printAddedTask(int taskCount, Task task) {
         System.out.println(CommonStrings.LINE_DIVIDER);
-        System.out.println("you now wanna: " + taskDescription);
+        System.out.println("Now, ya gotta do this too:");
+        System.out.println( "  " + task.taskToString() );
+        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(CommonStrings.LINE_DIVIDER);
+    }
+    // For Command: Todo
+    public static void printAddedTask(int taskCount, TaskTodo todo) {
+        System.out.println(CommonStrings.LINE_DIVIDER);
+        System.out.println("Now, ya gotta do this too:");
+        System.out.println( todo.taskToString() );
+        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(CommonStrings.LINE_DIVIDER);
+    }
+    // For Command: Deadline
+    public static void printAddedTask(int taskCount, TaskDeadline taskDeadline) {
+        System.out.println(CommonStrings.LINE_DIVIDER);
+        System.out.println("Now, ya gotta do this too:");
+        System.out.println( taskDeadline.taskToString() );
+        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(CommonStrings.LINE_DIVIDER);
+    }
+    // For Command: Event
+    public static void printAddedTask(int taskCount, TaskEvent taskEvent) {
+        System.out.println(CommonStrings.LINE_DIVIDER);
+        System.out.println("Now, ya gotta do this too:");
+        System.out.println( taskEvent.taskToString() );
+        System.out.println("Your list is now THIS BIG: " + taskCount);
         System.out.println(CommonStrings.LINE_DIVIDER);
     }
     // For Command: List
@@ -16,7 +37,8 @@ public class OutputStringHandler {
         System.out.println(CommonStrings.LINE_DIVIDER);
         System.out.println("Da tasks in yer list are:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.print( (i + 1) + "." ); // task list is displayed 1-indexed
+            System.out.println( tasks[i].taskToString() );
         }
         System.out.println(CommonStrings.LINE_DIVIDER);
     }

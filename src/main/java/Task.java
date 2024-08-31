@@ -4,8 +4,8 @@ public class Task {
     protected boolean isDone;
 
     // Constructor
-    public Task(String description) {
-        this.taskDesc = description;
+    public Task(String taskDesc) {
+        this.taskDesc = taskDesc;
         this.isDone = false;
     }
     // Task Operations
@@ -14,5 +14,9 @@ public class Task {
     }
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    public String taskToString() {
+        return "[" + (isDone ? "X" : " ") + "] " + taskDesc;
     }
 }

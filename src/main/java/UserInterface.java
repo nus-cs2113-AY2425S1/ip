@@ -1,19 +1,34 @@
 import java.util.Scanner;
 
-// Human-Yapper Interface
+// Human-Yapper Interface. Should this be 2 Classes Instead?
 public class UserInterface {
     // UI Operations
-    public static void handleAddCommand(TaskManager taskManager, String taskDesc) {
+    public static void handleAddInstruction(TaskManager taskManager, String taskDesc) {
         Task task = new Task(taskDesc);
         taskManager.addTask(task);
-        OutputStringHandler.printAddedTask(taskDesc);
+        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), task);
     }
-    public static void handleMarkCommand(TaskManager taskManager, Integer taskOrdinal) {
+    public static void handleAddInstruction(TaskManager taskManager, String todoDesc, Instruction.InstructionType type) {
+        TaskTodo todo = new TaskTodo(todoDesc); // type is to differentiate between overriden method handleAddInstruction() for task vs todo
+        taskManager.addTask(todo);
+        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), todo);
+    }
+    public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
+        TaskDeadline deadline = new TaskDeadline(taskDesc, endDate);
+        taskManager.addTask(deadline);
+        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), deadline);
+    }
+    public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
+        TaskEvent event = new TaskEvent(taskDesc, startDate, endDate);
+        taskManager.addTask(event);
+        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), event);
+    }
+    public static void handleMarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
         Task task = taskManager.getTask(taskOrdinal - 1); // 0-Indexed
         task.markAsDone();
         OutputStringHandler.printTaskStatus(task, true);
     }
-    public static void handleUnmarkCommand(TaskManager taskManager, Integer taskOrdinal) {
+    public static void handleUnmarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
         Task task = taskManager.getTask(taskOrdinal - 1); // 0-Indexed
         task.markAsNotDone();
         OutputStringHandler.printTaskStatus(task, false);
@@ -26,18 +41,35 @@ public class UserInterface {
         while (true) {
             String userInputString = scanner.nextLine();
             Instruction instruction = InputStringHandler.parseUserInput(userInputString);
-            switch (instruction.getInstructionType()) {
+            Instruction.InstructionType instructionType = instruction.getInstructionType();
+            switch (instructionType) {
             case ADD:
-                handleAddCommand(taskManager, instruction.getInstructionStringArgument());
+                String taskDesc = instruction.getInstructionStringArg();
+                handleAddInstruction(taskManager, taskDesc);
+                break;
+            case TODO:
+                String todoDesc = instruction.getInstructionStringArg();
+                handleAddInstruction(taskManager, todoDesc, instructionType);
+                break;
+            case DEADLINE:
+                String deadlineDesc = instruction.getInstructionStringArgs()[0];
+                String deadline = instruction.getInstructionStringArgs()[1];
+                handleAddInstruction(taskManager, deadlineDesc, deadline);
+                break;
+            case EVENT:
+                String eventDesc = instruction.getInstructionStringArgs()[0];
+                String startDate = instruction.getInstructionStringArgs()[1];
+                String endDate = instruction.getInstructionStringArgs()[2];
+                handleAddInstruction(taskManager, eventDesc, startDate, endDate);
                 break;
             case LIST:
                 OutputStringHandler.printTasks(taskManager.getAllTasks(), taskManager.getTaskCount());
                 break;
             case MARK:
-                handleMarkCommand(taskManager, instruction.getInstructionIntegerArgument());
+                handleMarkInstruction(taskManager, instruction.getInstructionIntegerArg());
                 break;
             case UNMARK:
-                handleUnmarkCommand(taskManager, instruction.getInstructionIntegerArgument());
+                handleUnmarkInstruction(taskManager, instruction.getInstructionIntegerArg());
                 break;
             case BYE:
                 System.out.println(CommonStrings.SHUT_DOWN_MESSAGE);
@@ -47,5 +79,3 @@ public class UserInterface {
         }
     }
 }
-// there's at most 1 UI at any point in time.
-// I shouldn't need static?
