@@ -3,6 +3,10 @@ public class Task {
     private boolean isDone;
     private int id;
 
+    private char type;
+    private String from;
+    private String to;
+
     public Task(String description, int id) {
         this.description = description;
         this.isDone = false;
@@ -25,6 +29,30 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    public void setType(char type) {
+        this.type = type;
+    }
+
+    public char getType() {
+        return type;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getTo() {
+        return to;
     }
 
 }
