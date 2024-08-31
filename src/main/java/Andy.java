@@ -7,7 +7,7 @@ public class Andy {
     private static List<Task> itemList = new ArrayList<>(); // List to store tasks
 
     public static void main(String[] args) {
-        greetUser(); // method to greet the user
+        greetUser(); // Method to greet the user
 
         Scanner scanner = new Scanner(System.in); // Use the imported Scanner class
         String input = "";
@@ -45,7 +45,6 @@ public class Andy {
 
         if (parts.length > 1) {
             String command = parts[1];
-
 
             if (command.equals("show")) {
                 showList(); // Correctly handle 'list show' to display the list
