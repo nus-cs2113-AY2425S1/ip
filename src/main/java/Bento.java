@@ -11,6 +11,7 @@ public class Bento {
     public static final String GREETING_MESSAGE = "\tKonichiwa! I am Bento, your personal assistant!\n\tHow can I help you with your tasks today?";
     public static final String LINE_MESSAGE = "\t____________________________________________________________";
     public static final String SAYONARA_MESSAGE = "\tThank you for working with me today! See you next time! Sayonara~";
+    public static final String ADD_TASK_SUCCESS_MESSAGE = "\tRoger that! Successfully added task:";
     private final Scanner in = new Scanner(System.in);
     private boolean isExit = false;
     private final ArrayList<Task> tasks = new ArrayList<>();
@@ -19,7 +20,6 @@ public class Bento {
     public void printLogo() {
         System.out.print(LOGO);
     }
-
 
     public void sayKonichiwa() {
         printLine();
@@ -43,29 +43,48 @@ public class Bento {
         return in.nextLine();
     }
 
-    public void echoInput(String input) {
+//    public void echoMessage(String message) {
+//        printLine();
+//        System.out.println("\t" + message);
+//        printLine();
+//    }
+
+    public void printAddTaskSuccessMessage(String task) {
         printLine();
-        System.out.println("\t" + input);
+        System.out.printf("%s\n\t\t%s\n%s", ADD_TASK_SUCCESS_MESSAGE, task, getTaskCountMessage());
         printLine();
+    }
+
+    public String getTaskCountMessage() {
+        return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", taskCount);
     }
 
     public void addTask(String input) {
-        tasks.add(new Task(input));
+        Task toAdd = new Task(input);
+        tasks.add(toAdd);
         taskCount++;
 
-        echoInput(String.format("Roger that! Successfully added task: %s", input));
+        printAddTaskSuccessMessage(toAdd.toString());
     }
 
-    public void listTasks() {
+    public void addToDo(String input) {
+        ToDo toAdd = new ToDo(input);
+        tasks.add(toAdd);
+        taskCount++;
+
+        printAddTaskSuccessMessage(toAdd.toString());
+    }
+
+    private void listTasks() {
         printLine();
         System.out.println("\tHere is the list of your existing tasks!");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i).toString());
+            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
         }
         printLine();
     }
 
-    public void markTaskAsDone(boolean isDone, String taskIndex) {
+    private void markTaskAsDone(boolean isDone, String taskIndex) {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             updateTask(isDone, index);
@@ -102,11 +121,19 @@ public class Bento {
 
     private void printMarked(int index) {
         System.out.println("\tYou've crushed this task! I've gone ahead and marked it as done for you.");
-        System.out.printf("\t  [x] %s\n", tasks.get(index).getTaskName());
+        System.out.printf("\t\t%s\n", tasks.get(index));
     }
 
     private void updateTask(boolean isDone, int index) {
         tasks.get(index).setDone(isDone);
+    }
+
+    private static String[] getInputList(String input) {
+        return input.split(" ");
+    }
+
+    private static String getTodo(String input) {
+        return input.split("todo")[1];
     }
 
     public void handleUserInput(String input) {
@@ -124,13 +151,12 @@ public class Bento {
         case "unmark":
             markTaskAsDone(false, inputList[1]);
             break;
+        case "todo":
+            addToDo(getTodo(input));
+            break;
         default:
             addTask(input);
         }
-    }
-
-    private static String[] getInputList(String input) {
-        return input.split(" ");
     }
 
     public void run() {
