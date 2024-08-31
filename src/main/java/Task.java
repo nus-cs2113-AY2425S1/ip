@@ -1,4 +1,4 @@
-public class ListItem {
+public class Task {
     private String text;
     private boolean isCompleted;
     private int index;
@@ -39,7 +39,7 @@ public class ListItem {
         currentIndex++;
     }
 
-    public ListItem(String text) {
+    public Task(String text) {
         setText(text);
         // default value for isCompleted is false
         this.isCompleted = false;
