@@ -4,10 +4,11 @@ import java.util.Scanner;
 public class Cassandra {
 
     private final static ArrayList<Task> taskList = new ArrayList<>();
+    public  final static String SEPERATOR = "____________________________________________________________";
     private static boolean EXIT_FLAG = false;
 
     private static void drawLine(){
-        System.out.println("____________________________________________________________");
+        System.out.println(SEPERATOR);
     }
 
     private static void exit() {
