@@ -34,33 +34,33 @@ public class JeM {
                 break;
             } else if (line.equals("List") || line.equals("list")) {
                 storage.storageList();
-            } else if (line.contains("delete") || line.contains("Delete")){
+            } else if (line.startsWith("delete") || line.startsWith("Delete")){
                 String[] lineParts = line.split(" ");
                 int index = Integer.parseInt(lineParts[1]);
                 storage.storageDelete(index);
                 storage.storageList();
-            } else if (line.contains("unmark") || line.contains("Unmark")){
+            } else if (line.startsWith("unmark") || line.startsWith("Unmark")){
                 String[] lineParts = line.split(" ");
                 int index = Integer.parseInt(lineParts[1]);
                 storage.storageUnmark(index);
                 storage.storageList();
-            } else if (line.contains("mark") || line.contains("Mark")) {
+            } else if (line.startsWith("mark") || line.startsWith("Mark")) {
                 String[] lineParts = line.split(" ");
                 int index = Integer.parseInt(lineParts[1]);
                 storage.storageMark(index);
                 storage.storageList();
             } else {
-                if (line.contains("Todo") || line.contains("todo")){
+                if (line.startsWith("Todo") || line.startsWith("todo")){
                     String taskContent = line.substring(5);
                     task = new Todo(taskContent);
                     storage.storageInsert(task);
-                }else if (line.contains("Deadline") || line.contains("deadline")){
+                }else if (line.startsWith("Deadline") || line.startsWith("deadline")){
                     String[] lineParts = line.substring(9).split(" /by ");
-                    String taskContent = lineParts[0];
-                    String deadline = lineParts[1];
+                    String taskContent = lineParts[0].trim();
+                    String deadline = lineParts[1].trim();
                     task = new Deadline(taskContent, deadline);
                     storage.storageInsert(task);
-                }else if (line.contains("Event") || line.contains("event")){
+                }else if (line.startsWith("Event") || line.startsWith("event")){
                     String[] lineParts = line.substring(6).split(" /from ");
                     String taskContent = lineParts[0].trim();
                     String[] dateTime = lineParts[1].split(" /to ");
