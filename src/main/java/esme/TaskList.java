@@ -1,7 +1,15 @@
 package esme;
 
+import esme.task.Deadline;
+import esme.task.Event;
+import esme.task.Task;
+import esme.task.Todo;
+
 import java.util.ArrayList;
 
+/**
+ * Represents a list that stores the current tasks added by the user
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -11,10 +19,6 @@ public class TaskList {
 
     public int numberOfTasks() {
         return tasks.size();
-    }
-
-    public String getMarkStatus(boolean isMark) {
-        return isMark ? "[X] " : "[ ] ";
     }
 
     /**
@@ -28,12 +32,31 @@ public class TaskList {
         System.out.println("\tBy the light of the moon, these are the tasks that guide your path:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println("\t" + (i + 1) + "." + getMarkStatus(task.hasCompleted()) + task.getName());
+            System.out.println("\t" + (i + 1) + "." + task);
         }
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
+    public String addTodoTask(String input) {
+        String[] parts = input.split(" ", 2);
+        tasks.add(new Todo(parts[1]));
+        return parts[1];
+    }
+
+    public String addDeadlineTask(String input) {
+        String[] parts = input.split(" /by ");
+        String description = parts[0].replace("deadline ", "").trim();
+        String by = parts[1].trim();
+        tasks.add(new Deadline(description, by));
+        return description;
+    }
+
+    public String addEventTask(String input) {
+        String[] parts = input.split(" /from | /to ");
+        String description = parts[0].replace("event ", "").trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        tasks.add(new Event(description, from, to));
+        return description;
     }
 
     public void markTask(int taskIndex) {

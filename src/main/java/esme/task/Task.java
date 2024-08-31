@@ -1,4 +1,4 @@
-package esme;
+package esme.task;
 
 /**
  * Represents a task with a description and a completion status.

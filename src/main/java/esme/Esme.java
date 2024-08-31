@@ -1,5 +1,8 @@
 package esme;
 
+import esme.task.Task;
+import esme.task.TaskType;
+
 public class Esme {
     private TaskList taskList;
 
@@ -7,17 +10,25 @@ public class Esme {
         taskList = new TaskList();
     }
 
-    /**
-     * Adds a task to the task list and displays a message to the user about
-     * the task being added. The message will be displayed with a line above and
-     * below it.
-     * 
-     * @param task The task to be added to the list.
-     */
-    public void addTaskToList(Task task) {
+
+    public void addTaskToList(String command, String input) {
+        String description;
+        switch(command) {
+        case "todo":
+            description = taskList.addTodoTask(input);
+            break;
+        case "deadline":
+            description = taskList.addDeadlineTask(input);
+            break;
+        case "event":
+            description = taskList.addEventTask(input);
+            break;
+        default:
+            System.out.println("Invalid command");  // Check again
+            return;
+        }
         displayLine(true);
-        taskList.addTask(task);
-        System.out.println("\tThe stars have aligned and " + task.getName() + " is now part of your destiny!");
+        System.out.println("\tThe stars have aligned and " + description + " is now part of your destiny!");
         displayLine(true);
     }
 
@@ -41,7 +52,7 @@ public class Esme {
         taskList.markTask(taskIndex - 1);
         displayLine(true);
         System.out.println("\tOutstanding! This task is marked as done, and your destiny shines brighter.");
-        System.out.println("\t  [X] " + taskList.getTask(taskIndex - 1).getName());
+        System.out.println("\t  [X] " + taskList.getTask(taskIndex - 1).getDescription());
         displayLine(true);
     }
 
@@ -55,7 +66,7 @@ public class Esme {
         taskList.unmarkTask(taskIndex - 1);
         displayLine(true);
         System.out.println("\tFear not, for this task remains unfinished. We shall conquer it in due time!");
-        System.out.println("\t  [] " + taskList.getTask(taskIndex - 1).getName());
+        System.out.println("\t  [] " + taskList.getTask(taskIndex - 1).getDescription());
         displayLine(true);
     }
 
@@ -106,10 +117,15 @@ public class Esme {
      * @param hasIndent Whether the line should be indented or not.
      */
     public void displayLine(boolean hasIndent) {
+//        if (hasIndent) {
+//            System.out.println("\t────────────────────────────────────────────────────────────────────────────────────────────────────");
+//        } else {
+//            System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────────");
+//        }
         if (hasIndent) {
-            System.out.println("\t────────────────────────────────────────────────────────────────────────────────────────────────────");
+            System.out.println("\t--------------------------------------------------------------------------------------------------");
         } else {
-            System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────────");
+            System.out.println("--------------------------------------------------------------------------------------------------");
         }
     }
 
@@ -139,4 +155,9 @@ public class Esme {
         System.out.println("The stars are silent... Please share your thoughts so I can guide you on your path.");
     }
 
+    public void handleUnknownCommand() {
+        displayLine(true);
+        System.out.println("\tThe stars are unclear on this command. Could you please try again?");
+        displayLine(true);
+    }
 }

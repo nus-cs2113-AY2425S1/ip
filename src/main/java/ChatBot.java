@@ -1,5 +1,4 @@
 import esme.Esme;
-import esme.Task;
 
 import java.util.Scanner;
 
@@ -36,6 +35,11 @@ public class ChatBot {
                 in.close();
                 System.exit(0);
                 break;
+            case "todo":
+            case "deadline":
+            case "event":
+                esme.addTaskToList(words[0],line);
+                break;
             case "mark":
             case "unmark":
                 esme.handleTaskStatus(words);
@@ -44,7 +48,7 @@ public class ChatBot {
                 esme.printTaskList();
                 break;
             default:
-                esme.addTaskToList(new Task(line));
+                esme.handleUnknownCommand();
                 break;
             }
         }
