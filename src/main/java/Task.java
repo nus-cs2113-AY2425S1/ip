@@ -1,10 +1,18 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    private String tag;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = "N"; // for no-tag
+    }
+
+    public Task(String description, String tag) {
+        this.description = description;
+        this.isDone = false;
+        this.tag = tag;
     }
 
     public String getStatusIcon(){
@@ -17,6 +25,10 @@ public class Task {
 
     public void setNotDone(){
         isDone = false;
+    }
+
+    public String getTag(){
+        return tag;
     }
 
 }

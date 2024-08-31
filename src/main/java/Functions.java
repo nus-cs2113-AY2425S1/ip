@@ -68,12 +68,12 @@ public class Functions {
                     taskList[taskNumIndex].setDone();
                     System.out.println(SEPARATOR);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] " + taskList[taskNumIndex].description);
+                    printTaskStatus(taskNumIndex);
                 } else {
                     taskList[taskNumIndex].setNotDone();
                     System.out.println(SEPARATOR);
                     System.out.println("OK! I've marked this task as not done yet:");
-                    System.out.println("[ ] " + taskList[taskNumIndex].description);
+                    printTaskStatus(taskNumIndex);
                 }
                 System.out.println(SEPARATOR);
             } else {
@@ -89,21 +89,39 @@ public class Functions {
         }
     }
 
+    public void printTaskStatus(int index){
+        // N tag below in [N] is for no-tag (default setting)
+        String output = (index + 1) + ". [" + taskList[index].getTag() + "][" + taskList[index].getStatusIcon() + "] "+ taskList[index].description;
+        System.out.println(output);
+    }
+
     private void listTasks() {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; i++) {
-            String output = (i + 1) + ".[" + taskList[i].getStatusIcon() + "] "+ taskList[i].description;
-            System.out.println(output);
+            printTaskStatus(i);
         }
         System.out.println(SEPARATOR);
     }
 
     private void addTask(String input) {
         System.out.println(SEPARATOR);
-        taskList[taskCounter] = new Task(input);
-        taskCounter++;
-        System.out.println("added: " + input);
+        if (input.startsWith("todo ")){
+            taskList[taskCounter++] = new ToDos(input);
+        }
+        else if (input.startsWith("deadline ")){
+            taskList[taskCounter++] = new Deadlines(input);
+        }
+        else if (input.startsWith("event ")){
+            taskList[taskCounter++] = new Events(input);
+        }
+        else{
+            taskList[taskCounter++] = new Task(input);
+        }
+
+        System.out.println("Got it. I've added this task:");
+        printTaskStatus(taskCounter - 1);
+        System.out.println("Now you have %d task(s) in the list".formatted(taskCounter));
         System.out.println(SEPARATOR);
     }
 
