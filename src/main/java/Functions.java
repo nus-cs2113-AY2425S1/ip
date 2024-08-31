@@ -68,13 +68,12 @@ public class Functions {
                     taskList[taskNumIndex].setDone();
                     System.out.println(SEPARATOR);
                     System.out.println("Nice! I've marked this task as done:");
-                    printTaskStatus(taskNumIndex);
                 } else {
                     taskList[taskNumIndex].setNotDone();
                     System.out.println(SEPARATOR);
                     System.out.println("OK! I've marked this task as not done yet:");
-                    printTaskStatus(taskNumIndex);
                 }
+                System.out.println(taskStatus(taskNumIndex));
                 System.out.println(SEPARATOR);
             } else {
                 System.out.println(SEPARATOR);
@@ -89,17 +88,16 @@ public class Functions {
         }
     }
 
-    public void printTaskStatus(int index){
+    public String taskStatus(int index){
         // N tag below in [N] is for no-tag (default setting)
-        String output = (index + 1) + ". [" + taskList[index].getTag() + "][" + taskList[index].getStatusIcon() + "] "+ taskList[index].description;
-        System.out.println(output);
+        return taskList[index].getTaskStatus();
     }
 
     private void listTasks() {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; i++) {
-            printTaskStatus(i);
+            System.out.println((i + 1) + ". " + taskStatus(i));
         }
         System.out.println(SEPARATOR);
     }
@@ -120,7 +118,7 @@ public class Functions {
         }
 
         System.out.println("Got it. I've added this task:");
-        printTaskStatus(taskCounter - 1);
+        System.out.println("  " + taskStatus(taskCounter - 1));
         System.out.println("Now you have %d task(s) in the list".formatted(taskCounter));
         System.out.println(SEPARATOR);
     }

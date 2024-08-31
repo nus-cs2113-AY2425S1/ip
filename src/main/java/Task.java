@@ -10,7 +10,7 @@ public class Task {
     }
 
     public Task(String description, String tag) {
-        this.description = description;
+        setDescription(description);
         this.isDone = false;
         this.tag = tag;
     }
@@ -29,6 +29,14 @@ public class Task {
 
     public String getTag(){
         return tag;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getTaskStatus(){
+        return "[" + getTag() + "][" + getStatusIcon() + "] " + description;
     }
 
 }
