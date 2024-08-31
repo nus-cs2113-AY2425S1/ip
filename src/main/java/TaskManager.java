@@ -8,77 +8,96 @@ public class TaskManager {
         taskCount = 0;
     }
 
-    public static void addTask(String input) {
+    public void addTask(String input) {
         int taskLength = tasks.length;
-        if (taskCount < taskLength) {
-            if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from");
-                if (parts.length == 2) {
-                    String description = parts[0].trim();
-                    String[] toParts = parts[1].split(" /to ");
-                    if (toParts.length == 2) {
-                        String from = toParts[0].trim();
-                        String to = toParts[1].trim();
-                        tasks[taskCount] = new Event(description, from, to);
-                        taskCount++;
-                        System.out.println("____________________________________________________________\n"
-                                + "Got it. I've added this task:\n"
-                                + " " + tasks[taskCount - 1].toString() + "\n"
-                                + "Now you have " + taskCount + " tasks in the list.\n"
-                                + "____________________________________________________________\n");
-                    }
-                } else {
-                    System.out.println("""
-                            ____________________________________________________________
-                            Invalid event format. Please use: event description /from time /to time
-                            ____________________________________________________________
-                            """);
-                }
-            } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ");
-                if (parts.length == 2) {
-                    String description = parts[0].trim();
-                    String by = parts[1].trim();
-                    tasks[taskCount] = new Deadline(description, by);
-                    taskCount++;
-                    System.out.println("____________________________________________________________\n"
-                            + "Got it. I've added this task:\n"
-                            + " " + tasks[taskCount - 1].toString() + "\n"
-                            + "Now you have " + taskCount + " tasks in the list.\n"
-                            + "____________________________________________________________\n");
-                } else {
-                    System.out.println("""
-                            ____________________________________________________________
-                            Invalid deadline format. Please use: deadline description /by date
-                            ____________________________________________________________
-                            """);
-                }
-            } else if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
-                tasks[taskCount] = new Todo(description);
-                taskCount++;
-                System.out.println("____________________________________________________________\n"
-                        + "Got it. I've added this task:\n"
-                        + " " + tasks[taskCount - 1].toString() + "\n"
-                        + "Now you have " + taskCount + " tasks in the list.\n"
-                        + "____________________________________________________________\n");
-            } else {
-                System.out.println("""
-                        ____________________________________________________________
-                        Unknown command. Please start with 'event', 'deadline', or 'todo'.
-                        ____________________________________________________________
-                        """);
-            }
-        } else {
+
+        if (taskCount >= taskLength) {
             System.out.println("""
+                ____________________________________________________________
+                You're too busy, go get some rest...ZZZ
+                ____________________________________________________________
+                """);
+            return;
+        }
+
+        if (input.startsWith("event ")) {
+            String[] parts = input.substring(6).split(" /from ");
+            if (parts.length != 2) {
+                System.out.println("""
                     ____________________________________________________________
-                    You're too busy, go get some rest...ZZZ
+                    Invalid event format. Please use: event description /from time /to time
                     ____________________________________________________________
                     """);
+                return;
+            }
+
+            String description = parts[0].trim();
+            String[] toParts = parts[1].split(" /to ");
+            if (toParts.length != 2) {
+                System.out.println("""
+                    ____________________________________________________________
+                    Invalid event format. Please use: event description /from time /to time
+                    ____________________________________________________________
+                    """);
+                return;
+            }
+
+            String from = toParts[0].trim();
+            String to = toParts[1].trim();
+            tasks[taskCount] = new Event(description, from, to);
+            taskCount++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + " " + tasks[taskCount - 1].toString() + "\n"
+                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "____________________________________________________________\n");
+            return;
         }
+
+        if (input.startsWith("deadline ")) {
+            String[] parts = input.substring(9).split(" /by ");
+            if (parts.length != 2) {
+                System.out.println("""
+                    ____________________________________________________________
+                    Invalid deadline format. Please use: deadline description /by date
+                    ____________________________________________________________
+                    """);
+                return;
+            }
+
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            tasks[taskCount] = new Deadline(description, by);
+            taskCount++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + " " + tasks[taskCount - 1].toString() + "\n"
+                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "____________________________________________________________\n");
+            return;
+        }
+
+        if (input.startsWith("todo ")) {
+            String description = input.substring(5).trim();
+            tasks[taskCount] = new Todo(description);
+            taskCount++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + " " + tasks[taskCount - 1].toString() + "\n"
+                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "____________________________________________________________\n");
+            return;
+        }
+
+        System.out.println("""
+            ____________________________________________________________
+            Unknown command. Please start with 'event', 'deadline', or 'todo'.
+            ____________________________________________________________
+            """);
     }
 
-    public static void listTasks() {
+
+    public void listTasks() {
         System.out.println("____________________________________________________________\n"
                 + "Stop bothering me, u have unfinished tasks...:");
         for (int i = 0; i < taskCount; i++) {

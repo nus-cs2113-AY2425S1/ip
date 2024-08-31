@@ -12,7 +12,7 @@ public class Sleepy {
         line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                TaskManager.listTasks();
+                taskManager.listTasks();
             } else if (line.startsWith("mark ")) {
                 int taskNumber = Integer.parseInt(line.substring(5));
                 taskManager.markTask(taskNumber);
@@ -20,7 +20,7 @@ public class Sleepy {
                 int taskNumber = Integer.parseInt(line.substring(7));
                 taskManager.unmarkTask(taskNumber);
             } else {
-                TaskManager.addTask(line);
+                taskManager.addTask(line);
             }
             line = in.nextLine();
         }
