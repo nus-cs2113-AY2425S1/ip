@@ -3,6 +3,14 @@ public class Deadline extends Task{
 
     public Deadline(String taskName, String by) {
         super(taskName);
+        setBy(by);
+    }
+
+    public String getBy(){
+        return this.by;
+    }
+
+    public void setBy(String by){
         this.by = by;
     }
 

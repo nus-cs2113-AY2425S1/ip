@@ -6,7 +6,7 @@ public class Cassandra {
     private final static ArrayList<Task> taskList = new ArrayList<>();
     private static boolean EXIT_FLAG = false;
 
-    private static void line(){
+    private static void drawLine(){
         System.out.println("____________________________________________________________");
     }
 
@@ -15,11 +15,11 @@ public class Cassandra {
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
-    private static void intro(){
-        line();
+    private static void displayIntroduction(){
+        drawLine();
         System.out.println(" Hello! I'm Cassandra");
         System.out.println(" What can I do for you?");
-        line();
+        drawLine();
     }
 
     private static void saveTask(Task input){
@@ -52,7 +52,7 @@ public class Cassandra {
         }
     }
 
-    private static void toStringList(){
+    private static void printList(){
         if(taskList.isEmpty()){
             System.out.println("List is empty");
         } else {
@@ -63,13 +63,13 @@ public class Cassandra {
         }
     }
 
-    private static void executeCode(String input,String[] commandArgs){
+    private static void executeCommand(String input, String[] commandArgs){
         if(commandArgs[0].equalsIgnoreCase("mark")){
             markTask(Integer.parseInt(commandArgs[1]));
         } else if(commandArgs[0].equalsIgnoreCase("unmark")){
             unmarkTask(Integer.parseInt(commandArgs[1]));
         } else if(commandArgs[0].equalsIgnoreCase("list")){
-            toStringList();
+            printList();
         } else if(commandArgs[0].equalsIgnoreCase("bye")){
             exit();
         } else if(commandArgs[0].equalsIgnoreCase("todo")) {
@@ -92,18 +92,18 @@ public class Cassandra {
         }
     }
 
-    private  static void input() {
+    private  static void readUserCommand() {
         String input = new Scanner(System.in).nextLine().trim();
         String[] commandArgs = input.split(" ");
-        line();
-        executeCode(input,commandArgs);
-        line();
+        drawLine();
+        executeCommand(input,commandArgs);
+        drawLine();
     }
 
     public static void main(String[] args) {
-        intro();
+        displayIntroduction();
         while(!EXIT_FLAG) {
-            input();
+            readUserCommand();
         }
     }
 }
