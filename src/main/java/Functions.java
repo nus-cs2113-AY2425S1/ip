@@ -20,6 +20,12 @@ public class Functions {
         System.out.println("   - Type command: mark <task number>");
         System.out.println("3. Mark tasks as not done:");
         System.out.println("   - Type command: unmark <task number>");
+        System.out.println("4. List all tasks.");
+        System.out.println("   - Type command: list");
+        System.out.println("5. Be a parrot!");
+        System.out.println("   - Type command: echo");
+        System.out.println("6. Shut myself down. Use this if you no longer need me :(");
+        System.out.println("   - Type command: bye");
         System.out.println(SEPARATOR);
     }
 
@@ -44,6 +50,10 @@ public class Functions {
                     listTasks();
                     break;
 
+                case "echo":
+                    echo();
+                    break;
+
                 default:
                     addTask(input);
             }
@@ -59,13 +69,11 @@ public class Functions {
                     System.out.println(SEPARATOR);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[X] " + taskList[taskNumIndex].description);
-                    System.out.println(SEPARATOR);
                 } else {
                     taskList[taskNumIndex].setNotDone();
                     System.out.println(SEPARATOR);
                     System.out.println("OK! I've marked this task as not done yet:");
                     System.out.println("[ ] " + taskList[taskNumIndex].description);
-                    System.out.println(SEPARATOR);
                 }
                 System.out.println(SEPARATOR);
             } else {
@@ -99,10 +107,20 @@ public class Functions {
         System.out.println(SEPARATOR);
     }
 
-    public void echo(String input){
-        System.out.println(SEPARATOR);
-        System.out.println(input);
-        System.out.println(SEPARATOR);
+    private void echo(){
+        while(true){
+
+            System.out.println("Say anything! If you are no longer bored, type exit !");
+            String input = in.nextLine();
+            if(input.equals("exit")){
+                System.out.println(SEPARATOR);
+                printFunctions();
+                break;
+            }
+            System.out.println(SEPARATOR);
+            System.out.println(input);
+            System.out.println(SEPARATOR);
+        }
     }
 
 }
