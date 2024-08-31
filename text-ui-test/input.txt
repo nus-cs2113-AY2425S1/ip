@@ -1,0 +1,32 @@
+borrow book
+list
+deadline read book /by Monday 2359
+list
+mark 1
+event return book /from Tuesday 1200 /to Tuesday 1300
+list
+mark 2
+list
+unmark 1
+list
+unmark 1
+mark 1
+list
+unmark 2
+list
+mark 1
+mark 2
+mark 3
+list
+mark 500
+list
+deadline submit form \by Wednesday 2359
+deadline submit form /by Thursday 2359
+list
+event formal dinner /f Monday 1800 \to Monday 2200
+event formal dinner /from Monday 1800 /to Monday 2200
+list
+mark 4
+mark 5
+list
+bye

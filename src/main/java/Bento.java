@@ -177,7 +177,7 @@ public class Bento {
     }
 
     public String extractEventName(String input, int indexOfFrom) {
-        return input.substring(0, indexOfFrom).replace(SPACE_REGEX, EMPTY_REGEX);
+        return input.substring(0, indexOfFrom).trim();
     }
 
     public String removeEventPrefix(String input) {
