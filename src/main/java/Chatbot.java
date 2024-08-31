@@ -1,16 +1,18 @@
 import java.util.Scanner;
 
 public class Chatbot {
-    private static final Scanner in = new Scanner(System.in);
+    protected static final Scanner in = new Scanner(System.in);
 
     // Constructor for chatbot
     public Chatbot() {
+        start();
     }
 
     // Starting Chatbot
     public void start() {
         printWelcomeMessage();
-        Task.taskmaster();
+        Functions execute = new Functions();
+        execute.taskmaster();
     }
 
     // Welcome Screen
@@ -27,19 +29,4 @@ public class Chatbot {
         System.out.println("Bye. Hope to see you again!");
         System.out.println("_________________________________________________________");
     }
-
-    // Echo
-    private void echo(){
-        while(true){
-            String input = in.nextLine();
-            if(input.equals("bye")){
-                printByeMessage();
-                break;
-            }
-            System.out.println("_________________________________________________________");
-            System.out.println(input);
-            System.out.println("_________________________________________________________");
-        }
-    }
-
 }
