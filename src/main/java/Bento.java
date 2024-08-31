@@ -29,6 +29,8 @@ public class Bento {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+    public static final int COMMAND_INDEX = 0;
+    public static final int TASK_INDEX = 1;
 
     // Prefixes and Regexes
     // General
@@ -51,6 +53,8 @@ public class Bento {
     public static final String TO_PREFIX = "/to";
     public static final String TO_REGEX = TO_PREFIX + SPACE_REGEX;
     public static final String FROM_REGEX = FROM_PREFIX + SPACE_REGEX;
+
+
 
     // Data
     private final Scanner in = new Scanner(System.in);
@@ -141,7 +145,7 @@ public class Bento {
     }
 
     public static String removeDeadlinePrefix(String input) {
-        return input.replace(DEADLINE_PREFIX, "");
+        return input.replace(DEADLINE_PREFIX, EMPTY_REGEX);
     }
 
     // Event Functions
@@ -180,11 +184,15 @@ public class Bento {
         return input.replace(EVENT_PREFIX, EMPTY_REGEX);
     }
 
+    private Task retrieveTask(int index) {
+        return tasks.get(index);
+    }
+
     private void listTasks() {
         printLine();
         System.out.println(EXISTING_TASKS_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
+            System.out.printf("\t%d. %s\n", i + 1, retrieveTask(i));
         }
         printLine();
     }
@@ -210,12 +218,12 @@ public class Bento {
 
     private void printUnmarked(int index) {
         System.out.println(UNMARKED_MESSAGE);
-        System.out.printf("\t\t%s\n", tasks.get(index));
+        System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
     private void printMarked(int index) {
         System.out.println(MARKED_MESSAGE);
-        System.out.printf("\t\t%s\n", tasks.get(index));
+        System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
 
@@ -240,7 +248,7 @@ public class Bento {
 
     // Task Status Update
     private void updateTask(boolean isDone, int index) {
-        tasks.get(index).setDone(isDone);
+        retrieveTask(index).setDone(isDone);
     }
 
     private static String[] getInputList(String input) {
@@ -249,7 +257,7 @@ public class Bento {
 
     public void handleUserInput(String input) {
         String[] inputList = getInputList(input);
-        switch (inputList[0]) {
+        switch (inputList[COMMAND_INDEX]) {
         case BYE_COMMAND:
             saySayonara();
             break;
@@ -257,10 +265,10 @@ public class Bento {
             listTasks();
             break;
         case MARK_COMMAND:
-            markTaskAsDone(true, inputList[1]);
+            markTaskAsDone(true, inputList[TASK_INDEX]);
             break;
         case UNMARK_COMMAND:
-            markTaskAsDone(false, inputList[1]);
+            markTaskAsDone(false, inputList[TASK_INDEX]);
             break;
         case TODO_COMMAND:
             addToDo(getTodo(input));
