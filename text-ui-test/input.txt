@@ -1,0 +1,12 @@
+invalidCommand
+list
+deadline assignment
+event networking /on monday 3pm
+todo homework /from tuesday 1pm /to thursday 4pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+bye
