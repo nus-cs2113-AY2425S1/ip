@@ -11,9 +11,7 @@ public class List {
         PrintUtils.lineBreak();
         for (int i = 0; i < size; i++) {
             PrintUtils.print((i + 1) + ".");
-            PrintUtils.print("[" + tasks[i].getStatusIcon() + "] ");
-            tasks[i].printTask();
-            PrintUtils.newline();
+            PrintUtils.println(tasks[i].toString());
         }
         PrintUtils.lineBreak();
     }
@@ -34,22 +32,23 @@ public class List {
     }
 
     public void setTaskStatus(int taskNumber, boolean isDone) {
-        PrintUtils.lineBreak();
         if (taskNumber < 1 || taskNumber > size) {
+            PrintUtils.lineBreak();
             PrintUtils.println("Sorry, there is no task " + taskNumber + "."
             + "Try a number between 1 and " + size + ".");
-        } else {
-            if (isDone) {
-                tasks[taskNumber - 1].markDone();
-                PrintUtils.println("Nice! I've marked this task as done:");
-            } else {
-                tasks[taskNumber - 1].markNotDone();
-                PrintUtils.println("I've unmarked this task:");
-            }
-            PrintUtils.print("[" + tasks[taskNumber - 1].getStatusIcon() + "] ");
-            tasks[taskNumber - 1].printTask();
-            PrintUtils.newline();
+            PrintUtils.lineBreak();
+            return;
         }
+
+        PrintUtils.lineBreak();
+        if (isDone) {
+            tasks[taskNumber - 1].markDone();
+            PrintUtils.println("Nice! I've marked this task as done:");
+        } else {
+            tasks[taskNumber - 1].markNotDone();
+            PrintUtils.println("I've unmarked this task:");
+        }
+        PrintUtils.println(tasks[taskNumber - 1].toString());
         PrintUtils.lineBreak();
     }
 }
