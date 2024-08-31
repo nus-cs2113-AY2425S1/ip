@@ -2,6 +2,9 @@ import java.util.Scanner;
 public class Functions {
 
     protected static final Scanner in = new Scanner(System.in);
+    private static final String SEPARATOR = "_________________________________________________________";
+    private Task[] taskList = new Task[100];
+    private int taskCounter = 0;
 
     public Functions() {
         printFunctions();
@@ -17,91 +20,89 @@ public class Functions {
         System.out.println("   - Type command: mark <task number>");
         System.out.println("3. Mark tasks as not done:");
         System.out.println("   - Type command: unmark <task number>");
-        System.out.println("_________________________________________________________");
+        System.out.println(SEPARATOR);
     }
 
-    public void taskmaster(){
-        Task[] taskList = new Task[100];
-        int taskCounter = 0;
-        while(true) {
+    public void taskmaster() {
+        while (true) {
             String input = in.nextLine();
-            int taskNumIndex;
+            processCommand(input);
+        }
+    }
 
-            if (input.startsWith("mark ")){
-                try {
-                    taskNumIndex = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskNumIndex >= 0 && taskNumIndex < taskCounter) {
-                        taskList[taskNumIndex].setDone();
-                        System.out.println("_________________________________________________________");
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("[X] " + taskList[taskNumIndex].description);
-                        System.out.println("_________________________________________________________");
-                    }
-                    else {
-                        System.out.println("________________________________________________________");
-                        System.out.println("Invalid task input. Please try again.");
-                        System.out.println("________________________________________________________");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("_________________________________________________________");
-                    System.out.println("Invalid task input. Please try again.");
-                    System.out.println("Correct format: mark <int>");
-                    System.out.println("_________________________________________________________");
-                }
-            }
-            else if (input.startsWith("unmark ")) {
-                try {
-                    taskNumIndex = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskNumIndex >= 0 && taskNumIndex < taskCounter && taskList[taskNumIndex].isDone) {
-                        taskList[taskNumIndex].setNotDone();
-                        System.out.println("__________________________________________________________");
-                        System.out.println("OK! I've marked this task as not done yet:");
-                        System.out.println("[ ] " + taskList[taskNumIndex].description);
-                        System.out.println("__________________________________________________________");
-                    }
-                    else {
-                        System.out.println("________________________________________________________");
-                        System.out.println("Invalid task input. Please try again.");
-                        System.out.println("________________________________________________________");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("_________________________________________________________");
-                    System.out.println("Invalid task input. Please try again.");
-                    System.out.println("Correct format: unmark <int>");
-                    System.out.println("_________________________________________________________");
-                }
-            }
-            else {
-                switch(input) {
-                    case "bye":
-                        Chatbot.printByeMessage();
-                        return;
+    private void processCommand(String input) {
+        if (input.startsWith("mark ") || input.startsWith("unmark ")) {
+            handleMarking(input);
+        }
+        else {
+            switch (input) {
+                case "bye":
+                    Chatbot.printByeMessage();
+                    System.exit(0);
 
-                    case "list":
-                        System.out.println("_________________________________________________________");
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskCounter; i++) {
-                            String output = (i + 1) + ".[" + taskList[i].getStatusIcon() + "] "+ taskList[i].description;
-                            System.out.println(output);
-                        }
-                        System.out.println("_________________________________________________________");
-                        break;
+                case "list":
+                    listTasks();
+                    break;
 
-                    default:
-                        System.out.println("_________________________________________________________");
-                        taskList[taskCounter] = new Task(input);
-                        taskCounter++;
-                        System.out.println("added: " + input);
-                        System.out.println("_________________________________________________________");
-                }
+                default:
+                    addTask(input);
             }
         }
     }
 
+    private void handleMarking(String input) {
+        try {
+            int taskNumIndex = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
+            if (taskNumIndex >= 0 && taskNumIndex < taskCounter) {
+                if (input.startsWith("mark ")) {
+                    taskList[taskNumIndex].setDone();
+                    System.out.println(SEPARATOR);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] " + taskList[taskNumIndex].description);
+                    System.out.println(SEPARATOR);
+                } else {
+                    taskList[taskNumIndex].setNotDone();
+                    System.out.println(SEPARATOR);
+                    System.out.println("OK! I've marked this task as not done yet:");
+                    System.out.println("[ ] " + taskList[taskNumIndex].description);
+                    System.out.println(SEPARATOR);
+                }
+                System.out.println(SEPARATOR);
+            } else {
+                System.out.println(SEPARATOR);
+                System.out.println("Invalid task input. Please try again.");
+                System.out.println(SEPARATOR);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Invalid task input. Please try again.");
+            System.out.println("Correct format: mark <int>");
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    private void listTasks() {
+        System.out.println(SEPARATOR);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskCounter; i++) {
+            String output = (i + 1) + ".[" + taskList[i].getStatusIcon() + "] "+ taskList[i].description;
+            System.out.println(output);
+        }
+        System.out.println(SEPARATOR);
+    }
+
+    private void addTask(String input) {
+        System.out.println(SEPARATOR);
+        taskList[taskCounter] = new Task(input);
+        taskCounter++;
+        System.out.println("added: " + input);
+        System.out.println(SEPARATOR);
+    }
+
     public void echo(String input){
-        System.out.println("_________________________________________________________");
+        System.out.println(SEPARATOR);
         System.out.println(input);
-        System.out.println("_________________________________________________________");
+        System.out.println(SEPARATOR);
     }
 
 }
