@@ -1,12 +1,24 @@
+import java.util.Scanner;
+
 public class Yapper {
     public static void main(String[] args) {
-        String Greet = "____________________________________________________________"
-                     + "Hello! I'm Yapper\n"
-                     + "What can I do for you?";
-        String Exit = "____________________________________________________________"
-                    + "Bye. Hope to see you again soon!"
+        String Greet = "____________________________________________________________\n"
+                     + "Heyo! Imma Yapper!\n"
+                     + "Whatchu wanna do?\n"
+                     + "____________________________________________________________";
+        String Exit = "____________________________________________________________\n"
+                    + "Buh-Byeeee!!! Cya soon!\n"
                     + "____________________________________________________________";
+
         System.out.println(Greet);
-        System.out.println(Exit);
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            String line = in.nextLine();
+            if (line.equals("bye")) {
+                System.out.println(Exit);
+                break;
+            }
+            System.out.println(line);
+        }
     }
 }
