@@ -80,7 +80,7 @@ public class Dobby {
 
     private static void printTaskAddedMessage(){
         printSeparator();
-        System.out.println("    Dobby has added this task: ");
+        System.out.println("    Dobby has added this task:");
         System.out.println("      " + taskList[listSize-1]);
         System.out.println("    Dobby says master has " + Task.getNumberOfTasks() + " tasks in the list!");
         printSeparator();
@@ -97,7 +97,7 @@ public class Dobby {
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].markAsDone();
             printSeparator();
-            System.out.println("    Dobby has magically marked this task as done: ");
+            System.out.println("    Dobby has magically marked this task as done:");
             System.out.println("      " + taskList[taskNumber-1]);
             printSeparator();
         }
@@ -108,7 +108,7 @@ public class Dobby {
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].unmarkAsDone();
             printSeparator();
-            System.out.println("    Dobby has marked this task as incomplete: ");
+            System.out.println("    Dobby has marked this task as incomplete:");
             System.out.println("      " + taskList[taskNumber-1]);
             printSeparator();
         }

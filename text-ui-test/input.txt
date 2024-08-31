@@ -1,0 +1,7 @@
+todo borrow book
+deadline read book /by 6 june
+event project meeting /from 2pm /to 5pm
+list
+mark 2
+list
+bye
