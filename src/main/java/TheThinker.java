@@ -5,43 +5,53 @@ public class TheThinker {
     public static final String NAME = "TheThinker";
 
     public static void main(String[] args) {
-        printSeparation();
+
         printGreeting();
-        printSeparation();
         Scanner in = new Scanner(System.in);
         String userInput;
-        List toDoList = new List();
 
         do{
             userInput = in.nextLine();
             printSeparation();
 
-            if(hasMarkOrUnmark(userInput)){
+            String userAction = getUserActionFromSentence(userInput);
+            String[] actionAndItemNumber;
+            UserInputParser userInputParser = new UserInputParser(userInput);
 
-                String[] actionAndItemNumber = userInput.split(" ");
+            switch(userAction){
 
-                if(actionAndItemNumber[0].trim().equalsIgnoreCase("mark")){
-                    toDoList.setAsDone(Integer.parseInt(actionAndItemNumber[1].trim()));
-                    continue;
+            case "mark" :
+                actionAndItemNumber = userInput.split(" ");
+                Task.setAsDone(Integer.parseInt(actionAndItemNumber[1].trim()));
+                break;
 
-                }else if(actionAndItemNumber[0].trim().equalsIgnoreCase("unmark")){
-                    toDoList.setAsNotDone(Integer.parseInt(actionAndItemNumber[1].trim()));
-                    continue;
-                }
-            }
+            case "unmark" :
+                actionAndItemNumber = userInput.split(" ");
+                Task.setAsNotDone(Integer.parseInt(actionAndItemNumber[1].trim()));
+                break;
 
-            switch(userInput){
+            case "todo" :
+                Task.addTask(userInputParser.parseTask());
+                break;
+
+            case "event" :
+                Task.addTask(userInputParser.parseEvent());
+                break;
+
+            case "deadline" :
+                Task.addTask(userInputParser.parseDeadline());
+                break;
+
             case "bye":
                 printBye();
                 break;
 
             case "list":
-                toDoList.listItems();
+                Task.listTasks();
                 break;
 
             default:
-                toDoList.addItem(userInput);
-                System.out.println("added: " + userInput);
+                System.out.println("try again with the correct format");
                 break;
             }
             printSeparation();
@@ -50,8 +60,10 @@ public class TheThinker {
     }
 
     public static void printGreeting(){
+        printSeparation();
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
+        printSeparation();
     }
 
     public static void printBye(){
@@ -62,8 +74,9 @@ public class TheThinker {
         System.out.println("____________________________________________________________");
     }
 
-    public static boolean hasMarkOrUnmark(String userInput){
-        return(userInput.contains("mark") || userInput.contains("unmark"));
+    public static String getUserActionFromSentence(String userInput){
+        String[] wordsInUserInput = userInput.split(" ");
+        return wordsInUserInput[0];
     }
 
 }
