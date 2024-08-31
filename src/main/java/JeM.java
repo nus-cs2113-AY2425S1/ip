@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class JeM {
+
+
     public static void main(String[] args) {
         String logo = "      _         __  __ \n"
                 + "     | |       |  \\/  |\n"
@@ -25,7 +27,7 @@ public class JeM {
 
         while(true){
             String line = scanner.nextLine();
-            Task task = new Task(line);
+            Task task;
 
             if (line.equals("Bye") || line.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
@@ -42,14 +44,35 @@ public class JeM {
                 int index = Integer.parseInt(lineParts[1]);
                 storage.storageUnmark(index);
                 storage.storageList();
-            } else if (line.contains("mark") || line.contains("Mark")){
+            } else if (line.contains("mark") || line.contains("Mark")) {
                 String[] lineParts = line.split(" ");
                 int index = Integer.parseInt(lineParts[1]);
                 storage.storageMark(index);
                 storage.storageList();
             } else {
-                System.out.println("added: " + line);
-                storage.storageInsert(task);
+                if (line.contains("Todo") || line.contains("todo")){
+                    String taskContent = line.substring(5);
+                    task = new Todo(taskContent);
+                    storage.storageInsert(task);
+                }else if (line.contains("Deadline") || line.contains("deadline")){
+                    String[] lineParts = line.substring(9).split(" /by ");
+                    String taskContent = lineParts[0];
+                    String deadline = lineParts[1];
+                    task = new Deadline(taskContent, deadline);
+                    storage.storageInsert(task);
+                }else if (line.contains("Event") || line.contains("event")){
+                    String[] lineParts = line.substring(6).split(" /from ");
+                    String taskContent = lineParts[0].trim();
+                    String[] dateTime = lineParts[1].split(" /to ");
+                    String start = dateTime[0].trim();
+                    String end = dateTime[1].trim();
+                    task = new Event(taskContent, start, end);
+                    storage.storageInsert(task);
+                }else {
+                   task = new Todo(line);
+                   storage.storageInsert(task);
+                }
+
             }
 
         }

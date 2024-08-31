@@ -2,6 +2,14 @@ public class Task {
     private String task;
     private boolean isDone;
 
+    public Task() {
+        task = "";
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
     public Task(String contents){
         this.task = contents;
         this.isDone = false;
