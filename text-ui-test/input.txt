@@ -1,0 +1,7 @@
+todo eat
+deadline homework /by tomorrow
+event meeting /from 4pm /to 8pm
+list
+mark 2
+list
+bye

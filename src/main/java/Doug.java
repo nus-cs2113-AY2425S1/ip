@@ -77,9 +77,7 @@ public class Doug {
         System.out.println(dashedLine + "added: " + taskName + "\n" + dashedLine);
     }
 
-
-    public static void main(String[] args) {
-
+    public static void sayWelcome() {
         String hat = "                                    %,                         ,#.\n";
         for (int i = 0; i < 51; i++) {
             System.out.println(hat);
@@ -120,11 +118,18 @@ public class Doug {
 
         // Welcome statement
         System.out.println(dashedLine + "Howdy partner! My name is Doug Dimmadome.\n"
-                            + "Now what can I do for ya?\n" + dashedLine);
+                + "Now what can I do for ya?\n" + dashedLine);
+    }
+
+
+    public static void main(String[] args) {
+
+        //sayWelcome();
+        Scanner input = new Scanner(System.in);
 
         while (true) {
-            Scanner input = new Scanner(System.in);
-            String command = input.nextLine();
+
+            String command = input.nextLine().trim();
 
             if (command.equals("bye")) {
                 break;
