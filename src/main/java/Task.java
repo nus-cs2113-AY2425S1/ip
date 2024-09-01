@@ -20,5 +20,34 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String toString() {
+        return getIsDoneString() + description;
+    }
+
+    private String getIsDoneString() {
+        if (isDone) return "[X]";
+        else return "[ ]";
+    }
+
+    /*
+    public String printTask(Task task) {
+
+        return getTaskTypeString()+getIsDoneString() + task.getDescription();
+    }
+    */
+
+
+
+    /*
+
+    public String getTaskTypeString() {
+        return switch (typeOfTask) {
+            case Deadlines -> "[D]";
+            case ToDos -> "[T]";
+            case Events -> "[E]";
+        } ;
+    }
+
+    */
 
 }

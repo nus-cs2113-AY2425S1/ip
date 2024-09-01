@@ -19,22 +19,7 @@ public class Main {
         return (taskNumber >= 1 && taskNumber <= tasks.size());
     }
 
-    private String getIsDoneString(boolean isDone) {
-        if (isDone) return "[X]";
-        else return "[ ]";
-    }
 
-    public String printTask(Task task) {
-        return getTaskTypeString(task)+getIsDoneString(task.getIsDone()) + task.getDescription();
-    }
-
-    public String getTaskTypeString(Task task) {
-        return switch (task.typeOfTask) {
-            case Deadlines -> "[D]";
-            case ToDos -> "[T]";
-            case Events -> "[E]";
-        } ;
-    }
     public void giveIntroduction() {
         System.out.println("Hello I am " + myName + ".");
         System.out.println("What can I do for you?");
@@ -51,7 +36,7 @@ public class Main {
         int serialNumber=0;
         for(Task task : tasks) {
             serialNumber++;
-            System.out.println(serialNumber + "." + printTask(task));
+            System.out.println(serialNumber + "." + task.toString());
         }
         printHorizontalLine();
     }
@@ -77,19 +62,48 @@ public class Main {
     public void unmarkTask(Task task) {
         task.setIsDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(printTask(task));
+        System.out.println(task);
     }
     public void markTask(Task task) {
         task.setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(printTask(task));
+        System.out.println(task);
     }
 
+    public Deadlines createDeadlineTask(String enteredString) {
+        String taskDescription=enteredString.substring("deadline".length(), enteredString.indexOf('/'));
+        String deadlineTime=enteredString.substring(enteredString.indexOf("/by")+1);
+        return new Deadlines(taskDescription, deadlineTime);
+    }
+
+    public Events createEventTask(String enteredString) {
+        String taskDescription=enteredString.substring("event".length(), enteredString.indexOf('/'));
+        String eventFromTime=enteredString.substring(enteredString.indexOf("/from")+1, enteredString.indexOf("/to"));
+        String eventToTime=enteredString.substring(enteredString.indexOf("/to")+1);
+        return new Events(taskDescription, eventFromTime, eventToTime);
+    }
+
+    public ToDos createTodoTask(String enteredString) {
+        String taskDescription=enteredString.substring("todo".length());
+        return new ToDos(taskDescription);
+    }
     public void addNewTask(String enteredString) {
-        Task newTask= new Task(enteredString);
+        Task newTask;
+        if(enteredString.startsWith("deadline")) {
+            newTask=createDeadlineTask(enteredString);
+        } else if(enteredString.startsWith("event")) {
+            newTask=createEventTask(enteredString);
+        } else if(enteredString.startsWith("todo")) {
+            newTask=createTodoTask(enteredString);
+        } else {
+            System.out.println("Invalid task type. Please try again.");
+            printHorizontalLine();
+            return;
+        }
+
         tasks.add(newTask);
         System.out.println("Got it. I've added this task: ");
-        printTask(newTask);
+        System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
     }

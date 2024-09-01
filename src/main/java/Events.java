@@ -21,4 +21,8 @@ public class Events extends Task{
     public void setFrom(String from) {
         this.from = from;
     }
+
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
+    }
 }

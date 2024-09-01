@@ -1,4 +1,4 @@
-class Deadlines extends Task{
+public class Deadlines extends Task{
     private String by;
     Deadlines(String description, String by){
         super(description, TypeOfTask.Deadlines);
@@ -11,5 +11,9 @@ class Deadlines extends Task{
 
     public void setBy(String by){
         this.by = by;
+    }
+
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
