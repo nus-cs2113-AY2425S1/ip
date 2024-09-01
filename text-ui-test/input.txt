@@ -1,0 +1,7 @@
+buy furniture
+list
+mark 1
+unmark 4
+list
+unmark 1
+bye

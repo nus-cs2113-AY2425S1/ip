@@ -130,7 +130,7 @@ public class Nell {
                 } else {
                     // Marks a task as done
                     tasks[taskIndex - 1].setDone(true);
-                    System.out.println("-> The following task has been marked done");
+                    System.out.println("-> The following task has been marked done:");
                     printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
                 }
                 break;
@@ -143,7 +143,7 @@ public class Nell {
                 } else {
                     // Marks a task as not done
                     tasks[taskIndex - 1].setDone(false);
-                    System.out.println("-> The following task has been marked not done");
+                    System.out.println("-> The following task has been marked not done:");
                     printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
                 }
                 break;
