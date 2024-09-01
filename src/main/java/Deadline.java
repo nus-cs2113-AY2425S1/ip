@@ -1,16 +1,16 @@
 public class Deadline extends Task {
 
-    protected String by;
+    protected String dueDate;
 
     //Deadline Constructor inherits Task
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     //Override toString method to show marker
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate + ")";
     }
 }
