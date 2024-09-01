@@ -8,4 +8,14 @@ todo buy bread
 list
 mark 2
 list
+deadline submit assignment /by 3/9/2024 2359
+list
+unmark 2
+mark 3
+list
+event CS2113 tP project meeting /from 2/9/2024 2000 /to 2/9/2024 2100
+list
+unmark 3
+mark 4
+list
 bye
