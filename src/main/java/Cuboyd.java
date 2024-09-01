@@ -8,10 +8,10 @@ public class Cuboyd {
         System.out.println("What can I do for you?");
 
         // Initialise List
-        ArrayList<Task> items = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         // For Marking/ Unmarking
-        Task currentItem;
+        Task currentTask;
         int index;
 
         // Command Entry
@@ -19,18 +19,14 @@ public class Cuboyd {
         String[] lineArgs;
         Scanner scanner = new Scanner(System.in);
         boolean isAskingInput = true;
-
         while (isAskingInput){
             System.out.print("> ");
             line = scanner.nextLine();
             lineArgs = line.split(" ");
             switch(lineArgs.length > 0 ? lineArgs[0] : ""){
                 case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < items.size(); i++){
-                        currentItem = items.get(i);
-                        System.out.println(String.valueOf(i + 1) + ".[" +
-                                currentItem.getStatusIcon() + "] " + currentItem.getDescription());
+                    for (int currentItemIndex = 0; currentItemIndex< tasks.size(); currentItemIndex++){
+                        System.out.println(String.valueOf(currentItemIndex+1) + "." + tasks.get(currentItemIndex));
                     }
                     break;
                 case "mark":
@@ -44,15 +40,15 @@ public class Cuboyd {
                         System.out.println("That is not a valid index!");
                         break;
                     }
-                    if (index < 0 || index >= items.size()){
+                    if (index < 0 || index >= tasks.size()){
                         System.out.println("That is not a valid index!");
                         break;
                     }
-                    currentItem = items.get(index);
-                    currentItem.markAsDone();
+                    currentTask = tasks.get(index);
+                    currentTask.markAsDone();
 
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  [" + currentItem.getStatusIcon() + "] " + currentItem.getDescription());
+                    System.out.println("  " + currentTask);
                     break;
                 case "unmark":
                     if (lineArgs.length < 2){
@@ -65,22 +61,22 @@ public class Cuboyd {
                         System.out.println("That is not a valid index!");
                         break;
                     }
-                    if (index < 0 || index >= items.size()){
+                    if (index < 0 || index >= tasks.size()){
                         System.out.println("That is not a valid index!");
                         break;
                     }
-                    currentItem = items.get(index);
-                    currentItem.markAsUndone();
+                    currentTask = tasks.get(index);
+                    currentTask.markAsUndone();
 
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  [" + currentItem.getStatusIcon() + "] " + currentItem.getDescription());
+                    System.out.println("  " + currentTask);
                     break;
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
                     isAskingInput = false;
                     break;
                 default:
-                    items.add(new Task(line));
+                    tasks.add(new Task(line));
                     System.out.println("added: " + line);
                     break;
             }
