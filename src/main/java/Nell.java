@@ -4,6 +4,16 @@ public class Nell {
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
+    /**
+     * Prints out the formatted string for the task at a specified index
+     *
+     * @param task The task at the specified index
+     * @param index The index of task
+     */
+    public static void printTaskAtIndex(Task task, int index) {
+        System.out.println(String.format("  %d. %s", index, task));
+    }
+
     public static void main(String[] args) {
         // Initialises scanner to take in user input
         Scanner input = new Scanner(System.in);
@@ -46,8 +56,7 @@ public class Nell {
                     // Marks a task as done
                     tasks[taskIndex - 1].setDone(true);
                     System.out.println("-> The following task has been marked done");
-                    System.out.printf("   %d. [X] %s", taskIndex,
-                            tasks[taskIndex - 1].getDescription() + System.lineSeparator());
+                    printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
                 }
                 break;
 
@@ -60,8 +69,7 @@ public class Nell {
                     // Marks a task as not done
                     tasks[taskIndex - 1].setDone(false);
                     System.out.println("-> The following task has been marked not done");
-                    System.out.printf("   %d. [ ] %s", taskIndex,
-                            tasks[taskIndex - 1].getDescription() + System.lineSeparator());
+                    printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
                 }
                 break;
 
