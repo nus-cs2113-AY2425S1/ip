@@ -13,20 +13,19 @@ public class Cuboyd {
     // Main Loop ///////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
         displayIntroText();
-        TaskTrackerUI taskTrackerUI = new TaskTrackerUI();
-        ArrayList<Task> tasks = new ArrayList<>();
-        Task currentTask;
-        int index;
 
         // Command Entry
+        TaskTrackerUI taskTrackerUI = new TaskTrackerUI();
         String line;
         HashMap<String, String> argumentsList;
         Scanner scanner = new Scanner(System.in);
         boolean isAskingInput = true;
+
         while (isAskingInput){
             System.out.print("> ");
             line = scanner.nextLine();
             argumentsList = CommandParser.parseCommandToArguments(line);
+
             switch(argumentsList.get(CommandParser.ARGUMENT_COMMAND)){
                 case "list":
                     taskTrackerUI.listTasks();
