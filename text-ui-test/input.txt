@@ -4,4 +4,8 @@ mark 1
 unmark 4
 list
 unmark 1
+todo buy bread
+list
+mark 2
+list
 bye

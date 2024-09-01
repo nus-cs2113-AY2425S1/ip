@@ -10,5 +10,16 @@ What can I do for you?
    1. [ ][X] buy furniture
 -> The following task has been marked not done:
    1. [ ][ ] buy furniture
+-> The task has been added to the list:
+   [T][ ] buy bread
+   The list now has 2 tasks
+-> The tasks listed are as follows:
+   1. [ ][ ] buy furniture
+   2. [T][ ] buy bread
+-> The following task has been marked done:
+   2. [T][X] buy bread
+-> The tasks listed are as follows:
+   1. [ ][ ] buy furniture
+   2. [T][X] buy bread
 -> Bye. Hope to see you again soon!
 
