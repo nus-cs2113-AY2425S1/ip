@@ -7,16 +7,8 @@
          this.isDone = false;
      }
 
-     public String getStatusIcon() {
-         return (isDone ? "X" : " "); // mark done task with X
-     }
-
      public String getDescription() {
          return description;
-     }
-
-     public void setDescription(String description) {
-         this.description = description;
      }
 
      public boolean isDone() {
@@ -28,5 +20,13 @@
      }
      public void markAsUndone(){
          isDone = false;
+     }
+     public String toString(){
+         if (isDone()){
+             return "[X] " + getDescription();
+         }
+         else{
+             return "[] " + getDescription();
+         }
      }
  }
