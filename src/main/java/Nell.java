@@ -14,6 +14,22 @@ public class Nell {
         System.out.println(String.format("   %d. %s", index, task));
     }
 
+    /**
+     * Given a task number, checks if the numbered task is valid (in the task list)
+     *
+     * @param taskNumber the task number
+     * @return true if taskIndex is within range, false otherwise
+     */
+    private static boolean checkIfTaskValid(int taskNumber) {
+        if (taskNumber < 1) {
+            return false;
+        } else if (taskNumber > taskCount) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void listAddTask(String taskToAdd) {
         // Stores text in task list
         tasks[taskCount] = new Task(taskToAdd);
@@ -110,16 +126,14 @@ public class Nell {
      * @param commandBody The command body
      */
     private static void executeCommandUnmark(String commandBody) {
-        int taskIndex;
-        taskIndex = Integer.parseInt(commandBody);
-        if (taskIndex < 1 || taskIndex > taskCount) {
-            // Checks if entered value is valid
-            System.out.println("-> Invalid task!");
-        } else {
+        int taskIndex = Integer.parseInt(commandBody);
+        if (checkIfTaskValid(taskIndex)) {
             // Marks a task as not done
             tasks[taskIndex - 1].setDone(false);
             System.out.println("-> The following task has been marked not done:");
             printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+        } else {
+            System.out.println("-> Invalid task!");
         }
     }
 
@@ -129,16 +143,14 @@ public class Nell {
      * @param commandBody The command body
      */
     private static void executeCommandMark(String commandBody) {
-        int taskIndex;
-        taskIndex = Integer.parseInt(commandBody);
-        if (taskIndex < 1 || taskIndex > taskCount) {
-            // Checks if entered value is valid
-            System.out.println("-> Invalid task!");
-        } else {
+        int taskIndex = Integer.parseInt(commandBody);
+        if (checkIfTaskValid(taskIndex)) {
             // Marks a task as done
             tasks[taskIndex - 1].setDone(true);
             System.out.println("-> The following task has been marked done:");
             printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+        } else {
+            System.out.println("-> Invalid task!");
         }
     }
 
