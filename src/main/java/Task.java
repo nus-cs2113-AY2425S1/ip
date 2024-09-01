@@ -1,13 +1,22 @@
 public class Task {
+
     protected String description;
     protected boolean isDone;
     private static int numberOfTasks = 0;
+
+    // Constant
+    private final static String SEPARATOR_LINE = "____________________________________________________________________\n";
+    private final static String INDENT = "  ";
 
     // Constructors
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         numberOfTasks++;
+        System.out.println(SEPARATOR_LINE +
+                INDENT + "Added task: '" + description +  "'!\n" +
+                INDENT + "Now, you have " + numberOfTasks + " tasks in your to do list.\n" +
+                SEPARATOR_LINE);
     }
 
     // Getters and Setters
@@ -29,5 +38,10 @@ public class Task {
 
     public static int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    // Other methods
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

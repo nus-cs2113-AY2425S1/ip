@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Bean {
+
     // Constants
     private final static String SEPARATOR_LINE = "____________________________________________________________________\n";
     private final static String INDENT = "  ";
@@ -11,6 +12,9 @@ public class Bean {
             "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";;
+    private final static int TODO = 0;
+    private final static int DEADLINE = 1;
+    private final static int EVENT = 2;
 
     // Print logo with greeting message
     public static void greet() {
@@ -34,7 +38,7 @@ public class Bean {
         System.out.println(INDENT + string + SEPARATOR_LINE);
     }
 
-    // Print message with separator line above and below message, as well as indentation
+    // Print (single line) message with separator line above and below message, as well as indentation
     public static void printFormattedReply(String reply) {
         System.out.println(SEPARATOR_LINE +
                 INDENT + reply + "\n" +
@@ -54,7 +58,7 @@ public class Bean {
             if (toDoList[i] == null) {
                 break;
             }
-            System.out.println(INDENT + (i + 1) + ".[" + toDoList[i].getStatusIcon() + "]  " + toDoList[i].description);
+            System.out.println(INDENT + (i + 1) + ". " + toDoList[i].toString());
         }
         System.out.println(SEPARATOR_LINE);
     }
@@ -63,14 +67,16 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
-        printFormattedReply("Task " + taskNum + " '" + toDoList[taskIndex].description + "' has been marked as UNDONE");
+        printFormattedReply("Task " + taskNum + " has been marked as UNDONE:\n" +
+                INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
     public static void markTaskAsDone (Task[] toDoList, int taskNum) {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
-        printFormattedReply("Task " + taskNum + " '" + toDoList[taskIndex].description + "' has been marked as DONE");
+        printFormattedReply("Task " + taskNum + " has been marked as DONE:\n" +
+                INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
     public static void main(String[] args) {
@@ -87,24 +93,48 @@ public class Bean {
             if (userInput.equals("bye")) {
                 // To exit
                 break;
+
             } else if (userInput.equals("list")) {
                 printList(toDoList);
-            } else if (userInput.contains("mark")) { //Either mark or unmark
+
+            } else if (userInput.startsWith("mark")) { // Either mark or unmark
                 // Obtain task number by taking second word of input and trim any spaces then parse as int
                 String[] words = userInput.split(" ");
                 int taskNum = Integer.parseInt(words[1].trim());
+                markTaskAsDone(toDoList, taskNum);
 
-                if (userInput.contains("unmark")) {
-                    unmarkTaskAsDone(toDoList, taskNum);
-                } else { // "mark"
-                    markTaskAsDone(toDoList, taskNum);
-                }
+            } else if (userInput.startsWith("unmark")) {
+                // Obtain task number by taking second word of input and trim any spaces then parse as int
+                String[] words = userInput.split(" ");
+                int taskNum = Integer.parseInt(words[1].trim());
+                unmarkTaskAsDone(toDoList, taskNum);
+
+            } else if (userInput.startsWith("todo")) {
+                // Extract description
+                String description = userInput.split("todo ")[1].trim();
+                toDoList[Task.getNumberOfTasks()] = new Todo(description);
+
+            } else if (userInput.startsWith("deadline")) {
+                // Extract description and by
+                String[] parts = userInput.split("/by ");
+                String description = parts[0].substring("deadline ".length()).trim();
+                String by = parts[1].trim();
+
+                toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
+
+            } else if (userInput.startsWith("event")) {
+                // Extract description, from and to
+                String[] splitDescription = userInput.split("/from ");
+                // [0] = "event {description} ", [1] = "{from} /to {to}"
+                String description = splitDescription[0].substring("events".length()).trim();
+                String[] splitFromTo = splitDescription[1].split("/to ");
+                // [0] = "{from} ", [1] = "{to}"
+                String from = splitFromTo[0].trim();
+                String to = splitFromTo[1].trim();
+
+                toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
             } else {
-                // Add task
-                toDoList[Task.getNumberOfTasks()] = new Task(userInput);
-
-                // Confirmation message
-                printFormattedReply("Task '" + userInput + "' has been added!");
+                printFormattedReply("Sorry, I am not equipped to respond to that yet... :(");
             }
         }
         exit();
