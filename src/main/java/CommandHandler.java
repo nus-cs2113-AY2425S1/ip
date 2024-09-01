@@ -32,11 +32,18 @@ public class CommandHandler {
             TaskList.addTask(newTodo);
             System.out.println("added: " + newTodo.getNameWithStatus());
         } else if (dissectedCommand[0].equals("deadline")) {
-            String description = command.substring(command.indexOf(" ") + 1,command.indexOf(" /by"));
+            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + 4);
             Deadline newDeadline = new Deadline(description, deadline);
             TaskList.addTask(newDeadline);
             System.out.println("added: " + newDeadline.getNameWithStatus());
+        } else if (dissectedCommand[0].equals("event")) {
+            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
+            String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
+            String end = command.substring(command.indexOf("/to") + 4);
+            Event newEvent = new Event(description, start, end);
+            TaskList.addTask(newEvent);
+            System.out.println("added: " + newEvent.getNameWithStatus());
         } else {
             Task newTask = new Task(command);
             TaskList.addTask(newTask);
