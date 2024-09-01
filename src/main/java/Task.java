@@ -2,11 +2,11 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
-    private static int numberOfTasks = 0;
+    protected static int numberOfTasks = 0;
 
     // Constant
-    private final static String SEPARATOR_LINE = "____________________________________________________________________\n";
-    private final static String INDENT = "  ";
+    protected final static String SEPARATOR_LINE = "____________________________________________________________________\n";
+    protected final static String INDENT = "  ";
 
     // Constructors
     public Task(String description) {
