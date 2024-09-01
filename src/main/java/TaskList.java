@@ -10,6 +10,10 @@ public class TaskList {
         tasks = new Task[100];
     }
 
+    public int getTaskNumber() {
+        return taskNumber;
+    }
+
     /**
      * Storage of new task in the task list.
      *
