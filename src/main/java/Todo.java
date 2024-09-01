@@ -1,6 +1,6 @@
 public class Todo extends Task{
-    public Todo(String todoTask) {
-        super(todoTask);
+    public Todo(String input) {
+        super(input.substring(input.indexOf(" ") + 1));
     }
 
     @Override

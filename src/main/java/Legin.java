@@ -17,63 +17,39 @@ public class Legin {
     public static void bye() {
         horizontalLine();
         System.out.println("Bye " +
-                Character.toString(0x1F44B) +
-                ". Hope to see you again really soon! " +
-                Character.toString(0x1F608));
+            Character.toString(0x1F44B) +
+            ". Hope to see you again really soon! " +
+            Character.toString(0x1F608));
+        horizontalLine();
+    }
+
+    private static void printAddedTaskMessage() {
+        horizontalLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks[currentTaskCount]);
+        currentTaskCount++;
+        System.out.println("Now you have " + currentTaskCount + " tasks in the list.");
         horizontalLine();
     }
 
     public static void echo(String input) {
         tasks[currentTaskCount] = new Task(input);
-        currentTaskCount++;
-        horizontalLine();
-        System.out.println("added: " + input);
-        horizontalLine();
+        printAddedTaskMessage();
     }
 
     public static void addTodo(String input) {
-        int startingIndexOfTodo = input.indexOf(" ") + 1;
-        String todoTask = input.substring(startingIndexOfTodo);
-        tasks[currentTaskCount] = new Todo(todoTask);
-        horizontalLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[currentTaskCount]);
-        currentTaskCount++;
-        System.out.println("Now you have " + currentTaskCount + " tasks in the list.");
-        horizontalLine();
+        tasks[currentTaskCount] = new Todo(input);
+        printAddedTaskMessage();
     }
 
     public static void addDeadline(String input) {
-        int startingIndexOfTask = input.indexOf(" ") + 1;
-        int endingIndexOfTask = input.indexOf("/by") - 1;
-        int startingIndexOfDuedate = endingIndexOfTask + 5;
-        String deadlineTask = input.substring(startingIndexOfTask, endingIndexOfTask);
-        String duedate = input.substring(startingIndexOfDuedate);
-        tasks[currentTaskCount] = new Deadline(deadlineTask, duedate);
-        horizontalLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[currentTaskCount]);
-        currentTaskCount++;
-        System.out.println("Now you have " + currentTaskCount + " tasks in the list.");
-        horizontalLine();
+        tasks[currentTaskCount] = new Deadline(input);
+        printAddedTaskMessage();
     }
 
     public static void addEvent(String input) {
-        int startingIndexOfEvent = input.indexOf(" ") + 1;
-        int endingIndexOfEvent = input.indexOf("/from") - 1;
-        String event = input.substring(startingIndexOfEvent, endingIndexOfEvent);
-        int startingIndexOfEventStart = endingIndexOfEvent + 7;
-        int endingIndexOfEventStart = input.indexOf("/to") - 1;
-        int startingIndexOfEventEnd = endingIndexOfEventStart + 5;
-        String eventStart = input.substring(startingIndexOfEventStart, endingIndexOfEventStart);
-        String eventEnd = input.substring(startingIndexOfEventEnd);
-        tasks[currentTaskCount] = new Event(event, eventStart, eventEnd);
-        horizontalLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[currentTaskCount]);
-        currentTaskCount++;
-        System.out.println("Now you have " + currentTaskCount + " tasks in the list.");
-        horizontalLine();
+        tasks[currentTaskCount] = new Event(input);
+        printAddedTaskMessage();
     }
 
     public static void list() {
