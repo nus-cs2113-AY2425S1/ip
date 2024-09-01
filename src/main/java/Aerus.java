@@ -3,15 +3,10 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class Aerus {
-    public static void printContent(String content) {
-        String dividerLine = "____________________________________________________________";
-        System.out.println(dividerLine);
-        System.out.println(content);
-        System.out.println(dividerLine);
-    }
+
+    public static final String DIVIDER_LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
-        String dividerLine = "____________________________________________________________";
         Scanner scanner = new Scanner(System.in);
         String userInput;
         Task tasks[] = new Task[100];
@@ -34,11 +29,11 @@ public class Aerus {
                     continue;
                 }
 
-                System.out.println(dividerLine);
+                System.out.println(DIVIDER_LINE);
                 for (int i = 1; i <= Task.tasksCount; i++) {
                     System.out.println(i + ". " + tasks[i-1].toString());
                 }
-                System.out.println(dividerLine);
+                System.out.println(DIVIDER_LINE);
                 continue;
             }
 
@@ -68,5 +63,10 @@ public class Aerus {
             }
         }
         printContent("See you next time!");
+    }
+    public static void printContent(String content) {
+        System.out.println(DIVIDER_LINE);
+        System.out.println(content);
+        System.out.println(DIVIDER_LINE);
     }
 }
