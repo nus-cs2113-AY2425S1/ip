@@ -1,11 +1,15 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Edith {
+public class Main {
     Scanner sc=new Scanner(System.in);
-    private static final String myName="Edith";
-    //private final static String horizontalLine="______________________________________________";
-    ArrayList<Task> tasks= new ArrayList<>();
+    private final String myName;
+    ArrayList<Task> tasks;
+
+    public Main(String myName) {
+        this.myName = myName;
+        tasks=new ArrayList<>();
+    }
 
     public void printHorizontalLine() {
         System.out.println("______________________________________________");
@@ -15,15 +19,22 @@ public class Edith {
         return (taskNumber >= 1 && taskNumber <= tasks.size());
     }
 
-    private char getIsDoneCharacter(boolean isDone) {
-        if (isDone) return 'X';
-        else return ' ';
+    private String getIsDoneString(boolean isDone) {
+        if (isDone) return "[X]";
+        else return "[ ]";
     }
 
     public String printTask(Task task) {
-        return "[" + getIsDoneCharacter(task.getIsDone()) + "] " + task.getDescription();
+        return getTaskTypeString(task)+getIsDoneString(task.getIsDone()) + task.getDescription();
     }
 
+    public String getTaskTypeString(Task task) {
+        return switch (task.typeOfTask) {
+            case Deadlines -> "[D]";
+            case ToDos -> "[T]";
+            case Events -> "[E]";
+        } ;
+    }
     public void giveIntroduction() {
         System.out.println("Hello I am " + myName + ".");
         System.out.println("What can I do for you?");
@@ -53,23 +64,33 @@ public class Edith {
             printHorizontalLine();
             return;
         }
+
         Task currentTask = tasks.get(taskNumber-1);
         if(enteredString.contains("unmark")) {
-            currentTask.setIsDone(false);
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(printTask(currentTask));
+            unmarkTask(currentTask);
         } else if(enteredString.contains("mark")) {
-            currentTask.setIsDone(true);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(printTask(currentTask));
+            markTask(currentTask);
         }
         printHorizontalLine();
+    }
+
+    public void unmarkTask(Task task) {
+        task.setIsDone(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(printTask(task));
+    }
+    public void markTask(Task task) {
+        task.setIsDone(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(printTask(task));
     }
 
     public void addNewTask(String enteredString) {
         Task newTask= new Task(enteredString);
         tasks.add(newTask);
-        System.out.println("added : " + newTask.getDescription());
+        System.out.println("Got it. I've added this task: ");
+        printTask(newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
     }
     public void talkToUser() {
@@ -91,7 +112,7 @@ public class Edith {
     }
 
     public static void main(String[] args) {
-        Edith obj = new Edith();
-        obj.talkToUser();
+        Main Edith = new Main("Edith");
+        Edith.talkToUser();
     }
 }
