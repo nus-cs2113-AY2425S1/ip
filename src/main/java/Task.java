@@ -22,4 +22,8 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public String printLine() {
+        return "[" + getStatusIcon() + "] " + getDescription();
+    }
 }

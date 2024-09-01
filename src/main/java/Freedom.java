@@ -58,7 +58,7 @@ public class Freedom {
         int counter = 0;
         System.out.print(logo + "\tHere are the tasks in your list:\n");
         for (int i = 0; i < lastIndex; i++) {
-            System.out.println("\t" + (counter + 1) + ".[" + storage[i].getStatusIcon() + "] " + storage[i].getDescription());
+            System.out.println("\t" + (counter + 1) + "." + storage[i].printLine());
             counter++;
         }
         System.out.println(logo);
@@ -66,9 +66,11 @@ public class Freedom {
 
     public static void markTaskStatement(Task task, boolean isDone) {
         String logo = "\t_________________________________________\n";
-        String message = isDone ? "\tNice! I've marked this task as done:" : "\tOk, I've marked this task as not done yet:";
+        String message = isDone ?
+                "\tNice! I've marked this task as done:" :
+                "\tOk, I've marked this task as not done yet:";
         System.out.println(logo + message);
-        System.out.println("\t  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println("\t  " + task.printLine());
         System.out.println(logo);
     }
 }
