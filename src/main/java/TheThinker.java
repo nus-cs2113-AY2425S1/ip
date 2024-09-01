@@ -5,7 +5,7 @@ public class TheThinker {
     public static void main(String[] args) {
 
         printGreeting();
-        String userInput = "";
+        String userInput;
 
         do{
             userInput = UserInputParser.getUserInput();
