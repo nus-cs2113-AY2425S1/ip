@@ -89,6 +89,7 @@ public class Main {
     }
     public void addNewTask(String enteredString) {
         Task newTask;
+
         if(enteredString.startsWith("deadline")) {
             newTask=createDeadlineTask(enteredString);
         } else if(enteredString.startsWith("event")) {
