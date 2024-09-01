@@ -23,7 +23,7 @@ public class Nell {
     /**
      * Adds a new ToDo task to the task list
      *
-     * @param taskToAdd The ToDo to be added to the list
+     * @param taskToAdd The task to be added to the list
      */
     public static void listAddToDo(String taskToAdd) {
         // Stores text in task list
@@ -46,7 +46,7 @@ public class Nell {
     /**
      * Adds a new Deadline task to the task list
      *
-     * @param taskToAdd The ToDo to be added to the list
+     * @param taskToAdd The task to be added to the list
      */
     public static void listAddDeadline(String taskToAdd, String taskDoBy) {
         // Stores text in task list
@@ -63,6 +63,30 @@ public class Nell {
         System.out.println("-> The task has been added to the list:");
         String[] commandWords = commandBody.split("/by");
         listAddDeadline(commandWords[0].trim(), commandWords[1].trim());
+        System.out.println("   " + tasks[taskCount - 1]);
+        System.out.println(String.format("   The list now has %d tasks", taskCount));
+    }
+
+    /**
+     * Adds a new Deadline task to the task list
+     *
+     * @param taskToAdd The task to be added to the list
+     */
+    public static void listAddEvent(String taskToAdd, String eventStart, String eventEnd) {
+        // Stores text in task list
+        tasks[taskCount] = new Event(taskToAdd, eventStart, eventEnd);
+        taskCount++;
+    }
+
+    /**
+     * Executes an event command with a given command body
+     *
+     * @param commandBody The command body
+     */
+    public static void executeCommandEvent(String commandBody) {
+        System.out.println("-> The task has been added to the list:");
+        String[] commandWords = commandBody.split("/from|/to", 3);
+        listAddEvent(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
         System.out.println("   " + tasks[taskCount - 1]);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
@@ -130,6 +154,10 @@ public class Nell {
 
             case "deadline":
                 executeCommandDeadline(commandWords[1]);
+                break;
+
+            case "event":
+                executeCommandEvent(commandWords[1]);
                 break;
 
             default:
