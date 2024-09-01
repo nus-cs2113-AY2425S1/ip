@@ -27,6 +27,10 @@ public class CommandHandler {
             } else {
                 System.out.println("Invalid task ID.");
             }
+        } else if (dissectedCommand[0].equals("todo")) {
+            Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
+            TaskList.addTask(newTodo);
+            System.out.println("added: " + newTodo.getNameWithStatus());
         } else {
             Task newTask = new Task(command);
             TaskList.addTask(newTask);
