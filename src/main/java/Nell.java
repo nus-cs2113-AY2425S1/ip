@@ -11,7 +11,36 @@ public class Nell {
      * @param index The index of task
      */
     public static void printTaskAtIndex(Task task, int index) {
-        System.out.println(String.format("  %d. %s", index, task));
+        System.out.println(String.format("   %d. %s", index, task));
+    }
+
+    public static void listAddTask(String taskToAdd) {
+        // Stores text in task list
+        tasks[taskCount] = new Task(taskToAdd);
+        taskCount++;
+    }
+
+    /**
+     * Adds a new ToDo task to the task list
+     *
+     * @param taskToAdd The ToDo to be added to the list
+     */
+    public static void listAddToDo(String taskToAdd) {
+        // Stores text in task list
+        tasks[taskCount] = new ToDo(taskToAdd);
+        taskCount++;
+    }
+
+    /**
+     * Executes a ToDo command with a given command body
+     *
+     * @param commandBody The command body
+     */
+    public static void executeCommandToDo(String commandBody) {
+        System.out.println("-> The task has been added to the list:");
+        listAddToDo(commandBody);
+        System.out.println("   " + tasks[taskCount - 1]);
+        System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
 
     public static void main(String[] args) {
@@ -27,7 +56,7 @@ public class Nell {
         while (isGettingCommands) {
             // Get user command and respond accordingly
             String command = input.nextLine();
-            String[] commandWords = command.split(" ");
+            String[] commandWords = command.split(" ", 2);
             int taskIndex; // Stores index of task for mark and unmark commands
             switch (commandWords[0]) {
             case "bye":
@@ -40,10 +69,8 @@ public class Nell {
                 // List out stored tasks
                 System.out.println("-> The tasks listed are as follows:");
                 for (int i = 0; i < taskCount; i++) {
-                    // Checks if tasked is marked done
-                    char taskStatus = tasks[i].getStatusIcon();
-                    System.out.printf("   %d. [%c] %s", (i + 1), taskStatus,
-                            tasks[i].getDescription() + System.lineSeparator());
+                    // Prints all tasks in list
+                    printTaskAtIndex(tasks[i], (i + 1));
                 }
                 break;
 
@@ -73,10 +100,12 @@ public class Nell {
                 }
                 break;
 
+            case "todo":
+                executeCommandToDo(commandWords[1]);
+                break;
+
             default:
-                // Stores text in task list
-                tasks[taskCount] = new Task(command);
-                taskCount++;
+                listAddTask(command);
                 System.out.printf("-> added: %s%n", command);
                 break;
             }
