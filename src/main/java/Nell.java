@@ -32,6 +32,41 @@ public class Nell {
     }
 
     /**
+     * Adds a new Deadline task to the task list
+     *
+     * @param taskToAdd The task to be added to the list
+     */
+    public static void listAddDeadline(String taskToAdd, String taskDoBy) {
+        // Stores text in task list
+        tasks[taskCount] = new Deadline(taskToAdd, taskDoBy);
+        taskCount++;
+    }
+
+    /**
+     * Adds a new Deadline task to the task list
+     *
+     * @param taskToAdd The task to be added to the list
+     */
+    public static void listAddEvent(String taskToAdd, String eventStart, String eventEnd) {
+        // Stores text in task list
+        tasks[taskCount] = new Event(taskToAdd, eventStart, eventEnd);
+        taskCount++;
+    }
+
+    /**
+     * Lists out the currently stored tasks in TaskList, upon receipt of the
+     *
+     */
+    private static void executeCommandList() {
+        // List out stored tasks
+        System.out.println("-> The tasks listed are as follows:");
+        for (int i = 0; i < taskCount; i++) {
+            // Prints all tasks in list
+            printTaskAtIndex(tasks[i], (i + 1));
+        }
+    }
+
+    /**
      * Executes a todo command with a given command body
      *
      * @param commandBody The command body
@@ -41,17 +76,6 @@ public class Nell {
         listAddToDo(commandBody);
         System.out.println("   " + tasks[taskCount - 1]);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
-    }
-
-    /**
-     * Adds a new Deadline task to the task list
-     *
-     * @param taskToAdd The task to be added to the list
-     */
-    public static void listAddDeadline(String taskToAdd, String taskDoBy) {
-        // Stores text in task list
-        tasks[taskCount] = new Deadline(taskToAdd, taskDoBy);
-        taskCount++;
     }
 
     /**
@@ -68,17 +92,6 @@ public class Nell {
     }
 
     /**
-     * Adds a new Deadline task to the task list
-     *
-     * @param taskToAdd The task to be added to the list
-     */
-    public static void listAddEvent(String taskToAdd, String eventStart, String eventEnd) {
-        // Stores text in task list
-        tasks[taskCount] = new Event(taskToAdd, eventStart, eventEnd);
-        taskCount++;
-    }
-
-    /**
      * Executes an event command with a given command body
      *
      * @param commandBody The command body
@@ -89,6 +102,63 @@ public class Nell {
         listAddEvent(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
         System.out.println("   " + tasks[taskCount - 1]);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
+    }
+
+    /**
+     * Executes an unmark command with a given command body
+     *
+     * @param commandBody The command body
+     */
+    private static void executeCommandUnmark(String commandBody) {
+        int taskIndex;
+        taskIndex = Integer.parseInt(commandBody);
+        if (taskIndex < 1 || taskIndex > taskCount) {
+            // Checks if entered value is valid
+            System.out.println("-> Invalid task!");
+        } else {
+            // Marks a task as not done
+            tasks[taskIndex - 1].setDone(false);
+            System.out.println("-> The following task has been marked not done:");
+            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+        }
+    }
+
+    /**
+     * Executes a mark command with a given command body
+     *
+     * @param commandBody The command body
+     */
+    private static void executeCommandMark(String commandBody) {
+        int taskIndex;
+        taskIndex = Integer.parseInt(commandBody);
+        if (taskIndex < 1 || taskIndex > taskCount) {
+            // Checks if entered value is valid
+            System.out.println("-> Invalid task!");
+        } else {
+            // Marks a task as done
+            tasks[taskIndex - 1].setDone(true);
+            System.out.println("-> The following task has been marked done:");
+            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+        }
+    }
+
+    /**
+     * Executes an add task command (no command word) with a given command body
+     *
+     * @param command The command body
+     */
+    private static void executeCommandAddTask(String command) {
+        listAddTask(command);
+        System.out.printf("-> added: %s%n", command);
+    }
+
+    /**
+     * Executes a bye command
+     *
+     */
+    private static void executeCommandBye() {
+        // Exits
+        System.out.println("-> Bye. Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
@@ -105,47 +175,22 @@ public class Nell {
             // Get user command and respond accordingly
             String command = input.nextLine();
             String[] commandWords = command.split(" ", 2);
-            int taskIndex; // Stores index of task for mark and unmark commands
             switch (commandWords[0]) {
             case "bye":
-                // Exits
-                System.out.println("-> Bye. Hope to see you again soon!");
+                executeCommandBye();
                 isGettingCommands = false;
                 break;
 
             case "list":
-                // List out stored tasks
-                System.out.println("-> The tasks listed are as follows:");
-                for (int i = 0; i < taskCount; i++) {
-                    // Prints all tasks in list
-                    printTaskAtIndex(tasks[i], (i + 1));
-                }
+                executeCommandList();
                 break;
 
             case "mark":
-                taskIndex = Integer.parseInt(commandWords[1]);
-                if (taskIndex < 1 || taskIndex > taskCount) {
-                    // Checks if entered value is valid
-                    System.out.println("-> Invalid task!");
-                } else {
-                    // Marks a task as done
-                    tasks[taskIndex - 1].setDone(true);
-                    System.out.println("-> The following task has been marked done:");
-                    printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-                }
+                executeCommandMark(commandWords[1]);
                 break;
 
             case "unmark":
-                taskIndex = Integer.parseInt(commandWords[1]);
-                if (taskIndex < 1 || taskIndex > taskCount) {
-                    // Checks if entered value is valid
-                    System.out.println("-> Invalid task!");
-                } else {
-                    // Marks a task as not done
-                    tasks[taskIndex - 1].setDone(false);
-                    System.out.println("-> The following task has been marked not done:");
-                    printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-                }
+                executeCommandUnmark(commandWords[1]);
                 break;
 
             case "todo":
@@ -161,8 +206,7 @@ public class Nell {
                 break;
 
             default:
-                listAddTask(command);
-                System.out.printf("-> added: %s%n", command);
+                executeCommandAddTask(command);
                 break;
             }
         }
