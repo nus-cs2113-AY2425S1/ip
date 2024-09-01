@@ -32,13 +32,37 @@ public class Nell {
     }
 
     /**
-     * Executes a ToDo command with a given command body
+     * Executes a todo command with a given command body
      *
      * @param commandBody The command body
      */
     public static void executeCommandToDo(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         listAddToDo(commandBody);
+        System.out.println("   " + tasks[taskCount - 1]);
+        System.out.println(String.format("   The list now has %d tasks", taskCount));
+    }
+
+    /**
+     * Adds a new Deadline task to the task list
+     *
+     * @param taskToAdd The ToDo to be added to the list
+     */
+    public static void listAddDeadline(String taskToAdd, String taskDoBy) {
+        // Stores text in task list
+        tasks[taskCount] = new Deadline(taskToAdd, taskDoBy);
+        taskCount++;
+    }
+
+    /**
+     * Executes a deadline command with a given command body
+     *
+     * @param commandBody The command body
+     */
+    public static void executeCommandDeadline(String commandBody) {
+        System.out.println("-> The task has been added to the list:");
+        String[] commandWords = commandBody.split("/by");
+        listAddDeadline(commandWords[0].trim(), commandWords[1].trim());
         System.out.println("   " + tasks[taskCount - 1]);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
@@ -102,6 +126,10 @@ public class Nell {
 
             case "todo":
                 executeCommandToDo(commandWords[1]);
+                break;
+
+            case "deadline":
+                executeCommandDeadline(commandWords[1]);
                 break;
 
             default:
