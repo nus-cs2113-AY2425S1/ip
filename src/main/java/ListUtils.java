@@ -24,13 +24,82 @@ public class ListUtils {
         }
 
     }
+
+    private static class Todo extends Task {
+        Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    private static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    private static class Event extends Task {
+        protected String from;
+        protected String to;
+        Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + ", to: " + to + ")";
+        }
+
+    }
+    // create list of tasks
     private static List<Task> userInputs = new ArrayList<>();
-    public static void addToList (String input) {
-        userInputs.add(new Task(input));
+
+    //create methods to add each respective task subclasses
+
+    public static void addTodoToList(String description) {
+        Todo todo = new Todo(description);
+        userInputs.add(todo);
         System.out.println(" ____________________________________________________________");
-        System.out.println("added: "+ input);
+        System.out.println("added: ");
+        System.out.println("    " + todo);
+        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
         System.out.println(" ____________________________________________________________");
     }
+
+    public static void addDeadlineToList(String description, String by) {
+        Deadline deadline = new Deadline(description, by);
+        userInputs.add(deadline);
+        System.out.println(" ____________________________________________________________");
+        System.out.println("added: ");
+        System.out.println("    " + deadline);
+        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
+        System.out.println(" ____________________________________________________________");
+    }
+
+    public static void addEventToList(String description, String from, String to) {
+        Event event = new Event(description, from, to);
+        userInputs.add(event);
+        System.out.println(" ____________________________________________________________");
+        System.out.println("added: ");
+        System.out.println("    " + event);
+        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
+        System.out.println(" ____________________________________________________________");
+    }
+
     public static void displayList() {
         if (!userInputs.isEmpty()) {
             System.out.println(" ____________________________________________________________");
@@ -42,8 +111,8 @@ public class ListUtils {
         else {
             System.out.println("nothing in list! quag");
         }
-
     }
+
     public static void markAsDone(int index) {
         if (index >= 1 && index <= userInputs.size()) {
             Task task = userInputs.get(index - 1);

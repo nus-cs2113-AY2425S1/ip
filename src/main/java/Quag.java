@@ -1,20 +1,10 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Quag {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String userInput;
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-
-//        String logo = " ____        _        \n"
-//                + "/  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "\\____ \\__,_|_|\\_\\___|\n";
         System.out.println("_______________________________________");
         System.out.println("Hello! I'm QUAG!");
         System.out.println("What can I do for you today? quag");
@@ -22,25 +12,49 @@ public class Quag {
 
         while (true) {
             userInput = scanner.nextLine();
-
-            if (isExitCommand(userInput)) {
-                exitProgram();
-                break;
-            } else if (isListCommand(userInput)) {
-                displayList();
-            } else if (isMarkCommand(userInput)) {
-                markTask(userInput);
-            }else if (isUnMarkCommand(userInput)) {
-                unmarkTask(userInput);
-            } else {
-                addTask(userInput);
+            String command = getCommand(userInput);
+            switch (command) {
+                case "quag":
+                    exitProgram();
+                    return;
+                case "list":
+                    displayList();
+                    break;
+                case "mark":
+                    markTask(userInput);
+                    break;
+                case "unmark":
+                    unmarkTask(userInput);
+                    break;
+                case "todo":
+                    addTodo(userInput);
+                    break;
+                case "deadline":
+                    addDeadline(userInput);
+                    break;
+                case "event":
+                    addEvent(userInput);
+                    break;
+                default:
+                    displayCommandList();
+                    break;
             }
         }
     }
 
-    private static boolean isExitCommand(String userInput) {
-        return userInput.equalsIgnoreCase("quag");
+    private static String getCommand(String userInput) {
+        //find first space
+        int firstSpaceIndex = userInput.indexOf(" ");
+        // first word is the command
+        if (firstSpaceIndex != -1) {
+            return userInput.substring(0, firstSpaceIndex).toLowerCase();
+        }
+        // entire userInput is the command
+        else {
+            return userInput.toLowerCase();
+        }
     }
+
 
     private static void exitProgram() {
         System.out.println("_______________________________________");
@@ -48,20 +62,10 @@ public class Quag {
         System.out.println("_______________________________________");
     }
 
-    private static boolean isListCommand(String userInput) {
-        return userInput.equalsIgnoreCase("list");
-    }
-
     private static void displayList() {
         ListUtils.displayList();
     }
 
-    private static boolean isMarkCommand(String userInput) {
-        return userInput.toLowerCase().startsWith("mark");
-    }
-    private static boolean isUnMarkCommand(String userInput) {
-        return userInput.toLowerCase().startsWith("unmark");
-    }
 
     private static void markTask(String userInput) {
         String[] parts = userInput.split(" ");
@@ -90,7 +94,57 @@ public class Quag {
         }
     }
 
-    private static void addTask(String userInput) {
-        ListUtils.addToList(userInput);
+    private static void addTodo(String userInput) {
+        //description is from parts[1] to end
+        String description = userInput.substring("todo".length()).trim();
+        ListUtils.addTodoToList(description);
+    }
+
+    private static void addDeadline(String userInput) {
+        //description is from parts[1] until / is detected
+        //deadline is after /
+
+        // int to denote length and position of "/by" separator
+        int byLength = 4;
+        int byIndex = userInput.indexOf("/by");
+
+        //find position of /by separator
+        if (byIndex != -1) {
+            //extract the description and deadline
+            String description = userInput.substring("deadline".length(), byIndex).trim();
+            // Skip over "/by "
+            String by = userInput.substring(byIndex + byLength).trim();
+            ListUtils.addDeadlineToList(description, by);
+        } else {
+            System.out.println("That's not a valid quaggin format for a deadline!!");
+        }
+
+    }
+
+    private static void addEvent(String userInput) {
+        //description is from parts[1] until first /
+        //from is in between first and second /
+        //to is after second /
+
+        // int to denote length and position of "/from" and "/to" separator
+        int fromIndex = userInput.indexOf("/from");
+        int fromLength = 6;
+        int toIndex = userInput.indexOf("/to");
+        int toLength = 4;
+
+        if (fromIndex != -1 && toIndex != -1 && toIndex > fromIndex) {
+            // extract description, from and to
+            String description = userInput.substring("event".length(), fromIndex).trim();
+            String from = userInput.substring(fromIndex + fromLength, toIndex).trim();
+            String to = userInput.substring(toIndex + toLength).trim();
+            ListUtils.addEventToList(description, from, to);
+        }  else {
+            System.out.println("That's not a valid quaggin format for an event!!");
+        }
+
+    }
+
+    private static void displayCommandList() {
+        //displays all the commands available and their descriptions
     }
 }
