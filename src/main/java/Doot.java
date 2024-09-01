@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import java.util.regex.*;
 
 public class Doot {
     private static final String DIVIDER = "____________________________________________________________\n\n";
-    private static Task[] taskList = new Task[100];
+    private static final int MAX_TASKS = 100;
+    private static Task[] taskList = new Task[MAX_TASKS];
     private static int taskIdx = 0;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -18,28 +18,26 @@ public class Doot {
     }
 
     public static void findCommand(String command) {
-        String wordDigit = "\\w+ \\d{1,3}$";
-        String wordSlashOnce = "\\w+ / \\w+";
-        String wordSlashTwice = "\\w+ / \\w+ / \\w+";
-
-        if (command.matches(wordDigit)) {
-            handleWordDigit(command);
-        } else if (command.matches(wordSlashTwice)) {
-            handleWordSlashTwice(command);
-        } else if (command.matches(wordSlashOnce)) {
-            handleWordSlashOnce(command);
+        String wordDigit = "\\d{1,3}$";
+        String deadlineMatch = "(\\w+ )*/by .+";
+        String eventMatch = "(\\w+ )*/from (\\w+ )*/to .+";
+        boolean containsSpace = command.contains(" ");
+        String cmd = containsSpace ? command.substring(0, command.indexOf(" ")) : command;
+        String args = containsSpace ? command.substring(command.indexOf(" ") + 1) : "";
+        if (args.matches(wordDigit)) {
+            handleWordDigit(cmd, args);
+        } else if (args.matches(eventMatch)) {
+            handleEvent(cmd, args);
+        } else if (args.matches(deadlineMatch)) {
+            handleDeadline(cmd, args);
         } else {
-            handleDefault(command);
+            handleDefault(cmd, args);
         }
     }
 
-    private static void handleWordDigit(String command) {
-        int digit = Integer.parseInt(command.substring(command.indexOf(" ") + 1));
-        command = command.substring(0, command.indexOf(" "));
+    private static void handleWordDigit(String command, String args) {
+        int digit = Integer.parseInt(args);
         switch (command) {
-            case "list":
-                printList();
-                break;
             case "mark":
                 markTask(digit);
                 break;
@@ -52,59 +50,66 @@ public class Doot {
         }
     }
 
-    private static void handleWordSlashOnce(String command) {
-        String[] parts = command.split(" / ");
+    private static void handleDeadline(String command, String args) {
+        String[] parts = args.split(" /by ");
         String wordOne = parts[0];
         String wordTwo = parts[1];
-        switch (wordOne) {
-            case "todo":
-                makeToDo(wordOne);
-                break;
+        switch (command) {
             case "deadline":
                 makeDeadline(wordOne, wordTwo);
                 break;
             default:
-                addToList(command);
+                addToList(command + args);
                 break;
         }
     }
 
-    private static void handleWordSlashTwice(String command) {
-        String[] parts = command.split(" / ");
+    private static void handleEvent(String command, String args) {
+        String[] parts = args.split(" /from ");
         String wordOne = parts[0];
         String wordTwo = parts[1];
-        String wordThree = parts[2];
-        switch (wordOne) {
+        parts = wordTwo.split(" /to ");
+        wordTwo = parts[0];
+        String wordThree = parts[1];
+        switch (command) {
             case "event":
                 makeEvent(wordOne, wordTwo, wordThree);
                 break;
             default:
-                addToList(command);
+                addToList(command + args);
                 break;
         }
     }
 
-    private static void handleDefault(String command) {
-        addToList(command);
+    private static void handleDefault(String command, String args) {
+        switch (command){
+            case "todo":
+                makeToDo(args);
+                break;
+            case "list":
+                printList();
+                break;
+            default:
+                addToList(command + args);
+        }
     }
 
     public static void makeDeadline(String description, String by){
         taskList[taskIdx] = new Deadline(description, by);
         taskIdx++;
-        System.out.print(DIVIDER + "added: " + taskList[taskIdx-1].getDescription() + "\n" + DIVIDER);
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void makeEvent(String description, String to, String from){
         taskList[taskIdx] = new Event(description, to, from);
         taskIdx++;
-        System.out.print(DIVIDER + "added: " + taskList[taskIdx-1].getDescription() + "\n" + DIVIDER);
-
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void makeToDo(String description){
         taskList[taskIdx] = new ToDo(description);
         taskIdx++;
-        System.out.print(DIVIDER + "added: " + description + "\n" + DIVIDER);
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void markTask(int idx){
@@ -126,6 +131,7 @@ public class Doot {
     public static void printList(){
         System.out.print(DIVIDER);
         int curIdx = 1;
+        System.out.println("Here are the tasks in your list:");
         while (curIdx != taskIdx + 1){
             Task curTask = taskList[curIdx-1];
             System.out.println(curIdx + ". " + curTask.toString());
