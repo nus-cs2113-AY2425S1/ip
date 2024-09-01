@@ -1,40 +1,45 @@
+import java.util.Scanner;
+
 public class UserInputParser {
-    public String userInput;
+    public static String userInput;
+    public static final Scanner SCANNER = new Scanner(System.in);
+    public static final int LENGTH_OF_TODO = 4;
+    public static final int LENGTH_OF_EVENT = 5;
+    public static final int LENGTH_OF_DEADLINE = 8;
+    public static final int LENGTH_OF_SLASH_FROM = 5;
+    public static final int LENGTH_OF_SLASH_TO = 3;
+    public static final int LENGTH_OF_SLASH_BY = 3;
 
-    public UserInputParser(String userInput) {
-        this.userInput = userInput.trim();
-    }
+    public static Task parseTask(){
 
-    public Task parseTask(){
-
-        String taskType = userInput.substring(0 , 4);
-        String taskDescription = userInput.substring(4).trim();
+        String taskType = userInput.substring(0 , LENGTH_OF_TODO);
+        String taskDescription = userInput.substring(LENGTH_OF_TODO).trim();
         char taskTypeChar = getCorrespondingCharForTaskType(taskType);
         return new Task(taskDescription , taskTypeChar);
     }
 
-    public Event parseEvent(){
+    public static Event parseEvent(){
 
-        String remainingTaskDescription = userInput.substring(6);
-        int indexOfFirstSlash = remainingTaskDescription.indexOf('/');
+        String remainingTaskDescription = userInput.substring(LENGTH_OF_EVENT).trim();
+        int indexOfFirstSlash = remainingTaskDescription.indexOf("/from");
         String taskDescription = remainingTaskDescription.substring(0, indexOfFirstSlash).trim();
-        remainingTaskDescription = remainingTaskDescription.substring(indexOfFirstSlash + 6);
-        int indexOfSecondSlash = remainingTaskDescription.indexOf('/');
+        remainingTaskDescription = remainingTaskDescription.substring(indexOfFirstSlash + LENGTH_OF_SLASH_FROM).trim();
+        int indexOfSecondSlash = remainingTaskDescription.indexOf("/to");
         String startTime = remainingTaskDescription.substring(0, indexOfSecondSlash).trim();
-        String endTime = remainingTaskDescription.substring(indexOfSecondSlash + 4).trim();
+        String endTime = remainingTaskDescription.substring(indexOfSecondSlash + LENGTH_OF_SLASH_TO).trim();
         return new Event(taskDescription , startTime, endTime);
     }
 
-    public Deadline parseDeadline(){
+    public static Deadline parseDeadline(){
 
-        String remainingTaskDescription = userInput.substring(9);
-        int indexOfSlash = remainingTaskDescription.indexOf('/');
+        String remainingTaskDescription = userInput.substring(LENGTH_OF_DEADLINE).trim();
+        int indexOfSlash = remainingTaskDescription.indexOf("/by");
         String taskDescription = remainingTaskDescription.substring(0, indexOfSlash).trim();
-        String deadline = remainingTaskDescription.substring(indexOfSlash + 4);
+        String deadline = remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim();
         return new Deadline(taskDescription , deadline);
     }
 
-    public char getCorrespondingCharForTaskType(String type){
+    public static char getCorrespondingCharForTaskType(String type){
         switch(type){
         case "todo" :
             return 'T';
@@ -45,5 +50,21 @@ public class UserInputParser {
         default:
             return ' ';
         }
+    }
+
+    public static String parseUserAction(){
+        String[] wordsInUserInput = userInput.split(" ");
+        return wordsInUserInput[0];
+    }
+
+    public static String getUserInput(){
+        userInput = SCANNER.nextLine();
+        userInput = userInput.trim();
+        return userInput;
+    }
+
+    public static int parseMarkAndUnmarkTask(){
+        String numberToMark = userInput.split(" ")[1].trim();
+        return Integer.parseInt(numberToMark);
     }
 }
