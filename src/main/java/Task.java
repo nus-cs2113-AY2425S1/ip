@@ -5,15 +5,17 @@ public class Task {
     public Task() {
         this.name = "";
         this.done = " ";
+        this.symbol = " ";
     }
 
     public Task(String name) {
         this.name = name;
         this.done = " ";
+        this.symbol = " ";
     }
 
     public void printTask() {
-        System.out.println("[" + this.done + "] " + this.name);
+        System.out.println("[" + this.symbol + "] " + "[" + this.done + "] " + this.name);
     }
 
     public void markDone() {

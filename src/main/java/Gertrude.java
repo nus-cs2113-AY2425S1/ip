@@ -22,6 +22,7 @@ public class Gertrude {
                     System.out.print(i + ".");
                     tasks[i-1].printTask();
                 }
+                System.out.println("Now you have " + taskCounter + " tasks in the list.");
             } else if (lineArr[0].equals("mark") || lineArr[0].equals("unmark")) {
                 int index = Integer.parseInt(lineArr[1]);
                 if (index < 1 || index > taskCounter) {
@@ -31,9 +32,48 @@ public class Gertrude {
                 } else {
                     tasks[index-1].markNotDone();
                 }
-            } else {
-                Task newTask = new Task(line);
-                tasks[taskCounter] = newTask;
+            } else if (lineArr[0].equals("todo")) {
+                Todo newTodo = new Todo(line);
+                tasks[taskCounter] = newTodo;
+                taskCounter++;
+                System.out.println("added: " + line);
+            } else if (lineArr[0].equals("deadline")) {
+                String description = "";
+                String deadline = "";
+                boolean isDeadline = false;
+                for(int i = 1; i < lineArr.length; i++) {
+                    if (lineArr[i] == "/by") {
+                        isDeadline = true;
+                    } else if (!isDeadline) {
+                        description += lineArr[i];
+                    } else {
+                        deadline += lineArr[i];
+                    }
+                }
+                Todo newTodo = new Todo(description, deadline);
+                tasks[taskCounter] = newTodo;
+                taskCounter++;
+                System.out.println("added: " + line);
+            } else if (lineArr[0].equals("event")) {
+                String description = "";
+                String start = "";
+                String end = "";
+                String section = "description";
+                for(int i = 1; i < lineArr.length; i++) {
+                    if (lineArr[i] == "/from") {
+                        section = "from";
+                    } else if (lineArr[i] == "/to") {
+                        section = "to";
+                    } else if (section == "description") {
+                        description += lineArr[i];
+                    } else if (section == "from") {
+                        start += lineArr[i];
+                    } else if (section == "to") {
+                        end += lineArr[i];
+                    }
+                }
+                Todo newTodo = new Todo(description, start, end);
+                tasks[taskCounter] = newTodo;
                 taskCounter++;
                 System.out.println("added: " + line);
             }
