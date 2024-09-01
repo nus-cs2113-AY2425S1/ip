@@ -5,11 +5,12 @@ public class Doot {
     private static final int MAX_TASKS = 100;
     private static Task[] taskList = new Task[MAX_TASKS];
     private static int taskIdx = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
         String currentInput = scanner.nextLine();
-        while (!currentInput.equals("bye")){
+        while (!currentInput.equals("bye")) {
             findCommand(currentInput);
             currentInput = scanner.nextLine();
         }
@@ -82,7 +83,7 @@ public class Doot {
     }
 
     private static void handleDefault(String command, String args) {
-        switch (command){
+        switch (command) {
             case "todo":
                 makeToDo(args);
                 break;
@@ -94,46 +95,51 @@ public class Doot {
         }
     }
 
-    public static void makeDeadline(String description, String by){
+    public static void makeDeadline(String description, String by) {
         taskList[taskIdx] = new Deadline(description, by);
         taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
+                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
-    public static void makeEvent(String description, String to, String from){
+    public static void makeEvent(String description, String to, String from) {
         taskList[taskIdx] = new Event(description, to, from);
         taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
+                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
-    public static void makeToDo(String description){
+    public static void makeToDo(String description) {
         taskList[taskIdx] = new ToDo(description);
         taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx-1].toString() + "\n" + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
+                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
-    public static void markTask(int idx){
-        taskList[idx-1].markDone();
-        System.out.println(DIVIDER + "Nice! I've marked this task as done: " + taskList[idx-1].getDescription() + "\n" + DIVIDER);
+    public static void markTask(int idx) {
+        taskList[idx - 1].markDone();
+        System.out.println(DIVIDER + "Nice! I've marked this task as done: " + taskList[idx - 1].getDescription() + "\n"
+                + DIVIDER);
     }
 
-    public static void unmarkTask(int idx){
-        taskList[idx-1].markUnDone();
-        System.out.println(DIVIDER + "OK, I've marked this task as not done yet: " + taskList[idx-1].getDescription() + "\n" + DIVIDER);
+    public static void unmarkTask(int idx) {
+        taskList[idx - 1].markUnDone();
+        System.out.println(DIVIDER + "OK, I've marked this task as not done yet: " + taskList[idx - 1].getDescription()
+                + "\n" + DIVIDER);
     }
 
-    public static void addToList(String toAdd){
+    public static void addToList(String toAdd) {
         taskList[taskIdx] = new Task(toAdd);
         taskIdx++;
         System.out.print(DIVIDER + "added: " + toAdd + "\n" + DIVIDER);
     }
 
-    public static void printList(){
+    public static void printList() {
         System.out.print(DIVIDER);
         int curIdx = 1;
         System.out.println("Here are the tasks in your list:");
-        while (curIdx != taskIdx + 1){
-            Task curTask = taskList[curIdx-1];
+        while (curIdx != taskIdx + 1) {
+            Task curTask = taskList[curIdx - 1];
             System.out.println(curIdx + ". " + curTask.toString());
             curIdx++;
         }
