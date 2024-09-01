@@ -1,22 +1,31 @@
 import java.util.Scanner;
 
 public class Bosco {
-    private static void printHorizontalRule() {
-        System.out.println("\t____________________________________________________________");
+    private static final String DIVIDER = "\t____________________________________________________________";
+    private static final int MAX_TASKS = 100;
+
+    private static final Task[] tasks = new Task[MAX_TASKS];
+    private static int taskCount = 0;
+
+    private static void printWelcomeMessage() {
+        System.out.println(DIVIDER);
+        System.out.println("\t Hello! I'm Bosco APD." + System.lineSeparator() + "\t What can I do for you?");
+        System.out.println(DIVIDER);
+    }
+
+    private static void printExitMessage() {
+        System.out.println(DIVIDER);
+        System.out.println("\t Bye! Hope to see you again soon!");
+        System.out.println(DIVIDER);
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String userInput;
         String[] words;
-        int taskCount = 0;
-        Task[] tasks = new Task[100];
         Task selectedTask;
 
-        printHorizontalRule();
-        System.out.println("\t Hello! I'm Bosco APD.");
-        System.out.println("\t What can I do for you?");
-        printHorizontalRule();
+        printWelcomeMessage();
 
         while (true) {
             userInput = in.nextLine();
@@ -24,7 +33,7 @@ public class Bosco {
             if (words[0].equals("bye")) {
                 break;
             }
-            printHorizontalRule();
+            System.out.println(DIVIDER);
             switch (words[0]) {
             case "list":
                 for (int i = 0; i < taskCount; i++) {
@@ -52,11 +61,9 @@ public class Bosco {
                 System.out.println("\t added: " + userInput);
                 break;
             }
-            printHorizontalRule();
+            System.out.println(DIVIDER);
         }
 
-        printHorizontalRule();
-        System.out.println("\t Bye! Hope to see you again soon!");
-        printHorizontalRule();
+        printExitMessage();
     }
 }
