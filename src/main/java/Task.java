@@ -1,23 +1,23 @@
 public class Task {
-    private boolean isDone;
-    private String task;
+    protected boolean isDone;
+    protected String task;
 
-    Task() {
+    public Task() {
         isDone = false;
         task = null;
     }
 
-    Task(String task) {
+    public Task(String task) {
         this.task = task;
         isDone = false;
     }
 
-    public boolean getIsDone() {
-        return isDone;
+    public void markTask() {
+        this.isDone = true;
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void unmarkTask() {
+        this.isDone = false;
     }
 
     public String getTask() {
@@ -26,5 +26,10 @@ public class Task {
 
     public void setTask(String task) {
         this.task = task;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + task;
     }
 }
