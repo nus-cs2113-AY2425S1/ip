@@ -28,4 +28,15 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    // Methods for inheritance
+    public String getBy() {
+        return "";
+    }
+    public String getFrom() {
+        return "";
+    }
+    public String getTo() {
+        return "";
+    }
 }
