@@ -1,6 +1,7 @@
 public class Task {
-    private String name;
-    private String done;
+    protected String name;
+    protected String done;
+    protected String symbol;
 
     public Task() {
         this.name = "";

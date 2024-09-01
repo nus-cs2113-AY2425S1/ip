@@ -42,16 +42,16 @@ public class Gertrude {
                 String deadline = "";
                 boolean isDeadline = false;
                 for(int i = 1; i < lineArr.length; i++) {
-                    if (lineArr[i] == "/by") {
+                    if (lineArr[i].equals("/by")) {
                         isDeadline = true;
                     } else if (!isDeadline) {
-                        description += lineArr[i];
+                        description = description + lineArr[i];
                     } else {
-                        deadline += lineArr[i];
+                        deadline = deadline + lineArr[i];
                     }
                 }
-                Todo newTodo = new Todo(description, deadline);
-                tasks[taskCounter] = newTodo;
+                Deadline newDeadline = new Deadline(description, deadline);
+                tasks[taskCounter] = newDeadline;
                 taskCounter++;
                 System.out.println("added: " + line);
             } else if (lineArr[0].equals("event")) {
@@ -60,20 +60,20 @@ public class Gertrude {
                 String end = "";
                 String section = "description";
                 for(int i = 1; i < lineArr.length; i++) {
-                    if (lineArr[i] == "/from") {
+                    if (lineArr[i].equals("/from")) {
                         section = "from";
-                    } else if (lineArr[i] == "/to") {
+                    } else if (lineArr[i].equals("/to")) {
                         section = "to";
-                    } else if (section == "description") {
+                    } else if (section.equals("description")) {
                         description += lineArr[i];
-                    } else if (section == "from") {
+                    } else if (section.equals("from")) {
                         start += lineArr[i];
-                    } else if (section == "to") {
+                    } else if (section.equals("to")) {
                         end += lineArr[i];
                     }
                 }
-                Todo newTodo = new Todo(description, start, end);
-                tasks[taskCounter] = newTodo;
+                Event newEvent = new Event(description, start, end);
+                tasks[taskCounter] = newEvent;
                 taskCounter++;
                 System.out.println("added: " + line);
             }
