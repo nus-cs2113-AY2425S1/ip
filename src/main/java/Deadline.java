@@ -17,6 +17,7 @@ public class Deadline extends Task {
 
     @Override
     public void printTask() {
-        System.out.println("[" + this.symbol + "] " + "[" + this.done + "] " + this.name + " (by: " + this.dueDate + ")");
+        System.out.print("[" + this.symbol + "] " + "[" + this.done + "] ");
+        System.out.println(this.name + " (by: " + this.dueDate + ")");
     }
 }

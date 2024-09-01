@@ -6,7 +6,7 @@ public class Gertrude {
         int taskCounter = 0;
         System.out.println("Hello, I'm Gertrude.");
         System.out.println("What can I do for you?");
-        String thisIsATest = "";
+
         while (true) {
             String line;
             Scanner in = new Scanner(System.in);

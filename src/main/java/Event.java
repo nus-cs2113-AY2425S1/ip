@@ -20,6 +20,7 @@ public class Event extends Task {
 
     @Override
     public void printTask() {
-        System.out.println("[" + this.symbol + "] " + "[" + this.done + "] " + this.name + " (from: " + this.startDate + " to: " + this.endDate + ")");
+        System.out.print("[" + this.symbol + "] " + "[" + this.done + "] " + this.name);
+        System.out.println(" (from: " + this.startDate + " to: " + this.endDate + ")");
     }
 }
