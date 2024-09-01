@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
 public class Echo {
+    private static final String SEPARATOR = "____________________________________________________________";
+
     public static void main(String[] args) {
-        // Utilise Scanner object to allow user input
+        // Utilize Scanner object to allow user input
         Scanner scanner = new Scanner(System.in);
 
         TaskList taskList = new TaskList();
@@ -15,43 +17,66 @@ public class Echo {
         String exitMessage = "Bye. Hope to see you again soon!";
 
         // Print the greeting message from Echo
-        System.out.println("____________________________________________________________");
-        System.out.print(greetingMessage);
-        System.out.println("____________________________________________________________");
+        printGreeting(greetingMessage);
 
         String userInput;
-        do{
+        do {
             // Read user input
             userInput = scanner.nextLine();
 
-            // Handles different user inputs for list, bye, mark and unmark
+            // Handles different user inputs for list, bye, mark, and unmark
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
-                System.out.println(taskList.displayTasks());
-                System.out.println("____________________________________________________________");
+                printTaskList(taskList);
             } else if (userInput.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(5).trim());
-                System.out.println("____________________________________________________________");
-                System.out.println(taskList.markTaskAsDone(taskNumber));
-                System.out.println("____________________________________________________________");
+                handleMarking(userInput, taskList);
             } else if (userInput.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
-                System.out.println("____________________________________________________________");
-                System.out.println(taskList.markTaskAsNotDone(taskNumber));
-                System.out.println("____________________________________________________________");
+                handleUnmarking(userInput, taskList);
             } else if (!userInput.equalsIgnoreCase("bye")) {
-                //Stores new task into the array of tasks
-                taskList.storeTask(userInput);
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + userInput);
-                System.out.println("____________________________________________________________");
+                addTask(userInput, taskList);
             }
         } while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
-        System.out.println("____________________________________________________________");
-        System.out.println(exitMessage);
-        System.out.println("____________________________________________________________");
+        printExitMessage(exitMessage);
+    }
+
+    private static void printGreeting(String message) {
+        System.out.println(SEPARATOR);
+        System.out.println(message);
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printTaskList(TaskList taskList) {
+        System.out.println(SEPARATOR);
+        System.out.println("Here are the tasks in your list:");
+        System.out.println(taskList.displayTasks());
+        System.out.println(SEPARATOR);
+    }
+
+    private static void handleMarking(String userInput, TaskList taskList) {
+        int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+        System.out.println(SEPARATOR);
+        System.out.println(taskList.markTaskAsDone(taskNumber));
+        System.out.println(SEPARATOR);
+    }
+
+    private static void handleUnmarking(String userInput, TaskList taskList) {
+        int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+        System.out.println(SEPARATOR);
+        System.out.println(taskList.markTaskAsNotDone(taskNumber));
+        System.out.println(SEPARATOR);
+    }
+
+    private static void addTask(String userInput, TaskList taskList) {
+        taskList.storeTask(userInput);
+        System.out.println(SEPARATOR);
+        System.out.println("added: " + userInput);
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printExitMessage(String message) {
+        System.out.println(SEPARATOR);
+        System.out.println(message);
+        System.out.println(SEPARATOR);
     }
 }
