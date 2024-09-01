@@ -2,7 +2,7 @@ public class Event extends Task {
     private String startDate;
     private String endDate;
 
-    public Deadline() {
+    public Event() {
         this.name = "";
         this.done = " ";
         this.symbol = "E";
@@ -10,7 +10,7 @@ public class Event extends Task {
         this.endDate = "";
     }
 
-    public Deadline(String name, String startDate, String endDate) {
+    public Event(String name, String startDate, String endDate) {
         this.name = name;
         this.done = " ";
         this.symbol = "E";
