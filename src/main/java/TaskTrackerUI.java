@@ -6,7 +6,6 @@ public class TaskTrackerUI {
     public TaskTrackerUI() {
         this.tasks = new ArrayList<>();
     }
-
     // Helpers /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void addTaskWithUI(Task task) {
         this.tasks.add(task);
@@ -17,11 +16,11 @@ public class TaskTrackerUI {
     public static final int INVALID_TASK_INDEX = -1;
     public static int parseValidTaskIndex(HashMap<String, String> argumentsList, ArrayList<Task> tasks){
         int index = INVALID_TASK_INDEX;
-        if (argumentsList.get("main") == null){
+        if (argumentsList.get(CommandParser.ARGUMENT_MAIN) == null){
             return index;
         }
         try {
-            index = Integer.parseInt(argumentsList.get("main")) - 1;
+            index = Integer.parseInt(argumentsList.get(CommandParser.ARGUMENT_MAIN)) - 1;
         } catch (NumberFormatException e){
             return index;
         }
@@ -30,7 +29,6 @@ public class TaskTrackerUI {
         }
         return index;
     }
-
     // Menu Options - List /////////////////////////////////////////////////////////////////////////////////////////////
     public void listTasks(){
         System.out.println("Here are the tasks in your list:");
@@ -38,17 +36,16 @@ public class TaskTrackerUI {
             System.out.println(String.valueOf(currentItemIndex+1) + "." + this.tasks.get(currentItemIndex));
         }
     }
-
     // Menu Options - Add //////////////////////////////////////////////////////////////////////////////////////////////
     public void addTodo(HashMap<String,String> argumentsList){
-        if (argumentsList.get("main") == null){
+        if (argumentsList.get(CommandParser.ARGUMENT_MAIN) == null){
             System.out.println("No description was given!");
             return;
         }
         addTaskWithUI(new ToDo(argumentsList.get("main")));
     }
     public void addDeadline(HashMap<String,String> argumentsList){
-        if (argumentsList.get("main") == null){
+        if (argumentsList.get(CommandParser.ARGUMENT_MAIN) == null){
             System.out.println("No description was given!");
             return;
         }
@@ -59,7 +56,7 @@ public class TaskTrackerUI {
         addTaskWithUI(new Deadline(argumentsList.get("main"), argumentsList.get("/by")));
     }
     public void addEvent(HashMap<String,String> argumentsList){
-        if (argumentsList.get("main") == null){
+        if (argumentsList.get(CommandParser.ARGUMENT_MAIN) == null){
             System.out.println("No description was given!");
             return;
         }
@@ -77,7 +74,6 @@ public class TaskTrackerUI {
                 argumentsList.get("/to")
         ));
     }
-
     // Menu Options - Mark /////////////////////////////////////////////////////////////////////////////////////////////
     public void markTask(HashMap<String,String> argumentsList){
         int index = parseValidTaskIndex(argumentsList, tasks);

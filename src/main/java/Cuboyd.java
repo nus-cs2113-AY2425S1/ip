@@ -3,46 +3,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Cuboyd {
-
-    // General Parsing /////////////////////////////////////////////////////////////////////////////////////////////////
-    public static HashMap<String, String> parseCommandToArguments(String line) {
-        HashMap<String, String> argumentsList = new HashMap<>();
-        String[] lineArgs = line.split(" ");
-
-        // Command
-        if (lineArgs.length <= 0) {
-            argumentsList.put("command","");
-            return argumentsList;
-        }
-        argumentsList.put("command",lineArgs[0]);
-
-        // Arguments
-        String currArgumentName = "main";
-        StringBuilder currArgument = new StringBuilder();
-
-        for (int i=1; i<lineArgs.length; i++) {
-            if (lineArgs[i].isEmpty()) { // Should be redundant but just in case
-                continue;
-            }
-            if (lineArgs[i].charAt(0) == '/') {
-                // New argument
-                if (!currArgument.toString().isEmpty()){
-                    argumentsList.put(currArgumentName, currArgument.toString().strip());
-                }
-                currArgumentName = lineArgs[i];
-                currArgument.setLength(0);
-            } else {
-                // Add on to existing argument
-                currArgument.append(" ").append(lineArgs[i]);
-            }
-        }
-        // Add last command
-        if (!currArgument.toString().isEmpty()) {
-            argumentsList.put(currArgumentName, currArgument.toString().strip());
-        }
-        return argumentsList;
-    }
-
     // Helpers /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void displayIntroText(){
         String name = "Cuboyd";
@@ -66,8 +26,8 @@ public class Cuboyd {
         while (isAskingInput){
             System.out.print("> ");
             line = scanner.nextLine();
-            argumentsList = parseCommandToArguments(line);
-            switch(argumentsList.get("command")){
+            argumentsList = CommandParser.parseCommandToArguments(line);
+            switch(argumentsList.get(CommandParser.ARGUMENT_COMMAND)){
                 case "list":
                     taskTrackerUI.listTasks();
                     break;
