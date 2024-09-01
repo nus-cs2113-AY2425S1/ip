@@ -6,6 +6,14 @@ public class Doug {
     private static int counter = 0;
     private static Task[] tasks = new Task[100];
 
+    // Declaring Magic Literals
+    static final int DEADLINE_NAME_START = 9;
+    static final int DEADLINE_DATE_START = 4;
+
+    static final int EVENT_NAME_START = 6;
+    static final int EVENT_FROM_START = 6;
+    static final int EVENT_TO_START = 4;
+
     public static void doList() {
         if (counter == 0) {
             System.out.println(dashedLine + "Got nothing on your roster bud.");
@@ -55,8 +63,9 @@ public class Doug {
 
     public static void doDeadline(String command) {
         int indexOfSlash = command.indexOf('/');
-        String taskName = command.substring(9, indexOfSlash - 1);
-        String taskDeadline = command.substring(indexOfSlash + 4);
+
+        String taskName = command.substring(DEADLINE_NAME_START, indexOfSlash - 1);
+        String taskDeadline = command.substring(indexOfSlash + DEADLINE_DATE_START);
 
         Deadline d = new Deadline(taskName, taskDeadline);
         tasks[counter] = d;
@@ -67,9 +76,10 @@ public class Doug {
     public static void doEvent(String command) {
         int indexOfFirstSlash = command.indexOf('/');
         int indexOfSecondSlash = command.indexOf('/', indexOfFirstSlash + 1);
-        String taskName = command.substring(6, indexOfFirstSlash - 1);
-        String taskStart = command.substring(indexOfFirstSlash + 6, indexOfSecondSlash - 1);
-        String taskEnd = command.substring(indexOfSecondSlash + 4);
+
+        String taskName = command.substring(EVENT_NAME_START, indexOfFirstSlash - 1);
+        String taskStart = command.substring(indexOfFirstSlash + EVENT_FROM_START, indexOfSecondSlash - 1);
+        String taskEnd = command.substring(indexOfSecondSlash + EVENT_TO_START);
 
         Event e = new Event(taskName, taskStart, taskEnd);
         tasks[counter] = e;
@@ -111,7 +121,7 @@ public class Doug {
                 + "                                     .#,     */       ./   .(. /@@@#,&@@@//         /.    (   .&.\n"
                 + "                                     .#/,      ./      ,*     ,%@@@%.#@@@%.         .(   ./    .&.\n"
                 + "                                     .#*.,.    .,.(     /.    .#@@@&**@@@@(          **  *,     /(\n"
-                + "                                     .%*.,     .,  ./   .*    .%@@@@#.&@@@@,          (  /      .#.\n";
+                + "                                     .%*.,     .,  ./   .*    .%@@@@#.&@@@@,         (  /     .#.\n";
 
         System.out.println(face);
 
@@ -124,7 +134,7 @@ public class Doug {
 
     public static void main(String[] args) {
 
-        //sayWelcome();
+        sayWelcome();
         Scanner input = new Scanner(System.in);
 
         while (true) {
