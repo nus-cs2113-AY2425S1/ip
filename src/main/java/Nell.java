@@ -161,13 +161,22 @@ public class Nell {
         System.out.println("-> Bye. Hope to see you again soon!");
     }
 
-    public static void main(String[] args) {
-        // Initialises scanner to take in user input
-        Scanner input = new Scanner(System.in);
-
-        // Greets user
+    /**
+     * Greet the user upon program startup
+     *
+     */
+    private static void greetUser() {
         System.out.println("Hello! I'm Nell!");
         System.out.println("What can I do for you?");
+    }
+
+    /**
+     * Get commands from user and execute commands received
+     *
+     */
+    private static void getCommands() {
+        // Initialises scanner to take in user input
+        Scanner input = new Scanner(System.in);
 
         boolean isGettingCommands = true;
 
@@ -210,5 +219,10 @@ public class Nell {
                 break;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        greetUser();
+        getCommands();
     }
 }
