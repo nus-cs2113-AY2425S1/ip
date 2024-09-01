@@ -19,13 +19,15 @@ public class TaskList {
      *
      * @param task Name of the task is added.
      */
-    public void storeTask(String task){
-        if (taskNumber >= tasks.length){
+    public void storeTask(Task task) {
+        if (taskNumber >= tasks.length) {
+            // Optionally, handle the case where the task list is full
             return;
         }
-        tasks[taskNumber] = new Task(task);
+        tasks[taskNumber] = task;
         taskNumber += 1;
     }
+
 
     /**
      * Displays all tasks in the array.
