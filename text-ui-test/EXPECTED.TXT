@@ -11,14 +11,20 @@ How may I assist you today? The stars and I are at your service.
 	--------------------------------------------------------------------------------------------------
 	The stars have aligned and borrow book is now part of your destiny!
 	--------------------------------------------------------------------------------------------------
+	Time to work! You got 1 tasks waiting for you!
+	--------------------------------------------------------------------------------------------------
 	By the light of the moon, these are the tasks that guide your path:
 	1.[T][ ] borrow book
 	--------------------------------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------
 	The stars have aligned and return book is now part of your destiny!
 	--------------------------------------------------------------------------------------------------
+	Time to work! You got 2 tasks waiting for you!
+	--------------------------------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------
 	The stars have aligned and project meeting is now part of your destiny!
+	--------------------------------------------------------------------------------------------------
+	Time to work! You got 3 tasks waiting for you!
 	--------------------------------------------------------------------------------------------------
 	By the light of the moon, these are the tasks that guide your path:
 	1.[T][ ] borrow book

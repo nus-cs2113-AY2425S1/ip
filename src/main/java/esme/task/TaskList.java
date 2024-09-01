@@ -1,9 +1,4 @@
-package esme;
-
-import esme.task.Deadline;
-import esme.task.Event;
-import esme.task.Task;
-import esme.task.Todo;
+package esme.task;
 
 import java.util.ArrayList;
 
@@ -17,7 +12,7 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
-    public int numberOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 

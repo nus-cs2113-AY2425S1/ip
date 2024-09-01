@@ -1,15 +1,14 @@
 package esme;
 
-import esme.task.Task;
-import esme.task.TaskType;
+import esme.task.TaskList;
 
-public class Esme {
+public class Ui {
     private TaskList taskList;
+    private static final String SEPARATOR = "--------------------------------------------------------------------------------------------------";
 
-    public Esme() {
+    public Ui() {
         taskList = new TaskList();
     }
-
 
     public void addTaskToList(String command, String input) {
         String description;
@@ -30,6 +29,8 @@ public class Esme {
         displayLine(true);
         System.out.println("\tThe stars have aligned and " + description + " is now part of your destiny!");
         displayLine(true);
+        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() + " tasks waiting for you!");
+        displayLine(true);
     }
 
     /**
@@ -39,7 +40,7 @@ public class Esme {
      * @return True if the index is valid, false otherwise.
      */
     public boolean isIndexValid(int index) {
-        return index <= taskList.numberOfTasks() && index >= 0;
+        return index <= taskList.getNumberOfTasks() && index >= 0;
     }
 
     /**
@@ -86,16 +87,20 @@ public class Esme {
         try {
             int index = Integer.parseInt(words[1]);
             if (isIndexValid(index)) {
-                if (command.equals("mark")) {
-                    markTaskInList(index);
-                } else {
-                    unmarkTaskInList(index);
-                }
+                toggleTaskStatus(index,command);
             } else {
                 System.out.println("Oh dear, it seems the index has wandered beyond the boundaries of our list!");
             }
         } catch (Exception e) {
             System.out.println("Error: Wrong format! Please use the format: command index (e.g., '" + command + " 1')");
+        }
+    }
+
+    public void toggleTaskStatus(int taskIndex, String command) {
+        if (command.equals("mark")) {
+            markTaskInList(taskIndex);
+        } else {
+            unmarkTaskInList(taskIndex);
         }
     }
 
@@ -117,15 +122,10 @@ public class Esme {
      * @param hasIndent Whether the line should be indented or not.
      */
     public void displayLine(boolean hasIndent) {
-//        if (hasIndent) {
-//            System.out.println("\t────────────────────────────────────────────────────────────────────────────────────────────────────");
-//        } else {
-//            System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────────");
-//        }
         if (hasIndent) {
-            System.out.println("\t--------------------------------------------------------------------------------------------------");
+            System.out.println("\t" + SEPARATOR);
         } else {
-            System.out.println("--------------------------------------------------------------------------------------------------");
+            System.out.println(SEPARATOR);
         }
     }
 
