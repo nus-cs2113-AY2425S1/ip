@@ -71,15 +71,15 @@ public class Main {
     }
 
     public Deadlines createDeadlineTask(String enteredString) {
-        String taskDescription=enteredString.substring("deadline".length(), enteredString.indexOf('/'));
-        String deadlineTime=enteredString.substring(enteredString.indexOf("/by")+1);
+        String taskDescription=enteredString.substring("deadline".length(), enteredString.indexOf('/')-1);
+        String deadlineTime=enteredString.substring(enteredString.indexOf("/by")+"/by".length()+1);
         return new Deadlines(taskDescription, deadlineTime);
     }
 
     public Events createEventTask(String enteredString) {
-        String taskDescription=enteredString.substring("event".length(), enteredString.indexOf('/'));
-        String eventFromTime=enteredString.substring(enteredString.indexOf("/from")+1, enteredString.indexOf("/to"));
-        String eventToTime=enteredString.substring(enteredString.indexOf("/to")+1);
+        String taskDescription=enteredString.substring("event".length(), enteredString.indexOf('/')-1);
+        String eventFromTime=enteredString.substring(enteredString.indexOf("/from")+"/from".length()+1, enteredString.indexOf("/to"));
+        String eventToTime=enteredString.substring(enteredString.indexOf("/to")+"/to".length()+1);
         return new Events(taskDescription, eventFromTime, eventToTime);
     }
 
