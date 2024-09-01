@@ -1,9 +1,9 @@
-public class TaskMarker {
+public class Task {
     protected String description;
     protected boolean isDone;
 
-    //Constructor for TaskMarker
-    public TaskMarker(String description) {
+    //Constructor for Task
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }

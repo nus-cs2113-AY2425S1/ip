@@ -1,13 +1,13 @@
 public class TaskList {
     private int taskNumber;
-    private TaskMarker[] tasks;
+    private Task[] tasks;
 
     //Constructor for TaskList
     public TaskList(){
         taskNumber = 0;
 
         //Assume there will be no more than 100 tasks
-        tasks = new TaskMarker[100];
+        tasks = new Task[100];
     }
 
     /**
@@ -19,7 +19,7 @@ public class TaskList {
         if (taskNumber >= tasks.length){
             return;
         }
-        tasks[taskNumber] = new TaskMarker(task);
+        tasks[taskNumber] = new Task(task);
         taskNumber += 1;
     }
 
@@ -46,9 +46,9 @@ public class TaskList {
         if (index < 1 || index > taskNumber) {
             return "Invalid task number.";
         }
-        TaskMarker taskMarker = tasks[index - 1];
-        taskMarker.setAsDone();
-        return "Nice! I've marked this task as done:\n" + taskMarker;
+        Task task = tasks[index - 1];
+        task.setAsDone();
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -61,8 +61,8 @@ public class TaskList {
         if (index < 1 || index > taskNumber) {
             return "Invalid task number.";
         }
-        TaskMarker taskMarker = tasks[index - 1];
-        taskMarker.setAsUndone();
-        return "OK, I've marked this task as not done yet:\n" + taskMarker;
+        Task task = tasks[index - 1];
+        task.setAsUndone();
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 }
