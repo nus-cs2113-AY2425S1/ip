@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class King {
     public static final String name = "King";
     public static int repeatCount = 0;
+    public static int tasksCount = 0;
+    public static ArrayList<Object> tasks = new ArrayList<>();
 
     public static void greet() {
         String logo =
@@ -37,10 +40,12 @@ public class King {
 
         if (userInput.equals("bye")) {
             exit();
+        } else if (userInput.equals("list")) {
+            printList();
         } else if (repeatCount >= 5) {
             exit();
         } else {
-            repeat(userInput);
+            addTask(userInput);
             chat();
         }
 
@@ -50,6 +55,29 @@ public class King {
         repeatCount += 1;
         System.out.println("____________________________________________________________\n"
                 + text + "\n"
+                + "____________________________________________________________"
+        );
+    }
+
+    public static void printList() {
+        System.out.println("____________________________________________________________\n");
+
+        for (int i = 0; i < tasksCount; i++) {
+            int indexNum = i + 1;
+            System.out.println(indexNum  + ". " + tasks.get(i));
+        }
+
+        System.out.println("____________________________________________________________");
+
+        chat();
+    }
+
+
+    public static void addTask(String text) {
+        tasksCount += 1;
+        tasks.add(text);
+        System.out.println("____________________________________________________________\n"
+                + "added: " + text + "\n"
                 + "____________________________________________________________"
         );
     }
