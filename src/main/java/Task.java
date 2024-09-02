@@ -29,4 +29,12 @@ public class Task {
     public String getDescription() {
         return description;
     }
+    public void printAcknowledgementMessage(String message) {
+        Nova.displayMessage("Got it. I've added this task:" + Nova.NEW_LINE + "  " + message +
+                Nova.NEW_LINE + "Now you have " + numberOfTasks + " tasks in the list.");
+    }
+
+    public String getTaskInfo() {
+        return "[" + this.getStatusIcon() + "] " + description;
+    }
 }
