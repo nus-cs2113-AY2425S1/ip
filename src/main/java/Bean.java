@@ -1,4 +1,3 @@
-import java.awt.dnd.InvalidDnDOperationException;
 import java.util.Scanner;
 
 public class Bean {
@@ -33,8 +32,10 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    public static void echo(String string) {
-        System.out.println(INDENT + string + SEPARATOR_LINE);
+    // Return command (taken as first word) from given user input
+    public static String extractCommand(String userInput) {
+        // Take first word of input as command
+        return userInput.split(" ")[0];
     }
 
     // Print (single line) message with separator line above and below message, as well as indentation
@@ -64,11 +65,12 @@ public class Bean {
 
     // Extract task number as int from user input for mark and unmark commands
     public static int obtainTaskNum(String userInput) {
+        // Obtain task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
         return Integer.parseInt(words[1].trim());
     }
 
-    public static void markTaskAsDone(Task[] toDoList, int taskNum) {
+    public static void markTaskAsDone(int taskNum) {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
@@ -76,7 +78,7 @@ public class Bean {
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
-    public static void unmarkTaskAsDone(Task[] toDoList, int taskNum) {
+    public static void unmarkTaskAsDone(int taskNum) {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
@@ -84,14 +86,14 @@ public class Bean {
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
-    public static void addToDo(Task[] toDoList, String userInput) {
+    public static void addToDo(String userInput) {
         // Extract description
         String description = userInput.split("todo ")[1].trim();
 
         toDoList[Task.getNumberOfTasks()] = new Todo(description);
     }
 
-    public static void addDeadline(Task[] toDoList, String userInput) {
+    public static void addDeadline(String userInput) {
         // Extract description and by
         String[] parts = userInput.split("/by ");
         // parts: [0] = "deadline {description} ", [1] = " {by}"
@@ -101,7 +103,7 @@ public class Bean {
         toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
     }
 
-    public static void addEvent(Task[] toDoList, String userInput) {
+    public static void addEvent(String userInput) {
         // Extract description, from and to
         String[] splitDescription = userInput.split("/from");
         // splitDescription: [0] = "event {description} ", [1] = "{from} /to {to}"
@@ -136,8 +138,7 @@ public class Bean {
         outerLoop:
         while (Task.getNumberOfTasks() < MAX_LIST_COUNT) {
             userInput = in.nextLine();
-            // Take first word of input as command
-            String userCommand = userInput.split(" ")[0];
+            String userCommand = extractCommand(userInput);
 
             switch (userCommand) {
             case "bye":
@@ -148,30 +149,24 @@ public class Bean {
                 printToDoList();
 
                 break;
-            case "mark": {
-                // Obtain task number by taking second word of input and trim any spaces, then parse as int
-                int taskNum = obtainTaskNum(userInput);
-                markTaskAsDone(toDoList, taskNum);
+            case "mark":
+                markTaskAsDone(obtainTaskNum(userInput));
 
                 break;
-            }
-            case "unmark": {
-                // Obtain task number by taking second word of input and trim any spaces, then parse as int
-                int taskNum = obtainTaskNum(userInput);
-                unmarkTaskAsDone(toDoList, taskNum);
+            case "unmark":
+                unmarkTaskAsDone(obtainTaskNum(userInput));
 
                 break;
-            }
             case "todo":
-                addToDo(toDoList, userInput);
+                addToDo(userInput);
 
                 break;
             case "deadline":
-                addDeadline(toDoList, userInput);
+                addDeadline(userInput);
 
                 break;
             case "event":
-                addEvent(toDoList, userInput);
+                addEvent(userInput);
 
                 break;
             default:
