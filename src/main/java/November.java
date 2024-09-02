@@ -28,11 +28,25 @@ public class November {
      */
     public static void printTaskList(List<Task> taskList) {
         int index = 0;
+        System.out.println("Here are the tasks in your list:");
         while(index < taskList.size()){
-            System.out.println(index + 1 + ".[" + taskList.get(index).getStatusIcon() + "] "
-                    + taskList.get(index).getDescription());
+            System.out.print(index + 1 + ".");
+            printTask(taskList.get(index));
             index++;
         }
+    }
+
+    public static void printTask(Task task) {
+        System.out.println("[" + task.getTaskIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+    }
+
+    public static void printAddedTask(List<Task> taskList) {
+        System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
+        printTask(taskList.get(taskList.size() - 1));
+    }
+
+    public static void printTaskCount(List<Task> taskList) {
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -52,42 +66,77 @@ public class November {
         String input = scan.nextLine();
 
         while(!input.equals("bye")) {
-            String[] sentence = input.split(" ", 2);
-            String firstWord = sentence[0];
+            String[] sentences = {input, input};
+            String firstWord = input;
+            String sentence = input;
+            if(input.contains(" ")) {
+                sentences = input.split(" ", 2);
+                firstWord = sentences[0];
+                sentence = sentences[1];
+            }
+
             switch (firstWord) {
             case "mark":
                 // Marks a task as complete.
-                int markIndex = Integer.parseInt(sentence[1]) - 1;
+                int markIndex = Integer.parseInt(sentences[1]) - 1;
                 taskList.get(markIndex).setComplete();
                 beginSegment();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("  [" + taskList.get(markIndex).getStatusIcon() + "] "
-                        + taskList.get(markIndex).getDescription());
+                System.out.print("Nice! I've marked this task as done: " + System.lineSeparator() + "  ");
+                printTask(taskList.get(markIndex));
                 endSegment();
                 break;
             case "unmark":
                 // Marks a task as incomplete.
-                int unmarkIndex = Integer.parseInt(sentence[1]) - 1;
+                int unmarkIndex = Integer.parseInt(sentences[1]) - 1;
                 taskList.get(unmarkIndex).setIncomplete();
                 beginSegment();
-                System.out.println("Ok, I've marked this task as not done yet: ");
-                System.out.println("  [" + taskList.get(unmarkIndex).getStatusIcon() + "] "
-                        + taskList.get(unmarkIndex).getDescription());
+                System.out.println("Ok, I've marked this task as not done yet: " + System.lineSeparator() + "  ");
+                printTask(taskList.get(unmarkIndex));
                 endSegment();
                 break;
             case "list":
                 // Prints a list of all tasks, indicating their completion status.
                 beginSegment();
-                System.out.println("Here are the tasks in your list:");
                 printTaskList(taskList);
                 endSegment();
                 break;
-            default:
-                // Creates a new Task and adds it to the task list.
-                taskList.add(new Task(input));
-                // Prints a statement indicating that the new task has been added.
+            case "todo":
+                Todo todoTask = new Todo(sentence);
+                taskList.add(todoTask);
+
                 beginSegment();
-                System.out.println("added: " + input);
+                todoTask.printTask();
+                printTaskCount(taskList);
+                endSegment();
+                break;
+            case "deadline":
+                String deadlineDescription = sentence.substring(0, sentence.indexOf("/by "));
+                String by = sentence.substring(sentence.indexOf("/by ") + 4);
+
+                Deadline deadlineTask = new Deadline(deadlineDescription, by);
+                taskList.add(deadlineTask);
+
+                beginSegment();
+                deadlineTask.printTask();
+                printTaskCount(taskList);
+                endSegment();
+                break;
+            case "event":
+                String eventDescription = sentence.substring(0, sentence.indexOf("/from "));
+                String start = sentence.substring(sentence.indexOf("/from ") + 6, sentence.indexOf("/to "));
+                String end = sentence.substring(sentence.indexOf("/to ") + 4);
+
+                Event eventTask = new Event(eventDescription, start, end);
+                taskList.add(eventTask);
+
+                beginSegment();
+                eventTask.printTask();
+                printTaskCount(taskList);
+                endSegment();
+                break;
+            default:
+                beginSegment();
+                System.out.println("Error: Unrecognized input");
                 endSegment();
                 break;
             }

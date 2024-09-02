@@ -46,4 +46,12 @@ class Task {
     public String getStatusIcon() {
         return(isComplete ? "X" : " ");
     }
+
+    public String getTaskIcon() {
+        return " ";
+    }
+
+    public void printTask() {
+        System.out.println();
+    }
 };
