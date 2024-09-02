@@ -1,0 +1,8 @@
+todo eat food
+deadline make food /by Sunday
+event food meeting /from Mon 2pm /to 4pm
+list
+mark 1
+unmark 2
+list
+bye
