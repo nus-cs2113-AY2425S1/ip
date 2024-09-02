@@ -7,22 +7,30 @@ public class TaskList {
     private int size = 0;
 
     /**
+     * Returns size of TaskList
+     */
+    public int size() {
+        return this.size;
+    }
+
+    /**
      * Prints list of tasks with their completion status.
      */
     public void printList() {
+        if (this.size == 0) {
+            System.out.println("Uh oh, the list is empty!");
+            return;
+        }
         IntStream.range(0, list.size())
-                .forEach(x -> System.out.println((x + 1) + "."
-                        + "[" + (list.get(x).getStatus() ? "X" : " ") + "] "
-                        + list.get(x).getName()));
+                .forEach(x -> System.out.println( (x + 1) + "." + list.get(x)));
     }
 
     /**
      * Adds a new task.
      *
-     * @param taskName Name of the new task.
+     * @param task The task object to be added.
      */
-    public void addItem(String taskName) {
-        Task task = new Task(taskName);
+    public void addItem(Task task) {
         this.list.add(task);
         this.size++;
     }

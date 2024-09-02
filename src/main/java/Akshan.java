@@ -51,21 +51,48 @@ public class Akshan {
         line = input.nextLine();
 
         while (!line.equals("bye")) {
-            String[] splitInput = line.split(" ");
+            String[] splitInput = line.split("/");
             printLine();
 
             if (line.equals("list")) {
                 taskList.printList();
-            } else if (splitInput.length == 2 && line.startsWith("mark")) {
-                int index = Integer.parseInt(splitInput[1]);
+            } else if (line.startsWith("mark") && splitInput[0].split(" ").length == 2) {
+                int index = Integer.parseInt(splitInput[0].split(" ")[1]);
                 taskList.setItemStatus(index, true);
-            } else if (splitInput.length == 2 && line.startsWith("unmark")) {
-                int index = Integer.parseInt(splitInput[1]);
+            } else if (line.startsWith("unmark") && splitInput[0].split(" ").length == 2) {
+                int index = Integer.parseInt(splitInput[0].split(" ")[1]);
                 taskList.setItemStatus(index, false);
+            } else if (line.startsWith("todo")) {
+                Todo todo = new Todo(line.split(" ", 2)[1]);
+
+                taskList.addItem(todo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            } else if (line.startsWith("deadline")) {
+                String[] description = line.split(" /by ", 2);
+                description[0] = description[0].split(" ", 2)[1];
+                Deadline deadline = new Deadline(description[0], description[1]);
+
+                taskList.addItem(deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + deadline);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            } else if (line.startsWith("event")) {
+                String[] description = line.split(" /", 3);
+                description[0] = description[0].split(" ", 2)[1];
+                description[1] = description[1].split(" ", 2)[1];
+                description[2] = description[2].split(" ", 2)[1];
+                Event event = new Event(description[0], description[1], description[2]);
+
+                taskList.addItem(event);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             } else {
-                taskList.addItem(line);
-                System.out.println("added: " + line);
+                System.out.println("Uh oh, no command found in: " + line);
             }
+
             printLine();
             line = input.nextLine();
         }

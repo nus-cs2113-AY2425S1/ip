@@ -1,24 +1,35 @@
 public class Task {
-    private final String name;
-    private boolean isDone;
+    protected final String name;
+    protected boolean isDone;
+    protected String type;
 
     /**
-     * Constructor for Task
+     * Constructor for Task.
      *
      * @param name Name of the task.
      */
     public Task(String name) {
         this.name = name;
+        this.type = "";
         this.isDone = false;
     }
 
     /**
-     * Returns the name of the task
+     * Returns the name of the task.
      *
      * @return Name of the task.
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Returns the type of task.
+     *
+     * @return Name of the task.
+     */
+    public String getType() {
+        return this.type;
     }
 
     /**
@@ -40,18 +51,18 @@ public class Task {
         String completion = newStatus ? "X" : " ";
 
         if (newStatus == this.isDone) {
-            System.out.println("Oops, the task '" + this.name + "' has already been marked as "
-                + "[" + completion + "]!");
+            System.out.println("Oops, the task has already been marked as " + "[" + completion + "]!");
+            System.out.println("  " + this);
             return;
         }
 
+        this.isDone = newStatus;
         if (newStatus) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
 
-        System.out.println("  [" + completion + "] " + this.name);
-        this.isDone = newStatus;
+        System.out.println("  " + this);
     }
 }
