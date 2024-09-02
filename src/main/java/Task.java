@@ -1,7 +1,7 @@
 /**
  * Defines a task with a description and completion status.
  */
-class Task {
+public class Task {
 
     /** Description of the task. */
     protected String description;

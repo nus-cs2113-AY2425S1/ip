@@ -16,7 +16,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Prints the Deadline task in a specific format.
+     * Prints the confirmation message for an added Deadline task.
      */
     @Override
     public void printTask() {

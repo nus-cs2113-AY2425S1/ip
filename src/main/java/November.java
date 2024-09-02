@@ -46,16 +46,6 @@ public class November {
     }
 
     /**
-     * Prints a confirmation message for a newly added task.
-     *
-     * @param taskList The list of tasks containing the newly added task.
-     */
-    public static void printAddedTask(List<Task> taskList) {
-        System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
-        printTask(taskList.get(taskList.size() - 1));
-    }
-
-    /**
      * Prints the current number of tasks in the list.
      *
      * @param taskList The list of tasks.

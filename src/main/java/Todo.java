@@ -13,7 +13,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Prints the Todo task in a specific format.
+     * Prints the confirmation message for an added Todo task.
      */
     @Override
     public void printTask() {

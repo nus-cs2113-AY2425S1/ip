@@ -19,7 +19,7 @@ public class Event extends Task {
     }
 
     /**
-     * Prints the Event task in a specific format.
+     * Prints the confirmation message for an added Event task.
      */
     @Override
     public void printTask() {
