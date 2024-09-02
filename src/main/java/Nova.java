@@ -16,9 +16,10 @@ public class Nova {
     public static void main(String[] args) {
         displayWelcomeMessage();
         Task[] tasks = new Task[MAX_TASKS];
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String[] userInput = getUserInput();
+            String[] userInput = getUserInput(sc);
             if (handleInput(userInput, tasks)) {
                 return;
             }
@@ -38,8 +39,10 @@ public class Nova {
         displayMessage("Hello! I'm Nova" + NEW_LINE + "What can I do for you?");
     }
 
-    private static String[] getUserInput() {
-        Scanner sc = new Scanner(System.in);
+    private static String[] getUserInput(Scanner sc) {
+        if (!sc.hasNextLine()) {
+            return new String[]{"bye"};
+        }
         String info = sc.nextLine();
         return info.split(" ", 2);
     }
