@@ -1,6 +1,6 @@
 public class Task {
     protected String task;
-    private int id;
+    protected int id;
     protected boolean isDone;
     private static int totalTasks = 0;
 
@@ -13,6 +13,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + getTask();
     }
 
     public String getTask() {

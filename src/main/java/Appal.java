@@ -20,9 +20,8 @@ public class Appal {
         printSeparator();
     }
 
-    public void printOneTask(int listNumber) {
-        System.out.println("[" + taskList[listNumber].getStatusIcon() + "] "
-                + taskList[listNumber].getTask());
+    public void printOneTask(Task task) {
+        System.out.println(task);
     }
 
     public void markTask(String instruction, boolean isMark) {
@@ -36,7 +35,7 @@ public class Appal {
         } else {
             System.out.println("What's next on the agenda? :D");
         }
-        printOneTask(listNumber);
+        printOneTask(taskList[listNumber]);
         printSeparator();
     }
 
@@ -46,7 +45,7 @@ public class Appal {
         System.out.println("You have " + totalTasks + " to-dos!");
         for (int i = 0; i < totalTasks; i += 1) {
             System.out.print(taskList[i].getId() + ".");
-            printOneTask(i);
+            printOneTask(taskList[i]);
         }
         printSeparator();
     }
@@ -54,6 +53,29 @@ public class Appal {
     public void addToList(String task) {
         int totalToDos = Task.getTotalTasks();
         taskList[totalToDos] = new Task(task);
+    }
+
+    public void addToDo(String instruction) {
+        int totalToDos = Task.getTotalTasks();
+        String task = instruction.replace("todo ", "");
+        taskList[totalToDos] = new ToDo(task);
+    }
+
+    public void addDeadline(String instruction) {
+        int totalToDos = Task.getTotalTasks();
+        String[] words = instruction.split("/");
+        String task = words[0].replace("deadline ", "");
+        String by = words[1].replace("by ", "");
+        taskList[totalToDos] = new Deadline(task, by);
+    }
+
+    public void addEvent(String instruction) {
+        int totalToDos = Task.getTotalTasks();
+        String[] words = instruction.split("/");
+        String task = words[0].replace("event ", "");
+        String from = words[1].replace("from ", "");
+        String to = words[2].replace("to ", "");
+        taskList[totalToDos] = new Event(task, from, to);
     }
 
     public void handleInput() {
@@ -68,6 +90,15 @@ public class Appal {
             markTask(line, false);
         } else if (line.contains("mark")) {
             markTask(line, true);
+        } else if (line.contains("todo")) {
+            addToDo(line);
+            printReply(line);
+        } else if (line.contains("deadline")) {
+            addDeadline(line);
+            printReply(line);
+        } else if (line.contains("event")) {
+            addEvent(line);
+            printReply(line);
         } else {
             addToList(line);
             printReply(line);
