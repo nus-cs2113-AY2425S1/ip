@@ -26,8 +26,14 @@ public class TobyBot {
                 markTask(input);
             } else if (input.startsWith("unmark ")) {
                 unmarkTask(input);
+            } else if (input.startsWith("todo ")) {
+                addTodoTask(input.substring(5));
+            } else if (input.startsWith("deadline ")) {
+                addDeadlineTask(input.substring(9));
+            } else if (input.startsWith("event ")) {
+                addEventTask(input.substring(6));
             } else {
-                addTask(input);
+                System.out.println("Invalid command.");
             }
 
             System.out.println(LINE);
@@ -41,10 +47,30 @@ public class TobyBot {
         }
     }
 
-    private static void addTask(String description) {
-        Task task = new Task(description);
+    private static void addTodoTask(String description) {
+        Task task = new Todo(description);
         tasks.add(task);
-        System.out.println("added: " + description);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addDeadlineTask(String description) {
+        String[] parts = description.split(" /by ");
+        Task task = new Deadline(parts[0], parts[1]);
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addEventTask(String description) {
+        String[] parts = description.split(" /from | /to ");
+        Task task = new Event(parts[0], parts[1], parts[2]);
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void markTask(String input) {
@@ -96,5 +122,46 @@ class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+}
+
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
