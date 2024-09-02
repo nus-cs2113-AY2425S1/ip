@@ -1,14 +1,14 @@
 public class Event  extends Task{
-    private final String eventStart;
-    private final String eventEnd;
+    private final String start;
+    private final String end;
 
-    public Event (String description, String eventStart, String eventEnd){
+    public Event (String description, String start, String end){
         super(description);
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
+        this.start = start;
+        this.end = end;
     }
 
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), eventStart, eventEnd);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), start, end);
     }
 }

@@ -7,14 +7,7 @@ public class TaskList {
         taskList = new Task[100];
     }
 
-    public void listTasks(){
-        for (int i = 0; i < currentTaskIndex; i++){
-            Task currentTask = taskList[i];
-            System.out.printf("%d. %s",i+1, currentTask);
-        }
-    }
-
-    public void addTask(Task newTask){
+    private void addTask(Task newTask){
         taskList[currentTaskIndex++] = newTask;
         System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", newTask, currentTaskIndex);
     }
@@ -44,5 +37,12 @@ public class TaskList {
         Task selectedTask = taskList[index];
         selectedTask.unmarkDone();
         System.out.printf("OK, I've marked this task as not done yet:%n %s", selectedTask);
+    }
+
+    public void listTasks(){
+        for (int index = 0; index < currentTaskIndex; index++){
+            Task currentTask = taskList[index];
+            System.out.printf("%d. %s%n", index + 1, currentTask);
+        }
     }
 }

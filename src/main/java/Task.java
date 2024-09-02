@@ -15,5 +15,5 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toString() { return String.format("[%s] %s", isDone ? "X":" ", description); }
+    public String toString() { return String.format("[%s] %s", isDone ? "X" : " ", description); }
 }

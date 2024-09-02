@@ -4,13 +4,17 @@ public class Medea {
 
     public static void main(String[] args) {
         greet();
+
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
+
         String input = scanner.nextLine();
+
         while(!input.equals("bye")){
             handleInput(taskList, input);
             input = scanner.nextLine();
         }
+
         sayGoodbye();
     }
 
@@ -30,7 +34,7 @@ public class Medea {
 
         switch (command) {
             case "list":
-                taskList.listTasks();
+                handleListCommand(taskList);
                 break;
             case "mark":
                 handleMarkCommand(taskList, arguments);
@@ -48,56 +52,89 @@ public class Medea {
                 handleEventCommand(taskList, arguments);
                 break;
             default:
-                System.out.println("I don't recognize that command.");
+                handleInvalidCommand();
                 break;
         }
     }
 
-    private static void handleMarkCommand(TaskList taskList, String arguments) {
+    private static void handleListCommand(TaskList taskList) {
+        taskList.listTasks();
+    }
+
+    private static int parseTaskIndex(String taskIndex) {
         try {
-            int markIndex = Integer.parseInt(arguments) - 1;
-            taskList.markTask(markIndex);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid mark command. Please provide a valid task number.");
+            return Integer.parseInt(taskIndex.trim()) - 1;
+        } catch (Error e) {
+            return -1;
         }
     }
 
-    private static void handleUnmarkCommand(TaskList taskList, String arguments) {
-        try {
-            int unmarkIndex = Integer.parseInt(arguments) - 1;
-            taskList.unmarkTask(unmarkIndex);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid unmark command. Please provide a valid task number.");
+    private static void handleMarkCommand(TaskList taskList, String taskIndex) {
+        int markIndex = parseTaskIndex(taskIndex);
+
+        if (markIndex == -1) {
+            System.out.println("Invalid mark command. Please provide a valid task number.");
+            return;
         }
+
+        taskList.markTask(markIndex);
     }
+
+    private static void handleUnmarkCommand(TaskList taskList, String taskIndex) {
+        int unmarkIndex = parseTaskIndex(taskIndex);
+
+        if (unmarkIndex == -1) {
+            System.out.println("Invalid unmark command. Please provide a valid task number.");
+            return;
+        }
+
+        taskList.unmarkTask(unmarkIndex);
+    }
+
     private static void handleTodoCommand(TaskList taskList, String description) {
         if (description.isEmpty()){
             System.out.println("Invalid todo command. Please provide a task description.");
             return;
         }
+
         taskList.addTodo(description);
     }
 
+    private static String[] parseArguments(String arguments, String... delimiters) {
+        String splitBy = String.join("|", delimiters);
+        return arguments.split(splitBy);
+    }
+
     private static void handleDeadlineCommand(TaskList taskList, String arguments) {
-        String[] parts = arguments.split(" /by ", 2);
+        String[] parts = parseArguments(arguments, " /by ");
+
         if (parts.length != 2) {
             System.out.println("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
             return;
         }
+
         String description = parts[0];
         String deadlineDate = parts[1];
+
         taskList.addDeadline(description, deadlineDate);
     }
 
     private static void handleEventCommand(TaskList taskList, String arguments) {
-        String[] parts = arguments.split(" /from | /to ", 3);
+        String[] parts = parseArguments(arguments, " /from ", " /to ");
+
         if (parts.length != 3) {
             System.out.println("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
             return;
         }
+
         String description = parts[0];
         String eventStart = parts[1];
         String eventEnd = parts[2];
+
         taskList.addEvent(description, eventStart, eventEnd);
+    }
+
+    private static void handleInvalidCommand(){
+        System.out.println("I don't recognize that command.");
     }
 }
