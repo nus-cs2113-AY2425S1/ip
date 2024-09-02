@@ -1,0 +1,11 @@
+todo buy apples
+deadline tutorial /by Tuesday
+event lecture /from 1pm /to 2pm
+list
+mark 1
+list
+mark 3
+unmark 1
+list
+mark 2
+bye
