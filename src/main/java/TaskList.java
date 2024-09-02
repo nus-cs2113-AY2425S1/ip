@@ -21,7 +21,6 @@ public class TaskList {
      */
     public void storeTask(Task task) {
         if (taskNumber >= tasks.length) {
-            // Optionally, handle the case where the task list is full
             return;
         }
         tasks[taskNumber] = task;
