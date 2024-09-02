@@ -7,13 +7,20 @@ public class Jeff {
     public static final String DIVIDER = "____________________________________________________________";
     public static final String  introText = """
                 ____________________________________________________________
-                Hello! I'm JEFF
-                I will echo whatever you say, and store them in a list!
-                However, I will echo what you say with random capitalisation!
+                Hello! I'm JEFF!!!
                 
+                Here are the type of tasks I can track!!!
+                'todo [description]'
+                'deadline [description] /by [some date]'
+                'event [description] /from [some date] /to [some date]'
+                
+                List of commands I support!!!!
                 Type 'list' to display everything you've said!
                 Type 'mark'/'unmark' to change the status of inputted tasks!
                 Type 'bye' to exit!
+                
+                If you give me nonsense, I will echo whatever you say!
+                Buuuuttt with random capitalisation!
                 ____________________________________________________________
                 """;
 
