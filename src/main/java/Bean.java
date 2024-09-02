@@ -1,3 +1,4 @@
+import java.awt.dnd.InvalidDnDOperationException;
 import java.util.Scanner;
 
 public class Bean {
@@ -10,8 +11,7 @@ public class Bean {
             "  ┃ ┗━━┳━━━┳━━━━┳━━━┓\n" +
             "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
-            "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";;
-
+            "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
 
     private static Task[] toDoList = new Task[MAX_LIST_COUNT];
 
@@ -19,8 +19,8 @@ public class Bean {
     public static void greet() {
         System.out.println(SEPARATOR_LINE +
                 LOGO +
-                INDENT + "Howdy, mate! :) I am Bean, your personal assistant.\n" +
-                INDENT + "Let me know how I can help you out!\n" +
+                INDENT + "Howdy, mate! :) I'm bean, your personal assistant.\n" +
+                INDENT + "Let me help you keep track of your tasks!\n" +
                 SEPARATOR_LINE
         );
     }
@@ -44,9 +44,9 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    public static void printList(Task[] toDoList) {
+    public static void printToDoList() {
         if (toDoList[0] == null) {
-            printFormattedReply("Nothing in your TO DO LIST");
+            printFormattedReply("Nothing in your to do list yet!");
             return;
         }
 
@@ -62,7 +62,13 @@ public class Bean {
         System.out.println(SEPARATOR_LINE);
     }
 
-    public static void markTaskAsDone (Task[] toDoList, int taskNum) {
+    // Extract task number as int from user input for mark and unmark commands
+    public static int obtainTaskNum(String userInput) {
+        String[] words = userInput.split(" ");
+        return Integer.parseInt(words[1].trim());
+    }
+
+    public static void markTaskAsDone(Task[] toDoList, int taskNum) {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
@@ -70,7 +76,7 @@ public class Bean {
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
-    public static void unmarkTaskAsDone (Task[] toDoList, int taskNum) {
+    public static void unmarkTaskAsDone(Task[] toDoList, int taskNum) {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
@@ -78,13 +84,14 @@ public class Bean {
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
-    public static void addToDo (Task[] toDoList, String userInput) {
+    public static void addToDo(Task[] toDoList, String userInput) {
         // Extract description
         String description = userInput.split("todo ")[1].trim();
+
         toDoList[Task.getNumberOfTasks()] = new Todo(description);
     }
 
-    public static void addDeadline (Task[] toDoList, String userInput) {
+    public static void addDeadline(Task[] toDoList, String userInput) {
         // Extract description and by
         String[] parts = userInput.split("/by ");
         // parts: [0] = "deadline {description} ", [1] = " {by}"
@@ -94,17 +101,30 @@ public class Bean {
         toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
     }
 
-    public static void addEvent (Task[] toDoList, String userInput) {
+    public static void addEvent(Task[] toDoList, String userInput) {
         // Extract description, from and to
-        String[] splitDescription = userInput.split("/from ");
+        String[] splitDescription = userInput.split("/from");
         // splitDescription: [0] = "event {description} ", [1] = "{from} /to {to}"
         String description = splitDescription[0].substring("events".length()).trim();
-        String[] splitFromTo = splitDescription[1].split("/to ");
+        String[] splitFromTo = splitDescription[1].split("/to");
         // splitFromTo: [0] = "{from} ", [1] = "{to}"
         String from = splitFromTo[0].trim();
         String to = splitFromTo[1].trim();
 
         toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
+    }
+
+    public static void printErrorMessage() {
+        printFormattedReply("Sorry, I am not equipped to respond to that yet... :(\n" +
+                INDENT + "These are the commands I understand:\n" +
+                INDENT + "To add a new task:\n" +
+                INDENT + INDENT + "1. todo [description]\n" +
+                INDENT + INDENT + "2. deadline [description] /by [by]\n" +
+                INDENT + INDENT + "3. event [description] /from [from] /to [to]\n" +
+                INDENT + INDENT + INDENT + "example: event dinner /from 6pm /to 8pm\n" +
+                INDENT + "To view your to do list: list\n" +
+                INDENT + "To mark a task as done: mark [task number]\n" +
+                INDENT + "To mark a task as undone: unmark [task number]");
     }
 
     public static void main(String[] args) {
@@ -113,41 +133,52 @@ public class Bean {
 
         greet();
 
+        outerLoop:
         while (Task.getNumberOfTasks() < MAX_LIST_COUNT) {
             userInput = in.nextLine();
+            // Take first word of input as command
+            String userCommand = userInput.split(" ")[0];
 
-            if (userInput.equals("bye")) {
+            switch (userCommand) {
+            case "bye":
                 // To exit
+                break outerLoop;
+
+            case "list":
+                printToDoList();
+
                 break;
-
-            } else if (userInput.equals("list")) {
-                printList(toDoList);
-
-            } else if (userInput.startsWith("mark")) {
-                // Obtain task number by taking second word of input and trim any spaces then parse as int
-                String[] words = userInput.split(" ");
-                int taskNum = Integer.parseInt(words[1].trim());
+            case "mark": {
+                // Obtain task number by taking second word of input and trim any spaces, then parse as int
+                int taskNum = obtainTaskNum(userInput);
                 markTaskAsDone(toDoList, taskNum);
 
-            } else if (userInput.startsWith("unmark")) {
-                // Obtain task number by taking second word of input and trim any spaces then parse as int
-                String[] words = userInput.split(" ");
-                int taskNum = Integer.parseInt(words[1].trim());
+                break;
+            }
+            case "unmark": {
+                // Obtain task number by taking second word of input and trim any spaces, then parse as int
+                int taskNum = obtainTaskNum(userInput);
                 unmarkTaskAsDone(toDoList, taskNum);
 
-            } else if (userInput.startsWith("todo")) {
+                break;
+            }
+            case "todo":
                 addToDo(toDoList, userInput);
 
-            } else if (userInput.startsWith("deadline")) {
+                break;
+            case "deadline":
                 addDeadline(toDoList, userInput);
 
-            } else if (userInput.startsWith("event")) {
+                break;
+            case "event":
                 addEvent(toDoList, userInput);
 
-            } else {
-                printFormattedReply("Sorry, I am not equipped to respond to that yet... :(");
+                break;
+            default:
+                printErrorMessage();
             }
         }
+        // exit because: userInput.equals("bye") || Task.getNumberOfTasks >= MAX_LIST_COUNT
         exit();
     }
 }

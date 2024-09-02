@@ -15,7 +15,7 @@ public class Task {
         numberOfTasks++;
         System.out.println(SEPARATOR_LINE +
                 INDENT + "Added task: '" + description +  "'!\n" +
-                INDENT + "Now, you have " + numberOfTasks + " tasks in your to do list.\n" +
+                INDENT + "You have " + numberOfTasks + " tasks in your to do list.\n" +
                 SEPARATOR_LINE);
     }
 
