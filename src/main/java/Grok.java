@@ -55,3 +55,4 @@ public class Grok {
         System.out.println("____________________________________________________________");
     }
 }
+// Follows A-CodingStandard
