@@ -1,3 +1,10 @@
- Got it. I've added this task:
-       [T][ ] borrow book
- Now you have 5 tasks in the list.
+____________________________________________________________
+Hello! I'm Echo
+What can I do for you?
+
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
