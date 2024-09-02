@@ -11,22 +11,42 @@ public class Archibald {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String taskDescription) {
-        if (taskCount < tasks.length) {
-            tasks[taskCount] = new Task(taskDescription);
-            taskCount++;
-            printArchibaldResponse("added: " + taskDescription);
-        } else {
+    public static void addTask(String input) {
+        if (taskCount >= tasks.length) {
             printArchibaldResponse("Error: Task list is full!");
+            return;
         }
+
+        String[] parts = input.split(" ", 2);
+        String type = parts[0].toLowerCase();
+        String details = parts.length > 1 ? parts[1] : "";
+
+        switch (type) {
+            case "todo":
+                tasks[taskCount++] = new Todo(details);
+                break;
+            case "deadline":
+                String[] deadlineParts = details.split(" /by ", 2);
+                tasks[taskCount++] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                break;
+            case "event":
+                String[] eventParts = details.split(" /from | /to ");
+                tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                break;
+            default:
+                printArchibaldResponse("Error: Unknown task type.");
+                return;
+        }
+
+        printArchibaldResponse("Got it. I've added this task:\n  " + tasks[taskCount - 1] +
+                               "\nNow you have " + taskCount + " tasks in the list.");
     }
 
     public static void printList() {
-        printArchibaldResponse("Tasks:");
+        printArchibaldResponse("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks[i]);
         }
-        System.out.println("____________________________________________________________");
     }
 
     public static void main(String[] args) {

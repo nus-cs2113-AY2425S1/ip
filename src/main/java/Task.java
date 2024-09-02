@@ -19,7 +19,7 @@ public class Task {
         this.isDone = false;
     }
 
-    @Override //for easier status printing
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
