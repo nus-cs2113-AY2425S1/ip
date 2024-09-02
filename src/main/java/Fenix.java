@@ -16,7 +16,7 @@ public class Fenix {
     public static final String FAREWELL =
             "It has been a pleasure assisting you. Farewell.";
     public static int taskNumber = 0;
-    public static String[] taskArray = new String[100];
+    public static Task[] taskArray = new Task[100];
     private final Scanner scanner;
 
     // Constructor
@@ -41,19 +41,36 @@ public class Fenix {
     }
 
     private void processUserInput(String userInput) {
-        switch (userInput) {
+        String[] words = userInput.trim().split(" ");
+        String command = words[0];
+        switch (command) {
         case "bye":
             bidFarewell();
-            break;
+            return;
         case "list":
-            showAllTasks();
-            acceptUserInput();
+            showAllTasks(false);
+            break;
+        case "mark":
+            if (words.length > 1 && isValidIndex(words[1])) {
+                markTaskAsDone(Integer.parseInt(words[1]) - 1);
+            } else {
+                System.out.println(
+                        "Please provide a valid task number to mark");
+            }
+            break;
+        case "unmark":
+            if (words.length > 1 && isValidIndex(words[1])) {
+                unmarkTaskAsDone(Integer.parseInt(words[1]) - 1);
+            } else {
+                System.out.println(
+                        "Please provide a valid task number to unmark");
+            }
             break;
         default:
             storeTask(userInput);
-            acceptUserInput();
             break;
         }
+        acceptUserInput();
     }
 
     public void bidFarewell() {
@@ -62,14 +79,43 @@ public class Fenix {
         scanner.close();
     }
 
-    public void showAllTasks() {
+    public void showAllTasks(boolean isModified) {
+        String modifiedString = (isModified ? "\t" : "");
         for (int i = 0; i < taskArray.length && taskArray[i] != null; i += 1) {
-            System.out.println("\t" + i + ". " + taskArray[i]);
+            System.out.println(modifiedString + "\t" + (i + 1) + ". " +
+                    taskArray[i].toString());
         }
     }
 
+    private boolean isValidIndex(String input) {
+        try {
+            int index = Integer.parseInt(input);
+            return index > 0 && index <= taskNumber;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public void markTaskAsDone(int taskNumber) {
+        System.out.println("Task successfully completed. A job well executed.");
+        taskArray[taskNumber].markAsDone();
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+        showAllTasks(true);
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+    }
+
+    public void unmarkTaskAsDone(int taskNumber) {
+        System.out.println(
+                "Understood. This task has been marked as not done yet.");
+        taskArray[taskNumber].unmarkAsDone();
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+        showAllTasks(true);
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+    }
+
     public void storeTask(String userInput) {
-        taskArray[taskNumber] = userInput;
+        Task task = new Task(userInput);
+        taskArray[taskNumber] = task;
         taskNumber += 1;
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         System.out.println("\t\t" + ADD + userInput);
