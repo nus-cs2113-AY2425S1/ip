@@ -86,13 +86,6 @@ public class King {
         );
     }
 
-//    public static void repeat(String text) {
-//        repeatCount += 1;
-//        System.out.println("____________________________________________________________\n"
-//                + text + "\n"
-//                + "____________________________________________________________"
-//        );
-//    }
 
     public static void main(String[] args) {
         greet();
