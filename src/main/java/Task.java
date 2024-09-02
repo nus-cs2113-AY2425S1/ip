@@ -30,4 +30,9 @@ public class Task {
     public static Task[] getList() {
         return list;
     }
+
+    @Override
+    public String toString() {
+        return  "[" + getStatusIcon() + "] " + description;
+    }
 }
