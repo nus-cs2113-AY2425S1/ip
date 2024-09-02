@@ -24,18 +24,6 @@ public class King {
         chat();
     }
 
-    public static void exit() {
-        System.out.println("____________________________________________________________\n");
-
-        if (repeatCount >= 5) {
-            System.out.println(" I am repeating no more!!!\n");
-        } else {
-            System.out.println(" Bye. Hope to see you again soon!\n");
-        }
-
-        System.out.println("____________________________________________________________");
-    }
-
     public static void chat() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -67,6 +55,19 @@ public class King {
 
     }
 
+    public static void exit() {
+        System.out.println("____________________________________________________________\n");
+
+        if (repeatCount >= 5) {
+            System.out.println(" I am repeating no more!!!\n");
+        } else {
+            System.out.println(" Bye. Hope to see you again soon!\n");
+        }
+
+        System.out.println("____________________________________________________________");
+    }
+
+
     public static int parseTaskIndex(String text) {
         return Integer.parseInt(text.split(" ")[1]) - 1;
     }
@@ -87,7 +88,7 @@ public class King {
 
     public static void addToDoTask(String text) {
         tasksCount += 1;
-        Task t = new Task(text, 0);
+        Task t = new Todo(text);
         tasks.add(t);
         printAddedTaskDescription(t);
     }
@@ -117,7 +118,7 @@ public class King {
             }
         }
 
-        Task t = new Task(taskContent, 1, taskEndTime);
+        Task t = new Deadline(taskContent, taskEndTime);
         tasks.add(t);
         printAddedTaskDescription(t);
     }
@@ -157,7 +158,7 @@ public class King {
             }
         }
 
-        Task t = new Task(taskContent, 2, taskStartTime, taskEndTime);
+        Task t = new Event(taskContent, taskStartTime, taskEndTime);
         tasks.add(t);
         printAddedTaskDescription(t);
     }
