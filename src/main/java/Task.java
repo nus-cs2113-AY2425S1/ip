@@ -5,7 +5,7 @@ public class Task {
     /**
      * Constructs a Task with the specified description. The task is initially not done.
      *
-     * @param description The task description
+     * @param description The task description.
      */
     public Task(String description) {
         this.description = description;
@@ -28,17 +28,17 @@ public class Task {
         this.isDone = true;
     }
 
-    /** Marks the task as not done.
-     *
+    /**
+     * Marks the task as not done.
      */
     public void markAsNotDone(){
         this.isDone = false;
     }
 
     /**
-     * Returns the string representation of the task
+     * Returns the string representation of the task.
      *
-     * @return A string representing the task with its status icon
+     * @return A string representing the task with its status icon.
      */
     @Override
     public String toString(){

@@ -1,10 +1,12 @@
 import java.util.Scanner;
 
 public class CodeCatalyst {
+    private static final int MAX_TASKS = 100;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
 
         printGreeting();
@@ -22,10 +24,14 @@ public class CodeCatalyst {
                 handleMarkCommand(tasks, taskCount, input);
             } else if (input.startsWith("unmark ")) {
                 handleUnmarkCommand(tasks, taskCount, input);
+            } else if (input.startsWith("todo ")) {
+                taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
+            } else if (input.startsWith("deadline ")) {
+                taskCount = addDeadlineTask(tasks, taskCount, input);
+            } else if (input.startsWith("event ")) {
+                taskCount = addEventTask(tasks, taskCount, input);
             } else {
-                tasks[taskCount] = new Task(input);
-                taskCount += 1;
-                System.out.println("         added: " + input);
+                taskCount = addTask(tasks, taskCount, new Task(input));
             }
             printDivider();
         }
@@ -82,5 +88,24 @@ public class CodeCatalyst {
         } catch (NumberFormatException invalidNumberFormat) {
             System.out.println("         " + input.substring(7) + " is not a number");
         }
+    }
+
+
+    private static int addTask(Task[] tasks, int taskCount, Task task) {
+        tasks[taskCount] = task;
+        System.out.println("         Got it. I've added this task: ");
+        System.out.println("         " + tasks[taskCount]);
+        System.out.println("         Now you have " + (taskCount + 1) + " tasks in the list.");
+        return taskCount + 1;
+    }
+
+    private static int addDeadlineTask(Task[] tasks, int taskCount, String input) {
+        String[] parts = input.substring(9).split(" /by ");
+        return addTask(tasks, taskCount, new Deadline(parts[0], parts[1]));
+    }
+
+    private static int addEventTask(Task[] tasks, int taskCount, String input) {
+        String[] parts = input.substring(6).split(" /from | /to ");
+        return addTask(tasks, taskCount,  new Event(parts[0], parts[1], parts[2]));
     }
 }
