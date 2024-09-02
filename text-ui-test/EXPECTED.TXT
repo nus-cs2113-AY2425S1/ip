@@ -1,7 +1,98 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm JEFF!!!
 
+Here are the type of tasks I can track!!!
+'todo [description]'
+'deadline [description] /by [some date]'
+'event [description] /from [some date] /to [some date]'
+
+List of commands I support!!!!
+Type 'list' to display everything you've said!
+Type 'mark'/'unmark' to change the status of inputted tasks!
+Type 'bye' to exit!
+
+If you give me nonsense, I will echo whatever you say!
+Buuuuttt with random capitalisation!
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+____________________________________________________________
+You say:
+____________________________________________________________
+Haiyaa the following task needs to be done:
+  [T][ ] somestuff 2
+Now you have 1 task in ur list
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][ ] somestuff 2
+____________________________________________________________
+You say:
+____________________________________________________________
+Haiyaa the following task needs to be done:
+  [D][ ] itsimportant rly (by: sunday 2pm)
+Now you have 2 task in ur list
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][ ] somestuff 2
+2.[D][ ] itsimportant rly (by: sunday 2pm)
+____________________________________________________________
+You say:
+____________________________________________________________
+Haiyaa the following task needs to be done:
+  [E][ ] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+Now you have 3 task in ur list
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][ ] somestuff 2
+2.[D][ ] itsimportant rly (by: sunday 2pm)
+3.[E][ ] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
+____________________________________________________________
+ogei marked task dOnE
+[T][X] somestuff 2
+____________________________________________________________
+You say:
+____________________________________________________________
+ogei marked task dOnE
+[E][X] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][X] somestuff 2
+2.[D][ ] itsimportant rly (by: sunday 2pm)
+3.[E][X] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
+____________________________________________________________
+womp womp task not finished :(
+[E][ ] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][X] somestuff 2
+2.[D][ ] itsimportant rly (by: sunday 2pm)
+3.[E][ ] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
+____________________________________________________________
+womp womp task not finished :(
+[T][ ] somestuff 2
+____________________________________________________________
+You say:
+____________________________________________________________
+orh hor never finish ur tasks:
+1.[T][ ] somestuff 2
+2.[D][ ] itsimportant rly (by: sunday 2pm)
+3.[E][ ] somewhat important 2 (from: 2938 monday to: 123 sunday 19)
+____________________________________________________________
+You say:
