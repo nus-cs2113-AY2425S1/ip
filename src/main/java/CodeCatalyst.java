@@ -35,6 +35,7 @@ public class CodeCatalyst {
             }
             printDivider();
         }
+        scanner.close();
     }
 
     private static void printDivider() {
@@ -54,7 +55,7 @@ public class CodeCatalyst {
     }
 
     private static void printTaskList(Task[] tasks, int taskCount) {
-        System.out.println("         Here are the tasks in your list: ");
+        System.out.println("         Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println("         " + (i + 1) + ". " + tasks[i]);
         }
@@ -63,10 +64,12 @@ public class CodeCatalyst {
     private static void handleMarkCommand(Task[] tasks, int taskCount, String input) {
         try {
             int taskNumber = Integer.parseInt(input.substring(5));
-            if (taskNumber >= 1 && (taskNumber - 1) < taskCount) {
-                tasks[taskNumber - 1].markAsDone();
-                System.out.println("         Nice! I've marked this task as done: ");
-                System.out.println("         " + tasks[taskNumber - 1]);
+            int taskIndex = taskNumber - 1;
+
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].markAsDone();
+                System.out.println("         Nice! I've marked this task as done:");
+                System.out.println("         " + tasks[taskIndex]);
             } else {
                 System.out.println("         Invalid task number.");
             }
@@ -78,10 +81,12 @@ public class CodeCatalyst {
     private static void handleUnmarkCommand(Task[] tasks, int taskCount, String input) {
         try {
             int taskNumber = Integer.parseInt(input.substring(7));
-            if (taskNumber >= 1 && (taskNumber - 1) < taskCount) {
-                tasks[taskNumber - 1].markAsNotDone();
-                System.out.println("         Ok, I've marked this task as not done yet: ");
-                System.out.println("         " + tasks[taskNumber - 1] );
+            int taskIndex = taskNumber - 1;
+
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].markAsNotDone();
+                System.out.println("         Ok, I've marked this task as not done yet:");
+                System.out.println("         " + tasks[taskIndex] );
             } else {
                 System.out.println("         Invalid task number.");
             }
@@ -90,10 +95,9 @@ public class CodeCatalyst {
         }
     }
 
-
     private static int addTask(Task[] tasks, int taskCount, Task task) {
         tasks[taskCount] = task;
-        System.out.println("         Got it. I've added this task: ");
+        System.out.println("         Got it. I've added this task:");
         System.out.println("         " + tasks[taskCount]);
         System.out.println("         Now you have " + (taskCount + 1) + " tasks in the list.");
         return taskCount + 1;
