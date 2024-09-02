@@ -3,54 +3,69 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * November is a command-line chatbot.
+ * November is a command-line chatbot that manages tasks.
  */
 public class November {
 
     /**
-     * Prints a long line of underscores to mark the start of a print segment.
+     * Prints a line of underscores to mark the start of a print segment.
      */
     public static void beginSegment() {
         System.out.println("____________________________________________________________");
     }
 
     /**
-     * Prints a long line of underscores and newline to mark the end of a print segment.
+     * Prints a line of underscores followed by a newline to mark the end of a print segment.
      */
     public static void endSegment() {
         System.out.println("____________________________________________________________\n");
     }
 
     /**
-     * Prints a numbered list of tasks with a completion status indicator.
+     * Prints a numbered list of tasks with their completion status.
      *
-     * @param taskList The list of tasks to print, each task displaying its completion status.
+     * @param taskList The list of tasks to print, with each task displaying its completion status.
      */
     public static void printTaskList(List<Task> taskList) {
         int index = 0;
         System.out.println("Here are the tasks in your list:");
-        while(index < taskList.size()){
+        while (index < taskList.size()) {
             System.out.print(index + 1 + ".");
             printTask(taskList.get(index));
             index++;
         }
     }
 
+    /**
+     * Prints the details of a single task.
+     *
+     * @param task The task to print.
+     */
     public static void printTask(Task task) {
         System.out.println("[" + task.getTaskIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
     }
 
+    /**
+     * Prints a confirmation message for a newly added task.
+     *
+     * @param taskList The list of tasks containing the newly added task.
+     */
     public static void printAddedTask(List<Task> taskList) {
         System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
         printTask(taskList.get(taskList.size() - 1));
     }
 
+    /**
+     * Prints the current number of tasks in the list.
+     *
+     * @param taskList The list of tasks.
+     */
     public static void printTaskCount(List<Task> taskList) {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
-     * Main method of the November chatbot.
+     * The main method of the November chatbot.
      *
      * @param args Command-line arguments (not used).
      */
@@ -61,15 +76,17 @@ public class November {
         endSegment();
 
         List<Task> taskList = new ArrayList<>();
-
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
 
-        while(!input.equals("bye")) {
+        // Continue reading user input until 'bye' is entered.
+        while (!input.equals("bye")) {
             String[] sentences = {input, input};
             String firstWord = input;
             String sentence = input;
-            if(input.contains(" ")) {
+
+            // Split the input into command and details if applicable.
+            if (input.contains(" ")) {
                 sentences = input.split(" ", 2);
                 firstWord = sentences[0];
                 sentence = sentences[1];
@@ -90,7 +107,7 @@ public class November {
                 int unmarkIndex = Integer.parseInt(sentences[1]) - 1;
                 taskList.get(unmarkIndex).setIncomplete();
                 beginSegment();
-                System.out.println("Ok, I've marked this task as not done yet: " + System.lineSeparator() + "  ");
+                System.out.print("Ok, I've marked this task as not done yet: " + System.lineSeparator() + "  ");
                 printTask(taskList.get(unmarkIndex));
                 endSegment();
                 break;
@@ -101,45 +118,45 @@ public class November {
                 endSegment();
                 break;
             case "todo":
+                // Adds a new todo task to the task list.
                 Todo todoTask = new Todo(sentence);
                 taskList.add(todoTask);
-
                 beginSegment();
                 todoTask.printTask();
                 printTaskCount(taskList);
                 endSegment();
                 break;
             case "deadline":
+                // Adds a new deadline task to the task list.
                 String deadlineDescription = sentence.substring(0, sentence.indexOf("/by "));
                 String by = sentence.substring(sentence.indexOf("/by ") + 4);
-
                 Deadline deadlineTask = new Deadline(deadlineDescription, by);
                 taskList.add(deadlineTask);
-
                 beginSegment();
                 deadlineTask.printTask();
                 printTaskCount(taskList);
                 endSegment();
                 break;
             case "event":
+                // Adds a new event task to the task list.
                 String eventDescription = sentence.substring(0, sentence.indexOf("/from "));
                 String start = sentence.substring(sentence.indexOf("/from ") + 6, sentence.indexOf("/to "));
                 String end = sentence.substring(sentence.indexOf("/to ") + 4);
-
                 Event eventTask = new Event(eventDescription, start, end);
                 taskList.add(eventTask);
-
                 beginSegment();
                 eventTask.printTask();
                 printTaskCount(taskList);
                 endSegment();
                 break;
             default:
+                // Echoes back unrecognized input.
                 beginSegment();
-                System.out.println("Error: Unrecognized input");
+                System.out.println(input);
                 endSegment();
                 break;
             }
+
             input = scan.nextLine();
         }
 

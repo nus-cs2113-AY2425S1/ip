@@ -22,36 +22,49 @@ class Task {
     /**
      * Returns the description of the task.
      *
-     * @return Description of the task.
+     * @return The description of the task.
      */
     public String getDescription() {
         return description;
     }
 
-    /** Sets task completion status to be true. */
-    public void setComplete(){
+    /**
+     * Marks the task as complete.
+     */
+    public void setComplete() {
         this.isComplete = true;
     }
 
-    /** Sets task completion status to be false. */
-    public void setIncomplete(){
+    /**
+     * Marks the task as incomplete.
+     */
+    public void setIncomplete() {
         this.isComplete = false;
     }
 
     /**
-     * Returns an indicator for task completion status.
+     * Returns an icon representing the task's completion status.
      *
-     * @return "X" if completed or " " if not completed.
+     * @return "X" if the task is completed, or " " if it is not.
      */
     public String getStatusIcon() {
-        return(isComplete ? "X" : " ");
+        return (isComplete ? "X" : " ");
     }
 
+    /**
+     * Returns the task icon. Default is an empty space.
+     *
+     * @return A string representing the task icon.
+     */
     public String getTaskIcon() {
         return " ";
     }
 
+    /**
+     * Prints the task.
+     * Default implementation does nothing.
+     */
     public void printTask() {
         System.out.println();
     }
-};
+}
