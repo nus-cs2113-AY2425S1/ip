@@ -10,26 +10,31 @@ public class Dobby {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        boolean saidBye = false;
+        String line;
 
         printWelcomeMessage();
 
-        while (!saidBye){
-            String line = in.nextLine().trim();
+        while (true){
+            line = in.nextLine().trim();
             if (line.equalsIgnoreCase("bye")){
-                saidBye = true;
-            } else if (line.equals("list")) {
-                printList();
-            } else if (line.startsWith("mark ")) {
-                markTaskAsDone(line);
-            } else if (line.startsWith("unmark ")) {
-                unmarkTaskAsDone(line);
-            } else {
-                addTask(line);
+                break;
             }
+            processCommand(line);
         }
 
         printGoodbyeMessage();
+    }
+
+    private static void processCommand(String line) {
+        if (line.equals("list")) {
+            printList();
+        } else if (line.startsWith("mark ")) {
+            markTaskAsDone(line);
+        } else if (line.startsWith("unmark ")) {
+            unmarkTaskAsDone(line);
+        } else {
+            addTask(line);
+        }
     }
 
     private static void printWelcomeMessage(){
@@ -55,22 +60,30 @@ public class Dobby {
         printTaskAddedMessage();
     }
 
-    public static Task createTask(String line){
+    private static Task createTask(String line){
         if (line.startsWith("todo ")) {
             return new Todo(line.substring("todo ".length()));
         } else if (line.startsWith("deadline ")) {
-            String[] lineParts = line.split(" /by ");
-            String taskDescription = lineParts[0].replaceFirst("deadline ", "");
-            String byWhen = lineParts[1];
-            return new Deadline(taskDescription, byWhen);
+            return createDeadlineTask(line);
         } else if (line.startsWith("event ")){
-            String[] lineParts = line.split(" /from | /to ");
-            String taskDescription = lineParts[0].replaceFirst("event ", "");
-            String fromTime = lineParts[1];
-            String toTime = lineParts[2];
-            return new Event(taskDescription, fromTime, toTime);
+            return createEventTask(line);
         }
         return new Task(line);
+    }
+
+    private static Deadline createDeadlineTask(String line){
+        String[] lineParts = line.split(" /by ");
+        String taskDescription = lineParts[0].replaceFirst("deadline ", "");
+        String byWhen = lineParts[1];
+        return new Deadline(taskDescription, byWhen);
+    }
+
+    private static Event createEventTask(String line){
+        String[] lineParts = line.split(" /from | /to ");
+        String taskDescription = lineParts[0].replaceFirst("event ", "");
+        String fromTime = lineParts[1];
+        String toTime = lineParts[2];
+        return new Event(taskDescription, fromTime, toTime);
     }
 
     private static void addTaskToList(Task task){
@@ -96,10 +109,7 @@ public class Dobby {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].markAsDone();
-            printSeparator();
-            System.out.println("    Dobby has magically marked this task as done:");
-            System.out.println("      " + taskList[taskNumber-1]);
-            printSeparator();
+            printTaskStatus("done", taskNumber);
         }
     }
 
@@ -107,11 +117,19 @@ public class Dobby {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].unmarkAsDone();
-            printSeparator();
-            System.out.println("    Dobby has marked this task as incomplete:");
-            System.out.println("      " + taskList[taskNumber-1]);
-            printSeparator();
+            printTaskStatus("incomplete", taskNumber);
         }
+    }
+
+    private static void printTaskStatus(String status, int taskNumber){
+        printSeparator();
+        if ("done".equals(status)) {
+            System.out.println("    Dobby has magically marked this task as done:");
+        } else if ("incomplete".equals(status)) {
+            System.out.println("    Dobby has marked this task as incomplete:");
+        }
+        System.out.println("      " + taskList[taskNumber-1]);
+        printSeparator();
     }
 
     private static void printSeparator(){
