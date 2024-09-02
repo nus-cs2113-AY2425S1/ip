@@ -1,9 +1,9 @@
 public class Task {
-    private final String contents;
+    private final String description;
     private boolean isDone;
 
-    public Task(String contents) {
-        this.contents = contents;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -15,11 +15,5 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon(){
-        return (isDone ? "X":" ");
-    }
-
-    public String getContents(){
-        return contents;
-    }
+    public String toString() { return String.format("[%s] %s", isDone ? "X":" ", description); }
 }
