@@ -1,6 +1,6 @@
 public class CommandHandler {
     private final TaskList taskList;
-
+    private final int LINE_LENGTH = 50;
 
     public CommandHandler(TaskList taskList){
         this.taskList = taskList;
@@ -17,6 +17,8 @@ public class CommandHandler {
             handleInvalidCommand();
             return;
         }
+
+        printLine();
 
         switch (command) {
             case LIST:
@@ -38,7 +40,14 @@ public class CommandHandler {
                 handleEventCommand(argumentString);
                 break;
         }
+
+        printLine();
     }
+
+    private void printLine(){
+        System.out.println("-".repeat(LINE_LENGTH));
+    }
+
 
     private void handleListCommand() {
         taskList.listTasks();
@@ -83,6 +92,7 @@ public class CommandHandler {
         taskList.addTodo(description);
     }
 
+    //
     private String[] parseArguments(String arguments, String... delimiters) {
         String splitBy = String.join("|", delimiters);
         return arguments.split(splitBy);

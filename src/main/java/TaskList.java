@@ -30,13 +30,13 @@ public class TaskList {
     public void markTask(int index){
         Task selectedTask = taskList[index];
         selectedTask.markDone();
-        System.out.printf("Nice! I've marked this task as done:%n  %s", selectedTask);
+        System.out.printf("Nice! I've marked this task as done:%n  %s%n", selectedTask);
     }
 
     public void unmarkTask(int index){
         Task selectedTask = taskList[index];
         selectedTask.unmarkDone();
-        System.out.printf("OK, I've marked this task as not done yet:%n %s", selectedTask);
+        System.out.printf("OK, I've marked this task as not done yet:%n %s%n", selectedTask);
     }
 
     public void listTasks(){
