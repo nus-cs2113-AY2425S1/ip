@@ -15,5 +15,14 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toString() { return String.format("[%s] %s", isDone ? "X" : " ", description); }
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() { return String.format("[%s] %s", getStatusIcon(), getDescription()); }
 }
