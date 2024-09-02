@@ -8,6 +8,7 @@ public class Event  extends Task{
         this.end = end;
     }
 
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), start, end);
     }
