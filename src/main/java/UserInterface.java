@@ -36,7 +36,7 @@ public class UserInterface {
 
     // Main ChatBot Loop
     public static void startYappin(TaskManager taskManager) {
-        System.out.println(CommonStrings.START_UP_MESSAGE);
+        System.out.println(StringStorage.START_UP_MESSAGE);
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInputString = scanner.nextLine();
@@ -72,7 +72,7 @@ public class UserInterface {
                 handleUnmarkInstruction(taskManager, instruction.getInstructionIntegerArg());
                 break;
             case BYE:
-                System.out.println(CommonStrings.SHUT_DOWN_MESSAGE);
+                System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
                 return;
             }
             // TBA ?
