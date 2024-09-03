@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Appal {
     // Constants for commands
@@ -10,6 +11,20 @@ public class Appal {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final int COMMAND_INDEX = 0;
+
+    // Integer constants for specific type of tasks
+    public static final int TASK_INDEX = 1;
+    public static final int BY_INDEX = 2;
+    public static final int FROM_INDEX = 2;
+    public static final int TO_INDEX = 3;
+
+    // String constants for conversation
+    public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+    public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
+    public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
+    public static final String UNKNOWN_INPUT_NOTICE = "Oops! I don't recognise this command :(";
+    public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
+    public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
 
     // Attributes
     private boolean isExited = false;
@@ -24,24 +39,27 @@ public class Appal {
     }
 
     public void printSeparator() {
-        System.out.println("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(SEPARATOR);
     }
 
-    public void printReply(String reply) {
+    public void printReply() {
         printSeparator();
-        System.out.println(reply + " - added to your to-do list, you can do it!");
-        printSeparator();
-    }
-
-    public void printBye() {
-        printSeparator();
-        System.out.println("See ya! An Appal a day, keeps the boredom away!");
+        System.out.println(NEW_TASK_NOTICE);
+        int latestTaskIndex = Task.getTotalTasks() - 1;
+        printOneTask(taskList[latestTaskIndex]);
         printSeparator();
     }
 
-    public void printNotice() {
+    public void exitAppal() {
+        isExited = true;
         printSeparator();
-        System.out.println("Oops! I don't recognise this command :(");
+        System.out.println(BYE_MESSAGE);
+        printSeparator();
+    }
+
+    public void handleUnknownInput() {
+        printSeparator();
+        System.out.println(UNKNOWN_INPUT_NOTICE);
         printSeparator();
     }
 
@@ -49,18 +67,18 @@ public class Appal {
         System.out.println(task);
     }
 
-    public void markTask(String instruction, boolean isMark) {
-        String[] words = instruction.split(" ");
-        int taskId = Integer.parseInt(words[1]);
-        int listNumber = taskId - 1;
-        taskList[listNumber].setDone(isMark);
+    public void markTask(String[] commandDetails, boolean isMark) {
+        int taskId = Integer.parseInt(commandDetails[TASK_INDEX]);
+        int listIndex = taskId - 1;
+        Task taskToMark = taskList[listIndex];
+        taskToMark.setDone(isMark);
         printSeparator();
         if (isMark) {
-            System.out.println("Task done! One more step towards success :)");
+            System.out.println(TASK_DONE_MESSAGE);
         } else {
-            System.out.println("What's next on the agenda? :D");
+            System.out.println(UNMARK_TASK_MESSAGE);
         }
-        printOneTask(taskList[listNumber]);
+        printOneTask(taskToMark);
         printSeparator();
     }
 
@@ -75,62 +93,54 @@ public class Appal {
         printSeparator();
     }
 
-    public void addToDo(String instruction) {
+    public void addToDo(String[] commandDetails) {
         int totalToDos = Task.getTotalTasks();
-        String task = instruction.replace("todo ", "");
-        taskList[totalToDos] = new ToDo(task);
+        taskList[totalToDos] = new ToDo(commandDetails[TASK_INDEX]);
     }
 
-    public void addDeadline(String instruction) {
+    public void addDeadline(String[] commandDetails) {
         int totalToDos = Task.getTotalTasks();
-        String[] words = instruction.split("/");
-        String task = words[0].replace("deadline ", "");
-        String by = words[1].replace("by", "").trim();
-        taskList[totalToDos] = new Deadline(task, by);
+        taskList[totalToDos] = new Deadline(commandDetails[TASK_INDEX], commandDetails[BY_INDEX]);
     }
 
-    public void addEvent(String instruction) {
+    public void addEvent(String[] commandDetails) {
         int totalToDos = Task.getTotalTasks();
-        String[] words = instruction.split("/");
-        String task = words[0].replace("event ", "");
-        String from = words[1].replace("from", "");
-        String to = words[2].replace("to", "");
-        taskList[totalToDos] = new Event(task, from, to);
+        taskList[totalToDos] = new
+                Event(commandDetails[TASK_INDEX], commandDetails[FROM_INDEX], commandDetails[TO_INDEX]);
     }
 
     public void handleInput() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        String[] words = line.split(" ");
-        String command = words[COMMAND_INDEX];
+        String[] commandDetails = Parser.extractCommandDetails(line);
+        String command = commandDetails[COMMAND_INDEX];
         switch (command) {
         case COMMAND_BYE:
-            isExited = true;
-            printBye();
+            exitAppal();
             break;
         case COMMAND_LIST:
             printTaskList();
             break;
         case COMMAND_TODO:
-            addToDo(line);
-            printReply(line);
+            addToDo(commandDetails);
+            printReply();
             break;
         case COMMAND_DEADLINE:
-            addDeadline(line);
-            printReply(line);
+            addDeadline(commandDetails);
+            printReply();
             break;
         case COMMAND_EVENT:
-            addEvent(line);
-            printReply(line);
+            addEvent(commandDetails);
+            printReply();
             break;
         case COMMAND_MARK:
-            markTask(line, true);
+            markTask(commandDetails, true);
             break;
         case COMMAND_UNMARK:
-            markTask(line, false);
+            markTask(commandDetails, false);
             break;
         default:
-            printNotice();
+            handleUnknownInput();
             break;
         }
     }
