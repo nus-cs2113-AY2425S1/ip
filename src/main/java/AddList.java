@@ -1,4 +1,5 @@
 public class AddList {
+
     private final String[] entries = new String[100]; 
     private final boolean[] done = new boolean[100];   
     private static final String SEPARATOR = "\t ___________________________"; 
@@ -11,11 +12,9 @@ public class AddList {
             System.out.println(SEPARATOR); 
             System.out.println("\t added: " + entry); 
             System.out.println(SEPARATOR); 
-        }
-        else {
+        } else {
             System.out.println("\t Cannot add entry"); 
         }
-
     }
 
     public void displayEntries() {
@@ -27,8 +26,7 @@ public class AddList {
                 String completion; 
                 if (done[i] == true) {
                     completion = "[X] "; 
-                }
-                else {
+                } else {
                     completion = "[ ] "; 
                 }
                 System.out.println("\t" + String.valueOf(i+1) + ". " + completion + entries[i]); 
