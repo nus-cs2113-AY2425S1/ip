@@ -1,3 +1,4 @@
+/*
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -5,8 +6,9 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Scanner;
-
+*/
 public class LLMChat {
+    /*
     private static final String API_KEY = System.getenv("OPENAI_API_KEY");
 
     public String callLLMApi(String prompt) {
@@ -121,5 +123,5 @@ public class LLMChat {
                 System.out.println("LLM: " + llmResponse);
             }
         }
-    }
+    }*/
 }

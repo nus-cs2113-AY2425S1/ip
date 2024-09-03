@@ -17,11 +17,11 @@ public class Initializer {
         case "2":
             DataStorage.storeData(scanner);
             break;
-//        case "3":
-//            llmChat.chatWithAudience(scanner);
-//            initialise(scanner, llmChat);
-//            break;
-        default:
+  /*      case "3":
+            llmChat.chatWithAudience(scanner);
+            initialise(scanner, llmChat);
+            break;
+ */       default:
             System.out.println("Invalid input");
             initialise(scanner, llmChat);
             break;

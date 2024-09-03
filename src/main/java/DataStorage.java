@@ -37,7 +37,7 @@ public class DataStorage {
             String by = scanner.nextLine();
             addTask(new Task(line.substring(9), by, Task.TaskType.DEADLINE));
         } else if (line.startsWith("event ")) {
-            System.out.println("Enter event time (at when):");
+            System.out.println("Duration for the event: ");
             String at = scanner.nextLine();
             addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
         } else if (line.startsWith("mark ")) {
