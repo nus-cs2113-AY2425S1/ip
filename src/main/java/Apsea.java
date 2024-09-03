@@ -35,22 +35,33 @@ public class Apsea {
 
     public static void markTask(Task[] tasks, String taskNumber) {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
-        tasks[taskIndex].markAsDone();
 
-        printLine();
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("    " + tasks[taskIndex]);
-        printLine();
+        if (taskIndex < count) {
+            tasks[taskIndex].markAsDone();
+
+            printLine();
+            System.out.println("    Nice! I've marked this task as done:");
+            System.out.println("    " + tasks[taskIndex]);
+            printLine();
+        } else {
+            printError();
+        }
     }
 
     public static void unmarkTask(Task[] tasks, String taskNumber) {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
-        tasks[taskIndex].markAsUndone();
 
-        printLine();
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("    " + tasks[taskIndex]);
-        printLine();
+        if (taskIndex < count) {
+            tasks[taskIndex].markAsUndone();
+
+            printLine();
+            System.out.println("    OK, I've marked this task as not done yet:");
+            System.out.println("    " + tasks[taskIndex]);
+            printLine();
+        }
+        else {
+            printError();
+        }
     }
 
     public static void addTodo(String line) {
@@ -64,38 +75,58 @@ public class Apsea {
         System.out.println("    Now you have " + count + " task(s) in the list:");
         printLine();
     }
+    public static boolean isValidDeadline(String line, int byPosition) {
+        return (byPosition >= 0) && (byPosition + 4 < line.length());
+    }
 
     public static void addDeadline(String line) {
         final int NAME_POSITION = 9;
-        final int BY_POSITION = line.indexOf("/by");
+        int byPosition = line.indexOf("/by");
 
-        tasks[count] = new Deadline(line.substring(NAME_POSITION, BY_POSITION),
-                line.substring(BY_POSITION + 4));
-        count++;
+        if (isValidDeadline(line, byPosition)) {
+            tasks[count] = new Deadline(line.substring(NAME_POSITION, byPosition),
+                    line.substring(byPosition + 4));
+            count++;
 
-        printLine();
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks[count-1]);
-        System.out.println("    Now you have " + count + " task(s) in the list:");
-        printLine();
+            printLine();
+            System.out.println("    I've added this task to the list:");
+            System.out.println("    " + tasks[count - 1]);
+            System.out.println("    Now you have " + count + " task(s) in the list:");
+            printLine();
+        } else {
+            printError();
+        }
     }
+
+    public static boolean isValidEvent(String line, int fromPosition, int toPosition) {
+        boolean hasFrom = fromPosition >= 0;
+        boolean hasTo = toPosition >= 0;
+        boolean isValidFrom = fromPosition + 6 < toPosition;
+        boolean isValidTo = line.length() > toPosition + 4;
+
+        return hasFrom && hasTo && isValidFrom && isValidTo;
+    }
+
 
     public static void addEvent(String line) {
         final int NAME_POSITION = 6;
-        final int FROM_POSITION = line.indexOf("/from");
-        final int TO_POSITION = line.indexOf("/to");
+        int fromPosition = line.indexOf("/from");
+        int toPosition = line.indexOf("/to");
 
-        tasks[count] = new Event(line.substring(NAME_POSITION, FROM_POSITION),
-                line.substring(FROM_POSITION + 6, TO_POSITION - 1),
-                line.substring(TO_POSITION + 4));
-        count++;
+        if (isValidEvent(line, fromPosition, toPosition)) {
+            tasks[count] = new Event(line.substring(NAME_POSITION, fromPosition),
+                    line.substring(fromPosition + 6, toPosition - 1),
+                    line.substring(toPosition + 4));
+            count++;
 
-        printLine();
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks[count-1]);
-        System.out.println("    Now you have " + count + " task(s) in the list:");
-        printLine();
-
+            printLine();
+            System.out.println("    I've added this task to the list:");
+            System.out.println("    " + tasks[count - 1]);
+            System.out.println("    Now you have " + count + " task(s) in the list:");
+            printLine();
+        } else {
+            printError();
+        }
     }
 
     public static void getInput() {
@@ -105,7 +136,7 @@ public class Apsea {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             String[] words = line.split(" ");
-            switch (words[0]) {
+            switch (words[0].toLowerCase()) {
             case "bye":
                 isExit = true;
                 break;
