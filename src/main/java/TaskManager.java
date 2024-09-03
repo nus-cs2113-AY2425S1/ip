@@ -1,8 +1,8 @@
-public class TaskList {
+public class TaskManager {
     private final Task[] taskList;
     private int currentTaskIndex;
 
-    public TaskList(){
+    public TaskManager(){
         currentTaskIndex = 0;
         taskList = new Task[100];
     }

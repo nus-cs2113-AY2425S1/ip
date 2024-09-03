@@ -6,8 +6,8 @@ public class Medea {
         greet();
 
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
-        CommandHandler commandHandler = new CommandHandler(taskList);
+        TaskManager taskManager = new TaskManager();
+        CommandHandler commandHandler = new CommandHandler(taskManager);
 
         String input = scanner.nextLine();
 

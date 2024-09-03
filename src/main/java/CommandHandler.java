@@ -1,18 +1,22 @@
 public class CommandHandler {
-    private final TaskList taskList;
+    private final TaskManager taskManager;
     private final int LINE_LENGTH = 50;
 
-    public CommandHandler(TaskList taskList){
-        this.taskList = taskList;
+    public CommandHandler(TaskManager taskManager){
+        this.taskManager = taskManager;
     }
 
-    public void handleInput(String input) {
+    public void handleInput(String input){
         String[] inputArguments = input.split(" ", 2);
         String commandString = inputArguments[0];
         String argumentString = inputArguments.length > 1 ? inputArguments[1] : "";
 
         Command command = Command.parseString(commandString);
 
+        processCommand(command, argumentString);
+    }
+
+    private void processCommand(Command command, String argumentString) {
         if (command == null) {
             handleInvalidCommand();
             return;
@@ -48,9 +52,8 @@ public class CommandHandler {
         System.out.println("-".repeat(LINE_LENGTH));
     }
 
-
     private void handleListCommand() {
-        taskList.listTasks();
+        taskManager.listTasks();
     }
 
     private int parseTaskIndex(String taskIndex) {
@@ -69,7 +72,7 @@ public class CommandHandler {
             return;
         }
 
-        taskList.markTask(markIndex);
+        taskManager.markTask(markIndex);
     }
 
     private void handleUnmarkCommand(String taskIndex) {
@@ -80,7 +83,7 @@ public class CommandHandler {
             return;
         }
 
-        taskList.unmarkTask(unmarkIndex);
+        taskManager.unmarkTask(unmarkIndex);
     }
 
     private void handleTodoCommand(String description) {
@@ -89,42 +92,41 @@ public class CommandHandler {
             return;
         }
 
-        taskList.addTodo(description);
+        taskManager.addTodo(description);
     }
 
-    //
-    private String[] parseArguments(String arguments, String... delimiters) {
+    private String[] parseArguments(String argumentString, String... delimiters) {
         String splitBy = String.join("|", delimiters);
-        return arguments.split(splitBy);
+        return argumentString.split(splitBy);
     }
 
-    private void handleDeadlineCommand(String arguments) {
-        String[] parts = parseArguments(arguments, " /by ");
+    private void handleDeadlineCommand(String argumentString) {
+        String[] arguments = parseArguments(argumentString, " /by ");
 
-        if (parts.length != 2) {
+        if (arguments.length != 2) {
             System.out.println("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
             return;
         }
 
-        String description = parts[0];
-        String deadlineDate = parts[1];
+        String description = arguments[0];
+        String deadlineDate = arguments[1];
 
-        taskList.addDeadline(description, deadlineDate);
+        taskManager.addDeadline(description, deadlineDate);
     }
 
-    private void handleEventCommand(String arguments) {
-        String[] parts = parseArguments(arguments, " /from ", " /to ");
+    private void handleEventCommand(String argumentString) {
+        String[] arguments = parseArguments(argumentString, " /from ", " /to ");
 
-        if (parts.length != 3) {
+        if (arguments.length != 3) {
             System.out.println("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
             return;
         }
 
-        String description = parts[0];
-        String eventStart = parts[1];
-        String eventEnd = parts[2];
+        String description = arguments[0];
+        String eventStart = arguments[1];
+        String eventEnd = arguments[2];
 
-        taskList.addEvent(description, eventStart, eventEnd);
+        taskManager.addEvent(description, eventStart, eventEnd);
     }
 
     private void handleInvalidCommand(){
