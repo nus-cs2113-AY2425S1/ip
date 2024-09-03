@@ -1,6 +1,6 @@
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected final String from;
+    protected final String to;
 
     public Event(String input) {
         super(input.split("/", 3)[0].trim());
@@ -8,7 +8,7 @@ public class Event extends Task {
         String[] parts = input.split("/", 3);
 
         this.from = parts[1].trim().substring(5); // ignore "from "
-        this.to = parts[2].trim().substring(3);   // ifnore "to "
+        this.to = parts[2].trim().substring(3);   // ignore "to "
         this.icon = "E";
     }
 

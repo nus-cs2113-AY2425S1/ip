@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    protected String by;
+    protected final String by;
 
     public Deadline(String input) {
         super(input.split("/", 2)[0].trim());

@@ -1,8 +1,8 @@
-public class List {
+public class TaskList {
     private final Task[] tasks;
     private int size;
 
-    public List(int capacity) {
+    public TaskList(int capacity) {
         this.tasks = new Task[capacity];
         this.size = 0;
     }
