@@ -3,9 +3,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DianaAssistant {
+    private static final String ENCLOSURE = "------------------------------";
+
     public void interact() {
-        System.out.println("Hello, I am Diana! A personal CLI assistant :)");
-        System.out.println("What can I do for you?");
+        printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
 
@@ -49,12 +50,31 @@ public class DianaAssistant {
         return input.split(" ")[0];
     }
 
+    private void printWelcomeMessage() {
+        printEnclosure();
+        System.out.println("Hello, I am Diana! A personal assistant that helps you keep track of your tasks :)");
+        System.out.println("Here are the list of things that Diana can do for you");
+        System.out.println("1. Create a todo task eg. [todo read book]");
+        System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
+        System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
+        System.out.println("4. Type either mark or unmark to indicate the completion rate of your task");
+        System.out.println("5. Type list to view the your list of tasks.");
+        System.out.println("6. Type bye to exit the programme");
+        printEnclosure();
+    }
+
+    private void printEnclosure() {
+        System.out.println(ENCLOSURE);
+    }
+
     private void printList (List<Task> list) {
+        printEnclosure();
 
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             System.out.println((i + 1) + ". " + task.toString());
         }
+        printEnclosure();
         return;
     }
 
@@ -65,11 +85,15 @@ public class DianaAssistant {
                 Task task = list.get(TaskNum);
                 if (toMark) {
                     task.markAsDone();
+                    printEnclosure();
                     System.out.println("Nice! I've marked this task as done\n" + task.toString());
+                    printEnclosure();
                 }
                 else {
                     task.markAsNotDone();
+                    printEnclosure();
                     System.out.println("Okay, I've marked this task as not done yet\n" + task.toString());
+                    printEnclosure();
                 }
             }
             else {
@@ -82,14 +106,15 @@ public class DianaAssistant {
     }
 
     private void printAddedTask (String description, List<Task> list) {
+        printEnclosure();
         System.out.println("Got it! I've added this task");
         System.out.println(description);
         System.out.println("Now you have " + list.size() + " tasks in the list");
+        printList(list);
     }
 
     private void addTodo (String input, List<Task> list) {
         String description = input.substring("todo".length()).trim();
-        System.out.println("added: " + input);
         Todo todo = new Todo(description);
         list.add(todo);
         printAddedTask(description, list);
