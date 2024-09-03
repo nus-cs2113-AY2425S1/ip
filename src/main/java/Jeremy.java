@@ -10,30 +10,33 @@ public class Jeremy {
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
             String[] parts = userInput.split(" ", 2);
-            String command = parts[0];
+            String commandStr = parts[0];
             String argument = parts.length > 1 ? parts[1] : "";
+            Command command = Command.fromString(commandStr);
 
             switch (command) {
-            case "list":
+            case LIST:
                 taskList.printList();
                 break;
-            case "mark":
+            case MARK:
                 taskList.markTaskAsDone(Integer.parseInt(argument));
                 break;
-            case "unmark":
+            case UNMARK:
                 taskList.markTaskAsNotDone(Integer.parseInt(argument));
                 break;
-            case "todo":
+            case TODO:
                 taskList.addTask(new Todo(argument));
                 break;
-            case "deadline":
+            case DEADLINE:
                 taskList.addTask(new Deadline(argument));
                 break;
-            case "event":
+            case EVENT:
                 taskList.addTask(new Event(argument));
                 break;
-            default:
-                taskList.addTask(new Task(userInput));
+            case UNKNOWN_COMMAND:
+                PrintUtils.lineBreak();
+                PrintUtils.println("Oops, " + commandStr + " is not a valid command.");
+                PrintUtils.lineBreak();
                 break;
             }
 
