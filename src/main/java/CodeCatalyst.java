@@ -21,9 +21,9 @@ public class CodeCatalyst {
             } else if (input.equals("list")) {
                 printTaskList(tasks, taskCount);
             } else if (input.startsWith("mark ")) {
-                handleMarkCommand(tasks, taskCount, input);
+                handleTaskStatusChange(tasks, taskCount, input, true);
             } else if (input.startsWith("unmark ")) {
-                handleUnmarkCommand(tasks, taskCount, input);
+                handleTaskStatusChange(tasks, taskCount, input, false);
             } else if (input.startsWith("todo ")) {
                 taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
             } else if (input.startsWith("deadline ")) {
@@ -61,37 +61,52 @@ public class CodeCatalyst {
         }
     }
 
-    private static void handleMarkCommand(Task[] tasks, int taskCount, String input) {
-        try {
-            int taskNumber = Integer.parseInt(input.substring(5));
-            int taskIndex = taskNumber - 1;
+    private static void handleTaskStatusChange(Task[] tasks, int taskCount, String input, boolean isMark) {
+        int taskNumber = extractTaskNumber(input, isMark);
+        if (taskNumber == -1) {
+            return;  // Invalid task number, already handled in extractTaskNumber.
+        }
+        changeTaskStatus(tasks, taskCount, taskNumber, isMark);
+    }
 
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
-                System.out.println("         Nice! I've marked this task as done:");
-                System.out.println("         " + tasks[taskIndex]);
-            } else {
-                System.out.println("         Invalid task number.");
-            }
+    /**
+     * Extracts the task number from the input command.
+     *
+     * @param input The user input command.
+     * @param isMark True if the command is to mark a task, false for unmark.
+     * @return The valid task number, or -1 if invalid.
+     */
+    private static int extractTaskNumber(String input, boolean isMark) {
+        int prefixLength = isMark ? 5 : 7; // length of "mark " or "unmark "
+        try {
+            return Integer.parseInt(input.substring(prefixLength));
         } catch (NumberFormatException invalidNumberFormat) {
-            System.out.println("         " + input.substring(5) + " is not a number");
+            System.out.println("         " + input.substring(prefixLength) + " is not a number");
+            return -1;
         }
     }
 
-    private static void handleUnmarkCommand(Task[] tasks, int taskCount, String input) {
-        try {
-            int taskNumber = Integer.parseInt(input.substring(7));
-            int taskIndex = taskNumber - 1;
-
-            if (taskIndex >= 0 && taskIndex < taskCount) {
+    /**
+     * Change the status of the task to done or not done.
+     *
+     * @param tasks The array of tasks.
+     * @param taskCount The current number of tasks.
+     * @param taskNumber The task number to change status.
+     * @param isMark True to mark the task as done, false to unmark.
+     */
+    private static void changeTaskStatus(Task[] tasks, int taskCount, int taskNumber, boolean isMark) {
+        int taskIndex = taskNumber - 1;
+        if (taskIndex >= 0 && taskIndex < taskCount) {
+            if (isMark) {
+                tasks[taskIndex].markAsDone();
+                System.out.println("         Nice! I've marked this task as done:");
+            } else {
                 tasks[taskIndex].markAsNotDone();
                 System.out.println("         Ok, I've marked this task as not done yet:");
-                System.out.println("         " + tasks[taskIndex] );
-            } else {
-                System.out.println("         Invalid task number.");
             }
-        } catch (NumberFormatException invalidNumberFormat) {
-            System.out.println("         " + input.substring(7) + " is not a number");
+            System.out.println("         " + tasks[taskIndex]);
+        } else {
+            System.out.println("         Invalid task number.");
         }
     }
 
