@@ -29,6 +29,12 @@ public class DBot {
                 mark(line);
             } else if (line.startsWith("unmark ")) {
                 unmark(line);
+            } else if (line.startsWith("todo ")) {
+                todo(line);
+            } else if (line.startsWith("event ")) {
+                event(line);
+            } else if (line.startsWith("deadline ")) {
+                deadline(line);
             } else {
                 add(line);
             }
@@ -70,5 +76,36 @@ public class DBot {
         } catch (Exception e) {
             System.out.println("Invalid input");
         }
+    }
+
+    private static void todo(String line) {
+        String todo = line.substring(line.indexOf(" ") + 1).trim();
+        Todo task =new Todo(todo);
+        datas.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + datas.size() + " tasks in the list.");
+    }
+
+    private static void deadline(String line) {
+        String deadlinePrompt = line.substring(line.indexOf(" ") + 1).trim();
+        Hashtable<String, String> arguments = Utilities.getCommandArgument(deadlinePrompt);
+        String deadline = deadlinePrompt.substring(0, deadlinePrompt.indexOf("/")).trim();
+        Deadline task = new Deadline(deadline, arguments.get("by"));
+        datas.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + datas.size() + " tasks in the list.");
+    }
+
+    private static void event(String line) {
+        String eventPrompt = line.substring(line.indexOf(" ") + 1).trim();
+        Hashtable<String, String> argument = Utilities.getCommandArgument(eventPrompt);
+        String event = eventPrompt.substring(0, eventPrompt.indexOf("/")).trim();
+        Event task = new Event(event, argument.get("from"), argument.get("to"));
+        datas.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + datas.size() + " tasks in the list.");
     }
 }
