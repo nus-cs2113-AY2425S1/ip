@@ -2,76 +2,84 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class DataStorage {
+    private static Hashtable<String, Task> storedItems = new Hashtable<>();
 
     public static void storeData(Scanner scanner) {
-        System.out.println("List your plans one by one");
-        Hashtable<String, Boolean> storedItems = new Hashtable<>();
+        displayGuide();
         boolean exit = false;
 
         while (!exit) {
             String line = scanner.nextLine();
-            exit = processInput(line, scanner, storedItems);
+            if (line.equalsIgnoreCase("bye")) {
+                exit = true;
+            } else {
+                processInput(line, scanner);
+            }
         }
 
         Initializer.initialise(scanner, new LLMChat());
     }
 
-    private static boolean processInput(String line, Scanner scanner, Hashtable<String, Boolean> storedItems) {
-        if (line.equalsIgnoreCase("bye")) {
-            return true;  // Exit the loop
-        } else if (line.equalsIgnoreCase("list")) {
-            listItems(storedItems);
-        } else if (line.startsWith("unmark")) {
-            handleUnmark(line, scanner, storedItems);
-        } else if (line.startsWith("mark")) {
-            handleMark(line, storedItems);
+    private static void displayGuide() {
+        System.out.println("List your plans in the following format:");
+        System.out.println("todo/ deadline/ evet + task, eg. todo homework");
+        System.out.println("You may also mark/ unmark existing task by: mark/ unmark + task");
+        System.out.println("Return to tutorial by entering Q");
+    }
+
+    private static void processInput(String line, Scanner scanner) {
+        if (line.equalsIgnoreCase("list")) {
+            listItems();
+        } else if (line.startsWith("todo ")) {
+            addTask(new Task(line.substring(5), Task.TaskType.TODO));
+        } else if (line.startsWith("deadline ")) {
+            System.out.println("Enter deadline (by when):");
+            String by = scanner.nextLine();
+            addTask(new Task(line.substring(9), by, Task.TaskType.DEADLINE));
+        } else if (line.startsWith("event ")) {
+            System.out.println("Enter event time (at when):");
+            String at = scanner.nextLine();
+            addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
+        } else if (line.startsWith("mark ")) {
+            markTask(line.substring(5));
+        } else if (line.startsWith("unmark ")) {
+            unmarkTask(line.substring(7));
+        } else if (line.equalsIgnoreCase("Q")) {
+            displayGuide();
+        } else
+        {
+            System.out.println("Unknown command.");
+        }
+    }
+
+    private static void addTask(Task task) {
+        storedItems.put(task.getDescription(), task);
+        System.out.println("Added: " + task);
+    }
+
+    private static void listItems() {
+        for (Task task : storedItems.values()) {
+            System.out.println(task);
+        }
+    }
+
+    private static void markTask(String description) {
+        Task task = storedItems.get(description);
+        if (task != null) {
+            task.mark();
+            System.out.println("Marked as done: " + task);
         } else {
-            addItem(line, storedItems);
-        }
-        return false;  // Continue the loop
-    }
-
-    private static void listItems(Hashtable<String, Boolean> storedItems) {
-        for (String key : storedItems.keySet()) {
-            if (storedItems.get(key)) {
-                System.out.println("[X] " + key);
-            } else {
-                System.out.println("[ ] " + key);
-            }
+            System.out.println(description + " not found.");
         }
     }
 
-    private static void handleUnmark(String line, Scanner scanner, Hashtable<String, Boolean> storedItems) {
-        String item = line.substring(7);
-        if (storedItems.containsKey(item)) {
-            storedItems.put(item, false);
-            System.out.println("I have unmarked the task.");
-            System.out.println("[ ] " + item);
+    private static void unmarkTask(String description) {
+        Task task = storedItems.get(description);
+        if (task != null) {
+            task.unmark();
+            System.out.println("Unmarked: " + task);
         } else {
-            promptToAddItem(scanner, storedItems, item);
+            System.out.println(description + " not found.");
         }
-    }
-
-    private static void promptToAddItem(Scanner scanner, Hashtable<String, Boolean> storedItems, String item) {
-        System.out.println(item + " is not in your list yet. Do you wish to add it to the list? yes/no");
-        String response = scanner.nextLine();
-        if (response.equalsIgnoreCase("yes")) {
-            storedItems.put(item, false);
-            System.out.println("Added: " + item);
-        } else {
-            System.out.println("Item not added, resume to normal operation.");
-        }
-    }
-
-    private static void handleMark(String line, Hashtable<String, Boolean> storedItems) {
-        String item = line.substring(5);
-        storedItems.put(item, true);
-        System.out.println("I have marked the task as completed:");
-        System.out.println("[X] " + item);
-    }
-
-    private static void addItem(String line, Hashtable<String, Boolean> storedItems) {
-        storedItems.put(line, false);
-        System.out.println("Added: " + line);
     }
 }
