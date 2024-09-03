@@ -8,7 +8,7 @@ public class DianaAssistant {
     public void interact() {
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
-        List<Task> list = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
         String input;
         while (true) {
@@ -18,27 +18,27 @@ public class DianaAssistant {
             }
 
             switch(getCommand(input)) {
-                case "list":
-                    printList(list);
-                    break;
-                case "mark":
-                    toMark(list, input, true);
-                    break;
-                case "unmark":
-                    toMark(list, input, false);
-                    break;
-                case "todo":
-                    addTodo(input, list);
-                    break;
-                case "event":
-                    addEvent(input, list);
-                    break;
-                case "deadline":
-                    addDeadline(input, list);
-                    break;
-                default:
-                    System.out.println("Unknown command");
-                    break;
+            case "tasks":
+                printList(tasks);
+                break;
+            case "mark":
+                toMark(tasks, input, true);
+                break;
+            case "unmark":
+                toMark(tasks, input, false);
+                break;
+            case "todo":
+                addTodo(input, tasks);
+                break;
+            case "event":
+                addEvent(input, tasks);
+                break;
+            case "deadline":
+                addDeadline(input, tasks);
+                break;
+            default:
+                System.out.println("Unknown command");
+                break;
             }
         }
 
@@ -67,23 +67,23 @@ public class DianaAssistant {
         System.out.println(ENCLOSURE);
     }
 
-    private void printList (List<Task> list) {
+    private void printList (List<Task> tasks) {
         printEnclosure();
 
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             System.out.println((i + 1) + ". " + task.toString());
         }
         printEnclosure();
         return;
     }
 
-    private void toMark (List<Task> list, String input, boolean toMark) {
+    private void toMark (List<Task> tasks, String input, boolean shouldMark) {
         try {
             int TaskNum = Integer.valueOf(input.substring(input.indexOf(" ") + 1)) - 1;
-            if (TaskNum >= 0 && TaskNum < list.size()) {
-                Task task = list.get(TaskNum);
-                if (toMark) {
+            if (TaskNum >= 0 && TaskNum < tasks.size()) {
+                Task task = tasks.get(TaskNum);
+                if (shouldMark) {
                     task.markAsDone();
                     printEnclosure();
                     System.out.println("Nice! I've marked this task as done\n" + task.toString());
@@ -97,30 +97,30 @@ public class DianaAssistant {
                 }
             }
             else {
-                System.out.println("Please enter a number between 1 and " + (list.size() - 1));
+                System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
             }
         }
         catch (NumberFormatException e) {
-            System.out.println("Please enter a number between 1 and " + (list.size() - 1));
+            System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
         }
     }
 
-    private void printAddedTask (String description, List<Task> list) {
+    private void printAddedTask (String description, List<Task> tasks) {
         printEnclosure();
         System.out.println("Got it! I've added this task");
         System.out.println(description);
-        System.out.println("Now you have " + list.size() + " tasks in the list");
-        printList(list);
+        System.out.println("Now you have " + tasks.size() + " tasks in the tasks");
+        printList(tasks);
     }
 
-    private void addTodo (String input, List<Task> list) {
+    private void addTodo (String input, List<Task> tasks) {
         String description = input.substring("todo".length()).trim();
         Todo todo = new Todo(description);
-        list.add(todo);
-        printAddedTask(description, list);
+        tasks.add(todo);
+        printAddedTask(description, tasks);
     }
 
-    private void addDeadline (String input, List<Task> list) {
+    private void addDeadline (String input, List<Task> tasks) {
         if (!input.contains("/by")) {
             System.out.println("Please enter a valid deadline with the correct format:");
             System.out.println("Eg: Read book /by 5pm");
@@ -130,11 +130,11 @@ public class DianaAssistant {
         String description = parts[0].substring("deadline".length()).trim();
         String by = parts[1].trim(); // trim removes white space
         Task deadline = new Deadline(description, by);
-        list.add(deadline);
-        printAddedTask(description, list);
+        tasks.add(deadline);
+        printAddedTask(description, tasks);
     }
 
-    private void addEvent (String input, List<Task> list) {
+    private void addEvent (String input, List<Task> tasks) {
         if (!(input.contains("/from") && input.contains("/to"))) {
             System.out.println("Please enter a valid event with the correct format:");
             System.out.println("Eg: Read book /from 2pm /to 4pm");
@@ -147,8 +147,8 @@ public class DianaAssistant {
         String from = fromto[0].trim();
         String to = fromto[1].trim();
         Task event = new Event(description, from, to);
-        list.add(event);
-        printAddedTask(description, list);
+        tasks.add(event);
+        printAddedTask(description, tasks);
 
     }
 
