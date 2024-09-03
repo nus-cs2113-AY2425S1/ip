@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class DianaAssistant {
     public void interact() {
-        System.out.println("Hello, I am Diana!\nWhat can I do for you?");
+        System.out.println("Hello, I am Diana! A personal CLI assistant :)");
+        System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
 
@@ -25,8 +26,17 @@ public class DianaAssistant {
                 case "unmark":
                     toMark(list, input, false);
                     break;
+                case "todo":
+                    addTodo(input, list);
+                    break;
+                case "event":
+                    addEvent(input, list);
+                    break;
+                case "deadline":
+                    addDeadline(input, list);
+                    break;
                 default:
-                    addInput(input, list);
+                    System.out.println("Unknown command");
                     break;
             }
         }
@@ -36,16 +46,7 @@ public class DianaAssistant {
     }
 
     private String getCommand(String input) {
-        if (input.equals("list")) {
-            return "list";
-        }
-        if (input.startsWith("mark ")) {
-            return "mark";
-        }
-        if (input.startsWith("unmark ")) {
-            return "unmark";
-        }
-        return "add";
+        return input.split(" ")[0];
     }
 
     private void printList (List<Task> list) {
@@ -80,10 +81,50 @@ public class DianaAssistant {
         }
     }
 
-    private void addInput (String input, List<Task> list) {
-        Task task = new Task(input);
+    private void printAddedTask (String description, List<Task> list) {
+        System.out.println("Got it! I've added this task");
+        System.out.println(description);
+        System.out.println("Now you have " + list.size() + " tasks in the list");
+    }
+
+    private void addTodo (String input, List<Task> list) {
+        String description = input.substring("todo".length()).trim();
         System.out.println("added: " + input);
-        list.add(task);
+        Todo todo = new Todo(description);
+        list.add(todo);
+        printAddedTask(description, list);
+    }
+
+    private void addDeadline (String input, List<Task> list) {
+        if (!input.contains("/by")) {
+            System.out.println("Please enter a valid deadline with the correct format:");
+            System.out.println("Eg: Read book /by 5pm");
+            return;
+        }
+        String[] parts = input.split("/by", 2);
+        String description = parts[0].substring("deadline".length()).trim();
+        String by = parts[1].trim(); // trim removes white space
+        Task deadline = new Deadline(description, by);
+        list.add(deadline);
+        printAddedTask(description, list);
+    }
+
+    private void addEvent (String input, List<Task> list) {
+        if (!(input.contains("/from") && input.contains("/to"))) {
+            System.out.println("Please enter a valid event with the correct format:");
+            System.out.println("Eg: Read book /from 2pm /to 4pm");
+            return;
+        }
+
+        String[] parts = input.split("/from", 2);
+        String description = parts[0].substring("event".length()).trim();
+        String[] fromto = parts[1].split("/to", 2);
+        String from = fromto[0].trim();
+        String to = fromto[1].trim();
+        Task event = new Event(description, from, to);
+        list.add(event);
+        printAddedTask(description, list);
+
     }
 
 }
