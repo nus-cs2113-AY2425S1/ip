@@ -20,14 +20,6 @@ public class Joe {
         printFarewell();
     }
 
-    public static void printGreeting() {
-        System.out.println(INTENDATION + LOGO);
-        System.out.println(INTENDATION + SEPARATOR);
-        System.out.println(INTENDATION + "Hello I'm Joe.");
-        System.out.println(INTENDATION + "How can I help you?");
-        System.out.println(INTENDATION + SEPARATOR);
-    }
-
     public static void chatWithJoe() {
         //get and echo user input
         Scanner in = new Scanner(System.in);
@@ -46,17 +38,13 @@ public class Joe {
         }
     }
 
-    public static void printFarewell() {
-        System.out.println(INTENDATION + "See you soon!");
-        System.out.println(INTENDATION + SEPARATOR);
-    }
-
 
     // helper methods
 
     public static void chatAboutTasks(String input) {
         String[] tokens = input.split(" ");
-        switch (tokens[0]) {
+        String commandToken = tokens[0]; 
+        switch (commandToken) {
         case "unmark":
             try {
                 int toDoNumber = Integer.parseInt(tokens[1].strip());
@@ -76,14 +64,14 @@ public class Joe {
             }
             break;
         default:
-            createNewTask(tokens[0], input);
+            createNewTask(commandToken, input);
         }
     }
 
-    public static void createNewTask(String startToken, String input) {
+    public static void createNewTask(String commandToken, String input) {
         String itemDescription;
         Optional<Task> newItem;
-        switch (startToken) {
+        switch (commandToken) {
         case "todo":
             itemDescription = Todo.extractDescription(input);
             newItem = Optional.of(new Todo(itemDescription));
@@ -123,9 +111,23 @@ public class Joe {
         }
     }
 
+    public static void printGreeting() {
+        System.out.println(INTENDATION + LOGO);
+        System.out.println(INTENDATION + SEPARATOR);
+        System.out.println(INTENDATION + "Hello I'm Joe.");
+        System.out.println(INTENDATION + "How can I help you?");
+        System.out.println(INTENDATION + SEPARATOR);
+    }
+
+    public static void printFarewell() {
+        System.out.println(INTENDATION + "See you soon!");
+        System.out.println(INTENDATION + SEPARATOR);
+    }
+
     public static void printReply(String input, String actionPerformed) {
         System.out.println(INTENDATION + actionPerformed + input);
         System.out.println(INTENDATION + SEPARATOR);
     }
+
 
 }
