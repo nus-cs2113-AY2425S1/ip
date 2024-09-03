@@ -25,33 +25,33 @@ public class List {
             if (line.contains(EVENT_FROM_KEYWORD) && line.contains(EVENT_TO_KEYWORD)) {
                 addEvent(line);
             } else {
-                invalidEventMessage();
+                printInvalidEventMessage();
             }
         } else if (line.length() >= (DEADLINE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, DEADLINE_WORD_LEN).equals("deadline")) {
             if (line.contains(DEADLINE_BY_KEYWORD)) {
                 addDeadline(line);
             } else {
-                invalidDeadlineMessage();
+                printInvalidDeadlineMessage();
             }
         } else if (line.length() >= (TODO_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, TODO_WORD_LEN).equals("todo")){
             addTodo(line);
         } else {
-            invalidTaskMessage();
+            printInvalidTaskMessage();
         }
     }
 
-    private static void invalidTaskMessage() {
+    private static void printInvalidTaskMessage() {
         System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
                 + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
                 + INVALID_EVENT_INPUT_MESSAGE);
     }
 
-    private static void invalidEventMessage() {
+    private static void printInvalidEventMessage() {
         System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
                 INVALID_EVENT_INPUT_MESSAGE);
     }
 
-    private static void invalidDeadlineMessage() {
+    private static void printInvalidDeadlineMessage() {
         System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
                 INVALID_DEADLINE_INPUT_MESSAGE);
     }
@@ -151,31 +151,56 @@ public class List {
     public void printList() {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < numItems; i++) {
-            //System.out.println("\t" + (i + 1) + ".[" + itemList[i].getTaskTypeIcon() + "][" + itemList[i].getDoneStatusIcon() + "] " + itemList[i].description);
             System.out.println("\t" + (i + 1) + "." + itemList[i]);
         }
     }
 
     public void markItem(String line) {
-        int itemNum = Integer.parseInt(line.substring(5));
-        if (itemNum > this.getNumItems() || itemNum <= 0) {
-            System.out.println("\tInput item number out of range.");
-        } else {
-            this.markListItemAsDone(itemNum);
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t\t[" + this.itemGetDoneStatusIcon(itemNum) + "] " + this.getItemDescription(itemNum));
+        try {
+            int itemNum = Integer.parseInt(line.substring(5));
+
+            if (itemNum > this.getNumItems() || itemNum <= 0) {
+                printInputIndexOutOfRangeMessage();
+            } else {
+                this.markListItemAsDone(itemNum);
+                printTaskMarkedMessage(itemNum);
+            }
+        } catch (Exception e) {
+            printInputIndexNotAnIntegerMessage();
         }
     }
 
+    private void printTaskMarkedMessage(int itemNum) {
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t  " + itemList[itemNum -1]);
+    }
+
+    private static void printInputIndexOutOfRangeMessage() {
+        System.out.println("\tInput index number out of range.");
+    }
+
     public void unmarkItem(String line) {
-        int itemNum = Integer.parseInt(line.substring(7));
-        if (itemNum > this.getNumItems() || itemNum <= 0) {
-            System.out.println("\tInput item number out of range.");
-        } else {
-            this.markListItemAsUnDone(itemNum);
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t\t[" + this.itemGetDoneStatusIcon(itemNum) + "] " + this.getItemDescription(itemNum));
+        try {
+            int itemNum = Integer.parseInt(line.substring(7));
+
+            if (itemNum > this.getNumItems() || itemNum <= 0) {
+                printInputIndexOutOfRangeMessage();
+            } else {
+                this.markListItemAsUnDone(itemNum);
+                printTaskUnmarkedMessage(itemNum);
+            }
+        } catch (Exception e) {
+            printInputIndexNotAnIntegerMessage();
         }
+    }
+
+    private void printTaskUnmarkedMessage(int itemNum) {
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t  " + itemList[itemNum -1]);
+    }
+
+    private static void printInputIndexNotAnIntegerMessage() {
+        System.out.println("\tInput index was not a integer.");
     }
 
     public String getItemDescription(int itemNum) {
