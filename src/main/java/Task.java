@@ -1,3 +1,5 @@
+import java.security.PublicKey;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -21,5 +23,11 @@ public class Task {
 
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return " [" + getStatusIcon() + "] "
+            + this.description;
     }
 }
