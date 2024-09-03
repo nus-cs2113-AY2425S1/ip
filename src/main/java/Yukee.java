@@ -6,11 +6,13 @@ public class Yukee {
         Task[] tasks = new Task[100];
         int taskCount = 0;
 
-        String logo = " Y   Y  U   U  K   K  EEEEE  EEEEE\n"
-                + "  Y Y   U   U  K  K   E      E    \n"
-                + "   Y    U   U  KKK    EEEE   EEEE \n"
-                + "   Y    U   U  K  K   E      E    \n"
-                + "   Y     UUU   K   K  EEEEE  EEEEE\n";
+        String logo = """
+                 Y   Y  U   U  K   K  EEEEE  EEEEE
+                  Y Y   U   U  K  K   E      E   \s
+                   Y    U   U  KKK    EEEE   EEEE\s
+                   Y    U   U  K  K   E      E   \s
+                   Y     UUU   K   K  EEEEE  EEEEE
+                """;
         System.out.println("Hello! I'm Yukee, your friendly assistant!\n" + logo);
         System.out.println("(✿◠‿◠) What can I do for you today? (◕‿◕)");
 
