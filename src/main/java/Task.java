@@ -7,15 +7,25 @@ public class Task {
         this.isDone = false;
     }
 
+    // Tasks that are done are marked with an X
     public String getStatus() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public String getDescription() {
         return this.description;
     }
 
+    public String getType() {
+        return null;
+    }
+
     public void setDone() {
         this.isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatus(), this.description);
     }
 }

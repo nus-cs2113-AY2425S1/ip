@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class V {
 
@@ -24,8 +25,8 @@ public class V {
     public static void displayList(Task[] listOfTasks, int length) {
         System.out.println(LINE_SEPERATOR);
         for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d.[%s] %s", i + 1, listOfTasks[i].getStatus(), 
-                    listOfTasks[i].getDescription()));
+            System.out.println(String.format("%d.[%s]%s", i + 1,  
+                    listOfTasks[i].getType(), listOfTasks[i]));
         }
         System.out.println(LINE_SEPERATOR);
     }
@@ -36,6 +37,12 @@ public class V {
         boolean isOnline = true;
         Task[] listOfTasks = new Task[100];
         int count = 0;
+        String temp;
+        String description;
+        String by;
+        String[] timePeriod;
+        String from;
+        String to;
         String line;
         String[] lineArr;
         Scanner input = new Scanner(System.in);
@@ -56,11 +63,34 @@ public class V {
                 listOfTasks[position - 1].setDone();
                 displayList(listOfTasks, count);
                 break;
+            case "todo":
+                description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                listOfTasks[count] = new ToDo(description);
+                count++;
+                break;
+            case "event":
+                temp = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                description = temp.split("/from")[0];
+                timePeriod = temp.split("/from")[1].split("/to");
+                from = timePeriod[0];
+                to = timePeriod[1];
+                listOfTasks[count] = new Event(description, from, to);
+                System.out.println(listOfTasks[count]);
+                count++;
+                break;
+            case "deadline":
+                temp = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                description = temp.split("/by")[0];
+                by = temp.split("/by")[1];
+                listOfTasks[count] = new Deadline(description, by);
+                System.out.println(listOfTasks[count]);
+                count++;
+                break;
             default:
                 System.out.println("Try again");
                 break;
             }
         }
-        System.out.println(LINE_SEPERATOR + "\nSee ya\n" + LINE_SEPERATOR);
+        printBlock("See Ya");
     }
 }
