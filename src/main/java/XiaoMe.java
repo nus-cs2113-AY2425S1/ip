@@ -47,7 +47,7 @@ public class XiaoMe {
         Scanner in = new Scanner(System.in);
 
         System.out.println("""               
-                \t____________________________________________________________\s
+                \t____________________________________________________________
                 \tHello! I'm XiaoMe
                 \tWhat can I do for you?
                 \t____________________________________________________________
@@ -63,7 +63,7 @@ public class XiaoMe {
                         \t____________________________________________________________
                         \tBye. Hope to see you again soon!
                         \t____________________________________________________________
-                       \s""");
+                        """);
                 break; // stop programme
             } else if (type == Type.LIST) {
                 // user input is list: display past tasks
