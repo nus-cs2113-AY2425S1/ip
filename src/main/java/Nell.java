@@ -30,47 +30,20 @@ public class Nell {
         }
     }
 
-    private static void listAddTask(String taskToAdd) {
-        // Stores text in task list
-        tasks[taskCount] = new Task(taskToAdd);
-        taskCount++;
-    }
-
     /**
-     * Adds a new ToDo task to the task list
+     * Adds a new task to the task list
      *
      * @param taskToAdd The task to be added to the list
      */
-    private static void listAddToDo(String taskToAdd) {
+    private static void listAddTask(Task taskToAdd) {
         // Stores text in task list
-        tasks[taskCount] = new ToDo(taskToAdd);
-        taskCount++;
-    }
-
-    /**
-     * Adds a new Deadline task to the task list
-     *
-     * @param taskToAdd The task to be added to the list
-     */
-    private static void listAddDeadline(String taskToAdd, String taskDoBy) {
-        // Stores text in task list
-        tasks[taskCount] = new Deadline(taskToAdd, taskDoBy);
-        taskCount++;
-    }
-
-    /**
-     * Adds a new Deadline task to the task list
-     *
-     * @param taskToAdd The task to be added to the list
-     */
-    private static void listAddEvent(String taskToAdd, String eventStart, String eventEnd) {
-        // Stores text in task list
-        tasks[taskCount] = new Event(taskToAdd, eventStart, eventEnd);
+        tasks[taskCount] = taskToAdd;
         taskCount++;
     }
 
     /**
      * Lists out the currently stored tasks in TaskList, upon receipt of the
+     * list command
      *
      */
     private static void executeCommandList() {
@@ -89,8 +62,9 @@ public class Nell {
      */
     private static void executeCommandToDo(String commandBody) {
         System.out.println("-> The task has been added to the list:");
-        listAddToDo(commandBody);
-        System.out.println("   " + tasks[taskCount - 1]);
+        ToDo toDoToAdd = new ToDo(commandBody);
+        listAddTask(toDoToAdd);
+        System.out.println("   " + toDoToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
 
@@ -102,8 +76,9 @@ public class Nell {
     private static void executeCommandDeadline(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         String[] commandWords = commandBody.split("/by");
-        listAddDeadline(commandWords[0].trim(), commandWords[1].trim());
-        System.out.println("   " + tasks[taskCount - 1]);
+        Deadline deadlineToAdd = new Deadline(commandWords[0].trim(), commandWords[1].trim());
+        listAddTask(deadlineToAdd);
+        System.out.println("   " + deadlineToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
 
@@ -115,8 +90,9 @@ public class Nell {
     private static void executeCommandEvent(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         String[] commandWords = commandBody.split("/from|/to", 3);
-        listAddEvent(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
-        System.out.println("   " + tasks[taskCount - 1]);
+        Event eventToAdd = new Event(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
+        listAddTask(eventToAdd);
+        System.out.println("   " + eventToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
     }
 
@@ -160,7 +136,8 @@ public class Nell {
      * @param command The command body
      */
     private static void executeCommandAddTask(String command) {
-        listAddTask(command);
+        Task taskToAdd = new Task(command);
+        listAddTask(taskToAdd);
         System.out.printf("-> added: %s%n", command);
     }
 
