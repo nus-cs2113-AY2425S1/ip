@@ -31,6 +31,16 @@ public class AnBot {
                 break; 
             } else if (input.equals("list")) {
                 addList.displayEntries(); 
+            } else if (input.startsWith("mark ")) {
+                String inputNumber = input.substring(5).trim(); 
+                System.out.println(inputNumber);
+                int number = Integer.parseInt(inputNumber); 
+                addList.markAsDone(number); 
+            } else if (input.startsWith("unmark ")) {
+                String inputNumber = input.substring(7).trim(); 
+                System.out.println(inputNumber);
+                int number = Integer.parseInt(inputNumber); 
+                addList.unmarkAsDone(number); 
             } else {
                 addList.addEntry(input); 
             }
