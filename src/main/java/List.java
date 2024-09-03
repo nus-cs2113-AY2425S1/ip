@@ -2,6 +2,13 @@ public class List {
     public static final String INVALID_EVENT_INPUT_MESSAGE = "event <event name> /from <start date/time> /end <end date/time>";
     public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <deadline>";
     public static final String INVALID_TODO_INPUT_MESSAGE = "todo <task name>";
+    public static final int DEADLINE_WORD_LEN = 8;
+    public static final int INPUT_SPACE_BUFFER = 2;
+    public static final int TODO_WORD_LEN = 4;
+    public static final String DEADLINE_BY_KEYWORD = "/by";
+    public static final String EVENT_FROM_KEYWORD = "/from";
+    public static final String EVENT_TO_KEYWORD = "/to";
+
     private int numItems;
     private Task[] itemList = new Task[100];
 
@@ -15,26 +22,38 @@ public class List {
 
     public void addItem(String line) {
         if (line.length() >= 7 && line.substring(0, 5).equals("event")) {
-            if (line.contains("/from") && line.contains("/to")) {
+            if (line.contains(EVENT_FROM_KEYWORD) && line.contains(EVENT_TO_KEYWORD)) {
                 addEvent(line);
             } else {
-                System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
-                        INVALID_EVENT_INPUT_MESSAGE);
+                invalidEventMessage();
             }
-        } else if (line.length() >= 10 && line.substring(0, 8).equals("deadline")) {
-            if (line.contains("/by")) {
+        } else if (line.length() >= (DEADLINE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, DEADLINE_WORD_LEN).equals("deadline")) {
+            if (line.contains(DEADLINE_BY_KEYWORD)) {
                 addDeadline(line);
             } else {
-                System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
-                        INVALID_DEADLINE_INPUT_MESSAGE);
+                invalidDeadlineMessage();
             }
-        } else if (line.length() >= 6 && line.substring(0, 4).equals("todo")){
+        } else if (line.length() >= (TODO_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, TODO_WORD_LEN).equals("todo")){
             addTodo(line);
         } else {
-            System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
-                    + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
-                    + INVALID_EVENT_INPUT_MESSAGE);
+            invalidTaskMessage();
         }
+    }
+
+    private static void invalidTaskMessage() {
+        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
+                + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_EVENT_INPUT_MESSAGE);
+    }
+
+    private static void invalidEventMessage() {
+        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
+                INVALID_EVENT_INPUT_MESSAGE);
+    }
+
+    private static void invalidDeadlineMessage() {
+        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
+                INVALID_DEADLINE_INPUT_MESSAGE);
     }
 
     private void addEvent(String line) {
