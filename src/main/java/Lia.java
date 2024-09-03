@@ -78,18 +78,18 @@ public class Lia {
                 tasks[taskCount] = new ToDo(inputArr[1]);
                 taskCount++;
                 printLine();
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("     " + tasks[taskCount - 1].toString());
+                System.out.println("    Now you have " + taskCount + " tasks in the list.");
                 printLine();
             } else if (inputArr[0].equalsIgnoreCase("deadline")) {
                 String[] details = inputArr[1].split(" /by ", 2);
                 tasks[taskCount] = new Deadline(details[0], details[1]);
                 taskCount++;
                 printLine();
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("     " + tasks[taskCount - 1].toString());
+                System.out.println("    Now you have " + taskCount + " tasks in the list.");
                 printLine();
             } else if (inputArr[0].equalsIgnoreCase("event")) {
                 String[] details = inputArr[1].split(" /from ", 2);
@@ -97,9 +97,9 @@ public class Lia {
                 tasks[taskCount] = new Event(details[0], times[0], times[1]);
                 taskCount++;
                 printLine();
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + tasks[taskCount - 1].toString());
+                System.out.println("    Now you have " + taskCount + " tasks in the list.");
                 printLine();
             } else {
                 // Add the user's input as a new task
