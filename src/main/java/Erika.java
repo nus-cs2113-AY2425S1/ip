@@ -62,7 +62,7 @@ public class Erika {
 
     private static void handleMark(String line) {
         markIndex = extractTaskIndex(line);
-        if (markIndex == -1 || markIndex > Task.getTaskArraySize()) {
+        if (markIndex <= 0 || markIndex > Task.getTaskArraySize()) {
             printOutOfBounds();
             return;
         }
@@ -76,7 +76,7 @@ public class Erika {
     }
 
     private static int extractTaskIndex(String line) {
-        String digitString = line.replaceAll("[^0-9]", "");
+        String digitString = line.replaceAll("[^0-9-]", "");
         if (!digitString.isEmpty()) {
             return Integer.parseInt(digitString);
         } else {
