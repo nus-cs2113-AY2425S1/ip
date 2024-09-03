@@ -9,11 +9,9 @@ public class King {
 
     public static void greet() {
         String logo =
-                """
-                        | |/ /|_ _|| \\| | / _` |
-                        | ' <  | | | .` || (_| |
-                        |_|\\_\\|___||_|\\_| \\__,_|
-                        """;
+                "| |/ /|_ _|| \\| | / _` |\n" +
+                "| ' <  | | | .` || (_| |\n" +
+                "|_|\\_\\|___||_|\\_| \\__,_|\n";
 
         System.out.println("Hello from\n" + logo);
 
@@ -26,33 +24,29 @@ public class King {
 
     public static void chat() {
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
 
-        if (userInput.equals("bye")) {
-            exit();
-        } else if (userInput.equals("list")) {
-            printList();
-            chat();
-        } else if (userInput.startsWith("mark")) {
-            tasks.get(parseTaskIndex(userInput)).markAsDone();
-            chat();
-        } else if (userInput.startsWith("unmark")) {
-            tasks.get(parseTaskIndex(userInput)).markAsUndone();
-            chat();
-        } else if (userInput.startsWith("todo")) {
-            addToDoTask(userInput);
-            chat();
-        } else if (userInput.startsWith("deadline")) {
-            addDeadlineTask(userInput);
-            chat();
-        } else if (userInput.startsWith("event")) {
-            addEventTask(userInput);
-            chat();
-        } else {
-            addToDoTask(userInput);
-            chat();
+            if (userInput.equals("bye")) {
+                exit();
+                return;
+            } else if (userInput.equals("list")) {
+                printList();
+            } else if (userInput.startsWith("mark")) {
+                tasks.get(parseTaskIndex(userInput)).markAsDone();
+            } else if (userInput.startsWith("unmark")) {
+                tasks.get(parseTaskIndex(userInput)).markAsUndone();
+            } else if (userInput.startsWith("todo")) {
+                addToDoTask(userInput);
+            } else if (userInput.startsWith("deadline")) {
+                addDeadlineTask(userInput);
+            } else if (userInput.startsWith("event")) {
+                addEventTask(userInput);
+            } else {
+                addToDoTask(userInput);
+            }
         }
-
+        exit();
     }
 
     public static void exit() {

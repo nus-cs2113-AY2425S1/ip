@@ -1,0 +1,16 @@
+drink tea
+deadline homework /by friday midnight
+event bday party /from tmr morning /to tmr 10pm
+eat cake
+deadline stp uploading /by next tuesday
+basketball training
+list
+mark 5
+mark 1
+mark 3
+mark 2
+list
+unmark 1
+unmark 3
+list
+bye
