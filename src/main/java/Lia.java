@@ -77,30 +77,18 @@ public class Lia {
             } else if (inputArr[0].equalsIgnoreCase("todo")) {
                 tasks[taskCount] = new ToDo(inputArr[1]);
                 taskCount++;
-                printLine();
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("     " + tasks[taskCount - 1].toString());
-                System.out.println("    Now you have " + taskCount + " tasks in the list.");
-                printLine();
+                addTaskAndPrint(tasks[taskCount - 1], taskCount);
             } else if (inputArr[0].equalsIgnoreCase("deadline")) {
                 String[] details = inputArr[1].split(" /by ", 2);
                 tasks[taskCount] = new Deadline(details[0], details[1]);
                 taskCount++;
-                printLine();
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("     " + tasks[taskCount - 1].toString());
-                System.out.println("    Now you have " + taskCount + " tasks in the list.");
-                printLine();
+                addTaskAndPrint(tasks[taskCount - 1], taskCount);
             } else if (inputArr[0].equalsIgnoreCase("event")) {
                 String[] details = inputArr[1].split(" /from ", 2);
                 String[] times = details[1].split(" /to ", 2);
                 tasks[taskCount] = new Event(details[0], times[0], times[1]);
                 taskCount++;
-                printLine();
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + tasks[taskCount - 1].toString());
-                System.out.println("    Now you have " + taskCount + " tasks in the list.");
-                printLine();
+                addTaskAndPrint(tasks[taskCount - 1], taskCount);
             } else {
                 // Add the user's input as a new task
                 tasks[taskCount] = new Task(input);
@@ -113,6 +101,20 @@ public class Lia {
 
         // Close the scanner to prevent resource leak
         scanner.close();
+    }
+
+    /**
+     * Adds a task and prints the confirmation message.
+     *
+     * @param task The task to be added.
+     * @param taskCount The current number of tasks.
+     */
+    private static void addTaskAndPrint(Task task, int taskCount) {
+        printLine();
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task.toString());
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        printLine();
     }
 
     /**
