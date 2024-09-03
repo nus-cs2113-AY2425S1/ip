@@ -15,7 +15,7 @@ public class Aly {
         while (!isExit) {
             printLine();
             System.out.println("I'm hungry, what do you want?");
-            System.out.println("Faster lah! Enter 1 for echo function, 2 for list function, 3 for task marking function, 0 to exit");
+            System.out.println("Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit");
             printLine();
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
@@ -68,44 +68,74 @@ public class Aly {
                 printLine();
             }
         }
-        initialise();
     }
 
     private static Task[] list(Task[] listItems) {
         boolean isExit = false;
         int index = 0;
-        for (int i = 0; i < 101; i++) {
-            if (listItems[i] == null) {
-                index = i;
-                break;
-            }
-        }
+        index = getIndex(listItems, index);
         while (!isExit) {
-            System.out.println("Enter 'list' to see your list of tasks, 'add' to add another task");
+            System.out.println("Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit");
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-            switch (input) {
+            String firstWord = input.split(" ")[0];
+            String task = input.replace(firstWord, "");
+            String[] taskParts;
+
+            switch (firstWord) {
             case "list":
                 printLine();
                 int count = 1;
+                System.out.println("Your task list:");
                 for (Task listItem : listItems) {
                     if (listItem == null) {
                         break;
                     }
-                    System.out.println(count + ". " + listItem.description);
+                    System.out.println(count + "." + listItem);
                     count += 1;
                 }
+                System.out.println("Shag bro, your list long siah");
                 printLine();
                 break;
-            case "add":
+            case "todo":
                 printLine();
-                System.out.println("Enter your task:");
-                Scanner addItem = new Scanner(System.in);
-                String task = addItem.nextLine();
-                listItems[index] = (new Task(task));
+                listItems[index] = new Todo(task.trim());
                 index += 1;
+                System.out.println("Added this task: " + task.trim());
+                System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
                 printLine();
-                System.out.println("added task: " + task);
+                break;
+            case "deadline":
+                printLine();
+                taskParts = task.split("/by");
+                if (taskParts.length != 2) {
+                    System.out.println("Wrong format!");
+                    printLine();
+                    break;
+                }
+                String taskDeadline = taskParts[0].trim();
+                String taskBy = taskParts[1].trim();
+                listItems[index] = new Deadline(taskDeadline, taskBy);
+                index += 1;
+                System.out.println("Added this task: " + taskDeadline);
+                System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
+                printLine();
+                break;
+            case "event":
+                printLine();
+                taskParts = task.split("/from|/to");
+                if (taskParts.length != 3) {
+                    System.out.println("Wrong format!");
+                    printLine();
+                    break;
+                }
+                String taskEvent = taskParts[0].trim();
+                String taskFrom = taskParts[1].trim();
+                String taskTo = taskParts[2].trim();
+                listItems[index] = new Event(taskEvent, taskFrom, taskTo);
+                index += 1;
+                System.out.println("Added this task: " + taskEvent);
+                System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
                 printLine();
                 break;
             case "0":
@@ -122,17 +152,22 @@ public class Aly {
         return listItems;
     }
 
-    private static Task[] markTask(Task[] taskList) {
-        boolean isExit = false;
-        int index = 0;
+    private static int getIndex(Task[] listItems, int index) {
         for (int i = 0; i < 101; i++) {
-            if (taskList[i] == null) {
+            if (listItems[i] == null) {
                 index = i;
                 break;
             }
         }
+        return index;
+    }
+
+    private static Task[] markTask(Task[] taskList) {
+        boolean isExit = false;
+        int index = 0;
+        index = getIndex(taskList, index);
         while (!isExit) {
-            System.out.println("Enter 'list' to see task list, 'mark' or 'unmark' with a number to toggle task status");
+            System.out.println("Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit");
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String[] splitInput = input.split(" ");
@@ -147,17 +182,18 @@ public class Aly {
                     System.out.println(count + "." + task);
                     count += 1;
                 }
+                System.out.println("Better faster do!");
                 printLine();
             }
             else if (splitInput.length == 2 && input.startsWith("mark")) {
                 printLine();
                 int indexNum = Integer.parseInt(splitInput[1]);
-                if (indexNum > index || indexNum < 0) {
+                if (indexNum > index || indexNum <= 0) {
                     System.out.println("Task number out of bounds!");
                     printLine();
                 }
                 else {
-                    taskList[indexNum-1].setStatus(true);
+                    taskList[indexNum-1].setDone(true);
                     System.out.println("\"" + taskList[indexNum-1].description + "\" marked as done!");
                     printLine();
                 }
@@ -165,12 +201,12 @@ public class Aly {
             else if (splitInput.length == 2 && input.startsWith("unmark")) {
                 printLine();
                 int indexNum = Integer.parseInt(splitInput[1]);
-                if (indexNum > index || indexNum < 0) {
+                if (indexNum > index || indexNum <= 0) {
                     System.out.println("Task number out of bounds!");
                     printLine();
                 }
                 else {
-                    taskList[indexNum-1].setStatus(false);
+                    taskList[indexNum-1].setDone(false);
                     System.out.println("\"" + taskList[indexNum-1].description + "\" marked as undone!");
                     printLine();
                 }

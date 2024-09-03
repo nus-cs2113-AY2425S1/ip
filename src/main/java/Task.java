@@ -1,10 +1,16 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    private static int taskCounter = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        taskCounter++;
+    }
+
+    public static int getTaskCounter() {
+        return taskCounter;
     }
 
     public String getStatusIcon() {
@@ -15,7 +21,7 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public void setStatus(boolean status) {
+    public void setDone(boolean status) {
         this.isDone = status;
     }
 }
