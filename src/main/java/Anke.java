@@ -10,29 +10,56 @@ public class Anke {
         while (!line.equals("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
+            Task task = null;
             if (line.equals("bye")) {
                 break;
             } else if (line.equals("list")) {
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println((i + 1) + ". " + tasks[i].toString());
                 }
                 System.out.println("");
                 continue;
-            } else if (line.length() > 5 && line.substring(0, 4).equals("mark") && Integer.parseInt(line.substring(5)) <= count && Integer.parseInt(line.substring(5)) > 0) {
-                tasks[Integer.parseInt(line.substring(5)) - 1].setDone(true);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + tasks[Integer.parseInt(line.substring(5)) - 1].getStatusIcon() + "] " + tasks[Integer.parseInt(line.substring(5)) - 1].getDescription() + "\n");
-                continue;
-            } else if (line.length() > 7 && line.substring(0, 6).equals("unmark") && Integer.parseInt(line.substring(7)) <= count && Integer.parseInt(line.substring(7)) > 0) {
-                tasks[Integer.parseInt(line.substring(7)) - 1].setDone(false);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[" + tasks[Integer.parseInt(line.substring(7)) - 1].getStatusIcon() + "] " + tasks[Integer.parseInt(line.substring(7)) - 1].getDescription() + "\n");
-                continue;
+            } else if (line.length() > 5 && line.substring(0, 5).equals("mark ")) {
+                int index;
+                try {
+                    index = Integer.parseInt(line.substring(5));
+                    if (index <= count && index > 0) {
+                        tasks[index - 1].setDone(true);
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(tasks[index - 1].toString() + "\n");
+                        continue;
+                    }
+                }
+                catch (NumberFormatException e) {
+                }
+            } else if (line.length() > 7 && line.substring(0, 7).equals("unmark ")) {
+                int index;
+                try {
+                    index = Integer.parseInt(line.substring(7));
+                    if (index <= count && index > 0) {
+                        tasks[index - 1].setDone(false);
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(tasks[index - 1].toString() + "\n");
+                        continue;
+                    }
+                }
+                catch (NumberFormatException e) {
+                }
+            } else if (line.length() > 5 && line.substring(0, 5).equals("todo ")) {
+                task = new Todo(line.substring(5));
+            } else if (line.length() > 9 && line.substring(0, 9).equals("deadline ")) {
+                int byIndex = line.indexOf("/by");
+                task = new Deadline(line.substring(9, byIndex - 1), line.substring(byIndex + 4));
+            } else if (line.length() > 6 && line.substring(0, 6).equals("event ")) {
+                int fromIndex = line.indexOf("/from");
+                int toIndex = line.indexOf("/to");
+                task = new Event(line.substring(6, fromIndex - 1), line.substring(fromIndex + 6, toIndex - 1), line.substring(toIndex + 4));
             }
-            Task task = new Task(line);
             tasks[count] = task;
             count++;
-            System.out.println("added: " + line + "\n");
+            System.out.println("\nGot it. I've added this task:");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + count + " tasks in the list.\n");
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
