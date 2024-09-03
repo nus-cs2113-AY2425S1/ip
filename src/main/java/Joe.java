@@ -6,8 +6,7 @@ public class Joe {
     private static String INTENDATION = "      ";
     private static String SEPARATOR = "_________________________________________________";
     private static ArrayList<Task> toDoItemArrayList = new ArrayList<Task>();
-    private static final String LOGO = INTENDATION + "     _            \n"
-            + INTENDATION + "    (_)           \n"
+    private static final String LOGO = "    (_)           \n"
             + INTENDATION + "     _  ___   ___ \n"
             + INTENDATION + "    | |/ _ \\ / _ \\\n"
             + INTENDATION + "    | | (_) |  __/\n"
