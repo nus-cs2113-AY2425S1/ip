@@ -1,7 +1,168 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-----------------------------------------------------------------------------
+Hello! My name is 
+    _      _     _   _
+   / \    | |   \ \ / /
+  / _ \   | |    \ V / 
+ / ___ \  | |__   | |  
+/_/   \_\ |____|  |_|  
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Enter 0 to return to main menu anytime!
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+Returning to main menu!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Can read instructions anot? Try again!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Can read instructions anot? Try again!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Enter 0 to return to main menu anytime!
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Added this task: read book
+You have 1 tasks in your list now.
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Added this task: write book
+You have 2 tasks in your list now.
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Added this task: make list
+You have 3 tasks in your list now.
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Your task list:
+1.[T][ ] read book
+2.[T][ ] write book
+3.[T][ ] make list
+Shag bro, your list long siah
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+Returning to main menu!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Enter 0 to return to main menu anytime!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+Here is your task list:
+1.[T][ ] read book
+2.[T][ ] write book
+3.[T][ ] make list
+Better faster do!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+"write book" marked as done!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+"read book" marked as done!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+"write book" marked as undone!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+Here is your task list:
+1.[T][X] read book
+2.[T][ ] write book
+3.[T][ ] make list
+Better faster do!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+Returning to main menu!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Enter 0 to return to main menu anytime!
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Added this task: make bed
+You have 4 tasks in your list now.
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Added this task: sleep
+You have 5 tasks in your list now.
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Can read instructions anot? Try again!
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Wrong format!
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+-----------------------------------------------------------------------------
+Your task list:
+1.[T][X] read book
+2.[T][ ] write book
+3.[T][ ] make list
+4.[D][ ] make bed (by: 2pm)
+5.[E][ ] sleep (from: 10pm to: 7am)
+Shag bro, your list long siah
+-----------------------------------------------------------------------------
+Enter 'list' to see your list of tasks, 'todo'/'deadline'/'event' to add that respective type of task, '0' to exit
+Returning to main menu!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Enter 0 to return to main menu anytime!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+"sleep" marked as done!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+Task number out of bounds!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+Task number out of bounds!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+"read book" marked as undone!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+-----------------------------------------------------------------------------
+Here is your task list:
+1.[T][ ] read book
+2.[T][ ] write book
+3.[T][ ] make list
+4.[D][ ] make bed (by: 2pm)
+5.[E][X] sleep (from: 10pm to: 7am)
+Better faster do!
+-----------------------------------------------------------------------------
+Enter 'list' to see task list, 'mark'/'unmark' with a number to toggle respective task status, '0' to exit
+Returning to main menu!
+-----------------------------------------------------------------------------
+I'm hungry, what do you want?
+Faster lah! Enter 1 for echo function, 2 for task creation function, 3 for task marking function, 0 to exit
+-----------------------------------------------------------------------------
+Bye! I'm going to eat MacDonalds now!
+-----------------------------------------------------------------------------
