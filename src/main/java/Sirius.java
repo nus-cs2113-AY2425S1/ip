@@ -34,19 +34,23 @@ public class Sirius {
                 """);
         isExit = false;
     }
-    public static void markTask(String taskName, Task[] list, boolean isMarked) {
+    public static void markTask(String[] commandPieces, Task[] list, boolean isMarked) {
         System.out.println(SAPERATOR);
-        //int taskNumber = Integer.parseInt(userInput.replace("mark ", ""));
-        int taskNumber = Integer.parseInt(taskName);
-        if (isMarked){
-            list[taskNumber-1].setMarked(true);
-            System.out.println("Nice! I've marked this task as done:");
+        int taskNumber = Integer.parseInt(commandPieces[1]);
+        if (taskNumber > taskCounter) {
+            System.out.println("Oh, please enter an valid task number!");
         }
         else{
-            list[taskNumber-1].setMarked(false);
-            System.out.println("OK, I've marked this task as not done yet:");
+            if (isMarked){
+                list[taskNumber-1].setMarked(true);
+                System.out.println("Nice! I've marked this task as done:");
+            }
+            else{
+                list[taskNumber-1].setMarked(false);
+                System.out.println("OK, I've marked this task as not done yet:");
+            }
+            System.out.println(list[taskNumber-1].toString());
         }
-        System.out.println(list[taskNumber-1].toString());
         System.out.println(SAPERATOR);
     }
     public static void addTask(String[] commandPieces, Task[] list){
@@ -119,7 +123,6 @@ public class Sirius {
             String userInput = scanner.nextLine();
             String[] commandPieces = splitCommand(userInput);
             String commandPrefix = commandPieces[0];
-            String taskName = commandPieces[1];
 
             switch (commandPrefix) {
                 case BYE:
@@ -129,10 +132,10 @@ public class Sirius {
                     listTasks(list);
                     break;
                 case MARK:
-                    markTask(taskName, list, true);
+                    markTask(commandPieces, list, true);
                     break;
                 case UNMARK:
-                    markTask(taskName, list, false);
+                    markTask(commandPieces, list, false);
                     break;
                 default:
                     addTask(commandPieces, list);
