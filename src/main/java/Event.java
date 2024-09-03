@@ -1,9 +1,12 @@
+/**
+ * Represents an event task with a start and end time.
+ */
 public class Event extends Task{
     protected final String start;
     protected final String end;
 
     /**
-     * Constructor for Event
+     * Constructs an Event task.
      *
      * @param name Name of the event.
      * @param start Date when the event begins.
@@ -17,8 +20,7 @@ public class Event extends Task{
     }
 
     /**
-     * Prints the event and its status in one line.
-     * Overwrites toString method in Java Object class.
+     * Returns a string representation of the event task.
      *
      * @return String representation of the event.
      */

@@ -1,7 +1,10 @@
+/**
+ * Represents a todo task without a specific deadline.
+ */
 public class Todo extends Task{
 
     /**
-     * Constructor for Todo
+     * Constructs a Todo task.
      *
      * @param name Name of the todo.
      */
@@ -11,10 +14,9 @@ public class Todo extends Task{
     }
 
     /**
-     * Prints the todo and its status in one line.
-     * Overwrites toString method in Java Object class.
+     * Returns a string representation of the todo task.
      *
-     * @return String representation of the todo.
+     * @return String representation of the todo task.
      */
     @Override
     public String toString() {

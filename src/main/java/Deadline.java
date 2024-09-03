@@ -1,8 +1,11 @@
+/**
+ * Represents a deadline task with a due date.
+ */
 public class Deadline extends Task{
     protected final String by;
 
     /**
-     * Constructor for Deadline
+     * Constructs a Deadline task.
      *
      * @param name Name of the deadline.
      * @param by Date when the deadline is due.
@@ -14,8 +17,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Prints the deadline and its status in one line.
-     * Overwrites toString method in Java Object class.
+     * Returns a string representation of the deadline task.
      *
      * @return String representation of the deadline.
      */

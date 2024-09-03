@@ -4,20 +4,19 @@ import java.util.stream.IntStream;
 public class TaskList {
 
     private final ArrayList<Task> list = new ArrayList<>();
-    private int size = 0;
 
     /**
      * Returns size of TaskList
      */
     public int size() {
-        return this.size;
+        return list.size();
     }
 
     /**
      * Prints list of tasks with their completion status.
      */
     public void printList() {
-        if (this.size == 0) {
+        if (list.isEmpty()) {
             System.out.println("Uh oh, the list is empty!");
             return;
         }
@@ -33,7 +32,6 @@ public class TaskList {
      */
     public void addItem(Task task) {
         this.list.add(task);
-        this.size++;
     }
 
     /**
