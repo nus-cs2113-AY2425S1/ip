@@ -37,7 +37,7 @@ public class Emoji {
     }
 
     public String getReverseEmoji() {
-        return "\u1F504";
+        return "\uD83D\uDD04";
     }
 }
 

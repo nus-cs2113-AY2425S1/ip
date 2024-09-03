@@ -7,11 +7,13 @@ public class Rizzler {
         System.out.println("What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji());
         String menu = """
                   --------------------------------------------------------
-                  1. Just type in a task, and Rizzler's got it handled!
-                  2. Need the full rundown? Type 'rizz list' and I’ll drop the goods!
-                  3. Crushed a task? Type 'rizz done [task number]' and let's celebrate!
-                  4. Changed your mind? Type 'rizz undo [task number]' and I'll reset that for you!
-                  5. Wanna bounce? Just hit me with 'rizz bye' and I'll catch you on the flip side!
+                  1. To add a TODO task just type the task
+                     to add a DEADLINE task type '[task] BY [deadline]'
+                     to add a EVENT task type '[task] FROM [start time] TO [end time]' , and Rizzler's got it handled!    
+                  2. Need the full rundown? Type 'list' and I’ll drop the goods!
+                  3. Crushed a task? Type 'mark [task number]' and let's celebrate!
+                  4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
+                  5. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
                   --------------------------------------------------------
                   """;
 
@@ -24,21 +26,23 @@ public class Rizzler {
 
         TaskManager taskManager = new TaskManager();
 
-        while (!command.equals("rizz bye")) {
-            if (command.equals("rizz list")) {
+
+        while (!command.equals("bye")) {
+            if (command.equals("list")) {
                 taskManager.displayTaskList();
-            }
-            else if (command.startsWith("rizz done")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[2]);
+
+            } else if (command.startsWith("mark")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 taskManager.completeTask(taskNumber);
-            }
-            else if (command.startsWith("rizz undo")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[2]);
+
+            } else if (command.startsWith("undo")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 taskManager.undoTask(taskNumber);
-            }
-            else {
+
+            } else {
                 taskManager.addTask(command);
             }
+
             command = scanner.nextLine();
         }
         System.out.println("Peace out, Rizzler’s got places to be! " + emoji.getCoolFaceEmoji() + emoji.getFistBumpEmoji());
