@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Cubone {
     public static void main(String[] args) {
         String logo =   
@@ -56,29 +58,25 @@ public class Cubone {
             } else if (input.contains("deadline")){
                 // add deadline task
                 // usage: deadline <description> /by <date>
-                try{
-                    String[] deadline_and_description = input.split("/by");
-                    String description = deadline_and_description[0].split("deadline")[1];
-                    String by = deadline_and_description[1];
-                    inputed_tasks.add(new Deadline(description, by));
+                Pattern deadlinePattern = Pattern.compile("deadline (.+?) /by (.+)");
+                Matcher deadlineMatcher = deadlinePattern.matcher(input);
+                if (deadlineMatcher.find()) {
+                    inputed_tasks.add(new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2)));
                     System.out.println(chat_bar + chat_prefix + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" + 
                                         "now you have " + inputed_tasks.size() + " tasks in the list\n" + chat_bar);
-                }catch(Exception e){
+                } else {
                     System.out.println(chat_bar + chat_prefix + "☹ OOPS!!! Someting missing, usage: deadline <description> /by <date>\n" + chat_bar);
                 }
             } else if (input.contains("event")){
                 // add event task
                 // usage: event <description> /from <date> /to <date>
-                try{
-                    String[] event_and_description = input.split("/from");
-                    String[] times = event_and_description[1].split("/to");
-                    String description = event_and_description[0].split("event")[1];
-                    String from = times[0];
-                    String to = times[1];
-                    inputed_tasks.add(new Event(description, from, to));
-                    System.out.println(chat_bar + chat_prefix + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" +
+                Pattern eventPattern = Pattern.compile("event (.+?) /from (.+?) /to (.+)");
+                Matcher eventMatcher = eventPattern.matcher(input);
+                if (eventMatcher.find()) {
+                    inputed_tasks.add(new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3)));
+                    System.out.println(chat_bar + chat_prefix + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" + 
                                         "now you have " + inputed_tasks.size() + " tasks in the list\n" + chat_bar);
-                }catch(Exception e){
+                } else {
                     System.out.println(chat_bar + chat_prefix + "☹ OOPS!!! Someting missing, usage: event <description> /from <date> /to <date>\n" + chat_bar);
                 }
             }else {
