@@ -28,7 +28,7 @@ public class Task {
     }
 
     public void printTask() {
-        System.out.printf("[%s] %s%n", done ? "X" : " ", taskInfo);
+        System.out.printf("[%s] %s", done ? "X" : " ", taskInfo);
     }
 
 }

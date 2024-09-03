@@ -7,9 +7,9 @@ public class TaskList {
         size=0;
     }
 
-    public void addTask(String line){
-        System.out.println("I've added this to your list: "+line);
-        Task newTask = new Task(line);
+    public void addTask(Task newTask){
+        System.out.println("I've added this to your list: ");
+        newTask.printTask();
         list[size]=newTask;
         size++;
     }
@@ -22,27 +22,23 @@ public class TaskList {
         }
     }
 
-    public void attemptToMarkTask(String line){
+    public void attemptToMarkTask(String listIndex){
         try{
-            if (line.charAt(4) == ' '){
-                int index = Integer.parseInt(line.substring(5));
-                list[index-1].markAsDone();
-            }
+            int index = Integer.parseInt(listIndex);
+            list[index-1].markAsDone();
         }catch (Exception e){
             //Treat invalid command as a task
-            addTask(line);
+            System.out.println("Please use a valid index");
         }
     }
 
-    public void attemptToUnmarkTask(String line){
+    public void attemptToUnmarkTask(String listIndex){
         try{
-            if (line.charAt(6) == ' '){
-                int index = Integer.parseInt(line.substring(7));
-                list[index-1].markAsNotDone();
-            }
+            int index = Integer.parseInt(listIndex);
+            list[index-1].markAsNotDone();
         }catch (Exception e){
             //Treat invalid command as a task
-            addTask(line);
+            System.out.println("Please use a valid index");
         }
     }
 }

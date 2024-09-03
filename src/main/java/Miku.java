@@ -2,35 +2,77 @@ import java.util.Scanner;
 
 public class Miku {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        Scanner inputScanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
 
         printGreeting();
 
-        String line = input.nextLine();
+        String line = inputScanner.nextLine();
         printDivider();
 
         while(!line.equals("bye")){
-
-            if (line.equals("list")){
-                taskList.printTaskList();
-            } else if(line.startsWith("mark")){
-                taskList.attemptToMarkTask(line);
-            } else if(line.startsWith("unmark")){
-                taskList.attemptToUnmarkTask(line);
-            } else{
-                taskList.addTask(line);
+            try {
+                handleInput(line, taskList);
             }
-
+            catch (Exception e){
+                System.out.println("Please enter valid commands");
+            }
             printDivider();
-            line = input.nextLine();
+            line = inputScanner.nextLine();
             printDivider();
         }
 
+        printGoodbye();
+
+        inputScanner.close();
+    }
+
+    private static void printGoodbye() {
         System.out.println("Bye, see you later!");
         printDivider();
+    }
 
-        input.close();
+    private static String[] splitCommand(String line){
+        return line.split(" ",2);
+    }
+
+    private static void handleInput(String line, TaskList taskList) throws Exception {
+        if (line.equals("list")){
+            taskList.printTaskList();
+            return;
+        }
+        String [] parts = splitCommand(line);
+
+        if (parts.length<2){
+            System.out.println("Insufficient arguments");
+            return;
+        }
+
+        String [] parameters = parts[1].split("/");
+
+        switch (parts[0]) {
+        case "mark":
+            taskList.attemptToMarkTask(parameters[0]);
+            break;
+        case "unmark":
+            taskList.attemptToUnmarkTask(parameters[0]);
+            break;
+        case "todo":
+            taskList.addTask(new Todo(parameters[0]));
+            break;
+        case "deadline":
+            String dueDate = splitCommand(parameters[1])[1];
+            taskList.addTask(new Deadline(parameters[0],dueDate));
+            break;
+        case "event":
+            String fromDate = splitCommand(parameters[1])[1];
+            String toDate = splitCommand(parameters[2])[1];
+            taskList.addTask(new Event(parameters[0],fromDate,toDate));
+            break;
+        default:
+            System.out.println("Invalid command");
+            break;
+        }
     }
 
     /**
