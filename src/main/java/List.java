@@ -41,18 +41,18 @@ public class List {
     }
 
     private static void printInvalidTaskMessage() {
-        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
+        System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
                 + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
                 + INVALID_EVENT_INPUT_MESSAGE);
     }
 
     private static void printInvalidEventMessage() {
-        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
+        System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" +
                 INVALID_EVENT_INPUT_MESSAGE);
     }
 
     private static void printInvalidDeadlineMessage() {
-        System.out.println("\tInvalid command format: " + System.lineSeparator() + "\t\t" +
+        System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" +
                 INVALID_DEADLINE_INPUT_MESSAGE);
     }
 
@@ -81,7 +81,7 @@ public class List {
     }
 
     private void outputAddedMessage(Task task) {
-        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + (numItems+1) + " tasks in the list.");
     }
