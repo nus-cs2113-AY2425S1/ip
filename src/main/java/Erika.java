@@ -1,37 +1,35 @@
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Erika {
-    public static ArrayList<Task> tasks = new ArrayList<>();
-    public static String line;
-    public static Scanner in = new Scanner(System.in);
-    public static int markIndex;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static Scanner in = new Scanner(System.in);
+    private static int markIndex;
     
     public static void main(String[] args) {
         printWelcomeMessage();
         while (true) {
-            collectUserInput();
+            String line = collectUserInput();
             if (line.equals("bye")) {
                 printGoodbyeMessage();
                 break;
             } else if (line.equals("list")) {
                 printList();
             } else if (line.contains("mark ")) {
-                handleMark();
+                handleMark(line);
             } else if (line.contains("todo ")) {
-                addTodo();
+                addTodo(line);
             } else if (line.contains("deadline ")) {
-                addDeadline();
+                addDeadline(line);
             } else if (line.contains("event ")) {
-                addEvent();
+                addEvent(line);
             } else {
                 printUnknownCommand();
             }
         }
     }
 
-    private static void addEvent() {
+    private static void addEvent(String line) {
         int indexOfFrom = line.indexOf("/from ");
         int indexOfTo = line.indexOf("/to ");
         if (indexOfFrom != -1 && indexOfTo != -1) {
@@ -44,7 +42,7 @@ public class Erika {
         }
     }
 
-    private static void addDeadline() {
+    private static void addDeadline(String line) {
         int indexOfBy = line.indexOf("/by ");
         if (indexOfBy != -1) {
             Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ")+1, indexOfBy-1),
@@ -56,17 +54,15 @@ public class Erika {
         }
     }
 
-    private static void addTodo() {
+    private static void addTodo(String line) {
         Todo newTodo = new Todo(line.substring(line.indexOf(" ")+1));
         tasks.add(newTodo);
         printAddedMessage(newTodo);
     }
 
-    private static void handleMark() {
-        markIndex = -1;
-        String digitString = line.replaceAll("[^0-9]", "");
-        parseDigits(digitString);
-        if (markIndex > Task.getTaskArraySize()) {
+    private static void handleMark(String line) {
+        markIndex = extractTaskIndex(line);
+        if (markIndex == -1 || markIndex > Task.getTaskArraySize()) {
             printOutOfBounds();
             return;
         }
@@ -79,74 +75,76 @@ public class Erika {
         }
     }
 
+    private static int extractTaskIndex(String line) {
+        String digitString = line.replaceAll("[^0-9]", "");
+        if (!digitString.isEmpty()) {
+            return Integer.parseInt(digitString);
+        } else {
+            return -1;
+        }
+    }
+
+    private static void printMessage(String message) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + message);
+        System.out.println("\t____________________________________________________________");
+    }
+
     private static void printAddedMessage(Task newTask) {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + newTask.printString());
-        System.out.printf("\tNow you have %d tasks in the list.%n", Task.getTaskArraySize());
-        System.out.println("\t____________________________________________________________");
+        String message = "Got it. I've added this task:\n" + "\t  " + newTask.printString() + "\n" +
+                String.format("\tNow you have %d task%s in the list.", Task.getTaskArraySize(),
+                (Task.getTaskArraySize() > 1) ? "s" : "");
+        printMessage(message);
     }
 
     private static void printMarkedMessage() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t[X] " + tasks.get(markIndex-1).getDescription());
-        System.out.println("\t____________________________________________________________");
+        String message = "Nice! I've marked this task as done:\n" + "\t[X] " +
+                tasks.get(markIndex-1).getDescription();
+        printMessage(message);
     }
 
     private static void printUnmarkedMessage() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tNice! I've marked this task as not done yet:");
-        System.out.println("\t[ ] " + tasks.get(markIndex-1).getDescription());
-        System.out.println("\t____________________________________________________________");
+        String message = "Nice! I've marked this task as not done yet:\n" + "\t[ ] " +
+                tasks.get(markIndex-1).getDescription();
+        printMessage(message);
     }
 
     private static void printUnknownCommand() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tError! Unknown Command, please try again!");
-        System.out.println("\t____________________________________________________________");
+        printMessage("Error! Unknown Command, please try again!");
     }
 
     private static void printFormatError() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tError! Invalid Command Format, please try again!");
-        System.out.println("\t____________________________________________________________");
+        printMessage("Error! Invalid Command Format, please try again!");
     }
 
     private static void printOutOfBounds() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tError! Task " + markIndex + " is out of bounds!");
-        System.out.println("\t____________________________________________________________");
-    }
-
-    private static void parseDigits(String digitString) {
-        if (!digitString.isEmpty()) {
-            markIndex = Integer.parseInt(digitString);
-        }
+        printMessage("Error! Task " + markIndex + " is out of bounds!");
     }
 
     private static void printList() {
-        System.out.println("\t____________________________________________________________");
+        String message = "";
         if (Task.getTaskArraySize() == 0) {
-            System.out.println("\tIt seems that there are no tasks! Please consider adding some!");
-            return;
+            message += "It seems that there are no tasks! Please consider adding some!";
+        } else {
+            message += "Here are the tasks in your list:\n";
+            for (int i = 0; i < Task.getTaskArraySize(); i++) {
+                message += "\t" + Integer.toString(i + 1) + "." + tasks.get(i).printString();
+                if(i < Task.getTaskArraySize() - 1) {
+                    message += "\n";
+                }
+            }
         }
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < Task.getTaskArraySize(); i++) {
-            System.out.println("\t" + Integer.toString(i+1) + "." + tasks.get(i).printString());
-        }
-        System.out.println("\t____________________________________________________________");
+        printMessage(message);
     }
 
     private static void printGoodbyeMessage() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tBye! Hope to see you again soon!");
-        System.out.println("\t____________________________________________________________");
+        printMessage("Bye! Hope to see you again soon!");
     }
 
-    private static void collectUserInput() {
-        line = in.nextLine();
+    private static String collectUserInput() {
+        String line = in.nextLine();
         line = line.trim();
+        return line;
     }
 
     private static void printWelcomeMessage() {
@@ -159,8 +157,6 @@ public class Erika {
                 "   \\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\__\\\\ \\__\\ \\__\\ \\__\\\n" +
                 "    \\|_______|\\|__|\\|__|\\|__|\\|__| \\|__|\\|__|\\|__|";
         System.out.println("\tHello from\n" + logo + "\n");
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tHello! I'm Erika\n \tWhat can I do for you?");
-        System.out.println("\t____________________________________________________________");
+        printMessage("Hello! I'm Erika\n \tWhat can I do for you?");
     }
 }
