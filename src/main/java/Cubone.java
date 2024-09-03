@@ -43,7 +43,45 @@ public class Cubone {
                 int index = Integer.parseInt(split[1]);
                 inputed_tasks.get(index-1).markAsUndone();
                 System.out.println(chat_bar + chat_prefix + "OK, I've marked this task as not done yet:\n" + inputed_tasks.get(index-1).toString() + "\n" + chat_bar);
-            } else {
+            } else if (input.contains("todo")){
+                // add todo task
+                String[] split = input.split(" ");
+                if(split.length == 1){
+                    System.out.println(chat_bar + chat_prefix + "☹ OOPS!!! The description of a todo cannot be empty.\n" + chat_bar);
+                }else{
+                    inputed_tasks.add(new Todo(input));
+                    System.out.println(chat_bar + chat_prefix + "Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" +
+                                        "now you have " + inputed_tasks.size() + " tasks in the list\n" + chat_bar); 
+                }
+            } else if (input.contains("deadline")){
+                // add deadline task
+                // usage: deadline <description> /by <date>
+                try{
+                    String[] deadline_and_description = input.split("/by");
+                    String description = deadline_and_description[0].split("deadline")[1];
+                    String by = deadline_and_description[1];
+                    inputed_tasks.add(new Deadline(description, by));
+                    System.out.println(chat_bar + chat_prefix + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" + 
+                                        "now you have " + inputed_tasks.size() + " tasks in the list\n" + chat_bar);
+                }catch(Exception e){
+                    System.out.println(chat_bar + chat_prefix + "☹ OOPS!!! Someting missing, usage: deadline <description> /by <date>\n" + chat_bar);
+                }
+            } else if (input.contains("event")){
+                // add event task
+                // usage: event <description> /from <date> /to <date>
+                try{
+                    String[] event_and_description = input.split("/from");
+                    String[] times = event_and_description[1].split("/to");
+                    String description = event_and_description[0].split("event")[1];
+                    String from = times[0];
+                    String to = times[1];
+                    inputed_tasks.add(new Event(description, from, to));
+                    System.out.println(chat_bar + chat_prefix + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size()-1).toString() + "\n" +
+                                        "now you have " + inputed_tasks.size() + " tasks in the list\n" + chat_bar);
+                }catch(Exception e){
+                    System.out.println(chat_bar + chat_prefix + "☹ OOPS!!! Someting missing, usage: event <description> /from <date> /to <date>\n" + chat_bar);
+                }
+            }else {
                 // add user input into list
                 inputed_tasks.add(new Task(input));
                 System.out.println(chat_bar + chat_prefix + "added: "+ input + "\n" + chat_bar);
