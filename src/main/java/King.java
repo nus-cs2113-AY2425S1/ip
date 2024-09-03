@@ -16,8 +16,8 @@ public class King {
         System.out.println("Hello from\n" + logo);
 
         System.out.println(" Hello! I'm " + name + "\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n");
+                           " What can I do for you?\n" +
+                           "____________________________________________________________\n");
 
         chat();
     }
@@ -69,7 +69,7 @@ public class King {
 
     public static void printList() {
         System.out.println("____________________________________________________________\n"
-                + "Here are the tasks in your list:");
+                           + "Here are the tasks in your list:");
 
         for (int i = 0; i < tasksCount; i++) {
             int indexNum = i + 1;
@@ -159,9 +159,9 @@ public class King {
 
     public static void printAddedTaskDescription(Task t) {
         System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n   "
-                + t.getTaskDescription() +
-                "\nNow you have " + tasksCount + " tasks in the list.");
+                           + "Got it. I've added this task:\n   "
+                           + t.getTaskDescription() +
+                           "\nNow you have " + tasksCount + " tasks in the list.");
 
         System.out.println("____________________________________________________________\n");
     }
