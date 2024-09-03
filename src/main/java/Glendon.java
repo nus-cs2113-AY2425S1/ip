@@ -50,7 +50,7 @@ public class Glendon {
 
     private static void addEvent(String response) {
         String[] answers = response.split("/");
-        list[taskCounter] = new Event(answers[0], answers[1].substring(5), answers[2].substring(3));
+        list[taskCounter] = new Event(answers[0].substring(6), answers[1].substring(5), answers[2].substring(3));
         printAddedTask();
         taskCounter++;
     }
@@ -63,7 +63,7 @@ public class Glendon {
 
     private static void addDeadline(String response) {
         String[] answers = response.split("/");
-        list[taskCounter] = new Deadline(answers[0], answers[1].substring(3));
+        list[taskCounter] = new Deadline(answers[0].substring(9), answers[1].substring(3));
         printAddedTask();
         taskCounter++;
     }
@@ -91,6 +91,7 @@ public class Glendon {
     private static void printList() {
         int taskNumber = 1;
         Task currentTask;
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.length; i++) {
             currentTask = list[i];
             if (currentTask != null) {
