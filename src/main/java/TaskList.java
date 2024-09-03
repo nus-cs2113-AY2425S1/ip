@@ -21,6 +21,7 @@ public class TaskList {
             System.out.println("Uh oh, the list is empty!");
             return;
         }
+        System.out.println("Here are the tasks in your list:");
         IntStream.range(0, list.size())
                 .forEach(x -> System.out.println( (x + 1) + "." + list.get(x)));
     }

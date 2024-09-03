@@ -1,7 +1,141 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+ ?????????????????????????????????????????????????????????????????????????????
+?????????????????????????????????      ????????????????????????????????????????
+?????????????????????????????????      ????????????????????????????????????????
+?????????????????????????? ????????????????????????????????????????????????????
+???????????????????????????      ??????????????????????????????????????????????
+???????????????????????????      ??????????????????????????????????????????????
+???????????????????????????????????????????????????????????????????????????????
+
+_______________________________________________________________
+Hello! I'm Akshan
+What can I do for you?
+_______________________________________________________________
+Uh oh, the list is empty!
+_______________________________________________________________
+Got it. I've added this task:
+  [T][ ] abc
+Now you have 1 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+_______________________________________________________________
+Got it. I've added this task:
+  [T][ ] 123
+Now you have 2 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][ ] 123
+_______________________________________________________________
+Oops, the task has already been marked as [ ]!
+  [T][ ] abc
+_______________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] abc
+_______________________________________________________________
+Got it. I've added this task:
+  [D][ ] qwerty (by: 123)
+Now you have 3 tasks in the list.
+_______________________________________________________________
+Got it. I've added this task:
+  [D][ ] z12cv (by: asd 123)
+Now you have 4 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][X] abc
+2.[T][ ] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+_______________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] 123
+_______________________________________________________________
+OK, I've marked this task as not done yet:
+  [T][ ] abc
+_______________________________________________________________
+Got it. I've added this task:
+  [E][ ] 12ujk (from: 123 to: ned)
+Now you have 5 tasks in the list.
+_______________________________________________________________
+Got it. I've added this task:
+  [E][ ] pks (from: q3a cvse to: ned iho)
+Now you have 6 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[E][ ] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+_______________________________________________________________
+Got it. I've added this task:
+  [E][ ] 7ubj (from: 2 to: 21321)
+Now you have 7 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[E][ ] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+7.[E][ ] 7ubj (from: 2 to: 21321)
+_______________________________________________________________
+Nice! I've marked this task as done:
+  [D][X] z12cv (by: asd 123)
+_______________________________________________________________
+Nice! I've marked this task as done:
+  [E][X] 12ujk (from: 123 to: ned)
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][X] z12cv (by: asd 123)
+5.[E][X] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+7.[E][ ] 7ubj (from: 2 to: 21321)
+_______________________________________________________________
+Got it. I've added this task:
+  [T][ ] asdsadsadsadsadasdad
+Now you have 8 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][X] z12cv (by: asd 123)
+5.[E][X] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+7.[E][ ] 7ubj (from: 2 to: 21321)
+8.[T][ ] asdsadsadsadsadasdad
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][X] z12cv (by: asd 123)
+5.[E][X] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+7.[E][ ] 7ubj (from: 2 to: 21321)
+8.[T][ ] asdsadsadsadsadasdad
+_______________________________________________________________
+Got it. I've added this task:
+  [D][ ] kidnasds akshan (by: 2313213213213)
+Now you have 9 tasks in the list.
+_______________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] abc
+2.[T][X] 123
+3.[D][ ] qwerty (by: 123)
+4.[D][X] z12cv (by: asd 123)
+5.[E][X] 12ujk (from: 123 to: ned)
+6.[E][ ] pks (from: q3a cvse to: ned iho)
+7.[E][ ] 7ubj (from: 2 to: 21321)
+8.[T][ ] asdsadsadsadsadasdad
+9.[D][ ] kidnasds akshan (by: 2313213213213)
+_______________________________________________________________
+Bye. Hope to see you again soon!
+_______________________________________________________________

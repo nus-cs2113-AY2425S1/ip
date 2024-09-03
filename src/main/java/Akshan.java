@@ -37,7 +37,6 @@ public class Akshan {
      * Exit bot, prints goodbye sequence.
      */
     private static void bye(){
-        printLine();
         System.out.println( "Bye. Hope to see you again soon!");
         printLine();
     }
@@ -52,7 +51,6 @@ public class Akshan {
 
         while (!line.equals("bye")) {
             String[] splitInput = line.split("/");
-            printLine();
 
             if (line.equals("list")) {
                 taskList.printList();

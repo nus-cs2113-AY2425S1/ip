@@ -1,0 +1,26 @@
+list
+todo abc
+list
+todo 123
+list
+unmark 1
+mark 1
+deadline qwerty /by 123
+deadline z12cv /by asd 123
+list
+mark 2
+unmark 1
+event 12ujk /from 123 /to ned
+event pks /from q3a cvse /to ned iho
+list
+event 7ubj /from 2 /to 21321
+list
+mark 4
+mark 5
+list
+todo asdsadsadsadsadasdad
+list
+list
+deadline kidnasds akshan /by 2313213213213
+list
+bye
