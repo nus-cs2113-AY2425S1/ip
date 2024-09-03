@@ -30,12 +30,18 @@ public class Yukino {
         messageList list = new messageList();
         while(true) {
             input = scanner.nextLine();
+
             if(input.equals("bye")) {
+                System.out.println("-----------------------------------\n");
                 System.out.println("Bye! Hope to see you soon!\n");
+                System.out.println("-----------------------------------\n");
                 break;
             }
             else if(input.equals("list")) {
                 messageHandler.listShow(list);
+            }
+            else if(input.contains("mark") || input.contains("unmark")) {
+                messageHandler.mark(list, input);
             }
             else {
                 Message message = new Message(input);
