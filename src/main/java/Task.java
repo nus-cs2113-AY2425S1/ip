@@ -8,11 +8,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X": " "); // mark done task with X
-    }
-
-    public String getDescription() {
-        return description;
+        if (isDone) {
+            return "X";
+        } else {
+            return " ";
+        }
     }
 
     public void setDone(boolean isDone) {

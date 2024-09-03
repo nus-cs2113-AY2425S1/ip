@@ -58,6 +58,7 @@ public class XiaoMe {
             Type type = checkType(line);
 
             if (type == Type.BYE) {
+
                 // user input is bye: end programme
                 System.out.println("""
                         \t____________________________________________________________
@@ -65,7 +66,9 @@ public class XiaoMe {
                         \t____________________________________________________________
                         """);
                 break; // stop programme
+
             } else if (type == Type.LIST) {
+
                 // user input is list: display past tasks
                 System.out.println("""
                         \t____________________________________________________________
@@ -76,6 +79,7 @@ public class XiaoMe {
                 System.out.println("\t____________________________________________________________\n");
 
             } else if (type == Type.MARK) {
+
                 // user input is mark/unmark x: mark corresponding task as done or undone
                 String[] words = line.split(" ");
                 int taskCount = Integer.parseInt(words[1]) - 1;
@@ -138,14 +142,11 @@ public class XiaoMe {
                         + "\t____________________________________________________________\n");
 
             } else {
-                // user is creating a new task
-                System.out.println("\t____________________________________________________________\n"
-                        + "\tGot it. I've added this task:\n"
-                        + "\t\t" + line + "\n"
-                        + "\t____________________________________________________________\n");
 
-                tasks[taskCount] = new Task(line); // add task to storage
-                taskCount += 1;
+                // invalid command
+                System.out.println("\t____________________________________________________________\n"
+                        + "Invalid command :(\n"
+                        + "\t____________________________________________________________\n");
             }
 
         }
