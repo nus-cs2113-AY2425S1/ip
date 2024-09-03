@@ -10,13 +10,9 @@ public class Main {
      * Firstly, it greets the user, before enquiring the user on their purpose.
      * The chatbot runs on an infinite while loop until the user enters an input.
      * By default, the input will be taken as a task, and will be added to a list of tasks.
-     * However, if the input is empty or includes spaces, an exception error message is sent,
-     * informing the user that the input is empty.
-     * If the input starts with "mark" or "unmark" together with a valid format,
-     * the particular task will be handled as marked or unmarked respectively.
-     * If the input is "list", the lists of tasks will be shown the user,
-     * including task index and completion.
+     * However, if the input is empty or includes spaces, an exception error message is sent.
      * If the input is "bye", the chatbot bids its farewell and exits the program.
+     *
      * @param args Command line arguments;
      */
     public static void main(String[] args) {

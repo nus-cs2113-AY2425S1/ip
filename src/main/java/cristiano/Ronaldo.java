@@ -49,6 +49,7 @@ public class Ronaldo {
      * If the user tries to mark or unmark a goal that has already been marked or unmarked,
      * this method from the chatbot will remind the user its goal completion status.
      * Goals completed will be marked as 'X'.
+     *
      * @param input The goal index to be marked or unmarked;
      */
     public void handleGoal(String[] input) {
@@ -97,6 +98,7 @@ public class Ronaldo {
 
     /**
      * Adds a goal to a list called goals.
+     *
      * @param words The description of the goal to be added;
      */
     public void addGoal(String words) {
