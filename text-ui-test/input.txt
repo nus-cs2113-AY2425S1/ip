@@ -1,0 +1,9 @@
+todo borrow book
+deadline finish my assigment /by Friday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 3
+mark 1
+unmark 3
+list
+bye
