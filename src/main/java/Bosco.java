@@ -37,23 +37,20 @@ public class Bosco {
             switch (words[0]) {
             case "list":
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.print("\t " + (i + 1) + ".[");
-                    System.out.println(tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println("\t " + (i + 1) + "." + tasks[i]);
                 }
                 break;
             case "mark":
                 selectedTask = tasks[Integer.parseInt(words[1]) - 1];
                 selectedTask.markAsDone();
                 System.out.println("\t Nice! I've marked this task as done:");
-                System.out.print("\t   [" + selectedTask.getStatusIcon() + "] ");
-                System.out.println(selectedTask.getDescription());
+                System.out.println("\t   " + selectedTask);
                 break;
             case "unmark":
                 selectedTask = tasks[Integer.parseInt(words[1]) - 1];
                 selectedTask.markAsNotDone();
                 System.out.println("\t OK, I've marked this task as not done yet:");
-                System.out.print("\t   [" + selectedTask.getStatusIcon() + "] ");
-                System.out.println(selectedTask.getDescription());
+                System.out.println("\t   " + selectedTask);
                 break;
             default:
                 tasks[taskCount] = new Task(userInput);
