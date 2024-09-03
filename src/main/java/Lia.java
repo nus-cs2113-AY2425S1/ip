@@ -7,7 +7,19 @@ public class Lia {
 
     public static void main(String[] args) {
         // Customizing the chatbot with the name Lia
-        String botName = "Lia";
+        String logo =
+                """
+                             ██▓     ██▓ ▄▄▄     \s
+                            ▓██▒    ▓██▒▒████▄   \s
+                            ▒██░    ▒██▒▒██  ▀█▄ \s
+                            ▒██░    ░██░░██▄▄▄▄██\s
+                            ░██████▒░██░ ▓█   ▓██▒
+                            ░ ▒░▓  ░░▓   ▒▒   ▓▒█░
+                            ░ ░ ▒  ░ ▒ ░  ▒   ▒▒ ░
+                            ░ ░    ▒ ░  ░   ▒  \s
+                                ░  ░ ░        ░  ░
+                        """;
+
         Scanner scanner = new Scanner(System.in);
         String input;
         Task[] tasks = new Task[100];  // Fixed-size array to store tasks
@@ -15,7 +27,7 @@ public class Lia {
 
         // Greet the user with enthusiasm
         printLine();
-        System.out.println("    Hello! I'm " + botName);
+        System.out.println("    Hello! I'm \n" + logo);
         System.out.println("    What can I do for you?");
         printLine();
 
@@ -62,6 +74,33 @@ public class Lia {
                     System.out.println("      " + tasks[taskIndex].toString());
                     printLine();
                 }
+            } else if (inputArr[0].equalsIgnoreCase("todo")) {
+                tasks[taskCount] = new ToDo(inputArr[1]);
+                taskCount++;
+                printLine();
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                printLine();
+            } else if (inputArr[0].equalsIgnoreCase("deadline")) {
+                String[] details = inputArr[1].split(" /by ", 2);
+                tasks[taskCount] = new Deadline(details[0], details[1]);
+                taskCount++;
+                printLine();
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                printLine();
+            } else if (inputArr[0].equalsIgnoreCase("event")) {
+                String[] details = inputArr[1].split(" /from ", 2);
+                String[] times = details[1].split(" /to ", 2);
+                tasks[taskCount] = new Event(details[0], times[0], times[1]);
+                taskCount++;
+                printLine();
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                printLine();
             } else {
                 // Add the user's input as a new task
                 tasks[taskCount] = new Task(input);
