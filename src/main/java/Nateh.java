@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Nateh {
+    public static String lineBreak = "____________________________________________________________\n";
     public static void printList(Task[] list, int length) {
-        String lineBreak = "____________________________________________________________\n";
         System.out.print(lineBreak);
         for (int i = 0; i < length; i++) {
             System.out.print(i+1 + ". ");
@@ -12,7 +12,6 @@ public class Nateh {
     }
 
     public static void main(String[] args) {
-        String lineBreak = "____________________________________________________________\n";
         String skeleton = """
                 
                                          {    }
@@ -72,6 +71,22 @@ public class Nateh {
                     System.out.print(lineBreak);
                     break;
                 case "bye":
+                    System.out.print(lineBreak);
+                    System.out.println("Bye. See you next time!");
+                    System.out.print(lineBreak);
+                    break;
+                case "todo":
+                    list[Task.getLength()] = new Todo(input.substring(input.indexOf(" ") + 1));
+                    System.out.print(lineBreak);
+                    System.out.println("added: " + list[Task.getLength() - 1].getTask());
+                    System.out.print(lineBreak);
+                    break;
+                case "deadline":
+                    list[Task.getLength()] = new Deadlines(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1), input.substring(input.indexOf("/by") + 4));
+                    System.out.print(lineBreak);
+                    System.out.print("added: ");
+                    list[Task.getLength() - 1].print();
+                    System.out.print(lineBreak);
                     break;
                 default:
                     list[Task.getLength()] = new Task(input);
@@ -81,8 +96,5 @@ public class Nateh {
                     break;
             }
         }
-        System.out.print(lineBreak);
-        System.out.println("Bye. See you next time!");
-        System.out.print(lineBreak);
     }
 }
