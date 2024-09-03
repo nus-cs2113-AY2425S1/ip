@@ -21,6 +21,21 @@ public class Bebe {
     }
 
     /**
+     * Prints the available commands and their descriptions.
+     */
+    private static void showHelp() {
+        System.out.println("Here are the commands you can use:");
+        System.out.println("  todo <task description>          - Adds a ToDo task.");
+        System.out.println("  deadline <task description> /by <date/time>  - Adds a Deadline task.");
+        System.out.println("  event <task description> /from <start time> /to <end time>  - Adds an Event task.");
+        System.out.println("  list                            - Lists all tasks.");
+        System.out.println("  mark <task number>              - Marks a task as done.");
+        System.out.println("  unmark <task number>            - Marks a task as not done.");
+        System.out.println("  help                            - Shows this help message.");
+        System.out.println("  bye                             - Exits the chatbot.");
+    }
+
+    /**
      * Runs the main loop of the chatbot to handle user input.
      */
     private static void runChatbot() {
@@ -29,7 +44,7 @@ public class Bebe {
 
         while (true) {
             userInput = scanner.nextLine().trim();
-            String[] words = userInput.split(" ");
+            String[] words = userInput.split(" ", 2);
 
             switch (words[0].toLowerCase()) {
                 case "bye":
@@ -41,17 +56,31 @@ public class Bebe {
                 case "mark":
                     if (words.length == 2) {
                         int taskNumber = Integer.parseInt(words[1]) - 1;
-                        markTaskAsDone(taskNumber);
+                        markTaskAsDone(Integer.parseInt(words[1]));
                     }
                     break;
                 case "unmark":
                     if (words.length == 2) {
                         int taskNumber = Integer.parseInt(words[1]) - 1;
-                        markTaskAsNotDone(taskNumber);
+                        markTaskAsNotDone(Integer.parseInt(words[1]));
                     }
                     break;
+                case "todo":
+                    addTask(new Todo(words[1]));
+                    break;
+                case "deadline":
+                    String[] deadlineParts = words[1].split(" /by ");
+                    addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    break;
+                case "event":
+                    String[] eventParts = words[1].split(" /from | /to ");
+                    addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    break;
+                case "help":
+                    showHelp();
+                    break;
                 default:
-                    addTask(userInput);
+                    System.out.println("I'm sorry, I don't understand that command.");
                     break;
             }
         }
@@ -61,12 +90,13 @@ public class Bebe {
     /**
      * Adds a new task to the list.
      *
-     * @param description The description of the task to be added.
+     * @param task The task to be added
      */
-    private static void addTask(String description) {
-        Task newTask = new Task(description);
-        tasks.add(newTask);
-        System.out.println("added: " + description);
+    private static void addTask(Task task) {
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
