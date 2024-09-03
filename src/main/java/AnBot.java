@@ -19,6 +19,8 @@ public class AnBot {
         String input;
         Scanner in = new Scanner(System.in); 
 
+        AddList addList = new AddList(); 
+
         while (true) {
             input = in.nextLine();
 
@@ -27,12 +29,10 @@ public class AnBot {
                 System.out.println(EXIT_MESSAGE); 
                 System.out.println(SEPARATOR);
                 break; 
-            }
-
-            else {
-                System.out.println(SEPARATOR);
-                System.out.println("\t" + input); 
-                System.out.println(SEPARATOR);
+            } else if (input.equals("list")) {
+                addList.displayEntries(); 
+            } else {
+                addList.addEntry(input); 
             }
         }
     }
