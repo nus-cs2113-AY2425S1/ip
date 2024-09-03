@@ -42,20 +42,23 @@ public class V {
         
         while (isOnline) {
             line = input.nextLine();
-            lineArr = line.split(" ");
-            if (lineArr[0].equals("bye")) {
+            lineArr = line.trim().split(" ");
+            switch (lineArr[0]) {
+            case "bye":
                 input.close();
                 isOnline = false;
-            } else if (lineArr[0].equals("list")) {
+                break;
+            case "list":
                 displayList(listOfTasks, count);
-            } else if (lineArr[0].equals("mark")) {
+                break;
+            case "mark":
                 int position = Integer.parseInt(lineArr[1]);
                 listOfTasks[position - 1].setDone();
                 displayList(listOfTasks, count);
-            } else {
-                listOfTasks[count] = new Task(line);
-                count++;
-                printBlock("added: " + line);
+                break;
+            default:
+                System.out.println("Try again");
+                break;
             }
         }
         System.out.println(LINE_SEPERATOR + "\nSee ya\n" + LINE_SEPERATOR);
