@@ -5,7 +5,7 @@ public class Nateh {
     public static void printList(Task[] list, int length) {
         System.out.print(lineBreak);
         for (int i = 0; i < length; i++) {
-            System.out.print(i+1 + ". ");
+            System.out.print(i + 1 + ". ");
             list[i].print();
         }
         System.out.print(lineBreak);
@@ -51,56 +51,56 @@ public class Nateh {
             input = in.nextLine();
             String[] splitInput = input.split(" ");
             switch (splitInput[0]) {
-                case "list":
-                    printList(list, Task.getLength());
-                    break;
-                case "mark":
-                    index = Integer.parseInt(splitInput[1]) - 1;
-                    list[index].setDone(true);
-                    System.out.print(lineBreak);
-                    System.out.println("Wow! Great job! :)");
-                    list[index].print();
-                    System.out.print(lineBreak);
-                    break;
-                case "unmark":
-                    index = Integer.parseInt(splitInput[1]) - 1;
-                    list[index].setDone(false);
-                    System.out.print(lineBreak);
-                    System.out.println("Aw you didn't get to finish. :(");
-                    list[index].print();
-                    System.out.print(lineBreak);
-                    break;
-                case "bye":
-                    System.out.print(lineBreak);
-                    System.out.println("Bye. See you next time!");
-                    System.out.print(lineBreak);
-                    break;
-                case "todo":
-                    list[Task.getLength()] = new Todo(input);
-                    System.out.print(lineBreak);
-                    System.out.println("added: " + list[Task.getLength() - 1].getTask());
-                    System.out.print(lineBreak);
-                    break;
-                case "deadline":
-                    list[Task.getLength()] = new Deadlines(input);
-                    System.out.print(lineBreak);
-                    System.out.print("added: ");
-                    list[Task.getLength() - 1].print();
-                    System.out.print(lineBreak);
-                    break;
-                case "event":
-                    list[Task.getLength()] = new Event(input);
-                    System.out.print(lineBreak);
-                    System.out.print("added: ");
-                    list[Task.getLength() - 1].print();
-                    System.out.print(lineBreak);
-                    break;
-                default:
-                    list[Task.getLength()] = new Task(input);
-                    System.out.print(lineBreak);
-                    System.out.println("added: " + input);
-                    System.out.print(lineBreak);
-                    break;
+            case "list":
+                printList(list, Task.getLength());
+                break;
+            case "mark":
+                index = Integer.parseInt(splitInput[1]) - 1;
+                list[index].setDone(true);
+                System.out.print(lineBreak);
+                System.out.println("Wow! Great job! :)");
+                list[index].print();
+                System.out.print(lineBreak);
+                break;
+            case "unmark":
+                index = Integer.parseInt(splitInput[1]) - 1;
+                list[index].setDone(false);
+                System.out.print(lineBreak);
+                System.out.println("Aw you didn't get to finish. :(");
+                list[index].print();
+                System.out.print(lineBreak);
+                break;
+            case "bye":
+                System.out.print(lineBreak);
+                System.out.println("Bye. See you next time!");
+                System.out.print(lineBreak);
+                break;
+            case "todo":
+                list[Task.getLength()] = new Todo(input);
+                System.out.print(lineBreak);
+                System.out.println("added: " + list[Task.getLength() - 1].getTask());
+                System.out.print(lineBreak);
+                break;
+            case "deadline":
+                list[Task.getLength()] = new Deadlines(input);
+                System.out.print(lineBreak);
+                System.out.print("added: ");
+                list[Task.getLength() - 1].print();
+                System.out.print(lineBreak);
+                break;
+            case "event":
+                list[Task.getLength()] = new Event(input);
+                System.out.print(lineBreak);
+                System.out.print("added: ");
+                list[Task.getLength() - 1].print();
+                System.out.print(lineBreak);
+                break;
+            default:
+                list[Task.getLength()] = new Task(input);
+                System.out.print(lineBreak);
+                System.out.println("added: " + input);
+                System.out.print(lineBreak);
+                break;
             }
         }
     }

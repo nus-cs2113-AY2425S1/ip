@@ -1,7 +1,7 @@
 public class Task {
+    protected static int length = 0;
     protected String task;
     protected boolean done;
-    protected static int length = 0;
 
     public Task(String task, boolean done) {
         this.task = task;
@@ -24,8 +24,7 @@ public class Task {
         String doneMarker = "";
         if (this.done) {
             doneMarker = "[X]";
-        }
-        else {
+        } else {
             doneMarker = "[ ]";
         }
         return doneMarker;
