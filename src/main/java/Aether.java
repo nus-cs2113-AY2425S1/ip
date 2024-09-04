@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Aether {
     private boolean isExit = false;
-    private Task[] tasks = new Task[100];
+    private static final int MAX_TASKS = 100;
+    private Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
 
     public static void main(String[] args) {
@@ -72,11 +73,14 @@ public class Aether {
         if (taskCount < tasks.length) {
             tasks[taskCount] = task;
             taskCount++;
-            Display.response("Got it. I've added this task:\n  " + task);
+            String taskWord = taskCount == 1 ? "task" : "tasks";
+            Display.response("Got it. I've added this task:\n  " + task +
+                    "\nNow you have " + taskCount + " " + taskWord + " in the list.");
         } else {
             Display.response("Task list is full. Sorry!");
         }
     }
+
 
     private void listTasks() {
         if (taskCount == 0) {
@@ -172,12 +176,12 @@ class Event extends Task {
 
 class Display {
     public static void showStartScreen() {
-        String logo = "     ___   ______  _______  _    _  ______  _____   \n"
-                + "    /   | |  ____||__   __|| |  | ||  ____||  __ \\  \n"
-                + "   / /| | | |__      | |   | |__| || |__   | |__) | \n"
-                + "  / /_| | |  __|     | |   |  __  ||  __|  |  _  /  \n"
-                + " /  __  | | |____    | |   | |  | || |____ | | \\ \\  \n"
-                + "/_/   |_| |______|   |_|   |_|  |_||______||_|  \\_\\ \n";
+        String logo = "     ___   ______  _______  _    _  ______  _____\n"
+                + "    /   | |  ____||__   __|| |  | ||  ____||  __ \\\n"
+                + "   / /| | | |__      | |   | |__| || |__   | |__) |\n"
+                + "  / /_| | |  __|     | |   |  __  ||  __|  |  _  /\n"
+                + " /  __  | | |____    | |   | |  | || |____ | | \\ \\\n"
+                + "/_/   |_| |______|   |_|   |_|  |_||______||_|  \\_\\\n";
         String startScreen = "Aether:\n" + "Hello! I'm Aether, your friendly assistant.\n"
                 + "How can I help you today?\n";
 
