@@ -65,12 +65,25 @@ public class lovespiritual {
                 String taskDescription = input.substring(5).trim();
                 tasks[taskCount] = taskDescription;
                 taskTypes[taskCount] = "[T]";
-                taskCount++;
                 System.out.println(line);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(" [T][ ] " + taskDescription);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
                 System.out.println(line);
+                taskCount++;
+            } else if (input.startsWith("deadline ")){
+                String fullTaskDetails = input.substring(9).trim();
+                String[] taskDetails = fullTaskDetails.split("/by");
+                String taskDescription = taskDetails[0].trim();
+                String by = taskDetails.length > 1 ? taskDetails[1].trim() : "";
+                taskTypes[taskCount] = "[D]";
+                tasks[taskCount] = taskDescription + " (by: " + by + ")";
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" [D][ ] " + tasks[taskCount]);
+                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+                System.out.println(line);
+                taskCount++;
             } else {
                 tasks[taskCount] = input;
                 taskCount++;
