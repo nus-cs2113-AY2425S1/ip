@@ -3,39 +3,39 @@ public class OutputStringHandler {
     // For Command: Add
     public static void printAddedTask(int taskCount, Task task) {
         System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println("Now, ya gotta do this too:");
+        System.out.println(StringStorage.TASK_ADDED_STRING);
         System.out.println( "  " + task.taskToString() );
-        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
         System.out.println(StringStorage.LINE_DIVIDER);
     }
     // For Command: Todo
     public static void printAddedTask(int taskCount, TaskTodo todo) {
         System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println("Now, ya gotta do this too:");
+        System.out.println(StringStorage.TASK_ADDED_STRING);
         System.out.println( todo.taskToString() );
-        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
         System.out.println(StringStorage.LINE_DIVIDER);
     }
     // For Command: Deadline
     public static void printAddedTask(int taskCount, TaskDeadline taskDeadline) {
         System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println("Now, ya gotta do this too:");
+        System.out.println(StringStorage.TASK_ADDED_STRING);
         System.out.println( taskDeadline.taskToString() );
-        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
         System.out.println(StringStorage.LINE_DIVIDER);
     }
     // For Command: Event
     public static void printAddedTask(int taskCount, TaskEvent taskEvent) {
         System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println("Now, ya gotta do this too:");
+        System.out.println(StringStorage.TASK_ADDED_STRING);
         System.out.println( taskEvent.taskToString() );
-        System.out.println("Your list is now THIS BIG: " + taskCount);
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
         System.out.println(StringStorage.LINE_DIVIDER);
     }
     // For Command: List
     public static void printTasks(Task[] tasks, int taskCount) {
         System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println("Da tasks in yer list are:");
+        System.out.println("You don't remember your tasks? Lemme refresh your memory:");
         for (int i = 0; i < taskCount; i++) {
             System.out.print( (i + 1) + "." ); // task list is displayed 1-indexed
             System.out.println( tasks[i].taskToString() );
