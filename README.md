@@ -1,6 +1,11 @@
-# grok.Grok project template
+# Grok project
+The term "grok" comes from Robert A. Heinlein's 1961 science fiction novel "Stranger in a Strange Land."
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Grok_. Given below are instructions on how to use it.
+In the context of the book, "grok" is a Martian word that means to understand something or someone completely.
+
+This is a project for CS2113 Software Engineering & Object-Oriented Programming Course in NUS.
+
+Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -15,10 +20,8 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/grok.Grok.java` file, right-click it, and choose `Run grok.Grok.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   ____________________________________________________________
+   Hello! I'm Grok
+   What can I do for you?
+   ____________________________________________________________
    ```
