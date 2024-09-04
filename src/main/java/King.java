@@ -2,33 +2,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class King {
-    public static final String name = "King";
-    public static int repeatCount = 0;
-    public static int tasksCount = 0;
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String NAME = "King";
+    protected static int tasksCount = 0;
+    protected static ArrayList<Task> tasks = new ArrayList<>();
+    private final static String LINE = "____________________________________________________________\n";
 
-    public static void greet() {
+    private static void toGreet() {
         String logo =
                 "| |/ /|_ _|| \\| | / _` |\n" +
                 "| ' <  | | | .` || (_| |\n" +
                 "|_|\\_\\|___||_|\\_| \\__,_|\n";
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("\nHello from\n" + logo);
 
-        System.out.println(" Hello! I'm " + name + "\n" +
-                           " What can I do for you?\n" +
-                           "____________________________________________________________\n");
+        System.out.println(" Hello! I'm " + NAME + "\n" +
+                           " What can I do for you?\n" + LINE);
 
-        chat();
+        toChat();
     }
 
-    public static void chat() {
+    private static void toChat() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
 
             if (userInput.equals("bye")) {
-                exit();
+                toExit();
                 return;
             } else if (userInput.equals("list")) {
                 printList();
@@ -46,48 +45,39 @@ public class King {
                 addToDoTask(userInput);
             }
         }
-        exit();
+        toExit();
     }
 
-    public static void exit() {
-        System.out.println("____________________________________________________________\n");
-
-        if (repeatCount >= 5) {
-            System.out.println(" I am repeating no more!!!\n");
-        } else {
-            System.out.println(" Bye. Hope to see you again soon!\n");
-        }
-
-        System.out.println("____________________________________________________________");
+    private static void toExit() {
+        System.out.println(LINE + " Bye. Hope to see you again soon!\n" + LINE);
     }
 
 
-    public static int parseTaskIndex(String text) {
+    private static int parseTaskIndex(String text) {
         return Integer.parseInt(text.split(" ")[1]) - 1;
     }
 
 
-    public static void printList() {
-        System.out.println("____________________________________________________________\n"
-                           + "Here are the tasks in your list:");
+    private static void printList() {
+        System.out.println(LINE + "Here are the tasks in your list:");
 
         for (int i = 0; i < tasksCount; i++) {
             int indexNum = i + 1;
             System.out.println(indexNum + ". " + tasks.get(i));
         }
 
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
     }
 
 
-    public static void addToDoTask(String text) {
+    private static void addToDoTask(String text) {
         tasksCount += 1;
         Task t = new Todo(text);
         tasks.add(t);
         printAddedTaskDescription(t);
     }
 
-    public static void addDeadlineTask(String text) {
+    private static void addDeadlineTask(String text) {
         tasksCount += 1;
         String[] taskSpecifics = text.split(" ");
         int seperationIndex = 0;
@@ -117,7 +107,7 @@ public class King {
         printAddedTaskDescription(t);
     }
 
-    public static void addEventTask(String text) {
+    private static void addEventTask(String text) {
         tasksCount += 1;
         String[] taskSpecifics = text.split(" ");
         int seperationIndexFirst = 0;
@@ -157,17 +147,14 @@ public class King {
         printAddedTaskDescription(t);
     }
 
-    public static void printAddedTaskDescription(Task t) {
-        System.out.println("____________________________________________________________\n"
-                           + "Got it. I've added this task:\n   "
+    private static void printAddedTaskDescription(Task t) {
+        System.out.println(LINE + "Got it. I've added this task:\n   "
                            + t.getTaskDescription() +
-                           "\nNow you have " + tasksCount + " tasks in the list.");
-
-        System.out.println("____________________________________________________________\n");
+                           "\nNow you have " + tasksCount + " tasks in the list.\n" + LINE);
     }
 
 
     public static void main(String[] args) {
-        greet();
+        toGreet();
     }
 }

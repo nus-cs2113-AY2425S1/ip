@@ -6,15 +6,15 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
     }
 
-    public String getTaskDescription() {
+    protected String getTaskDescription() {
         return getStatusIcon() + description;
     }
 
-    public void markAsDone() {
+    protected void markAsDone() {
         this.isDone = true;
         System.out.println("____________________________________________________________\n"
                            + "Nice! I've marked this task as done:\n" + getTaskDescription());
@@ -22,7 +22,7 @@ public class Task {
         System.out.println("____________________________________________________________");
     }
 
-    public void markAsUndone() {
+    protected void markAsUndone() {
         this.isDone = false;
         System.out.println("____________________________________________________________\n"
                            + "OK, I've marked this task as not done yet:\n" + getTaskDescription());

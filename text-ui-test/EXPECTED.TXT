@@ -1,3 +1,4 @@
+
 Hello from
 | |/ /|_ _|| \| | / _` |
 | ' <  | | | .` || (_| |
@@ -52,6 +53,7 @@ Here are the tasks in your list:
 5. [D][ ] stp uploading (by: next tuesday)
 6. [T][ ] basketball training
 ____________________________________________________________
+
 ____________________________________________________________
 Nice! I've marked this task as done:
 [D][X] stp uploading (by: next tuesday)
@@ -77,6 +79,7 @@ Here are the tasks in your list:
 5. [D][X] stp uploading (by: next tuesday)
 6. [T][ ] basketball training
 ____________________________________________________________
+
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] drink tea
@@ -94,8 +97,8 @@ Here are the tasks in your list:
 5. [D][X] stp uploading (by: next tuesday)
 6. [T][ ] basketball training
 ____________________________________________________________
-____________________________________________________________
 
+____________________________________________________________
  Bye. Hope to see you again soon!
-
 ____________________________________________________________
+

@@ -1,7 +1,7 @@
 public class Deadline extends Task {
 
     protected String taskEndTime;
-    protected final String taskTypeIcon = "[D]";
+    protected final String TASKTYPEICON = "[D]";
 
     public Deadline(String description, String taskEndTime) {
         super(description);
@@ -9,8 +9,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getTaskDescription() {
-        return taskTypeIcon + getStatusIcon() + description + " (by: " + taskEndTime + ")";
+    protected String getTaskDescription() {
+        return TASKTYPEICON + getStatusIcon() + description + " (by: " + taskEndTime + ")";
     }
 
     @Override

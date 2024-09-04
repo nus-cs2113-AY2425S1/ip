@@ -2,7 +2,7 @@ public class Event extends Task {
 
     protected String startTime;
     protected String taskEndTime;
-    protected final String taskTypeIcon = "[E]";
+    protected final String TASKTYPEICON = "[E]";
 
 
     public Event(String description, String taskStartTime, String taskEndTime) {
@@ -11,8 +11,8 @@ public class Event extends Task {
         this.taskEndTime = taskEndTime;
     }
 
-    public String getTaskDescription() {
-        return taskTypeIcon + getStatusIcon() + description + " (from: " + startTime + " to: " + taskEndTime + ")";
+    protected String getTaskDescription() {
+        return TASKTYPEICON + getStatusIcon() + description + " (from: " + startTime + " to: " + taskEndTime + ")";
     }
 
     @Override

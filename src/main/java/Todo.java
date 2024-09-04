@@ -1,13 +1,13 @@
 public class Todo extends Task {
 
-    protected final String taskTypeIcon = "[T]";
+    protected final String TASKTYPEICON = "[T]";
 
     public Todo(String description) {
         super(description);
     }
 
-    public String getTaskDescription() {
-        return taskTypeIcon + getStatusIcon() + description;
+    protected String getTaskDescription() {
+        return TASKTYPEICON + getStatusIcon() + description;
     }
 
     @Override
