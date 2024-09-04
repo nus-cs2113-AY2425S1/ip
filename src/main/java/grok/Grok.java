@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Grok {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100]; 
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         printLine();
