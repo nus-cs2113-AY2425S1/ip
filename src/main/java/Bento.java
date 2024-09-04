@@ -225,10 +225,10 @@ public class Bento {
     }
 
     // Marking Functions
-    private void markTaskAsDone(boolean isDone, String[] input) throws InvalidIndexException, MissingTaskException {
+    private void markTaskAsDone(boolean isDone, String input) throws InvalidIndexException, MissingTaskException {
         try {
-            String taskIndex = input[TASK_INDEX];
-            int index = Integer.parseInt(taskIndex) - 1;
+            input = removeMarkPrefix(input);
+            int index = Integer.parseInt(input) - 1;
             updateTask(isDone, index);
             printLine();
             if (isDone) {
@@ -242,6 +242,10 @@ public class Bento {
         } catch (IndexOutOfBoundsException e) {
             throw new MissingTaskException();
         }
+    }
+
+    private String removeMarkPrefix(String input) {
+        return input.replace(UNMARK_COMMAND, EMPTY_REGEX).replace(MARK_COMMAND, EMPTY_REGEX).trim();
     }
 
     private void printUnmarked(int index) {
@@ -296,10 +300,10 @@ public class Bento {
                 listTasks();
                 break;
             case MARK_COMMAND:
-                markTaskAsDone(true, inputList);
+                markTaskAsDone(true, input);
                 break;
             case UNMARK_COMMAND:
-                markTaskAsDone(false, inputList);
+                markTaskAsDone(false, input);
                 break;
             case TODO_COMMAND:
                 addToDo(getTodo(input));
