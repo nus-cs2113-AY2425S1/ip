@@ -1,54 +1,64 @@
 import java.util.Scanner;
 
 public class Poppy {
+
     public static String input;
+    private static final int INITIAL_INDEX = 0;
+    private static final int TASK_LIST_SIZE = 100;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Hello! I'm Poppy");
         System.out.println("What can I do for you?");
-        Task[] list = new Task[100];
+        Task[] taskList = new Task[TASK_LIST_SIZE];
         input = sc.nextLine();
-        list[0]= new Task(input);
+        taskList[INITIAL_INDEX]= new Task(input);
         int counter = 0;
         while (!input.equals("Bye")) {
-            String[] str = input.split(" ", 2 );
-            String command = str[0];
+            String[] commandArgs = input.split(" ", 2 );
+            String command = commandArgs[0];
             switch (command) {
             case "mark":
-                markAsDone(list, str);
+                markAsDone(taskList, commandArgs);
                 break;
             case "unmark":
-                markAsNotDone(list, str);
+                markAsNotDone(taskList, commandArgs);
                 break;
             case "List":
-                showList(list);
+                showList(taskList);
                 break;
             case "todo":
-                ToDo task= new ToDo(str[1]);
-                list[counter] = task;
+                ToDo task= new ToDo(commandArgs[1]);
+                taskList[counter] = task;
                 counter++;
+                System.out.println(task.toString());
+                System.out.println("You now have " + counter + " tasks");
                 break;
             case "deadline":
-                String[] deadlinestring = str[1].split( "/by", 2);
+                String[] deadlinestring = commandArgs[1].split( "/by", 2);
                 Deadline deadline = new Deadline(deadlinestring[0], deadlinestring[1]);
-                list[counter] = deadline;
+                taskList[counter] = deadline;
                 counter++;
+                System.out.println(deadline.toString());
+                System.out.println("You now have " + counter + " tasks");
                 break;
             case "event":
-                String[] eventstring = str[1].split( "/from", 2);
+                String[] eventstring = commandArgs[1].split( "/from", 2);
                 Events event = new Events(eventstring[0], eventstring[1]);
-                list[counter] = event;
+                taskList[counter] = event;
                 counter++;
+                System.out.println(event.toString());
+                System.out.println("You now have " + counter + " tasks");
                 break;
             default:
-                list[counter] = new Task(input);
+                taskList[counter] = new Task(input);
                 counter++;
-                echo(list[counter - 1]);
+                echo(taskList[counter - 1]);
             }
             input =sc.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
-        System.exit(0);
+        sc.close();
     }
 
     public static void echo(Task task) {
@@ -70,7 +80,7 @@ public class Poppy {
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < list.length; i++) {
             if (list[i] != null) {
-                System.out.println((i + 1) + ". " +list[i].taskType() +" [" + list[i].getStatusIcon() + "] " + list[i].description);
+                System.out.println((i+1) + ". " + list[i].toString());
             }
         }
     }
@@ -110,17 +120,27 @@ public class Poppy {
         public String taskType(){
             return "[]";
         }
+
+        @Override
+        public String toString() {
+            return "[" +  this.taskType() + "]" + "[" + this.getStatusIcon() + "]" + this.description;
+        }
+
         //...
     }
     public static class ToDo extends Task{
         public ToDo (String description){
             super(description);
-            System.out.println("[T]" + " [" + super.getStatusIcon()+ "] " + description);
         }
 
         @Override
         public String taskType() {
             return "[T] ";
+        }
+
+        @Override
+        public String toString(){
+            return this.taskType()  + "[" + this.getStatusIcon() + "] " + this.description;
         }
     }
 
@@ -130,12 +150,16 @@ public class Poppy {
         public Deadline (String description, String by){
             super(description);
             this.by = by;
-            System.out.println("[D]" + " [" + super.getStatusIcon()+ "] " + description + "by:" +by +" ");
         }
 
         @Override
         public String taskType() {
             return "[D] ";
+        }
+
+        @Override
+        public String toString(){
+            return this.taskType()+ "[" + super.getStatusIcon()+ "] " + description + "by:" +by +" ";
         }
     }
 
@@ -144,11 +168,15 @@ public class Poppy {
         public Events (String description, String from){
             super(description);
             this.from =from;
-            System.out.println("[E]" + " [" + super.getStatusIcon()+ "] " + description + "from:" +from +" ");
         }
         @Override
         public String taskType(){
-            return "[E]";
+            return "[E] ";
+        }
+
+        @Override
+        public String toString(){
+            return (this.taskType()+ "["+ super.getStatusIcon()+ "] " + description + "from:" +from +" ");
         }
     }
 }
