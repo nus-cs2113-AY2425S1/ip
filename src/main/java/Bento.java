@@ -128,14 +128,23 @@ public class Bento {
     }
 
     // Deadline Functions
-    public void addDeadline(String input) throws InvalidCommandException {
+    public void addDeadline(String input) throws InvalidDeadlineException {
         input = removeDeadlinePrefix(input);
         final int indexOfByPrefix = input.indexOf(BY_PREFIX);
+
+        // Throw exception if no "/by" found
         if (indexOfByPrefix == -1) {
-            throw new InvalidCommandException();
+            throw new InvalidDeadlineException();
         }
 
-        Deadline toAdd = new Deadline(extractDeadlineName(input), extractDeadlineBy(input));
+        String deadlineName = extractDeadlineName(input);
+        String deadlineBy = extractDeadlineBy(input);
+
+        if (deadlineName.isEmpty() || deadlineBy.isEmpty()) {
+            throw new InvalidDeadlineException();
+        }
+
+        Deadline toAdd = new Deadline(deadlineName, deadlineBy);
         tasks.add(toAdd);
         taskCount++;
 
@@ -143,11 +152,15 @@ public class Bento {
     }
 
     public static String extractDeadlineBy(String input) {
-        return input.split(BY_REGEX)[DEADLINE_BY_INDEX];
+        String[] inputList = input.split(BY_REGEX);
+        if (inputList.length == 1) {
+            return "";
+        }
+        return inputList[DEADLINE_BY_INDEX].trim();
     }
 
     public static String extractDeadlineName(String input) {
-        return input.split(BY_REGEX)[DEADLINE_NAME_INDEX];
+        return input.split(BY_REGEX)[DEADLINE_NAME_INDEX].trim();
     }
 
     public static String removeDeadlinePrefix(String input) {
