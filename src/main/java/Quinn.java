@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Quinn {
-    private static final List<String> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         new Quinn().run();
@@ -19,15 +19,29 @@ public class Quinn {
             System.out.print("Enter command: \t");
             commandLine = sc.nextLine().trim();
 
-            switch (commandLine.toLowerCase()) {
+            String[] commandLineParts = commandLine.split(" ", 2);
+
+            int taskNum;
+            Task task;
+
+            switch (commandLineParts[0].toLowerCase()) {
                 case "bye":
                     exit();
                     break;
                 case "list":
                     listTasks();
                     break;
+                case "mark":
+                    taskNum = Integer.parseInt(commandLineParts[1]);
+                    markTask(taskNum);
+                    break;
+                case "unmark":
+                    taskNum = Integer.parseInt(commandLineParts[1]);
+                    unmarkTask(taskNum);
+                    break;
                 default:
-                    addTask(commandLine);
+                    task = new Task(commandLine);
+                    addTask(task);
                     break;
             }
         }
@@ -72,9 +86,9 @@ public class Quinn {
         System.out.println(horizontalLine);
     }
 
-    public void addTask(String commandLine) {
-        tasks.add(commandLine);
-        echo("\t" + "added: " + commandLine);
+    public void addTask(Task task) {
+        tasks.add(task);
+        echo("\t" + "added: " + task.getDescription());
     }
 
     public void listTasks() {
@@ -89,5 +103,22 @@ public class Quinn {
         }
 
         echo(sb.toString());
+    }
+    public void markTask(int taskNum) {
+        Task task = tasks.get(taskNum - 1);
+        task.setDone();
+
+        String message = "\t" + "Nice! I've marked this task as done:"
+                + System.lineSeparator() + "\t\t" + task;
+        echo(message);
+    }
+
+    public void unmarkTask(int taskNum) {
+        Task task = tasks.get(taskNum - 1);
+        task.setNotDone();
+
+        String message = "\t" + "OK, I've marked this task as not done yet:"
+                + System.lineSeparator() + "\t\t" + task;
+        echo(message);
     }
 }
