@@ -16,11 +16,12 @@ public class Yukino {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "__   __         _        \n"
+                + "\\ \\ / /_     _ / /___ __ ______ ______      \n"
+                + " \\   / //  / // ___/ / // ___ ///--/ /     \n"
+                + "  / // /__/ //   \\  / // / / ///__/ /  \n"
+                + " /_/ /____/ /_/ \\_\\/_//_/ /_//_____/ \n";
+        System.out.println(logo);
         System.out.println("Hello, I am Yukino!\n");
         System.out.println("What can I do for you?\n");
         System.out.println("-----------------------------------\n");
