@@ -2,7 +2,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task() {};
+    public Task() {}
 
     // Constructor that takes a task description, with the initial status set to not done.
     public Task(String description) {

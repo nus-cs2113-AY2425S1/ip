@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 public class Tars {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _____                        \n"
+                + "|_   _|__  _ __ __ _ _ __ ___  \n"
+                + "  | |/ _ \\| '__/ _` | '_ ` _ \\ \n"
+                + "  | | (_) | | | (_| | | | | | |\n"
+                + "  |_|\\___/|_|  \\__,_|_| |_| |_|\n";
 
         // Opening speech.
         System.out.println("    " + "------------------------------------------------------------");
@@ -35,6 +35,7 @@ public class Tars {
                 System.out.println("    " + "------------------------------------------------------------");
                 break;
             }
+
             // List all tasks when the user inputs "list".
             else if (input.equals("list"))
             {
@@ -44,7 +45,35 @@ public class Tars {
                 {
                     System.out.println("    " + (i + 1) + ". " + tasks[i]);
                 }
+                printTaskCount(taskCount);
                 System.out.println("    " + "------------------------------------------------------------");
+            }
+            else if (input.startsWith("todo"))
+            {
+                String taskDescription = input.substring(5);
+                tasks[taskCount] = new Todo(taskDescription);
+                taskCount++;
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(tasks[taskCount - 1]);
+                printTaskCount(taskCount);
+            }
+            else if (input.startsWith("deadline"))
+            {
+                String[] parts = input.substring(9).split("/by");
+                tasks[taskCount] = new Deadline(parts[0].trim(), parts[1].trim());
+                taskCount++;
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(tasks[taskCount - 1]);
+                printTaskCount(taskCount);
+            }
+            else if (input.startsWith("event"))
+            {
+                String[] parts = input.substring(6).split("/from|/to");
+                tasks[taskCount] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                taskCount++;
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(tasks[taskCount - 1]);
+                printTaskCount(taskCount);
             }
             // Mark the specified task as done when the user inputs "mark <task number>".
             else if (input.startsWith("mark"))
@@ -56,6 +85,7 @@ public class Tars {
                 System.out.println("    " + tasks[taskNumber]);  // Print the details of the completed task.
                 System.out.println("    " + "------------------------------------------------------------");
             }
+
             // Unmark the specified task when the user inputs "unmark <task number>".
             else if (input.startsWith("unmark"))
             {
@@ -76,6 +106,10 @@ public class Tars {
                 System.out.println("    " + "------------------------------------------------------------");
             }
         }
-
     }
+
+    public static void printTaskCount(int taskCount) {
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
 }
