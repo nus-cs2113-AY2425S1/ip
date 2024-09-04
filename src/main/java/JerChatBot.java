@@ -125,15 +125,48 @@ public class JerChatBot {
 
     private static void addTask(String taskDescription) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount] = new Task(taskDescription);
+
+            String[] parts = taskDescription.split(" ", 2);
+            String categoryOfTask = parts[0];
+            String taskDetails = parts.length > 1 ? parts[1] : "";
+            Task newTask;
+
+            switch (categoryOfTask) {
+            case "todo":
+                newTask = new ToDo(taskDetails);
+                break;
+
+            case "deadline":
+                String[] deadlineParts = taskDetails.split(" /by ", 2);
+                if (deadlineParts.length < 2) {
+                    printInvalidTaskMessage();
+                    return;
+                }
+                newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+                break;
+
+            case "event":
+                String[] eventParts = taskDetails.split(" /from | /to ", 3);
+                if (eventParts.length < 3) {
+                    printInvalidTaskMessage();
+                    return;
+                }
+                newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                break;
+            default:
+                printInvalidTaskMessage();
+                return;
+            }
+
+            tasks[taskCount] = newTask;
             taskCount++;
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("added: " + taskDescription);
-            System.out.println(" Please provide next task");
+            System.out.println(" added: " + newTask);
+            System.out.println(" Currently you have: " + taskCount + " tasks in your list");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         } else {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println(" Task list is full. Cannot add more tasks.");
+            System.out.println(" Task list is full. Unable to insert more tasks.");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
