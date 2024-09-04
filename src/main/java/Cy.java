@@ -5,31 +5,62 @@ public class Cy {
         System.out.println("______________________________________");
     }
 
-    public static void markItem(String[] splitInputs, Task[] items) {
+    public static void markOutput(Task task) {
+        printLine();
+
+        if (task.isDone) {
+            System.out.println("Nice! I've marked this task as done :");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+
+        System.out.println("[" + task.getStatusIcon() + "] " + task.description);
+
+        printLine();
+    }
+
+    public static boolean isMarkError(String[] splitInputs, int count) {
+        try {
+            int index = Integer.parseInt(splitInputs[1]) - 1;
+
+            if (index >= count || index < 0) {
+                System.out.println("Please give a valid task number from 1 to " + count);
+                return true;
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static void markItem(String[] splitInputs, Task[] items, int count) {
+        if (isMarkError(splitInputs, count)){
+            return;
+        }
+
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items[index].isDone = true;
-        printLine();
-        System.out.println("Nice! I've marked this task as done :");
-        System.out.println("[X] " + items[index].description);
-        printLine();
+        markOutput(items[index]);
     }
 
-    public static void unmarkItem(String[] splitInputs, Task[] items) {
+    public static void unmarkItem(String[] splitInputs, Task[] items, int count) {
+        if (isMarkError(splitInputs, count)){
+            return;
+        }
+
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items[index].isDone = false;
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[ ] " + items[index].description);
-        printLine();
+        markOutput(items[index]);
     }
 
-    public static void printList(Task[] items) {
+    public static void printList(Task[] items, int count) {
         printLine();
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < count; i++) {
             if (items[i] != null) {
                 System.out.println((i + 1) + ". [" + items[i].getStatusIcon() + "] " + items[i].description);
-            } else {
-                break;
             }
         }
         printLine();
@@ -57,11 +88,11 @@ public class Cy {
             String[] splitInputs = input.split(" ");
 
             if (input.equalsIgnoreCase("list")) {
-                printList(items);
+                printList(items, count);
             } else if (splitInputs[0].equalsIgnoreCase("mark")) {
-                markItem(splitInputs, items);
+                markItem(splitInputs, items, count);
             } else if (splitInputs[0].equalsIgnoreCase("unmark")) {
-                unmarkItem(splitInputs, items);
+                unmarkItem(splitInputs, items, count);
             } else {
                 addItem(items, count, input);
                 count++;
