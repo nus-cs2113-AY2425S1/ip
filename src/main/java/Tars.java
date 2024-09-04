@@ -53,27 +53,33 @@ public class Tars {
                 String taskDescription = input.substring(5);
                 tasks[taskCount] = new Todo(taskDescription);
                 taskCount++;
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(tasks[taskCount - 1]);
+                System.out.println("    " + "------------------------------------------------------------");
+                System.out.println("    " + "Got it. I've added this task: ");
+                System.out.println("    " + tasks[taskCount - 1]);
                 printTaskCount(taskCount);
+                System.out.println("    " + "------------------------------------------------------------");
             }
             else if (input.startsWith("deadline"))
             {
                 String[] parts = input.substring(9).split("/by");
                 tasks[taskCount] = new Deadline(parts[0].trim(), parts[1].trim());
                 taskCount++;
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(tasks[taskCount - 1]);
+                System.out.println("    " + "------------------------------------------------------------");
+                System.out.println("    " + "Got it. I've added this task: ");
+                System.out.println("    " + tasks[taskCount - 1]);
                 printTaskCount(taskCount);
+                System.out.println("    " + "------------------------------------------------------------");
             }
             else if (input.startsWith("event"))
             {
                 String[] parts = input.substring(6).split("/from|/to");
                 tasks[taskCount] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
                 taskCount++;
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(tasks[taskCount - 1]);
+                System.out.println("    " + "------------------------------------------------------------");
+                System.out.println("    " + "Got it. I've added this task: ");
+                System.out.println("    " + tasks[taskCount - 1]);
                 printTaskCount(taskCount);
+                System.out.println("    " + "------------------------------------------------------------");
             }
             // Mark the specified task as done when the user inputs "mark <task number>".
             else if (input.startsWith("mark"))
@@ -109,7 +115,7 @@ public class Tars {
     }
 
     public static void printTaskCount(int taskCount) {
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("    " + "Now you have " + taskCount + " tasks in the list.");
     }
 
 }
