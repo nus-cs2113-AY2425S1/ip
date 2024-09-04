@@ -10,8 +10,7 @@ public class MrStripes {
         Scanner scanner = new Scanner(System.in);
         Commands commands = new Commands();
         while (commands.isAcceptingCommands()) {
-            commands.add(scanner.nextLine());
-            commands.echo();
+            commands.accept(scanner.nextLine());
         }
 
         System.out.println(Texts.GOODBYE);

@@ -3,7 +3,8 @@
 public class Commands {
 
     private static final int MAX_LENGTH = 100;
-    public String[] lines = new String[MAX_LENGTH];
+    private String[] lines = new String[MAX_LENGTH];
+
     public int length = 0;
 
     private boolean isExited = false;
@@ -16,17 +17,27 @@ public class Commands {
 
     }
 
-    public void add(String nextLine) {
-        if (nextLine .equals("exit")){
+    public void accept(String nextLine) {
+        if (nextLine.equals("exit")){
             this.isExited = true;
-
+        } else if (nextLine.equals("list")) {
+            this.list();
+        } else {
+            this.lines[length] = nextLine;
+            this.echo();
+            length++;
         }
-        this.lines[length] = nextLine;
-        length++;
 
     }
-    public void echo() {
-        System.out.println(lines[length-1]);
+
+    private void list() {
+        for (int i = 0; i < length; i++) {
+            System.out.println( i +": "+ lines[i]);
+        }
+    }
+
+    private void echo() {
+        System.out.println("added: " + lines[length]);
     }
 
     public boolean isAcceptingCommands () {
