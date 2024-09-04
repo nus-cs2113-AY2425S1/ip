@@ -61,6 +61,16 @@ public class lovespiritual {
                     System.out.println("Invalid number. Please enter a valid number.");
                     System.out.println(line);
                 }
+            } else if (input.startsWith("todo ")){
+                String taskDescription = input.substring(5).trim();
+                tasks[taskCount] = taskDescription;
+                taskTypes[taskCount] = "[T]";
+                taskCount++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" [T][ ] " + taskDescription);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(line);
             } else {
                 tasks[taskCount] = input;
                 taskCount++;
