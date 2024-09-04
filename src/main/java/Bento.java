@@ -27,29 +27,22 @@ public class Bento {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
     public static final int COMMAND_INDEX = 0;
-    public static final int TASK_INDEX = 1;
 
     // Prefixes and Regexes
     // General
     public static final String SPACE_REGEX = " ";
     public static final String EMPTY_REGEX = "";
 
-    // ToDo
-    public static final String TODO_PREFIX = TODO_COMMAND + SPACE_REGEX;
 
     // Deadline
-    public static final String DEADLINE_PREFIX = DEADLINE_COMMAND + SPACE_REGEX;
     public static final int DEADLINE_NAME_INDEX = 0;
     public static final int DEADLINE_BY_INDEX = 1;
     public static final String BY_PREFIX = "/by";
     public static final String BY_REGEX = " " + BY_PREFIX + " ";
 
     // Event
-    public static final String EVENT_PREFIX = EVENT_COMMAND + SPACE_REGEX;
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";
-    public static final String TO_REGEX = TO_PREFIX + SPACE_REGEX;
-    public static final String FROM_REGEX = FROM_PREFIX + SPACE_REGEX;
 
 
 
@@ -113,7 +106,7 @@ public class Bento {
             throw new InvalidToDoException();
         }
 
-        ToDo toAdd = new ToDo(input.trim());
+        ToDo toAdd = new ToDo(input);
         tasks.add(toAdd);
         taskCount++;
 
@@ -121,10 +114,7 @@ public class Bento {
     }
 
     private static String getTodo(String input) {
-        if (input.equals(TODO_COMMAND)) {
-            return "";
-        }
-        return input.replace(TODO_PREFIX, "");
+        return input.replace(TODO_COMMAND, "").trim();
     }
 
     // Deadline Functions
@@ -164,7 +154,7 @@ public class Bento {
     }
 
     public static String removeDeadlinePrefix(String input) {
-        return input.replace(DEADLINE_PREFIX, EMPTY_REGEX);
+        return input.replace(DEADLINE_COMMAND, EMPTY_REGEX);
     }
 
     // Event Functions
@@ -193,14 +183,11 @@ public class Bento {
     }
 
     public String extractToString(String input, int indexOfTo) {
-        if (input.substring(indexOfTo).equals(TO_PREFIX)) {
-            return "";
-        }
-        return input.substring(indexOfTo).replace(TO_REGEX, EMPTY_REGEX).trim();
+        return input.substring(indexOfTo).replace(TO_PREFIX, EMPTY_REGEX).trim();
     }
 
     public String extractFromString(String input, int indexOfFrom, int indexOfTo) {
-        return input.substring(indexOfFrom, indexOfTo).replace(FROM_REGEX, EMPTY_REGEX).trim();
+        return input.substring(indexOfFrom, indexOfTo).replace(FROM_PREFIX, EMPTY_REGEX).trim();
     }
 
     public String extractEventName(String input, int indexOfFrom) {
@@ -208,7 +195,7 @@ public class Bento {
     }
 
     public String removeEventPrefix(String input) {
-        return input.replace(EVENT_PREFIX, EMPTY_REGEX);
+        return input.replace(EVENT_COMMAND, EMPTY_REGEX);
     }
 
     private Task retrieveTask(int index) {
