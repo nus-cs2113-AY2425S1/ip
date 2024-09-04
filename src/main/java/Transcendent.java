@@ -30,29 +30,30 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
-        private static void printAddConfirm(String task) {
+        private static void printAddConfirm(List.Task task) {
             Printer.printSeparator();
-            System.out.println("Added: " + task);
+            System.out.println("Added: " + task.toString());
             Printer.printSeparator();
         }
 
-        private static void printMarkConfirm(int marked) {
+        private static void printMarkConfirm(List.Task task) {
             Printer.printSeparator();
             System.out.println("I have marked the following task.");
-            System.out.println((marked + 1) + "." + List.tasks[marked].getStatusIcon() + " " + List.tasks[marked].description);
+            System.out.println(task.toString());
             Printer.printSeparator();
         }
 
-        private static void printUnmarkConfirm(int unmarked) {
+        private static void printUnmarkConfirm(List.Task task) {
             Printer.printSeparator();
             System.out.println("I have unmarked the following task.");
-            System.out.println((unmarked + 1) + "." + List.tasks[unmarked].getStatusIcon() + " " + List.tasks[unmarked].description);
+            System.out.println(task.toString());
             Printer.printSeparator();
         }
 
         private static void printInvalidCommand() {
             Printer.printSeparator();
             System.out.println("This is an invalid instruction.");
+            System.out.println("Command for list of all valid instructions: help");
             Printer.printSeparator();
         }
 
@@ -68,6 +69,19 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
+        private static void printHelp() {
+            Printer.printSeparator();
+            System.out.println("All actions:");
+            System.out.println("To add a deadline: deadline *task* /by *by*");
+            System.out.println("To add a todo: todo *task*");
+            System.out.println("To add a event: event *task* /from *from* /to *to*");
+            System.out.println("To mark a task: mark *task_number*");
+            System.out.println("To unmark a task: unmark *task_number*");
+            System.out.println("To list all tasks: list");
+            System.out.println("To exit: bye");
+            Printer.printSeparator();
+        }
+
     }
 
     private static class InputHandler {
@@ -79,38 +93,40 @@ public class Transcendent {
                 command = input.nextLine();
                 if (command.equals("bye")) {
                     break;
-                }
-                if (command.equals("list")) {
+                } if (command.equals("list")) {
                     List.list();
-                } else if (command.startsWith("mark ")) {
-                    String numberString = command.split(" ")[1];
-                    int indexToBeMarked;
-                    try {
-                        indexToBeMarked = Integer.parseInt(numberString) - 1;
-                        if (indexToBeMarked >= List.listCount) {
-                            Printer.printInvalidCommand();
-                        } else {
-                            List.mark(indexToBeMarked);
-                        }
-                    } catch (NumberFormatException e) {
-                        Printer.printInvalidCommand();
-                    }
-                } else if (command.startsWith("unmark ")) {
-                    String numberString = command.split(" ")[1];
-                    int indexToBeUnmarked;
-                    try {
-                        indexToBeUnmarked = Integer.parseInt(numberString) - 1;
-                        if (indexToBeUnmarked >= List.listCount) {
-                            Printer.printInvalidCommand();
-                        } else {
-                            List.unmark(indexToBeUnmarked);
-                        }
-                    } catch (NumberFormatException e) {
-                        Printer.printInvalidCommand();
-                    }
+                } else if (command.equals("help")) {
+                    Printer.printHelp();
+                } else if (command.startsWith("mark ") || command.startsWith("unmark ")) {
+                    markUnmark(command);
+                } else if (command.startsWith("deadline ")) {
+                    List.addDeadline(command);
+                } else if (command.startsWith("todo ")) {
+                    List.addTodo(command);
+                } else if (command.startsWith("event ")) {
+                    List.addEvent(command);
                 } else {
-                    List.add(command);
+                    Printer.printInvalidCommand();
                 }
+            }
+        }
+
+        private static void markUnmark(String command) {
+            String numberString = command.split(" ")[1];
+            int index;
+            try {
+                index = Integer.parseInt(numberString) - 1;
+                if (index >= List.listCount) {
+                    Printer.printInvalidCommand();
+                } else {
+                    if (command.startsWith("mark ")) {
+                        List.mark(index);
+                    } else {
+                        List.unmark(index);
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Printer.printInvalidCommand();
             }
         }
 
@@ -121,14 +137,61 @@ public class Transcendent {
         private static class Task {
             protected String description;
             protected boolean isDone;
+            protected int taskNum;
 
-            public Task(String description) {
+            public Task(String description, int taskNum) {
                 this.description = description;
                 this.isDone = false;
+                this.taskNum = taskNum;
             }
 
             public String getStatusIcon() {
                 return (isDone ? "[X]" : "[ ]");
+            }
+
+            @Override
+            public String toString() {
+                return tasks[taskNum].getStatusIcon() + " " + tasks[taskNum].description;
+            }
+        }
+
+        private static class Deadline extends Task {
+            protected String by;
+
+            private Deadline(String description, int taskNum, String by) {
+                super(description, taskNum);
+                this.by = by;
+            }
+
+            @Override
+            public String toString() {
+                return (this.taskNum + 1) + "." + "[D]" + super.toString() + " (by: " + by + ")";
+            }
+        }
+
+        private static class ToDo extends Task {
+            private ToDo(String description, int taskNum) {
+                super(description, taskNum);
+            }
+            @Override
+            public String toString() {
+                return (this.taskNum + 1) + "." + "[T]" + super.toString();
+            }
+        }
+
+        private static class Event extends Task {
+            protected String from;
+            protected String to;
+
+            private Event(String description, int taskNum, String from, String to) {
+                super(description, taskNum);
+                this.from = from;
+                this.to = to;
+            }
+
+            @Override
+            public String toString() {
+                return (this.taskNum + 1) + "." + "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
             }
         }
 
@@ -140,17 +203,41 @@ public class Transcendent {
             tasks = new Task[100];
         }
 
-        private static void add(String taskDesc) {
-            Task newTask = new Task(taskDesc);
+        private static void addDeadline(String taskDesc) {
+            try {
+                String[] words = taskDesc.split(" /by ");
+                Task newTask = new Deadline(words[0].substring(9), listCount, words[1]);
+                tasks[listCount] = newTask;
+                listCount += 1;
+                Printer.printAddConfirm(newTask);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Printer.printInvalidCommand();
+            }
+        }
+
+        private static void addTodo(String taskDesc) {
+            Task newTask = new ToDo(taskDesc.substring(5), listCount);
             tasks[listCount] = newTask;
             listCount += 1;
-            Printer.printAddConfirm(taskDesc);
+            Printer.printAddConfirm(newTask);
+        }
+
+        private static void addEvent(String taskDesc) {
+            try {
+                String[] words = taskDesc.split(" /from | /to ");
+                Task newTask = new Event(words[0].substring(6), listCount, words[1], words[2]);
+                tasks[listCount] = newTask;
+                listCount += 1;
+                Printer.printAddConfirm(newTask);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Printer.printInvalidCommand();
+            }
         }
 
         private static void list() {
             Printer.printSeparator();
             for (int i = 0; i < listCount; i += 1) {
-                System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+                System.out.println(tasks[i].toString());
             }
             Printer.printSeparator();
         }
@@ -160,7 +247,7 @@ public class Transcendent {
                 Printer.printAlreadyMarked();
             } else {
                 tasks[toBeMarked].isDone = true;
-                Printer.printMarkConfirm(toBeMarked);
+                Printer.printMarkConfirm(tasks[toBeMarked]);
             }
         }
 
@@ -169,7 +256,7 @@ public class Transcendent {
                 Printer.printAlreadyUnmarked();
             } else {
                 tasks[toBeUnmarked].isDone = false;
-                Printer.printUnmarkConfirm(toBeUnmarked);
+                Printer.printUnmarkConfirm(tasks[toBeUnmarked]);
             }
         }
 
