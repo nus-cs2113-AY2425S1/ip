@@ -13,7 +13,7 @@ public class Andy {
         String input = "";
 
         while (!input.equals("bye")) {
-            input = scanner.nextLine();
+            input = scanner.nextLine().toLowerCase();
 
             if (input.startsWith("list")) {
                 handleListInput(input);
