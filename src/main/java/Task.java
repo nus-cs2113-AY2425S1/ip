@@ -1,7 +1,7 @@
 public class Task {
     protected String task;
     protected boolean done;
-    private static int length = 0;
+    protected static int length = 0;
 
     public Task(String task, boolean done) {
         this.task = task;

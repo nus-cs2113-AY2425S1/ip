@@ -88,6 +88,8 @@ public class Nateh {
                     list[Task.getLength() - 1].print();
                     System.out.print(lineBreak);
                     break;
+                case "event":
+                    list[Task.getLength()] = new Event();
                 default:
                     list[Task.getLength()] = new Task(input);
                     System.out.print(lineBreak);
