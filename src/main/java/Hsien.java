@@ -19,8 +19,8 @@ public class Hsien {
     public static void printList(ArrayList<Task> tasks) {
         int counter = 1;
         System.out.println("Here are the tasks in your list!");
-        for (Task task : tasks) {
-            System.out.printf("%s. %s%n", counter, task.getStatusDescription());
+        for (Task t : tasks) {
+            System.out.printf("%s. %s%n", counter, t.getStatusDescription());
             counter += 1;
         }
     }
