@@ -24,6 +24,7 @@ public class Bosco {
         Scanner in = new Scanner(System.in);
         String userInputString;
         String[] words;
+        String description;
         Task selectedTask;
 
         printWelcomeMessage();
@@ -60,16 +61,20 @@ public class Bosco {
                 Todo newTodo = new Todo(commandArgs);
                 tasks[taskCount] = newTodo;
                 taskCount++;
-                System.out.println("\t added: " + newTodo);
+                System.out.println("\t Got it. I've added this task:");
+                System.out.println("\t   " + newTodo);
+                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
                 break;
             case "deadline":
                 int indexOfByPrefix = commandArgs.indexOf("/by");
-                String description = commandArgs.substring(0, indexOfByPrefix).strip();
+                description = commandArgs.substring(0, indexOfByPrefix).strip();
                 String by = commandArgs.substring(indexOfByPrefix + 3).strip();
                 Deadline newDeadline = new Deadline(description, by);
                 tasks[taskCount] = newDeadline;
                 taskCount++;
-                System.out.println("\t added: " + newDeadline);
+                System.out.println("\t Got it. I've added this task:");
+                System.out.println("\t   " + newDeadline);
+                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
                 break;
             case "event":
                 int indexOfFromPrefix = commandArgs.indexOf("/from");
@@ -80,7 +85,9 @@ public class Bosco {
                 Event newEvent = new Event(description, from, to);
                 tasks[taskCount] = newEvent;
                 taskCount++;
-                System.out.println("\t added: " + newEvent);
+                System.out.println("\t Got it. I've added this task:");
+                System.out.println("\t   " + newEvent);
+                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
                 break;
             default:
                 tasks[taskCount] = new Task(userInputString);
