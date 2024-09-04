@@ -21,6 +21,27 @@ public class Andy {
                 markTaskAsDone(input);
             } else if (input.startsWith("unmark ")) {
                 markTaskAsNotDone(input);
+            } else if (input.startsWith("todo ")) {
+                addItemToList(new TodoTask(input.substring(5).trim()));
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                if (parts.length == 2) {
+                    addItemToList(new DeadlineTask(parts[0].trim(), parts[1].trim()));
+                } else {
+                    System.out.println("Invalid deadline format. Use: deadline <task> /by <time>");
+                }
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ");
+                if (parts.length == 2) {
+                    String[] timeParts = parts[1].split(" /to ");
+                    if (timeParts.length == 2) {
+                        addItemToList(new EventTask(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+                    } else {
+                        System.out.println("Invalid event format. Use: event <task> /from <start time> /to <end time>");
+                    }
+                } else {
+                    System.out.println("Invalid event format. Use: event <task> /from <start time> /to <end time>");
+                }
             } else {
                 echo(input); // Call echo method to repeat the input
             }
@@ -33,6 +54,9 @@ public class Andy {
         System.out.println("_______________________________________");
         System.out.println("Hello! I'm ANDY");
         System.out.println("What can I do for you?");
+        System.out.println("Type 'todo <task>' to add a todo item.");
+        System.out.println("Type 'deadline <task> /by <time>' to add a deadline.");
+        System.out.println("Type 'event <task> /from <start time> /to <end time>' to add an event.");
         System.out.println("Type 'list' followed by an item to add it to the list.");
         System.out.println("Type 'list show' to display all items in the list.");
         System.out.println("Type 'mark <number>' to mark a task as done.");
@@ -49,16 +73,16 @@ public class Andy {
             if (command.equals("show")) {
                 showList(); // Correctly handle 'list show' to display the list
             } else {
-                addItemToList(command); // Add the item to the list
+                addItemToList(new TodoTask(command)); // Add the item to the list as a TodoTask
             }
         } else {
             System.out.println("Please provide a valid list command or item.");
         }
     }
 
-    private static void addItemToList(String item) {
-        itemList.add(new Task(item));
-        System.out.println("Item added to the list: " + item);
+    private static void addItemToList(Task task) {
+        itemList.add(task);
+        System.out.println("Item added to the list: " + task.getDescription());
     }
 
     private static void showList() {
@@ -106,8 +130,8 @@ public class Andy {
         System.out.println("_______________________________________");
     }
 
-    // Task class to represent each task in the list
-    static class Task {
+    // Base Task class to represent each task in the list
+    static abstract class Task {
         private String description;
         private boolean isDone;
 
@@ -131,6 +155,50 @@ public class Andy {
         @Override
         public String toString() {
             return (isDone ? "[X] " : "[ ] ") + description;
+        }
+    }
+
+    // TodoTask class for tasks without deadlines or times
+    static class TodoTask extends Task {
+        public TodoTask(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    // DeadlineTask class for tasks with a deadline
+    static class DeadlineTask extends Task {
+        private String by;
+
+        public DeadlineTask(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    // EventTask class for events with start and end times
+    static class EventTask extends Task {
+        private String from;
+        private String to;
+
+        public EventTask(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
     }
 }
