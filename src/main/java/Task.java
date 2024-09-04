@@ -32,8 +32,7 @@ public class Task {
     public String toString() {
         if (status == false) {
             return "[ ] " + name;
-        }
-        else {
+        } else {
             return "[X] " + name;
         }
     }

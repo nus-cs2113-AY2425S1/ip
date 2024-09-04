@@ -15,7 +15,7 @@ public class Pythia {
 
     public static void greet() {
         String helloMsg =   "Welcome, seeker. I am " + botName + ".\n" +
-                "What brings you here?";
+                            "What brings you here?";
         IO.printResponse(helloMsg);
     }
 
@@ -60,8 +60,7 @@ public class Pythia {
             taskList.get(taskNumber - 1).markAsDone();
             String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
             IO.printResponse(msg);
-        }
-        else {
+        } else {
             IO.printResponse("There is no such task :(");
         }
     }
