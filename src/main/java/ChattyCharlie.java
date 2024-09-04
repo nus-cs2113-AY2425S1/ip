@@ -18,6 +18,7 @@ public class ChattyCharlie {
             //takes in an input
             System.out.print(you);
             line = in.nextLine();
+            System.out.println(Constants.LINE);
 
             //get the first word to see the command type
             String firstWord = line.split(" ")[0];
@@ -30,7 +31,8 @@ public class ChattyCharlie {
                 case TODO:
                     String todoDescription = line.substring(5).trim();
                     list.addTask(new Todo(todoDescription));
-                    System.out.println("        Added todo: " + todoDescription);
+                    System.out.println(Constants.SPACE + "Added todo: " + todoDescription);
+                    System.out.println(Constants.LINE);
                     break;
 
                 case DEADLINE:
@@ -39,7 +41,8 @@ public class ChattyCharlie {
                         String deadlineDescription = deadlineParts[0].trim();
                         String by = deadlineParts[1].trim();
                         list.addTask(new Deadline(deadlineDescription, by));
-                        System.out.println("        Added deadline: " + deadlineDescription + " (by: " + by + ")");
+                        System.out.println(Constants.SPACE + "Added deadline: " + deadlineDescription + " (by: " + by + ")");
+                        System.out.println(Constants.LINE);
                     }
                     break;
 
@@ -53,7 +56,8 @@ public class ChattyCharlie {
 
                     //add the event
                     list.addTask(new Event(description, startTime, endTime));
-                    System.out.println("        Added event: " + description + " (from: " + startTime + ", to: " + endTime + ")");
+                    System.out.println(Constants.SPACE + "Added event: " + description + " (from: " + startTime + ", to: " + endTime + ")");
+                    System.out.println(Constants.LINE);
 
                     break;
 
@@ -62,6 +66,7 @@ public class ChattyCharlie {
                     int markNo = Integer.parseInt(markIndex) -1; //convert to array
                     //mark it
                     list.mark(markNo);
+                    System.out.println(Constants.LINE);
                     break;
 
                 case UNMARK:
@@ -69,6 +74,7 @@ public class ChattyCharlie {
                     int unmarkNo = Integer.parseInt(unmarkIndex) -1; //convert to array
                     //mark it
                     list.unmark(unmarkNo);
+                    System.out.println(Constants.LINE);
                     break;
 
                 case BYE:
@@ -76,12 +82,14 @@ public class ChattyCharlie {
 
                 case LIST:
                     list.printList();
+                    System.out.println(Constants.LINE);
                     break;
 
                 default:
                     //add the item
                     list.addTask(new Task(line, CommandType.TODO)); //for cases without label, it is a Todo as well
-                    System.out.println("        Added: " + line);
+                    System.out.println(Constants.SPACE + "Added: " + line);
+                    System.out.println(Constants.LINE);
                     break;
             }
         }
