@@ -168,16 +168,22 @@ public class Bento {
     }
 
     // Event Functions
-    public void addEvent(String input) throws InvalidCommandException {
+    public void addEvent(String input) throws InvalidEventException {
         input = removeEventPrefix(input);
         final int indexOfFrom = input.indexOf(FROM_PREFIX);
         final int indexOfTo = input.indexOf(TO_PREFIX);
+
         if (indexOfFrom == -1 || indexOfTo == -1) {
-            throw new InvalidCommandException();
+            throw new InvalidEventException();
         }
+
         String eventName = extractEventName(input, indexOfFrom);
         String fromString = extractFromString(input, indexOfFrom, indexOfTo);
         String toString  = extractToString(input, indexOfTo);
+
+        if (eventName.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
+            throw new InvalidEventException();
+        }
 
         Event toAdd = new Event(eventName, fromString, toString);
         tasks.add(toAdd);
@@ -187,7 +193,10 @@ public class Bento {
     }
 
     public String extractToString(String input, int indexOfTo) {
-        return input.substring(indexOfTo).replace(TO_REGEX, EMPTY_REGEX);
+        if (input.substring(indexOfTo).equals(TO_PREFIX)) {
+            return "";
+        }
+        return input.substring(indexOfTo).replace(TO_REGEX, EMPTY_REGEX).trim();
     }
 
     public String extractFromString(String input, int indexOfFrom, int indexOfTo) {
