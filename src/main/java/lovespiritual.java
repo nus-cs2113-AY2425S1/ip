@@ -84,6 +84,21 @@ public class lovespiritual {
                 System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
                 System.out.println(line);
                 taskCount++;
+            } else if (input.startsWith("event ")) {
+                String fullTaskDetails = input.substring(6).trim();
+                String[] taskDetails = fullTaskDetails.split("/from", 2);
+                String taskDescription = taskDetails[0].trim();
+                String[] time = taskDetails.length > 1 ? taskDetails[1].split("/to", 2) : new String[]{"", ""};
+                String from = time[0].trim();
+                String to = time.length > 1 ? time[1].trim() : "";
+                tasks[taskCount] = taskDescription + " (from: " + from + " to: " + to + ")";
+                taskTypes[taskCount] = "[E]";
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" [E][ ] " + tasks[taskCount]);
+                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+                System.out.println(line);
+                taskCount++;
             } else {
                 tasks[taskCount] = input;
                 taskCount++;
