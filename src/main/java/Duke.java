@@ -22,73 +22,6 @@ public class Duke {
         System.out.println("added: " + task);
     }
 
-    public static void addToDo(String[] inputComponent) {
-        String description = "";
-        for (int i = 1; i < inputComponent.length; i++) {
-            description += inputComponent[i];
-            description += " ";
-        }
-        taskList[taskCount] = new ToDo(description.trim());
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
-    }
-
-    public static void addDeadline(String[] inputComponent) {
-        String description = "";
-        String by = "";
-        int state = 0;
-        for (int i = 1; i < inputComponent.length; i++) {
-            if (inputComponent[i].equals("/by")) {
-                state = 1;
-            } else {
-                if (state == 1) {
-                    by += inputComponent[i];
-                    by += " ";
-                } else {
-                    description += inputComponent[i];
-                    description += " ";
-                }
-            }
-        }
-        taskList[taskCount] = new Deadline(description.trim(), by.trim());
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
-    }
-
-    public static void addEvent(String[] inputComponent) {
-        String description = "";
-        String from = "";
-        String to = "";
-        int state = 0;
-        for (int i = 1; i < inputComponent.length; i++) {
-            if (inputComponent[i].equals("/from")) {
-                state = 1;
-            } else if (inputComponent[i].equals("/to")) {
-                state = 2;
-            } else {
-                if (state == 1) {
-                    from += inputComponent[i];
-                    from += " ";
-                } else if (state == 2) {
-                    to += inputComponent[i];
-                    to += " ";
-                } else {
-                    description += inputComponent[i];
-                    description += " ";
-                }
-            }
-        }
-        taskList[taskCount] = new Event(description.trim(), from.trim(), to.trim());
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
-    }
-
 
     //list function for level-2
     public static void list() {
@@ -119,6 +52,89 @@ public class Duke {
         System.out.println("Ok, I've marked this task as not done yet:");
         taskList[index - 1].markAsNotDone();
 
+    }
+
+
+    //add toDo task for level-4
+    public static void addToDo(String[] inputComponent) {
+        String description = "";
+
+        for (int i = 1; i < inputComponent.length; i++) {
+            description += inputComponent[i];
+            description += " ";
+        }
+
+        taskList[taskCount] = new ToDo(description.trim());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskList[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list");
+    }
+
+
+    //add deadline task for level-4
+    public static void addDeadline(String[] inputComponent) {
+        String description = "";
+        String by = "";
+        int state = 0;//transition from "description" to "by" string
+
+
+        for (int i = 1; i < inputComponent.length; i++) {
+            if (inputComponent[i].equals("/by")) {
+                state = 1;
+            } else {
+                if (state == 1) {
+                    by += inputComponent[i];
+                    by += " ";
+                } else {
+                    description += inputComponent[i];
+                    description += " ";
+                }
+            }
+        }
+
+
+        taskList[taskCount] = new Deadline(description.trim(), by.trim());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskList[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list");
+    }
+
+
+    //add event task for level-4
+    public static void addEvent(String[] inputComponent) {
+        String description = "";
+        String from = "";
+        String to = "";
+        int state = 0;//transition from "description" to "from" to "to" string
+
+
+        for (int i = 1; i < inputComponent.length; i++) {
+            if (inputComponent[i].equals("/from")) {
+                state = 1;
+            } else if (inputComponent[i].equals("/to")) {
+                state = 2;
+            } else {
+                if (state == 1) {
+                    from += inputComponent[i];
+                    from += " ";
+                } else if (state == 2) {
+                    to += inputComponent[i];
+                    to += " ";
+                } else {
+                    description += inputComponent[i];
+                    description += " ";
+                }
+            }
+        }
+
+
+        taskList[taskCount] = new Event(description.trim(), from.trim(), to.trim());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskList[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list");
     }
 
 
