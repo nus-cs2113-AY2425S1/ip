@@ -83,9 +83,44 @@ public class Monday {
     }
 
     private void addTask(String input) {
-        tasks[taskCount] = new Task(input);
+        Task task = null;
+
+        if (input.startsWith("todo ")) {
+            String description = input.substring(5);
+            task = new Todo(description);
+
+        } else if (input.startsWith("deadline ")) {
+            if (input.contains(" /by ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                task = new Deadline(description, by);
+            } else {
+                System.out.println("    Invalid deadline format. Please use: deadline <description> /by <time>");
+                return;
+            }
+
+        } else if (input.startsWith("event ")) {
+            if (input.contains(" /from ") && input.contains(" /to ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                task = new Event(description, from, to);
+            } else {
+                System.out.println("    Invalid event format. Please use: event <description> /from <start time> /to <end time>");
+                return;
+            }
+
+        } else {
+            task = new Task(input);
+        }
+
+        tasks[taskCount] = task;
         taskCount++;
-        System.out.println("    added: " + input);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + task);
+        System.out.println("    Now you have " + taskCount + " tasks in the list.");
     }
 
     private void printGoodbyeMessage() {
