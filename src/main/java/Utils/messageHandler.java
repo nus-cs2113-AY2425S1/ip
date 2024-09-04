@@ -5,8 +5,32 @@ import Entity.messageList;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class messageHandler {
+
+    public static void preHandle(messageList list) {
+        Scanner scanner = new Scanner(System.in);
+        String input = null;
+        while(true) {
+            input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("-----------------------------------\n");
+                System.out.println("Bye! Hope to see you soon!\n");
+                System.out.println("-----------------------------------\n");
+                break;
+
+            } else if (input.equals("list")) {
+                messageHandler.listShow(list);
+            } else if (input.contains("mark") || input.contains("unmark")) {
+                messageHandler.mark(list, input);
+            } else {
+                Message message = new Message(input);
+                messageHandler.addList(list, message);
+            }
+        }
+    }
+
     public static void echo(String message) {
 
         if(Objects.equals(message, "bye")) {
