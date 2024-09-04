@@ -96,8 +96,11 @@ public class Bento {
         return in.nextLine();
     }
 
-    public void addTask(String input) {
-        Task toAdd = new Task(input);
+    public void addTask(String input) throws InvalidTaskException {
+        if (input.isEmpty()) {
+            throw new InvalidTaskException();
+        }
+        Task toAdd = new Task(input.trim());
         tasks.add(toAdd);
         taskCount++;
 
@@ -105,12 +108,12 @@ public class Bento {
     }
 
     // ToDo Functions
-    public void addToDo(String input) throws InvalidCommandException {
+    public void addToDo(String input) throws InvalidToDoException {
         if (input.isEmpty()) {
-            throw new InvalidCommandException();
+            throw new InvalidToDoException();
         }
 
-        ToDo toAdd = new ToDo(input);
+        ToDo toAdd = new ToDo(input.trim());
         tasks.add(toAdd);
         taskCount++;
 
