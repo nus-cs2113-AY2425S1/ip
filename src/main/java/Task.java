@@ -22,4 +22,8 @@ public class Task {
     public void setAsUndone() {
         isDone = false;
     }
+
+	public String getTaskIcon() {
+		return " ";
+	}
 }

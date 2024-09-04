@@ -30,24 +30,39 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void addTask(String input, Task[] list) {
+    public static void addTask(String input) {
         list[listCount] = new Task(input);
         listCount++;
         System.out.println(LINE);
-        System.out.println("\tadded: " + input);
+		System.out.println("\tUnderstood, I have noted down the following task:");
+        System.out.println("\t  [ ][ ] " +  input);
+		System.out.println("\tYou currently have " + listCount + 
+				(listCount == 1 ? " task" : " tasks") + " in your list.");
         System.out.println(LINE);
     }
 
-    public static void showList(Task[] list) {
+    public static void addTodo(String input) {
+		input = input.substring(5);
+        list[listCount] = new Todo(input);
+        listCount++;
+        System.out.println(LINE);
+		System.out.println("\tUnderstood, I have noted down the following task:");
+        System.out.println("\t  [T][ ] " + input);
+		System.out.println("\tYou currently have " + listCount + 
+				(listCount == 1 ? " task" : " tasks") + " in your list.");
+        System.out.println(LINE);
+	}
+
+    public static void showList() {
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + ".[" + list[i].getStatusIcon() 
-                    + "] " + list[i].getDescription());
+            System.out.println("\t" + (i + 1) + ".[" + list[i].getTaskIcon() + "]" +
+					"[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
         }
         System.out.println(LINE);
     }
 
-    public static void markTask(Task[] list, String taskNum) {
+    public static void markTask(String taskNum) {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         list[taskNumber].setAsDone();
         System.out.println(LINE);
@@ -56,7 +71,7 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void unmarkTask(Task[] list, String taskNum) {
+    public static void unmarkTask(String taskNum) {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         list[taskNumber].setAsUndone();
         System.out.println(LINE);
@@ -70,13 +85,15 @@ public class Ran {
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
-            showList(list);
+            showList();
+		} else if (instruction[0].equals("todo")) {
+			addTodo(input);
 		} else if (instruction.length > 1 && instruction[0].equals("mark")) {
-            markTask(list, instruction[1]);
+            markTask(instruction[1]);
         } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
-            unmarkTask(list, instruction[1]);
+            unmarkTask(instruction[1]);
         } else {
-            addTask(input, list);
+            addTask(input);
 		}	
 	}
 
