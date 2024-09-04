@@ -12,23 +12,23 @@ public class Instruction {
     public Instruction(InstructionType type) {
         this.instructionType = type; // LIST, BYE
     }
-    public Instruction(InstructionType type, String arg) {
+    public Instruction(InstructionType type, String taskDesc) {
         this.instructionType = type; // ADD, TODO
-        this.instructionStringArg = arg;
+        this.instructionStringArg = taskDesc;
     }
-    public Instruction(InstructionType type, String arg1, String arg2) {
+    public Instruction(InstructionType type, String taskDesc, String endDate) {
         this.instructionType = type; // DEADLINE
-        this.instructionStringArg = arg1;
-        this.instructionStringArgs = new String[] {arg2};
+        this.instructionStringArg = taskDesc;
+        this.instructionStringArgs = new String[] {endDate};
     }
-    public Instruction(InstructionType type, String arg1, String arg2, String arg3) {
+    public Instruction(InstructionType type, String taskDesc, String startDate, String endDate) {
         this.instructionType = type; // EVENT
-        this.instructionStringArg = arg1;
-        this.instructionStringArgs = new String[] {arg2, arg3};
+        this.instructionStringArg = taskDesc;
+        this.instructionStringArgs = new String[] {startDate, endDate};
     }
-    public Instruction(InstructionType type, Integer arg) {
+    public Instruction(InstructionType type, Integer taskOrdinal) {
         this.instructionType = type; // MARK, UNMARK
-        this.instructionIntegerArg = arg;
+        this.instructionIntegerArg = taskOrdinal;
     }
     // Getters
     public InstructionType getInstructionType() {
