@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class Ran {
     private static boolean isTerminated = false;
     private static int listCount = 0;
-    private static Task[] list = new Task[100];
+    private static final int MAX_TASK_LIST_SIZE = 100;
+    private static Task[] list = new Task[MAX_TASK_LIST_SIZE];
     private static final String LINE = "\t____________________________________________________________";
 
     public static void greet() {
@@ -30,23 +31,34 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void addTask(String input) {
-        list[listCount] = new Task(input);
+    public static void processTask(String input, TaskType type) {
+        String description = input;
+        switch (type) {
+        case TODO:
+            description = input.substring(5);
+            list[listCount] = new Todo(description);
+            break;
+        case DEADLINE:
+            int byIndex = input.indexOf("/by");
+            description = input.substring(9, byIndex - 1);
+            String by = input.substring(byIndex + 4);
+            list[listCount] = new Deadline(description, by);
+            break;
+        case EVENT:
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to");
+            description = input.substring(6, fromIndex - 1);
+            String from = input.substring(fromIndex + 6, toIndex - 1);
+            String to = input.substring(toIndex + 4);
+            list[listCount] = new Event(description, from, to);
+            break;
+        case UNDEFINED:
+        default:
+            list[listCount] = new Task(input);
+        }
         System.out.println(LINE);
         System.out.println("\tUnderstood, I have noted down the following task:");
         System.out.println("\t " +  list[listCount]);
-        listCount++;
-        System.out.println("\tYou currently have " + listCount + 
-                (listCount == 1 ? " task" : " tasks") + " in your list.");
-        System.out.println(LINE);
-    }
-
-    public static void addTodo(String input) {
-        input = input.substring(5);
-        list[listCount] = new Todo(input);
-        System.out.println(LINE);
-        System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t " + list[listCount]);
         listCount++;
         System.out.println("\tYou currently have " + listCount + 
                 (listCount == 1 ? " task" : " tasks") + " in your list.");
@@ -86,13 +98,17 @@ public class Ran {
         } else if (input.equals("list")) {
             showList();
         } else if (instruction[0].equals("todo")) {
-            addTodo(input);
+            processTask(input, TaskType.TODO);
+        } else if (instruction[0].equals("deadline")) {
+            processTask(input, TaskType.DEADLINE);
+        } else if (instruction[0].equals("event")) {
+            processTask(input, TaskType.EVENT);
         } else if (instruction.length > 1 && instruction[0].equals("mark")) {
             markTask(instruction[1]);
         } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
             unmarkTask(instruction[1]);
         } else {
-            addTask(input);
+            processTask(input, TaskType.UNDEFINED);
         }	
     }
 
