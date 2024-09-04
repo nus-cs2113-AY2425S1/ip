@@ -15,14 +15,6 @@ public class Flash {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String input) {
-        Task task = new Task(input);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println("added: " + input);
-        System.out.println("____________________________________________________________");
-    }
-
     public static void markTask(String input) {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
         Task task = tasks.get(taskNumber);
@@ -41,6 +33,44 @@ public class Flash {
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(" " + task);
         System.out.println("____________________________________________________________");
+    }
+
+    public static void todo(String input){
+        String description = input.substring(5).trim();
+        Task task = new ToDo(description);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println(" " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void deadline(String input) {
+        String[] parts = input.split(" /by ");
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        Task task = new Deadline(description, by);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void event(String input) {
+        String[] parts = input.substring(6).split(" /from | /to");
+        String description = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        Task task = new Event(description, from, to);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+
     }
 
     public static void main(String[] args) {
@@ -65,8 +95,12 @@ public class Flash {
                 markTask(input);
             } else if (input.startsWith("unmark")){
                 unMarkTask(input);
-            } else {
-                addTask(input);
+            } else if (input.startsWith("todo")) {
+                todo(input);
+            } else if (input.startsWith("deadline")) {
+                deadline(input);
+            } else if (input.startsWith("event")) {
+                event(input);
             }
         }
     }
