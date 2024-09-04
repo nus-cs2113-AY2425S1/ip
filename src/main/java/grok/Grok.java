@@ -1,9 +1,16 @@
+package grok;
+
+import grok.tasks.Task;
+import grok.tasks.Todo;
+import grok.tasks.Deadline;
+import grok.tasks.Event;
+
 import java.util.Scanner;
 
 public class Grok {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100]; // Array to store Task objects
+        Task[] tasks = new Task[100]; 
         int taskCount = 0;
 
         printLine();
@@ -21,6 +28,7 @@ public class Grok {
                 break;
             } else if (input.equals("list")) {
                 printLine();
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
@@ -39,11 +47,35 @@ public class Grok {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[taskNumber]);
                 printLine();
-            } else {
-                tasks[taskCount] = new Task(input);
-                taskCount++;
+            } else if (input.startsWith("todo ")) {
+                tasks[taskCount] = new Todo(input.substring(5)); // remove "todo " prefix
                 printLine();
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                printLine();
+            } else if (input.startsWith("deadline ")) {
+                String[] details = input.substring(9).split(" /by ");
+                tasks[taskCount] = new Deadline(details[0], details[1]);
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                printLine();
+            } else if (input.startsWith("event ")) {
+                String[] details = input.substring(6).split(" /from | /to ");
+                tasks[taskCount] = new Event(details[0], details[1], details[2]);
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                printLine();
+            } else {
+                printLine();
+                System.out.println("I'm sorry, I don't understand that command.");
                 printLine();
             }
         }
@@ -55,4 +87,3 @@ public class Grok {
         System.out.println("____________________________________________________________");
     }
 }
-// Follows A-CodingStandard

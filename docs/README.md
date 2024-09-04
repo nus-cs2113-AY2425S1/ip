@@ -1,4 +1,4 @@
-# Grok User Guide
+# grok.Grok User Guide
 
 // Update the title above to match the actual product name
 
