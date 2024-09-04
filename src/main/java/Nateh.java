@@ -76,20 +76,25 @@ public class Nateh {
                     System.out.print(lineBreak);
                     break;
                 case "todo":
-                    list[Task.getLength()] = new Todo(input.substring(input.indexOf(" ") + 1));
+                    list[Task.getLength()] = new Todo(input);
                     System.out.print(lineBreak);
                     System.out.println("added: " + list[Task.getLength() - 1].getTask());
                     System.out.print(lineBreak);
                     break;
                 case "deadline":
-                    list[Task.getLength()] = new Deadlines(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1), input.substring(input.indexOf("/by") + 4));
+                    list[Task.getLength()] = new Deadlines(input);
                     System.out.print(lineBreak);
                     System.out.print("added: ");
                     list[Task.getLength() - 1].print();
                     System.out.print(lineBreak);
                     break;
                 case "event":
-                    list[Task.getLength()] = new Event();
+                    list[Task.getLength()] = new Event(input);
+                    System.out.print(lineBreak);
+                    System.out.print("added: ");
+                    list[Task.getLength() - 1].print();
+                    System.out.print(lineBreak);
+                    break;
                 default:
                     list[Task.getLength()] = new Task(input);
                     System.out.print(lineBreak);

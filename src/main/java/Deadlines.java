@@ -6,6 +6,10 @@ public class Deadlines extends Task{
         this.deadline = deadline;
     }
 
+    public Deadlines(String input) {
+        super(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1));
+        this.deadline = input.substring(input.indexOf("/by") + 4);
+    }
 
     public String getDeadline() {
         return this.deadline;
