@@ -7,12 +7,13 @@ public class Task {
         this.isMarked = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusDescription() {
-        String status = " ";
-        if (this.isMarked) {
-            status = "X";
-        }
-        return String.format("[%s] %s", status, description);
+        String status = isMarked ? "X" : " ";
+        return String.format("[%s] %s", status, getDescription());
     }
 
     public void mark() {

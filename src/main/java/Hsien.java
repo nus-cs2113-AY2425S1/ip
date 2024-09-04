@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Hsien {
 
@@ -38,18 +40,34 @@ public class Hsien {
         while (true) {
             System.out.print("Please enter a commnd/add task: ");
             String command = in.nextLine();
-            Task newTask = new Task(command);
-            if (command.equals("bye")) {
+
+            String[] parts = command.split(" ");
+            String action = parts[0];
+            String desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+
+            Task newTask = null;
+
+            // Create Task object based on action
+            if (action.equals("todo")) {
+                newTask = new Todo(desc);
+            } else if (action.equals("deadline")) {
+                newTask = new Deadline(desc);
+            } else if (action.equals("event")) {
+                newTask = new Event(desc);
+            } else {
+                newTask = new Task(command);
+            }
+
+            if (action.equals("bye")) {
                 // Exit
                 System.out.println("Have a good day! Bye!");
                 break;
-            } else if (command.equals("list")) {
+            } else if (action.equals("list")) {
                 printList(messages);
-            } else if (command.contains("mark")) {
+            } else if (action.contains("mark")) {
                 // Get the task index
-                String[] temp = command.split(" ");
-                int index = Integer.parseInt(temp[temp.length-1]);
-                if (command.contains("unmark")) {
+                int index = Integer.parseInt(desc);
+                if (action.equals("unmark")) {
                     System.out.println("You marked " + index + " as unmarked");
                     messages.get(index-1).unmark();
                 } else {
@@ -59,7 +77,8 @@ public class Hsien {
                 System.out.println(messages.get(index-1).getStatusDescription());
             } else {
                 messages.add(newTask);
-                System.out.println("Added command: " + command);
+                System.out.println("Added command: " + newTask.getDescription());
+                System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
             }
             printLine();
         }
