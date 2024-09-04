@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Ran {
     private static boolean isTerminated = false;
     private static int listCount = 0;
-	private static Task[] list = new Task[100];
+    private static Task[] list = new Task[100];
     private static final String LINE = "\t____________________________________________________________";
 
     public static void greet() {
@@ -32,32 +32,31 @@ public class Ran {
 
     public static void addTask(String input) {
         list[listCount] = new Task(input);
-        listCount++;
         System.out.println(LINE);
-		System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t  [ ][ ] " +  input);
-		System.out.println("\tYou currently have " + listCount + 
-				(listCount == 1 ? " task" : " tasks") + " in your list.");
+        System.out.println("\tUnderstood, I have noted down the following task:");
+        System.out.println("\t " +  list[listCount]);
+        listCount++;
+        System.out.println("\tYou currently have " + listCount + 
+                (listCount == 1 ? " task" : " tasks") + " in your list.");
         System.out.println(LINE);
     }
 
     public static void addTodo(String input) {
-		input = input.substring(5);
+        input = input.substring(5);
         list[listCount] = new Todo(input);
+        System.out.println(LINE);
+        System.out.println("\tUnderstood, I have noted down the following task:");
+        System.out.println("\t " + list[listCount]);
         listCount++;
+        System.out.println("\tYou currently have " + listCount + 
+                (listCount == 1 ? " task" : " tasks") + " in your list.");
         System.out.println(LINE);
-		System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t  [T][ ] " + input);
-		System.out.println("\tYou currently have " + listCount + 
-				(listCount == 1 ? " task" : " tasks") + " in your list.");
-        System.out.println(LINE);
-	}
+    }
 
     public static void showList() {
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + ".[" + list[i].getTaskIcon() + "]" +
-					"[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
+            System.out.println("\t" + (i + 1) + "." + list[i]);
         }
         System.out.println(LINE);
     }
@@ -67,7 +66,7 @@ public class Ran {
         list[taskNumber].setAsDone();
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  [X] " + list[taskNumber].getDescription());
+        System.out.println("\t  " + list[taskNumber]);
         System.out.println(LINE);
     }
 
@@ -76,26 +75,26 @@ public class Ran {
         list[taskNumber].setAsUndone();
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  [ ] " + list[taskNumber].getDescription());
+        System.out.println("\t  " + list[taskNumber]);
         System.out.println(LINE);
     }
-	
-	public static void processInput(String input) {
+
+    public static void processInput(String input) {
         String[] instruction = input.split(" ");
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
             showList();
-		} else if (instruction[0].equals("todo")) {
-			addTodo(input);
-		} else if (instruction.length > 1 && instruction[0].equals("mark")) {
+        } else if (instruction[0].equals("todo")) {
+            addTodo(input);
+        } else if (instruction.length > 1 && instruction[0].equals("mark")) {
             markTask(instruction[1]);
         } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
             unmarkTask(instruction[1]);
         } else {
             addTask(input);
-		}	
-	}
+        }	
+    }
 
     public static void main(String[] args) {
         greet();
@@ -105,7 +104,7 @@ public class Ran {
 
         while(!isTerminated) {
             input = in.nextLine();
-			processInput(input);
+            processInput(input);
         }
 
         bidFarewell();

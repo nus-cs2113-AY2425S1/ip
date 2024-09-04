@@ -7,10 +7,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
     public String getDescription() {
         return description;
     }
@@ -23,7 +19,7 @@ public class Task {
         isDone = false;
     }
 
-	public String getTaskIcon() {
-		return " ";
+	public String toString() {
+		return "[" + (isDone ? "X" : " ") + "] " + description;
 	}
 }
