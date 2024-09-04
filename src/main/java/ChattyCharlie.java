@@ -96,26 +96,9 @@ public class ChattyCharlie {
     }
 
     public static void main (String[]args){
-            String logo = "   _____      \n"
-                    + "  /     \\     \n"
-                    + " |  O O  |    \n"
-                    + " | \\___/ |    \n"
-                    + "  \\_____/     \n"
-                    + " /\\_____/\\    \n"
-                    + " |       |    \n"
-                    + " |       |    \n"
-                    + " |_______|    \n"
-                    + "              \n";
-            String charlie = "Charlie: ";
-
-            String greeting = "Hello! I'm ChattyCharlie, your consistent buddy.\n"
-                    + "         What shall we do today?\n";
-
-            String farewell = "All the best in clearing your list!";
-
-            System.out.println(logo + charlie + greeting);
-            ScheduleMaker();
-            System.out.println(charlie + farewell);
+        System.out.println(Constants.LOGO + Constants.CHARLIE + Constants.GREETING);
+        ScheduleMaker();
+        System.out.println(Constants.CHARLIE + Constants.FAREWELL);
 
     }
 }
