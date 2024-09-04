@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Ran {
     private static boolean isTerminated = false;
     private static int listCount = 0;
+	private static Task[] list = new Task[100];
     private static final String LINE = "\t____________________________________________________________";
 
     public static void greet() {
@@ -63,28 +64,31 @@ public class Ran {
         System.out.println("\t  [ ] " + list[taskNumber].getDescription());
         System.out.println(LINE);
     }
+	
+	public static void processInput(String input) {
+        String[] instruction = input.split(" ");
+        if (input.equals("bye")) {
+            isTerminated = true;
+        } else if (input.equals("list")) {
+            showList(list);
+		} else if (instruction.length > 1 && instruction[0].equals("mark")) {
+            markTask(list, instruction[1]);
+        } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
+            unmarkTask(list, instruction[1]);
+        } else {
+            addTask(input, list);
+		}	
+	}
 
     public static void main(String[] args) {
         greet();
 
         String input;
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[100];
 
         while(!isTerminated) {
             input = in.nextLine();
-            String[] instruction = input.split(" ");
-            if (input.equals("bye")) {
-                isTerminated = true;
-            } else if (input.equals("list")) {
-                showList(list);
-            } else if (instruction.length > 1 && instruction[0].equals("mark")) {
-                markTask(list, instruction[1]);
-            } else if (instruction.length > 1 && instruction[0].equals("unmark")) {
-                unmarkTask(list, instruction[1]);
-            } else {
-                addTask(input, list);
-            }
+			processInput(input);
         }
 
         bidFarewell();
