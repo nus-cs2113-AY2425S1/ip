@@ -1,7 +1,15 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Poppy
+What can I do for you?
+[T] [ ] go school
+You now have 1 tasks
+[D] [ ] read book by: 10
+You now have 2 tasks
+[E] [ ] go wedding from: 10-11
+You now have 3 tasks
+Here are the tasks in your list:
+1. [T] [ ] go school
+2. [D] [ ] read book by: 10
+3. [E] [ ] go wedding from: 10-11
+Bye. Hope to see you again soon!
+
 
