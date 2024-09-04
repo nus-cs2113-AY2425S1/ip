@@ -6,22 +6,22 @@ public class UserInterface {
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc) {
         Task task = new Task(taskDesc);
         taskManager.addTask(task);
-        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), task);
+        task.printAddedTask(taskManager.getTaskCount());
     }
     public static void handleAddInstruction(TaskManager taskManager, String todoDesc, Instruction.InstructionType type) {
         TaskTodo todo = new TaskTodo(todoDesc); // type is to differentiate between overriden method handleAddInstruction() for task vs todo
         taskManager.addTask(todo);
-        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), todo);
+        todo.printAddedTask(taskManager.getTaskCount());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
         TaskDeadline deadline = new TaskDeadline(taskDesc, endDate);
         taskManager.addTask(deadline);
-        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), deadline);
+        deadline.printAddedTask(taskManager.getTaskCount());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
         TaskEvent event = new TaskEvent(taskDesc, startDate, endDate);
         taskManager.addTask(event);
-        OutputStringHandler.printAddedTask(taskManager.getTaskCount(), event);
+        event.printAddedTask(taskManager.getTaskCount());
     }
     public static void handleMarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
         Task task = taskManager.getTask(taskOrdinal - 1); // 0-Indexed

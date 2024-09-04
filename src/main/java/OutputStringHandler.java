@@ -1,37 +1,5 @@
 // Output Text Formatter for Yapper
 public class OutputStringHandler {
-    // For Command: Add
-    public static void printAddedTask(int taskCount, Task task) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( "  " + task.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
-    }
-    // For Command: Todo
-    public static void printAddedTask(int taskCount, TaskTodo todo) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( todo.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
-    }
-    // For Command: Deadline
-    public static void printAddedTask(int taskCount, TaskDeadline taskDeadline) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( taskDeadline.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
-    }
-    // For Command: Event
-    public static void printAddedTask(int taskCount, TaskEvent taskEvent) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( taskEvent.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
-    }
     // For Command: List
     public static void printTasks(Task[] tasks, int taskCount) {
         System.out.println(StringStorage.LINE_DIVIDER);
