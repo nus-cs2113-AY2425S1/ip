@@ -13,7 +13,7 @@ public class V {
     }
 
     public static void greet() {
-        String logo = " _       _ \n"
+        final String LOGO = " _       _ \n"
                 + "\\ \\     / / \n"
                 + " \\ \\   / / \n"
                 + "  \\ \\_/ / \n"
@@ -50,7 +50,7 @@ public class V {
         while (isOnline) {
             line = input.nextLine();
             lineArr = line.trim().split(" ");
-            switch (lineArr[0]) {
+            switch (lineArr[0].toLowerCase()) {
             case "bye":
                 input.close();
                 isOnline = false;
@@ -68,6 +68,14 @@ public class V {
                 listOfTasks[count] = new ToDo(description);
                 count++;
                 break;
+            case "deadline":
+                temp = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                description = temp.split("/by")[0];
+                by = temp.split("/by")[1];
+                listOfTasks[count] = new Deadline(description, by);
+                System.out.println(listOfTasks[count]);
+                count++;
+                break;
             case "event":
                 temp = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
                 description = temp.split("/from")[0];
@@ -75,14 +83,6 @@ public class V {
                 from = timePeriod[0];
                 to = timePeriod[1];
                 listOfTasks[count] = new Event(description, from, to);
-                System.out.println(listOfTasks[count]);
-                count++;
-                break;
-            case "deadline":
-                temp = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                description = temp.split("/by")[0];
-                by = temp.split("/by")[1];
-                listOfTasks[count] = new Deadline(description, by);
                 System.out.println(listOfTasks[count]);
                 count++;
                 break;
