@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Quinn {
     public static void main(String[] args) {
         new Quinn().run();
@@ -5,7 +7,20 @@ public class Quinn {
 
     public void run() {
         greet();
-        exit();
+
+        Scanner sc = new Scanner(System.in);
+        String commandLine = "";
+
+        while (!commandLine.equals("bye")) {
+            System.out.print("Enter command: \t");
+            commandLine = sc.nextLine().trim();
+
+            if ("bye".equals(commandLine)) {
+                exit();
+            } else {
+                echo("\t" + commandLine);
+            }
+        }
     }
 
     public void greet() {
@@ -30,6 +45,10 @@ public class Quinn {
     public void exit() {
         String exitMessage = "\t" + "Bye. Hope to see you again soon!";
         printResponse(exitMessage);
+    }
+
+    public void echo(String message) {
+        printResponse(message);
     }
 
     public void printResponse(String message) {
