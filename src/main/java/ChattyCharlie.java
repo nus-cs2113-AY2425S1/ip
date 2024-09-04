@@ -2,105 +2,8 @@ import java.util.Scanner;
 
 public class ChattyCharlie {
 
-    //TASK CLASS
-    public static class Task{
-        protected String description;
-        protected boolean isDone;
-
-        //constructor
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        //check if its marked as done
-        public String getMarkedStatus() {
-            return (isDone ? "X" : " ");
-        }
-
-        //to toggle the task
-        public void markTask() {
-            this.isDone = true; //change the variable
-        }
-
-        public void unmarkTask() {
-            this.isDone = false; //change the variable
-        }
-    }
-
-
-    //LIST CLASS
-    public static class List {
-        //make a list of task
-        private Task[] list;
-        private int size;
-
-        //constructor
-        public List() {
-            list = new Task[100];
-            size = 0;
-        }
-
-        //Method to add an item to the list
-        public void addTask(String text) {
-            //create an instance for Task
-            Task newTask = new Task(text);
-            //add the text into the list
-            list[size] = newTask;
-            //account for the item
-            size++;
-        }
-
-        //To mark
-        public void mark(int index) {
-            if (index >= 0 && index < size) {
-                list[index].markTask();
-                int remainingTask = countUnmarkedTasks();
-                System.out.println("        Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println("        [" + list[index].getMarkedStatus() + "] " + list[index].description);
-            } else {
-                System.out.println("        Invalid task number.");
-            }
-        }
-
-        //To unmark
-        public void unmark(int index) {
-            if (index >= 0 && index < size) {
-                list[index].unmarkTask();
-                int remainingTask = countUnmarkedTasks();
-                System.out.println("        Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println("        [" + list[index].getMarkedStatus() + "] " + list[index].description);
-            } else {
-                System.out.println("        Invalid task number.");
-            }
-        }
-
-        //To print list
-        public void toPrintList() {
-            //print all
-            int remainingTask = countUnmarkedTasks();
-            System.out.println("ToDo List:");
-            System.out.println("pending Task: " + remainingTask);
-            for (int i = 0; i < size; i++) {
-                int number = i+1;
-                System.out.println("        " + number + ".[" +list[i].getMarkedStatus() + "] " + list[i].description);
-            }
-        }
-
-        // Method to count how many tasks are unmarked
-        public int countUnmarkedTasks() {
-            int count = 0;
-            for (int i = 0; i < size; i++) {
-                if (!list[i].isDone) {
-                    count++;
-                }
-            }
-            return count;
-        }
-    }
-
     //MAIN ALGO
-    public static void toDoMaker() { //Echo as a function
+    public static void ScheduleMaker() { //Echo as a function
         String line;
         String you = "User: ";
 
@@ -108,82 +11,103 @@ public class ChattyCharlie {
         Scanner in = new Scanner(System.in);
 
         //create an instance of list class
-        List toDo = new List();
+        List list = new List();
 
         //accept an insert
         while (true) {
+            //takes in an input
             System.out.print(you);
             line = in.nextLine();
 
-            //if the line contains bye, it signals the end
-            if (line.contains("Bye") || line.contains("bye")) {
-                break;
-            }
-            //add or print
-            if (line.equals("list")) {
-                toDo.toPrintList();
-            } else if (line.startsWith("mark ")) {
-                //trim to get the task name
-                String taskDescription = line.substring(5).trim();
-                boolean found = false;
+            //get the first word to see the command type
+            String firstWord = line.split(" ")[0];
 
-                //loop to find
-                for(int index = 0; index < toDo.size; index++)
-                {
-                    if(toDo.list[index].description.equals(taskDescription)) {
-                        toDo.mark(index);
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found) {
-                    System.out.println("        Invalid task description");
-                }
-            } else if (line.startsWith("unmark ")) {
-                String taskDescription = line.substring(7).trim();
-                boolean found = false;
+            //make the string a command
+            CommandType command = CommandType.valueOf(firstWord.toUpperCase());
 
-                //loop to find
-                for(int index = 0; index < toDo.size; index++)
-                {
-                    if(toDo.list[index].description.equals(taskDescription)) {
-                        toDo.unmark(index);
-                        found = true;
-                        break;
+            //start the different command types
+            switch (command) {
+                case TODO:
+                    String todoDescription = line.substring(5).trim();
+                    list.addTask(new Todo(todoDescription));
+                    System.out.println("        Added todo: " + todoDescription);
+                    break;
+
+                case DEADLINE:
+                    String[] deadlineParts = line.substring(9).trim().split(" by ");
+                    if (deadlineParts.length == 2) { //make sure that the string is only split into 2
+                        String deadlineDescription = deadlineParts[0].trim();
+                        String by = deadlineParts[1].trim();
+                        list.addTask(new Deadline(deadlineDescription, by));
+                        System.out.println("        Added deadline: " + deadlineDescription + " (by: " + by + ")");
                     }
-                }
-                if(!found) {
-                    System.out.println("        Invalid task description.");
-                }
-            } else {
-                //add the item
-                toDo.addTask(line);
-                System.out.println("        Added: " + line);
+                    break;
+
+                case EVENT:
+                    String[] eventParts = line.substring(6).trim().split("from");
+                    String description = eventParts[0].trim();
+                    //further split the array into the start and end times
+                    String[] eventTimes = eventParts[1].trim().split(" to ");
+                    String startTime = eventTimes[0].trim();
+                    String endTime = eventTimes[1].trim();
+
+                    //add the event
+                    list.addTask(new Event(description, startTime, endTime));
+                    System.out.println("        Added event: " + description + " (from: " + startTime + ", to: " + endTime + ")");
+
+                    break;
+
+                case MARK:
+                    String markIndex = line.substring(5).trim();
+                    int markNo = Integer.parseInt(markIndex) -1; //convert to array
+                    //mark it
+                    list.mark(markNo);
+                    break;
+
+                case UNMARK:
+                    String unmarkIndex = line.substring(7).trim();
+                    int unmarkNo = Integer.parseInt(unmarkIndex) -1; //convert to array
+                    //mark it
+                    list.unmark(unmarkNo);
+                    break;
+
+                case BYE:
+                    return; //just exit
+
+                case LIST:
+                    list.printList();
+                    break;
+
+                default:
+                    //add the item
+                    list.addTask(new Task(line, CommandType.TODO)); //for cases without label, it is a Todo as well
+                    System.out.println("        Added: " + line);
+                    break;
             }
         }
     }
 
-    public static void main(String[] args) {
-        String logo = "   _____      \n"
-                + "  /     \\     \n"
-                + " |  O O  |    \n"
-                + " | \\___/ |    \n"
-                + "  \\_____/     \n"
-                + " /\\_____/\\    \n"
-                + " |       |    \n"
-                + " |       |    \n"
-                + " |_______|    \n"
-                + "              \n";
-        String charlie = "Charlie: ";
+    public static void main (String[]args){
+            String logo = "   _____      \n"
+                    + "  /     \\     \n"
+                    + " |  O O  |    \n"
+                    + " | \\___/ |    \n"
+                    + "  \\_____/     \n"
+                    + " /\\_____/\\    \n"
+                    + " |       |    \n"
+                    + " |       |    \n"
+                    + " |_______|    \n"
+                    + "              \n";
+            String charlie = "Charlie: ";
 
-        String greeting = "Hello! I'm ChattyCharlie, your consistent buddy.\n"
-                + "         What shall we do today?\n" ;
+            String greeting = "Hello! I'm ChattyCharlie, your consistent buddy.\n"
+                    + "         What shall we do today?\n";
 
-        String farewell = "All the best in clearing your list!";
+            String farewell = "All the best in clearing your list!";
 
-        System.out.println(logo + charlie+ greeting);
-        toDoMaker();
-        System.out.println(charlie + farewell);
+            System.out.println(logo + charlie + greeting);
+            ScheduleMaker();
+            System.out.println(charlie + farewell);
 
     }
 }
