@@ -8,7 +8,8 @@ public class Monday {
             + "|_|  |_|\\___/|_| |_|\\__,_|\\__,_|\\__, |\n"
             + "                                |___/  \n";
     private static final String LINE = "____________________________________________________________";
-    private Task[] tasks = new Task[100];
+    private static final int MAX_TASKS = 100;
+    private Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
 
     public static void main(String[] args) {
