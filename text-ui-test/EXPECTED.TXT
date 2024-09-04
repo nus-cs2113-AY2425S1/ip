@@ -1,7 +1,52 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hola! I'm Conglo the friendly bot.
+What brings you here today?
+-------------------------------------
+All done! Task added to list:
+ [T][ ] Prepare slides for presentation
+The list has 1 task now.
+-------------------------------------
+All done! Task added to list:
+ [D][ ] Submit report (by: Friday 5pm)
+The list has 2 tasks now.
+-------------------------------------
+1. [T][ ] Prepare slides for presentation
+2. [D][ ] Submit report (by: Friday 5pm)
+-------------------------------------
+All done! Task added to list:
+ [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
+The list has 3 tasks now.
+-------------------------------------
+All done! Task added to list:
+ [T][ ] Review team feedback
+The list has 4 tasks now.
+-------------------------------------
+All done! Task added to list:
+ [D][ ] Project submission (by: next Monday 11:59pm)
+The list has 5 tasks now.
+-------------------------------------
+All done! Task added to list:
+ [E][ ] Code review (from: Tuesday 2pm to: 4pm)
+The list has 6 tasks now.
+-------------------------------------
+Nice! I've marked this task as done:
+[X] Submit report
+-------------------------------------
+1. [T][ ] Prepare slides for presentation
+2. [D][X] Submit report (by: Friday 5pm)
+3. [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
+4. [T][ ] Review team feedback
+5. [D][ ] Project submission (by: next Monday 11:59pm)
+6. [E][ ] Code review (from: Tuesday 2pm to: 4pm)
+-------------------------------------
+Nice! I've marked this task as done:
+[X] Prepare slides for presentation
+-------------------------------------
+1. [T][X] Prepare slides for presentation
+2. [D][X] Submit report (by: Friday 5pm)
+3. [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
+4. [T][ ] Review team feedback
+5. [D][ ] Project submission (by: next Monday 11:59pm)
+6. [E][ ] Code review (from: Tuesday 2pm to: 4pm)
+-------------------------------------
+Goodbye. See you next time!
+-------------------------------------
