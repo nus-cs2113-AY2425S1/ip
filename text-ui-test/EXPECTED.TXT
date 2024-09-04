@@ -25,7 +25,7 @@ ________________________________________
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-[ ] task read book
+[T][ ] read book
 Now you have 1 tasks in the list.
 ________________________________________
 ________________________________________
@@ -40,7 +40,7 @@ Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[X] task read book
+[T][X] read book
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
@@ -51,7 +51,7 @@ I've unmarked this task:
 [D][ ] return book (by: June 6th)
 ________________________________________
 ________________________________________
-1.[X] task read book
+1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 ________________________________________
