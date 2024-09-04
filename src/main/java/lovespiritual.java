@@ -6,6 +6,7 @@ public class lovespiritual {
         Scanner in = new Scanner(System.in);
         String[] tasks = new String[100]; // array of tasks
         boolean[] isMarked = new boolean[100]; // check if task is marked
+        String[] taskTypes = new String[100];
         int taskCount = 0; // count the number of tasks added in the array
 
         // introduction
@@ -14,7 +15,7 @@ public class lovespiritual {
         System.out.println("What can I do for you?");
         System.out.println(line);
 
-        //loop that keeps recurring when the program is running
+        // loop that keeps recurring when the program is running
         while (true) {
             String input = in.nextLine().trim();
 
@@ -28,7 +29,8 @@ public class lovespiritual {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     String checkbox = isMarked[i] ? "[X]" : "[ ]";
-                    System.out.println((i + 1) + "." + checkbox + " " + tasks[i]);
+                    String taskType = taskTypes[i];
+                    System.out.println((i + 1) + "." + taskType + checkbox + " " + tasks[i]);
                 }
                 System.out.println(line);
             } else if (input.startsWith("mark ")) {
