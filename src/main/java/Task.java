@@ -1,6 +1,6 @@
 public class Task {
-    private String item;
-    private boolean isDone;
+    protected String item;
+    protected boolean isDone;
 
     public static int taskCount = 0;
 
@@ -18,10 +18,6 @@ public class Task {
         return item;
     }
 
-    public void setItem(String item) {
-        this.item = item;
-    }
-
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
@@ -34,4 +30,19 @@ public class Task {
         isDone = false;
     }
 
+    public String setTaskType() {
+        return "-";
+    }
+
+    public String getBy() {
+        return "";
+    }
+
+    public String getFrom() {
+        return "";
+    }
+
+    public String getTo() {
+        return "";
+    }
 }
