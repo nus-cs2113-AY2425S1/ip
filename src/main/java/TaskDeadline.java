@@ -6,6 +6,6 @@ public class TaskDeadline extends Task {
     }
     @Override
     public String taskToString() {
-        return "[DL]" + super.taskToString() + ", due " + endDate;
+        return "[D]" + super.taskToString() + ", due " + endDate;
     }
 }

@@ -8,6 +8,6 @@ public class TaskEvent extends Task {
     }
     @Override
     public String taskToString() {
-        return "[EV]" + super.taskToString() + ", from " + startDate + " to " + endDate;
+        return "[E]" + super.taskToString() + ", from " + startDate + " to " + endDate;
     }
 }
