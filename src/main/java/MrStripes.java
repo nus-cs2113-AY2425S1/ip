@@ -1,13 +1,11 @@
-package main.java;
+
 
 import java.util.Scanner;
 
 public class MrStripes {
     public static void main(String[] args) {
-        String Greeting = " hello";
-        String Goodbye = "goodbye!";
 
-        System.out.println(Greeting);
+        System.out.println(Texts.GREETINGS);
 
         Scanner scanner = new Scanner(System.in);
         Commands commands = new Commands();
@@ -16,6 +14,6 @@ public class MrStripes {
             commands.echo();
         }
 
-        System.out.println(Goodbye);
+        System.out.println(Texts.GOODBYE);
     }
 }

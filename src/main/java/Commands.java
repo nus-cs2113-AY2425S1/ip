@@ -1,8 +1,8 @@
-package main.java;
+
 
 public class Commands {
 
-    private static int MAX_LENGTH = 100;
+    private static final int MAX_LENGTH = 100;
     public String[] lines = new String[MAX_LENGTH];
     public int length = 0;
 
@@ -12,8 +12,8 @@ public class Commands {
         this.lines = lines;
         this.length = length;
     }
-
     public Commands() {
+
     }
 
     public void add(String nextLine) {
