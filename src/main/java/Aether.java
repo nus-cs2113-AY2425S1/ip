@@ -50,18 +50,29 @@ public class Aether {
             index = Integer.parseInt(arguments) - 1;
             markTaskStatus(index, false);
             break;
+        case "todo":
+            addTask(new Todo(arguments));
+            break;
+        case "deadline":
+            String[] deadlineParts = arguments.split(" /by ", 2);
+            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            break;
+        case "event":
+            String[] eventParts = arguments.split(" /from | /to ");
+            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            break;
         default:
-            addTask(command);
+            Display.response("Invalid command. Please try again.");
             break;
         }
         Display.printSeparator();
     }
 
-    private void addTask(String description) {
+    private void addTask(Task task) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = new Task(description);
+            tasks[taskCount] = task;
             taskCount++;
-            Display.response("added: " + description);
+            Display.response("Got it. I've added this task:\n  " + task);
         } else {
             Display.response("Task list is full. Sorry!");
         }
@@ -73,8 +84,7 @@ public class Aether {
         } else {
             Display.response("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ".[" + tasks[i].getStatus() + "] "
-                        + tasks[i].getDescription());
+                System.out.println((i + 1) + "." + tasks[i]);
             }
         }
     }
@@ -84,8 +94,8 @@ public class Aether {
         String message = isDone
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
-        Display.response(message + (index + 1) + ".[" + tasks[index].getStatus() + "] "
-                + tasks[index].getDescription());
+        // Use task's `toString()` to include task type and status
+        Display.response(message + (index + 1) + "." + tasks[index]);
     }
 }
 
@@ -108,6 +118,55 @@ class Task {
 
     public String getStatus() {
         return (isDone ? "✓" : " ");
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatus() + "] " + description;
+    }
+}
+
+// Todo class inherits from Task
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+// Deadline class inherits from Task
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+// Event class inherits from Task
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
 
