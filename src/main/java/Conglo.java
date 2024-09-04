@@ -89,12 +89,13 @@ public class Conglo {
         }
         if (words[0].equals("mark")) {
             taskList[i].markAsDone();
-            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("Nice! I've marked this task as done:");
         } else {
             taskList[i].markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("[" + taskList[i].getStatusIcon() + "] " + taskList[i].description );
+        printLineSeparator();
     }
 
     /**
