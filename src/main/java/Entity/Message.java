@@ -7,6 +7,33 @@ public class Message {
     private String startTime;
     private String endTime;
 
+    //todo
+    public Message(String message) {
+        this.message = message;
+        this.isDone = false;
+        this.startTime = "";
+        this.endTime = "";
+        this.type = 1;
+    }
+
+    //event
+    public Message(String message, String startTime, String endTime, int type) {
+        this.message = message;
+        this.isDone = false;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.type = type;
+    }
+
+    //ddl
+    public Message(String message, String endTime, int type) {
+        this.message = message;
+        this.isDone = false;
+        this.startTime = "";
+        this.endTime = endTime;
+        this.type = type;
+    }
+
     public int getType() {
         return type;
     }
@@ -29,11 +56,6 @@ public class Message {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public Message(String message) {
-        this.message = message;
-        this.isDone = false;
     }
 
     public String getMessage() {

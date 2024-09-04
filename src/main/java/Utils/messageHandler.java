@@ -25,8 +25,7 @@ public class messageHandler {
             } else if (input.contains("mark") || input.contains("unmark")) {
                 messageHandler.mark(list, input);
             } else {
-                Message message = new Message(input);
-                messageHandler.addList(list, message);
+                messageHandler.addList(list, input);
             }
         }
     }
@@ -47,6 +46,7 @@ public class messageHandler {
         System.out.println("-----------------------------------\n");
         int i = 1;
         boolean isDone = false;
+        int type = 0;
         List<Message> messages = list.getMessages();
         while(i <= messages.size()) {
             isDone = messages.get(i-1).isDone();
@@ -57,19 +57,72 @@ public class messageHandler {
             else {
                 doneSign = "";
             }
-            System.out.println(i + ". " + "[" + doneSign + "] " + messages.get(i-1).getMessage());
+            type = messages.get(i-1).getType();
+            String typeSign = "";
+            String startTime = "";
+            String endTime = "";
+            String By = "";
+            String From = "";
+            if(type == 1){
+                typeSign = "[T]";
+            }
+            else if(type == 2){
+                By = " By: ";
+                typeSign = "[D]";
+                endTime = messages.get(i-1).getEndTime();
+            }
+            else if(type == 3){
+                typeSign = "[E]";
+                By = " By: ";
+                From = " From: ";
+                startTime = messages.get(i-1).getStartTime();
+                endTime = messages.get(i-1).getEndTime();
+            }
+            System.out.println(i + ". " + typeSign + "[" + doneSign + "] " + messages.get(i-1).getMessage() + From + startTime + By + endTime );
             i++;
         }
         System.out.println("-----------------------------------\n");
     }
 
-    public static void addList(messageList list, Message message){
-        List<Message> messages = list.getMessages();
-        messages.add(message);
-        list.setMessages(messages);
-        System.out.println("-----------------------------------");
-        System.out.println("added:" + message.getMessage());
-        System.out.println("-----------------------------------");
+    public static void addList(messageList list, String input){
+        if(input.contains("todo")) {
+            List<Message> messages = list.getMessages();
+            Message message = new Message(input);
+            String[] strings = input.split(" ");
+            String eventName = strings[1].split(" ")[1];
+            messages.add(message);
+            list.setMessages(messages);
+            System.out.println("-----------------------------------");
+            System.out.println("added:" + message.getMessage());
+        }
+
+        else if(input.contains("deadline")) {
+            List<Message> messages = list.getMessages();
+            String[] strings = input.split("/");
+            String endTime = strings[strings.length-1].split(" ")[1];
+            String eventName = strings[strings.length-2].split(" ")[1];
+            Message message = new Message(eventName, endTime, 2);
+            messages.add(message);
+            list.setMessages(messages);
+            System.out.println("-----------------------------------");
+            System.out.println("added:" + message.getMessage());
+        }
+
+        else if(input.contains("event")) {
+            List<Message> messages = list.getMessages();
+            String[] strings = input.split("/");
+            String startTime = strings[strings.length-2].split(" ")[1];
+            String endTime = strings[strings.length-1].split(" ")[1];
+            String eventName = strings[strings.length-3].split(" ")[1];
+            Message message = new Message(eventName, startTime, endTime, 3);
+            messages.add(message);
+            list.setMessages(messages);
+            System.out.println("-----------------------------------");
+            System.out.println("added:" + message.getMessage());
+        }
+        int taskNumber = list.getMessages().size();
+        System.out.println("Now you have " + taskNumber + " tasks");
+        System.out.println("-----------------------------------\n");
     }
 
     public static void mark(messageList list, String input) {
