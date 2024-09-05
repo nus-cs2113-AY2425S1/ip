@@ -5,6 +5,11 @@ public class CheonsaBot {
     public static final int LINE_LENGTH = 60;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * The entry point of the application. Starts the bot and listens for user input.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         printGreeting();
         try (Scanner scanner = new Scanner(System.in)) {
@@ -16,7 +21,10 @@ public class CheonsaBot {
         }
     }
 
-    // Print greeting to screen
+    /**
+     * Prints a greeting message to the console.
+     * Displays the bot's logo and a welcome message.
+     */
     private static void printGreeting() {
         String logo = """
                        (\\ -=- /)
@@ -33,19 +41,30 @@ public class CheonsaBot {
         System.out.println(getHorizontalLine());
     }
 
-    // Print farewell message to screen
+    /**
+     * Prints a farewell message and exits the program.
+     */
     private static void sayBye() {
         System.out.println(getHorizontalLine());
         System.out.println("Bye, see you again soon!");
         System.out.println(getHorizontalLine());
     }
 
-    // Draw LINE_LENGTH times dashes as horizontal line
+    /**
+     * Returns a horizontal line of dashes used for formatting console output.
+     *
+     * @return A string containing the horizontal line.
+     */
     private static String getHorizontalLine() {
         return "-".repeat(LINE_LENGTH);
     }
 
-    // Decode user input and respond accordingly
+    /**
+     * Parses user input and executes the corresponding command.
+     *
+     * @param userInput The input provided by the user.
+     * @return True if the bot should continue running, false if it should exit.
+     */
     private static boolean parseInput(String userInput) {
         String[] words = userInput.split(" ", 2);
         String command = words[0].replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
@@ -71,7 +90,11 @@ public class CheonsaBot {
         return true;
     }
 
-    // Mark task number as complete
+    /**
+     * Marks a task as completed based on the provided task number.
+     *
+     * @param taskNumber The number of the task to be marked as completed.
+     */
     private static void markTask(String taskNumber) {
         try {
             int index = Integer.parseInt(taskNumber) - 1;
@@ -92,7 +115,11 @@ public class CheonsaBot {
         }
     }
 
-    // Mark task nunmber as incomplete
+    /**
+     * Unmarks a task as incomplete based on the provided task number.
+     *
+     * @param taskNumber The number of the task to be unmarked.
+     */
     private static void unmarkTask(String taskNumber) {
         try {
             int index = Integer.parseInt(taskNumber) - 1;
@@ -113,7 +140,12 @@ public class CheonsaBot {
         }
     }
 
-    // Function to create new task
+    /**
+     * Adds a new task based on the command and argument provided.
+     *
+     * @param command The type of task to add (e.g., "todo", "deadline", "event").
+     * @param words The details of the task.
+     */
     private static void addTask(String command, String[] words) {
         Task task;
         switch (command.toLowerCase()) {
@@ -157,7 +189,10 @@ public class CheonsaBot {
         System.out.println(getHorizontalLine());
     }
 
-    // Print formatted task list to screen
+     /**
+     * Prints the list of tasks to the console.
+     * Displays each task with its corresponding number.
+     */
     private static void printTaskList() {
         System.out.println(getHorizontalLine());
         if (tasks.isEmpty()) {
