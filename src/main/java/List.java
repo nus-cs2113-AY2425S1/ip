@@ -61,25 +61,23 @@
                 Task task = tasks[i];
                 //use a switch to determine
                 switch (task.getType()) {
-                    case TODO:
-                        Todo todoTask = (Todo) task;
-                        System.out.println(StringDesign.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
-                                + todoTask.description);
-                        break;
-
-                    case DEADLINE:
-                        Deadline deadlineTask = (Deadline) task;
-                        System.out.println(StringDesign.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
-                                + deadlineTask.description + " (by: " + deadlineTask.by + ")");
-                        break;
-
-                    case EVENT:
-                        Event eventTask = (Event) task;
-                        System.out.println(StringDesign.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
-                                + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
-                        break;
-                    default:
-                        break;
+                case TODO:
+                    Todo todoTask = (Todo) task;
+                    System.out.println(StringDesign.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
+                            + todoTask.description);
+                    break;
+                case DEADLINE:
+                    Deadline deadlineTask = (Deadline) task;
+                    System.out.println(StringDesign.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
+                            + deadlineTask.description + " (by: " + deadlineTask.by + ")");
+                    break;
+                case EVENT:
+                    Event eventTask = (Event) task;
+                    System.out.println(StringDesign.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
+                            + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
+                    break;
+                default:
+                    break;
                 }
             }
         }
