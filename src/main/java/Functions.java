@@ -42,20 +42,22 @@ public class Functions {
         }
         else {
             switch (input) {
-                case "bye":
-                    Chatbot.printByeMessage();
-                    System.exit(0);
+            case "bye":
+                Chatbot.printByeMessage();
+                System.exit(0);
+                // Fallthrough
 
-                case "list":
-                    listTasks();
-                    break;
+            case "list":
+                listTasks();
+                break;
 
-                case "echo":
-                    echo();
-                    break;
+            case "echo":
+                echo();
+                break;
 
-                default:
-                    addTask(input);
+            default:
+                addTask(input);
+                break;
             }
         }
     }
@@ -89,7 +91,6 @@ public class Functions {
     }
 
     public String taskStatus(int index){
-        // N tag below in [N] is for no-tag (default setting)
         return taskList[index].getTaskStatus();
     }
 

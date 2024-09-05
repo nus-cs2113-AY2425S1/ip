@@ -27,8 +27,8 @@ public class Events extends Task{
     public void setDescription(String description){
         int separatorIndex = description.indexOf(' ');
         String[] str = description.split("/");
-        setFrom(str[1].substring(4));
-        setTo(str[2].substring(2));
+        setFrom(str[1].substring("from".length()));
+        setTo(str[2].substring("to".length()));
         this.description = description.substring(separatorIndex + 1, description.indexOf('/'))
                          + "(from:" + from + "to:" + to + ")";
     }
