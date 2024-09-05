@@ -17,9 +17,6 @@ public class Bento {
     public static final String EXISTING_TASKS_MESSAGE = "\tHere is the list of your existing tasks!";
     public static final String UNMARKED_MESSAGE = "\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.";
     public static final String MARKED_MESSAGE = "\tYou've crushed this task! I've gone ahead and marked it as done for you.";
-    public static final String INVALID_COMMAND_MESSAGE = "\tHmm... Something seems wrong with your input. Give it a closer look and try again!";
-    public static final String NO_TASK_FOUND_MESSAGE = "\tHmm... I don't think that task exists... Check again with list!";
-    public static final String INVALID_INDEX_MESSAGE = "\tHey! The index provided was not a number!";
 
     // Commands
     public static final String BYE_COMMAND = "bye";
@@ -30,29 +27,22 @@ public class Bento {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
     public static final int COMMAND_INDEX = 0;
-    public static final int TASK_INDEX = 1;
 
     // Prefixes and Regexes
     // General
     public static final String SPACE_REGEX = " ";
     public static final String EMPTY_REGEX = "";
 
-    // ToDo
-    public static final String TODO_PREFIX = TODO_COMMAND + SPACE_REGEX;
 
     // Deadline
-    public static final String DEADLINE_PREFIX = DEADLINE_COMMAND + SPACE_REGEX;
     public static final int DEADLINE_NAME_INDEX = 0;
     public static final int DEADLINE_BY_INDEX = 1;
     public static final String BY_PREFIX = "/by";
     public static final String BY_REGEX = " " + BY_PREFIX + " ";
 
     // Event
-    public static final String EVENT_PREFIX = EVENT_COMMAND + SPACE_REGEX;
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";
-    public static final String TO_REGEX = TO_PREFIX + SPACE_REGEX;
-    public static final String FROM_REGEX = FROM_PREFIX + SPACE_REGEX;
 
 
 
@@ -99,8 +89,11 @@ public class Bento {
         return in.nextLine();
     }
 
-    public void addTask(String input) {
-        Task toAdd = new Task(input);
+    public void addTask(String input) throws InvalidTaskException {
+        if (input.isEmpty()) {
+            throw new InvalidTaskException();
+        }
+        Task toAdd = new Task(input.trim());
         tasks.add(toAdd);
         taskCount++;
 
@@ -108,7 +101,11 @@ public class Bento {
     }
 
     // ToDo Functions
-    public void addToDo(String input) {
+    public void addToDo(String input) throws InvalidToDoException {
+        if (input.isEmpty()) {
+            throw new InvalidToDoException();
+        }
+
         ToDo toAdd = new ToDo(input);
         tasks.add(toAdd);
         taskCount++;
@@ -117,19 +114,27 @@ public class Bento {
     }
 
     private static String getTodo(String input) {
-        return input.replace(TODO_PREFIX, "");
+        return input.replace(TODO_COMMAND, "").trim();
     }
 
     // Deadline Functions
-    public void addDeadline(String input) {
+    public void addDeadline(String input) throws InvalidDeadlineException {
         input = removeDeadlinePrefix(input);
         final int indexOfByPrefix = input.indexOf(BY_PREFIX);
+
+        // Throw exception if no "/by" found
         if (indexOfByPrefix == -1) {
-            printInvalidCommandMessage();
-            return;
+            throw new InvalidDeadlineException();
         }
 
-        Deadline toAdd = new Deadline(extractDeadlineName(input), extractDeadlineBy(input));
+        String deadlineName = extractDeadlineName(input);
+        String deadlineBy = extractDeadlineBy(input);
+
+        if (deadlineName.isEmpty() || deadlineBy.isEmpty()) {
+            throw new InvalidDeadlineException();
+        }
+
+        Deadline toAdd = new Deadline(deadlineName, deadlineBy);
         tasks.add(toAdd);
         taskCount++;
 
@@ -137,29 +142,38 @@ public class Bento {
     }
 
     public static String extractDeadlineBy(String input) {
-        return input.split(BY_REGEX)[DEADLINE_BY_INDEX];
+        String[] inputList = input.split(BY_REGEX);
+        if (inputList.length == 1) {
+            return "";
+        }
+        return inputList[DEADLINE_BY_INDEX].trim();
     }
 
     public static String extractDeadlineName(String input) {
-        return input.split(BY_REGEX)[DEADLINE_NAME_INDEX];
+        return input.split(BY_REGEX)[DEADLINE_NAME_INDEX].trim();
     }
 
     public static String removeDeadlinePrefix(String input) {
-        return input.replace(DEADLINE_PREFIX, EMPTY_REGEX);
+        return input.replace(DEADLINE_COMMAND, EMPTY_REGEX);
     }
 
     // Event Functions
-    public void addEvent(String input) {
+    public void addEvent(String input) throws InvalidEventException {
         input = removeEventPrefix(input);
         final int indexOfFrom = input.indexOf(FROM_PREFIX);
         final int indexOfTo = input.indexOf(TO_PREFIX);
+
         if (indexOfFrom == -1 || indexOfTo == -1) {
-            printInvalidCommandMessage();
-            return;
+            throw new InvalidEventException();
         }
+
         String eventName = extractEventName(input, indexOfFrom);
         String fromString = extractFromString(input, indexOfFrom, indexOfTo);
         String toString  = extractToString(input, indexOfTo);
+
+        if (eventName.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
+            throw new InvalidEventException();
+        }
 
         Event toAdd = new Event(eventName, fromString, toString);
         tasks.add(toAdd);
@@ -169,11 +183,11 @@ public class Bento {
     }
 
     public String extractToString(String input, int indexOfTo) {
-        return input.substring(indexOfTo).replace(TO_REGEX, EMPTY_REGEX);
+        return input.substring(indexOfTo).replace(TO_PREFIX, EMPTY_REGEX).trim();
     }
 
     public String extractFromString(String input, int indexOfFrom, int indexOfTo) {
-        return input.substring(indexOfFrom, indexOfTo).replace(FROM_REGEX, EMPTY_REGEX).trim();
+        return input.substring(indexOfFrom, indexOfTo).replace(FROM_PREFIX, EMPTY_REGEX).trim();
     }
 
     public String extractEventName(String input, int indexOfFrom) {
@@ -181,7 +195,7 @@ public class Bento {
     }
 
     public String removeEventPrefix(String input) {
-        return input.replace(EVENT_PREFIX, EMPTY_REGEX);
+        return input.replace(EVENT_COMMAND, EMPTY_REGEX);
     }
 
     private Task retrieveTask(int index) {
@@ -198,9 +212,10 @@ public class Bento {
     }
 
     // Marking Functions
-    private void markTaskAsDone(boolean isDone, String taskIndex) {
+    private void markTaskAsDone(boolean isDone, String input) throws InvalidIndexException, MissingTaskException {
         try {
-            int index = Integer.parseInt(taskIndex) - 1;
+            input = removeMarkPrefix(input);
+            int index = Integer.parseInt(input) - 1;
             updateTask(isDone, index);
             printLine();
             if (isDone) {
@@ -210,10 +225,14 @@ public class Bento {
             }
             printLine();
         } catch (NumberFormatException e) {
-            printInvalidIndexMessage();
+            throw new InvalidIndexException();
         } catch (IndexOutOfBoundsException e) {
-            printNoTaskFoundMessage();
+            throw new MissingTaskException();
         }
+    }
+
+    private String removeMarkPrefix(String input) {
+        return input.replace(UNMARK_COMMAND, EMPTY_REGEX).replace(MARK_COMMAND, EMPTY_REGEX).trim();
     }
 
     private void printUnmarked(int index) {
@@ -228,23 +247,23 @@ public class Bento {
 
 
     // User Error Messages
-    public void printInvalidCommandMessage() {
-        printLine();
-        System.out.println(INVALID_COMMAND_MESSAGE);
-        printLine();
-    }
-
-    public void printNoTaskFoundMessage() {
-        printLine();
-        System.out.println(NO_TASK_FOUND_MESSAGE);
-        printLine();
-    }
-
-    public void printInvalidIndexMessage() {
-        printLine();
-        System.out.println(INVALID_INDEX_MESSAGE);
-        printLine();
-    }
+//    public void printInvalidCommandMessage() {
+//        printLine();
+//        System.out.println(INVALID_COMMAND_MESSAGE);
+//        printLine();
+//    }
+//
+//    public void printNoTaskFoundMessage() {
+//        printLine();
+//        System.out.println(NO_TASK_FOUND_MESSAGE);
+//        printLine();
+//    }
+//
+//    public void printInvalidIndexMessage() {
+//        printLine();
+//        System.out.println(INVALID_INDEX_MESSAGE);
+//        printLine();
+//    }
 
     // Task Status Update
     private void updateTask(boolean isDone, int index) {
@@ -256,31 +275,37 @@ public class Bento {
     }
 
     public void handleUserInput(String input) {
+        // Remove excess whitespace
+        input = input.trim();
         String[] inputList = getInputList(input);
-        switch (inputList[COMMAND_INDEX]) {
-        case BYE_COMMAND:
-            saySayonara();
-            break;
-        case LIST_COMMAND:
-            listTasks();
-            break;
-        case MARK_COMMAND:
-            markTaskAsDone(true, inputList[TASK_INDEX]);
-            break;
-        case UNMARK_COMMAND:
-            markTaskAsDone(false, inputList[TASK_INDEX]);
-            break;
-        case TODO_COMMAND:
-            addToDo(getTodo(input));
-            break;
-        case DEADLINE_COMMAND:
-            addDeadline(input);
-            break;
-        case EVENT_COMMAND:
-            addEvent(input);
-            break;
-        default:
-            addTask(input);
+        try {
+            switch (inputList[COMMAND_INDEX]) {
+            case BYE_COMMAND:
+                saySayonara();
+                break;
+            case LIST_COMMAND:
+                listTasks();
+                break;
+            case MARK_COMMAND:
+                markTaskAsDone(true, input);
+                break;
+            case UNMARK_COMMAND:
+                markTaskAsDone(false, input);
+                break;
+            case TODO_COMMAND:
+                addToDo(getTodo(input));
+                break;
+            case DEADLINE_COMMAND:
+                addDeadline(input);
+                break;
+            case EVENT_COMMAND:
+                addEvent(input);
+                break;
+            default:
+                addTask(input);
+            }
+        } catch (BentoException e) {
+            System.out.print(e.getMessage());
         }
     }
 
