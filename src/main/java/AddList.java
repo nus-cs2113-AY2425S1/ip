@@ -44,7 +44,7 @@ public class AddList {
         } else {
             System.out.println("\t Here are the tasks in your list: "); 
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.valueOf(i+1) + ". " + tasks.get(i)); 
+                System.out.println("\t" + String.valueOf(i+1) + ". " + tasks.get(i)); 
             }
         }
     }
