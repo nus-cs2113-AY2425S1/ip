@@ -1,3 +1,11 @@
+package bento;
+
+import exception.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,13 +42,13 @@ public class Bento {
     public static final String EMPTY_REGEX = "";
 
 
-    // Deadline
+    // tasks.Deadline
     public static final int DEADLINE_NAME_INDEX = 0;
     public static final int DEADLINE_BY_INDEX = 1;
     public static final String BY_PREFIX = "/by";
     public static final String BY_REGEX = " " + BY_PREFIX + " ";
 
-    // Event
+    // tasks.Event
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";
 
@@ -100,7 +108,7 @@ public class Bento {
         printAddTaskSuccessMessage(toAdd.toString());
     }
 
-    // ToDo Functions
+    // tasks.ToDo Functions
     public void addToDo(String input) throws InvalidToDoException {
         if (input.isEmpty()) {
             throw new InvalidToDoException();
@@ -117,7 +125,7 @@ public class Bento {
         return input.replace(TODO_COMMAND, "").trim();
     }
 
-    // Deadline Functions
+    // tasks.Deadline Functions
     public void addDeadline(String input) throws InvalidDeadlineException {
         input = removeDeadlinePrefix(input);
         final int indexOfByPrefix = input.indexOf(BY_PREFIX);
@@ -157,7 +165,7 @@ public class Bento {
         return input.replace(DEADLINE_COMMAND, EMPTY_REGEX);
     }
 
-    // Event Functions
+    // tasks.Event Functions
     public void addEvent(String input) throws InvalidEventException {
         input = removeEventPrefix(input);
         final int indexOfFrom = input.indexOf(FROM_PREFIX);
@@ -265,7 +273,7 @@ public class Bento {
 //        printLine();
 //    }
 
-    // Task Status Update
+    // tasks.Task Status Update
     private void updateTask(boolean isDone, int index) {
         retrieveTask(index).setDone(isDone);
     }
