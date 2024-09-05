@@ -4,19 +4,33 @@ import java.util.Scanner;
 public class Cassandra {
 
     private final static ArrayList<Task> taskList = new ArrayList<>();
-    public  final static String SEPERATOR = "____________________________________________________________";
-    private static boolean EXIT_FLAG = false;
+    public  final static int SEPARATOR_LENGTH = 75;
+    private static boolean ifExit = false;
 
     private static void drawLine(){
-        System.out.println(SEPERATOR);
+        for(int i=0;i<SEPARATOR_LENGTH;i+=1){
+            System.out.print("-");
+        }
+        System.out.println();
     }
 
     private static void exit() {
-        EXIT_FLAG = true;
+        ifExit = true;
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
+    private static void displayIntroductionArt() {
+            System.out.println("   ___                                               _                   ");
+            System.out.println("  / __|   __ _     ___     ___    __ _    _ _     __| |     _ _   __ _   ");
+            System.out.println(" | (__   / _` |   (_-<    (_-<   / _` |  | ' \\   / _` |    | '_| / _` |  ");
+            System.out.println("  \\___|  \\__,_|   /__/_   /__/_  \\__,_|  |_||_|  \\__,_|   _|_|_  \\__,_|  ");
+            System.out.println("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
+            System.out.println("`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
+    }
+
     private static void displayIntroduction(){
+        drawLine();
+        displayIntroductionArt();
         drawLine();
         System.out.println(" Hello! I'm Cassandra");
         System.out.println(" What can I do for you?");
@@ -64,32 +78,72 @@ public class Cassandra {
         }
     }
 
+    private static void addTodo(String input) {
+        int todoOffset = 4;
+        String taskName = input.substring(todoOffset).trim();
+        saveTask(new Todo(taskName));
+    }
+
+    private static void addEvent(String input){
+        int fromIndexOffset=6;
+        int toIndexOffset=4;
+
+        int fromIndex = input.indexOf("/from") + fromIndexOffset;
+        int toIndex = input.indexOf("/to");
+
+        if(fromIndex<0 || toIndex<0){
+            System.out.println("Sorry, event entered has the wrong format");
+            return;
+        }
+
+        String from = input.substring(fromIndex, toIndex).trim();
+        String to = input.substring(toIndex + toIndexOffset).trim();
+        String eventTaskName = input.substring(0, fromIndex).trim();
+
+        saveTask(new Event(eventTaskName, from, to));
+    }
+
+    private static void addDeadline(String input){
+        int byIndexOffset=4;
+        int byIndex = input.indexOf("/by");
+
+        if(byIndex < 0){
+            System.out.println("Sorry, deadline entered has the wrong format");
+            return;
+        }
+
+        String by = input.substring(byIndex + byIndexOffset).trim();
+        String deadlineTaskName = input.substring(0, byIndex).trim();
+
+        saveTask(new Deadline(deadlineTaskName, by));
+    }
+
     private static void executeCommand(String input, String[] commandArgs){
-        if(commandArgs[0].equalsIgnoreCase("mark")){
-            markTask(Integer.parseInt(commandArgs[1]));
-        } else if(commandArgs[0].equalsIgnoreCase("unmark")){
-            unmarkTask(Integer.parseInt(commandArgs[1]));
-        } else if(commandArgs[0].equalsIgnoreCase("list")){
-            printList();
-        } else if(commandArgs[0].equalsIgnoreCase("bye")){
-            exit();
-        } else if(commandArgs[0].equalsIgnoreCase("todo")) {
-            String taskName = input.substring(4).trim();
-            saveTask(new Todo(taskName));
-        } else if(commandArgs[0].equalsIgnoreCase("deadline")) {
-            int byIndex = input.indexOf("/by");
-            String by = input.substring(byIndex+4).trim();
-            String taskName = input.substring(0,byIndex).trim();
-            saveTask(new Deadline(taskName,by));
-        } else if(commandArgs[0].equalsIgnoreCase("event")) {
-            int fromIndex = input.indexOf("/from")+6;
-            int toIndex = input.indexOf("/to");
-            String from = input.substring(fromIndex,toIndex).trim();
-            String to = from.substring(toIndex+4).trim();
-            String taskName = input.substring(0,fromIndex).trim();
-            saveTask(new Event(taskName,from,to));
-        } else{
-            System.out.println("Sorry, unknown command");
+        switch (commandArgs[0].toLowerCase()) {
+            case "mark":
+                markTask(Integer.parseInt(commandArgs[1]));
+                break;
+            case "unmark":
+                unmarkTask(Integer.parseInt(commandArgs[1]));
+                break;
+            case "list":
+                printList();
+                break;
+            case "bye":
+                exit();
+                break;
+            case "todo":
+                addTodo(input);
+                break;
+            case "deadline":
+                addDeadline(input);
+                break;
+            case "event":
+                addEvent(input);
+                break;
+            default:
+                System.out.println("Sorry, unknown command");
+                break;
         }
     }
 
@@ -103,7 +157,7 @@ public class Cassandra {
 
     public static void main(String[] args) {
         displayIntroduction();
-        while(!EXIT_FLAG) {
+        while(!ifExit) {
             readUserCommand();
         }
     }
