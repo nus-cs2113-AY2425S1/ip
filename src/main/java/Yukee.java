@@ -8,13 +8,13 @@ public class Yukee {
 
         String logo = """
                  Y   Y  U   U  K   K  EEEEE  EEEEE
-                  Y Y   U   U  K  K   E      E   \s
-                   Y    U   U  KKK    EEEE   EEEE\s
-                   Y    U   U  K  K   E      E   \s
+                  Y Y   U   U  K  K   E      E
+                   Y    U   U  KKK    EEEE   EEEE
+                   Y    U   U  K  K   E      E
                    Y     UUU   K   K  EEEEE  EEEEE
                 """;
         System.out.println("Hello! I'm Yukee, your friendly assistant!\n" + logo);
-        System.out.println("(✿◠‿◠) What can I do for you today? (◕‿◕)");
+        System.out.println("What can I do for you today?");
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -23,12 +23,12 @@ public class Yukee {
 
             switch (command) {
                 case "bye":
-                    System.out.println("☆*:.｡. o(≧▽≦)o .｡.:*☆ Bye! Hope to see you again soon!");
+                    System.out.println("Bye! Hope to see you again soon!");
                     return;
 
                 case "list":
                     if (taskCount == 0) {
-                        System.out.println("Your task list is empty! Try adding some tasks! ✍(◔◡◔)");
+                        System.out.println("Your task list is empty! Try adding some tasks!");
                     } else {
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < taskCount; i++) {
