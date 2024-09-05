@@ -17,7 +17,7 @@ public class Cy {
             System.out.println("OK, I've marked this task as not done yet:");
         }
 
-        System.out.println( task.getStatusIcon()+" "+ task.description);
+        System.out.println(task.getStatusIcon() + " " + task.description);
         printLine();
     }
 
@@ -63,31 +63,51 @@ public class Cy {
         System.out.println("Here are the tasks in your list");
         for (int i = 0; i < count; i++) {
             if (items[i] != null) {
-                System.out.println((i + 1) + "." + items[i].getStatusIcon() + " "+ items[i].description);
+                System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].description);
             }
         }
         printLine();
     }
 
-    public static void addItem(Task[] items, int count, String input) {
+    public static int addItem(Task[] items, int count, String input) {
         items[count] = new Task(input);
+        count++;
+
         printLine();
         System.out.println("added: " + input);
         printLine();
+
+        return count;
     }
 
-    public static void addTodo(Task[] items, int count, String input) {
+    public static String trimString(String input) {
+        String output = input.trim();
+        String[] outputSplit = output.split(" ", 2);
+        return outputSplit[1];
+    }
+
+    public static int addTodo(Task[] items, int count, String input) {
+        input = trimString(input);
         items[count] = new Todo(input);
+
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(items[count].getStatusIcon() + " " + input);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
+        return count + 1;
     }
 
-    public static void addDeadline(Task[] items, int count, String input) {
-        String[] splitInputs = input.split("/by",2);
-        String deadline = splitInputs[0] +"(by:" + splitInputs[1] + ")";
+    public static int addDeadline(Task[] items, int count, String input) {
+
+        if (!input.contains("/by")) {
+            System.out.println("Input must contain '/by' keyword.");
+            return count;
+        }
+
+        input = trimString(input);
+        String[] splitInputs = input.split("/by", 2);
+        String deadline = splitInputs[0] + "(by:" + splitInputs[1] + ")";
 
         items[count] = new Deadline(deadline);
 
@@ -96,20 +116,32 @@ public class Cy {
         System.out.println(items[count].getStatusIcon() + " " + deadline);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
+
+        return count + 1;
     }
 
-    public static void addEvent(Task[] items, int count, String input) {
+    public static int addEvent(Task[] items, int count, String input) {
+
+        if (!input.contains("/from") || !input.contains("/to")) {
+            System.out.println("Input must contain both '/from' and '/to' keywords.");
+            return count;
+        }
+
+        input = trimString(input);
         String[] splitInputs = input.split("/from|/to");
         String start = splitInputs[1];
         String end = splitInputs[2];
         String event = splitInputs[0] + "(from:" + start + "to:" + end + ")";
 
         items[count] = new Event(event);
+
         printLine();
         System.out.println("Got it. I've added this deadline:");
         System.out.println(items[count].getStatusIcon() + " " + event);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
+
+        return count + 1;
     }
 
     public static void main(String[] args) {
@@ -133,17 +165,13 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("unmark")) {
                 unmarkItem(splitInputs, items, count);
             } else if (splitInputs[0].equalsIgnoreCase("todo")) {
-                addTodo(items, count, input);
-                count++;
-            } else if (splitInputs[0].equalsIgnoreCase("deadline")){
-                addDeadline(items, count, input);
-                count++;
-            } else if (splitInputs[0].equalsIgnoreCase("event")){
-                addEvent(items,count,input);
-                count++;
+                count = addTodo(items, count, input);
+            } else if (splitInputs[0].equalsIgnoreCase("deadline")) {
+                count = addDeadline(items, count, input);
+            } else if (splitInputs[0].equalsIgnoreCase("event")) {
+                count = addEvent(items, count, input);
             } else {
-                addItem(items, count, input);
-                count++;
+                count = addItem(items, count, input);
             }
             input = scan.nextLine();
         }
