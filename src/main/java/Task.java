@@ -13,6 +13,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return isCompleted? "[X] " + description : "[ ]" + description;
+        return isCompleted? "[X] " + description : "[ ] " + description;
     }
 }
