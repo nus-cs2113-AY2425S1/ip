@@ -1,29 +1,29 @@
 public class TaskList {
     private Task[] allTasks;
-    private int noOfTasks;
+    private int taskCount;
     private final int MAX_TASKS = 100;
 
     public TaskList(String task){
         allTasks = new Task[MAX_TASKS];
         allTasks[0] = new Task(1, task);
-        noOfTasks = 1;
+        taskCount = 1;
     }
 
     public TaskList() {
         allTasks = new Task[MAX_TASKS];
-        noOfTasks = 0;
+        taskCount = 0;
     }
 
     public void addToTaskList(String input) {
-        allTasks[noOfTasks] = new Task(noOfTasks + 1, input);
-        noOfTasks++;
+        allTasks[taskCount] = new Task(taskCount + 1, input);
+        taskCount++;
         System.out.println("\tadded: " + input);
         printHorizontalLine();
     }
 
     public void printTaskList() {
         System.out.println("\tSure! Here are the tasks on your list:");
-        for (int i = 0; i < noOfTasks; i++) {
+        for (int i = 0; i < taskCount; i++) {
             System.out.print("\t" + (i + 1) +".");
             allTasks[i].printTask();
         }

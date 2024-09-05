@@ -3,21 +3,23 @@ import java.util.Scanner;
 public class Melchizedek {
 
     public static TaskList taskList = new TaskList();
+    public static final String SEPARATOR = "\t____________________________________________________________";
 
-    public static void printHorizontalLine() {
-        System.out.println("\t____________________________________________________________");
+    public static void printSeparator() {
+        System.out.println(SEPARATOR);
     }
 
     public static void greetUser() {
-        printHorizontalLine();
+        printSeparator();
         System.out.println("\tHello! I'm Melchizedek.");
         System.out.println("\tHow can I be a blessing to you?");
-        printHorizontalLine();
+        printSeparator();
+
     }
 
     public static void sayByeToUser() {
         System.out.println("\tGoodbye. Hope to see you again soon! May peace be upon you.");
-        printHorizontalLine();
+        printSeparator();
     }
 
     public static void main(String[] args) {
@@ -25,18 +27,28 @@ public class Melchizedek {
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
-            printHorizontalLine();
+            printSeparator();
             String[] tokens = input.split(" ");
-            if (input.equalsIgnoreCase("bye")) {
+            switch (tokens[0].toLowerCase()) {
+            case "bye":
                 sayByeToUser();
                 return;
-            } else if (input.equalsIgnoreCase("list")) {
+            case "list":
                 taskList.printTaskList();
-            } else if (tokens[0].equalsIgnoreCase("mark")) {
+                break;
+            case "mark":
                 taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
-            } else if (tokens[0].equalsIgnoreCase("unmark")) {
+                break;
+            case "unmark":
                 taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
-            } else {
+                break;
+            case "todo":
+                break;
+            case "deadline":
+                break;
+            case "event":
+                break;
+            default:
                 taskList.addToTaskList(input);
             }
         }
