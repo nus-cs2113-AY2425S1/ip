@@ -1,34 +1,34 @@
 public class Task {
-    private String command;
-    private boolean isDone;
+    protected String command;
+    protected boolean isDone;
 
-    public Task(String command, boolean isDone) {
+    protected Task(String command, boolean isDone) {
         this.command = command;
         this.isDone = isDone;
     }
 
-    public Task(String command) {
+    protected Task(String command) {
         this.command = command;
         this.isDone = false;
     }
 
-    public String getCommand() {
+    protected String getCommand() {
         return command;
     }
 
-    public void setCommand(String command) {
+    protected void setCommand(String command) {
         this.command = command;
     }
 
-    public boolean isDone() {
+    protected boolean isDone() {
         return isDone;
     }
 
-    public void setDone(boolean done) {
+    protected void setDone(boolean done) {
         isDone = done;
     }
 
-    public void printTask() {
+    protected void printTask() {
         String mark = (this.isDone) ? "X" : " ";
         System.out.printf("[%s] %s\n", mark, this.command);
     }

@@ -3,17 +3,18 @@ import java.util.Scanner;
 public class SuBOT {
     private static boolean stopFlag = false;
     private static Task[] tasks = new Task[100];
-    private static int taskCount;
+    private static int taskCount = 0;
 
     /**
      * Process user's input command
      * @param command Input command
      */
     public static void process(String command) {
-        String[] argv = command.split(" ");
+        String[] argv = command.split(" ", 2);
         int argc = argv.length;
 
         String action = argv[0];
+        String commandArgs;
         int taskIndex;
 
         switch (action) {
@@ -30,7 +31,8 @@ public class SuBOT {
         case "mark":
         case "unmark":
             try {
-                taskIndex = Integer.parseInt(argv[1]) - 1;
+                commandArgs = argv[1];
+                taskIndex = Integer.parseInt(commandArgs) - 1;
                 tasks[taskIndex].setDone(action.equals("mark"));
                 System.out.printf("I have %sed the following task for you:\n", action);
                 tasks[taskIndex].printTask();
@@ -39,9 +41,50 @@ public class SuBOT {
                 System.out.println("Usage: mark/unmark <taskNumber>");
             }
             break;
+        case "deadline":
+            try {
+                commandArgs = argv[1];
+                int slashIndex = commandArgs.indexOf("/by");
+                String dlName = commandArgs.substring(0, slashIndex-1);
+                //Not take the space before slash
+                String dlTime = commandArgs.substring(slashIndex+4);
+                tasks[taskCount] = new Deadline(dlName, dlTime);
+                System.out.println("Deadline task added!\n");
+                tasks[taskCount++].printTask();
+            } catch (Exception e) {
+                System.out.println("Invalid argument(s): " + e);
+                System.out.println("Usage: deadline <description> /by <date>");
+            }
+            break;
+        case "todo":
+            try {
+                commandArgs = argv[1];
+                tasks[taskCount] = new ToDo(commandArgs);
+                System.out.println("Todo task added!\n");
+                tasks[taskCount++].printTask();
+            } catch (Exception e) {
+                System.out.println("Invalid argument(s): " + e);
+                System.out.println("Usage: todo <description>");
+            }
+            break;
+        case "event":
+            try {
+                commandArgs = argv[1];
+                int fromSlashIndex = commandArgs.indexOf("/from");
+                int toSlashIndex = commandArgs.indexOf("/to");
+                String eventName = commandArgs.substring(0, fromSlashIndex- 1);
+                String eventFrom = commandArgs.substring(fromSlashIndex+6, toSlashIndex-1);
+                String eventTo = commandArgs.substring(toSlashIndex+4);
+                tasks[taskCount] = new Event(eventName, eventFrom, eventTo);
+                System.out.println("Deadline task added!\n");
+                tasks[taskCount++].printTask();
+            } catch (Exception e) {
+                System.out.println("Invalid argument(s): " + e);
+                System.out.println("Usage: event <description> /from <from> /to <to>");
+            }
+            break;
         default:
-            tasks[taskCount++] = new Task(command);
-            System.out.println(command);
+            System.out.println("Invalid action: " + action);
             break;
         }
     }
