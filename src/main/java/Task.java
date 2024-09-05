@@ -34,4 +34,9 @@ public class Task {
         System.out.print("] ");
         System.out.println(description);
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusMark() + "] " + description;
+    }
 }

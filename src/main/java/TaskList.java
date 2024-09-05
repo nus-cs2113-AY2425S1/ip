@@ -1,15 +1,16 @@
 public class TaskList {
     private Task[] allTasks;
     private int noOfTasks;
+    private final int MAX_TASKS = 100;
 
     public TaskList(String task){
-        allTasks = new Task[100];
+        allTasks = new Task[MAX_TASKS];
         allTasks[0] = new Task(1, task);
         noOfTasks = 1;
     }
 
     public TaskList() {
-        allTasks = new Task[100];
+        allTasks = new Task[MAX_TASKS];
         noOfTasks = 0;
     }
 
