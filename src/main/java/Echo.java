@@ -71,6 +71,9 @@ public class Echo {
         userInput = userInput.trim();
 
         if (userInput.isEmpty()) {
+            System.out.println(SEPARATOR);
+            System.out.println("Please provide a task description.");
+            System.out.println(SEPARATOR);
             return;
         }
 
@@ -78,22 +81,22 @@ public class Echo {
             String description = userInput.substring(5).trim();
             ToDo newTask = new ToDo(description);
             taskList.storeTask(newTask);
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
             System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
         } else if (userInput.startsWith("deadline ")) {
             int byIndex = userInput.indexOf(" /by ");
             String description = userInput.substring(9, byIndex).trim();
             String dueDate = userInput.substring(byIndex + 5).trim();
             Deadline newTask = new Deadline(description, dueDate);
             taskList.storeTask(newTask);
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
             System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
         } else if (userInput.startsWith("event ")) {
             int fromIndex = userInput.indexOf(" /from ");
             int toIndex = userInput.indexOf(" /to ", fromIndex + 6);
@@ -102,11 +105,11 @@ public class Echo {
             String end = userInput.substring(toIndex + 4).trim();
             Event newTask = new Event(description, start, end);
             taskList.storeTask(newTask);
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
             System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            System.out.println(SEPARATOR);
         }
     }
 
