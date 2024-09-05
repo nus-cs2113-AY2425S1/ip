@@ -9,7 +9,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String printString() {
+    public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", isDone ? "X":" ", description, start, end);
     }
 }

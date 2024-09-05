@@ -5,7 +5,7 @@ public class Erika {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static Scanner in = new Scanner(System.in);
     private static int markIndex;
-    
+
     public static void main(String[] args) {
         printWelcomeMessage();
         while (true) {
@@ -33,8 +33,8 @@ public class Erika {
         int indexOfFrom = line.indexOf("/from ");
         int indexOfTo = line.indexOf("/to ");
         if (indexOfFrom != -1 && indexOfTo != -1) {
-            Event newEvent = new Event(line.substring(line.indexOf(" ")+1, indexOfFrom-1),
-                    line.substring(indexOfFrom+6, indexOfTo-1), line.substring(indexOfTo+4));
+            Event newEvent = new Event(line.substring(line.indexOf(" ") + 1, indexOfFrom - 1),
+                    line.substring(indexOfFrom + 6, indexOfTo - 1), line.substring(indexOfTo + 4));
             tasks.add(newEvent);
             printAddedMessage(newEvent);
         } else {
@@ -45,7 +45,7 @@ public class Erika {
     private static void addDeadline(String line) {
         int indexOfBy = line.indexOf("/by ");
         if (indexOfBy != -1) {
-            Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ")+1, indexOfBy-1),
+            Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ") + 1, indexOfBy - 1),
                     line.substring(indexOfBy + 4));
             tasks.add(newDeadline);
             printAddedMessage(newDeadline);
@@ -67,10 +67,10 @@ public class Erika {
             return;
         }
         if (line.contains("unmark ")) {
-            tasks.get(markIndex-1).setMark(false);
+            tasks.get(markIndex - 1).setMark(false);
             printUnmarkedMessage();
         } else {
-            tasks.get(markIndex-1).setMark(true);
+            tasks.get(markIndex - 1).setMark(true);
             printMarkedMessage();
         }
     }
@@ -91,7 +91,7 @@ public class Erika {
     }
 
     private static void printAddedMessage(Task newTask) {
-        String message = "Got it. I've added this task:\n" + "\t  " + newTask.printString() + "\n" +
+        String message = "Got it. I've added this task:\n" + "\t  " + newTask + "\n" +
                 String.format("\tNow you have %d task%s in the list.", Task.getTaskArraySize(),
                 (Task.getTaskArraySize() > 1) ? "s" : "");
         printMessage(message);
@@ -128,7 +128,7 @@ public class Erika {
         } else {
             message += "Here are the tasks in your list:\n";
             for (int i = 0; i < Task.getTaskArraySize(); i++) {
-                message += "\t" + Integer.toString(i + 1) + "." + tasks.get(i).printString();
+                message += "\t" + Integer.toString(i + 1) + "." + tasks.get(i);
                 if(i < Task.getTaskArraySize() - 1) {
                     message += "\n";
                 }

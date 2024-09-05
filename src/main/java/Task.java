@@ -14,9 +14,11 @@ public class Task {
         taskArraySize--;
     }
 
-    public String printString() {
-        return "";
+    @Override
+    public String toString() {
+        return description;
     }
+
     public void setMark(boolean mark) {
         this.isDone = mark;
     }

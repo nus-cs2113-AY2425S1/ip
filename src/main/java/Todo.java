@@ -4,7 +4,7 @@ public class Todo extends Task{
     }
 
     @Override
-    public String printString() {
-        return String.format("[T][%s] %s ", isDone ? "X":" ", description);
+    public String toString() {
+        return String.format("[T][%s] %s", isDone ? "X":" ", description);
     }
 }
