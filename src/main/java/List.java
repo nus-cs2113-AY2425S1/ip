@@ -49,6 +49,16 @@ public class List {
                 + INVALID_EVENT_INPUT_MESSAGE);
     }
 
+    private static void printInvalidEventMessage() {
+        System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" +
+                INVALID_EVENT_INPUT_MESSAGE);
+    }
+
+    private static void printInvalidDeadlineMessage() {
+        System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" +
+                INVALID_DEADLINE_INPUT_MESSAGE);
+    }
+
     private void addEvent(String line) {
         String eventStartDate = extractEventStartDate(line);
         String eventEndDate = extractEventEndDate(line);
