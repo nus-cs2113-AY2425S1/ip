@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Melchizedek {
@@ -43,10 +44,13 @@ public class Melchizedek {
                 taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
                 break;
             case "todo":
+                taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "deadline":
+                taskList.addDeadline(tokens);
                 break;
             case "event":
+                taskList.addEvent(tokens);
                 break;
             default:
                 taskList.addToTaskList(input);
