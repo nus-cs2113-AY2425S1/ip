@@ -23,6 +23,8 @@ public class Quinn {
 
             int taskNum;
             Task task;
+            String taskDescription;
+            String taskInfo;
 
             switch (commandLineParts[0].toLowerCase()) {
                 case "bye":
@@ -39,9 +41,24 @@ public class Quinn {
                     taskNum = Integer.parseInt(commandLineParts[1]);
                     unmarkTask(taskNum);
                     break;
-                default:
-                    task = new Task(commandLine);
+                case "todo":
+                    taskDescription = commandLineParts[1];
+                    task = new ToDo(taskDescription);
                     addTask(task);
+                    break;
+                case "deadline":
+                    taskInfo = commandLineParts[1];
+                    String[] deadlineTaskDetails = taskInfo.split("/by", 2);
+                    task = new Deadline(deadlineTaskDetails[0].trim(), deadlineTaskDetails[1].trim());
+                    addTask(task);
+                    break;
+                case "event":
+                    taskInfo = commandLineParts[1];
+                    String[] eventTaskDetails = taskInfo.split("/from | /to", 3);
+                    task = new Event(eventTaskDetails[0].trim(), eventTaskDetails[1].trim(), eventTaskDetails[2].trim());
+                    addTask(task);
+                    break;
+                default:
                     break;
             }
         }
@@ -88,22 +105,39 @@ public class Quinn {
 
     public void addTask(Task task) {
         tasks.add(task);
-        echo("\t" + "added: " + task.getDescription());
+
+        String response = "\t" + "Got it. I've added this task:"
+                + System.lineSeparator()
+                + "\t\t" + task
+                + System.lineSeparator()
+                + "\t" + "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        echo(response);
     }
 
     public void listTasks() {
         StringBuilder sb = new StringBuilder();
+
+        sb.append("\t")
+                .append(tasks.size() > 1 ? "Here are the tasks in your list:" : "Here is the task in your list:")
+                .append(System.lineSeparator())
+                .append("\t")
+                .append("[Legend: T = todo, D = deadline, E = event]")
+                .append(System.lineSeparator());
 
         for (int i = 0; i < tasks.size(); i++) {
             if (i != 0) {
                 sb.append(System.lineSeparator());
             }
 
-            sb.append("\t").append(i + 1).append(". ").append(tasks.get(i));
+            sb.append("\t")
+                    .append(i + 1)
+                    .append(". ")
+                    .append(tasks.get(i));
         }
 
         echo(sb.toString());
     }
+
     public void markTask(int taskNum) {
         Task task = tasks.get(taskNum - 1);
         task.setDone();
