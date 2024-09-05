@@ -47,9 +47,9 @@ public class Echo {
     }
 
     /**
-     * Method where Echo greets the user
+     * Method where Echo greets the user.
      *
-     * @param message The start message displayed on CLI
+     * @param message The start message displayed on CLI.
      */
     private static void printGreeting(String message) {
         System.out.println(SEPARATOR);
@@ -58,9 +58,9 @@ public class Echo {
     }
 
     /**
-     * Method to display all the tasks
+     * Method to display all the tasks.
      *
-     * @param taskList An array of tasks
+     * @param taskList An array of tasks.
      */
     private static void printTaskList(TaskList taskList) {
         System.out.println(SEPARATOR);
@@ -70,10 +70,10 @@ public class Echo {
     }
 
     /**
-     * Puts the icon X when called to mark task as done
+     * Puts the icon X when called to mark task as done.
      *
-     * @param userInput Inputs the task number which will be marked as done
-     * @param taskList  Outputs updated array of task
+     * @param userInput Inputs the task number which will be marked as done.
+     * @param taskList  Outputs updated array of task.
      */
     private static void handleMarking(String userInput, TaskList taskList) {
         int taskNumber = Integer.parseInt(userInput.substring(5).trim());
@@ -83,10 +83,10 @@ public class Echo {
     }
 
     /**
-     * Removes the icon X when called to unmark task as done
+     * Removes the icon X when called to unmark task as done.
      *
-     * @param userInput Inputs the task number which will be unmarked as done
-     * @param taskList  Outputs updated array of task
+     * @param userInput Inputs the task number which will be unmarked as done.
+     * @param taskList  Outputs updated array of task.
      */
     private static void handleUnmarking(String userInput, TaskList taskList) {
         int taskNumber = Integer.parseInt(userInput.substring(7).trim());
@@ -96,10 +96,10 @@ public class Echo {
     }
 
     /**
-     * Add different kinds of tasks
+     * Add different kinds of tasks.
      *
-     * @param userInput Input task type and description
-     * @param taskList  Outputs updated array of task
+     * @param userInput Input task type and description.
+     * @param taskList  Outputs updated array of task.
      */
     private static void addTask(String userInput, TaskList taskList) {
         userInput = userInput.trim();
@@ -114,10 +114,10 @@ public class Echo {
     }
 
     /**
-     * ToDo type of task will be added
+     * ToDo type of task will be added.
      *
-     * @param userInput Inputs ToDo task details
-     * @param taskList  Outputs updated array of task
+     * @param userInput Inputs ToDo task details.
+     * @param taskList  Outputs updated array of task.
      */
     private static void addToDoTask(String userInput, TaskList taskList) {
         String description = userInput.substring(TODO_WORD_LENGTH).trim();
@@ -127,10 +127,10 @@ public class Echo {
     }
 
     /**
-     * Deadline type of task will be added
+     * Deadline type of task will be added.
      *
-     * @param userInput Inputs Deadline task details
-     * @param taskList  Outputs updated array of task
+     * @param userInput Inputs Deadline task details.
+     * @param taskList  Outputs updated array of task.
      */
     private static void addDeadlineTask(String userInput, TaskList taskList) {
         int byIndex = userInput.indexOf(" /by ");
@@ -142,10 +142,10 @@ public class Echo {
     }
 
     /**
-     * Event type of task will be added
+     * Event type of task will be added.
      *
-     * @param userInput Inputs Event task details
-     * @param taskList  Outputs updated array of task
+     * @param userInput Inputs Event task details.
+     * @param taskList  Outputs updated array of task.
      */
     private static void addEventTask(String userInput, TaskList taskList) {
         int startIndex = userInput.indexOf(" /from ");
@@ -159,10 +159,10 @@ public class Echo {
     }
 
     /**
-     * Method to handle confirmation message
+     * Method to handle confirmation message.
      *
-     * @param task       Task type and details
-     * @param totalTasks Count of the number of task
+     * @param task       Task type and details.
+     * @param totalTasks Count of the number of task.
      */
     private static void printTaskAddedMessage(Task task, int totalTasks) {
         System.out.println(SEPARATOR);
@@ -173,9 +173,9 @@ public class Echo {
     }
 
     /**
-     * Method to handle the exit message
+     * Method to handle the exit message.
      *
-     * @param message Displays exit message by Echo
+     * @param message Displays exit message by Echo.
      */
     private static void printExitMessage(String message) {
         System.out.println(SEPARATOR);
