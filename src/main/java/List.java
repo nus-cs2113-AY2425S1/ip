@@ -31,10 +31,10 @@
             if (index >= 0 && index < size) {
                 tasks[index].markTask();
                 int remainingTask = countUnmarkedTasks();
-                System.out.println(Constants.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println(Constants.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
+                System.out.println(StringDesign.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
+                System.out.println(StringDesign.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
             } else {
-                System.out.println(Constants.SPACE+ "Invalid task number.");
+                System.out.println(StringDesign.SPACE+ "Invalid task number.");
             }
         }
 
@@ -43,10 +43,10 @@
             if (index >= 0 && index < size) {
                 tasks[index].unmarkTask();
                 int remainingTask = countUnmarkedTasks();
-                System.out.println(Constants.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println(Constants.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
+                System.out.println(StringDesign.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
+                System.out.println(StringDesign.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
             } else {
-                System.out.println(Constants.SPACE + "Invalid task number.");
+                System.out.println(StringDesign.SPACE + "Invalid task number.");
             }
         }
 
@@ -63,19 +63,19 @@
                 switch (task.getType()) {
                     case TODO:
                         Todo todoTask = (Todo) task;
-                        System.out.println(Constants.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
+                        System.out.println(StringDesign.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
                                 + todoTask.description);
                         break;
 
                     case DEADLINE:
                         Deadline deadlineTask = (Deadline) task;
-                        System.out.println(Constants.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
+                        System.out.println(StringDesign.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
                                 + deadlineTask.description + " (by: " + deadlineTask.by + ")");
                         break;
 
                     case EVENT:
                         Event eventTask = (Event) task;
-                        System.out.println(Constants.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
+                        System.out.println(StringDesign.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
                                 + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
                         break;
                     default:

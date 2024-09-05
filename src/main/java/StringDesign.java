@@ -1,4 +1,5 @@
-public class Constants {
+public class StringDesign {
+    //this class is for all my Strings and designs
     public static final String LOGO = "   _____      \n"
             + "  /     \\     \n"
             + " |  O O  |    \n"
@@ -18,4 +19,5 @@ public class Constants {
 
     public static final String SPACE = "        ";
     public static final String LINE = "------------";
+    public static final String YOU = "User: ";
 }
