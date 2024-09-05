@@ -47,7 +47,7 @@ public class Taylor {
                 if(index<0 || index>=tasks.size()) {
                     System.out.println(line);
                     System.out.println("Invalid index");
-//                    System.out.println(line);
+//                    System.out.printlnf(line);
                 } else {
                     tasks.get(index).setCompleted(false);
                     System.out.println("OK, I've marked this task as not done yet:");
