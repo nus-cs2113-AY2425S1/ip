@@ -129,13 +129,10 @@ public class Bean {
                 INDENT + "To mark a task as undone: unmark [task number]");
     }
 
-    public static void main(String[] args) {
+    public static void processUserInput() {
         String userInput;
         Scanner in = new Scanner(System.in);
 
-        greet();
-
-        outerLoop:
         while (Task.getNumberOfTasks() < MAX_LIST_COUNT) {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
@@ -143,8 +140,7 @@ public class Bean {
             switch (userCommand) {
             case "bye":
                 // To exit
-                break outerLoop;
-
+                return;
             case "list":
                 printToDoList();
 
@@ -173,6 +169,11 @@ public class Bean {
                 printErrorMessage();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        greet();
+        processUserInput();
         // exit because: userInput.equals("bye") || Task.getNumberOfTasks >= MAX_LIST_COUNT
         exit();
     }
