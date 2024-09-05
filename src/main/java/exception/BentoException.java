@@ -1,3 +1,5 @@
+package exception;
+
 public class BentoException extends Exception {
     public static final String DEFAULT_MESSAGE = "TASKETE";
     public static final String LINE_MESSAGE = "\t____________________________________________________________\n";
