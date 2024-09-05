@@ -14,6 +14,11 @@ public class Atom {
         System.out.println("__________________________________________________");
     }
 
+    private static void printExceptionMessage() {
+        System.out.println("Oops! Incorrect command format.");
+        System.out.println("Check out the user guide for command format!");
+    }
+
     public static void printList(Task[] list) {
         int index = 1;
 
@@ -24,14 +29,44 @@ public class Atom {
                     "[" + item.getStatus() + "] " + item.getItem());
 
             if (item.setTaskType().equals("D")) {
-                System.out.print("(by: " + item.getBy() + ")");
+                System.out.print(" (by: " + item.getBy() + ")");
             } else if (item.setTaskType().equals("E")) {
-                System.out.print("(from: " + item.getFrom() + "to: " + item.getTo() + ")");
+                System.out.print(" (from: " + item.getFrom() + "to: " + item.getTo() + ")");
             }
 
             System.out.println();
             index++;
         }
+    }
+
+    public static void markAsDone(Task[] list, int id) {
+        if (id >= Task.getTaskCount() || id < 0) {
+            System.out.println("Whoops! Task id not found.");
+            return;
+        }
+
+        Task currTask = list[id];
+        currTask.markAsDone();
+
+        System.out.println("Wonderful! Task successfully marked as DONE!");
+        System.out.println("> [" + currTask.setTaskType() + "]["
+                + currTask.getStatus() + "] " + currTask.getItem());
+
+    }
+
+    public static void markAsUndone(Task[] list, int id) {
+        if (id >= Task.getTaskCount() || id < 0) {
+            System.out.println("Whoops! Task id not found.");
+            return;
+        }
+
+        Task currTask = list[id];
+        currTask.markAsUndone();
+
+        System.out.println("Got it. Task successfully marked as UNDONE!");
+        System.out.println("> [" + currTask.setTaskType() + "]["
+                + currTask.getStatus() + "] " + currTask.getItem());
+
     }
 
     public static void main(String[] args) {
@@ -76,33 +111,24 @@ public class Atom {
             printDivider();
 
             if (line.equalsIgnoreCase("list")) {
-                if (Task.getTaskCount() != 0) {
-                    printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
-                } else {
+                if (Task.getTaskCount() == 0) {
                     System.out.println("Oh oh! List is empty.");
+                    return;
                 }
+
+                printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
+
             } else if (keyword.equals("mark") || (keyword.equals("unmark"))) {
                 try {
                     int taskId = Integer.parseInt(words[1]) - 1;
 
-                    if (taskId < Task.getTaskCount() && taskId >= 0) {
-                        Task currTask = tasksList[taskId];
-
-                        if (keyword.equals("mark")) {
-                            currTask.markAsDone();
-                            System.out.println("Wonderful! Task successfully marked as DONE!");
-                        } else {
-                            currTask.markAsUndone();
-                            System.out.println("Got it. Task successfully marked as UNDONE!");
-                        }
-
-                        System.out.println("> [" + currTask.setTaskType() + "]["
-                                + currTask.getStatus() + "] " + currTask.getItem());
+                    if (keyword.equals("mark")) {
+                        markAsDone(tasksList, taskId);
                     } else {
-                        System.out.println("Whoops! Task id not found.");
+                        markAsUndone(tasksList, taskId);
                     }
                 } catch (Exception exception) {
-                    System.out.println("Oops! Incorrect command format.");
+                    printExceptionMessage();
                 }
 
             } else if (keyword.equals("todo")) {
@@ -114,37 +140,48 @@ public class Atom {
                 System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
 
             } else if (keyword.equals("deadline")) {
-                int deadlineEndIndex = line.indexOf('/');
-                String deadlineName = line.substring(DEADLINE_START_INDEX,deadlineEndIndex);
-                String by = line.substring(deadlineEndIndex + BY_START_INDEX_OFFSET);
+                try {
+                    int deadlineEndIndex = line.indexOf('/');
+                    String deadlineName = line.substring(DEADLINE_START_INDEX, deadlineEndIndex - 1);
+                    String by = line.substring(deadlineEndIndex + BY_START_INDEX_OFFSET);
 
-                Deadline deadline = new Deadline(deadlineName, by);
-                tasksList[Task.getTaskCount() - 1] = deadline;
+                    Deadline deadline = new Deadline(deadlineName, by);
+                    tasksList[Task.getTaskCount() - 1] = deadline;
 
-                System.out.println("Gotcha! DEADLINE task added to list");
-                System.out.println("> [" + deadline.setTaskType() + "]" + "[ ] "
-                        + deadline.getItem() + "(by: " + deadline.getBy() + ")");
-                System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+                    System.out.println("Gotcha! DEADLINE task added to list");
+                    System.out.println("> [" + deadline.setTaskType() + "]" + "[ ] "
+                            + deadline.getItem() + " (by: " + deadline.getBy() + ")");
+                    System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+
+                } catch (Exception exception) {
+                    printExceptionMessage();
+                }
 
             } else if (keyword.equals("event")) {
-                int eventEndIndex = line.indexOf('/');
-                String eventName = line.substring(EVENT_START_INDEX,eventEndIndex);
+                try {
+                    int eventEndIndex = line.indexOf('/');
+                    String eventName = line.substring(EVENT_START_INDEX, eventEndIndex - 1);
 
-                int fromEndIndex = line.lastIndexOf('/');
-                String from = line.substring(eventEndIndex + FROM_START_INDEX_OFFSET, fromEndIndex);
-                String to = line.substring(fromEndIndex + TO_START_INDEX_OFFSET);
+                    int fromEndIndex = line.lastIndexOf('/');
+                    String from = line.substring(eventEndIndex + FROM_START_INDEX_OFFSET, fromEndIndex);
+                    String to = line.substring(fromEndIndex + TO_START_INDEX_OFFSET);
 
-                Event event = new Event(eventName, from, to);
-                tasksList[Task.getTaskCount() - 1] = event;
+                    Event event = new Event(eventName, from, to);
+                    tasksList[Task.getTaskCount() - 1] = event;
 
-                System.out.println("Gotcha! EVENT task added to list");
-                System.out.println("> [" + event.setTaskType() + "]" + "[ ] " + event.getItem()
-                        + "(from: " + event.getFrom() + "to: " + event.getTo() + ")");
-                System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+                    System.out.println("Gotcha! EVENT task added to list");
+                    System.out.println("> [" + event.setTaskType() + "]" + "[ ] " + event.getItem()
+                            + " (from: " + event.getFrom() + "to: " + event.getTo() + ")");
+                    System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+
+                } catch (Exception exception) {
+                    printExceptionMessage();
+                }
 
             } else {
                 Task task = new Task(line);
                 tasksList[Task.getTaskCount() - 1] = task;
+
                 System.out.println("Added \"" + line + "\" to list");
             }
 
