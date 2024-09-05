@@ -1,14 +1,23 @@
 public class Event extends Task{
-    public Event(String description){
+    protected String fromDate;
+    protected String toDate;
+
+    public Event(String description, String fromDate, String toDate){
         super(description);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
     }
 
     public String getStatusDescription() {
         String status = isMarked ? "X" : " ";
-        String desc = super.getDescription().split("/from")[0];
-        String[] temp = super.getDescription().split("/from")[1].split("/to");
-        String from = temp[0];
-        String to = temp[1];
-        return String.format("[E][%s] %s (from:%s to:%s)", status, desc, from, to);
+        return String.format("[E][%s] %s (from: %s to: %s)", status, super.getDescription(), getFromDate(), getToDate());
     }
 }
