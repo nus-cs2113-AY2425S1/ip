@@ -91,8 +91,23 @@ public class Cy {
 
         items[count] = new Deadline(deadline);
 
+        printLine();
         System.out.println("Got it. I've added this deadline:");
         System.out.println(items[count].getStatusIcon() + " " + deadline);
+        System.out.println("Now you have " + (count + 1) + " tasks in the list");
+        printLine();
+    }
+
+    public static void addEvent(Task[] items, int count, String input) {
+        String[] splitInputs = input.split("/from|/to");
+        String start = splitInputs[1];
+        String end = splitInputs[2];
+        String event = splitInputs[0] + "(from:" + start + "to:" + end + ")";
+
+        items[count] = new Event(event);
+        printLine();
+        System.out.println("Got it. I've added this deadline:");
+        System.out.println(items[count].getStatusIcon() + " " + event);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
     }
@@ -123,7 +138,10 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("deadline")){
                 addDeadline(items, count, input);
                 count++;
-            }else {
+            } else if (splitInputs[0].equalsIgnoreCase("event")){
+                addEvent(items,count,input);
+                count++;
+            } else {
                 addItem(items, count, input);
                 count++;
             }
