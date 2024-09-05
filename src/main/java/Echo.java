@@ -46,12 +46,22 @@ public class Echo {
         printExitMessage(exitMessage);
     }
 
+    /**
+     * Method where Echo greets the user
+     *
+     * @param message The start message displayed on CLI
+     */
     private static void printGreeting(String message) {
         System.out.println(SEPARATOR);
         System.out.println(message);
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Method to display all the tasks
+     *
+     * @param taskList An array of tasks
+     */
     private static void printTaskList(TaskList taskList) {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
@@ -59,6 +69,12 @@ public class Echo {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Puts the icon X when called to mark task as done
+     *
+     * @param userInput Inputs the task number which will be marked as done
+     * @param taskList  Outputs updated array of task
+     */
     private static void handleMarking(String userInput, TaskList taskList) {
         int taskNumber = Integer.parseInt(userInput.substring(5).trim());
         System.out.println(SEPARATOR);
@@ -66,6 +82,12 @@ public class Echo {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Removes the icon X when called to unmark task as done
+     *
+     * @param userInput Inputs the task number which will be unmarked as done
+     * @param taskList  Outputs updated array of task
+     */
     private static void handleUnmarking(String userInput, TaskList taskList) {
         int taskNumber = Integer.parseInt(userInput.substring(7).trim());
         System.out.println(SEPARATOR);
@@ -73,6 +95,12 @@ public class Echo {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Add different kinds of tasks
+     *
+     * @param userInput Input task type and description
+     * @param taskList  Outputs updated array of task
+     */
     private static void addTask(String userInput, TaskList taskList) {
         userInput = userInput.trim();
 
@@ -85,6 +113,12 @@ public class Echo {
         }
     }
 
+    /**
+     * ToDo type of task will be added
+     *
+     * @param userInput Inputs ToDo task details
+     * @param taskList  Outputs updated array of task
+     */
     private static void addToDoTask(String userInput, TaskList taskList) {
         String description = userInput.substring(TODO_WORD_LENGTH).trim();
         ToDo newTask = new ToDo(description);
@@ -92,6 +126,12 @@ public class Echo {
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
     }
 
+    /**
+     * Deadline type of task will be added
+     *
+     * @param userInput Inputs Deadline task details
+     * @param taskList  Outputs updated array of task
+     */
     private static void addDeadlineTask(String userInput, TaskList taskList) {
         int byIndex = userInput.indexOf(" /by ");
         String description = userInput.substring(DEADLINE_WORD_LENGTH, byIndex).trim();
@@ -101,6 +141,12 @@ public class Echo {
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
     }
 
+    /**
+     * Event type of task will be added
+     *
+     * @param userInput Inputs Event task details
+     * @param taskList  Outputs updated array of task
+     */
     private static void addEventTask(String userInput, TaskList taskList) {
         int startIndex = userInput.indexOf(" /from ");
         int endIndex = userInput.indexOf(" /to ", startIndex + START_WORD_LENGTH);
@@ -112,6 +158,12 @@ public class Echo {
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
     }
 
+    /**
+     * Method to handle confirmation message
+     *
+     * @param task       Task type and details
+     * @param totalTasks Count of the number of task
+     */
     private static void printTaskAddedMessage(Task task, int totalTasks) {
         System.out.println(SEPARATOR);
         System.out.println("Got it. I've added this task:");
@@ -120,6 +172,11 @@ public class Echo {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Method to handle the exit message
+     *
+     * @param message Displays exit message by Echo
+     */
     private static void printExitMessage(String message) {
         System.out.println(SEPARATOR);
         System.out.println(message);
