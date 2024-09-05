@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+_________________________________________________________
+Hello! I'm Uranus, the only Chatbot you'll ever need.
+How can I be of service?
+_________________________________________________________
+Currently, I am able to execute the following functions:
+1. Add tasks: I can add tasks to your task list.
+   - Type command: todo <task>
+   - Type command: deadline <task> /by <date>
+   - Type command: event <task> /from <day> <start time> /to <end time>
+2. Mark tasks as done:
+   - Type command: mark <task number>
+3. Mark tasks as not done:
+   - Type command: unmark <task number>
+4. List all tasks.
+   - Type command: list
+5. Be a parrot!
+   - Type command: echo
+6. Shut myself down. Use this if you no longer need me :(
+   - Type command: bye
+_________________________________________________________
+_________________________________________________________
+Got it. I've added this task:
+  [T][ ] Si Thu Lin Aung: Answer CS2113 tutorial questions
+Now you have 1 task(s) in the list
+_________________________________________________________
+_________________________________________________________
+Got it. I've added this task:
+  [D][ ] weekly 2113 quiz (by: Monday 9pm)
+Now you have 2 task(s) in the list
+_________________________________________________________
+_________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] Si Thu Lin Aung: Answer CS2113 tutorial questions
+2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
+_________________________________________________________
+_________________________________________________________
+Got it. I've added this task:
+  [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
+Now you have 3 task(s) in the list
+_________________________________________________________
+_________________________________________________________
+Nice! I've marked this task as done:
+[T][X] Si Thu Lin Aung: Answer CS2113 tutorial questions
+_________________________________________________________
+_________________________________________________________
+Here are the tasks in your list:
+1. [T][X] Si Thu Lin Aung: Answer CS2113 tutorial questions
+2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
+3. [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
+_________________________________________________________

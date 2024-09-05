@@ -9,6 +9,7 @@ public class Task {
         this.tag = "N"; // for no-tag
     }
 
+    // Overloaded function for available tags
     public Task(String description, String tag) {
         setDescription(description);
         this.isDone = false;
