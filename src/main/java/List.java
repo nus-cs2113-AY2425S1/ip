@@ -1,25 +1,25 @@
     //LIST CLASS
     public class List {
         //make a list of task
-        private Task[] list;
+        private Task[] tasks;
         private int size;
 
         //constructor
         public List() {
-            list = new Task[100];
+            tasks = new Task[100];
             size = 0;
         }
 
         //Method to add an item to the list
         public void addTask(Task task) {
             //add the text into the list
-            list[size] = task;
+            tasks[size] = task;
             //account for the item
             size++;
         }
 
         public Task[] getList() {
-            return this.list;
+            return this.tasks;
         }
 
         public int getSize() {
@@ -29,10 +29,10 @@
         //To mark
         public void mark(int index) {
             if (index >= 0 && index < size) {
-                list[index].markTask();
+                tasks[index].markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(Constants.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println(Constants.SPACE+ "[" + list[index].getMarkedStatus() + "] " + list[index].description);
+                System.out.println(Constants.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
             } else {
                 System.out.println(Constants.SPACE+ "Invalid task number.");
             }
@@ -41,10 +41,10 @@
         //To unmark
         public void unmark(int index) {
             if (index >= 0 && index < size) {
-                list[index].unmarkTask();
+                tasks[index].unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(Constants.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println(Constants.SPACE + "[" + list[index].getMarkedStatus() + "] " + list[index].description);
+                System.out.println(Constants.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
             } else {
                 System.out.println(Constants.SPACE + "Invalid task number.");
             }
@@ -58,22 +58,25 @@
             System.out.println("pending Task: " + remainingTask);
             for (int i = 0; i < size; i++) {
                 int number = i+1;
-                Task task = list[i];
+                Task task = tasks[i];
                 //use a switch to determine
                 switch (task.getType()) {
                     case TODO:
                         Todo todoTask = (Todo) task;
-                        System.out.println(Constants.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] " + todoTask.description);
+                        System.out.println(Constants.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
+                                + todoTask.description);
                         break;
 
                     case DEADLINE:
                         Deadline deadlineTask = (Deadline) task;
-                        System.out.println(Constants.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] " + deadlineTask.description + " (by: " + deadlineTask.by + ")");
+                        System.out.println(Constants.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
+                                + deadlineTask.description + " (by: " + deadlineTask.by + ")");
                         break;
 
                     case EVENT:
                         Event eventTask = (Event) task;
-                        System.out.println(Constants.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] " + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
+                        System.out.println(Constants.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
+                                + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
                         break;
                     default:
                         break;
@@ -85,7 +88,7 @@
         public int countUnmarkedTasks() {
             int count = 0;
             for (int i = 0; i < size; i++) {
-                if (!list[i].isDone) {
+                if (!tasks[i].isDone) {
                     count++;
                 }
             }

@@ -41,7 +41,8 @@ public class ChattyCharlie {
                         String deadlineDescription = deadlineParts[0].trim();
                         String by = deadlineParts[1].trim();
                         list.addTask(new Deadline(deadlineDescription, by));
-                        System.out.println(Constants.SPACE + "Added deadline: " + deadlineDescription + " (by: " + by + ")");
+                        System.out.println(Constants.SPACE + "Added deadline: "
+                                + deadlineDescription + " (by: " + by + ")");
                         System.out.println(Constants.LINE);
                     }
                     break;
@@ -56,7 +57,8 @@ public class ChattyCharlie {
 
                     //add the event
                     list.addTask(new Event(description, startTime, endTime));
-                    System.out.println(Constants.SPACE + "Added event: " + description + " (from: " + startTime + ", to: " + endTime + ")");
+                    System.out.println(Constants.SPACE + "Added event: " + description
+                            + " (from: " + startTime + ", to: " + endTime + ")");
                     System.out.println(Constants.LINE);
 
                     break;

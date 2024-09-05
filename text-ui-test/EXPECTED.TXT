@@ -1,7 +1,79 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+   _____
+  /     \
+ |  O O  |
+ | \___/ |
+  \_____/
+ /\_____/\
+ |       |
+ |       |
+ |_______|
 
+Charlie: Hello! I'm ChattyCharlie, your consistent buddy.
+         What shall we do today?
+
+User: todo read book
+------------
+        Added todo: read book
+------------
+User: deadline return book by 30th October
+------------
+        Added deadline: return book (by: 30th October)
+------------
+User: event project meetings from 10th August 4pm to 6pm
+------------
+        Added event: project meetings (from: 10th August 4pm, to: 6pm)
+------------
+User: todo run 10km
+------------
+        Added todo: run 10km
+------------
+User: list
+------------
+ToDo List:
+pending Task: 4
+        1.[T][ ] read book
+        2.[D][ ] return book (by: 30th October)
+        3.[E][ ] project meetings (from: 10th August 4pm to: 6pm)
+        4.[T][ ] run 10km
+------------
+User: mark 1
+------------
+        Well Done! 1 task down, 3 to go.
+        [X] read book
+------------
+User: mark 3
+------------
+        Well Done! 1 task down, 2 to go.
+        [X] project meetings
+------------
+User: list
+------------
+ToDo List:
+pending Task: 2
+        1.[T][X] read book
+        2.[D][ ] return book (by: 30th October)
+        3.[E][X] project meetings (from: 10th August 4pm to: 6pm)
+        4.[T][ ] run 10km
+------------
+User: unmark 1
+------------
+        Hmmm, not quite done yet, 3 to go.
+        [ ] read book
+------------
+User: deadline do cs2113 coding by Sunday
+------------
+        Added deadline: do cs2113 coding (by: Sunday)
+------------
+User: list
+------------
+ToDo List:
+pending Task: 4
+        1.[T][ ] read book
+        2.[D][ ] return book (by: 30th October)
+        3.[E][X] project meetings (from: 10th August 4pm to: 6pm)
+        4.[T][ ] run 10km
+        5.[D][ ] do cs2113 coding (by: Sunday)
+------------
+User: bye
+------------
+Charlie: All the best in clearing your list!
