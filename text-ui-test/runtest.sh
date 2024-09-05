@@ -31,6 +31,8 @@ diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
+    rm ACTUAL.TXT
+    rm EXPECTED-UNIX.TXT
     exit 0
 else
     echo "Test result: FAILED"
