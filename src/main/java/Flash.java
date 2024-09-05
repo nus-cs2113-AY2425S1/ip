@@ -46,7 +46,7 @@ public class Flash {
     }
 
     public static void deadline(String input) {
-        String[] parts = input.split(" /by ");
+        String[] parts = input.substring(8).split(" /by ");
         String description = parts[0].trim();
         String by = parts[1].trim();
         Task task = new Deadline(description, by);
