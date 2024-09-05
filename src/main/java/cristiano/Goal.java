@@ -24,4 +24,10 @@ public class Goal {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
 }

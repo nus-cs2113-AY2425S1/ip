@@ -40,6 +40,28 @@ public class Ronaldo {
         System.out.println("SIUUUUUUU!");
     }
 
+    public void reject(String words) {
+        switch (words) {
+        case "Format":
+            System.out.println("Invalid format! Please enter the command, followed by a space, then a valid integer.\n");
+            break;
+        case "Range":
+            System.out.println("Goal number is out of range!\n");
+            break;
+        case "Marked":
+            System.out.println("Goal is already marked!\n" + " ");
+            break;
+        case "Event":
+            System.out.println("Invalid event format! Please use: <event> /from <time> /to <time>\n");
+            break;
+        case "Deadline":
+            System.out.println("Invalid deadline format! Please use: <deadline> /by <time>\n");
+            break;
+        default:
+            break;
+        }
+    }
+
     /**
      * This method handles the marking and unmarking of a task/goal.
      * The valid format to successfully mark or unmark a goal is: [command] [integer]
@@ -67,7 +89,7 @@ public class Ronaldo {
                 }
                 System.out.println("SIUUU! Congrats, one step closer to achieving your dreams! This goal is now achieved:");
                 goal.markAsDone();
-                System.out.println(" " + "[" + goal.getStatusIcon() + "] " + goal.description + "\n");
+                System.out.println(goal + "\n");
             } else if (input[0].equals("unmark")) {
                 if (!goal.isDone()) {
                     System.out.println("Goal is already unmarked!\n");
@@ -75,7 +97,7 @@ public class Ronaldo {
                 }
                 System.out.println("Ronaldo is disappointed in you. Work harder! This goal is now yet to achieve:");
                 goal.markAsUndone();
-                System.out.println(" " + "[" + goal.getStatusIcon() + "] " + goal.description + "\n");
+                System.out.println(goal + "\n");
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid format! Please enter the command, followed by a single space, then a valid integer.\n");
@@ -91,20 +113,62 @@ public class Ronaldo {
     public void showListOfGoals() {
         System.out.println("Here are the goals to complete in order for you to reach your dreams:\n");
         for (int i = 0; i < goals.size(); i++) {
-            System.out.println(i + 1 + ".[" + goals.get(i).getStatusIcon() + "] " + goals.get(i).description);
+            Goal goal = goals.get(i);
+            System.out.println(i + 1 + "." + goal);
         }
         System.out.println(); //Indentation
+    }
+
+    public void printGoalCount() {
+        if (goals.size() == 1) {
+            System.out.println("Now you have " + goals.size() + " goal in the list.\n");
+        } else {
+            System.out.println("Now you have " + goals.size() + " goals in the list.\n");
+        }
     }
 
     /**
      * Adds a goal to a list called goals.
      *
-     * @param words The description of the goal to be added;
+     * @param input The description of the goal to be added;
      */
-    public void addGoal(String words) {
-        System.out.println("Your goal has been added: " + words + "\n");
-        Goal t = new Goal(words);
+    public void addGoal(String input) {
+        System.out.println("Your goal has been added: " + input + "\n");
+        Goal t = new Goal(input);
         goals.add(t);
     }
+
+    public void addEvent(String input) {
+        String[] parts = input.split("/from | /to ", 3);
+        try {
+            Event event = new Event(parts[0], parts[1], parts[2]);
+            goals.add(event);
+            System.out.println("GOALLL! Your event has been added: \n" + event + "\n");
+            printGoalCount();
+        } catch (IndexOutOfBoundsException e) {
+            reject("Event");
+        }
+    }
+
+    public void addTodo(String input) {
+        Todo todo = new Todo(input);
+        goals.add(todo);
+        System.out.println("GOALLL! Your todo has been added: \n" + todo + "\n");
+        printGoalCount();
+    }
+
+    public void addDeadline(String input) {
+        try {
+            String[] parts = input.split("/by", 2);
+            Deadline deadline = new Deadline(parts[0],parts[1]);
+            goals.add(deadline);
+            System.out.println("GOALLL! Your deadline has been added: \n" + deadline + "\n");
+            printGoalCount();
+        } catch (IndexOutOfBoundsException e) {
+            reject("Deadline");
+        }
+
+    }
+
 
 }

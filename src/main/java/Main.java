@@ -30,7 +30,7 @@ public class Main {
             } else if (words.contains("siu")) {
                 ronaldoInstance.exclaim();
             }
-            String[] input = words.split(" ");
+            String[] input = words.split(" ", 2);
 
             switch (input[0]) {
                 case "bye":
@@ -44,6 +44,15 @@ public class Main {
                 case "list":
                     ronaldoInstance.showListOfGoals();
                     break;
+                case "event":
+                    ronaldoInstance.addEvent(input[1]);
+                    break;
+                case "todo":
+                    ronaldoInstance.addTodo(input[1]);
+                    break;
+                case "deadline":
+                    ronaldoInstance.addDeadline(input[1]);
+                    break;
                 default:
                     ronaldoInstance.addGoal(words);
                     break;
@@ -52,6 +61,4 @@ public class Main {
     }
 
 }
-
-
 
