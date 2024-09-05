@@ -2,9 +2,6 @@ public class List {
     public static final String INVALID_EVENT_INPUT_MESSAGE = "event <event name> /from <start date/time> /end <end date/time>";
     public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <deadline>";
     public static final String INVALID_TODO_INPUT_MESSAGE = "todo <task name>";
-    public static final int DEADLINE_WORD_LEN = 8;
-    public static final int INPUT_SPACE_BUFFER = 2;
-    public static final int TODO_WORD_LEN = 4;
     public static final String DEADLINE_BY_KEYWORD = "/by";
     public static final String EVENT_FROM_KEYWORD = "/from";
     public static final String EVENT_TO_KEYWORD = "/to";
@@ -13,7 +10,7 @@ public class List {
     private Task[] itemList = new Task[100];
 
     public List() {
-        numItems = 0;
+        this.numItems = 0;
     }
 
     public int getNumItems() {
@@ -21,23 +18,29 @@ public class List {
     }
 
     public void addItem(String line) {
-        if (line.length() >= 7 && line.substring(0, 5).equals("event")) {
-            if (line.contains(EVENT_FROM_KEYWORD) && line.contains(EVENT_TO_KEYWORD)) {
-                addEvent(line);
-            } else {
-                printInvalidEventMessage();
-            }
-        } else if (line.length() >= (DEADLINE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, DEADLINE_WORD_LEN).equals("deadline")) {
-            if (line.contains(DEADLINE_BY_KEYWORD)) {
-                addDeadline(line);
-            } else {
-                printInvalidDeadlineMessage();
-            }
-        } else if (line.length() >= (TODO_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, TODO_WORD_LEN).equals("todo")){
+        if (isValidEvent(line)) {
+            addEvent(line);
+        } else if (isValidDeadline(line)) {
+            addDeadline(line);
+        } else if (isTodo(line)) {
             addTodo(line);
         } else {
             printInvalidTaskMessage();
         }
+    }
+
+    private boolean isValidEvent(String line) {
+        return line.startsWith("event") &&
+                line.contains(EVENT_FROM_KEYWORD) &&
+                line.contains(EVENT_TO_KEYWORD);
+    }
+
+    private boolean isValidDeadline(String line) {
+        return line.startsWith("deadline") && line.contains(DEADLINE_BY_KEYWORD);
+    }
+
+    private boolean isTodo(String line) {
+        return line.startsWith("todo");
     }
 
     private static void printInvalidTaskMessage() {
@@ -172,7 +175,7 @@ public class List {
 
     private void printTaskMarkedMessage(int itemNum) {
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + itemList[itemNum -1]);
+        System.out.println("\t  " + itemList[itemNum - 1]);
     }
 
     private static void printInputIndexOutOfRangeMessage() {
@@ -196,7 +199,7 @@ public class List {
 
     private void printTaskUnmarkedMessage(int itemNum) {
         System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + itemList[itemNum -1]);
+        System.out.println("\t  " + itemList[itemNum - 1]);
     }
 
     private static void printInputIndexNotAnIntegerMessage() {
