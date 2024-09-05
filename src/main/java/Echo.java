@@ -70,47 +70,48 @@ public class Echo {
     private static void addTask(String userInput, TaskList taskList) {
         userInput = userInput.trim();
 
-        if (userInput.isEmpty()) {
-            System.out.println(SEPARATOR);
-            System.out.println("Please provide a task description.");
-            System.out.println(SEPARATOR);
-            return;
-        }
-
         if (userInput.startsWith("todo ")) {
-            String description = userInput.substring(5).trim();
-            ToDo newTask = new ToDo(description);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addToDoTask(userInput, taskList);
         } else if (userInput.startsWith("deadline ")) {
-            int byIndex = userInput.indexOf(" /by ");
-            String description = userInput.substring(9, byIndex).trim();
-            String dueDate = userInput.substring(byIndex + 5).trim();
-            Deadline newTask = new Deadline(description, dueDate);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addDeadlineTask(userInput, taskList);
         } else if (userInput.startsWith("event ")) {
-            int fromIndex = userInput.indexOf(" /from ");
-            int toIndex = userInput.indexOf(" /to ", fromIndex + 6);
-            String description = userInput.substring(6, fromIndex).trim();
-            String start = userInput.substring(fromIndex + 6, toIndex).trim();
-            String end = userInput.substring(toIndex + 4).trim();
-            Event newTask = new Event(description, start, end);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addEventTask(userInput, taskList);
         }
+    }
+
+    private static void addToDoTask(String userInput, TaskList taskList) {
+        String description = userInput.substring(5).trim();
+        ToDo newTask = new ToDo(description);
+        taskList.storeTask(newTask);
+        printTaskAddedMessage(newTask, taskList.getTaskNumber());
+    }
+
+    private static void addDeadlineTask(String userInput, TaskList taskList) {
+        int byIndex = userInput.indexOf(" /by ");
+        String description = userInput.substring(9, byIndex).trim();
+        String dueDate = userInput.substring(byIndex + 5).trim();
+        Deadline newTask = new Deadline(description, dueDate);
+        taskList.storeTask(newTask);
+        printTaskAddedMessage(newTask, taskList.getTaskNumber());
+    }
+
+    private static void addEventTask(String userInput, TaskList taskList) {
+        int fromIndex = userInput.indexOf(" /from ");
+        int toIndex = userInput.indexOf(" /to ", fromIndex + 6);
+        String description = userInput.substring(6, fromIndex).trim();
+        String start = userInput.substring(fromIndex + 6, toIndex).trim();
+        String end = userInput.substring(toIndex + 4).trim();
+        Event newTask = new Event(description, start, end);
+        taskList.storeTask(newTask);
+        printTaskAddedMessage(newTask, taskList.getTaskNumber());
+    }
+
+    private static void printTaskAddedMessage(Task task, int totalTasks) {
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(SEPARATOR);
     }
 
     private static void printExitMessage(String message) {
