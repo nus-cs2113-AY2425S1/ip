@@ -1,7 +1,13 @@
 import java.util.Scanner;
 
 public class Echo {
-    private static final String SEPARATOR = "____________________________________________________________";
+    private static final String SEPARATOR = "_".repeat(30);
+    private static final int TODO_WORD_LENGTH = 5;
+    private static final int DEADLINE_WORD_LENGTH = 9;
+    private static final int DEADLINE_DUE_DATE_OFFSET = 5;
+    private static final int EVENT_WORD_LENGTH = 6;
+    private static final int START_WORD_LENGTH = 7;
+    private static final int END_WORD_LENGTH = 5;
 
     public static void main(String[] args) {
         // Utilize Scanner object to allow user input
@@ -80,7 +86,7 @@ public class Echo {
     }
 
     private static void addToDoTask(String userInput, TaskList taskList) {
-        String description = userInput.substring(5).trim();
+        String description = userInput.substring(TODO_WORD_LENGTH).trim();
         ToDo newTask = new ToDo(description);
         taskList.storeTask(newTask);
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
@@ -88,19 +94,19 @@ public class Echo {
 
     private static void addDeadlineTask(String userInput, TaskList taskList) {
         int byIndex = userInput.indexOf(" /by ");
-        String description = userInput.substring(9, byIndex).trim();
-        String dueDate = userInput.substring(byIndex + 5).trim();
+        String description = userInput.substring(DEADLINE_WORD_LENGTH, byIndex).trim();
+        String dueDate = userInput.substring(byIndex + DEADLINE_DUE_DATE_OFFSET).trim();
         Deadline newTask = new Deadline(description, dueDate);
         taskList.storeTask(newTask);
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
     }
 
     private static void addEventTask(String userInput, TaskList taskList) {
-        int fromIndex = userInput.indexOf(" /from ");
-        int toIndex = userInput.indexOf(" /to ", fromIndex + 6);
-        String description = userInput.substring(6, fromIndex).trim();
-        String start = userInput.substring(fromIndex + 6, toIndex).trim();
-        String end = userInput.substring(toIndex + 4).trim();
+        int startIndex = userInput.indexOf(" /from ");
+        int endIndex = userInput.indexOf(" /to ", startIndex + START_WORD_LENGTH);
+        String description = userInput.substring(EVENT_WORD_LENGTH, startIndex).trim();
+        String start = userInput.substring(startIndex + START_WORD_LENGTH, endIndex).trim();
+        String end = userInput.substring(endIndex + END_WORD_LENGTH).trim();
         Event newTask = new Event(description, start, end);
         taskList.storeTask(newTask);
         printTaskAddedMessage(newTask, taskList.getTaskNumber());
