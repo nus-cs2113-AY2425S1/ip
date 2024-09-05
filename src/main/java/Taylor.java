@@ -59,7 +59,7 @@ public class Taylor {
 
             if(input.startsWith("todo")){
                 Todo todo = new Todo(input.substring(4));
-//                tasks.add(todo);
+                tasks.add(todo);
                 System.out.println(line);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + todo);
