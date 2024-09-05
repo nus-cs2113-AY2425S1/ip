@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 src/main/java/Tyrone.class
 src/main/java/Tyrone$Constants.class
+src/main/java/*class
