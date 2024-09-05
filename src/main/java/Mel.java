@@ -61,7 +61,14 @@ public class Mel {
 
     private static void printIntroMessage() {
         printHorizontalLine();
-        System.out.println("\tHello! I'm Mel");
+        System.out.println("\tHello! I'm");
+        System.out.println("\t.___  ___.  _______  __      \n" +
+                "\t|   \\/   | |   ____||  |     \n" +
+                "\t|  \\  /  | |  |__   |  |     \n" +
+                "\t|  |\\/|  | |   __|  |  |     \n" +
+                "\t|  |  |  | |  |____ |  `----.\n" +
+                "\t|__|  |__| |_______||_______|\n" +
+                "\t                             ");
         System.out.println("\tWhat can I do for you?");
         printHorizontalLine();
     }
