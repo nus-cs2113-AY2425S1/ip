@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class KaiWen {
     private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
+    private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -26,16 +26,38 @@ public class KaiWen {
                 printLine();
                 if (taskCount == 0) {
                     System.out.println(" No tasks to display!");
+                    printLine();
                 } else {
+                    System.out.println(" Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
+                    printLine();
                 }
-                printLine();
+            }
+            else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskNumber >= 0 && taskNumber < taskCount) {
+                    tasks[taskNumber].markAsDone();
+                    printLine();
+                    System.out.println(" Nice! I've marked this task as done:");
+                    System.out.println("   " + tasks[taskNumber]);
+                    printLine();
+                }
+            }
+            else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskNumber >= 0 && taskNumber < taskCount) {
+                    tasks[taskNumber].markAsNotDone();
+                    printLine();
+                    System.out.println(" OK, I've marked this task as not done yet:");
+                    System.out.println("   " + tasks[taskNumber]);
+                    printLine();
+                }
             }
             else {
                 if (taskCount < MAX_TASKS) {
-                    tasks[taskCount] = input;
+                    tasks[taskCount] = new Task(input);
                     taskCount++;
                     System.out.println(" added: " + input);
                     printLine();
