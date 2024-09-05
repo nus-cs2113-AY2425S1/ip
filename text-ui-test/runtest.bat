@@ -19,10 +19,3 @@ java -classpath ..\bin Tars < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
-IF ERRORLEVEL 1 (
-    echo Test result: FAILED
-    exit /b 1
-) ELSE (
-    echo Test result: PASSED
-    exit /b 0
-)
