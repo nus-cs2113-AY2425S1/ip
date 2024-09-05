@@ -114,7 +114,7 @@
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
 	____________________________________________________________
-	Hmm... Something seems wrong with your input. Give it a closer look and try again!
+	Hmm... That doesn't seem quite right. Try "deadline [DEADLINE_NAME] /by [DEADLINE_BY]" instead!
 	____________________________________________________________
 	____________________________________________________________
 	Roger that! Successfully added task:
@@ -129,7 +129,7 @@
 	4. [D][ ] submit form (by: Thursday 2359)
 	____________________________________________________________
 	____________________________________________________________
-	Hmm... Something seems wrong with your input. Give it a closer look and try again!
+	Hmm... That doesn't seem quite right. Try "event [EVENT_NAME] /from [FROM] /to [TO]" instead!
 	____________________________________________________________
 	____________________________________________________________
 	Roger that! Successfully added task:
