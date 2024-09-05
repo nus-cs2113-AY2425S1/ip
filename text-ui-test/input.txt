@@ -1,0 +1,22 @@
+todo read book
+list
+deadline
+deadline return book by Sunday 23 59
+deadline return book /by Sunday 23 59
+event
+event project meeting from Monday 12pm to 1pm
+event project meeting /from Monday 12pm to 1pm
+event project meeting from Monday 12pm /to 1pm
+event project meeting /from Monday 12pm /to 1pm
+list
+mark
+mark 5
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+bye
