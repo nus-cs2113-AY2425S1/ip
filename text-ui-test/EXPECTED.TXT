@@ -2,6 +2,7 @@ _________________________________________________________
 Hello! I'm Uranus, the only Chatbot you'll ever need.
 How can I be of service?
 _________________________________________________________
+_________________________________________________________
 Currently, I am able to execute the following functions:
 1. Add tasks: I can add tasks to your task list.
    - Type command: todo <task>

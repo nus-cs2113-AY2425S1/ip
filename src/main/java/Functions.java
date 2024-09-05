@@ -6,26 +6,33 @@ public class Functions {
     private Task[] taskList = new Task[100];
     private int taskCounter = 0;
 
-    public Functions() {
-        printFunctions();
-    }
+    public Functions() {}
 
     public void printFunctions(){
-        System.out.println("Currently, I am able to execute the following functions:");
-        System.out.println("1. Add tasks: I can add tasks to your task list.");
-        System.out.println("   - Type command: todo <task>");
-        System.out.println("   - Type command: deadline <task> /by <date>");
-        System.out.println("   - Type command: event <task> /from <day> <start time> /to <end time>");
-        System.out.println("2. Mark tasks as done:");
-        System.out.println("   - Type command: mark <task number>");
-        System.out.println("3. Mark tasks as not done:");
-        System.out.println("   - Type command: unmark <task number>");
-        System.out.println("4. List all tasks.");
-        System.out.println("   - Type command: list");
-        System.out.println("5. Be a parrot!");
-        System.out.println("   - Type command: echo");
-        System.out.println("6. Shut myself down. Use this if you no longer need me :(");
-        System.out.println("   - Type command: bye");
+        print(
+                "Currently, I am able to execute the following functions:",
+                "1. Add tasks: I can add tasks to your task list.",
+                "   - Type command: todo <task>",
+                "   - Type command: deadline <task> /by <date>",
+                "   - Type command: event <task> /from <day> <start time> /to <end time>",
+                "2. Mark tasks as done:",
+                "   - Type command: mark <task number>",
+                "3. Mark tasks as not done:",
+                "   - Type command: unmark <task number>",
+                "4. List all tasks.",
+                "   - Type command: list",
+                "5. Be a parrot!",
+                "   - Type command: echo",
+                "6. Shut myself down. Use this if you no longer need me :(",
+                "   - Type command: bye"
+        );
+    }
+
+    public void print(String... messages){
+        System.out.println(SEPARATOR);
+        for (String message : messages) {
+            System.out.println(message);
+        }
         System.out.println(SEPARATOR);
     }
 
@@ -68,25 +75,16 @@ public class Functions {
             if (taskNumIndex >= 0 && taskNumIndex < taskCounter) {
                 if (input.startsWith("mark ")) {
                     taskList[taskNumIndex].setDone();
-                    System.out.println(SEPARATOR);
-                    System.out.println("Nice! I've marked this task as done:");
+                    print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
                 } else {
                     taskList[taskNumIndex].setNotDone();
-                    System.out.println(SEPARATOR);
-                    System.out.println("OK! I've marked this task as not done yet:");
+                    print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
                 }
-                System.out.println(taskStatus(taskNumIndex));
-                System.out.println(SEPARATOR);
             } else {
-                System.out.println(SEPARATOR);
-                System.out.println("Invalid task input. Please try again.");
-                System.out.println(SEPARATOR);
+                print("Invalid task input. Please try again.");
             }
         } catch (NumberFormatException e) {
-            System.out.println(SEPARATOR);
-            System.out.println("Invalid task input. Please try again.");
-            System.out.println("Correct format: mark <int>");
-            System.out.println(SEPARATOR);
+            print("Invalid task input. Please try again.", "Correct format: mark <int>");
         }
     }
 
@@ -104,7 +102,6 @@ public class Functions {
     }
 
     private void addTask(String input) {
-        System.out.println(SEPARATOR);
         if (input.startsWith("todo ")){
             taskList[taskCounter++] = new ToDos(input);
         }
@@ -118,10 +115,9 @@ public class Functions {
             taskList[taskCounter++] = new Task(input);
         }
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskStatus(taskCounter - 1));
-        System.out.println("Now you have %d task(s) in the list".formatted(taskCounter));
-        System.out.println(SEPARATOR);
+        print("Got it. I've added this task:",
+                "  " + taskStatus(taskCounter - 1),
+                "Now you have %d task(s) in the list".formatted(taskCounter));
     }
 
     private void echo(){
@@ -134,9 +130,7 @@ public class Functions {
                 printFunctions();
                 break;
             }
-            System.out.println(SEPARATOR);
-            System.out.println(input);
-            System.out.println(SEPARATOR);
+            print(input);
         }
     }
 

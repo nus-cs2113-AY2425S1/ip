@@ -20,6 +20,6 @@ public class Deadlines extends Task{
         String[] str = description.split("/by");
         setBy(str[1]);
         this.description = description.substring(separatorIndex + 1, description.indexOf('/'))
-                         + "(by:" + getBy() + ")";
+                + "(by:" + getBy() + ")";
     }
 }

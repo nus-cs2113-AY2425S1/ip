@@ -30,6 +30,6 @@ public class Events extends Task{
         setFrom(str[1].substring("from".length()));
         setTo(str[2].substring("to".length()));
         this.description = description.substring(separatorIndex + 1, description.indexOf('/'))
-                         + "(from:" + from + "to:" + to + ")";
+                + "(from:" + from + "to:" + to + ")";
     }
 }
