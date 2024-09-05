@@ -1,24 +1,26 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Hashtable;
 
 public class DBot {
     private static boolean isOn;
-    private static List<Task> datas;
+    private static List<Task> taskList;
 
     public static void main(String[] args) {
         isOn = true;
-        datas = new ArrayList<>();
+        taskList = new ArrayList<>();
 
-        String greeting = "____________________________________________________________\n" +
-                "Hello! I'm DBot\nWhat can I do for you?\n"
-                + "____________________________________________________________\n";
-        System.out.println(greeting);
+        final String BREAK_LINE = "____________________________________________________________";
+        final String GREETING_LINE = BREAK_LINE + "\nHello! I'm DBot\nWhat can I do for you?\n" + BREAK_LINE;
+        System.out.println(GREETING_LINE);
 
         Scanner in = new Scanner(System.in);
 
         while (isOn) {
             System.out.print("Command: ");
             String line = in.nextLine().strip();
-            System.out.println("____________________________________________________________");
+            System.out.println(BREAK_LINE);
 
             if (line.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -39,20 +41,20 @@ public class DBot {
                 add(line);
             }
 
-            System.out.println("____________________________________________________________");
+            System.out.println(BREAK_LINE);
         }
     }
 
     private static void add(String line) {
-        datas.add(new Task(line));
+        taskList.add(new Task(line));
         System.out.print("added: ");
         System.out.println(line);
     }
 
     private static void list() {
-        for (int i = 0; i < datas.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.printf("%d.", i + 1);
-            System.out.println(datas.get(i).toString());
+            System.out.println(taskList.get(i).toString());
         }
     }
 
@@ -60,8 +62,8 @@ public class DBot {
         try {
             int option = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
             System.out.println("Nice! I've marked this task as done:");
-            datas.get(option - 1).mark();
-            System.out.println(datas.get(option - 1).toString());
+            taskList.get(option - 1).mark();
+            System.out.println(taskList.get(option - 1).toString());
         } catch (Exception e) {
             System.out.println("Invalid input");
         }
@@ -71,8 +73,8 @@ public class DBot {
         try {
             int option = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
             System.out.println("OK, I've marked this task as not done yet:");
-            datas.get(option - 1).unmark();
-            System.out.println(datas.get(option - 1).toString());
+            taskList.get(option - 1).unmark();
+            System.out.println(taskList.get(option - 1).toString());
         } catch (Exception e) {
             System.out.println("Invalid input");
         }
@@ -80,11 +82,11 @@ public class DBot {
 
     private static void todo(String line) {
         String todo = line.substring(line.indexOf(" ") + 1).trim();
-        Todo task =new Todo(todo);
-        datas.add(task);
+        Todo task = new Todo(todo);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + datas.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     private static void deadline(String line) {
@@ -92,10 +94,10 @@ public class DBot {
         Hashtable<String, String> arguments = Utilities.getCommandArgument(deadlinePrompt);
         String deadline = deadlinePrompt.substring(0, deadlinePrompt.indexOf("/")).trim();
         Deadline task = new Deadline(deadline, arguments.get("by"));
-        datas.add(task);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + datas.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     private static void event(String line) {
@@ -103,9 +105,9 @@ public class DBot {
         Hashtable<String, String> argument = Utilities.getCommandArgument(eventPrompt);
         String event = eventPrompt.substring(0, eventPrompt.indexOf("/")).trim();
         Event task = new Event(event, argument.get("from"), argument.get("to"));
-        datas.add(task);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + datas.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 }

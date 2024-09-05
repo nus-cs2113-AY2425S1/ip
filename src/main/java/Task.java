@@ -5,6 +5,7 @@ public class Task {
     public Task(String task) {
         this(task, false);
     }
+
     public Task(String task, boolean isDone) {
         this.task = task.strip();
         this.isDone = isDone;
@@ -18,15 +19,15 @@ public class Task {
         return isDone;
     }
 
-    public void mark(){
+    public void mark() {
         isDone = true;
     }
 
-    public void unmark(){
+    public void unmark() {
         isDone = false;
     }
 
-    public String toString(){
+    public String toString() {
         return "[" +
                 (isDone ? "X" : " ") +
                 "] " +
