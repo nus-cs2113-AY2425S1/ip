@@ -85,6 +85,18 @@ public class Cy {
         printLine();
     }
 
+    public static void addDeadline(Task[] items, int count, String input) {
+        String[] splitInputs = input.split("/by",2);
+        String deadline = splitInputs[0] +"(by:" + splitInputs[1] + ")";
+
+        items[count] = new Deadline(deadline);
+
+        System.out.println("Got it. I've added this deadline:");
+        System.out.println(items[count].getStatusIcon() + " " + deadline);
+        System.out.println("Now you have " + (count + 1) + " tasks in the list");
+        printLine();
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
@@ -108,7 +120,10 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("todo")) {
                 addTodo(items, count, input);
                 count++;
-            } else {
+            } else if (splitInputs[0].equalsIgnoreCase("deadline")){
+                addDeadline(items, count, input);
+                count++;
+            }else {
                 addItem(items, count, input);
                 count++;
             }
