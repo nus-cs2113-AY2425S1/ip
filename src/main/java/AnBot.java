@@ -18,11 +18,10 @@ public class AnBot {
         // Read user input
         String input;
         Scanner in = new Scanner(System.in); 
-
         AddList addList = new AddList(); 
 
         while (true) {
-            input = in.nextLine();
+            input = in.nextLine().trim();
 
             if (input.equals("bye")) {
                 System.out.println(SEPARATOR);
@@ -31,18 +30,25 @@ public class AnBot {
                 break; 
             } else if (input.equals("list")) {
                 addList.displayEntries(); 
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim(); 
+                addList.addTodo(description); 
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by "); 
+                addList.addDeadline(parts[0].trim(), parts[1].trim());
             } else if (input.startsWith("mark ")) {
                 String inputNumber = input.substring(5).trim(); 
-                System.out.println(inputNumber);
                 int number = Integer.parseInt(inputNumber); 
                 addList.markAsDone(number); 
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                addList.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
             } else if (input.startsWith("unmark ")) {
                 String inputNumber = input.substring(7).trim(); 
-                System.out.println(inputNumber);
                 int number = Integer.parseInt(inputNumber); 
                 addList.unmarkAsDone(number); 
             } else {
-                addList.addEntry(input); 
+                System.out.println("Error command.");;
             }
         }
     }
