@@ -29,16 +29,16 @@ public class lovespiritual {
             } else if (input.startsWith("todo")){
                 taskCount = todo(input, tasks, taskCount);
             } else if (input.startsWith("deadline ")){
-                taskCount = deadline(input, taskTypes, taskCount, tasks);
-            } /*else if (input.startsWith("event ")) {
-                taskCount = event(input, tasks, taskCount, taskTypes);
-            }*/ else {
+                taskCount = deadline(input, taskCount, tasks);
+            } else if (input.startsWith("event ")) {
+                taskCount = event(input, tasks, taskCount);
+            } else {
                 taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
             }
         }
     }
 
-    private static int event(String input, String[] tasks, int taskCount, String[] taskTypes) {
+    private static int event(String input, Task[] tasks, int taskCount) {
         String fullTaskDescription = input.substring("event".length()).trim();
         String taskDescription;
         String from;
@@ -59,18 +59,17 @@ public class lovespiritual {
             from = "null";
             to = "null";
         }
-        tasks[taskCount] = taskDescription + " (from: " + from + ", to: " + to + ")";
+        tasks[taskCount] = new Event(taskDescription, from, to);
         taskCount++;
-        taskTypes[taskCount] = "[E]";
         System.out.println(SEPARATOR);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" [E][ ] " + tasks[taskCount - 1]);
+        System.out.println(tasks[taskCount - 1]);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println(SEPARATOR);
         return taskCount;
     }
 
-    private static int deadline(String input, String[] taskTypes, int taskCount, Task[] tasks) {
+    private static int deadline(String input, int taskCount, Task[] tasks) {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         String taskDescription;
         String by;
