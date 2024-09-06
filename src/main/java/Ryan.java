@@ -30,6 +30,10 @@ public class Ryan {
                     addTodo(tasks, inputBody);
                     break;
 
+                case "deadline":
+                    addDeadline(tasks, inputBody);
+                    break;
+
                 case "mark":
                     handleMark(tasks, inputBody);
                     break;
@@ -103,6 +107,20 @@ public class Ryan {
     private static void addTodo(ArrayList<Task> tasks, String command) {
         Utils.horizontalLine();
         Task task = new Todo(command);
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Utils.horizontalLine();
+    }
+
+    private static void addDeadline(ArrayList<Task> tasks, String command) {
+        String[] splitCommand = command.split("/by", 2);
+        String description = splitCommand[0];
+        String by = splitCommand[1];
+
+        Utils.horizontalLine();
+        Task task = new Deadline(description, by);
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
