@@ -43,19 +43,40 @@ public class Ronaldo {
     public void reject(String words) {
         switch (words) {
         case "Format":
-            System.out.println("Invalid format! Please enter the command, followed by a space, then a valid integer.\n");
+            System.out.println("""
+                    Invalid format! Please enter either of these commands in this format without '<>':\s
+                    <bye>\s
+                    <list>\s
+                    <mark> <goal number>\s
+                    <unmark> <goal number>\s
+                    <event> <description> /from <time> /to <time>\s
+                    <todo> <description>\s
+                    <deadline> <description> /by <time>\s
+                    """);
+            break;
+        case "Empty":
+            System.out.println("Woops, your input is empty, just like Spurs' trophy cabinet.\n");
             break;
         case "Range":
             System.out.println("Goal number is out of range!\n");
             break;
+        case "Mark/Unmark":
+            System.out.println("Invalid mark format! Please use: <mark>/<unmark> <goal number>\n");
+            break;
         case "Marked":
             System.out.println("Goal is already marked!\n" + " ");
             break;
+        case "Unmarked":
+            System.out.println("Goal is already unmarked!\n" + " ");
+            break;
         case "Event":
-            System.out.println("Invalid event format! Please use: <event> /from <time> /to <time>\n");
+            System.out.println("Invalid event format! Please use: <event> <description> /from <time> /to <time>\n");
             break;
         case "Deadline":
-            System.out.println("Invalid deadline format! Please use: <deadline> /by <time>\n");
+            System.out.println("Invalid deadline format! Please use: <deadline> <description> /by <time>\n");
+            break;
+        case "Todo":
+            System.out.println("Invalid todo format! Please use: <todo> <description>\n");
             break;
         default:
             break;
@@ -77,41 +98,29 @@ public class Ronaldo {
     public void handleGoal(String[] input) {
         try {
             if (input.length <= 1) {
-                System.out.println("Invalid format! Please enter the command, followed by a space, then a valid integer.\n");
+                reject("Mark/Unmark");
                 return;
             }
             int taskNumber = Integer.parseInt(input[1]) - 1;
             Goal goal = goals.get(taskNumber);
             if (input[0].equals("mark")) {
-                if (goal.isDone()) {
-                    System.out.println("Goal is already marked!\n" + " ");
-                    return;
-                }
-                System.out.println("SIUUU! Congrats, one step closer to achieving your dreams! This goal is now achieved:");
-                goal.markAsDone();
-                System.out.println(goal + "\n");
+                goal.markAsDone(this);
             } else if (input[0].equals("unmark")) {
-                if (!goal.isDone()) {
-                    System.out.println("Goal is already unmarked!\n");
-                    return;
-                }
-                System.out.println("Ronaldo is disappointed in you. Work harder! This goal is now yet to achieve:");
-                goal.markAsUndone();
-                System.out.println(goal + "\n");
+                goal.markAsUndone(this);
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid format! Please enter the command, followed by a single space, then a valid integer.\n");
+            reject("Mark/Unmark");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Goal number is out of range!\n");
+            reject("Range");
         }
     }
 
     /**
-     * Prints out all the goals added, including its completion status.
+     * Prints out all the goals added, including its type and completion status.
      * The goal index starts from '1', instead of the common array index, '0'.
      */
     public void showListOfGoals() {
-        System.out.println("Here are the goals to complete in order for you to reach your dreams:\n");
+        System.out.println("Here are the goals to complete in order for you to reach your dreams:");
         for (int i = 0; i < goals.size(); i++) {
             Goal goal = goals.get(i);
             System.out.println(i + 1 + "." + goal);
@@ -127,21 +136,17 @@ public class Ronaldo {
         }
     }
 
-    /**
-     * Adds a goal to a list called goals.
-     *
-     * @param input The description of the goal to be added;
-     */
-    public void addGoal(String input) {
-        System.out.println("Your goal has been added: " + input + "\n");
-        Goal t = new Goal(input);
-        goals.add(t);
-    }
-
     public void addEvent(String input) {
         String[] parts = input.split("/from | /to ", 3);
         try {
-            Event event = new Event(parts[0], parts[1], parts[2]);
+            String description = parts[0];
+            String from = parts[1];
+            String to  = parts[2];
+            if (description.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
+                reject("Event");
+                return;
+            }
+            Event event = new Event(description, from, to);
             goals.add(event);
             System.out.println("GOALLL! Your event has been added: \n" + event + "\n");
             printGoalCount();
@@ -151,23 +156,38 @@ public class Ronaldo {
     }
 
     public void addTodo(String input) {
-        Todo todo = new Todo(input);
-        goals.add(todo);
-        System.out.println("GOALLL! Your todo has been added: \n" + todo + "\n");
-        printGoalCount();
+        String[] parts = input.split("todo", 1);
+        try {
+            String description = parts[0];
+            if (description.trim().isEmpty()) {
+                reject("Todo");
+                return;
+            }
+            Todo todo = new Todo(parts[0]);
+            goals.add(todo);
+            System.out.println("GOALLL! Your todo has been added: \n" + todo + "\n");
+            printGoalCount();
+        } catch (IndexOutOfBoundsException e) {
+            reject("Todo");
+        }
     }
 
     public void addDeadline(String input) {
+        String[] parts = input.split("deadline | /by", 2);
         try {
-            String[] parts = input.split("/by", 2);
-            Deadline deadline = new Deadline(parts[0],parts[1]);
+            String description = parts[0];
+            String by = parts[1];
+            if (description.trim().isEmpty() || by.trim().isEmpty()) {
+                reject("Deadline");
+                return;
+            }
+            Deadline deadline = new Deadline(description,by);
             goals.add(deadline);
             System.out.println("GOALLL! Your deadline has been added: \n" + deadline + "\n");
             printGoalCount();
         } catch (IndexOutOfBoundsException e) {
             reject("Deadline");
         }
-
     }
 
 

@@ -23,15 +23,15 @@ public class Main {
         while (true) {
             String words = in.nextLine();
             if (words.trim().isEmpty()) {
-                System.out.println("Woops, your input is empty, just like Spurs' trophy cabinet.\n");
+                ronaldoInstance.reject("Empty");
                 continue;
             } else if (words.contains("messi")) {
                 ronaldoInstance.boast();
             } else if (words.contains("siu")) {
                 ronaldoInstance.exclaim();
             }
-            String[] input = words.split(" ", 2);
 
+            String[] input = words.split(" ", 2);
             switch (input[0]) {
                 case "bye":
                     ronaldoInstance.exit();
@@ -54,7 +54,7 @@ public class Main {
                     ronaldoInstance.addDeadline(input[1]);
                     break;
                 default:
-                    ronaldoInstance.addGoal(words);
+                    ronaldoInstance.reject("Format");
                     break;
             }
         }
