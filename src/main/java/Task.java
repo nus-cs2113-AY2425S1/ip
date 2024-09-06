@@ -1,6 +1,8 @@
 public class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
+
+    public Task() {}
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -25,6 +27,6 @@ public class Task {
 
     // Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + taskName;
+        return "[T][" + (isDone ? "X" : " ") + "] " + taskName;
     }
 }
