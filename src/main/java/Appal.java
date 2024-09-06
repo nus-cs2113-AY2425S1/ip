@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Appal {
     // Constants for commands
@@ -20,26 +19,30 @@ public class Appal {
 
     // String constants for conversation
     public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+    public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal! \nLet's get things rolling, what would you like to do today?";
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
-    public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
-    public static final String UNKNOWN_INPUT_NOTICE = "Oops! I don't recognise this command :(";
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
+    public static final String UNKNOWN_INPUT_NOTICE = "Oops! I don't recognise this command :(";
+    public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
 
     // Attributes
     private boolean isExited = false;
     private Task[] taskList = new Task[100];
 
-    public void welcomeUser() {
-        String chatbot = "Appal";
-        printSeparator();
-        System.out.println("Heyo! I'm your pal, " + chatbot + "!");
-        System.out.println("Let's get things rolling, what would you like to do today?");
-        printSeparator();
-    }
 
     public void printSeparator() {
         System.out.println(SEPARATOR);
+    }
+
+    public void printMessage(String message) {
+        printSeparator();
+        System.out.println(message);
+        printSeparator();
+    }
+
+    public void welcomeUser() {
+        printMessage(WELCOME_MESSAGE);
     }
 
     public void printReply() {
@@ -50,21 +53,19 @@ public class Appal {
         printSeparator();
     }
 
-    public void exitAppal() {
-        isExited = true;
-        printSeparator();
-        System.out.println(BYE_MESSAGE);
-        printSeparator();
-    }
-
-    public void handleUnknownInput() {
-        printSeparator();
-        System.out.println(UNKNOWN_INPUT_NOTICE);
-        printSeparator();
-    }
-
     public void printOneTask(Task task) {
         System.out.println(task);
+    }
+
+    public void printTaskList() {
+        printSeparator();
+        int totalTasks = Task.getTotalTasks();
+        System.out.println("You have " + totalTasks + " to-dos!");
+        for (int i = 0; i < totalTasks; i += 1) {
+            System.out.print(taskList[i].getId() + ".");
+            printOneTask(taskList[i]);
+        }
+        printSeparator();
     }
 
     public void markTask(String[] commandDetails, boolean isMark) {
@@ -79,17 +80,6 @@ public class Appal {
             System.out.println(UNMARK_TASK_MESSAGE);
         }
         printOneTask(taskToMark);
-        printSeparator();
-    }
-
-    public void printTaskList() {
-        printSeparator();
-        int totalTasks = Task.getTotalTasks();
-        System.out.println("You have " + totalTasks + " to-dos!");
-        for (int i = 0; i < totalTasks; i += 1) {
-            System.out.print(taskList[i].getId() + ".");
-            printOneTask(taskList[i]);
-        }
         printSeparator();
     }
 
@@ -109,10 +99,19 @@ public class Appal {
                 Event(commandDetails[TASK_INDEX], commandDetails[FROM_INDEX], commandDetails[TO_INDEX]);
     }
 
+    public void handleUnknownInput() {
+        printMessage(UNKNOWN_INPUT_NOTICE);
+    }
+
+    public void exitAppal() {
+        isExited = true;
+        printMessage(BYE_MESSAGE);
+    }
+
     public void handleInput() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        String[] commandDetails = Parser.extractCommandDetails(line);
+        String[] commandDetails = Parser.extractInputDetails(line);
         String command = commandDetails[COMMAND_INDEX];
         switch (command) {
         case COMMAND_BYE:
