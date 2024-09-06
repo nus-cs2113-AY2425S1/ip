@@ -1,15 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
 public class Bebe {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         welcomeMessage();
         runChatbot();
-        exitMessage();
     }
 
     /**
@@ -18,22 +16,6 @@ public class Bebe {
     private static void welcomeMessage() {
         System.out.println("Hello! I'm Bebe");
         System.out.println("What can I do for you?");
-    }
-
-    /**
-     * Prints the available commands and their descriptions.
-     */
-    private static void showHelp() {
-        System.out.println("Here are the commands you can use:");
-        System.out.println("  todo <task description>          - Adds a ToDo task.");
-        System.out.println("  deadline <task description> /by <date/time>  - Adds a Deadline task.");
-        System.out.println("  event <task description> /from <start time> /to <end time>  - Adds an Event task.");
-        System.out.println("  list                            - Lists all tasks.");
-        System.out.println("  mark <task number>              - Marks a task as done.");
-        System.out.println("  unmark <task number>            - Marks a task as not done.");
-        System.out.println("  help                            - Shows this help message.");
-        System.out.println("  bye                             - Exits the chatbot.\n");
-        System.out.println("So what can I do for you?");
     }
 
     /**
@@ -47,51 +29,95 @@ public class Bebe {
             userInput = scanner.nextLine().trim();
             String[] words = userInput.split(" ", 2);
 
-            switch (words[0].toLowerCase()) {
-                case "bye":
-                    scanner.close();
-                    return; // Exits the method, thus ending the program
-                case "list":
-                    listTasks();
-                    break;
-                case "mark":
-                    if (words.length == 2) {
-                        int taskNumber = Integer.parseInt(words[1]) - 1;
-                        markTaskAsDone(Integer.parseInt(words[1]));
-                    }
-                    break;
-                case "unmark":
-                    if (words.length == 2) {
-                        int taskNumber = Integer.parseInt(words[1]) - 1;
-                        markTaskAsNotDone(Integer.parseInt(words[1]));
-                    }
-                    break;
-                case "todo":
-                    addTask(new Todo(words[1]));
-                    break;
-                case "deadline":
-                    String[] deadlineParts = words[1].split(" /by ");
-                    addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-                    break;
-                case "event":
-                    String[] eventParts = words[1].split(" /from | /to ");
-                    addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
-                    break;
-                case "help":
-                    showHelp();
-                    break;
-                default:
-                    System.out.println("I'm sorry, I don't understand that command.");
-                    break;
+            try {
+                processUserInput(words);
+            } catch (BebeException e) {
+                System.out.println("OOPS!!! " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Unexpected error: " + e.getMessage());
             }
         }
     }
 
+    /**
+     * Processes the user's input and calls the appropriate methods.
+     */
+    private static void processUserInput(String[] words) throws BebeException {
+        switch (words[0].toLowerCase()) {
+            case "bye":
+                exitChatbot();
+                break;
+            case "list":
+                listTasks();
+                break;
+            case "mark":
+                handleMark(words);
+                break;
+            case "unmark":
+                handleUnmark(words);
+                break;
+            case "todo":
+                handleTodo(words);
+                break;
+            case "deadline":
+                handleDeadline(words);
+                break;
+            case "event":
+                handleEvent(words);
+                break;
+            case "help":
+                showHelp();
+                break;
+            default:
+                throw new BebeException("I'm sorry, but I don't understand that command. Try using 'help' to guide you.");
+        }
+    }
+    private static void handleMark(String[] words) throws BebeException {
+        if (words.length < 2) {
+            throw new BebeException("Task number to mark cannot be empty. Use format: mark <task number>");
+        }
+        markTaskAsDone(words[1]);
+    }
+
+    private static void handleUnmark(String[] words) throws BebeException {
+        if (words.length < 2) {
+            throw new BebeException("Task number to unmark cannot be empty. Use format: unmark <task number>");
+        }
+        markTaskAsNotDone(words[1]);
+    }
+
+    private static void handleTodo(String[] words) throws BebeException {
+        if (words.length < 2) {
+            throw new BebeException("The description of a todo cannot be empty. Use format: todo <task>");
+        }
+        addTask(new Todo(words[1]));
+    }
+
+    private static void handleDeadline(String[] words) throws BebeException {
+        if (words.length < 2 || !words[1].contains("/by")) {
+            throw new BebeException("Deadline description and due date cannot be empty. Use format: deadline <task> /by <date>");
+        }
+        String[] deadlineParts = words[1].split(" /by ");
+        addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+    }
+
+    private static void handleEvent(String[] words) throws BebeException {
+        if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
+            throw new BebeException("Event description, start, and end time cannot be empty. Use format: event <task> /from <start> /to <end>");
+        }
+        String[] eventParts = words[1].split(" /from | /to ");
+        addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+    }
+
+    private static void exitChatbot() {
+        System.out.println("Bye. Hope to see you again soon!");
+        System.exit(0);
+    }
 
     /**
      * Adds a new task to the list.
      *
-     * @param task The task to be added
+     * @param task The task to be added.
      */
     private static void addTask(Task task) {
         tasks.add(task);
@@ -113,38 +139,57 @@ public class Bebe {
     /**
      * Marks a task as done.
      *
-     * @param index The index of the task to mark as done.
+     * @param taskNumber The index of the task to mark as done.
      */
-    private static void markTaskAsDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks.get(index).toString());
-        } else {
-            System.out.println("Invalid task number.");
+    private static void markTaskAsDone(String taskNumber) throws BebeException {
+        try {
+            int index = Integer.parseInt(taskNumber) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                tasks.get(index).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks.get(index).toString());
+            } else {
+                throw new BebeException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            throw new BebeException("Please provide a valid task number.");
         }
     }
 
     /**
      * Marks a task as not done.
      *
-     * @param index The index of the task to mark as not done.
+     * @param taskNumber The index of the task to mark as not done.
      */
-    private static void markTaskAsNotDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(index).toString());
-        } else {
-            System.out.println("Invalid task number.");
+    private static void markTaskAsNotDone(String taskNumber) throws BebeException {
+        try {
+            int index = Integer.parseInt(taskNumber) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                tasks.get(index).markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks.get(index).toString());
+            } else {
+                throw new BebeException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            throw new BebeException("Please provide a valid task number.");
         }
     }
 
     /**
-     * Prints an exit message when the chatbot ends.
+     * Prints the available commands and their descriptions.
      */
-    private static void exitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    private static void showHelp() {
+        System.out.println("Here are the commands you can use:");
+        System.out.println("  todo <task description>          - Adds a ToDo task.");
+        System.out.println("  deadline <task description> /by <date/time>  - Adds a Deadline task.");
+        System.out.println("  event <task description> /from <start time> /to <end time>  - Adds an Event task.");
+        System.out.println("  list                            - Lists all tasks.");
+        System.out.println("  mark <task number>              - Marks a task as done.");
+        System.out.println("  unmark <task number>            - Marks a task as not done.");
+        System.out.println("  help                            - Shows this help message.");
+        System.out.println("  bye                             - Exits the chatbot.");
+        System.out.println("So what can I do for you?");
     }
 
 }
