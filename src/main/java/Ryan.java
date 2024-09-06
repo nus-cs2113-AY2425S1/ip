@@ -34,6 +34,10 @@ public class Ryan {
                     addDeadline(tasks, inputBody);
                     break;
 
+                case "event":
+                    addEvent(tasks, inputBody);
+                    break;
+
                 case "mark":
                     handleMark(tasks, inputBody);
                     break;
@@ -91,7 +95,6 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-
     private static boolean isValidIndex(int index, int size) {
         return index >= 0 && index < size;
     }
@@ -121,6 +124,22 @@ public class Ryan {
 
         Utils.horizontalLine();
         Task task = new Deadline(description, by);
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Utils.horizontalLine();
+    }
+
+    private static void addEvent(ArrayList<Task> tasks, String command) {
+        String[] splitFrom = command.split("/from", 2);
+        String description = splitFrom[0];
+        String[] splitTo = splitFrom[1].split("/to", 2);
+        String from = splitTo[0];
+        String to = splitTo[1];
+
+        Utils.horizontalLine();
+        Task task = new Event(description, from, to);
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
