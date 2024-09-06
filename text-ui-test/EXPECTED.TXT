@@ -2,10 +2,16 @@ Hello! I'm Iris!
 What can I do for you?
 ---------------------------------------------
 ---------------------------------------------
-Invalid or incomplete command
+HUH?!? I don't recognize this command :(
+---------------------------------------------
+---------------------------------------------
+Tell me your needs! I'm here to help!
 ---------------------------------------------
 ---------------------------------------------
 No tasks added.
+---------------------------------------------
+---------------------------------------------
+MISSING!!! The description of a deadline cannot be empty.
 ---------------------------------------------
 ---------------------------------------------
 Got it. I've added this task:
@@ -29,6 +35,12 @@ Here are the tasks in your list:
 3.[T][ ] homework (from: tuesday 1pm to: thursday 4pm)
 ---------------------------------------------
 ---------------------------------------------
+NOO!!! Missing task number
+---------------------------------------------
+---------------------------------------------
+HMMM... The index of the task must be an integer
+---------------------------------------------
+---------------------------------------------
 Nice! I've marked this task as done:
 [D][X] assignment
 ---------------------------------------------
@@ -41,6 +53,12 @@ Here are the tasks in your list:
 1.[D][X] assignment
 2.[E][ ] networking (on: monday 3pm)
 3.[T][X] homework (from: tuesday 1pm to: thursday 4pm)
+---------------------------------------------
+---------------------------------------------
+NOO!!! Missing task number
+---------------------------------------------
+---------------------------------------------
+HMMM... The index of the task must be an integer
 ---------------------------------------------
 ---------------------------------------------
 OK, I've marked this task as not done yet:

@@ -1,12 +1,18 @@
 invalidCommand
+
 list
+deadline
 deadline assignment
 event networking /on monday 3pm
 todo homework /from tuesday 1pm /to thursday 4pm
 list
+mark
+mark string
 mark 1
 mark 3
 list
+unmark
+unmark string
 unmark 1
 list
 bye
