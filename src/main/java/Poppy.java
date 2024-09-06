@@ -30,7 +30,7 @@ public class Poppy {
                         break;
                     case "todo":
                         if (commandArgs.length< 2){
-                            throw new MissingArgsException("Description of ToDo cannot be empty");
+                            throw new CustomExceptions.MissingArgsException("Description of ToDo cannot be empty");
                         }
                         ToDo task = new ToDo(commandArgs[1]);
                         taskList[counter] = task;
@@ -40,7 +40,7 @@ public class Poppy {
                         break;
                     case "deadline":
                         if (commandArgs.length< 2){
-                            throw new MissingArgsException("Description of Deadline cannot be empty");
+                            throw new CustomExceptions.MissingArgsException("Description of Deadline cannot be empty");
                         }
                         String[] deadlinestring = commandArgs[1].split("/by", 2);
                         Deadline deadline = new Deadline(deadlinestring[0], deadlinestring[1]);
@@ -51,7 +51,7 @@ public class Poppy {
                         break;
                     case "event":
                         if (commandArgs.length< 2){
-                            throw new MissingArgsException("Description of Event cannot be empty");
+                            throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
                         }
                         String[] eventstring = commandArgs[1].split("/from", 2);
                         Events event = new Events(eventstring[0], eventstring[1]);
@@ -68,10 +68,10 @@ public class Poppy {
                 }
             }catch (IllegalArgumentException e) {
                 System.out.println("Wait, I don't understand what you are saying??");
-            }catch (MissingArgsException e) {
+            }catch (CustomExceptions.MissingArgsException e) {
                 System.out.println(e.getMessage());
             }catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("You are missing a keyword...");
+                System.out.println("You are missing a keyword... read manual please!");
             }
             input =sc.nextLine();
         }
