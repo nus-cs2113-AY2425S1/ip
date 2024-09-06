@@ -1,3 +1,10 @@
+package aegis;
+
+import aegis.task.Task;
+import aegis.task.Deadline;
+import aegis.task.Event;
+import aegis.task.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
