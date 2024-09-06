@@ -32,7 +32,8 @@ public class Bebe {
         System.out.println("  mark <task number>              - Marks a task as done.");
         System.out.println("  unmark <task number>            - Marks a task as not done.");
         System.out.println("  help                            - Shows this help message.");
-        System.out.println("  bye                             - Exits the chatbot.");
+        System.out.println("  bye                             - Exits the chatbot.\n");
+        System.out.println("So what can I do for you?");
     }
 
     /**
