@@ -1,14 +1,16 @@
+package niwa.task;
+
 /**
  * Represents an event task with a description, a start day, and an end day.
- * This class extends the Task class and specifies the type and short notation for event tasks.
+ * This class extends the niwa.task.Task class and specifies the type and short notation for event tasks.
  */
 public class Event extends Task {
-    /** Event information **/
+    /** niwa.task.Event information **/
     protected String fromDay; // The start day of the event
     protected String toDay;   // The end day of the event
 
     /**
-     * Constructs an event Task with the specified description, start day, and end day.
+     * Constructs an event niwa.task.Task with the specified description, start day, and end day.
      * The task is marked as undone by default. The type and short notation are set specifically for event tasks.
      *
      * @param description The description of the event
@@ -16,7 +18,7 @@ public class Event extends Task {
      * @param toDay The day when the event ends
      */
     public Event(String description, String fromDay, String toDay) {
-        super(description);  // Initialize the description in the superclass (Task)
+        super(description);  // Initialize the description in the superclass (niwa.task.Task)
         this.fromDay = fromDay; // Set the start day of the event
         this.toDay = toDay;     // Set the end day of the event
         type = "event";        // Set the task type to "event"

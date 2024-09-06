@@ -1,8 +1,13 @@
+package niwa.command;
+
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.task.Task;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UnmarkCommand extends TaskCommand{
+public class UnmarkCommand extends TaskCommand {
 
     public UnmarkCommand(List<Task> tasks) {
         super(tasks);
@@ -34,7 +39,7 @@ public class UnmarkCommand extends TaskCommand{
      * @param indexString The index of the task to unmark.
      */
     @Override
-    public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException{
+    public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException {
         super.execute(indexString);
         int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
         if (index < 0 || index >= tasks.size()) {

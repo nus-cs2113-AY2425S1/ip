@@ -1,14 +1,19 @@
+package niwa.command;
+
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.task.Task;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarkCommand extends TaskCommand{
+public class DeleteCommand extends TaskCommand{
 
-    public MarkCommand(List<Task> tasks) {
+    public DeleteCommand(List<Task> tasks) {
         super(tasks);
         setFormat("^\\d+$");
-        setWord("mark");
-        setGuide("mark [task index]: Mark the task at the given index as done.");
+        setWord("delete");
+        setGuide("delete [task index]: Delete the task at the given index.");
     }
 
     @Override
@@ -30,9 +35,9 @@ public class MarkCommand extends TaskCommand{
     }
 
     /**
-     * Marks a task as done.
+     * Deletes a task from the task list.
      *
-     * @param indexString The index of the task to mark.
+     * @param indexString The index of the task to delete.
      */
     @Override
     public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException{
@@ -41,12 +46,12 @@ public class MarkCommand extends TaskCommand{
         if (index < 0 || index >= tasks.size()) {
             throw new NiwaTaskIndexOutOfBoundException(tasks.size());
         }
-
         Task temp = tasks.get(index);
-        temp.markAsDone();
+        tasks.remove(index);
 
-        String message  = "OK, I've marked this task as done:%n"
-                + PREFIX + "%s%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo());
+        String message = "OK, I've deleted this task:%n"
+                + PREFIX + "   %s%n"
+                + PREFIX + "You currently have %d tasks in the list.%n";
+        System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
     }
 }

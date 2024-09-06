@@ -1,3 +1,7 @@
+package niwa.command;
+
+import niwa.Niwa;
+
 public class ByeCommand extends Command {
     Niwa chatbot;
 
@@ -21,7 +25,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Prints a farewell message and inactivate Niwa chatbot.
+     * Prints a farewell message and inactivate niwa.Niwa chatbot.
      *
      * @param rawArgumentString should be null.
      */

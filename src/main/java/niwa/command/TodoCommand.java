@@ -1,22 +1,28 @@
+package niwa.command;
+
+import niwa.task.Task;
+import niwa.task.ToDo;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeadlineCommand extends TaskCommand{
-    public DeadlineCommand(List<Task> tasks) {
+public class TodoCommand extends TaskCommand{
+    public TodoCommand(List<Task> tasks) {
         super(tasks);
-        setFormat("(.+?)\\s*/by\\s*(.+?)");
-        setWord("deadline");
-        setGuide("deadline [task description] /by [time]:"
-                + "Add a new deadline to our list.");
+        setFormat("(.+?)");
+        setWord("todo");
+        setGuide("todo [task description]: "
+                + "Add a new to-do task to our list.");
+
     }
 
     /**
-     * Parses the command string to extract deadline details.
-     * The command should be in the format: "deadline description /by dueDate".
+     * Parses the command string to extract event details.
+     * The command should be in the format: "todo description".
      *
      * @param command The command string to parse
-     * @return An array containing the description and dueDate, or null if the command format is invalid
+     * @return An array containing the description, startDay, and endDay, or null if the command format is invalid
      */
     @Override
     public String[] convertArguments(String command) {
@@ -30,10 +36,9 @@ public class DeadlineCommand extends TaskCommand{
         if (matcher.matches()) {
             // Extract and trim the captured groups
             String segment1 = matcher.group(1).trim(); // Description
-            String segment2 = matcher.group(2).trim(); // Due date
 
             // Return the segments as an array
-            return new String[]{segment1, segment2};
+            return new String[]{segment1};
         } else {
             // Return null if the command does not match the expected format
             return null;
@@ -41,17 +46,17 @@ public class DeadlineCommand extends TaskCommand{
     }
 
     /**
-     * Adds a new deadline to the task list.
+     * Adds a new todo to the task list.
      *
      * @param taskInfo The task details to add.
      */
     @Override
     public void execute(String taskInfo) {
         super.execute(taskInfo);
-        Task temp = new Deadline(arguments[0], arguments[1]);
+        Task temp = new ToDo(arguments[0]);
         tasks.add(temp);
 
-        String message = "Got it. I've added this deadline:%n"
+        String message = "Got it. I've added this todo:%n"
                 + PREFIX + "%s%n"
                 + PREFIX + "You currently have %d tasks in the list.%n";
         System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());

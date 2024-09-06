@@ -1,3 +1,5 @@
+package niwa.command;
+
 public class EchoCommand extends Command {
     public EchoCommand() {
         setFormat("(.*?)");

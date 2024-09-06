@@ -1,3 +1,5 @@
+package niwa.exception;
+
 public class NiwaTaskIndexOutOfBoundException extends NiwaException{
     public NiwaTaskIndexOutOfBoundException() {
         super("Index is out of bound!");

@@ -1,3 +1,5 @@
+import niwa.Niwa;
+
 import java.util.Scanner;
 
 public class Main {

@@ -1,3 +1,5 @@
+package niwa.exception;
+
 public class NiwaException extends RuntimeException {
     String message;
     public NiwaException() {

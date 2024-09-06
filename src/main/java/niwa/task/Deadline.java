@@ -1,20 +1,22 @@
+package niwa.task;
+
 /**
  * Represents a deadline task with a description and a due date.
- * This class extends the Task class and specifies the type and short notation for deadline tasks.
+ * This class extends the niwa.task.Task class and specifies the type and short notation for deadline tasks.
  */
 public class Deadline extends Task {
-    /** Deadline information **/
+    /** niwa.task.Deadline information **/
     protected String byDay; // The due date of the deadline task
 
     /**
-     * Constructs a deadline Task with the specified description and due date.
+     * Constructs a deadline niwa.task.Task with the specified description and due date.
      * The task is marked as undone by default. The type and short notation are set specifically for deadline tasks.
      *
      * @param description The description of the deadline task
      * @param byDay The due date for the deadline task
      */
     public Deadline(String description, String byDay) {
-        super(description);  // Initialize the description in the superclass (Task)
+        super(description);  // Initialize the description in the superclass (niwa.task.Task)
         this.byDay = byDay;  // Set the due date for the deadline task
         type = "deadline";   // Set the task type to "deadline"
         shortType = "D";     // Set the short notation for deadline tasks

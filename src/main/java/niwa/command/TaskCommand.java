@@ -1,3 +1,7 @@
+package niwa.command;
+
+import niwa.task.Task;
+
 import java.util.List;
 
 public abstract class TaskCommand extends Command{
