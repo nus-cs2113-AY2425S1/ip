@@ -53,13 +53,13 @@ public class Nell {
     }
 
     /**
-     * Adds a ToDo to the task list
+     * Adds a todo to the task list
      *
-     * @param commandBody The command body
+     * @param description The description of the todo
      */
-    private static void addToDo(String commandBody) {
+    private static void addToDo(String description) {
         System.out.println("-> The task has been added to the list:");
-        ToDo toDoToAdd = new ToDo(commandBody);
+        ToDo toDoToAdd = new ToDo(description);
         listAddTask(toDoToAdd);
         System.out.println("   " + toDoToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
@@ -68,12 +68,12 @@ public class Nell {
     /**
      * Adds a deadline to the task list
      *
-     * @param commandBody The command body
+     * @param detail The detail of the deadline
      */
-    private static void addDeadline(String commandBody) {
+    private static void addDeadline(String detail) {
         System.out.println("-> The task has been added to the list:");
-        String[] commandWords = commandBody.split("/by");
-        Deadline deadlineToAdd = new Deadline(commandWords[0].trim(), commandWords[1].trim());
+        String[] details = detail.split("/by");
+        Deadline deadlineToAdd = new Deadline(details[0].trim(), details[1].trim());
         listAddTask(deadlineToAdd);
         System.out.println("   " + deadlineToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
@@ -82,12 +82,12 @@ public class Nell {
     /**
      * Adds an event command to the task list
      *
-     * @param commandBody The command body
+     * @param detail The detail of the event
      */
-    private static void addEvent(String commandBody) {
+    private static void addEvent(String detail) {
         System.out.println("-> The task has been added to the list:");
-        String[] commandWords = commandBody.split("/from|/to", 3);
-        Event eventToAdd = new Event(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
+        String[] details = detail.split("/from|/to", 3);
+        Event eventToAdd = new Event(details[0].trim(), details[1].trim(), details[2].trim());
         listAddTask(eventToAdd);
         System.out.println("   " + eventToAdd);
         System.out.println(String.format("   The list now has %d tasks", taskCount));
@@ -96,10 +96,10 @@ public class Nell {
     /**
      * Unmarks a task as done
      *
-     * @param commandBody The command body
+     * @param taskNumber The command body
      */
-    private static void unmarkTask(String commandBody) {
-        int taskIndex = Integer.parseInt(commandBody);
+    private static void unmarkTask(String taskNumber) {
+        int taskIndex = Integer.parseInt(taskNumber);
         if (checkIfTaskValid(taskIndex)) {
             tasks[taskIndex - 1].setDone(false);
             System.out.println("-> The following task has been marked not done:");
@@ -112,10 +112,10 @@ public class Nell {
     /**
      * Marks a task as done
      *
-     * @param commandBody The command body
+     * @param taskNumber The command body
      */
-    private static void markTask(String commandBody) {
-        int taskIndex = Integer.parseInt(commandBody);
+    private static void markTask(String taskNumber) {
+        int taskIndex = Integer.parseInt(taskNumber);
         if (checkIfTaskValid(taskIndex)) {
             tasks[taskIndex - 1].setDone(true);
             System.out.println("-> The following task has been marked done:");
@@ -126,14 +126,14 @@ public class Nell {
     }
 
     /**
-     * Executes an add task command (no command word) with a given command body
+     * Adds an unspecified task to the task list
      *
-     * @param command The command body
+     * @param description The description of the task
      */
-    private static void addTask(String command) {
-        Task taskToAdd = new Task(command);
+    private static void addTask(String description) {
+        Task taskToAdd = new Task(description);
         listAddTask(taskToAdd);
-        System.out.printf("-> added: %s%n", command);
+        System.out.printf("-> added: %s%n", description);
     }
 
     /**
