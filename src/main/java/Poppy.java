@@ -17,43 +17,61 @@ public class Poppy {
         while (!input.equals("Bye")) {
             String[] commandArgs = input.split(" ", 2 );
             String command = commandArgs[0];
-            switch (command) {
-            case "mark":
-                markAsDone(taskList, commandArgs);
-                break;
-            case "unmark":
-                markAsNotDone(taskList, commandArgs);
-                break;
-            case "List":
-                showList(taskList);
-                break;
-            case "todo":
-                ToDo task= new ToDo(commandArgs[1]);
-                taskList[counter] = task;
+            try {
+                switch (command) {
+                    case "mark":
+                        markAsDone(taskList, commandArgs);
+                        break;
+                    case "unmark":
+                        markAsNotDone(taskList, commandArgs);
+                        break;
+                    case "List":
+                        showList(taskList);
+                        break;
+                    case "todo":
+                        if (commandArgs.length< 2){
+                            throw new MissingArgsException("Description of ToDo cannot be empty");
+                        }
+                        ToDo task = new ToDo(commandArgs[1]);
+                        taskList[counter] = task;
+                        counter++;
+                        System.out.println(task.toString());
+                        System.out.println("You now have " + counter + " tasks");
+                        break;
+                    case "deadline":
+                        if (commandArgs.length< 2){
+                            throw new MissingArgsException("Description of Deadline cannot be empty");
+                        }
+                        String[] deadlinestring = commandArgs[1].split("/by", 2);
+                        Deadline deadline = new Deadline(deadlinestring[0], deadlinestring[1]);
+                        taskList[counter] = deadline;
+                        counter++;
+                        System.out.println(deadline.toString());
+                        System.out.println("You now have " + counter + " tasks");
+                        break;
+                    case "event":
+                        if (commandArgs.length< 2){
+                            throw new MissingArgsException("Description of Event cannot be empty");
+                        }
+                        String[] eventstring = commandArgs[1].split("/from", 2);
+                        Events event = new Events(eventstring[0], eventstring[1]);
+                        taskList[counter] = event;
+                        counter++;
+                        System.out.println(event.toString());
+                        System.out.println("You now have " + counter + " tasks");
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid command");
+                /* taskList[counter] = new Task(input);
                 counter++;
-                System.out.println(task.toString());
-                System.out.println("You now have " + counter + " tasks");
-                break;
-            case "deadline":
-                String[] deadlinestring = commandArgs[1].split( "/by", 2);
-                Deadline deadline = new Deadline(deadlinestring[0], deadlinestring[1]);
-                taskList[counter] = deadline;
-                counter++;
-                System.out.println(deadline.toString());
-                System.out.println("You now have " + counter + " tasks");
-                break;
-            case "event":
-                String[] eventstring = commandArgs[1].split( "/from", 2);
-                Events event = new Events(eventstring[0], eventstring[1]);
-                taskList[counter] = event;
-                counter++;
-                System.out.println(event.toString());
-                System.out.println("You now have " + counter + " tasks");
-                break;
-            default:
-                taskList[counter] = new Task(input);
-                counter++;
-                echo(taskList[counter - 1]);
+                echo(taskList[counter - 1]);*/
+                }
+            }catch (IllegalArgumentException e) {
+                System.out.println("Wait, I don't understand what you are saying??");
+            }catch (MissingArgsException e) {
+                System.out.println(e.getMessage());
+            }catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("You are missing a keyword...");
             }
             input =sc.nextLine();
         }
@@ -159,7 +177,7 @@ public class Poppy {
 
         @Override
         public String toString(){
-            return this.taskType()+ "[" + super.getStatusIcon()+ "] " + description + "by:" +by +" ";
+            return this.taskType()+ "[" + super.getStatusIcon()+ "] " + description + "by:" + by +" ";
         }
     }
 
