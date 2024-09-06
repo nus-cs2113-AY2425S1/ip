@@ -1,14 +1,8 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Represents an event task with a description, a start day, and an end day.
  * This class extends the Task class and specifies the type and short notation for event tasks.
  */
 public class Event extends Task {
-    /** Regular expression format for parsing commands **/
-    protected static String format = "event (.+?)\\s*/from\\s*(.+?)\\s*/to\\s*(.+)";
-
     /** Event information **/
     protected String fromDay; // The start day of the event
     protected String toDay;   // The end day of the event
@@ -27,35 +21,6 @@ public class Event extends Task {
         this.toDay = toDay;     // Set the end day of the event
         type = "event";        // Set the task type to "event"
         shortType = "E";       // Set the short notation for event tasks
-    }
-
-    /**
-     * Parses the command string to extract event details.
-     * The command should be in the format: "event description /from startDay /to endDay".
-     *
-     * @param command The command string to parse
-     * @return An array containing the description, startDay, and endDay, or null if the command format is invalid
-     */
-    public static String[] getArgument(String command) {
-        // Compile the regex pattern for matching the command format
-        Pattern pattern = Pattern.compile(format);
-        System.out.println(command);
-        // Create a matcher for the input command string
-        Matcher matcher = pattern.matcher(command);
-
-        // Check if the command string matches the expected pattern
-        if (matcher.matches()) {
-            // Extract and trim the captured groups
-            String segment1 = matcher.group(1).trim(); // Description
-            String segment2 = matcher.group(2).trim(); // Start day
-            String segment3 = matcher.group(3).trim(); // End day
-
-            // Return the segments as an array
-            return new String[]{segment1, segment2, segment3};
-        } else {
-            // Return null if the command does not match the expected format
-            return null;
-        }
     }
 
     // Getter for the start day of the event

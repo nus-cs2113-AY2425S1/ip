@@ -1,17 +1,14 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Represents a task with a description and a completion status.
  * This is a base class for different types of tasks.
  */
-public class Task {
+public abstract class Task {
     /** Regular expression format for parsing commands **/
     protected static String format;
     /** Task type (e.g., "todo", "event", "deadline") **/
-    protected String type = " ";
+    protected String type;
     /** Short notation for the task type (e.g., "T" for todo, "E" for event) **/
-    protected String shortType = " ";
+    protected String shortType;
     /** Description of the task **/
     protected String description;
     /** Completion status of the task **/
@@ -96,16 +93,5 @@ public class Task {
      */
     public String getFullInfo() {
         return String.format("[%s][%s] %s", getShortType(), getStatusIcon(), getDescription());
-    }
-
-    /**
-     * Parses the command string to extract event details.
-     * The command should be in the format: "description /from startDay /to endDay".
-     *
-     * @param command The command string to parse
-     * @return An array containing the description, startDay, and endDay, or null if the command format is invalid
-     */
-    public static String[] getArgument(String command) {
-        return null;
     }
 }
