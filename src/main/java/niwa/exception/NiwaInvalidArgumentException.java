@@ -1,3 +1,5 @@
+package niwa.exception;
+
 public class NiwaInvalidArgumentException extends NiwaException{
     public NiwaInvalidArgumentException() {
         super("Wrong arguments! Please check your syntax.");

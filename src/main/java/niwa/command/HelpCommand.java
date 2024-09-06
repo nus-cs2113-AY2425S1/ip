@@ -1,3 +1,5 @@
+package niwa.command;
+
 import java.util.List;
 
 public class HelpCommand extends Command {

@@ -1,3 +1,7 @@
+package niwa.command;
+
+import niwa.task.Task;
+
 import java.util.List;
 
 public class ListCommand extends TaskCommand {
@@ -27,7 +31,7 @@ public class ListCommand extends TaskCommand {
         System.out.println(PREFIX + "Here are the tasks in your list:");
         int index = 1;
 
-        for (Task task : tasks) {
+        for (Task task : TaskCommand.tasks) {
             System.out.printf(PREFIX + "%d. %s%n", index++, task.getFullInfo());
         }
     }

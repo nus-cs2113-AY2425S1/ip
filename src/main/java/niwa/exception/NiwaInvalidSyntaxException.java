@@ -1,3 +1,5 @@
+package niwa.exception;
+
 public class NiwaInvalidSyntaxException extends NiwaException{
 
     public NiwaInvalidSyntaxException() {

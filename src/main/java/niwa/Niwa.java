@@ -1,10 +1,18 @@
+package niwa;
+
+import niwa.command.*;
+import niwa.exception.NiwaInvalidArgumentException;
+import niwa.exception.NiwaInvalidSyntaxException;
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.task.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Niwa chatbot class that processes user commands to manage a task list.
+ * niwa.Niwa chatbot class that processes user commands to manage a task list.
  */
 public class Niwa {
 
@@ -12,8 +20,8 @@ public class Niwa {
     static final String NAME = "Niwa";
     static final String LOGO = "\t _   _\n"
             + "\t| \\ | | (_)  _       _  ___\n"
-            + "\t|  \\| | | | | __  // //| |\n"
-            + "\t| |\\  | | | |/  |// //_| |\n"
+            + "\t|  \\| | | | | | __  // //| |\n"
+            + "\t| |\\  | | | | |/  |// //_| |\n"
             + "\t|_| \\_|_|_| |__/|__/ //  |_|";
 
     // Static variables to format messages
@@ -24,7 +32,7 @@ public class Niwa {
             + PREFIX + "What can I do for you? Let's chat <3\n\n";
 
     // Static variables for error messages
-    private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
+    private static final String ERR_INDEX_NUMBER_FORMAT = "niwa.task.Task's index must be a number!";
 
     /** Variable to check if the chatbot is running */
     private boolean isRunning;

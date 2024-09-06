@@ -1,3 +1,7 @@
+package niwa.command;
+
+import niwa.exception.NiwaInvalidArgumentException;
+
 public abstract class Command {
     protected static final String PREFIX = "\t";
     protected String argumentFormat;
@@ -7,7 +11,7 @@ public abstract class Command {
 
     public abstract String[] convertArguments(String command);
 
-    public void execute(String rawArgumentString) throws NiwaInvalidArgumentException{
+    public void execute(String rawArgumentString) throws NiwaInvalidArgumentException {
         setArguments(convertArguments(rawArgumentString));
         if (arguments == null) {
             throw new NiwaInvalidArgumentException(guide);

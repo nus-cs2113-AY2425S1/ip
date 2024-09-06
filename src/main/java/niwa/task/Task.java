@@ -1,3 +1,5 @@
+package niwa.task;
+
 /**
  * Represents a task with a description and a completion status.
  * This is a base class for different types of tasks.
@@ -5,7 +7,7 @@
 public abstract class Task {
     /** Regular expression format for parsing commands **/
     protected static String format;
-    /** Task type (e.g., "todo", "event", "deadline") **/
+    /** niwa.task.Task type (e.g., "todo", "event", "deadline") **/
     protected String type;
     /** Short notation for the task type (e.g., "T" for todo, "E" for event) **/
     protected String shortType;
@@ -15,7 +17,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the specified description.
+     * Constructs a niwa.task.Task with the specified description.
      * The task is marked as undone by default.
      *
      * @param description The description of the task
