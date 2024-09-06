@@ -32,4 +32,8 @@ public class Task {
     public static int getNumberOfTasks() {
         return numberOfTasks;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
 }
