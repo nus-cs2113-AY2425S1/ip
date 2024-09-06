@@ -1,37 +1,55 @@
 // Input Text Parser for Yapper
 public class InputStringHandler {
-     public static Instruction parseUserInput(String userInputString) {
-        String[] instruction = userInputString.split(" ", 2);
-        String instructionType = instruction[0].toLowerCase(); // need to convert to lowercase?
-        String instructionArguments = instruction.length > 1 ? instruction[1] : "";
-        // account for OOB in case command is 1 word long
+    private static String DEADLINE_END_DATE_DELIMITER = "/by";
+    private static String EVENT_START_DATE_DELIMITER = "/from";
+    private static String EVENT_END_DATE_DELIMITER = "/to";
 
+    public static Instruction parseUserInput(String userInputString) {
+        int splitAtIndex = userInputString.indexOf(' ');
+        String instructionType = userInputString.substring(0, splitAtIndex);
+
+        // Handle One-Argument Instructions
+        if (splitAtIndex >= 0) {
+            switch (instructionType) {
+            case "list":
+                // TODO error handling
+                return new Instruction(Instruction.InstructionType.LIST);
+            case "bye":
+                return new Instruction(Instruction.InstructionType.BYE);
+            }
+        }
+        String instructionArgs = userInputString.substring(splitAtIndex);
+        // TODO error handling
+
+        // Handle Two-Argument Instructions
         switch (instructionType) {
-        case "add":
-            return new Instruction(Instruction.InstructionType.ADD, instructionArguments);
+        case "add": // TODO remove
+            return new Instruction(Instruction.InstructionType.ADD, instructionArgs);
         case "todo":
-            return new Instruction(Instruction.InstructionType.TODO, instructionArguments);
+            return new Instruction(Instruction.InstructionType.TODO, instructionArgs);
+        case "mark":
+            return new Instruction(Instruction.InstructionType.MARK, Integer.parseInt(instructionArgs));
+        case "unmark":
+            return new Instruction(Instruction.InstructionType.UNMARK, Integer.parseInt(instructionArgs));
+        }
+
+        // Handle Three-Argument Instructions
+        String args[];
+        switch (instructionType) {
         case "deadline":
-            String[] args = instructionArguments.split(" /by ", 2);
+            args = instructionArgs.split(DEADLINE_END_DATE_DELIMITER);
             String taskDesc = args[0].trim();
             String deadline = args[1].trim();
             return new Instruction(Instruction.InstructionType.DEADLINE, taskDesc, deadline);
         case "event":
-            String[] args1 = instructionArguments.split(" /from ", 2);
-            String eventDesc = args1[0].trim();
-            String[] args2 = args1[1].split(" /to ", 2);
-            String startDate = args2[0].trim();
-            String endDate = args2[1].trim();
+            args = instructionArgs.split(EVENT_START_DATE_DELIMITER);
+            String eventDesc = args[0].trim();
+            String[] dates = args[1].split(EVENT_END_DATE_DELIMITER);
+            String startDate = dates[1].trim();
+            String endDate = dates[1].trim();
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
-        case "list":
-            return new Instruction(Instruction.InstructionType.LIST);
-        case "mark":
-            return new Instruction(Instruction.InstructionType.MARK, Integer.parseInt(instructionArguments));
-        case "unmark":
-            return new Instruction(Instruction.InstructionType.UNMARK, Integer.parseInt(instructionArguments));
-        case "bye":
-            return new Instruction(Instruction.InstructionType.BYE);
         }
         return new Instruction(null); // shouldn't happen
+        // replace with proper error handling
     }
 }

@@ -4,9 +4,9 @@ public class Instruction {
         ADD, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE
     }
     private InstructionType instructionType;
-    private String[] instructionStringArgs;
-    private String instructionStringArg;
-    private Integer instructionIntegerArg;
+    private String[] taskDates; // Non-Desc
+    private String instructionDesc; // Desc
+    private Integer taskOrdinal; // Ordinal
 
     // Constructors
     public Instruction(InstructionType type) {
@@ -14,33 +14,33 @@ public class Instruction {
     }
     public Instruction(InstructionType type, String taskDesc) {
         this.instructionType = type; // ADD, TODO
-        this.instructionStringArg = taskDesc;
+        this.instructionDesc = taskDesc;
     }
     public Instruction(InstructionType type, String taskDesc, String endDate) {
         this.instructionType = type; // DEADLINE
-        this.instructionStringArg = taskDesc;
-        this.instructionStringArgs = new String[] {endDate};
+        this.instructionDesc = taskDesc;
+        this.taskDates = new String[] {endDate};
     }
     public Instruction(InstructionType type, String taskDesc, String startDate, String endDate) {
         this.instructionType = type; // EVENT
-        this.instructionStringArg = taskDesc;
-        this.instructionStringArgs = new String[] {startDate, endDate};
+        this.instructionDesc = taskDesc;
+        this.taskDates = new String[] {startDate, endDate};
     }
     public Instruction(InstructionType type, Integer taskOrdinal) {
         this.instructionType = type; // MARK, UNMARK
-        this.instructionIntegerArg = taskOrdinal;
+        this.taskOrdinal = taskOrdinal;
     }
     // Getters
     public InstructionType getInstructionType() {
         return instructionType;
     }
-    public String[] getInstructionStringArgs() {
-        return instructionStringArgs;
+    public String[] getTaskDates() {
+        return taskDates;
     }
-    public String getInstructionStringArg() {
-        return instructionStringArg;
+    public String getInstructionDesc() {
+        return instructionDesc;
     }
-    public Integer getInstructionIntegerArg() {
-        return instructionIntegerArg;
+    public Integer getTaskOrdinal() {
+        return taskOrdinal;
     }
 }
