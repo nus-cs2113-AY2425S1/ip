@@ -26,22 +26,22 @@ public class Juan {
             return false;
         } else if (line.equals("list")) {
             Task.printTasksList();
-            return true;
-        }
-
-        // Check for mark and unmark or just add task
-        String[] parts = line.split(" ");
-        if (parts[0].equals("mark")){
+        } else if (line.startsWith("mark")){
             // Mark
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            int taskIndex = Integer.parseInt(line.replace("mark ", "")) - 1;
             Task.mark(taskIndex);
-        } else if (parts[0].equals("unmark")){
+        } else if (line.startsWith("unmark")){
             // Unmark
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            int taskIndex = Integer.parseInt(line.replace("unmark ", "")) - 1;
             Task.unmark(taskIndex);
+        } else if (line.startsWith("todo")) {
+            new ToDo(line);
+        } else if (line.startsWith("deadline")) {
+            new Deadline(line);
+        } else if (line.startsWith("event")) {
+            new Event(line);
         } else {
-            // else add task
-            Task newTask = new Task(line);
+            System.out.println("Por Favor? Try a new request");
         }
 
         lineMessage();
