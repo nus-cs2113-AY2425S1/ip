@@ -1,5 +1,4 @@
 public class Event extends Task {
-    private final String TYPE = "E";
     private String from;
     private String to;
 
@@ -14,12 +13,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String getType() {
-        return TYPE;
-    }
-
-    @Override
     public String toString() {
-        return super.toString() + String.format(" (from: %s to: %s)", from, to);
+        return "[E]" + super.toString() + 
+                String.format(" (from: %s to: %s)", from, to);
     } 
 }

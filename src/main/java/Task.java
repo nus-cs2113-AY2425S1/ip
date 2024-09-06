@@ -16,10 +16,6 @@ public class Task {
         return this.description;
     }
 
-    public String getType() {
-        return null;
-    }
-
     public void setDone() {
         this.isDone = true;
     }
