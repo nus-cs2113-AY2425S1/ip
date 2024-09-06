@@ -26,9 +26,9 @@ public class lovespiritual {
                 markTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("unmark ")) {
                 unmarkTask(input, taskCount, isMarked, tasks);
-            } /*else if (input.startsWith("todo")){
-                taskCount = todo(input, tasks, taskCount, taskTypes);
-            } else if (input.startsWith("deadline ")){
+            } else if (input.startsWith("todo")){
+                taskCount = todo(input, tasks, taskCount);
+            } /*else if (input.startsWith("deadline ")){
                 taskCount = deadline(input, taskTypes, taskCount, tasks);
             } else if (input.startsWith("event ")) {
                 taskCount = event(input, tasks, taskCount, taskTypes);
@@ -93,10 +93,9 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static int todo(String input, String[] tasks, int taskCount, String[] taskTypes) {
+    private static int todo(String input, Task[] tasks, int taskCount) {
         String taskDescription = input.substring("todo".length()).trim();
-        tasks[taskCount] = taskDescription;
-        taskTypes[taskCount] = "[T]";
+        tasks[taskCount] = new Todo(taskDescription);
         taskCount++;
         System.out.println(SEPARATOR);
         System.out.println("Got it. I've added this task:");
@@ -111,7 +110,7 @@ public class lovespiritual {
         String taskNumber = input.substring("unmark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            isMarked[indexNumber] = false;
+            tasks[indexNumber].unmark();
             System.out.println(SEPARATOR);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(tasks[indexNumber]);
@@ -153,7 +152,7 @@ public class lovespiritual {
     private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, Task[] tasks) {
         System.out.println(SEPARATOR);
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + taskTypes[i] + tasks[i]);
+            System.out.println((i + 1) + ". " + tasks[i]);
         }
         System.out.println(SEPARATOR);
     }
