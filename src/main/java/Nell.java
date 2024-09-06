@@ -137,10 +137,10 @@ public class Nell {
     }
 
     /**
-     * Executes a bye command
+     * Says bye to the user
      *
      */
-    private static void executeCommandBye() {
+    private static void sayBye() {
         System.out.println("-> Bye. Hope to see you again soon!");
     }
 
@@ -169,7 +169,7 @@ public class Nell {
             String[] commandWords = command.split(" ", 2);
             switch (commandWords[0]) {
             case "bye":
-                executeCommandBye();
+                sayBye();
                 isGettingCommands = false;
                 break;
 
