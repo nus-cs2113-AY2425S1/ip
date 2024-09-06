@@ -6,7 +6,7 @@ public class lovespiritual {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String[] tasks = new String[MAX_TASKS]; // array of tasks
+        Task[] tasks = new Task[MAX_TASKS]; // array of tasks
         boolean[] isMarked = new boolean[MAX_TASKS]; // check if task is marked
         String[] taskTypes = new String[MAX_TASKS]; // task category
         int taskCount = 0; // count the number of tasks added in the array
@@ -26,14 +26,14 @@ public class lovespiritual {
                 markTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("unmark ")) {
                 unmarkTask(input, taskCount, isMarked, tasks);
-            } else if (input.startsWith("todo")){
+            } /*else if (input.startsWith("todo")){
                 taskCount = todo(input, tasks, taskCount, taskTypes);
             } else if (input.startsWith("deadline ")){
                 taskCount = deadline(input, taskTypes, taskCount, tasks);
             } else if (input.startsWith("event ")) {
                 taskCount = event(input, tasks, taskCount, taskTypes);
-            } else {
-                taskCount = addTask(tasks, taskCount, input, taskTypes);
+            }*/ else {
+                taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
             }
         }
     }
@@ -107,14 +107,14 @@ public class lovespiritual {
     }
 
 
-    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
+    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) {
         String taskNumber = input.substring("unmark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
             isMarked[indexNumber] = false;
             System.out.println(SEPARATOR);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(" [ ] " + tasks[indexNumber]);
+            System.out.println(tasks[indexNumber]);
             System.out.println(SEPARATOR);
         } else {
             System.out.println(SEPARATOR);
@@ -123,14 +123,14 @@ public class lovespiritual {
         }
     }
 
-    private static void markTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
+    private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) {
         String taskNumber = input.substring("mark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            isMarked[indexNumber] = true;
+            tasks[indexNumber].mark();
             System.out.println(SEPARATOR);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(" [X] " + tasks[indexNumber]);
+            System.out.println(tasks[indexNumber]);
             System.out.println(SEPARATOR);
         } else {
             System.out.println(SEPARATOR);
@@ -139,7 +139,7 @@ public class lovespiritual {
         }
     }
 
-    private static int addTask(String[] tasks, int taskCount, String input, String[] taskTypes) {
+    private static int addTask(Task[] tasks, int taskCount, Task input, String[] taskTypes) {
         tasks[taskCount] = input;
         taskTypes[taskCount] = "[ ]";
         taskCount++;
@@ -150,11 +150,10 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, String[] tasks) {
+    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, Task[] tasks) {
         System.out.println(SEPARATOR);
         for (int i = 0; i < taskCount; i++) {
-            String checkbox = isMarked[i] ? "[X]" : "[ ]";
-            System.out.println((i + 1) + ". " + taskTypes[i] + checkbox + " " + tasks[i]);
+            System.out.println((i + 1) + ". " + taskTypes[i] + tasks[i]);
         }
         System.out.println(SEPARATOR);
     }
