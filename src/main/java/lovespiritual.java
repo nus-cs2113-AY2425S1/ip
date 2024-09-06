@@ -28,9 +28,9 @@ public class lovespiritual {
                 unmarkTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("todo")){
                 taskCount = todo(input, tasks, taskCount);
-            } /*else if (input.startsWith("deadline ")){
+            } else if (input.startsWith("deadline ")){
                 taskCount = deadline(input, taskTypes, taskCount, tasks);
-            } else if (input.startsWith("event ")) {
+            } /*else if (input.startsWith("event ")) {
                 taskCount = event(input, tasks, taskCount, taskTypes);
             }*/ else {
                 taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
@@ -70,7 +70,7 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static int deadline(String input, String[] taskTypes, int taskCount, String[] tasks) {
+    private static int deadline(String input, String[] taskTypes, int taskCount, Task[] tasks) {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         String taskDescription;
         String by;
@@ -82,12 +82,11 @@ public class lovespiritual {
             taskDescription = fullTaskDescription;
             by = "null";
         }
-        taskTypes[taskCount] = "[D]";
-        tasks[taskCount] = taskDescription + " (by: " + by + ")";
+        tasks[taskCount] = new Deadline(taskDescription, by);
         taskCount++;
         System.out.println(SEPARATOR);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" [D][ ] " + tasks[taskCount - 1]);
+        System.out.println(tasks[taskCount - 1]);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println(SEPARATOR);
         return taskCount;
@@ -104,7 +103,6 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
         return taskCount;
     }
-
 
     private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) {
         String taskNumber = input.substring("unmark".length()).trim();
