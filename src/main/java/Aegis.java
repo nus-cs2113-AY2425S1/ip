@@ -2,10 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Aegis {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        String logo = """
+    private final static String AEGIS_LOGO = """
                                                                             \s
                         **                                                  \s
                      *****                                  *               \s
@@ -28,8 +26,11 @@ public class Aegis {
                                             *     ****                      \s
                                                                             \s""";
 
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("--------------------------------------------------");
-        System.out.println("Hello, this is\n" + logo);
+        System.out.println("Hello, this is\n" + AEGIS_LOGO);
 
         System.out.println("--------------------------------------------------");
         System.out.println("Hello! This is Aegis, an Anti-Shadow Suppression Weapon and a chatbot.");
@@ -47,15 +48,7 @@ public class Aegis {
                 break;
             }
 
-            switch (input.split(" ")[0].toLowerCase()) {
-            case "list" -> displayTaskList(taskList);
-            case "mark" -> markTaskAsDone(taskList, input);
-            case "unmark" -> unmarkTaskAsDone(taskList, input);
-            case "deadline" -> addDeadline(taskList, input);
-            case "event" -> addEvent(taskList, input);
-            case "todo" -> addTodoTask(taskList, input);
-            default -> System.out.println("Please specify the task type! [todo, deadline, event]");
-            }
+            handleCommand(input, taskList);
         }
 
         System.out.println(" Bye. Hope to see you again soon!");
@@ -63,6 +56,36 @@ public class Aegis {
         System.out.println("-------------END--OF--CONVERSATION----------------");
 
         scanner.close();
+    }
+
+    private static void handleCommand(String input, ArrayList<Task> taskList) {
+        try {
+            String command = input.split(" ")[0].toLowerCase();
+            switch (command) {
+            case "list":
+                displayTaskList(taskList);
+                break;
+            case "mark":
+                markTaskAsDone(taskList, input);
+                break;
+            case "unmark":
+                unmarkTaskAsDone(taskList, input);
+                break;
+            case "deadline":
+                addDeadline(taskList, input);
+                break;
+            case "event":
+                addEvent(taskList, input);
+                break;
+            case "todo":
+                addTodoTask(taskList, input);
+                break;
+            default:
+                throw new AegisException(" Your command has not been authorized ");
+            }
+        } catch (AegisException e) {
+            System.out.printf(" Anomaly detected: %s%n", e.getMessage());
+        }
     }
 
     private static void displayTaskList(ArrayList<Task> taskList) {
@@ -73,64 +96,82 @@ public class Aegis {
     }
 
     private static void markTaskAsDone(ArrayList<Task> taskList, String input) {
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskIndex >= 0 && taskIndex < taskList.size()) {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                throw new AegisException("Invalid task number");
+            }
             taskList.get(taskIndex).markAsDone();
             System.out.printf(" I've marked this task as done:%n   %s%n", taskList.get(taskIndex));
-        } else {
-            System.out.println(" Invalid task number.");
+        } catch (AegisException | NumberFormatException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
         }
     }
 
     private static void unmarkTaskAsDone(ArrayList<Task> taskList, String input) {
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskIndex >= 0 && taskIndex < taskList.size()) {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                throw new AegisException("Invalid task number");
+            }
             taskList.get(taskIndex).unmarkAsDone();
             System.out.printf(" I've marked this task as not done yet:%n   %s%n", taskList.get(taskIndex));
-        } else {
-            System.out.println(" Invalid task number.");
+        } catch (AegisException | NumberFormatException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
         }
     }
 
     private static void addDeadline(ArrayList<Task> taskList, String input) {
-        if (!input.contains(" /by ")) {
-            System.out.println(" Invalid syntax: you need to include [/by] parameter");
-            return;
+        try {
+            if (!input.contains(" /by ")) {
+                throw new AegisException("Invalid syntax: you need to include [/by] parameter");
+            }
+
+            String[] parts = input.split(" /by ", 2);
+            String description = parts[0].replaceFirst("deadline ", "").trim();
+            String byTime = parts[1].trim();
+
+            Deadline newDeadline = new Deadline(description, byTime);
+            taskList.add(newDeadline);
+            System.out.printf(" New deadline added: %n   %s%n", newDeadline);
+            System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
+        } catch (AegisException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
         }
-
-        String[] parts = input.split(" /by ", 2);
-        String description = parts[0].replaceFirst("deadline ", "").trim();
-        String byTime = parts[1].trim();
-
-        Deadline newDeadline = new Deadline(description, byTime);
-        taskList.add(newDeadline);
-        System.out.printf(" New deadline added: %n   %s%n", newDeadline);
-        System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
     }
 
     private static void addEvent(ArrayList<Task> taskList, String input) {
-        if (!input.matches(".* /from .*/to .*")) {
-            System.out.println(" Invalid syntax: you need to include [/from, /to] parameters");
-            return;
+        try {
+            if (!input.matches(".* /from .*/to .*")) {
+                throw new AegisException("Invalid syntax: you need to include [/from, /to] parameters");
+            }
+
+            String[] parts = input.split(" /from | /to ");
+            String description = parts[0].replaceFirst("event ", "").trim();
+            String fromTime = parts[1].trim();
+            String toTime = parts[2].trim();
+
+            Event newEvent = new Event(description, fromTime, toTime);
+            taskList.add(newEvent);
+            System.out.printf(" New event added: %n   %s%n", newEvent);
+            System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
+        } catch (AegisException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
         }
-
-        String[] parts = input.split(" /from | /to ");
-        String description = parts[0].replaceFirst("event ", "").trim();
-        String fromTime = parts[1].trim();
-        String toTime = parts[2].trim();
-
-        Event newEvent = new Event(description, fromTime, toTime);
-        taskList.add(newEvent);
-        System.out.printf(" New event added: %n   %s%n", newEvent);
-        System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
     }
 
     private static void addTodoTask(ArrayList<Task> taskList, String input) {
-        String description = input.replaceFirst("todo ", "").trim();
-
-        Todo newTodo = new Todo(description);
-        taskList.add(newTodo);
-        System.out.printf(" New todo added: %n   %s%n", newTodo);
-        System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
+        try {
+            String description = input.replaceFirst("todo ", "").trim();
+            if (description.isEmpty()) {
+                throw new AegisException("The description of a todo cannot be empty");
+            }
+            Todo newTodo = new Todo(description);
+            taskList.add(newTodo);
+            System.out.printf(" New todo added: %n   %s%n", newTodo);
+            System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
+        } catch (AegisException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
+        }
     }
 }
