@@ -73,8 +73,6 @@ public class Niwa {
             + PREFIX + COMMAND_HELP_DESC;
 
     // Static variables for error messages
-    private static final String ERR_INDEX_OUT_OF_BOUND = "Index is out of bound!";
-    private static final String ERR_LACK_ARGUMENT = "Not enough arguments! Please check your syntax.";
     private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
 
     /** Variable to check if the chatbot is running */
@@ -129,8 +127,7 @@ public class Niwa {
 
         command = command.trim();
         String[] commandParts = command.split(" ", 2);
-
-        if (commandParts.length == 1) { // Handle single-word commands
+        try {
             switch (commandParts[0]) {
             case COMMAND_BYE_WORD:
                 printExit();
@@ -142,19 +139,16 @@ public class Niwa {
             case COMMAND_HELP_WORD:
                 help();
                 break;
-            default:
-                echo(command);
-                break;
-            }
-        } else if (commandParts.length == 2) { // Handle commands with arguments
-            switch (commandParts[0]) {
             case COMMAND_MARK_WORD:
+                if (commandParts.length < 2) { throw new NiwaLackArgumentException(COMMAND_MARK_DESC); }
                 mark(commandParts[1]);
                 break;
             case COMMAND_UNMARK_WORD:
+                if (commandParts.length < 2) { throw new NiwaLackArgumentException(COMMAND_UNMARK_DESC); }
                 unmark(commandParts[1]);
                 break;
             case COMMAND_DELETE_WORD:
+                if (commandParts.length < 2) { throw new NiwaLackArgumentException(COMMAND_DELETE_DESC); }
                 delete(commandParts[1]);
                 break;
             case COMMAND_EVENT_WORD:
@@ -162,14 +156,17 @@ public class Niwa {
             case COMMAND_DEADLINE_WORD:
                 // Fall through
             case COMMAND_TODO_WORD:
-                add(commandParts[1], commandParts[0]);
+                add(command, commandParts[0]);
                 break;
             default:
-                echo(command);
-                break;
+                throw new NiwaInvalidSyntaxException();
             }
+        } catch (NiwaInvalidSyntaxException | NiwaLackArgumentException e) {
+            System.out.println(PREFIX + e.getMessage());
+        } finally {
+            System.out.println(SEPARATOR);
         }
-        System.out.println(SEPARATOR);
+
     }
 
     /**
@@ -198,18 +195,22 @@ public class Niwa {
             case COMMAND_EVENT_WORD:
                 taskArguments = Event.getArgument(taskInfo);
                 if (taskArguments == null) {
-                    throw new IndexOutOfBoundsException();
+                    throw new NiwaLackArgumentException(COMMAND_EVENT_DESC);
                 }
                 temp = new Event(taskArguments[0], taskArguments[1], taskArguments[2]);
                 break;
             case COMMAND_DEADLINE_WORD:
                 taskArguments = Deadline.getArgument(taskInfo);
                 if (taskArguments == null) {
-                    throw new IndexOutOfBoundsException();
+                    throw new NiwaLackArgumentException(COMMAND_DEADLINE_DESC);
                 }
                 temp = new Deadline(taskArguments[0], taskArguments[1]);
                 break;
             case COMMAND_TODO_WORD:
+                taskArguments = ToDo.getArgument(taskInfo);
+                if (taskArguments == null) {
+                    throw new NiwaLackArgumentException(COMMAND_TODO_DESC);
+                }
                 temp = new ToDo(taskInfo);
                 break;
             default:
@@ -220,8 +221,8 @@ public class Niwa {
             tasks.add(temp);
             System.out.printf(PREFIX + COMMAND_ADD_SUCCESS, temp.getFullInfo(), tasks.size());
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(PREFIX + ERR_LACK_ARGUMENT);
+        } catch (NiwaLackArgumentException e) {
+            System.out.println(PREFIX + e.getMessage());
         }
     }
 
@@ -242,15 +243,18 @@ public class Niwa {
     private void mark(String indexString) {
         try {
             int index = Integer.parseInt(indexString) - 1; // Convert to zero-based index
+
+            if (index < 0 || index >= tasks.size()) {
+                throw new NiwaTaskIndexOutOfBoundException(tasks.size());
+            }
             Task taskToMark = tasks.get(index);
             taskToMark.markAsDone();
 
             System.out.printf(PREFIX + COMMAND_MARK_SUCCESS, taskToMark.getFullInfo());
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
         } catch (NumberFormatException e) {
             System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            System.out.println(PREFIX + e.getMessage());
         }
     }
 
@@ -262,15 +266,18 @@ public class Niwa {
     private void unmark(String indexString) {
         try {
             int index = Integer.parseInt(indexString) - 1; // Convert to zero-based index
+            if (index < 0 || index >= tasks.size()) {
+                throw new NiwaTaskIndexOutOfBoundException(tasks.size());
+            }
             Task taskToUnmark = tasks.get(index);
             taskToUnmark.markAsUndone();
 
             System.out.printf(PREFIX + COMMAND_UNMARK_SUCCESS, taskToUnmark.getFullInfo());
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
         } catch (NumberFormatException e) {
             System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            System.out.println(PREFIX + e.getMessage());
         }
     }
 
@@ -282,15 +289,18 @@ public class Niwa {
     private void delete(String indexString) {
         try {
             int index = Integer.parseInt(indexString) - 1; // Convert to zero-based index
+            if (index < 0 || index >= tasks.size()) {
+                throw new NiwaTaskIndexOutOfBoundException(tasks.size());
+            }
             Task task = tasks.get(index);
             tasks.remove(index);
 
             System.out.printf(PREFIX + COMMAND_DELETE_SUCCESS, task.getFullInfo(), tasks.size());
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(PREFIX + ERR_INDEX_OUT_OF_BOUND);
         } catch (NumberFormatException e) {
             System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            System.out.println(PREFIX + e.getMessage());
         }
     }
 

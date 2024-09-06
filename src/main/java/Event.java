@@ -6,9 +6,8 @@ import java.util.regex.Pattern;
  * This class extends the Task class and specifies the type and short notation for event tasks.
  */
 public class Event extends Task {
-
-    /** Regular expression format for parsing event commands **/
-    protected static String format = "(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*)";
+    /** Regular expression format for parsing commands **/
+    protected static String format = "event (.+?)\\s*/from\\s*(.+?)\\s*/to\\s*(.+)";
 
     /** Event information **/
     protected String fromDay; // The start day of the event
@@ -32,7 +31,7 @@ public class Event extends Task {
 
     /**
      * Parses the command string to extract event details.
-     * The command should be in the format: "description /from startDay /to endDay".
+     * The command should be in the format: "event description /from startDay /to endDay".
      *
      * @param command The command string to parse
      * @return An array containing the description, startDay, and endDay, or null if the command format is invalid
@@ -40,7 +39,7 @@ public class Event extends Task {
     public static String[] getArgument(String command) {
         // Compile the regex pattern for matching the command format
         Pattern pattern = Pattern.compile(format);
-
+        System.out.println(command);
         // Create a matcher for the input command string
         Matcher matcher = pattern.matcher(command);
 
