@@ -36,14 +36,13 @@ public class Nell {
      * @param taskToAdd The task to be added to the list
      */
     private static void listAddTask(Task taskToAdd) {
-        // Stores text in task list
         tasks[taskCount] = taskToAdd;
         taskCount++;
     }
 
     /**
      * Lists out the currently stored tasks in TaskList, upon receipt of the
-     * list command
+     * list3 command
      *
      */
     private static void executeCommandList() {
@@ -104,7 +103,6 @@ public class Nell {
     private static void executeCommandUnmark(String commandBody) {
         int taskIndex = Integer.parseInt(commandBody);
         if (checkIfTaskValid(taskIndex)) {
-            // Marks a task as not done
             tasks[taskIndex - 1].setDone(false);
             System.out.println("-> The following task has been marked not done:");
             printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
@@ -121,7 +119,6 @@ public class Nell {
     private static void executeCommandMark(String commandBody) {
         int taskIndex = Integer.parseInt(commandBody);
         if (checkIfTaskValid(taskIndex)) {
-            // Marks a task as done
             tasks[taskIndex - 1].setDone(true);
             System.out.println("-> The following task has been marked done:");
             printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
@@ -146,7 +143,6 @@ public class Nell {
      *
      */
     private static void executeCommandBye() {
-        // Exits
         System.out.println("-> Bye. Hope to see you again soon!");
     }
 
