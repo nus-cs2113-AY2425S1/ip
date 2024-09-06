@@ -14,7 +14,7 @@ public class Dobby {
 
         printWelcomeMessage();
 
-        while (true){
+        while (true) {
             line = in.nextLine().trim();
             if (line.equalsIgnoreCase("bye")){
                 break;
@@ -37,14 +37,14 @@ public class Dobby {
         }
     }
 
-    private static void printWelcomeMessage(){
+    private static void printWelcomeMessage() {
         printSeparator();
         System.out.println("    " + "Hello! Dobby is Dobby!");
         System.out.println("    " + "What can Dobby do for master?");
         printSeparator();
     }
 
-    private static void printList(){
+    private static void printList() {
         printSeparator();
         System.out.println("    Here are the tasks in master's list:");
         for (int i = 1; i <= listSize; i++) {
@@ -54,13 +54,13 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void addTask(String line){
+    private static void addTask(String line) {
         Task task = createTask(line);
         addTaskToList(task);
         printTaskAddedMessage();
     }
 
-    private static Task createTask(String line){
+    private static Task createTask(String line) {
         if (line.startsWith("todo ")) {
             return new Todo(line.substring("todo ".length()));
         } else if (line.startsWith("deadline ")) {
@@ -71,14 +71,14 @@ public class Dobby {
         return new Task(line);
     }
 
-    private static Deadline createDeadlineTask(String line){
+    private static Deadline createDeadlineTask(String line) {
         String[] lineParts = line.split(" /by ");
         String taskDescription = lineParts[0].replaceFirst("deadline ", "");
         String byWhen = lineParts[1];
         return new Deadline(taskDescription, byWhen);
     }
 
-    private static Event createEventTask(String line){
+    private static Event createEventTask(String line) {
         String[] lineParts = line.split(" /from | /to ");
         String taskDescription = lineParts[0].replaceFirst("event ", "");
         String fromTime = lineParts[1];
@@ -86,12 +86,12 @@ public class Dobby {
         return new Event(taskDescription, fromTime, toTime);
     }
 
-    private static void addTaskToList(Task task){
+    private static void addTaskToList(Task task) {
         taskList[listSize] = task;
         listSize++;
     }
 
-    private static void printTaskAddedMessage(){
+    private static void printTaskAddedMessage() {
         printSeparator();
         System.out.println("    Dobby has added this task:");
         System.out.println("      " + taskList[listSize-1]);
@@ -99,13 +99,13 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void printGoodbyeMessage(){
+    private static void printGoodbyeMessage() {
         printSeparator();
         System.out.println("    " + "Thank you master, Dobby is free!!!");
         printSeparator();
     }
 
-    private static void markTaskAsDone(String line){
+    private static void markTaskAsDone(String line) {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].markAsDone();
@@ -113,7 +113,7 @@ public class Dobby {
         }
     }
 
-    private static void unmarkTaskAsDone(String line){
+    private static void unmarkTaskAsDone(String line) {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (taskNumber > 0 && taskNumber <= listSize){
             taskList[taskNumber-1].unmarkAsDone();
@@ -121,7 +121,7 @@ public class Dobby {
         }
     }
 
-    private static void printTaskStatus(String status, int taskNumber){
+    private static void printTaskStatus(String status, int taskNumber) {
         printSeparator();
         if ("done".equals(status)) {
             System.out.println("    Dobby has magically marked this task as done:");
@@ -132,7 +132,7 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void printSeparator(){
+    private static void printSeparator() {
         System.out.println("  " + DASH_LINE);
     }
 }
