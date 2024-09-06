@@ -44,7 +44,6 @@ public class Bitwise {
             }
             else {
                 addToList(userInput);
-                System.out.println(INDENTATION + "Added: " + userInput);
             }
             System.out.print(LINE_BREAK);
         }
@@ -63,15 +62,43 @@ public class Bitwise {
     }
 
     public static void addToList(String userInput) {
-        Task newTask = new Task(userInput);
+        Task newTask;
+        String description;
+        if (userInput.startsWith("todo")) {
+            description = userInput.substring(userInput.indexOf(" ") + 1);
+            newTask = new Todo(description);
+        }
+        else if (userInput.startsWith("deadline")) {
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
+            String deadline = userInput.substring(userInput.indexOf("/by") + 4);
+            newTask = new Deadline(description, deadline);
+        }
+        else if (userInput.startsWith("event")) {
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
+            String eventFrom = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to"));
+            String eventTo = userInput.substring(userInput.indexOf("/to") + 4);
+            newTask = new Event(description, eventFrom, eventTo);
+        }
+        else {
+            newTask = new Task(userInput);
+            description = userInput;
+        }
         tasksList[numberOfTasks] = newTask;
         numberOfTasks++;
+        System.out.println(INDENTATION + "Got it! Added:\n" + INDENTATION + newTask.toString());
+        printNumberOfTasks();
     }
 
     public static void printTasksList() {
+        System.out.println(INDENTATION + "Here are the tasks in your list: ");
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println(INDENTATION + Integer.toString(i + 1) + ". " + "[" + tasksList[i].getStatusIcon() + "] " + tasksList[i].getTaskName());
+            System.out.println(INDENTATION + Integer.toString(i + 1) + ". " + tasksList[i].toString());
         }
+        printNumberOfTasks();
+    }
+
+    public static void printNumberOfTasks() {
+        System.out.println(INDENTATION + "Now you have " + numberOfTasks + " tasks in the list.");
     }
 
     public static void markCompletionStatus(int taskNumber, boolean isCompleted) {
