@@ -1,87 +1,59 @@
 import java.util.Scanner;
 
 public class Tommi {
-    private static final int MAX_TASKS = 100;
-    private static final String[] tasks = new String[MAX_TASKS];  // Array to store tasks
-    private static final boolean[] isCompleted = new boolean[MAX_TASKS];  // Array to store task completion status
-    private static int taskCount = 0;  // Counter to keep track of the number of tasks
 
     public static void main(String[] args) {
-        printIntroMessage();
-
         Scanner scanner = new Scanner(System.in);
-        String input;
+        InputHandler inputHandler = new InputHandler();
 
-        while (true) {
-            input = scanner.nextLine(); // Read user input
+        printIntroMessage();
+        readInputStrings(scanner, inputHandler);
+        printExitMessage();
+    }
 
-            if (input.equals("bye")) {
-                printExitMessage();
-                break; // Exit the loop
-            } else if (input.equals("list")) {
-                listTasks();
-            } else if (input.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                markTask(taskIndex);
-            } else if (input.startsWith("unmark ")) {
-                int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                unmarkTask(taskIndex);
-            } else {
-                addTask(input);
-            }
+    private static void readInputStrings(Scanner scanner, InputHandler inputHandler) {
+        String input = scanner.nextLine();
+        while (!input.equals("bye"))
+        {
+            processInputCases(input);
+            input = scanner.nextLine();
+        }
+    }
+
+    private static void processInputCases(String input) {
+        if (input.equals("list")) {
+            InputHandler.listTasks();
+            return;
+        }
+
+        String[] words = input.split(" ");
+        int taskIndex;
+        switch (words[0]) {
+        case "mark":
+                taskIndex = Integer.parseInt(words[1]) - 1;
+                InputHandler.markTask(taskIndex);
+                break;
+        case "unmark":
+                taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                InputHandler.unmarkTask(taskIndex);
+                break;
+        default:
+                InputHandler.addTask(input);
         }
     }
 
     private static void printIntroMessage() {
-        String intro =
-                          " ______                   \n"
-                        + "/_  __/__  __ _  __ _  (_)\n"
-                        + " / / / _ \\/  ' \\/  ' \\/ / \n"
-                        + "/_/  \\___/_/_/_/_/_/_/_/  \n"
-                        + "____________________________________________________________\n"
-                        + "Hello! I'm Tommi!\n"
-                        + "What can I do for you?\n"
-                        + "____________________________________________________________\n";
+        String intro = """
+                 ______                  \s
+                /_  __/__  __ _  __ _  (_)
+                 / / / _ \\/  ' \\/  ' \\/ /\s
+                /_/  \\___/_/_/_/_/_/_/_/ \s
+                ____________________________________________________________
+                Hello! I'm Tommi!
+                What can I do for you?
+                ____________________________________________________________
+                """;
         System.out.println(intro);
-    }
-
-    private static void addTask(String task) {
-        tasks[taskCount] = task;
-        isCompleted[taskCount] = false;
-        taskCount++;
-        printLine();
-        System.out.println("added: " + task);
-        printLine();
-    }
-
-    private static void listTasks() {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            String status = isCompleted[i] ? "[X]" : "[ ]";
-            System.out.println((i + 1) + "." + status + " " + tasks[i]);
-        }
-        printLine();
-    }
-
-    private static void markTask(int index) {
-        if (index >= 0 && index < taskCount) {
-            isCompleted[index] = true;
-            printLine();
-            System.out.println("Awesomesauce! I've marked this task as done:");
-            System.out.println("  [X] " + tasks[index]);
-            printLine();
-        }
-    }
-
-    private static void unmarkTask(int index) {
-        if (index >= 0 && index < taskCount) {
-            isCompleted[index] = false;
-            printLine();
-            System.out.println("OK, I've marked this task as undone:");
-            System.out.println("  [ ] " + tasks[index]);
-            printLine();
-        }
     }
 
     private static void printExitMessage() {
@@ -90,7 +62,7 @@ public class Tommi {
         printLine();
     }
 
-    private static void printLine() {
+    public static void printLine() {
         System.out.println("____________________________________________________________");
     }
 }
