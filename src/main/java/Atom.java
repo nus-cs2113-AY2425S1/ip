@@ -113,10 +113,9 @@ public class Atom {
             if (line.equalsIgnoreCase("list")) {
                 if (Task.getTaskCount() == 0) {
                     System.out.println("Oh oh! List is empty.");
-                    return;
+                } else {
+                    printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
                 }
-
-                printList(Arrays.copyOf(tasksList, Task.getTaskCount()));
 
             } else if (keyword.equals("mark") || (keyword.equals("unmark"))) {
                 try {
