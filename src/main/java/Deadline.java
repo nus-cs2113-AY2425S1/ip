@@ -1,7 +1,7 @@
 public class Deadline extends Task {
 
     protected String deadline;
-    protected static final String symbol = "[D]";
+    protected static final String symbol = Constants.ICON_DEADLINE;
 
     public Deadline(String description, String deadline) {
         super(description);

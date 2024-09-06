@@ -10,6 +10,7 @@ public class Constants {
     public static final String SECTION_BREAK = "==================================================\n";
     public static final String LINE_BREAK = "--------------------------------------------------\n";
     public static final String INDENTATION = "        ";
+
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_END = "bye";
@@ -20,6 +21,7 @@ public class Constants {
     public static final String COMMAND_INFIX_BY = "/by";
     public static final String COMMAND_INFIX_FROM = "/from";
     public static final String COMMAND_INFIX_TO = "/to";
+
     public static final String MESSAGE_WELCOME = SECTION_BREAK + INDENTATION + "Hello from\n" +
             LOGO + "\n" + INDENTATION + "How may I help you today?\n" + LINE_BREAK;
     public static final String MESSAGE_EXIT = LINE_BREAK + INDENTATION + "Bye, see you soon!\n" + SECTION_BREAK;
@@ -27,4 +29,10 @@ public class Constants {
     public static final String MESSAGE_UNMARKED = "I've added the task back in";
     public static final String MESSAGE_TASK_LIST = "Here are the tasks in your list: ";
     public static final String MESSAGE_ADDED = "Got it! Added:\n";
+
+    public static final String ICON_COMPLETED = "[X]";
+    public static final String ICON_NOT_COMPLETED = "[ ]";
+    public static final String ICON_EVENT = "[E]";
+    public static final String ICON_TODO = "[T]";
+    public static final String ICON_DEADLINE = "[D]";
 }

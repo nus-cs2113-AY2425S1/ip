@@ -2,7 +2,7 @@ public class Event extends Task {
 
     protected String eventFrom;
     protected String eventTo;
-    protected static final String symbol = "[E]";
+    protected static final String symbol = Constants.ICON_EVENT;
 
     public Event(String description, String eventFrom, String eventTo) {
         super(description);
