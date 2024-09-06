@@ -24,13 +24,16 @@ public class Iris {
 
     public static void addTask(String text) {
         String[] textParts = text.split(" ", 2);
+        String command = textParts[0].toLowerCase();
+
         boolean hasOnlyCommand = textParts.length == 1;
         if (hasOnlyCommand) {
-            System.out.println("Invalid command");
+            System.out.println("MISSING!!! The description of a "
+                    + command
+                    + " cannot be empty.");
             return;
         }
 
-        String command = textParts[0].toLowerCase();
         String details = textParts[1];
         Task newTask;
         switch (command) {
@@ -40,12 +43,8 @@ public class Iris {
         case "deadline":
             newTask = new Deadline(details);
             break;
-        case "event":
-            newTask = new Event(details);
-            break;
         default:
-            System.out.println("Invalid Command");
-            return;
+            newTask = new Event(details);
         }
         tasks[numOfTasks++] = newTask;
         printAddTaskMessage(newTask);
@@ -74,16 +73,17 @@ public class Iris {
         try {
             String[] textParts = text.split(" ");
             if (textParts.length == 1) {
-                throw new IllegalArgumentException("Missing task number");
+                throw new IllegalArgumentException("NOO!!! Missing task number");
             }
+
             int taskIndex = Integer.parseInt(textParts[1]) - 1;
             boolean isInvalidTaskIndex = taskIndex >= numOfTasks || taskIndex < 0;
             if (isInvalidTaskIndex) {
-                throw new IllegalArgumentException("Please provide a valid task number.");
+                    throw new IllegalArgumentException("WHAT!!! This task does not exist");
             }
             return tasks[taskIndex];
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Please provide a valid task number.");
+        } catch (NumberFormatException e) { // from parseInt
+            throw new IllegalArgumentException("HMMM... The index of the task must be an integer");
         }
     }
 
@@ -101,7 +101,7 @@ public class Iris {
         printDivider();
         switch (command) {
         case "":
-            System.out.println("Do you need any further assistance?");
+            System.out.println("Tell me your needs! I'm here to help!");
             break;
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
@@ -115,8 +115,11 @@ public class Iris {
         case "unmark":
             changeTaskStatus(text, false);
             break;
-        default:
+        case "deadline", "todo", "event":
             addTask(text);
+            break;
+        default:
+            System.out.println("HUH?!? I don't recognize this command :(");
         }
         printDivider();
         return false;

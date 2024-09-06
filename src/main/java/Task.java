@@ -8,7 +8,6 @@ public class Task {
 		return textParts[0] + ": " + textParts[1];
     }
 
-
     public Task(String details) {
         this.isDone = false;
 		String[] textParts = details.split("/");
