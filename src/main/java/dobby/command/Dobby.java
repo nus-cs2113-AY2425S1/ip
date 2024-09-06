@@ -1,3 +1,9 @@
+package dobby.command;
+import dobby.tasks.Deadline;
+import dobby.tasks.Event;
+import dobby.tasks.Task;
+import dobby.tasks.Todo;
+
 import java.util.Scanner;
 
 public class Dobby {

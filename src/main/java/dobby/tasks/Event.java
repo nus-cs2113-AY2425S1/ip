@@ -1,3 +1,4 @@
+package dobby.tasks;
 public class Event extends Task {
 
     protected String fromTime;
