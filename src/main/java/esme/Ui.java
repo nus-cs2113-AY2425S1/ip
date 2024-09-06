@@ -4,7 +4,8 @@ import esme.task.TaskList;
 
 public class Ui {
     private TaskList taskList;
-    private static final String SEPARATOR = "--------------------------------------------------------------------------------------------------";
+    private static final String SEPARATOR = "-----------------------------------------------" +
+            "---------------------------------------------------";
 
     public Ui() {
         taskList = new TaskList();
@@ -12,7 +13,7 @@ public class Ui {
 
     public void addTaskToList(String command, String input) {
         String description;
-        switch(command) {
+        switch (command) {
         case "todo":
             description = taskList.addTodoTask(input);
             break;
@@ -92,7 +93,8 @@ public class Ui {
                 System.out.println("Oh dear, it seems the index has wandered beyond the boundaries of our list!");
             }
         } catch (Exception e) {
-            System.out.println("Error: Wrong format! Please use the format: command index (e.g., '" + command + " 1')");
+            System.out.println("Error: Wrong format! Please use the format: command index (e.g., '" +
+                    command + " 1')");
         }
     }
 
@@ -109,7 +111,7 @@ public class Ui {
         displayLine(true);
     }
 
-    public String esmeLogo = " _____                    \n" +
+    private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
             "|  _| / __| '_ ` _ \\ / _ \\ \n" +
             "| |___\\__ \\ | | | | |  __/ \n" +
@@ -141,7 +143,8 @@ public class Ui {
 
     public void farewell() {
         displayLine(true);
-        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune in your favor!");
+        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune" +
+                " in your favor!");
         displayLine(true);
     }
 
