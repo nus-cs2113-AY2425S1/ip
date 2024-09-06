@@ -47,10 +47,10 @@ public class Melchizedek {
                 taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "deadline":
-                taskList.addDeadline(tokens);
+                taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "event":
-                taskList.addEvent(tokens);
+                taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             default:
                 taskList.addToTaskList(input);
