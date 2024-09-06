@@ -4,9 +4,9 @@ public class Task {
     private String tag;
 
     public Task(String description) {
-        this.description = description;
+        setDescription(description);
         this.isDone = false;
-        this.tag = "N"; // for no-tag
+        this.tag = " "; // for no-tag
     }
 
     // Overloaded function for available tags
@@ -33,7 +33,8 @@ public class Task {
     }
 
     public void setDescription(String description){
-        this.description = description;
+        int separatorIndex = description.indexOf(' ');
+        this.description = description.substring(separatorIndex + 1);
     }
 
     public String getTaskStatus(){

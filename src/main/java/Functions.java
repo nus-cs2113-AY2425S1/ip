@@ -12,6 +12,7 @@ public class Functions {
         print(
                 "Currently, I am able to execute the following functions:",
                 "1. Add tasks: I can add tasks to your task list.",
+                "   - Type command: <task>",
                 "   - Type command: todo <task>",
                 "   - Type command: deadline <task> /by <date>",
                 "   - Type command: event <task> /from <day> <start time> /to <end time>",
@@ -44,7 +45,7 @@ public class Functions {
     }
 
     private void processCommand(String input) {
-        if (input.startsWith("mark ") || input.startsWith("unmark ")) {
+        if (input.startsWith("mark") || input.startsWith("unmark")) {
             handleMarking(input);
         }
         else {
@@ -73,7 +74,7 @@ public class Functions {
         try {
             int taskNumIndex = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
             if (taskNumIndex >= 0 && taskNumIndex < taskCounter) {
-                if (input.startsWith("mark ")) {
+                if (input.startsWith("mark")) {
                     taskList[taskNumIndex].setDone();
                     print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
                 } else {
@@ -84,7 +85,9 @@ public class Functions {
                 print("Invalid task input. Please try again.");
             }
         } catch (NumberFormatException e) {
-            print("Invalid task input. Please try again.", "Correct format: mark <int>");
+            print("Invalid task input. Please try again.", "Correct format: mark <int> / unmark <int>");
+        } catch (IllegalArgumentException e) {
+            print("Task number cannot be empty!");
         }
     }
 
@@ -102,22 +105,31 @@ public class Functions {
     }
 
     private void addTask(String input) {
-        if (input.startsWith("todo ")){
-            taskList[taskCounter++] = new ToDos(input);
-        }
-        else if (input.startsWith("deadline ")){
-            taskList[taskCounter++] = new Deadlines(input);
-        }
-        else if (input.startsWith("event ")){
-            taskList[taskCounter++] = new Events(input);
-        }
-        else{
-            taskList[taskCounter++] = new Task(input);
-        }
 
-        print("Got it. I've added this task:",
-                "  " + taskStatus(taskCounter - 1),
-                "Now you have %d task(s) in the list".formatted(taskCounter));
+        try {
+            if (input == null || input.trim().isEmpty()) {
+                throw new IllegalArgumentException("Input cannot be empty!");
+            }
+            else if (input.trim().equals("todo") || input.trim().equals("deadline") || input.trim().equals("event")){
+                throw new IllegalArgumentException("Description cannot be empty!");
+            } else if (input.startsWith("todo ")){
+                taskList[taskCounter++] = new ToDos(input);
+            } else if (input.startsWith("deadline ")){
+                taskList[taskCounter++] = new Deadlines(input);
+            } else if (input.startsWith("event ")){
+                taskList[taskCounter++] = new Events(input);
+            } else if (input.startsWith("task ")){
+                taskList[taskCounter++] = new Task(input);
+            } else{
+                throw new IllegalArgumentException("I have no idea what this command is");
+            }
+
+            print("Got it. I've added this task:",
+                    "  " + taskStatus(taskCounter - 1),
+                    "Now you have %d task(s) in the list".formatted(taskCounter));
+        } catch (IllegalArgumentException e) {
+            print(e.getMessage());
+        }
     }
 
     private void echo(){
