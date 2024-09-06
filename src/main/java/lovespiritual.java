@@ -1,111 +1,153 @@
 import java.util.Scanner;
 
 public class lovespiritual {
+    public static final String SEPARATOR = "_".repeat(30);
+    public static final int MAX_TASKS = 100;
+
     public static void main(String[] args) {
-        String line = "__________________________________________________"; // horizontal line
         Scanner in = new Scanner(System.in);
-        String[] tasks = new String[100]; // array of tasks
-        boolean[] isMarked = new boolean[100]; // check if task is marked
-        String[] taskTypes = new String[100];
+        String[] tasks = new String[MAX_TASKS]; // array of tasks
+        boolean[] isMarked = new boolean[MAX_TASKS]; // check if task is marked
+        String[] taskTypes = new String[MAX_TASKS]; // task category
         int taskCount = 0; // count the number of tasks added in the array
 
-        // introduction
-        System.out.println(line);
-        System.out.println("Hello! I'm lovespiritual");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
+        printWelcomeScreen();
 
         // loop that keeps recurring when the program is running
         while (true) {
             String input = in.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
-                System.out.println(line);
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(line);
+                printExitScreen();
                 break;
             } else if (input.equalsIgnoreCase("list")) {
-                System.out.println(line);
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    String checkbox = isMarked[i] ? "[X]" : "[ ]";
-                    String taskType = taskTypes[i];
-                    System.out.println((i + 1) + "." + taskType + checkbox + " " + tasks[i]);
-                }
-                System.out.println(line);
+                printList(taskCount, isMarked, taskTypes, tasks);
             } else if (input.startsWith("mark ")) {
-                String numberString = input.substring(5).trim();
-                int number = Integer.parseInt(numberString) - 1;
-                if (number >= 0 && number < taskCount) {
-                    isMarked[number] = true;
-                    System.out.println(line);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(" [X] " + tasks[number]);
-                    System.out.println(line);
-                } else {
-                    System.out.println(line);
-                    System.out.println("Invalid number. Please enter a valid number.");
-                    System.out.println(line);
-                }
+                markTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("unmark ")) {
-                String numberString = input.substring(7).trim();
-                int number = Integer.parseInt(numberString) - 1;
-                if (number >= 0 && number < taskCount) {
-                    isMarked[number] = false;
-                    System.out.println(line);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(" [ ] " + tasks[number]);
-                    System.out.println(line);
-                } else {
-                    System.out.println(line);
-                    System.out.println("Invalid number. Please enter a valid number.");
-                    System.out.println(line);
-                }
+                unmarkTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("todo ")){
-                String taskDescription = input.substring(5).trim();
-                tasks[taskCount] = taskDescription;
-                taskTypes[taskCount] = "[T]";
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" [T][ ] " + taskDescription);
-                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
-                System.out.println(line);
-                taskCount++;
+                taskCount = todo(input, tasks, taskCount, taskTypes);
             } else if (input.startsWith("deadline ")){
-                String fullTaskDetails = input.substring(9).trim();
-                String[] taskDetails = fullTaskDetails.split("/by");
-                String taskDescription = taskDetails[0].trim();
-                String by = taskDetails.length > 1 ? taskDetails[1].trim() : "";
-                taskTypes[taskCount] = "[D]";
-                tasks[taskCount] = taskDescription + " (by: " + by + ")";
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" [D][ ] " + tasks[taskCount]);
-                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
-                System.out.println(line);
-                taskCount++;
+                taskCount = deadline(input, taskTypes, taskCount, tasks);
             } else if (input.startsWith("event ")) {
-                String fullTaskDetails = input.substring(6).trim();
-                String[] taskDetails = fullTaskDetails.split("/from", 2);
-                String taskDescription = taskDetails[0].trim();
-                String[] time = taskDetails.length > 1 ? taskDetails[1].split("/to", 2) : new String[]{"", ""};
-                String from = time[0].trim();
-                String to = time.length > 1 ? time[1].trim() : "";
-                tasks[taskCount] = taskDescription + " (from: " + from + " to: " + to + ")";
-                taskTypes[taskCount] = "[E]";
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" [E][ ] " + tasks[taskCount]);
-                System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
-                System.out.println(line);
-                taskCount++;
+                taskCount = event(input, tasks, taskCount, taskTypes);
             } else {
-                tasks[taskCount] = input;
-                taskCount++;
-                System.out.println(line);
-                System.out.println("added: " + input);
-                System.out.println(line);
+                taskCount = addTask(tasks, taskCount, input, taskTypes);
             }
         }
+    }
+
+    private static int event(String input, String[] tasks, int taskCount, String[] taskTypes) {
+        String fullTaskDescription = input.substring("event ".length()).trim();
+        String[] taskDetails = fullTaskDescription.split("from ");
+        String taskDescription = taskDetails[0].trim();
+        String[] time = taskDetails[1].split("to ");
+        String from = time[0].trim();
+        String to = time[1].trim();
+        tasks[taskCount] = taskDescription + " (from: " + from + ", to: " + to + ")";
+        taskCount++;
+        taskTypes[taskCount] = "[E]";
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [E][ ] " + tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(SEPARATOR);
+        return taskCount;
+    }
+
+    private static int deadline(String input, String[] taskTypes, int taskCount, String[] tasks) {
+        String fullTaskDescription = input.substring("deadline ".length()).trim();
+        String[] taskDetails = fullTaskDescription.split("by ");
+        String taskDescription = taskDetails[0].trim();
+        String by = taskDetails[1].trim();
+        taskTypes[taskCount] = "[D]";
+        tasks[taskCount] = taskDescription + " (by: " + by + ")";
+        taskCount++;
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [D][ ] " + tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(SEPARATOR);
+        return taskCount;
+    }
+
+    private static int todo(String input, String[] tasks, int taskCount, String[] taskTypes) {
+        String taskDescription = input.substring("todo ".length()).trim();
+        tasks[taskCount] = taskDescription;
+        taskTypes[taskCount] = "[T]";
+        taskCount++;
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [T][ ] " + taskDescription);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(SEPARATOR);
+        return taskCount;
+    }
+
+
+    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
+        String taskNumber = input.substring("unmark ".length()).trim();
+        int indexNumber = Integer.parseInt(taskNumber) - 1;
+        if (indexNumber >= 0 && indexNumber < taskCount) {
+            isMarked[indexNumber] = false;
+            System.out.println(SEPARATOR);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(" [ ] " + tasks[indexNumber]);
+            System.out.println(SEPARATOR);
+        } else {
+            System.out.println(SEPARATOR);
+            System.out.println("Invalid number. Please enter a valid number.");
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    private static void markTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
+        String taskNumber = input.substring("mark ".length()).trim();
+        int indexNumber = Integer.parseInt(taskNumber) - 1;
+        if (indexNumber >= 0 && indexNumber < taskCount) {
+            isMarked[indexNumber] = true;
+            System.out.println(SEPARATOR);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(" [X] " + tasks[indexNumber]);
+            System.out.println(SEPARATOR);
+        } else {
+            System.out.println(SEPARATOR);
+            System.out.println("Invalid number. Please enter a valid number.");
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    private static int addTask(String[] tasks, int taskCount, String input, String[] taskTypes) {
+        tasks[taskCount] = input;
+        taskTypes[taskCount] = "[ ]";
+        taskCount++;
+        System.out.println(SEPARATOR);
+        System.out.println("added: " + input);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(SEPARATOR);
+        return taskCount;
+    }
+
+    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, String[] tasks) {
+        System.out.println(SEPARATOR);
+        for (int i = 0; i < taskCount; i++) {
+            String checkbox = isMarked[i] ? "[X]" : "[ ]";
+            System.out.println((i + 1) + ". " + taskTypes[i] + checkbox + " " + tasks[i]);
+        }
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printExitScreen() {
+        System.out.println(SEPARATOR);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printWelcomeScreen() {
+        System.out.println(SEPARATOR);
+        System.out.println("Hello! I'm lovespiritual");
+        System.out.println("What can I do for you?");
+        System.out.println(SEPARATOR);
     }
 }
