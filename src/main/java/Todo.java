@@ -1,5 +1,7 @@
 public class Todo extends Task {
+
     protected static final String symbol = "[T]";
+
     public Todo(String description) {
         super(description);
     }
