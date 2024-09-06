@@ -34,11 +34,11 @@ public class Bitwise {
             if (userInput.equalsIgnoreCase("list")) {
                 printTasksList();
             }
-            else if (userInput.contains("unmark")) {
+            else if (userInput.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, false);
             }
-            else if (userInput.contains("mark")) {
+            else if (userInput.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, true);
             }
