@@ -30,12 +30,6 @@ public class Deadline extends Task {
     }
 
     public static String getDayFromString(String input) {
-        // String[] split = input.split(" ");
-        // for (int i = 0; i < split.length; i++) {
-        //     if (split[i].equals(BY_KEYWORD_STRING)) {
-        //         return split[i + 1];
-        //     }
-        // }
 
         if (input == null) {
             return null;
@@ -43,12 +37,6 @@ public class Deadline extends Task {
         int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
 
         return input.substring(indexOfBy + BY_KEYWORD_STRING.length()).trim();
-
-        // input = input.substring(input.indexOf(BY_KEYWORD_STRING), input.);
-        // return input.trim();
-
-        // String[] splitSentences = input.split(BY_KEYWORD_STRING);
-        // return splitSentences[0].trim();
     }
 
     public static String getDescriptionFromString(String input) {

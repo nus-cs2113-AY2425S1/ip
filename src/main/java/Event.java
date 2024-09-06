@@ -54,27 +54,9 @@ public class Event extends Task {
         int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
 
         return input.substring(indexOfFrom + FROM_KEYWORD_STRING.length(), indexOfTo).trim();
-
-        // String[] split = input.split(" ");
-        // for (int i = 0; i < split.length; i++) {
-        //     if (split[i].equals(FROM_KEYWORD_STRING) && split[i + 2].equals(TO_KEYWORD_STRING)) {
-        //         return split[i + 1];
-        //     } else if (split[i].equals(FROM_KEYWORD_STRING)) {
-        //         return split[i + 1] + ' ' + split[i + 2];
-        //     }
-        // }
-
     }
 
     public static String getToFromString(String input) {
-
-        // String[] split = input.split(" ");
-        // for (int i = 0; i < split.length; i++) {
-        //     if (split[i].equals(TO_KEYWORD_STRING)) {
-        //         return split[i + 1];
-        //     }
-        // }
-        // return null;
 
         if (input == null) {
             return null;
