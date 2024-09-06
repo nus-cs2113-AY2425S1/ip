@@ -13,7 +13,6 @@ public class Dobby {
         try (Scanner in = new Scanner(System.in)) {
             printWelcomeMessage();
             String line;
-
             while (true) {
                 line = in.nextLine().trim();
                 if (line.equalsIgnoreCase("bye")){
@@ -37,18 +36,25 @@ public class Dobby {
                     printSeparator();
                     System.out.println("    Dobby says master's task is already unmarked!");
                     printSeparator();
+                } catch (EmptyListException e) {
+                    printSeparator();
+                    System.out.println("    Dobby says master's list is empty!");
+                    printSeparator();
+                } catch (IndexOutOfBoundsException e) {
+                    printSeparator();
+                    System.out.println("    Dobby says master's list is full!");
+                    printSeparator();
                 }
             }
 
             printGoodbyeMessage();
-
         }
 
     }
 
     private static void processCommand (String line)
-            throws MissingDescriptionException, IllegalInputException,
-                TaskAlreadyMarkedException, TaskAlreadyUnmarkedException {
+            throws MissingDescriptionException, IllegalInputException, TaskAlreadyMarkedException,
+                TaskAlreadyUnmarkedException, EmptyListException {
 
         if (line.equals("list")) {
             printList();
@@ -62,7 +68,6 @@ public class Dobby {
             throw new IllegalInputException();
         }
 
-
     }
 
     private static void printWelcomeMessage() {
@@ -72,7 +77,11 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void printList() {
+    private static void printList() throws EmptyListException {
+        if (listSize == 0) {
+            throw new EmptyListException();
+        }
+
         printSeparator();
         System.out.println("    Here are the tasks in master's list:");
         for (int i = 1; i <= listSize; i++) {
@@ -129,10 +138,11 @@ public class Dobby {
         return new Event(taskDescription, fromTime, toTime);
     }
 
-    private static void addTaskToList(Task task) {
-        if (listSize < MAX_LIST_SIZE) {
-            taskList[listSize++] = task;
+    private static void addTaskToList(Task task) throws IndexOutOfBoundsException{
+        if (listSize >= MAX_LIST_SIZE) {
+            throw new IndexOutOfBoundsException();
         }
+        taskList[listSize++] = task;
     }
 
     private static void printTaskAddedMessage() {
