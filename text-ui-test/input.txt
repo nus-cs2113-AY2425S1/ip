@@ -1,0 +1,15 @@
+Todo bring bread and wine
+Deadline meet Abraham /by 24/09 3pm
+Event bless Abraham /from 24/09 3pm /to 24/09 3.30pm
+Todo receive tithe from Abraham
+list
+mark 1
+list
+todo leave Abraham
+list
+mark 2
+mark 3
+list
+unmark 3
+list
+bye

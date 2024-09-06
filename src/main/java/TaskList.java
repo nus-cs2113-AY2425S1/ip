@@ -59,7 +59,6 @@ public class TaskList {
     public void unmarkTaskAsDone(int id) {
         allTasks[id - 1].unmarkTaskAsDone();
         System.out.println("\tOK, I've marked this task as undone:");
-        System.out.print("\t");
         System.out.println("\t  " + allTasks[id - 1]);
         printSeparator();
     }

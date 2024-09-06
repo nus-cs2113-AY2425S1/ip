@@ -1,7 +1,86 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	____________________________________________________________
+	Hello! I'm Melchizedek.
+	How can I be a blessing to you?
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] bring bread and wine
+	Now you have 1 task in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] meet Abraham (by: 24/09 3pm)
+	Now you have 2 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	Now you have 3 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] receive tithe from Abraham
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][ ] bring bread and wine
+	2.[D][ ] meet Abraham (by: 24/09 3pm)
+	3.[E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	4.[T][ ] receive tithe from Abraham
+	____________________________________________________________
+	____________________________________________________________
+	Great! I've marked this task as done:
+	  [T][X] bring bread and wine
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][X] bring bread and wine
+	2.[D][ ] meet Abraham (by: 24/09 3pm)
+	3.[E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	4.[T][ ] receive tithe from Abraham
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] leave Abraham
+	Now you have 5 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][X] bring bread and wine
+	2.[D][ ] meet Abraham (by: 24/09 3pm)
+	3.[E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	4.[T][ ] receive tithe from Abraham
+	5.[T][ ] leave Abraham
+	____________________________________________________________
+	____________________________________________________________
+	Great! I've marked this task as done:
+	  [D][X] meet Abraham (by: 24/09 3pm)
+	____________________________________________________________
+	____________________________________________________________
+	Great! I've marked this task as done:
+	  [E][X] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][X] bring bread and wine
+	2.[D][X] meet Abraham (by: 24/09 3pm)
+	3.[E][X] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	4.[T][ ] receive tithe from Abraham
+	5.[T][ ] leave Abraham
+	____________________________________________________________
+	____________________________________________________________
+	OK, I've marked this task as undone:
+	  [E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][X] bring bread and wine
+	2.[D][X] meet Abraham (by: 24/09 3pm)
+	3.[E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	4.[T][ ] receive tithe from Abraham
+	5.[T][ ] leave Abraham
+	____________________________________________________________
+	____________________________________________________________
+	Goodbye. Hope to see you again soon! May peace be upon you.
+	____________________________________________________________
