@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
  */
 public class Deadline extends Task {
 
-    /** Regular expression format for parsing deadline commands **/
-    protected static String format = "(.*?)\\s*/by\\s*(.*?)";
+    /** Regular expression format for parsing commands **/
+    protected static String format = "deadline (.+?)\\s*/by\\s*(.+?)";
 
     /** Deadline information **/
     protected String byDay; // The due date of the deadline task
@@ -29,7 +29,7 @@ public class Deadline extends Task {
 
     /**
      * Parses the command string to extract deadline details.
-     * The command should be in the format: "description /by dueDate".
+     * The command should be in the format: "deadline description /by dueDate".
      *
      * @param command The command string to parse
      * @return An array containing the description and dueDate, or null if the command format is invalid
