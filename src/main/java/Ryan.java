@@ -51,7 +51,6 @@ public class Ryan {
                     break;
             }
         }
-
         printGoodbye();
         scanner.close();
     }
@@ -74,20 +73,19 @@ public class Ryan {
 
     private static void handleMark(ArrayList<Task> tasks, String inputBody) {
         Utils.horizontalLine();
-        int index = Integer.parseInt(inputBody) - 1;
+        int index = parseIndex(inputBody);
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).mark();
             System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
         } else {
             System.out.println("Invalid task number.");
         }
-
         Utils.horizontalLine();
     }
 
     private static void handleUnmark(ArrayList<Task> tasks, String inputBody) {
         Utils.horizontalLine();
-        int index = Integer.parseInt(inputBody) - 1;
+        int index = parseIndex(inputBody);
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).unmark();
             System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
@@ -95,6 +93,10 @@ public class Ryan {
             System.out.println("Invalid task number.");
         }
         Utils.horizontalLine();
+    }
+
+    private static int parseIndex(String inputBody) {
+        return Integer.parseInt(inputBody) - 1;
     }
 
     private static boolean isValidIndex(int index, int size) {
@@ -141,7 +143,6 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-
     private static void addEvent(ArrayList<Task> tasks, String command) {
         Utils.horizontalLine();
 
@@ -172,7 +173,6 @@ public class Ryan {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         Utils.horizontalLine();
     }
-
 
     private static void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
