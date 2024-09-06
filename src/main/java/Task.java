@@ -28,4 +28,9 @@ public class Task {
     public void markCompletionStatus(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + taskName;
+    }
 }
