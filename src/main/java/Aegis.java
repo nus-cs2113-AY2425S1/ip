@@ -26,13 +26,15 @@ public class Aegis {
                                             *     ****                      \s
                                                                             \s""";
 
+    private final static String SEPARATOR = "--------------------------------------------------";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--------------------------------------------------");
+        System.out.println(SEPARATOR);
         System.out.println("Hello, this is\n" + AEGIS_LOGO);
 
-        System.out.println("--------------------------------------------------");
+        System.out.println(SEPARATOR);
         System.out.println("Hello! This is Aegis, an Anti-Shadow Suppression Weapon and a chatbot.");
         System.out.println("What can I do for you?");
 
