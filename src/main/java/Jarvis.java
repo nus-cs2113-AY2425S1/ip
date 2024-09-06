@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Jarvis {
     // Constants
     static final int MAX_TASK_LENGTH = 100; // Maximum length of a string
@@ -9,6 +8,8 @@ public class Jarvis {
 
     private static Task[] taskList = new Task[100]; // Array to store tasks
 
+    static String command; // Variable to store the command
+    static String task; // Variable to store the task
 
     /**
      * Prints a break line to the console.
@@ -67,33 +68,20 @@ public class Jarvis {
      */
     public static void printTasks() {
         printBreakLine();
-        if (Task.getNumberOfTasks() == 0) {
-            System.out.println("The list is empty.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.print((i + 1) + ".");
-                taskList[i].printTask();
-            }
-        }
+        Task.printAllTasks(taskList);
         printBreakLine();
     }
 
-    /**
-     * Adds a task to the task list.
-     *
-     * @param task
-     */
-    public static void addTask(String task) {
-        printBreakLine();
-        System.out.println("Added: " + task);
-        if (Task.getNumberOfTasks() < MAX_TASK_LENGTH) {
-            taskList[Task.getNumberOfTasks()] = new Task(task);
-        } else {
-            System.out.println("The list is full. Please remove some items before adding more.");
-        }
 
-        printBreakLine();
+    public static void splitCommandAndTask(String lineBufferString) {
+
+        if (lineBufferString.contains(" ")) {
+            command = lineBufferString.split(" ")[0];
+            task = lineBufferString.substring(command.length() + 1);
+        } else {
+            command = lineBufferString;
+            task = null;
+        }
     }
 
     /**
@@ -105,45 +93,49 @@ public class Jarvis {
     public static void readInput(Scanner in, String lineBufferString) {
 
         try (in) {
-            printPrompt();                                                              // Print the prompt to the console
+            printPrompt(); // Print the prompt to the console
             lineBufferString = in.nextLine();
-            String command;                                                             // Variable to store the command
-            int dividerPosition = 0;                                                    // Variable to store the position of the divider
-
-            // Check if the input contains a space
-            if (lineBufferString.contains(" ")) {
-                // Suppose the input is "mark 1" or "unmark 1"
-                dividerPosition = lineBufferString.indexOf(" ");
-                command = lineBufferString.substring(0, dividerPosition);
-            } else {
-                command = lineBufferString;
-            }
+            splitCommandAndTask(lineBufferString);
 
             switch (command) {
             case "bye":
                 printGoodbyeMsgs();
                 break;
-            case "list":
+            case "exit":
+                // Habit of typing exit to exit the program
+                printGoodbyeMsgs();
+                break;
+            case Task.LIST_COMMAND_STRING:
                 printTasks();
                 break;
-            case "mark":
-                int taskNumberMark = Integer.parseInt(lineBufferString.substring(dividerPosition + 1)); // Get the task number
-                taskList[taskNumberMark - 1].markAsDone();                                              // Mark the task as done
+            case Todo.COMMAND_STRING:
+                taskList[Task.getNumberOfTasks()] = new Todo(task);
+                printBreakLine();
                 break;
-            case "unmark":
-                int taskNumberUnmark = Integer.parseInt(lineBufferString.substring(dividerPosition + 1));     // Get the task number
-                taskList[taskNumberUnmark - 1].markAsUndone();                                            // Mark the task as undone
+            case Deadline.COMMAND_STRING:
+                taskList[Task.getNumberOfTasks()] = new Deadline(task);
+                printBreakLine();
+                break;
+            case Event.COMMAND_STRING:
+                taskList[Task.getNumberOfTasks()] = new Event(task);
+                printBreakLine();
+                break;
+            case Task.MARK_COMMAND_STRING:
+                int taskNumberMark = Integer.parseInt(task); // Get the task number
+                Task.markAsDone(taskList, taskNumberMark); // Mark the task as done
+                break;
+            case Task.UNMARK_COMMAND_STRING:
+                int taskNumberUnmark = Integer.parseInt(task); // Get the task number
+                Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
                 break;
             case "":
                 System.out.println("You did not enter anything. Please try again.");
                 break;
             default:
-                addTask(lineBufferString);
-
                 break;
             }
 
-            readInput(in, lineBufferString);                                                        // Recursively call the function to read the next input
+            readInput(in, lineBufferString); // Recursively call the function to read the next input
         } catch (Exception e) {
             System.err.println("An error occurred. Please try again.");
         }
@@ -173,7 +165,7 @@ public class Jarvis {
                             @@@         @@       @@         @@#
                                 @@@@     @@@   @@@     @@@@
                                        @@@@@@@@@@@@@
-                
+
                      ██╗    █████╗    ██████╗   ██╗   ██╗  ██╗   ███████╗
                      ██║   ██╔══██╗   ██╔══██╗  ██║   ██║  ██║   ██╔════╝
                      ██║   ███████║   ██████╔╝  ██║   ██║  ██║   ███████╗
@@ -182,11 +174,11 @@ public class Jarvis {
                  ╚════╝ ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝ ╚═══╝ ╚═╝╚═╝╚═╝╚══════╝╚═╝
                 """;
 
-        String lineBufferString = "";           // Buffer to store the input from the user
-        Scanner in = new Scanner(System.in);    // Scanner object to read input from the user
+        String lineBufferString = ""; // Buffer to store the input from the user
+        Scanner in = new Scanner(System.in); // Scanner object to read input from the user
 
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
-        readInput(in, lineBufferString);        // Read the input from the user
+        readInput(in, lineBufferString); // Read the input from the user
     }
 }
