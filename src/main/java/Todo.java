@@ -8,6 +8,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return symbol + super.toString();
+        return symbol + " " + super.toString();
     }
 }
