@@ -24,35 +24,31 @@ public class Iris {
 
     public static void addTask(String text) {
         String[] textParts = text.split(" ", 2);
-        boolean hasNoDetails = textParts.length == 1;
-        if (hasNoDetails) {
-            System.out.println("Invalid or incomplete command");
+        boolean hasOnlyCommand = textParts.length == 1;
+        if (hasOnlyCommand) {
+            System.out.println("Invalid command");
             return;
         }
 
         String command = textParts[0].toLowerCase();
         String details = textParts[1];
         Task newTask;
-        try {
-            switch (command) {
-            case "todo":
-                newTask = new Todo(details);
-                break;
-            case "deadline":
-                newTask = new Deadline(details);
-                break;
-            case "event":
-                newTask = new Event(details);
-                break;
-            default:
-                System.out.println("Invalid Command");
-                return;
-            }
-            tasks[numOfTasks++] = newTask;
-            printAddTaskMessage(newTask);
-        } catch (RuntimeException e) { // For missing description
-            System.out.println(e.getMessage());
+        switch (command) {
+        case "todo":
+            newTask = new Todo(details);
+            break;
+        case "deadline":
+            newTask = new Deadline(details);
+            break;
+        case "event":
+            newTask = new Event(details);
+            break;
+        default:
+            System.out.println("Invalid Command");
+            return;
         }
+        tasks[numOfTasks++] = newTask;
+        printAddTaskMessage(newTask);
     }
 
     private static void printAddTaskMessage(Task newTask) {
@@ -63,31 +59,18 @@ public class Iris {
                 + " tasks in the list");
     }
 
-    public static void markTask(String text) {
+    public static void changeTaskStatus(String text, boolean status) {
         try {
-            Task taskToMark = getTaskToEdit(text);
-            taskToMark.markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n"
-                    + taskToMark);
+            Task taskToChange = getTaskToChangeStatus(text);
+            taskToChange.mark(status);
+            printChangeTaskStatusMessage(taskToChange, status);
         }
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static void unmarkTask(String text) {
-        try {
-            Task taskToUnmark = getTaskToEdit(text);
-            taskToUnmark.unmarkFromDone();
-            System.out.println("OK, I've marked this task as not done yet:\n"
-                    + taskToUnmark);
-        }
-        catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static Task getTaskToEdit(String text) {
+    private static Task getTaskToChangeStatus(String text) {
         try {
             String[] textParts = text.split(" ");
             if (textParts.length == 1) {
@@ -104,6 +87,15 @@ public class Iris {
         }
     }
 
+    public static void printChangeTaskStatusMessage(Task task, boolean status) {
+        if (status) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println(task);
+    }
+
     public static boolean chat(String text) {
         String command = text.split(" ")[0].toLowerCase();
         printDivider();
@@ -118,10 +110,10 @@ public class Iris {
             listTasks();
             break;
         case "mark":
-            markTask(text);
+            changeTaskStatus(text, true);
             break;
         case "unmark":
-            unmarkTask(text);
+            changeTaskStatus(text, false);
             break;
         default:
             addTask(text);

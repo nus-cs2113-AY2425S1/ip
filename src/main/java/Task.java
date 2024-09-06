@@ -35,11 +35,7 @@ public class Task {
         return getStatus() + description + date;
     }
 
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void unmarkFromDone() {
-        isDone = false;
+    public void mark(boolean status) {
+        isDone = status;
     }
 }
