@@ -11,25 +11,19 @@ public class Task {
 
     public Task(String details) {
         this.isDone = false;
-		String[] textParts = details.split("/", 3);
+		String[] textParts = details.split("/");
 		this.description = textParts[0];
 
 		int numOfParts = textParts.length;
-		switch (numOfParts) {
-		case 1:
-			this.date = "";
-			break;
-		case 2:
-			this.date = "("
-					+ formatDate(textParts[1])
-					+ ")";
-			break;
-		case 3:
-			this.date = "("
-					+ formatDate(textParts[1])
-					+ formatDate(textParts[2])
-					+ ")";
-		}
+        if (numOfParts == 1) {
+            this.date = "";
+            return;
+        }
+        String date = "(";
+        for (int i = 1; i < numOfParts; i++) {
+            date = date.concat(formatDate(textParts[i]));
+        }
+        this.date = date.concat(")");
     }
 
     public String getStatus() {
