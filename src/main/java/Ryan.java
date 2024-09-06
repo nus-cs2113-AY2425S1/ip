@@ -73,6 +73,7 @@ public class Ryan {
     }
 
     private static void handleMark(ArrayList<Task> tasks, String inputBody) {
+        Utils.horizontalLine();
         int index = Integer.parseInt(inputBody) - 1;
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).mark();
@@ -85,6 +86,7 @@ public class Ryan {
     }
 
     private static void handleUnmark(ArrayList<Task> tasks, String inputBody) {
+        Utils.horizontalLine();
         int index = Integer.parseInt(inputBody) - 1;
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).unmark();
@@ -118,11 +120,19 @@ public class Ryan {
     }
 
     private static void addDeadline(ArrayList<Task> tasks, String command) {
-        String[] splitCommand = command.split("/by", 2);
-        String description = splitCommand[0];
-        String by = splitCommand[1];
-
         Utils.horizontalLine();
+
+        String[] splitCommand = command.split("/by", 2);
+
+        if (splitCommand.length < 2) {
+            System.out.println("Error: Deadline tasks should be in the format 'description /by deadline'.");
+            Utils.horizontalLine();
+            return;
+        }
+
+        String description = splitCommand[0].trim();
+        String by = splitCommand[1].trim();
+
         Task task = new Deadline(description, by);
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
@@ -131,14 +141,30 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void addEvent(ArrayList<Task> tasks, String command) {
-        String[] splitFrom = command.split("/from", 2);
-        String description = splitFrom[0];
-        String[] splitTo = splitFrom[1].split("/to", 2);
-        String from = splitTo[0];
-        String to = splitTo[1];
 
+    private static void addEvent(ArrayList<Task> tasks, String command) {
         Utils.horizontalLine();
+
+        String[] splitFrom = command.split("/from", 2);
+
+        if (splitFrom.length < 2) {
+            System.out.println("Error: Event tasks should be in the format 'description /from start-time /to end-time'.");
+            Utils.horizontalLine();
+            return;
+        }
+
+        String description = splitFrom[0].trim();
+        String[] splitTo = splitFrom[1].split("/to", 2);
+
+        if (splitTo.length < 2) {
+            System.out.println("Error: Event tasks should include both start-time and end-time.");
+            Utils.horizontalLine();
+            return;
+        }
+
+        String from = splitTo[0].trim();
+        String to = splitTo[1].trim();
+
         Task task = new Event(description, from, to);
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
@@ -146,6 +172,7 @@ public class Ryan {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         Utils.horizontalLine();
     }
+
 
     private static void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
