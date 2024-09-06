@@ -41,12 +41,10 @@ public class Nell {
     }
 
     /**
-     * Lists out the currently stored tasks in TaskList, upon receipt of the
-     * list3 command
+     * Lists out the currently stored tasks in TaskList
      *
      */
-    private static void executeCommandList() {
-        // List out stored tasks
+    private static void listTasks() {
         System.out.println("-> The tasks listed are as follows:");
         for (int i = 0; i < taskCount; i++) {
             // Prints all tasks in list
@@ -55,11 +53,11 @@ public class Nell {
     }
 
     /**
-     * Executes a todo command with a given command body
+     * Adds a ToDo to the task list
      *
      * @param commandBody The command body
      */
-    private static void executeCommandToDo(String commandBody) {
+    private static void addToDo(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         ToDo toDoToAdd = new ToDo(commandBody);
         listAddTask(toDoToAdd);
@@ -68,11 +66,11 @@ public class Nell {
     }
 
     /**
-     * Executes a deadline command with a given command body
+     * Adds a deadline to the task list
      *
      * @param commandBody The command body
      */
-    private static void executeCommandDeadline(String commandBody) {
+    private static void addDeadline(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         String[] commandWords = commandBody.split("/by");
         Deadline deadlineToAdd = new Deadline(commandWords[0].trim(), commandWords[1].trim());
@@ -82,11 +80,11 @@ public class Nell {
     }
 
     /**
-     * Executes an event command with a given command body
+     * Adds an event command to the task list
      *
      * @param commandBody The command body
      */
-    private static void executeCommandEvent(String commandBody) {
+    private static void addEvent(String commandBody) {
         System.out.println("-> The task has been added to the list:");
         String[] commandWords = commandBody.split("/from|/to", 3);
         Event eventToAdd = new Event(commandWords[0].trim(), commandWords[1].trim(), commandWords[2].trim());
@@ -96,11 +94,11 @@ public class Nell {
     }
 
     /**
-     * Executes an unmark command with a given command body
+     * Unmarks a task as done
      *
      * @param commandBody The command body
      */
-    private static void executeCommandUnmark(String commandBody) {
+    private static void unmarkTask(String commandBody) {
         int taskIndex = Integer.parseInt(commandBody);
         if (checkIfTaskValid(taskIndex)) {
             tasks[taskIndex - 1].setDone(false);
@@ -112,11 +110,11 @@ public class Nell {
     }
 
     /**
-     * Executes a mark command with a given command body
+     * Marks a task as done
      *
      * @param commandBody The command body
      */
-    private static void executeCommandMark(String commandBody) {
+    private static void markTask(String commandBody) {
         int taskIndex = Integer.parseInt(commandBody);
         if (checkIfTaskValid(taskIndex)) {
             tasks[taskIndex - 1].setDone(true);
@@ -132,7 +130,7 @@ public class Nell {
      *
      * @param command The command body
      */
-    private static void executeCommandAddTask(String command) {
+    private static void addTask(String command) {
         Task taskToAdd = new Task(command);
         listAddTask(taskToAdd);
         System.out.printf("-> added: %s%n", command);
@@ -176,31 +174,31 @@ public class Nell {
                 break;
 
             case "list":
-                executeCommandList();
+                listTasks();
                 break;
 
             case "mark":
-                executeCommandMark(commandWords[1]);
+                markTask(commandWords[1]);
                 break;
 
             case "unmark":
-                executeCommandUnmark(commandWords[1]);
+                unmarkTask(commandWords[1]);
                 break;
 
             case "todo":
-                executeCommandToDo(commandWords[1]);
+                addToDo(commandWords[1]);
                 break;
 
             case "deadline":
-                executeCommandDeadline(commandWords[1]);
+                addDeadline(commandWords[1]);
                 break;
 
             case "event":
-                executeCommandEvent(commandWords[1]);
+                addEvent(commandWords[1]);
                 break;
 
             default:
-                executeCommandAddTask(command);
+                addTask(command);
                 break;
             }
         }
