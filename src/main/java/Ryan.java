@@ -26,6 +26,10 @@ public class Ryan {
                     printTasks(tasks);
                     break;
 
+                case "todo":
+                    addTodo(tasks, inputBody);
+                    break;
+
                 case "mark":
                     handleMark(tasks, inputBody);
                     break;
@@ -60,8 +64,8 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void handleMark(ArrayList<Task> tasks, String remainingCommand) {
-        int index = Integer.parseInt(remainingCommand) - 1;
+    private static void handleMark(ArrayList<Task> tasks, String inputBody) {
+        int index = Integer.parseInt(inputBody) - 1;
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).mark();
             System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
@@ -72,8 +76,8 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void handleUnmark(ArrayList<Task> tasks, String remainingCommand) {
-        int index = Integer.parseInt(remainingCommand) - 1;
+    private static void handleUnmark(ArrayList<Task> tasks, String inputBody) {
+        int index = Integer.parseInt(inputBody) - 1;
         if (isValidIndex(index, tasks.size())) {
             tasks.get(index).unmark();
             System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
@@ -82,6 +86,7 @@ public class Ryan {
         }
         Utils.horizontalLine();
     }
+
 
     private static boolean isValidIndex(int index, int size) {
         return index >= 0 && index < size;
@@ -92,6 +97,16 @@ public class Ryan {
         Task task = new Task(userInput);
         tasks.add(task);
         System.out.println("added: " + userInput);
+        Utils.horizontalLine();
+    }
+
+    private static void addTodo(ArrayList<Task> tasks, String command) {
+        Utils.horizontalLine();
+        Task task = new Todo(command);
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         Utils.horizontalLine();
     }
 
