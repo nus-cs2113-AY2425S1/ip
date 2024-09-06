@@ -64,26 +64,26 @@ public class Iris {
             taskToChange.mark(status);
             printChangeTaskStatusMessage(taskToChange, status);
         }
-        catch (IllegalArgumentException e) {
+        catch (IrisExceptions e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static Task getTaskToChangeStatus(String text) {
+    private static Task getTaskToChangeStatus(String text) throws IrisExceptions {
         try {
             String[] textParts = text.split(" ");
             if (textParts.length == 1) {
-                throw new IllegalArgumentException("NOO!!! Missing task number");
+                throw new IrisExceptions("NOO!!! Missing task number");
             }
 
             int taskIndex = Integer.parseInt(textParts[1]) - 1;
             boolean isInvalidTaskIndex = taskIndex >= numOfTasks || taskIndex < 0;
             if (isInvalidTaskIndex) {
-                    throw new IllegalArgumentException("WHAT!!! This task does not exist");
+                    throw new IrisExceptions("WHAT!!! This task does not exist");
             }
             return tasks[taskIndex];
         } catch (NumberFormatException e) { // from parseInt
-            throw new IllegalArgumentException("HMMM... The index of the task must be an integer");
+            throw new IrisExceptions("HMMM... The index of the task must be an integer");
         }
     }
 
