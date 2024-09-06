@@ -7,6 +7,7 @@ public class Todo extends Task {
     public String getTypeMarker() {
         return "[T]";
     }
+    @Override
     public void print() {
         System.out.print(getTypeMarker());
         super.print();

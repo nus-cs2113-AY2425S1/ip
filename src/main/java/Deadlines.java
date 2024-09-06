@@ -16,6 +16,7 @@ public class Deadlines extends Task {
     public String getTypeMarker() {
         return "[D]";
     }
+    @Override
     public void print() {
         System.out.print(getTypeMarker());
         System.out.print(getDoneMarker() + " " + this.task);

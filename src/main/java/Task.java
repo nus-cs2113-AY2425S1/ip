@@ -1,33 +1,30 @@
 public class Task {
     protected static int length = 0;
     protected String task;
-    protected boolean done;
+    protected boolean isDone;
 
-    public Task(String task, boolean done) {
+    public Task(String task, boolean isDone) {
         this.task = task;
-        this.done = done;
+        this.isDone = isDone;
         length++;
     }
 
     public Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
         length++;
     }
 
     public Task() {
         this.task = "";
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getDoneMarker() {
-        String doneMarker = "";
-        if (this.done) {
-            doneMarker = "[X]";
-        } else {
-            doneMarker = "[ ]";
+        if (this.isDone) {
+            return "[X]";
         }
-        return doneMarker;
+        return "[ ]";
     }
 
     public static int getLength() {
@@ -43,11 +40,11 @@ public class Task {
     }
 
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public void print() {

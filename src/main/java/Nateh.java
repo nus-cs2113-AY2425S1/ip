@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class Nateh {
-    public static String lineBreak = "____________________________________________________________\n";
+    public static final String LINE_BREAK = "____________________________________________________________\n";
     public static void printList(Task[] list, int length) {
-        System.out.print(lineBreak);
+        System.out.print(LINE_BREAK);
         for (int i = 0; i < length; i++) {
             System.out.print(i + 1 + ". ");
             list[i].print();
         }
-        System.out.print(lineBreak);
+        System.out.print(LINE_BREAK);
     }
 
     public static void main(String[] args) {
@@ -42,11 +42,11 @@ public class Nateh {
         String input = "";
         Task[] list = new Task[100];
         list[0] = new Task();
-        int index = 0;
-        System.out.print(lineBreak);
+        int index;
+        System.out.print(LINE_BREAK);
         System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(skeleton);
-        System.out.print(lineBreak);
+        System.out.print(LINE_BREAK);
         while (!input.equals("bye")) {
             input = in.nextLine();
             String[] splitInput = input.split(" ");
@@ -57,49 +57,49 @@ public class Nateh {
             case "mark":
                 index = Integer.parseInt(splitInput[1]) - 1;
                 list[index].setDone(true);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.println("Wow! Great job! :)");
                 list[index].print();
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             case "unmark":
                 index = Integer.parseInt(splitInput[1]) - 1;
                 list[index].setDone(false);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.println("Aw you didn't get to finish. :(");
                 list[index].print();
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             case "bye":
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.println("Bye. See you next time!");
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             case "todo":
                 list[Task.getLength()] = new Todo(input);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.println("added: " + list[Task.getLength() - 1].getTask());
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             case "deadline":
                 list[Task.getLength()] = new Deadlines(input);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.print("added: ");
                 list[Task.getLength() - 1].print();
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             case "event":
                 list[Task.getLength()] = new Event(input);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.print("added: ");
                 list[Task.getLength() - 1].print();
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             default:
                 list[Task.getLength()] = new Task(input);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 System.out.println("added: " + input);
-                System.out.print(lineBreak);
+                System.out.print(LINE_BREAK);
                 break;
             }
         }
