@@ -17,6 +17,15 @@ public class TaskList {
         taskCount = 0;
     }
 
+    public static void printSeparator() {
+        System.out.println(SEPARATOR);
+    }
+
+    public static String joinStringArray(String[] array, int from, int to, String delimiter) {
+        String[] arrayCopy = Arrays.copyOfRange(array, from, to);
+        return String.join(delimiter, arrayCopy);
+    }
+
     public void addToTaskList(String input) {
         allTasks[taskCount] = new Task(taskCount + 1, input);
         taskCount++;
@@ -26,7 +35,7 @@ public class TaskList {
 
     public void printTaskList() {
         if (taskCount == 0) {
-            System.out.println("No tasks added!");
+            System.out.println("\tNo tasks added!");
             return;
         }
 
@@ -51,6 +60,7 @@ public class TaskList {
 
     public void markTaskAsDone(int id) {
         allTasks[id - 1].markTaskAsDone();
+
         System.out.println("\tGreat! I've marked this task as done:");
         System.out.println("\t  " + allTasks[id - 1]);
         printSeparator();
@@ -58,6 +68,7 @@ public class TaskList {
 
     public void unmarkTaskAsDone(int id) {
         allTasks[id - 1].unmarkTaskAsDone();
+
         System.out.println("\tOK, I've marked this task as undone:");
         System.out.println("\t  " + allTasks[id - 1]);
         printSeparator();
@@ -65,8 +76,10 @@ public class TaskList {
 
     public void addTodo(String[] tokens) {
         String description = String.join(" ", tokens);
+
         allTasks[taskCount] = new Todo(taskCount + 1, description);
         taskCount++;
+
         printAddedTask();
     }
 
@@ -81,12 +94,13 @@ public class TaskList {
         if (byIndex == -1) {
             //handleIncompleteInput();
         }
-        String[] descriptionArray = Arrays.copyOfRange(tokens, 0, byIndex);
-        String description = String.join(" ", descriptionArray);
-        String[] byArray = Arrays.copyOfRange(tokens, byIndex + 1, tokens.length);
-        String by = String.join(" ", byArray);
+
+        String description = joinStringArray(tokens, 0, byIndex, " ");
+        String by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
+
         allTasks[taskCount] = new Deadline(taskCount + 1, description, by);
         taskCount++;
+
         printAddedTask();
     }
 
@@ -104,18 +118,14 @@ public class TaskList {
         if (fromIndex == -1 || toIndex == -1) {
             //handleIncompleteInput();
         }
-        String[] descriptionArray = Arrays.copyOfRange(tokens, 0, fromIndex);
-        String description = String.join(" ", descriptionArray);
-        String[] fromArray = Arrays.copyOfRange(tokens, fromIndex + 1, toIndex);
-        String from = String.join(" ", fromArray);
-        String[] toArray = Arrays.copyOfRange(tokens, toIndex + 1, tokens.length);
-        String to = String.join(" ", toArray);
+
+        String description = joinStringArray(tokens, 0, fromIndex, " ");
+        String from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
+        String to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
+
         allTasks[taskCount] = new Event(taskCount + 1, description, from, to);
         taskCount++;
-        printAddedTask();
-    }
 
-    public static void printSeparator() {
-        System.out.println(SEPARATOR);
+        printAddedTask();
     }
 }

@@ -10,12 +10,11 @@ public class Melchizedek {
         System.out.println(SEPARATOR);
     }
 
-    public static void greetUser() {
+    public static void sayHelloToUser() {
         printSeparator();
         System.out.println("\tHello! I'm Melchizedek.");
         System.out.println("\tHow can I be a blessing to you?");
         printSeparator();
-
     }
 
     public static void sayByeToUser() {
@@ -24,34 +23,44 @@ public class Melchizedek {
     }
 
     public static void main(String[] args) {
-        greetUser();
+        sayHelloToUser();
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
-            printSeparator();
             String[] tokens = input.split(" ");
+            
+            printSeparator();
+
             switch (tokens[0].toLowerCase()) {
+
             case "bye":
                 sayByeToUser();
                 return;
+
             case "list":
                 taskList.printTaskList();
                 break;
+
             case "mark":
                 taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
                 break;
+
             case "unmark":
                 taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
                 break;
+
             case "todo":
                 taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
+
             case "deadline":
                 taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
+
             case "event":
                 taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
+
             default:
                 taskList.addToTaskList(input);
             }
