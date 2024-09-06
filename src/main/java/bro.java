@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class bro {
 
     private static final ArrayList<Task> storer = new ArrayList<>();
-    private static final ArrayList<String> mark_tracker = new ArrayList<>();
+//    private static final ArrayList<String> mark_tracker = new ArrayList<>();
 
     public static void level0() {
         System.out.println("Hello! I'm bro");
@@ -68,7 +68,21 @@ public class bro {
                 System.out.println("Got it. I've added this task\n " + event);
                 System.out.println("Now you have " + storer.size() + " tasks in the list.");
 
-            } else {
+            } else if (line.startsWith("mark")) {
+
+                int task_num = Integer.parseInt(line.split(" ")[1]) - 1;
+                Task task  = storer.get(task_num);
+                task.markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(storer.get(task_num));
+
+            } else if (line.startsWith("unmark")) {
+                int task_num = Integer.parseInt(line.split(" ")[1]) - 1;
+                Task task  = storer.get(task_num);
+                task.markAsUndone();
+                System.out.println("Ok, I've marked this task as not done yet:");
+                System.out.println(storer.get(task_num));
+            }  else {
                 storer.add(new Task(line));
             }
 
@@ -79,45 +93,45 @@ public class bro {
 
     }
 
-    public static void mark() {
-
-//      track if the current job is marked or unmarked
-        for (int i = 0; i < storer.size(); i++) {
-//            System.out.println((i + 1) + ". " + storer.get(i));
-            mark_tracker.add("[]");
-        }
-
-        String line;
-        Scanner in = new Scanner(System.in);
-
-        while(true) {
-
-            line = in.nextLine();
-            String[] split_line = line.split(" ");
-
-            if (line.equals("list")) {
-
-                for (int i = 0; i < storer.size(); i++) {
-                    System.out.println((i + 1) + ". " + mark_tracker.get(i) + " " + storer.get(i));
-                }
-
-            } else if (split_line[0].equals("mark")) {
-
-                int task_num = Integer.parseInt(split_line[1]) - 1;
-                mark_tracker.set(task_num, "[X]");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + storer.get(task_num));
-
-            } else if (split_line[0].equals("unmark")) {
-                int task_num = Integer.parseInt(split_line[1]) - 1;
-                mark_tracker.set(task_num, "[]");
-                System.out.println("Ok, I've marked this task as not done yet:");
-                System.out.println("[] " + storer.get(task_num));
-            }
-        }
-
-
-    }
+//    public static void mark() {
+//
+////      track if the current job is marked or unmarked
+//        for (int i = 0; i < storer.size(); i++) {
+////            System.out.println((i + 1) + ". " + storer.get(i));
+//            mark_tracker.add("[]");
+//        }
+//
+//        String line;
+//        Scanner in = new Scanner(System.in);
+//
+//        while(true) {
+//
+//            line = in.nextLine();
+//            String[] split_line = line.split(" ");
+//
+//            if (line.equals("list")) {
+//
+//                for (int i = 0; i < storer.size(); i++) {
+//                    System.out.println((i + 1) + ". " + mark_tracker.get(i) + " " + storer.get(i));
+//                }
+//
+//            } else if (split_line[0].equals("mark")) {
+//
+//                int task_num = Integer.parseInt(split_line[1]) - 1;
+//                mark_tracker.set(task_num, "[X]");
+//                System.out.println("Nice! I've marked this task as done:");
+//                System.out.println("[X] " + storer.get(task_num));
+//
+//            } else if (split_line[0].equals("unmark")) {
+//                int task_num = Integer.parseInt(split_line[1]) - 1;
+//                mark_tracker.set(task_num, "[]");
+//                System.out.println("Ok, I've marked this task as not done yet:");
+//                System.out.println("[] " + storer.get(task_num));
+//            }
+//        }
+//
+//
+//    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -129,7 +143,7 @@ public class bro {
 //        level0();
 //        echo();
         addList();
-        mark();
+//        mark();
 
     }
 }
