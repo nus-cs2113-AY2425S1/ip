@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KBot {
-    // Define a constant for the separator line
     private static final String SEPARATOR = "____________________________________________________________";
-
     private ArrayList<Task> tasks;
     private Scanner scanner;
 
@@ -13,140 +11,157 @@ public class KBot {
         scanner = new Scanner(System.in);
     }
 
+    public static void main(String[] args) {
+        KBot bot = new KBot();
+        bot.run();
+    }
+
+    // High-level logic for running the bot
     public void run() {
         greetUser();
 
-        while (true) {
-            String input = getUserInput();
-            String[] inputParts = input.split(" ", 2); // Split input into command and arguments
-            String command = inputParts[0];
-
-            switch (command) {
-                case "bye":
-                    exit();
-                    return;
-
-                case "list":
-                    listTasks();
-                    break;
-
-                case "mark":
-                    if (inputParts.length > 1) {
-                        markTaskAsDone(Integer.parseInt(inputParts[1]) - 1);
-                    }
-                    break;
-
-                case "unmark":
-                    if (inputParts.length > 1) {
-                        markTaskAsNotDone(Integer.parseInt(inputParts[1]) - 1);
-                    }
-                    break;
-
-                case "todo":
-                    if (inputParts.length > 1) {
-                        addTodo(inputParts[1]);
-                    }
-                    break;
-
-                case "deadline":
-                    if (inputParts.length > 1) {
-                        addDeadline(inputParts[1]);
-                    }
-                    break;
-
-                case "event":
-                    if (inputParts.length > 1) {
-                        addEvent(inputParts[1]);
-                    }
-                    break;
-
-                default:
-                    System.out.println("Unknown command.");
-                    break;
-            }
+        boolean isRunning = true;
+        while (isRunning) {
+            String userInput = getUserInput();
+            isRunning = handleCommand(userInput);
         }
+
+        exit();
     }
 
+    // Handles user commands and returns false if the bot should stop running
+    private boolean handleCommand(String input) {
+        String[] inputParts = input.split(" ", 2);
+        String command = inputParts[0];
+        String argument = (inputParts.length > 1) ? inputParts[1] : "";
+
+        switch (command) {
+            case "bye":
+                return false;
+            case "list":
+                listTasks();
+                break;
+            case "mark":
+                markTaskAsDone(Integer.parseInt(argument) - 1);
+                break;
+            case "unmark":
+                markTaskAsNotDone(Integer.parseInt(argument) - 1);
+                break;
+            case "todo":
+                addTodoTask(argument);
+                break;
+            case "deadline":
+                addDeadlineTask(argument);
+                break;
+            case "event":
+                addEventTask(argument);
+                break;
+            default:
+                showUnknownCommandMessage();
+                break;
+        }
+        return true;
+    }
+
+    // Utility Methods
+
+    // Greet the user at the start
     private void greetUser() {
-        System.out.println(SEPARATOR);
+        printSeparator();
         System.out.println("Hello! I'm KBot");
         System.out.println("What can I do for you?");
+        printSeparator();
+    }
+
+    // Display a separator line
+    private void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
+    // Get user input
     private String getUserInput() {
         return scanner.nextLine();
     }
 
-    private void addTodo(String description) {
+    // Add a todo task
+    private void addTodoTask(String description) {
         Task task = new Todo(description);
         tasks.add(task);
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        printTaskAddedMessage(task);
     }
 
-    private void addDeadline(String input) {
+    // Add a deadline task
+    private void addDeadlineTask(String input) {
         String[] parts = input.split(" /by ");
         Task task = new Deadline(parts[0], parts[1]);
         tasks.add(task);
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        printTaskAddedMessage(task);
     }
 
-    private void addEvent(String input) {
+    // Add an event task
+    private void addEventTask(String input) {
         String[] parts = input.split(" /from | /to ");
         Task task = new Event(parts[0], parts[1], parts[2]);
         tasks.add(task);
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        printTaskAddedMessage(task);
     }
 
+    // List all tasks
     private void listTasks() {
-        System.out.println(SEPARATOR);
+        printSeparator();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
-        System.out.println(SEPARATOR);
+        printSeparator();
     }
 
+    // Mark a task as done
     private void markTaskAsDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsDone();
-            System.out.println(SEPARATOR);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks.get(index));
-            System.out.println(SEPARATOR);
-        }
+        tasks.get(index).markAsDone();
+        printMarkDoneMessage(tasks.get(index));
     }
 
+    // Mark a task as not done
     private void markTaskAsNotDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsNotDone();
-            System.out.println(SEPARATOR);
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(index));
-            System.out.println(SEPARATOR);
-        }
+        tasks.get(index).markAsNotDone();
+        printMarkNotDoneMessage(tasks.get(index));
     }
 
+    // Show a message for unknown commands
+    private void showUnknownCommandMessage() {
+        printSeparator();
+        System.out.println("Unknown command.");
+        printSeparator();
+    }
+
+    // Print exit message
     private void exit() {
-        System.out.println(SEPARATOR);
+        printSeparator();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(SEPARATOR);
+        printSeparator();
     }
 
-    public static void main(String[] args) {
-        KBot bot = new KBot();
-        bot.run();
+    // Print helper messages
+    private void printTaskAddedMessage(Task task) {
+        printSeparator();
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        printSeparator();
+    }
+
+    private void printMarkDoneMessage(Task task) {
+        printSeparator();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + task);
+        printSeparator();
+    }
+
+    private void printMarkNotDoneMessage(Task task) {
+        printSeparator();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  " + task);
+        printSeparator();
     }
 }
