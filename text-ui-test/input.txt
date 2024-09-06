@@ -1,17 +1,22 @@
-hello
+echo hello
 event Anime Festival /from Dec 10 /to Dec 12
 deadline Registry /by Dec 10
 event a /from
 deadline x
+todo
+event /from/to
+list 1234
 list
 mark 1
+mark 2 4 6
 mark 3
-list
 unmark 1
 todo Read book
 list
 delete 1
 mark 2
+delete x
 list
-help
+help halo
+bye 123
 bye

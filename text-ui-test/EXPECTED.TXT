@@ -8,34 +8,44 @@
 	What can I do for you? Let's chat <3
 
 	---------------------------------------------
-	event [task description] /from [time] /to [time]: Add a new event to our list.
 	todo [task description]: Add a new to-do task to our list.
+	help: Print this guide.
+	echo [string]: Echo the string.
 	deadline [task description] /by [time]:Add a new deadline to our list.
+	event [task description] /from [time] /to [time]: Add a new event to our list.
+	list: List all current tasks.
 	delete [task index]: Delete the task at the given index.
 	mark [task index]: Mark the task at the given index as done.
-	unmark [task index]: Mark the task at the given index as undone.
-	list: List all current tasks.
-	bye: End the program.
-	help: Print this guide.
+	unmark [task index]: unmark the task at the given index.
+	bye: End the chat.
 	---------------------------------------------
 	---------------------------------------------
 	hello
 	---------------------------------------------
 	---------------------------------------------
-	Got it. I've added this task:
-	   [E][ ] Anime Festival (from: Dec 10 to: Dec 12)
+	Got it. I've added this event:
+	[E][ ] Anime Festival (from: Dec 10 to: Dec 12)
 	You currently have 1 tasks in the list.
 	---------------------------------------------
 	---------------------------------------------
-	Got it. I've added this task:
-	   [D][ ] Registry (by: Dec 10)
+	Got it. I've added this deadline:
+	[D][ ] Registry (by: Dec 10)
 	You currently have 2 tasks in the list.
 	---------------------------------------------
 	---------------------------------------------
-	Not enough arguments! Please check your syntax.
+	Wrong arguments! Please check your syntax: event [task description] /from [time] /to [time]: Add a new event to our list.
 	---------------------------------------------
 	---------------------------------------------
-	Not enough arguments! Please check your syntax.
+	Wrong arguments! Please check your syntax: deadline [task description] /by [time]:Add a new deadline to our list.
+	---------------------------------------------
+	---------------------------------------------
+	Wrong arguments! Please check your syntax: todo [task description]: Add a new to-do task to our list.
+	---------------------------------------------
+	---------------------------------------------
+	Wrong arguments! Please check your syntax: event [task description] /from [time] /to [time]: Add a new event to our list.
+	---------------------------------------------
+	---------------------------------------------
+	Wrong arguments! Please check your syntax: list: List all current tasks.
 	---------------------------------------------
 	---------------------------------------------
 	Here are the tasks in your list:
@@ -47,20 +57,18 @@
 	[E][X] Anime Festival (from: Dec 10 to: Dec 12)
 	---------------------------------------------
 	---------------------------------------------
-	Index is out of bound!
+	Wrong arguments! Please check your syntax: mark [task index]: Mark the task at the given index as done.
 	---------------------------------------------
 	---------------------------------------------
-	Here are the tasks in your list:
-	1. [E][X] Anime Festival (from: Dec 10 to: Dec 12)
-	2. [D][ ] Registry (by: Dec 10)
+	Index is out of bound! Your list currently has 2 task(s).
 	---------------------------------------------
 	---------------------------------------------
-	OK, I've marked this task as not done yet:
+	OK, I've marked this task as undone:
 	[E][ ] Anime Festival (from: Dec 10 to: Dec 12)
 	---------------------------------------------
 	---------------------------------------------
-	Got it. I've added this task:
-	   [T][ ] Read book
+	Got it. I've added this todo:
+	[T][ ] Read book
 	You currently have 3 tasks in the list.
 	---------------------------------------------
 	---------------------------------------------
@@ -79,21 +87,19 @@
 	[T][X] Read book
 	---------------------------------------------
 	---------------------------------------------
+	Wrong arguments! Please check your syntax: delete [task index]: Delete the task at the given index.
+	---------------------------------------------
+	---------------------------------------------
 	Here are the tasks in your list:
 	1. [D][ ] Registry (by: Dec 10)
 	2. [T][X] Read book
 	---------------------------------------------
 	---------------------------------------------
-	event [task description] /from [time] /to [time]: Add a new event to our list.
-	todo [task description]: Add a new to-do task to our list.
-	deadline [task description] /by [time]:Add a new deadline to our list.
-	delete [task index]: Delete the task at the given index.
-	mark [task index]: Mark the task at the given index as done.
-	unmark [task index]: Mark the task at the given index as undone.
-	list: List all current tasks.
-	bye: End the program.
-	help: Print this guide.
+	Wrong arguments! Please check your syntax: help: Print this guide.
 	---------------------------------------------
 	---------------------------------------------
-	Bye bae. Hope to see you again soon! Moah~
+	Wrong arguments! Please check your syntax: bye: End the chat.
+	---------------------------------------------
+	---------------------------------------------
+	Bye bae. Hope to see you again! Moah~
 	---------------------------------------------
