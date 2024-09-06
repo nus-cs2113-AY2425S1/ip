@@ -26,7 +26,7 @@ public class lovespiritual {
                 markTask(input, taskCount, isMarked, tasks);
             } else if (input.startsWith("unmark ")) {
                 unmarkTask(input, taskCount, isMarked, tasks);
-            } else if (input.startsWith("todo ")){
+            } else if (input.startsWith("todo")){
                 taskCount = todo(input, tasks, taskCount, taskTypes);
             } else if (input.startsWith("deadline ")){
                 taskCount = deadline(input, taskTypes, taskCount, tasks);
@@ -39,12 +39,26 @@ public class lovespiritual {
     }
 
     private static int event(String input, String[] tasks, int taskCount, String[] taskTypes) {
-        String fullTaskDescription = input.substring("event ".length()).trim();
-        String[] taskDetails = fullTaskDescription.split("from ");
-        String taskDescription = taskDetails[0].trim();
-        String[] time = taskDetails[1].split("to ");
-        String from = time[0].trim();
-        String to = time[1].trim();
+        String fullTaskDescription = input.substring("event".length()).trim();
+        String taskDescription;
+        String from;
+        String to;
+        if (fullTaskDescription.contains("from")) {
+            String[] taskDetails = fullTaskDescription.split("from ");
+            taskDescription = taskDetails[0].trim();
+            if (taskDetails[1].contains("to")) {
+                String[] time = taskDetails[1].split("to ");
+                from = time[0].trim();
+                to = time[1].trim();
+            } else {
+                from = taskDetails[1].trim();
+                to = "null";
+            }
+        } else {
+            taskDescription = fullTaskDescription;
+            from = "null";
+            to = "null";
+        }
         tasks[taskCount] = taskDescription + " (from: " + from + ", to: " + to + ")";
         taskCount++;
         taskTypes[taskCount] = "[E]";
@@ -57,10 +71,17 @@ public class lovespiritual {
     }
 
     private static int deadline(String input, String[] taskTypes, int taskCount, String[] tasks) {
-        String fullTaskDescription = input.substring("deadline ".length()).trim();
-        String[] taskDetails = fullTaskDescription.split("by ");
-        String taskDescription = taskDetails[0].trim();
-        String by = taskDetails[1].trim();
+        String fullTaskDescription = input.substring("deadline".length()).trim();
+        String taskDescription;
+        String by;
+        if (fullTaskDescription.contains("by")) {
+            String[] taskDetails = fullTaskDescription.split("by");
+            taskDescription = taskDetails[0].trim();
+            by = taskDetails[1].trim();
+        } else {
+            taskDescription = fullTaskDescription;
+            by = "null";
+        }
         taskTypes[taskCount] = "[D]";
         tasks[taskCount] = taskDescription + " (by: " + by + ")";
         taskCount++;
@@ -73,7 +94,7 @@ public class lovespiritual {
     }
 
     private static int todo(String input, String[] tasks, int taskCount, String[] taskTypes) {
-        String taskDescription = input.substring("todo ".length()).trim();
+        String taskDescription = input.substring("todo".length()).trim();
         tasks[taskCount] = taskDescription;
         taskTypes[taskCount] = "[T]";
         taskCount++;
@@ -87,7 +108,7 @@ public class lovespiritual {
 
 
     private static void unmarkTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
-        String taskNumber = input.substring("unmark ".length()).trim();
+        String taskNumber = input.substring("unmark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
             isMarked[indexNumber] = false;
@@ -103,7 +124,7 @@ public class lovespiritual {
     }
 
     private static void markTask(String input, int taskCount, boolean[] isMarked, String[] tasks) {
-        String taskNumber = input.substring("mark ".length()).trim();
+        String taskNumber = input.substring("mark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
             isMarked[indexNumber] = true;
