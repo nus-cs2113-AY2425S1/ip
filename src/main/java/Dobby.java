@@ -9,32 +9,60 @@ public class Dobby {
     private static int listSize = 0;
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String line;
 
-        printWelcomeMessage();
+        try (Scanner in = new Scanner(System.in)) {
+            printWelcomeMessage();
+            String line;
 
-        while (true) {
-            line = in.nextLine().trim();
-            if (line.equalsIgnoreCase("bye")){
-                break;
+            while (true) {
+                line = in.nextLine().trim();
+                if (line.equalsIgnoreCase("bye")){
+                    break;
+                }
+                try {
+                    processCommand(line);
+                } catch (MissingDescriptionException e) {
+                    printSeparator();
+                    System.out.println("    Dobby thinks master should add a description here!");
+                    printSeparator();
+                } catch (IllegalInputException e) {
+                    printSeparator();
+                    System.out.println("    Dobby doesn't understand master's command!");
+                    printSeparator();
+                } catch (TaskAlreadyMarkedException e) {
+                    printSeparator();
+                    System.out.println("    Dobby says master's task is already marked!");
+                    printSeparator();
+                } catch (TaskAlreadyUnmarkedException e) {
+                    printSeparator();
+                    System.out.println("    Dobby says master's task is already unmarked!");
+                    printSeparator();
+                }
             }
-            processCommand(line);
+
+            printGoodbyeMessage();
+
         }
 
-        printGoodbyeMessage();
     }
 
-    private static void processCommand(String line) {
+    private static void processCommand (String line)
+            throws MissingDescriptionException, IllegalInputException,
+                TaskAlreadyMarkedException, TaskAlreadyUnmarkedException {
+
         if (line.equals("list")) {
             printList();
         } else if (line.startsWith("mark ")) {
             markTaskAsDone(line);
         } else if (line.startsWith("unmark ")) {
             unmarkTaskAsDone(line);
-        } else {
+        } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
             addTask(line);
+        } else {
+            throw new IllegalInputException();
         }
+
+
     }
 
     private static void printWelcomeMessage() {
@@ -54,32 +82,47 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void addTask(String line) {
+    private static void addTask (String line) throws MissingDescriptionException {
         Task task = createTask(line);
-        addTaskToList(task);
-        printTaskAddedMessage();
+        if (task != null) {
+            addTaskToList(task);
+            printTaskAddedMessage();
+        }
     }
 
-    private static Task createTask(String line) {
-        if (line.startsWith("todo ")) {
+    private static Task createTask(String line) throws MissingDescriptionException {
+        if (line.startsWith("todo")) {
+            if (line.length() <= "todo".length()) {
+                throw new MissingDescriptionException();
+            }
             return new Todo(line.substring("todo ".length()));
-        } else if (line.startsWith("deadline ")) {
+        } else if (line.startsWith("deadline")) {
             return createDeadlineTask(line);
-        } else if (line.startsWith("event ")){
+        } else if (line.startsWith("event")){
             return createEventTask(line);
         }
         return new Task(line);
     }
 
-    private static Deadline createDeadlineTask(String line) {
+    private static Deadline createDeadlineTask(String line) throws MissingDescriptionException {
         String[] lineParts = line.split(" /by ");
+
+        if (lineParts.length < 2 || lineParts[0].length() <= "deadline ".length()) {
+            throw new MissingDescriptionException();
+        }
+
         String taskDescription = lineParts[0].replaceFirst("deadline ", "");
         String byWhen = lineParts[1];
         return new Deadline(taskDescription, byWhen);
     }
 
-    private static Event createEventTask(String line) {
+    private static Event createEventTask(String line) throws MissingDescriptionException {
         String[] lineParts = line.split(" /from | /to ");
+
+        if (lineParts.length < 3 || lineParts[0].length() <= "event ".length()) {
+            throw new MissingDescriptionException();
+        }
+
         String taskDescription = lineParts[0].replaceFirst("event ", "");
         String fromTime = lineParts[1];
         String toTime = lineParts[2];
@@ -87,8 +130,9 @@ public class Dobby {
     }
 
     private static void addTaskToList(Task task) {
-        taskList[listSize] = task;
-        listSize++;
+        if (listSize < MAX_LIST_SIZE) {
+            taskList[listSize++] = task;
+        }
     }
 
     private static void printTaskAddedMessage() {
@@ -105,20 +149,32 @@ public class Dobby {
         printSeparator();
     }
 
-    private static void markTaskAsDone(String line) {
+    private static void markTaskAsDone(String line) throws TaskAlreadyMarkedException {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
-        if (taskNumber > 0 && taskNumber <= listSize){
-            taskList[taskNumber-1].markAsDone();
+        if (isValidTaskNumber(taskNumber)){
+            Task task = taskList[taskNumber-1];
+            if (task.isDone()){
+                throw new TaskAlreadyMarkedException();
+            }
+            task.markAsDone();
             printTaskStatus("done", taskNumber);
         }
     }
 
-    private static void unmarkTaskAsDone(String line) {
+    private static void unmarkTaskAsDone(String line) throws TaskAlreadyUnmarkedException {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
-        if (taskNumber > 0 && taskNumber <= listSize){
-            taskList[taskNumber-1].unmarkAsDone();
+        if (isValidTaskNumber(taskNumber)) {
+            Task task = taskList[taskNumber-1];
+            if (!task.isDone()){
+                throw new TaskAlreadyUnmarkedException();
+            }
+            task.unmarkAsDone();
             printTaskStatus("incomplete", taskNumber);
         }
+    }
+
+    private static boolean isValidTaskNumber(int taskNumber) {
+        return taskNumber > 0 && taskNumber <= listSize;
     }
 
     private static void printTaskStatus(String status, int taskNumber) {
