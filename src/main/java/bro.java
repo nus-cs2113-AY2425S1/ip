@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class bro {
 
-    private static final ArrayList<String> storer = new ArrayList<>();
+    private static final ArrayList<Task> storer = new ArrayList<>();
     private static final ArrayList<String> mark_tracker = new ArrayList<>();
 
     public static void level0() {
@@ -42,18 +42,34 @@ public class bro {
 
             } else if (line.equals("list")) {
 
-//                int tracker = 1;
-//                for (String item : storer) {
-//                    String curr_tracker = Integer.toString(tracker);
-//                    System.out.println(curr_tracker + ". " + item);
-//                    tracker ++;
 
                 for (int i = 0; i < storer.size(); i++) {
                     System.out.println((i + 1) + ". " + storer.get(i));
                 }
 
+            } else if (line.startsWith("todo")) {
+                String description = line.substring(5);
+                Todo todo = new Todo(description);
+                storer.add(todo);
+                System.out.println("Got it. I've added this task\n " + todo);
+                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+
+            } else if (line.startsWith("deadline")) {
+                String[] infos = line.substring(9).split(" /by ");
+                Deadline deadline = new Deadline(infos[0], infos[1]);
+                storer.add(deadline);
+                System.out.println("Got it. I've added this task\n " + deadline);
+                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+
+            } else if (line.startsWith("event")) {
+                String[] infos = line.substring(6).split(" /from | /to ");
+                Event event = new Event(infos[0], infos[1], infos[2]);
+                storer.add(event);
+                System.out.println("Got it. I've added this task\n " + event);
+                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+
             } else {
-                storer.add(line);
+                storer.add(new Task(line));
             }
 
         }
