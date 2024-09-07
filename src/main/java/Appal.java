@@ -76,33 +76,52 @@ public class Appal {
         printSeparator();
     }
 
-    public void markTask(String[] inputDetails, boolean isMark) {
-        int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
-        int listIndex = taskId - 1;
-        Task taskToMark = taskList[listIndex];
-        taskToMark.setDone(isMark);
-        printSeparator();
-        if (isMark) {
-            System.out.println(TASK_DONE_MESSAGE);
-        } else {
-            System.out.println(UNMARK_TASK_MESSAGE);
+    public void markTask(String[] inputDetails, boolean isMark) throws AppalException {
+        try {
+            int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
+            int listIndex = taskId - 1;
+            Task taskToMark = taskList[listIndex];
+            taskToMark.setDone(isMark);
+            printSeparator();
+            if (isMark) {
+                System.out.println(TASK_DONE_MESSAGE);
+            } else {
+                System.out.println(UNMARK_TASK_MESSAGE);
+            }
+            printOneTask(taskToMark);
+            printSeparator();
+        } catch (NumberFormatException | NullPointerException e) {
+            throw new InvalidTaskIndexException();
         }
-        printOneTask(taskToMark);
-        printSeparator();
     }
 
-    public void addToDo(String[] inputDetails) {
+    public void addToDo(String[] inputDetails) throws AppalException {
         int totalToDos = Task.getTotalTasks();
+        if (inputDetails[TASK_INDEX] == null) {
+            throw new EmptyTaskException();
+        }
         taskList[totalToDos] = new ToDo(inputDetails[TASK_INDEX]);
     }
 
-    public void addDeadline(String[] inputDetails) {
+    public void addDeadline(String[] inputDetails) throws AppalException {
         int totalToDos = Task.getTotalTasks();
+        if (inputDetails[TASK_INDEX] == null) {
+            throw new EmptyTaskException();
+        }
+        if (inputDetails[BY_INDEX] == null) {
+            throw new UnspecifiedDeadlineException();
+        }
         taskList[totalToDos] = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
     }
 
-    public void addEvent(String[] inputDetails) {
+    public void addEvent(String[] inputDetails) throws AppalException{
         int totalToDos = Task.getTotalTasks();
+        if (inputDetails[TASK_INDEX] == null) {
+            throw new EmptyTaskException();
+        }
+        if (inputDetails[FROM_INDEX] == null || inputDetails[TO_INDEX] == null) {
+            throw new UnspecifiedEventDurationException();
+        }
         taskList[totalToDos] = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
     }
@@ -121,34 +140,38 @@ public class Appal {
         String line = in.nextLine();
         String[] inputDetails = Parser.extractInputDetails(line);
         String command = inputDetails[COMMAND_INDEX];
-        switch (command) {
-        case COMMAND_BYE:
-            exitAppal();
-            break;
-        case COMMAND_LIST:
-            printTaskList();
-            break;
-        case COMMAND_TODO:
-            addToDo(inputDetails);
-            printReply();
-            break;
-        case COMMAND_DEADLINE:
-            addDeadline(inputDetails);
-            printReply();
-            break;
-        case COMMAND_EVENT:
-            addEvent(inputDetails);
-            printReply();
-            break;
-        case COMMAND_MARK:
-            markTask(inputDetails, true);
-            break;
-        case COMMAND_UNMARK:
-            markTask(inputDetails, false);
-            break;
-        default:
-            handleUnknownInput();
-            break;
+
+        try {
+            switch (command) {
+            case COMMAND_BYE:
+                exitAppal();
+                break;
+            case COMMAND_LIST:
+                printTaskList();
+                break;
+            case COMMAND_TODO:
+                addToDo(inputDetails);
+                printReply();
+                break;
+            case COMMAND_DEADLINE:
+                addDeadline(inputDetails);
+                printReply();
+                break;
+            case COMMAND_EVENT:
+                addEvent(inputDetails);
+                printReply();
+                break;
+            case COMMAND_MARK:
+                markTask(inputDetails, true);
+                break;
+            case COMMAND_UNMARK:
+                markTask(inputDetails, false);
+                break;
+            default:
+                throw new AppalException();
+            }
+        } catch (AppalException e) {
+            printMessage(e.getMessage());
         }
     }
 
