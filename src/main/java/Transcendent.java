@@ -98,7 +98,7 @@ public class Transcendent {
                 } else if (command.equals("help")) {
                     Printer.printHelp();
                 } else if (command.startsWith("mark ") || command.startsWith("unmark ")) {
-                    markUnmark(command);
+                    markOrUnmark(command);
                 } else if (command.startsWith("deadline ")) {
                     List.addDeadline(command);
                 } else if (command.startsWith("todo ")) {
@@ -111,19 +111,17 @@ public class Transcendent {
             }
         }
 
-        private static void markUnmark(String command) {
+        private static void markOrUnmark(String command) {
             String numberString = command.split(" ")[1];
             int index;
             try {
                 index = Integer.parseInt(numberString) - 1;
                 if (index >= List.listCount) {
                     Printer.printInvalidCommand();
+                } else if (command.startsWith("mark ")) {
+                    List.mark(index);
                 } else {
-                    if (command.startsWith("mark ")) {
-                        List.mark(index);
-                    } else {
-                        List.unmark(index);
-                    }
+                    List.unmark(index);
                 }
             } catch (NumberFormatException e) {
                 Printer.printInvalidCommand();
@@ -134,21 +132,20 @@ public class Transcendent {
 
     private static class List {
 
+        public static final int MAX_TASKS = 100;
+
         private static class Task {
             protected String description;
             protected boolean isDone;
             protected int taskNum;
-
             public Task(String description, int taskNum) {
                 this.description = description;
                 this.isDone = false;
                 this.taskNum = taskNum;
             }
-
             public String getStatusIcon() {
                 return (isDone ? "[X]" : "[ ]");
             }
-
             @Override
             public String toString() {
                 return tasks[taskNum].getStatusIcon() + " " + tasks[taskNum].description;
@@ -157,12 +154,10 @@ public class Transcendent {
 
         private static class Deadline extends Task {
             protected String by;
-
             private Deadline(String description, int taskNum, String by) {
                 super(description, taskNum);
                 this.by = by;
             }
-
             @Override
             public String toString() {
                 return (this.taskNum + 1) + "." + "[D]" + super.toString() + " (by: " + by + ")";
@@ -182,13 +177,11 @@ public class Transcendent {
         private static class Event extends Task {
             protected String from;
             protected String to;
-
             private Event(String description, int taskNum, String from, String to) {
                 super(description, taskNum);
                 this.from = from;
                 this.to = to;
             }
-
             @Override
             public String toString() {
                 return (this.taskNum + 1) + "." + "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
@@ -200,7 +193,7 @@ public class Transcendent {
         private static Task[] tasks;
 
         private static void init() {
-            tasks = new Task[100];
+            tasks = new Task[MAX_TASKS];
         }
 
         private static void addDeadline(String taskDesc) {
