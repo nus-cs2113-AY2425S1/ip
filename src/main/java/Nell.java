@@ -1,8 +1,26 @@
 import java.util.Scanner;
 
 public class Nell {
+    private static final String UNMARK_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  unmark <task number>
+            """;
+    private static final String MARK_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  mark <task number>
+            """;
+    private static final String DEADLINE_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  deadline <description> /by <by-date>
+            """;
+    private static final String EVENT_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  event <description> /from <from-date> /to <to-date>
+            """;
+
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
+
 
     /**
      * Prints out the formatted string for the task at a specified index
@@ -71,12 +89,16 @@ public class Nell {
      * @param detail The detail of the deadline
      */
     private static void addDeadline(String detail) {
-        System.out.println("-> The task has been added to the list:");
-        String[] details = detail.split("/by");
-        Deadline deadlineToAdd = new Deadline(details[0].trim(), details[1].trim());
-        listAddTask(deadlineToAdd);
-        System.out.println("   " + deadlineToAdd);
-        System.out.println(String.format("   The list now has %d tasks", taskCount));
+        try {
+            String[] details = detail.split("/by");
+            Deadline deadlineToAdd = new Deadline(details[0].trim(), details[1].trim());
+            System.out.println("-> The task has been added to the list:");
+            listAddTask(deadlineToAdd);
+            System.out.println("   " + deadlineToAdd);
+            System.out.println(String.format("   The list now has %d tasks", taskCount));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(DEADLINE_ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -85,12 +107,16 @@ public class Nell {
      * @param detail The detail of the event
      */
     private static void addEvent(String detail) {
-        System.out.println("-> The task has been added to the list:");
-        String[] details = detail.split("/from|/to", 3);
-        Event eventToAdd = new Event(details[0].trim(), details[1].trim(), details[2].trim());
-        listAddTask(eventToAdd);
-        System.out.println("   " + eventToAdd);
-        System.out.println(String.format("   The list now has %d tasks", taskCount));
+        try {
+            String[] details = detail.split("/from|/to", 3);
+            Event eventToAdd = new Event(details[0].trim(), details[1].trim(), details[2].trim());
+            System.out.println("-> The task has been added to the list:");
+            listAddTask(eventToAdd);
+            System.out.println("   " + eventToAdd);
+            System.out.println(String.format("   The list now has %d tasks", taskCount));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(EVENT_ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -109,10 +135,7 @@ public class Nell {
                 System.out.println("-> Invalid task!");
             }
         } catch (NumberFormatException e) {
-            System.out.println("""
-                    -> Please input the command as follows:
-                          unmark <task number>
-                    """);
+            System.out.println(UNMARK_ERROR_MESSAGE);
         }
     }
 
@@ -132,22 +155,25 @@ public class Nell {
                 System.out.println("-> Invalid task!");
             }
         } catch (NumberFormatException e) {
-            System.out.print("""
-                    -> Please input the command as follows:
-                          mark <task number>
-                    """);
+            System.out.print(MARK_ERROR_MESSAGE);
         }
     }
 
     /**
-     * Adds an unspecified task to the task list
-     *
-     * @param description The description of the task
+     * Handles wrong or wrongly formatted commands
      */
-    private static void addTask(String description) {
-        Task taskToAdd = new Task(description);
-        listAddTask(taskToAdd);
-        System.out.printf("-> added: %s%n", description);
+    private static void handleIncorrectInput() {
+        System.out.print("""
+                -> Invalid command!
+                   Please enter one of the following commands:
+                      list
+                      mark <number>
+                      unmark <number>
+                      todo <description>
+                      deadline <description> /by <by-date>
+                      event <description> /from <from-date> /to <to-date>
+                      bye
+                """);
     }
 
     /**
@@ -212,7 +238,7 @@ public class Nell {
                 break;
 
             default:
-                addTask(command);
+                handleIncorrectInput();
                 break;
             }
         }
