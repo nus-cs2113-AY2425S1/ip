@@ -67,24 +67,40 @@ public class JeM {
     }
 
     private static void handleDeleteCommand(String line, Storage storage) throws InvalidCommandException {
-        int index = Integer.parseInt(line.split(" ")[1]);
+        String[] parts = line.split(" ");
+        if (parts.length < 2){
+            throw new InvalidCommandException("Provide index of the task to delete");
+        }
+        int index = Integer.parseInt(parts[1]);
         storage.storageDelete(index);
         storage.storageList();
     }
 
     private static void handleUnmarkCommand(String line, Storage storage) throws InvalidCommandException {
+        String[] parts = line.split(" ");
+        if (parts.length < 2){
+            throw new InvalidCommandException("Provide index of the task to unmark");
+        }
         int index = Integer.parseInt(line.split(" ")[1]);
         storage.storageUnmark(index);
         storage.storageList();
     }
 
     private static void handleMarkCommand(String line, Storage storage) throws InvalidCommandException {
+        String[] parts = line.split(" ");
+        if (parts.length < 2){
+            throw new InvalidCommandException("Provide index of the task to mark");
+        }
         int index = Integer.parseInt(line.split(" ")[1]);
         storage.storageMark(index);
         storage.storageList();
     }
 
     private static void handleTodoCommand(String line, Storage storage) throws InvalidCommandException {
+        if (line.trim().length() <= 4){
+            throw new InvalidCommandException("The description of the todo task cannot be empty");
+        }
+
         String taskContent = line.substring(5).trim();
         Task task = new Todo(taskContent);
         storage.storageInsert(task);
@@ -92,6 +108,12 @@ public class JeM {
 
     private static void handleDeadlineCommand(String line, Storage storage) throws InvalidCommandException {
         String[] parts = line.substring(9).split(" /by ");
+        if (parts[0].trim().length() <= 8 ){
+            throw new InvalidCommandException("The description of the deadline task cannot be empty");
+        }
+        if (parts.length < 2){
+            throw new InvalidCommandException("The deadline of the task cannot be empty");
+        }
         String taskContent = parts[0].trim();
         String deadline = parts[1].trim();
         Task task = new Deadline(taskContent, deadline);
@@ -99,11 +121,29 @@ public class JeM {
     }
 
     private static void handleEventCommand(String line, Storage storage) throws InvalidCommandException {
-        String[] parts = line.substring(6).split(" /from ");
-        String taskContent = parts[0].trim();
+        if (!line.contains("/from") || !line.contains("/to")) {
+            throw new InvalidCommandException("Missing start or end date and time");
+        }
+
+        String[] parts = line.split(" /from ");
+        String preCleanedTaskContent = parts[0].trim(); //before removing the word event
+
+        if (preCleanedTaskContent.length() <= 5) {
+            throw new InvalidCommandException("The description of the event task is missing");
+        }
+
+        String taskContent = preCleanedTaskContent.substring(5).trim();
+
+
         String[] dateTime = parts[1].split(" /to ");
+
+        if (dateTime.length < 2) {
+            throw new InvalidCommandException("The start or end date and time are missing");
+        }
+
         String start = dateTime[0].trim();
         String end = dateTime[1].trim();
+
         Task task = new Event(taskContent, start, end);
         storage.storageInsert(task);
     }
