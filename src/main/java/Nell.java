@@ -122,6 +122,8 @@ public class Nell {
             System.out.print(UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
+        } catch (NullPointerException e) {
+            System.out.println(INVALID_TASK_MESSAGE);
         }
     }
 
@@ -139,6 +141,8 @@ public class Nell {
         } catch (NumberFormatException e) {
             System.out.print(MARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
+            System.out.println(INVALID_TASK_MESSAGE);
+        } catch (NullPointerException e) {
             System.out.println(INVALID_TASK_MESSAGE);
         }
     }
