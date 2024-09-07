@@ -2,34 +2,44 @@ import java.util.Scanner;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
 public class UserInterface {
+    private static final int INDEX_OFFSET = 1;
+
     // UI Operations
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc) {
+        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
         Task task = new Task(taskDesc);
         taskManager.addTask(task);
-        task.printAddedTask(taskManager.getTaskCount());
+        task.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String todoDesc, Instruction.InstructionType type) {
+        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
         TaskTodo todo = new TaskTodo(todoDesc); // type is to differentiate between overriden method handleAddInstruction() for task vs todo
         taskManager.addTask(todo);
-        todo.printAddedTask(taskManager.getTaskCount());
+        todo.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
+        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
         TaskDeadline deadline = new TaskDeadline(taskDesc, endDate);
         taskManager.addTask(deadline);
-        deadline.printAddedTask(taskManager.getTaskCount());
+        deadline.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
+        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
         TaskEvent event = new TaskEvent(taskDesc, startDate, endDate);
         taskManager.addTask(event);
-        event.printAddedTask(taskManager.getTaskCount());
+        event.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleMarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        Task task = taskManager.getTask(taskOrdinal - 1); // 0-Indexed
+        int currTaskTotal = taskManager.getCurrTaskTotal();
+        if (taskOrdinal >= 0 && taskOrdinal < currTaskTotal) System.out.println("ordinal invalid");
+        Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsDone();
         OutputStringHandler.printTaskStatus(task, true);
     }
     public static void handleUnmarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        Task task = taskManager.getTask(taskOrdinal - 1); // 0-Indexed
+        int currTaskTotal = taskManager.getCurrTaskTotal();
+        if (taskOrdinal >= 0 && taskOrdinal < currTaskTotal) System.out.println("ordinal invalid");
+        Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsNotDone();
         OutputStringHandler.printTaskStatus(task, false);
     }
@@ -37,6 +47,7 @@ public class UserInterface {
     // Main ChatBot Loop
     public static void startYappin(TaskManager taskManager) {
         System.out.println(StringStorage.START_UP_MESSAGE);
+//        System.out.println(StringStorage.HELP_MESSAGE); // TODO
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInputString = scanner.nextLine();
@@ -44,32 +55,32 @@ public class UserInterface {
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
             case ADD:
-                String taskDesc = instruction.getInstructionStringArg();
+                String taskDesc = instruction.getInstructionDesc();
                 handleAddInstruction(taskManager, taskDesc);
                 break;
             case TODO:
-                String todoDesc = instruction.getInstructionStringArg();
+                String todoDesc = instruction.getInstructionDesc();
                 handleAddInstruction(taskManager, todoDesc, instructionType);
                 break;
             case DEADLINE:
-                String deadlineDesc = instruction.getInstructionStringArgs()[0];
-                String deadline = instruction.getInstructionStringArgs()[1];
+                String deadlineDesc =instruction.getInstructionDesc();
+                String deadline = instruction.getTaskDates()[0];
                 handleAddInstruction(taskManager, deadlineDesc, deadline);
                 break;
             case EVENT:
-                String eventDesc = instruction.getInstructionStringArgs()[0];
-                String startDate = instruction.getInstructionStringArgs()[1];
-                String endDate = instruction.getInstructionStringArgs()[2];
+                String eventDesc = instruction.getInstructionDesc();
+                String startDate = instruction.getTaskDates()[0];
+                String endDate = instruction.getTaskDates()[1];
                 handleAddInstruction(taskManager, eventDesc, startDate, endDate);
                 break;
             case LIST:
-                OutputStringHandler.printTasks(taskManager.getAllTasks(), taskManager.getTaskCount());
+                OutputStringHandler.printTasks(taskManager.getAllTasks(), taskManager.getCurrTaskTotal());
                 break;
             case MARK:
-                handleMarkInstruction(taskManager, instruction.getInstructionIntegerArg());
+                handleMarkInstruction(taskManager, instruction.getTaskOrdinal());
                 break;
             case UNMARK:
-                handleUnmarkInstruction(taskManager, instruction.getInstructionIntegerArg());
+                handleUnmarkInstruction(taskManager, instruction.getTaskOrdinal());
                 break;
             case BYE:
                 System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
