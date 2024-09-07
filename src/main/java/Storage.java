@@ -29,15 +29,24 @@ public class Storage {
         System.out.println("Now you have " + numOfTasks + " tasks in your list.");
     }
 
-    public void storageDelete(int index) {
+    public void storageDelete(int index) throws InvalidCommandException {
+        if (index > taskList.size()) {
+            throw new InvalidCommandException("Task number " + index + " does not exist");
+        }
         taskList.remove(index - 1);
     }
 
-    public void storageMark(int index) {
+    public void storageMark(int index) throws InvalidCommandException {
+        if (index > taskList.size()) {
+            throw new InvalidCommandException("Task number " + index + " does not exist");
+        }
         taskList.get(index - 1).setStatus();
     }
 
-    public void storageUnmark(int index) {
+    public void storageUnmark(int index) throws InvalidCommandException {
+        if (index > taskList.size()) {
+            throw new InvalidCommandException("Task number " + index + " does not exist");
+        }
         taskList.get(index - 1).unsetStatus();
     }
 
