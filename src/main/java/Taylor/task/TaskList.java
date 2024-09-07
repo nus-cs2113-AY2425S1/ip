@@ -22,6 +22,14 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public void remove(int index){
+        if(index < tasks.size()&&index >= 0){
+            tasks.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
     public void markTask(int index) {
         if (index < tasks.size() && index >= 0) {
             tasks.get(index).setCompleted(true);

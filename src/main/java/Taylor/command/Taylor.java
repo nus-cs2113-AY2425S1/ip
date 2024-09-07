@@ -56,7 +56,7 @@ public class Taylor {
                 return input;
             }
             case "mark" -> {
-                int index = Integer.parseInt(args);
+                int index = Integer.parseInt(args) - 1;
                 try {
                     tasks.markTask(index);
                     System.out.println("Nice! I've marked this task as done:");
@@ -69,7 +69,7 @@ public class Taylor {
                 return input;
             }
             case "unmark"-> {
-                int index = Integer.parseInt(args);
+                int index = Integer.parseInt(args) - 1;
                 try {
                     tasks.unmarkTask(index);
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -120,6 +120,23 @@ public class Taylor {
                     System.out.println(line);
                     input = sc.nextLine();
                 }
+                return input;
+            }
+
+            case "delete" -> {
+                try {
+                    int index = Integer.parseInt(args) - 1;
+                    String stringOfTheTask = tasks.get(index).toString();
+                    tasks.remove(index);
+                    System.out.println(line);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  "+stringOfTheTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(line);
+                } catch (IndexOutOfBoundsException e) {
+                    printInvalidIndex();
+                }
+                input = sc.nextLine();
                 return input;
             }
 
