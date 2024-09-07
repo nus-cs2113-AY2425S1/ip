@@ -17,6 +17,7 @@ public class Nell {
             -> Please input the command as follows:
                   event <description> /from <from-date> /to <to-date>
             """;
+    public static final String INVALID_TASK_MESSAGE = "-> Invalid task!";
 
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
@@ -25,27 +26,11 @@ public class Nell {
     /**
      * Prints out the formatted string for the task at a specified index
      *
-     * @param task The task at the specified index
+     * @param task  The task at the specified index
      * @param index The index of task
      */
     private static void printTaskAtIndex(Task task, int index) {
         System.out.println(String.format("   %d. %s", index, task));
-    }
-
-    /**
-     * Given a task number, checks if the numbered task is valid (in the task list)
-     *
-     * @param taskNumber the task number
-     * @return true if taskIndex is within range, false otherwise
-     */
-    private static boolean checkIfTaskValid(int taskNumber) {
-        if (taskNumber < 1) {
-            return false;
-        } else if (taskNumber > taskCount) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     /**
@@ -60,7 +45,6 @@ public class Nell {
 
     /**
      * Lists out the currently stored tasks in TaskList
-     *
      */
     private static void listTasks() {
         System.out.println("-> The tasks listed are as follows:");
@@ -127,15 +111,13 @@ public class Nell {
     private static void unmarkTask(String taskNumber) {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
-            if (checkIfTaskValid(taskIndex)) {
-                tasks[taskIndex - 1].setDone(false);
-                System.out.println("-> The following task has been marked not done:");
-                printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-            } else {
-                System.out.println("-> Invalid task!");
-            }
+            tasks[taskIndex - 1].setDone(false);
+            System.out.println("-> The following task has been marked not done:");
+            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
         } catch (NumberFormatException e) {
             System.out.println(UNMARK_ERROR_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(INVALID_TASK_MESSAGE);
         }
     }
 
@@ -147,15 +129,13 @@ public class Nell {
     private static void markTask(String taskNumber) {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
-            if (checkIfTaskValid(taskIndex)) {
-                tasks[taskIndex - 1].setDone(true);
-                System.out.println("-> The following task has been marked done:");
-                printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-            } else {
-                System.out.println("-> Invalid task!");
-            }
+            tasks[taskIndex - 1].setDone(true);
+            System.out.println("-> The following task has been marked done:");
+            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
         } catch (NumberFormatException e) {
             System.out.print(MARK_ERROR_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(INVALID_TASK_MESSAGE);
         }
     }
 
@@ -178,7 +158,6 @@ public class Nell {
 
     /**
      * Says bye to the user
-     *
      */
     private static void sayBye() {
         System.out.println("-> Bye. Hope to see you again soon!");
@@ -186,7 +165,6 @@ public class Nell {
 
     /**
      * Greet the user upon program startup
-     *
      */
     private static void greetUser() {
         System.out.println("Hello! I'm Nell!");
@@ -195,7 +173,6 @@ public class Nell {
 
     /**
      * Get commands from user and execute commands received
-     *
      */
     private static void getCommands() {
         // Initialises scanner to take in user input
