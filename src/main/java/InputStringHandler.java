@@ -5,6 +5,8 @@ public class InputStringHandler {
     private static String EVENT_END_DATE_DELIMITER = "/to";
 
     public static Instruction parseUserInput(String userInputString) {
+        if (userInputString.isEmpty()) System.out.println("no command given");
+
         int splitAtIndex = userInputString.indexOf(' ');
         String instructionType = userInputString.substring(0, splitAtIndex);
 
@@ -12,7 +14,6 @@ public class InputStringHandler {
         if (splitAtIndex >= 0) {
             switch (instructionType) {
             case "list":
-                // TODO error handling
                 return new Instruction(Instruction.InstructionType.LIST);
             case "bye":
                 return new Instruction(Instruction.InstructionType.BYE);
@@ -49,7 +50,6 @@ public class InputStringHandler {
             String endDate = dates[1].trim();
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
-        return new Instruction(null); // shouldn't happen
-        // replace with proper error handling
+        System.out.println(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
     }
 }
