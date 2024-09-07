@@ -1,3 +1,5 @@
+package conglo.task;
+
 /**
  * Represents a to-do task with a description.
  */

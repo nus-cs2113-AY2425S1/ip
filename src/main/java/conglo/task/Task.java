@@ -1,3 +1,5 @@
+package conglo.task;
+
 /**
  * Represents a task with a description and a completion status.
  */
@@ -32,6 +34,10 @@ public class Task {
 
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**

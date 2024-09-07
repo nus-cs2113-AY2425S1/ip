@@ -1,4 +1,9 @@
+package conglo;
+
 import java.util.Scanner;
+import conglo.manual.*;
+import conglo.task.*;
+import conglo.exception.*;
 
 /**
  * Conglo is a command-line task management application that allows users to
@@ -50,8 +55,10 @@ public class Conglo {
      * Greets the user when the application starts.
      */
     public static void greetUser() {
-        System.out.println("Hola! I'm Conglo the friendly bot.");
-        System.out.println("What brings you here today?");
+        printLineSeparator();
+        System.out.println("Hola! I'm Conglo, the friendly task manager.");
+        printLineSeparator();
+        QuickManual.printManual();
         printLineSeparator();
     }
 
@@ -86,7 +93,14 @@ public class Conglo {
      * @throws CongloException.InvalidTaskNumber If the task number is invalid or out of range.
      */
     public static void markTask(String[] words, Task[] taskList) throws CongloException.InvalidTaskNumber {
-        int i = Integer.parseInt(words[1].substring(0, 1)) - 1;
+        int i = 0;
+        try {
+            i = Integer.parseInt(words[1].substring(0, 1)) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid format! Please provide a task number >.<");
+            return;
+        }
+
         if (i >= taskCount || i < 0) {
             throw new CongloException.InvalidTaskNumber();
         }
@@ -97,7 +111,7 @@ public class Conglo {
             taskList[i].markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println("[" + taskList[i].getStatusIcon() + "] " + taskList[i].description );
+        System.out.println(taskList[i].toString());
     }
 
     /**
