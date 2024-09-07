@@ -9,7 +9,7 @@ public class Echo {
     private static final int START_WORD_LENGTH = 7;
     private static final int END_WORD_LENGTH = 5;
 
-    public static void main(String[] args) {
+    public static void runEcho() {
         // Utilize Scanner object to allow user input
         Scanner scanner = new Scanner(System.in);
 
@@ -19,7 +19,7 @@ public class Echo {
         String chatbotName = "Echo";
         String greetingMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?\n";
 
-        // Define the exit message as variable
+        // Define the exit message as a variable
         String exitMessage = "Bye. Hope to see you again soon!";
 
         // Print the greeting message from Echo
@@ -31,19 +31,23 @@ public class Echo {
             userInput = scanner.nextLine();
 
             // Handles different user inputs for list, bye, mark, and unmark
-            if (userInput.equalsIgnoreCase("list")) {
-                printTaskList(taskList);
-            } else if (userInput.startsWith("mark ")) {
-                handleMarking(userInput, taskList);
-            } else if (userInput.startsWith("unmark ")) {
-                handleUnmarking(userInput, taskList);
-            } else if (!userInput.equalsIgnoreCase("bye")) {
-                addTask(userInput, taskList);
-            }
+            processUserInput(userInput, taskList);
         } while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
         printExitMessage(exitMessage);
+    }
+
+    public static void processUserInput(String userInput, TaskList taskList) {
+        if (userInput.equalsIgnoreCase("list")) {
+            printTaskList(taskList);
+        } else if (userInput.startsWith("mark ")) {
+            handleMarking(userInput, taskList);
+        } else if (userInput.startsWith("unmark ")) {
+            handleUnmarking(userInput, taskList);
+        } else if (!userInput.equalsIgnoreCase("bye")) {
+            addTask(userInput, taskList);
+        }
     }
 
     /**
@@ -181,5 +185,9 @@ public class Echo {
         System.out.println(SEPARATOR);
         System.out.println(message);
         System.out.println(SEPARATOR);
+    }
+
+    public static void main(String[] args) {
+        runEcho();
     }
 }
