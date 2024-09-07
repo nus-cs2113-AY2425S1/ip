@@ -99,13 +99,20 @@ public class Nell {
      * @param taskNumber The command body
      */
     private static void unmarkTask(String taskNumber) {
-        int taskIndex = Integer.parseInt(taskNumber);
-        if (checkIfTaskValid(taskIndex)) {
-            tasks[taskIndex - 1].setDone(false);
-            System.out.println("-> The following task has been marked not done:");
-            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-        } else {
-            System.out.println("-> Invalid task!");
+        try {
+            int taskIndex = Integer.parseInt(taskNumber);
+            if (checkIfTaskValid(taskIndex)) {
+                tasks[taskIndex - 1].setDone(false);
+                System.out.println("-> The following task has been marked not done:");
+                printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+            } else {
+                System.out.println("-> Invalid task!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("""
+                    -> Please input the command as follows:
+                          unmark <task number>
+                    """);
         }
     }
 
@@ -115,13 +122,20 @@ public class Nell {
      * @param taskNumber The command body
      */
     private static void markTask(String taskNumber) {
-        int taskIndex = Integer.parseInt(taskNumber);
-        if (checkIfTaskValid(taskIndex)) {
-            tasks[taskIndex - 1].setDone(true);
-            System.out.println("-> The following task has been marked done:");
-            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
-        } else {
-            System.out.println("-> Invalid task!");
+        try {
+            int taskIndex = Integer.parseInt(taskNumber);
+            if (checkIfTaskValid(taskIndex)) {
+                tasks[taskIndex - 1].setDone(true);
+                System.out.println("-> The following task has been marked done:");
+                printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+            } else {
+                System.out.println("-> Invalid task!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.print("""
+                    -> Please input the command as follows:
+                          mark <task number>
+                    """);
         }
     }
 
