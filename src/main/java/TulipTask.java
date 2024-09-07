@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class TulipTask {
@@ -11,43 +10,48 @@ public class TulipTask {
                 "  `  `---'`---'`|---'  `  `---^`---'`   `\n" +
                 "                |";
 
-        ArrayList<Task> list = new ArrayList<>();
+        String welcomeMessage = "--------------------------------------------\n" +
+                "Hello, I'm TulipTask\n" +
+                "What can I do for you today?\n" +
+                "--------------------------------------------";
+
+        HashMap<String, String> commandArguments;
 
         System.out.println(logo);
+        System.out.println(welcomeMessage);
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Hello, I'm TulipTask");
-        System.out.println("What can I do for you today?");
-        System.out.println("--------------------------------------------");
+        TaskList taskList = new TaskList();
+        Scanner scanner = new Scanner(System.in);
+        String input;
 
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+            input = scanner.nextLine();
+            commandArguments = InputParser.parseCommands(input);
+            String command = commandArguments.get(InputParser.COMMAND);
 
-            String command;
-
-            if (input.toLowerCase().contains("mark")) {
-                String[] splitStr = input.split(" ");
-                command = splitStr[0];
-            } else {
-                command = input.toLowerCase();
-            }
-
-            switch(command) {
+            switch (command) {
                 case "list":
-                    listTasks(list);
+                    taskList.listTasks();
                     break;
 
                 case "mark":
-                    String[] splitStr = input.split(" ");
-                    int index = Integer.parseInt(splitStr[1]) - 1;
-                    markAsDone(list.get(index));
+                    taskList.markTaskAsDone(commandArguments);
                     break;
 
                 case "unmark":
-                    String[] split = input.split(" ");
-                    int idx = Integer.parseInt(split[1]) - 1;
-                    markAsNotDone(list.get(idx));
+                    taskList.markTaskAsNotDone(commandArguments);
+                    break;
+
+                case "todo":
+                    taskList.addToDo(commandArguments);
+                    break;
+
+                case "deadline":
+                    taskList.addDeadline(commandArguments);
+                    break;
+
+                case "event":
+                    taskList.addEvent(commandArguments);
                     break;
 
                 case "bye":
@@ -55,43 +59,12 @@ public class TulipTask {
                     System.out.println("Bye! Hope to see you again soon :)");
                     System.out.println("--------------------------------------------");
                     return;
-
                 default:
-                    Task task = new Task(command);
-                    list.add(task);
-                    addTask(task);
+                    System.out.println("Invalid command");
                     break;
             }
+
         }
-    }
-
-    public static void addTask (Task task) {
-        System.out.println("--------------------------------------------");
-        System.out.println("added: " + task.description);
-        System.out.println("--------------------------------------------");
-    }
-
-    public static void listTasks (ArrayList<Task> list) {
-        System.out.println("--------------------------------------------");
-        System.out.println("Here are your tasks: ");
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
-            System.out.println((i + 1) + ". " + "[" + task.getStatusIcon() + "] " + task.description);
-        }
-        System.out.println("--------------------------------------------");
-    }
-
-    public static void markAsDone(Task task) {
-        task.markAsDone();
-        System.out.println("--------------------------------------------");
-        System.out.println("Great job! I have marked this task as done: \n" + "  [" + task.getStatusIcon() + "] " + task.description);
-        System.out.println("--------------------------------------------");
-    }
-    public static void markAsNotDone(Task task) {
-        task.markAsNotDone();
-        System.out.println("--------------------------------------------");
-        System.out.println("Okay, I have marked this task as not done: \n" + "  [" + task.getStatusIcon() + "] " + task.description);
-        System.out.println("--------------------------------------------");
     }
 }
 
