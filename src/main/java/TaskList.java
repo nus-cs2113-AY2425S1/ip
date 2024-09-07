@@ -25,32 +25,42 @@ public class TaskList {
         PrintUtils.lineBreak();
     }
 
-    public void markTaskAsDone(int taskNumber)  {
-        setTaskStatus(taskNumber, true);
+    public void markTaskAsDone(String argument)  {
+        setTaskStatus(argument, true);
     }
 
-    public void markTaskAsNotDone(int taskNumber) {
-        setTaskStatus(taskNumber, false);
+    public void markTaskAsNotDone(String argument) {
+        setTaskStatus(argument, false);
     }
 
-    public void setTaskStatus(int taskNumber, boolean isDone) {
-        if (taskNumber < 1 || taskNumber > this.size) {
+    private void setTaskStatus(String argument, boolean isDone) {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
             PrintUtils.lineBreak();
-            PrintUtils.println("Sorry, there is no task " + taskNumber + "."
-                    + "Try a number between 1 and " + this.size + ".");
+            PrintUtils.println("Wow, " + argument + " is not even a number.");
             PrintUtils.lineBreak();
             return;
         }
 
-        PrintUtils.lineBreak();
-        if (isDone) {
-            tasks[taskNumber - 1].markDone();
-            PrintUtils.println("Nice! I've marked this task as done:");
-        } else {
-            tasks[taskNumber - 1].markNotDone();
-            PrintUtils.println("I've unmarked this task:");
+        try {
+            if (isDone) {
+                tasks[taskNumber - 1].markDone();
+                PrintUtils.lineBreak();
+                PrintUtils.println("Nice! I've marked this task as done:");
+            } else {
+                tasks[taskNumber - 1].markNotDone();
+                PrintUtils.lineBreak();
+                PrintUtils.println("I've unmarked this task:");
+            }
+            PrintUtils.println(tasks[taskNumber - 1].toString());
+            PrintUtils.lineBreak();
+        } catch (NullPointerException e) {
+            PrintUtils.lineBreak();
+            PrintUtils.println("What. There is no task " + taskNumber + ". "
+                    + "Try a number between 1 and " + this.size + ".");
+            PrintUtils.lineBreak();
         }
-        PrintUtils.println(tasks[taskNumber - 1].toString());
-        PrintUtils.lineBreak();
     }
 }

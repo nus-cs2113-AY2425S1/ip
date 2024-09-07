@@ -19,10 +19,10 @@ public class Jeremy {
                 taskList.printList();
                 break;
             case MARK:
-                taskList.markTaskAsDone(Integer.parseInt(argument));
+                taskList.markTaskAsDone(argument);
                 break;
             case UNMARK:
-                taskList.markTaskAsNotDone(Integer.parseInt(argument));
+                taskList.markTaskAsNotDone(argument);
                 break;
             case TODO:
                 taskList.addTask(new Todo(argument));
@@ -35,7 +35,7 @@ public class Jeremy {
                 break;
             case UNKNOWN_COMMAND:
                 PrintUtils.lineBreak();
-                PrintUtils.println("Oops, " + commandStr + " is not a valid command.");
+                PrintUtils.println("Lol, " + commandStr + " is not a valid command.");
                 PrintUtils.lineBreak();
                 break;
             }
