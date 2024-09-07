@@ -1,4 +1,4 @@
-public class TaylorException extends RuntimeException {
+public class TaylorException extends Exception {
     public TaylorException(String message) {
         super(message);
     }
