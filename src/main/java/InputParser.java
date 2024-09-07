@@ -8,28 +8,35 @@ public class InputParser {
         HashMap<String, String> commandArguments = new HashMap<>();
         String[] splitInput = input.split(" ");
 
+        // check if input is empty
         if (splitInput.length == 0) {
             commandArguments.put(InputParser.COMMAND, "");
             return commandArguments;
         }
+
+        // set first element as command
         commandArguments.put(InputParser.COMMAND, splitInput[0]);
 
         String argumentDescription = InputParser.ARGUMENT;
         StringBuilder argument = new StringBuilder();
 
+        // parse remaining input
         for (int i = 1; i < splitInput.length; i++) {
-            if (splitInput[i].charAt(0) == '/') {
+            String arg = splitInput[i];
+
+            if (arg.startsWith("/")) {
                 if (!argumentDescription.isEmpty()) {
                     commandArguments.put(argumentDescription, argument.toString().strip());
                 }
 
-                argumentDescription = splitInput[i];
+                argumentDescription = arg;
                 argument.setLength(0);
             } else {
-                argument.append(" ").append(splitInput[i]);
+                argument.append(" ").append(arg);
             }
         }
 
+        // add last argument
         if (!argument.isEmpty()) {
             commandArguments.put(argumentDescription, argument.toString().strip());
         }

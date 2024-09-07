@@ -15,6 +15,10 @@ public class TulipTask {
                 "What can I do for you today?\n" +
                 "--------------------------------------------";
 
+        String goodByeMessage = "--------------------------------------------\n" +
+                "Bye! Hope to see you again soon :)\n" +
+                "--------------------------------------------";
+
         HashMap<String, String> commandArguments;
 
         System.out.println(logo);
@@ -55,9 +59,7 @@ public class TulipTask {
                     break;
 
                 case "bye":
-                    System.out.println("--------------------------------------------");
-                    System.out.println("Bye! Hope to see you again soon :)");
-                    System.out.println("--------------------------------------------");
+                    System.out.println(goodByeMessage);
                     return;
                 default:
                     System.out.println("Invalid command");
