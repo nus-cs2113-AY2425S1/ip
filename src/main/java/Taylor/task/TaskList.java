@@ -1,6 +1,7 @@
 package Taylor.task;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class TaskList {
 
@@ -52,6 +53,21 @@ public class TaskList {
             sb.append(task.write()).append(System.lineSeparator());
         }
         return sb.toString();
+    }
+
+    public String find(String keyword){
+        int counter = 0;
+        StringJoiner sj = new StringJoiner(System.lineSeparator());
+        for(Task task : this.tasks){
+            if(task.description.contains(keyword)){
+                counter++;
+                sj.add(counter + "." + task);
+            }
+        }
+        if(counter == 0){
+            return null;
+        }
+        return sj.toString();
     }
 
 }

@@ -168,6 +168,25 @@ public class Taylor {
                 input = sc.nextLine();
             }
 
+            case "find" -> {
+                try {
+                    System.out.println(LINE);
+                    String result = tasks.find(args);
+                    if(result == null) {
+                        System.out.println("There is no matching task found");
+                    } else {
+                        System.out.println("Here are the matching tasks in your list:");
+                        System.out.println(result);
+                    }
+                    System.out.println(LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(LINE);
+                    System.out.println("OOPS!!! The keyword cannot be empty.");
+                    System.out.println(LINE);
+                }
+                input = sc.nextLine();
+            }
+
             default -> throw new TaylorException(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
 
         }
