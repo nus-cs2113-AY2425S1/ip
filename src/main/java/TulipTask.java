@@ -24,20 +24,6 @@ public class TulipTask {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
-//            if (Objects.equals(input.toLowerCase(), "bye")) {
-//                break;
-//            }
-//
-//            if (Objects.equals(input.toLowerCase(), "list")) {
-//                listTasks(list);
-//            }
-//
-//            if (input.toLowerCase().contains("mark")) {
-//                String[] splitStr = input.split(" ");
-//                System.out.println(splitStr[0]);
-//                System.out.println(splitStr[1]);
-//            }
-
             String command;
 
             if (input.toLowerCase().contains("mark")) {
@@ -73,13 +59,13 @@ public class TulipTask {
                 default:
                     Task task = new Task(command);
                     list.add(task);
-                    echo(task);
+                    addTask(task);
                     break;
             }
         }
     }
 
-    public static void echo (Task task) {
+    public static void addTask (Task task) {
         System.out.println("--------------------------------------------");
         System.out.println("added: " + task.description);
         System.out.println("--------------------------------------------");
