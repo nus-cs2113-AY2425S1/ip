@@ -1,7 +1,6 @@
 package Taylor.command;
 
 import Taylor.task.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -12,24 +11,19 @@ public class Taylor {
     private static TaskList tasks;
 
     public static void main(String[] args) {
-        // Initialize a scanner object to take user input
         Scanner sc = new Scanner(System.in);
-
-        // Define a separator line for display purposes
         welcome();
-
         tasks = new TaskList();
-
         try {
             read();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Unable to load the file");
+        } catch (TaylorException e) {
+            System.out.println(e.getMessage());
         }
 
         // Take the first user input
         String input = sc.nextLine();
-
-        // Initialize a list to store tasks
 
         // Keep accepting input until the user types "bye"
         while(true) {
@@ -72,8 +66,11 @@ public class Taylor {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(index)); // Display the task marked as done
                     System.out.println(LINE);
+                    saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     printInvalidIndex();
+                } catch (IOException e){
+                    System.out.println("Unable to write to the file");
                 }
                 input = sc.nextLine();
             }
@@ -84,20 +81,27 @@ public class Taylor {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks.get(index)); // Display the task marked as not done
                     System.out.println(LINE);
+                    saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     printInvalidIndex();
+                } catch (IOException e){
+                    System.out.println("Unable to write to the file");
                 }
                 input = sc.nextLine();
             }
+
             case "todo" -> {
                 try {
-                    Task task = new Todo(input.substring(5)); // Create a To_do task with the description
+                    Task task = new Todo(input.substring(5).trim());
+                    System.out.println("saved");
                     input = handleEvent(tasks, task, sc);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(LINE);
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                     System.out.println(LINE);
                     input = sc.nextLine();
+                } catch (IOException e){
+                    System.out.println("Unable to write to the file");
                 }
             }
 
@@ -105,11 +109,14 @@ public class Taylor {
                 try {
                     Event event = getEvent(input);
                     input = handleEvent(tasks, event, sc);
+                    saveTasks();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(LINE);
                     System.out.println("Start and end time of the event cannot be empty.");
                     System.out.println(LINE);
                     input = sc.nextLine();
+                } catch (IOException e){
+                    System.out.println("Unable to write to the file");
                 }
             }
 
@@ -120,11 +127,14 @@ public class Taylor {
                     String _by = input.substring(by + 4).trim(); // Extract deadline time
                     Task task = new Deadline(description, _by); // Create a Taylor.task.Deadline task
                     input = handleEvent(tasks, task, sc);
+                    saveTasks();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(LINE);
                     System.out.println("Time of the deadline cannot be empty.");
                     System.out.println(LINE);
                     input = sc.nextLine();
+                } catch (IOException e){
+                    System.out.println("Unable to write to the file");
                 }
             }
 
@@ -138,8 +148,11 @@ public class Taylor {
                     System.out.println("  "+stringOfTheTask);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(LINE);
+                    Taylor.saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     printInvalidIndex();
+                } catch (IOException e){
+                    System.out.println("Unable to write to file");
                 }
                 input = sc.nextLine();
             }
@@ -151,7 +164,7 @@ public class Taylor {
                     System.out.println("Saved");
                     System.out.println(LINE);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("Unable to write to file");
                 }
                 input = sc.nextLine();
             }
@@ -177,9 +190,10 @@ public class Taylor {
         System.out.println(LINE);
     }
 
-    private static String handleEvent(TaskList tasks, Task task, Scanner sc) {
+    private static String handleEvent(TaskList tasks, Task task, Scanner sc) throws IOException {
         String input;
-        tasks.add(task); // Add the task to the list
+        tasks.add(task);
+        Taylor.saveTasks();// Add the task to the list
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task); // Display the added event
@@ -205,9 +219,12 @@ public class Taylor {
 
     public static void saveTasks() throws IOException {
         File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs();
+        if(file.getParentFile().mkdirs()) {
+            System.out.println(LINE);
+            System.out.println("Directory created");
+            System.out.println(LINE);
+        }
         FileWriter writer = new FileWriter(file);
-
         writer.write(tasks.write());
         writer.close();
     }
@@ -215,15 +232,29 @@ public class Taylor {
     public static void read() throws IOException, TaylorException {
         File file = new File(FILE_PATH);
         if(file.exists()){
-            StringBuilder sb = new StringBuilder();
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
+
             while(line != null){
-                sb.append(line).append("\n");
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0].trim();
+                boolean isCompleted = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                switch(taskType){
+                    case "T" -> tasks.add(new Todo(description, isCompleted));
+                    case "D" -> tasks.add(new Deadline(description, isCompleted,parts[3].trim()));
+                    case "E" -> {
+                        String[] time = parts[3].split("-");
+                        String from = time[0].trim();
+                        String to = time[1].trim();
+                        tasks.add(new Event(description, isCompleted, from, to));
+                    }
+                    default -> throw new TaylorException("Unknown tasks in file");
+                }
                 line = reader.readLine();
             }
             reader.close();
-            tasks.read(sb.toString());
         }
     }
 
