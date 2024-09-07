@@ -95,19 +95,21 @@ public class Appal {
         }
     }
 
-    public void addToDo(String[] inputDetails) throws AppalException {
-        int totalToDos = Task.getTotalTasks();
+    public void checkForTask(String[] inputDetails) throws EmptyTaskException {
         if (inputDetails[TASK_INDEX] == null) {
             throw new EmptyTaskException();
         }
+    }
+
+    public void addToDo(String[] inputDetails) throws AppalException {
+        int totalToDos = Task.getTotalTasks();
+        checkForTask(inputDetails);
         taskList[totalToDos] = new ToDo(inputDetails[TASK_INDEX]);
     }
 
     public void addDeadline(String[] inputDetails) throws AppalException {
         int totalToDos = Task.getTotalTasks();
-        if (inputDetails[TASK_INDEX] == null) {
-            throw new EmptyTaskException();
-        }
+        checkForTask(inputDetails);
         if (inputDetails[BY_INDEX] == null) {
             throw new UnspecifiedDeadlineException();
         }
@@ -116,18 +118,12 @@ public class Appal {
 
     public void addEvent(String[] inputDetails) throws AppalException{
         int totalToDos = Task.getTotalTasks();
-        if (inputDetails[TASK_INDEX] == null) {
-            throw new EmptyTaskException();
-        }
+        checkForTask(inputDetails);
         if (inputDetails[FROM_INDEX] == null || inputDetails[TO_INDEX] == null) {
             throw new UnspecifiedEventDurationException();
         }
         taskList[totalToDos] = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
-    }
-
-    public void handleUnknownInput() {
-        printMessage(UNKNOWN_INPUT_NOTICE);
     }
 
     public void exitAppal() {
