@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 public class Legin {
@@ -17,9 +18,9 @@ public class Legin {
     public static void bye() {
         horizontalLine();
         System.out.println("Bye " +
-            Character.toString(0x1F44B) +
-            ". Hope to see you again really soon! " +
-            Character.toString(0x1F608));
+                Character.toString(0x1F44B) +
+                ". Hope to see you again really soon! " +
+                Character.toString(0x1F608));
         horizontalLine();
     }
 
@@ -32,24 +33,36 @@ public class Legin {
         horizontalLine();
     }
 
-    public static void echo(String input) {
-        tasks[currentTaskCount] = new Task(input);
-        printAddedTaskMessage();
+    private static void printExceptionMessage(LeginException e) {
+        System.out.println("Exception Occurred: " + e);
+        horizontalLine();
     }
 
     public static void addTodo(String input) {
-        tasks[currentTaskCount] = new Todo(input);
-        printAddedTaskMessage();
+        try {
+            tasks[currentTaskCount] = new Todo(input);
+            printAddedTaskMessage();
+        } catch(LeginEmptyTaskException e) {
+            printExceptionMessage(e);
+        }
     }
 
     public static void addDeadline(String input) {
-        tasks[currentTaskCount] = new Deadline(input);
-        printAddedTaskMessage();
+        try {
+            tasks[currentTaskCount] = new Deadline(input);
+            printAddedTaskMessage();
+        } catch (LeginEmptyTaskException | LeginMissingParamsException e) {
+            printExceptionMessage(e);
+        }
     }
 
     public static void addEvent(String input) {
-        tasks[currentTaskCount] = new Event(input);
-        printAddedTaskMessage();
+        try {
+            tasks[currentTaskCount] = new Event(input);
+            printAddedTaskMessage();
+        } catch (LeginEmptyTaskException | LeginMissingParamsException e) {
+            printExceptionMessage(e);
+        }
     }
 
     public static void list() {
@@ -87,32 +100,36 @@ public class Legin {
             input = in.nextLine();
             String[] words = input.split(" ");
             command = words[0];
-            switch (command) {
-            case "bye":
-                saidBye = true;
-                break;
-            case "list":
-                list();
-                break;
-            case "mark":
-                indexOfTaskToMark = Integer.parseInt(words[1]);
-                markTask(indexOfTaskToMark);
-                break;
-            case "unmark":
-                indexOfTaskToMark = Integer.parseInt(words[1]);
-                unmarkTask(indexOfTaskToMark);
-                break;
-            case "todo":
-                addTodo(input);
-                break;
-            case "deadline":
-                addDeadline(input);
-                break;
-            case "event":
-                addEvent(input);
-                break;
-            default:
-                echo(input);
+            try {
+                switch (command) {
+                case "bye":
+                    saidBye = true;
+                    break;
+                case "list":
+                    list();
+                    break;
+                case "mark":
+                    indexOfTaskToMark = Integer.parseInt(words[1]);
+                    markTask(indexOfTaskToMark);
+                    break;
+                case "unmark":
+                    indexOfTaskToMark = Integer.parseInt(words[1]);
+                    unmarkTask(indexOfTaskToMark);
+                    break;
+                case "todo":
+                    addTodo(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
+                default:
+                    throw new LeginInvalidCommandException();
+                }
+            } catch (LeginInvalidCommandException e) {
+                printExceptionMessage(e);
             }
         }
     }

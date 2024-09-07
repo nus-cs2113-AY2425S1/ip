@@ -1,6 +1,9 @@
 public class Todo extends Task{
-    public Todo(String input) {
-        super(input.substring(input.indexOf(" ") + 1));
+    private static String getTodoDescription(String input) {
+       return input.substring(input.indexOf(" ") + 1);
+    }
+    public Todo(String input) throws LeginEmptyTaskException {
+        super(getTodoDescription(input));
     }
 
     @Override
