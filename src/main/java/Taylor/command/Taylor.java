@@ -1,6 +1,10 @@
+package Taylor.command;
+
+import Taylor.task.*;
+
 import java.util.*;
 
-// Main class to implement a task manager called "Taylor"
+// Main class to implement a task manager called "Taylor.command.Taylor"
 public class Taylor {
     private static final String line = "____________________________________________________________";
 
@@ -108,7 +112,7 @@ public class Taylor {
                 try {
                     String description = input.substring(9, by); // Extract task description
                     String _by = input.substring(by + 4); // Extract deadline time
-                    Task task = new Deadline(description, _by); // Create a Deadline task
+                    Task task = new Deadline(description, _by); // Create a Taylor.task.Deadline task
                     input = getString(tasks, task, sc);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(line);
@@ -161,7 +165,7 @@ public class Taylor {
 
     private static void welcome() {
         System.out.println(line);
-        System.out.println("Hello! I'm Taylor");
+        System.out.println("Hello! I'm Taylor.command.Taylor");
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
