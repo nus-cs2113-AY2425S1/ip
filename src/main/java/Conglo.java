@@ -83,6 +83,7 @@ public class Conglo {
      *
      * @param words The split command words where the first word is "mark" or "unmark".
      * @param taskList The array of tasks where the task will be marked.
+     * @throws CongloException.InvalidTaskNumber If the task number is invalid or out of range.
      */
     public static void markTask(String[] words, Task[] taskList) throws CongloException.InvalidTaskNumber {
         int i = Integer.parseInt(words[1].substring(0, 1)) - 1;
@@ -117,6 +118,7 @@ public class Conglo {
      *
      * @param sentence The command containing the task description and deadline.
      * @param taskList The array of tasks to which the deadline will be added.
+     * @throws CongloException.InvalidFormat If the deadline format is incorrect.
      */
     public static void addDeadline(String sentence, Task[] taskList) throws CongloException.InvalidFormat {
         if (!sentence.contains(" /by ")) {
@@ -134,6 +136,7 @@ public class Conglo {
      *
      * @param sentence The command containing the task description, start, and end times.
      * @param taskList The array of tasks to which the event will be added.
+     * @throws CongloException.InvalidFormat If the event format is incorrect.
      */
     public static void addEvent(String sentence, Task[] taskList) throws CongloException.InvalidFormat {
         if (!sentence.contains(" /from ") || !sentence.contains(" /to ")) {
@@ -151,6 +154,7 @@ public class Conglo {
      *
      * @param command The full command entered by the user.
      * @param taskList The array of tasks to operate on.
+     * @throws CongloException If the command is invalid or an error occurs while processing.
      */
     public static void processCommand(String command, Task[] taskList) throws CongloException {
         String[] words = command.split(" ", 2);

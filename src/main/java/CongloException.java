@@ -32,6 +32,7 @@ public class CongloException extends Exception {
         }
     }
 
+    // Custom exception for invalid input format
     public static class InvalidFormat extends CongloException {
         public InvalidFormat(String type) {
             super(generateMessage(type));
