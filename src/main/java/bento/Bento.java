@@ -55,10 +55,9 @@ public class Bento {
 
 
     // Data
-    private final Scanner in = new Scanner(System.in);
+    private final Scanner IN = new Scanner(System.in);
     private boolean isExit = false;
     private final ArrayList<Task> tasks = new ArrayList<>();
-    private int taskCount = 0;
 
     // Print Functions
     public void printLogo() {
@@ -90,11 +89,11 @@ public class Bento {
     }
 
     public String getTaskCountMessage() {
-        return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", taskCount);
+        return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", tasks.size());
     }
 
     public String getUserInput() {
-        return in.nextLine();
+        return IN.nextLine();
     }
 
     public void addTask(String input) throws InvalidTaskException {
@@ -103,7 +102,6 @@ public class Bento {
         }
         Task toAdd = new Task(input.trim());
         tasks.add(toAdd);
-        taskCount++;
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -116,12 +114,11 @@ public class Bento {
 
         ToDo toAdd = new ToDo(input);
         tasks.add(toAdd);
-        taskCount++;
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
 
-    private static String getTodo(String input) {
+    public static String getTodo(String input) {
         return input.replace(TODO_COMMAND, "").trim();
     }
 
@@ -144,7 +141,6 @@ public class Bento {
 
         Deadline toAdd = new Deadline(deadlineName, deadlineBy);
         tasks.add(toAdd);
-        taskCount++;
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -168,8 +164,8 @@ public class Bento {
     // tasks.Event Functions
     public void addEvent(String input) throws InvalidEventException {
         input = removeEventPrefix(input);
-        final int indexOfFrom = input.indexOf(FROM_PREFIX);
-        final int indexOfTo = input.indexOf(TO_PREFIX);
+        int indexOfFrom = input.indexOf(FROM_PREFIX);
+        int indexOfTo = input.indexOf(TO_PREFIX);
 
         if (indexOfFrom == -1 || indexOfTo == -1) {
             throw new InvalidEventException();
@@ -185,7 +181,6 @@ public class Bento {
 
         Event toAdd = new Event(eventName, fromString, toString);
         tasks.add(toAdd);
-        taskCount++;
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -206,11 +201,11 @@ public class Bento {
         return input.replace(EVENT_COMMAND, EMPTY_REGEX);
     }
 
-    private Task retrieveTask(int index) {
+    public Task retrieveTask(int index) {
         return tasks.get(index);
     }
 
-    private void listTasks() {
+    public void listTasks() {
         printLine();
         System.out.println(EXISTING_TASKS_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
@@ -220,7 +215,7 @@ public class Bento {
     }
 
     // Marking Functions
-    private void markTaskAsDone(boolean isDone, String input) throws InvalidIndexException, MissingTaskException {
+    public void markTaskAsDone(boolean isDone, String input) throws InvalidIndexException, MissingTaskException {
         try {
             input = removeMarkPrefix(input);
             int index = Integer.parseInt(input) - 1;
@@ -239,46 +234,26 @@ public class Bento {
         }
     }
 
-    private String removeMarkPrefix(String input) {
+    public String removeMarkPrefix(String input) {
         return input.replace(UNMARK_COMMAND, EMPTY_REGEX).replace(MARK_COMMAND, EMPTY_REGEX).trim();
     }
 
-    private void printUnmarked(int index) {
+    public void printUnmarked(int index) {
         System.out.println(UNMARKED_MESSAGE);
         System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
-    private void printMarked(int index) {
+    public void printMarked(int index) {
         System.out.println(MARKED_MESSAGE);
         System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
-
-    // User Error Messages
-//    public void printInvalidCommandMessage() {
-//        printLine();
-//        System.out.println(INVALID_COMMAND_MESSAGE);
-//        printLine();
-//    }
-//
-//    public void printNoTaskFoundMessage() {
-//        printLine();
-//        System.out.println(NO_TASK_FOUND_MESSAGE);
-//        printLine();
-//    }
-//
-//    public void printInvalidIndexMessage() {
-//        printLine();
-//        System.out.println(INVALID_INDEX_MESSAGE);
-//        printLine();
-//    }
-
     // tasks.Task Status Update
-    private void updateTask(boolean isDone, int index) {
+    public void updateTask(boolean isDone, int index) {
         retrieveTask(index).setDone(isDone);
     }
 
-    private static String[] getInputList(String input) {
+    public static String[] getInputList(String input) {
         return input.split(SPACE_REGEX);
     }
 
@@ -310,7 +285,7 @@ public class Bento {
                 addEvent(input);
                 break;
             default:
-                addTask(input);
+                throw new InvalidCommandException();
             }
         } catch (BentoException e) {
             System.out.print(e.getMessage());

@@ -9,13 +9,19 @@
 	How can I help you with your tasks today?
 	____________________________________________________________
 	____________________________________________________________
+	Hmm... Something seems wrong with your input. Give it a closer look and try again!
+	____________________________________________________________
+	____________________________________________________________
+	Here is the list of your existing tasks!
+	____________________________________________________________
+	____________________________________________________________
 	Roger that! Successfully added task:
-		[ ] borrow book
+		[T][ ] borrow book
 	You currently have 1 tasks! Way to go, you busy bee!
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [ ] borrow book
+	1. [T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Roger that! Successfully added task:
@@ -24,12 +30,12 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [ ] borrow book
+	1. [T][ ] borrow book
 	2. [D][ ] read book (by: Monday 2359)
 	____________________________________________________________
 	____________________________________________________________
 	You've crushed this task! I've gone ahead and marked it as done for you.
-		[x] borrow book
+		[T][x] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Roger that! Successfully added task:
@@ -38,7 +44,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][ ] read book (by: Monday 2359)
 	3. [E][ ] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
@@ -48,31 +54,31 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][ ] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
 	____________________________________________________________
 	Maybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.
-		[ ] borrow book
+		[T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [ ] borrow book
+	1. [T][ ] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][ ] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
 	____________________________________________________________
 	Maybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.
-		[ ] borrow book
+		[T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	You've crushed this task! I've gone ahead and marked it as done for you.
-		[x] borrow book
+		[T][x] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][ ] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
@@ -82,13 +88,13 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][ ] read book (by: Monday 2359)
 	3. [E][ ] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
 	____________________________________________________________
 	You've crushed this task! I've gone ahead and marked it as done for you.
-		[x] borrow book
+		[T][x] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	You've crushed this task! I've gone ahead and marked it as done for you.
@@ -100,7 +106,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
@@ -109,7 +115,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	____________________________________________________________
@@ -123,7 +129,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	4. [D][ ] submit form (by: Thursday 2359)
@@ -138,7 +144,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	4. [D][ ] submit form (by: Thursday 2359)
@@ -154,7 +160,7 @@
 	____________________________________________________________
 	____________________________________________________________
 	Here is the list of your existing tasks!
-	1. [x] borrow book
+	1. [T][x] borrow book
 	2. [D][x] read book (by: Monday 2359)
 	3. [E][x] return book (from: Tuesday 1200 to: Tuesday 1300)
 	4. [D][x] submit form (by: Thursday 2359)
