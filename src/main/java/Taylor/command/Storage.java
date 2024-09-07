@@ -9,13 +9,30 @@ import Taylor.task.Event;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage for the Taylor task management application.
+ * The Storage class handles reading and writing tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file at the specified file path. Tasks are parsed from
+     * the file and stored in an ArrayList.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws TaylorException If the file contains an unknown task type.
+     */
     public ArrayList<Task> load() throws IOException, TaylorException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -23,6 +40,7 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
 
+            // Read each line from the file and parse it into a task
             while (line != null) {
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0].trim();
@@ -47,6 +65,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file at the specified file path. Each task is serialized
+     * into a string format suitable for storage.
+     *
+     * @param tasks The TaskList containing the tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(TaskList tasks) throws IOException {
         File file = new File(filePath);
         if (file.getParentFile().mkdirs()) {

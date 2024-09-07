@@ -9,11 +9,20 @@ import Taylor.task.Event;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the main class of the Taylor task management application.
+ * The Taylor class handles user commands and manages task operations.
+ */
 public class Taylor {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a new Taylor object, initializes the UI, storage, and task list.
+     *
+     * @param filePath The file path where tasks are saved and loaded from.
+     */
     public Taylor(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +34,9 @@ public class Taylor {
         }
     }
 
+    /**
+     * Starts the application, displays the welcome message, and processes user commands.
+     */
     public void run() {
         ui.showWelcome();
         String input = ui.readCommand();
@@ -43,6 +55,13 @@ public class Taylor {
         ui.showGoodbye();
     }
 
+    /**
+     * Processes the user input and performs the appropriate task operation.
+     *
+     * @param input The command input from the user.
+     * @return The next user command input.
+     * @throws TaylorException If an unknown command is encountered.
+     */
     private String operate(String input) throws TaylorException {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0].toLowerCase();
@@ -61,7 +80,6 @@ public class Taylor {
                 } catch (NumberFormatException e) {
                     ui.println("Unable to read from string");
                 }
-
             }
             case "unmark" -> {
                 int index = Integer.parseInt(args) - 1;
@@ -124,12 +142,7 @@ public class Taylor {
                 try {
                     ui.showLine();
                     String result = tasks.find(args);
-                    if (result==null) {
-                        System.out.println("There is no matching task found.");
-                    } else {
-                        System.out.println("Here are the matching tasks in your list:");
-                        System.out.println(result);
-                    }
+                    ui.showFindResult(result);
                     ui.showLine();
                 } catch (StringIndexOutOfBoundsException e) {
                     ui.showLine();
@@ -142,6 +155,13 @@ public class Taylor {
         return ui.readCommand();
     }
 
+    /**
+     * Parses and creates an Event task based on the user's input.
+     *
+     * @param args The arguments provided by the user for the event task.
+     * @return A new Event object.
+     * @throws TaylorException If the format of the event input is incorrect.
+     */
     private static Event getEvent(String args) throws TaylorException {
         int fromIndex = args.indexOf("/from");
         int toIndex = args.indexOf("/to");
@@ -157,6 +177,13 @@ public class Taylor {
         return new Event(description, from, to);
     }
 
+    /**
+     * Parses and creates a Deadline task based on the user's input.
+     *
+     * @param args The arguments provided by the user for the deadline task.
+     * @return A new Deadline object.
+     * @throws TaylorException If the format of the deadline input is incorrect.
+     */
     private static Deadline getDeadline(String args) throws TaylorException {
         int byIndex = args.indexOf("/by");
 
@@ -170,6 +197,11 @@ public class Taylor {
         return new Deadline(description, by);
     }
 
+    /**
+     * The main method to launch the application.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Taylor("data/tasks.txt").run();
     }
