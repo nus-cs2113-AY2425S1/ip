@@ -6,6 +6,7 @@ public class Event extends Task{
         String[] fromToStrings = inputString.replace("event ", "").split(" /from ")[1].split(" /to ");
         this.fromString = fromToStrings[0];
         this.toString = fromToStrings[1];
+        constructorMessage();
     }
 
     @Override

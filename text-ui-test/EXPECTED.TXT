@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+               ._-'-_ .
+          . '  /_-_-_\   ` .
+       .'     |-_-_-_-|      `.
+      (       `.-_-_-.'        )
+      !`.                    .'!
+        ! ` .            . ' !
+          ! ! ! ! ! ! ! !  !
+            / /       \ \
+          _-| \___ ___/ /-_
+         (_ )__\_)\(_/__( _)
+             ))))\X\ ((((
+               \/ \/
+Hola Amigo, I am Juan Cervantes Salamanca from Michoacan
+Welcome to la familia
+How can we help you?
+____________________________________________________________
+event La Familia Meeting /from 5pm /to 6pm
+____________________________________________________________
+Muy Bien, work hard compadre!
+I've Added the Task:
+[E][ ] La Familia Meeting (from: 5pm to: 6pm)
+You've got 1 tasks, better start working!
+____________________________________________________________
+deadline Fry the Pollo with the Hermanos /by 5th July
+____________________________________________________________
+Muy Bien, work hard compadre!
+I've Added the Task:
+[D][ ] Fry the Pollo with the Hermanos (by: 5th July)
+You've got 2 tasks, better start working!
+____________________________________________________________
+todo eat the pollo
+____________________________________________________________
+Muy Bien, work hard compadre!
+I've Added the Task:
+[T][ ] eat the pollo
+You've got 3 tasks, better start working!
+____________________________________________________________
+list
+____________________________________________________________
+Si compinche, your tasks:
+1.[E][ ] La Familia Meeting (from: 5pm to: 6pm)
+2.[D][ ] Fry the Pollo with the Hermanos (by: 5th July)
+3.[T][ ] eat the pollo
+____________________________________________________________
+mark 2
+____________________________________________________________
+Fantastica!!!! I marked it:
+[D][X] Fry the Pollo with the Hermanos (by: 5th July)
+____________________________________________________________
+list
+____________________________________________________________
+Si compinche, your tasks:
+1.[E][ ] La Familia Meeting (from: 5pm to: 6pm)
+2.[D][X] Fry the Pollo with the Hermanos (by: 5th July)
+3.[T][ ] eat the pollo
+____________________________________________________________
+bye
+____________________________________________________________
+Adios amigo, la familia will miss you
+____________________________________________________________

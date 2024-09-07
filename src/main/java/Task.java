@@ -13,6 +13,9 @@ public class Task {
         this.taskString = inputString;
         tasks[taskCount] = this;
         taskCount++;
+    }
+
+    public void constructorMessage(){
         System.out.println("Muy Bien, work hard compadre!");
         System.out.println("I've Added the Task:");
         System.out.println(checkboxString());

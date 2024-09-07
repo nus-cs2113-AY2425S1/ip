@@ -5,6 +5,7 @@ public class Deadline extends Task{
     public Deadline(String inputString){
         super(inputString.replace("deadline ", "").split(" /by ")[0]);
         this.deadlineString = inputString.replace("deadline ", "").split(" /by ")[1];
+        constructorMessage();
 
     }
     @Override

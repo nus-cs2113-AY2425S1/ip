@@ -1,0 +1,7 @@
+event La Familia Meeting /from 5pm /to 6pm
+deadline Fry the Pollo with the Hermanos /by 5th July
+todo eat the pollo
+list
+mark 2
+list
+bye
