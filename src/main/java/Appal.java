@@ -26,17 +26,17 @@ public class Appal {
             "  (    ^_^  :7)\n" +
             "   :         ;\n" +
             "    \"..-\"-..\"\n";
-    public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-    public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal! \nLet's get things rolling, what would you like to do today?";
+    public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+    public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal!\nLet's get things rolling, what would you like to do today?";
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
-    public static final String UNKNOWN_INPUT_NOTICE = "Oops! I don't recognise this command :(";
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
 
     // Attributes
     private boolean isExited = false;
     private Task[] taskList = new Task[MAX_TASKS];
+    private final Scanner in = new Scanner(System.in);
 
 
     public void printSeparator() {
@@ -90,7 +90,7 @@ public class Appal {
             }
             printOneTask(taskToMark);
             printSeparator();
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
     }
@@ -132,7 +132,6 @@ public class Appal {
     }
 
     public void handleInput() {
-        Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String[] inputDetails = Parser.extractInputDetails(line);
         String command = inputDetails[COMMAND_INDEX];
