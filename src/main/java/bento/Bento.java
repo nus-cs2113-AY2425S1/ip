@@ -95,17 +95,7 @@ public class Bento {
     public String getUserInput() {
         return IN.nextLine();
     }
-
-    public void addTask(String input) throws InvalidTaskException {
-        if (input.isEmpty()) {
-            throw new InvalidTaskException();
-        }
-        Task toAdd = new Task(input.trim());
-        tasks.add(toAdd);
-
-        printAddTaskSuccessMessage(toAdd.toString());
-    }
-
+    
     // tasks.ToDo Functions
     public void addToDo(String input) throws InvalidToDoException {
         if (input.isEmpty()) {
