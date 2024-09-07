@@ -1,3 +1,7 @@
+package task.type;
+
+import task.Task;
+
 public class Event extends Task {
     public Event(String text) {
         super(text);

@@ -1,3 +1,7 @@
+package task.type;
+
+import task.Task;
+
 public class Todo extends Task {
     public Todo(String text) {
         super(text);
