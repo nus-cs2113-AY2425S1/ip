@@ -10,14 +10,18 @@ public class TulipTask {
                 "  `  `---'`---'`|---'  `  `---^`---'`   `\n" +
                 "                |";
 
-        String welcomeMessage = "--------------------------------------------\n" +
+        final String welcomeMessage = "--------------------------------------------\n" +
                 "Hello, I'm TulipTask\n" +
                 "What can I do for you today?\n" +
                 "--------------------------------------------";
 
-        String goodByeMessage = "--------------------------------------------\n" +
+        final String goodByeMessage = "--------------------------------------------\n" +
                 "Bye! Hope to see you again soon :)\n" +
                 "--------------------------------------------";
+
+        final String unrecognizedCommand = "--------------------------------------------\n" +
+                "Unrecognized command!\n" +
+                "--------------------------------------------\n";
 
         HashMap<String, String> commandArguments;
 
@@ -61,8 +65,9 @@ public class TulipTask {
                 case "bye":
                     System.out.println(goodByeMessage);
                     return;
+
                 default:
-                    System.out.println("Invalid command");
+                    System.out.println(unrecognizedCommand);
                     break;
             }
 
