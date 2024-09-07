@@ -1,13 +1,127 @@
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /)
+   .-"".L,""-.
+  ;           :
+  (    ^_^  :7)
+   :         ;
+    "..-"-.."
 Heyo! I'm your pal, Appal!
 Let's get things rolling, what would you like to do today?
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please specify a task, pal!
+Example input: [COMMAND] [TASK]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 I've added the below to your to-do list, you can do it!
 [T][ ] read book
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please specify a task, pal!
+Example input: [COMMAND] [TASK]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Remember to specify a deadline, pal!
+Example input: deadline [TASK] /by [DEADLINE]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+I've added the below to your to-do list, you can do it!
+[D][ ] finish tutorial(by: 11 Sept)
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please specify a task, pal!
+Example input: [COMMAND] [TASK]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Remember to specify a start and end time, pal!
+Example input: event [TASK] /from [START TIME] /to [END TIME]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+I've added the below to your to-do list, you can do it!
+[E][ ] code meet(from: 7 Sept 2pm to: 4pm)
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please input a valid task number, pal!
+Type 'list' to see your tasks and each task's corresponding number!
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please input a valid task number, pal!
+Type 'list' to see your tasks and each task's corresponding number!
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please input a valid task number, pal!
+Type 'list' to see your tasks and each task's corresponding number!
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Task done! One more step towards success :)
+[E][X] code meet(from: 7 Sept 2pm to: 4pm)
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+You have 3 to-dos!
+1.[T][ ] read book
+2.[D][ ] finish tutorial(by: 11 Sept)
+3.[E][X] code meet(from: 7 Sept 2pm to: 4pm)
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+See ya! An Appal a day, keeps the boredom away!
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
