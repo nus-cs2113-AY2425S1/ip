@@ -5,4 +5,8 @@ public class AppalException extends Exception {
     public AppalException() {
         super(MESSAGE);
     }
+
+    public AppalException(String message) {
+        super(message);
+    }
 }
