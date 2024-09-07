@@ -25,7 +25,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm Taylor.command.Taylor");
+        System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
