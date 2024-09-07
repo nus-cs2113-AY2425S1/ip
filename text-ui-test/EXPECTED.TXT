@@ -1,13 +1,16 @@
 ______________________________________________
-added: todo eat
+I've added: [T][ ] eat for you.
+Your list is now 1 tasks long partner
 ______________________________________________
 
 ______________________________________________
-added: homework
+I've added: [D][ ] homework (by: tomorrow) for you.
+Your list is now 2 tasks long partner
 ______________________________________________
 
 ______________________________________________
-added: meeting
+I've added: [E][ ] meeting (from: 4pm to: 8pm) for you.
+Your list is now 3 tasks long partner
 ______________________________________________
 
 ______________________________________________
@@ -30,3 +33,4 @@ ______________________________________________
 It's been a pleasure partner.
 Hope to see you around these parts again soon!
 ______________________________________________
+
