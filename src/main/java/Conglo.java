@@ -27,7 +27,12 @@ public class Conglo {
         Task[] listing = new Task[MAX_TASKS];
         command = scanner.nextLine();
         while (!command.equals("bye")) {
-            processCommand(command, listing);
+            try {
+                processCommand(command, listing);
+            } catch (CongloException e) {
+                System.out.println(e.getMessage());
+            }
+            printLineSeparator();
             command = scanner.nextLine();
         }
         scanner.close();
@@ -60,7 +65,6 @@ public class Conglo {
         System.out.println("All done! Task added to list:");
         System.out.println(" " + task.toString());
         System.out.println("The list has " + taskCount + taskSuffix + " now.");
-        printLineSeparator();
     }
 
     /**
@@ -72,7 +76,6 @@ public class Conglo {
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + taskList[i].toString());
         }
-        printLineSeparator();
     }
 
     /**
@@ -81,11 +84,10 @@ public class Conglo {
      * @param words The split command words where the first word is "mark" or "unmark".
      * @param taskList The array of tasks where the task will be marked.
      */
-    public static void markTask(String[] words, Task[] taskList) {
+    public static void markTask(String[] words, Task[] taskList) throws CongloException.InvalidTaskNumber {
         int i = Integer.parseInt(words[1].substring(0, 1)) - 1;
         if (i >= taskCount || i < 0) {
-            System.out.println("Invalid task number");
-            return;
+            throw new CongloException.InvalidTaskNumber();
         }
         if (words[0].equals("mark")) {
             taskList[i].markAsDone();
@@ -95,7 +97,19 @@ public class Conglo {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("[" + taskList[i].getStatusIcon() + "] " + taskList[i].description );
-        printLineSeparator();
+    }
+
+    /**
+     * Adds a todo task to the task list.
+     *
+     * @param sentence The command containing the task description.
+     * @param taskList The array of tasks to which the task will be added.
+     */
+    public static void addTodo(String sentence, Task[] taskList) {
+        Todo todo = new Todo(sentence);
+        taskList[taskCount] = todo;
+        taskCount++;
+        echoTask(todo);
     }
 
     /**
@@ -104,7 +118,10 @@ public class Conglo {
      * @param sentence The command containing the task description and deadline.
      * @param taskList The array of tasks to which the deadline will be added.
      */
-    public static void addDeadline(String sentence, Task[] taskList) {
+    public static void addDeadline(String sentence, Task[] taskList) throws CongloException.InvalidFormat {
+        if (!sentence.contains(" /by ")) {
+            throw new CongloException.InvalidFormat("deadline");
+        }
         String[] words = sentence.split(" /by ");
         Deadline deadline = new Deadline(words[0], words[1]);
         taskList[taskCount] = deadline;
@@ -118,7 +135,10 @@ public class Conglo {
      * @param sentence The command containing the task description, start, and end times.
      * @param taskList The array of tasks to which the event will be added.
      */
-    public static void addEvent(String sentence, Task[] taskList) {
+    public static void addEvent(String sentence, Task[] taskList) throws CongloException.InvalidFormat {
+        if (!sentence.contains(" /from ") || !sentence.contains(" /to ")) {
+            throw new CongloException.InvalidFormat("event");
+        }
         String[] words = sentence.split(" /from | /to ");
         Event event = new Event(words[0], words[1], words[2]);
         taskList[taskCount] = event;
@@ -132,7 +152,7 @@ public class Conglo {
      * @param command The full command entered by the user.
      * @param taskList The array of tasks to operate on.
      */
-    public static void processCommand(String command, Task[] taskList) {
+    public static void processCommand(String command, Task[] taskList) throws CongloException {
         String[] words = command.split(" ", 2);
         switch(words[0]) {
         case "list":
@@ -140,22 +160,31 @@ public class Conglo {
             break;
         case "unmark":
         case "mark":
+            if (words.length == 1) {
+                throw new CongloException.MissingTaskNumber(words[0]);
+            }
             markTask(words, taskList);
             break;
         case "todo":
-            Todo todo = new Todo(words[1]);
-            taskList[taskCount] = todo;
-            taskCount++;
-            echoTask(todo);
+            if (words.length == 1) {
+                throw new CongloException.MissingDescription("Todo");
+            }
+            addTodo(words[1], taskList);
             break;
         case "deadline":
+            if (words.length == 1) {
+                throw new CongloException.MissingDescription("deadline");
+            }
             addDeadline(words[1], taskList);
             break;
         case "event":
+            if (words.length == 1) {
+                throw new CongloException.MissingDescription("event");
+            }
             addEvent(words[1], taskList);
             break;
         default:
-            System.out.println("Please provide the task type.");
+            throw new CongloException.UnknownCommand();
         }
     }
 
