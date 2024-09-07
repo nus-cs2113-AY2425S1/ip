@@ -9,6 +9,10 @@ public class Nell {
             -> Please input the command as follows:
                   mark <task number>
             """;
+    private static final String TODO_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  todo <description>
+            """;
     private static final String DEADLINE_ERROR_MESSAGE = """
             -> Please input the command as follows:
                   deadline <description> /by <by-date>
@@ -115,7 +119,7 @@ public class Nell {
             System.out.println("-> The following task has been marked not done:");
             printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
         } catch (NumberFormatException e) {
-            System.out.println(UNMARK_ERROR_MESSAGE);
+            System.out.print(UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
         }
@@ -195,23 +199,43 @@ public class Nell {
                 break;
 
             case "mark":
-                markTask(commandWords[1]);
+                try {
+                    markTask(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(MARK_ERROR_MESSAGE);
+                }
                 break;
 
             case "unmark":
-                unmarkTask(commandWords[1]);
+                try {
+                    unmarkTask(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(UNMARK_ERROR_MESSAGE);
+                }
                 break;
 
             case "todo":
-                addToDo(commandWords[1]);
+                try {
+                    addToDo(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(TODO_ERROR_MESSAGE);
+                }
                 break;
 
             case "deadline":
-                addDeadline(commandWords[1]);
+                try {
+                    addDeadline(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(DEADLINE_ERROR_MESSAGE);
+                }
                 break;
 
             case "event":
-                addEvent(commandWords[1]);
+                try {
+                    addEvent(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(EVENT_ERROR_MESSAGE);
+                }
                 break;
 
             default:
