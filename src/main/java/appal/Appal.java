@@ -1,3 +1,11 @@
+package appal;
+
+import appal.exception.*;
+import appal.task.Deadline;
+import appal.task.Event;
+import appal.task.Task;
+import appal.task.ToDo;
+
 import java.util.Scanner;
 
 public class Appal {

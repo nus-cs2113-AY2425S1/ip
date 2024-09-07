@@ -1,3 +1,5 @@
+package appal.exception;
+
 public class AppalException extends Exception {
     public static final String MESSAGE = "Oh no... this is invalid input!" +
             "\nType 'help' to stay fresh on the possible commands!";
