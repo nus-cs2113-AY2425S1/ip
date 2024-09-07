@@ -1,3 +1,12 @@
+package app;
+
+import taskmanager.Storage;
+import exceptions.InvalidCommandException;
+import tasks.Task;
+import tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+
 import java.util.Scanner;
 
 public class JeM {
