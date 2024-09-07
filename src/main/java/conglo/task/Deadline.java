@@ -1,3 +1,5 @@
+package conglo.task;
+
 /**
  * Represents a deadline task with a description and a deadline date.
  */

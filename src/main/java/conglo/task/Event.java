@@ -1,3 +1,5 @@
+package conglo.task;
+
 /**
  * Represents an event task with a description, start date, and end date.
  */
