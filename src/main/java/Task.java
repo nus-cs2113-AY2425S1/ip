@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected boolean isDone;
     protected String task;
 
@@ -7,7 +7,10 @@ public class Task {
         task = null;
     }
 
-    public Task(String task) {
+    public Task(String task) throws LeginEmptyTaskException {
+        if (task.equals(" ") || task.isEmpty()) {
+            throw new LeginEmptyTaskException();
+        }
         this.task = task;
         isDone = false;
     }
