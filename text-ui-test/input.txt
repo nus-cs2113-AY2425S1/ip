@@ -1,1 +1,14 @@
+todo
 todo read book
+deadline
+deadline finish tutorial
+deadline finish tutorial /by 11 Sept
+event
+event code meet /from 7 Sept 2pm
+event code meet /from 7 Sept 2pm /to 4pm
+mark
+mark 0
+mark 4
+mark 3
+list
+bye
