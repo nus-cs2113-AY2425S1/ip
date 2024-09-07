@@ -1,3 +1,5 @@
+package appal.task;
+
 public class Task {
     protected String task;
     protected int id;

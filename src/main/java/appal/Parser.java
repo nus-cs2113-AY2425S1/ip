@@ -1,3 +1,5 @@
+package appal;
+
 public class Parser {
     // Integer constants to access string inputs
     public static final int COMMAND_INDEX = 0;
