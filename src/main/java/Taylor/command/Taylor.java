@@ -42,14 +42,14 @@ public class Taylor {
     private static String operate(String input, TaskList tasks, Scanner sc) throws TaylorException {
 
         String[] inputParts = input.split(" ", 2);
-        String command = inputParts[0];
+        String command = inputParts[0].toLowerCase();
         String args = (inputParts.length > 1) ? inputParts[1] : "";
         switch (command){
             case "bye"-> {
                 bye();
                 System.exit(0);
             }
-            case "list"->{
+            case "list", "ls" ->{
                 System.out.println(LINE);
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 0; i < tasks.size(); i++) {
