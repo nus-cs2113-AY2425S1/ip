@@ -12,14 +12,12 @@ public class JeM {
             String line = scanner.nextLine().trim();
 
             if (line.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                exitChatBot();
                 break;
             }
-
             handleInput(line, storage);
         }
-
-        System.out.println("____________________________________________________________");
+        printBreakLine();
         scanner.close();
     }
 
@@ -32,15 +30,17 @@ public class JeM {
                 + " \\____/  \\___| |_|  |_|\n";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("____________________________________________________________");
+        printBreakLine();
 
         System.out.println(" Hello! I'm JeM, Your e-Assistant");
         System.out.println(" Personal To-Do list bot! ");
         System.out.println(" Just type out your tasks you have to complete and I will make a list of them for you.");
+        System.out.println(" For tasks with no deadline, type todo <task name>, for tasks with deadlines, type deadline <task name> /by <date and time>");
+        System.out.println(" For events, type event <task name> /from <date and time> /to <date and time>");
         System.out.println(" Type 'list' to see the current list of tasks, and type 'delete <task number>' to delete that task.");
         System.out.println(" Finally, type 'bye' to end the chat!");
 
-        System.out.println("____________________________________________________________");
+        printBreakLine();
     }
 
     private static void handleInput(String line, Storage storage) {
@@ -103,5 +103,13 @@ public class JeM {
         String end = dateTime[1].trim();
         Task task = new Event(taskContent, start, end);
         storage.storageInsert(task);
+    }
+
+    private static void exitChatBot() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void printBreakLine() {
+        System.out.println("____________________________________________________________");
     }
 }

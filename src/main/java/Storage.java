@@ -19,9 +19,9 @@ public class Storage {
         System.out.println("Got it. I've added this task:");
         System.out.print(task.getStatusIcon() + " " + task.getContents());
 
-        if (task instanceof Deadline){
+        if (task instanceof Deadline) {
             System.out.print(" (by: " + ((Deadline) task).getDeadline() + ")");
-        }else if (task instanceof Event){
+        } else if (task instanceof Event) {
             System.out.print(" (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
         }
 
@@ -30,7 +30,7 @@ public class Storage {
     }
 
     public void storageDelete(int index) {
-        taskList.remove(index - 1 );
+        taskList.remove(index - 1);
     }
 
     public void storageMark(int index) {
@@ -45,16 +45,15 @@ public class Storage {
         System.out.println("Here is your current list: ");
 
         int index = 0;
-            for (Task task : taskList) {
-                if (task instanceof Deadline) {
-                    System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (by: " + ((Deadline) task).getDeadline() + ")");
-                }else if (task instanceof Event) {
-                    System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
-                }else {
-                    System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task);
-                }
-                index++;
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (by: " + ((Deadline) task).getDeadline() + ")");
+            } else if (task instanceof Event) {
+                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
+            } else {
+                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task);
             }
+            index++;
+        }
     }
-
 }

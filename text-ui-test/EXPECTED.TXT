@@ -9,22 +9,42 @@ Hello from
 ____________________________________________________________
  Hello! I'm JeM, Your e-Assistant
  Personal To-Do list bot!
- Just type out your tasks you have to complete and i will make a list of them for you
- Type 'List' to see the current list of tasks, and type 'Delete <task number>' to delete that task
- Finally, type bye to end the chat!
+ Just type out your tasks you have to complete and I will make a list of them for you.
+ Type 'list' to see the current list of tasks, and type 'delete <task number>' to delete that task.
+ Finally, type 'bye' to end the chat!
 ____________________________________________________________
+todo borrow book
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in your list.
+deadline submit report /by 2023-09-01 12:00
 Got it. I've added this task:
 [D][ ] submit report (by: 2023-09-01 12:00)
 Now you have 2 tasks in your list.
+event project meeting /from 2023-09-01 14:00 /to 2023-09-01 16:00
 Got it. I've added this task:
 [E][ ] project meeting (from: 2023-09-01 14:00 to: 2023-09-01 16:00)
-Now you have 4 tasks in your list.
+Now you have 3 tasks in your list.
+mark 1
+Here is your current list:
+1.[T][X] borrow book
+2.[D][ ] submit report (by: 2023-09-01 12:00)
+3.[E][ ] project meeting (from: 2023-09-01 14:00 to: 2023-09-01 16:00)
+list
+Here is your current list:
+1.[T][X] borrow book
+2.[D][ ] submit report (by: 2023-09-01 12:00)
+3.[E][ ] project meeting (from: 2023-09-01 14:00 to: 2023-09-01 16:00)
+unmark 1
 Here is your current list:
 1.[T][ ] borrow book
 2.[D][ ] submit report (by: 2023-09-01 12:00)
 3.[E][ ] project meeting (from: 2023-09-01 14:00 to: 2023-09-01 16:00)
+list
+Here is your current list:
+1.[T][ ] borrow book
+2.[D][ ] submit report (by: 2023-09-01 12:00)
+3.[E][ ] project meeting (from: 2023-09-01 14:00 to: 2023-09-01 16:00)
+bye
 Bye. Hope to see you again soon!
 ____________________________________________________________
