@@ -35,20 +35,30 @@ public class CommandHandler {
     }
 
     private static void handleEvent(String command) {
-        String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
-        String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
-        String end = command.substring(command.indexOf("/to") + 4);
-        Event newEvent = new Event(description, start, end);
-        TaskList.addTask(newEvent);
-        System.out.println("added: " + newEvent.getNameWithStatus());
+        try {
+            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
+            String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
+            String end = command.substring(command.indexOf("/to") + 4);
+            Event newEvent = new Event(description, start, end);
+            TaskList.addTask(newEvent);
+            System.out.println("added: " + newEvent.getNameWithStatus());
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please input Event tasks using the following format:\n" +
+                    "event <description> /from <start> /to <end>");
+        }
     }
 
     private static void handleDeadline(String command) {
-        String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
-        String deadline = command.substring(command.indexOf("/by") + 4);
-        Deadline newDeadline = new Deadline(description, deadline);
-        TaskList.addTask(newDeadline);
-        System.out.println("added: " + newDeadline.getNameWithStatus());
+        try {
+            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
+            String deadline = command.substring(command.indexOf("/by") + 4);
+            Deadline newDeadline = new Deadline(description, deadline);
+            TaskList.addTask(newDeadline);
+            System.out.println("added: " + newDeadline.getNameWithStatus());
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please input Deadline tasks using the following format:\n" +
+                    "deadline <description> /by <deadline>");
+        }
     }
 
     private static void handleTodo(String command) {
