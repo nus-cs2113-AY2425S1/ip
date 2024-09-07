@@ -1,57 +1,55 @@
 Hello! I'm Nell!
 What can I do for you?
--> added: buy furniture
+-> Invalid command!
+   Please enter one of the following commands:
+      list
+      mark <number>
+      unmark <number>
+      todo <description>
+      deadline <description> /by <by-date>
+      event <description> /from <from-date> /to <to-date>
+      bye
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
--> The following task has been marked done:
-   1. [ ][X] buy furniture
 -> Invalid task!
--> The tasks listed are as follows:
-   1. [ ][X] buy furniture
--> The following task has been marked not done:
-   1. [ ][ ] buy furniture
+-> Invalid task!
+-> Please input the command as follows:
+      todo <description>
 -> The task has been added to the list:
    [T][ ] buy bread
-   The list now has 2 tasks
+   The list now has 1 tasks
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][ ] buy bread
+   1. [T][ ] buy bread
 -> The following task has been marked done:
-   2. [T][X] buy bread
+   1. [T][X] buy bread
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][X] buy bread
+   1. [T][X] buy bread
 -> The task has been added to the list:
    [D][ ] submit assignment (by: 3/9/2024 2359)
-   The list now has 3 tasks
+   The list now has 2 tasks
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][X] buy bread
-   3. [D][ ] submit assignment (by: 3/9/2024 2359)
+   1. [T][X] buy bread
+   2. [D][ ] submit assignment (by: 3/9/2024 2359)
 -> The following task has been marked not done:
-   2. [T][ ] buy bread
+   1. [T][ ] buy bread
 -> The following task has been marked done:
-   3. [D][X] submit assignment (by: 3/9/2024 2359)
+   2. [D][X] submit assignment (by: 3/9/2024 2359)
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][ ] buy bread
-   3. [D][X] submit assignment (by: 3/9/2024 2359)
+   1. [T][ ] buy bread
+   2. [D][X] submit assignment (by: 3/9/2024 2359)
 -> The task has been added to the list:
    [E][ ] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
-   The list now has 4 tasks
+   The list now has 3 tasks
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][ ] buy bread
-   3. [D][X] submit assignment (by: 3/9/2024 2359)
-   4. [E][ ] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
+   1. [T][ ] buy bread
+   2. [D][X] submit assignment (by: 3/9/2024 2359)
+   3. [E][ ] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
 -> The following task has been marked not done:
-   3. [D][ ] submit assignment (by: 3/9/2024 2359)
+   2. [D][ ] submit assignment (by: 3/9/2024 2359)
 -> The following task has been marked done:
-   4. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
+   3. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
 -> The tasks listed are as follows:
-   1. [ ][ ] buy furniture
-   2. [T][ ] buy bread
-   3. [D][ ] submit assignment (by: 3/9/2024 2359)
-   4. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
+   1. [T][ ] buy bread
+   2. [D][ ] submit assignment (by: 3/9/2024 2359)
+   3. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
 -> Bye. Hope to see you again soon!
 
