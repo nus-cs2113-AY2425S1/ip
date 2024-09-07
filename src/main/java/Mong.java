@@ -12,7 +12,35 @@ public class Mong {
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
 
     /**
-     * Prints a horizontal line with width of 25 characters.
+     * Marks item in index as completed.
+     */
+    public static void mark(String input, Task[] list) {
+        // the itemIndex is -1 than the input from the user
+        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        try {
+            list[itemIndex].setCompleted(true);
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Mong?!@ Item not in list.");
+        }
+    }
+
+    /**
+     * Marks completed item in index as incompleted.
+     */
+    public static void unmark(String input, Task[] list) {
+        // the itemIndex is -1 than the input from the user
+        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (itemIndex < 0 || itemIndex >= list.length) {
+            throw new NullPointerException();
+        }
+        try {
+            list[itemIndex].setCompleted(false);
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Mong?!@ Item not in list.");
+        }
+    }
+    /**
+     * Prints a horizontal line with width of 50 characters.
      */
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -21,7 +49,10 @@ public class Mong {
     /**
      * Prints out an indexed list of commands given to Mong starting from 1.
      */
-    public static void printIndexedList(Task[] list) {
+    public static void printIndexedList(String input, Task[] list) throws IllegalTaskFormatException {
+        if (!input.contentEquals("list")) {
+            throw new IllegalTaskFormatException("Task format is incorrect!");
+        }
         for (int i = 0; i < list.length; i++) {
             System.out.println(i + 1 + ". " + list[i]);
         }
@@ -36,28 +67,36 @@ public class Mong {
         int endOfCommand = input.indexOf("deadline") + LENGTH_DEADLINE;
         int endOfBy = input.lastIndexOf("/by") + LENGTH_BY;
         int startOfBy = input.indexOf("/by");
-        String description = input.substring(endOfCommand, startOfBy);
-        String deadline = input.substring(endOfBy + 1);
-        list[Task.currentIndex] = new Deadline(description, deadline);
-        System.out.println("Mong-ed! This item has been added: ");
-        System.out.println(list[Task.currentIndex - 1]);
+        try {
+            String description = input.substring(endOfCommand, startOfBy);
+            String deadline = input.substring(endOfBy + 1);
+            list[Task.currentIndex] = new Deadline(description, deadline);
+            System.out.println("Mong-ed! This item has been added: ");
+            System.out.println(list[Task.currentIndex - 1]);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Oi oi MONG! No description or deadline?@#!");
+        }
     }
 
     /**
      * Add a Task of type Todo.
-     * A deadline consists of the task description and deadline in String format.
+     * A todo consists of the task description only.
      */
     public static void addTodo(Task[] list, String input) {
         int endOfCommand = input.indexOf("todo") + LENGTH_TODO;
-        String description = input.substring(endOfCommand);
-        list[Task.currentIndex] = new Todo(description);
-        System.out.println("Mong-ed! This item has been added: ");
-        System.out.println(list[Task.currentIndex - 1]);
+        try {
+            String description = input.substring(endOfCommand + 1);
+            list[Task.currentIndex] = new Todo(description);
+            System.out.println("Mong-ed! This item has been added: ");
+            System.out.println(list[Task.currentIndex - 1]);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Oi oi MONG! No description?@#!");
+        }
     }
 
     /**
      * Add a Task of type Event.
-     * A deadline consists of the task description and deadline in String format.
+     * An event consists of the task description and from/to period in String format.
      */
     public static void addEvent(Task[] list, String input) {
         int endOfCommand = input.indexOf("event") + LENGTH_EVENT;
@@ -65,19 +104,27 @@ public class Mong {
         int startOfFrom = input.indexOf("/from");
         int endOfTo = input.lastIndexOf("/to") + LENGTH_TO;
         int startOfTo = input.indexOf("/to");
-        String description = input.substring(endOfCommand, startOfFrom);
-        String from = input.substring(endOfFrom + 2, startOfTo - 1);
-        String to = input.substring(endOfTo + 1);
-        list[Task.currentIndex] = new Event(description, from, to);
-        System.out.println("Mong-ed! This item has been added: ");
-        System.out.println(list[Task.currentIndex - 1]);
+        try {
+            String description = input.substring(endOfCommand + 1, startOfFrom);
+            String from = input.substring(endOfFrom + 2, startOfTo - 1);
+            String to = input.substring(endOfTo + 1);
+            list[Task.currentIndex] = new Event(description, from, to);
+            System.out.println("Mong-ed! This item has been added: ");
+            System.out.println(list[Task.currentIndex - 1]);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Oi oi MONG! Missing description, /from or /to commands...");
+        }
     }
 
     /**
      * Returns the TaskType enum value of the first word in the input.
      */
-    public static TaskType decipherTaskType(String command) {
-        return TaskType.fromCommand(command);
+    public static TaskType decipherTaskType(String command) throws IllegalTaskTypeException {
+        try {
+            return TaskType.fromCommand(command);
+        } catch (IllegalTaskTypeException e) {
+            throw new IllegalTaskTypeException(e.getMessage());
+        }
     }
 
     /**
@@ -91,24 +138,28 @@ public class Mong {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         Task[] list = new Task[100];
-        int itemIndex;
-        TaskType command = decipherTaskType(input.split(" ")[0]);
+        TaskType command;
+        try {
+            command = decipherTaskType(input.split(" ")[0]);
+        } catch (IllegalTaskTypeException e) {
+            command = TaskType.INVALID;
+        }
         while (command != TaskType.BYE) {
             printHorizontalLine();
             switch(command) {
             case LIST:
                 // print items in an indexed list
-                printIndexedList(Arrays.copyOf(list, Task.currentIndex));
+                try {
+                    printIndexedList(input, Arrays.copyOf(list, Task.currentIndex));
+                } catch (IllegalTaskFormatException e) {
+                    System.out.println("Oi oi MONG! Task format is incorrect...");
+                }
                 break;
             case MARK:
-                // the itemIndex is -1 than the input from the user
-                itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                list[itemIndex].setCompleted(true);
+                mark(input, list);
                 break;
             case UNMARK:
-                // the itemIndex is -1 than the input from the user
-                itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                list[itemIndex].setCompleted(false);
+                unmark(input, list);
                 break;
             case DEADLINE:
                 addDeadline(list, input);
@@ -120,12 +171,16 @@ public class Mong {
                 addEvent(list, input);
                 break;
             default:
-                System.out.println("MooONG?! Not a valid command...");
+                System.out.println("MooONG?! That's not a valid command...");
                 break;
             }
             printHorizontalLine();
             input = in.nextLine();
-            command = decipherTaskType(input.split(" ")[0]);
+            try {
+                command = decipherTaskType(input.split(" ")[0]);
+            } catch (IllegalTaskTypeException e) {
+                command = TaskType.INVALID;
+            }
         }
     }
 
