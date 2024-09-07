@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     /**
      * Constructs a new Task object, with a description as specified in the input string
@@ -10,6 +11,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.type = "";
     }
 
     /**
