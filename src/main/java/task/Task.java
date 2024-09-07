@@ -1,3 +1,6 @@
+package task;
+import exception.LeginEmptyTaskException;
+
 public abstract class Task {
     protected boolean isDone;
     protected String task;

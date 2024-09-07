@@ -1,3 +1,7 @@
+package task;
+import exception.LeginEmptyTaskException;
+import exception.LeginMissingParamsException;
+
 public class Event extends Task{
     protected String eventStart;
     protected String eventEnd;
