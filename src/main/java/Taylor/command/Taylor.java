@@ -93,7 +93,6 @@ public class Taylor {
             case "todo" -> {
                 try {
                     Task task = new Todo(input.substring(5).trim());
-                    System.out.println("saved");
                     input = handleEvent(tasks, task, sc);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(LINE);
