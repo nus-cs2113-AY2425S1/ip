@@ -12,12 +12,20 @@ public class Appal {
     public static final int COMMAND_INDEX = 0;
 
     // Integer constants for specific type of tasks
+    public static final int MAX_TASKS = 100;
     public static final int TASK_INDEX = 1;
     public static final int BY_INDEX = 2;
     public static final int FROM_INDEX = 2;
     public static final int TO_INDEX = 3;
 
     // String constants for conversation
+    public static final String LOGO =
+            "        /)\n" +
+            "   .-\"\".L,\"\"-.\n" +
+            "  ;           :\n" +
+            "  (    ^_^  :7)\n" +
+            "   :         ;\n" +
+            "    \"..-\"-..\"\n";
     public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
     public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal! \nLet's get things rolling, what would you like to do today?";
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
@@ -28,7 +36,7 @@ public class Appal {
 
     // Attributes
     private boolean isExited = false;
-    private Task[] taskList = new Task[100];
+    private Task[] taskList = new Task[MAX_TASKS];
 
 
     public void printSeparator() {
@@ -42,7 +50,7 @@ public class Appal {
     }
 
     public void welcomeUser() {
-        printMessage(WELCOME_MESSAGE);
+        printMessage(LOGO + WELCOME_MESSAGE);
     }
 
     public void printReply() {
@@ -68,8 +76,8 @@ public class Appal {
         printSeparator();
     }
 
-    public void markTask(String[] commandDetails, boolean isMark) {
-        int taskId = Integer.parseInt(commandDetails[TASK_INDEX]);
+    public void markTask(String[] inputDetails, boolean isMark) {
+        int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
         int listIndex = taskId - 1;
         Task taskToMark = taskList[listIndex];
         taskToMark.setDone(isMark);
@@ -83,20 +91,20 @@ public class Appal {
         printSeparator();
     }
 
-    public void addToDo(String[] commandDetails) {
+    public void addToDo(String[] inputDetails) {
         int totalToDos = Task.getTotalTasks();
-        taskList[totalToDos] = new ToDo(commandDetails[TASK_INDEX]);
+        taskList[totalToDos] = new ToDo(inputDetails[TASK_INDEX]);
     }
 
-    public void addDeadline(String[] commandDetails) {
+    public void addDeadline(String[] inputDetails) {
         int totalToDos = Task.getTotalTasks();
-        taskList[totalToDos] = new Deadline(commandDetails[TASK_INDEX], commandDetails[BY_INDEX]);
+        taskList[totalToDos] = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
     }
 
-    public void addEvent(String[] commandDetails) {
+    public void addEvent(String[] inputDetails) {
         int totalToDos = Task.getTotalTasks();
         taskList[totalToDos] = new
-                Event(commandDetails[TASK_INDEX], commandDetails[FROM_INDEX], commandDetails[TO_INDEX]);
+                Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
     }
 
     public void handleUnknownInput() {
@@ -111,8 +119,8 @@ public class Appal {
     public void handleInput() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        String[] commandDetails = Parser.extractInputDetails(line);
-        String command = commandDetails[COMMAND_INDEX];
+        String[] inputDetails = Parser.extractInputDetails(line);
+        String command = inputDetails[COMMAND_INDEX];
         switch (command) {
         case COMMAND_BYE:
             exitAppal();
@@ -121,22 +129,22 @@ public class Appal {
             printTaskList();
             break;
         case COMMAND_TODO:
-            addToDo(commandDetails);
+            addToDo(inputDetails);
             printReply();
             break;
         case COMMAND_DEADLINE:
-            addDeadline(commandDetails);
+            addDeadline(inputDetails);
             printReply();
             break;
         case COMMAND_EVENT:
-            addEvent(commandDetails);
+            addEvent(inputDetails);
             printReply();
             break;
         case COMMAND_MARK:
-            markTask(commandDetails, true);
+            markTask(inputDetails, true);
             break;
         case COMMAND_UNMARK:
-            markTask(commandDetails, false);
+            markTask(inputDetails, false);
             break;
         default:
             handleUnknownInput();
