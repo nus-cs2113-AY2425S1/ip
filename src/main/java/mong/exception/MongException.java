@@ -1,3 +1,5 @@
+package mong.exception;
+
 /**
  * Defines exceptions specific to Mong.
  */

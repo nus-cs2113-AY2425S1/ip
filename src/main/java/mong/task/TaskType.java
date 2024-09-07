@@ -1,3 +1,7 @@
+package mong.task;
+
+import mong.exception.IllegalTaskTypeException;
+
 public enum TaskType {
     LIST("list"), MARK("mark"), UNMARK("unmark"), EVENT("event"),
     TODO("todo"), DEADLINE("deadline"), BYE("bye"), INVALID("invalid");

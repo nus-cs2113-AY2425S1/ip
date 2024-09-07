@@ -1,4 +1,6 @@
-public class Task {
+package mong.task;
+
+public abstract class Task {
     private String description;
     private boolean isCompleted;
     private int index;
