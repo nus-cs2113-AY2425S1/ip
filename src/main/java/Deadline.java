@@ -20,9 +20,8 @@ public class Deadline extends Task {
      */
     @Override
     public void printTask() {
-        System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
         System.out.print("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
-        System.out.println(" (by: " + by + ")");
+        System.out.println(" (by:" + by + ")");
     }
 
     /**
