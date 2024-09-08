@@ -45,8 +45,27 @@ public class Echo {
             handleMarking(userInput, taskList);
         } else if (userInput.startsWith("unmark ")) {
             handleUnmarking(userInput, taskList);
-        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
-            addTask(userInput, taskList);
+        } else if (userInput.startsWith("todo ")) {
+            String description = userInput.substring(TODO_WORD_LENGTH).trim();
+            if (description.isEmpty()) {
+                printErrorMessage("You must provide a description for the todo task.");
+            } else {
+                addToDoTask(userInput, taskList);
+            }
+        } else if (userInput.startsWith("deadline ")) {
+            String description = userInput.substring(DEADLINE_WORD_LENGTH).trim();
+            if (description.isEmpty()) {
+                printErrorMessage("You must provide a description for the deadline task.");
+            } else {
+                addDeadlineTask(userInput, taskList);
+            }
+        } else if (userInput.startsWith("event ")) {
+            String description = userInput.substring(EVENT_WORD_LENGTH).trim();
+            if (description.isEmpty()) {
+                printErrorMessage("You must provide a description for the event task.");
+            } else {
+                addEventTask(userInput, taskList);
+            }
         } else if (!userInput.equalsIgnoreCase("bye")) {
             printErrorMessage("I'm sorry, but I don't know what that means.");
         }
