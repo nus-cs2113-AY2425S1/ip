@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 public class CheonsaBot {
     public static final int LINE_LENGTH = 60;
     public static ArrayList<Task> tasks = new ArrayList<>();
