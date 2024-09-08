@@ -1,3 +1,5 @@
+package luke;
+
 public enum CommandType {
     BYE,
     LIST,
