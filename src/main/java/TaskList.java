@@ -25,32 +25,49 @@ public class TaskList {
         PrintUtils.lineBreak();
     }
 
-    public void markTaskAsDone(int taskNumber)  {
-        setTaskStatus(taskNumber, true);
+    public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        try {
+            setTaskStatus(argument, true);
+        } catch (InvalidTaskNumberException e) {
+            throw new InvalidTaskNumberException(e.getMessage());
+        } catch (TaskNotFoundException e) {
+            throw new TaskNotFoundException(e.getMessage());
+        }
     }
 
-    public void markTaskAsNotDone(int taskNumber) {
-        setTaskStatus(taskNumber, false);
+    public void markTaskAsNotDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        try {
+            setTaskStatus(argument, false);
+        } catch (InvalidTaskNumberException e) {
+            throw new InvalidTaskNumberException(e.getMessage());
+        } catch (TaskNotFoundException e) {
+            throw new TaskNotFoundException(e.getMessage());
+        }
     }
 
-    public void setTaskStatus(int taskNumber, boolean isDone) {
-        if (taskNumber < 1 || taskNumber > this.size) {
+    private void setTaskStatus(String argument, boolean isDone) throws InvalidTaskNumberException, TaskNotFoundException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(argument);
+        }
+
+        try {
+            if (isDone) {
+                tasks[taskNumber - 1].markDone();
+                PrintUtils.lineBreak();
+                PrintUtils.println("Nice! I've marked this task as done:");
+            } else {
+                tasks[taskNumber - 1].markNotDone();
+                PrintUtils.lineBreak();
+                PrintUtils.println("I've unmarked this task:");
+            }
+            PrintUtils.println(tasks[taskNumber - 1].toString());
             PrintUtils.lineBreak();
-            PrintUtils.println("Sorry, there is no task " + taskNumber + "."
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
                     + "Try a number between 1 and " + this.size + ".");
-            PrintUtils.lineBreak();
-            return;
         }
-
-        PrintUtils.lineBreak();
-        if (isDone) {
-            tasks[taskNumber - 1].markDone();
-            PrintUtils.println("Nice! I've marked this task as done:");
-        } else {
-            tasks[taskNumber - 1].markNotDone();
-            PrintUtils.println("I've unmarked this task:");
-        }
-        PrintUtils.println(tasks[taskNumber - 1].toString());
-        PrintUtils.lineBreak();
     }
 }

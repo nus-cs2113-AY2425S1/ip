@@ -1,6 +1,11 @@
 public class Todo extends Task {
-    public Todo(String description) {
+    public Todo(String description) throws EmptyArgumentException {
         super(description);
+
+        if (description.isBlank()) {
+            throw new EmptyArgumentException("Description cannot be empty");
+        }
+
         this.icon = "T";
     }
 
