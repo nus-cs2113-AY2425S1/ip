@@ -1,4 +1,14 @@
-import java.sql.SQLOutput;
+package luke;
+
+import luke.exceptions.IncorrectInput;
+import luke.exceptions.InsufficientArguments;
+import luke.exceptions.InvalidCommand;
+import luke.exceptions.LukeException;
+import luke.tasks.Deadline;
+import luke.tasks.Event;
+import luke.tasks.Task;
+import luke.tasks.ToDo;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -64,6 +74,8 @@ public class Luke {
                 idx = Integer.parseInt(args[0]) - 1;
             } catch (NumberFormatException e) {
                 throw new IncorrectInput("Please input an integer");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InsufficientArguments("Input index of task to mark.");
             }
             if (idx < 0 || idx >= size) {
                 throw new IncorrectInput("Invalid index");
@@ -76,6 +88,8 @@ public class Luke {
                 idx = Integer.parseInt(args[0]) - 1;
             } catch (NumberFormatException e) {
                 throw new IncorrectInput("Please input an integer");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InsufficientArguments("Input index of task to mark.");
             }
             if (idx < 0 || idx >= size) {
                 throw new IncorrectInput("Invalid index");
@@ -148,13 +162,13 @@ public class Luke {
         } else if (command.equalsIgnoreCase("mark")) {
             try {
                 executeCommand(CommandType.MARK, inputArr);
-            } catch (InsufficientArguments e) {
+            } catch (LukeException e) {
                 printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("unmark")) {
             try {
                 executeCommand(CommandType.UNMARK, inputArr);
-            } catch (InsufficientArguments e) {
+            } catch (LukeException e) {
                 printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("todo")){
