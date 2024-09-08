@@ -37,9 +37,14 @@ public class CommandHandler {
             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
             String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
             String end = command.substring(command.indexOf("/to") + 4);
+            if (!hasNonWhitespaceChar(description) || !hasNonWhitespaceChar(start) || !hasNonWhitespaceChar(end)) {
+                throw new EmptyFieldException();
+            }
             Event newEvent = new Event(description, start, end);
             TaskList.addTask(newEvent);
             System.out.println("added: " + newEvent.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description/Start time/End time cannot be empty.");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please input Event tasks using the following format:\n" +
                     "event <description> /from <start> /to <end>");
@@ -50,9 +55,14 @@ public class CommandHandler {
         try {
             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + 4);
+            if (!hasNonWhitespaceChar(description) || !hasNonWhitespaceChar(deadline)) {
+                throw new EmptyFieldException();
+            }
             Deadline newDeadline = new Deadline(description, deadline);
             TaskList.addTask(newDeadline);
             System.out.println("added: " + newDeadline.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description/Deadline cannot be empty.");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please input Deadline tasks using the following format:\n" +
                     "deadline <description> /by <deadline>");
@@ -60,9 +70,17 @@ public class CommandHandler {
     }
 
     private static void handleTodo(String command) {
-        Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
-        TaskList.addTask(newTodo);
-        System.out.println("added: " + newTodo.getNameWithStatus());
+        try {
+            String description = command.substring(command.indexOf(" ") + 1);
+            if (!command.contains(" ") || !hasNonWhitespaceChar(description)) {
+                throw new EmptyFieldException();
+            }
+            Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
+            TaskList.addTask(newTodo);
+            System.out.println("added: " + newTodo.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description cannot be empty.");
+        }
     }
 
     private static void handleUnmark(String[] dissectedCommand) {
@@ -97,5 +115,14 @@ public class CommandHandler {
         } catch (NumberFormatException e) {
             System.out.println("Index to mark should be a number.");
         }
+    }
+
+    private static boolean hasNonWhitespaceChar(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (!Character.isWhitespace(string.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
