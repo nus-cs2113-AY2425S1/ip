@@ -23,9 +23,8 @@ public class Event extends Task {
      */
     @Override
     public void printTask() {
-        System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
         System.out.print("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
-        System.out.println(" (from: " + start + " to: " + end + ")");
+        System.out.println(" (from:" + start + " to:" + end + ")");
     }
 
     /**

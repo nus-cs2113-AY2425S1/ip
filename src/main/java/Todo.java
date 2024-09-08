@@ -17,7 +17,6 @@ public class Todo extends Task {
      */
     @Override
     public void printTask() {
-        System.out.print("Got it. I've added this task:" + System.lineSeparator() + "  ");
         System.out.println("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
     }
 
