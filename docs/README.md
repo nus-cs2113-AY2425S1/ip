@@ -1,4 +1,4 @@
-# Jeremy User Guide
+# jeremy.Jeremy User Guide
 
 // Update the title above to match the actual product name
 

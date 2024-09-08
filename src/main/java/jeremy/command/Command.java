@@ -1,3 +1,7 @@
+package jeremy.command;
+
+import jeremy.exception.IllegalCommandException;
+
 public enum Command {
     LIST,
     MARK,

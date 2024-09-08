@@ -1,8 +1,10 @@
+package jeremy.util;
+
 public class PrintUtils {
     private static final String LINE_BREAK =
             "________________________________________"; // 40 characters long
 
-    private static final String NAME = "Jeremy";
+    private static final String NAME = "jeremy.Jeremy";
 
     private static final String LOGO = """
                                                    \s

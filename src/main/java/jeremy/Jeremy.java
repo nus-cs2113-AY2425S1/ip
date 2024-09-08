@@ -1,3 +1,13 @@
+package jeremy;
+
+import jeremy.command.Command;
+import jeremy.exception.*;
+import jeremy.task.Deadline;
+import jeremy.task.Event;
+import jeremy.task.Todo;
+import jeremy.util.PrintUtils;
+import jeremy.util.TaskList;
+
 import java.util.Scanner;
 
 public class Jeremy {
