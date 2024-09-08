@@ -79,9 +79,13 @@ public class Pythia {
         Parser parser = new Parser();
 
         while (!isByeSaid) {
-            String request = IO.getRequest();
-            parser.parse(request);
-            parser.execute();
+            try {
+                String request = IO.getRequest();
+                parser.parse(request);
+                parser.execute();
+            } catch (PythiaException e) {
+                IO.printResponse(e.getUserMessage());
+            }
         }
     }
 }
