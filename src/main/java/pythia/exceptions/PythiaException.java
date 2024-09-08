@@ -1,3 +1,5 @@
+package pythia.exceptions;
+
 public class PythiaException extends RuntimeException {
   private String userMessage;
   public PythiaException(String message, String userMessage) {

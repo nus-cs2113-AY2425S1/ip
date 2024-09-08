@@ -1,5 +1,9 @@
+package pythia.io;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import pythia.task.Task;
+import pythia.Pythia;
 
 public class IO {
     private static Scanner scanner;;
@@ -34,7 +38,7 @@ public class IO {
         int remainingTasks = Pythia.getNumberOfRemainingTasks();
         taskListString.append("Now you have ").append(remainingTasks);
         if (remainingTasks == 1) {
-            taskListString.append(" task in the list.");
+            taskListString.append(" pythia.task in the list.");
         } else {
             taskListString.append(" tasks in the list.");
         }

@@ -1,3 +1,12 @@
+package pythia;
+
+import pythia.io.Parser;
+import pythia.io.IO;
+import pythia.task.Task;
+import pythia.task.ToDo;
+import pythia.task.Deadline;
+import pythia.task.Event;
+import pythia.exceptions.PythiaException;
 import java.util.ArrayList;
 
 public class Pythia {
@@ -65,10 +74,10 @@ public class Pythia {
     public static void markTask(Integer taskNumber) {
         if (taskNumber <= taskList.size()) {
             taskList.get(taskNumber - 1).markAsDone();
-            String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
+            String msg = "Nice! I've marked this pythia.task as done:\n\t" + taskList.get(taskNumber - 1).toString();
             IO.printResponse(msg);
         } else {
-            IO.printResponse("There is no such task :(");
+            IO.printResponse("There is no such pythia.task :(");
         }
         remainingTasks--;
     }
