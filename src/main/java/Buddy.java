@@ -23,7 +23,7 @@ public class Buddy {
             else if (input.equals("list")) //display tasks when user inputs "list"
             {
                 System.out.println("____________________________________________________________");
-                System.out.println(" Here is your list of useless tasks, hope you are proud of yourself:");
+                System.out.println(" Here is your list of nonsense, now get out of my swamp:");
                 for (int i = 0; i < taskCount; i++) {
                     //print each line in proper format
                     System.out.println("     " + (i + 1) + "." + tasks[i]);
