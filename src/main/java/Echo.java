@@ -45,8 +45,10 @@ public class Echo {
             handleMarking(userInput, taskList);
         } else if (userInput.startsWith("unmark ")) {
             handleUnmarking(userInput, taskList);
-        } else if (!userInput.equalsIgnoreCase("bye")) {
+        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
             addTask(userInput, taskList);
+        } else if (!userInput.equalsIgnoreCase("bye")) {
+            printErrorMessage("I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -184,6 +186,12 @@ public class Echo {
     private static void printExitMessage(String message) {
         System.out.println(SEPARATOR);
         System.out.println(message);
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printErrorMessage(String message) {
+        System.out.println(SEPARATOR);
+        System.out.println("OOPS!!! " + message);
         System.out.println(SEPARATOR);
     }
 
