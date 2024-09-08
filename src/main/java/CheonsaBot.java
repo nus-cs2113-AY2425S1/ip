@@ -6,12 +6,12 @@ public class CheonsaBot {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * The entry point of the application. Starts the bot and listens for user input.
+     * The entry point of the application. Starts bot and listens for user input.
      *
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        printGreeting();
+        getGreeting();
         try (Scanner scanner = new Scanner(System.in)) {
             boolean running = true;
             while (running) {
@@ -25,7 +25,7 @@ public class CheonsaBot {
      * Prints a greeting message to the console.
      * Displays the bot's logo and a welcome message.
      */
-    private static void printGreeting() {
+    private static void getGreeting() {
         String logo = """
                        (\\ -=- /)
                        ( \\( )/ )
@@ -44,7 +44,7 @@ public class CheonsaBot {
     /**
      * Prints a farewell message and exits the program.
      */
-    private static void sayBye() {
+    private static void getBye() {
         System.out.println(getHorizontalLine());
         System.out.println("Bye, see you again soon!");
         System.out.println(getHorizontalLine());
@@ -78,7 +78,7 @@ public class CheonsaBot {
                 unmarkTask(argument);
                 break;
             case "bye":
-                sayBye();
+                getBye();
                 return false;
             case "list":
                 printTaskList();
@@ -105,12 +105,13 @@ public class CheonsaBot {
                 System.out.println(getHorizontalLine());
             } else {
                 System.out.println(getHorizontalLine());
-                System.out.println("Task number out of range. Try again...");
+                System.out.println("Task number out of range :(");
+                System.out.println("Current number of tasks: " + tasks.size());
                 System.out.println(getHorizontalLine());
             }
         } catch (NumberFormatException e) {
             System.out.println(getHorizontalLine());
-            System.out.println("Invalid task number...");
+            System.out.println("Invalid task number :(");
             System.out.println(getHorizontalLine());
         }
     }
@@ -130,12 +131,12 @@ public class CheonsaBot {
                 System.out.println(getHorizontalLine());
             } else {
                 System.out.println(getHorizontalLine());
-                System.out.println("Task number out of range.");
+                System.out.println("Task number is out of range :(");
                 System.out.println(getHorizontalLine());
             }
         } catch (NumberFormatException e) {
             System.out.println(getHorizontalLine());
-            System.out.println("Invalid task number.");
+            System.out.println("Invalid task number :(");
             System.out.println(getHorizontalLine());
         }
     }
@@ -147,47 +148,77 @@ public class CheonsaBot {
      * @param words The details of the task.
      */
     private static void addTask(String command, String[] words) {
-        Task task;
-        switch (command.toLowerCase()) {
-            case "todo":
-            task = new ToDo(words[1]);
-            break;
+        Task task = null;
+        
+        try {
+            switch (command.toLowerCase()) {
+                case "todo":
+                    if (words.length > 1 && !words[1].trim().isEmpty()) {
+                        task = new ToDo(words[1]);
+                    } else {
+                        throw new IllegalArgumentException("Oh no! The description for 'todo' is missing. :( ");
+                    }
+                    break;
 
-            case "deadline":
-                String[] deadlineParts = words[1].split("/by", 2);
-                String deadlineDescription = deadlineParts[0].trim();
-                String by = deadlineParts.length > 1 ? deadlineParts[1].trim() : "";
-                task = new Deadline(deadlineDescription, by);
-                break;
+                case "deadline":
+                    if (words.length > 1) {
+                        String[] deadlineParts = words[1].split("/by", 2);
+                        if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+                            throw new IllegalArgumentException("Oops! The deadline format is incorrect or missing :( \nUse: deadline <description> /by <date>");
+                        }
+                        String deadlineDescription = deadlineParts[0].trim();
+                        String by = deadlineParts[1].trim();
+                        task = new Deadline(deadlineDescription, by);
+                    } else {
+                        throw new IllegalArgumentException("Oops! Missing description for 'deadline' :( ");
+                    }
+                    break;
 
-            case "event":
-                String[] eventParts = words[1].split("/from", 2);
-                String eventDescription = eventParts[0].trim();
-                String[] timeParts;
-                if (eventParts.length > 1) {
-                    timeParts = eventParts[1].split("/to", 2);
-                } else {
-                    timeParts = new String[]{"", ""};
-                }
-                String from = timeParts[0].trim();
-                String to = timeParts.length > 1 ? timeParts[1].trim() : "";
-                task = new Event(eventDescription, from, to);
-                break;
+                case "event":
+                    if (words.length > 1) {
+                        String[] eventParts = words[1].split("/from", 2);
+                        String eventDescription = eventParts[0].trim();
+                        String from = "";
+                        String to = "";
+                        if (eventParts.length > 1) {
+                            String[] timeParts = eventParts[1].split("/to", 2);
+                            from = timeParts[0].trim();
+                            if (timeParts.length > 1) {
+                                to = timeParts[1].trim();
+                            }
+                        }
+                        if (eventDescription.isEmpty() || from.isEmpty() || (to.isEmpty() && eventParts.length == 1)) {
+                            throw new IllegalArgumentException("Oops! The event format is incorrect or missing :( \nUse: event <description> /from <start> /to <end>");
+                        }
+                        task = new Event(eventDescription, from, to);
+                    } else {
+                        throw new IllegalArgumentException("Oops! Missing description for 'event' :( ");
+                    }
+                    break;
 
-            default:
+                default:
+                    throw new IllegalArgumentException("Oh no! Unknown task type: " + command + " :(\nTry commands todo, deadline, or event with the correct format!");
+            }
+
+            if (task != null) {
+                tasks.add(task);
                 System.out.println(getHorizontalLine());
-                System.out.println("Couldn't recognise: " + command);
-                System.out.println("Try commands todo, deadline or event!");
+                System.out.println("Added: " + task);
                 System.out.println(getHorizontalLine());
-                return;
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(getHorizontalLine());
+            System.out.println("Error: " + e.getMessage());
+            System.out.println(getHorizontalLine());
+        } catch (Exception e) {
+            System.out.println(getHorizontalLine());
+            System.out.println("Unexpected error: " + e.getMessage());
+            System.out.println(getHorizontalLine());
         }
-        tasks.add(task);
-
-        // Print to screen
-        System.out.println(getHorizontalLine());
-        System.out.println("Added: " + task);
-        System.out.println(getHorizontalLine());
     }
+
+
 
      /**
      * Prints the list of tasks to the console.
