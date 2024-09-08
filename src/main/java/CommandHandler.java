@@ -19,7 +19,7 @@ public class CommandHandler {
         } else if (dissectedCommand[0].equals("event")) {
             handleEvent(command);
         } else {
-            handleTask(command);
+            handleUnknown();
         }
     }
 
@@ -28,10 +28,8 @@ public class CommandHandler {
         TaskList.printList();
     }
 
-    private static void handleTask(String command) {
-        Task newTask = new Task(command);
-        TaskList.addTask(newTask);
-        System.out.println("added: " + newTask.getNameWithStatus());
+    private static void handleUnknown() {
+        System.out.println("Unrecognized command.");
     }
 
     private static void handleEvent(String command) {
