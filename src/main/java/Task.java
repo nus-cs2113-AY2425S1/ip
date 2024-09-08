@@ -38,10 +38,20 @@ public class Task {
         this.description = newDescription;
     }
 
+    /**
+     * Changes the done state of the task.
+     *
+     * @param bool
+     */
     public void setDoneState(boolean bool) {
         this.isDone = bool;
     }
 
+    /**
+     * Returns the done state of the task.
+     *
+     * @return done state of the task
+     */
     public boolean getDoneState() {
         return this.isDone;
     }
@@ -65,6 +75,12 @@ public class Task {
 
     }
 
+    /**
+     * Marks the task as done.
+     *
+     * @param taskList   list of tasks
+     * @param taskNumber number of the task to be marked as done
+     */
     public static void markAsDone(Task[] taskList, int taskNumber) {
         taskList[taskNumber - 1].markAsDone(); // Mark the task as done
     }
@@ -79,6 +95,12 @@ public class Task {
         this.toString();
     }
 
+    /**
+     * Marks the task as not done.
+     *
+     * @param taskList   list of tasks
+     * @param taskNumber number of the task to be marked as not done
+     */
     public static void markAsUndone(Task[] taskList, int taskNumber) {
         taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
     }
@@ -92,6 +114,9 @@ public class Task {
         return numberOfTasks;
     }
 
+    /**
+     * Prints the number of tasks in the list.
+     */
     public static void printNumberOfTasks() {
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
     }
@@ -106,6 +131,11 @@ public class Task {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Prints all the tasks in the list.
+     *
+     * @param taskList list of tasks
+     */
     public static void printAllTasks(Task[] taskList) {
         if (getNumberOfTasks() == 0) {
             System.out.println("The list is empty.");

@@ -1,12 +1,16 @@
 public class Event extends Task {
-
-    final static String COMMAND_STRING = "event";
-    final static String FROM_KEYWORD_STRING = "/from";
-    final static String TO_KEYWORD_STRING = "/to";
+    final static String COMMAND_STRING = "event"; // Command string for the Event class
+    final static String FROM_KEYWORD_STRING = "/from"; // Keyword string for the from date
+    final static String TO_KEYWORD_STRING = "/to"; // Keyword string for the to date
 
     protected String from;
     protected String to;
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description description of the event
+     */
     public Event(String description) {
         super(getDescriptionFromString(description));
         setFrom(getFromFromString(description));
@@ -18,53 +22,107 @@ public class Event extends Task {
 
     }
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description description of the event
+     * @param from        from date
+     * @param to          to date
+     */
     public Event(String description, String from, String to) {
         super(description);
     }
 
+    /**
+     * Returns the from date.
+     *
+     * @return from date
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     * Changes the from date.
+     *
+     * @param from
+     */
     public void setFrom(String from) {
         this.from = from;
     }
 
+    /**
+     * Returns the to date.
+     *
+     * @return
+     */
     public String getTo() {
         return to;
     }
 
+    /**
+     * Changes the to date.
+     *
+     * @param to
+     */
     public void setTo(String to) {
         this.to = to;
     }
 
+    /**
+     * Returns the description from the input string.
+     *
+     * @param input input string
+     *
+     * @return description
+     */
     public static String getDescriptionFromString(String input) {
+
+        if (input == null) {
+            return null;
+        }
+
         int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
         input = input.substring(0, indexOfFrom);
+
         return input.trim();
     }
 
+    /**
+     * Returns the from date from the input string.
+     *
+     * @param input input string
+     *
+     * @return
+     */
     public static String getFromFromString(String input) {
 
         if (input == null) {
             return null;
         }
 
-        int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
+        int indexAfterFrom = input.indexOf(FROM_KEYWORD_STRING) + FROM_KEYWORD_STRING.length();
         int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
 
-        return input.substring(indexOfFrom + FROM_KEYWORD_STRING.length(), indexOfTo).trim();
+        return input.substring(indexAfterFrom, indexOfTo).trim();
     }
 
+    /**
+     * Returns the to date from the input string.
+     *
+     * @param input input string
+     *
+     * @return
+     */
     public static String getToFromString(String input) {
 
         if (input == null) {
             return null;
         }
 
-        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
+        int indexAfterTo = input.indexOf(TO_KEYWORD_STRING) + TO_KEYWORD_STRING.length();
 
-        return input.substring(indexOfTo + TO_KEYWORD_STRING.length()).trim();
+        return input.substring(indexAfterTo).trim();
     }
 
     @Override

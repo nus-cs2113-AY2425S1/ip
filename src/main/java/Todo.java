@@ -1,7 +1,11 @@
 public class Todo extends Task {
-    final static String COMMAND_STRING = "todo";
+    final static String COMMAND_STRING = "todo"; // Command string for the Todo class
 
-
+    /**
+     * Constructor for the Todo class.
+     *
+     * @param description
+     */
     public Todo(String description) {
         super(description);
         System.out.println("Got it. I've added this task:");

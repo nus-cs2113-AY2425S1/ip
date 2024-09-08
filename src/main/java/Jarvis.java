@@ -6,7 +6,7 @@ public class Jarvis {
 
     private static final String chatBotName = "Jarvis"; // Name of the chatbot
 
-    private static Task[] taskList = new Task[100]; // Array to store tasks
+    private static Task[] taskList = new Task[MAX_TASK_LENGTH]; // Array to store tasks
 
     static String command; // Variable to store the command
     static String task; // Variable to store the task
@@ -73,8 +73,12 @@ public class Jarvis {
     }
 
 
+    /**
+     * Splits the command and task from the input.
+     *
+     * @param lineBufferString
+     */
     public static void splitCommandAndTask(String lineBufferString) {
-
         if (lineBufferString.contains(" ")) {
             command = lineBufferString.split(" ")[0];
             task = lineBufferString.substring(command.length() + 1);
@@ -91,7 +95,6 @@ public class Jarvis {
      * @param lineBufferString
      */
     public static void readInput(Scanner in, String lineBufferString) {
-
         try (in) {
             printPrompt(); // Print the prompt to the console
             lineBufferString = in.nextLine();
@@ -101,30 +104,29 @@ public class Jarvis {
             case "bye":
                 printGoodbyeMsgs();
                 break;
-            case "exit":
-                // Habit of typing exit to exit the program
+            case "exit": // Habit of typing exit to exit the program
                 printGoodbyeMsgs();
                 break;
-            case Task.LIST_COMMAND_STRING:
+            case Task.LIST_COMMAND_STRING: // List all the tasks
                 printTasks();
                 break;
-            case Todo.COMMAND_STRING:
+            case Todo.COMMAND_STRING: // Add a todo task
                 taskList[Task.getNumberOfTasks()] = new Todo(task);
                 printBreakLine();
                 break;
-            case Deadline.COMMAND_STRING:
+            case Deadline.COMMAND_STRING: // Add a deadline task
                 taskList[Task.getNumberOfTasks()] = new Deadline(task);
                 printBreakLine();
                 break;
-            case Event.COMMAND_STRING:
+            case Event.COMMAND_STRING: // Add an event task
                 taskList[Task.getNumberOfTasks()] = new Event(task);
                 printBreakLine();
                 break;
-            case Task.MARK_COMMAND_STRING:
+            case Task.MARK_COMMAND_STRING: // Mark the task as done
                 int taskNumberMark = Integer.parseInt(task); // Get the task number
                 Task.markAsDone(taskList, taskNumberMark); // Mark the task as done
                 break;
-            case Task.UNMARK_COMMAND_STRING:
+            case Task.UNMARK_COMMAND_STRING: // Mark the task as undone
                 int taskNumberUnmark = Integer.parseInt(task); // Get the task number
                 Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
                 break;

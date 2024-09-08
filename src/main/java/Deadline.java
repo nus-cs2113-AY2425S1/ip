@@ -3,6 +3,11 @@ public class Deadline extends Task {
     final static String BY_KEYWORD_STRING = "/by";
     protected String by;
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param description description of the deadline
+     */
     public Deadline(String description) {
         super(getDescriptionFromString(description));
         setBy(getDayFromString(description));
@@ -12,6 +17,12 @@ public class Deadline extends Task {
         Task.printNumberOfTasks();
     }
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param description description of the deadline
+     * @param by          by date
+     */
     public Deadline(String description, String by) {
         super(description);
         setBy(by);
@@ -21,26 +32,57 @@ public class Deadline extends Task {
         Task.printNumberOfTasks();
     }
 
+    /**
+     * Returns the by date.
+     *
+     * @return
+     */
     public String getBy() {
         return by;
     }
 
+    /**
+     * Changes the by date.
+     *
+     * @param by
+     */
     public void setBy(String by) {
         this.by = by;
     }
 
+    /**
+     * Returns the by date from the input string.
+     *
+     * @param input
+     *
+     * @return
+     */
     public static String getDayFromString(String input) {
 
         if (input == null) {
             return null;
         }
-        int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
 
-        return input.substring(indexOfBy + BY_KEYWORD_STRING.length()).trim();
+        int indexAfterBy = input.indexOf(BY_KEYWORD_STRING) + BY_KEYWORD_STRING.length();
+
+        return input.substring(indexAfterBy).trim();
     }
 
+    /**
+     * Returns the description from the input string.
+     *
+     * @param input
+     *
+     * @return
+     */
     public static String getDescriptionFromString(String input) {
-        input = input.substring(0, input.indexOf(BY_KEYWORD_STRING));
+        if (input == null) {
+            return null;
+        }
+
+        int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
+        input = input.substring(0, indexOfBy);
+
         return input.trim();
     }
 
