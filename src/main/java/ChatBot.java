@@ -1,4 +1,5 @@
 import esme.Ui;
+import esme.exceptions.EsmeException;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class ChatBot {
         while (true) {
             line = inputScanner.nextLine();
             String[] words = line.split(" ");
-            if (words.length == 0) {
+            if (line.isEmpty()) {
                 ui.promptEmptyInput();
                 continue;
             }
