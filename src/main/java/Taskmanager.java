@@ -24,26 +24,41 @@ public class Taskmanager {
         }
     }
 
-    public void addTodo(String input){
+    public void addTodo(String input) throws EmptyTaskEntry {
+        if (input.trim().length() == "todo".length()){
+            throw new EmptyTaskEntry();
+        }
         Yappatron.taskArray[Yappatron.taskNumber++] = new Todo(input.substring(input.indexOf(" ")));
     }
 
     public void addDeadline(String input){
         final int STRLENGTH_DEADLINE = 8;
-        final int STRLENGTH_BY = 3;
+        final int STRLENGTH_BY = 2;
+        if (input.trim().length() == "deadline".length()){
+            throw new EmptyTaskEntry();
+        }
+        if (!input.contains("by")){
+            throw new StringIndexOutOfBoundsException();
+        }
         Yappatron.taskArray[Yappatron.taskNumber++] = new Deadline(input.substring(input.indexOf("deadline") +
-                STRLENGTH_DEADLINE, input.indexOf('/')), input.substring(input.indexOf('/') + STRLENGTH_BY));
+                STRLENGTH_DEADLINE, input.indexOf("by")), input.substring(input.indexOf("by") + STRLENGTH_BY));
     }
 
     public void addEvent(String input) {
-        final int STRLENGTH_TO = 3;
-        final int STRLENGTH_FROM = 5;
+        final int STRLENGTH_TO = 2;
+        final int STRLENGTH_FROM = 4;
         final int STRLENGTH_EVENT = 5;
-        int firstSlash = input.indexOf("/");
-        int secondSlash = input.indexOf("/", firstSlash + 1);
-        String activityName = input.substring(input.indexOf("event") + STRLENGTH_EVENT, firstSlash);
-        String from = input.substring(firstSlash + STRLENGTH_FROM, secondSlash);
-        String to = input.substring(secondSlash + STRLENGTH_TO);
+        int indexFrom = input.indexOf("from");
+        int indexTo = input.indexOf("to");
+        if (input.trim().length() == "event".length()){
+            throw new EmptyTaskEntry();
+        }
+        if (indexFrom == -1 || indexTo == -1){
+            throw new StringIndexOutOfBoundsException();
+        }
+        String activityName = input.substring(input.indexOf("event") + STRLENGTH_EVENT, indexFrom);
+        String from = input.substring(indexFrom + STRLENGTH_FROM, indexTo);
+        String to = input.substring(indexTo + STRLENGTH_TO);
         Yappatron.taskArray[Yappatron.taskNumber++] = new Events(activityName, from, to);
     }
 }

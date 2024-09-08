@@ -26,15 +26,36 @@ public class Yappatron {
                 taskManager.list();
             }
             else{
-                System.out.println("added: " + input);
                 if (input.startsWith("todo")){
-                    taskManager.addTodo(input);
+                    try {
+                        taskManager.addTodo(input);
+                        System.out.println("added: " + input);
+                    }catch (EmptyTaskEntry e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 else if (input.startsWith("deadline")){
-                    taskManager.addDeadline(input);
+                    try {
+                        taskManager.addDeadline(input);
+                        System.out.println("added: " + input);
+                    }catch (StringIndexOutOfBoundsException e){
+                        System.out.println("Please key in valid deadline, include 'by' in string.");
+                    }catch (EmptyTaskEntry e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                else if (input.startsWith("event")){
+                    try {
+                        taskManager.addEvent(input);
+                        System.out.println("added: " + input);
+                    }catch (StringIndexOutOfBoundsException e){
+                        System.out.println("Please key in valid event. Include from and to in string.");
+                    }catch (EmptyTaskEntry e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 else{
-                    taskManager.addEvent(input);
+                    System.out.println("I do not understand what that means!");
                 }
             }
         }while (exitStatus==0);
