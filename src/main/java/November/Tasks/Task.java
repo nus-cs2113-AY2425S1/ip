@@ -1,3 +1,5 @@
+package November.Tasks;
+
 /**
  * Defines a task with a description and completion status.
  */
