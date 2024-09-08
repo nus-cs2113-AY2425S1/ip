@@ -9,7 +9,7 @@ public class IO {
     }
 
     public static void printResponse(String text) {
-        String lineSeparator = "-------------------------------";
+        String lineSeparator = "____________________________________________________________";
         text = lineSeparator +  "\n" + text + "\n" + lineSeparator + "\n";
         String formattedText = text.replaceAll("(?m)^", "\t");
         System.out.print(formattedText);
