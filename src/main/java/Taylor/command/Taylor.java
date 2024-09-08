@@ -150,6 +150,20 @@ public class Taylor {
                     ui.showLine();
                 }
             }
+
+            case "clear" -> {
+                ui.println("Are you sure you want to clear the tasks?");
+                if(ui.readCommand().trim().equalsIgnoreCase("yes")||ui.readCommand().trim().equalsIgnoreCase("y")
+                ||ui.readCommand().trim().equalsIgnoreCase("ok")) {
+                    tasks.reset();
+                    try {
+                        storage.save(tasks);
+                    } catch (IOException e) {
+                        ui.println("Unable to write to file");
+                    }
+                    ui.println("The tasks have been cleared.");
+                }
+            }
             default -> throw new TaylorException(("Unknown command: " + command));
         }
         return ui.readCommand();

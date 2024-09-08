@@ -64,7 +64,12 @@ Taylor is a simple chatbot that allows you to add, list, mark, unmark, and delet
    - **Command**: `find <keyword>`
    - **Example**: `find book`
 
-9. **Exit the Program**:
+9. **Clear all tasks**:
+   - Clear all the tasks in the list 
+   - **Command**: `clear` followed by `yes` or `y` or `ok`
+   - **Example**: `clear` -> `y`
+
+10. **Exit the Program**:
    - Exits the chatbot.
    - **Command**: `bye`
 

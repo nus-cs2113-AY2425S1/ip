@@ -132,4 +132,11 @@ public class TaskList {
         }
         return sj.toString();
     }
+
+    /**
+     * Clear all the tasks in the TaskList and reset
+     */
+    public void reset(){
+        tasks.clear();
+    }
 }
