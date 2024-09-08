@@ -25,23 +25,32 @@ public class TaskList {
         PrintUtils.lineBreak();
     }
 
-    public void markTaskAsDone(String argument)  {
-        setTaskStatus(argument, true);
+    public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        try {
+            setTaskStatus(argument, true);
+        } catch (InvalidTaskNumberException e) {
+            throw new InvalidTaskNumberException(e.getMessage());
+        } catch (TaskNotFoundException e) {
+            throw new TaskNotFoundException(e.getMessage());
+        }
     }
 
-    public void markTaskAsNotDone(String argument) {
-        setTaskStatus(argument, false);
+    public void markTaskAsNotDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        try {
+            setTaskStatus(argument, false);
+        } catch (InvalidTaskNumberException e) {
+            throw new InvalidTaskNumberException(e.getMessage());
+        } catch (TaskNotFoundException e) {
+            throw new TaskNotFoundException(e.getMessage());
+        }
     }
 
-    private void setTaskStatus(String argument, boolean isDone) {
+    private void setTaskStatus(String argument, boolean isDone) throws InvalidTaskNumberException, TaskNotFoundException {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(argument);
         } catch (NumberFormatException e) {
-            PrintUtils.lineBreak();
-            PrintUtils.println("Wow, " + argument + " is not even a number.");
-            PrintUtils.lineBreak();
-            return;
+            throw new InvalidTaskNumberException(argument);
         }
 
         try {
@@ -56,11 +65,9 @@ public class TaskList {
             }
             PrintUtils.println(tasks[taskNumber - 1].toString());
             PrintUtils.lineBreak();
-        } catch (NullPointerException e) {
-            PrintUtils.lineBreak();
-            PrintUtils.println("What. There is no task " + taskNumber + ". "
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
                     + "Try a number between 1 and " + this.size + ".");
-            PrintUtils.lineBreak();
         }
     }
 }

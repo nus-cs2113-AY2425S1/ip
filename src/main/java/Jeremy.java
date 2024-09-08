@@ -49,6 +49,14 @@ public class Jeremy {
                 PrintUtils.print("Invalid command format, ");
                 PrintUtils.println(e.getMessage());
                 PrintUtils.lineBreak();
+            } catch (InvalidTaskNumberException e) {
+                PrintUtils.lineBreak();
+                PrintUtils.println("Wow, " + e.getMessage() + " is not even a number.");
+                PrintUtils.lineBreak();
+            } catch (TaskNotFoundException e) {
+                PrintUtils.lineBreak();
+                PrintUtils.println(e.getMessage());
+                PrintUtils.lineBreak();
             }
 
             userInput = scanner.nextLine();
