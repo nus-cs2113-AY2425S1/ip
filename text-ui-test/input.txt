@@ -1,1 +1,11 @@
-todo borrow book
+todo Joe
+
+deadline quiz /by Monday 9pm
+
+list
+
+event lecture /from 4pm /to 6pm
+
+mark 1
+
+list

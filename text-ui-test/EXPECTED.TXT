@@ -1,10 +1,37 @@
-____________________________________________________________
+______________________________
 Hello! I'm Echo
 What can I do for you?
 
-____________________________________________________________
-____________________________________________________________
+______________________________
+______________________________
 Got it. I've added this task:
-[T][ ] borrow book
+[T][ ] Joe
 Now you have 1 tasks in the list.
-____________________________________________________________
+______________________________
+______________________________
+Got it. I've added this task:
+[D][ ] quiz (by: Monday 9pm)
+Now you have 2 tasks in the list.
+______________________________
+______________________________
+Here are the tasks in your list:
+1. [T][ ] Joe
+2. [D][ ] quiz (by: Monday 9pm)
+
+______________________________
+______________________________
+Got it. I've added this task:
+[E][ ] lecture (from: 4pm to: 6pm)
+Now you have 3 tasks in the list.
+______________________________
+______________________________
+Nice! I've marked this task as done:
+[T][X] Joe
+______________________________
+______________________________
+Here are the tasks in your list:
+1. [T][X] Joe
+2. [D][ ] quiz (by: Monday 9pm)
+3. [E][ ] lecture (from: 4pm to: 6pm)
+
+______________________________
