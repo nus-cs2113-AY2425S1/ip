@@ -57,7 +57,7 @@ public class Bento {
     // Data
     private final Scanner IN = new Scanner(System.in);
     private boolean isExit = false;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> TASKS = new ArrayList<>();
 
     // Print Functions
     public void printLogo() {
@@ -89,13 +89,13 @@ public class Bento {
     }
 
     public String getTaskCountMessage() {
-        return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", tasks.size());
+        return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", TASKS.size());
     }
 
     public String getUserInput() {
         return IN.nextLine();
     }
-    
+
     // tasks.ToDo Functions
     public void addToDo(String input) throws InvalidToDoException {
         if (input.isEmpty()) {
@@ -103,7 +103,7 @@ public class Bento {
         }
 
         ToDo toAdd = new ToDo(input);
-        tasks.add(toAdd);
+        TASKS.add(toAdd);
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -130,7 +130,7 @@ public class Bento {
         }
 
         Deadline toAdd = new Deadline(deadlineName, deadlineBy);
-        tasks.add(toAdd);
+        TASKS.add(toAdd);
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -170,7 +170,7 @@ public class Bento {
         }
 
         Event toAdd = new Event(eventName, fromString, toString);
-        tasks.add(toAdd);
+        TASKS.add(toAdd);
 
         printAddTaskSuccessMessage(toAdd.toString());
     }
@@ -192,13 +192,13 @@ public class Bento {
     }
 
     public Task retrieveTask(int index) {
-        return tasks.get(index);
+        return TASKS.get(index);
     }
 
     public void listTasks() {
         printLine();
         System.out.println(EXISTING_TASKS_MESSAGE);
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < TASKS.size(); i++) {
             System.out.printf("\t%d. %s\n", i + 1, retrieveTask(i));
         }
         printLine();
