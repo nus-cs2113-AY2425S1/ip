@@ -1,5 +1,7 @@
 package esme.task;
 
+import esme.exceptions.EsmeException;
+
 import java.util.ArrayList;
 
 /**
@@ -37,16 +39,22 @@ public class TaskList {
         return parts[1];
     }
 
-    public String addDeadlineTask(String input) {
+    public String addDeadlineTask(String input) throws EsmeException {
         String[] parts = input.split(" /by ");
+        if (parts.length < 2) {
+            throw new EsmeException("Error: The deadline format is incorrect. Use 'deadline <task> /by <time>'");
+        }
         String description = parts[0].replace("deadline ", "").trim();
         String by = parts[1].trim();
         tasks.add(new Deadline(description, by));
         return description;
     }
 
-    public String addEventTask(String input) {
+    public String addEventTask(String input) throws EsmeException {
         String[] parts = input.split(" /from | /to ");
+        if (parts.length < 3) {
+            throw new EsmeException("Error: The event format is incorrect. Use 'event <task> /from <time> /to <time>'");
+        }
         String description = parts[0].replace("event ", "").trim();
         String from = parts[1].trim();
         String to = parts[2].trim();

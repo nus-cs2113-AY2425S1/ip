@@ -1,13 +1,14 @@
 import esme.Ui;
+import esme.exceptions.EsmeException;
 
 import java.util.Scanner;
 
 public class ChatBot {
-    private Scanner in;
+    private Scanner inputScanner;
     private Ui ui;
 
     public ChatBot() {
-        this.in = new Scanner(System.in);
+        this.inputScanner = new Scanner(System.in);
         this.ui = new Ui();
     }
 
@@ -16,15 +17,16 @@ public class ChatBot {
         String line;
 
         while (true) {
-            line = in.nextLine();
+            line = inputScanner.nextLine();
             String[] words = line.split(" ");
-            if (words.length == 0) {
+            if (line.isEmpty()) {
                 ui.promptEmptyInput();
+                continue;
             }
             switch (words[0]) {
             case "bye":
                 ui.farewell();
-                in.close();
+                inputScanner.close();
                 System.exit(0);
                 break;
             case "todo":

@@ -1,10 +1,12 @@
 package esme;
 
+import esme.exceptions.EsmeException;
 import esme.task.TaskList;
 
 public class Ui {
     private TaskList taskList;
-    private static final String SEPARATOR = "--------------------------------------------------------------------------------------------------";
+    private static final int SEPARATOR_LENGTH = 100;
+    private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
 
     public Ui() {
         taskList = new TaskList();
@@ -12,18 +14,24 @@ public class Ui {
 
     public void addTaskToList(String command, String input) {
         String description;
-        switch(command) {
-        case "todo":
-            description = taskList.addTodoTask(input);
-            break;
-        case "deadline":
-            description = taskList.addDeadlineTask(input);
-            break;
-        case "event":
-            description = taskList.addEventTask(input);
-            break;
-        default:
-            System.out.println("Invalid command");  // Check again
+        try {
+            switch (command) {
+            case "todo":
+                description = taskList.addTodoTask(input);
+                break;
+            case "deadline":
+                description = taskList.addDeadlineTask(input);
+                break;
+            case "event":
+                description = taskList.addEventTask(input);
+                break;
+            default:
+                throw new EsmeException("Invalid command");
+            }
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
             return;
         }
         displayLine(true);
@@ -85,14 +93,23 @@ public class Ui {
     public void handleTaskStatus(String[] words) {
         String command = words[0];
         try {
-            int index = Integer.parseInt(words[1]);
-            if (isIndexValid(index)) {
-                toggleTaskStatus(index,command);
-            } else {
-                System.out.println("Oh dear, it seems the index has wandered beyond the boundaries of our list!");
+            if (taskList.getNumberOfTasks() <= 0) {
+                throw new EsmeException("Add some tasks! Currently, there are no tasks to be " + command + "ed.");
             }
-        } catch (Exception e) {
-            System.out.println("Error: Wrong format! Please use the format: command index (e.g., '" + command + " 1')");
+            if (words.length != 2) {
+                throw new EsmeException("Error: Wrong format! Please use the format: command index (e.g., '" +
+                        command + " 1')");
+            }
+            int index = Integer.parseInt(words[1]);
+            if (!isIndexValid(index)) {
+                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
+                        "boundaries of our list!");
+            }
+            toggleTaskStatus(index,command);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
         }
     }
 
@@ -109,7 +126,7 @@ public class Ui {
         displayLine(true);
     }
 
-    public String esmeLogo = " _____                    \n" +
+    private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
             "|  _| / __| '_ ` _ \\ / _ \\ \n" +
             "| |___\\__ \\ | | | | |  __/ \n" +
@@ -141,18 +158,16 @@ public class Ui {
 
     public void farewell() {
         displayLine(true);
-        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune in your favor!");
-        displayLine(true);
-    }
-
-    public void echo(String message) {
-        displayLine(true);
-        System.out.println("\t" + message);
+        System.out.println("\tAu revoir, mon ami! May the cosmos continue to weave a tapestry of fortune" +
+                " in your favor!");
         displayLine(true);
     }
 
     public void promptEmptyInput() {
-        System.out.println("The stars are silent... Please share your thoughts so I can guide you on your path.");
+        displayLine(true);
+        System.out.println("\tThe stars are silent... Please share your thoughts so I can guide you " +
+                "on your path.");
+        displayLine(true);
     }
 
     public void handleUnknownCommand() {
