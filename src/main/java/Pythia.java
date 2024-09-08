@@ -1,8 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Pythia {
     private static String botName = "Pythia";
@@ -14,7 +10,7 @@ public class Pythia {
             "|_|    \\__, |\\__|_| |_|_|\\__,_|\n" +
             "       |___/                   ";
 
-    private static boolean byeSaid = false;
+    private static boolean isByeSaid = false;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
     private static int remainingTasks = 0;
 
@@ -35,7 +31,7 @@ public class Pythia {
     public static void sayBye() {
         String byeMsg = "Your path is set. Until we meet again.";
         IO.printResponse(byeMsg);
-        byeSaid = true;
+        isByeSaid = true;
     }
 
     public static void listTasks() {
@@ -82,7 +78,7 @@ public class Pythia {
         greet();
         Parser parser = new Parser();
 
-        while (!byeSaid) {
+        while (!isByeSaid) {
             String request = IO.getRequest();
             parser.parse(request);
             parser.execute();

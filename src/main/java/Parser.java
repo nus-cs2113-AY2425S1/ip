@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,77 +34,79 @@ public class Parser {
     }
 
     private void parseAdd(String rawText) {
-        Pattern pattern = Pattern.compile(" .+");
+        Pattern pattern = Pattern.compile("add\\s(.+)");
         Matcher matcher = pattern.matcher(rawText);
 
-        String afterFirstSpace = "";
+        String what = "";
 
         if (matcher.find()) {
-            afterFirstSpace = matcher.group().trim(); // Trim to remove leading space
+            what = matcher.group(1);
         }
 
-        argumentList.add(afterFirstSpace);
+        argumentList.clear();
+        Collections.addAll(argumentList, what);
     }
 
     private void parseMark(String rawText) {
-        Pattern pattern = Pattern.compile(" .+");
+        Pattern pattern = Pattern.compile("mark\\s(.+)");
         Matcher matcher = pattern.matcher(rawText);
 
-        String afterFirstSpace = "";
+        String what = "";
 
         if (matcher.find()) {
-            afterFirstSpace = matcher.group().trim(); // Trim to remove leading space
+            what = matcher.group(1);
         }
 
-        argumentList.add(afterFirstSpace);
+        argumentList.clear();
+        Collections.addAll(argumentList, what);
     }
 
     private void parseToDo(String rawText) {
-        Pattern pattern = Pattern.compile(" .+");
+        Pattern pattern = Pattern.compile("todo\\s(.+)");
         Matcher matcher = pattern.matcher(rawText);
 
-        String afterFirstSpace = "";
+        String what = "";
 
         if (matcher.find()) {
-            afterFirstSpace = matcher.group().trim(); // Trim to remove leading space
+            what = matcher.group(1);
         }
 
-        argumentList.add(afterFirstSpace);
+        argumentList.clear();
+        Collections.addAll(argumentList, what);
     }
 
     private void parseDeadline(String rawText) {
-        Pattern pattern = Pattern.compile("(.+?)\\s/by\\s(.+)");
+        Pattern pattern = Pattern.compile("deadline\\s(.+)\\s/by\\s(.+)");
         Matcher matcher = pattern.matcher(rawText);
 
-        String whatToDo = "";
+        String what = "";
         String byWhen = "";
 
         if (matcher.find()) {
-            whatToDo = matcher.group(1);
+            what = matcher.group(1);
             byWhen = matcher.group(2);
         }
 
-        argumentList.add(whatToDo);
-        argumentList.add(byWhen);
+        argumentList.clear();
+        Collections.addAll(argumentList, what, byWhen);
     }
 
     private void parseEvent(String rawText) {
-        Pattern pattern = Pattern.compile("(.+?)\\s/from\\s(.+?)\\s/to\\s(.+)");
+        Pattern pattern = Pattern.compile("event\\s(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
         Matcher matcher = pattern.matcher(rawText);
 
-        String whatToDo = "";
+        String what = "";
         String fromWhen = "";
         String toWhen = "";
 
         if (matcher.find()) {
-            whatToDo = matcher.group(1);
+            what = matcher.group(1);
             fromWhen = matcher.group(2);
             toWhen = matcher.group(3);
         }
 
-        argumentList.add(whatToDo);
-        argumentList.add(fromWhen);
-        argumentList.add(toWhen);
+        argumentList.clear();
+        Collections.addAll(argumentList, what, fromWhen, toWhen);
     }
 
     public void parse(String rawText) {
