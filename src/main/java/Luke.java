@@ -1,7 +1,17 @@
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Luke {
+
+    private static final String LOGO =
+            "                              \n" +
+            ",--.           ,--.           \n" +
+            "|  |   ,--.,--.|  |,-. ,---.  \n" +
+            "|  |   |  ||  ||     /| .-. : \n" +
+            "|  '--.'  ''  '|  \\  \\\\   --. \n" +
+            "`-----' `----' `--'`--'`----' \n" +
+            "                              ";
 
     private static final String HORIZONTAL_LINE =
             "____________________________________________________________";
@@ -20,24 +30,15 @@ public class Luke {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    private static String numberOfTasksMessage() {
+        return String.format("Now you have %d %s in the list.", size, size > 1 ? "tasks" : "task");
+    }
+
     private static void list() {
         printDivider();
         for (int i = 0; i < size; i++) {
-            String status = (tasks[i].isDone() ? "X" : " ");
-            Class<? extends Task> type = tasks[i].getClass();
-            char t = 'U';
-            if (type.equals(Deadline.class)) {
-                t = 'D';
-                System.out.printf("%d.[%c][%s] %s (by: %s)\n",
-                        i+1, t, status, tasks[i].getDescription(), tasks[i].getBy());
-            } else if (type.equals(ToDo.class)) {
-                t = 'T';
-                System.out.printf("%d.[%c][%s] %s\n", i+1, t, status, tasks[i].getDescription());
-            } else if (type.equals(Event.class)) {
-                t = 'E';
-                System.out.printf("%d.[%c][%s] %s (from: %s to: %s)\n",
-                        i+1, t, status, tasks[i].getDescription(), tasks[i].getFrom(), tasks[i].getTo());
-            }
+            System.out.printf("%d. ", i + 1);
+            System.out.println(tasks[i].toString());
         }
         printDivider();
     }
@@ -51,8 +52,6 @@ public class Luke {
         String fromStr;
         String toStr;
         String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
-        Class<? extends Task> type;
-        char t;
         switch (commandType) {
         case BYE:
             printReply("Bye. Hope to see you again soon!");
@@ -72,16 +71,7 @@ public class Luke {
                 break;
             }
             tasks[idx].setAsDone();
-            type = tasks[idx].getClass();
-            t = 'U';
-            if (type.equals(Deadline.class)) {
-                t = 'D';
-            } else if (type.equals(ToDo.class)) {
-                t = 'T';
-            } else if (type.equals(Event.class)) {
-                t = 'E';
-            }
-            printReply(String.format("Marked:\n  [%c][X] %s", t, tasks[idx].getDescription()));
+            printReply(String.format("Marked:\n  %s", tasks[idx].toString()));
             break;
         case UNMARK:
             try {
@@ -95,23 +85,14 @@ public class Luke {
                 break;
             }
             tasks[idx].setAsUndone();
-            type = tasks[idx].getClass();
-            t = 'U';
-            if (type.equals(Deadline.class)) {
-                t = 'D';
-            } else if (type.equals(ToDo.class)) {
-                t = 'T';
-            } else if (type.equals(Event.class)) {
-                t = 'E';
-            }
-            printReply(String.format("Unmarked:\n  [%c][ ] %s", t, tasks[idx].getDescription()));
+            printReply(String.format("Unmarked:\n  %s", tasks[idx].toString()));
             break;
         case TODO:
             description = String.join(" ", args);
             tasks[size] = new ToDo(description);
             size++;
-            printReply(String.format("Task added:\n  [T][ ] %s\n Now u hv %d %s in the list.",
-                        description, size, size > 1 ? "tasks" : "task"));
+            printReply(String.format("Task added: %s\n  %s",
+                    tasks[size - 1].toString(), numberOfTasksMessage()));
             break;
         case DEADLINE:
             for (int i = 0; i < args.length; i++) {
@@ -127,8 +108,8 @@ public class Luke {
             deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
             tasks[size] = new Deadline(description, deadlineStr);
             size++;
-            printReply(String.format("Added task:\n  [D][ ] %s (by: %s)\nNow u hv %d %s in the list.",
-                        description, deadlineStr, size, size > 1 ? "tasks" : "task"));
+            printReply(String.format("Added deadline: %s\n  %s",
+                    tasks[size - 1].toString(), numberOfTasksMessage()));
             break;
 
         case EVENT:
@@ -152,8 +133,8 @@ public class Luke {
             toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
             tasks[size] = new Event(description, fromStr, toStr);
             size++;
-            printReply(String.format("Added task:\n  [E][ ] %s (from: %s to: %s)\nNow u hv %d %s in the list.",
-                    description, fromStr, toStr, size, size > 1 ? "tasks" : "task"));
+            printReply(String.format("Added event: %s\n %s",
+                    tasks[size - 1].toString(), numberOfTasksMessage()));
             break;
         }
     }
@@ -179,9 +160,15 @@ public class Luke {
         }
     }
 
-    public static void main(String[] args) {
+    private static void printGreeting() {
+        printDivider();
+        System.out.println(LOGO);
+        System.out.println("Hi im Luke!\nWhat can I do for you? :)");
+        printDivider();
+    }
 
-        printReply("Hello! I'm Luke\nWhat can I do for you?");
+    public static void main(String[] args) {
+        printGreeting();
         Scanner in = new Scanner(System.in);
         String line;
 

@@ -18,4 +18,8 @@ public class Event extends Task{
         return to;
     }
 
+    @Override
+    public String toString() {
+        return String.format("[E][%s] %s (from: %s to: %s)", this.isDone ? "X" : " ", this.description, from, to);
+    }
 }
