@@ -62,13 +62,11 @@ public class Luke {
         case MARK:
             try {
                 idx = Integer.parseInt(args[0]) - 1;
-            } catch(NumberFormatException e) {
-                printReply("Please input a number");
-                break;
+            } catch (NumberFormatException e) {
+                throw new IncorrectInput("Please input an integer");
             }
             if (idx < 0 || idx >= size) {
-                printReply("Invalid index");
-                break;
+                throw new IncorrectInput("Invalid index");
             }
             tasks[idx].setAsDone();
             printReply(String.format("Marked:\n  %s", tasks[idx].toString()));
@@ -76,18 +74,19 @@ public class Luke {
         case UNMARK:
             try {
                 idx = Integer.parseInt(args[0]) - 1;
-            } catch(NumberFormatException e) {
-                printReply("Please input a number");
-                break;
+            } catch (NumberFormatException e) {
+                throw new IncorrectInput("Please input an integer");
             }
             if (idx < 0 || idx >= size) {
-                printReply("Invalid index");
-                break;
+                throw new IncorrectInput("Invalid index");
             }
             tasks[idx].setAsUndone();
             printReply(String.format("Unmarked:\n  %s", tasks[idx].toString()));
             break;
         case TODO:
+            if (args.length == 0) {
+                throw new InsufficientArguments("todo command needs at least 1 argument.");
+            }
             description = String.join(" ", args);
             tasks[size] = new ToDo(description);
             size++;
@@ -101,8 +100,7 @@ public class Luke {
                 }
             }
             if (idx == -1) {
-                printReply("Please input deadline");
-                break;
+                throw new InsufficientArguments("Deadline needs to be specified");
             }
             description = String.join(" ", Arrays.copyOf(args, idx));
             deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
@@ -121,12 +119,10 @@ public class Luke {
                 }
             }
             if (fromIdx == -1) {
-                printReply("From when???");
-                break;
+                throw new InsufficientArguments("From when???");
             }
             if (toIdx == -1) {
-                printReply("To when???");
-                break;
+                throw new InsufficientArguments("To when???");
             }
             description = String.join(" ", Arrays.copyOf(args, fromIdx));
             fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
@@ -136,6 +132,8 @@ public class Luke {
             printReply(String.format("Added event: %s\n %s",
                     tasks[size - 1].toString(), numberOfTasksMessage()));
             break;
+        default:
+            throw new InvalidCommand("Invalid command");
         }
     }
 
@@ -148,15 +146,37 @@ public class Luke {
         } else if (command.equalsIgnoreCase("list")) {
             executeCommand(CommandType.LIST, inputArr);
         } else if (command.equalsIgnoreCase("mark")) {
-            executeCommand(CommandType.MARK, inputArr);
+            try {
+                executeCommand(CommandType.MARK, inputArr);
+            } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
         } else if (command.equalsIgnoreCase("unmark")) {
-            executeCommand(CommandType.UNMARK, inputArr);
+            try {
+                executeCommand(CommandType.UNMARK, inputArr);
+            } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
         } else if (command.equalsIgnoreCase("todo")){
-            executeCommand(CommandType.TODO, inputArr);
+            try {
+                executeCommand(CommandType.TODO, inputArr);
+            } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
         } else if (command.equalsIgnoreCase("deadline")){
-            executeCommand(CommandType.DEADLINE, inputArr);
+            try {
+                executeCommand(CommandType.DEADLINE, inputArr);
+            } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
         } else if (command.equalsIgnoreCase("event")){
-            executeCommand(CommandType.EVENT, inputArr);
+            try {
+                executeCommand(CommandType.EVENT, inputArr);
+            } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
+        } else {
+            throw new InvalidCommand("Invalid command");
         }
     }
 
@@ -174,7 +194,11 @@ public class Luke {
 
         while (true) {
             line = in.nextLine();
-            sendMessage(line);
+            try {
+                sendMessage(line);
+            } catch (InvalidCommand e) {
+                printReply("Sorry, I don't understand you :(");
+            }
         }
     }
 }
