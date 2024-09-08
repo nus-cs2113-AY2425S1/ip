@@ -4,14 +4,13 @@ public enum Command {
     UNMARK,
     TODO,
     DEADLINE,
-    EVENT,
-    UNKNOWN_COMMAND; // for unrecognised commands
+    EVENT;
 
-    public static Command fromString(String command) {
+    public static Command fromString(String command) throws IllegalCommandException {
         try {
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            return UNKNOWN_COMMAND;
+            throw new IllegalCommandException("Unrecognised command");
         }
     }
 }
