@@ -36,7 +36,7 @@ public class Quag {
                     addEvent(userInput);
                     break;
                 default:
-                    displayCommandList();
+                    displayCommandList(userInput);
                     break;
             }
         }
@@ -144,7 +144,18 @@ public class Quag {
 
     }
 
-    private static void displayCommandList() {
+    private static void displayCommandList(String userInput) {
         //displays all the commands available and their descriptions
+        System.out.println(userInput + " is not a valid command!");
+        System.out.println("list of all quaggin commands:");
+        System.out.println("_______________________________________");
+        System.out.println("list: lists out all your tasks");
+        System.out.println("mark <index>: marks task corresponding to index");
+        System.out.println("unmark <index>: unmarks task corresponding to index");
+        System.out.println("todo <description>: adds task type todo to list");
+        System.out.println("deadline <description> /by <date>: adds task type deadline to list");
+        System.out.println("event <description> /from <date> /to <date>: adds task type event to list");
+        System.out.println("quag: exit program");
+
     }
 }
