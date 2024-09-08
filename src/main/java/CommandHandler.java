@@ -66,24 +66,36 @@ public class CommandHandler {
     }
 
     private static void handleUnmark(String[] dissectedCommand) {
-        int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
-        if (TaskList.isValidTaskId(taskId)) {
-            TaskList.markTaskAsUndone(taskId);
-            System.out.println("Ok, I've marked this task as not done yet:");
-            System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
-        } else {
-            System.out.println("Invalid task ID.");
+        try {
+            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            if (TaskList.isValidTaskId(taskId)) {
+                TaskList.markTaskAsUndone(taskId);
+                System.out.println("Ok, I've marked this task as not done yet:");
+                System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
+            } else {
+                System.out.println("Invalid task ID.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input the index of the task you wish to unmark.");
+        } catch (NumberFormatException e) {
+            System.out.println("Index to unmark should be a number.");
         }
     }
 
     private static void handleMark(String[] dissectedCommand) {
-        int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
-        if (TaskList.isValidTaskId(taskId)) {
-            TaskList.markTaskAsDone(taskId);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
-        } else {
-            System.out.println("Invalid task ID.");
+        try {
+            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            if (TaskList.isValidTaskId(taskId)) {
+                TaskList.markTaskAsDone(taskId);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
+            } else {
+                System.out.println("Invalid task ID.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input the index of the task you wish to mark.");
+        } catch (NumberFormatException e) {
+            System.out.println("Index to mark should be a number.");
         }
     }
 }
