@@ -10,50 +10,47 @@ Hi im Luke!
 What can I do for you? :)
 ____________________________________________________________
 ____________________________________________________________
-Task added:
-  [T][ ] buy apples
- Now u hv 1 task in the list.
+Task added: [T][ ] buy apples
+  Now you have 1 task in the list.
 ____________________________________________________________
 ____________________________________________________________
-Added task:
-  [D][ ] tutorial (by: Tuesday)
-Now u hv 2 tasks in the list.
+Added deadline: [D][ ] tutorial (by: Tuesday)
+  Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Added task:
-  [E][ ] lecture (from: 1pm to: 2pm)
-Now u hv 3 tasks in the list.
+Added event: [E][ ] lecture (from: 1pm to: 2pm)
+ Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] buy apples
-2.[D][ ] tutorial (by: Tuesday)
-3.[E][ ] lecture (from: 1pm to: 2pm)
+1. [T][ ] buy apples
+2. [D][ ] tutorial (by: Tuesday)
+3. [E][ ] lecture (from: 1pm to: 2pm)
 ____________________________________________________________
 ____________________________________________________________
 Marked:
   [T][X] buy apples
 ____________________________________________________________
 ____________________________________________________________
-1.[T][X] buy apples
-2.[D][ ] tutorial (by: Tuesday)
-3.[E][ ] lecture (from: 1pm to: 2pm)
+1. [T][X] buy apples
+2. [D][ ] tutorial (by: Tuesday)
+3. [E][ ] lecture (from: 1pm to: 2pm)
 ____________________________________________________________
 ____________________________________________________________
 Marked:
-  [E][X] lecture
+  [E][X] lecture (from: 1pm to: 2pm)
 ____________________________________________________________
 ____________________________________________________________
 Unmarked:
   [T][ ] buy apples
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] buy apples
-2.[D][ ] tutorial (by: Tuesday)
-3.[E][X] lecture (from: 1pm to: 2pm)
+1. [T][ ] buy apples
+2. [D][ ] tutorial (by: Tuesday)
+3. [E][X] lecture (from: 1pm to: 2pm)
 ____________________________________________________________
 ____________________________________________________________
 Marked:
-  [D][X] tutorial
+  [D][X] tutorial (by: Tuesday)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
