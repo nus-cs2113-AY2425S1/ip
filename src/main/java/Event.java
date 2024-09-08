@@ -1,17 +1,15 @@
-import java.util.Date;
-
 public class Event extends Task {
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
-    public Event(String name, boolean status, Date startDate, Date endDate) {
-        super(name, status);
+    public Event(String name, String startDate, String endDate) {
+        super(name);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString();
+        return "[E]" + super.toString() + " (from " + startDate + " to " + endDate + ")";
     }
 }

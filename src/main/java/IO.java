@@ -26,12 +26,17 @@ public class IO {
     public static void printTaskList(ArrayList<Task> taskList) {
         StringBuilder taskListString = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
-            taskListString.append(i + 1);
-            taskListString.append(". ");
+            taskListString.append(i + 1).append(". ");
             taskListString.append(taskList.get(i).toString());
-            if (i < taskList.size() - 1) {
-                taskListString.append("\n");
-            }
+            taskListString.append("\n");
+        }
+
+        int remainingTasks = Pythia.getNumberOfRemainingTasks();
+        taskListString.append("Now you have ").append(remainingTasks);
+        if (remainingTasks == 1) {
+            taskListString.append(" task in the list.");
+        } else {
+            taskListString.append(" tasks in the list.");
         }
         printResponse(taskListString.toString());
     }

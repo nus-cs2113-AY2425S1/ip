@@ -1,15 +1,13 @@
-import java.util.Date;
-
 public class Deadline extends Task {
-    private Date dueDate;
+    private String dueDate;
 
-    public Deadline(String name, boolean status, Date dueDate) {
-        super(name, status);
+    public Deadline(String name, String dueDate) {
+        super(name);
         this.dueDate = dueDate;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " " + " (by: " + dueDate + ")";
+        return "[D]" + super.toString() + " " + "(by: " + dueDate + ")";
     }
 }

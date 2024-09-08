@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Pythia {
     private static String botName = "Pythia";
@@ -12,6 +16,11 @@ public class Pythia {
 
     private static boolean byeSaid = false;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static int remainingTasks = 0;
+
+    public static int getNumberOfRemainingTasks() {
+        return remainingTasks;
+    }
 
     public static void greet() {
         String helloMsg =   "Welcome, seeker. I am " + botName + ".\n" +
@@ -33,26 +42,28 @@ public class Pythia {
         IO.printTaskList(taskList);
     }
 
-    public static void chooseAction(String request) {
-        String key = request.split(" ")[0];
-        String value = "";
-
-        if (request.split(" ").length > 1) {
-            value = request.substring(key.length() + 1);
-        }
-
-        switch (key) {
-            case "bye" -> sayBye();
-            case "list" -> listTasks();
-            case "add" -> addTask(value);
-            case "mark" -> markTask(Integer.parseInt(value));
-            default -> IO.printResponse("Hmm. I am not sure what you mean.");
-        }
-    }
-
     public static void addTask(String taskName) {
         taskList.add(new Task(taskName));
+        remainingTasks++;
         IO.printAddedTask("added: " + taskName);
+    }
+
+    public static void addToDo(String todoName) {
+        taskList.add(new ToDo(todoName));
+        remainingTasks++;
+        IO.printAddedTask("added: " + todoName);
+    }
+
+    public static void addDeadline(String deadlineName, String dueDate) {
+        taskList.add(new Deadline(deadlineName, dueDate));
+        remainingTasks++;
+        IO.printAddedTask("added: " + deadlineName);
+    }
+
+    public static void addEvent(String eventName, String startDate, String endDate) {
+        taskList.add(new Event(eventName, startDate, endDate));
+        remainingTasks++;
+        IO.printAddedTask("added: " + eventName);
     }
 
     public static void markTask(Integer taskNumber) {
@@ -63,15 +74,18 @@ public class Pythia {
         } else {
             IO.printResponse("There is no such task :(");
         }
+        remainingTasks--;
     }
     
     public static void main(String[] args) {
         IO.init();
         greet();
+        Parser parser = new Parser();
 
         while (!byeSaid) {
             String request = IO.getRequest();
-            chooseAction(request);
+            parser.parse(request);
+            parser.execute();
         }
     }
 }
