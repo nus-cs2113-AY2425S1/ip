@@ -1,29 +1,28 @@
-import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Amy {
     public static final String name = "Amy";
-    private static final int MAX_TASKS = 100;
-    private static Task[] taskList = new Task[MAX_TASKS];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static boolean isExit = false;
-    private static int taskNum = 0;
     public static void showTaskList(){
         String line = "Let's try to get this done! You got this (๑•̀ㅂ•́)و✧";
         String noTask = "You don't have anything in your TDL! Take some rest for now (✿◡‿◡)";
 
-        if(taskNum == 0){
+        if(taskList.isEmpty()){
             System.out.println(noTask);
         } else{
             System.out.println(line);
         }
 
-        for(int i = 0; i<taskNum; i++){
-            System.out.println(String.valueOf(i+1) + '.' + taskList[i]);
+        for(int i = 0; i< taskList.size(); i++){
+            System.out.println(String.valueOf(i+1) + '.' + taskList.get(i));
         }
     }
-    public static void addTaskList(String input){
-        taskList[taskNum++] = new Task(input);
-        System.out.println("I added <" + input + "> to the todo-list! ☆*: .｡. o(≧▽≦)o .｡.:*☆");
+    public static void addTaskList(Task task){
+        taskList.add(task);
+        System.out.println("I added <" + task + "> to the todo-list! ☆*: .｡. o(≧▽≦)o .｡.:*☆");
+        System.out.println("Now you have " + taskList.size() + " tasks in the todolist. Good luck!");
     }
     public static void doGreeting(){
         String greet = "Hello! I'm " + name + " ✿" + "\nWhat can I do for you? (❁´◡`❁) \n";
@@ -45,9 +44,9 @@ public class Amy {
 
         String line = "Good job ( •̀ ω •́ )y You have been working hard~";
 
-        taskList[taskNo].markAsDone();
+        taskList.get(taskNo).markAsDone();
         System.out.println(line);
-        System.out.println(taskList[taskNo]);
+        System.out.println(taskList.get(taskNo));
 
     }
     public static void markTaskUndone(int taskNo){
@@ -56,12 +55,18 @@ public class Amy {
         }
         String line = "Okay, let's do this again o(*￣▽￣*)ブ";
 
-        taskList[taskNo].markAdUndone();
+        taskList.get(taskNo).markAdUndone();
         System.out.println(line);
-        System.out.println(taskList[taskNo]);
+        System.out.println(taskList.get(taskNo));
     }
+
+    /***
+     * Check for out of bounds task numbers.
+     * @param taskNo task number
+     * @return if task number is valid or not
+     */
     public static boolean isValidTask(int taskNo){
-        if(taskNo < 0 || taskNo >= taskNum){
+        if(taskNo < 0 || taskNo >= taskList.size()){
             System.out.println("I didn't find that task on your list. Wanna try again? (┬┬﹏┬┬)");
             return false;
         } else {
@@ -71,6 +76,7 @@ public class Amy {
     public static String[] requestParser(String request){
         String key = request.split(" ")[0];
         String[] args = new String[100];
+        String[] parts;
         switch(key){
             case "mark", "unmark":
                 args[0] = request.split(" ")[1]; //1 argument
@@ -79,7 +85,7 @@ public class Amy {
                 args[0] = request.substring(5);
                 break;
             case "deadline":
-                String[] parts = request.split(" /by ");
+                parts = request.split(" /by ");
                 args[0] = parts[0].substring(9);
                 args[1] = parts[1];
                 break;
@@ -93,19 +99,13 @@ public class Amy {
         return args;
     }
     public static void addDeadline(String[] input){
-        taskList[taskNum++] = new Deadline(input[0], input[1]);
-        System.out.println("I added <" + taskList[taskNum-1] + "> to the todo-list! ☆*: .｡. o(≧▽≦)o .｡.:*☆");
-        System.out.println("Now you have " + taskNum + " tasks in the todolist. Good luck!");
+        addTaskList(new Deadline(input[0], input[1]));
     }
     public static void addEvent(String[] input){
-        taskList[taskNum++] = new Event(input[0], input[1], input[2]);
-        System.out.println("I added <" + taskList[taskNum-1] + "> to the todo-list! ☆*: .｡. o(≧▽≦)o .｡.:*☆");
-        System.out.println("Now you have " + taskNum + " tasks in the todolist. Good luck!");
+        addTaskList(new Event(input[0], input[1], input[2]));
     }
     public static void addTodo(String[] input){
-        taskList[taskNum++] = new Todo(input[0]);
-        System.out.println("I added <" + taskList[taskNum-1] + "> to the todo-list! ☆*: .｡. o(≧▽≦)o .｡.:*☆");
-        System.out.println("Now you have " + taskNum + " tasks in the todolist. Good luck!");
+        addTaskList(new Todo(input[0]));
     }
 
     public static void chooseAction(String request){
@@ -115,8 +115,8 @@ public class Amy {
             case "greet" -> doGreeting();
             case "bye" -> exit();
             case "list" -> showTaskList();
-            case "mark" -> markTaskDone(Integer.parseInt(requestParser(request)[0]));
-            case "unmark" -> markTaskUndone(Integer.parseInt(requestParser(request)[0]));
+            case "mark" -> markTaskDone(Integer.parseInt(requestParser(request)[0]) - 1);
+            case "unmark" -> markTaskUndone(Integer.parseInt(requestParser(request)[0]) - 1);
             case "todo" -> addTodo(requestParser(request));
             case "deadline" -> addDeadline(requestParser(request));
             case "event" -> addEvent(requestParser(request));
