@@ -1,5 +1,10 @@
 package nell;
 
+import nell.tasks.Deadline;
+import nell.tasks.Event;
+import nell.tasks.Task;
+import nell.tasks.ToDo;
+
 import java.util.Scanner;
 
 public class Nell {

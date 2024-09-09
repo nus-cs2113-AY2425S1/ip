@@ -1,6 +1,6 @@
-package nell;
+package nell.tasks;
 
-public class Deadline extends Task {
+public class Deadline extends nell.tasks.Task {
     private String by;
 
     public Deadline(String description, String by) {

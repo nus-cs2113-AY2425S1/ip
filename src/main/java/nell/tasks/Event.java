@@ -1,6 +1,6 @@
-package nell;
+package nell.tasks;
 
-public class Event extends Task {
+public class Event extends nell.tasks.Task {
     private String from;
     private String to;
 

@@ -1,4 +1,4 @@
-package nell;
+package nell.tasks;
 
 public class Task {
     protected String description;
