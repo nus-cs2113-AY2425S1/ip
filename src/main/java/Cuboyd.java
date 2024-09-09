@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Cuboyd {
     // Helpers /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void displayIntroText(){
-        String name = "Cuboyd";
-        System.out.println("Hello! I'm " + name);
+        String BOT_NAME = "Cuboyd";
+        System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
     }
 
