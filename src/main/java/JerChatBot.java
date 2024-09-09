@@ -1,8 +1,12 @@
 import java.util.Scanner;
-import exceptions.EmptyDescriptionException;
-import exceptions.UnknownCommandException;
-import exceptions.InvalidTaskNumberException;
-import exceptions.TaskListFullException;
+import exception.EmptyDescriptionException;
+import exception.UnknownCommandException;
+import exception.InvalidTaskNumberException;
+import exception.TaskListFullException;
+import task.Task;
+import task.Event;
+import task.Deadline;
+import task.ToDo;
 
 public class JerChatBot {
 
@@ -148,7 +152,7 @@ public class JerChatBot {
         String taskDetails = parts.length > 1 ? parts[1] : "";
 
         if (taskDetails.isEmpty()) {
-            throw new EmptyDescriptionException("OOPS!!! The description of a " + categoryOfTask + " cannot be empty.");
+            throw new EmptyDescriptionException("The description of a " + categoryOfTask + " cannot be empty.");
         }
 
         Task newTask = createTask(categoryOfTask, taskDetails);

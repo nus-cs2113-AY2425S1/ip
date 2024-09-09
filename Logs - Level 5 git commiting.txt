@@ -1,0 +1,86 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Jerome> cd C:\Users\Jerome\Desktop\CS2113\ip
+PS C:\Users\Jerome\Desktop\CS2113\ip> git checkout -b branch-level-5
+Switched to a new branch 'branch-level-5'
+PS C:\Users\Jerome\Desktop\CS2113\ip> git add .
+PS C:\Users\Jerome\Desktop\CS2113\ip> git commit -m "Implement Level-5: Handle Errors"
+[branch-level-5 deeff59] Implement Level-5: Handle Errors
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+PS C:\Users\Jerome\Desktop\CS2113\ip> git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+PS C:\Users\Jerome\Desktop\CS2113\ip> git merge --no-ff branch-Level-5
+Merge made by the 'ort' strategy.
+ src/main/java/JerChatBot.java | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+PS C:\Users\Jerome\Desktop\CS2113\ip> git tag Level-5
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin master
+Enumerating objects: 12, done.
+Counting objects: 100% (12/12), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 822 bytes | 205.00 KiB/s, done.
+Total 7 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (4/4), completed with 3 local objects.
+To https://github.com/tayjerom/ip
+   b2037d9..218c120  master -> master
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin branch-Level-5
+fatal: branch-Level-5 cannot be resolved to branch
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin --tags
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/tayjerom/ip
+ * [new tag]         Level-5 -> Level-5
+PS C:\Users\Jerome\Desktop\CS2113\ip>
+PS C:\Users\Jerome\Desktop\CS2113\ip> git checkout -b branch-A-Exceptions
+Switched to a new branch 'branch-A-Exceptions'
+PS C:\Users\Jerome\Desktop\CS2113\ip> git add .
+PS C:\Users\Jerome\Desktop\CS2113\ip> git commit -m "Implement A-Exceptions: handle errors with custom exceptions"
+[branch-A-Exceptions 3a36eb4] Implement A-Exceptions: handle errors with custom exceptions
+ 5 files changed, 73 insertions(+), 71 deletions(-)
+ create mode 100644 src/main/java/exceptions/EmptyDescriptionException.java
+ create mode 100644 src/main/java/exceptions/InvalidTaskNumberException.java
+ create mode 100644 src/main/java/exceptions/TaskListFullException.java
+ create mode 100644 src/main/java/exceptions/UnknownCommandException.java
+PS C:\Users\Jerome\Desktop\CS2113\ip> git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+PS C:\Users\Jerome\Desktop\CS2113\ip> git merge --no-ff branch-A-Exceptions
+Merge made by the 'ort' strategy.
+ src/main/java/JerChatBot.java                      | 116 ++++++++-------------
+ .../java/exceptions/EmptyDescriptionException.java |   7 ++
+ .../exceptions/InvalidTaskNumberException.java     |   7 ++
+ .../java/exceptions/TaskListFullException.java     |   7 ++
+ .../java/exceptions/UnknownCommandException.java   |   7 ++
+ 5 files changed, 73 insertions(+), 71 deletions(-)
+ create mode 100644 src/main/java/exceptions/EmptyDescriptionException.java
+ create mode 100644 src/main/java/exceptions/InvalidTaskNumberException.java
+ create mode 100644 src/main/java/exceptions/TaskListFullException.java
+ create mode 100644 src/main/java/exceptions/UnknownCommandException.java
+PS C:\Users\Jerome\Desktop\CS2113\ip> git tag A-Exceptions
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin master
+Enumerating objects: 17, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (12/12), 1.47 KiB | 503.00 KiB/s, done.
+Total 12 (delta 7), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (7/7), completed with 3 local objects.
+To https://github.com/tayjerom/ip
+   218c120..21ae23a  master -> master
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin branch-A-Exceptions
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+remote:
+remote: Create a pull request for 'branch-A-Exceptions' on GitHub by visiting:
+remote:      https://github.com/tayjerom/ip/pull/new/branch-A-Exceptions
+remote:
+To https://github.com/tayjerom/ip
+ * [new branch]      branch-A-Exceptions -> branch-A-Exceptions
+PS C:\Users\Jerome\Desktop\CS2113\ip> git push origin --tags
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/tayjerom/ip
+ * [new tag]         A-Exceptions -> A-Exceptions
+PS C:\Users\Jerome\Desktop\CS2113\ip>
