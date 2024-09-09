@@ -115,7 +115,7 @@ public class Joe {
         // Catch the case when no valid command was used via Optional
         newItem.ifPresentOrElse(
             task -> addToList(task),
-                () -> printReply("I do not understand " + commandToken + ". \n" +
+                () -> printReply("I do not understand: " + input + ". \n" +
                         INTENDATION + "Please use: todo, event or deadline for creating tasks \n" +
                         INTENDATION + "and list, bye, unmark and mark otherwise. ", "Retry: ")
         );
