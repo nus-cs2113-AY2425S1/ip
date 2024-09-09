@@ -1,7 +1,7 @@
 public class Todo extends Task{
 
-    public Todo(String taskDescription, char taskType){
-        super(taskDescription,taskType);
+    public Todo(String taskDescription){
+        super(taskDescription, 'T');
     }
 
     @Override
