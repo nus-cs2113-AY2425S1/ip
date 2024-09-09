@@ -50,8 +50,10 @@ public class Joe {
                 int toDoNumber = Integer.parseInt(tokens[1].strip());
                 toDoItemArrayList.get(toDoNumber - 1).setToDo(false);
                 printReply(Integer.toString(toDoNumber), "Unmarked: ");
-            } catch (Exception e) {
-                printReply("Select a valid list number to unmark.", "Retry: ");
+            } catch (NumberFormatException e) {
+                printReply("Invalid input. Second token is not a number.", "Retry: ");
+            } catch (IndexOutOfBoundsException e) {
+                printReply("No todo with this number exists.", "Retry: ");
             }
             break;
         case "mark":
@@ -59,41 +61,63 @@ public class Joe {
                 int toDoNumber = Integer.parseInt(tokens[1].strip());
                 toDoItemArrayList.get(toDoNumber - 1).setToDo(true);
                 printReply(Integer.toString(toDoNumber), "Marked: ");
-            } catch (Exception e) {
-                printReply("Select a valid list number to unmark.", "Retry: ");
+            } catch (NumberFormatException e) {
+                printReply("Invalid input. Second token is not a number.", "Retry: ");
+            } catch (IndexOutOfBoundsException e) {
+                printReply("No todo with this number exists.", "Retry: ");
             }
             break;
         default:
-            createNewTask(commandToken, input);
+            try {
+                createNewTask(commandToken, input);
+            } catch (EmptyTaskException e) {
+                printReply("A task of type " + commandToken + " cannot be empty.", "Retry: ");
+
+        }
         }
     }
 
-    public static void createNewTask(String commandToken, String input) {
+    public static void createNewTask(String commandToken, String input) throws EmptyTaskException {
         String itemDescription;
         Optional<Task> newItem;
         switch (commandToken) {
         case "todo":
             itemDescription = Todo.extractDescription(input);
-            newItem = Optional.of(new Todo(itemDescription));
+            if (itemDescription.length() > 0) {
+                newItem = Optional.of(new Todo(itemDescription));
+            } else {
+                throw new EmptyTaskException();
+            }
             break;
         case "deadline":
             itemDescription = Deadline.extractDescription(input);
-            String deadlineDate = Deadline.extractDeadlineDate(input).orElse("NA");
-            newItem = Optional.of(new Deadline(itemDescription, deadlineDate));
+            if (itemDescription.length() > 0) {
+                String deadlineDate = Deadline.extractDeadlineDate(input).orElse("NA");
+                newItem = Optional.of(new Deadline(itemDescription, deadlineDate));
+            } else {
+                throw new EmptyTaskException();
+            }
             break;
         case "event":
             itemDescription = Event.extractDescription(input);
-            String endDate = Event.extractEndDate(input).orElse("NA");
-            String startDate = Event.extractStartDate(input).orElse("NA");
-            newItem = Optional.of(new Event(itemDescription, startDate, endDate));
+            if (itemDescription.length() > 0) {
+                String endDate = Event.extractEndDate(input).orElse("NA");
+                String startDate = Event.extractStartDate(input).orElse("NA");
+                newItem = Optional.of(new Event(itemDescription, startDate, endDate));
+            } else {
+                throw new EmptyTaskException();
+            }
             break;
         default:
             newItem = Optional.empty();
         }
 
+        // Catch the case when no valid command was used via Optional
         newItem.ifPresentOrElse(
             task -> addToList(task),
-                () -> printReply("Invalid creation command", "Retry:")
+                () -> printReply("I do not understand: " + input + ". \n" +
+                        INTENDATION + "Please use: todo, event or deadline for creating tasks \n" +
+                        INTENDATION + "and list, bye, unmark and mark otherwise. ", "Retry: ")
         );
     }
 
