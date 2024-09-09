@@ -1,3 +1,5 @@
+package melchizedek.task;
+
 public class Event extends Task {
 
     private String from;

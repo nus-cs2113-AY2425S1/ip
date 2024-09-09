@@ -1,3 +1,5 @@
+package melchizedek.task;
+
 public abstract class Task {
     private int id;
     private String description;

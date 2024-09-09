@@ -1,3 +1,7 @@
+package melchizedek;
+
+import melchizedek.task.TaskList;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
