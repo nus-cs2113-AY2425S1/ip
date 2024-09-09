@@ -1,6 +1,8 @@
+package task;
+
 public class ToDo extends Task{
 
-    //To-Do Constructor inherits Task
+    //To-Do Constructor inherits task.Task
     public ToDo(String description){
         super(description);
     }

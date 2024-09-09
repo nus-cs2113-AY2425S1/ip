@@ -1,3 +1,5 @@
+package exception;
+
 public class EchoException {
     private EchoException() {}
 
@@ -18,7 +20,7 @@ public class EchoException {
     }
 
     public static String taskNumberOutOfRange() {
-        return "Task is out of range.";
+        return "task.Task is out of range.";
     }
 
     public static String invalidTaskNumberFormat() {
