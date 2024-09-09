@@ -7,8 +7,19 @@ public class Event extends Task {
         //TODO Auto-generated constructor stub
     }
 
-    public static void createEvent(String userInput) {
+    public static void createEvent(String userInput) throws TyroneException {
+        // Throw WrongEventFormatException for invalid format
+        if (!userInput.contains("/from") || !userInput.contains("/to")) {
+            throw new WrongEventFormatException();
+        }
+
         String[] parts = userInput.split(" /from | /to ");
+
+        // Throw MissingTimeInfoException if time info is missing
+        if (parts.length < 3) {
+            throw new MissingTimeInfoException();
+        }
+
             Constants.toDoList[Task.listCount] = new Event(parts[0].substring(6), "from: " + parts[1] + " to: " + parts[2]);
             Task.listCount++;
             System.out.println(Constants.LINE);

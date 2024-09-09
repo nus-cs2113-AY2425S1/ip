@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Tyrone {
-    public static void getUserInput(String userInput) {
+    public static void getUserInput(String userInput) throws TyroneException {
         if (userInput.startsWith("mark ")) {
             int index = Integer.parseInt(userInput.substring(5)) - 1;
             if (index >= 0 && index < Task.listCount) {
@@ -25,9 +25,25 @@ public class Tyrone {
         } else if (userInput.startsWith("todo ")) {
             ToDo.createToDo(userInput);
         } else if (userInput.startsWith("deadline ")) {
-            Deadline.createDeadline(userInput);
+            try{
+                Deadline.createDeadline(userInput);
+            }catch (WrongDeadlineFormatException e){
+                System.out.println(Constants.LINE);
+                System.out.println("    WRONG WAY CUH!! Use:  the format: deadline <description> /by <due by>");
+                System.out.println(Constants.LINE);
+            } catch (MissingTimeInfoException e) {
+                Constants.missingTimeInfo();
+            }
         } else if (userInput.startsWith("event ")) {
-            Event.createEvent(userInput);
+            try{
+                Event.createEvent(userInput);
+            } catch (WrongEventFormatException e){
+            System.out.println(Constants.LINE);
+            System.out.println("    WRONG WAY CUH!! Use: event <description> /from <start_time> /to <end_time>");
+            System.out.println(Constants.LINE);
+            } catch (MissingTimeInfoException e) {
+                Constants.missingTimeInfo();
+            }
         } else if (userInput.equals("list")) {
             Constants.getList();
         } else {
@@ -45,7 +61,12 @@ public class Tyrone {
             System.out.println(Constants.LINE);
             String input = in.nextLine();
             while (!input.equals("bye")) {
-                getUserInput(input);
+                try {
+                    getUserInput(input); 
+                } catch (TyroneException e) {
+                    // General exception handling for TyroneException
+                    System.out.println("An error occurred: " + e.getMessage());
+                }
                 input = in.nextLine();
             }
         }

@@ -45,4 +45,10 @@ public class Constants {
             }
         System.out.println(Constants.LINE);
     }
+    
+    public static void missingTimeInfo(){
+        System.out.println(Constants.LINE);
+        System.out.println("    YOURE Missing time info BRUTHA");
+        System.out.println(Constants.LINE);
+    }
 }

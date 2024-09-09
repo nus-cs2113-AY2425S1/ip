@@ -8,8 +8,17 @@ public class Deadline extends Task {
         //TODO Auto-generated constructor stub
     }
 
-    public static void createDeadline(String userInput){
+    public static void createDeadline(String userInput) throws TyroneException {
+        if (!userInput.contains("/by")){
+            throw new WrongDeadlineFormatException();
+        }
+
         String[] parts = userInput.split(" /by ");
+
+        if (parts.length < 2) {
+            throw new MissingTimeInfoException();
+        }
+
         Constants.toDoList[Task.listCount] = new Deadline(parts[0].substring(9), parts[1]);
         Task.listCount++;
         System.out.println(Constants.LINE);
