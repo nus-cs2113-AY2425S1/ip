@@ -27,31 +27,39 @@ public class Cuboyd {
             argumentsList = CommandParser.parseCommandToArguments(line);
 
             switch(argumentsList.get(CommandParser.ARGUMENT_COMMAND)){
-                case "list":
-                    taskTrackerUI.listTasks();
-                    break;
-                case "todo":
-                    taskTrackerUI.addTodo(argumentsList);
-                    break;
-                case "deadline":
-                    taskTrackerUI.addDeadline(argumentsList);
-                    break;
-                case "event":
-                    taskTrackerUI.addEvent(argumentsList);
-                    break;
-                case "mark":
-                    taskTrackerUI.markTask(argumentsList);
-                    break;
-                case "unmark":
-                    taskTrackerUI.unmarkTask(argumentsList);
-                    break;
-                case "bye":
-                    System.out.println("Bye. Hope to see you again soon!");
-                    isAskingInput = false;
-                    break;
-                default:
-                    System.out.println("No valid command given!");
-                    break;
+            case "list":
+                taskTrackerUI.listTasks();
+                break;
+            case "todo":
+                taskTrackerUI.addTodo(argumentsList);
+                break;
+            case "deadline":
+                taskTrackerUI.addDeadline(argumentsList);
+                break;
+            case "event":
+                taskTrackerUI.addEvent(argumentsList);
+                break;
+            case "mark":
+                taskTrackerUI.markTask(argumentsList);
+                break;
+            case "unmark":
+                taskTrackerUI.unmarkTask(argumentsList);
+                break;
+            case "bye":
+                System.out.println("Bye. Hope to see you again soon!");
+                isAskingInput = false;
+                break;
+            default:
+                System.out.println("No valid command given! Valid Commands are: \n" +
+                        "  - list\n" +
+                        "  - todo\n" +
+                        "  - deadline\n" +
+                        "  - event\n" +
+                        "  - mark\n" +
+                        "  - unmark\n" +
+                        "  - bye"
+                );
+                break;
             }
         }
     }
