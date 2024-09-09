@@ -22,6 +22,17 @@ public class Melchizedek {
         printSeparator();
     }
 
+    public static void listCommands() {
+        System.out.println("\tHere is a list of commands:");
+        System.out.println("\tto add a todo: todo *description*");
+        System.out.println("\tto add a deadline: deadline *description* /by *time*");
+        System.out.println("\tto add an event: event *description* /from *time* /to *time*");
+        System.out.println("\tto mark a task as done: mark *task number*");
+        System.out.println("\tto unmark a task as done: unmark *task number*");
+        System.out.println("\tto display all tasks on the list: list");
+        System.out.println("\tto exit: bye");
+    }
+
     public static void main(String[] args) {
         sayHelloToUser();
         Scanner in = new Scanner(System.in);
@@ -32,7 +43,6 @@ public class Melchizedek {
             printSeparator();
 
             switch (tokens[0].toLowerCase()) {
-
             case "bye":
                 sayByeToUser();
                 return;
@@ -42,28 +52,66 @@ public class Melchizedek {
                 break;
 
             case "mark":
-                taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
+                try {
+                    taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\tOh no! Please specify which task number to mark.");
+                    System.out.println("\tExample: mark 3");
+                }
                 break;
 
             case "unmark":
-                taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
+                try {
+                    taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\tOh no! Please specify which task number to unmark.");
+                    System.out.println("\tExample: unmark 2");
+                }
                 break;
 
             case "todo":
-                taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
+                try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
+                    taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create a todo with no description!");
+                    System.out.println("\tExample: todo read lecture notes");
+                }
                 break;
 
             case "deadline":
-                taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
+                try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
+                    taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create a deadline with no description!");
+                    System.out.println("\tExample: deadline coding assignment /by 12pm");
+                }
                 break;
 
             case "event":
-                taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
+                try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
+                    taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create an event with no description!");
+                    System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
+                }
                 break;
 
             default:
+                System.out.println("\tSorry but I don't understand what you mean :(");
+                //listCommands();
                 break;
             }
+
+            printSeparator();
         }
     }
 }
