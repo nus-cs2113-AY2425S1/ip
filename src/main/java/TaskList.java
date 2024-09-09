@@ -44,6 +44,7 @@ public class TaskList {
             System.out.print("\t" + (i + 1) +".");
             System.out.println(allTasks[i]);
         }
+        printSeparator();
     }
 
     public void printAddedTask() {
@@ -54,40 +55,23 @@ public class TaskList {
         } else {
             System.out.println("\tNow you have " + taskCount + " task in the list.");
         }
+        printSeparator();
     }
 
     public void markTaskAsDone(int id) {
-        try {
-            if (allTasks[id - 1].isMarkAsDone()) {
-                System.out.println("\tGreat! But... the task is already done?");
-                System.out.println("\t  " + allTasks[id - 1]);
-                return;
-            }
-            allTasks[id - 1].markTaskAsDone();
-        } catch (IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("\tWell... there is no such task number as " + id);
-            return;
-        }
+        allTasks[id - 1].markTaskAsDone();
 
-        System.out.println("\tSuperb! I've marked this task as done:");
+        System.out.println("\tGreat! I've marked this task as done:");
         System.out.println("\t  " + allTasks[id - 1]);
+        printSeparator();
     }
 
     public void unmarkTaskAsDone(int id) {
-        try {
-            if (!allTasks[id - 1].isMarkAsDone()) {
-                System.out.println("\tOK! But... the task was not marked in the first place.");
-                System.out.println("\t  " + allTasks[id - 1]);
-                return;
-            }
-            allTasks[id - 1].unmarkTaskAsDone();
-        } catch (IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("\tWell... there is no such task number as " + id);
-            return;
-        }
+        allTasks[id - 1].unmarkTaskAsDone();
 
-        System.out.println("\tOK, I've unmarked this task as done:");
+        System.out.println("\tOK, I've marked this task as undone:");
         System.out.println("\t  " + allTasks[id - 1]);
+        printSeparator();
     }
 
     public void addTodo(String[] tokens) {
@@ -107,17 +91,12 @@ public class TaskList {
                 break;
             }
         }
-
-        String description = null;
-        String by = null;
-        try {
-            description = joinStringArray(tokens, 0, byIndex, " ");
-            by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
-        } catch (IllegalArgumentException e) {
-            System.out.println("\tI can't process this! Hmmm... you seem to have missed out the \"/by\" keyword!");
-            System.out.println("\tExample: deadline coding assignment /by 12pm");
-            return;
+        if (byIndex == -1) {
+            //handleIncompleteInput();
         }
+
+        String description = joinStringArray(tokens, 0, byIndex, " ");
+        String by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
 
         allTasks[taskCount] = new Deadline(taskCount + 1, description, by);
         taskCount++;
@@ -136,25 +115,13 @@ public class TaskList {
                 break;
             }
         }
-
-        String description = null;
-        String from = null;
-        String to = null;
-        try {
-            description = joinStringArray(tokens, 0, fromIndex, " ");
-            from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
-            to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
-        } catch (IllegalArgumentException e) {
-            if (fromIndex == -1 && toIndex == -1) {
-                System.out.println("\tI can't process this! Hmmm... you seem to have missed out the \"/from\" and \"/to\" keywords!");
-            } else if (fromIndex == -1) {
-                System.out.println("\tI can't process this! Hmmm... you seem to have missed out the \"/from\" keyword!");
-            } else {
-                System.out.println("\tI can't process this! Hmmm... you seem to have missed out the \"/to\" keyword!");
-            }
-            System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
-            return;
+        if (fromIndex == -1 || toIndex == -1) {
+            //handleIncompleteInput();
         }
+
+        String description = joinStringArray(tokens, 0, fromIndex, " ");
+        String from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
+        String to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
 
         allTasks[taskCount] = new Event(taskCount + 1, description, from, to);
         taskCount++;

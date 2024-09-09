@@ -22,17 +22,6 @@ public class Melchizedek {
         printSeparator();
     }
 
-    public static void listCommands() {
-        System.out.println("\tHere is a list of commands:");
-        System.out.println("\tto add a todo: todo *description*");
-        System.out.println("\tto add a deadline: deadline *description* /by *time*");
-        System.out.println("\tto add an event: event *description* /from *time* /to *time*");
-        System.out.println("\tto mark a task as done: mark *task number*");
-        System.out.println("\tto unmark a task as done: unmark *task number*");
-        System.out.println("\tto display all tasks on the list: list");
-        System.out.println("\tto exit: bye");
-    }
-
     public static void main(String[] args) {
         sayHelloToUser();
         Scanner in = new Scanner(System.in);
@@ -43,6 +32,7 @@ public class Melchizedek {
             printSeparator();
 
             switch (tokens[0].toLowerCase()) {
+
             case "bye":
                 sayByeToUser();
                 return;
@@ -52,57 +42,28 @@ public class Melchizedek {
                 break;
 
             case "mark":
-                try {
-                    taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOh no! Please specify which task number to mark.");
-                    System.out.println("\tExample: mark 3");
-                }
+                taskList.markTaskAsDone(Integer.parseInt(tokens[1]));
                 break;
 
             case "unmark":
-                try {
-                    taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOh no! Please specify which task number to unmark.");
-                    System.out.println("\tExample: unmark 2");
-                }
+                taskList.unmarkTaskAsDone(Integer.parseInt(tokens[1]));
                 break;
 
             case "todo":
-                try {
-                    taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add a todo with no description!");
-                    System.out.println("\tExample: todo coding assignment");
-                }
+                taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
 
             case "deadline":
-                try {
-                    taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add a deadline with no description!");
-                    System.out.println("\tExample: deadline coding assignment /by 12pm");
-                }
+                taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
 
             case "event":
-                try {
-                    taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add an event with no description!");
-                    System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
-                }
+                taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
 
             default:
-                System.out.println("\tSorry but that is not a valid command!");
-                listCommands();
                 break;
             }
-
-            printSeparator();
         }
     }
 }
