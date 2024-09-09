@@ -39,8 +39,13 @@ public class JerChatBot {
             case "unmark":
                 handleUnmarkCommand(commands);
                 break;
-            default:
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 addTask(input);
+                break;
+            default:
+                printUnknownCommandMessage();
                 break;
             }
         }
@@ -147,6 +152,11 @@ public class JerChatBot {
         String categoryOfTask = parts[0];
         String taskDetails = parts.length > 1 ? parts[1] : "";
 
+        if (taskDetails.isEmpty()) {
+            printEmptyDescriptionMessage(categoryOfTask);
+            return;
+        }
+
         Task newTask = createTask(categoryOfTask, taskDetails);
         if (newTask == null) {
             printInvalidTaskMessage();
@@ -203,4 +213,17 @@ public class JerChatBot {
     private static boolean isValidTaskIndex(int index) {
         return index >= 0 && index < taskCount;
     }
+
+    private static void printUnknownCommandMessage() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(" Sorry, could not understand the command given.");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    private static void printEmptyDescriptionMessage(String taskType) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(" The description of a " + taskType + " command cannot be empty.");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    
 }
