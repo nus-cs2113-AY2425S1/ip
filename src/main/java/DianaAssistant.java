@@ -18,7 +18,7 @@ public class DianaAssistant {
             }
 
             switch(getCommand(input)) {
-            case "tasks":
+            case "list":
                 printList(tasks);
                 break;
             case "mark":
@@ -80,7 +80,8 @@ public class DianaAssistant {
 
     private void toMark (List<Task> tasks, String input, boolean shouldMark) {
         try {
-            int TaskNum = Integer.valueOf(input.substring(input.indexOf(" ") + 1)) - 1;
+            String substring = input.substring(input.indexOf(" ") + 1);
+            int TaskNum = Integer.parseInt(substring) - 1;
             if (TaskNum >= 0 && TaskNum < tasks.size()) {
                 Task task = tasks.get(TaskNum);
                 if (shouldMark) {
@@ -88,19 +89,16 @@ public class DianaAssistant {
                     printEnclosure();
                     System.out.println("Nice! I've marked this task as done\n" + task.toString());
                     printEnclosure();
-                }
-                else {
+                } else {
                     task.markAsNotDone();
                     printEnclosure();
                     System.out.println("Okay, I've marked this task as not done yet\n" + task.toString());
                     printEnclosure();
                 }
-            }
-            else {
+            } else {
                 System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
         }
     }
@@ -109,7 +107,7 @@ public class DianaAssistant {
         printEnclosure();
         System.out.println("Got it! I've added this task");
         System.out.println(description);
-        System.out.println("Now you have " + tasks.size() + " tasks in the tasks");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printList(tasks);
     }
 
@@ -121,34 +119,37 @@ public class DianaAssistant {
     }
 
     private void addDeadline (String input, List<Task> tasks) {
-        if (!input.contains("/by")) {
+        if (input.contains("/by")) {
+            String[] parts = input.split("/by", 2);
+            String description = parts[0].substring("deadline".length()).trim();
+            String by = parts[1].trim(); // trim removes white space
+            Task deadline = new Deadline(description, by);
+            tasks.add(deadline);
+            printAddedTask(description, tasks);
+
+        } else {
             System.out.println("Please enter a valid deadline with the correct format:");
             System.out.println("Eg: Read book /by 5pm");
             return;
         }
-        String[] parts = input.split("/by", 2);
-        String description = parts[0].substring("deadline".length()).trim();
-        String by = parts[1].trim(); // trim removes white space
-        Task deadline = new Deadline(description, by);
-        tasks.add(deadline);
-        printAddedTask(description, tasks);
+
     }
 
     private void addEvent (String input, List<Task> tasks) {
-        if (!(input.contains("/from") && input.contains("/to"))) {
+        if (input.contains("/from") && input.contains("/to")) {
+            String[] parts = input.split("/from", 2);
+            String description = parts[0].substring("event".length()).trim();
+            String[] fromto = parts[1].split("/to", 2);
+            String from = fromto[0].trim();
+            String to = fromto[1].trim();
+            Task event = new Event(description, from, to);
+            tasks.add(event);
+            printAddedTask(description, tasks);
+        } else {
             System.out.println("Please enter a valid event with the correct format:");
             System.out.println("Eg: Read book /from 2pm /to 4pm");
             return;
         }
-
-        String[] parts = input.split("/from", 2);
-        String description = parts[0].substring("event".length()).trim();
-        String[] fromto = parts[1].split("/to", 2);
-        String from = fromto[0].trim();
-        String to = fromto[1].trim();
-        Task event = new Event(description, from, to);
-        tasks.add(event);
-        printAddedTask(description, tasks);
 
     }
 
