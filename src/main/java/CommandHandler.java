@@ -37,7 +37,7 @@ public class CommandHandler {
             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
             String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
             String end = command.substring(command.indexOf("/to") + 4);
-            if (!hasNonWhitespaceChar(description) || !hasNonWhitespaceChar(start) || !hasNonWhitespaceChar(end)) {
+            if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(start) || hasOnlyWhitespaceChar(end)) {
                 throw new EmptyFieldException();
             }
             Event newEvent = new Event(description, start, end);
@@ -55,7 +55,7 @@ public class CommandHandler {
         try {
             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + 4);
-            if (!hasNonWhitespaceChar(description) || !hasNonWhitespaceChar(deadline)) {
+            if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(deadline)) {
                 throw new EmptyFieldException();
             }
             Deadline newDeadline = new Deadline(description, deadline);
@@ -72,7 +72,7 @@ public class CommandHandler {
     private static void handleTodo(String command) {
         try {
             String description = command.substring(command.indexOf(" ") + 1);
-            if (!command.contains(" ") || !hasNonWhitespaceChar(description)) {
+            if (!command.contains(" ") || hasOnlyWhitespaceChar(description)) {
                 throw new EmptyFieldException();
             }
             Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
@@ -117,12 +117,12 @@ public class CommandHandler {
         }
     }
 
-    private static boolean hasNonWhitespaceChar(String string) {
+    private static boolean hasOnlyWhitespaceChar(String string) {
         for (int i = 0; i < string.length(); i++) {
             if (!Character.isWhitespace(string.charAt(i))) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
