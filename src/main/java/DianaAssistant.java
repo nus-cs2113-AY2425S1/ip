@@ -99,7 +99,8 @@ public class DianaAssistant {
                 System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
             }
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
+            System.out.println("Number specified must be an integer");
+            System.out.println("For eg: Mark 1 NOT Mark One");
         }
     }
 
@@ -112,6 +113,11 @@ public class DianaAssistant {
     }
 
     private void addTodo (String input, List<Task> tasks) {
+        String checkTodo = input.trim();
+        if (checkTodo.equals("todo")) {
+            System.out.println("todo descriptions cannot be empty");
+            return;
+        }
         String description = input.substring("todo".length()).trim();
         Todo todo = new Todo(description);
         tasks.add(todo);
@@ -150,7 +156,5 @@ public class DianaAssistant {
             System.out.println("Eg: Read book /from 2pm /to 4pm");
             return;
         }
-
     }
-
 }
