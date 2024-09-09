@@ -7,6 +7,7 @@ todo buy bread
 list
 mark 1
 list
+deadline submit assignment
 deadline submit assignment /by 3/9/2024 2359
 list
 unmark 1
