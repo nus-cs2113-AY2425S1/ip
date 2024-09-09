@@ -1,3 +1,5 @@
+package nell;
+
 import java.util.Scanner;
 
 public class Nell {
