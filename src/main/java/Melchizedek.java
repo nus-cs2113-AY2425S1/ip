@@ -71,34 +71,43 @@ public class Melchizedek {
 
             case "todo":
                 try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
                     taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add a todo with no description!");
-                    System.out.println("\tExample: todo coding assignment");
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create a todo with no description!");
+                    System.out.println("\tExample: todo read lecture notes");
                 }
                 break;
 
             case "deadline":
                 try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
                     taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add a deadline with no description!");
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create a deadline with no description!");
                     System.out.println("\tExample: deadline coding assignment /by 12pm");
                 }
                 break;
 
             case "event":
                 try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
                     taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\tOops! You cannot add an event with no description!");
+                } catch (DescriptionNotPresentException e) {
+                    System.out.println("\tUh oh! I cannot create an event with no description!");
                     System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
                 }
                 break;
 
             default:
-                System.out.println("\tSorry but that is not a valid command!");
-                listCommands();
+                System.out.println("\tSorry but I don't understand what you mean :(");
+                //listCommands();
                 break;
             }
 
