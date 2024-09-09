@@ -5,7 +5,7 @@ import esme.task.TaskList;
 
 public class Ui {
     private TaskList taskList;
-    private static final int SEPARATOR_LENGTH = 100;
+    private static final int SEPARATOR_LENGTH = 120;
     private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
 
     public Ui() {
@@ -37,7 +37,8 @@ public class Ui {
         displayLine(true);
         System.out.println("\tThe stars have aligned and " + description + " is now part of your destiny!");
         displayLine(true);
-        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() + " tasks waiting for you!");
+        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() +
+                " tasks waiting for you!");
         displayLine(true);
     }
 
@@ -48,7 +49,11 @@ public class Ui {
      * @return True if the index is valid, false otherwise.
      */
     public boolean isIndexValid(int index) {
-        return index <= taskList.getNumberOfTasks() && index >= 0;
+        return (index <= taskList.getNumberOfTasks() && index >= 0);
+    }
+
+    public boolean isTaskCompleted(int index) {
+        return taskList.getTask(index - 1).hasCompleted();
     }
 
     /**
@@ -94,13 +99,22 @@ public class Ui {
         String command = words[0];
         try {
             if (taskList.getNumberOfTasks() <= 0) {
-                throw new EsmeException("Add some tasks! Currently, there are no tasks to be " + command + "ed.");
+                throw new EsmeException("Add some tasks! Currently, there are no tasks to be " +
+                        command + "ed.");
             }
             if (words.length != 2) {
                 throw new EsmeException("Error: Wrong format! Please use the format: command index (e.g., '" +
                         command + " 1')");
             }
             int index = Integer.parseInt(words[1]);
+            if (!isTaskCompleted(index) && command.equals("unmark")) {
+                throw new EsmeException("The stars have revealed that this task is yet to be completed. " +
+                        "Finish it before the cosmos frowns upon you.");
+            }
+            if (isTaskCompleted(index) && command.equals("mark")) {
+                throw new EsmeException("This task has already been blessed by the cosmos. " +
+                        "Continue your journey with the next task.");
+            }
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
                         "boundaries of our list!");
