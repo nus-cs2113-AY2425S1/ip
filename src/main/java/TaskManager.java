@@ -45,14 +45,6 @@ public class TaskManager {
         return Integer.parseInt(numberString);
     }
 
-    public void printTasks(String line) {
-        tasks[count] = new Task(line);
-        System.out.println("Okay, added: " + line);
-        printNumTasks(tasks, count);
-        System.out.println(HORIZONTAL_LINE);
-        count ++;
-    }
-
     public void printTodo(String line) {
 
         String todoDesc = line.replaceFirst("todo", "").trim();
