@@ -1,3 +1,11 @@
+package TheThinker.Parser;
+
+import TheThinker.Exceptions.FormattingException;
+import TheThinker.Tasks.Deadline;
+import TheThinker.Tasks.Event;
+import TheThinker.Tasks.Task;
+import TheThinker.Tasks.Todo;
+
 import java.util.Scanner;
 
 public class UserInputParser {
@@ -13,7 +21,7 @@ public class UserInputParser {
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
     public static final String TODO_FORMAT = "Please follow format : todo [task]";
 
-    public static Task parseTodo() throws FormattingException{
+    public static Task parseTodo() throws FormattingException {
 
         String taskType = userInput.substring(0 , LENGTH_OF_TODO);
         String taskDescription = userInput.substring(LENGTH_OF_TODO).trim();

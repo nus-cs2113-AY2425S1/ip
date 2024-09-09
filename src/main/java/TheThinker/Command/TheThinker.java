@@ -1,3 +1,8 @@
+package TheThinker.Command;
+import TheThinker.Exceptions.FormattingException;
+import TheThinker.Tasks.Task;
+import TheThinker.Parser.UserInputParser;
+
 public class TheThinker {
 
     public static final String NAME = "TheThinker";
@@ -27,7 +32,7 @@ public class TheThinker {
     }
 
     public static void printSeparation(){
-        System.out.println("_".repeat(30));
+        System.out.println("_".repeat(60));
     }
 
     public static void doTaskAccordingToUserAction(String userAction){

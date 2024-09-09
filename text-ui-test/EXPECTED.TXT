@@ -52,5 +52,37 @@ Here are the tasks in your list:
 4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
+task to do is missing. Please follow format : event [task] /from [start time] /to [end time]
+____________________________________________________________
+____________________________________________________________
+start time is missing. Please follow format : event [task] /from [start time] /to [end time]
+____________________________________________________________
+____________________________________________________________
+end time is missing. Please follow format : event [task] /from [start time] /to [end time]
+____________________________________________________________
+____________________________________________________________
+Command entered is not valid. Available commands are
+- mark
+- unmark
+- todo
+- event
+- deadline
+- list
+- bye
+- help (get format)
+____________________________________________________________
+____________________________________________________________
+Multiple tasks to mark is indicated in a single command. Please mark them one by one.
+____________________________________________________________
+____________________________________________________________
+Task number is not indicated. Please follow format : mark/unmark [number]
+____________________________________________________________
+____________________________________________________________
+/by is missing. Please follow format : deadline [task] /by [time]
+____________________________________________________________
+____________________________________________________________
+task to do is missing. Please follow format : deadline [task] /by [time]
+____________________________________________________________
+____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

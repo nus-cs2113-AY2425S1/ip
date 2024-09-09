@@ -1,3 +1,5 @@
+package TheThinker.Tasks;
+
 public class Event extends Task{
     public String startTime;
     public String endTime;

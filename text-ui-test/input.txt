@@ -7,5 +7,13 @@ mark 1
 list
 unmark 1
 list
+event /from monday /to friday
+event return book /from  /to friday
+event return book /from monday /to
+produce
+mark 2 3
+mark
+deadline
+deadline /by friday
 bye
 

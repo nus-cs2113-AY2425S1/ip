@@ -1,3 +1,5 @@
+package TheThinker.Tasks;
+
 import java.util.ArrayList;
 
 public class Task {
