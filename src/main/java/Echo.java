@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Echo {
     private static final String SEPARATOR = "_".repeat(30);
     private static final int TODO_WORD_LENGTH = 5;
+    private static final int MARK_WORD_LENGTH = 5;
+    private static final int UNMARK_WORD_LENGTH = 7;
     private static final int DEADLINE_WORD_LENGTH = 9;
     private static final int DEADLINE_DUE_DATE_OFFSET = 5;
     private static final int EVENT_WORD_LENGTH = 6;
@@ -102,7 +104,7 @@ public class Echo {
      */
     private static void handleMarking(String userInput, TaskList taskList) {
         try {
-            int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+            int taskNumber = Integer.parseInt(userInput.substring(MARK_WORD_LENGTH).trim());
 
             if (taskNumber < 1 || taskNumber > taskList.getTaskNumber()) {
                 printErrorMessage(EchoException.taskNumberOutOfRange());
@@ -124,7 +126,7 @@ public class Echo {
      */
     private static void handleUnmarking(String userInput, TaskList taskList) {
         try {
-            int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+            int taskNumber = Integer.parseInt(userInput.substring(UNMARK_WORD_LENGTH).trim());
 
             if (taskNumber < 1 || taskNumber > taskList.getTaskNumber()) {
                 printErrorMessage(EchoException.taskNumberOutOfRange());
