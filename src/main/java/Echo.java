@@ -1,3 +1,6 @@
+import exception.EchoException;
+import task.*;
+
 import java.util.Scanner;
 
 public class Echo {
@@ -159,9 +162,9 @@ public class Echo {
     }
 
     /**
-     * ToDo type of task will be added.
+     * task.ToDo type of task will be added.
      *
-     * @param userInput Inputs ToDo task details.
+     * @param userInput Inputs task.ToDo task details.
      * @param taskList  Outputs updated array of task.
      */
     private static void addToDoTask(String userInput, TaskList taskList) {
@@ -172,9 +175,9 @@ public class Echo {
     }
 
     /**
-     * Deadline type of task will be added.
+     * task.Deadline type of task will be added.
      *
-     * @param userInput Inputs Deadline task details.
+     * @param userInput Inputs task.Deadline task details.
      * @param taskList  Outputs updated array of task.
      */
     private static void addDeadlineTask(String userInput, TaskList taskList) {
@@ -187,9 +190,9 @@ public class Echo {
     }
 
     /**
-     * Event type of task will be added.
+     * task.Event type of task will be added.
      *
-     * @param userInput Inputs Event task details.
+     * @param userInput Inputs task.Event task details.
      * @param taskList  Outputs updated array of task.
      */
     private static void addEventTask(String userInput, TaskList taskList) {
@@ -206,7 +209,7 @@ public class Echo {
     /**
      * Method to handle confirmation message.
      *
-     * @param task       Task type and details.
+     * @param task       task.Task type and details.
      * @param totalTasks Count of the number of task.
      */
     private static void printTaskAddedMessage(Task task, int totalTasks) {

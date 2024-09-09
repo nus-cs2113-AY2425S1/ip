@@ -1,8 +1,10 @@
+package task;
+
 public class TaskList {
     private int taskNumber;
     private Task[] tasks;
 
-    //Constructor for TaskList
+    //Constructor for task.TaskList
     public TaskList(){
         taskNumber = 0;
 
@@ -26,7 +28,6 @@ public class TaskList {
         tasks[taskNumber] = task;
         taskNumber += 1;
     }
-
 
     /**
      * Displays all tasks in the array.

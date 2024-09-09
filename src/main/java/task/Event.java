@@ -1,8 +1,10 @@
+package task;
+
 public class Event extends Task {
     private String start;
     private String end;
 
-    //Event Constructor inherits Task
+    //task.Event Constructor inherits task.Task
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;

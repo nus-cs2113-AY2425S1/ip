@@ -1,8 +1,12 @@
-public class Task implements TaskOperations{
+package task;
+
+import others.TaskOperations;
+
+public class Task implements TaskOperations {
     protected String description;
     protected boolean isDone;
 
-    //Constructor for Task
+    //Constructor for task.Task
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -1,8 +1,10 @@
+package task;
+
 public class Deadline extends Task {
 
     protected String dueDate;
 
-    //Deadline Constructor inherits Task
+    //task.Deadline Constructor inherits task.Task
     public Deadline(String description, String dueDate) {
         super(description);
         this.dueDate = dueDate;
