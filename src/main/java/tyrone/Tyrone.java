@@ -1,3 +1,7 @@
+package tyrone;
+
+import tyrone.command.CommandHandler;
+
 import java.util.Scanner;
 
 public class Tyrone {
