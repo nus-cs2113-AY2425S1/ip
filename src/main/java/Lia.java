@@ -4,10 +4,11 @@ import java.util.Scanner;
  * Lia is a simple chatbot program that helps users manage tasks.
  */
 public class Lia {
+    private static final String INDENTATION = "    "; // Constant for Chatbot output indentation
 
     public static void main(String[] args) {
         // Customizing the chatbot with the name Lia
-        String logo =
+        String LOGO =
                 """
                              ██▓     ██▓ ▄▄▄     \s
                             ▓██▒    ▓██▒▒████▄   \s
@@ -27,8 +28,8 @@ public class Lia {
 
         // Greet the user with enthusiasm
         printLine();
-        System.out.println("    Hello! I'm \n" + logo);
-        System.out.println("    What can I do for you?");
+        System.out.println(INDENTATION + "Hello! I'm \n" + LOGO);
+        System.out.println(INDENTATION + "What can I do for you?");
         printLine();
 
         // Chatbot loop: keep asking for input until "bye" is entered
@@ -39,7 +40,7 @@ public class Lia {
             // If the user types "bye", end the loop with a warm farewell
             if (inputArr[0].equalsIgnoreCase("bye")) {
                 printLine();
-                System.out.println("    Bye. Hope to see you again soon!");
+                System.out.println(INDENTATION + "Bye. Hope to see you again soon!");
                 printLine();
                 break;
             }
@@ -48,9 +49,9 @@ public class Lia {
             if (inputArr[0].equalsIgnoreCase("list")) {
                 printLine();
                 if (taskCount == 0) {
-                    System.out.println("    No tasks found.");
+                    System.out.println(INDENTATION + "No tasks found.");
                 } else {
-                    System.out.println("    Here are the tasks in your list:");
+                    System.out.println(INDENTATION + "Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println("    " + (i + 1) + "." + tasks[i].toString());
                     }
@@ -61,8 +62,8 @@ public class Lia {
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markAsDone();
                     printLine();
-                    System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("      " + tasks[taskIndex].toString());
+                    System.out.println(INDENTATION + "Nice! I've marked this task as done:");
+                    System.out.println(INDENTATION + tasks[taskIndex].toString());
                     printLine();
                 }
             } else if (inputArr[0].equalsIgnoreCase("unmark")) {
@@ -70,8 +71,8 @@ public class Lia {
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markAsNotDone();
                     printLine();
-                    System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println("      " + tasks[taskIndex].toString());
+                    System.out.println(INDENTATION + "OK, I've marked this task as not done yet:");
+                    System.out.println(INDENTATION + tasks[taskIndex].toString());
                     printLine();
                 }
             } else if (inputArr[0].equalsIgnoreCase("todo")) {
@@ -94,7 +95,7 @@ public class Lia {
                 tasks[taskCount] = new Task(input);
                 taskCount++;
                 printLine();
-                System.out.println("    added: " + input);
+                System.out.println(INDENTATION + "added: " + input);
                 printLine();
             }
         }
@@ -111,9 +112,9 @@ public class Lia {
      */
     private static void addTaskAndPrint(Task task, int taskCount) {
         printLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println(INDENTATION + "Got it. I've added this task:");
+        System.out.println(INDENTATION + task.toString());
+        System.out.println(INDENTATION + "Now you have " + taskCount + " tasks in the list.");
         printLine();
     }
 
@@ -121,6 +122,6 @@ public class Lia {
      * Prints a line separator.
      */
     public static void printLine() {
-        System.out.println("    ___________________________________________________________");
+        System.out.println(INDENTATION + "___________________________________________________________");
     }
 }
