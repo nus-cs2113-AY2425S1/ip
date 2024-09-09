@@ -5,7 +5,6 @@ public class CodeCatalyst {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
 
@@ -14,46 +13,86 @@ public class CodeCatalyst {
         while (true) {
             String input = scanner.nextLine();
             printDivider();
-
-            String command = getCommand(input);
-
-            switch (command) {
-            case "bye":
-                printGoodbye();
-                //scanner.close();
-                break;
-
-            case "list":
-                printTaskList(tasks, taskCount);
-                break;
-
-            case "mark":
-                handleTaskStatusChange(tasks, taskCount, input, true);
-                break;
-
-            case "unmark":
-                handleTaskStatusChange(tasks, taskCount, input, false);
-                break;
-
-            case "todo":
-                taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
-                break;
-
-            case "deadline":
-                taskCount = addDeadlineTask(tasks, taskCount, input);
-                break;
-
-            case "event":
-                taskCount = addEventTask(tasks, taskCount, input);
-                break;
-
-            default:
-                System.out.println("Invalid input! Please enter a valid command.");
-                break;
-            }
+            taskCount = processInput(input, scanner, tasks, taskCount);
             printDivider();
         }
     }
+
+    /**
+     * Process the input and handle the corresponding command.
+     *
+     * @param input The user input string.
+     * @param scanner The scanner object for reading input.
+     * @param tasks The array of tasks.
+     * @param taskCount The number of current tasks.
+     * @return The updated task count.
+     */
+    private static int processInput(String input, Scanner scanner, Task[] tasks, int taskCount) {
+        try {
+            String command = getCommand(input);
+            switch (command) {
+            case "bye":
+                printGoodbye();
+                scanner.close();
+                break;
+            case "list":
+                printTaskList(tasks, taskCount);
+                break;
+            case "mark":
+                handleTaskStatusChange(tasks, taskCount, input, true);
+                break;
+            case "unmark":
+                handleTaskStatusChange(tasks, taskCount, input, false);
+                break;
+            case "todo":
+                validateTodoInput(input);
+                taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
+                break;
+            case "deadline":
+                validateDeadlineInput(input);
+                taskCount = addDeadlineTask(tasks, taskCount, input);
+                break;
+            case "event":
+                validateEventInput(input);
+                taskCount = addEventTask(tasks, taskCount, input);
+                break;
+            default:
+                throw new CodeCatalystException("Invalid input! Please enter a valid command.");
+                // break;
+            }
+        } catch (CodeCatalystException e) {
+            System.out.println(e.getMessage());
+        }
+        return taskCount;
+    }
+
+    private static void validateTodoInput(String input) throws CodeCatalystException {
+        if (input.trim().length() <= 5) {
+            throw new CodeCatalystException("The task description cannot be empty");
+        }
+    }
+
+    private static void validateDeadlineInput(String input) throws CodeCatalystException {
+        String[] deadlineParts = input.substring(9).split(" /by ");
+        boolean isTaskDescriptionEmpty = deadlineParts[0].trim().isEmpty();
+        boolean isDateDescriptionEmpty = deadlineParts[1].trim().isEmpty();
+        if (deadlineParts.length < 2 || isTaskDescriptionEmpty || isDateDescriptionEmpty) {
+            throw new CodeCatalystException("The task description or due date of Deadline task cannot be empty.");
+        }
+    }
+
+    private static void validateEventInput(String input) throws CodeCatalystException {
+        String[] eventParts = input.substring(6).split(" /from | /to ");
+        boolean isTaskDescriptionEmpty = eventParts[0].trim().isEmpty();
+        boolean isStartDateDescriptionEmpty = eventParts[1].trim().isEmpty();
+        boolean isEndDateDescriptionEmpty = eventParts[2].trim().isEmpty();
+        if (eventParts.length < 3 || isTaskDescriptionEmpty
+                || isStartDateDescriptionEmpty || isEndDateDescriptionEmpty) {
+            throw new CodeCatalystException("The task description, start date, or end date cannot be empty.");
+        }
+    }
+
+
 
     private static String getCommand(String input) {
         if (input.equals("bye")) {
