@@ -6,11 +6,11 @@ public class TaskList {
     private final int MAX_TASKS = 100;
     public static final String SEPARATOR = "\t____________________________________________________________";
 
-    public TaskList(String task){
-        allTasks = new Task[MAX_TASKS];
-        allTasks[0] = new Task(1, task);
-        taskCount = 1;
-    }
+//    public TaskList(String task){
+//        allTasks = new Task[MAX_TASKS];
+//        allTasks[0] = new Task(1, task);
+//        taskCount = 1;
+//    }
 
     public TaskList() {
         allTasks = new Task[MAX_TASKS];
@@ -26,12 +26,12 @@ public class TaskList {
         return String.join(delimiter, arrayCopy);
     }
 
-    public void addToTaskList(String input) {
-        allTasks[taskCount] = new Task(taskCount + 1, input);
-        taskCount++;
-        System.out.println("\tadded: " + input);
-        printSeparator();
-    }
+//    public void addToTaskList(String input) {
+//        allTasks[taskCount] = new Task(taskCount + 1, input);
+//        taskCount++;
+//        System.out.println("\tadded: " + input);
+//        printSeparator();
+//    }
 
     public void printTaskList() {
         if (taskCount == 0) {

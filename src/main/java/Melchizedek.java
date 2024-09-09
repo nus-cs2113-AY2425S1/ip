@@ -28,7 +28,7 @@ public class Melchizedek {
         while (true) {
             String input = in.nextLine();
             String[] tokens = input.split(" ");
-            
+
             printSeparator();
 
             switch (tokens[0].toLowerCase()) {
@@ -62,7 +62,7 @@ public class Melchizedek {
                 break;
 
             default:
-                taskList.addToTaskList(input);
+                break;
             }
         }
     }
