@@ -14,8 +14,8 @@ public class Freedom {
 
         System.out.println(logo + message + logo);
 
-        while (true) {
-            Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
             String line = in.nextLine();
 
             if (line.equals("bye")) {
