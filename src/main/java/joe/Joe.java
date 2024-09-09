@@ -1,3 +1,5 @@
+package joe;
+
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -138,7 +140,7 @@ public class Joe {
     public static void printGreeting() {
         System.out.println(INTENDATION + LOGO);
         System.out.println(INTENDATION + SEPARATOR);
-        System.out.println(INTENDATION + "Hello I'm Joe.");
+        System.out.println(INTENDATION + "Hello I'm joe.Joe.");
         System.out.println(INTENDATION + "How can I help you?");
         System.out.println(INTENDATION + SEPARATOR);
     }
