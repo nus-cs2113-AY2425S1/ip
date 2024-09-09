@@ -31,12 +31,13 @@ public class CodeCatalyst {
             } else if (input.startsWith("event ")) {
                 taskCount = addEventTask(tasks, taskCount, input);
             } else {
-                taskCount = addTask(tasks, taskCount, new Task(input));
+                System.out.println("Invalid input! Please enter a valid command.");
             }
             printDivider();
         }
         scanner.close();
     }
+
 
     private static void printDivider() {
         System.out.println("        ________________________________________________________\n");

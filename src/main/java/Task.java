@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -35,13 +35,13 @@ public class Task {
         this.isDone = false;
     }
 
+
     /**
-     * Returns the string representation of the task.
+     * Abstract method that must be implemented by subclasses.
+     * This method should return the string representation of the specific task type.
      *
-     * @return A string representing the task with its status icon.
+     * @return A string representing the task with its specific details.
      */
     @Override
-    public String toString(){
-        return ("[" + getStatusIcon() + "] " + description);
-    }
+    public abstract String toString();
 }

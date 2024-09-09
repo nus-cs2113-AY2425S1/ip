@@ -4,6 +4,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
+     *
      * @param description The task description.
      * @param from The start time of the event.
      * @param to The end time of the event.
@@ -21,6 +22,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + "[" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
     }
 }
