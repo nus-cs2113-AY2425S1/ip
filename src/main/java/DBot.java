@@ -38,17 +38,11 @@ public class DBot {
             } else if (line.startsWith("deadline ")) {
                 deadline(line);
             } else {
-                add(line);
+                System.out.println("Unknown command: " + line);
             }
 
             System.out.println(BREAK_LINE);
         }
-    }
-
-    private static void add(String line) {
-        taskList.add(new Task(line));
-        System.out.print("added: ");
-        System.out.println(line);
     }
 
     private static void list() {
@@ -65,7 +59,7 @@ public class DBot {
             taskList.get(option - 1).mark();
             System.out.println(taskList.get(option - 1).toString());
         } catch (Exception e) {
-            System.out.println("Invalid input");
+            System.out.println("Invalid input, input must be a positive integer and must exist");
         }
     }
 
@@ -76,7 +70,7 @@ public class DBot {
             taskList.get(option - 1).unmark();
             System.out.println(taskList.get(option - 1).toString());
         } catch (Exception e) {
-            System.out.println("Invalid input");
+            System.out.println("Invalid input, input must be a positive integer and must exist");
         }
     }
 
@@ -91,9 +85,22 @@ public class DBot {
 
     private static void deadline(String line) {
         String deadlinePrompt = line.substring(line.indexOf(" ") + 1).trim();
-        Hashtable<String, String> arguments = Utilities.getCommandArgument(deadlinePrompt);
+        Hashtable<String, String> arguments;
+        try {
+            arguments = Utilities.getCommandArgument(deadlinePrompt);
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please do not use '/' outside of providing special arguments as it's a special character");
+            return;
+        }
         String deadline = deadlinePrompt.substring(0, deadlinePrompt.indexOf("/")).trim();
-        Deadline task = new Deadline(deadline, arguments.get("by"));
+        Deadline task;
+        try {
+            task = new Deadline(deadline, arguments.get("by"));
+        } catch (Exception e) {
+            System.out.println("Invalid input, deadline missing argument '/by'");
+            return;
+        }
+
         taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -102,9 +109,21 @@ public class DBot {
 
     private static void event(String line) {
         String eventPrompt = line.substring(line.indexOf(" ") + 1).trim();
-        Hashtable<String, String> argument = Utilities.getCommandArgument(eventPrompt);
+        Hashtable<String, String> argument;
+        try {
+            argument = Utilities.getCommandArgument(eventPrompt);
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please do not use '/' outside of providing special arguments as it's a special character");
+            return;
+        }
         String event = eventPrompt.substring(0, eventPrompt.indexOf("/")).trim();
-        Event task = new Event(event, argument.get("from"), argument.get("to"));
+        Event task;
+        try {
+            task = new Event(event, argument.get("from"), argument.get("to"));
+        } catch (Exception e) {
+            System.out.println("Invalid input, event missing argument(s) '/from' or '/to'");
+            return;
+        }
         taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
