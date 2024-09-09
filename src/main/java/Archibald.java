@@ -51,7 +51,7 @@ public class Archibald {
                     tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
                     break;
                 default:
-                    throw new ArchibaldException("Error: Unfortunately, I don't know what that means >:(");
+                    throw new ArchibaldException("Error: In spite of my knowledge... I don't know what that means >:(");
             }
     
             printArchibaldResponse("Got it. I've added this task:\n  " + tasks[taskCount - 1] +
