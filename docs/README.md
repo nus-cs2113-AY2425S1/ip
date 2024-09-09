@@ -1,4 +1,4 @@
-# Joe User Guide
+# joe.Joe User Guide
 
 // Update the title above to match the actual product name
 
