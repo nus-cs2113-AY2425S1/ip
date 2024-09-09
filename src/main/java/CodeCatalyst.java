@@ -15,29 +15,65 @@ public class CodeCatalyst {
             String input = scanner.nextLine();
             printDivider();
 
-            if (input.equals("bye")) {
+            String command = getCommand(input);
+
+            switch (command) {
+            case "bye":
                 printGoodbye();
+                //scanner.close();
                 break;
-            } else if (input.equals("list")) {
+
+            case "list":
                 printTaskList(tasks, taskCount);
-            } else if (input.startsWith("mark ")) {
+                break;
+
+            case "mark":
                 handleTaskStatusChange(tasks, taskCount, input, true);
-            } else if (input.startsWith("unmark ")) {
+                break;
+
+            case "unmark":
                 handleTaskStatusChange(tasks, taskCount, input, false);
-            } else if (input.startsWith("todo ")) {
+                break;
+
+            case "todo":
                 taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
-            } else if (input.startsWith("deadline ")) {
+                break;
+
+            case "deadline":
                 taskCount = addDeadlineTask(tasks, taskCount, input);
-            } else if (input.startsWith("event ")) {
+                break;
+
+            case "event":
                 taskCount = addEventTask(tasks, taskCount, input);
-            } else {
+                break;
+
+            default:
                 System.out.println("Invalid input! Please enter a valid command.");
+                break;
             }
             printDivider();
         }
-        scanner.close();
     }
 
+    private static String getCommand(String input) {
+        if (input.equals("bye")) {
+            return "bye";
+        } else if (input.equals("list")) {
+            return "list";
+        } else if (input.startsWith("mark")) {
+            return "mark";
+        } else if (input.startsWith("unmark")) {
+            return "unmark";
+        } else if (input.startsWith("todo ")) {
+            return "todo";
+        } else if (input.startsWith("deadline ")) {
+            return "deadline";
+        } else if (input.startsWith("event")) {
+            return "event";
+        } else {
+            return "invalid";
+        }
+    }
 
     private static void printDivider() {
         System.out.println("        ________________________________________________________\n");
@@ -52,7 +88,6 @@ public class CodeCatalyst {
 
     private static void printGoodbye() {
         System.out.println("         Bye. Hope to see you again soon!");
-        printDivider();
     }
 
     private static void printTaskList(Task[] tasks, int taskCount) {
