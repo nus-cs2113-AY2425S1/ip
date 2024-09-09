@@ -1,6 +1,6 @@
-public class FormattingError extends Exception{
+public class FormattingException extends Exception{
 
-    public FormattingError(String message){
+    public FormattingException(String message){
         super(message);
     }
 

@@ -27,7 +27,7 @@ public class TheThinker {
     }
 
     public static void printSeparation(){
-        System.out.println("____________________________________________________________");
+        System.out.println("_".repeat(30));
     }
 
     public static void doTaskAccordingToUserAction(String userAction){
@@ -74,12 +74,16 @@ public class TheThinker {
                 break;
             }
             printSeparation();
-        }catch(FormattingError e){
+
+        }catch(FormattingException e){
             e.printErrorMessage();
+
         }catch(IndexOutOfBoundsException e){
             System.out.println("try again with the correct format");
+
         }catch (NumberFormatException e){
             System.out.println("The task number after [mark] is not a number / not in the correct format");
+
         }
     }
 
