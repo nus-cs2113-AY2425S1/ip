@@ -1,3 +1,5 @@
+package melchizedek.task;
+
 import java.util.Arrays;
 
 public class TaskList {
