@@ -48,26 +48,26 @@ public class Echo {
         } else if (userInput.startsWith("todo ")) {
             String description = userInput.substring(TODO_WORD_LENGTH).trim();
             if (description.isEmpty()) {
-                printErrorMessage("You must provide a description for the todo task.");
+                printErrorMessage(EchoException.todoDescriptionMissing());
             } else {
                 addToDoTask(userInput, taskList);
             }
         } else if (userInput.startsWith("deadline ")) {
             String description = userInput.substring(DEADLINE_WORD_LENGTH).trim();
             if (description.isEmpty()) {
-                printErrorMessage("You must provide a description for the deadline task.");
+                printErrorMessage(EchoException.deadlineDescriptionMissing());
             } else {
                 addDeadlineTask(userInput, taskList);
             }
         } else if (userInput.startsWith("event ")) {
             String description = userInput.substring(EVENT_WORD_LENGTH).trim();
             if (description.isEmpty()) {
-                printErrorMessage("You must provide a description for the event task.");
+                printErrorMessage(EchoException.eventDescriptionMissing());
             } else {
                 addEventTask(userInput, taskList);
             }
         } else if (!userInput.equalsIgnoreCase("bye")) {
-            printErrorMessage("I'm sorry, but I don't know what that means.");
+            printErrorMessage(EchoException.unknownCommand());
         }
     }
 
@@ -101,10 +101,19 @@ public class Echo {
      * @param taskList  Outputs updated array of task.
      */
     private static void handleMarking(String userInput, TaskList taskList) {
-        int taskNumber = Integer.parseInt(userInput.substring(5).trim());
-        System.out.println(SEPARATOR);
-        System.out.println(taskList.markTaskAsDone(taskNumber));
-        System.out.println(SEPARATOR);
+        try {
+            int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+
+            if (taskNumber < 1 || taskNumber > taskList.getTaskNumber()) {
+                printErrorMessage(EchoException.taskNumberOutOfRange());
+                return;
+            }
+            System.out.println(SEPARATOR);
+            System.out.println(taskList.markTaskAsDone(taskNumber));
+            System.out.println(SEPARATOR);
+        } catch (NumberFormatException e) {
+            printErrorMessage(EchoException.invalidTaskNumberFormat());
+        }
     }
 
     /**
@@ -114,10 +123,19 @@ public class Echo {
      * @param taskList  Outputs updated array of task.
      */
     private static void handleUnmarking(String userInput, TaskList taskList) {
-        int taskNumber = Integer.parseInt(userInput.substring(7).trim());
-        System.out.println(SEPARATOR);
-        System.out.println(taskList.markTaskAsNotDone(taskNumber));
-        System.out.println(SEPARATOR);
+        try {
+            int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+
+            if (taskNumber < 1 || taskNumber > taskList.getTaskNumber()) {
+                printErrorMessage(EchoException.taskNumberOutOfRange());
+                return;
+            }
+            System.out.println(SEPARATOR);
+            System.out.println(taskList.markTaskAsNotDone(taskNumber));
+            System.out.println(SEPARATOR);
+        } catch (NumberFormatException e) {
+            printErrorMessage(EchoException.invalidTaskNumberFormat());
+        }
     }
 
     /**
