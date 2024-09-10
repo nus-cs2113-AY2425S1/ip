@@ -1,8 +1,10 @@
+package task;
+
 /**
  * Represents a Deadline task, which is a task that needs to be done
  * before a specific date/time.
  */
-class Deadline extends Task {
+public class Deadline extends Task {
     protected String by;
 
     /**

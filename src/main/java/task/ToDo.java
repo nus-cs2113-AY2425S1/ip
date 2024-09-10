@@ -1,7 +1,9 @@
+package task;
+
 /**
  * Represents a ToDo task, which is a task without any specific date or time.
  */
-class ToDo extends Task {
+public class ToDo extends Task {
 
     /**
      * Creates a new ToDo task with the given description.

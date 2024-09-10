@@ -1,8 +1,10 @@
+package task;
+
 /**
  * Represents an Event task, which is a task that starts and ends
  * at specific dates/times.
  */
-class Event extends Task {
+public class Event extends Task {
     protected String start;
     protected String end;
 
