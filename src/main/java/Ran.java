@@ -20,14 +20,14 @@ public class Ran {
                 + "\t   |:|\\/__/        /:/  /       |::/  /\n"
                 + "\t   |:|  |         /:/  /        /:/  /\n"
                 + "\t    \\|__|         \\/__/         \\/__/\n";
-        System.out.println(logo + "\tHello! I'm Ran.");
-        System.out.println("\tWhat can I do for you?");
+        System.out.println(logo + "\tHello, I'm Ran.");
+        System.out.println("\tHow may I assist you?");
         System.out.println(LINE);
     }
 
     public static void bidFarewell() {
         System.out.println(LINE);
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\tFarewell. May we meet again!");
         System.out.println(LINE);
     }
 
@@ -42,7 +42,7 @@ public class Ran {
     }
 
     // Process task based on its type into relevant fields to be added
-    public static void processTask(String input, TaskType type) {
+    public static void processTask(String input, TaskType type) throws MissingArgumentException {
         String description = input;
         switch (type) {
         case TODO:
@@ -52,6 +52,9 @@ public class Ran {
             break;
         case DEADLINE:
             int byIndex = input.indexOf("/by");
+            if (byIndex == -1) {
+                throw new MissingArgumentException(CommandType.DEADLINE);
+            }
             // Take string between "deadline" and "/by"
             description = input.substring(9, byIndex - 1);
             // Take string after "/by"
@@ -61,6 +64,9 @@ public class Ran {
         case EVENT:
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
+            if (fromIndex == -1 || toIndex == -1) {
+                throw new MissingArgumentException(CommandType.EVENT);
+            }
             // Take string between "event" and "/from"
             description = input.substring(6, fromIndex - 1);
             // Take string between "/from" and "/to"
@@ -77,7 +83,10 @@ public class Ran {
         printAddedTask();
     }
 
-    public static void showList() {
+    public static void showList() throws EmptyListException {
+        if (listCount == 0) {
+            throw new EmptyListException();
+        }
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list[i]);
@@ -85,8 +94,11 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void markTask(String taskNum) {
+    public static void markTask(String taskNum) throws OutOfListBoundsException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
+        if (taskNumber >= listCount || taskNumber < 0) {
+            throw new OutOfListBoundsException();
+        }
         list[taskNumber].setAsDone();
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
@@ -94,8 +106,11 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void unmarkTask(String taskNum) {
+    public static void unmarkTask(String taskNum) throws OutOfListBoundsException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
+        if (taskNumber >= listCount || taskNumber < 0) {
+            throw new OutOfListBoundsException();
+        }
         list[taskNumber].setAsUndone();
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
@@ -105,7 +120,8 @@ public class Ran {
     
     // Read user input for command, throw exception for invalid commands
     public static void executeCommand(String input, String[] instruction) 
-            throws MissingCommandException, MissingDescriptionException {
+            throws MissingCommandException, MissingDescriptionException, EmptyListException,
+            OutOfListBoundsException, MissingArgumentException {
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
@@ -114,17 +130,31 @@ public class Ran {
             if (instruction.length > 1) {
                 processTask(input, TaskType.TODO);
             } else {
-                throw new MissingDescriptionException();
+                throw new MissingDescriptionException(TaskType.TODO);
             }
         } else if (instruction[0].equals("deadline")) {
-            processTask(input, TaskType.DEADLINE);
+            if (instruction.length > 1) {
+                processTask(input, TaskType.DEADLINE);
+            } else {
+                throw new MissingDescriptionException(TaskType.DEADLINE);
+            }
         } else if (instruction[0].equals("event")) {
-            processTask(input, TaskType.EVENT);
-        } else if (instruction.length > 1 ) {
-            if (instruction[0].equals("mark")) {
+            if (instruction.length > 1) {
+                processTask(input, TaskType.EVENT);
+            } else {
+                throw new MissingDescriptionException(TaskType.EVENT);
+            }
+        } else if (instruction[0].equals("mark")) {
+            try {
                 markTask(instruction[1]);
-            } else if (instruction[0].equals("unmark")) {
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingArgumentException(CommandType.MARK);
+            }
+        } else if (instruction[0].equals("unmark")) {
+            try {
                 unmarkTask(instruction[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingArgumentException(CommandType.UNMARK);
             }
         } else {
             throw new MissingCommandException();
@@ -138,11 +168,33 @@ public class Ran {
             executeCommand(input, instruction);
         } catch (MissingCommandException e) {
             System.out.println(LINE);
-            System.out.println("\tHmmmm, it seems you didn't give an appropriate command.");
+            System.out.println("\tHmmmm, it appears that you didn't give an appropriate command.");
+            System.out.println("\tHere's some you can consider:");
+            System.out.println("\ttodo, deadline, event, mark, unmark, bye");
             System.out.println(LINE);
         } catch (MissingDescriptionException e) {
             System.out.println(LINE);
-            System.out.println("\tHmmmm, the description of your command cannot be empty.");
+            System.out.println("\tPlease provide a description for your " 
+                    + e.getTypeString() + " command.");
+            System.out.println(LINE);
+        } catch (EmptyListException e) {
+            System.out.println(LINE);
+            System.out.println("\tAh, it seems your list is empty. Why not give it some substance?");
+            System.out.println(LINE);
+        } catch (OutOfListBoundsException e) {
+            System.out.println(LINE);
+            System.out.println("\tWoah, that index is out of the bounds of your list.");
+            System.out.println("\tAccessing it would have torn a gap in this computer simulation,");
+            System.out.println("\tcausing a premature termination, resulting in an incident.");
+            System.out.println("\tThat, I cannot allow.");
+            System.out.println(LINE);
+        } catch (NumberFormatException e) {
+            System.out.println(LINE);
+            System.out.println("\tPlease input your index as a valid integer.");
+            System.out.println(LINE);
+        } catch (MissingArgumentException e) {
+            System.out.println(LINE);
+            System.out.println("\tThere appears to be something wrong with command's arguments.");
             System.out.println(LINE);
         }
     }
