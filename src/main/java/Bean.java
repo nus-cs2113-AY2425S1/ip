@@ -190,8 +190,10 @@ public class Bean {
             } catch (InvalidTaskNumException e) {
                 printFormattedReply(INDENT + "Please enter a valid task number!\n" +
                         INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
+
             } catch (InsufficientSpaceException e) {
                 printFormattedReply(INDENT + "Sorry, you have reached the maximum list size of " + MAX_LIST_COUNT);
+
             }
         }
     }
