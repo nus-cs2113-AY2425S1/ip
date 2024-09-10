@@ -45,10 +45,9 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    public static void printToDoList() {
+    public static void printToDoList() throws EmptyListException {
         if (toDoList[0] == null) {
-            printFormattedReply(INDENT + "Nothing in your to do list yet!");
-            return;
+            throw new EmptyListException();
         }
 
         System.out.println(SEPARATOR_LINE +
@@ -116,20 +115,20 @@ public class Bean {
         toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
     }
 
-    public static void printErrorMessage() {
+    public static void printInvalidInputMessage() {
         printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
-                INDENT + "To add a new task:\n" +
-                INDENT + INDENT + "1. todo [description]\n" +
-                INDENT + INDENT + "2. deadline [description] /by [by]\n" +
-                INDENT + INDENT + "3. event [description] /from [from] /to [to]\n" +
+                INDENT + "1. To add a new task:\n" +
+                INDENT + INDENT + "a. todo [description]\n" +
+                INDENT + INDENT + "b. deadline [description] /by [by]\n" +
+                INDENT + INDENT + "c. event [description] /from [from] /to [to]\n" +
                 INDENT + INDENT + INDENT + "example: event dinner /from 6pm /to 8pm\n" +
-                INDENT + "To view your to do list: list\n" +
-                INDENT + "To mark a task as done: mark [task number]\n" +
-                INDENT + "To mark a task as undone: unmark [task number]");
+                INDENT + "2. To view your to do list: list\n" +
+                INDENT + "3. To mark a task as done: mark [task number]\n" +
+                INDENT + "4. To mark a task as undone: unmark [task number]");
     }
 
-    public static void processUserInput() {
+    public static void processUserInput() throws InvalidInputException {
         String userInput;
         Scanner in = new Scanner(System.in);
 
@@ -137,41 +136,48 @@ public class Bean {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
 
-            switch (userCommand) {
-            case "bye":
-                // To exit
-                return;
-            case "list":
-                printToDoList();
+            try {
+                switch (userCommand) {
+                case "bye":
+                    // To exit
+                    return;
 
-                break;
-            case "mark":
-                markTaskAsDone(obtainTaskNum(userInput));
+                case "list":
+                    printToDoList();
+                    break;
 
-                break;
-            case "unmark":
-                unmarkTaskAsDone(obtainTaskNum(userInput));
+                case "mark":
+                    markTaskAsDone(obtainTaskNum(userInput));
+                    break;
 
-                break;
-            case "todo":
-                addToDo(userInput);
+                case "unmark":
+                    unmarkTaskAsDone(obtainTaskNum(userInput));
+                    break;
 
-                break;
-            case "deadline":
-                addDeadline(userInput);
+                case "todo":
+                    addToDo(userInput);
+                    break;
 
-                break;
-            case "event":
-                addEvent(userInput);
+                case "deadline":
+                    addDeadline(userInput);
+                    break;
 
-                break;
-            default:
-                printErrorMessage();
+                case "event":
+                    addEvent(userInput);
+                    break;
+
+                default:
+                    throw new InvalidInputException();
+                }
+            } catch (InvalidInputException e) {
+                printInvalidInputMessage();
+            } catch (EmptyListException e) {
+                printFormattedReply(INDENT + "Nothing in your to do list yet!");
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidInputException {
         greet();
         processUserInput();
         exit();
