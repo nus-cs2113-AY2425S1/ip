@@ -1,3 +1,6 @@
+package CustomExceptions;
+import TaskChildren.Task;
+
 public class DeadlineConstructorException extends Exception {
     public DeadlineConstructorException(String message) {
         super("DEADLINE CONSTRUCTOR EXCEPTION: " + errorMessage(message));

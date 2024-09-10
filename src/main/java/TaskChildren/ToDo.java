@@ -1,6 +1,10 @@
+package TaskChildren;
+
+import CustomExceptions.ToDoConstructorException;
+
 public class ToDo extends Task{
 
-    public ToDo(String inputString) throws ToDoConstructorException{
+    public ToDo(String inputString) throws ToDoConstructorException {
         super(inputString.replace("todo ", ""));
         if (this.taskString.isEmpty()){
             throw new ToDoConstructorException(inputString);

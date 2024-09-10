@@ -18,21 +18,21 @@ ____________________________________________________________
 event La Familia Meeting /from 5pm /to 6pm
 ____________________________________________________________
 Muy Bien, work hard compadre!
-I've Added the Task:
+I've Added the TaskChildren.Task:
 [E][ ] La Familia Meeting (from: 5pm to: 6pm)
 You've got 1 tasks, better start working!
 ____________________________________________________________
 deadline Fry the Pollo with the Hermanos /by 5th July
 ____________________________________________________________
 Muy Bien, work hard compadre!
-I've Added the Task:
+I've Added the TaskChildren.Task:
 [D][ ] Fry the Pollo with the Hermanos (by: 5th July)
 You've got 2 tasks, better start working!
 ____________________________________________________________
 todo eat the pollo
 ____________________________________________________________
 Muy Bien, work hard compadre!
-I've Added the Task:
+I've Added the TaskChildren.Task:
 [T][ ] eat the pollo
 You've got 3 tasks, better start working!
 ____________________________________________________________

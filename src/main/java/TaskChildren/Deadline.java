@@ -1,8 +1,12 @@
+package TaskChildren;
+
+import CustomExceptions.DeadlineConstructorException;
+
 public class Deadline extends Task{
 
     private String deadlineString;
 
-    public Deadline(String inputString) throws DeadlineConstructorException{
+    public Deadline(String inputString) throws DeadlineConstructorException {
         super(inputString.replace("deadline ", "").split(" /by ")[0]);
         if (!(inputString.contains(" /by ")) | this.taskString.isEmpty()){
             throw new DeadlineConstructorException(inputString);

@@ -1,3 +1,6 @@
+package CustomExceptions;
+import TaskChildren.Task;
+
 public class ToDoConstructorException extends Exception{
     public ToDoConstructorException(String message) {
         super("TODO CONSTRUCTOR EXCEPTION: " + errorMessage(message));

@@ -1,3 +1,6 @@
+package CustomExceptions;
+import TaskChildren.Task;
+
 public class EventConstructorException extends Exception {
     public EventConstructorException(String message) {
         super("EVENT CONSTRUCTOR EXCEPTION: " + errorMessage(message));

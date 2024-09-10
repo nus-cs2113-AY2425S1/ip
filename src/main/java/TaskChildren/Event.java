@@ -1,7 +1,11 @@
+package TaskChildren;
+
+import CustomExceptions.EventConstructorException;
+
 public class Event extends Task{
     private String fromString;
     private String toString;
-    public Event(String inputString) throws EventConstructorException{
+    public Event(String inputString) throws EventConstructorException {
         super(inputString.replace("event ", "").split(" /from ")[0]);
         if (!(inputString.contains(" /from ") & inputString.contains(" /to ")) | this.taskString.isEmpty()){
             throw new EventConstructorException(inputString);

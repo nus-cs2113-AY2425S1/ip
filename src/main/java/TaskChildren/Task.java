@@ -1,3 +1,5 @@
+package TaskChildren;
+
 public class Task {
 
     // Keep track of tasks
@@ -41,7 +43,7 @@ public class Task {
         System.out.println(tasks[taskIndex].checkboxString());
     }
 
-    // Function to create String with Checkbox and Task
+    // Function to create String with Checkbox and TaskChildren.Task
     public String checkboxString(){
         String returnString = "[";
         if (this.isDone){
