@@ -4,8 +4,6 @@ public class Gertrude {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final Integer MAXIMUM_TASKS = 100;
-    public Integer task_counter = 0;
-    Task[] tasks = new Task[MAXIMUM_TASKS];
 
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -18,20 +16,19 @@ public class Gertrude {
 
     public static void printGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
     }
 
-    public static void printList() {
-        for (int i = 1; i <= taskCounter; i++) {
+    public static void printList(Task[] tasks) {
+        for (int i = 1; i <= Task.taskIndex; i++) {
             System.out.print(i + ".");
             tasks[i-1].printTask();
         }
-        System.out.println("You have " + taskCounter + " tasks in the list.");
+        System.out.println("You have " + Task.taskIndex + " tasks in the list.");
     }
 
-    public static void markTask(String lineInputArr[]) {
+    public static void markTask(String[] lineInputArr, Task[] tasks) {
         int index = Integer.parseInt(lineInputArr[1]);
-        if (index < 1 || index > taskCounter) {
+        if (index < 1 || index > Task.taskIndex) {
             System.out.println("That is not a valid index.");
         } else if (lineInputArr[0].equals("mark")) {
             tasks[index - 1].markDone();
@@ -40,18 +37,22 @@ public class Gertrude {
         }
     }
 
-    public static void addTask(Task task, String lineInput) {
-        tasks[taskCounter] = task;
-        taskCounter++;
+    public static void addTask(Task task, String lineInput, Task[] tasks) {
+        tasks[Task.taskIndex] = task;
+        Task.taskIndex += 1;
         System.out.println("added: " + lineInput);
     }
 
-    public static void addTodo(String lineInput) {
-        Todo newTodo = new Todo(lineInput);
-        addTask(newTodo, lineInput)
+    public static void addTodo(String[] lineInputArr, Task[] tasks) {
+        String name = "";
+        for(int i = 1; i < lineInputArr.length; i++) {
+            name += lineInputArr[i] + " ";
+        }
+        Todo newTodo = new Todo(name);
+        addTask(newTodo, name, tasks);
     }
 
-    public static void addDeadline(String[] lineInputArr) {
+    public static void addDeadline(String[] lineInputArr, Task[] tasks) {
         String description = "";
         String deadline = "";
         boolean isDeadline = false;
@@ -59,16 +60,16 @@ public class Gertrude {
             if (lineInputArr[i].equals("/by")) {
                 isDeadline = true;
             } else if (!isDeadline) {
-                description = description + lineInputArr[i];
+                description = description + lineInputArr[i] + " ";
             } else {
-                deadline = deadline + lineInputArr[i];
+                deadline = deadline + lineInputArr[i] + " ";
             }
         }
         Deadline newDeadline = new Deadline(description, deadline);
-        addTask(newDeadline, description);
+        addTask(newDeadline, description, tasks);
     }
 
-    public static void addEvent(String[] lineInputArr) {
+    public static void addEvent(String[] lineInputArr, Task[] tasks) {
         String description = "";
         String start = "";
         String end = "";
@@ -79,20 +80,21 @@ public class Gertrude {
             } else if (lineInputArr[i].equals("/to")) {
                 section = "to";
             } else if (section.equals("description")) {
-                description += lineInputArr[i];
+                description += lineInputArr[i] + " ";
             } else if (section.equals("from")) {
-                start += lineInputArr[i];
+                start += lineInputArr[i] + " ";
             } else if (section.equals("to")) {
-                end += lineInputArr[i];
+                end += lineInputArr[i] + " ";
             }
         }
         Event newEvent = new Event(description, start, end);
-        addTask(newEvent, description);
+        addTask(newEvent, description, tasks);
     }
 
 
     public static void main(String[] args) {
         printIntroduction();
+        Task[] tasks = new Task[MAXIMUM_TASKS];
         boolean runLoop = true;
         while (runLoop) {
             String lineInput;
@@ -107,22 +109,19 @@ public class Gertrude {
                 runLoop = false;
                 break;
             case "list":
-                printList();
+                printList(tasks);
                 break;
-            case "mark":
-                markTask(lineInputArr);
-                break;
-            case "unmark":
-                markTask(lineInputArr);
+            case "mark", "unmark":
+                markTask(lineInputArr, tasks);
                 break;
             case "todo":
-                addTodo(lineInput);
+                addTodo(lineInputArr, tasks);
                 break;
             case "deadline":
-                addDeadline(lineInputArr);
+                addDeadline(lineInputArr, tasks);
                 break;
             case "event":
-                addEvent(lineInputArr);
+                addEvent(lineInputArr, tasks);
                 break;
             default:
                 System.out.println("That is not a valid input.");

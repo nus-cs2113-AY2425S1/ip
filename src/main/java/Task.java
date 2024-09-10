@@ -2,6 +2,7 @@ public class Task {
     protected String name;
     protected String done;
     protected String symbol;
+    protected static Integer taskIndex = 0;
 
     public Task() {
         this.name = "";
