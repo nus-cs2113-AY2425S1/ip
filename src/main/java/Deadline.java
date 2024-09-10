@@ -4,7 +4,7 @@ public class Deadline extends Task{
 
     public Deadline(String inputString) throws DeadlineConstructorException{
         super(inputString.replace("deadline ", "").split(" /by ")[0]);
-        if (!(inputString.contains(" /by ")) | this.taskString == "" | this.taskString == null){
+        if (!(inputString.contains(" /by ")) | this.taskString.isEmpty()){
             throw new DeadlineConstructorException(inputString);
         }
         this.deadlineString = inputString.replace("deadline ", "").split(" /by ")[1];

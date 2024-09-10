@@ -1,6 +1,6 @@
 public class EventConstructorException extends Exception {
     public EventConstructorException(String message) {
-        super("EVENT CONTRUCTOR EXCEPTION: " + message);
+        super("EVENT CONSTRUCTOR EXCEPTION: " + errorMessage(message));
         Task.deleteLatestTask();
     }
     private static String errorMessage(String message) {
@@ -8,7 +8,7 @@ public class EventConstructorException extends Exception {
             return "MISSING FROM/TO COMMANDS";
         }
         String[] taskStringBreakdown = message.replace("event ", "").split(" /from ");
-        if (taskStringBreakdown[0] == "" | taskStringBreakdown[0] == null) {
+        if (taskStringBreakdown[0].isEmpty()) {
             return "MISSING TASK STATEMENT";
         }
         String[] fromToStringBreakdown = taskStringBreakdown[1].split(" /to ");

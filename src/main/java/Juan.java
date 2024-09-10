@@ -2,6 +2,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 public class Juan {
+    private final static String porFavor = "Por Favor?\n";
     public static void main(String[] args) {
         lineMessage();
         helloMessage();
@@ -29,28 +30,45 @@ public class Juan {
             Task.printTasksList();
         } else if (line.startsWith("mark ")){
             // Mark
-            int taskIndex = Integer.parseInt(line.replace("mark ", "")) - 1;
-            Task.mark(taskIndex);
+            try {
+                int taskIndex = Integer.parseInt(line.replace("mark ", "")) - 1;
+                Task.mark(taskIndex);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(porFavor + "MARK EXCEPTION: INVALID TASK INDEX");
+            } catch (NullPointerException e) {
+                System.out.println(porFavor + "MARK EXCEPTION: NULL TASK INDEX");
+            }
         } else if (line.startsWith("unmark ")){
             // Unmark
-            int taskIndex = Integer.parseInt(line.replace("unmark ", "")) - 1;
-            Task.unmark(taskIndex);
+            try {
+                int taskIndex = Integer.parseInt(line.replace("unmark ", "")) - 1;
+                Task.unmark(taskIndex);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(porFavor + "UNMARK EXCEPTION: INVALID TASK INDEX");
+            } catch (NullPointerException e) {
+                System.out.println(porFavor + "UNMARK EXCEPTION: NULL TASK INDEX");
+            }
+
         } else if (line.startsWith("todo ")) {
-            new ToDo(line);
+            try {
+                new ToDo(line);
+            } catch (ToDoConstructorException e) {
+                System.out.println(porFavor + e.getMessage());
+            }
         } else if (line.startsWith("deadline ")) {
             try {
                 new Deadline(line);
             } catch (DeadlineConstructorException e) {
-                System.out.println(e.getMessage());
+                System.out.println(porFavor + e.getMessage());
             }
         } else if (line.startsWith("event ")) {
             try {
                 new Event(line);
             } catch (EventConstructorException e) {
-                System.out.println(e.getMessage());
+                System.out.println(porFavor + e.getMessage());
             }
         } else {
-            System.out.println("Por Favor? Try a new request");
+            System.out.println(porFavor + "TRY A NEW REQUEST");
         }
 
         lineMessage();

@@ -29,10 +29,6 @@ public class Task {
 
     // Class mark function
     public static void mark(int taskIndex){
-        if (taskIndex < 0 || taskIndex >= taskCount){ // Validity Check
-            System.out.println("Not possible Amigo, try again");
-            return;
-        }
         tasks[taskIndex].isDone = true;
         System.out.println("Fantastica!!!! I marked it:");
         System.out.println(tasks[taskIndex].checkboxString());
@@ -40,10 +36,6 @@ public class Task {
 
     // Class unmark function
     public static void unmark(int taskIndex){
-        if (taskIndex < 0 || taskIndex >= taskCount){ // Validity Check
-            System.out.println("Not possible Amigo, try again");
-            return;
-        }
         tasks[taskIndex].isDone = false;
         System.out.println("Ay Caramba, I unmarked it:");
         System.out.println(tasks[taskIndex].checkboxString());
