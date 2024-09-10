@@ -20,39 +20,43 @@ public class Erika {
     public static void main(String[] args) {
         printWelcomeMessage();
         while (true) {
-            try{
-                String line = collectUserInput();
-                if (line.equals("bye")) {
-                    printGoodbyeMessage();
-                    break;
-                } else if (line.equals("list")) {
-                    printList();
-                } else if (line.contains("mark ")) {
-                    handleMark(line);
-                } else if (line.contains("todo")) {
-                    addTodo(line);
-                } else if (line.contains("deadline")) {
-                    addDeadline(line);
-                } else if (line.contains("event")) {
-                    addEvent(line);
-                } else {
-                    throw new UnknownCommandException();
-                }
-            } catch (UnknownCommandException e) {
-                printMessage("Error! Unknown Command, please try again!");
-            } catch (FormatErrorException e) {
-                printMessage("Error! Invalid Command Format, please try again!");
-            } catch (IndexOutOfBoundsException e) {
-                printMessage("Error! Task " + markIndex + " is out of bounds!");
-            } catch (NumberFormatException e) {
-                printMessage("Error! Please input a valid number!");
-            } catch (EmptyListException e) {
-                printMessage("It seems that there are no tasks! Please consider adding some!");
-            } catch (EmptyDescriptionException e) {
-                printMessage("Error! Description of " + e.taskType + " cannot be empty!");
-            }
-
+            if (mainLoop()) break;
         }
+    }
+
+    private static boolean mainLoop() {
+        try{
+            String line = collectUserInput();
+            if (line.equals("bye")) {
+                printGoodbyeMessage();
+                return true;
+            } else if (line.equals("list")) {
+                printList();
+            } else if (line.contains("mark ")) {
+                handleMark(line);
+            } else if (line.contains("todo")) {
+                addTodo(line);
+            } else if (line.contains("deadline")) {
+                addDeadline(line);
+            } else if (line.contains("event")) {
+                addEvent(line);
+            } else {
+                throw new UnknownCommandException();
+            }
+        } catch (UnknownCommandException e) {
+            printMessage("Error! Unknown Command, please try again!");
+        } catch (FormatErrorException e) {
+            printMessage("Error! Invalid Command Format, please try again!");
+        } catch (IndexOutOfBoundsException e) {
+            printMessage("Error! Task " + markIndex + " is out of bounds!");
+        } catch (NumberFormatException e) {
+            printMessage("Error! Please input a valid number!");
+        } catch (EmptyListException e) {
+            printMessage("It seems that there are no tasks! Please consider adding some!");
+        } catch (EmptyDescriptionException e) {
+            printMessage("Error! Description of " + e.taskType + " cannot be empty!");
+        }
+        return false;
     }
 
     private static void addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
