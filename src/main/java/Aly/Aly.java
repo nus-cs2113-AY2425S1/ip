@@ -1,3 +1,8 @@
+package Aly;
+import Task.Task;
+import Task.Todo;
+import Task.Deadline;
+import Task.Event;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -329,10 +334,10 @@ public class Aly {
     private static void markAsDone(String firstWord, Task[] taskList, int indexNum) {
         if (firstWord.equals("mark")) {
             taskList[indexNum - 1].setDone(true);
-            System.out.println("\"" + taskList[indexNum - 1].description + "\" marked as done!");
+            System.out.println("\"" + taskList[indexNum - 1].getDescription() + "\" marked as done!");
         } else {
             taskList[indexNum - 1].setDone(false);
-            System.out.println("\"" + taskList[indexNum - 1].description + "\" marked as undone!");
+            System.out.println("\"" + taskList[indexNum - 1].getDescription() + "\" marked as undone!");
         }
     }
 

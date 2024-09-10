@@ -1,3 +1,5 @@
+package Task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -7,6 +9,10 @@ public class Task {
         this.description = description;
         this.isDone = false;
         taskCounter++;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public static int getTaskCounter() {
