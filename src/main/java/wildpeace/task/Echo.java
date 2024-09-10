@@ -1,5 +1,9 @@
 package wildpeace.task;
 
+import initializer.Initializer;
+import initializer.LLMChat;
+import wildpeace.exceptions.EmptyCommandException;
+
 import java.util.Scanner;
 
 public class Echo {

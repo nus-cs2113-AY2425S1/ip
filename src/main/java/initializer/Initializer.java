@@ -1,6 +1,7 @@
+package initializer;
+import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.task.DataStorage;
 import wildpeace.task.Echo;
-import wildpeace.task.EmptyCommandException;
 
 import java.util.Scanner;
 
