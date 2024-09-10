@@ -1,3 +1,5 @@
+package exception;
+
 /**
  * Represents exceptions specific to the Lia chatbot.
  */
