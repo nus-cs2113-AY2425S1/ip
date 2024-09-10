@@ -43,7 +43,13 @@ public class Akshan {
         String line = input.nextLine();
 
         while (!line.equals(CommandType.BYE.getCommand())) {
-            processCommand(line, taskList);
+            try {
+                processCommand(line, taskList);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
             printLine();
             line = input.nextLine();
         }
@@ -74,11 +80,17 @@ public class Akshan {
      *
      * @param command The user's input command.
      * @param taskList The list of tasks.
+     * @throws IllegalArgumentException If the command is unknown or invalid.
      */
-    private static void processCommand(String command, TaskList taskList) {
+    private static void processCommand(String command, TaskList taskList) throws IllegalArgumentException {
         String[] splitInput = command.split("/");
         String commandTypeString = splitInput[0].split(" ")[0];
-        CommandType commandType = CommandType.fromString(commandTypeString);
+        CommandType commandType;
+        try {
+            commandType = CommandType.fromString(commandTypeString);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Unknown command: " + commandTypeString);
+        }
 
         switch (commandType) {
         case LIST:
@@ -96,7 +108,7 @@ public class Akshan {
             processTask(commandType, command, taskList);
             break;
         default:
-            System.out.println("Uh oh, no command found in: " + command);
+            throw new IllegalArgumentException("Uh oh, no command found in: " + command);
         }
     }
 
@@ -106,11 +118,16 @@ public class Akshan {
      * @param taskType The type of task.
      * @param command The full command string.
      * @param taskList The list of tasks.
+     * @throws IllegalArgumentException If there's an error processing the task.
      */
-    private static void processTask(CommandType taskType, String command, TaskList taskList) {
-        String[] params = COMMAND_PARSERS.get(taskType).apply(command);
-        Task task = Task.createTask(taskType.getCommand(), params);
-        addTaskToList(taskList, task);
+    private static void processTask(CommandType taskType, String command, TaskList taskList) throws IllegalArgumentException {
+        try {
+            String[] params = COMMAND_PARSERS.get(taskType).apply(command);
+            Task task = Task.createTask(taskType.getCommand(), params);
+            addTaskToList(taskList, task);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error processing " + taskType + " task: " + e.getMessage());
+        }
     }
 
     /**
@@ -132,12 +149,20 @@ public class Akshan {
      * @param command The command string.
      * @param taskList The list of tasks.
      * @param mark True if marking, false if unmarking.
+     * @throws IllegalArgumentException If the command format is invalid or the task number is out of range.
      */
-    private static void processMarkUnmark(String command, TaskList taskList, boolean mark) {
+    private static void processMarkUnmark(String command, TaskList taskList, boolean mark) throws IllegalArgumentException {
         String[] parts = command.split(" ");
-        if (parts.length == 2) {
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid mark/unmark command format");
+        }
+        try {
             int index = Integer.parseInt(parts[1]);
             taskList.setItemStatus(index, mark);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid task number: " + parts[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Task number out of range: " + parts[1]);
         }
     }
 
@@ -146,9 +171,14 @@ public class Akshan {
      *
      * @param command The full command string.
      * @return An array containing the task description.
+     * @throws IllegalArgumentException If the todo task description is missing.
      */
-    private static String[] parseTodo(String command) {
-        return new String[]{command.split(" ", 2)[1]};
+    private static String[] parseTodo(String command) throws IllegalArgumentException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Todo task description is missing");
+        }
+        return new String[]{parts[1]};
     }
 
     /**
@@ -156,10 +186,18 @@ public class Akshan {
      *
      * @param command The full command string.
      * @return An array containing the task description and deadline.
+     * @throws IllegalArgumentException If the deadline task is missing description or deadline.
      */
-    private static String[] parseDeadline(String command) {
+    private static String[] parseDeadline(String command) throws IllegalArgumentException {
         String[] parts = command.split(" /by ", 2);
-        return new String[]{parts[0].split(" ", 2)[1], parts[1]};
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Deadline task is missing description or deadline");
+        }
+        String[] descParts = parts[0].split(" ", 2);
+        if (descParts.length < 2) {
+            throw new IllegalArgumentException("Deadline task description is missing");
+        }
+        return new String[]{descParts[1], parts[1]};
     }
 
     /**
@@ -167,13 +205,22 @@ public class Akshan {
      *
      * @param command The full command string.
      * @return An array containing the event description, start time, and end time.
+     * @throws IllegalArgumentException If the event task is missing description, start time, or end time.
      */
-    private static String[] parseEvent(String command) {
+    private static String[] parseEvent(String command) throws IllegalArgumentException {
         String[] parts = command.split(" /", 3);
-        return new String[]{
-                parts[0].split(" ", 2)[1],
-                parts[1].split(" ", 2)[1],
-                parts[2].split(" ", 2)[1]
-        };
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Event task is missing description, start time, or end time");
+        }
+        String[] descParts = parts[0].split(" ", 2);
+        if (descParts.length < 2) {
+            throw new IllegalArgumentException("Event task description is missing");
+        }
+        String[] startParts = parts[1].split(" ", 2);
+        String[] endParts = parts[2].split(" ", 2);
+        if (startParts.length < 2 || endParts.length < 2) {
+            throw new IllegalArgumentException("Event task is missing start time or end time");
+        }
+        return new String[]{descParts[1], startParts[1], endParts[1]};
     }
 }

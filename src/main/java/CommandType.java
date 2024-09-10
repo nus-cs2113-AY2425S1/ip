@@ -37,12 +37,15 @@ public enum CommandType {
      * @return The corresponding CommandType.
      * @throws IllegalArgumentException If no matching CommandType is found.
      */
-    public static CommandType fromString(String text) {
+    public static CommandType fromString(String text) throws IllegalArgumentException {
+        if (text == null || text.trim().isEmpty()) {
+            throw new IllegalArgumentException("Command text cannot be null or empty");
+        }
         for (CommandType b : CommandType.values()) {
             if (b.command.equalsIgnoreCase(text)) {
                 return b;
             }
         }
-        throw new IllegalArgumentException("No command with text " + text + " found");
+        throw new IllegalArgumentException("No command with text '" + text + "' found");
     }
 }
