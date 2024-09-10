@@ -1,3 +1,7 @@
+package nus.edu.rizzler.task;
+
+import nus.edu.rizzler.ui.Emoji;
+
 public class Event extends Task{
     Emoji emoji = new Emoji();
     private String from;

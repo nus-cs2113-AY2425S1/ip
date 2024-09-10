@@ -1,3 +1,5 @@
+package nus.edu.rizzler.ui;
+
 public class Emoji {
 
     public String getCoolFaceEmoji() {

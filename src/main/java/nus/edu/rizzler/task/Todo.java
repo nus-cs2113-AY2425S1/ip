@@ -1,3 +1,7 @@
+package nus.edu.rizzler.task;
+
+import nus.edu.rizzler.ui.Emoji;
+
 public class Todo extends Task{
     Emoji emoji = new Emoji();
 

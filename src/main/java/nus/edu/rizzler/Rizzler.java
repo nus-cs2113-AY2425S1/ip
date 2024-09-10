@@ -1,4 +1,9 @@
+package nus.edu.rizzler;
+
 import java.util.Scanner;
+import nus.edu.rizzler.exception.InvalidInputException;
+import nus.edu.rizzler.manager.TaskManager;
+import nus.edu.rizzler.ui.Emoji;
 
 public class Rizzler {
     Emoji emoji = new Emoji();
@@ -7,12 +12,12 @@ public class Rizzler {
         System.out.println("What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji());
         final String MENU = """
                   --------------------------------------------------------
-                  1. To add a TODO task type 'todo [task]'
-                     to add a DEADLINE task type 'deadline [task] BY [deadline]'
-                     to add a EVENT task type 'event [task] FROM [start time] TO [end time]' , and Rizzler's got it handled!\s
+                  1. To add a TODO nus.edu.rizzler.task type 'todo [nus.edu.rizzler.task]'
+                     to add a DEADLINE nus.edu.rizzler.task type 'deadline [nus.edu.rizzler.task] BY [deadline]'
+                     to add a EVENT nus.edu.rizzler.task type 'event [nus.edu.rizzler.task] FROM [start time] TO [end time]' , and nus.edu.rizzler.Rizzler's got it handled!\s
                   2. Need the full rundown? Type 'list' and I’ll drop the goods!
-                  3. Crushed a task? Type 'mark [task number]' and let's celebrate!
-                  4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
+                  3. Crushed a nus.edu.rizzler.task? Type 'mark [nus.edu.rizzler.task number]' and let's celebrate!
+                  4. Changed your mind? Type 'undo [nus.edu.rizzler.task number]' and I'll reset that for you!
                   5. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
                   --------------------------------------------------------
                  \s""";
@@ -23,8 +28,6 @@ public class Rizzler {
     public void listenCommand() {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
-
-        TaskManager taskManager = new TaskManager();
 
         while (!command.equals("bye")) {
             try {
