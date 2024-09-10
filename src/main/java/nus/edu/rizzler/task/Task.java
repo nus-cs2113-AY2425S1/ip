@@ -1,3 +1,8 @@
+package nus.edu.rizzler.task;
+
+import nus.edu.rizzler.exception.InvalidInputException;
+import nus.edu.rizzler.ui.Emoji;
+
 public class Task {
     static Emoji emoji = new Emoji();
     private String taskName;

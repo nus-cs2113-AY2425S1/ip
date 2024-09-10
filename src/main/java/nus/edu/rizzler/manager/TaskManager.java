@@ -1,3 +1,9 @@
+package nus.edu.rizzler.manager;
+
+import nus.edu.rizzler.exception.InvalidInputException;
+import nus.edu.rizzler.task.Task;
+import nus.edu.rizzler.ui.Emoji;
+
 public class TaskManager {
     Emoji emoji = new Emoji();
 
