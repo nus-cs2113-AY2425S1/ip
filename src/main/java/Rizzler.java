@@ -7,9 +7,9 @@ public class Rizzler {
         System.out.println("What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji());
         final String MENU = """
                   --------------------------------------------------------
-                  1. To add a TODO task type 'add [task]'
-                     to add a DEADLINE task type 'add [task] BY [deadline]'
-                     to add a EVENT task type 'add [task] FROM [start time] TO [end time]' , and Rizzler's got it handled!\s
+                  1. To add a TODO task type 'todo [task]'
+                     to add a DEADLINE task type 'deadline [task] BY [deadline]'
+                     to add a EVENT task type 'event [task] FROM [start time] TO [end time]' , and Rizzler's got it handled!\s
                   2. Need the full rundown? Type 'list' and I’ll drop the goods!
                   3. Crushed a task? Type 'mark [task number]' and let's celebrate!
                   4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
@@ -31,17 +31,29 @@ public class Rizzler {
                 taskManager.displayTaskList();
 
             } else if (command.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                taskManager.completeTask(taskNumber);
+                try {
+                    int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                    taskManager.completeTask(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: Task number must be an integer --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("ERROR: Please follow the format specified in the MENU --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+                }
 
             } else if (command.startsWith("undo")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                taskManager.undoTask(taskNumber);
-
-            } else if (command.startsWith("add")) {
+                try {
+                    int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                    taskManager.undoTask(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: Task number must be an integer --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("ERROR: Please follow the format specified in the MENU --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+                }
+            } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
                 taskManager.addTask(command);
+
             } else {
-                System.out.println("Invalid command!");
+                System.out.println("That's an invalid command! " + emoji.getCrossMarkEmoji() + emoji.getCrossMarkEmoji());
             }
 
             command = scanner.nextLine();

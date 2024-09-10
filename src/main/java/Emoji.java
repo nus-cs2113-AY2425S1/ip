@@ -39,5 +39,13 @@ public class Emoji {
     public String getReverseEmoji() {
         return "\uD83D\uDD04";
     }
+
+    public String getCrossMarkEmoji() {
+        return "\u274C";
+    }
+
+    public String getExclamationMarkEmoji() {
+        return "\u203C\uFE0F";
+    }
 }
 

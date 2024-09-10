@@ -1,4 +1,5 @@
 public class Task {
+    static Emoji emoji = new Emoji();
     private String taskName;
     private Boolean isDone;
 
@@ -28,19 +29,27 @@ public class Task {
     }
 
     public static Task parseTaskString(String taskDescription) {
-        if (taskDescription.indexOf("BY") > 0) {
-            String by = taskDescription.substring(taskDescription.indexOf("BY") + 2);
-            String taskName = taskDescription.substring(0, taskDescription.indexOf("BY"));
-            return new Deadline(taskName, by);
+        try {
+            if (taskDescription.startsWith("deadline")) {
+                taskDescription = taskDescription.substring(9);
+                String by = taskDescription.substring(taskDescription.indexOf("BY") + 3);
+                String taskName = taskDescription.substring(0, taskDescription.indexOf("BY"));
+                return new Deadline(taskName, by);
 
-        } else if (taskDescription.indexOf("FROM") > 0) {
-            String from = taskDescription.substring(taskDescription.indexOf("FROM") + 4, taskDescription.indexOf("TO"));
-            String to = taskDescription.substring(taskDescription.indexOf("TO") + 2);
-            String taskName = taskDescription.substring(0, taskDescription.indexOf("FROM"));
-            return new Event(taskName, from, to);
+            } else if (taskDescription.startsWith("event")) {
+                taskDescription = taskDescription.substring(6);
+                String from = taskDescription.substring(taskDescription.indexOf("FROM") + 5, taskDescription.indexOf("TO"));
+                String to = taskDescription.substring(taskDescription.indexOf("TO") + 3);
+                String taskName = taskDescription.substring(0, taskDescription.indexOf("FROM"));
+                return new Event(taskName, from, to);
 
-        } else {
-            return new Todo(taskDescription);
+            } else {
+                taskDescription = taskDescription.substring(5);
+                return new Todo(taskDescription);
+            }
+        }  catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error: You are missing task arguments" + emoji.getExclamationMarkEmoji());
         }
+        return null;
     }
 }
