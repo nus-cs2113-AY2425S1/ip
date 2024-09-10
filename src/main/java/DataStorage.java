@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class DataStorage {
     private static Hashtable<String, Task> storedItems = new Hashtable<>();
 
-    public static void storeData(Scanner scanner) {
+    public static void storeData(Scanner scanner) throws EmptyCommandException {
         displayGuide();
         boolean exit = false;
 
@@ -13,7 +13,11 @@ public class DataStorage {
             if (line.equalsIgnoreCase("bye")) {
                 exit = true;
             } else {
-                processInput(line, scanner);
+                try {
+                    processInput(line, scanner);
+                } catch (EmptyCommandException e) {
+                    System.out.println("Item cannot be empty.");
+                }
             }
         }
 
@@ -27,18 +31,27 @@ public class DataStorage {
         System.out.println("Return to tutorial by entering Q");
     }
 
-    private static void processInput(String line, Scanner scanner) {
+    private static void processInput(String line, Scanner scanner) throws EmptyCommandException {
         if (line.equalsIgnoreCase("list")) {
             listItems();
         } else if (line.startsWith("todo ")) {
+            if(line.substring(5).isEmpty()) {
+                throw new EmptyCommandException();
+            }
             addTask(new Task(line.substring(5), Task.TaskType.TODO));
         } else if (line.startsWith("deadline ")) {
             System.out.println("Enter deadline (by when):");
             String by = scanner.nextLine();
+            if(line.substring(9).isEmpty()) {
+                throw new EmptyCommandException();
+            }
             addTask(new Task(line.substring(9), by, Task.TaskType.DEADLINE));
         } else if (line.startsWith("event ")) {
             System.out.println("Duration for the event: ");
             String at = scanner.nextLine();
+            if(line.substring(6).isEmpty()) {
+                throw new EmptyCommandException();
+            }
             addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
         } else if (line.startsWith("mark ")) {
             markTask(line.substring(5));
@@ -48,7 +61,7 @@ public class DataStorage {
             displayGuide();
         } else
         {
-            System.out.println("Unknown command.");
+            System.out.println("Unknown/ Incomplete command.");
         }
     }
 

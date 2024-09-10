@@ -3,8 +3,7 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class Initializer {
-    public static void initialise(Scanner scanner, LLMChat llmChat)
-    {
+    public static void initialise(Scanner scanner, LLMChat llmChat) throws EmptyCommandException {
         System.out.println("What can I do for you, enter '1' for echo, '2' for storing your plan, '0' to exit");
         Scanner initialInputScanner = new Scanner(System.in);
         String initialInput = initialInputScanner.nextLine();

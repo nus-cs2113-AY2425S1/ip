@@ -9,7 +9,7 @@ public class Wildpeace {
             "   \\_/\\_/  |_|_|\\__,_| .__/ \\___|\\__,_|\\___\\___|\n" +
             "                     |_|                        ";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyCommandException {
 
         String logo = LOGO;
         System.out.println("Hello from\n" + logo);

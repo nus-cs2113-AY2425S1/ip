@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class Echo {
-    public static void echo(Scanner scanner)
-    {
+    public static void echo(Scanner scanner) throws EmptyCommandException {
         String line;
         boolean exit = false;
         while (!exit) {
