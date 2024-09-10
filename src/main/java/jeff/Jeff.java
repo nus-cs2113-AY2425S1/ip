@@ -1,3 +1,12 @@
+package jeff;
+
+import jeff.exception.TaskDescriptionException;
+import jeff.exception.TaskFieldException;
+import jeff.task.Deadline;
+import jeff.task.Event;
+import jeff.task.Task;
+import jeff.task.Todo;
+
 import java.util.Scanner;
 
 public class Jeff {
