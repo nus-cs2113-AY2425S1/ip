@@ -29,8 +29,12 @@ public class TaskList {
      * Adds a new task.
      *
      * @param task The task object to be added.
+     * @throws IllegalArgumentException If the task is null.
      */
-    public void addItem(Task task) {
+    public void addItem(Task task) throws IllegalArgumentException {
+        if (task == null) {
+            throw new IllegalArgumentException("Cannot add a null task to the list.");
+        }
         this.list.add(task);
     }
 
@@ -40,12 +44,12 @@ public class TaskList {
      *
      * @param index Index of the task in the list.
      * @param status The task's new status.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public void setItemStatus(int index, boolean status) {
-        try {
-            this.list.get(index - 1).setStatus(status);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oh no, the list item does not exist!");
+    public void setItemStatus(int index, boolean status) throws IndexOutOfBoundsException {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index: " + index);
         }
+        this.list.get(index - 1).setStatus(status);
     }
 }
