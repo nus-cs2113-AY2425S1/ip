@@ -3,8 +3,6 @@
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
-
-
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
