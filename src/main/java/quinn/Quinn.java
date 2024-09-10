@@ -1,3 +1,12 @@
+package quinn;
+
+import quinn.exception.QuinnException;
+import quinn.task.Deadline;
+import quinn.task.Event;
+import quinn.task.Task;
+import quinn.task.ToDo;
+import quinn.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,10 +114,10 @@ public class Quinn {
             try {
                 return Integer.parseInt(commandInfo);
             } catch (NumberFormatException e) {
-                throw new QuinnException("Please enter a valid task number to be marked as done!");
+                throw new QuinnException("Please enter a valid quinn.task number to be marked as done!");
             }
         } else {
-            throw new QuinnException("Please enter a task number to be marked as done!");
+            throw new QuinnException("Please enter a quinn.task number to be marked as done!");
         }
     }
 
@@ -117,10 +126,10 @@ public class Quinn {
             try {
                 return Integer.parseInt(commandInfo);
             } catch (NumberFormatException e) {
-                throw new QuinnException("Please enter a valid task number to be marked as not done yet!");
+                throw new QuinnException("Please enter a valid quinn.task number to be marked as not done yet!");
             }
         } else {
-            throw new QuinnException("Please enter a task number to be marked as not done yet!");
+            throw new QuinnException("Please enter a quinn.task number to be marked as not done yet!");
         }
     }
 
@@ -237,7 +246,7 @@ public class Quinn {
             String message = ui.taskDoneMessage(task);
             ui.displayResponse(message);
         } else {
-            throw new QuinnException("Task not found. Please try again!");
+            throw new QuinnException("quinn.task.Task not found. Please try again!");
         }
     }
 
@@ -249,7 +258,7 @@ public class Quinn {
             String message = ui.taskNotDoneMessage(task);
             ui.displayResponse(message);
         } else {
-            throw new QuinnException("Task not found. Please try again!");
+            throw new QuinnException("quinn.task.Task not found. Please try again!");
         }
     }
 }

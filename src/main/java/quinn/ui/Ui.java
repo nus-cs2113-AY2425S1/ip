@@ -1,3 +1,7 @@
+package quinn.ui;
+
+import quinn.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +25,7 @@ public class Ui {
                 + "\t" + "    Q                       " + System.lineSeparator()
                 + "\t" + "     QQ                     " + System.lineSeparator();
 
-        String welcomeMessage = "\t" + "Hello! I'm Quinn, your Personal Assistant ChatBot."
+        String welcomeMessage = "\t" + "Hello! I'm quinn.Quinn, your Personal Assistant ChatBot."
                 + System.lineSeparator()
                 + System.lineSeparator()
                 + logo
@@ -54,17 +58,17 @@ public class Ui {
     }
 
     public String taskAddedMessage(Task task) {
-        return "\t" + "Got it. I've added this task:"
+        return "\t" + "Got it. I've added this quinn.task:"
                 + System.lineSeparator() + "\t\t" + task;
     }
 
     public String taskDoneMessage(Task task) {
-        return "\t" + "Nice! I've marked this task as done:"
+        return "\t" + "Nice! I've marked this quinn.task as done:"
                 + System.lineSeparator() + "\t\t" + task;
     }
 
     public String taskNotDoneMessage(Task task) {
-        return "\t" + "OK, I've marked this task as not done yet:"
+        return "\t" + "OK, I've marked this quinn.task as not done yet:"
                 + System.lineSeparator() + "\t\t" + task;
     }
 
@@ -78,7 +82,7 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         sb.append("\t")
-                .append(tasks.size() > 1 ? "Here are the tasks in your list:" : "Here is the task in your list:")
+                .append(tasks.size() > 1 ? "Here are the tasks in your list:" : "Here is the quinn.task in your list:")
                 .append(System.lineSeparator())
                 .append("\t")
                 .append("[Legend: T = todo, D = deadline, E = event]")
