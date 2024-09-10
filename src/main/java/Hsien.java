@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Hsien {
@@ -19,6 +20,10 @@ public class Hsien {
     }
 
     public static void printList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("List is currently empty. Please add a task!");
+            return;
+        }
         int counter = 1;
         System.out.println("Here are the tasks in your list!");
         for (Task t : tasks) {
@@ -34,6 +39,7 @@ public class Hsien {
         System.out.println("Hello! I am Hsien, your personal chatbot...");
         printLine();
 
+        List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "todo", "deadline", "event");
         ArrayList<Task> messages = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         boolean isRunning = true;
@@ -44,6 +50,14 @@ public class Hsien {
 
             String[] parts = command.split(" ");
             String desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+            // Extract out the exact command
+            command = parts[0];
+
+            // Check if valid commmand
+            if (!validCommands.contains(command)) {
+                System.out.println("Please enter a valid command");
+                continue;
+            }
 
             Task newTask = null;
 
@@ -55,7 +69,6 @@ public class Hsien {
             } else if (command.equals("list")) {
                 printList(messages);
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
-
                 // Get the task index
                 int index = Integer.parseInt(desc);
                 boolean isMarking = command.startsWith("mark");
@@ -78,23 +91,27 @@ public class Hsien {
                 // Print status of the task
                 System.out.println(messages.get(index - 1).getStatusDescription());
             } else {
+                // Empty task
+                if (desc.isEmpty()){
+                    System.out.println("Description cannot be left empty");
+                    continue;
+                }
+
                 String tempDesc;
 
                 // Create Task object based on action
-                if (command.startsWith("todo")) {
+                if (command.equals("todo")) {
                     newTask = new Todo(desc);
-                } else if (command.startsWith("deadline")) {
+                } else if (command.equals("deadline")) {
                     tempDesc = desc.split("/by")[0].trim();
                     String byDate = desc.split("/by")[1].trim();
                     newTask = new Deadline(tempDesc, byDate);
-                } else if (command.startsWith("event")) {
+                } else {
                     tempDesc = desc.split("/from")[0].trim();
                     String[] dates = desc.split("/from")[1].split("/to");
                     String fromDate = dates[0].trim();
                     String toDate = dates[1].trim();
                     newTask = new Event(tempDesc, fromDate, toDate);
-                } else {
-                    newTask = new Task(command);
                 }
                 messages.add(newTask);
                 System.out.println("Added task: " + newTask.getDescription());
