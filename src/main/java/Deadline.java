@@ -2,7 +2,7 @@ public class Deadline extends Task {
     protected String by;
 
     // Constructors
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws InsufficientSpaceException {
         super(description);
         this.by = by;
     }

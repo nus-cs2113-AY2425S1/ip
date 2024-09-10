@@ -4,7 +4,7 @@ public class Bean {
     // Constants
     private final static String SEPARATOR_LINE = "_".repeat(60) + "\n";
     private final static String INDENT = "  ";
-    private final static int MAX_LIST_COUNT = 100;
+    private final static int MAX_LIST_COUNT = 5;
     private final static String LOGO = "  ┏━┓\n" +
             "  ┃ ┃\n" +
             "  ┃ ┗━━┳━━━┳━━━━┳━━━┓\n" +
@@ -13,6 +13,10 @@ public class Bean {
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
 
     private static Task[] toDoList = new Task[MAX_LIST_COUNT];
+
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     // Print logo with greeting message
     public static void greet() {
@@ -90,34 +94,36 @@ public class Bean {
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
-    public static void addToDo(String userInput) {
-        // Extract description
-        String description = userInput.split("todo ")[1].trim();
+    public static void addTask(String userInput, TaskType taskType) throws InsufficientSpaceException {
+        if (Task.getNumberOfTasks() >= MAX_LIST_COUNT) {
+            throw new InsufficientSpaceException();
+        }
+        if (taskType == TaskType.TODO) {
+            // Extract description
+            String description = userInput.split("todo ")[1].trim();
 
-        toDoList[Task.getNumberOfTasks()] = new Todo(description);
-    }
+            toDoList[Task.getNumberOfTasks()] = new Todo(description);
+        } else if (taskType == TaskType.DEADLINE) {
+            // Extract description and by
+            String[] parts = userInput.split("/by ");
+            // parts: [0] = "deadline {description} ", [1] = " {by}"
+            String description = parts[0].substring("deadline ".length()).trim();
+            String by = parts[1].trim();
 
-    public static void addDeadline(String userInput) {
-        // Extract description and by
-        String[] parts = userInput.split("/by ");
-        // parts: [0] = "deadline {description} ", [1] = " {by}"
-        String description = parts[0].substring("deadline ".length()).trim();
-        String by = parts[1].trim();
+            toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
+        } else {
+            // taskType == TaskType.EVENT
+            // Extract description, from and to
+            String[] splitDescription = userInput.split("/from");
+            // splitDescription: [0] = "event {description} ", [1] = "{from} /to {to}"
+            String description = splitDescription[0].substring("events".length()).trim();
+            String[] splitFromTo = splitDescription[1].split("/to");
+            // splitFromTo: [0] = "{from} ", [1] = "{to}"
+            String from = splitFromTo[0].trim();
+            String to = splitFromTo[1].trim();
 
-        toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
-    }
-
-    public static void addEvent(String userInput) {
-        // Extract description, from and to
-        String[] splitDescription = userInput.split("/from");
-        // splitDescription: [0] = "event {description} ", [1] = "{from} /to {to}"
-        String description = splitDescription[0].substring("events".length()).trim();
-        String[] splitFromTo = splitDescription[1].split("/to");
-        // splitFromTo: [0] = "{from} ", [1] = "{to}"
-        String from = splitFromTo[0].trim();
-        String to = splitFromTo[1].trim();
-
-        toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
+            toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
+        }
     }
 
     public static void printInvalidInputMessage() {
@@ -137,7 +143,7 @@ public class Bean {
         String userInput;
         Scanner in = new Scanner(System.in);
 
-        while (Task.getNumberOfTasks() < MAX_LIST_COUNT) {
+        while (Task.getNumberOfTasks() < MAX_LIST_COUNT + 1) {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
 
@@ -160,27 +166,32 @@ public class Bean {
                     break;
 
                 case "todo":
-                    addToDo(userInput);
+                    addTask(userInput, TaskType.TODO);
                     break;
 
                 case "deadline":
-                    addDeadline(userInput);
+                    addTask(userInput, TaskType.DEADLINE);
                     break;
 
                 case "event":
-                    addEvent(userInput);
+                    addTask(userInput, TaskType.EVENT);
                     break;
 
                 default:
                     throw new InvalidInputException();
+
                 }
             } catch (InvalidInputException e) {
                 printInvalidInputMessage();
+
             } catch (EmptyListException e) {
                 printFormattedReply(INDENT + "Nothing in your to do list yet!");
+
             } catch (InvalidTaskNumException e) {
                 printFormattedReply(INDENT + "Please enter a valid task number!\n" +
                         INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
+            } catch (InsufficientSpaceException e) {
+                printFormattedReply(INDENT + "Sorry, you have reached the maximum list size of " + MAX_LIST_COUNT);
             }
         }
     }

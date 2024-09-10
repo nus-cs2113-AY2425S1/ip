@@ -3,13 +3,17 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected static int numberOfTasks = 0;
+    private final static int MAX_LIST_COUNT = 100;
 
     // Constant
     protected final static String SEPARATOR_LINE = "____________________________________________________________________\n";
     protected final static String INDENT = "  ";
 
     // Constructors
-    public Task(String description) {
+    public Task(String description) throws InsufficientSpaceException {
+        if (numberOfTasks >= MAX_LIST_COUNT) {
+            throw new InsufficientSpaceException();
+        }
         this.description = description;
         this.isDone = false;
         numberOfTasks++;
