@@ -1,3 +1,5 @@
+package jeff.exception;
+
 public class TaskDescriptionException extends Exception{
 
     //Lets the user know which task type caused the exception
