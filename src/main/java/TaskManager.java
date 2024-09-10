@@ -28,7 +28,7 @@ public class TaskManager {
         taskList[totalTaskCount] = Task.parseTaskString(taskDescription);
         totalTaskCount++;
 
-        System.out.println(String.format("\nYou have %d task(s) in your list now!\n", totalTaskCount));
+        System.out.printf("\nYou have %d task(s) in your list now!\n%n", totalTaskCount);
         String actionMessage = "Let's make it happen! " + emoji.getRockstarHandEmoji() + emoji.getFireEmoji();
         displayTaskAction(taskList[totalTaskCount - 1], totalTaskCount, actionMessage);
 
@@ -37,11 +37,9 @@ public class TaskManager {
     public void completeTask(int taskNumber) {
         if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
-        }
-        else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
+        } else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
             System.out.println("Invalid task number!");
-        }
-        else {
+        } else {
             Task task = taskList[taskNumber - 1];
             task.setIsDone(true);
 
@@ -53,11 +51,9 @@ public class TaskManager {
     public void undoTask(int taskNumber) {
         if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
-        }
-        else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
+        } else if (taskNumber <= 0 || taskNumber > totalTaskCount) {
             System.out.println("Invalid task number!");
-        }
-        else {
+        } else {
             Task task = taskList[taskNumber - 1];
             task.setIsDone(false);
 

@@ -5,19 +5,19 @@ public class Rizzler {
 
     public void displayMenu() {
         System.out.println("What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji());
-        String menu = """
+        final String MENU = """
                   --------------------------------------------------------
-                  1. To add a TODO task just type the task
-                     to add a DEADLINE task type '[task] BY [deadline]'
-                     to add a EVENT task type '[task] FROM [start time] TO [end time]' , and Rizzler's got it handled!    
+                  1. To add a TODO task type 'add [task]'
+                     to add a DEADLINE task type 'add [task] BY [deadline]'
+                     to add a EVENT task type 'add [task] FROM [start time] TO [end time]' , and Rizzler's got it handled!\s
                   2. Need the full rundown? Type 'list' and I’ll drop the goods!
                   3. Crushed a task? Type 'mark [task number]' and let's celebrate!
                   4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
                   5. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
                   --------------------------------------------------------
-                  """;
+                 \s""";
 
-        System.out.println(menu);
+        System.out.println(MENU);
     }
 
     public void listenCommand() {
@@ -25,7 +25,6 @@ public class Rizzler {
         String command = scanner.nextLine();
 
         TaskManager taskManager = new TaskManager();
-
 
         while (!command.equals("bye")) {
             if (command.equals("list")) {
@@ -39,8 +38,10 @@ public class Rizzler {
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 taskManager.undoTask(taskNumber);
 
-            } else {
+            } else if (command.startsWith("add")) {
                 taskManager.addTask(command);
+            } else {
+                System.out.println("Invalid command!");
             }
 
             command = scanner.nextLine();
@@ -49,7 +50,7 @@ public class Rizzler {
     }
 
     public static void main(String[] args) {
-        String logo =
+        final String LOGO =
                 """
                          _____                          _\s
                         |     \\                        | |\s
@@ -62,7 +63,7 @@ public class Rizzler {
 
         Rizzler rizzler = new Rizzler();
 
-        System.out.println(logo);
+        System.out.println(LOGO);
         System.out.println("Yo! I'm Rizzler.");
         rizzler.displayMenu();
         rizzler.listenCommand();
