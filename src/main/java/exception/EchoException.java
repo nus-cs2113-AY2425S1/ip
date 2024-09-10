@@ -20,7 +20,7 @@ public class EchoException {
     }
 
     public static String taskNumberOutOfRange() {
-        return "task.Task is out of range.";
+        return "Task is out of range.";
     }
 
     public static String invalidTaskNumberFormat() {
