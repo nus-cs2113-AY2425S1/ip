@@ -1,3 +1,7 @@
+import exception.EmptyDateFieldException;
+import exception.EmptyDescriptionException;
+import task.*;
+
 public class List {
     public static final String INVALID_EVENT_INPUT_MESSAGE = "event <event name> /from <start date/time> /end <end date/time>";
     public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <deadline>";
@@ -241,7 +245,7 @@ public class List {
     }
 
     public String getItemDescription(int itemNum) {
-        return itemList[itemNum - 1].description;
+        return itemList[itemNum - 1].getDescription();
     }
 
     public void markListItemAsDone(int itemNum) {
