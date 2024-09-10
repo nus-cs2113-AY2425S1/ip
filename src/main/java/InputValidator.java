@@ -6,58 +6,59 @@ public class InputValidator {
         this.taskManager = taskManager;
     }
 
-    protected int validateIndex(String[] inputs) {
+    protected int validateIndex(String[] inputs) throws InvalidInputException {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(inputs[1]);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            MessageDisplay.displayInvalidIndexMessage();
-            return -1;
+            throw new InvalidInputException("Invalid index. Please provide a valid task number after the command.");
         }
 
         if (taskIndex <= 0 || taskIndex > taskManager.getNumberOfTasks()) {
-            MessageDisplay.displayOutOfBoundsIndexMessage(taskManager.getNumberOfTasks(), taskIndex);
-            return -1;
+            throw new InvalidInputException("Invalid task index: " + taskIndex + ". " +
+                    "Please provide a number between 1 and " + taskManager.getNumberOfTasks() + ".");
         }
 
         return taskIndex;
     }
 
-    protected String[] validateTodoInput(String[] inputs) {
+    protected void validateTodoInput(String[] inputs) throws InvalidInputException {
         if (inputs.length != 2) {
-            MessageDisplay.displayInvalidTodoInputMessage();
-            return null;
+            throw new InvalidInputException("No description entered.");
         }
-        return inputs;
     }
 
-    protected String[] validateDeadlineInput(String[] inputs) {
+    protected String[] validateDeadlineInput(String[] inputs) throws InvalidInputException {
         if (inputs.length != 2) {
-            MessageDisplay.displayInvalidDeadlineInputMessage();
-            return null;
+            throw new InvalidInputException("No description entered.");
+        }
+        if (!inputs[1].contains("/by")) {
+            throw new InvalidInputException("/by not entered.");
         }
         String[] splitInput = inputs[1].split(" /by ");
         if (splitInput.length != 2) {
-            MessageDisplay.displayInvalidDeadlineInputMessage();
-            return null;
+            throw new InvalidInputException("description/deadline not entered.");
         }
         return splitInput;
     }
 
     protected String[] validateEventInput(String[] inputs) {
         if (inputs.length != 2) {
-            MessageDisplay.displayInvalidEventInputMessage();
-            return null;
+            throw new InvalidInputException("No description entered.");
+        }
+        if (!inputs[1].contains("/from")) {
+            throw new InvalidInputException("/from not entered.");
+        }
+        if (!inputs[1].contains("/to")) {
+            throw new InvalidInputException("/to not entered.");
         }
         String[] splitInput = inputs[1].split(" /from ");
         if (splitInput.length != 2) {
-            MessageDisplay.displayInvalidEventInputMessage();
-            return null;
+            throw new InvalidInputException("description/start/end not entered.");
         }
         String[] eventDetails = splitInput[1].split(" /to ");
         if (eventDetails.length != 2) {
-            MessageDisplay.displayInvalidEventInputMessage();
-            return null;
+            throw new InvalidInputException("description/start/end not entered.");
         }
         return new String[]{splitInput[0], eventDetails[0], eventDetails[1]};
     }

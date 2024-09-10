@@ -33,26 +33,12 @@ public class MessageDisplay {
                 "6. event <task description> /from <start time> /to <end time>");
     }
 
-    public static void displayInvalidIndexMessage() {
-        displayMessage("Invalid index. Please provide a valid task number after the command.");
+    public static void displayInvalidInputMessage(String message, String task) {
+        displayMessage(message + NEW_LINE + task);
     }
 
-    public static void displayOutOfBoundsIndexMessage(int maxTasks, int inputIndex) {
-        displayMessage("Invalid task index: " + inputIndex + ". Please provide a number between 1 and " + maxTasks + ".");
-    }
-
-    public static void displayInvalidTodoInputMessage() {
-        displayMessage("Invalid input for 'todo'." + NEW_LINE + "Usage: todo <task description>");
-    }
-
-    public static void displayInvalidDeadlineInputMessage() {
-        displayMessage("Invalid input for 'deadline'." + NEW_LINE +
-                "Usage: deadline <task description> /by <due date>");
-    }
-
-    public static void displayInvalidEventInputMessage() {
-        displayMessage("Invalid input for 'event'." + NEW_LINE +
-                "Usage: event <task description> /from <start time> /to <end time>");
+    public static void displayInvalidInputMessage(String message) {
+        displayMessage(message);
     }
 
     public static void displaySeparator() {

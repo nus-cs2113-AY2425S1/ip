@@ -1,5 +1,9 @@
 public class CommandHandler {
 
+    private static final String TODO_USAGE = "Usage: todo <task description>.";
+    private static final String DEADLINE_USAGE = "Usage: deadline <task description> /by <due date>.";
+    private static final String EVENT_USAGE = "Usage: event <task description> /from <start time> /to <end time>.";
+
     private TaskManager taskManager;
     private InputValidator inputValidator;
 
@@ -47,8 +51,11 @@ public class CommandHandler {
     }
 
     private void handleMarkAndUnmarkCase(String[] inputs) {
-        int taskIndex = inputValidator.validateIndex(inputs);
-        if (taskIndex == -1) {
+        int taskIndex;
+        try {
+            taskIndex = inputValidator.validateIndex(inputs);
+        } catch (InvalidInputException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage());
             return;
         }
 
@@ -62,26 +69,35 @@ public class CommandHandler {
     }
 
     private void handleTodoCase(String[] inputs) {
-        String[] validatedInput = inputValidator.validateTodoInput(inputs);
-        if (validatedInput == null) {
-            return;
+        try {
+            inputValidator.validateTodoInput(inputs);
+            if (!taskManager.hasSpace()) {
+                MessageDisplay.displayInvalidInputMessage();
+                return;
+            }
+            taskManager.addTask(new Todo(inputs[1]));
+        } catch (InvalidInputException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage(), TODO_USAGE);
         }
-        taskManager.addTask(new Todo(inputs[1]));
     }
-    
+
     private void handleDeadlineCase(String[] inputs) {
-        String[] validatedInput = inputValidator.validateDeadlineInput(inputs);
-        if (validatedInput == null) {
-            return;
+        String[] validatedInput;
+        try {
+            validatedInput = inputValidator.validateDeadlineInput(inputs);
+            taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
+        } catch (InvalidInputException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage(), DEADLINE_USAGE);
         }
-        taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
     }
 
     private void handleEventCase(String[] inputs) {
-        String[] validatedInput = inputValidator.validateEventInput(inputs);
-        if (validatedInput == null) {
-            return;
+        String[] validatedInput;
+        try {
+            validatedInput = inputValidator.validateEventInput(inputs);
+            taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
+        } catch (InvalidInputException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage(), EVENT_USAGE);
         }
-        taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
     }
 }
