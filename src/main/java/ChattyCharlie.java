@@ -53,7 +53,7 @@ public class ChattyCharlie {
             case EVENT:
                 //remove the event word and split into the description and event times
                 String[] eventParts = line.substring(6).trim().split("from");
-                String Description = eventParts[0].trim();
+                String description = eventParts[0].trim();
                 //further split the array into the start and end times
                 String[] eventTimes = eventParts[1].trim().split(" to ");
                 String startTime = eventTimes[0].trim();
