@@ -72,22 +72,22 @@ public abstract class Task {
             throw new IllegalArgumentException("Task parameters cannot be null or empty.");
         }
 
-        switch (type.toLowerCase()) {
-        case "todo":
-            return new Todo(params[0]);
-        case "deadline":
-            if (params.length < 2) {
-                throw new IllegalArgumentException("Deadline task requires a name and a due date.");
+        return switch (type.toLowerCase()) {
+            case "todo" -> new Todo(params[0]);
+            case "deadline" -> {
+                if (params.length < 2) {
+                    throw new IllegalArgumentException("Deadline task requires a name and a due date.");
+                }
+                yield new Deadline(params[0], params[1]);
             }
-            return new Deadline(params[0], params[1]);
-        case "event":
-            if (params.length < 3) {
-                throw new IllegalArgumentException("Event task requires a name, start date, and end date.");
+            case "event" -> {
+                if (params.length < 3) {
+                    throw new IllegalArgumentException("Event task requires a name, start date, and end date.");
+                }
+                yield new Event(params[0], params[1], params[2]);
             }
-            return new Event(params[0], params[1], params[2]);
-        default:
-            throw new IllegalArgumentException("Unknown task type: " + type);
-        }
+            default -> throw new IllegalArgumentException("Unknown task type: " + type);
+        };
     }
 
     /**
