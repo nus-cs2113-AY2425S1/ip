@@ -5,7 +5,7 @@ public class Task {
     private static final int MAX_TASK = 100;
 
     protected String description;
-    public boolean isDone;
+    private boolean isDone;
     private static int count = 0; //Class level attribute, number of tasks
     private static Task[] list = new Task[MAX_TASK];
 

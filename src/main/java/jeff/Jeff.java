@@ -77,11 +77,11 @@ public class Jeff {
             int taskNumber = getTaskNumber(line);
             Task t = Task.getList()[taskNumber - 1];
             if(firstWord.equals("mark")) {
-                t.isDone = true;
+                t.setIsDone(true);
                 System.out.print("ogei marked task dOnE");
             }
             else{
-                t.isDone = false;
+                t.setIsDone(false);
                 System.out.print("womp womp task not finished :(");
             }
             System.out.print(System.lineSeparator() + t);
