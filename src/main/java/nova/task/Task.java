@@ -1,4 +1,6 @@
-package nova;
+package nova.task;
+
+import nova.MessageDisplay;
 
 public class Task {
     protected String description;

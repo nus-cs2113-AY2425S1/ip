@@ -1,4 +1,4 @@
-package nova;
+package nova.task;
 
 public class Deadline extends Task{
 

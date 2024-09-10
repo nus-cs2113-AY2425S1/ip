@@ -2,6 +2,9 @@ package nova;
 
 import nova.exception.InsufficientSpaceException;
 import nova.exception.InvalidInputException;
+import nova.task.Deadline;
+import nova.task.Event;
+import nova.task.Todo;
 
 public class CommandHandler {
 
