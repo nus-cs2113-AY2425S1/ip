@@ -1,6 +1,6 @@
-package task;
+package bean.task;
 
-import exceptions.InsufficientSpaceException;
+import bean.exceptions.InsufficientSpaceException;
 
 public class Task {
 
@@ -22,7 +22,7 @@ public class Task {
         this.isDone = false;
         numberOfTasks++;
         System.out.println(SEPARATOR_LINE +
-                INDENT + "Added task: '" + description +  "'!\n" +
+                INDENT + "Added duke.task: '" + description +  "'!\n" +
                 INDENT + "You have " + numberOfTasks + " tasks in your to do list.\n" +
                 SEPARATOR_LINE);
     }
@@ -41,7 +41,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
     public static int getNumberOfTasks() {

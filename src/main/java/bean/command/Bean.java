@@ -1,13 +1,13 @@
-package command;
+package bean.command;
 
-import exceptions.EmptyListException;
-import exceptions.InsufficientSpaceException;
-import exceptions.InvalidInputException;
-import exceptions.InvalidTaskNumException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import bean.exceptions.EmptyListException;
+import bean.exceptions.InsufficientSpaceException;
+import bean.exceptions.InvalidInputException;
+import bean.exceptions.InvalidTaskNumException;
+import bean.task.Deadline;
+import bean.task.Event;
+import bean.task.Task;
+import bean.task.Todo;
 
 import java.util.Scanner;
 
@@ -47,9 +47,9 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    // Return command (taken as first word) from given user input
+    // Return duke.command (taken as first word) from given user input
     public static String extractCommand(String userInput) {
-        // Take first word of input as command
+        // Take first word of input as duke.command
         return userInput.split(" ")[0];
     }
 
@@ -77,9 +77,9 @@ public class Bean {
         System.out.println(SEPARATOR_LINE);
     }
 
-    // Extract task number as int from user input for mark and unmark commands
+    // Extract duke.task number as int from user input for mark and unmark commands
     public static int obtainTaskNum(String userInput) throws InvalidTaskNumException {
-        // Obtain task number by taking second word of input and trim any spaces, then parse as int
+        // Obtain duke.task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
         int taskNum = Integer.parseInt(words[1].trim());
         if (taskNum < 0 || taskNum > Task.getNumberOfTasks()) {
@@ -93,7 +93,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
-        printFormattedReply(INDENT + "task.Task " + taskNum + " has been marked as DONE:\n" +
+        printFormattedReply(INDENT + "duke.task.Task " + taskNum + " has been marked as DONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
@@ -101,7 +101,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
-        printFormattedReply(INDENT + "task.Task " + taskNum + " has been marked as UNDONE:\n" +
+        printFormattedReply(INDENT + "duke.task.Task " + taskNum + " has been marked as UNDONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
@@ -140,14 +140,14 @@ public class Bean {
     public static void printInvalidInputMessage() {
         printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
-                INDENT + "1. To add a new task:\n" +
+                INDENT + "1. To add a new duke.task:\n" +
                 INDENT + INDENT + "a. todo [description]\n" +
                 INDENT + INDENT + "b. deadline [description] /by [by]\n" +
                 INDENT + INDENT + "c. event [description] /from [from] /to [to]\n" +
                 INDENT + INDENT + INDENT + "example: event dinner /from 6pm /to 8pm\n" +
                 INDENT + "2. To view your to do list: list\n" +
-                INDENT + "3. To mark a task as done: mark [task number]\n" +
-                INDENT + "4. To mark a task as undone: unmark [task number]");
+                INDENT + "3. To mark a duke.task as done: mark [duke.task number]\n" +
+                INDENT + "4. To mark a duke.task as undone: unmark [duke.task number]");
     }
 
     public static void processUserInput() throws InvalidInputException {
@@ -199,7 +199,7 @@ public class Bean {
                 printFormattedReply(INDENT + "Nothing in your to do list yet!");
 
             } catch (InvalidTaskNumException e) {
-                printFormattedReply(INDENT + "Please enter a valid task number!\n" +
+                printFormattedReply(INDENT + "Please enter a valid duke.task number!\n" +
                         INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
 
             } catch (InsufficientSpaceException e) {

@@ -1,6 +1,6 @@
-package task;
+package bean.task;
 
-import exceptions.InsufficientSpaceException;
+import bean.exceptions.InsufficientSpaceException;
 
 public class Event extends Task {
     protected String from;
