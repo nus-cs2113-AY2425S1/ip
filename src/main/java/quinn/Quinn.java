@@ -83,6 +83,10 @@ public class Quinn {
                 taskNum = getTaskNumFromUnmarkCommand(commandInfo);
                 unmarkTask(taskNum);
                 break;
+            case "delete":
+                taskNum = getTaskNumFromDeleteCommand(commandInfo);
+                deleteTask(taskNum);
+                break;
             case "todo":
                 taskDescription = getTaskDescriptionFromToDoCommand(commandInfo);
                 task = new ToDo(taskDescription);
@@ -130,6 +134,18 @@ public class Quinn {
             }
         } else {
             throw new QuinnException("Please enter a quinn.task number to be marked as not done yet!");
+        }
+    }
+
+    private int getTaskNumFromDeleteCommand(String commandInfo) throws QuinnException {
+        if (isCommandInfoPresent(commandInfo)) {
+            try {
+                return Integer.parseInt(commandInfo);
+            } catch (NumberFormatException e) {
+                throw new QuinnException("Please enter a valid task number to be deleted!");
+            }
+        } else {
+            throw new QuinnException("Please enter a task number to be deleted!");
         }
     }
 
@@ -259,6 +275,20 @@ public class Quinn {
             ui.displayResponse(message);
         } else {
             throw new QuinnException("quinn.task.Task not found. Please try again!");
+        }
+    }
+
+    public void deleteTask(int taskNum) throws QuinnException {
+        if (taskNum > 0 && taskNum <= tasks.size()) {
+            Task task = tasks.get(taskNum - 1);
+            tasks.remove(task);
+
+            String message = ui.taskDeletedMessage(task)
+                    + System.lineSeparator()
+                    + ui.numOfTasksInListMessage(tasks);
+            ui.displayResponse(message);
+        } else {
+            throw new QuinnException("Task not found. Please try again!");
         }
     }
 }

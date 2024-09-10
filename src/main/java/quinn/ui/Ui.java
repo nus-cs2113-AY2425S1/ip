@@ -72,6 +72,11 @@ public class Ui {
                 + System.lineSeparator() + "\t\t" + task;
     }
 
+    public String taskDeletedMessage(Task task) {
+        return "\t" + "Noted. I've removed this task:"
+                + System.lineSeparator() + "\t\t" + task;
+    }
+
     public String numOfTasksInListMessage(List<Task> tasks) {
         return "\t" + "Now you have " + tasks.size()
                 + (tasks.size() > 1 ? " tasks" : " task")
