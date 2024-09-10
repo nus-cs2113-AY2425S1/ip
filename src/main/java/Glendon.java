@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Glendon {
@@ -43,105 +42,66 @@ public class Glendon {
                 response = in.nextLine();
                 break;
             default:
-                try {
-                    checkResponse(response);
-                } catch (GlendonException e) {
-                    System.out.println("    Ayo no such commands.");
-                }
                 response = in.nextLine();
                 break;
             }
         }
     }
 
-    private static void checkResponse(String response) throws GlendonException {
-        ArrayList<String> taskName = new ArrayList<String>();
-        taskName.add("todo");
-        taskName.add("deadline");
-        taskName.add("event");
-        taskName.add("mark");
-        taskName.add("unmark");
-        if(!taskName.contains(response)) {
-            throw new GlendonException();
-        }
-    }
-
     private static void addEvent(String response) {
-        try{
-            String[] answers = response.split("/");
-            list[taskCounter] = new Event(answers[0].substring(6), answers[1].substring(5), answers[2].substring(3));
-            printAddedTask();
-            taskCounter++;
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("    Ayo you forgot to tell me what is the task");
-        }
+        String[] answers = response.split("/");
+        list[taskCounter] = new Event(answers[0].substring(6), answers[1].substring(5), answers[2].substring(3));
+        printAddedTask();
+        taskCounter++;
     }
 
     private static void printAddedTask() {
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("        " + list[taskCounter]);
-        System.out.println("    Now you have " + (taskCounter+1) + " tasks in the list.");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list[taskCounter]);
+        System.out.println("Now you have " + (taskCounter+1) + " tasks in the list.");
     }
 
     private static void addDeadline(String response) {
-        try {
-            String[] answers = response.split("/");
-            list[taskCounter] = new Deadline(answers[0].substring(9), answers[1].substring(3));
-            printAddedTask();
-            taskCounter++;
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("    Ayo you forgot to tell me what is the task");
-        }
+        String[] answers = response.split("/");
+        list[taskCounter] = new Deadline(answers[0].substring(9), answers[1].substring(3));
+        printAddedTask();
+        taskCounter++;
     }
 
     private static void addTodo(String response) {
-        try {
-            list[taskCounter] = new Todo(response.substring(5));
-            printAddedTask();
-            taskCounter++;
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("    Ayo you forgot to tell me what is the task");
-        }
+        list[taskCounter] = new Todo(response.substring(5));
+        printAddedTask();
+        taskCounter++;
     }
 
     private static void unmarkDone(String response) {
-        try {
-            int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
-            list[taskValue].setCompleted(false);
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("        " + list[taskValue]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    I can't read your mind, you need to tell me what your task number is.");
-        }
+        int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
+        list[taskValue].setCompleted(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(list[taskValue]);
     }
 
     private static void markDone(String response) {
-        try {
-            int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
-            list[taskValue].setCompleted(true);
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("        " + list[taskValue]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    I can't read your mind, you need to tell me what your task number is.");
-        } catch (NumberFormatException e) {
-            System.out.println("    Bruh tell me a number, not the task.");
-        }
+        int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
+        list[taskValue].setCompleted(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(list[taskValue]);
     }
 
     private static void printList() {
         int taskNumber = 1;
         Task currentTask;
-        System.out.println("    Here are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.length; i++) {
             currentTask = list[i];
             if (currentTask != null) {
-                System.out.println("        " + taskNumber + ". " + currentTask.toString());
+                System.out.println(taskNumber + ". " + currentTask.toString());
                 taskNumber++;
             }
         }
     }
     private static void printBye() {
-        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void printWelcomeMessage() {
