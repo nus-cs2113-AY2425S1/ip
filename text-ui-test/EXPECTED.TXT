@@ -5,84 +5,37 @@ ______________________________________
 
 ______________________________________
 Got it. I've added this task:
-  [T][ ] read book
+  [T][ ] ang bin en: answer cs2113 tutorial questions
 Now you have 1 tasks in the list.
 ______________________________________
 
 ______________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: June 6th)
+  [D][ ] weekly CS2113 quiz (by: Monday 9pm)
 Now you have 2 tasks in the list.
 ______________________________________
 
 ______________________________________
+Here are the tasks in your list:
+1.[T][ ] ang bin en: answer cs2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)
+______________________________________
+
+______________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+  [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
 Now you have 3 tasks in the list.
 ______________________________________
 
 ______________________________________
-Got it. I've added this task:
-  [T][ ] join sports club
-Now you have 4 tasks in the list.
-______________________________________
-
-______________________________________
 Nice! I've marked this task as done:
-  [T][X] read book
-______________________________________
-
-______________________________________
-Nice! I've marked this task as done:
-  [T][X] join sports club
-______________________________________
-
-______________________________________
-Got it. I've added this task:
-  [T][ ] borrow book
-Now you have 5 tasks in the list.
+  [T][X] ang bin en: answer cs2113 tutorial questions
 ______________________________________
 
 ______________________________________
 Here are the tasks in your list:
-1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][X] join sports club
-5.[T][ ] borrow book
-______________________________________
-
-______________________________________
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
-Now you have 6 tasks in the list.
-______________________________________
-
-______________________________________
-Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 7 tasks in the list.
-______________________________________
-
-______________________________________
-Got it. I've added this task:
-  [D][ ] do homework (by: no idea :-p)
-Now you have 8 tasks in the list.
-______________________________________
-
-______________________________________
-Here are the tasks in your list:
-1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][X] join sports club
-5.[T][ ] borrow book
-6.[D][ ] return book (by: Sunday)
-7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-8.[D][ ] do homework (by: no idea :-p)
-______________________________________
-
-______________________________________
-Bye. Hope to see you again soon!
+1.[T][X] ang bin en: answer cs2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)
+3.[E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
 ______________________________________
 

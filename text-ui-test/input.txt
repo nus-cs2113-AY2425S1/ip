@@ -1,13 +1,6 @@
-todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
-todo join sports club
+todo Ang Bin En: Answer CS2113 tutorial questions
+deadline weekly CS2113 quiz /by Monday 9pm
+list
+event CS2113 lecture /from Friday 4pm /to 6pm
 mark 1
-mark 4
-todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
-list
-bye
