@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Bean {
     // Constants
-    private final static String SEPARATOR_LINE = "____________________________________________________________________\n";
+    private final static String SEPARATOR_LINE = "_".repeat(60) + "\n";
     private final static String INDENT = "  ";
     private final static int MAX_LIST_COUNT = 100;
     private final static String LOGO = "  ┏━┓\n" +
@@ -18,7 +18,7 @@ public class Bean {
     public static void greet() {
         System.out.println(SEPARATOR_LINE +
                 LOGO +
-                INDENT + "Howdy, mate! :) I'm bean, your personal assistant.\n" +
+                INDENT + "Howdy! :) I'm bean, your personal assistant.\n" +
                 INDENT + "Let me help you keep track of your tasks!\n" +
                 SEPARATOR_LINE
         );
@@ -38,16 +38,16 @@ public class Bean {
         return userInput.split(" ")[0];
     }
 
-    // Print (single line) message with separator line above and below message, as well as indentation
+    // Print (single line) message with separator line above and below message
     public static void printFormattedReply(String reply) {
         System.out.println(SEPARATOR_LINE +
-                INDENT + reply + "\n" +
+                reply + "\n" +
                 SEPARATOR_LINE);
     }
 
     public static void printToDoList() {
         if (toDoList[0] == null) {
-            printFormattedReply("Nothing in your to do list yet!");
+            printFormattedReply(INDENT + "Nothing in your to do list yet!");
             return;
         }
 
@@ -74,7 +74,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
-        printFormattedReply("Task " + taskNum + " has been marked as DONE:\n" +
+        printFormattedReply(INDENT + "Task " + taskNum + " has been marked as DONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
@@ -82,7 +82,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
-        printFormattedReply("Task " + taskNum + " has been marked as UNDONE:\n" +
+        printFormattedReply(INDENT + "Task " + taskNum + " has been marked as UNDONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
@@ -117,7 +117,7 @@ public class Bean {
     }
 
     public static void printErrorMessage() {
-        printFormattedReply("Sorry, I am not equipped to respond to that yet... :(\n" +
+        printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
                 INDENT + "To add a new task:\n" +
                 INDENT + INDENT + "1. todo [description]\n" +
@@ -174,7 +174,6 @@ public class Bean {
     public static void main(String[] args) {
         greet();
         processUserInput();
-        // exit because: userInput.equals("bye") || Task.getNumberOfTasks >= MAX_LIST_COUNT
         exit();
     }
 }
