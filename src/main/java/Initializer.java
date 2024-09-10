@@ -1,3 +1,7 @@
+import wildpeace.task.DataStorage;
+import wildpeace.task.Echo;
+import wildpeace.task.EmptyCommandException;
+
 import java.util.Scanner;
 
 import static java.lang.System.exit;

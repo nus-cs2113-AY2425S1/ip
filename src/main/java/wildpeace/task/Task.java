@@ -1,3 +1,4 @@
+package wildpeace.task;
 public class Task {
     private String description;
     private String deadline;

@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+package wildpeace.task;
 
 public class DataStorageManager {
 }

@@ -1,3 +1,5 @@
+import wildpeace.task.EmptyCommandException;
+
 import java.util.Scanner;
 
 public class Wildpeace {

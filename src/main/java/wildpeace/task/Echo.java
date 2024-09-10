@@ -1,3 +1,5 @@
+package wildpeace.task;
+
 import java.util.Scanner;
 
 public class Echo {
