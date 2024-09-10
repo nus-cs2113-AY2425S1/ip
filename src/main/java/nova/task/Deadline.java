@@ -1,3 +1,5 @@
+package nova.task;
+
 public class Deadline extends Task{
 
     String by;

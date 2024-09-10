@@ -1,3 +1,8 @@
+package nova;
+
+import nova.exception.InsufficientSpaceException;
+import nova.task.Task;
+
 public class TaskManager {
 
     private static final int MAX_TASKS = 100;

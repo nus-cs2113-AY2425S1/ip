@@ -1,3 +1,7 @@
+package nova.task;
+
+import nova.MessageDisplay;
+
 public class Task {
     protected String description;
     protected boolean isDone;

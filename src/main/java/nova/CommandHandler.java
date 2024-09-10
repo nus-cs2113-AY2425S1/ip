@@ -1,3 +1,11 @@
+package nova;
+
+import nova.exception.InsufficientSpaceException;
+import nova.exception.InvalidInputException;
+import nova.task.Deadline;
+import nova.task.Event;
+import nova.task.Todo;
+
 public class CommandHandler {
 
     private static final String TODO_USAGE = "Usage: todo <task description>.";
