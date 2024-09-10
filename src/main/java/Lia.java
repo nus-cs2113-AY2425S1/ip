@@ -107,10 +107,58 @@ public class Lia {
             addTaskAndPrint(tasks[taskCount], taskCount + 1);
             taskCount++;
             break;
+        case "mark":
+            if (inputArr.length < 2) {
+                throw new LiaException("Oops! You must specify a task number to mark.");
+            }
+            markTask(inputArr[1], tasks, taskCount, true);
+            break;
+        case "unmark":
+            if (inputArr.length < 2) {
+                throw new LiaException("Oops! You must specify a task number to unmark.");
+            }
+            markTask(inputArr[1], tasks, taskCount, false);
+            break;
         default:
             throw new LiaException("Oops! I don't recognize that command.");
         }
         return taskCount;
+    }
+
+    /**
+     * Marks or unmarks a task as done or not done.
+     *
+     * @param taskNumberStr The task number to mark or unmark.
+     * @param tasks The array of tasks.
+     * @param taskCount The current number of tasks.
+     * @param markDone True to mark the task as done, false to unmark it.
+     * @throws LiaException if the task number is invalid.
+     */
+    private static void markTask(String taskNumberStr, Task[] tasks, int taskCount, boolean markDone) throws LiaException {
+        try {
+            int taskIndex = Integer.parseInt(taskNumberStr) - 1;
+            if (taskIndex < 0 || taskIndex >= taskCount) {
+                throw new LiaException("Oops! Task number " + taskNumberStr + " does not exist.");
+            }
+
+            Task task = tasks[taskIndex];
+
+            if (markDone) {
+                task.markAsDone();
+                printLine();
+                System.out.println(INDENTATION + "Nice! I've marked this task as done:");
+            } else {
+                task.markAsNotDone();
+                printLine();
+                System.out.println(INDENTATION + "OK, I've unmarked this task:");
+            }
+
+            System.out.println(INDENTATION + task.toString());
+            printLine();
+
+        } catch (NumberFormatException e) {
+            throw new LiaException("Oops! Please enter a valid task number.");
+        }
     }
 
     /**
