@@ -129,7 +129,6 @@ public class Gertrude {
                 break;
             }
             printHorizontalLine();
-            pass;
         }
     }
 }
