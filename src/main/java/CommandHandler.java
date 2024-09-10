@@ -71,13 +71,12 @@ public class CommandHandler {
     private void handleTodoCase(String[] inputs) {
         try {
             inputValidator.validateTodoInput(inputs);
-            if (!taskManager.hasSpace()) {
-                MessageDisplay.displayInvalidInputMessage();
-                return;
-            }
+            taskManager.checkSpace();
             taskManager.addTask(new Todo(inputs[1]));
         } catch (InvalidInputException e) {
             MessageDisplay.displayInvalidInputMessage(e.getMessage(), TODO_USAGE);
+        } catch (InsufficientSpaceException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage());
         }
     }
 
@@ -85,9 +84,12 @@ public class CommandHandler {
         String[] validatedInput;
         try {
             validatedInput = inputValidator.validateDeadlineInput(inputs);
+            taskManager.checkSpace();
             taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
         } catch (InvalidInputException e) {
             MessageDisplay.displayInvalidInputMessage(e.getMessage(), DEADLINE_USAGE);
+        } catch (InsufficientSpaceException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage());
         }
     }
 
@@ -95,9 +97,12 @@ public class CommandHandler {
         String[] validatedInput;
         try {
             validatedInput = inputValidator.validateEventInput(inputs);
+            taskManager.checkSpace();
             taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
         } catch (InvalidInputException e) {
             MessageDisplay.displayInvalidInputMessage(e.getMessage(), EVENT_USAGE);
+        } catch (InsufficientSpaceException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage());
         }
     }
 }

@@ -9,8 +9,10 @@ public class TaskManager {
         this.numberOfTasks = 0;
     }
 
-    public boolean hasSpace() {
-        return numberOfTasks < MAX_TASKS;
+    public void checkSpace() throws InsufficientSpaceException {
+        if (numberOfTasks >= MAX_TASKS) {
+            throw new InsufficientSpaceException("Maximum number of " + MAX_TASKS + " tasks reached.");
+        }
     }
 
     public void addTask(Task task) {

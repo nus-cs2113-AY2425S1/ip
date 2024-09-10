@@ -29,8 +29,8 @@
      Invalid task index: 100. Please provide a number between 1 and 0.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'todo'.
-     Usage: todo <task description>
+     No description entered.
+     Usage: todo <task description>.
     ___________________________________________________________________
     ___________________________________________________________________
      Got it. I've added this task:
@@ -38,16 +38,16 @@
      Now you have 1 tasks in the list.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'deadline'.
-     Usage: deadline <task description> /by <due date>
+     No description entered.
+     Usage: deadline <task description> /by <due date>.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'deadline'.
-     Usage: deadline <task description> /by <due date>
+     /by not entered.
+     Usage: deadline <task description> /by <due date>.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'deadline'.
-     Usage: deadline <task description> /by <due date>
+     description/deadline not entered.
+     Usage: deadline <task description> /by <due date>.
     ___________________________________________________________________
     ___________________________________________________________________
      Got it. I've added this task:
@@ -55,20 +55,20 @@
      Now you have 2 tasks in the list.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'event'.
-     Usage: event <task description> /from <start time> /to <end time>
+     No description entered.
+     Usage: event <task description> /from <start time> /to <end time>.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'event'.
-     Usage: event <task description> /from <start time> /to <end time>
+     /from not entered.
+     Usage: event <task description> /from <start time> /to <end time>.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'event'.
-     Usage: event <task description> /from <start time> /to <end time>
+     description/start/end not entered.
+     Usage: event <task description> /from <start time> /to <end time>.
     ___________________________________________________________________
     ___________________________________________________________________
-     Invalid input for 'event'.
-     Usage: event <task description> /from <start time> /to <end time>
+     /to not entered.
+     Usage: event <task description> /from <start time> /to <end time>.
     ___________________________________________________________________
     ___________________________________________________________________
      Got it. I've added this task:
