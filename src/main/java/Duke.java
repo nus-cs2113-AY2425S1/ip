@@ -246,7 +246,7 @@ public class Duke {
                     break;
                 default:
                     try {
-                        checkGeneralInput();
+                        checkGeneralInput(); //check for invalid command
                     } catch (DukeException e) {
                         e.displayMessage();
                     }
