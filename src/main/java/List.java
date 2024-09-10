@@ -50,27 +50,47 @@ public class List {
     }
 
     private void addEvent(String line) {
-        String eventStartDate = extractEventStartDate(line);
-        String eventEndDate = extractEventEndDate(line);
-        String eventDescription = extractEventDescription(line);
-        itemList[numItems] = new Event(eventDescription, eventStartDate, eventEndDate);
-        outputAddedMessage(itemList[numItems]);
-        numItems += 1;
+        try {
+            String eventDescription = extractEventDescription(line);
+            String eventStartDate = extractEventStartDate(line);
+            String eventEndDate = extractEventEndDate(line);
+            itemList[numItems] = new Event(eventDescription, eventStartDate, eventEndDate);
+            outputAddedMessage(itemList[numItems]);
+            numItems += 1;
+        } catch (EmptyDescriptionException e) {
+            printTaskDescriptionEmptyMessage();
+        } catch (EmptyDateFieldException e) {
+            System.out.println("\tError: Date field(s) cannot be empty");
+        }
     }
 
     private void addTodo(String line) {
-        String todoDescription = extractTodoDescription(line);
-        itemList[numItems] = new Todo(todoDescription);
-        outputAddedMessage(itemList[numItems]);
-        numItems += 1;
+        try {
+            String todoDescription = extractTodoDescription(line);
+            itemList[numItems] = new Todo(todoDescription);
+            outputAddedMessage(itemList[numItems]);
+            numItems += 1;
+        } catch (EmptyDescriptionException e) {
+            printTaskDescriptionEmptyMessage();
+        }
+    }
+
+    private static void printTaskDescriptionEmptyMessage() {
+        System.out.println("\tError: The task description cannot be empty.");
     }
 
     private void addDeadline(String line) {
-        String deadlineDate = extractDeadlineDate(line);
-        String deadlineDescription = extractDeadlineDescription(line);
-        itemList[numItems] = new Deadline(deadlineDescription, deadlineDate);
-        outputAddedMessage(itemList[numItems]);
-        numItems += 1;
+        try {
+            String deadlineDescription = extractDeadlineDescription(line);
+            String deadlineDate = extractDeadlineDate(line);
+            itemList[numItems] = new Deadline(deadlineDescription, deadlineDate);
+            outputAddedMessage(itemList[numItems]);
+            numItems += 1;
+        } catch (EmptyDescriptionException e) {
+            printTaskDescriptionEmptyMessage();
+        } catch (EmptyDateFieldException e) {
+            System.out.println("\tError: Date field(s) cannot be empty");
+        }
     }
 
     private void outputAddedMessage(Task task) {
@@ -79,38 +99,58 @@ public class List {
         System.out.println("\tNow you have " + (numItems+1) + " tasks in the list.");
     }
 
-    private String extractTodoDescription(String line) {
+    private String extractTodoDescription(String line) throws EmptyDescriptionException {
         String todoDescription;
-        todoDescription = line.trim().replace("todo ", "");
+        todoDescription = line.replaceFirst("todo", "").trim();
+
+        taskDescriptionNotEmpty(todoDescription);
 
         return todoDescription;
     }
 
-    private String extractDeadlineDescription(String line) {
+    private String extractDeadlineDescription(String line) throws EmptyDescriptionException {
         String deadlineDescription;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
-        deadlineDescription = line.substring(0, indexOfDeadlinePrefix).trim().replace("deadline ", "");
+        deadlineDescription = line.substring(0, indexOfDeadlinePrefix).replaceFirst("deadline", "").trim();
+
+        taskDescriptionNotEmpty(deadlineDescription);
 
         return deadlineDescription;
+    }
+
+    private static void taskDescriptionNotEmpty(String taskDescription) throws EmptyDescriptionException {
+        if (taskDescription.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
     }
 
     private String extractDeadlineDate(String line) {
         String deadlineDate;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
-        deadlineDate = line.substring(indexOfDeadlinePrefix).trim().replace("/by ", "");
+        deadlineDate = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
+
+        dateFieldNotEmpty(deadlineDate);
 
         return deadlineDate;
     }
 
-    private String extractEventDescription(String line) {
+    private static void dateFieldNotEmpty(String dateField) throws EmptyDateFieldException {
+        if (dateField.isEmpty()) {
+            throw new EmptyDateFieldException();
+        }
+    }
+
+    private String extractEventDescription(String line) throws EmptyDescriptionException {
         String eventDescription;
         final int indexOfStartDatePrefix = line.indexOf("/from");
         final int indexOfEndDatePrefix = line.indexOf("/to");
         if (indexOfEndDatePrefix > indexOfStartDatePrefix) {
-            eventDescription = line.substring(0, indexOfStartDatePrefix).trim().replace("event ", "");
+            eventDescription = line.substring(0, indexOfStartDatePrefix).replaceFirst("event", "").trim();
         } else {
-            eventDescription = line.substring(0, indexOfEndDatePrefix).trim().replace("event ", "");
+            eventDescription = line.substring(0, indexOfEndDatePrefix).replaceFirst("event", "").trim();
         }
+
+        taskDescriptionNotEmpty(eventDescription);
 
         return eventDescription;
     }
@@ -120,10 +160,12 @@ public class List {
         final int indexOfStartDatePrefix = line.indexOf("/from");
         final int indexOfEndDatePrefix = line.indexOf("/to");
         if (indexOfEndDatePrefix > indexOfStartDatePrefix) {
-            eventEndDate = line.substring(indexOfEndDatePrefix).trim().replace("/to ", "");
+            eventEndDate = line.substring(indexOfEndDatePrefix).replaceFirst("/to", "").trim();
         } else {
-            eventEndDate = line.substring(indexOfEndDatePrefix, indexOfStartDatePrefix).trim().replace("/to ", "");
+            eventEndDate = line.substring(indexOfEndDatePrefix, indexOfStartDatePrefix).replaceFirst("/to", "").trim();
         }
+
+        dateFieldNotEmpty(eventEndDate);
 
         return eventEndDate;
     }
@@ -133,10 +175,12 @@ public class List {
         final int indexOfStartDatePrefix = line.indexOf("/from");
         final int indexOfEndDatePrefix = line.indexOf("/to");
         if (indexOfStartDatePrefix > indexOfEndDatePrefix) {
-            eventStartDate = line.substring(indexOfStartDatePrefix).trim().replace("/from ", "");
+            eventStartDate = line.substring(indexOfStartDatePrefix).replaceFirst("/from", "").trim();
         } else {
-            eventStartDate = line.substring(indexOfStartDatePrefix, indexOfEndDatePrefix).trim().replace("/from ", "");
+            eventStartDate = line.substring(indexOfStartDatePrefix, indexOfEndDatePrefix).replaceFirst("/from", "").trim();
         }
+
+        dateFieldNotEmpty(eventStartDate);
 
         return eventStartDate;
     }
