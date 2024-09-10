@@ -6,7 +6,7 @@ public enum Command {
     DEADLINE("deadline"),
     EVENT("event");
 
-    private final String command;
+    private String command;
 
     Command(String command) {
         this.command = command;

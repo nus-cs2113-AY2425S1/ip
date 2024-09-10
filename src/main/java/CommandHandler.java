@@ -1,5 +1,5 @@
 public class CommandHandler {
-    private final TaskManager taskManager;
+    private TaskManager taskManager;
     private final int LINE_LENGTH = 50;
 
     public CommandHandler(TaskManager taskManager){
@@ -13,26 +13,30 @@ public class CommandHandler {
 
         Command command = Command.parseString(commandString);
 
-        processCommand(command, argumentString);
+        printLine();
+        handleCommand(command, argumentString);
+        printLine();
     }
 
-    private void processCommand(Command command, String argumentString) {
+    private void printLine(){
+        System.out.println("-".repeat(LINE_LENGTH));
+    }
+
+    private void handleCommand(Command command, String argumentString) {
         if (command == null) {
             handleInvalidCommand();
             return;
         }
-
-        printLine();
 
         switch (command) {
             case LIST:
                 handleListCommand();
                 break;
             case MARK:
-                handleMarkCommand(argumentString);
+                handleTaskDoneUpdate(argumentString, true);
                 break;
             case UNMARK:
-                handleUnmarkCommand(argumentString);
+                handleTaskDoneUpdate(argumentString, false);
                 break;
             case TODO:
                 handleTodoCommand(argumentString);
@@ -44,16 +48,25 @@ public class CommandHandler {
                 handleEventCommand(argumentString);
                 break;
         }
-
-        printLine();
     }
 
-    private void printLine(){
-        System.out.println("-".repeat(LINE_LENGTH));
+    private void handleInvalidCommand(){
+        System.out.println("I don't recognize that command.");
     }
 
     private void handleListCommand() {
         taskManager.listTasks();
+    }
+
+    private void handleTaskDoneUpdate(String taskIndex, boolean isDone) {
+        int index = parseTaskIndex(taskIndex);
+
+        if (index == -1) {
+            System.out.printf("Invalid %s command. Please provide a valid task number.%n", isDone ? "mark":"unmark");
+            return;
+        }
+
+        taskManager.updateTaskDoneStatus(index, isDone);
     }
 
     private int parseTaskIndex(String taskIndex) {
@@ -62,28 +75,6 @@ public class CommandHandler {
         } catch (Error e) {
             return -1;
         }
-    }
-
-    private void handleMarkCommand(String taskIndex) {
-        int markIndex = parseTaskIndex(taskIndex);
-
-        if (markIndex == -1) {
-            System.out.println("Invalid mark command. Please provide a valid task number.");
-            return;
-        }
-
-        taskManager.markTask(markIndex);
-    }
-
-    private void handleUnmarkCommand(String taskIndex) {
-        int unmarkIndex = parseTaskIndex(taskIndex);
-
-        if (unmarkIndex == -1) {
-            System.out.println("Invalid unmark command. Please provide a valid task number.");
-            return;
-        }
-
-        taskManager.unmarkTask(unmarkIndex);
     }
 
     private void handleTodoCommand(String description) {
@@ -96,8 +87,8 @@ public class CommandHandler {
     }
 
     private String[] parseArguments(String argumentString, String... delimiters) {
-        String splitBy = String.join("|", delimiters);
-        return argumentString.split(splitBy);
+        String delimiterPattern = String.join("|", delimiters);
+        return argumentString.split(delimiterPattern);
     }
 
     private void handleDeadlineCommand(String argumentString) {
@@ -127,9 +118,5 @@ public class CommandHandler {
         String eventEnd = arguments[2];
 
         taskManager.addEvent(description, eventStart, eventEnd);
-    }
-
-    private void handleInvalidCommand(){
-        System.out.println("I don't recognize that command.");
     }
 }
