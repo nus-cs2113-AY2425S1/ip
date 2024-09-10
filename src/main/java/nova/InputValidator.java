@@ -1,5 +1,7 @@
 package nova;
 
+import nova.exception.InvalidInputException;
+
 public class InputValidator {
 
     private TaskManager taskManager;

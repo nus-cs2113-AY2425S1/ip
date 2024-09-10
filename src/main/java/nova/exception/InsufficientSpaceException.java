@@ -1,4 +1,4 @@
-package nova;
+package nova.exception;
 
 public class InsufficientSpaceException extends RuntimeException {
     public InsufficientSpaceException(String message) {
