@@ -1,158 +1,255 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Quinn {
     private static final List<Task> tasks = new ArrayList<>();
+
+    private final Ui ui;
+
+    public Quinn() {
+        ui = new Ui();
+    }
 
     public static void main(String[] args) {
         new Quinn().run();
     }
 
     public void run() {
-        greet();
+        ui.displayWelcome();
 
-        Scanner sc = new Scanner(System.in);
         String commandLine = "";
 
         while (!commandLine.equals("bye")) {
-            System.out.print("Enter command: \t");
-            commandLine = sc.nextLine().trim();
+            commandLine = ui.readCommand();
 
-            String[] commandLineParts = commandLine.split(" ", 2);
-
-            int taskNum;
-            Task task;
-            String taskDescription;
-            String taskInfo;
-
-            switch (commandLineParts[0].toLowerCase()) {
-                case "bye":
-                    exit();
-                    break;
-                case "list":
-                    listTasks();
-                    break;
-                case "mark":
-                    taskNum = Integer.parseInt(commandLineParts[1]);
-                    markTask(taskNum);
-                    break;
-                case "unmark":
-                    taskNum = Integer.parseInt(commandLineParts[1]);
-                    unmarkTask(taskNum);
-                    break;
-                case "todo":
-                    taskDescription = commandLineParts[1];
-                    task = new ToDo(taskDescription);
-                    addTask(task);
-                    break;
-                case "deadline":
-                    taskInfo = commandLineParts[1];
-                    String[] deadlineTaskDetails = taskInfo.split("/by", 2);
-                    task = new Deadline(deadlineTaskDetails[0].trim(), deadlineTaskDetails[1].trim());
-                    addTask(task);
-                    break;
-                case "event":
-                    taskInfo = commandLineParts[1];
-                    String[] eventTaskDetails = taskInfo.split("/from | /to", 3);
-                    task = new Event(eventTaskDetails[0].trim(), eventTaskDetails[1].trim(), eventTaskDetails[2].trim());
-                    addTask(task);
-                    break;
-                default:
-                    break;
+            try {
+                processCommand(commandLine);
+            } catch (QuinnException e) {
+                ui.displayError(e.getMessage());
+            } finally {
+                ui.displayLine();
             }
         }
     }
 
-    public void greet() {
-        String logo = "\t" + "  QQQ   U   U III N   N N   N " + System.lineSeparator()
-                + "\t" + " Q   Q  U   U  I  NN  N NN  N " + System.lineSeparator()
-                + "\t" + " Q   Q  U   U  I  N N N N N N " + System.lineSeparator()
-                + "\t" + " Q   Q  U   U  I  N  NN N  NN " + System.lineSeparator()
-                + "\t" + "  QQQ    UUU  III N   N N   N " + System.lineSeparator()
-                + "\t" + "    Q                       " + System.lineSeparator()
-                + "\t" + "     QQ                     " + System.lineSeparator();
+    public void processCommand(String commandLine) throws QuinnException {
+        String[] commandLineParts = commandLine.split(" ", 2);
 
-        String welcomeMessage = "\t" + "Hello! I'm Quinn, your Personal Assistant ChatBot."
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + logo
-                + System.lineSeparator()
-                + "\t" + "What can I do for you?";
+        String commandType;
+        String commandInfo;
 
-        printResponse(welcomeMessage);
+        if (commandLineParts.length == 2) {
+            commandType = commandLineParts[0].trim();
+            commandInfo = commandLineParts[1].trim();
+
+            if ((commandType.equals("bye") || commandType.equals("list")) && !commandInfo.isEmpty()) {
+                throw new QuinnException("INVALID COMMAND. Please try again!");
+            }
+        } else { // for "bye" and "list" commands which does not have any input behind
+            commandType = commandLineParts[0];
+            commandInfo = "";
+        }
+
+        executeCommand(commandType, commandInfo);
     }
 
-    public void exit() {
-        String exitMessage = "\t" + "Bye. Hope to see you again soon!";
-        printResponse(exitMessage);
+    public void executeCommand(String commandType, String commandInfo) throws QuinnException {
+        int taskNum;
+        Task task;
+        String taskDescription;
+        String taskInfo;
+
+        switch (commandType.toLowerCase()) {
+            case "bye":
+                ui.displayExit();
+                break;
+            case "list":
+                displayTasks();
+                break;
+            case "mark":
+                taskNum = getTaskNumFromMarkCommand(commandInfo);
+                markTask(taskNum);
+                break;
+            case "unmark":
+                taskNum = getTaskNumFromUnmarkCommand(commandInfo);
+                unmarkTask(taskNum);
+                break;
+            case "todo":
+                taskDescription = getTaskDescriptionFromToDoCommand(commandInfo);
+                task = new ToDo(taskDescription);
+                addTask(task);
+                break;
+            case "deadline":
+                taskInfo = processTaskInfoFromDeadlineCommand(commandInfo);
+                String[] deadlineTaskDetails = taskInfo.split("/by", 2);
+                task = new Deadline(deadlineTaskDetails[0].trim(), deadlineTaskDetails[1].trim());
+                addTask(task);
+                break;
+            case "event":
+                taskInfo = processTaskInfoFromEventCommand(commandInfo);
+                String[] eventTaskDetails = taskInfo.split("/from|/to", 3);
+                task = new Event(eventTaskDetails[0].trim(), eventTaskDetails[1].trim(), eventTaskDetails[2].trim());
+                addTask(task);
+                break;
+            default:
+                throw new QuinnException("INVALID COMMAND. Please try again!");
+        }
     }
 
-    public void echo(String message) {
-        printResponse(message);
+    private boolean isCommandInfoPresent(String commandInfo) {
+        return !commandInfo.trim().isEmpty();
     }
 
-    public void printResponse(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    private int getTaskNumFromMarkCommand(String commandInfo) throws QuinnException {
+        if (isCommandInfoPresent(commandInfo)) {
+            try {
+                return Integer.parseInt(commandInfo);
+            } catch (NumberFormatException e) {
+                throw new QuinnException("Please enter a valid task number to be marked as done!");
+            }
+        } else {
+            throw new QuinnException("Please enter a task number to be marked as done!");
+        }
     }
 
-    public void printLine() {
-        String horizontalLine = "\t" + "________________________________________________________";
-        System.out.println(horizontalLine);
+    private int getTaskNumFromUnmarkCommand(String commandInfo) throws QuinnException {
+        if (isCommandInfoPresent(commandInfo)) {
+            try {
+                return Integer.parseInt(commandInfo);
+            } catch (NumberFormatException e) {
+                throw new QuinnException("Please enter a valid task number to be marked as not done yet!");
+            }
+        } else {
+            throw new QuinnException("Please enter a task number to be marked as not done yet!");
+        }
+    }
+
+    private String getTaskDescriptionFromToDoCommand(String commandInfo) throws QuinnException {
+        if (isCommandInfoPresent(commandInfo)) {
+            return commandInfo;
+        } else {
+            throw new QuinnException("The description of a todo cannot be empty!");
+        }
+    }
+
+    private String processTaskInfoFromDeadlineCommand(String commandInfo) throws QuinnException {
+        if (!isCommandInfoPresent(commandInfo)) {
+            throw new QuinnException("INCOMPLETE COMMAND"
+                    + System.lineSeparator() + "\t"
+                    + "The description and date/time of a deadline cannot be empty!"
+                    + System.lineSeparator() + "\t"
+                    + "[Note: Enter /by before specifying the date/time]");
+        } else {
+            String[] deadlineInfoParts = commandInfo.split("/by", 2);
+
+            if (deadlineInfoParts.length != 2) {
+                throw new QuinnException("INVALID COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "Please check that the description and date/time of a deadline is present!"
+                        + System.lineSeparator() + "\t"
+                        + "[Note: Enter /by before specifying the date/time]");
+            }
+
+            String deadlineDescription = deadlineInfoParts[0].trim();
+            String deadlineByDateTime = deadlineInfoParts[1].trim();
+
+            if (deadlineDescription.isEmpty()) {
+                throw new QuinnException("INCOMPLETE COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "The description of a deadline cannot be empty!");
+            }
+
+            if (deadlineByDateTime.isEmpty()) {
+                throw new QuinnException("INCOMPLETE COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "The date/time of a deadline cannot be empty!"
+                        + System.lineSeparator() + "\t"
+                        + "[Note: Enter /by before specifying the date/time]");
+            }
+
+            return commandInfo;
+        }
+    }
+
+    private String processTaskInfoFromEventCommand(String commandInfo) throws QuinnException {
+        if (!isCommandInfoPresent(commandInfo)) {
+            throw new QuinnException("INCOMPLETE COMMAND"
+                    + System.lineSeparator() + "\t"
+                    + "The description and date/time of an event cannot be empty!"
+                    + System.lineSeparator() + "\t"
+                    + "[Note: Specify the date/time with '/from /to']");
+        } else {
+            String[] eventInfoParts = commandInfo.split("/from|/to", 3);
+
+            if (eventInfoParts.length != 3) {
+                throw new QuinnException("INVALID COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "Please check that the description and date/time of an event is present!"
+                        + System.lineSeparator() + "\t"
+                        + "[Note: Specify the date/time with '/from /to']");
+            }
+
+            String eventDescription = eventInfoParts[0].trim();
+            String eventFromDateTime = eventInfoParts[1].trim();
+            String eventToDateTime = eventInfoParts[2].trim();
+
+            if (eventDescription.isEmpty()) {
+                throw new QuinnException("INCOMPLETE COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "The description of an event cannot be empty!");
+            }
+
+            if (eventFromDateTime.isEmpty() || eventToDateTime.isEmpty()) {
+                throw new QuinnException("INCOMPLETE COMMAND"
+                        + System.lineSeparator() + "\t"
+                        + "The date/time of an event cannot be empty!"
+                        + System.lineSeparator() + "\t"
+                        + "[Note: Specify the date/time with '/from /to']");
+            }
+
+            return commandInfo;
+        }
     }
 
     public void addTask(Task task) {
         tasks.add(task);
 
-        String response = "\t" + "Got it. I've added this task:"
+        String response = ui.taskAddedMessage(task)
                 + System.lineSeparator()
-                + "\t\t" + task
-                + System.lineSeparator()
-                + "\t" + "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
-        echo(response);
+                + ui.numOfTasksInListMessage(tasks);
+        ui.displayResponse(response);
     }
 
-    public void listTasks() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("\t")
-                .append(tasks.size() > 1 ? "Here are the tasks in your list:" : "Here is the task in your list:")
-                .append(System.lineSeparator())
-                .append("\t")
-                .append("[Legend: T = todo, D = deadline, E = event]")
-                .append(System.lineSeparator());
-
-        for (int i = 0; i < tasks.size(); i++) {
-            if (i != 0) {
-                sb.append(System.lineSeparator());
-            }
-
-            sb.append("\t")
-                    .append(i + 1)
-                    .append(". ")
-                    .append(tasks.get(i));
+    public void displayTasks() throws QuinnException {
+        if (!tasks.isEmpty()) {
+            String response = ui.tasksInListMessage(tasks);
+            ui.displayResponse(response);
+        } else {
+            throw new QuinnException("There are no tasks in your list!");
         }
-
-        echo(sb.toString());
     }
 
-    public void markTask(int taskNum) {
-        Task task = tasks.get(taskNum - 1);
-        task.setDone();
+    public void markTask(int taskNum) throws QuinnException {
+        if (taskNum > 0 && taskNum <= tasks.size()) {
+            Task task = tasks.get(taskNum - 1);
+            task.setDone();
 
-        String message = "\t" + "Nice! I've marked this task as done:"
-                + System.lineSeparator() + "\t\t" + task;
-        echo(message);
+            String message = ui.taskDoneMessage(task);
+            ui.displayResponse(message);
+        } else {
+            throw new QuinnException("Task not found. Please try again!");
+        }
     }
 
-    public void unmarkTask(int taskNum) {
-        Task task = tasks.get(taskNum - 1);
-        task.setNotDone();
+    public void unmarkTask(int taskNum) throws QuinnException {
+        if (taskNum > 0 && taskNum <= tasks.size()) {
+            Task task = tasks.get(taskNum - 1);
+            task.setNotDone();
 
-        String message = "\t" + "OK, I've marked this task as not done yet:"
-                + System.lineSeparator() + "\t\t" + task;
-        echo(message);
+            String message = ui.taskNotDoneMessage(task);
+            ui.displayResponse(message);
+        } else {
+            throw new QuinnException("Task not found. Please try again!");
+        }
     }
 }

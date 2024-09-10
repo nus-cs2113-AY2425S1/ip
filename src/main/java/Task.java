@@ -16,7 +16,7 @@ public abstract class Task {
 
     public String getStatusIcon() {
         if (isDone) {
-            return "[✔️]"; // mark done task with ✔️
+            return "[✔]"; // mark done task with ✔
         } else {
             return "[ ]";
         }
