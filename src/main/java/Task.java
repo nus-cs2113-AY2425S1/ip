@@ -21,22 +21,28 @@ public class Task {
         return description;
     }
 
-    public void markAsDone() {
-        if (isDone) {
-            System.out.println("Task is already done");
-            return;
+    public void markAsDone() throws DukeException{
+        try{
+            if (isDone) {
+                throw new DukeException("This task is already marked as done");//throw exception if the task is marked
+            }
+            isDone = true;
+            System.out.println(this.toString());
+        } catch (DukeException e) {
+            e.displayMessage();
         }
-        isDone = true;
-        System.out.println(this.toString());
     }
 
-    public void markAsNotDone() {
-        if (!isDone) {
-            System.out.println("Task is already not done");
-            return;
+    public void markAsNotDone() throws DukeException{
+        try {
+            if (!isDone) {
+                throw new DukeException("This task is already marked as undone");//throw exception if the task is unmark
+            }
+            isDone = false;
+            System.out.println(this.toString());
+        } catch (DukeException e) {
+            e.displayMessage();
         }
-        isDone = false;
-        System.out.println(this.toString());
     }
 
     @Override
