@@ -13,4 +13,15 @@ list
 unmark <non-int index>
 list
 <invalid input>
+todo
+deadline /by <deadline date input>
+event /from <start date> /to <end date>
+
+deadline <description> /by
+event /from /to
+event <event name> /from <start date> /to
+event <event name>/from /to <end date>
+todo todo todo
+deadline deadline deadline /by /by /by
+event event event /from /from /from /to /to /to
 bye

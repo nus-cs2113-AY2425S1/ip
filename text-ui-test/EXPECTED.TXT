@@ -100,5 +100,58 @@
 	________________________________________
 
 	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Invalid command format:
+		todo <task name>
+		deadline <deadline name> /by <deadline>
+		event <event name> /from <start date/time> /end <end date/time>
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [T][ ] todo todo
+	Now you have 4 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [D][ ] deadline deadline (by: /by /by)
+	Now you have 5 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [E][ ] event event (from: /from /from to: /to /to)
+	Now you have 6 tasks in the list.
+	________________________________________
+
+	________________________________________
 	Bye. Hope to see you again soon!
 	________________________________________
