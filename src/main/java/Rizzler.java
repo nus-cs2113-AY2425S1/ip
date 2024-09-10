@@ -26,7 +26,6 @@ public class Rizzler {
 
         TaskManager taskManager = new TaskManager();
 
-
         while (!command.equals("bye")) {
             if (command.equals("list")) {
                 taskManager.displayTaskList();
