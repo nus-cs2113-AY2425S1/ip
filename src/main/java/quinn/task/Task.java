@@ -6,7 +6,7 @@ public abstract class Task {
     private boolean isDone;
 
     public Task(TaskType type, String description) {
-        // By default, the quinn.task is not done
+        // By default, the task is not done
         this(type, description, false);
     }
 
@@ -18,7 +18,7 @@ public abstract class Task {
 
     public String getStatusIcon() {
         if (isDone) {
-            return "[✔]"; // mark done quinn.task with ✔
+            return "[✔]"; // mark done task with ✔
         } else {
             return "[ ]";
         }
