@@ -11,7 +11,6 @@ public class Mel {
         printIntroMessage();
         
         // Set up scanner for user input
-        String line;
         Scanner in = new Scanner(System.in);
         List userList = new List();
 
