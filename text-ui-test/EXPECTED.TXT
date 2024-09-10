@@ -8,16 +8,16 @@
 
 Yo! I'm Rizzler.
 What can I do to make your day pop? 🎉🚀
---------------------------------------------------------
-1. To add a TODO task just type the task
-   to add a DEADLINE task type '[task] BY [deadline]'
-   to add a EVENT task type '[task] FROM [start time] TO [end time]' , and Rizzler's got it handled!
-2. Need the full rundown? Type 'list' and I’ll drop the goods!
-3. Crushed a task? Type 'mark [task number]' and let's celebrate!
-4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
-5. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
---------------------------------------------------------
-
+ --------------------------------------------------------
+ 1. To add a TODO task type 'todo [task]'
+    to add a DEADLINE task type 'deadline [task] BY [deadline]'
+    to add a EVENT task type 'event [task] FROM [start time] TO [end time]' , and Rizzler's got it handled! 
+ 2. Need the full rundown? Type 'list' and I’ll drop the goods!
+ 3. Crushed a task? Type 'mark [task number]' and let's celebrate!
+ 4. Changed your mind? Type 'undo [task number]' and I'll reset that for you!
+ 5. Wanna bounce? Just hit me with 'bye' and I'll catch you on the flip side!
+ --------------------------------------------------------
+ 
 Nothing in the pipeline yet! Let's get to work! 🚀💯
 --------------------------------------------------------
 
@@ -30,41 +30,41 @@ Let's make it happen! 🤟🏽🔥
 You have 2 task(s) in your list now!
 
 Let's make it happen! 🤟🏽🔥
-2. [D] read magazine  (by:  2pm) ⏳
+2. [D] read magazine (by: 2pm) ⏳
 --------------------------------------------------------
 
 You have 3 task(s) in your list now!
 
 Let's make it happen! 🤟🏽🔥
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ⏳
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ⏳
 --------------------------------------------------------
 
 Here’s the rundown on the tasks!
 1. [T] read book ⏳
-2. [D] read magazine  (by:  2pm) ⏳
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ⏳
+2. [D] read magazine (by: 2pm) ⏳
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ⏳
 --------------------------------------------------------
 
 Good Job! 🎉
-2. [D] read magazine  (by:  2pm) ✅
+2. [D] read magazine (by: 2pm) ✅
 --------------------------------------------------------
 
 Good Job! 🎉
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ✅
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ✅
 --------------------------------------------------------
 
 Here’s the rundown on the tasks!
 1. [T] read book ⏳
-2. [D] read magazine  (by:  2pm) ✅
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ✅
+2. [D] read magazine (by: 2pm) ✅
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ✅
 --------------------------------------------------------
 
 No worries! Task reset. 🔄
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ⏳
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ⏳
 --------------------------------------------------------
 
 Here’s the rundown on the tasks!
 1. [T] read book ⏳
-2. [D] read magazine  (by:  2pm) ✅
-3. [E] attend obamas's party  (from:  Mon 3pm   to:  Mon 9pm) ⏳
+2. [D] read magazine (by: 2pm) ✅
+3. [E] attend obamas's party (from: Mon 3pm  to: Mon 9pm) ⏳
 --------------------------------------------------------

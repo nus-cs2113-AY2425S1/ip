@@ -25,48 +25,47 @@ public class TaskManager {
     }
 
     public void addTask(String taskDescription) {
-        Task newTask = Task.parseTaskString(taskDescription);
-
-        if (newTask != null) {
+        try {
             taskList[totalTaskCount] = Task.parseTaskString(taskDescription);
             totalTaskCount++;
 
             System.out.printf("\nYou have %d task(s) in your list now!\n%n", totalTaskCount);
             String actionMessage = "Let's make it happen! " + emoji.getRockstarHandEmoji() + emoji.getFireEmoji();
             displayTaskAction(taskList[totalTaskCount - 1], totalTaskCount, actionMessage);
-
+        } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void completeTask(int taskNumber) {
         if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
-        } else {
-            try {
-                Task task = taskList[taskNumber - 1];
-                task.setIsDone(true);
 
-                String actionMessage = "\nGood Job! " + emoji.getPartyPopperEmoji();
-                displayTaskAction(task, taskNumber, actionMessage);
-            } catch (IndexOutOfBoundsException | NullPointerException e) {
-                System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
-            }
+        } else if (taskNumber < 1 || taskNumber > totalTaskCount) {
+            System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
+
+        } else {
+            Task task = taskList[taskNumber - 1];
+            task.setIsDone(true);
+
+            String actionMessage = "\nGood Job! " + emoji.getPartyPopperEmoji();
+            displayTaskAction(task, taskNumber, actionMessage);
         }
     }
 
     public void undoTask(int taskNumber) {
         if (totalTaskCount == 0) {
             System.out.println("Nothing in the pipeline yet! Let's get to work!" + " " + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji());
-        } else {
-            try {
-                Task task = taskList[taskNumber - 1];
-                task.setIsDone(false);
 
-                String actionMessage = "\nNo worries! Task reset. " + emoji.getReverseEmoji();
-                displayTaskAction(task, taskNumber, actionMessage);
-            } catch (IndexOutOfBoundsException | NullPointerException e) {
-                System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
-            }
+        } else if (taskNumber < 1 || taskNumber > totalTaskCount) {
+            System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
+
+        } else {
+            Task task = taskList[taskNumber - 1];
+            task.setIsDone(false);
+
+            String actionMessage = "\nNo worries! Task reset. " + emoji.getReverseEmoji();
+            displayTaskAction(task, taskNumber, actionMessage);
         }
     }
 }

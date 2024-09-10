@@ -24,42 +24,51 @@ public class Rizzler {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
-        TaskManager taskManager = new TaskManager();
-
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                taskManager.displayTaskList();
-
-            } else if (command.startsWith("mark")) {
-                try {
-                    int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                    taskManager.completeTask(taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("ERROR: Task number must be an integer --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("ERROR: Please follow the format specified in the MENU --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
-                }
-
-            } else if (command.startsWith("undo")) {
-                try {
-                    int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                    taskManager.undoTask(taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("ERROR: Task number must be an integer --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("ERROR: Please follow the format specified in the MENU --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
-                }
-            } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-                taskManager.addTask(command);
-
-            } else {
-                System.out.println("That's an invalid command! " + emoji.getCrossMarkEmoji() + emoji.getCrossMarkEmoji());
+            try {
+                handleCommand(command);
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
             }
-
             command = scanner.nextLine();
         }
         System.out.println("Peace out, Rizzler’s got places to be! " + emoji.getCoolFaceEmoji() + emoji.getFistBumpEmoji());
     }
+
+    private void handleCommand(String command) throws InvalidInputException {
+        TaskManager taskManager = new TaskManager();
+
+        if (command.equals("list")) {
+            taskManager.displayTaskList();
+
+        } else if (command.startsWith("mark")) {
+            try {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                taskManager.completeTask(taskNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Task number must be an integer --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("ERROR: Please follow the format specified in the MENU --> 'mark [task number]'" + emoji.getExclamationMarkEmoji());
+            }
+
+        } else if (command.startsWith("undo")) {
+            try {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                taskManager.undoTask(taskNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Task number must be an integer 'undo [task number]'" + emoji.getExclamationMarkEmoji());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("ERROR: Please follow 'undo [task number]' format" + emoji.getExclamationMarkEmoji());
+            }
+
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
+            taskManager.addTask(command);
+
+        } else {
+            throw new InvalidInputException("That's an invalid command! " + emoji.getCrossMarkEmoji() + emoji.getCrossMarkEmoji());  // Throw an exception for invalid commands
+        }
+    }
+
 
     public static void main(String[] args) {
         final String LOGO =
