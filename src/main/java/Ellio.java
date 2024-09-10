@@ -16,10 +16,14 @@ public class Ellio {
         System.out.println(BotText.lineBorder + BotText.messageWelcome + BotText.lineBorder);
     }
 
-    public static void printList(){
+    public static void printList() throws IndexOutOfBoundsException{
+        if (numberTask < 1){
+            throw new IndexOutOfBoundsException();
+        }
+
         System.out.print(BotText.lineBorder + BotText.messageList);
-        for(int i = 0; i < numberTask; i++){
-            System.out.println((i+1) + "." + listTasks[i].getTask());
+        for (int i = 0; i < numberTask; i++) {
+            System.out.println((i + 1) + "." + listTasks[i].getTask());
         }
         System.out.println(BotText.lineBorder);
     }
@@ -34,14 +38,21 @@ public class Ellio {
     }
 
     public static void addDeadline(String line){
-        Deadline newDeadline = formatDeadline(line);
-        listTasks[numberTask] = newDeadline;
-        numberTask++;
-        System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newDeadline.getTask());
-        System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+        try {
+            Deadline newDeadline = formatDeadline(line);
+            listTasks[numberTask] = newDeadline;
+            numberTask++;
+            System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newDeadline.getTask());
+            System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+        } catch (WrongDeadlineFormatTimeException e){
+            System.out.println(BotText.lineBorder + BotText.messageInvalidDeadlineDateFormat + BotText.lineBorder);
+        } catch (StringIndexOutOfBoundsException e){
+            System.out.println(BotText.lineBorder + BotText.messageMissingDeadlineDate + BotText.lineBorder);
+        }
+
     }
 
-    private static Deadline formatDeadline(String line) {
+    private static Deadline formatDeadline(String line) throws WrongDeadlineFormatTimeException{
         // Find the indices of the first and second occurrences of "/"
         int firstSlashIndex = line.indexOf("/");
 
@@ -49,6 +60,9 @@ public class Ellio {
         String description = line.substring(DEADLINE_INPUT_SPACING, firstSlashIndex).trim();
         String deadline = line.substring(firstSlashIndex + 1).trim();
 
+        if(!deadline.startsWith("by")){
+            throw new WrongDeadlineFormatTimeException();
+        }
         //add Semicolon behind by
         deadline = deadline.replace("by", "by:");
 
@@ -56,14 +70,27 @@ public class Ellio {
     }
 
     public static void addEvent(String line){
-        Event newEvent = formatEvent(line);
-        listTasks[numberTask] = newEvent;
-        numberTask++;
-        System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newEvent.getTask());
-        System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+        try {
+            Event newEvent = formatEvent(line);
+            listTasks[numberTask] = newEvent;
+            numberTask++;
+            System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newEvent.getTask());
+            System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+
+        }
+        catch (WrongEventStartFormatException e){
+            System.out.println(BotText.lineBorder + BotText.messageInvalidEventStartFormat +BotText.lineBorder);
+        }
+        catch (WrongEventEndFormatException e){
+            System.out.println(BotText.lineBorder + BotText.messageInvalidEventEndFormat +BotText.lineBorder);
+        }
+        catch (StringIndexOutOfBoundsException e){
+            System.out.println(BotText.lineBorder + BotText.messageInvalidEventTimeFormat +BotText.lineBorder);
+        }
+
     }
     
-    private static Event formatEvent(String line) {
+    private static Event formatEvent(String line) throws WrongEventStartFormatException, WrongEventEndFormatException {
         // Find the indices of the first and second occurrences of "/"
         int firstSlashIndex = line.indexOf("/");
         int secondSlashIndex = line.indexOf("/", firstSlashIndex + 1);
@@ -73,6 +100,13 @@ public class Ellio {
         String eventStart = line.substring(firstSlashIndex + 1, secondSlashIndex).trim();
         String eventEnd = line.substring(secondSlashIndex + 1).trim();
 
+        if(!eventStart.startsWith("from")) {
+            throw new WrongEventStartFormatException();
+        }
+        else if(!eventEnd.startsWith("to")) {
+            throw new WrongEventEndFormatException();
+        }
+
         //add Semicolon behind from and to
         eventStart = eventStart.replace("from", "from:");
         eventEnd = eventEnd.replace("to", "to:");
@@ -81,11 +115,17 @@ public class Ellio {
     }
 
     public static void markList(int index){
+        if(index > numberTask){
+            throw new IndexOutOfBoundsException();
+        }
         listTasks[index-1].markTaskAsDone();
         System.out.println(BotText.lineBorder + BotText.messageMarked + "  " + listTasks[index-1].getTask() + "\n" + BotText.lineBorder);
     }
 
     public static void unmarkList(int index){
+        if(index > numberTask){
+            throw new IndexOutOfBoundsException();
+        }
         listTasks[index-1].unmarkTaskAsDone();
         System.out.println(BotText.lineBorder + BotText.messageUnmark + "  " + listTasks[index-1].getTask() + "\n" + BotText.lineBorder);
     }
@@ -96,22 +136,39 @@ public class Ellio {
         input = (in.nextLine()).toLowerCase();
 
         while(!input.equals("bye")){
-            printInput(input);
+            try {
+                printInput(input);
+            } catch (IllegalArgumentException e){
+                System.out.println(BotText.lineBorder + BotText.messageInvalidCommand + BotText.lineBorder);
+            }
             input = in.nextLine();
         }
+        in.close();
     }
 
     public static void printInput(String input){
         if(input.equals("list")){
-            printList();
+            try {
+                printList();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(BotText.lineBorder + BotText.messageEmptyList + BotText.lineBorder);
+            }
         }
         else if(input.startsWith("mark")){
             String indexNum = getTaskIndex(input);
-            markList(Integer.parseInt(indexNum));
+            try {
+                markList(Integer.parseInt(indexNum));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(BotText.lineBorder + BotText.messageInvalidIndex + numberTask + " \n" + BotText.lineBorder);
+            }
         }
         else if(input.startsWith("unmark")){
             String indexNum = getTaskIndex(input);
-            unmarkList(Integer.parseInt(indexNum));
+            try {
+                unmarkList(Integer.parseInt(indexNum));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(BotText.lineBorder + BotText.messageInvalidIndex + numberTask + " \n" + BotText.lineBorder);
+            }
         }
         else if(input.startsWith("todo")){
             addToDo(input);
@@ -121,6 +178,9 @@ public class Ellio {
         }
         else if(input.startsWith("event")){
             addEvent(input);
+        }
+        else{
+            throw new IllegalArgumentException();
         }
     }
 
