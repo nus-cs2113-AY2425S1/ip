@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,6 +6,27 @@ import java.util.Scanner;
 public class Andy {
 
     private static List<Task> itemList = new ArrayList<>(); // List to store tasks
+    private static void greetUser() {
+        System.out.println("_______________________________________");
+        System.out.println("Hello! I'm ANDY");
+        System.out.println(" ");
+        System.out.println("     _    _    _    _ ");
+        System.out.println("    / \\  / \\  / \\  / \\ ");
+        System.out.println("   ( A )( N )( D )( Y )");
+        System.out.println("    \\_/  \\_/  \\_/  \\_/ ");
+        System.out.println(" ");
+        System.out.println("What can I do for you?");
+        System.out.println("Type 'todo <task>' to add a todo item.");
+        System.out.println("Type 'deadline <task> /by <time>' to add a deadline.");
+        System.out.println("Type 'event <task> /from <start time> /to <end time>' to add an event.");
+        System.out.println("Type 'list' followed by an item to add it to the list.");
+        System.out.println("Type 'list show' to display all items in the list.");
+        System.out.println("Type 'mark <number>' to mark a task as done.");
+        System.out.println("Type 'unmark <number>' to mark a task as not done.");
+        System.out.println("_______________________________________");
+    }
+
+
 
     public static void main(String[] args) {
         greetUser(); // Method to greet the user
@@ -13,7 +35,7 @@ public class Andy {
         String input = "";
 
         while (!input.equals("bye")) {
-            input = scanner.nextLine().toLowerCase();
+            input = scanner.nextLine();
 
             if (input.startsWith("list")) {
                 handleListInput(input);
@@ -50,19 +72,6 @@ public class Andy {
         exit();
     }
 
-    private static void greetUser() {
-        System.out.println("_______________________________________");
-        System.out.println("Hello! I'm ANDY");
-        System.out.println("What can I do for you?");
-        System.out.println("Type 'todo <task>' to add a todo item.");
-        System.out.println("Type 'deadline <task> /by <time>' to add a deadline.");
-        System.out.println("Type 'event <task> /from <start time> /to <end time>' to add an event.");
-        System.out.println("Type 'list' followed by an item to add it to the list.");
-        System.out.println("Type 'list show' to display all items in the list.");
-        System.out.println("Type 'mark <number>' to mark a task as done.");
-        System.out.println("Type 'unmark <number>' to mark a task as not done.");
-        System.out.println("_______________________________________");
-    }
 
     private static void handleListInput(String input) {
         String[] parts = input.split(" ", 2); // Split the input into command and item
@@ -79,25 +88,6 @@ public class Andy {
             System.out.println("Please provide a valid list command or item.");
         }
     }
-
-    private static void addItemToList(Task task) {
-        itemList.add(task);
-        System.out.println("Item added to the list: " + task.getDescription());
-    }
-
-    private static void showList() {
-        System.out.println("_______________________________________");
-        System.out.println("Items in your list:");
-        if (itemList.isEmpty()) {
-            System.out.println("The list is empty.");
-        } else {
-            for (int i = 0; i < itemList.size(); i++) {
-                System.out.println((i + 1) + "." + itemList.get(i));
-            }
-        }
-        System.out.println("_______________________________________");
-    }
-
     private static void markTaskAsDone(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -130,75 +120,23 @@ public class Andy {
         System.out.println("_______________________________________");
     }
 
-    // Base Task class to represent each task in the list
-    static abstract class Task {
-        private String description;
-        private boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public boolean isDone() {
-            return isDone;
-        }
-
-        public void setDone(boolean done) {
-            isDone = done;
-        }
-
-        @Override
-        public String toString() {
-            return (isDone ? "[X] " : "[ ] ") + description;
-        }
+    private static void addItemToList(Task task) {
+        itemList.add(task);
+        System.out.println("Item added to the list: " + task.getDescription());
     }
 
-    // TodoTask class for tasks without deadlines or times
-    static class TodoTask extends Task {
-        public TodoTask(String description) {
-            super(description);
+    private static void showList() {
+        System.out.println("_______________________________________");
+        System.out.println("Items in your list:");
+        if (itemList.isEmpty()) {
+            System.out.println("The list is empty.");
+        } else {
+            for (int i = 0; i < itemList.size(); i++) {
+                System.out.println((i + 1) + "." + itemList.get(i));
+            }
         }
-
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
+        System.out.println("_______________________________________");
     }
 
-    // DeadlineTask class for tasks with a deadline
-    static class DeadlineTask extends Task {
-        private String by;
-
-        public DeadlineTask(String description, String by) {
-            super(description);
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
-        }
-    }
-
-    // EventTask class for events with start and end times
-    static class EventTask extends Task {
-        private String from;
-        private String to;
-
-        public EventTask(String description, String from, String to) {
-            super(description);
-            this.from = from;
-            this.to = to;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-        }
-    }
+    // Rest of the methods for greetUser, handleListInput, addItemToList, etc. go here...
 }
