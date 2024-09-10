@@ -22,6 +22,7 @@ public class Bento {
     public static final String LINE_MESSAGE = "\t____________________________________________________________";
     public static final String SAYONARA_MESSAGE = "\tThank you for working with me today! See you next time! Sayonara~";
     public static final String ADD_TASK_SUCCESS_MESSAGE = "\tRoger that! Successfully added task:";
+    public static final String DELETE_TASK_SUCCESS_MESSAGE = "\tThe following task has been removed successfully:";
     public static final String EXISTING_TASKS_MESSAGE = "\tHere is the list of your existing tasks!";
     public static final String UNMARKED_MESSAGE = "\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.";
     public static final String MARKED_MESSAGE = "\tYou've crushed this task! I've gone ahead and marked it as done for you.";
@@ -34,6 +35,7 @@ public class Bento {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+    public static final String DELETE_COMMAND = "delete";
     public static final int COMMAND_INDEX = 0;
 
     // Prefixes and Regexes
@@ -51,7 +53,6 @@ public class Bento {
     // tasks.Event
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";
-
 
 
     // Data
@@ -108,7 +109,7 @@ public class Bento {
         printAddTaskSuccessMessage(toAdd.toString());
     }
 
-    public static String getTodo(String input) {
+    public String getTodo(String input) {
         return input.replace(TODO_COMMAND, "").trim();
     }
 
@@ -143,11 +144,11 @@ public class Bento {
         return inputList[DEADLINE_BY_INDEX].trim();
     }
 
-    public static String extractDeadlineName(String input) {
+    public String extractDeadlineName(String input) {
         return input.split(BY_REGEX)[DEADLINE_NAME_INDEX].trim();
     }
 
-    public static String removeDeadlinePrefix(String input) {
+    public String removeDeadlinePrefix(String input) {
         return input.replace(DEADLINE_COMMAND, EMPTY_REGEX);
     }
 
@@ -243,6 +244,35 @@ public class Bento {
         retrieveTask(index).setDone(isDone);
     }
 
+    // Delete Functions
+    public void deleteTask(String input) throws InvalidIndexException, MissingTaskException {
+        try {
+            String parsed = removeDeletePrefix(input);
+            int index = Integer.parseInt(parsed) - 1;
+            Task task = TASKS.get(index);
+            deleteTaskFromList(index);
+            printDeleteTaskSuccessMessage(task);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingTaskException();
+        }
+    }
+
+    public String removeDeletePrefix(String input) {
+        return input.replace(DELETE_COMMAND, EMPTY_REGEX).trim();
+    }
+
+    public void deleteTaskFromList(int index) {
+        TASKS.remove(index);
+    }
+
+    public void printDeleteTaskSuccessMessage(Task task) {
+        printLine();
+        System.out.printf("%s\n\t\t%s\n%s", DELETE_TASK_SUCCESS_MESSAGE, task, getTaskCountMessage());
+        printLine();
+    }
+
     public static String[] getInputList(String input) {
         return input.split(SPACE_REGEX);
     }
@@ -273,6 +303,9 @@ public class Bento {
                 break;
             case EVENT_COMMAND:
                 addEvent(input);
+                break;
+            case DELETE_COMMAND:
+                deleteTask(input);
                 break;
             default:
                 throw new InvalidCommandException();
