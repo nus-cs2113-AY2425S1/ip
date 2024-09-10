@@ -9,9 +9,13 @@ public class Deadline extends Task{
      *
      * @param name Name of the deadline.
      * @param by Date when the deadline is due.
+     * @throws IllegalArgumentException If name or by is null or empty.
      */
-    public Deadline(String name, String by) {
+    public Deadline(String name, String by) throws IllegalArgumentException {
         super(name);
+        if (by == null || by.trim().isEmpty()) {
+            throw new IllegalArgumentException("Deadline date cannot be null or empty.");
+        }
         this.type = "D";
         this.by = by;
     }

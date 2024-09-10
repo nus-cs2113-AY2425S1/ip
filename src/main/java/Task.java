@@ -10,8 +10,12 @@ public abstract class Task {
      * Constructs a Task with the given name.
      *
      * @param name Name of the task.
+     * @throws IllegalArgumentException If name is null or empty.
      */
-    public Task(String name) {
+    public Task(String name) throws IllegalArgumentException {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Task name cannot be null or empty.");
+        }
         this.name = name;
         this.isDone = false;
     }
@@ -58,15 +62,32 @@ public abstract class Task {
      * @param type The type of task to create.
      * @param params Additional parameters for the task.
      * @return The created task.
-     * @throws IllegalArgumentException If an unknown task type is provided.
+     @throws IllegalArgumentException If an unknown task type is provided or if required parameters are missing.
      */
     public static Task createTask(String type, String... params) throws IllegalArgumentException {
-        return switch (type.toLowerCase()) {
-            case "todo" -> new Todo(params[0]);
-            case "deadline" -> new Deadline(params[0], params[1]);
-            case "event" -> new Event(params[0], params[1], params[2]);
-            default -> throw new IllegalArgumentException("Unknown task type: " + type);
-        };
+        if (type == null || type.trim().isEmpty()) {
+            throw new IllegalArgumentException("Task type cannot be null or empty.");
+        }
+        if (params == null || params.length == 0) {
+            throw new IllegalArgumentException("Task parameters cannot be null or empty.");
+        }
+
+        switch (type.toLowerCase()) {
+        case "todo":
+            return new Todo(params[0]);
+        case "deadline":
+            if (params.length < 2) {
+                throw new IllegalArgumentException("Deadline task requires a name and a due date.");
+            }
+            return new Deadline(params[0], params[1]);
+        case "event":
+            if (params.length < 3) {
+                throw new IllegalArgumentException("Event task requires a name, start date, and end date.");
+            }
+            return new Event(params[0], params[1], params[2]);
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
+        }
     }
 
     /**

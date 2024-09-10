@@ -11,9 +11,13 @@ public class Event extends Task{
      * @param name Name of the event.
      * @param start Date when the event begins.
      * @param end Date when the event ends.
+     * @throws IllegalArgumentException If name, start, or end is null or empty.
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, String start, String end) throws IllegalArgumentException {
         super(name);
+        if (start == null || start.trim().isEmpty() || end == null || end.trim().isEmpty()) {
+            throw new IllegalArgumentException("Event start and end dates cannot be null or empty.");
+        }
         this.type = "E";
         this.start = start;
         this.end = end;
