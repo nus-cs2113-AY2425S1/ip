@@ -53,16 +53,16 @@ public class ChattyCharlie {
             case EVENT:
                 //remove the event word and split into the description and event times
                 String[] eventParts = line.substring(6).trim().split("from");
-                String eventDescription = eventParts[0].trim();
+                String description = eventParts[0].trim();
                 //further split the array into the start and end times
                 String[] eventTimes = eventParts[1].trim().split(" to ");
                 String startTime = eventTimes[0].trim();
                 String endTime = eventTimes[1].trim();
 
                 //add the event task
-                list.addTask(new Event(eventDescription, startTime, endTime));
+                list.addTask(new Event(description, startTime, endTime));
                 //print
-                System.out.println(StringDesign.SPACE + "Added event: " + eventDescription
+                System.out.println(StringDesign.SPACE + "Added event: " + description
                         + " (from: " + startTime + ", to: " + endTime + ")");
                 System.out.println(StringDesign.LINE);
                 break;
