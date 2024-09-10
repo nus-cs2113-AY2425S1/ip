@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class Bosco {
     private static final String DIVIDER = "\t____________________________________________________________";
+    private static final String INDENT_LARGE = "\t   ";
+    private static final String MESSAGE_MARK_DONE = "\t Nice! I've marked this task as done:";
+    private static final String MESSAGE_MARK_UNDONE = "\t OK, I've marked this task as not done yet:";
+    private static final String MESSAGE_ADDED_TASK = "\t Got it. I've added this task:";
+
     private static final int MAX_TASKS = 100;
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -9,15 +14,11 @@ public class Bosco {
     private static int taskCount = 0;
 
     private static void printWelcomeMessage() {
-        System.out.println(DIVIDER);
-        System.out.println("\t Hello! I'm Bosco APD." + System.lineSeparator() + "\t What can I do for you?");
-        System.out.println(DIVIDER);
+        printMessages("\t Hello! I'm Bosco APD.", "\t What can I do for you?");
     }
 
     private static void printExitMessage() {
-        System.out.println(DIVIDER);
-        System.out.println("\t Bye! Hope to see you again soon!");
-        System.out.println(DIVIDER);
+        printMessages("\t Bye! Hope to see you again soon!");
     }
 
     private static String getUserInput() {
@@ -34,8 +35,19 @@ public class Bosco {
         return stringParts.length == 2 ? stringParts : new String[] {stringParts[0], ""};
     }
 
+    private static void printMessages(String... messages) {
+        System.out.println(DIVIDER);
+        for (String message : messages) {
+            System.out.println(message);
+        }
+        System.out.println(DIVIDER);
+    }
+
+    private static String getTaskCountMessage() {
+        return String.format("\t Now you have %1$d tasks in the list.", taskCount);
+    }
+
     public static void main(String[] args) {
-        String[] words;
         String description;
         Task selectedTask;
 
@@ -57,28 +69,18 @@ public class Bosco {
             case "mark":
                 selectedTask = tasks[Integer.parseInt(commandArgs) - 1];
                 selectedTask.markAsDone();
-                System.out.println(DIVIDER);
-                System.out.println("\t Nice! I've marked this task as done:");
-                System.out.println("\t   " + selectedTask);
-                System.out.println(DIVIDER);
+                printMessages(MESSAGE_MARK_DONE, INDENT_LARGE + selectedTask);
                 break;
             case "unmark":
                 selectedTask = tasks[Integer.parseInt(commandArgs) - 1];
                 selectedTask.markAsNotDone();
-                System.out.println(DIVIDER);
-                System.out.println("\t OK, I've marked this task as not done yet:");
-                System.out.println("\t   " + selectedTask);
-                System.out.println(DIVIDER);
+                printMessages(MESSAGE_MARK_UNDONE, INDENT_LARGE + selectedTask);
                 break;
             case "todo":
                 Todo newTodo = new Todo(commandArgs);
                 tasks[taskCount] = newTodo;
                 taskCount++;
-                System.out.println(DIVIDER);
-                System.out.println("\t Got it. I've added this task:");
-                System.out.println("\t   " + newTodo);
-                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
-                System.out.println(DIVIDER);
+                printMessages(MESSAGE_ADDED_TASK, INDENT_LARGE + newTodo, getTaskCountMessage());
                 break;
             case "deadline":
                 int indexOfByPrefix = commandArgs.indexOf("/by");
@@ -87,11 +89,7 @@ public class Bosco {
                 Deadline newDeadline = new Deadline(description, by);
                 tasks[taskCount] = newDeadline;
                 taskCount++;
-                System.out.println(DIVIDER);
-                System.out.println("\t Got it. I've added this task:");
-                System.out.println("\t   " + newDeadline);
-                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
-                System.out.println(DIVIDER);
+                printMessages(MESSAGE_ADDED_TASK, INDENT_LARGE + newDeadline, getTaskCountMessage());
                 break;
             case "event":
                 int indexOfFromPrefix = commandArgs.indexOf("/from");
@@ -102,11 +100,7 @@ public class Bosco {
                 Event newEvent = new Event(description, from, to);
                 tasks[taskCount] = newEvent;
                 taskCount++;
-                System.out.println(DIVIDER);
-                System.out.println("\t Got it. I've added this task:");
-                System.out.println("\t   " + newEvent);
-                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
-                System.out.println(DIVIDER);
+                printMessages(MESSAGE_ADDED_TASK, INDENT_LARGE + newEvent, getTaskCountMessage());
                 break;
             case "bye":
                 printExitMessage();
@@ -114,9 +108,7 @@ public class Bosco {
             default:
                 tasks[taskCount] = new Task(userInputString);
                 taskCount++;
-                System.out.println(DIVIDER);
-                System.out.println("\t added: " + userInputString);
-                System.out.println(DIVIDER);
+                printMessages("\t added: " + userInputString);
                 break;
             }
         }
