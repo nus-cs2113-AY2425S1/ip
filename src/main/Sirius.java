@@ -1,7 +1,14 @@
+package main;
+
 import java.util.Objects;
 import java.util.Scanner;
 import java.lang.Integer;
 import java.util.ArrayList;
+
+import task.*;
+import exception.*;
+
+
 public class Sirius {
     // some commands
     public static final String BYE = "bye";
