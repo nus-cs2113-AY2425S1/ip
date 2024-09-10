@@ -32,6 +32,13 @@ public class Hsien {
         }
     }
 
+    public static void printCommands(List<String> validCommands) {
+        System.out.println("These are the possible commands:");
+        for (int i=1; i<= validCommands.size(); i+=1) {
+            System.out.printf("%d. %s\n", i, validCommands.get(i - 1));
+        }
+    }
+
     public static void main(String[] args) {
         printLine();
         printLogo();
@@ -45,6 +52,7 @@ public class Hsien {
         boolean isRunning = true;
 
         while (isRunning) {
+            printCommands(validCommands);
             System.out.print("Please enter a command/add task (type 'bye' to exit): ");
             String command = in.nextLine();
 
@@ -53,9 +61,14 @@ public class Hsien {
             // Extract out the exact command
             command = parts[0];
 
-            // Check if valid commmand
-            if (!validCommands.contains(command)) {
-                System.out.println("Please enter a valid command");
+            try {
+                // Check if valid commmand
+                if (!validCommands.contains(command)) {
+                    throw new HsienException();
+                }
+            } catch (HsienException e) {
+                System.out.println("Please enter a valid command from the list! ");
+                printLine();
                 continue;
             }
 
@@ -92,8 +105,13 @@ public class Hsien {
                 System.out.println(messages.get(index - 1).getStatusDescription());
             } else {
                 // Empty task
-                if (desc.isEmpty()){
+                try {
+                    if (desc.isEmpty()) {
+                        throw new HsienException();
+                    }
+                } catch (HsienException e) {
                     System.out.println("Description cannot be left empty");
+                    printLine();
                     continue;
                 }
 
