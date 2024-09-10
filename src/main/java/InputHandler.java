@@ -28,39 +28,35 @@ public class InputHandler {
             String[] userInputSplit = userInput.split(" ");
 
             // Test if the input is formatted like a mark/unmark command
-            if (userInputSplit.length == 2 && userInputSplit[1].matches("\\d+(\\.\\d+)?") &&
-                    parseInt(userInputSplit[1]) <= Task.tasksCount) {
+            if (isMarkCommandType(userInput)) {
                 int taskNumber = parseInt(userInputSplit[1]) - 1;
                 if (userInputSplit[0].equals("mark")) {
                     Aerus.tasks[taskNumber].isDone = true;
-                    UI.printContent("Nice! You have done this task:\n\t" + Aerus.tasks[taskNumber].toString());
+                    Aerus.tasks[taskNumber].printMark();
                     return 1;
                 }
                 if (userInputSplit[0].equals("unmark")) {
                     Aerus.tasks[taskNumber].isDone = false;
-                    UI.printContent("I have unmarked this task:\n\t" + Aerus.tasks[taskNumber].toString());
+                    Aerus.tasks[taskNumber].printUnmark();
                     return 1;
                 }
             }
 
             // Case: Add task
             if (!userInput.isEmpty()) {
-                if (userInputSplit[0].equals("todo")) {
-                    Aerus.tasks[Task.tasksCount] = new ToDo(userInput.substring(5));
-                    UI.printContent("Added ToDo: " + userInput.substring(5));
-                } else if (userInputSplit[0].equals("event")) {
-                    Aerus.tasks[Task.tasksCount] = new Event(userInput.substring(6));
-                    UI.printContent("Added Event: " + userInput.substring(6));
-                } else if (userInputSplit[0].equals("deadline")) {
-                    Aerus.tasks[Task.tasksCount] = new Deadline(userInput.substring(9));
-                    UI.printContent("Added Deadline: " + userInput.substring(9));
-                } else {
-                    Aerus.tasks[Task.tasksCount] = new Task(userInput);
-                    UI.printContent("Added Task: " + userInput);
-                }
+                Task.createNewTask(userInput);
                 return 1;
             }
             return 1;
         }
+    }
+
+    public static boolean isMarkCommandType(String input) {
+        String[] inputSplit = input.split(" ");
+        if (inputSplit.length == 2 && inputSplit[1].matches("\\d+(\\.\\d+)?") &&
+                parseInt(inputSplit[1]) <= Task.tasksCount) {
+            return true;
+        }
+        return false;
     }
 }

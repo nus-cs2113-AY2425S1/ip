@@ -5,6 +5,9 @@ public class UI {
         System.out.println(content);
         System.out.println(DIVIDER_LINE);
     }
+
+
+
     public static void greetUser() {
         printContent("Hello! I'm Aerus!\nWhat can I do for you?");
     }
@@ -12,4 +15,6 @@ public class UI {
     public static void exitProgram() {
         printContent("See you next time!");
     }
+
+
 }
