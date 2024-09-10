@@ -63,13 +63,18 @@ public class Bean {
     }
 
     // Extract task number as int from user input for mark and unmark commands
-    public static int obtainTaskNum(String userInput) {
+    public static int obtainTaskNum(String userInput) throws InvalidTaskNumException {
         // Obtain task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
-        return Integer.parseInt(words[1].trim());
+        int taskNum = Integer.parseInt(words[1].trim());
+        if (taskNum < 0 || taskNum > Task.getNumberOfTasks()) {
+            throw new InvalidTaskNumException();
+        }
+        return taskNum;
     }
 
     public static void markTaskAsDone(int taskNum) {
+
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
@@ -173,6 +178,9 @@ public class Bean {
                 printInvalidInputMessage();
             } catch (EmptyListException e) {
                 printFormattedReply(INDENT + "Nothing in your to do list yet!");
+            } catch (InvalidTaskNumException e) {
+                printFormattedReply(INDENT + "Please enter a valid task number!\n" +
+                        INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
             }
         }
     }
