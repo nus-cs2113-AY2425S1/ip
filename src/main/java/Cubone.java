@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import Exceptions.CuboneNoDecriptionError;
 public class Cubone {
@@ -15,16 +14,16 @@ public class Cubone {
     static final String CHAT_BAR = "---------------------------------";
     
     // dictionary to store command usages
-    static final Dictionary<String, String> COMMAND_USAGES = new Hashtable<String, String>();
-    static{
-        COMMAND_USAGES.put("list", "list");
-        COMMAND_USAGES.put("mark", "mark <index>");
-        COMMAND_USAGES.put("unmark", "unmark <index>");
-        COMMAND_USAGES.put("todo", "todo <description>");
-        COMMAND_USAGES.put("deadline", "deadline <description> /by <date>");
-        COMMAND_USAGES.put("event", "event <description> /from <date> /to <date>");
-        COMMAND_USAGES.put("task", "task <description>");
-    }
+    // static final Dictionary<String, String> COMMAND_USAGES = new Hashtable<String, String>();
+    static final HashMap<String, String> COMMAND_USAGES = new HashMap<String, String>() {{
+        put("list", "list");
+        put("mark", "mark <index>");
+        put("unmark", "unmark <index>");
+        put("todo", "todo <description>");
+        put("deadline", "deadline <description> /by <date>");
+        put("event", "event <description> /from <date> /to <date>");
+        put("task", "task <description>");
+    }};
 
     static final String USAGE_MSG = "Usage: ";
 
@@ -46,6 +45,13 @@ public class Cubone {
      */
     public static void sayBye() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void printHelp() {
+        System.out.println("Here are the commands you can use:");
+        for (String key : COMMAND_USAGES.keySet()) {
+            System.out.println("    " + key + " - " + COMMAND_USAGES.get(key));
+        }
     }
 
     /**
@@ -162,69 +168,73 @@ public class Cubone {
             String[] command = fullCommand.split(" ", 2);
             System.out.println(CHAT_BAR + CHAT_PREFIX);
             switch (command[0]) {
-                case "bye":
-                    // exit loop
-                    sayBye();
-                    isWorking = false;
-                    break;
-                case "list":
-                    // list all tasks
-                    listTasks();
-                    break;
-                case "mark":
-                    // mark task as done
-                    try {
-                        int markIndex = Integer.parseInt(command[1]);
-                        markTaskAsDone(markIndex - 1);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("☹ Oh No! Someting missing, usage: mark <index>");
-                    }
-                    break;
-                case "unmark":
-                    // mark task as undone
-                    try {
-                        int unmarkIndex = Integer.parseInt(command[1]);
-                        markTaskAsUndone(unmarkIndex - 1);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("☹ Oh No! Someting missing, usage: unmark <index>");
-                    }
-                    break;
-                case "todo":
-                    // add todo task
-                    try {
-                        addTodoTask(command[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("☹ Oh No! Someting missing, usage: todo <description>");
-                    }
-                    break;
-                case "deadline":
-                    // add deadline task
-                    // usage: deadline <description> /by <date>
-                    try{
-                        String[] deadlineCommand = command[1].split(" /by ");
-                        addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
-                    }
-                    break;
-                case "event":
-                    // add event task
-                    // usage: event <description> /from <date> /to <date>
-                    try{
-                        String[] eventCommand = command[1].split(" /from ");
-                        String[] eventCommand2 = eventCommand[1].split(" /to ");
-                        addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
-                    }
-                    break;
-                case "task":
-                    // add task
-                    addTask(command[1]);
-                    break;
-                default:
-                    System.out.println("☹ Oh No! Can't resove this command");
-                    break;
+            case "bye":
+                // exit loop
+                sayBye();
+                isWorking = false;
+                break;
+            case "help":
+                // print help message
+                printHelp();
+                break;
+            case "task":
+                // add task
+                addTask(command[1]);
+                break;
+            case "list":
+                // list all tasks
+                listTasks();
+                break;
+            case "mark":
+                // mark task as done
+                try {
+                    int markIndex = Integer.parseInt(command[1]);
+                    markTaskAsDone(markIndex - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Someting missing, usage: mark <index>");
+                }
+                break;
+            case "unmark":
+                // mark task as undone
+                try {
+                    int unmarkIndex = Integer.parseInt(command[1]);
+                    markTaskAsUndone(unmarkIndex - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Someting missing, usage: unmark <index>");
+                }
+                break;
+            case "todo":
+                // add todo task
+                try {
+                    addTodoTask(command[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Someting missing, usage: todo <description>");
+                }
+                break;
+            case "deadline":
+                // add deadline task
+                // usage: deadline <description> /by <date>
+                try{
+                    String[] deadlineCommand = command[1].split(" /by ");
+                    addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                }
+                break;
+            case "event":
+                // add event task
+                // usage: event <description> /from <date> /to <date>
+                try{
+                    String[] eventCommand = command[1].split(" /from ");
+                    String[] eventCommand2 = eventCommand[1].split(" /to ");
+                    addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                }
+                break;
+            default:
+                System.out.println("☹ Oh No! Can't resove this command");
+                break;
             }
             System.out.println(CHAT_BAR);
         }
