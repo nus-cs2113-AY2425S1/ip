@@ -22,20 +22,20 @@ public class Mel {
         while (true) {
             line = getLine(in);
 
-            if (line.equals("bye")) {
-                System.out.println("\tBye. Hope to see you again soon!");
+            if (isBye(line)) {
+                printByeMessage();
                 printHorizontalLine();
                 break;
 
-            } else if (line.equals("list")) {
+            } else if (isList(line)) {
                 userList.printList();
                 printHorizontalLine();
 
-            } else if (line.length() >= (MARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 4).equals("mark")) {
+            } else if (isMark(line)) {
                 userList.markItem(line);
                 printHorizontalLine();
 
-            } else if (line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark")) {
+            } else if (isUnmark(line)) {
                 userList.unmarkItem(line);
                 printHorizontalLine();
 
@@ -44,6 +44,26 @@ public class Mel {
                 printHorizontalLine();
             }
         }
+    }
+
+    private static void printByeMessage() {
+        System.out.println("\tBye. Hope to see you again soon!");
+    }
+
+    private static boolean isList(String line) {
+        return line.equals("list");
+    }
+
+    private static boolean isBye(String line) {
+        return line.equals("bye");
+    }
+
+    private static boolean isMark(String line) {
+        return line.length() >= (MARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 4).equals("mark");
+    }
+
+    private static boolean isUnmark(String line) {
+        return line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark");
     }
 
     private static void printHorizontalLine() {
