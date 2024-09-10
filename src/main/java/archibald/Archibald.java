@@ -1,4 +1,10 @@
+package archibald;
 import java.util.Scanner;
+
+import archibald.task.Deadline;
+import archibald.task.Event;
+import archibald.task.Task;
+import archibald.task.Todo;
 
 class ArchibaldException extends Exception {
     public ArchibaldException(String message) {
