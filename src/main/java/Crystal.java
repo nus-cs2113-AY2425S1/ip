@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import exceptions.InvalidCommandException;
 import exceptions.IncompleteCommandException;
 import exceptions.IllegalCommandException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Crystal {
     public static ArrayList<Task> tasks = new ArrayList<>();
