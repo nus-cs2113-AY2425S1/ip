@@ -37,14 +37,15 @@ public class Cubone {
      */
     public static void sayWelcomeMsg() {
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm Cubone\nWhat can I do for you?\n" + CHAT_BAR);
+        System.out.println("Hello! I'm Cubone\nWhat can I do for you?");
+        System.out.println(CHAT_BAR);
     }
     
     /**
      * Prints a farewell message.
      */
     public static void sayBye() {
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Bye. Hope to see you again soon!\n" + CHAT_BAR);
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -59,11 +60,10 @@ public class Cubone {
      * The list is enclosed between chat bar lines for better visibility.
      */
     public static void listTasks() {
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Here are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < inputed_tasks.size(); i++) {
             System.out.println((i + 1) + ". " + inputed_tasks.get(i).toString());
         }
-        System.out.println(CHAT_BAR);
     } 
 
     /**
@@ -74,9 +74,9 @@ public class Cubone {
     public static void markTaskAsDone(int index) {
         try{
             inputed_tasks.get(index).markAsDone();
-            System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as done:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+            System.out.println("Nice! I've marked this task as done:\n" + inputed_tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+            System.out.println(e.getMessage());
             return;
         }
     }
@@ -89,9 +89,9 @@ public class Cubone {
     public static void markTaskAsUndone(int index) {
         try{
             inputed_tasks.get(index).markAsUndone();
-            System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as undone:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+            System.out.println("Nice! I've marked this task as undone:\n" + inputed_tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+            System.out.println(e.getMessage());
             return;
         }
     }
@@ -107,10 +107,10 @@ public class Cubone {
                 throw new CuboneNoDecriptionError("☹ Oh No! The description of a todo cannot be empty.");
             }
             inputed_tasks.add(new Todo(description));
-            System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
-                    "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+            System.out.println("Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
+            System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
         } catch (CuboneNoDecriptionError e) {
-            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+            System.out.println(e.getMessage() + "\n");
         }
     }
 
@@ -122,8 +122,8 @@ public class Cubone {
      */
     public static void addDeadlineTask(String description, String by) {
         inputed_tasks.add(new Deadline(description, by));
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Deadline:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
-                "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+        System.out.println("Got it. I've added this Deadline:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
+        System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
     }
 
     /**
@@ -135,8 +135,8 @@ public class Cubone {
      */
     public static void addEventTask(String description, String from, String to) {
         inputed_tasks.add(new Event(description, from, to));
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Event:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
-                "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+        System.out.println("Got it. I've added this Event:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
+        System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
     }
     
     /**
@@ -146,8 +146,8 @@ public class Cubone {
      */
     public static void addTask(String description) {
         inputed_tasks.add(new Task(description));
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
-                "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+        System.out.println("Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
+        System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
     }
 
     public static void main(String[] args) {
@@ -160,6 +160,7 @@ public class Cubone {
             // String input = sc.nextLine();
             String fullCommand = sc.nextLine();
             String[] command = fullCommand.split(" ", 2);
+            System.out.println(CHAT_BAR + CHAT_PREFIX);
             switch (command[0]) {
                 case "bye":
                     // exit loop
@@ -176,7 +177,7 @@ public class Cubone {
                         int markIndex = Integer.parseInt(command[1]);
                         markTaskAsDone(markIndex - 1);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: mark <index> \n" +  CHAT_BAR);
+                        System.out.println("☹ Oh No! Someting missing, usage: mark <index>");
                     }
                     break;
                 case "unmark":
@@ -185,7 +186,7 @@ public class Cubone {
                         int unmarkIndex = Integer.parseInt(command[1]);
                         markTaskAsUndone(unmarkIndex - 1);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: unmark <index> \n" +  CHAT_BAR);
+                        System.out.println("☹ Oh No! Someting missing, usage: unmark <index>");
                     }
                     break;
                 case "todo":
@@ -193,7 +194,7 @@ public class Cubone {
                     try {
                         addTodoTask(command[1]);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: todo <description> \n" +  CHAT_BAR);
+                        System.out.println("☹ Oh No! Someting missing, usage: todo <description>");
                     }
                     break;
                 case "deadline":
@@ -203,7 +204,7 @@ public class Cubone {
                         String[] deadlineCommand = command[1].split(" /by ");
                         addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]) + "\n" + CHAT_BAR);
+                        System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                     }
                     break;
                 case "event":
@@ -214,7 +215,7 @@ public class Cubone {
                         String[] eventCommand2 = eventCommand[1].split(" /to ");
                         addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]) + "\n" + CHAT_BAR);
+                        System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                     }
                     break;
                 case "task":
@@ -222,9 +223,10 @@ public class Cubone {
                     addTask(command[1]);
                     break;
                 default:
-                    System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Can't resove this command\n" + CHAT_BAR);
+                    System.out.println("☹ Oh No! Can't resove this command");
                     break;
             }
+            System.out.println(CHAT_BAR);
         }
     }
 }
