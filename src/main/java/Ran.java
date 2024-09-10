@@ -103,15 +103,19 @@ public class Ran {
         System.out.println(LINE);
     }
     
-    // Method chooses appropriate response for user input based on set pattern
-    public static void processInput(String input) {
-        String[] instruction = input.split(" ");
+    // Read user input for command, throw exception for invalid commands
+    public static void executeCommand(String input, String[] instruction) 
+            throws MissingCommandException, MissingDescriptionException {
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
             showList();
         } else if (instruction[0].equals("todo")) {
-            processTask(input, TaskType.TODO);
+            if (instruction.length > 1) {
+                processTask(input, TaskType.TODO);
+            } else {
+                throw new MissingDescriptionException();
+            }
         } else if (instruction[0].equals("deadline")) {
             processTask(input, TaskType.DEADLINE);
         } else if (instruction[0].equals("event")) {
@@ -123,8 +127,24 @@ public class Ran {
                 unmarkTask(instruction[1]);
             }
         } else {
-            processTask(input, TaskType.UNDEFINED);
+            throw new MissingCommandException();
         }	
+    }
+
+    // Method chooses appropriate response for user input based on set pattern
+    public static void processInput(String input) {
+        String[] instruction = input.split(" ");
+        try {
+            executeCommand(input, instruction);
+        } catch (MissingCommandException e) {
+            System.out.println(LINE);
+            System.out.println("\tHmmmm, it seems you didn't give an appropriate command.");
+            System.out.println(LINE);
+        } catch (MissingDescriptionException e) {
+            System.out.println(LINE);
+            System.out.println("\tHmmmm, the description of your command cannot be empty.");
+            System.out.println(LINE);
+        }
     }
 
     public static void main(String[] args) {
