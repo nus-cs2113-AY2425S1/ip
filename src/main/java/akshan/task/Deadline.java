@@ -1,7 +1,9 @@
+package akshan.task;
+
 /**
  * Represents a deadline task with a due date.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected final String by;
 
     /**
