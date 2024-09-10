@@ -52,8 +52,7 @@ public class Lia {
                 }
 
                 // Handle commands
-                handleCommand(inputArr, tasks, taskCount);
-                taskCount++;
+                taskCount = handleCommand(inputArr, tasks, taskCount);
 
             } catch (LiaException e) {
                 // Handle any Lia-specific exceptions
@@ -74,7 +73,7 @@ public class Lia {
      * @param taskCount The current number of tasks.
      * @throws LiaException if the input is invalid or unrecognized.
      */
-    private static void handleCommand(String[] inputArr, Task[] tasks, int taskCount) throws LiaException {
+    private static int handleCommand(String[] inputArr, Task[] tasks, int taskCount) throws LiaException {
         String command = inputArr[0];
 
         switch (command.toLowerCase()) {
@@ -87,6 +86,7 @@ public class Lia {
             }
             tasks[taskCount] = new ToDo(inputArr[1]);
             addTaskAndPrint(tasks[taskCount], taskCount + 1);
+            taskCount++;
             break;
         case "deadline":
             if (inputArr.length < 2 || !inputArr[1].contains("/by")) {
@@ -95,6 +95,7 @@ public class Lia {
             String[] deadlineDetails = inputArr[1].split(" /by ", 2);
             tasks[taskCount] = new Deadline(deadlineDetails[0], deadlineDetails[1]);
             addTaskAndPrint(tasks[taskCount], taskCount + 1);
+            taskCount++;
             break;
         case "event":
             if (inputArr.length < 2 || !inputArr[1].contains("/from") || !inputArr[1].contains("/to")) {
@@ -104,10 +105,12 @@ public class Lia {
             String[] times = eventDetails[1].split(" /to ", 2);
             tasks[taskCount] = new Event(eventDetails[0], times[0], times[1]);
             addTaskAndPrint(tasks[taskCount], taskCount + 1);
+            taskCount++;
             break;
         default:
             throw new LiaException("Oops! I don't recognize that command.");
         }
+        return taskCount;
     }
 
     /**
