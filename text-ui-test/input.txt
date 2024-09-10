@@ -16,8 +16,8 @@ unmark 2
 list
 0
 2
-deadline make bed /by 2pm
-event sleep /from 10pm /to 7am
+deadline make bed by 2pm
+event sleep from 10pm to 7am
 evnt sletp from 12 to 7
 deadline eat by 5
 list

@@ -1,2 +1,2 @@
-public class IllegalFormatException extends RuntimeException {
+public class IllegalFormatException extends Exception {
 }
