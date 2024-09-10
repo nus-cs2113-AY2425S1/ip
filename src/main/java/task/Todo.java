@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.InsufficientSpaceException;
+
 public class Todo extends Task {
 
     public Todo (String description) throws InsufficientSpaceException {

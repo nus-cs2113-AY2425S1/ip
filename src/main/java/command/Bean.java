@@ -1,10 +1,21 @@
+package command;
+
+import exceptions.EmptyListException;
+import exceptions.InsufficientSpaceException;
+import exceptions.InvalidInputException;
+import exceptions.InvalidTaskNumException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.util.Scanner;
 
 public class Bean {
     // Constants
     private final static String SEPARATOR_LINE = "_".repeat(60) + "\n";
     private final static String INDENT = "  ";
-    private final static int MAX_LIST_COUNT = 5;
+    private final static int MAX_LIST_COUNT = 100;
     private final static String LOGO = "  ┏━┓\n" +
             "  ┃ ┃\n" +
             "  ┃ ┗━━┳━━━┳━━━━┳━━━┓\n" +
@@ -82,7 +93,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(true);
         // Confirmation message
-        printFormattedReply(INDENT + "Task " + taskNum + " has been marked as DONE:\n" +
+        printFormattedReply(INDENT + "task.Task " + taskNum + " has been marked as DONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 
@@ -90,7 +101,7 @@ public class Bean {
         int taskIndex = taskNum - 1;
         toDoList[taskIndex].setStatus(false);
         // Confirmation message
-        printFormattedReply(INDENT + "Task " + taskNum + " has been marked as UNDONE:\n" +
+        printFormattedReply(INDENT + "task.Task " + taskNum + " has been marked as UNDONE:\n" +
                 INDENT + INDENT + toDoList[taskIndex].toString());
     }
 

@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.InsufficientSpaceException;
+
 public class Deadline extends Task {
 
     protected String by;

@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.InsufficientSpaceException;
+
 public class Event extends Task {
     protected String from;
     protected String to;

@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.InsufficientSpaceException;
+
 public class Task {
 
     protected String description;
