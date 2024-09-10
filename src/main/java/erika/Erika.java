@@ -32,7 +32,7 @@ public class Erika {
                 return true;
             } else if (line.equals("list")) {
                 printList();
-            } else if (line.contains("mark ")) {
+            } else if (line.contains("mark")) {
                 handleMark(line);
             } else if (line.contains("todo")) {
                 addTodo(line);
@@ -64,15 +64,20 @@ public class Erika {
             throw new EmptyDescriptionException("Event");
         }
         int indexOfFrom = line.indexOf("/from ");
-        int indexOfTo = line.indexOf("/to ");
-        if (indexOfFrom != -1 && indexOfTo != -1) {
-            Event newEvent = new Event(line.substring(line.indexOf(" ") + 1, indexOfFrom - 1),
-                    line.substring(indexOfFrom + 6, indexOfTo - 1), line.substring(indexOfTo + 4));
-            tasks.add(newEvent);
-            printAddedMessage(newEvent);
-        } else {
+        if(line.indexOf(" ") == indexOfFrom - 1) {
             throw new FormatErrorException();
         }
+        int indexOfTo = line.indexOf("/to ");
+        if (indexOfFrom == -1 || indexOfTo == -1) {
+            throw new FormatErrorException();
+        }
+        if (line.substring(line.indexOf(" ") + 1, indexOfFrom - 1).trim().isEmpty()) {
+            throw new EmptyDescriptionException("Event");
+        }
+        Event newEvent = new Event(line.substring(line.indexOf(" ") + 1, indexOfFrom - 1),
+                line.substring(indexOfFrom + 6, indexOfTo - 1), line.substring(indexOfTo + 4));
+        tasks.add(newEvent);
+        printAddedMessage(newEvent);
     }
 
     private static void addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
@@ -80,14 +85,19 @@ public class Erika {
             throw new EmptyDescriptionException("Deadline");
         }
         int indexOfBy = line.indexOf("/by ");
-        if (indexOfBy != -1) {
-            Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ") + 1, indexOfBy - 1),
-                    line.substring(indexOfBy + 4));
-            tasks.add(newDeadline);
-            printAddedMessage(newDeadline);
-            return;
+        if (line.substring(line.indexOf(" ") + 1, indexOfBy - 1).trim().isEmpty()) {
+            throw new EmptyDescriptionException("Deadline");
         }
-        throw new FormatErrorException();
+        if (indexOfBy == -1) {
+            throw new FormatErrorException();
+        }
+        if (line.indexOf(" ") == indexOfBy - 1) {
+            throw new FormatErrorException();
+        }
+        Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ") + 1, indexOfBy - 1),
+                line.substring(indexOfBy + 4));
+        tasks.add(newDeadline);
+        printAddedMessage(newDeadline);
     }
 
     private static void addTodo(String line) throws EmptyDescriptionException{
@@ -99,7 +109,10 @@ public class Erika {
         printAddedMessage(newTodo);
     }
 
-    private static void handleMark(String line) throws IndexOutOfBoundsException{
+    private static void handleMark(String line) throws IndexOutOfBoundsException, EmptyDescriptionException{
+        if (!line.contains("mark ")) {
+            throw new EmptyDescriptionException("mark");
+        }
         markIndex = extractTaskIndex(line);
         if (markIndex <= 0 || markIndex > Task.getTaskArraySize()) {
             throw new IndexOutOfBoundsException();
