@@ -9,10 +9,15 @@ public class Task {
     public boolean isDone = false;
 
     // Constructor Function
-    public Task(String inputString) {
+    public Task(String inputString){
         this.taskString = inputString;
         tasks[taskCount] = this;
         taskCount++;
+    }
+
+    public static void deleteLatestTask(){
+        tasks[taskCount-1] = null;
+        taskCount--;
     }
 
     public void constructorMessage(){
