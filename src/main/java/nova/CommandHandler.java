@@ -1,3 +1,5 @@
+package nova;
+
 public class CommandHandler {
 
     private static final String TODO_USAGE = "Usage: todo <task description>.";

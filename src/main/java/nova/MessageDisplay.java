@@ -1,3 +1,5 @@
+package nova;
+
 public class MessageDisplay {
 
     public static final String SEPARATOR = "    ___________________________________________________________________";

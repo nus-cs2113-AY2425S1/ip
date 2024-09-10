@@ -1,3 +1,5 @@
+package nova;
+
 public class Event extends Task {
 
     String from;
