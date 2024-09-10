@@ -40,8 +40,11 @@ public class V {
         printBlock(String.format("Got it. Task added\n %s", listOfTasks[count]));
     }
 
-    public static void addDeadline(Task[] listOfTasks, String description, int count) {
+    public static void addDeadline(Task[] listOfTasks, String description, int count) throws InvalidDeadlineException{
         String[] descriptionAndDeadline = description.split("/by");
+        if (descriptionAndDeadline.length != 2) {
+            throw new InvalidDeadlineException();
+        }
         String descriptionText = descriptionAndDeadline[0].trim();
         String by = descriptionAndDeadline[1].trim();
         listOfTasks[count] = new Deadline(descriptionText, by);
@@ -71,38 +74,45 @@ public class V {
         greet();
         
         while (isOnline) {
-            line = input.nextLine();
-            lineArr = line.trim().split(" ");
-            switch (lineArr[0].toLowerCase()) {
-            case "bye":
-                input.close();
-                isOnline = false;
-                break;
-            case "list":
-                displayList(listOfTasks, count);
-                break;
-            case "mark":
-                int position = Integer.parseInt(lineArr[1]);
-                markTask(listOfTasks, position, count);
-                break;
-            case "todo":
-                description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                addToDo(listOfTasks, description, count);
-                count++;
-                break;
-            case "deadline":
-                description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                addDeadline(listOfTasks, description, count);
-                count++;
-                break;
-            case "event":
-                description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                addEvent(listOfTasks, description, count);
-                count++;
-                break;
-            default:
-                System.out.println("Try again");
-                break;
+            try {
+                line = input.nextLine();
+                lineArr = line.trim().split(" ");
+                switch (lineArr[0].toLowerCase()) {
+                case "bye":
+                    input.close();
+                    isOnline = false;
+                    break;
+                case "list":
+                    displayList(listOfTasks, count);
+                    break;
+                case "mark":
+                    int position = Integer.parseInt(lineArr[1]);
+                    markTask(listOfTasks, position, count);
+                    break;
+                case "todo":
+                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                    addToDo(listOfTasks, description, count);
+                    count++;
+                    break;
+                case "deadline":
+                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                    addDeadline(listOfTasks, description, count);
+                    count++;
+                    break;
+                case "event":
+                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                    addEvent(listOfTasks, description, count);
+                    count++;
+                    break;
+                default:
+                    System.out.println("Try again");
+                    break;
+                }
+            } catch (NumberFormatException error) {
+                printBlock("You need to input a valid integer for the task that you want to mark as done");
+            } catch (InvalidDeadlineException error) {
+                printBlock("You did not enter a valid deadline." + 
+                        " Remember to add a \"/by\" before a valid deadline.");
             }
         }
         printBlock("See Ya");
