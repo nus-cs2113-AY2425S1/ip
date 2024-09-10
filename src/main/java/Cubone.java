@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Dictionary;
+import java.util.Hashtable;
+
+import Exceptions.CuboneNoDecriptionError;
 public class Cubone {
     static final String LOGO =   
             "   ______      __                       \n"+
@@ -11,55 +13,137 @@ public class Cubone {
             "\\____/\\__,_/_.___/\\____/_/ /_/\\___/ \n";
     static final String CHAT_PREFIX = "\n(Cubone) ";
     static final String CHAT_BAR = "---------------------------------";
+    
+    // dictionary to store command usages
+    static final Dictionary<String, String> COMMAND_USAGES = new Hashtable<String, String>();
+    static{
+        COMMAND_USAGES.put("list", "list");
+        COMMAND_USAGES.put("mark", "mark <index>");
+        COMMAND_USAGES.put("unmark", "unmark <index>");
+        COMMAND_USAGES.put("todo", "todo <description>");
+        COMMAND_USAGES.put("deadline", "deadline <description> /by <date>");
+        COMMAND_USAGES.put("event", "event <description> /from <date> /to <date>");
+        COMMAND_USAGES.put("task", "task <description>");
+    }
+
+    static final String USAGE_MSG = "Usage: ";
 
     // list to store user input
     static ArrayList<Task> inputed_tasks = new ArrayList<Task>();
 
+    /**
+     * Prints a welcome message from Cubone.
+     * The welcome message includes the Cubone logo and a chat bar.
+     */
     public static void sayWelcomeMsg() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println("Hello! I'm Cubone\nWhat can I do for you?\n" + CHAT_BAR);
     }
     
+    /**
+     * Prints a farewell message.
+     */
     public static void sayBye() {
         System.out.println(CHAT_BAR + CHAT_PREFIX + "Bye. Hope to see you again soon!\n" + CHAT_BAR);
     }
 
+    /**
+     * Prints the list of tasks.
+     * 
+     * This method prints the list of tasks in the format:
+     * 1. [Task 1]
+     * 2. [Task 2]
+     * ...
+     * 
+     * The tasks are retrieved from the `inputed_tasks` list and are printed with their corresponding index.
+     * The list is enclosed between chat bar lines for better visibility.
+     */
     public static void listTasks() {
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Here are the tasks in your list:\n" + CHAT_BAR);
+        System.out.println(CHAT_BAR + CHAT_PREFIX + "Here are the tasks in your list:");
         for (int i = 0; i < inputed_tasks.size(); i++) {
             System.out.println((i + 1) + ". " + inputed_tasks.get(i).toString());
         }
         System.out.println(CHAT_BAR);
     } 
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public static void markTaskAsDone(int index) {
-        inputed_tasks.get(index).markAsDone();
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as done:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+        try{
+            inputed_tasks.get(index).markAsDone();
+            System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as done:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+            return;
+        }
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param index the index of the task to be marked as undone
+     */
     public static void markTaskAsUndone(int index) {
-        inputed_tasks.get(index).markAsUndone();
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as undone:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+        try{
+            inputed_tasks.get(index).markAsUndone();
+            System.out.println(CHAT_BAR + CHAT_PREFIX + "Nice! I've marked this task as undone:\n" + inputed_tasks.get(index).toString() + "\n" + CHAT_BAR);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+            return;
+        }
     }
 
+    /**
+     * Adds a new Todo task to the list of tasks.
+     *
+     * @param description The description of the Todo task.
+     */
     public static void addTodoTask(String description) {
-        inputed_tasks.add(new Todo(description));
-        System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
-                "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+        try {
+            if (description.isEmpty()) {
+                throw new CuboneNoDecriptionError("☹ Oh No! The description of a todo cannot be empty.");
+            }
+            inputed_tasks.add(new Todo(description));
+            System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
+                    "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
+        } catch (CuboneNoDecriptionError e) {
+            System.out.println(CHAT_BAR + CHAT_PREFIX + e.getMessage() + "\n" + CHAT_BAR);
+        }
     }
 
+    /**
+     * Adds a new deadline task to the task list.
+     *
+     * @param description The description of the deadline task.
+     * @param by The deadline of the task.
+     */
     public static void addDeadlineTask(String description, String by) {
         inputed_tasks.add(new Deadline(description, by));
         System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Deadline:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
                 "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
     }
 
+    /**
+     * Adds an event task to the task list.
+     *
+     * @param description the description of the event task
+     * @param from the starting time of the event
+     * @param to the ending time of the event
+     */
     public static void addEventTask(String description, String from, String to) {
         inputed_tasks.add(new Event(description, from, to));
         System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this Event:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
                 "now you have " + inputed_tasks.size() + " tasks in the list\n" + CHAT_BAR);
     }
-
+    
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param description The description of the task.
+     */
     public static void addTask(String description) {
         inputed_tasks.add(new Task(description));
         System.out.println(CHAT_BAR + CHAT_PREFIX + "Got it. I've added this task:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString() + "\n" +
@@ -88,47 +172,57 @@ public class Cubone {
                     break;
                 case "mark":
                     // mark task as done
-                    int markIndex = Integer.parseInt(command[1]);
-                    markTaskAsDone(markIndex - 1);
+                    try {
+                        int markIndex = Integer.parseInt(command[1]);
+                        markTaskAsDone(markIndex - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: mark <index> \n" +  CHAT_BAR);
+                    }
                     break;
                 case "unmark":
                     // mark task as undone
-                    int unmarkIndex = Integer.parseInt(command[1]);
-                    markTaskAsUndone(unmarkIndex - 1);
+                    try {
+                        int unmarkIndex = Integer.parseInt(command[1]);
+                        markTaskAsUndone(unmarkIndex - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: unmark <index> \n" +  CHAT_BAR);
+                    }
                     break;
                 case "todo":
                     // add todo task
-                    if (command[1].length() == 1) {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ OOPS!!! The description of a todo cannot be empty.\n" + CHAT_BAR);
-                    } else {
+                    try {
                         addTodoTask(command[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing, usage: todo <description> \n" +  CHAT_BAR);
                     }
                     break;
                 case "deadline":
                     // add deadline task
                     // usage: deadline <description> /by <date>
-                    Pattern deadlinePattern = Pattern.compile("(.+?) /by (.+)");
-                    Matcher deadlineMatcher = deadlinePattern.matcher(command[1]);
-                    if (deadlineMatcher.find()) {
-                        addDeadlineTask(deadlineMatcher.group(1), deadlineMatcher.group(2));
-                    } else {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ OOPS!!! Someting missing, usage: deadline <description> /by <date>\n" + CHAT_BAR);
+                    try{
+                        String[] deadlineCommand = command[1].split(" /by ");
+                        addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]) + "\n" + CHAT_BAR);
                     }
                     break;
                 case "event":
                     // add event task
                     // usage: event <description> /from <date> /to <date>
-                    Pattern eventPattern = Pattern.compile("(.+?) /from (.+?) /to (.+)");
-                    Matcher eventMatcher = eventPattern.matcher(command[1]);
-                    if (eventMatcher.find()) {
-                        addEventTask(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3));
-                    } else {
-                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ OOPS!!! Someting missing, usage: event <description> /from <date> /to <date>\n" + CHAT_BAR);
+                    try{
+                        String[] eventCommand = command[1].split(" /from ");
+                        String[] eventCommand2 = eventCommand[1].split(" /to ");
+                        addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]) + "\n" + CHAT_BAR);
                     }
                     break;
+                case "task":
+                    // add task
+                    addTask(command[1]);
+                    break;
                 default:
-                    // add user input into list
-                    addTask(command[0]);
+                    System.out.println(CHAT_BAR + CHAT_PREFIX + "☹ Oh No! Can't resove this command\n" + CHAT_BAR);
                     break;
             }
         }
