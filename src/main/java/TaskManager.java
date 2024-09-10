@@ -9,6 +9,10 @@ public class TaskManager {
         this.numberOfTasks = 0;
     }
 
+    public boolean hasSpace() {
+        return numberOfTasks < MAX_TASKS;
+    }
+
     public void addTask(Task task) {
         tasks[numberOfTasks] = task;
         numberOfTasks++;
