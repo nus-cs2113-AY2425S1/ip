@@ -8,12 +8,32 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markDone() {
-        this.isDone = true;
+    public void markDone() throws Exception {
+        try {
+            if (isDone) {
+                throw new Exception();
+            }
+            this.isDone = true;
+        } catch (Exception e) {
+            System.out.print(LOGO);
+            System.out.println("\tAlready done :) Time for other things");
+            System.out.println(LOGO);
+            throw new Exception();
+        }
     }
 
-    public void markUndone() {
-        this.isDone = false;
+    public void markUndone() throws Exception {
+        try {
+            if (!isDone) {
+                throw new Exception();
+            }
+            this.isDone = false;
+        } catch (Exception e) {
+            System.out.print(LOGO);
+            System.out.println("\tYou have not done it yet? >:(");
+            System.out.println(LOGO);
+            throw new Exception();
+        }
     }
 
     public String getStatusIcon() {

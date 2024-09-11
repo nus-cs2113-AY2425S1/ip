@@ -89,16 +89,29 @@ public class Freedom {
         int listNumber = Integer.parseInt(words[TASK_INDEX]);
         String message;
 
-        if (isDone) {
-            storage[listNumber - 1].markDone();
-            message = "\tNice! I've marked this task as done:";
-        } else {
-            storage[listNumber - 1].markUndone();
-            message = "\tOk, I've marked this task as not done yet:";
+        try {
+            if (listNumber - 1 >= lastIndex) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            if (isDone) {
+                storage[listNumber - 1].markDone();
+                message = "\tNice! I've marked this task as done:";
+            } else {
+                storage[listNumber - 1].markUndone();
+                message = "\tOk, I've marked this task as not done yet:";
+            }
+            System.out.println(LOGO + message);
+            System.out.println("\t  " + storage[listNumber - 1].printLine());
+            System.out.println(LOGO);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print(LOGO);
+            System.out.print("""
+                    \tWe don't have that many tasks??
+                    \tYou can use list to check
+                    """);
+            System.out.println(LOGO);
+        } catch (Exception e) {
+            System.out.print("");
         }
-
-        System.out.println(LOGO + message);
-        System.out.println("\t  " + storage[listNumber - 1].printLine());
-        System.out.println(LOGO);
     }
 }
