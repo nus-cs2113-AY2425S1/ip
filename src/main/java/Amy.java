@@ -73,7 +73,7 @@ public class Amy {
             return true;
         }
     }
-    public static String[] requestParser(String request){
+    public static String[] requestParser(String request) throws IndexOutOfBoundsException{
         String key = request.split(" ")[0];
         String[] args = new String[100];
         String[] parts;
@@ -108,19 +108,30 @@ public class Amy {
         addTaskList(new Todo(input[0]));
     }
 
-    public static void chooseAction(String request){
+    public static void chooseAction(String request) throws IndexOutOfBoundsException, NumberFormatException{
+        if(request.length() == 0){
+            System.out.println("Please input something you'd like me to do! ( •̀ ω •́ )y");
+            return;
+        }
+
         String key = request.split(" ")[0];
         filler();
-        switch(key){
-            case "greet" -> doGreeting();
-            case "bye" -> exit();
-            case "list" -> showTaskList();
-            case "mark" -> markTaskDone(Integer.parseInt(requestParser(request)[0]) - 1);
-            case "unmark" -> markTaskUndone(Integer.parseInt(requestParser(request)[0]) - 1);
-            case "todo" -> addTodo(requestParser(request));
-            case "deadline" -> addDeadline(requestParser(request));
-            case "event" -> addEvent(requestParser(request));
-            default -> System.out.println("I didn't understand what you meant （；´д｀）ゞ I'm still learning so do try again next time!");
+        try{
+            switch(key){
+                case "greet" -> doGreeting();
+                case "bye" -> exit();
+                case "list" -> showTaskList();
+                case "mark" -> markTaskDone(Integer.parseInt(requestParser(request)[0]) - 1);
+                case "unmark" -> markTaskUndone(Integer.parseInt(requestParser(request)[0]) - 1);
+                case "todo" -> addTodo(requestParser(request));
+                case "deadline" -> addDeadline(requestParser(request));
+                case "event" -> addEvent(requestParser(request));
+                default -> System.out.println("I didn't understand what you meant （；´д｀）ゞ I'm still learning so do try again next time!");
+            }
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Please input the correct format for your request! (┬┬﹏┬┬)");
+        } catch(NumberFormatException e){
+            System.out.println("Please input a number for this request （；´д｀）ゞ");
         }
         filler();
     }
