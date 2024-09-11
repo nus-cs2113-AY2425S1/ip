@@ -66,26 +66,39 @@ public class Monday {
     }
 
     private void markTaskAsDone(String input) {
-        int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-        if (isValidTaskNumber(taskNumber)) {
-            tasks[taskNumber].markAsDone();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("      " + tasks[taskNumber]);
-        } else {
-            System.out.println("    Invalid task number.");
+        try {
+            int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+            if (isValidTaskNumber(taskNumber)) {
+                tasks[taskNumber].markAsDone();
+                System.out.println("    Nice! I've marked this task as done:");
+                System.out.println("      " + tasks[taskNumber]);
+            } else {
+                throw new MondayException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("    OOPS!!! Please enter a valid task number.");
+        } catch (MondayException e) {
+            System.out.println("    OOPS!!! " + e.getMessage());
         }
     }
 
     private void unmarkTaskAsNotDone(String input) {
-        int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-        if (isValidTaskNumber(taskNumber)) {
-            tasks[taskNumber].markAsNotDone();
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("      " + tasks[taskNumber]);
-        } else {
-            System.out.println("    Invalid task number.");
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+            if (isValidTaskNumber(taskNumber)) {
+                tasks[taskNumber].markAsNotDone();
+                System.out.println("    OK, I've marked this task as not done yet:");
+                System.out.println("      " + tasks[taskNumber]);
+            } else {
+                throw new MondayException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("    OOPS!!! Please enter a valid task number.");
+        } catch (MondayException e) {
+            System.out.println("    OOPS!!! " + e.getMessage());
         }
     }
+
 
     private void addTask(String input) throws MondayException {
         Task task = null;
