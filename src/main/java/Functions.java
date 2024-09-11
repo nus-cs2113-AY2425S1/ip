@@ -108,10 +108,12 @@ public class Functions {
 
         try {
             if (input == null || input.trim().isEmpty()) {
-                throw new IllegalArgumentException("Input cannot be empty!");
-            }
-            else if (input.trim().equals("todo") || input.trim().equals("deadline") || input.trim().equals("event")){
-                throw new IllegalArgumentException("Description cannot be empty!");
+                throw new EmptyInputExceptions();
+            } else if (input.trim().equals("todo") ||
+                    input.trim().equals("deadline") ||
+                    input.trim().equals("task") ||
+                    input.trim().equals("event")){
+                throw new EmptyCommandException();
             } else if (input.startsWith("todo ")){
                 taskList[taskCounter++] = new ToDos(input);
             } else if (input.startsWith("deadline ")){
@@ -121,13 +123,13 @@ public class Functions {
             } else if (input.startsWith("task ")){
                 taskList[taskCounter++] = new Task(input);
             } else{
-                throw new IllegalArgumentException("I have no idea what this command is");
+                throw new IllegalCommandException();
             }
 
             print("Got it. I've added this task:",
                     "  " + taskStatus(taskCounter - 1),
                     "Now you have %d task(s) in the list".formatted(taskCounter));
-        } catch (IllegalArgumentException e) {
+        } catch (UranusExceptions e){
             print(e.getMessage());
         }
     }
