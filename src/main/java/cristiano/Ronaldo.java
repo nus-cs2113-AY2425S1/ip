@@ -10,12 +10,12 @@ import java.util.ArrayList;
  */
 public class Ronaldo {
     private static final ArrayList<Goal> goals = new ArrayList<>();
+    private static final String INDENT_LINE = "------------------------------------------------------------------------------ \n";
 
     public void greet() {
-        String indent = "------------------------------------------------------------------------------ \n";
-        System.out.print( indent + "Hello! I'm Cristiano Ronaldo! The greatest footballer of all time.");
+        System.out.print(INDENT_LINE + "Hello! I'm Cristiano Ronaldo! The greatest footballer of all time.");
         exclaim();
-        System.out.println("Hehehe what can I do for you?\n"  + indent);
+        System.out.println("Hehehe what can I do for you?\n" + INDENT_LINE);
     }
 
     public void exit() {
