@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Tars {
     public static void main(String[] args) {
@@ -112,8 +113,21 @@ public class Tars {
             // Handle unrecognized commands
             else
             {
+                // Array of humorous exception messages
+                String[] unknownCommandMessages = {
+                        "Hmm, that doesn't sound like a command I recognize. Maybe try again?",
+                        "I think you're speaking a language I don't understand. Try something else!",
+                        "Oops! That didn't quite compute. Please enter a valid command.",
+                        "Are you sure that's a command? Double-check and try again.",
+                        "This doesn't seem like a command I know. How about we try something else?"
+                };
+
+                // Randomly select one of the messages
+                Random rand = new Random();
+                int randomIndex = rand.nextInt(unknownCommandMessages.length);
+
                 // Throw humorous exception for unknown command
-                throw new TarsException("Hmm, that doesn't sound like a command I recognize. Maybe try again?");
+                throw new TarsException(unknownCommandMessages[randomIndex]);
             }
         }
         catch (TarsException e)
