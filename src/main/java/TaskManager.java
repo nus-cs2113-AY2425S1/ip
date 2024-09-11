@@ -20,9 +20,15 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void markTask(String line) {
+    public void markTask(String line) throws EvaException {
 
         int taskNumber = extractDigit(line) - 1;
+
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
+                    "Please provide a valid task number between 1 and " + count + ".");
+        }
+
         tasks[taskNumber].setMarkAsDone();
 
         System.out.println("Great! This task is marked as done: ");
@@ -31,9 +37,15 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void unmarkTask(String line) {
+    public void unmarkTask(String line) throws EvaException {
 
         int taskNumber = extractDigit(line) - 1;
+
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
+                    "Please provide a valid task number between 1 and " + count + ".");
+        }
+
         tasks[taskNumber].setMarkAsNotDone();
 
         System.out.println("Ok, This task is marked as not done yet: ");
