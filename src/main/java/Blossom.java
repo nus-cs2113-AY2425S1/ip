@@ -50,9 +50,10 @@ public class Blossom {
         }
     }
 
-    public static void addTask(String input) {
+    public static void addTask (String input) throws BlossomException {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Ok!! I've added this task :D");
+        catchInputErrors(input);
+
         Task item = new Task(input); // Default item if unspecified task type
         if(input.contains("todo")) {
             item = new Todo(input.substring(LENGTH_OF_TODO));
@@ -61,14 +62,29 @@ public class Blossom {
             item = new Deadline(parts[0], parts[1]);
         } else if (input.contains("event")) {
             String[] parts = input.substring(LENGTH_OF_EVENT).split(" /from | /to ");
+            if(parts.length < 3) throw new BlossomException("Event must include both start and end times.");
             item = new Event(parts[0], parts[1], parts[2]);
+        } else {
+            throw new BlossomException("Sorry~~ idk what that means ( • ᴖ • ｡)");
         }
+        System.out.println("Ok!! I've added this task :D");
         System.out.println(item.toString());
         LIST_OF_TASKS.add(item);
         System.out.println("Now you have " + LIST_OF_TASKS.size() +" tasks in the list!");
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void catchInputErrors(String input) throws BlossomException {
+        if (input == null || input.trim().isEmpty()) {
+            throw new BlossomException("Oopsie!!! (;° ロ°) The description of a task cannot be empty~~ ");
+        } else if (input.trim().equals("todo")) {
+            throw new BlossomException("Oopsie!!! (;° ロ°) The description of a todo cannot be empty~~ ");
+        } else if (input.trim().equals("deadline")) {
+            throw new BlossomException("Oopsie!!! (;° ロ°) The description of a deadline cannot be empty~~ ");
+        } else if (input.trim().equals("event")) {
+            throw new BlossomException("Oopsie!!! (;° ロ°) The description of an event cannot be empty~~ ");
+        }
+    }
     public static void printIntro() {
         System.out.println(LOGO + "\n" +"Hello, I'm Blossom! ⸜(｡˃ ᵕ ˂ )⸝♡");
         System.out.println("Your wish is my command (シ_ _ )シ");
@@ -92,7 +108,13 @@ public class Blossom {
                     markAndUnmarkItem(Integer.parseInt(parsedLine[1]), parsedLine[0]);
                 }
                 else {
-                    addTask(line);
+                    try {
+                        addTask(line);
+                    } catch (BlossomException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                 }
             } else {
                 System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
