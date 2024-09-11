@@ -16,22 +16,15 @@ public class Bob {
     private static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
-
-        String logo = "  ____        _\n"
-                + " | |_) \\ ___ | |___\n"
-                + " |  _ //  _  \\   _ \\\n"
-                + " | |_)\\\\ (_) /  |_) |\n"
-                + " |____/ \\___/|_|___/\n";
-
-        System.out.println(logo);
-        System.out.println("Hello! I'm Bob");
-        System.out.println("What can I do for you?");
-
+        
+        printGreeting();
+        
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
 
         while (true) {
+
             String input = scanner.nextLine();
 
             if (input.equals(COMMAND_BYE)) {
@@ -42,33 +35,25 @@ public class Bob {
             } else if (input.startsWith(COMMAND_MARK)) {
                 markTask(input, tasks, taskCount);
             } else if (input.startsWith(COMMAND_UNMARK)) {
-                unmark(input, tasks, taskCount);
+                unmarkTask(input, tasks, taskCount);
             } else if (input.equals(COMMAND_TODO)) {
-                System.out.println(SEPARATOR);
-                System.out.println("Sorry! The description of a todo cannot be empty.");
-                System.out.println(SEPARATOR);
+                printEmptyDescription("todo");
             } else if (input.startsWith(COMMAND_TODO + " ")) {
                 String description = input.substring(COMMAND_TODO.length()).trim();
                 if (description.isEmpty()) {
-                    System.out.println(SEPARATOR);
-                    System.out.println("Sorry! The description of a todo cannot be empty.");
-                    System.out.println(SEPARATOR);
+                    printEmptyDescription("todo");
                 } else {
                     tasks[taskCount] = new ToDo(description);
                     taskCount++;
                     printAddedTask(tasks, taskCount);
                 }
             } else if (input.equals(COMMAND_DEADLINE)) {
-                System.out.println(SEPARATOR);
-                System.out.println("Sorry! The description of a deadline cannot be empty.");
-                System.out.println(SEPARATOR);
+                printEmptyDescription("deadline");
             } else if (input.startsWith(COMMAND_DEADLINE + " ")) {
                 String[] components = input.split(DEADLINE_BY);
                 String description = components[0].substring(COMMAND_DEADLINE.length()).trim();
                 if (description.isEmpty()) {
-                    System.out.println(SEPARATOR);
-                    System.out.println("Sorry! The description of a deadline cannot be empty.");
-                    System.out.println(SEPARATOR);
+                    printEmptyDescription("deadline");
                 } else {
                     try {
                         String by = components[1];
@@ -76,69 +61,81 @@ public class Bob {
                         taskCount++;
                         printAddedTask(tasks, taskCount);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(SEPARATOR);
+                        printSeparator();
                         System.out.println("Sorry! Please provide a valid deadline with '/by <date/time>'.");
-                        System.out.println(SEPARATOR);
+                        printSeparator();
                     }
                 }
             } else if (input.equals(COMMAND_EVENT)) {
-                System.out.println(SEPARATOR);
-                System.out.println("Sorry! The description of an event cannot be empty.");
-                System.out.println(SEPARATOR);
+                printEmptyDescription("event");
             } else if (input.startsWith(COMMAND_EVENT + " ")) {
                 int fromIndex = input.indexOf(EVENT_FROM);
                 int toIndex = input.indexOf(EVENT_TO);
-                String description = input.substring(COMMAND_EVENT.length()).trim();
-                if (description.isEmpty()) {
-                    System.out.println(SEPARATOR);
-                    System.out.println("Sorry! The description of an event cannot be empty.");
-                    System.out.println(SEPARATOR);
+                String userTypedDescription = input.substring(COMMAND_EVENT.length()).trim();
+                if (userTypedDescription.isEmpty()) {
+                    printEmptyDescription("event");
                 } else {
                     try {
-                        String actualDescription = input.substring(COMMAND_EVENT.length() +1, fromIndex);
+                        String description = input.substring(COMMAND_EVENT.length() +1, fromIndex);
                         String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
                         String to = input.substring(toIndex + EVENT_TO.length());
-                        tasks[taskCount] = new Event(actualDescription, from, to);
+                        tasks[taskCount] = new Event(description, from, to);
                         taskCount++;
                         printAddedTask(tasks, taskCount);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println(SEPARATOR);
+                        printSeparator();
                         System.out.println("Sorry! Please provide a valid event with '/from <start date/time> /to <end date/time>'.");
-                        System.out.println(SEPARATOR);
+                        printSeparator();
                     }
                 }
             } else {
-                printWarning();
+                printInvalidInput();
             }
         }
         scanner.close();
     }
 
+    public static void printGreeting() {
+        String logo = "  ____        _\n"
+                + " | |_) \\ ___ | |___\n"
+                + " |  _ //  _  \\   _ \\\n"
+                + " | |_)\\\\ (_) /  |_) |\n"
+                + " |____/ \\___/|_|___/\n";
+
+        System.out.println(logo);
+        System.out.println("Hello! I'm Bob");
+        System.out.println("What can I do for you?");
+    }
+    
     public static void exit() {
-        System.out.println(SEPARATOR);
+        printSeparator();
         System.out.println("Bye. Hope to see you again soon!");
+        printSeparator();
+    }
+    
+    public static void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
     public static void printList(Task[] tasks, int taskCount) {
-        System.out.println(SEPARATOR);
+        printSeparator();
         if (taskCount == 0) {
             System.out.println("Sorry! Your list is empty.");
-            System.out.println(SEPARATOR);
+            printSeparator();
             return;
         }
         System.out.println("Here " + (taskCount == 1 ? "is" : "are") + " the " + (taskCount == 1 ? "task" : "tasks") + " in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + "." + tasks[i]);
         }
-        System.out.println(SEPARATOR);
+        printSeparator();
     }
 
     private static void markTask(String input, Task[] tasks, int taskCount) {
-        System.out.println(SEPARATOR);
+        printSeparator();
         if (taskCount == 0) {
             System.out.println("Sorry! Your list is empty, please add a task before marking as done.");
-            System.out.println(SEPARATOR);
+            printSeparator();
             return;
         }
         try {
@@ -151,21 +148,24 @@ public class Bob {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[taskIndex]);
             }
-            System.out.println(SEPARATOR);
+            printSeparator();
         } catch (NullPointerException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
             System.out.println("Please input a valid task number from 1 to " + taskCount);
-            System.out.println(SEPARATOR);
+            printSeparator();
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry! Please input a valid task number from 1 to " + taskCount + " after inputting the word 'mark'.");
+            printSeparator();
         }
     }
 
-    private static void unmark(String input, Task[] tasks, int taskCount) {
-        System.out.println(SEPARATOR);
+    private static void unmarkTask(String input, Task[] tasks, int taskCount) {
+        printSeparator();
         if (taskCount == 0) {
             System.out.println("Sorry! Your list is empty, please add a task before unmarking.");
-            System.out.println(SEPARATOR);
+            printSeparator();
             return;
         }
         try {
@@ -178,27 +178,40 @@ public class Bob {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[taskIndex]);
             }
-            System.out.println(SEPARATOR);
+            printSeparator();
         } catch (NullPointerException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
             System.out.println("Please input a valid task number from 1 to " + taskCount + ".");
-            System.out.println(SEPARATOR);
+            printSeparator();
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry! Please input a valid task number from 1 to " + taskCount + " after inputting the word 'unmark'.");
+            printSeparator();
         }
     }
 
+    public static void printEmptyDescription(String taskType) {
+        printSeparator();
+        if (taskType.equals("event")) {
+            System.out.println("Sorry! The description of an " + taskType + " cannot be empty.");
+        } else {
+            System.out.println("Sorry! The description of a " + taskType + " cannot be empty.");
+        }
+        printSeparator();
+    }
+
     public static void printAddedTask (Task[] tasks, int taskCount) {
-        System.out.println(SEPARATOR);
+        printSeparator();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks[taskCount - 1]);
         System.out.println("Now you have " + taskCount + " " + (taskCount == 1 ? "task" : "tasks") + " in the list.");
-        System.out.println(SEPARATOR);
+        printSeparator();
     }
 
-    public static void printWarning() {
-        System.out.println(SEPARATOR);
+    public static void printInvalidInput() {
+        printSeparator();
         System.out.println("Sorry! I don't understand what you mean.");
-        System.out.println(SEPARATOR);
+        printSeparator();
     }
 }
