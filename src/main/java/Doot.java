@@ -85,13 +85,17 @@ public class Doot {
     private static void handleDefault(String command, String args) {
         switch (command) {
             case "todo":
-                makeToDo(args);
+                try {
+                    makeToDo(args);
+                } catch (DootException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
                 break;
             case "list":
                 printList();
                 break;
             default:
-                addToList(command + args);
+                System.out.println("Unknown command: " + command);
         }
     }
 
@@ -109,7 +113,10 @@ public class Doot {
                 + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
     }
 
-    public static void makeToDo(String description) {
+    public static void makeToDo(String description) throws DootException {
+        if (description.equals("")) {
+            throw new DootException("The description of a todo cannot be empty.");
+        }
         taskList[taskIdx] = new ToDo(description);
         taskIdx++;
         System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
