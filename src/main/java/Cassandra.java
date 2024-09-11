@@ -118,13 +118,34 @@ public class Cassandra {
         saveTask(new Deadline(deadlineTaskName, by));
     }
 
-    private static void executeCommand(String input, String[] commandArgs){
+    private static void executeCommand(String input, String[] commandArgs) {
+        if (commandArgs.length == 0 || commandArgs[0].isEmpty()) {
+            System.out.println("Sorry, you haven't entered any command.");
+            return;
+        }
+
         switch (commandArgs[0].toLowerCase()) {
             case "mark":
-                markTask(Integer.parseInt(commandArgs[1]));
+                if (commandArgs.length < 2) {
+                    System.out.println("Please provide a task index to mark.");
+                } else {
+                    try {
+                        markTask(Integer.parseInt(commandArgs[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid task index.");
+                    }
+                }
                 break;
             case "unmark":
-                unmarkTask(Integer.parseInt(commandArgs[1]));
+                if (commandArgs.length < 2) {
+                    System.out.println("Please provide a task index to unmark.");
+                } else {
+                    try {
+                        unmarkTask(Integer.parseInt(commandArgs[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid task index.");
+                    }
+                }
                 break;
             case "list":
                 printList();
@@ -142,7 +163,7 @@ public class Cassandra {
                 addEvent(input);
                 break;
             default:
-                System.out.println("Sorry, unknown command");
+                System.out.println("Sorry, unknown command.");
                 break;
         }
     }
