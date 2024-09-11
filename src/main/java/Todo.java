@@ -1,7 +1,7 @@
 public class Todo extends Task {
 
     public Todo(String input) {
-        super(input.substring(input.indexOf(" ") + 1));
+        super(input.substring(!input.contains(" ") ? -1 : input.indexOf(" ") + 1));
     }
 
     public String getTypeMarker() {
