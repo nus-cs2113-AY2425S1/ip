@@ -1,6 +1,8 @@
+package Tars.Task;
+
 public class Deadline extends Task {
 
-    protected String by; // Deadline
+    protected String by; // Tars.Task.Deadline
 
     public Deadline() {}
 

@@ -1,7 +1,9 @@
+package Tars.Task;
+
 public class Event extends Task {
 
-    protected String from; // Event start time.
-    protected String to; // Event end time.
+    protected String from; // Tars.Task.Event start time.
+    protected String to; // Tars.Task.Event end time.
 
     public Event() {}
 
