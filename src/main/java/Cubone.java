@@ -47,6 +47,11 @@ public class Cubone {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints the help message.
+     * 
+     * This method prints the list of commands and their usages.
+     */
     public static void printHelp() {
         System.out.println("Here are the commands you can use:");
         for (String key : COMMAND_USAGES.keySet()) {
