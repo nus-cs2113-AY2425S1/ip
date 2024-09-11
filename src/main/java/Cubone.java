@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Exceptions.CuboneNoDecriptionError;
+import Exceptions.CuboneMissingParameterError;
 public class Cubone {
     static final String LOGO =   
             "   ______      __                       \n"+
@@ -82,9 +82,9 @@ public class Cubone {
             inputed_tasks.get(index).markAsDone();
             System.out.println("Nice! I've marked this task as done:\n" + inputed_tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
+            System.out.println("task not found: " + e.getMessage());
             return;
-        }
+        } 
     }
 
     /**
@@ -97,7 +97,7 @@ public class Cubone {
             inputed_tasks.get(index).markAsUndone();
             System.out.println("Nice! I've marked this task as undone:\n" + inputed_tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
+            System.out.println("task not found: " + e.getMessage());
             return;
         }
     }
@@ -108,17 +108,10 @@ public class Cubone {
      * @param description The description of the Todo task.
      */
     public static void addTodoTask(String description) {
-        try {
-            if (description.isEmpty()) {
-                throw new CuboneNoDecriptionError("☹ Oh No! The description of a todo cannot be empty.");
-            }
-            inputed_tasks.add(new Todo(description));
-            System.out.println("Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
-            System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
-        } catch (CuboneNoDecriptionError e) {
-            System.out.println(e.getMessage() + "\n");
-        }
-    }
+        inputed_tasks.add(new Todo(description));
+        System.out.println("Got it. I've added this Todo:\n" + inputed_tasks.get(inputed_tasks.size() - 1).toString());
+        System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
+}
 
     /**
      * Adds a new deadline task to the task list.
@@ -191,48 +184,84 @@ public class Cubone {
                     int markIndex = Integer.parseInt(command[1]);
                     markTaskAsDone(markIndex - 1);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("☹ Oh No! Someting missing, usage: mark <index>");
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ Oh No! Invalid index.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             case "unmark":
                 // mark task as undone
                 try {
+                    if (command.length < 2 || command[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     int unmarkIndex = Integer.parseInt(command[1]);
                     markTaskAsUndone(unmarkIndex - 1);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("☹ Oh No! Someting missing, usage: unmark <index>");
+                } catch (CuboneMissingParameterError e) {
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ Oh No! Invalid index.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             case "todo":
                 // add todo task
                 try {
+                    if (command.length < 2 || command[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     addTodoTask(command[1]);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("☹ Oh No! Someting missing, usage: todo <description>");
+                } catch (CuboneMissingParameterError e) {
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             case "deadline":
                 // add deadline task
                 // usage: deadline <description> /by <date>
                 try{
+                    if (command.length < 2 || command[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     String[] deadlineCommand = command[1].split(" /by ");
+
+                    if (deadlineCommand.length < 2 || deadlineCommand[0].isBlank() || deadlineCommand[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                } catch (CuboneMissingParameterError e) {
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             case "event":
                 // add event task
                 // usage: event <description> /from <date> /to <date>
                 try{
+                    if (command.length < 2 || command[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     String[] eventCommand = command[1].split(" /from ");
+
+                    if (eventCommand.length < 2 || eventCommand[0].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     String[] eventCommand2 = eventCommand[1].split(" /to ");
+
+                    if (eventCommand2.length < 2 || eventCommand2[0].isBlank() || eventCommand2[1].isBlank()) {
+                        throw new CuboneMissingParameterError();
+                    }
+
                     addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("☹ Oh No! Someting missing\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                } catch (CuboneMissingParameterError e) {
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             default:
+                // unknown command
                 System.out.println("☹ Oh No! Can't resove this command");
                 break;
             }
