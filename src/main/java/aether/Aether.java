@@ -1,3 +1,11 @@
+package aether;
+
+import aether.task.Task;
+import aether.task.Todo;
+import aether.task.Deadline;
+import aether.task.Event;
+import aether.ui.Display;
+
 import java.util.Scanner;
 
 /**
@@ -15,34 +23,24 @@ public class Aether {
         aether.run();
     }
 
-    /**
-     * Runs the main loop of the program, displaying the start screen
-     * and handling user input until the user decides to exit.
-     */
     public void run() {
         Display.showStartScreen();
         Scanner scanner = new Scanner(System.in);
 
-        // Main loop to keep the program running until the user exits
         while (!isExit) {
             System.out.println("You:");
             String command = scanner.nextLine();
-            Display.printSeparator();  // This ensures separator is printed after every command input
+            Display.printSeparator();
             try {
                 handleCommand(command);
             } catch (DukeException e) {
                 Display.response(e.getMessage());
-                Display.printSeparator();  // Add separator after error messages
+                Display.printSeparator();
             }
         }
         scanner.close();
     }
 
-    /**
-     * Handles user input commands such as adding, marking, unmarking, and listing tasks.
-     * @param command User input command as a string.
-     * @throws DukeException if the command is invalid.
-     */
     private void handleCommand(String command) throws DukeException {
         command = command.trim();
         if (command.isEmpty()) {
@@ -53,7 +51,6 @@ public class Aether {
         String commandName = commandParts[0].toLowerCase();
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
 
-        // Handles different commands based on user input.
         switch (commandName) {
         case "bye":
             isExit = true;
@@ -83,12 +80,6 @@ public class Aether {
         Display.printSeparator();
     }
 
-    /**
-     * Handles the "mark" and "unmark" commands to update the task's status.
-     * @param arguments Task number provided by the user.
-     * @param isMark Boolean flag to indicate marking or unmarking.
-     * @throws DukeException if the task number is invalid.
-     */
     private void handleMarkCommand(String arguments, boolean isMark) throws DukeException {
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
@@ -101,11 +92,6 @@ public class Aether {
         }
     }
 
-    /**
-     * Adds a new todo task.
-     * @param arguments Description of the todo task.
-     * @throws DukeException if the task description is empty.
-     */
     private void handleTodoCommand(String arguments) throws DukeException {
         if (arguments.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty. Please enter a valid description.");
@@ -114,11 +100,6 @@ public class Aether {
         }
     }
 
-    /**
-     * Adds a new deadline task.
-     * @param arguments Description and deadline date in the format: description /by date.
-     * @throws DukeException if the description or deadline is invalid.
-     */
     private void handleDeadlineCommand(String arguments) throws DukeException {
         String[] deadlineParts = arguments.split(" /by ", 2);
         if (arguments.isEmpty() || deadlineParts.length < 2) {
@@ -128,11 +109,6 @@ public class Aether {
         }
     }
 
-    /**
-     * Adds a new event task.
-     * @param arguments Description, start, and end times in the format: description /from start_time /to end_time.
-     * @throws DukeException if the description or time format is invalid.
-     */
     private void handleEventCommand(String arguments) throws DukeException {
         String[] eventParts = arguments.split(" /from | /to ");
         if (arguments.isEmpty() || eventParts.length < 3) {
@@ -144,11 +120,6 @@ public class Aether {
         }
     }
 
-    /**
-     * Adds a new task to the task list.
-     * @param task The task to be added.
-     * @throws DukeException if the task list is full.
-     */
     private void addTask(Task task) throws DukeException {
         if (taskCount < tasks.length) {
             tasks[taskCount] = task;
@@ -161,9 +132,6 @@ public class Aether {
         }
     }
 
-    /**
-     * Lists all tasks in the task list.
-     */
     private void listTasks() {
         if (taskCount == 0) {
             Display.response("Task list is empty.");
@@ -175,123 +143,11 @@ public class Aether {
         }
     }
 
-    /**
-     * Marks or unmarks the status of a task.
-     * @param index Index of the task in the task list.
-     * @param isDone Boolean flag indicating if the task is done.
-     */
     private void markTaskStatus(int index, boolean isDone) {
         tasks[index].setDone(isDone);
         String message = isDone
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
         Display.response(message + (index + 1) + "." + tasks[index]);
-    }
-}
-
-// Custom DukeException class for handling application-specific exceptions
-class DukeException extends Exception {
-    public DukeException(String message) {
-        super(message);
-    }
-}
-
-// Task class, the base class for all types of tasks
-class Task {
-    protected String description;
-    protected boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    public String getStatus() {
-        return (isDone ? "✓" : " ");
-    }
-
-    @Override
-    public String toString() {
-        return "[" + getStatus() + "] " + description;
-    }
-}
-
-// Todo class for simple todo tasks
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-}
-
-// Deadline class for tasks with deadlines
-class Deadline extends Task {
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
-    }
-}
-
-// Event class for tasks with start and end times
-class Event extends Task {
-    protected String from;
-    protected String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-    }
-}
-
-// Display class to handle all user interface outputs
-class Display {
-    public static void showStartScreen() {
-        String logo = "     ___   ______  _______  _    _  ______  _____\n"
-                + "    /   | |  ____||__   __|| |  | ||  ____||  __ \\\n"
-                + "   / /| | | |__      | |   | |__| || |__   | |__) |\n"
-                + "  / /_| | |  __|     | |   |  __  ||  __|  |  _  /\n"
-                + " /  __  | | |____    | |   | |  | || |____ | | \\ \\\n"
-                + "/_/   |_| |______|   |_|   |_|  |_||______||_|  \\_\\\n";
-        String startScreen = "Aether:\n" + "Hello! I'm Aether, your friendly assistant.\n"
-                + "How can I help you today?\n";
-
-        System.out.println(logo);
-        printSeparator();
-        System.out.println(startScreen);
-        printSeparator();
-    }
-
-    public static void showEndScreen() {
-        String endScreen = "Aether:\n" + "Goodbye! Hope to see you again soon!";
-        System.out.println(endScreen);
-    }
-
-    public static void printSeparator() {
-        System.out.println("____________________________________________________");
-    }
-
-    public static void response(String message) {
-        System.out.println("Aether:\n" + message);
     }
 }
