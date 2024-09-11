@@ -38,50 +38,92 @@ public class Tars {
         }
     }
 
-    // Process user input, return true if "bye" is entered to exit
+    // Process user input and return true if "bye" is entered to exit
     public static boolean processUserInput(String input, List<Task> taskList, UserInterface ui) {
-        if (input.equals("bye"))
-        {
-            ui.showGoodbyeMessage();  // Show goodbye message
-            return true;  // Return true to indicate that we want to exit the loop
+        try {
+            // Handle "bye" command
+            if (input.equals("bye"))
+            {
+                ui.showGoodbyeMessage();
+                return true;  // Exit loop
+            }
+            // Handle "list" command
+            else if (input.equals("list"))
+            {
+                ui.showTasks(taskList);
+            }
+            // Handle "todo" command
+            else if (input.startsWith("todo"))
+            {
+                // Check if task description is provided after "todo"
+                if (input.length() <= 5)
+                {
+                    // Throw humorous exception for missing description
+                    throw new TarsException("Whoa there! Your todo needs something to do. Can't save air.");
+                }
+                String taskDescription = input.substring(5).trim();
+                if (taskDescription.isEmpty())
+                {
+                    // Throw humorous exception for empty task description
+                    throw new TarsException("Oops! Looks like you're trying to add a todo with no todo in it. I need more details.");
+                }
+                addTask(taskList, "todo", taskDescription);
+            }
+            // Handle "deadline" command
+            else if (input.startsWith("deadline"))
+            {
+                if (!input.contains("/by"))
+                {
+                    // Check if the deadline format is correct
+                    throw new TarsException("Oops! A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
+                }
+                String deadlineDescription = input.substring(9).trim();
+                if (deadlineDescription.isEmpty())
+                {
+                    // Throw exception if no description provided
+                    throw new TarsException("Uh-oh! The deadline task seems to be missing its description. Try again with more details.");
+                }
+                addTask(taskList, "deadline", deadlineDescription);
+            }
+            // Handle "event" command
+            else if (input.startsWith("event"))
+            {
+                if (!input.contains("/from") || !input.contains("/to"))
+                {
+                    // Check if the event format is correct
+                    throw new TarsException("Hold up! An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
+                }
+                String eventDescription = input.substring(6).trim();
+                if (eventDescription.isEmpty())
+                {
+                    // Throw exception if no description provided
+                    throw new TarsException("Uh-oh! The event description seems to be missing. Give me something to work with!");
+                }
+                addTask(taskList, "event", eventDescription);
+            }
+            // Handle "mark" and "unmark" commands
+            else if (input.startsWith("mark"))
+            {
+                markTask(input, taskList, ui);
+            } else if (input.startsWith("unmark"))
+            {
+                unmarkTask(input, taskList, ui);
+            }
+            // Handle unrecognized commands
+            else
+            {
+                // Throw humorous exception for unknown command
+                throw new TarsException("Hmm, that doesn't sound like a command I recognize. Maybe try again?");
+            }
         }
-        else if (input.equals("list"))
+        catch (TarsException e)
         {
-            ui.showTasks(taskList);
-            printTaskCount(taskList.size());  // Print list count
-        }
-        else if (input.startsWith("todo"))
-        {
-            String taskDescription = input.substring(5);
-            addTask(taskList, "todo", taskDescription);
-        }
-        else if (input.startsWith("deadline"))
-        {
-            String deadlineDescription = input.substring(9);
-            addTask(taskList, "deadline", deadlineDescription);
-        }
-        else if (input.startsWith("event"))
-        {
-            String eventDescription = input.substring(6);
-            addTask(taskList, "event", eventDescription);
-        }
-        else if (input.startsWith("mark"))
-        {
-            markTask(input, taskList, ui);
-        }
-        else if (input.startsWith("unmark"))
-        {
-            unmarkTask(input, taskList, ui);
-        }
-        // Handle unrecognized input and add as a new task
-        else
-        {
-            taskList.add(new Task(input));
+            // Catch and display exception messages
             ui.printSeparator();
-            System.out.println("    added: " + input);
+            System.out.println(e.getMessage());
             ui.printSeparator();
         }
-        return false;  // Return false to continue processing other inputs
+        return false;  // Continue processing user input
     }
 
     // Print the total number of tasks in the list
@@ -120,23 +162,58 @@ public class Tars {
     }
 
     // Mark a task as done based on task number
-    public static void markTask(String input, List<Task> taskList, UserInterface ui) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;  // Extract task number from input
-        taskList.get(taskNumber).markAsDone();  // Mark the task as done
-        ui.printSeparator();
-        System.out.println("    Nice! I've marked this task as done: ");
-        System.out.println("    " + taskList.get(taskNumber));  // Print marked task
-        ui.printSeparator();
+    public static void markTask(String input, List<Task> taskList, UserInterface ui) throws TarsException {
+        try {
+            // Check if input contains a space between 'mark' and the task number
+            if (!input.contains(" ")) {
+                throw new TarsException("Oops! The correct format is 'mark <task number>'. For example: 'mark 1'.");
+            }
+
+            // Extract task number from user input. User input starts at 1, but array index starts at 0, so subtract 1.
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Check if task number is within valid range
+            if (taskNumber < 0 || taskNumber >= taskList.size()) {
+                throw new TarsException("Oops! That task number is out of range. Try picking a number between 1 and " + taskList.size() + ". I believe in you!");
+            }
+
+            // Mark the task as done
+            taskList.get(taskNumber).markAsDone();
+            ui.printSeparator();
+            System.out.println("    Great! Task marked as complete: ");
+            System.out.println("    " + taskList.get(taskNumber));  // Display the marked task
+            ui.printSeparator();
+        } catch (NumberFormatException e) {
+            // If user input is not a valid number, provide a clear correction method
+            throw new TarsException("Uh-oh! That doesn't look like a number. Make sure to enter 'mark' followed by the task number. For example: 'mark 1'.");
+        }
     }
 
-    // Unmark a task as not done based on task number
-    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        taskList.get(taskNumber).markAsNotDone();
-        ui.printSeparator();
-        System.out.println("    OK, I've marked this task as not done yet: ");
-        System.out.println("    " + taskList.get(taskNumber));
-        ui.printSeparator();
+    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui) throws TarsException {
+        try {
+            // Check if input contains a space between 'unmark' and the task number
+            if (!input.contains(" ")) {
+                throw new TarsException("Oops! The correct format is 'unmark <task number>'. For example: 'unmark 1'.");
+            }
+
+            // Extract task number from user input. User input starts at 1, but array index starts at 0, so subtract 1.
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Check if task number is within valid range
+            if (taskNumber < 0 || taskNumber >= taskList.size()) {
+                throw new TarsException("Oops! That task number is out of range. Try picking a number between 1 and " + taskList.size() + ". Don't worry, you'll get it!");
+            }
+
+            // Unmark the task
+            taskList.get(taskNumber).markAsNotDone();
+            ui.printSeparator();
+            System.out.println("    Task has been unmarked. Let's get back to work: ");
+            System.out.println("    " + taskList.get(taskNumber));  // Display the unmarked task
+            ui.printSeparator();
+        } catch (NumberFormatException e) {
+            // If user input is not a valid number, provide a clear correction method
+            throw new TarsException("Hmm, that doesn't look like a number. Remember, you need to enter 'unmark' followed by the task number. For example: 'unmark 1'.");
+        }
     }
 
 }
