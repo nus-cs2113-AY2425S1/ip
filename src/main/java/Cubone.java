@@ -262,7 +262,7 @@ public class Cubone {
                 break;
             default:
                 // unknown command
-                System.out.println("☹ Oh No! Can't resove this command");
+                System.out.println("☹ Oh No! Can't resove this command: " + command[0]);
                 break;
             }
             System.out.println(CHAT_BAR);
