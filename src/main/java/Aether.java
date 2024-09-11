@@ -27,8 +27,13 @@ public class Aether {
         while (!isExit) {
             System.out.println("You:");
             String command = scanner.nextLine();
-            Display.printSeparator();
-            handleCommand(command);
+            Display.printSeparator();  // This ensures separator is printed after every command input
+            try {
+                handleCommand(command);
+            } catch (DukeException e) {
+                Display.response(e.getMessage());
+                Display.printSeparator();  // Add separator after error messages
+            }
         }
         scanner.close();
     }
@@ -36,12 +41,12 @@ public class Aether {
     /**
      * Handles user input commands such as adding, marking, unmarking, and listing tasks.
      * @param command User input command as a string.
+     * @throws DukeException if the command is invalid.
      */
-    private void handleCommand(String command) {
+    private void handleCommand(String command) throws DukeException {
         command = command.trim();
         if (command.isEmpty()) {
-            Display.response("Command cannot be empty. Please enter a valid command.");
-            return;
+            throw new DukeException("Command cannot be empty. Please enter a valid command.");
         }
 
         String[] commandParts = command.split(" ", 2);
@@ -73,8 +78,7 @@ public class Aether {
             handleEventCommand(arguments);
             break;
         default:
-            Display.response("Invalid command. Please try again.");
-            break;
+            throw new DukeException("Invalid command. Please try again.");
         }
         Display.printSeparator();
     }
@@ -83,27 +87,28 @@ public class Aether {
      * Handles the "mark" and "unmark" commands to update the task's status.
      * @param arguments Task number provided by the user.
      * @param isMark Boolean flag to indicate marking or unmarking.
+     * @throws DukeException if the task number is invalid.
      */
-    private void handleMarkCommand(String arguments, boolean isMark) {
+    private void handleMarkCommand(String arguments, boolean isMark) throws DukeException {
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             if (index < 0 || index >= taskCount) {
-                Display.response("Invalid task number. Please enter a valid task index.");
-                return;
+                throw new DukeException("Invalid task number. Please enter a valid task index.");
             }
             markTaskStatus(index, isMark);
         } catch (NumberFormatException e) {
-            Display.response("Invalid input. Please enter a valid task number.");
+            throw new DukeException("Invalid input. Please enter a valid task number.");
         }
     }
 
     /**
      * Adds a new todo task.
      * @param arguments Description of the todo task.
+     * @throws DukeException if the task description is empty.
      */
-    private void handleTodoCommand(String arguments) {
+    private void handleTodoCommand(String arguments) throws DukeException {
         if (arguments.isEmpty()) {
-            Display.response("The description of a todo cannot be empty. Please enter a valid description.");
+            throw new DukeException("The description of a todo cannot be empty. Please enter a valid description.");
         } else {
             addTask(new Todo(arguments));
         }
@@ -112,11 +117,12 @@ public class Aether {
     /**
      * Adds a new deadline task.
      * @param arguments Description and deadline date in the format: description /by date.
+     * @throws DukeException if the description or deadline is invalid.
      */
-    private void handleDeadlineCommand(String arguments) {
+    private void handleDeadlineCommand(String arguments) throws DukeException {
         String[] deadlineParts = arguments.split(" /by ", 2);
         if (arguments.isEmpty() || deadlineParts.length < 2) {
-            Display.response("Please enter a deadline in the format:\ndescription /by date.");
+            throw new DukeException("Please enter a deadline in the format:\ndescription /by date.");
         } else {
             addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
         }
@@ -125,12 +131,14 @@ public class Aether {
     /**
      * Adds a new event task.
      * @param arguments Description, start, and end times in the format: description /from start_time /to end_time.
+     * @throws DukeException if the description or time format is invalid.
      */
-    private void handleEventCommand(String arguments) {
+    private void handleEventCommand(String arguments) throws DukeException {
         String[] eventParts = arguments.split(" /from | /to ");
-        if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")
-                || eventParts.length < 3) {
-            Display.response("Please enter an event in the format:\ndescription /from start_time /to end_time.");
+        if (arguments.isEmpty() || eventParts.length < 3) {
+            throw new DukeException(
+                    "Please enter an event in the format:\ndescription /from start_time /to end_time."
+            );
         } else {
             addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
         }
@@ -139,15 +147,17 @@ public class Aether {
     /**
      * Adds a new task to the task list.
      * @param task The task to be added.
+     * @throws DukeException if the task list is full.
      */
-    private void addTask(Task task) {
+    private void addTask(Task task) throws DukeException {
         if (taskCount < tasks.length) {
             tasks[taskCount] = task;
             taskCount++;
-            Display.response("Got it. I've added this task:\n  " + task
-                    + "\nNow you have " + taskCount + " tasks in the list.");
+            Display.response(
+                    "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list."
+            );
         } else {
-            Display.response("Task list is full. Sorry!");
+            throw new DukeException("Task list is full. Sorry!");
         }
     }
 
@@ -176,6 +186,13 @@ public class Aether {
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
         Display.response(message + (index + 1) + "." + tasks[index]);
+    }
+}
+
+// Custom DukeException class for handling application-specific exceptions
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
     }
 }
 
