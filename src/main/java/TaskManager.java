@@ -9,6 +9,7 @@ public class TaskManager {
     public TaskManager() {
         tasks = new Task[MAX_TASKS];
         count = 0;
+
     }
 
     public void printTaskList() {
@@ -45,9 +46,14 @@ public class TaskManager {
         return Integer.parseInt(numberString);
     }
 
-    public void printTodo(String line) {
+    public void printTodo(String line) throws EvaException {
 
         String todoDesc = line.replaceFirst("todo", "").trim();
+
+        if (todoDesc.isEmpty()) {
+            throw new EvaException("On no! The description of a todo cannot be empty." +
+                    " \nPlease try again by typing todo (name of task).");
+        }
 
         tasks[count] = new Todo(todoDesc);
 
@@ -59,11 +65,23 @@ public class TaskManager {
         count++;
     }
 
-    public void printDeadline(String line) {
+    public void printDeadline(String line) throws EvaException {
 
         String[] parts = line.replaceFirst("deadline", "").split("/by");
+
+        if (parts.length < 2) {
+            throw new EvaException("Oh no! The deadline command must have a description and a by time." +
+                    "\nIt show be in this format: deadline (name of task) /by (time)." +
+                    "\nPlease try again!");
+        }
+
         String description = parts[0].trim();
         String by = parts[1].trim();
+
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new EvaException("Oh no! Either the description part is empty or the by part is empty!" +
+                    "\nPlease try again!");
+        }
 
         tasks[count] = new Deadline(description, by);
 
@@ -75,12 +93,24 @@ public class TaskManager {
         count++;
     }
 
-    public void printEvent(String line) {
+    public void printEvent(String line) throws EvaException {
 
         String[] eventParts = line.replaceFirst("event", "").split("/from|/to");
+
+        if (eventParts.length < 3) {
+            throw new EvaException("Oh no! The event command must have a description, a from time, " +
+                    "and a to time. \nThe format should be event (name of task) /from (time) /to (time)" +
+                    "\nPlease try again!");
+        }
+
         String eventDesc = eventParts[0].trim();
         String from = eventParts[1].trim();
         String to = eventParts[2].trim();
+
+        if (eventDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new EvaException("Oh no! The description, from or to parts are empty!" +
+                    "\nPlease try again!");
+        }
 
         tasks[count] = new Event(eventDesc, from, to);
 
