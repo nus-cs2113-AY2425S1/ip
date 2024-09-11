@@ -48,13 +48,9 @@ public class Anke {
         if (line.equals("list")) {
             printList(tasks);
         } else if (line.length() > 5 && line.startsWith("mark ")) {
-            if (!markSuccessful(line, tasks)) {
-                createTask(tasks, line);
-            }
+            mark(line, tasks);
         } else if (line.length() > 7 && line.startsWith("unmark ")) {
-            if (!unmarkSuccessful(line, tasks)) {
-                createTask(tasks, line);
-            }
+            unmark(line, tasks);
         } else if (line.length() > 3 && line.startsWith("todo")) {
             createTodo(tasks, line);
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
@@ -66,33 +62,32 @@ public class Anke {
         }
     }
 
-    private static boolean markSuccessful(String line, Task[] tasks) {
+    private static void mark(String line, Task[] tasks) {
         try {
-            int index = Integer.parseInt(line.substring(5));
-            if (index <= count && index > 0) {
-                markTask(tasks, index);
-                return true;
-            }
+            int beginIndex = 5;
+            int index = getIndex(tasks, line, beginIndex);
+            markTask(tasks, index);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number after mark\n");
+        } catch (IndexOutOfRangeException e) {
+            System.out.println("Please enter a task index from 1 to " + count + "\n");
+        } catch (TaskSameStateException e) {
+            System.out.println("Task already completed\n");
         }
-        catch (NumberFormatException e) {
-            System.out.println("Please enter a valid number after mark");
-        }
-        return false;
     }
 
-    private static boolean unmarkSuccessful(String line, Task[] tasks) {
-        int index;
+    private static void unmark(String line, Task[] tasks) {
         try {
-            index = Integer.parseInt(line.substring(7));
-            if (index <= count && index > 0) {
-                unmarkTask(tasks, index);
-                return true;
-            }
+            int beginIndex = 7;
+            int index = getIndex(tasks, line, beginIndex);
+            unmarkTask(tasks, index);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number after unmark\n");
+        } catch (IndexOutOfRangeException e) {
+            System.out.println("Please enter a task index from 1 to " + count + "\n");
+        } catch (TaskSameStateException e) {
+            System.out.println("Task already not done\n");
         }
-        catch (NumberFormatException e) {
-            System.out.println("Please enter a valid number after unmark");
-        }
-        return false;
     }
 
     private static void markTask(Task[] tasks, int index) {
@@ -164,7 +159,28 @@ public class Anke {
         System.out.println("Now you have " + count + " tasks in the list.\n");
     }
 
-    public static String getTaskName(String line, int beginIndex, int endIndex) throws EmptyByOrFromException, EmptyTaskException {
+    private static int getIndex(Task[] tasks, String line, int beginIndex) throws NumberFormatException, IndexOutOfRangeException, TaskSameStateException {
+        try {
+            int index = Integer.parseInt(line.substring(beginIndex));
+            String state;
+            if (index < 0 || index > count) {
+                throw new IndexOutOfRangeException();
+            }
+            if (beginIndex == 5) {
+                state = "X";
+            } else {
+                state = " ";
+            }
+            if (tasks[index - 1].getStatusIcon() == state) {
+                throw new TaskSameStateException();
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        }
+    }
+
+    private static String getTaskName(String line, int beginIndex, int endIndex) throws EmptyByOrFromException, EmptyTaskException {
         if (endIndex == -1) {
             throw new EmptyByOrFromException();
         } else if (endIndex == -2 && beginIndex + 1 > line.length()) {
@@ -178,7 +194,7 @@ public class Anke {
         }
     }
 
-    public static String getFrom(String line, int fromIndex, int toIndex) throws EmptyToException, EmptyByOrFromException {
+    private static String getFrom(String line, int fromIndex, int toIndex) throws EmptyToException, EmptyByOrFromException {
         if (toIndex == -1 || toIndex + 4 > line.length() - 1) {
             throw new EmptyToException();
         } else if (fromIndex + 6 <= toIndex - 1){
@@ -188,7 +204,7 @@ public class Anke {
         }
     }
 
-    public static void handleWrongFormat() {
+    private static void handleWrongFormat() {
         System.out.println("Please follow the format (parameter inside {} must be non-empty!) : \n");
         System.out.println("list : visualizing tasks");
         System.out.println("mark {int n} : set task number {n} as done");
