@@ -10,11 +10,10 @@ public class Miku {
         String line = inputScanner.nextLine();
         printDivider();
 
-        while(!line.equals("bye")){
+        while (!line.equals("bye")) {
             try {
                 handleInput(line, taskList);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Please enter valid commands");
             }
             printDivider();
@@ -32,23 +31,23 @@ public class Miku {
         printDivider();
     }
 
-    private static String[] splitCommand(String line){
-        return line.split(" ",2);
+    private static String[] splitCommand(String line) {
+        return line.split(" ", 2);
     }
 
     private static void handleInput(String line, TaskList taskList) throws Exception {
-        if (line.equals("list")){
+        if (line.equals("list")) {
             taskList.printTaskList();
             return;
         }
-        String [] parts = splitCommand(line);
+        String[] parts = splitCommand(line);
 
-        if (parts.length<2){
+        if (parts.length < 2) {
             System.out.println("Insufficient arguments");
             return;
         }
 
-        String [] parameters = parts[1].split("/");
+        String[] parameters = parts[1].split("/");
 
         switch (parts[0]) {
         case "mark":
@@ -62,12 +61,12 @@ public class Miku {
             break;
         case "deadline":
             String dueDate = splitCommand(parameters[1])[1];
-            taskList.addTask(new Deadline(parameters[0],dueDate));
+            taskList.addTask(new Deadline(parameters[0], dueDate));
             break;
         case "event":
             String fromDate = splitCommand(parameters[1])[1];
             String toDate = splitCommand(parameters[2])[1];
-            taskList.addTask(new Event(parameters[0],fromDate,toDate));
+            taskList.addTask(new Event(parameters[0], fromDate, toDate));
             break;
         default:
             System.out.println("Invalid command");
@@ -78,16 +77,16 @@ public class Miku {
     /**
      * Prints a greeting to the user
      */
-    public static void printGreeting(){
+    public static void printGreeting() {
         String logo =
-            """
-             __  __   _   _           \s
-            |  \\/  | (_) | |          \s
-            | \\  / |  _  | | __  _   _\s
-            | |\\/| | | | | |/ / | | | |
-            | |  | | | | |   <  | |_| |
-            |_|  |_| |_| |_|\\_\\  \\__,_|
-            """;
+                """
+                         __  __   _   _           \s
+                        |  \\/  | (_) | |          \s
+                        | \\  / |  _  | | __  _   _\s
+                        | |\\/| | | | | |/ / | | | |
+                        | |  | | | | |   <  | |_| |
+                        |_|  |_| |_| |_|\\_\\  \\__,_|
+                        """;
         //Text to Ascii generated through https://patorjk.com/software/taag/
         System.out.println(logo);
 
@@ -99,7 +98,7 @@ public class Miku {
     /**
      * Prints a line divider consisting of _ characters
      */
-    public static void printDivider(){
+    public static void printDivider() {
         System.out.println("____________________________________________________________");
     }
 }

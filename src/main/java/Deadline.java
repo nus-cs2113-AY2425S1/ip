@@ -1,7 +1,7 @@
-public class Deadline extends Task{
+public class Deadline extends Task {
     String dueBy;
 
-    public Deadline(String taskInfo,String dueBy){
+    public Deadline(String taskInfo, String dueBy) {
         super(taskInfo);
         this.dueBy = dueBy;
     }
@@ -10,6 +10,6 @@ public class Deadline extends Task{
     public void printTask() {
         System.out.print("[D]");
         super.printTask();
-        System.out.println("(by: "+dueBy+")");
+        System.out.println("(by: " + dueBy + ")");
     }
 }
