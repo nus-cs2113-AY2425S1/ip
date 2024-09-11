@@ -1,5 +1,9 @@
+package org.ajay.task;
+
+import org.ajay.exceptions.EmptyArgumentException;
+
 public class Todo extends Task {
-    final static String COMMAND_STRING = "todo"; // Command string for the Todo class
+    public final static String COMMAND_STRING = "todo"; // Command string for the Todo class
 
     /**
      * Constructor for the Todo class.
