@@ -1,9 +1,11 @@
+import model.*;
+import exception.MondayException;
 import java.util.Scanner;
 
 public class Monday {
     private static final String LOGO = " __  __                 _             \n"
             + "|  \\/  | ___  _ __   __| | __ _ _   _ \n"
-            + "| |\\/| |/ _ \\| '_ \\ / _` |/ _` | | | |\n"
+            + "| |\\/| |/ _ \\| '_ \\ / _ |/ _ | | | |\n"
             + "| |  | | (_) | | | | (_| | (_| | |_| |\n"
             + "|_|  |_|\\___/|_| |_|\\__,_|\\__,_|\\__, |\n"
             + "                                |___/  \n";
@@ -98,7 +100,6 @@ public class Monday {
             System.out.println("    OOPS!!! " + e.getMessage());
         }
     }
-
 
     private void addTask(String input) throws MondayException {
         Task task = null;

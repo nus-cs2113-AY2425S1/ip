@@ -1,3 +1,5 @@
+package model;
+
 public class Deadline extends Task {
     protected String by;
 
