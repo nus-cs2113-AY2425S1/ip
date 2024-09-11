@@ -37,17 +37,21 @@ public class Monday {
             input = scanner.nextLine();
             System.out.println(LINE);
 
-            if (input.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (input.startsWith("mark ")) {
-                markTaskAsDone(input);
-            } else if (input.startsWith("unmark ")) {
-                unmarkTaskAsNotDone(input);
-            } else if (input.equalsIgnoreCase("bye")) {
-                printGoodbyeMessage();
-                break;
-            } else {
-                addTask(input);
+            try {
+                if (input.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark ")) {
+                    markTaskAsDone(input);
+                } else if (input.startsWith("unmark ")) {
+                    unmarkTaskAsNotDone(input);
+                } else if (input.equalsIgnoreCase("bye")) {
+                    printGoodbyeMessage();
+                    break;
+                } else {
+                    addTask(input); // This might throw a MondayException
+                }
+            } catch (MondayException e) {
+                System.out.println("    OOPS!!! " + e.getMessage());
             }
 
             System.out.println(LINE);
@@ -83,38 +87,50 @@ public class Monday {
         }
     }
 
-    private void addTask(String input) {
+    private void addTask(String input) throws MondayException {
         Task task = null;
 
         if (input.startsWith("todo ")) {
-            String description = input.substring(5);
+            String description = input.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new MondayException("The description of a todo cannot be empty.");
+            }
             task = new Todo(description);
 
         } else if (input.startsWith("deadline ")) {
             if (input.contains(" /by ")) {
                 String[] parts = input.substring(9).split(" /by ");
-                String description = parts[0];
-                String by = parts[1];
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                if (description.isEmpty() || by.isEmpty()) {
+                    throw new MondayException("The description or deadline time cannot be empty.");
+                }
                 task = new Deadline(description, by);
             } else {
-                System.out.println("    Invalid deadline format. Please use: deadline <description> /by <time>");
-                return;
+                throw new MondayException("Invalid deadline format. Please use: deadline <description> /by <time>");
             }
 
         } else if (input.startsWith("event ")) {
             if (input.contains(" /from ") && input.contains(" /to ")) {
                 String[] parts = input.substring(6).split(" /from | /to ");
-                String description = parts[0];
-                String from = parts[1];
-                String to = parts[2];
+                String description = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                    throw new MondayException("The description or event time cannot be empty.");
+                }
                 task = new Event(description, from, to);
             } else {
-                System.out.println("    Invalid event format. Please use: event <description> /from <start time> /to <end time>");
-                return;
+                throw new MondayException("Invalid event format. Please use: event <description> /from <start time> /to <end time>");
             }
 
+        } else if (input.trim().isEmpty()) {
+            throw new MondayException("The task description cannot be empty.");
         } else {
-            task = new Task(input);
+            // Provide user guidance for valid commands
+            throw new MondayException("Sorry, I don't understand the command. "
+                    + "Please use keywords like: 'todo', 'deadline', or 'event'. "
+                    + "For example, 'todo <description>' or 'deadline <description> /by <time>'.");
         }
 
         tasks[taskCount] = task;
