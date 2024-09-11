@@ -34,21 +34,43 @@ public class AnBot {
                 String description = input.substring(5).trim(); 
                 addList.addTodo(description); 
             } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by "); 
-                addList.addDeadline(parts[0].trim(), parts[1].trim());
+                try {
+                    String[] parts = input.substring(9).split(" /by "); 
+                    if (parts.length != 2) {
+                        throw new IllegalArgumentException("Input format is incorrect.");
+                    }
+                    addList.addDeadline(parts[0].trim(), parts[1].trim());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } 
+            } else if (input.startsWith("event ")) {
+                try {
+                    String[] parts = input.substring(6).split(" /from | /to ");
+                    if (parts.length != 3) {
+                        throw new IllegalArgumentException("Input format is incorrect.");
+                    }
+                    addList.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } 
             } else if (input.startsWith("mark ")) {
                 String inputNumber = input.substring(5).trim(); 
-                int number = Integer.parseInt(inputNumber); 
-                addList.markAsDone(number); 
-            } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                addList.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                try {
+                    int number = Integer.parseInt(inputNumber); 
+                    addList.markAsDone(number); 
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: The task index is not correct!");
+                }
             } else if (input.startsWith("unmark ")) {
                 String inputNumber = input.substring(7).trim(); 
-                int number = Integer.parseInt(inputNumber); 
-                addList.unmarkAsDone(number); 
+                try { 
+                    int number = Integer.parseInt(inputNumber); 
+                    addList.unmarkAsDone(number); 
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: The task index is not correct!");
+                }
             } else {
-                System.out.println("Error command.");;
+                System.out.println("Error command. Please enter another input.");;
             }
         }
     }
