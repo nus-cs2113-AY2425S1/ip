@@ -6,7 +6,7 @@ public class Todo extends Task {
      *
      * @param description
      */
-    public Todo(String description) {
+    public Todo(String description) throws EmptyArgumentException {
         super(description);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this.toString());

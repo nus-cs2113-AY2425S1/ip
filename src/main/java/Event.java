@@ -10,8 +10,11 @@ public class Event extends Task {
      * Constructor for the Event class.
      *
      * @param description description of the event
+     *
+     * @throws EmptyArgumentException
+     * @throws InvalidCommandFormatException
      */
-    public Event(String description) {
+    public Event(String description) throws EmptyArgumentException, InvalidCommandFormatException {
         super(getDescriptionFromString(description));
         setFrom(getFromFromString(description));
         setTo(getToFromString(description));
@@ -29,7 +32,7 @@ public class Event extends Task {
      * @param from        from date
      * @param to          to date
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws EmptyArgumentException {
         super(description);
     }
 
@@ -76,7 +79,7 @@ public class Event extends Task {
      *
      * @return description
      */
-    public static String getDescriptionFromString(String input) {
+    public static String getDescriptionFromString(String input) throws InvalidCommandFormatException {
 
         if (input == null) {
             return null;
@@ -95,10 +98,10 @@ public class Event extends Task {
      *
      * @return
      */
-    public static String getFromFromString(String input) {
+    public static String getFromFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null) {
-            return null;
+        if (input == null || !input.contains(FROM_KEYWORD_STRING)) {
+            throw new InvalidCommandFormatException("Invalid command format. Please include the from date. " + Error.INVAILD_COMMAND_FORMAT.toString());
         }
 
         int indexAfterFrom = input.indexOf(FROM_KEYWORD_STRING) + FROM_KEYWORD_STRING.length();
@@ -114,10 +117,10 @@ public class Event extends Task {
      *
      * @return
      */
-    public static String getToFromString(String input) {
+    public static String getToFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null) {
-            return null;
+        if (input == null || !input.contains(TO_KEYWORD_STRING)) {
+            throw new InvalidCommandFormatException("Invalid command format. Please include the to date. " + Error.INVAILD_COMMAND_FORMAT.toString());
         }
 
         int indexAfterTo = input.indexOf(TO_KEYWORD_STRING) + TO_KEYWORD_STRING.length();

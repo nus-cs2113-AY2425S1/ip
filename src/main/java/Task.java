@@ -13,7 +13,12 @@ public class Task {
      *
      * @param description
      */
-    public Task(String description) {
+    public Task(String description) throws EmptyArgumentException {
+
+        if (description == null || description.isEmpty()) {
+            throw new EmptyArgumentException("Description cannot be empty. " + Error.EMPTY_ARG.toString());
+        }
+
         this.description = description;
         this.isDone = false;
 

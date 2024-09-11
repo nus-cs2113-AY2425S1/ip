@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Jarvis {
@@ -78,7 +79,12 @@ public class Jarvis {
      *
      * @param lineBufferString
      */
-    public static void splitCommandAndTask(String lineBufferString) {
+    public static void splitCommandAndTask(String lineBufferString) throws EmptyArgumentException {
+
+        if (lineBufferString.isEmpty()) {
+            throw new EmptyArgumentException(Error.EMPTY_ARG.toString());
+        }
+
         if (lineBufferString.contains(" ")) {
             command = lineBufferString.split(" ")[0];
             task = lineBufferString.substring(command.length() + 1);
@@ -95,7 +101,7 @@ public class Jarvis {
      * @param lineBufferString
      */
     public static void readInput(Scanner in, String lineBufferString) {
-        try (in) {
+        try {
             printPrompt(); // Print the prompt to the console
             lineBufferString = in.nextLine();
             splitCommandAndTask(lineBufferString);
@@ -130,17 +136,21 @@ public class Jarvis {
                 int taskNumberUnmark = Integer.parseInt(task); // Get the task number
                 Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
                 break;
-            case "":
-                System.out.println("You did not enter anything. Please try again.");
-                break;
             default:
-                break;
+                throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
             }
 
             readInput(in, lineBufferString); // Recursively call the function to read the next input
-        } catch (Exception e) {
-            System.err.println("An error occurred. Please try again.");
+        } catch (NoSuchElementException e) {
+            // printGoodbyeMsgs();
+        } catch (EmptyArgumentException | IllegalCommandException | InvalidCommandFormatException e) {
+            printBreakLine();
+            System.out.println(e);
+            printBreakLine();
+            readInput(in, lineBufferString); // Let user try again
         }
+
+
     }
 
     public static void main(String[] args) {
