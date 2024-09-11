@@ -1,3 +1,9 @@
+package bob;
+
+import bob.task.Task;
+import bob.task.ToDo;
+import bob.task.Deadline;
+import bob.task.Event;
 import java.util.Scanner;
 
 public class Bob {
