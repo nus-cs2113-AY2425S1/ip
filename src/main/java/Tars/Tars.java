@@ -1,3 +1,10 @@
+package Tars;
+
+import Tars.Task.Deadline;
+import Tars.Task.Event;
+import Tars.Task.Task;
+import Tars.Task.Todo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +22,7 @@ public class Tars {
 
         // Opening speech.
         ui.printSeparator();
-        System.out.println("    Hello! I'm Tars.");
+        System.out.println("    Hello! I'm Tars.Tars.");
         System.out.println("    Ready to conquer the world? Or maybe just help with something smaller? What can I do for you?");
         ui.printSeparator();
 
@@ -194,7 +201,7 @@ public class Tars {
             // Mark the task as done
             taskList.get(taskNumber).markAsDone();
             ui.printSeparator();
-            System.out.println("    Great! Task marked as complete: ");
+            System.out.println("    Great! Tars.Task.Task marked as complete: ");
             System.out.println("    " + taskList.get(taskNumber));  // Display the marked task
             ui.printSeparator();
         }
@@ -225,7 +232,7 @@ public class Tars {
             // Unmark the task
             taskList.get(taskNumber).markAsNotDone();
             ui.printSeparator();
-            System.out.println("    Task has been unmarked. Let's get back to work: ");
+            System.out.println("    Tars.Task.Task has been unmarked. Let's get back to work: ");
             System.out.println("    " + taskList.get(taskNumber));  // Display the unmarked task
             ui.printSeparator();
         }
