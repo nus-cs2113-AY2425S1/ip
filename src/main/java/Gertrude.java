@@ -1,9 +1,14 @@
+import java.security.Key;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Gertrude {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final Integer MAXIMUM_TASKS = 100;
+    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event"};
+    public static final String[] ONE_WORD_KEYWORDS = {"bye", "list"};
+
 
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -52,33 +57,54 @@ public class Gertrude {
         addTask(newTodo, name, tasks);
     }
 
-    public static void addDeadline(String[] lineInputArr, Task[] tasks) {
+    public static void addDeadline(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
         String description = "";
         String deadline = "";
+        boolean hasBy = false;
         boolean isDeadline = false;
+
         for(int i = 1; i < lineInputArr.length; i++) {
             if (lineInputArr[i].equals("/by")) {
                 isDeadline = true;
+                hasBy = true;
             } else if (!isDeadline) {
                 description = description + lineInputArr[i] + " ";
             } else {
                 deadline = deadline + lineInputArr[i] + " ";
             }
         }
+
+        if(description.isEmpty()) {
+            System.out.println("Description is missing");
+            throw new GertrudeException();
+        }
+        if(!hasBy) {
+            System.out.println("/by is missing.");
+            throw new KeywordException();
+        }
+        if(deadline.isEmpty()) {
+            System.out.println("Deadline is empty.");
+            throw new GertrudeException();
+        }
+
         Deadline newDeadline = new Deadline(description, deadline);
         addTask(newDeadline, description, tasks);
     }
 
-    public static void addEvent(String[] lineInputArr, Task[] tasks) {
+    public static void addEvent(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
         String description = "";
         String start = "";
         String end = "";
         String section = "description";
+        boolean hasFrom = false;
+        boolean hasTo = false;
         for(int i = 1; i < lineInputArr.length; i++) {
             if (lineInputArr[i].equals("/from")) {
                 section = "from";
+                hasFrom = true;
             } else if (lineInputArr[i].equals("/to")) {
                 section = "to";
+                hasTo = true;
             } else if (section.equals("description")) {
                 description += lineInputArr[i] + " ";
             } else if (section.equals("from")) {
@@ -87,12 +113,34 @@ public class Gertrude {
                 end += lineInputArr[i] + " ";
             }
         }
+
+        if(description.isEmpty()) {
+            System.out.println("Description is empty.");
+            throw new GertrudeException();
+        }
+        if(!hasFrom) {
+            System.out.println("/from is missing.");
+            throw new KeywordException();
+        }
+        if(start.isEmpty()) {
+            System.out.println("From is empty.");
+            throw new GertrudeException();
+        }
+        if(!hasTo) {
+            System.out.println("/to is missing.");
+            throw new KeywordException();
+        }
+        if(end.isEmpty()) {
+            System.out.println("To is empty.");
+            throw new GertrudeException();
+        }
+
         Event newEvent = new Event(description, start, end);
         addTask(newEvent, description, tasks);
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GertrudeException {
         printIntroduction();
         Task[] tasks = new Task[MAXIMUM_TASKS];
         boolean runLoop = true;
@@ -103,31 +151,49 @@ public class Gertrude {
             String[] lineInputArr = lineInput.split(" ");
             printHorizontalLine();
 
-            switch (lineInputArr[0]) {
-            case "bye":
-                printGoodbyeMessage();
-                runLoop = false;
-                break;
-            case "list":
-                printList(tasks);
-                break;
-            case "mark", "unmark":
-                markTask(lineInputArr, tasks);
-                break;
-            case "todo":
-                addTodo(lineInputArr, tasks);
-                break;
-            case "deadline":
-                addDeadline(lineInputArr, tasks);
-                break;
-            case "event":
-                addEvent(lineInputArr, tasks);
-                break;
-            default:
-                System.out.println("That is not a valid input.");
-                break;
+            try {
+                if (lineInputArr.length <= 1 && !Arrays.asList(ONE_WORD_KEYWORDS).contains(lineInputArr[0])) {
+                    System.out.println("The description of your task cannot be empty.");
+                    throw new GertrudeException();
+                }
+            } catch (GertrudeException e) {
+                System.out.println("Please try again.");
+                printHorizontalLine();
+                continue;
             }
-            printHorizontalLine();
+
+            try {
+                switch (lineInputArr[0]) {
+                case "bye":
+                    printGoodbyeMessage();
+                    runLoop = false;
+                    break;
+                case "list":
+                    printList(tasks);
+                    break;
+                case "mark", "unmark":
+                    markTask(lineInputArr, tasks);
+                    break;
+                case "todo":
+                    addTodo(lineInputArr, tasks);
+                    break;
+                case "deadline":
+                    addDeadline(lineInputArr, tasks);
+                    break;
+                case "event":
+                    addEvent(lineInputArr, tasks);
+                    break;
+                default:
+                    System.out.println("That is not a valid input.");
+                    throw new GertrudeException();
+                }
+            } catch (GertrudeException e) {
+                System.out.println("Please try again.");
+            } catch (KeywordException e) {
+                System.out.println("Please make sure you're entering the correct keywords.");
+            } finally {
+                printHorizontalLine();
+            }
         }
     }
 }
