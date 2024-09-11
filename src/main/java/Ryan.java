@@ -15,6 +15,7 @@ public class Ryan {
             String[] splitInput = userInput.split(" ", 2);
             String Command = splitInput[0];
             String inputBody = splitInput.length > 1 ? splitInput[1] : "";
+
             try {
                 switch (Command) {
                     case "bye":
@@ -81,7 +82,7 @@ public class Ryan {
             tasks.get(index).mark();
             System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
         } else {
-            throw new RyanException("Error: Invalid task number.");
+            throw new RyanException("Invalid task number.");
         }
         Utils.horizontalLine();
     }
@@ -93,7 +94,7 @@ public class Ryan {
             tasks.get(index).unmark();
             System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
         } else {
-            throw new RyanException("Error: Invalid task number.");
+            throw new RyanException("Invalid task number.");
         }
         Utils.horizontalLine();
     }
@@ -108,7 +109,7 @@ public class Ryan {
 
     private static void addTask(ArrayList<Task> tasks, String userInput) throws RyanException {
         if (userInput.trim().isEmpty()) {
-            throw new RyanException("Error: Task description cannot be empty");
+            throw new RyanException("Task description cannot be empty");
         }
 
         Utils.horizontalLine();
@@ -120,7 +121,7 @@ public class Ryan {
 
     private static void addTodo(ArrayList<Task> tasks, String command) throws RyanException {
         if (command.trim().isEmpty()) {
-            throw new RyanException("Error: Todo task description cannot be empty.");
+            throw new RyanException("Todo task description cannot be empty.");
         }
 
         Utils.horizontalLine();
@@ -137,7 +138,7 @@ public class Ryan {
         String[] splitCommand = command.split("/by", 2);
 
         if (splitCommand.length < 2) {
-            throw new RyanException("Error: Deadline tasks should be in the format 'description /by deadline'.");
+            throw new RyanException("Deadline tasks should be in the format 'description /by deadline'.");
         }
 
         String description = splitCommand[0].trim();
@@ -157,14 +158,14 @@ public class Ryan {
         String[] splitFrom = command.split("/from", 2);
 
         if (splitFrom.length < 2) {
-            throw new RyanException("Error: Event tasks should be in the format 'description /from start-time /to end-time'.");
+            throw new RyanException("Event tasks should be in the format 'description /from start-time /to end-time'.");
         }
 
         String description = splitFrom[0].trim();
         String[] splitTo = splitFrom[1].split("/to", 2);
 
         if (splitTo.length < 2) {
-            throw new RyanException("Error: Event tasks should include both start-time and end-time.");
+            throw new RyanException("Event tasks should include both start-time and end-time.");
         }
 
         String from = splitTo[0].trim();
@@ -179,7 +180,7 @@ public class Ryan {
     }
 
     private static void handleError(RyanException e) {
-        System.out.println(e.getMessage());
+        System.out.println("Error: " + e.getMessage());
         Utils.horizontalLine();
     }
 
