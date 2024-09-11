@@ -70,7 +70,7 @@ public class Freedom {
             System.out.println(LOGO + "\tSorry! I do not understand your command");
             System.out.println(LOGO);
         } catch (Exception e) {
-
+            System.out.print("");
         }
     }
 
