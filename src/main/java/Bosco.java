@@ -1,11 +1,13 @@
 import java.util.Scanner;
 
 public class Bosco {
-    private static final String DIVIDER = "\t____________________________________________________________";
-    private static final String INDENT_LARGE = "\t   ";
-    private static final String MESSAGE_MARK_DONE = "\t Nice! I've marked this task as done:";
-    private static final String MESSAGE_MARK_UNDONE = "\t OK, I've marked this task as not done yet:";
-    private static final String MESSAGE_ADDED_TASK = "\t Got it. I've added this task:";
+    private static final String DIVIDER =
+            "\t________________________________________________________________________________";
+    private static final String INDENT_START = "\t ";
+    private static final String INDENT_EXTRA = "  ";
+    private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
+    private static final String MESSAGE_MARK_UNDONE = "OK, I've marked this task as not done yet:";
+    private static final String MESSAGE_ADDED_TASK = "Got it. I've added this task:";
     private static final String DEADLINE_PREFIX_BY = "/by";
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
@@ -17,17 +19,17 @@ public class Bosco {
     private static int taskCount = 0;
 
     private static void printWelcomeMessage() {
-        printMessages("\t Hello! I'm Bosco APD.", "\t What can I do for you?");
+        printMessages("Hello! I'm Bosco APD.", "What can I do for you?");
     }
 
     private static void printExitMessage() {
-        printMessages("\t Bye! Hope to see you again soon!");
+        printMessages("Bye! Hope to see you again soon!");
     }
 
     private static void printMessages(String... messages) {
         System.out.println(DIVIDER);
         for (String message : messages) {
-            System.out.println(message);
+            System.out.println(INDENT_START + message);
         }
         System.out.println(DIVIDER);
     }
@@ -41,7 +43,8 @@ public class Bosco {
         return userInputString;
     }
 
-    private static void executeCommand(String userInputString) {
+    private static void executeCommand(String userInputString)
+            throws IllegalCommandException, EmptyDescriptionException, MissingPrefixException {
         String[] commandTypeAndArgs = splitCommandTypeAndArgs(userInputString);
         String commandType = commandTypeAndArgs[0];
         String commandArgs = commandTypeAndArgs[1];
@@ -68,10 +71,7 @@ public class Bosco {
         case "exit":
             executeExitProgram();
         default:
-            taskList[taskCount] = new Task(userInputString);
-            taskCount++;
-            printMessages("\t added: " + userInputString);
-            break;
+            throw new IllegalCommandException();
         }
     }
 
@@ -81,44 +81,77 @@ public class Bosco {
     }
 
     private static String getTaskCountMessage() {
-        return String.format("\t Now you have %1$d tasks in the list.", taskCount);
+        return String.format("Now you have %1$d tasks in the list.", taskCount);
     }
 
     private static void executeListTasks() {
+        if (taskCount == 0) {
+            printMessages("No tasks in list. You're all caught up!");
+            return;
+        }
         System.out.println(DIVIDER);
         for (int i = 0; i < taskCount; i++) {
-            System.out.println("\t " + (i + 1) + "." + taskList[i]);
+            System.out.println(INDENT_START + (i + 1) + "." + taskList[i]);
         }
         System.out.println(DIVIDER);
     }
 
     private static void executeMarkTask(String commandArgs) {
-        Task selectedTask = taskList[Integer.parseInt(commandArgs) - 1];
+        int taskNumber = Integer.parseInt(commandArgs);
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task selectedTask = taskList[taskNumber - 1];
         selectedTask.markAsDone();
-        printMessages(MESSAGE_MARK_DONE, INDENT_LARGE + selectedTask);
+        printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
     }
 
     private static void executeUnmarkTask(String commandArgs) {
-        Task selectedTask = taskList[Integer.parseInt(commandArgs) - 1];
+        int taskNumber = Integer.parseInt(commandArgs);
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task selectedTask = taskList[taskNumber - 1];
         selectedTask.markAsNotDone();
-        printMessages(MESSAGE_MARK_UNDONE, INDENT_LARGE + selectedTask);
+        printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
     }
 
-    private static void executeAddTodo(String commandArgs) {
-        addToTaskList(new Todo(commandArgs.strip()));
+    private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
+        String description = commandArgs.strip();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        addToTaskList(new Todo(description));
     }
 
-    private static void executeAddDeadline(String commandArgs) {
+    private static void executeAddDeadline(String commandArgs)
+            throws EmptyDescriptionException, MissingPrefixException {
         int indexOfByPrefix = commandArgs.indexOf(DEADLINE_PREFIX_BY);
+        if (indexOfByPrefix == -1) {
+            throw new MissingPrefixException(DEADLINE_PREFIX_BY);
+        }
         String description = commandArgs.substring(0, indexOfByPrefix).strip();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
         addToTaskList(new Deadline(description, by));
     }
 
-    private static void executeAddEvent(String commandArgs) {
+    private static void executeAddEvent(String commandArgs)
+            throws EmptyDescriptionException, MissingPrefixException {
         int indexOfFromPrefix = commandArgs.indexOf(EVENT_PREFIX_FROM);
+        if (indexOfFromPrefix == -1) {
+            throw new MissingPrefixException(EVENT_PREFIX_FROM);
+        }
         int indexOfToPrefix = commandArgs.indexOf(EVENT_PREFIX_TO);
+        if (indexOfToPrefix == -1) {
+            throw new MissingPrefixException(EVENT_PREFIX_TO);
+        }
         String description = commandArgs.substring(0, indexOfFromPrefix).strip();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
                 EVENT_PREFIX_FROM).strip();
         String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
@@ -132,7 +165,7 @@ public class Bosco {
     private static void addToTaskList(Task newTask) {
         taskList[taskCount] = newTask;
         taskCount++;
-        printMessages(MESSAGE_ADDED_TASK, INDENT_LARGE + newTask, getTaskCountMessage());
+        printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
     }
 
     private static void executeExitProgram() {
@@ -144,7 +177,19 @@ public class Bosco {
         printWelcomeMessage();
         while (true) {
             String userInputString = getUserInput();
-            executeCommand(userInputString);
+            try {
+                executeCommand(userInputString);
+            } catch (IllegalCommandException e) {
+                printMessages("Error: invalid command. Please try again!");
+            } catch (NumberFormatException e) {
+                printMessages("Error: invalid mark/unmark input. Please provide a number!");
+            } catch (IndexOutOfBoundsException e) {
+                printMessages("Error: input out of bounds. List has " + taskCount + " tasks.");
+            } catch (EmptyDescriptionException e) {
+                printMessages("Error: task description is empty. Please provide a description!");
+            } catch (MissingPrefixException e) {
+                printMessages("Error: missing " + e.missingPrefix + " prefix.");
+            }
         }
     }
 }
