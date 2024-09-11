@@ -21,7 +21,7 @@ public class Apsea {
 
     public static void printError() {
         printLine();
-        System.out.println("    Sorry, please try again.");
+        System.out.println("    Sorry, please try again with a valid command.");
         printLine();
     }
 
@@ -33,8 +33,8 @@ public class Apsea {
         printLine();
     }
 
-    public static void markTask(Task[] tasks, String taskNumber) {
-        int taskIndex = Integer.parseInt(taskNumber) - 1;
+    public static void markTask(Task[] tasks, String[] words) {
+        //int taskIndex = Integer.parseInt(taskNumber) - 1;
 
         /*if (taskIndex < count) {
             tasks[taskIndex].markAsDone();
@@ -47,6 +47,7 @@ public class Apsea {
             printError();
         }*/
         try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
             tasks[taskIndex].markAsDone();
 
             printLine();
@@ -54,12 +55,15 @@ public class Apsea {
             System.out.println("    " + tasks[taskIndex]);
             printLine();
         } catch (Exception e) {
-            printError();
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    mark [number]");
+            printLine();
         }
     }
 
-    public static void unmarkTask(Task[] tasks, String taskNumber) {
-        int taskIndex = Integer.parseInt(taskNumber) - 1;
+    public static void unmarkTask(Task[] tasks, String[] words) {
+        //int taskIndex = Integer.parseInt(taskNumber) - 1;
 
         /*if (taskIndex < count) {
             tasks[taskIndex].markAsUndone();
@@ -73,6 +77,7 @@ public class Apsea {
             printError();
         }*/
         try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
             tasks[taskIndex].markAsUndone();
 
             printLine();
@@ -80,7 +85,10 @@ public class Apsea {
             System.out.println("    " + tasks[taskIndex]);
             printLine();
         } catch (Exception e) {
-            printError();
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    unmark [number]");
+            printLine();
         }
     }
 
@@ -96,7 +104,10 @@ public class Apsea {
             System.out.println("    Now you have " + count + " task(s) in the list:");
             printLine();
         } catch (Exception e) {
-            printError();
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    todo [task name] /by [time]");
+            printLine();
         }
     }
     public static boolean isValidDeadline(String line, int byPosition) {
@@ -132,7 +143,10 @@ public class Apsea {
             System.out.println("    Now you have " + count + " task(s) in the list:");
             printLine();
         } catch (Exception e) {
-            printError();
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    deadline [task name] /by [time]");
+            printLine();
         }
     }
 
@@ -181,7 +195,10 @@ public class Apsea {
             System.out.println("    Now you have " + count + " task(s) in the list:");
             printLine();
         } catch (Exception e) {
-            printError();
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    event [task name] /from [time] /to [time]");
+            printLine();
         }
     }
 
@@ -209,10 +226,10 @@ public class Apsea {
                 addEvent(line);
                 break;
             case "mark":
-                markTask(tasks, words[1]);
+                markTask(tasks, words);
                 break;
             case "unmark":
-                unmarkTask(tasks, words[1]);
+                unmarkTask(tasks, words);
                 break;
             default:
                 printError();
