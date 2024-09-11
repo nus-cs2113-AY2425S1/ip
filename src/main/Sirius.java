@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import task.*;
 import exception.*;
 
-
 public class Sirius {
     // some commands
     public static final String BYE = "bye";
@@ -29,7 +28,7 @@ public class Sirius {
     // data members
     private static int taskCounter = 0;
     private static boolean isExit = true;
-    private static boolean isValidToAdd = true;
+    private static boolean isValidToProcess = true;
     private static final ArrayList<Task> list = new ArrayList<>();
 
     // some methods
@@ -52,12 +51,7 @@ public class Sirius {
     public static void markTask(String[] commandPieces, ArrayList<Task> list, boolean isMarked) {
         System.out.println(SEPARATOR);
         try {
-            if (Objects.equals(commandPieces[1], "")){
-                // Deal with input "mark" without an index
-                throw new IncompleteCommandException("The command is incomplete! The mark index cannot be empty!");
-            }
             int taskNumber = Integer.parseInt(commandPieces[1]);
-
             if (isMarked) {
                 list.get(taskNumber - 1).setMarked(true);
                 System.out.println("Nice! I've marked this task as done:");
@@ -68,9 +62,9 @@ public class Sirius {
             System.out.println(list.get(taskNumber - 1).toString());
             System.out.println(SEPARATOR);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("The task index is out of bounds!");
+            System.out.println("The task index is out of bounds! Please enter a valid task index");
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid index number!");
+            System.out.println("The task index must be a number! Please enter a valid index number!");
         }
     }
     public static void addTask(String[] commandPieces, ArrayList<Task> list){
@@ -114,25 +108,25 @@ public class Sirius {
             switch (commandPrefix) {
                 case MARK:
                 case UNMARK:
-                    if (taskName.isEmpty()){ //list or mark/task empty
-                        isValidToAdd = false;
-                        throw new IncompleteCommandException("The command is incomplete! The mark index cannot be empty!");
+                    if (taskName.isEmpty()){
+                        isValidToProcess = false;
+                        throw new IncompleteCommandException("task index");
                     }
                     break;
                 case TODO:
-                     if (taskName.isEmpty()) { //list or mark/task empty
-                         isValidToAdd = false;
-                         throw new IncompleteCommandException(commandPrefix, " cannot be empty!");
+                     if (taskName.isEmpty()) {
+                         isValidToProcess = false;
+                         throw new IncompleteCommandException(commandPrefix);
                      }
                      break;
                 case DEADLINE:
                      int indexOfBy = userInput.indexOf("by");
                      if (taskName.isEmpty()) { //list or mark/task empty
-                         isValidToAdd = false;
-                         throw new IncompleteCommandException(commandPrefix, " cannot be empty!");
+                         isValidToProcess = false;
+                         throw new IncompleteCommandException(commandPrefix);
                      }
                      else if (indexOfBy == -1) {
-                         isValidToAdd = false;
+                         isValidToProcess = false;
                          throw new InvalidTaskContentException("You should declare '/by' for deadline");
                      }
                      else {
@@ -143,11 +137,11 @@ public class Sirius {
                     int indexOfFrom = userInput.indexOf("from");
                     int indexOfTo = userInput.indexOf("to");
                     if (taskName.isEmpty()) { //list or mark/task empty
-                        isValidToAdd = false;
-                        throw new IncompleteCommandException(commandPrefix, " cannot be empty!");
+                        isValidToProcess = false;
+                        throw new IncompleteCommandException(commandPrefix);
                     }
                     else if (indexOfFrom == -1 || indexOfTo == -1) {
-                        isValidToAdd = false;
+                        isValidToProcess = false;
                         throw new InvalidTaskContentException("You should declare '/from' and '/to' for event");
                     }
                     else {
@@ -156,10 +150,8 @@ public class Sirius {
                         return commandPieces;
                     }
                 }
-        } catch (InvalidTaskContentException e) {
+        } catch (InvalidTaskContentException | IncompleteCommandException e) {
             System.out.println(e.getMessage());
-        } catch (IncompleteCommandException e){
-            System.out.println("OOPS! The content of " + e.getMessage());
         }
         return commandPieces;
     }
@@ -168,7 +160,7 @@ public class Sirius {
         sayHello();
         Scanner scanner = new Scanner(System.in);
         while (isExit) {
-            isValidToAdd = true; // reset
+            isValidToProcess = true; // reset
             String userInput = scanner.nextLine();
             String[] commandPieces = splitCommand(userInput);
             String commandPrefix = commandPieces[0];
@@ -181,24 +173,24 @@ public class Sirius {
                         listTasks(list);
                         break;
                     case MARK:
-                        if (isValidToAdd){
+                        if (isValidToProcess){
                             markTask(commandPieces, list, true);
                         }
                         break;
                     case UNMARK:
-                        if (isValidToAdd) {
+                        if (isValidToProcess) {
                             markTask(commandPieces, list, false);
                         }
                         break;
                     case TODO:
                     case DEADLINE:
                     case EVENT:
-                        if (isValidToAdd){
+                        if (isValidToProcess) {
                             addTask(commandPieces, list);
                         }
                         break;
                     default:
-                        throw new IllegalCommandException("Sorry, please enter an illegal command!");
+                        throw new IllegalCommandException("I don't understand it. Please enter an illegal command!");
                 }
             } catch(IllegalCommandException e){
                 System.out.println(e.getMessage());
