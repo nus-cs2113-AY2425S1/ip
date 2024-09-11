@@ -16,7 +16,7 @@ ____________________________________________________
 Aether:
 Got it. I've added this task:
   [T][ ] borrow book
-Now you have 1 task in the list.
+Now you have 1 tasks in the list.
 ____________________________________________________
 You:
 ____________________________________________________
@@ -51,6 +51,28 @@ ____________________________________________________
 Aether:
 OK, I've marked this task as not done yet:
 2.[D][ ] return book (by: Sunday)
+____________________________________________________
+You:
+____________________________________________________
+Aether:
+Invalid task number. Please enter a valid task index.
+____________________________________________________
+You:
+____________________________________________________
+Aether:
+Please enter a deadline in the format:
+description /by date.
+____________________________________________________
+You:
+____________________________________________________
+Aether:
+Please enter an event in the format:
+description /from start_time /to end_time.
+____________________________________________________
+You:
+____________________________________________________
+Aether:
+Invalid command. Please try again.
 ____________________________________________________
 You:
 ____________________________________________________

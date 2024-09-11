@@ -4,4 +4,8 @@ event project meeting /from Mon 2pm /to 4pm
 list
 mark 1
 unmark 2
+mark 4
+deadline return book
+event project meeting /from Mon 2pm
+unknowncommand
 bye
