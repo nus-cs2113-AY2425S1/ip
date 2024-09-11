@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class Ryan {
 
     public static void main(String[] args) {
-        boolean exit = false;
+        boolean isExiting = false;
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
 
         printGreeting();
 
-        while (!exit) {
+        while (!isExiting) {
             String userInput = scanner.nextLine();
             String[] splitInput = userInput.split(" ", 2);
             String Command = splitInput[0];
@@ -18,7 +18,7 @@ public class Ryan {
 
             switch (Command) {
                 case "bye":
-                    exit = true;
+                    isExiting = true;
                     Utils.horizontalLine();
                     break;
 
