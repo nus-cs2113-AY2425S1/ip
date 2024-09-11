@@ -141,11 +141,7 @@ public class Bosco {
     }
 
     public static void main(String[] args) {
-        String description;
-        Task selectedTask;
-
         printWelcomeMessage();
-
         while (true) {
             String userInputString = getUserInput();
             executeCommand(userInputString);
