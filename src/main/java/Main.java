@@ -87,7 +87,7 @@ public class Main {
         String taskDescription=enteredString.substring("todo".length());
         return new ToDos(taskDescription);
     }
-    public void addNewTask(String enteredString) {
+    public void addNewTask(String enteredString) throws Exception {
         Task newTask;
 
         if(enteredString.startsWith("deadline")) {
@@ -108,7 +108,7 @@ public class Main {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
     }
-    public void talkToUser() {
+    public void talkToUser() throws Exception {
         giveIntroduction();
         do {
             String enteredString= sc.nextLine();
@@ -128,6 +128,10 @@ public class Main {
 
     public static void main(String[] args) {
         Main Edith = new Main("Edith");
-        Edith.talkToUser();
+        try {
+            Edith.talkToUser();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
