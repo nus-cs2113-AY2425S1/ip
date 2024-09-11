@@ -1,4 +1,8 @@
-import Exceptions.IllegalCommandException;
+import classes.Deadlines;
+import classes.Event;
+import classes.Task;
+import classes.Todo;
+import exceptions.IllegalCommandException;
 import java.util.Scanner;
 
 public class Nateh {

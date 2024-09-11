@@ -1,3 +1,5 @@
+package classes;
+
 public class Task {
     protected static int length = 0;
     protected String task;
