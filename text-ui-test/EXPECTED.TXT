@@ -5,6 +5,7 @@ _________________________________________________________
 _________________________________________________________
 Currently, I am able to execute the following functions:
 1. Add tasks: I can add tasks to your task list.
+   - Type command: <task>
    - Type command: todo <task>
    - Type command: deadline <task> /by <date>
    - Type command: event <task> /from <day> <start time> /to <end time>
