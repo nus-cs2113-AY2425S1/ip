@@ -183,7 +183,9 @@ public class Tars {
             System.out.println("    Great! Task marked as complete: ");
             System.out.println("    " + taskList.get(taskNumber));  // Display the marked task
             ui.printSeparator();
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             // If user input is not a valid number, provide a clear correction method
             throw new TarsException("Uh-oh! That doesn't look like a number. Make sure to enter 'mark' followed by the task number. For example: 'mark 1'.");
         }
@@ -192,7 +194,8 @@ public class Tars {
     public static void unmarkTask(String input, List<Task> taskList, UserInterface ui) throws TarsException {
         try {
             // Check if input contains a space between 'unmark' and the task number
-            if (!input.contains(" ")) {
+            if (!input.contains(" "))
+            {
                 throw new TarsException("Oops! The correct format is 'unmark <task number>'. For example: 'unmark 1'.");
             }
 
@@ -200,7 +203,8 @@ public class Tars {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
             // Check if task number is within valid range
-            if (taskNumber < 0 || taskNumber >= taskList.size()) {
+            if (taskNumber < 0 || taskNumber >= taskList.size())
+            {
                 throw new TarsException("Oops! That task number is out of range. Try picking a number between 1 and " + taskList.size() + ". Don't worry, you'll get it!");
             }
 
@@ -210,7 +214,9 @@ public class Tars {
             System.out.println("    Task has been unmarked. Let's get back to work: ");
             System.out.println("    " + taskList.get(taskNumber));  // Display the unmarked task
             ui.printSeparator();
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             // If user input is not a valid number, provide a clear correction method
             throw new TarsException("Hmm, that doesn't look like a number. Remember, you need to enter 'unmark' followed by the task number. For example: 'unmark 1'.");
         }
