@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Miku {
@@ -35,38 +36,69 @@ public class Miku {
         return line.split(" ", 2);
     }
 
-    private static void handleInput(String line, TaskList taskList) throws Exception {
+    private static HashMap<String,String> parseOptions(String line) {
+        String[] parameters = line.split("/");
+        HashMap<String,String> options = new HashMap<>();
+        for (String parameter : parameters) {
+            String[] parts = splitCommand(parameter);
+            options.put(parts[0], parts[1]);
+        }
+        return options;
+    }
+
+    private static boolean doesOptionsMapContainNull(HashMap<String,String> options,String[] requiredOptions) {
+        for (String option:requiredOptions){
+            if (!options.containsKey(option)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void handleInput(String line, TaskList taskList) {
         if (line.equals("list")) {
             taskList.printTaskList();
             return;
         }
+
+        // Split the command into one part and the options into another
         String[] parts = splitCommand(line);
 
+        // Every command other than list takes in at least one option
         if (parts.length < 2) {
-            System.out.println("Insufficient arguments");
+            System.out.println("Insufficient arguments or Invalid command");
             return;
         }
 
-        String[] parameters = parts[1].split("/");
+        HashMap<String,String> options = parseOptions(parts[1]);
 
         switch (parts[0]) {
         case "mark":
-            taskList.attemptToMarkTask(parameters[0]);
+            taskList.attemptToMarkTask(parts[1]);
             break;
         case "unmark":
-            taskList.attemptToUnmarkTask(parameters[0]);
+            taskList.attemptToUnmarkTask(parts[1]);
             break;
         case "todo":
-            taskList.addTask(new Todo(parameters[0]));
+            if (doesOptionsMapContainNull(options,new String[] {"desc"})) {
+                System.out.println("Please provide required options");
+                break;
+            }
+            taskList.addTask(new Todo(options.get("desc")));
             break;
         case "deadline":
-            String dueDate = splitCommand(parameters[1])[1];
-            taskList.addTask(new Deadline(parameters[0], dueDate));
+            if (doesOptionsMapContainNull(options,new String[] {"desc","by"})) {
+                System.out.println("Please provide required options");
+                break;
+            }
+            taskList.addTask(new Deadline(options.get("desc"), options.get("by")));
             break;
         case "event":
-            String fromDate = splitCommand(parameters[1])[1];
-            String toDate = splitCommand(parameters[2])[1];
-            taskList.addTask(new Event(parameters[0], fromDate, toDate));
+            if (doesOptionsMapContainNull(options,new String[] {"desc","from","to"})) {
+                System.out.println("Please provide required options");
+                break;
+            }
+            taskList.addTask(new Event(options.get("desc"), options.get("from"), options.get("to")));
             break;
         default:
             System.out.println("Invalid command");
