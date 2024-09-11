@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Anke {
     static int count = 0;
+    static Scanner in = new Scanner(System.in);
 
     public static void printWelcome() {
         System.out.println("Hello! I'm Anke.");
@@ -15,7 +16,6 @@ public class Anke {
 
     private static String getInput() {
         String line;
-        Scanner in = new Scanner(System.in);
         line = in.nextLine().trim();
         return line;
     }
@@ -55,14 +55,14 @@ public class Anke {
             if (!unmarkSuccessful(line, tasks)) {
                 createTask(tasks, line);
             }
-        } else if (line.length() > 5 && line.startsWith("todo ")) {
+        } else if (line.length() > 3 && line.startsWith("todo")) {
             createTodo(tasks, line);
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
             createDeadline(tasks, line);
         } else if (line.length() > 6 && line.startsWith("event ")) {
             createEvent(tasks, line);
         } else {
-            createTask(tasks, line);
+            handleWrongFormat();
         }
     }
 
@@ -75,6 +75,7 @@ public class Anke {
             }
         }
         catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number after mark");
         }
         return false;
     }
@@ -89,6 +90,7 @@ public class Anke {
             }
         }
         catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number after unmark");
         }
         return false;
     }
@@ -111,29 +113,88 @@ public class Anke {
     }
 
     private static void createTodo(Task[] tasks, String line) {
-        Task task = new Todo(line.substring(5));
-        addTask(tasks, task);
+        try{
+            int beginIndex = 5;
+            String taskName = getTaskName(line, beginIndex, -2);
+            Task task = new Todo(taskName);
+            addTask(tasks, task);
+        } catch (EmptyTaskException e) {
+            System.out.println("The description of a todo cannot be empty.\n");
+        } catch (EmptyByOrFromException e) {
+        }
     }
 
     private static void createDeadline(Task[] tasks, String line) {
-        int byIndex = line.indexOf("/by");
-        Task task = new Deadline(line.substring(9, byIndex - 1), line.substring(byIndex + 4));
-        addTask(tasks, task);
+        try {
+            int beginIndex = 9;
+            int byIndex = line.indexOf("/by");
+            String taskName = getTaskName(line, beginIndex, byIndex);
+            Task task = new Deadline(taskName, line.substring(byIndex + 4));
+            addTask(tasks, task);
+        } catch (EmptyTaskException e) {
+            System.out.println("The description of a deadline cannot be empty.\n");
+        } catch (EmptyByOrFromException e) {
+            System.out.println("Please enter the deadline after \"/by\". \n");
+        }
     }
 
     private static void createEvent(Task[] tasks, String line) {
-        int fromIndex = line.indexOf("/from");
-        int toIndex = line.indexOf("/to");
-        Task task = new Event(line.substring(6, fromIndex - 1), line.substring(fromIndex + 6, toIndex - 1), line.substring(toIndex + 4));
-        addTask(tasks, task);
+        try {
+            int beginIndex = 6;
+            int fromIndex = line.indexOf("/from");
+            int toIndex = line.indexOf("/to");
+            String taskName = getTaskName(line, beginIndex, fromIndex);
+            String from = getFrom(line, fromIndex, toIndex);
+            Task task = new Event(taskName, from, line.substring(toIndex + 4));
+            addTask(tasks, task);
+        } catch (EmptyTaskException e) {
+            System.out.println("The description of an event cannot be empty.\n");
+        } catch (EmptyByOrFromException e) {
+            System.out.println("Please enter the start time of event after \"/from\". \n");
+        } catch (EmptyToException e) {
+            System.out.println("Please enter the end time of event after \"/to\". \n");
+        }
     }
 
     private static void addTask(Task[] tasks, Task task) {
         tasks[count] = task;
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + count + " tasks in the list.\n");
         count++;
+        System.out.println("Now you have " + count + " tasks in the list.\n");
     }
 
+    public static String getTaskName(String line, int beginIndex, int endIndex) throws EmptyByOrFromException, EmptyTaskException {
+        if (endIndex == -1) {
+            throw new EmptyByOrFromException();
+        } else if (endIndex == -2 && beginIndex + 1 > line.length()) {
+              throw new EmptyTaskException();
+        } else if (endIndex == -2 && line.substring(beginIndex).trim() != "") {
+            return line.substring(beginIndex).trim();
+        } else if (line.substring(beginIndex, endIndex).trim() != "") {
+            return line.substring(beginIndex, endIndex).trim();
+        } else {
+            throw new EmptyTaskException();
+        }
+    }
+
+    public static String getFrom(String line, int fromIndex, int toIndex) throws EmptyToException, EmptyByOrFromException {
+        if (toIndex == -1 || toIndex + 4 > line.length() - 1) {
+            throw new EmptyToException();
+        } else if (fromIndex + 6 <= toIndex - 1){
+            throw new EmptyByOrFromException();
+        } else {
+            return line.substring(fromIndex + 6, toIndex - 1).trim();
+        }
+    }
+
+    public static void handleWrongFormat() {
+        System.out.println("Please follow the format (parameter inside {} must be non-empty!) : \n");
+        System.out.println("list : visualizing tasks");
+        System.out.println("mark {int n} : set task number {n} as done");
+        System.out.println("unmark {int n} : set task number {n} as not done");
+        System.out.println("todo {String s} : create todo with description {s}");
+        System.out.println("deadline {String s1} /by {String s2} : create deadline with description {s1} and due date {s2}");
+        System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}\n");
+    }
 }
