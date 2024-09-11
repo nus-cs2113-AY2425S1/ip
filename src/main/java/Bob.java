@@ -33,49 +33,80 @@ public class Bob {
 
         while (true) {
             String input = scanner.nextLine();
-            
+
             if (input.equals(COMMAND_BYE)) {
                 exit();
                 break;
             } else if (input.equals(COMMAND_LIST)) {
                 printList(tasks, taskCount);
             } else if (input.startsWith(COMMAND_MARK)) {
-                String[] inputsInString = input.split(" ");
-                int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
-                tasks[taskIndex].markAsDone();
-                System.out.println(SEPARATOR);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks[taskIndex]);
-                System.out.println(SEPARATOR);
+                markTask(input, tasks, taskCount);
             } else if (input.startsWith(COMMAND_UNMARK)) {
-                String[] inputsInString = input.split(" ");
-                int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
-                tasks[taskIndex].unmark();
+                unmark(input, tasks, taskCount);
+            } else if (input.equals(COMMAND_TODO)) {
                 System.out.println(SEPARATOR);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("Sorry! The description of a todo cannot be empty.");
                 System.out.println(SEPARATOR);
             } else if (input.startsWith(COMMAND_TODO + " ")) {
-                String description = input.substring(COMMAND_TODO.length() + 1);
-                tasks[taskCount] = new ToDo(description);
-                taskCount++;
-                printAddedTask(tasks, taskCount) ;
+                String description = input.substring(COMMAND_TODO.length()).trim();
+                if (description.isEmpty()) {
+                    System.out.println(SEPARATOR);
+                    System.out.println("Sorry! The description of a todo cannot be empty.");
+                    System.out.println(SEPARATOR);
+                } else {
+                    tasks[taskCount] = new ToDo(description);
+                    taskCount++;
+                    printAddedTask(tasks, taskCount);
+                }
+            } else if (input.equals(COMMAND_DEADLINE)) {
+                System.out.println(SEPARATOR);
+                System.out.println("Sorry! The description of a deadline cannot be empty.");
+                System.out.println(SEPARATOR);
             } else if (input.startsWith(COMMAND_DEADLINE + " ")) {
                 String[] components = input.split(DEADLINE_BY);
-                String description = components[0].substring(COMMAND_DEADLINE.length() + 1);
-                String by = components[1];
-                tasks[taskCount] = new Deadline(description, by);
-                taskCount++;
-                printAddedTask(tasks, taskCount);
+                String description = components[0].substring(COMMAND_DEADLINE.length()).trim();
+                if (description.isEmpty()) {
+                    System.out.println(SEPARATOR);
+                    System.out.println("Sorry! The description of a deadline cannot be empty.");
+                    System.out.println(SEPARATOR);
+                } else {
+                    try {
+                        String by = components[1];
+                        tasks[taskCount] = new Deadline(description, by);
+                        taskCount++;
+                        printAddedTask(tasks, taskCount);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(SEPARATOR);
+                        System.out.println("Sorry! Please provide a valid deadline with '/by <date/time>'.");
+                        System.out.println(SEPARATOR);
+                    }
+                }
+            } else if (input.equals(COMMAND_EVENT)) {
+                System.out.println(SEPARATOR);
+                System.out.println("Sorry! The description of an event cannot be empty.");
+                System.out.println(SEPARATOR);
             } else if (input.startsWith(COMMAND_EVENT + " ")) {
                 int fromIndex = input.indexOf(EVENT_FROM);
                 int toIndex = input.indexOf(EVENT_TO);
-                String description = input.substring(COMMAND_EVENT.length() + 1, fromIndex);
-                String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
-                String to = input.substring(toIndex + EVENT_TO.length());
-                tasks[taskCount] = new Event(description,from, to);
-                taskCount++;
-                printAddedTask(tasks, taskCount);
+                String description = input.substring(COMMAND_EVENT.length()).trim();
+                if (description.isEmpty()) {
+                    System.out.println(SEPARATOR);
+                    System.out.println("Sorry! The description of an event cannot be empty.");
+                    System.out.println(SEPARATOR);
+                } else {
+                    try {
+                        String actualDescription = input.substring(COMMAND_EVENT.length() +1, fromIndex);
+                        String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
+                        String to = input.substring(toIndex + EVENT_TO.length());
+                        tasks[taskCount] = new Event(actualDescription, from, to);
+                        taskCount++;
+                        printAddedTask(tasks, taskCount);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println(SEPARATOR);
+                        System.out.println("Sorry! Please provide a valid event with '/from <start date/time> /to <end date/time>'.");
+                        System.out.println(SEPARATOR);
+                    }
+                }
             } else {
                 printWarning();
             }
@@ -91,11 +122,70 @@ public class Bob {
 
     public static void printList(Task[] tasks, int taskCount) {
         System.out.println(SEPARATOR);
-        System.out.println("Here are the tasks in your list:");
+        if (taskCount == 0) {
+            System.out.println("Sorry! Your list is empty.");
+            System.out.println(SEPARATOR);
+            return;
+        }
+        System.out.println("Here " + (taskCount == 1 ? "is" : "are") + " the " + (taskCount == 1 ? "task" : "tasks") + " in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + "." + tasks[i]);
         }
         System.out.println(SEPARATOR);
+    }
+
+    private static void markTask(String input, Task[] tasks, int taskCount) {
+        System.out.println(SEPARATOR);
+        if (taskCount == 0) {
+            System.out.println("Sorry! Your list is empty, please add a task before marking as done.");
+            System.out.println(SEPARATOR);
+            return;
+        }
+        try {
+            String[] inputsInString = input.split(" ");
+            int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
+            if (tasks[taskIndex].getStatusIcon().equals("X")) {
+                System.out.println("Sorry! This task is already marked as done.");
+            } else {
+                tasks[taskIndex].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks[taskIndex]);
+            }
+            System.out.println(SEPARATOR);
+        } catch (NullPointerException e) {
+            String[] inputsInString = input.split(" ");
+            int inputTaskNumber = Integer.parseInt(inputsInString[1]);
+            System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
+            System.out.println("Please input a valid task number from 1 to " + taskCount);
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    private static void unmark(String input, Task[] tasks, int taskCount) {
+        System.out.println(SEPARATOR);
+        if (taskCount == 0) {
+            System.out.println("Sorry! Your list is empty, please add a task before unmarking.");
+            System.out.println(SEPARATOR);
+            return;
+        }
+        try {
+            String[] inputsInString = input.split(" ");
+            int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
+            if (tasks[taskIndex].getStatusIcon().equals(" ")) {
+                System.out.println("Sorry! This task is already unmarked.");
+            } else {
+                tasks[taskIndex].unmark();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks[taskIndex]);
+            }
+            System.out.println(SEPARATOR);
+        } catch (NullPointerException e) {
+            String[] inputsInString = input.split(" ");
+            int inputTaskNumber = Integer.parseInt(inputsInString[1]);
+            System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
+            System.out.println("Please input a valid task number from 1 to " + taskCount + ".");
+            System.out.println(SEPARATOR);
+        }
     }
 
     public static void printAddedTask (Task[] tasks, int taskCount) {
@@ -108,7 +198,7 @@ public class Bob {
 
     public static void printWarning() {
         System.out.println(SEPARATOR);
-        System.out.println("Sorry, the input is invalid. I don't understand what you mean.");
+        System.out.println("Sorry! I don't understand what you mean.");
         System.out.println(SEPARATOR);
     }
 }
