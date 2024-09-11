@@ -1,3 +1,4 @@
+package org.ajay.exceptions;
 
 
 // NOTE: Taken from https://stackoverflow.com/questions/446663/best-way-to-define-error-codes-strings-in-java

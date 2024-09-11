@@ -1,7 +1,12 @@
+package org.ajay.task;
+
+import org.ajay.exceptions.EmptyArgumentException;
+import org.ajay.exceptions.Error;
+
 public class Task {
-    final static String MARK_COMMAND_STRING = "mark";
-    final static String UNMARK_COMMAND_STRING = "unmark";
-    final static String LIST_COMMAND_STRING = "list";
+    public final static String MARK_COMMAND_STRING = "mark";
+    public final static String UNMARK_COMMAND_STRING = "unmark";
+    public final static String LIST_COMMAND_STRING = "list";
 
     protected String description; // Description of the task
     private boolean isDone;     // Status of the task

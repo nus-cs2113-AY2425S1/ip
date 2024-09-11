@@ -1,5 +1,11 @@
+package org.ajay.task;
+
+import org.ajay.exceptions.EmptyArgumentException;
+import org.ajay.exceptions.Error;
+import org.ajay.exceptions.InvalidCommandFormatException;
+
 public class Event extends Task {
-    final static String COMMAND_STRING = "event"; // Command string for the Event class
+    public final static String COMMAND_STRING = "event"; // Command string for the Event class
     final static String FROM_KEYWORD_STRING = "/from"; // Keyword string for the from date
     final static String TO_KEYWORD_STRING = "/to"; // Keyword string for the to date
 

@@ -1,5 +1,10 @@
+package org.ajay;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import org.ajay.exceptions.*;
+import org.ajay.exceptions.Error;
+import org.ajay.task.*;
 
 public class Jarvis {
     // Constants

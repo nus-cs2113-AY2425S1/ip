@@ -1,5 +1,11 @@
+package org.ajay.task;
+
+import org.ajay.exceptions.EmptyArgumentException;
+import org.ajay.exceptions.Error;
+import org.ajay.exceptions.InvalidCommandFormatException;
+
 public class Deadline extends Task {
-    final static String COMMAND_STRING = "deadline";
+    public final static String COMMAND_STRING = "deadline";
     final static String BY_KEYWORD_STRING = "/by";
     protected String by;
 
