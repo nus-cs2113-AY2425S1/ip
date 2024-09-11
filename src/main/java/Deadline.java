@@ -3,7 +3,6 @@ import freedom.exceptions.TimeEmpty;
 
 public class Deadline extends Task{
     protected String doneBy;
-    static final String LOGO = "\t________________________________________\n";
 
     public Deadline(String description) throws Exception {
         super(description);
@@ -11,9 +10,9 @@ public class Deadline extends Task{
         final int DONE_BY_INDEX = 1;
 
         String[] components = description.split("/by");
-        updateDescription(components[DESCRIPTION_INDEX]);
+        updateDescription(components[DESCRIPTION_INDEX].trim());
         try {
-            if (getDescription().equals(" ")) {
+            if (getDescription().isEmpty()) {
                 throw new DescriptionEmpty();
             }
             setDoneBy(components[DONE_BY_INDEX].trim());

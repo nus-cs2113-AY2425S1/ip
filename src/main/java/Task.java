@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    static final String LOGO = "\t________________________________________\n";
+    protected static final String LOGO = "\t________________________________________\n";
 
     public Task(String description) {
         this.description = description;
