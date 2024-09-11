@@ -16,23 +16,21 @@ public class KBot {
         bot.run();
     }
 
+    // High-level logic for running the bot
     public void run() {
         greetUser();
 
         boolean isRunning = true;
         while (isRunning) {
-            try {
-                String userInput = getUserInput();
-                isRunning = handleCommand(userInput);
-            } catch (KBotException e) {
-                showError(e.getMessage());
-            }
+            String userInput = getUserInput();
+            isRunning = handleCommand(userInput);
         }
 
         exit();
     }
 
-    private boolean handleCommand(String input) throws KBotException {
+    // Handles user commands and returns false if the bot should stop running
+    private boolean handleCommand(String input) {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0];
         String argument = (inputParts.length > 1) ? inputParts[1] : "";
@@ -44,48 +42,30 @@ public class KBot {
                 listTasks();
                 break;
             case "mark":
-                try {
-                    markTaskAsDone(Integer.parseInt(argument) - 1);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    throw new KBotException("Invalid task number to mark.");
-                }
+                markTaskAsDone(Integer.parseInt(argument) - 1);
                 break;
             case "unmark":
-                try {
-                    markTaskAsNotDone(Integer.parseInt(argument) - 1);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    throw new KBotException("Invalid task number to unmark.");
-                }
+                markTaskAsNotDone(Integer.parseInt(argument) - 1);
                 break;
             case "todo":
-                if (argument.isEmpty()) {
-                    throw new KBotException("The description of a todo cannot be empty.");
-                } else {
-                    addTodoTask(argument);
-                }
+                addTodoTask(argument);
                 break;
             case "deadline":
-                if (!argument.contains("/by ")) {
-                    throw new KBotException("The deadline description or date is missing.");
-                } else {
-                    addDeadlineTask(argument);
-                }
+                addDeadlineTask(argument);
                 break;
             case "event":
-                if (!argument.contains("/from ") || !argument.contains("/to ")) {
-                    throw new KBotException("The event description or timing is missing.");
-                } else {
-                    addEventTask(argument);
-                }
+                addEventTask(argument);
                 break;
             default:
-                throw KBotException.unknownCommand();
+                showUnknownCommandMessage();
+                break;
         }
         return true;
     }
 
     // Utility Methods
 
+    // Greet the user at the start
     private void greetUser() {
         printSeparator();
         System.out.println("Hello! I'm KBot");
@@ -93,40 +73,40 @@ public class KBot {
         printSeparator();
     }
 
+    // Display a separator line
     private void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
+    // Get user input
     private String getUserInput() {
         return scanner.nextLine();
     }
 
+    // Add a todo task
     private void addTodoTask(String description) {
         Task task = new Todo(description);
         tasks.add(task);
         printTaskAddedMessage(task);
     }
 
-    private void addDeadlineTask(String input) throws KBotException {
+    // Add a deadline task
+    private void addDeadlineTask(String input) {
         String[] parts = input.split(" /by ");
-        if (parts.length < 2) {
-            throw new KBotException("Invalid format for deadline. Use: deadline <description> /by <time>");
-        }
         Task task = new Deadline(parts[0], parts[1]);
         tasks.add(task);
         printTaskAddedMessage(task);
     }
 
-    private void addEventTask(String input) throws KBotException {
+    // Add an event task
+    private void addEventTask(String input) {
         String[] parts = input.split(" /from | /to ");
-        if (parts.length < 3) {
-            throw new KBotException("Invalid format for event. Use: event <description> /from <start> /to <end>");
-        }
         Task task = new Event(parts[0], parts[1], parts[2]);
         tasks.add(task);
         printTaskAddedMessage(task);
     }
 
+    // List all tasks
     private void listTasks() {
         printSeparator();
         System.out.println("Here are the tasks in your list:");
@@ -136,34 +116,33 @@ public class KBot {
         printSeparator();
     }
 
-    private void markTaskAsDone(int index) throws KBotException {
-        if (index >= tasks.size() || index < 0) {
-            throw new KBotException("Invalid task number.");
-        }
+    // Mark a task as done
+    private void markTaskAsDone(int index) {
         tasks.get(index).markAsDone();
         printMarkDoneMessage(tasks.get(index));
     }
 
-    private void markTaskAsNotDone(int index) throws KBotException {
-        if (index >= tasks.size() || index < 0) {
-            throw new KBotException("Invalid task number.");
-        }
+    // Mark a task as not done
+    private void markTaskAsNotDone(int index) {
         tasks.get(index).markAsNotDone();
         printMarkNotDoneMessage(tasks.get(index));
     }
 
-    private void showError(String errorMessage) {
+    // Show a message for unknown commands
+    private void showUnknownCommandMessage() {
         printSeparator();
-        System.out.println(errorMessage);
+        System.out.println("Unknown command.");
         printSeparator();
     }
 
+    // Print exit message
     private void exit() {
         printSeparator();
         System.out.println("Bye. Hope to see you again soon!");
         printSeparator();
     }
 
+    // Print helper messages
     private void printTaskAddedMessage(Task task) {
         printSeparator();
         System.out.println("Got it. I've added this task:");
