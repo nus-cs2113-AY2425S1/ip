@@ -50,7 +50,7 @@ public class Ryan {
                         addTask(tasks, userInput);
                         break;
                 }
-            }catch (RyanException e){
+            } catch (RyanException e) {
                 handleError(e);
             }
         }
@@ -106,7 +106,11 @@ public class Ryan {
         return index >= 0 && index < size;
     }
 
-    private static void addTask(ArrayList<Task> tasks, String userInput) {
+    private static void addTask(ArrayList<Task> tasks, String userInput) throws RyanException {
+        if (userInput.trim().isEmpty()) {
+            throw new RyanException("Error: Task description cannot be empty");
+        }
+
         Utils.horizontalLine();
         Task task = new Task(userInput);
         tasks.add(task);
@@ -114,10 +118,11 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void addTodo(ArrayList<Task> tasks, String command) throws RyanException{
+    private static void addTodo(ArrayList<Task> tasks, String command) throws RyanException {
         if (command.trim().isEmpty()) {
             throw new RyanException("Error: Todo task description cannot be empty.");
         }
+
         Utils.horizontalLine();
         Task task = new Todo(command);
         tasks.add(task);
@@ -127,7 +132,7 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void addDeadline(ArrayList<Task> tasks, String command) throws RyanException{
+    private static void addDeadline(ArrayList<Task> tasks, String command) throws RyanException {
         Utils.horizontalLine();
         String[] splitCommand = command.split("/by", 2);
 
@@ -146,7 +151,7 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void addEvent(ArrayList<Task> tasks, String command) throws RyanException{
+    private static void addEvent(ArrayList<Task> tasks, String command) throws RyanException {
         Utils.horizontalLine();
 
         String[] splitFrom = command.split("/from", 2);
