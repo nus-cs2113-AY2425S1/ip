@@ -53,6 +53,9 @@ public class Main {
                 case "deadline":
                     ronaldoInstance.addDeadline(input[1]);
                     break;
+                case "siu":
+                    ronaldoInstance.exclaim();
+                    break;
                 default:
                     ronaldoInstance.reject("Format");
                     break;

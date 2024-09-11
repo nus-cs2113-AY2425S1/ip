@@ -181,7 +181,7 @@ public class Ronaldo {
                 reject("Deadline");
                 return;
             }
-            Deadline deadline = new Deadline(description,by);
+            Deadline deadline = new Deadline(description, by);
             goals.add(deadline);
             System.out.println("GOALLL! Your deadline has been added: \n" + deadline + "\n");
             printGoalCount();
