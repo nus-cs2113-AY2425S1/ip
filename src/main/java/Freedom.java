@@ -31,11 +31,8 @@ public class Freedom {
 
     public static void handleInput(String input) {
         final int COMMAND_INDEX = 0;
-
         String[] words = input.split(" ");
         String description;
-        int listNumber;
-        String[] components;
 
         switch (words[COMMAND_INDEX]) {
             case "list":
@@ -53,13 +50,11 @@ public class Freedom {
                 break;
             case "deadline":
                 description = input.replaceFirst("deadline", "");
-                components = description.split("/");
-                storage[lastIndex] = new Deadline(components[0], components[1]);
+                storage[lastIndex] = new Deadline(description);
                 break;
             case "event":
                 description = input.replaceFirst("event", "");
-                components = description.split("/");
-                storage[lastIndex] = new Event(components[0], components[1], components[2]);
+                storage[lastIndex] = new Event(description);
                 break;
             default:
                 storage[lastIndex] = new Task(input);

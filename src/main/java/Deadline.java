@@ -1,9 +1,12 @@
 public class Deadline extends Task{
     protected String doneBy;
 
-    public Deadline(String description, String doneBy) {
+    public Deadline(String description) {
         super(description);
-        setDoneBy(doneBy.replaceFirst("by ", ""));
+        final int DONE_BY_INDEX = 1;
+
+        String[] components = description.split("/");
+        setDoneBy(components[DONE_BY_INDEX].replaceFirst("by ", ""));
     }
 
     public void setDoneBy(String doneBy) {
