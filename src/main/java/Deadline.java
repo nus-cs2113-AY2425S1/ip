@@ -1,12 +1,39 @@
+import freedom.exceptions.DescriptionEmpty;
+import freedom.exceptions.TimeEmpty;
+
 public class Deadline extends Task{
     protected String doneBy;
+    static final String LOGO = "\t________________________________________\n";
 
-    public Deadline(String description) {
+    public Deadline(String description) throws Exception {
         super(description);
+        final int DESCRIPTION_INDEX = 0;
         final int DONE_BY_INDEX = 1;
 
-        String[] components = description.split("/");
-        setDoneBy(components[DONE_BY_INDEX].replaceFirst("by ", ""));
+        String[] components = description.split("/by");
+        updateDescription(components[DESCRIPTION_INDEX]);
+        try {
+            if (getDescription().equals(" ")) {
+                throw new DescriptionEmpty();
+            }
+            setDoneBy(components[DONE_BY_INDEX].trim());
+            if (getDoneBy().isEmpty()) {
+                throw new TimeEmpty();
+            }
+        } catch (DescriptionEmpty e) {
+            printEmptyDescriptionError();
+            throw new Exception("Description is empty");
+        } catch (TimeEmpty | ArrayIndexOutOfBoundsException e) {
+            System.out.print(LOGO);
+            System.out.print("""
+                    \tYou need to set a date/time!
+                    \tRemember:
+                    \t  Use /by before the date/time
+                    \t  Include a date/time
+                    """);
+            System.out.println(LOGO);
+            throw new Exception("No deadline given");
+        }
     }
 
     public void setDoneBy(String doneBy) {

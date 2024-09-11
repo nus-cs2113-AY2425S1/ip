@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import freedom.exceptions.InvalidCommand;
 
 public class Freedom {
     protected static Task[] storage = new Task[100];
@@ -34,37 +35,43 @@ public class Freedom {
         String[] words = input.split(" ");
         String description;
 
-        switch (words[COMMAND_INDEX]) {
-            case "list":
-                printList();
-                return;
-            case "mark":
-                markTask(words, true);
-                return;
-            case "unmark":
-                markTask(words, false);
-                return;
-            case "todo":
-                description = input.replaceFirst("todo", "");
-                storage[lastIndex] = new ToDo(description);
-                break;
-            case "deadline":
-                description = input.replaceFirst("deadline", "");
-                storage[lastIndex] = new Deadline(description);
-                break;
-            case "event":
-                description = input.replaceFirst("event", "");
-                storage[lastIndex] = new Event(description);
-                break;
-            default:
-                storage[lastIndex] = new Task(input);
-                break;
-        }
+        try {
+            switch (words[COMMAND_INDEX]) {
+                case "list":
+                    printList();
+                    return;
+                case "mark":
+                    markTask(words, true);
+                    return;
+                case "unmark":
+                    markTask(words, false);
+                    return;
+                case "todo":
+                    description = input.replaceFirst("todo", "");
+                    storage[lastIndex] = new ToDo(description);
+                    break;
+                case "deadline":
+                    description = input.replaceFirst("deadline", "");
+                    storage[lastIndex] = new Deadline(description);
+                    break;
+                case "event":
+                    description = input.replaceFirst("event", "");
+                    storage[lastIndex] = new Event(description);
+                    break;
+                default:
+                    throw new InvalidCommand();
 
-        System.out.println(LOGO + "\tGot it. I've added this task: ");
-        System.out.println("\t  " + storage[lastIndex].printLine());
-        System.out.println("\tNow you have " + (lastIndex + 1) + " tasks in the list.\n" + LOGO);
-        lastIndex++;
+            }
+            System.out.println(LOGO + "\tGot it. I've added this task: ");
+            System.out.println("\t  " + storage[lastIndex].printLine());
+            System.out.println("\tNow you have " + (lastIndex + 1) + " tasks in the list.\n" + LOGO);
+            lastIndex++;
+        } catch (InvalidCommand e) {
+            System.out.println(LOGO + "\tSorry! I do not understand your command");
+            System.out.println(LOGO);
+        } catch (Exception e) {
+
+        }
     }
 
     public static void printList() {
