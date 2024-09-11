@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Aether class represents the main logic for a simple task manager program.
+ * It allows users to add, mark, unmark tasks, and display tasks.
+ */
 public class Aether {
     private boolean isExit = false;
     private static final int MAX_TASKS = 100;
@@ -11,6 +15,10 @@ public class Aether {
         aether.run();
     }
 
+    /**
+     * Runs the main loop of the program, displaying the start screen
+     * and handling user input until the user decides to exit.
+     */
     public void run() {
         Display.showStartScreen();
         Scanner scanner = new Scanner(System.in);
@@ -22,19 +30,25 @@ public class Aether {
             Display.printSeparator();
             handleCommand(command);
         }
+        scanner.close();
     }
 
+    /**
+     * Handles user input commands such as adding, marking, unmarking, and listing tasks.
+     * @param command User input command as a string.
+     */
     private void handleCommand(String command) {
-        int index = 0;
-
-        // Trim leading and trailing spaces and split the command into parts
         command = command.trim();
+        if (command.isEmpty()) {
+            Display.response("Command cannot be empty. Please enter a valid command.");
+            return;
+        }
+
         String[] commandParts = command.split(" ", 2);
         String commandName = commandParts[0].toLowerCase();
-
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
 
-        // Switch to Handle different commands
+        // Handles different commands based on user input.
         switch (commandName) {
         case "bye":
             isExit = true;
@@ -44,23 +58,19 @@ public class Aether {
             listTasks();
             break;
         case "mark":
-            index = Integer.parseInt(arguments) - 1;
-            markTaskStatus(index, true);
+            handleMarkCommand(arguments, true);
             break;
         case "unmark":
-            index = Integer.parseInt(arguments) - 1;
-            markTaskStatus(index, false);
+            handleMarkCommand(arguments, false);
             break;
         case "todo":
-            addTask(new Todo(arguments));
+            handleTodoCommand(arguments);
             break;
         case "deadline":
-            String[] deadlineParts = arguments.split(" /by ", 2);
-            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            handleDeadlineCommand(arguments);
             break;
         case "event":
-            String[] eventParts = arguments.split(" /from | /to ");
-            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            handleEventCommand(arguments);
             break;
         default:
             Display.response("Invalid command. Please try again.");
@@ -69,19 +79,81 @@ public class Aether {
         Display.printSeparator();
     }
 
+    /**
+     * Handles the "mark" and "unmark" commands to update the task's status.
+     * @param arguments Task number provided by the user.
+     * @param isMark Boolean flag to indicate marking or unmarking.
+     */
+    private void handleMarkCommand(String arguments, boolean isMark) {
+        try {
+            int index = Integer.parseInt(arguments.trim()) - 1;
+            if (index < 0 || index >= taskCount) {
+                Display.response("Invalid task number. Please enter a valid task index.");
+                return;
+            }
+            markTaskStatus(index, isMark);
+        } catch (NumberFormatException e) {
+            Display.response("Invalid input. Please enter a valid task number.");
+        }
+    }
+
+    /**
+     * Adds a new todo task.
+     * @param arguments Description of the todo task.
+     */
+    private void handleTodoCommand(String arguments) {
+        if (arguments.isEmpty()) {
+            Display.response("The description of a todo cannot be empty. Please enter a valid description.");
+        } else {
+            addTask(new Todo(arguments));
+        }
+    }
+
+    /**
+     * Adds a new deadline task.
+     * @param arguments Description and deadline date in the format: description /by date.
+     */
+    private void handleDeadlineCommand(String arguments) {
+        String[] deadlineParts = arguments.split(" /by ", 2);
+        if (arguments.isEmpty() || deadlineParts.length < 2) {
+            Display.response("Please enter a deadline in the format:\ndescription /by date.");
+        } else {
+            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+        }
+    }
+
+    /**
+     * Adds a new event task.
+     * @param arguments Description, start, and end times in the format: description /from start_time /to end_time.
+     */
+    private void handleEventCommand(String arguments) {
+        String[] eventParts = arguments.split(" /from | /to ");
+        if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")
+                || eventParts.length < 3) {
+            Display.response("Please enter an event in the format:\ndescription /from start_time /to end_time.");
+        } else {
+            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        }
+    }
+
+    /**
+     * Adds a new task to the task list.
+     * @param task The task to be added.
+     */
     private void addTask(Task task) {
         if (taskCount < tasks.length) {
             tasks[taskCount] = task;
             taskCount++;
-            String taskWord = taskCount == 1 ? "task" : "tasks";
-            Display.response("Got it. I've added this task:\n  " + task +
-                    "\nNow you have " + taskCount + " " + taskWord + " in the list.");
+            Display.response("Got it. I've added this task:\n  " + task
+                    + "\nNow you have " + taskCount + " tasks in the list.");
         } else {
             Display.response("Task list is full. Sorry!");
         }
     }
 
-
+    /**
+     * Lists all tasks in the task list.
+     */
     private void listTasks() {
         if (taskCount == 0) {
             Display.response("Task list is empty.");
@@ -93,16 +165,21 @@ public class Aether {
         }
     }
 
+    /**
+     * Marks or unmarks the status of a task.
+     * @param index Index of the task in the task list.
+     * @param isDone Boolean flag indicating if the task is done.
+     */
     private void markTaskStatus(int index, boolean isDone) {
         tasks[index].setDone(isDone);
         String message = isDone
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
-        // Use task's `toString()` to include task type and status
         Display.response(message + (index + 1) + "." + tasks[index]);
     }
 }
 
+// Task class, the base class for all types of tasks
 class Task {
     protected String description;
     protected boolean isDone;
@@ -110,10 +187,6 @@ class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDone(boolean isDone) {
@@ -130,7 +203,7 @@ class Task {
     }
 }
 
-// Todo class inherits from Task
+// Todo class for simple todo tasks
 class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -142,7 +215,7 @@ class Todo extends Task {
     }
 }
 
-// Deadline class inherits from Task
+// Deadline class for tasks with deadlines
 class Deadline extends Task {
     protected String by;
 
@@ -157,7 +230,7 @@ class Deadline extends Task {
     }
 }
 
-// Event class inherits from Task
+// Event class for tasks with start and end times
 class Event extends Task {
     protected String from;
     protected String to;
@@ -174,6 +247,7 @@ class Event extends Task {
     }
 }
 
+// Display class to handle all user interface outputs
 class Display {
     public static void showStartScreen() {
         String logo = "     ___   ______  _______  _    _  ______  _____\n"
