@@ -14,8 +14,14 @@ public class Grok {
         int taskCount = 0;
 
         printLine();
-        System.out.println("Hello! I'm Grok");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello, I am Grok! Your favourite personal assistant that helps you keep track of tasks :)");
+        System.out.println("Here are the list of things Grok can do for you:");
+        System.out.println("1. Create a todo task eg. [todo read book]");
+        System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
+        System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
+        System.out.println("4. Type either mark or unmark and the task number to indicate completion of task");
+        System.out.println("5. Type list to view your list of tasks.");
+        System.out.println("6. Type bye to exit the programme");
         printLine();
 
         while (true) {
@@ -34,30 +40,42 @@ public class Grok {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
                     printLine();
-                } else if (input.startsWith("mark ")) {
-                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                } else if (input.startsWith("mark")) {
+                    String taskNumberStr = input.substring(4).trim();
+                    if (taskNumberStr.isEmpty()) {
+                        throw new GrokException("Oh no, mark must be followed by a task number. Please try again!");
+                    }
+                    int taskNumber = Integer.parseInt(taskNumberStr) - 1;
                     tasks[taskNumber].markAsDone();
                     printLine();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks[taskNumber]);
                     printLine();
-                } else if (input.startsWith("unmark ")) {
-                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                } else if (input.startsWith("unmark")) {
+                    String taskNumberStr = input.substring(6).trim();
+                    if (taskNumberStr.isEmpty()) {
+                        throw new GrokException("Oh no, unmark must be followed by a task number. Please try again!");
+                    }
+                    int taskNumber = Integer.parseInt(taskNumberStr) - 1;
                     tasks[taskNumber].markAsNotDone();
                     printLine();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks[taskNumber]);
                     printLine();
-                } else if (input.startsWith("todo ")) {
-                    tasks[taskCount] = new Todo(input.substring(5)); // remove "todo " prefix
+                } else if (input.startsWith("todo")) {
+                    String description = input.substring(4).trim(); // Adjusted for any missing spaces
+                    if (description.isEmpty()) {
+                        throw new GrokException("Oh no, todo cannot be empty. Do something!");
+                    }
+                    tasks[taskCount] = new Todo(description);
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks[taskCount]);
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
-                } else if (input.startsWith("deadline ")) {
-                    String[] details = input.substring(9).split(" /by ");
+                } else if (input.startsWith("deadline")) {
+                    String[] details = input.substring(8).trim().split(" /by ");
                     if (details.length < 2) {
                         throw new GrokException("Invalid deadline command. Please use: deadline <description> /by <date/time>");
                     }
@@ -68,8 +86,8 @@ public class Grok {
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
-                } else if (input.startsWith("event ")) {
-                    String[] details = input.substring(6).split(" /from | /to ");
+                } else if (input.startsWith("event")) {
+                    String[] details = input.substring(5).trim().split(" /from | /to ");
                     if (details.length < 3) {
                         throw new GrokException("Invalid event command. Please use: event <description> /from <start> /to <end>");
                     }
@@ -81,7 +99,7 @@ public class Grok {
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
                 } else {
-                    throw new GrokException("I'm sorry, I don't understand that command. Please try again");
+                    throw new GrokException("I'm sorry, I don't grok that command. Please try again :(");
                 }
             } catch (GrokException e) {
                 printLine();
