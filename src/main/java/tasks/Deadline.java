@@ -20,4 +20,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), getBy());
     }
+
+    @Override
+    public String getTaskAsCommand() {
+        return String.format("deadline %s /by %s", getTaskName(), getBy());
+    }
 }

@@ -6,6 +6,10 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,25 +46,39 @@ public class Bento {
     // General
     public static final String SPACE_REGEX = " ";
     public static final String EMPTY_REGEX = "";
+    public static final String TASK_STATUS_DELIMITER = " | ";
+    public static final String TASK_STATUS_DELIMITER_REGEX = " \\| ";
 
-
-    // tasks.Deadline
+    // Deadline
     public static final int DEADLINE_NAME_INDEX = 0;
     public static final int DEADLINE_BY_INDEX = 1;
     public static final String BY_PREFIX = "/by";
     public static final String BY_REGEX = " " + BY_PREFIX + " ";
 
-    // tasks.Event
+    // Event
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";
 
+    // Saving and Loading
+    public static final String TASK_DONE_INDICATOR = "1";
+    public static final String TASK_UNDONE_INDICATOR = "0";
+    public static final int TASK_INDEX = 0;
+    public static final int TASK_STATUS_INDEX = 1;
+
 
     // Data
+    public static final String FILE_PATH = "./data/save.txt";
     private final Scanner IN = new Scanner(System.in);
-    private boolean isExit = false;
     private final ArrayList<Task> TASKS = new ArrayList<>();
+    private boolean isExit = false;
 
     // Print Functions
+    public void printSaveTaskListSuccessMessage() {
+        printLine();
+        System.out.println("Successfully saved!");
+        printLine();
+    }
+
     public void printLogo() {
         System.out.print(LOGO);
     }
@@ -99,6 +117,7 @@ public class Bento {
 
     // tasks.ToDo Functions
     public void addToDo(String input) throws InvalidToDoException {
+        input = getTodo(input);
         if (input.isEmpty()) {
             throw new InvalidToDoException();
         }
@@ -136,7 +155,7 @@ public class Bento {
         printAddTaskSuccessMessage(toAdd.toString());
     }
 
-    public static String extractDeadlineBy(String input) {
+    public String extractDeadlineBy(String input) {
         String[] inputList = input.split(BY_REGEX);
         if (inputList.length == 1) {
             return "";
@@ -164,7 +183,7 @@ public class Bento {
 
         String eventName = extractEventName(input, indexOfFrom);
         String fromString = extractFromString(input, indexOfFrom, indexOfTo);
-        String toString  = extractToString(input, indexOfTo);
+        String toString = extractToString(input, indexOfTo);
 
         if (eventName.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
             throw new InvalidEventException();
@@ -239,6 +258,11 @@ public class Bento {
         System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
+    // Overload
+    public void markTaskAsDone(boolean isDone, int index) {
+        updateTask(isDone, index);
+    }
+
     // tasks.Task Status Update
     public void updateTask(boolean isDone, int index) {
         retrieveTask(index).setDone(isDone);
@@ -284,6 +308,7 @@ public class Bento {
         try {
             switch (inputList[COMMAND_INDEX]) {
             case BYE_COMMAND:
+                saveTaskList();
                 saySayonara();
                 break;
             case LIST_COMMAND:
@@ -296,7 +321,7 @@ public class Bento {
                 markTaskAsDone(false, input);
                 break;
             case TODO_COMMAND:
-                addToDo(getTodo(input));
+                addToDo(input);
                 break;
             case DEADLINE_COMMAND:
                 addDeadline(input);
@@ -315,8 +340,60 @@ public class Bento {
         }
     }
 
+    public void loadTaskList() throws LoadFileErrorException {
+        try {
+            File saveFile = new File(FILE_PATH);
+            Scanner fileScanner = new Scanner(saveFile);
+            int currentTask = 0;
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                boolean isTaskDone = getTaskDone(line);
+                String userCommand = getCommand(line);
+                handleUserInput(userCommand);
+                markTaskAsDone(isTaskDone, currentTask);
+                currentTask++;
+            }
+        } catch (Exception e) {
+            // Exceptions encountered when loading the save file can be classified as LoadFileErrorExceptions
+            throw new LoadFileErrorException();
+        }
+    }
+
+    public boolean getTaskDone(String line) {
+        return line.split(TASK_STATUS_DELIMITER_REGEX)[TASK_STATUS_INDEX].equals(TASK_DONE_INDICATOR);
+    }
+
+    public String getCommand(String line) {
+        return line.split(TASK_STATUS_DELIMITER_REGEX)[TASK_INDEX];
+    }
+
+    public void saveTaskList() throws SaveFileErrorException {
+        try {
+            FileWriter saveWriter = new FileWriter(FILE_PATH);
+            for (Task task : TASKS) {
+                saveWriter.write(task.getTaskAsCommand());
+                saveWriter.write(TASK_STATUS_DELIMITER);
+                if (task.isDone()) {
+                    saveWriter.write(TASK_DONE_INDICATOR);
+                } else {
+                    saveWriter.write(TASK_UNDONE_INDICATOR);
+                }
+                saveWriter.write(System.lineSeparator());
+            }
+            saveWriter.close();
+            printSaveTaskListSuccessMessage();
+        } catch (IOException e) {
+            throw new SaveFileErrorException();
+        }
+    }
+
     public void run() {
         sayKonichiwa();
+        try {
+            loadTaskList();
+        } catch (BentoException e) {
+            System.out.print(e.getMessage());
+        }
         while (!isExit) {
             String input = getUserInput();
             handleUserInput(input);

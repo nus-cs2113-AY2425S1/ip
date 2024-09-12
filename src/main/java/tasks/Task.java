@@ -36,4 +36,6 @@ public abstract class Task {
     public String toString() {
         return String.format("%s %s", getDoneMarker(), getTaskName());
     }
+
+    public abstract String getTaskAsCommand();
 }
