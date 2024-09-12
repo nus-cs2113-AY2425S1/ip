@@ -34,7 +34,7 @@ public class lovespiritual {
                 } else if (input.startsWith("event ")) {
                     taskCount = event(input, tasks, taskCount);
                 } else {
-                    taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
+                    throw new lovespiritualException("Start with a command");
                 }
             } catch (lovespiritualException e) {
                 System.out.println(SEPARATOR);
