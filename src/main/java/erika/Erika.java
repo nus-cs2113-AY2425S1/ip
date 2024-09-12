@@ -65,7 +65,7 @@ public class Erika {
             throw new EmptyDescriptionException("Event");
         }
         int indexOfFrom = line.indexOf("/from ");
-        if(line.indexOf(" ") == indexOfFrom - 1) {
+        if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
             throw new FormatErrorException();
         }
         int indexOfTo = line.indexOf("/to ");
@@ -80,7 +80,7 @@ public class Erika {
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
         int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
         String description = line.substring(substringStart, substringEnd);
-        String fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - 1);
+        String fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
         String toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
@@ -95,7 +95,7 @@ public class Erika {
             throw new EmptyDescriptionException("Deadline");
         }
         int indexOfBy = line.indexOf("/by ");
-        if (line.indexOf(" ") == indexOfBy - 1) {
+        if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
             throw new FormatErrorException();
         }
         if (indexOfBy == -1) {
