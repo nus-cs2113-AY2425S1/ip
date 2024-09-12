@@ -1,3 +1,10 @@
+package ellio;
+
+import ellio.task.Deadline;
+import ellio.task.Event;
+import ellio.task.Task;
+import ellio.task.Todo;
+
 import java.util.Scanner;
 
 public class Ellio {
@@ -44,15 +51,15 @@ public class Ellio {
             numberTask++;
             System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newDeadline.getTask());
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
-        } catch (WrongDeadlineFormatTimeException e){
-            System.out.println(BotText.lineBorder + BotText.messageInvalidDeadlineDateFormat + BotText.lineBorder);
+        } catch (EllioExceptions e){
+            System.out.println(e.getMessage());
         } catch (StringIndexOutOfBoundsException e){
             System.out.println(BotText.lineBorder + BotText.messageMissingDeadlineDate + BotText.lineBorder);
         }
 
     }
 
-    private static Deadline formatDeadline(String line) throws WrongDeadlineFormatTimeException{
+    private static Deadline formatDeadline(String line) throws EllioExceptions {
         // Find the indices of the first and second occurrences of "/"
         int firstSlashIndex = line.indexOf("/");
 
@@ -61,7 +68,7 @@ public class Ellio {
         String deadline = line.substring(firstSlashIndex + 1).trim();
 
         if(!deadline.startsWith("by")){
-            throw new WrongDeadlineFormatTimeException();
+            throw new EllioExceptions.WrongDeadlineFormatTimeException();
         }
         //add Semicolon behind by
         deadline = deadline.replace("by", "by:");
@@ -78,11 +85,8 @@ public class Ellio {
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
 
         }
-        catch (WrongEventStartFormatException e){
-            System.out.println(BotText.lineBorder + BotText.messageInvalidEventStartFormat +BotText.lineBorder);
-        }
-        catch (WrongEventEndFormatException e){
-            System.out.println(BotText.lineBorder + BotText.messageInvalidEventEndFormat +BotText.lineBorder);
+        catch (EllioExceptions e){
+            System.out.println(e.getMessage());
         }
         catch (StringIndexOutOfBoundsException e){
             System.out.println(BotText.lineBorder + BotText.messageInvalidEventTimeFormat +BotText.lineBorder);
@@ -90,7 +94,7 @@ public class Ellio {
 
     }
     
-    private static Event formatEvent(String line) throws WrongEventStartFormatException, WrongEventEndFormatException {
+    private static Event formatEvent(String line) throws EllioExceptions {
         // Find the indices of the first and second occurrences of "/"
         int firstSlashIndex = line.indexOf("/");
         int secondSlashIndex = line.indexOf("/", firstSlashIndex + 1);
@@ -101,10 +105,10 @@ public class Ellio {
         String eventEnd = line.substring(secondSlashIndex + 1).trim();
 
         if(!eventStart.startsWith("from")) {
-            throw new WrongEventStartFormatException();
+            throw new EllioExceptions.WrongEventStartFormatException();
         }
         else if(!eventEnd.startsWith("to")) {
-            throw new WrongEventEndFormatException();
+            throw new EllioExceptions.WrongEventEndFormatException();
         }
 
         //add Semicolon behind from and to
