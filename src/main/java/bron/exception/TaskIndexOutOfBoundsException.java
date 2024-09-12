@@ -1,5 +1,7 @@
+package bron.exception;
+
 public class TaskIndexOutOfBoundsException extends BronException {
     public TaskIndexOutOfBoundsException() {
-        super("Task index provided is out of bounds.");
+        super("Bron.task.Task index provided is out of bounds.");
     }
 }

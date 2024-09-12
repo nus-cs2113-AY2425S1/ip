@@ -1,3 +1,5 @@
+package bron.command;
+
 public enum Command {
     BYE,
     LIST,

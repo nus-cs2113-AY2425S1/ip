@@ -1,3 +1,9 @@
+package bron;
+
+import bron.command.Command;
+import bron.command.CommandHandler;
+import bron.task.Task;
+
 import java.util.Scanner;
 
 public class ChatBotManager {

@@ -1,3 +1,11 @@
+package bron.command;
+
+import bron.exception.*;
+import bron.task.Deadline;
+import bron.task.Event;
+import bron.task.Task;
+import bron.task.ToDo;
+
 public class CommandHandler {
     private Task[] tasks;
     private int taskCount;
