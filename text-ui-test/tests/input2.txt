@@ -1,0 +1,19 @@
+event Meeting /from 10:00 /to 11:00
+event /from 09:00 /to 10:00
+event  /from 09:00 /to 
+event  /from /to 10:00
+event  /from  /to 
+event Meeting /from 09:00
+event Meeting /to 10:00
+event Meeting /from /to 10:00
+event Meeting /from 09:00 /to 
+event Meeting /from /to 
+event Meeting /from
+event Meeting /to
+event a /from b /to c
+event @Meeting! /from #StartTime* /to $EndTime^
+event Lunch /from 12:30 PM /to 01:30 PM
+event Lunch Break /from 12:00 /to 13:00
+event Special! Event /from Start @ 9am /to End @ 5pm
+list
+bye

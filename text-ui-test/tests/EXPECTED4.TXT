@@ -1,0 +1,115 @@
+               ____  ____  ______
+   _______  __/ __ )/ __ \/_  __/
+  / ___/ / / / __  / / / / / /
+ (__  ) /_/ / /_/ / /_/ / / /
+/____/\__,_/_____/\____/ /_/
+
+How can I help you today?
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Submit report (by: 2024-09-15 23:59)
+-------------------------------
+-------------------------------
+Invalid argument(s): "/by" expected
+Usage: deadline <name> /by <time>
+-------------------------------
+-------------------------------
+Invalid argument(s): "/by" expected
+Usage: deadline <name> /by <time>
+-------------------------------
+-------------------------------
+Invalid argument(s): <name> cannot be blank
+Usage: deadline <name> /by <time>
+-------------------------------
+-------------------------------
+Invalid argument(s): <time> cannot be blank
+Usage: deadline <name> /by <time>
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] "" (by: 2024-09-15 23:59)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Submit report (by: "")
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Submit report (by: 2024-09-15 23:59 /extra)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] a (by: b)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] " " (by: " ")
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Important Task (by: Tomorrow)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Task with spaces (by: Next Monday at 10:00 AM)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] @Urgent! Report (by: #ASAP)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] "Quoted Deadline" (by: "End of Week")
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Task:with:colons (by: 2024-09-30)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Deadline/with/slashes (by: 2024-10-01)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Mix@of#Special&Characters! (by: 2024-09-20)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[D][ ] Escaped \"deadline\" (by: \"in quotes\")
+-------------------------------
+-------------------------------
+1.[D][ ] Submit report (by: 2024-09-15 23:59)
+2.[D][ ] "" (by: 2024-09-15 23:59)
+3.[D][ ] Submit report (by: "")
+4.[D][ ] Submit report (by: 2024-09-15 23:59 /extra)
+5.[D][ ] a (by: b)
+6.[D][ ] " " (by: " ")
+7.[D][ ] Important Task (by: Tomorrow)
+8.[D][ ] Task with spaces (by: Next Monday at 10:00 AM)
+9.[D][ ] @Urgent! Report (by: #ASAP)
+10.[D][ ] "Quoted Deadline" (by: "End of Week")
+11.[D][ ] Task:with:colons (by: 2024-09-30)
+12.[D][ ] Deadline/with/slashes (by: 2024-10-01)
+13.[D][ ] Mix@of#Special&Characters! (by: 2024-09-20)
+14.[D][ ] Escaped \"deadline\" (by: \"in quotes\")
+-------------------------------
+-------------------------------
+-------------------------------
+Bye bye...
+System shutting down...
+Goodbye world!

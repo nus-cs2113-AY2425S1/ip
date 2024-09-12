@@ -1,0 +1,89 @@
+               ____  ____  ______
+   _______  __/ __ )/ __ \/_  __/
+  / ___/ / / / __  / / / / / /
+ (__  ) /_/ / /_/ / /_/ / / /
+/____/\__,_/_____/\____/ /_/
+
+How can I help you today?
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Finish homework
+-------------------------------
+-------------------------------
+Invalid argument(s): Task description cannot be blank
+Usage: todo <description>
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] ""
+-------------------------------
+-------------------------------
+Invalid argument(s): Task description cannot be blank
+Usage: todo <description>
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] a
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] " "
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Task with spaces
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] @Important!
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] "Quoted Task"
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Mix@of#Special&Characters!
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Task/with/slashes
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Task:with:colons
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] Escaped \"quote\" in the task
+-------------------------------
+-------------------------------
+1.[T][ ] Finish homework
+2.[T][ ] ""
+3.[T][ ] a
+4.[T][ ] " "
+5.[T][ ] Task with spaces
+6.[T][ ] @Important!
+7.[T][ ] "Quoted Task"
+8.[T][ ] Mix@of#Special&Characters!
+9.[T][ ] Task/with/slashes
+10.[T][ ] Task:with:colons
+11.[T][ ] Escaped \"quote\" in the task
+-------------------------------
+-------------------------------
+-------------------------------
+Bye bye...
+System shutting down...
+Goodbye world!
