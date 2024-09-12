@@ -88,16 +88,23 @@ public class lovespiritual {
 
     private static int deadline(String input, int taskCount, Task[] tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
+        if (fullTaskDescription.isEmpty()) {
+            throw new lovespiritualException("Deadline description is empty");
+        }
+        if (!fullTaskDescription.contains("by")) {
+            throw new lovespiritualException("Deadline description must contain 'by' keyword");
+        }
         String taskDescription;
         String by;
-        if (fullTaskDescription.contains("by")) {
-            String[] taskDetails = fullTaskDescription.split("by");
-            taskDescription = taskDetails[0].trim();
-            by = taskDetails[1].trim();
-        } else {
-            taskDescription = fullTaskDescription;
-            by = "null";
+        String[] taskDetails = fullTaskDescription.split("by", 2);
+        if (taskDetails.length < 2 || taskDetails[0].trim().isEmpty()) {
+            throw new lovespiritualException("Deadline description is empty");
         }
+        if (taskDetails[1].trim().isEmpty()) {
+            throw new lovespiritualException("Due date/time is empty");
+        }
+        taskDescription = taskDetails[0].trim();
+        by = taskDetails[1].trim();
         tasks[taskCount] = new Deadline(taskDescription, by);
         taskCount++;
         System.out.println(SEPARATOR);
