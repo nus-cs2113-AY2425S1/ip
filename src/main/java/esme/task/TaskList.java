@@ -14,6 +14,10 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     public int getNumberOfTasks() {
         return tasks.size();
     }
@@ -31,6 +35,15 @@ public class TaskList {
             Task task = tasks.get(i);
             System.out.println("\t" + (i + 1) + "." + task);
         }
+    }
+
+    public String deleteTask(int index) throws EsmeException {
+        if (isEmpty()) {
+            throw new EsmeException("Task list is empty!!");
+        }
+        String description = tasks.get(index-1).getDescription();
+        tasks.remove(index-1);
+        return description;
     }
 
     public String addTodoTask(String input) {

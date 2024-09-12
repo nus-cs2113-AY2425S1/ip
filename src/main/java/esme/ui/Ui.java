@@ -12,6 +12,26 @@ public class Ui {
         taskList = new TaskList();
     }
 
+    public void deleteTaskFromList(String[] words) {
+        String description;
+        try {
+            int index = Integer.parseInt(words[1]);
+            if (!isIndexValid(index)) {
+                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
+                        "boundaries of our list!");
+            }
+            description = taskList.deleteTask(index);
+        } catch (IndexOutOfBoundsException | EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
+            return;
+        }
+        displayLine(true);
+        System.out.println("\t" + description + " has been removed from your destiny!");
+        displayLine(true);
+    }
+
     public void addTaskToList(String command, String input) {
         String description;
         try {
@@ -49,7 +69,7 @@ public class Ui {
      * @return True if the index is valid, false otherwise.
      */
     public boolean isIndexValid(int index) {
-        return (index <= taskList.getNumberOfTasks() && index >= 0);
+        return (index <= taskList.getNumberOfTasks() && index > 0);
     }
 
     public boolean isTaskCompleted(int index) {
@@ -107,6 +127,10 @@ public class Ui {
                         command + " 1')");
             }
             int index = Integer.parseInt(words[1]);
+            if (!isIndexValid(index)) {
+                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
+                        "boundaries of our list!");
+            }
             if (!isTaskCompleted(index) && command.equals("unmark")) {
                 throw new EsmeException("The stars have revealed that this task is yet to be completed. " +
                         "Finish it before the cosmos frowns upon you.");
@@ -114,10 +138,6 @@ public class Ui {
             if (isTaskCompleted(index) && command.equals("mark")) {
                 throw new EsmeException("This task has already been blessed by the cosmos. " +
                         "Continue your journey with the next task.");
-            }
-            if (!isIndexValid(index)) {
-                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
             }
             toggleTaskStatus(index,command);
         } catch (EsmeException e) {
