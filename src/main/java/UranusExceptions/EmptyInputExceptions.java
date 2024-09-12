@@ -1,3 +1,5 @@
+package UranusExceptions;
+
 public class EmptyInputExceptions extends UranusExceptions {
     public EmptyInputExceptions() {
         super();

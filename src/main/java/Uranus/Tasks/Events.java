@@ -1,3 +1,5 @@
+package Uranus.Tasks;
+
 public class Events extends Task{
 
     protected String from;
