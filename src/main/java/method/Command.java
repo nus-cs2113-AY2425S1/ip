@@ -59,10 +59,26 @@ public class Command {
                 + " tasks in the list");
     }
 
+    // delete
+    public static void deleteTask(ArrayList<Task> tasks, String text) {
+        try {
+            Task taskToDelete = getTaskNum(tasks, text);
+            tasks.remove(taskToDelete);
+            System.out.println("Noted. I've removed this task:\n"
+                    + taskToDelete
+                    + "\nNow you have "
+                    + tasks.size()
+                    + " tasks in the list");
+        }
+        catch (IrisExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // mark and unmark
     public static void changeTaskStatus(ArrayList<Task> tasks, String text, boolean status) {
         try {
-            Task taskToChange = getTaskToChangeStatus(tasks, text);
+            Task taskToChange = getTaskNum(tasks, text);
             taskToChange.mark(status);
             printChangeTaskStatusMessage(taskToChange, status);
         }
@@ -71,7 +87,7 @@ public class Command {
         }
     }
 
-    private static Task getTaskToChangeStatus(ArrayList<Task> tasks, String text) throws IrisExceptions {
+    private static Task getTaskNum(ArrayList<Task> tasks, String text) throws IrisExceptions {
         try {
             String[] textParts = text.split(" ");
             if (textParts.length == 1) {

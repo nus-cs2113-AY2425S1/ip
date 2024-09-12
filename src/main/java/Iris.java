@@ -24,6 +24,9 @@ public class Iris {
         case "list":
             listTasks(tasks);
             break;
+        case "delete":
+            deleteTask(tasks, text);
+            break;
         case "mark":
             changeTaskStatus(tasks, text, true);
             break;
