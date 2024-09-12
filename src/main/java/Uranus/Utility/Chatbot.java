@@ -1,5 +1,6 @@
+package Uranus;
+
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class Chatbot {
     protected static final Scanner in = new Scanner(System.in);

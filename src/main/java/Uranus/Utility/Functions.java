@@ -1,4 +1,13 @@
+package Uranus;
+
 import java.util.Scanner;
+
+import Uranus.Tasks.Deadlines;
+import Uranus.Tasks.Events;
+import Uranus.Tasks.Task;
+import Uranus.Tasks.ToDos;
+import UranusExceptions.*;
+
 public class Functions {
 
     protected static final Scanner in = new Scanner(System.in);
