@@ -1,3 +1,5 @@
+package taskmanager;
+
 public class Task {
     private final String description;
     private boolean isMarked = false;  // Inline initialization
