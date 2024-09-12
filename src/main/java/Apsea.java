@@ -34,18 +34,6 @@ public class Apsea {
     }
 
     public static void markTask(Task[] tasks, String[] words) {
-        //int taskIndex = Integer.parseInt(taskNumber) - 1;
-
-        /*if (taskIndex < count) {
-            tasks[taskIndex].markAsDone();
-
-            printLine();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("    " + tasks[taskIndex]);
-            printLine();
-        } else {
-            printError();
-        }*/
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
             tasks[taskIndex].markAsDone();
@@ -63,19 +51,6 @@ public class Apsea {
     }
 
     public static void unmarkTask(Task[] tasks, String[] words) {
-        //int taskIndex = Integer.parseInt(taskNumber) - 1;
-
-        /*if (taskIndex < count) {
-            tasks[taskIndex].markAsUndone();
-
-            printLine();
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + tasks[taskIndex]);
-            printLine();
-        }
-        else {
-            printError();
-        }*/
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
             tasks[taskIndex].markAsUndone();
@@ -92,114 +67,76 @@ public class Apsea {
         }
     }
 
-    public static void addTodo(String line) {
+    public static void addTodo(String line) throws ApseaException {
         final int NAME_POSITION = 5;
-        try {
-            tasks[count] = new Todo(line.substring(NAME_POSITION));
-            count++;
-
-            printLine();
-            System.out.println("    I've added this task to the list:");
-            System.out.println("    " + tasks[count-1]);
-            System.out.println("    Now you have " + count + " task(s) in the list:");
-            printLine();
-        } catch (Exception e) {
-            printLine();
-            System.out.println("    Sorry, please use the format:\n"
-                    + "    todo [task name] /by [time]");
-            printLine();
+        if (line.length() <= NAME_POSITION) {
+            throw new ApseaException("    Sorry, please use the format:\n"
+                    + "    todo [task name]");
         }
+
+        tasks[count] = new Todo(line.substring(NAME_POSITION));
+        count++;
+
+        printLine();
+        System.out.println("    I've added this task to the list:");
+        System.out.println("    " + tasks[count-1]);
+        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printLine();
     }
     public static boolean isValidDeadline(String line, int byPosition) {
-        return (byPosition >= 0) && (byPosition + 4 < line.length());
+        return (byPosition > 9) && (byPosition + 4 < line.length());
     }
 
-    public static void addDeadline(String line) {
+    public static void addDeadline(String line) throws ApseaException{
         final int NAME_POSITION = 9;
         int byPosition = line.indexOf("/by");
 
-        /*if (isValidDeadline(line, byPosition)) {
-            tasks[count] = new Deadline(line.substring(NAME_POSITION, byPosition),
-                    line.substring(byPosition + 4));
-            count++;
-
-            printLine();
-            System.out.println("    I've added this task to the list:");
-            System.out.println("    " + tasks[count - 1]);
-            System.out.println("    Now you have " + count + " task(s) in the list:");
-            printLine();
-        } else {
-            printError();
-        }*/
-
-        try {
-            tasks[count] = new Deadline(line.substring(NAME_POSITION, byPosition),
-                    line.substring(byPosition + 4));
-            count++;
-
-            printLine();
-            System.out.println("    I've added this task to the list:");
-            System.out.println("    " + tasks[count - 1]);
-            System.out.println("    Now you have " + count + " task(s) in the list:");
-            printLine();
-        } catch (Exception e) {
-            printLine();
-            System.out.println("    Sorry, please use the format:\n"
+        if (!isValidDeadline(line, byPosition)) {
+            throw new ApseaException("    Sorry, please use the format:\n"
                     + "    deadline [task name] /by [time]");
-            printLine();
         }
+
+        tasks[count] = new Deadline(line.substring(NAME_POSITION, byPosition),
+                line.substring(byPosition + 4));
+        count++;
+
+        printLine();
+        System.out.println("    I've added this task to the list:");
+        System.out.println("    " + tasks[count - 1]);
+        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printLine();
     }
 
     public static boolean isValidEvent(String line, int fromPosition, int toPosition) {
-        boolean hasFrom = fromPosition >= 0;
+        //event name is valid when /from starts after index 6
+        boolean hasFrom = fromPosition > 6;
         boolean hasTo = toPosition >= 0;
         boolean isValidFrom = fromPosition + 6 < toPosition;
         boolean isValidTo = line.length() > toPosition + 4;
 
-        /*if ((!hasFrom && hasTo && isValidFrom && isValidTo)) {
-            throw new InvalidEventTime();
-        }*/
-
-        return !hasFrom && hasTo && isValidFrom && isValidTo;
+        return hasFrom && hasTo && isValidFrom && isValidTo;
     }
 
-
-    public static void addEvent(String line) {
+    public static void addEvent(String line) throws ApseaException {
         final int NAME_POSITION = 6;
         int fromPosition = line.indexOf("/from");
         int toPosition = line.indexOf("/to");
 
-        /*if (isValidEvent(line, fromPosition, toPosition)) {
-            tasks[count] = new Event(line.substring(NAME_POSITION, fromPosition),
-                    line.substring(fromPosition + 6, toPosition - 1),
-                    line.substring(toPosition + 4));
-            count++;
-
-            printLine();
-            System.out.println("    I've added this task to the list:");
-            System.out.println("    " + tasks[count - 1]);
-            System.out.println("    Now you have " + count + " task(s) in the list:");
-            printLine();
-        } else {
-            printError();
-        }*/
-        try {
-            tasks[count] = new Event(line.substring(NAME_POSITION, fromPosition),
-                    line.substring(fromPosition + 6, toPosition - 1),
-                    line.substring(toPosition + 4));
-            count++;
-
-            printLine();
-            System.out.println("    I've added this task to the list:");
-            System.out.println("    " + tasks[count - 1]);
-            System.out.println("    Now you have " + count + " task(s) in the list:");
-            printLine();
-        } catch (Exception e) {
-            printLine();
-            System.out.println("    Sorry, please use the format:\n"
-                    + "    event [task name] /from [time] /to [time]");
-            printLine();
+        if (!isValidEvent(line, fromPosition, toPosition)) {
+            throw new ApseaException("    Sorry, Please use the format:\n" +
+                    "    event [task name] /from [time] /to [event] ");
         }
+
+        tasks[count] = new Event(line.substring(NAME_POSITION, fromPosition),
+                line.substring(fromPosition + 6, toPosition - 1),
+                line.substring(toPosition + 4));
+        count++;
+
+        printLine();
+        System.out.println("    I've added this task to the list:");
+        System.out.println("    " + tasks[count - 1]);
+        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printLine();
     }
 
     public static void getInput() {
@@ -209,31 +146,37 @@ public class Apsea {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             String[] words = line.split(" ");
-            switch (words[0].toLowerCase()) {
-            case "bye":
-                isExit = true;
-                break;
-            case "list":
-                listTasks(tasks, count);
-                break;
-            case "todo":
-                addTodo(line);
-                break;
-            case "deadline":
-                addDeadline(line);
-                break;
-            case "event":
-                addEvent(line);
-                break;
-            case "mark":
-                markTask(tasks, words);
-                break;
-            case "unmark":
-                unmarkTask(tasks, words);
-                break;
-            default:
-                printError();
-                break;
+            try {
+                switch (words[0].toLowerCase()) {
+                case "bye":
+                    isExit = true;
+                    break;
+                case "list":
+                    listTasks(tasks, count);
+                    break;
+                case "todo":
+                    addTodo(line);
+                    break;
+                case "deadline":
+                    addDeadline(line);
+                    break;
+                case "event":
+                    addEvent(line);
+                    break;
+                case "mark":
+                    markTask(tasks, words);
+                    break;
+                case "unmark":
+                    unmarkTask(tasks, words);
+                    break;
+                default:
+                    printError();
+                    break;
+                }
+            } catch (ApseaException e) {
+                printLine();
+                System.out.println(e.getMessage());
+                printLine();
             }
         } while (!isExit);
     }
