@@ -146,13 +146,13 @@ public class Jarvis {
             }
 
             readInput(in, lineBufferString); // Recursively call the function to read the next input
-        } catch (NoSuchElementException e) {
-            // printGoodbyeMsgs();
         } catch (EmptyArgumentException | IllegalCommandException | InvalidCommandFormatException e) {
             printBreakLine();
             System.out.println(e);
             printBreakLine();
-            readInput(in, lineBufferString); // Let user try again
+            readInput(in, lineBufferString);
+        } catch (NoSuchElementException e) {
+            // FIXME: Facing unexpected NoSuchElementException error
         }
 
 
