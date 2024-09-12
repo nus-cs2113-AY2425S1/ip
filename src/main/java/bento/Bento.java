@@ -7,9 +7,11 @@ import tasks.Task;
 import tasks.ToDo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,6 +29,7 @@ public class Bento {
     public static final String SAYONARA_MESSAGE = "\tThank you for working with me today! See you next time! Sayonara~";
     public static final String ADD_TASK_SUCCESS_MESSAGE = "\tRoger that! Successfully added task:";
     public static final String DELETE_TASK_SUCCESS_MESSAGE = "\tThe following task has been removed successfully:";
+    public static final String SAVE_TASK_LIST_SUCCESS_MESSAGE = "\tBanzai! I've saved all our tasks for you to work on them next time!";
     public static final String EXISTING_TASKS_MESSAGE = "\tHere is the list of your existing tasks!";
     public static final String UNMARKED_MESSAGE = "\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.";
     public static final String MARKED_MESSAGE = "\tYou've crushed this task! I've gone ahead and marked it as done for you.";
@@ -68,6 +71,7 @@ public class Bento {
 
     // Data
     public static final String FILE_PATH = "./data/save.txt";
+    public static final Path DATA_DIRECTORY = Paths.get("./data");
     private final Scanner IN = new Scanner(System.in);
     private final ArrayList<Task> TASKS = new ArrayList<>();
     private boolean isExit = false;
@@ -75,7 +79,7 @@ public class Bento {
     // Print Functions
     public void printSaveTaskListSuccessMessage() {
         printLine();
-        System.out.println("Successfully saved!");
+        System.out.println(SAVE_TASK_LIST_SUCCESS_MESSAGE);
         printLine();
     }
 
@@ -369,6 +373,8 @@ public class Bento {
 
     public void saveTaskList() throws SaveFileErrorException {
         try {
+            // Create data directory if it does not exist
+            Files.createDirectories(DATA_DIRECTORY);
             FileWriter saveWriter = new FileWriter(FILE_PATH);
             for (Task task : TASKS) {
                 saveWriter.write(task.getTaskAsCommand());
