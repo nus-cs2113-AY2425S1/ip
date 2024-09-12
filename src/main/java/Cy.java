@@ -2,6 +2,8 @@ import commands.Deadline;
 import commands.Event;
 import commands.Task;
 import commands.Todo;
+import exceptions.IllegalCommandException;
+import exceptions.IllegalEmptyException;
 
 import java.util.Scanner;
 
@@ -83,7 +85,7 @@ public class Cy {
         return count;
     }
 
-    public static String trimString(String input) throws IllegalEmptyException{
+    public static String trimString(String input) throws IllegalEmptyException {
         String output = input.trim();
 
         String[] outputSplit= output.split(" ",2);
