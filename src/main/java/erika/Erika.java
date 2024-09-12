@@ -4,6 +4,7 @@ import erika.exception.EmptyDescriptionException;
 import erika.exception.EmptyListException;
 import erika.exception.FormatErrorException;
 import erika.exception.UnknownCommandException;
+import erika.settings.Settings;
 import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
@@ -64,20 +65,29 @@ public class Erika {
             throw new EmptyDescriptionException("Event");
         }
         int indexOfFrom = line.indexOf("/from ");
-        if(line.indexOf(" ") == indexOfFrom - 1) {
+        if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
             throw new FormatErrorException();
         }
         int indexOfTo = line.indexOf("/to ");
         if (indexOfFrom == -1 || indexOfTo == -1) {
             throw new FormatErrorException();
         }
-        if (line.substring(line.indexOf(" ") + 1, indexOfFrom - 1).trim().isEmpty()) {
+        Event newEvent = addNewEvent(line, indexOfFrom, indexOfTo);
+        printAddedMessage(newEvent);
+    }
+
+    private static Event addNewEvent(String line, int indexOfFrom, int indexOfTo) throws EmptyDescriptionException {
+        int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
+        int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
+        String description = line.substring(substringStart, substringEnd);
+        String fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
+        String toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+        if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
         }
-        Event newEvent = new Event(line.substring(line.indexOf(" ") + 1, indexOfFrom - 1),
-                line.substring(indexOfFrom + 6, indexOfTo - 1), line.substring(indexOfTo + 4));
+        Event newEvent = new Event(description, fromText, toText);
         tasks.add(newEvent);
-        printAddedMessage(newEvent);
+        return newEvent;
     }
 
     private static void addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
@@ -85,26 +95,35 @@ public class Erika {
             throw new EmptyDescriptionException("Deadline");
         }
         int indexOfBy = line.indexOf("/by ");
-        if (line.substring(line.indexOf(" ") + 1, indexOfBy - 1).trim().isEmpty()) {
-            throw new EmptyDescriptionException("Deadline");
+        if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
+            throw new FormatErrorException();
         }
         if (indexOfBy == -1) {
             throw new FormatErrorException();
         }
-        if (line.indexOf(" ") == indexOfBy - 1) {
-            throw new FormatErrorException();
-        }
-        Deadline newDeadline = new Deadline(line.substring(line.indexOf(" ") + 1, indexOfBy - 1),
-                line.substring(indexOfBy + 4));
-        tasks.add(newDeadline);
+        Deadline newDeadline = addNewDeadline(line, indexOfBy);
         printAddedMessage(newDeadline);
+    }
+
+    private static Deadline addNewDeadline(String line, int indexOfBy) throws EmptyDescriptionException {
+        int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
+        int substringEnd = indexOfBy - Settings.BY_REAR_OFFSET;
+        String description = line.substring(substringStart, substringEnd);
+        String byText = line.substring(indexOfBy + Settings.BY_LENGTH_OFFSET);
+        if (description.trim().isEmpty()) {
+            throw new EmptyDescriptionException("Deadline");
+        }
+
+        Deadline newDeadline = new Deadline(description, byText);
+        tasks.add(newDeadline);
+        return newDeadline;
     }
 
     private static void addTodo(String line) throws EmptyDescriptionException{
         if (!line.contains("todo ")) {
             throw new EmptyDescriptionException("Todo");
         }
-        Todo newTodo = new Todo(line.substring(line.indexOf(" ")+1));
+        Todo newTodo = new Todo(line.substring(line.indexOf(" ")+Settings.SPACE_OFFSET));
         tasks.add(newTodo);
         printAddedMessage(newTodo);
     }
