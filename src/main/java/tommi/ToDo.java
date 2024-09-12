@@ -1,3 +1,5 @@
+package tommi;
+
 public class ToDo extends Task{
 
     public ToDo(boolean isDone, String taskName) {

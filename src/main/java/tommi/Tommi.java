@@ -1,3 +1,5 @@
+package tommi;
+
 import java.util.Scanner;
 
 public class Tommi {

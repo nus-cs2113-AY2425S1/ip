@@ -1,3 +1,5 @@
+package tommi;
+
 public class Task {
 
     protected final boolean isDone;
