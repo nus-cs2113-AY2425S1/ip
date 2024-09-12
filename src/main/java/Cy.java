@@ -158,7 +158,7 @@ public class Cy {
         return count + 1;
     }
 
-    public static void main(String[] args) throws IllegalEmptyException {
+    public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
 
@@ -185,7 +185,8 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("event")) {
                 count = addEvent(items, count, input);
             } else {
-                addItem(items, count, input);
+                System.out.println("Please enter a valid command");
+                throw new IllegalCommandException();
             }
             input = scan.nextLine();
         }
