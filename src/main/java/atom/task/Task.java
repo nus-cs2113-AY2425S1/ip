@@ -1,3 +1,5 @@
+package atom.task;
+
 public class Task {
     protected String item;
     protected boolean isDone;
