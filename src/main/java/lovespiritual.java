@@ -117,6 +117,9 @@ public class lovespiritual {
 
     private static int todo(String input, Task[] tasks, int taskCount) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
+        if (taskDescription.isEmpty()) {
+            throw new lovespiritualException("Todo description is empty");
+        }
         tasks[taskCount] = new Todo(taskDescription);
         taskCount++;
         System.out.println(SEPARATOR);
