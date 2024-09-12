@@ -120,7 +120,7 @@ public class Bento {
     }
 
     // tasks.ToDo Functions
-    public void addToDo(String input) throws InvalidToDoException {
+    public void addToDo(String input, boolean fromUserInput) throws InvalidToDoException {
         input = getTodo(input);
         if (input.isEmpty()) {
             throw new InvalidToDoException();
@@ -129,7 +129,9 @@ public class Bento {
         ToDo toAdd = new ToDo(input);
         TASKS.add(toAdd);
 
-        printAddTaskSuccessMessage(toAdd.toString());
+        if (fromUserInput) {
+            printAddTaskSuccessMessage(toAdd.toString());
+        }
     }
 
     public String getTodo(String input) {
@@ -137,7 +139,7 @@ public class Bento {
     }
 
     // tasks.Deadline Functions
-    public void addDeadline(String input) throws InvalidDeadlineException {
+    public void addDeadline(String input, boolean fromUserInput) throws InvalidDeadlineException {
         input = removeDeadlinePrefix(input);
         final int indexOfByPrefix = input.indexOf(BY_PREFIX);
 
@@ -156,7 +158,9 @@ public class Bento {
         Deadline toAdd = new Deadline(deadlineName, deadlineBy);
         TASKS.add(toAdd);
 
-        printAddTaskSuccessMessage(toAdd.toString());
+        if (fromUserInput) {
+            printAddTaskSuccessMessage(toAdd.toString());
+        }
     }
 
     public String extractDeadlineBy(String input) {
@@ -176,7 +180,7 @@ public class Bento {
     }
 
     // tasks.Event Functions
-    public void addEvent(String input) throws InvalidEventException {
+    public void addEvent(String input, boolean fromUserInput) throws InvalidEventException {
         input = removeEventPrefix(input);
         int indexOfFrom = input.indexOf(FROM_PREFIX);
         int indexOfTo = input.indexOf(TO_PREFIX);
@@ -196,7 +200,9 @@ public class Bento {
         Event toAdd = new Event(eventName, fromString, toString);
         TASKS.add(toAdd);
 
-        printAddTaskSuccessMessage(toAdd.toString());
+        if (fromUserInput) {
+            printAddTaskSuccessMessage(toAdd.toString());
+        }
     }
 
     public String extractToString(String input, int indexOfTo) {
@@ -305,7 +311,7 @@ public class Bento {
         return input.split(SPACE_REGEX);
     }
 
-    public void handleUserInput(String input) {
+    public void handleUserInput(String input, boolean fromUserInput) {
         // Remove excess whitespace
         input = input.trim();
         String[] inputList = getInputList(input);
@@ -325,13 +331,13 @@ public class Bento {
                 markTaskAsDone(false, input);
                 break;
             case TODO_COMMAND:
-                addToDo(input);
+                addToDo(input, fromUserInput);
                 break;
             case DEADLINE_COMMAND:
-                addDeadline(input);
+                addDeadline(input, fromUserInput);
                 break;
             case EVENT_COMMAND:
-                addEvent(input);
+                addEvent(input, fromUserInput);
                 break;
             case DELETE_COMMAND:
                 deleteTask(input);
@@ -353,10 +359,13 @@ public class Bento {
                 String line = fileScanner.nextLine().trim();
                 boolean isTaskDone = getTaskDone(line);
                 String userCommand = getCommand(line);
-                handleUserInput(userCommand);
+                // Suppress success messages
+                handleUserInput(userCommand, false);
+                // Overloaded markTaskAsDone
                 markTaskAsDone(isTaskDone, currentTask);
                 currentTask++;
             }
+            listTasks();
         } catch (Exception e) {
             // Exceptions encountered when loading the save file can be classified as LoadFileErrorExceptions
             throw new LoadFileErrorException();
@@ -402,7 +411,8 @@ public class Bento {
         }
         while (!isExit) {
             String input = getUserInput();
-            handleUserInput(input);
+            // Outputs success messages
+            handleUserInput(input, true);
         }
     }
 }
