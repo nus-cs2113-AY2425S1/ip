@@ -1,3 +1,9 @@
+import CassHelpers.Exceptions.*;
+import CassHelpers.Tasks.Deadline;
+import CassHelpers.Tasks.Event;
+import CassHelpers.Tasks.Task;
+import CassHelpers.Tasks.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,11 +49,11 @@ public class Cassandra {
         System.out.println("Now you have "+taskList.size()+" tasks in the list.");
     }
 
-    private static void markTask(int index){
-        if(index<=0 || index>taskList.size()) {
-            System.out.println("Sorry, no task found");
-        } else if(taskList.get(index-1).getIsCompleted()){
-            System.out.println("Task has already been marked complete");
+    private static void markTask(int index) throws TaskNotFoundException, TaskAlreadyMarkedException {
+        if (index <= 0 || index > taskList.size()) {
+            throw new TaskNotFoundException("Sorry, no task found");
+        } else if (taskList.get(index - 1).getIsCompleted()) {
+            throw new TaskAlreadyMarkedException("Task has already been marked complete");
         } else {
             taskList.get(index - 1).setCompleted(true);
             System.out.println(" Nice! I've marked this task as done:");
@@ -55,11 +61,11 @@ public class Cassandra {
         }
     }
 
-    private static void unmarkTask(int index){
-        if(index<=0 || index>taskList.size()) {
-            System.out.println("Sorry, no task found");
-        } else if(!taskList.get(index-1).getIsCompleted()){
-            System.out.println("Task has already been marked incomplete");
+    private static void unmarkTask(int index) throws TaskNotFoundException, TaskAlreadyUnmarkedException {
+        if (index <= 0 || index > taskList.size()) {
+            throw new TaskNotFoundException("Sorry, no task found");
+        } else if (!taskList.get(index - 1).getIsCompleted()) {
+            throw new TaskAlreadyUnmarkedException("Task has already been marked incomplete");
         } else {
             taskList.get(index - 1).setCompleted(false);
             System.out.println(" OK, I've marked this task as not done yet: ");
@@ -84,32 +90,31 @@ public class Cassandra {
         saveTask(new Todo(taskName));
     }
 
-    private static void addEvent(String input){
-        int fromIndexOffset=6;
-        int toIndexOffset=4;
+
+    private static void addEvent(String input) throws InvalidEventFormatException {
+        int fromIndexOffset = 6;
+        int toIndexOffset = 4;
 
         int fromIndex = input.indexOf("/from") + fromIndexOffset;
         int toIndex = input.indexOf("/to");
 
-        if(fromIndex<0 || toIndex<0){
-            System.out.println("Sorry, event entered has the wrong format");
-            return;
+        if (fromIndex < fromIndexOffset || toIndex < 0) {
+            throw new InvalidEventFormatException("Sorry, event entered has the wrong format");
         }
 
         String from = input.substring(fromIndex, toIndex).trim();
         String to = input.substring(toIndex + toIndexOffset).trim();
-        String eventTaskName = input.substring(0, fromIndex).trim();
+        String eventTaskName = input.substring(0, fromIndex - fromIndexOffset).trim();
 
         saveTask(new Event(eventTaskName, from, to));
     }
 
-    private static void addDeadline(String input){
-        int byIndexOffset=4;
+    private static void addDeadline(String input) throws InvalidDeadlineFormatException {
+        int byIndexOffset = 4;
         int byIndex = input.indexOf("/by");
 
-        if(byIndex < 0){
-            System.out.println("Sorry, deadline entered has the wrong format");
-            return;
+        if (byIndex < 0) {
+            throw new InvalidDeadlineFormatException("Sorry, deadline entered has the wrong format");
         }
 
         String by = input.substring(byIndex + byIndexOffset).trim();
@@ -124,47 +129,45 @@ public class Cassandra {
             return;
         }
 
-        switch (commandArgs[0].toLowerCase()) {
-            case "mark":
-                if (commandArgs.length < 2) {
-                    System.out.println("Please provide a task index to mark.");
-                } else {
-                    try {
+        try {
+            switch (commandArgs[0].toLowerCase()) {
+                case "mark":
+                    if (commandArgs.length < 2) {
+                        throw new NoTaskIndexFoundException("Please provide a task index to mark.");
+                    } else {
                         markTask(Integer.parseInt(commandArgs[1]));
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please enter a valid task index.");
                     }
-                }
-                break;
-            case "unmark":
-                if (commandArgs.length < 2) {
-                    System.out.println("Please provide a task index to unmark.");
-                } else {
-                    try {
+                    break;
+                case "unmark":
+                    if (commandArgs.length < 2) {
+                        throw new NoTaskIndexFoundException("Please provide a task index to unmark.");
+                    } else {
                         unmarkTask(Integer.parseInt(commandArgs[1]));
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please enter a valid task index.");
                     }
-                }
-                break;
-            case "list":
-                printList();
-                break;
-            case "bye":
-                exit();
-                break;
-            case "todo":
-                addTodo(input);
-                break;
-            case "deadline":
-                addDeadline(input);
-                break;
-            case "event":
-                addEvent(input);
-                break;
-            default:
-                System.out.println("Sorry, unknown command.");
-                break;
+                    break;
+                case "list":
+                    printList();
+                    break;
+                case "bye":
+                    exit();
+                    break;
+                case "todo":
+                    addTodo(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
+                default:
+                    throw new InvalidCommandException("Sorry, unknown command.");
+            }
+        } catch (TaskNotFoundException | NoTaskIndexFoundException | TaskAlreadyMarkedException |
+                 TaskAlreadyUnmarkedException | InvalidEventFormatException | InvalidDeadlineFormatException | InvalidCommandException e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid task index.");
         }
     }
 

@@ -1,3 +1,5 @@
+package CassHelpers.Tasks;
+
 public class Task {
     protected String taskName;
     protected boolean isCompleted;

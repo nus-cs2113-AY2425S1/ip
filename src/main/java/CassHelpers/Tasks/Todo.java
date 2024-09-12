@@ -1,6 +1,8 @@
+package CassHelpers.Tasks;
+
 public class Todo extends Task{
 
-    Todo(String taskName){
+    public Todo(String taskName){
         super(taskName);
     }
 
