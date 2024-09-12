@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Bosco {
@@ -53,10 +54,8 @@ public class Bosco {
             executeListTasks();
             break;
         case "mark":
-            executeMarkTask(commandArgs);
-            break;
         case "unmark":
-            executeUnmarkTask(commandArgs);
+            executeMarkUnmarkTask(commandType, commandArgs);
             break;
         case "todo":
             executeAddTodo(commandArgs);
@@ -96,24 +95,22 @@ public class Bosco {
         System.out.println(DIVIDER);
     }
 
-    private static void executeMarkTask(String commandArgs) {
+    private static void executeMarkUnmarkTask(String commandType, String commandArgs) {
         int taskNumber = Integer.parseInt(commandArgs);
         if (taskNumber < 1 || taskNumber > taskCount) {
             throw new IndexOutOfBoundsException();
         }
         Task selectedTask = taskList[taskNumber - 1];
-        selectedTask.markAsDone();
-        printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
-    }
-
-    private static void executeUnmarkTask(String commandArgs) {
-        int taskNumber = Integer.parseInt(commandArgs);
-        if (taskNumber < 1 || taskNumber > taskCount) {
-            throw new IndexOutOfBoundsException();
+        switch (commandType) {
+        case "mark":
+            selectedTask.markAsDone();
+            printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
+            break;
+        case "unmark":
+            selectedTask.markAsNotDone();
+            printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
+            break;
         }
-        Task selectedTask = taskList[taskNumber - 1];
-        selectedTask.markAsNotDone();
-        printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
     }
 
     private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
