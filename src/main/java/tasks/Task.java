@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.ArrayList;
+
 public class Task {
     public String description;
     protected boolean isDone;
