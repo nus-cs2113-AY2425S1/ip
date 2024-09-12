@@ -86,7 +86,7 @@ public class Main {
                 System.out.println("wrong format, enter a valid task");
             }
             catch (ArrayIndexOutOfBoundsException e){ //
-                System.out.println("the task is not even in my swamp u donkey");
+                System.out.println("what are you typing donkey? specify the time/task right or get out of my swamp");
             }
             catch (NullPointerException e){ //when access nullptr, eg when marking task 6 but only got 5 task
                 System.out.println("cant mark whats not in my swamp. pick an existing task donkey");
