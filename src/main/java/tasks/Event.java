@@ -1,6 +1,7 @@
 package tasks;
 
 public class Event extends Task {
+    private static final String COMMAND_FORMAT = "event %s /from %s /to %s";
     private String from;
     private String to;
 
@@ -29,5 +30,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), getFrom(), getTo());
+    }
+
+    @Override
+    public String getTaskAsCommand() {
+        return String.format(COMMAND_FORMAT, getTaskName(), getFrom(), getTo());
     }
 }

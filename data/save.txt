@@ -1,0 +1,4 @@
+todo borrow book | 0
+deadline read book /by Monday | 0
+event return book /from Monday /to Tuesday | 1
+todo eat rice | 0
