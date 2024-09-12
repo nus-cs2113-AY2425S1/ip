@@ -7,9 +7,20 @@ public class Ui {
     private TaskList taskList;
     private static final int SEPARATOR_LENGTH = 120;
     private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
+    private static final String esmeLogo = " _____                    \n" +
+            "| ____|___ _ __ ___   ___ \n" +
+            "|  _| / __| '_ ` _ \\ / _ \\ \n" +
+            "| |___\\__ \\ | | | | |  __/ \n" +
+            "|_____|___/_| |_| |_|\\___| ";
 
     public Ui() {
         taskList = new TaskList();
+    }
+
+    public void callToWork() {
+        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() +
+                " tasks waiting for you!");
+        displayLine(true);
     }
 
     public void deleteTaskFromList(String[] words) {
@@ -30,6 +41,7 @@ public class Ui {
         displayLine(true);
         System.out.println("\t" + description + " has been removed from your destiny!");
         displayLine(true);
+        callToWork();
     }
 
     public void addTaskToList(String command, String input) {
@@ -57,9 +69,7 @@ public class Ui {
         displayLine(true);
         System.out.println("\tThe stars have aligned and " + description + " is now part of your destiny!");
         displayLine(true);
-        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() +
-                " tasks waiting for you!");
-        displayLine(true);
+        callToWork();
     }
 
     /**
@@ -160,11 +170,6 @@ public class Ui {
         displayLine(true);
     }
 
-    private static final String esmeLogo = " _____                    \n" +
-            "| ____|___ _ __ ___   ___ \n" +
-            "|  _| / __| '_ ` _ \\ / _ \\ \n" +
-            "| |___\\__ \\ | | | | |  __/ \n" +
-            "|_____|___/_| |_| |_|\\___| ";
 
     /**
      * Prints a line to the console to separate different sections of the UI.
