@@ -17,28 +17,38 @@ public class lovespiritual {
         while (true) {
             String input = in.nextLine().trim();
 
-            if (input.equalsIgnoreCase("bye")) {
-                printExitScreen();
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                printList(taskCount, isMarked, taskTypes, tasks);
-            } else if (input.startsWith("mark ")) {
-                markTask(input, taskCount, isMarked, tasks);
-            } else if (input.startsWith("unmark ")) {
-                unmarkTask(input, taskCount, isMarked, tasks);
-            } else if (input.startsWith("todo")){
-                taskCount = todo(input, tasks, taskCount);
-            } else if (input.startsWith("deadline ")){
-                taskCount = deadline(input, taskCount, tasks);
-            } else if (input.startsWith("event ")) {
-                taskCount = event(input, tasks, taskCount);
-            } else {
-                taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    printExitScreen();
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    printList(taskCount, isMarked, taskTypes, tasks);
+                } else if (input.startsWith("mark ")) {
+                    markTask(input, taskCount, isMarked, tasks);
+                } else if (input.startsWith("unmark ")) {
+                    unmarkTask(input, taskCount, isMarked, tasks);
+                } else if (input.startsWith("todo")) {
+                    taskCount = todo(input, tasks, taskCount);
+                } else if (input.startsWith("deadline ")) {
+                    taskCount = deadline(input, taskCount, tasks);
+                } else if (input.startsWith("event ")) {
+                    taskCount = event(input, tasks, taskCount);
+                } else {
+                    taskCount = addTask(tasks, taskCount, new Task(input), taskTypes);
+                }
+            } catch (lovespiritualException e) {
+                System.out.println(SEPARATOR);
+                System.out.println("OOPS!!! " + e.getMessage());
+                System.out.println(SEPARATOR);
+            } catch (Exception e) {
+                System.out.println(SEPARATOR);
+                System.out.println("OOPS!!! Something went wrong.");
+                System.out.println(SEPARATOR);
             }
         }
     }
 
-    private static int event(String input, Task[] tasks, int taskCount) {
+    private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         String taskDescription;
         String from;
@@ -69,7 +79,7 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static int deadline(String input, int taskCount, Task[] tasks) {
+    private static int deadline(String input, int taskCount, Task[] tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         String taskDescription;
         String by;
@@ -91,7 +101,7 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static int todo(String input, Task[] tasks, int taskCount) {
+    private static int todo(String input, Task[] tasks, int taskCount) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         tasks[taskCount] = new Todo(taskDescription);
         taskCount++;
@@ -103,7 +113,7 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) {
+    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
@@ -119,7 +129,7 @@ public class lovespiritual {
         }
     }
 
-    private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) {
+    private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         int indexNumber = Integer.parseInt(taskNumber) - 1;
         if (indexNumber >= 0 && indexNumber < taskCount) {
