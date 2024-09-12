@@ -1,0 +1,3 @@
+T | 0 | pay money
+D | 1 | homework | July 4
+E | 1 | sports day | July 4 | Oct 12

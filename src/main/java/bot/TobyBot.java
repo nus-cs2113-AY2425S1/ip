@@ -5,14 +5,19 @@ import task.Todo;
 import task.Deadline;
 import task.Event;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TobyBot {
     private static final String LINE = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/TobyBot.txt";
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
+
     public static void main(String[] args) {
+        loadTasks();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println(LINE);
         System.out.println("Hello! I'm TobyBot");
@@ -40,6 +45,8 @@ public class TobyBot {
                     addDeadlineTask(input.substring(9).trim());
                 } else if (input.startsWith("event ")) {
                     addEventTask(input.substring(6).trim());
+                } else if (input.startsWith("delete ")) {
+                    deleteTask(input);
                 } else {
                     throw new TobyBotException("I'm sorry. Your input doesn't fit the format of all tasks :-(");
                 }
@@ -48,7 +55,65 @@ public class TobyBot {
             }
 
             System.out.println(LINE);
+
+            saveTasks();
+            
         }
+    }
+
+    private static void loadTasks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+        } else {
+            try (Scanner s = new Scanner(file)) {
+                while (s.hasNext()) {
+                    String line = s.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    Task task = switch (parts[0]) {
+                        case "T" -> new Todo(parts[2]);
+                        case "D" -> new Deadline(parts[2], parts[3]);
+                        case "E" -> new Event(parts[2], parts[3], parts[4]);
+                        default -> null;
+                    };
+
+                    if (task != null) {
+                        if (parts[1].equals("1")) {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            }
+        }
+    }
+
+    private static void saveTasks() {
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                fw.write(taskToFileString(task) + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file.");
+        }
+    }
+
+    private static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        if (task instanceof Todo) {
+            sb.append("T");
+        } else if (task instanceof Deadline deadline) {
+            sb.append("D");
+            sb.append(" | ").append(deadline.getBy());
+        } else if (task instanceof Event event) {
+            sb.append("E");
+            sb.append(" | ").append(event.getFrom());
+            sb.append(" | ").append(event.getTo());
+        }
+        sb.insert(1, " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription());
+        return sb.toString();
     }
 
     private static void listTasks() {
@@ -97,6 +162,18 @@ public class TobyBot {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private static void deleteTask(String input) throws TobyBotException {
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = tasks.remove(taskNumber);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new TobyBotException("Invalid task number.");
+        }
+    }
+
     private static void markTask(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -121,8 +198,6 @@ public class TobyBot {
         }
     }
 }
-
-
 
 
 
