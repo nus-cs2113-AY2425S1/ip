@@ -19,36 +19,38 @@ public class Eva {
 
             line = in.nextLine();
 
-            switch (getCommand(line)) {
-            case "list":
-                taskManager.printTaskList();
-                break;
-            case "mark":
-                taskManager.markTask(line);
-                break;
-            case "unmark":
-                taskManager.unmarkTask(line);
-                break;
-            case "bye":
-                sayBye();
-                return;
-            case "todo":
-                taskManager.printTodo(line);
-                break;
-            case "deadline":
-                taskManager.printDeadline(line);
-                break;
-            case "event":
-                taskManager.printEvent(line);
-                break;
-            default:
-                taskManager.printTasks(line);
-                break;
+            try {
+                switch (getCommand(line)) {
+                case "list":
+                    taskManager.printTaskList();
+                    break;
+                case "mark":
+                    taskManager.markTask(line);
+                    break;
+                case "unmark":
+                    taskManager.unmarkTask(line);
+                    break;
+                case "bye":
+                    sayBye();
+                    return;
+                case "todo":
+                    taskManager.printTodo(line);
+                    break;
+                case "deadline":
+                    taskManager.printDeadline(line);
+                    break;
+                case "event":
+                    taskManager.printEvent(line);
+                    break;
+                }
+            } catch (EvaException e) {
+                System.out.println(e.getMessage());
+                System.out.println(HORIZONTAL_LINE);
             }
         }
     }
 
-    public static String getCommand(String line) {
+    public static String getCommand(String line) throws EvaException {
 
         if (line.equalsIgnoreCase("list")) {
             return "list";
@@ -65,7 +67,7 @@ public class Eva {
         } else if (line.startsWith("event")) {
             return "event";
         } else {
-            return "default";
+            throw new EvaException("Sorry!! I don't understand what does " + line + " means!");
         }
     }
 

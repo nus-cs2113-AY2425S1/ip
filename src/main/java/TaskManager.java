@@ -9,6 +9,7 @@ public class TaskManager {
     public TaskManager() {
         tasks = new Task[MAX_TASKS];
         count = 0;
+
     }
 
     public void printTaskList() {
@@ -19,9 +20,15 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void markTask(String line) {
+    public void markTask(String line) throws EvaException {
 
         int taskNumber = extractDigit(line) - 1;
+
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
+                    "Please provide a valid task number between 1 and " + count + ".");
+        }
+
         tasks[taskNumber].setMarkAsDone();
 
         System.out.println("Great! This task is marked as done: ");
@@ -30,9 +37,15 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void unmarkTask(String line) {
+    public void unmarkTask(String line) throws EvaException {
 
         int taskNumber = extractDigit(line) - 1;
+
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
+                    "Please provide a valid task number between 1 and " + count + ".");
+        }
+
         tasks[taskNumber].setMarkAsNotDone();
 
         System.out.println("Ok, This task is marked as not done yet: ");
@@ -45,17 +58,14 @@ public class TaskManager {
         return Integer.parseInt(numberString);
     }
 
-    public void printTasks(String line) {
-        tasks[count] = new Task(line);
-        System.out.println("Okay, added: " + line);
-        printNumTasks(tasks, count);
-        System.out.println(HORIZONTAL_LINE);
-        count ++;
-    }
-
-    public void printTodo(String line) {
+    public void printTodo(String line) throws EvaException {
 
         String todoDesc = line.replaceFirst("todo", "").trim();
+
+        if (todoDesc.isEmpty()) {
+            throw new EvaException("On no! The description of a todo cannot be empty." +
+                    " \nPlease try again by typing todo (name of task).");
+        }
 
         tasks[count] = new Todo(todoDesc);
 
@@ -67,11 +77,23 @@ public class TaskManager {
         count++;
     }
 
-    public void printDeadline(String line) {
+    public void printDeadline(String line) throws EvaException {
 
         String[] parts = line.replaceFirst("deadline", "").split("/by");
+
+        if (parts.length < 2) {
+            throw new EvaException("Oh no! The deadline command must have a description and a by time." +
+                    "\nIt show be in this format: deadline (name of task) /by (time)." +
+                    "\nPlease try again!");
+        }
+
         String description = parts[0].trim();
         String by = parts[1].trim();
+
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new EvaException("Oh no! Either the description part is empty or the by part is empty!" +
+                    "\nPlease try again!");
+        }
 
         tasks[count] = new Deadline(description, by);
 
@@ -83,12 +105,24 @@ public class TaskManager {
         count++;
     }
 
-    public void printEvent(String line) {
+    public void printEvent(String line) throws EvaException {
 
         String[] eventParts = line.replaceFirst("event", "").split("/from|/to");
+
+        if (eventParts.length < 3) {
+            throw new EvaException("Oh no! The event command must have a description, a from time, " +
+                    "and a to time. \nThe format should be event (name of task) /from (time) /to (time)" +
+                    "\nPlease try again!");
+        }
+
         String eventDesc = eventParts[0].trim();
         String from = eventParts[1].trim();
         String to = eventParts[2].trim();
+
+        if (eventDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new EvaException("Oh no! The description, from or to parts are empty!" +
+                    "\nPlease try again!");
+        }
 
         tasks[count] = new Event(eventDesc, from, to);
 
