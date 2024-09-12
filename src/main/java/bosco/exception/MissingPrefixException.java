@@ -1,3 +1,5 @@
+package bosco.exception;
+
 public class MissingPrefixException extends Exception {
     public String missingPrefix;
 

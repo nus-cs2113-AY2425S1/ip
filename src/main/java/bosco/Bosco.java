@@ -1,4 +1,13 @@
-import java.util.Objects;
+package bosco;
+
+import bosco.task.Task;
+import bosco.task.Todo;
+import bosco.task.Deadline;
+import bosco.task.Event;
+import bosco.exception.IllegalCommandException;
+import bosco.exception.EmptyDescriptionException;
+import bosco.exception.MissingPrefixException;
+
 import java.util.Scanner;
 
 public class Bosco {
