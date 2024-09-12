@@ -1,5 +1,8 @@
+import task.Task;
+
 import java.util.Objects;
 import java.util.Scanner;
+import task.*;
 
 
 public class XiaoMe {
@@ -12,7 +15,6 @@ public class XiaoMe {
         TODO,
         EVENT,
         DEADLINE,
-        TASK,
         BYE
     }
 
@@ -183,7 +185,7 @@ public class XiaoMe {
 
                 case TODO:
                     try {
-                        // user is creating a new  Todo
+                        // user is creating a new  Task.Todo
                         String string = line.replace("todo", "").trim();
 
                         if (string.isEmpty()) {
