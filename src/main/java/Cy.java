@@ -25,8 +25,8 @@ public class Cy {
         try {
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
-            if (index >= count || index < 0) {
-                System.out.println("Please give a valid task number from 1 to " + count);
+            if (index < 0 || index >= count) {
+                System.out.println("Please enter a valid task number from 1 to " + count);
                 return true;
             }
 
@@ -62,9 +62,7 @@ public class Cy {
         printLine();
         System.out.println("Here are the tasks in your list");
         for (int i = 0; i < count; i++) {
-            if (items[i] != null) {
-                System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].description);
-            }
+            System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].description);
         }
         printLine();
     }
@@ -80,14 +78,22 @@ public class Cy {
         return count;
     }
 
-    public static String trimString(String input) {
+    public static String trimString(String input) throws IllegalEmptyException{
         String output = input.trim();
-        String[] outputSplit = output.split(" ", 2);
+
+        String[] outputSplit= output.split(" ",2);
+
+        if (outputSplit.length < 2 || outputSplit[1].isEmpty()) {
+            System.out.println("Please enter a valid description");
+            throw new IllegalEmptyException();
+        }
+
         return outputSplit[1];
     }
 
-    public static int addTodo(Task[] items, int count, String input) {
+    public static int addTodo(Task[] items, int count, String input) throws IllegalEmptyException{
         input = trimString(input);
+
         items[count] = new Todo(input);
 
         printLine();
@@ -95,10 +101,11 @@ public class Cy {
         System.out.println(items[count].getStatusIcon() + " " + input);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
+
         return count + 1;
     }
 
-    public static int addDeadline(Task[] items, int count, String input) {
+    public static int addDeadline(Task[] items, int count, String input) throws IllegalEmptyException{
 
         if (!input.contains("/by")) {
             System.out.println("Input must contain '/by' keyword.");
@@ -106,6 +113,12 @@ public class Cy {
         }
 
         input = trimString(input);
+
+        if (input.isEmpty()) {
+            System.out.println("The description of todo cannot be empty!");
+            throw new IllegalEmptyException();
+        }
+
         String[] splitInputs = input.split("/by", 2);
         String deadline = splitInputs[0] + "(by:" + splitInputs[1] + ")";
 
@@ -120,14 +133,15 @@ public class Cy {
         return count + 1;
     }
 
-    public static int addEvent(Task[] items, int count, String input) {
+    public static int addEvent(Task[] items, int count, String input) throws IllegalEmptyException{
+
+        input = trimString(input);
 
         if (!input.contains("/from") || !input.contains("/to")) {
             System.out.println("Input must contain both '/from' and '/to' keywords.");
             return count;
         }
 
-        input = trimString(input);
         String[] splitInputs = input.split("/from|/to");
         String start = splitInputs[1];
         String end = splitInputs[2];
@@ -144,7 +158,7 @@ public class Cy {
         return count + 1;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalEmptyException {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
 
@@ -171,7 +185,7 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("event")) {
                 count = addEvent(items, count, input);
             } else {
-                count = addItem(items, count, input);
+                addItem(items, count, input);
             }
             input = scan.nextLine();
         }
