@@ -64,8 +64,10 @@ public class Freedom {
             }
             System.out.println(LOGO + "\tGot it. I've added this task: ");
             System.out.println("\t  " + storage[lastIndex].printLine());
-            System.out.println("\tNow you have " + (lastIndex + 1) + " tasks in the list.\n" + LOGO);
+            
             lastIndex++;
+
+            System.out.println("\tNow you have " + (lastIndex) + " tasks in the list.\n" + LOGO);
         } catch (InvalidCommand e) {
             System.out.println(LOGO + "\tSorry! I do not understand your command");
             System.out.println(LOGO);
@@ -87,21 +89,22 @@ public class Freedom {
     public static void markTask(String[] words, boolean isDone) {
         final int TASK_INDEX = 1;
         int listNumber = Integer.parseInt(words[TASK_INDEX]);
+        final int taskIndexInStorage = listNumber - 1;
         String message;
 
         try {
-            if (listNumber - 1 >= lastIndex) {
+            if (taskIndexInStorage >= lastIndex) {
                 throw new ArrayIndexOutOfBoundsException();
             }
             if (isDone) {
-                storage[listNumber - 1].markDone();
+                storage[taskIndexInStorage].markDone();
                 message = "\tNice! I've marked this task as done:";
             } else {
-                storage[listNumber - 1].markUndone();
+                storage[taskIndexInStorage].markUndone();
                 message = "\tOk, I've marked this task as not done yet:";
             }
             System.out.println(LOGO + message);
-            System.out.println("\t  " + storage[listNumber - 1].printLine());
+            System.out.println("\t  " + storage[taskIndexInStorage].printLine());
             System.out.println(LOGO);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
