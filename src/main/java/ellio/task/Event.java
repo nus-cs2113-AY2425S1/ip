@@ -1,3 +1,5 @@
+package ellio.task;
+
 public class Event extends Task{
 
     protected String eventStartTime;

@@ -1,3 +1,5 @@
+package ellio;
+
 public class BotText {
     public static String lineBorder = "______________________________________\n";
     public static String messageWelcome = "Hello! I'm Ellio\nWhat can I do for you?\n";
