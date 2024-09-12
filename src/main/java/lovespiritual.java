@@ -132,7 +132,15 @@ public class lovespiritual {
 
     private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
-        int indexNumber = Integer.parseInt(taskNumber) - 1;
+        if (taskNumber.isEmpty()) {
+            throw new lovespiritualException("Please enter a valid number.");
+        }
+        int indexNumber;
+        try {
+            indexNumber = Integer.parseInt(taskNumber) - 1;
+        } catch (NumberFormatException e) {
+            throw new lovespiritualException("Invalid input. Please enter a valid number.");
+        }
         if (indexNumber >= 0 && indexNumber < taskCount) {
             tasks[indexNumber].unmark();
             System.out.println(SEPARATOR);
@@ -140,15 +148,21 @@ public class lovespiritual {
             System.out.println(tasks[indexNumber]);
             System.out.println(SEPARATOR);
         } else {
-            System.out.println(SEPARATOR);
-            System.out.println("Invalid number. Please enter a valid number.");
-            System.out.println(SEPARATOR);
+            throw new lovespiritualException("Invalid number. Please enter a valid number.");
         }
     }
 
     private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
-        int indexNumber = Integer.parseInt(taskNumber) - 1;
+        if (taskNumber.isEmpty()) {
+            throw new lovespiritualException("Please enter a valid number.");
+        }
+        int indexNumber;
+        try {
+            indexNumber = Integer.parseInt(taskNumber) - 1;
+        } catch (NumberFormatException e) {
+            throw new lovespiritualException("Invalid input. Please enter a valid number.");
+        }
         if (indexNumber >= 0 && indexNumber < taskCount) {
             tasks[indexNumber].mark();
             System.out.println(SEPARATOR);
@@ -156,9 +170,7 @@ public class lovespiritual {
             System.out.println(tasks[indexNumber]);
             System.out.println(SEPARATOR);
         } else {
-            System.out.println(SEPARATOR);
-            System.out.println("Invalid number. Please enter a valid number.");
-            System.out.println(SEPARATOR);
+            throw new lovespiritualException("Invalid number. Please enter a valid number.");
         }
     }
 
