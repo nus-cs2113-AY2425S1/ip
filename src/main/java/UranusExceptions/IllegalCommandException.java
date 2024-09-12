@@ -1,3 +1,5 @@
+package UranusExceptions;
+
 public class IllegalCommandException extends UranusExceptions {
     public IllegalCommandException() {
         super();

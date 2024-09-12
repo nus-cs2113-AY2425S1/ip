@@ -1,3 +1,5 @@
+package UranusExceptions;
+
 public class EmptyCommandException extends UranusExceptions {
     public EmptyCommandException() {
         super();

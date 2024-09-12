@@ -1,4 +1,4 @@
-package Uranus;
+package Uranus.Tasks;
 
 public class Task {
     protected String description;

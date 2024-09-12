@@ -1,4 +1,4 @@
-package Uranus;
+package Uranus.Utility;
 
 import java.util.Scanner;
 

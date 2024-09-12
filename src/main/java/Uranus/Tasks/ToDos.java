@@ -1,4 +1,4 @@
-package Uranus;
+package Uranus.Tasks;
 
 public class ToDos extends Task{
     public ToDos(String description){

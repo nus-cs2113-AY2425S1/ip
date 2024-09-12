@@ -1,3 +1,5 @@
+package UranusExceptions;
+
 public class UranusExceptions extends Exception{
     public UranusExceptions(){
         super();
