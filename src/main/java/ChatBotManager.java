@@ -19,13 +19,10 @@ public class ChatBotManager {
             String commandStr = parts[0].toLowerCase();
 
             Command command = parseCommand(commandStr);
-            if (command == Command.UNKNOWN) {
-                System.out.println("Unknown command.");
-            } else {
-                commandHandler.handleCommand(command, line);
-                if (command == Command.BYE) {
-                    isReadingInput = false;
-                }
+
+            commandHandler.handleCommand(command, line);
+            if (command == Command.BYE) {
+                isReadingInput = false;
             }
         }
     }
