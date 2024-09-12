@@ -16,13 +16,13 @@ public class Cy {
     public static void markOutput(Task task) {
         printLine();
 
-        if (task.isDone) {
+        if (task.isDone()) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
 
-        System.out.println(task.getStatusIcon() + " " + task.description);
+        System.out.println(task.getStatusIcon() + " " + task.getDescription());
         printLine();
     }
 
@@ -49,7 +49,7 @@ public class Cy {
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items[index].isDone = true;
+        items[index].setDone(true);
         markOutput(items[index]);
     }
 
@@ -59,7 +59,7 @@ public class Cy {
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items[index].isDone = false;
+        items[index].setDone(false);
         markOutput(items[index]);
     }
 
@@ -67,7 +67,7 @@ public class Cy {
         printLine();
         System.out.println("Here are the tasks in your list");
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].description);
+            System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].getDescription());
         }
         printLine();
     }
