@@ -35,8 +35,16 @@ public class Flash {
         System.out.println("____________________________________________________________");
     }
 
-    public static void todo(String input){
+    public static void todo(String input) throws FlashException {
+        if (input.length() <= 5) {
+            throw new FlashException("Uh-oh! Description for Todo Needed!! Cannot be left empty.");
+        }
+
         String description = input.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new FlashException("Uh-oh! Description for ToDo Needed!! Cannot be left empty.");
+        }
+
         Task task = new ToDo(description);
         tasks.add(task);
         System.out.println("____________________________________________________________");
@@ -81,26 +89,33 @@ public class Flash {
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        String input;
         while(true) {
-            input = in.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            try {
+                String input = in.nextLine();
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("____________________________________________________________");
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    displayTasks();
+                } else if (input.startsWith("mark")) {
+                    markTask(input);
+                } else if (input.startsWith("unmark")) {
+                    unMarkTask(input);
+                } else if (input.startsWith("todo")) {
+                    todo(input);
+                } else if (input.startsWith("deadline")) {
+                    deadline(input);
+                } else if (input.startsWith("event")) {
+                    event(input);
+                } else {
+                    throw new FlashException("Uh-oh! I don't know what that means.");
+                }
+            } catch (FlashException e){
                 System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________");
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                displayTasks();
-            } else if (input.startsWith("mark")) {
-                markTask(input);
-            } else if (input.startsWith("unmark")){
-                unMarkTask(input);
-            } else if (input.startsWith("todo")) {
-                todo(input);
-            } else if (input.startsWith("deadline")) {
-                deadline(input);
-            } else if (input.startsWith("event")) {
-                event(input);
             }
         }
     }
