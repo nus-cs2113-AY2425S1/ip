@@ -1,3 +1,4 @@
+import java.io.File;
 import java.sql.Array;
 import java.util.Scanner;
 import java.util.List;
@@ -66,19 +67,22 @@ public class Flash {
         System.out.println("____________________________________________________________");
     }
 
-    public static void event(String input) {
-        String[] parts = input.substring(6).split(" /from | /to");
-        String description = parts[0].trim();
-        String from = parts[1].trim();
-        String to = parts[2].trim();
-        Task task = new Event(description, from, to);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-
+    public static void event(String input) throws FlashException {
+        try {
+            String[] parts = input.replaceFirst("event ", "").split(" /from | /to ");
+            String description = parts[0].trim();
+            String from = parts[1].trim();
+            String to = parts[2].trim();
+            Task task = new Event(description, from, to);
+            tasks.add(task);
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FlashException("Uh-oh! Description for Event Needed!! Cannot be left empty.");
+        }
     }
 
     public static void main(String[] args) {
