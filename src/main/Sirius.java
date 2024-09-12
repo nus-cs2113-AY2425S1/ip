@@ -120,7 +120,7 @@ public class Sirius {
                      }
                      break;
                 case DEADLINE:
-                     int indexOfBy = userInput.indexOf("by");
+                     int indexOfBy = userInput.indexOf("/by");
                      if (taskName.isEmpty()) { //list or mark/task empty
                          isValidToProcess = false;
                          throw new IncompleteCommandException(commandPrefix);
@@ -134,8 +134,8 @@ public class Sirius {
                          return commandPieces;
                      }
                 case EVENT:
-                    int indexOfFrom = userInput.indexOf("from");
-                    int indexOfTo = userInput.indexOf("to");
+                    int indexOfFrom = userInput.indexOf("/from");
+                    int indexOfTo = userInput.indexOf("/to");
                     if (taskName.isEmpty()) { //list or mark/task empty
                         isValidToProcess = false;
                         throw new IncompleteCommandException(commandPrefix);
