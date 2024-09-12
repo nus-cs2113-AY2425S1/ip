@@ -28,7 +28,7 @@ public class Task {
     }
 
     public String toString() {
-        return "[ ][" + getStatusIcon() + "] " + getDescription(); // Adds a generic task identifier [G]
+        return "[ ][" + getStatusIcon() + "] " + getDescription();
     }
 }
 
