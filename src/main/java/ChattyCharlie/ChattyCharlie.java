@@ -1,3 +1,9 @@
+package ChattyCharlie;
+
+import ChattyCharlie.Task.Deadline;
+import ChattyCharlie.Task.Event;
+import ChattyCharlie.Task.Todo;
+
 import java.util.Scanner;
 
 public class ChattyCharlie {
@@ -126,11 +132,6 @@ public class ChattyCharlie {
                     System.out.println(StringDesign.LINE);
                     break;
                 default:
-                    //add the item
-                    list.addTask(new Task(line, CommandType.TODO)); //for cases without label, it is a Todo as well
-                    //print
-                    System.out.println(StringDesign.SPACE + "Added: " + line);
-                    System.out.println(StringDesign.LINE);
                     break;
                 }
             } catch (CharlieExceptions e) {

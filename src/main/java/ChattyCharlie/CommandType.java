@@ -1,3 +1,5 @@
+package ChattyCharlie;
+
 public enum CommandType {
     TODO,
     DEADLINE,

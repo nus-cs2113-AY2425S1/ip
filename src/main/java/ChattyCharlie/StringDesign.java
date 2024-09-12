@@ -1,3 +1,5 @@
+package ChattyCharlie;
+
 public class StringDesign {
     //this class is for all my Strings and designs
     public static final String LOGO = "   _____      \n"

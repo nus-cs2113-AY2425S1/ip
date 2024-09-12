@@ -1,3 +1,7 @@
+package ChattyCharlie.Task;
+
+import ChattyCharlie.CommandType;
+
 //todo class
 public class Todo extends Task {
     protected boolean isDone;

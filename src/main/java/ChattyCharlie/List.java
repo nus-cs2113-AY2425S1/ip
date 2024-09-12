@@ -1,4 +1,11 @@
-    //LIST CLASS
+package ChattyCharlie;
+
+import ChattyCharlie.Task.Deadline;
+import ChattyCharlie.Task.Event;
+import ChattyCharlie.Task.Task;
+import ChattyCharlie.Task.Todo;
+
+//LIST CLASS
     public class List {
         //make a list of task
         private Task[] tasks;
@@ -32,7 +39,7 @@
                 tasks[index].markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
+                System.out.println(StringDesign.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].getDescription());
             } else {
                 System.out.println(StringDesign.SPACE+ "Invalid task number.");
             }
@@ -44,7 +51,7 @@
                 tasks[index].unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].description);
+                System.out.println(StringDesign.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].getDescription());
             } else {
                 System.out.println(StringDesign.SPACE + "Invalid task number.");
             }
@@ -64,17 +71,17 @@
                 case TODO:
                     Todo todoTask = (Todo) task;
                     System.out.println(StringDesign.SPACE + number + ".[T][" + todoTask.getMarkedStatus() + "] "
-                            + todoTask.description);
+                            + todoTask.getDescription());
                     break;
                 case DEADLINE:
                     Deadline deadlineTask = (Deadline) task;
                     System.out.println(StringDesign.SPACE + number + ".[D][" + deadlineTask.getMarkedStatus() + "] "
-                            + deadlineTask.description + " (by: " + deadlineTask.by + ")");
+                            + deadlineTask.getDescription() + " (by: " + deadlineTask.getBy() + ")");
                     break;
                 case EVENT:
                     Event eventTask = (Event) task;
                     System.out.println(StringDesign.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
-                            + eventTask.description + " (from: " + eventTask.start + " to: " + eventTask.end + ")");
+                            + eventTask.getDescription() + " (from: " + eventTask.getStart() + " to: " + eventTask.getEnd() + ")");
                     break;
                 default:
                     break;
@@ -86,7 +93,7 @@
         public int countUnmarkedTasks() {
             int count = 0;
             for (int i = 0; i < size; i++) {
-                if (!tasks[i].isDone) {
+                if (!tasks[i].getIsDoneStatus()) {
                     count++;
                 }
             }

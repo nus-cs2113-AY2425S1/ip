@@ -1,3 +1,7 @@
+package ChattyCharlie.Task;
+
+import ChattyCharlie.CommandType;
+
 //Events
 public class Event extends Task {
     protected String start;

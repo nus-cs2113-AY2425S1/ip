@@ -1,5 +1,9 @@
+package ChattyCharlie.Task;
+
+import ChattyCharlie.CommandType;
+
 //TASK CLASS
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected CommandType type;
@@ -14,6 +18,10 @@ public class Task {
     //check if its marked as done
     public String getMarkedStatus() {
         return (isDone ? "X" : " ");
+    }
+
+    public boolean getIsDoneStatus() {
+        return this.isDone;
     }
 
     public CommandType getType() {
