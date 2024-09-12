@@ -54,17 +54,21 @@ public class Flash {
         System.out.println("____________________________________________________________");
     }
 
-    public static void deadline(String input) {
-        String[] parts = input.substring(8).split(" /by ");
-        String description = parts[0].trim();
-        String by = parts[1].trim();
-        Task task = new Deadline(description, by);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+    public static void deadline(String input) throws FlashException {
+        try {
+            String[] parts = input.replaceFirst("deadline ", "").split(" /by ");
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            Task task = new Deadline(description, by);
+            tasks.add(task);
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FlashException("Uh-oh! Description for Event Needed!! Cannot be left empty.");
+        }
     }
 
     public static void event(String input) throws FlashException {
