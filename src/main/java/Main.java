@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Buddy {
+public class Main {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println("Im Shrek");
@@ -16,67 +16,83 @@ public class Buddy {
         while (true) {
             input = scanner.nextLine();
 
-            if (input.equals("bye")) //end loop when user inputs "bye"
+            try
             {
-                break;
-            }
-            else if (input.equals("list")) //display tasks when user inputs "list"
-            {
-                System.out.println("____________________________________________________________");
-                System.out.println(" Here is your list of nonsense, now get out of my swamp:");
-                for (int i = 0; i < taskCount; i++) {
-                    //print each line in proper format
-                    System.out.println("     " + (i + 1) + "." + tasks[i]);
-                    //System.out.println("     " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                if (input.equals("bye")) //end loop when user inputs "bye"
+                {
+                    break;
                 }
-                System.out.println("____________________________________________________________");
+                else if (input.equals("list")) //display tasks when user inputs "list"
+                {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here is your list of nonsense, now get out of my swamp:");
+                    for (int i = 0; i < taskCount; i++) {
+                        //print each line in proper format
+                        System.out.println("     " + (i + 1) + "." + tasks[i]);
+                        //System.out.println("     " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    }
+                    System.out.println("____________________________________________________________");
+                }
+                else if (input.startsWith("mark")) //mark task and print acknowledge message when user marks a task
+                {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
+                    tasks[taskNumber].markAsDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("It’s done. Now, get lost before I toss you out of my swamp!");
+                    System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
+                    System.out.println("____________________________________________________________");
+                }
+                else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
+                {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text
+                    tasks[taskNumber].markAsNotDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("It’s unmarked. Gonna change it again? Make up your mind, or get out of my swamp!");
+                    System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
+                    System.out.println("____________________________________________________________");
+                }
+                else if (input.startsWith("todo"))
+                {
+                    String description = input.substring(5); //at index 5 of the string, the description starts
+                    tasks[taskCount] = new Todo(description); //put new task todo object in task array
+                    taskCount++;
+                    printAddedTask(tasks[taskCount - 1], taskCount);
+                }
+                else if (input.startsWith("deadline"))
+                {
+                    String[] parts = input.substring(9).split(" /by ");
+                    tasks[taskCount] = new Deadline(parts[0], parts[1]);
+                    taskCount++;
+                    printAddedTask(tasks[taskCount - 1], taskCount);
+                }
+                else if (input.startsWith("event"))
+                {
+                    String[] description = input.substring(6).split(" /from ");
+                    String[] time = description[1].split(" /to ");
+                    tasks[taskCount] = new Event(description[0], time[0], time[1]);
+                    taskCount++;
+                    printAddedTask(tasks[taskCount - 1], taskCount);
+                }
+                else //store whatever user input in "tasks" array
+                {
+                    tasks[taskCount] = new Task(input);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" added: " + input);
+                    System.out.println("____________________________________________________________");
+                }
             }
-            else if (input.startsWith("mark")) //mark task and print acknowledge message when user marks a task
-            {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
-                tasks[taskNumber].markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("It’s done. Now, get lost before I toss you out of my swamp!");
-                System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
-                System.out.println("____________________________________________________________");
+            catch (NumberFormatException e){ //catch when trying to convert string to number. but i think wont happen.
+                System.out.println("wrong format, enter a valid task");
             }
-            else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
-            {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text
-                tasks[taskNumber].markAsNotDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("It’s unmarked. Gonna change it again? Make up your mind, or get out of my swamp!");
-                System.out.println("     [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
-                System.out.println("____________________________________________________________");
+            catch (ArrayIndexOutOfBoundsException e){ //
+                System.out.println("the task is not even in my swamp u donkey");
             }
-            else if (input.startsWith("todo"))
-            {
-                String description = input.substring(5); //at index 5 of the string, the description starts
-                tasks[taskCount] = new Todo(description); //put new task todo object in task array
-                taskCount++;
-                printAddedTask(tasks[taskCount - 1], taskCount);
+            catch (NullPointerException e){ //when access nullptr, eg when marking task 6 but only got 5 task
+                System.out.println("cant mark whats not in my swamp. pick an existing task donkey");
             }
-            else if (input.startsWith("deadline")) {
-                String[] parts = input.substring(9).split(" /by ");
-                tasks[taskCount] = new Deadline(parts[0], parts[1]);
-                taskCount++;
-                printAddedTask(tasks[taskCount - 1], taskCount);
-            }
-            else if (input.startsWith("event"))
-            {
-                String[] parts = input.substring(6).split(" /from ");
-                String[] time = parts[1].split(" /to ");
-                tasks[taskCount] = new Event(parts[0], time[0], time[1]);
-                taskCount++;
-                printAddedTask(tasks[taskCount - 1], taskCount);
-            }
-            else //store whatever user input in "tasks" array
-            {
-                tasks[taskCount] = new Task(input);
-                taskCount ++;
-                System.out.println("____________________________________________________________");
-                System.out.println(" added: " + input);
-                System.out.println("____________________________________________________________");
+            catch (StringIndexOutOfBoundsException e){ //access index in string outside valid range. happen for T/D/E commands
+                System.out.println("you didnt finish your sentence donkey! specify the time/task right or get out of my swamp");
             }
         }
 
@@ -91,7 +107,7 @@ public class Buddy {
         System.out.println("____________________________________________________________");
         System.out.println(" ive added this task to your pile of nonsense:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " + taskCount + " tasks in the list. Dont expect me to clean it up for you.");
+        System.out.println(" Now you have " + taskCount + " tasks in my swamp.");
         System.out.println("____________________________________________________________");
     }
 
