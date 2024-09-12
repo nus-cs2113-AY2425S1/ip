@@ -124,9 +124,10 @@ public class Ryan {
             throw new RyanException("Todo task description cannot be empty.");
         }
 
-        Utils.horizontalLine();
         Task task = new Todo(command);
         tasks.add(task);
+
+        Utils.horizontalLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -134,8 +135,6 @@ public class Ryan {
     }
 
     private static void addDeadline(ArrayList<Task> tasks, String command) throws RyanException {
-        Utils.horizontalLine();
-
         String[] splitCommand = command.split("/by", 2);
 
         if (splitCommand.length < 2) {
@@ -144,9 +143,10 @@ public class Ryan {
 
         String description = splitCommand[0].trim();
         String by = splitCommand[1].trim();
-
         Task task = new Deadline(description, by);
         tasks.add(task);
+
+        Utils.horizontalLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -154,8 +154,6 @@ public class Ryan {
     }
 
     private static void addEvent(ArrayList<Task> tasks, String command) throws RyanException {
-        Utils.horizontalLine();
-
         String[] splitFrom = command.split("/from", 2);
 
         if (splitFrom.length < 2) {
@@ -171,9 +169,10 @@ public class Ryan {
 
         String from = splitTo[0].trim();
         String to = splitTo[1].trim();
-
         Task task = new Event(description, from, to);
         tasks.add(task);
+
+        Utils.horizontalLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -181,6 +180,7 @@ public class Ryan {
     }
 
     private static void handleError(RyanException e) {
+        Utils.horizontalLine();
         System.out.println("Error: " + e.getMessage());
         Utils.horizontalLine();
     }
