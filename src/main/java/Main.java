@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -70,34 +71,45 @@ public class Main {
         System.out.println(task);
     }
 
-    public Deadlines createDeadlineTask(String enteredString) {
+    public Deadlines createDeadlineTask(String enteredString) throws IOException, StringIndexOutOfBoundsException {
         String taskDescription=enteredString.substring("deadline".length(), enteredString.indexOf('/')-1);
         String deadlineTime=enteredString.substring(enteredString.indexOf("/by")+"/by".length()+1);
         return new Deadlines(taskDescription, deadlineTime);
     }
 
-    public Events createEventTask(String enteredString) {
+    public Events createEventTask(String enteredString) throws IOException, StringIndexOutOfBoundsException {
         String taskDescription=enteredString.substring("event".length(), enteredString.indexOf('/')-1);
         String eventFromTime=enteredString.substring(enteredString.indexOf("/from")+"/from".length()+1, enteredString.indexOf("/to"));
         String eventToTime=enteredString.substring(enteredString.indexOf("/to")+"/to".length()+1);
         return new Events(taskDescription, eventFromTime, eventToTime);
     }
 
-    public ToDos createTodoTask(String enteredString) {
+    public ToDos createTodoTask(String enteredString) throws IOException, StringIndexOutOfBoundsException {
         String taskDescription=enteredString.substring("todo".length());
         return new ToDos(taskDescription);
     }
-    public void addNewTask(String enteredString) throws Exception {
+    public void addNewTask(String enteredString) {
         Task newTask;
-
-        if(enteredString.startsWith("deadline")) {
-            newTask=createDeadlineTask(enteredString);
-        } else if(enteredString.startsWith("event")) {
-            newTask=createEventTask(enteredString);
-        } else if(enteredString.startsWith("todo")) {
-            newTask=createTodoTask(enteredString);
-        } else {
-            System.out.println("Invalid task type. Please try again.");
+        try {
+            if (enteredString.startsWith("deadline")) {
+                newTask = createDeadlineTask(enteredString);
+            } else if (enteredString.startsWith("event")) {
+                newTask = createEventTask(enteredString);
+            } else if (enteredString.startsWith("todo")) {
+                newTask = createTodoTask(enteredString);
+            } else {
+                throw new TaskType("No task type stated. Please try again.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Invalid format for input. Please try again.");
+                printHorizontalLine();
+                return;
+        } catch (TaskType e) {
+            System.out.println("No task type stated. Please try again.");
+            printHorizontalLine();
+            return;
+        } catch (Exception e) {
+            System.out.println("Error. Please try again.");
             printHorizontalLine();
             return;
         }
@@ -108,7 +120,7 @@ public class Main {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
     }
-    public void talkToUser() throws Exception {
+    public void talkToUser() {
         giveIntroduction();
         do {
             String enteredString= sc.nextLine();
@@ -128,10 +140,6 @@ public class Main {
 
     public static void main(String[] args) {
         Main Edith = new Main("Edith");
-        try {
-            Edith.talkToUser();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Edith.talkToUser();
     }
 }
