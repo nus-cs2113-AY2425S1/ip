@@ -23,15 +23,15 @@ public class lovespiritual {
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     printList(taskCount, isMarked, taskTypes, tasks);
-                } else if (input.startsWith("mark ")) {
+                } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, isMarked, tasks);
-                } else if (input.startsWith("unmark ")) {
+                } else if (input.startsWith("unmark")) {
                     unmarkTask(input, taskCount, isMarked, tasks);
                 } else if (input.startsWith("todo")) {
                     taskCount = todo(input, tasks, taskCount);
-                } else if (input.startsWith("deadline ")) {
+                } else if (input.startsWith("deadline")) {
                     taskCount = deadline(input, taskCount, tasks);
-                } else if (input.startsWith("event ")) {
+                } else if (input.startsWith("event")) {
                     taskCount = event(input, tasks, taskCount);
                 } else {
                     throw new lovespiritualException("Start with a command");
@@ -50,25 +50,32 @@ public class lovespiritual {
 
     private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
+        if (fullTaskDescription.isEmpty()) {
+            throw new lovespiritualException("Event description is empty!");
+        }
+        if (!fullTaskDescription.contains("from")) {
+            throw new lovespiritualException("Event description must contain 'from' keyword");
+        }
+        if (!fullTaskDescription.contains("to")) {
+            throw new lovespiritualException("Event description must contain 'to' keyword");
+        }
         String taskDescription;
         String from;
         String to;
-        if (fullTaskDescription.contains("from")) {
-            String[] taskDetails = fullTaskDescription.split("from ");
-            taskDescription = taskDetails[0].trim();
-            if (taskDetails[1].contains("to")) {
-                String[] time = taskDetails[1].split("to ");
-                from = time[0].trim();
-                to = time[1].trim();
-            } else {
-                from = taskDetails[1].trim();
-                to = "null";
-            }
-        } else {
-            taskDescription = fullTaskDescription;
-            from = "null";
-            to = "null";
+        String[] taskDetails = fullTaskDescription.split("from ");
+        if (taskDetails[0].trim().isEmpty()) {
+            throw new lovespiritualException("Event description is empty");
         }
+        taskDescription = taskDetails[0].trim();
+        String[] time = taskDetails[1].split("to ");
+        if (time.length < 2 || time[0].trim().isEmpty()) {
+            throw new lovespiritualException("Start time is empty");
+        }
+        if (time[1].trim().isEmpty()) {
+            throw new lovespiritualException("End time is empty");
+        }
+        from = time[0].trim();
+        to = time[1].trim();
         tasks[taskCount] = new Event(taskDescription, from, to);
         taskCount++;
         System.out.println(SEPARATOR);
