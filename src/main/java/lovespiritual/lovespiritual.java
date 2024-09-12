@@ -1,3 +1,11 @@
+package lovespiritual;
+
+import lovespiritual.exception.lovespiritualException;
+import lovespiritual.task.Deadline;
+import lovespiritual.task.Event;
+import lovespiritual.task.Task;
+import lovespiritual.task.Todo;
+
 import java.util.Scanner;
 
 public class lovespiritual {
