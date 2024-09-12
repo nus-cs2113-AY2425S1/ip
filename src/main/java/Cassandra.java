@@ -46,6 +46,10 @@ public class Cassandra {
     private static void saveTask(Task input){
         taskList.add(input);
         System.out.println("Got it. I've added this task: \n "+ input.toString());
+        printCurrentListSize();
+    }
+
+    private static void printCurrentListSize() {
         System.out.println("Now you have "+taskList.size()+" tasks in the list.");
     }
 
@@ -145,6 +149,13 @@ public class Cassandra {
                         unmarkTask(Integer.parseInt(commandArgs[1]));
                     }
                     break;
+                case "delete":
+                    if (commandArgs.length < 2) {
+                        throw new NoTaskIndexFoundException("Please provide a task index to unmark.");
+                    } else {
+                        deleteTask(Integer.parseInt(commandArgs[1]));
+                    }
+                    break;
                 case "list":
                     printList();
                     break;
@@ -168,6 +179,17 @@ public class Cassandra {
             System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task index.");
+        }
+    }
+
+    private static void deleteTask(int index) {
+        if (index <= 0 || index > taskList.size()) {
+            throw new TaskNotFoundException("Sorry, no task found");
+        } else {
+            taskList.get(index - 1).setCompleted(false);
+            System.out.println(" Noted, I've removed this task: ");
+            System.out.println(" " + taskList.get(index - 1).toString());
+            printCurrentListSize();
         }
     }
 
