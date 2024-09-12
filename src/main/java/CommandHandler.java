@@ -8,31 +8,34 @@ public class CommandHandler {
     }
 
     public void handleCommand(Command command, String line) {
-        switch (command) {
-        case BYE:
-            printByeMessage();
-            break;
-        case LIST:
-            handleList();
-            break;
-        case MARK:
-            handleMark(parseIndex(line));
-            break;
-        case UNMARK:
-            handleUnmark(parseIndex(line));
-            break;
-        case TODO:
-            handleTodo(line);
-            break;
-        case DEADLINE:
-            handleDeadline(line);
-            break;
-        case EVENT:
-            handleEvent(line);
-            break;
-        default:
-            System.out.println("Unknown command.");
-            break;
+        try {
+            switch (command) {
+            case BYE:
+                printByeMessage();
+                break;
+            case LIST:
+                handleList();
+                break;
+            case MARK:
+                handleMark(parseIndex(line));
+                break;
+            case UNMARK:
+                handleUnmark(parseIndex(line));
+                break;
+            case TODO:
+                handleTodo(line);
+                break;
+            case DEADLINE:
+                handleDeadline(line);
+                break;
+            case EVENT:
+                handleEvent(line);
+                break;
+            default:
+                throw new InvalidCommandException();
+            }
+        } catch (BronException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -53,85 +56,86 @@ public class CommandHandler {
         }
     }
 
-    private void handleMark(int index) {
-        if (index >= 0 && index < taskCount) {
-            tasks[index].markAsDone();
-            System.out.println("Good shit kid! I've marked this task as done:");
-            System.out.println("  " + tasks[index]);
-        } else {
-            System.out.println("Task not found.");
-        }
+    private void handleMark(int index) throws TaskIndexOutOfBoundsException {
+        tasks[index].markAsDone();
+        System.out.println("Good shit kid! I've marked this task as done:");
+        System.out.println("  " + tasks[index]);
     }
 
-    private void handleUnmark(int index) {
-        if (index >= 0 && index < taskCount) {
-            tasks[index].markAsNotDone();
-            System.out.println("Get yo shit together son, this task aint done yet:");
-            System.out.println("  " + tasks[index]);
-        } else {
-            System.out.println("Task not found.");
-        }
+    private void handleUnmark(int index) throws TaskIndexOutOfBoundsException {
+        tasks[index].markAsNotDone();
+        System.out.println("Get yo shit together son, this task aint done yet:");
+        System.out.println("  " + tasks[index]);
     }
 
-    private void handleTodo(String line) {
-        String taskDescription = line.substring(line.indexOf(" ") + 1);
-        ToDo todo = new ToDo(taskDescription);
-        tasks[taskCount++] = todo;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(todo);
-        System.out.println("You got " + taskCount + " task(s)");
+    private void handleTodo(String line) throws EmptyTodoDescriptionException {
+            if (!line.contains(" ") || line.substring(line.indexOf(" ") + 1).trim().isEmpty()) {
+                throw new EmptyTodoDescriptionException();
+            }
+
+            String taskDescription = line.substring(line.indexOf(" ") + 1).trim();
+            ToDo todo = new ToDo(taskDescription);
+            tasks[taskCount++] = todo;
+
+            System.out.println("Got it. I've added this task:");
+            System.out.println(todo);
+            System.out.println("You got " + taskCount + " task(s)");
     }
 
-    private void handleDeadline(String line) {
-        if (!line.contains("/by")) {
-            System.out.println("Please specify the deadline using '/by'.");
-            return;
-        }
+    private void handleDeadline(String line) throws InvalidDeadlineFormatException {
+            if (!line.contains("/by")) {
+                throw new InvalidDeadlineFormatException("The deadline must include '/by' followed by the date.");
+            }
 
-        String[] deadlineParts = line.split("/by", 2);
-        if (deadlineParts.length < 2) {
-            System.out.println("Please provide a valid deadline.");
-            return;
-        }
+            String[] deadlineParts = line.split("/by", 2);
+            if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+                throw new InvalidDeadlineFormatException("Please provide a valid deadline after '/by'.");
+            }
 
-        String taskDescription = deadlineParts[0].trim().substring(9);
-        String byWhen = deadlineParts[1].trim();
+            String taskDescription = deadlineParts[0].trim();
+            if (taskDescription.length() < 9) {
+                throw new InvalidDeadlineFormatException("The description of a deadline cannot be empty.");
+            }
+            taskDescription = taskDescription.substring(9).trim();  // Extract the task description
+            String byWhen = deadlineParts[1].trim();
 
-        Deadline deadline = new Deadline(taskDescription, byWhen);
-        tasks[taskCount++] = deadline;
+            Deadline deadline = new Deadline(taskDescription, byWhen);
+            tasks[taskCount++] = deadline;
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + deadline);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + deadline);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    private void handleEvent(String line) {
-        if (!line.contains("/from") || !line.contains("/to")) {
-            System.out.println("Please specify the event time using '/from' and '/to'.");
-            return;
-        }
+    private void handleEvent(String line) throws InvalidEventFormatException {
+            if (!line.contains("/from") || !line.contains("/to")) {
+                throw new InvalidEventFormatException("The event must include '/from' and '/to' to specify the time.");
+            }
 
-        String[] eventParts = line.split("/from", 2);
-        if (eventParts.length < 2) {
-            System.out.println("Please provide a valid event time.");
-            return;
-        }
+            String[] eventParts = line.split("/from", 2);
+            if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
+                throw new InvalidEventFormatException("Please provide valid event timings after '/from' and '/to'.");
+            }
 
-        String descriptionAndTo = eventParts[0].trim().substring(6);
-        String[] timeParts = eventParts[1].split("/to", 2);
-        if (timeParts.length < 2) {
-            System.out.println("Please provide a valid event end time.");
-            return;
-        }
+            String taskDescription = eventParts[0].trim();
+            if (taskDescription.length() < 6) {
+                throw new InvalidEventFormatException("The description of an event cannot be empty.");
+            }
 
-        String fromTime = timeParts[0].trim();
-        String toTime = timeParts[1].trim();
+            taskDescription = taskDescription.substring(6).trim();
+            String[] timeParts = eventParts[1].split("/to", 2);
+            if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+                throw new InvalidEventFormatException("Please provide valid start and end times.");
+            }
 
-        Event event = new Event(descriptionAndTo, fromTime, toTime);
-        tasks[taskCount++] = event;
+            String fromTime = timeParts[0].trim();
+            String toTime = timeParts[1].trim();
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + event);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+            Event event = new Event(taskDescription, fromTime, toTime);
+            tasks[taskCount++] = event;
+
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + event);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 }
