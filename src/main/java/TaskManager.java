@@ -7,6 +7,10 @@ public class TaskManager {
         taskList = new Task[100];
     }
 
+    public int getCurrentTaskIndex(){
+        return currentTaskIndex;
+    }
+
     private void addTask(Task newTask){
         taskList[currentTaskIndex++] = newTask;
         System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", newTask, currentTaskIndex);

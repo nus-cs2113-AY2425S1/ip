@@ -51,7 +51,7 @@ public class CommandHandler {
     }
 
     private void handleInvalidCommand(){
-        System.out.println("I don't recognize that command.");
+        throw new MedeaException("Unrecognized command. Please use a valid command.");
     }
 
     private void handleListCommand() {
@@ -60,10 +60,11 @@ public class CommandHandler {
 
     private void handleTaskDoneUpdate(String taskIndex, boolean isDone) {
         int index = parseTaskIndex(taskIndex);
+        int currentTaskIndex = taskManager.getCurrentTaskIndex();
 
-        if (index == -1) {
-            System.out.printf("Invalid %s command. Please provide a valid task number.%n", isDone ? "mark":"unmark");
-            return;
+        if (index < 0 || index >= currentTaskIndex) {
+            String errorMsg = String.format("Invalid %s command. Please provide a valid task number.%n", isDone ? "mark":"unmark");
+            throw new MedeaException(errorMsg);
         }
 
         taskManager.updateTaskDoneStatus(index, isDone);
@@ -79,8 +80,7 @@ public class CommandHandler {
 
     private void handleTodoCommand(String description) {
         if (description.isEmpty()){
-            System.out.println("Invalid todo command. Please provide a task description.");
-            return;
+            throw new MedeaException("Invalid todo command. Please provide a task description.");
         }
 
         taskManager.addTodo(description);
@@ -95,8 +95,7 @@ public class CommandHandler {
         String[] arguments = parseArguments(argumentString, " /by ");
 
         if (arguments.length != 2) {
-            System.out.println("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
-            return;
+            throw new MedeaException("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
         }
 
         String description = arguments[0];
@@ -109,8 +108,7 @@ public class CommandHandler {
         String[] arguments = parseArguments(argumentString, " /from ", " /to ");
 
         if (arguments.length != 3) {
-            System.out.println("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
-            return;
+            throw new MedeaException("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
         }
 
         String description = arguments[0];
