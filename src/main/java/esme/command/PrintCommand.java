@@ -1,6 +1,6 @@
 package esme.command;
 
-import esme.Ui;
+import esme.ui.Ui;
 
 public class PrintCommand extends Command {
     public PrintCommand(Ui ui) {

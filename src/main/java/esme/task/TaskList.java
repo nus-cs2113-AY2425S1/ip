@@ -11,7 +11,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
     }
 
     public int getNumberOfTasks() {

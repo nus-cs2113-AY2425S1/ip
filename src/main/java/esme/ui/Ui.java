@@ -1,4 +1,4 @@
-package esme;
+package esme.ui;
 
 import esme.exceptions.EsmeException;
 import esme.task.TaskList;

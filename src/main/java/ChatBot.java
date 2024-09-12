@@ -1,4 +1,4 @@
-import esme.Ui;
+import esme.ui.Ui;
 import esme.command.CommandManager;
 
 import java.util.Scanner;
