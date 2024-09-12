@@ -16,24 +16,32 @@ public class Flash {
         System.out.println("____________________________________________________________");
     }
 
-    public static void markTask(String input) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task task = tasks.get(taskNumber);
-        task.markDone();
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + task);
-        System.out.println("____________________________________________________________");
+    public static void markTask(String input) throws FlashException {
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = tasks.get(taskNumber);
+            task.markDone();
+            System.out.println("____________________________________________________________");
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(" " + task);
+            System.out.println("____________________________________________________________");
+        } catch (Exception e) {
+            throw new FlashException("Invalid task number. Please enter a valid task number.");
+        }
     }
 
-    public static void unMarkTask(String input) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task task = tasks.get(taskNumber);
-        task.markNotDone();
-        System.out.println("____________________________________________________________");
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(" " + task);
-        System.out.println("____________________________________________________________");
+    public static void unMarkTask(String input) throws FlashException {
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = tasks.get(taskNumber);
+            task.markNotDone();
+            System.out.println("____________________________________________________________");
+            System.out.println("Ok, I've marked this task as not done yet:");
+            System.out.println(" " + task);
+            System.out.println("____________________________________________________________");
+        } catch (Exception e) {
+            throw new FlashException("Invalid task number. Please enter a valid task number.");
+        }
     }
 
     public static void todo(String input) throws FlashException {
