@@ -7,6 +7,10 @@ public class TaskManager {
         taskList = new Task[100];
     }
 
+    public int getCurrentTaskIndex(){
+        return currentTaskIndex;
+    }
+
     private void addTask(Task newTask){
         taskList[currentTaskIndex++] = newTask;
         System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", newTask, currentTaskIndex);
@@ -27,16 +31,12 @@ public class TaskManager {
         addTask(newEvent);
     }
 
-    public void markTask(int index){
+    public void updateTaskDoneStatus(int index, boolean isDone){
         Task selectedTask = taskList[index];
-        selectedTask.markDone();
-        System.out.printf("Nice! I've marked this task as done:%n  %s%n", selectedTask);
-    }
-
-    public void unmarkTask(int index){
-        Task selectedTask = taskList[index];
-        selectedTask.unmarkDone();
-        System.out.printf("OK, I've marked this task as not done yet:%n %s%n", selectedTask);
+        String notification = isDone ? "Nice! I've marked this task as done:%n  %s%n"
+                                     : "OK, I've marked this task as not done yet:%n %s%n";
+        selectedTask.setIsDone(isDone);
+        System.out.printf(notification, selectedTask);
     }
 
     public void listTasks(){

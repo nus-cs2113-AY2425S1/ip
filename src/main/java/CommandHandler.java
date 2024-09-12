@@ -1,5 +1,5 @@
 public class CommandHandler {
-    private final TaskManager taskManager;
+    private TaskManager taskManager;
     private final int LINE_LENGTH = 50;
 
     public CommandHandler(TaskManager taskManager){
@@ -13,26 +13,30 @@ public class CommandHandler {
 
         Command command = Command.parseString(commandString);
 
-        processCommand(command, argumentString);
+        printLine();
+        handleCommand(command, argumentString);
+        printLine();
     }
 
-    private void processCommand(Command command, String argumentString) {
+    private void printLine(){
+        System.out.println("-".repeat(LINE_LENGTH));
+    }
+
+    private void handleCommand(Command command, String argumentString) {
         if (command == null) {
             handleInvalidCommand();
             return;
         }
-
-        printLine();
 
         switch (command) {
             case LIST:
                 handleListCommand();
                 break;
             case MARK:
-                handleMarkCommand(argumentString);
+                handleTaskDoneUpdate(argumentString, true);
                 break;
             case UNMARK:
-                handleUnmarkCommand(argumentString);
+                handleTaskDoneUpdate(argumentString, false);
                 break;
             case TODO:
                 handleTodoCommand(argumentString);
@@ -44,16 +48,26 @@ public class CommandHandler {
                 handleEventCommand(argumentString);
                 break;
         }
-
-        printLine();
     }
 
-    private void printLine(){
-        System.out.println("-".repeat(LINE_LENGTH));
+    private void handleInvalidCommand(){
+        throw new MedeaException("Unrecognized command. Please use a valid command.");
     }
 
     private void handleListCommand() {
         taskManager.listTasks();
+    }
+
+    private void handleTaskDoneUpdate(String taskIndex, boolean isDone) {
+        int index = parseTaskIndex(taskIndex);
+        int currentTaskIndex = taskManager.getCurrentTaskIndex();
+
+        if (index < 0 || index >= currentTaskIndex) {
+            String errorMsg = String.format("Invalid %s command. Please provide a valid task number.%n", isDone ? "mark":"unmark");
+            throw new MedeaException(errorMsg);
+        }
+
+        taskManager.updateTaskDoneStatus(index, isDone);
     }
 
     private int parseTaskIndex(String taskIndex) {
@@ -64,48 +78,24 @@ public class CommandHandler {
         }
     }
 
-    private void handleMarkCommand(String taskIndex) {
-        int markIndex = parseTaskIndex(taskIndex);
-
-        if (markIndex == -1) {
-            System.out.println("Invalid mark command. Please provide a valid task number.");
-            return;
-        }
-
-        taskManager.markTask(markIndex);
-    }
-
-    private void handleUnmarkCommand(String taskIndex) {
-        int unmarkIndex = parseTaskIndex(taskIndex);
-
-        if (unmarkIndex == -1) {
-            System.out.println("Invalid unmark command. Please provide a valid task number.");
-            return;
-        }
-
-        taskManager.unmarkTask(unmarkIndex);
-    }
-
     private void handleTodoCommand(String description) {
         if (description.isEmpty()){
-            System.out.println("Invalid todo command. Please provide a task description.");
-            return;
+            throw new MedeaException("Invalid todo command. Please provide a task description.");
         }
 
         taskManager.addTodo(description);
     }
 
     private String[] parseArguments(String argumentString, String... delimiters) {
-        String splitBy = String.join("|", delimiters);
-        return argumentString.split(splitBy);
+        String delimiterPattern = String.join("|", delimiters);
+        return argumentString.split(delimiterPattern);
     }
 
     private void handleDeadlineCommand(String argumentString) {
         String[] arguments = parseArguments(argumentString, " /by ");
 
         if (arguments.length != 2) {
-            System.out.println("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
-            return;
+            throw new MedeaException("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
         }
 
         String description = arguments[0];
@@ -118,8 +108,7 @@ public class CommandHandler {
         String[] arguments = parseArguments(argumentString, " /from ", " /to ");
 
         if (arguments.length != 3) {
-            System.out.println("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
-            return;
+            throw new MedeaException("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
         }
 
         String description = arguments[0];
@@ -127,9 +116,5 @@ public class CommandHandler {
         String eventEnd = arguments[2];
 
         taskManager.addEvent(description, eventStart, eventEnd);
-    }
-
-    private void handleInvalidCommand(){
-        System.out.println("I don't recognize that command.");
     }
 }
