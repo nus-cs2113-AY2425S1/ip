@@ -16,7 +16,7 @@ public class XiaoMe {
         BYE
     }
 
-    public static Type checkType(String line) {
+    public static Type checkType(String line) throws XiaoMeException {
         // checks what kind of command was received by XiaoMe
 
         if (Objects.equals(line, "bye")) {
@@ -38,7 +38,7 @@ public class XiaoMe {
             return Type.MARK;
         }
 
-        return Type.TASK;
+        throw new XiaoMeException();
     }
 
     public static void main(String[] args) {
@@ -55,8 +55,18 @@ public class XiaoMe {
 
         while (true) {
             line = in.nextLine();
-            Type type = checkType(line);
-
+            Type type;
+            try {
+                type = checkType(line);
+            } catch (XiaoMeException e) {
+                // invalid command
+                System.out.println("""
+                            \t____________________________________________________________
+                            Invalid command :(
+                            \t____________________________________________________________
+                            """);
+                continue;
+            }
             switch (type) {
                 case BYE:
                     // user input is bye: end programme
@@ -65,7 +75,7 @@ public class XiaoMe {
                             \tBye. Hope to see you again soon!
                             \t____________________________________________________________
                             """);
-                    break; // stop programme
+                    return; // stop programme
 
                 case LIST:
 
@@ -198,14 +208,6 @@ public class XiaoMe {
                     }
                     break;
 
-                default:
-
-                    // invalid command
-                    System.out.println("""
-                            \t____________________________________________________________
-                            Invalid command :(
-                            \t____________________________________________________________
-                            """);
             }
         }
     }
