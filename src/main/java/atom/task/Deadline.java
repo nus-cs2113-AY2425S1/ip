@@ -1,3 +1,5 @@
+package atom.task;
+
 public class Deadline extends Task{
 
     String by;
