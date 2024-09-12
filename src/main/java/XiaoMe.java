@@ -57,98 +57,156 @@ public class XiaoMe {
             line = in.nextLine();
             Type type = checkType(line);
 
-            if (type == Type.BYE) {
+            switch (type) {
+                case BYE:
+                    // user input is bye: end programme
+                    System.out.println("""
+                            \t____________________________________________________________
+                            \tBye. Hope to see you again soon!
+                            \t____________________________________________________________
+                            """);
+                    break; // stop programme
 
-                // user input is bye: end programme
-                System.out.println("""
-                        \t____________________________________________________________
-                        \tBye. Hope to see you again soon!
-                        \t____________________________________________________________
-                        """);
-                break; // stop programme
+                case LIST:
 
-            } else if (type == Type.LIST) {
+                    // user input is list: display past tasks
+                    System.out.println("""
+                            \t____________________________________________________________
+                            \tHere are the tasks in your list:""");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println("\t\t" + (i + 1) + "." + tasks[i].toString());
+                    }
+                    System.out.println("\t____________________________________________________________\n");
+                    break;
 
-                // user input is list: display past tasks
-                System.out.println("""
-                        \t____________________________________________________________
-                        \tHere are the tasks in your list:""");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println("\t\t" + (i + 1) + "." + tasks[i].toString());
-                }
-                System.out.println("\t____________________________________________________________\n");
+                case MARK:
+                    try {
+                        // user input is mark/unmark x: mark corresponding task as done or undone
+                        String[] markWords = line.split(" ");
+                        int index = Integer.parseInt(markWords[1]) - 1;
 
-            } else if (type == Type.MARK) {
+                        if (Objects.equals(markWords[0], "mark")) {
+                            tasks[index].setDone(true);
 
-                // user input is mark/unmark x: mark corresponding task as done or undone
-                String[] words = line.split(" ");
-                int taskCount = Integer.parseInt(words[1]) - 1;
+                            System.out.println("\t____________________________________________________________\n"
+                                    + "\tNice! I've marked this task as done:\n"
+                                    + "\t\t" + tasks[index].toString()
+                                    + "\n\t____________________________________________________________\n");
+                        } else {
+                            tasks[index].setDone(false);
 
-                if (Objects.equals(words[0], "mark")) {
-                    tasks[taskCount].setDone(true);
+                            System.out.println("\t____________________________________________________________\n"
+                                    + "\tOK, I've marked this task as not done yet:\n"
+                                    + "\t\t" + tasks[index].toString()
+                                    + "\n\t____________________________________________________________\n");
+                        }
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tHEY mark/unmark should be followed by a valid integer
+                                \t____________________________________________________________
+                                """);
+                    } catch (NullPointerException e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tInteger provided does not have a corresponding task
+                                \t____________________________________________________________
+                                """);
+                    }
+                    break;
 
-                    System.out.println("\t____________________________________________________________\n"
-                            + "\tNice! I've marked this task as done:\n"
-                            + "\t\t" + tasks[taskCount].toString()
-                            + "\n\t____________________________________________________________\n");
-                } else {
-                    tasks[taskCount].setDone(false);
+                case EVENT:
 
-                    System.out.println("\t____________________________________________________________\n"
-                            + "\tOK, I've marked this task as not done yet:\n"
-                            + "\t\t" + tasks[taskCount].toString()
-                            + "\n\t____________________________________________________________\n");
-                }
+                    try {
+                        // user is creating a new event
+                        String[] eventWords = line.split("/");
 
-            } else if (type == Type.EVENT) {
+                        if (eventWords.length != 3 ||
+                                !eventWords[1].startsWith("from ") ||
+                                !eventWords[2].startsWith("to ")) {
+                            throw new IllegalArgumentException();
+                        }
 
-                // user is creating a new event
-                String[] words = line.split("/");
+                        tasks[taskCount] = new Event(eventWords[0].replace("event", "").trim(), eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim()); // add task to storage
+                        taskCount += 1;
 
-                tasks[taskCount] = new Event(words[0].replace("event", "").trim(), words[1].replace("from ", "").trim(), words[2].replace("to ", "").trim()); // add task to storage
-                taskCount += 1;
+                        System.out.println("\t____________________________________________________________\n"
+                                + "\tGot it. I've added this task:\n"
+                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
+                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t____________________________________________________________\n");
+                    } catch (Exception e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tInvalid format to create an event:
+                                \tUse 'event <description> /from <start_time> /to <end_time>'
+                                \t____________________________________________________________
+                                """);
+                    }
+                    break;
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\tGot it. I've added this task:\n"
-                        + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                        + "\tNow you have " + taskCount + " tasks in the list.\n"
-                        + "\t____________________________________________________________\n");
+                case DEADLINE:
+                    try {
+                        // user is creating a new deadline
+                        String[] lineWords = line.split("/by");
+                        if (lineWords.length != 2) {
+                            throw new IllegalArgumentException();
+                        }
 
-            } else if (type == Type.DEADLINE) {
+                        tasks[taskCount] = new Deadline(lineWords[0].replace("deadline", "").trim(), lineWords[1].trim()); // add task to storage
+                        taskCount += 1;
 
-                // user is creating a new deadline
-                String[] words = line.split("/by");
+                        System.out.println("\t____________________________________________________________\n"
+                                + "\tGot it. I've added this task:\n"
+                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
+                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t____________________________________________________________\n");
+                    } catch (Exception e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tInvalid format to create a deadline:
+                                \tUse 'deadline <description> /by <due_date>'
+                                \t____________________________________________________________
+                                """);
+                    }
+                    break;
 
-                tasks[taskCount] = new Deadline(words[0].replace("deadline", "").trim(), words[1].trim()); // add task to storage
-                taskCount += 1;
+                case TODO:
+                    try {
+                        // user is creating a new  Todo
+                        String string = line.replace("todo", "").trim();
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\tGot it. I've added this task:\n"
-                        + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                        + "\tNow you have " + taskCount + " tasks in the list.\n"
-                        + "\t____________________________________________________________\n");
+                        if (string.isEmpty()) {
+                            throw new IllegalArgumentException();
+                        }
 
-            } else if (type == Type.TODO) {
+                        tasks[taskCount] = new Todo(string.trim()); // add task to storage
+                        taskCount += 1;
 
-                // user is creating a new Todo
-                String string = line.replace("todo ", "");
-                tasks[taskCount] = new Todo(string.trim()); // add task to storage
-                taskCount += 1;
+                        System.out.println("\t____________________________________________________________\n"
+                                + "\tGot it. I've added this task:\n"
+                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
+                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t____________________________________________________________\n");
+                    } catch (Exception e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tInvalid format to create a todo:
+                                \tUse 'todo <task>'
+                                \t____________________________________________________________
+                                """);
+                    }
+                    break;
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\tGot it. I've added this task:\n"
-                        + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                        + "\tNow you have " + taskCount + " tasks in the list.\n"
-                        + "\t____________________________________________________________\n");
+                default:
 
-            } else {
-
-                // invalid command
-                System.out.println("\t____________________________________________________________\n"
-                        + "Invalid command :(\n"
-                        + "\t____________________________________________________________\n");
+                    // invalid command
+                    System.out.println("""
+                            \t____________________________________________________________
+                            Invalid command :(
+                            \t____________________________________________________________
+                            """);
             }
-
         }
     }
 }
