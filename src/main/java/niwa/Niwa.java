@@ -34,7 +34,13 @@ public class Niwa {
 
     // Static variables for error messages
     private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
-    private static final String OUTPUT_FILE_PATH = "./data/NiwaTaskList.txt";
+    private static final String HOME = System.getProperty("user.home");
+
+    // inserts correct file path separator on *nix and Windows
+    // works on *nix
+    // works on Windows
+    private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "Niwa", "data", "NiwaTaskList.txt");
+
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
 
@@ -59,7 +65,7 @@ public class Niwa {
      * @return The file path of the chatbot.
      */
     public static String getOutputFilePath() {
-        return OUTPUT_FILE_PATH;
+        return PATH.toString();
     }
 
     /**
@@ -115,7 +121,7 @@ public class Niwa {
         helpCommand.setCommands(new ArrayList<>(commands.values()));
 
         System.out.println(PREFIX + "---> Reading from default data file...");
-        processCommand(readCommand.getWord() + " " + OUTPUT_FILE_PATH);
+        processCommand(readCommand.getWord() + " " + PATH.toString());
     }
 
     public void registerCommands(Command command) {
