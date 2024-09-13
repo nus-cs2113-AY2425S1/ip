@@ -1,3 +1,7 @@
+package yapper;
+
+import yapper.tasks.Task;
+
 // manages Tasks for Yapper
 public class TaskManager {
     private Task[] tasks;

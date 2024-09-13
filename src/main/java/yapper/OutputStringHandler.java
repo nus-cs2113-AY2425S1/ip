@@ -1,8 +1,13 @@
+package yapper;
+
+import yapper.tasks.Task;
+
 // Output Text Formatter for Yapper
 public class OutputStringHandler {
     // For Instruction: List
     public static void printTasks(Task[] tasks, int taskCount) {
-        if (taskCount == 0) System.out.println("nothing in list");;
+        if (taskCount == 0) System.out.println("nothing in list");
+
         System.out.println(StringStorage.LINE_DIVIDER);
         System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
         for (int i = 0; i < taskCount; i++) {

@@ -1,3 +1,5 @@
+package yapper;
+
 // Main function for Yapper
 public class Yapper {
     public static final int maxCapacity = 100;
