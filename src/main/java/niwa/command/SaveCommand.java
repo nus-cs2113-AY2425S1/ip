@@ -19,7 +19,7 @@ public class SaveCommand extends TaskCommand{
     }
 
     @Override
-    public String[] convertArguments(String command) {
+    public String[] parseArguments(String command) {
         // Compile the regex pattern for matching the command format
         Pattern pattern = Pattern.compile(argumentFormat);
 
