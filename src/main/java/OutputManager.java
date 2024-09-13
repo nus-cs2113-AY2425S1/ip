@@ -35,4 +35,11 @@ public class OutputManager {
     public static void printEchoInput(String input) {
         System.out.print(Constants.LINE_BREAK + Constants.INDENTATION + input + Constants.LINE_BREAK);
     }
+
+    public static void printListCommands() {
+        for (String command : Constants.LIST_COMMANDS) {
+            System.out.println(Constants.INDENTATION + command);
+        }
+        System.out.println(Constants.LINE_BREAK);
+    }
 }

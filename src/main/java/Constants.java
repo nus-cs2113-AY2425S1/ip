@@ -35,4 +35,7 @@ public class Constants {
     public static final String ICON_EVENT = "[E]";
     public static final String ICON_TODO = "[T]";
     public static final String ICON_DEADLINE = "[D]";
+
+    public static final String[] LIST_COMMANDS = {COMMAND_LIST, COMMAND_DEADLINE, COMMAND_EVENT,
+            COMMAND_TODO, COMMAND_MARK, COMMAND_UNMARK, COMMAND_END};
 }

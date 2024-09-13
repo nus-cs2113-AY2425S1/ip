@@ -16,7 +16,12 @@ public class Bitwise {
         Status status = Status.RUNNING;
         while (status != Status.EXIT) {
             userInput = getUserInput();
-            status = inputHandler(userInput);
+            try {
+                status = inputHandler(userInput);
+            } catch (InvalidCommandException e) {
+                OutputManager.printMessage("Invalid command: " + userInput);
+                OutputManager.printListCommands();
+            }
         }
     }
 
@@ -78,7 +83,7 @@ public class Bitwise {
             newTask = new Event(description, eventFrom, eventTo);
         }
         else {
-            newTask = new Task(userInput);
+            throw new InvalidCommandException(userInput);
         }
         tasksList[numberOfTasks] = newTask;
         numberOfTasks++;
