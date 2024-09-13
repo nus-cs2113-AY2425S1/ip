@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import exception.EmptyDescriptionException;
 import exception.UnknownCommandException;
@@ -10,9 +11,7 @@ import task.ToDo;
 
 public class JerChatBot {
 
-    private static final int MAX_TASKS = 100;
-    private static final Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     // define constant for task categories
     private static final String TODO = "todo";
@@ -86,11 +85,11 @@ public class JerChatBot {
     private static void printTaskList() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" Current Task List:");
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" No tasks in your list currently.");
         } else {
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -106,7 +105,7 @@ public class JerChatBot {
             throw new InvalidTaskNumberException("Invalid command or task number. Please try again.");
         }
 
-        tasks[taskIndex].markAsDone();
+        tasks.get(taskIndex).markAsDone();
         printTaskMarkedAsDoneMessage(taskIndex);
     }
 
@@ -121,7 +120,7 @@ public class JerChatBot {
     private static void printTaskMarkedAsDoneMessage(int taskIndex) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" Marked this task as done:");
-        System.out.println(" " + tasks[taskIndex]);
+        System.out.println(" " + tasks.get(taskIndex));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
@@ -135,18 +134,14 @@ public class JerChatBot {
             throw new InvalidTaskNumberException("Invalid command or task number. Please try again.");
         }
 
-        tasks[taskIndex].removeAsDone();
+        tasks.get(taskIndex).removeAsDone();
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" Marked this task as not done:");
-        System.out.println(" " + tasks[taskIndex]);
+        System.out.println(" " + tasks.get(taskIndex));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
     private static void addTask(String taskDescription) throws EmptyDescriptionException, TaskListFullException, UnknownCommandException  {
-        if (taskCount >= MAX_TASKS) {
-            throw new TaskListFullException("Task list is full. Unable to insert more tasks.");
-        }
-
         String[] parts = taskDescription.split(" ", 2);
         String categoryOfTask = parts[0];
         String taskDetails = parts.length > 1 ? parts[1] : "";
@@ -160,8 +155,7 @@ public class JerChatBot {
             throw new UnknownCommandException("Invalid command or task type.");
         }
 
-        tasks[taskCount] = newTask;
-        taskCount++;
+        tasks.add(newTask);
         printTaskAddedMessage(newTask);
     }
 
@@ -197,11 +191,11 @@ public class JerChatBot {
     private static void printTaskAddedMessage(Task newTask) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" added: " + newTask);
-        System.out.println(" Currently you have: " + taskCount + " tasks in your list");
+        System.out.println(" Currently you have: " + tasks.size() + " tasks in your list");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
     private static boolean isValidTaskIndex(int index) {
-        return index >= 0 && index < taskCount;
+        return index >= 0 && index < tasks.size();
     }
 }
