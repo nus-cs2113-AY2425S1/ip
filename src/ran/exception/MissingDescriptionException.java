@@ -1,3 +1,7 @@
+package ran.exception;
+
+import ran.task.TaskType;
+
 public class MissingDescriptionException extends RanException {
     private TaskType type;
 
