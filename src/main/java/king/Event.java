@@ -1,3 +1,5 @@
+package king;
+
 public class Event extends Task {
 
     protected String startTime;
