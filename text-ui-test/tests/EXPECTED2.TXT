@@ -1,0 +1,95 @@
+               ____  ____  ______
+   _______  __/ __ )/ __ \/_  __/
+  / ___/ / / / __  / / / / / /
+ (__  ) /_/ / /_/ / /_/ / / /
+/____/\__,_/_____/\____/ /_/
+
+How can I help you today?
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] Meeting (from: 10:00 to: 11:00)
+-------------------------------
+-------------------------------
+Invalid argument(s): Event name cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event name cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event name cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event name cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): "/to" expected
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): "/from" expected
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event from <time> cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event to <time> cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): Event from <time> cannot be blank
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): "/to" expected
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Invalid argument(s): "/from" expected
+Usage: event <description> /from <from> /to <to>
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] a (from: b to: c)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] @Meeting! (from: #StartTime* to: $EndTime^)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] Lunch (from: 12:30 PM to: 01:30 PM)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] Lunch Break (from: 12:00 to: 13:00)
+-------------------------------
+-------------------------------
+Deadline task added!
+
+[E][ ] Special! Event (from: Start @ 9am to: End @ 5pm)
+-------------------------------
+-------------------------------
+1.[E][ ] Meeting (from: 10:00 to: 11:00)
+2.[E][ ] a (from: b to: c)
+3.[E][ ] @Meeting! (from: #StartTime* to: $EndTime^)
+4.[E][ ] Lunch (from: 12:30 PM to: 01:30 PM)
+5.[E][ ] Lunch Break (from: 12:00 to: 13:00)
+6.[E][ ] Special! Event (from: Start @ 9am to: End @ 5pm)
+-------------------------------
+-------------------------------
+-------------------------------
+Bye bye...
+System shutting down...
+Goodbye world!

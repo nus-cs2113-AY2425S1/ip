@@ -2,12 +2,25 @@ public final class ActionManager {
     private static final int MAX_CAPACITY = 100;
     private static final Task[] tasks = new Task[MAX_CAPACITY];
     private static int taskCount = 0;
+    private static final class UsageString {
+        private static final String LIST_USAGE = "Usage: list";
+        private static final String MARK_UNMARK_USAGE = "Usage: mark/unmark <taskNumber>";
+        private static final String EVENT_USAGE = "Usage: event <description> /from <from> /to <to>";
+        private static final String TODO_USAGE = "Usage: todo <description>";
+        private static final String DEADLINE_USAGE = "Usage: deadline <name> /by <time>";
+        private static final String DEFAULT = "All commands: list, mark, unmark, event, todo, deadline";
+    }
 
     /**
      * List all tasks in the format: <code>[T/D/E][isDone?] &lt;name&gt;
      * (/from &lt;time&gt; /to &lt;time&gt;) (/by &lt;time&gt;) </code>
      */
     private static void listAllTask() {
+        if (taskCount == 0) {
+            System.out.println("No task found");
+            return;
+        }
+
         for (int i = 0; i < taskCount; ++i) {
             System.out.printf("%d.", i + 1);
             tasks[i].printTask();
@@ -17,78 +30,82 @@ public final class ActionManager {
     /**
      * Marks/unmarks a task as done
      * @param action <code>mark</code> or <code>unmark</code>
-     * @param commandOptions Task index as <code>String</code>
+     * @param argString Task index as <code>String</code>
+     * @throws SuBotException If argString cannot be parsed to <code>Int</code>
      */
-    private static void markUnmarkTask(String action, String commandOptions) {
-        int taskIndex;
+    private static void markUnmarkTask(String action, String argString) throws SuBotException {
         try {
-            taskIndex = Integer.parseInt(commandOptions) - 1; //Index starts from 0
+            int taskIndex = Parser.parseMarkUnmark(argString);
+            if (taskIndex >= taskCount) {
+                System.out.println("Task not found");
+                return;
+            }
             boolean isMark = action.equals("mark");
             tasks[taskIndex].setDone(isMark);
             System.out.printf("I have %sed the following task for you:\n", action);
             tasks[taskIndex].printTask();
-        } catch (Exception e) {
-            System.out.println("Invalid argument(s): " + e);
-            System.out.println("Usage: mark/unmark <taskNumber>");
+        } catch (SuBotException e) {
+            String msg = e.getMessage() + "\n" + UsageString.MARK_UNMARK_USAGE;
+            throw new SuBotException(msg);
         }
     }
 
     /**
      * Adds an <code>Event</code> to list of tasks.
      * Note that <code>&lt;time&gt;</code> is treated as a <code>String</code>
-     * @param commandOptions Format: <code> &lt;name&gt;
+     * @param argString Format: <code> &lt;name&gt;
      *                       /from &lt;time&gt; /to &lt;time&gt;</code>
+     * @throws SuBotException If invalid format or any empty argument
      */
-    private static void addEvent(String commandOptions) {
+    private static void addEvent(String argString) throws SuBotException {
         try {
-            int fromSlashIndex = commandOptions.indexOf("/from");
-            int toSlashIndex = commandOptions.indexOf("/to");
-            String eventName = commandOptions.substring(0, fromSlashIndex).strip();
-            //5 spaces from `fromSlashIndex` since length of "/from" is 5
-            String eventFrom = commandOptions.substring(fromSlashIndex + 5, toSlashIndex).strip();
-            //3 spaces from `toSlashIndex` since length of "/to" is 3
-            String eventTo = commandOptions.substring(toSlashIndex + 3).strip();
+            String[] argv = Parser.parseEvent(argString);
+            String eventName = argv[0];
+            String eventFrom = argv[1];
+            String eventTo = argv[2];
             tasks[taskCount] = new Event(eventName, eventFrom, eventTo);
             System.out.println("Deadline task added!\n");
             tasks[taskCount++].printTask();
-        } catch (Exception e) {
-            System.out.println("Invalid argument(s): " + e);
-            System.out.println("Usage: event <description> /from <from> /to <to>");
+        } catch (SuBotException e) {
+            String msg = e.getMessage() + "\n" + UsageString.EVENT_USAGE;
+            throw new SuBotException(msg);
         }
     }
 
     /**
-     * Adds a <code>Todo</code> in list of tasks
+     * Adds a <code>Todo</code> to list of tasks
      * @param description Task description
+     * @throws SuBotException If description is blank
      */
-    private static void addTodo(String description) {
+    private static void addTodo(String description) throws SuBotException{
         try {
+            Parser.validateToDo(description); //Doesn't need a parser
             tasks[taskCount] = new ToDo(description);
             System.out.println("Todo task added!\n");
             tasks[taskCount++].printTask();
-        } catch (Exception e) {
-            System.out.println("Invalid argument(s): " + e);
-            System.out.println("Usage: todo <description>");
+        } catch (SuBotException e) {
+            String msg = e.getMessage() + "\n" + UsageString.TODO_USAGE;
+            throw new SuBotException(msg);
         }
     }
 
     /**
      * Adds a <code>Deadline</code> to list of tasks.
      * Note that <code>&lt;time&gt;</code> is treated as a <code>String</code>
-     * @param commandOptions Format: <code> &lt;name&gt; /by &lt;time&gt;</code>
+     * @param argString Format: <code> &lt;name&gt; /by &lt;time&gt;</code>
+     * @throws SuBotException If invalid format or any empty argument
      */
-    private static void addDeadline(String commandOptions) {
+    private static void addDeadline(String argString) throws SuBotException {
         try {
-            int slashIndex = commandOptions.indexOf("/by");
-            String dlName = commandOptions.substring(0, slashIndex - 1);
-            //Not take the space before slash
-            String dlTime = commandOptions.substring(slashIndex + 4);
+            String[] argv = Parser.parseDeadline(argString);
+            String dlName  = argv[0];
+            String dlTime  = argv[1];
             tasks[taskCount] = new Deadline(dlName, dlTime);
             System.out.println("Deadline task added!\n");
             tasks[taskCount++].printTask();
-        } catch (Exception e) {
-            System.out.println("Invalid argument(s): " + e);
-            System.out.println("Usage: deadline <description> /by <date>");
+        } catch (SuBotException e) {
+            String msg = e.getMessage() + "\n" + UsageString.DEADLINE_USAGE;
+            throw new SuBotException(msg);
         }
     }
 
@@ -100,43 +117,47 @@ public final class ActionManager {
      * for further processing.
      * @param command Input command
      */
-     static void process(String command) {
-        //Split `command` into `action` and `commandOptions`
+      static void process(String command) {
+        //Split `command` into `action` and `argString`
         String[] argv = command.split(" ", 2);
         //argv will have at least length of 1 because that's how split() works
         String action = argv[0];
 
-        String commandOptions;
+        String argString;
         int argc = argv.length;
         if (argc == 2) {
-            commandOptions = argv[1]; //For commands with 1 or more options
+            argString = argv[1]; //For commands with 1 or more options
         } else {
-            commandOptions = ""; //For 0-option commands (E.g. list)
+            argString = ""; //For 0-option commands (E.g. list)
         }
-
-        switch (action) {
-        case "bye":
-            SuBOT.isRunning = false; //Halt signal for parent class
-            break;
-        case "list":
-            listAllTask();
-            break;
-        case "mark":
-        case "unmark":
-            markUnmarkTask(action, commandOptions);
-            break;
-        case "deadline":
-            addDeadline(commandOptions);
-            break;
-        case "todo":
-            addTodo(commandOptions);
-            break;
-        case "event":
-            addEvent(commandOptions);
-            break;
-        default:
-            System.out.println("Invalid action: " + action);
-            break;
+        try {
+            switch (action) {
+            case "bye":
+                SuBOT.isRunning = false; //Halt signal for parent class
+                break;
+            case "list":
+                listAllTask();
+                break;
+            case "mark":
+            case "unmark":
+                markUnmarkTask(action, argString);
+                break;
+            case "deadline":
+                addDeadline(argString);
+                break;
+            case "todo":
+                addTodo(argString);
+                break;
+            case "event":
+                addEvent(argString);
+                break;
+            default:
+                throw new SuBotException(action + "\n" + UsageString.DEFAULT);
+            }
+        } catch (SuBotException e) {
+            System.out.println("Invalid argument(s): " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected exception: " + e);
         }
     }
 }

@@ -1,0 +1,20 @@
+deadline Submit report /by 2024-09-15 23:59
+deadline 
+deadline Submit report
+deadline /by 2024-09-15 23:59
+deadline Submit report /by 
+deadline "" /by 2024-09-15 23:59
+deadline Submit report /by "" 
+deadline Submit report /by 2024-09-15 23:59 /extra
+deadline a /by b
+deadline " " /by " "
+deadline Important Task /by Tomorrow
+deadline Task with spaces /by Next Monday at 10:00 AM
+deadline @Urgent! Report /by #ASAP
+deadline "Quoted Deadline" /by "End of Week"
+deadline Task:with:colons /by 2024-09-30
+deadline Deadline/with/slashes /by 2024-10-01
+deadline Mix@of#Special&Characters! /by 2024-09-20
+deadline Escaped \"deadline\" /by \"in quotes\"
+list
+bye

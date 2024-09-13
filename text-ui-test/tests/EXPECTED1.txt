@@ -1,0 +1,143 @@
+               ____  ____  ______
+   _______  __/ __ )/ __ \/_  __/
+  / ___/ / / / __  / / / / / /
+ (__  ) /_/ / /_/ / /_/ / / /
+/____/\__,_/_____/\____/ /_/
+
+How can I help you today?
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask2
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask3
+-------------------------------
+-------------------------------
+I have marked the following task for you:
+[T][X] demoTask1
+-------------------------------
+-------------------------------
+I have unmarked the following task for you:
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+Task not found
+-------------------------------
+-------------------------------
+Task not found
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number cannot be blank
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number cannot be blank
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+I have marked the following task for you:
+[T][X] demoTask1
+-------------------------------
+-------------------------------
+I have unmarked the following task for you:
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: mark/unmark <taskNumber>
+-------------------------------
+-------------------------------
+I have marked the following task for you:
+[T][X] demoTask1
+-------------------------------
+-------------------------------
+I have unmarked the following task for you:
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+1.[T][ ] demoTask1
+2.[T][ ] demoTask2
+3.[T][ ] demoTask3
+-------------------------------
+-------------------------------
+-------------------------------
+Bye bye...
+System shutting down...
+Goodbye world!
