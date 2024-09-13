@@ -12,7 +12,8 @@ public class QuickManual {
         System.out.println("3. Add an event: event [description] /from [start time] /to [end time]");
         System.out.println("4. Mark a task as done: mark [task number]");
         System.out.println("5. Unmark a task: unmark [task number]");
-        System.out.println("6. List all tasks: list");
-        System.out.println("7. Exit the application: bye");
+        System.out.println("6. Delete a task: delete [task number]");
+        System.out.println("7. List all tasks: list");
+        System.out.println("8. Exit the application: bye");
     }
 }
