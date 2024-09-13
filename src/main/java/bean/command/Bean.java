@@ -47,13 +47,13 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    // Return duke.command (taken as first word) from given user input
+    // Return command (taken as first word) from given user input
     public static String extractCommand(String userInput) {
         // Take first word of input as duke.command
         return userInput.split(" ")[0];
     }
 
-    // Print (single line) message with separator line above and below message
+    // Print message with separator line above and below message
     public static void printFormattedReply(String reply) {
         System.out.println(SEPARATOR_LINE +
                 reply + "\n" +
@@ -77,7 +77,7 @@ public class Bean {
         System.out.println(SEPARATOR_LINE);
     }
 
-    // Extract duke.task number as int from user input for mark and unmark commands
+    // Extract task number as int from user input for mark and unmark commands
     public static int obtainTaskNum(String userInput) throws InvalidTaskNumException {
         // Obtain duke.task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
