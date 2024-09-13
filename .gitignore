@@ -15,4 +15,21 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+<<<<<<< Updated upstream
+=======
+src/main/java/yapper/CommonStrings.class
+src/main/java/yapper/io/InputStringHandler.class
+src/main/java/Instruction$InstructionType.class
+src/main/java/yapper/instructions/Instruction.class
+src/main/java/yapper/io/OutputStringHandler.class
+src/main/java/yapper/io/StringStorage.class
+src/main/java/yapper/tasks/Task.class
+src/main/java/yapper/tasks/TaskDeadline.class
+src/main/java/yapper/tasks/TaskEvent.class
+src/main/java/yapper/TaskManager.class
+src/main/java/yapper/tasks/TaskTodo.class
+src/main/java/UserInterface$1.class
+src/main/java/yapper/instructions/InstructionHandler.class
+src/main/java/yapper/Yapper.class
+>>>>>>> Stashed changes
 *.class
