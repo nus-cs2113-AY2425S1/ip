@@ -13,7 +13,7 @@ public class ListCommand extends TaskCommand {
     }
 
     @Override
-    public String[] convertArguments(String command) {
+    public String[] parseArguments(String command) {
         if (!command.isEmpty()) {
             return null;
         }

@@ -8,7 +8,7 @@ public class EchoCommand extends Command {
     }
 
     @Override
-    public String[] convertArguments(String command) {
+    public String[] parseArguments(String command) {
         return new String[0];
     }
 

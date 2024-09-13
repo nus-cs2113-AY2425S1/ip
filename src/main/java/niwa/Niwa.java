@@ -6,17 +6,10 @@ import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.task.Task;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * niwa.Niwa chatbot class that processes user commands to manage a task list.
@@ -108,6 +101,7 @@ public class Niwa {
         registerCommands(new ListCommand(tasks));
 
         registerCommands(new DeleteCommand(tasks));
+        registerCommands(new ClearCommand(tasks));
         registerCommands(new MarkCommand(tasks));
         registerCommands(new UnmarkCommand(tasks));
 
