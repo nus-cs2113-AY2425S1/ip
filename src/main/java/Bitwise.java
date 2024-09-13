@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Bitwise {
 
-    private static Task[] tasksList = new Task[100];
+    private static Task[] tasksList = new Task[Constants.MAX_LIST_SIZE];
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
@@ -115,7 +115,15 @@ public class Bitwise {
 
     public static void markCompletionStatus(int taskNumber, boolean isCompleted) {
         int taskIndex = taskNumber - 1;
-        tasksList[taskIndex].markCompletionStatus(isCompleted);
+        try {
+            tasksList[taskIndex].markCompletionStatus(isCompleted);
+        } catch (IndexOutOfBoundsException e) {
+            OutputManager.printMessage("Task number exceeds max list size: " + Constants.MAX_LIST_SIZE);
+            return;
+        } catch (NullPointerException e) {
+            OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+            return;
+        }
         String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;
         OutputManager.printMessage(message);
         OutputManager.printTasksList(tasksList, numberOfTasks);
