@@ -115,6 +115,11 @@ public class Glendon {
         }
     }
 
+    /**
+     * mark task as done
+     * @param response
+     */
+
     private static void markDone(String response) {
         try {
             int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
