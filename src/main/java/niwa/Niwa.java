@@ -29,11 +29,12 @@ public class Niwa {
     private static final String SEPARATOR = PREFIX + "---------------------------------------------";
 
     private static final String HI_MESSAGE = PREFIX + "Hello sweeties! I'm %s!\n"
-            + PREFIX + "What can I do for you? Let's chat <3\n\n";
+            + PREFIX + "What can I do for you? Let's chat <3\n"
+            + PREFIX + "---> Type 'help' to see the guide.\n\n";
 
     // Static variables for error messages
     private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
-
+    private static final String OUTPUT_FILE_PATH = "./data/NiwaTaskList.txt";
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
 
@@ -50,6 +51,15 @@ public class Niwa {
      */
     public static String getName() {
         return NAME;
+    }
+
+    /**
+     * Getter for the chatbot's file path.
+     *
+     * @return The file path of the chatbot.
+     */
+    public static String getOutputFilePath() {
+        return OUTPUT_FILE_PATH;
     }
 
     /**
@@ -95,11 +105,17 @@ public class Niwa {
         registerCommands(new MarkCommand(tasks));
         registerCommands(new UnmarkCommand(tasks));
 
+        registerCommands(new SaveCommand(tasks));
+
+        ReadCommand readCommand = new ReadCommand(tasks);
+        registerCommands(readCommand);
+
         HelpCommand helpCommand = new HelpCommand();
         registerCommands(helpCommand);
         helpCommand.setCommands(new ArrayList<>(commands.values()));
 
-        processCommand(helpCommand.getWord());
+        System.out.println(PREFIX + "---> Reading from default data file...");
+        processCommand(readCommand.getWord() + " " + OUTPUT_FILE_PATH);
     }
 
     public void registerCommands(Command command) {

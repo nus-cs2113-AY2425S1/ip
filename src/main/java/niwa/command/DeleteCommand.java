@@ -74,5 +74,7 @@ public class DeleteCommand extends TaskCommand {
 
         // Print out a confirmation message with task details and remaining task count.
         System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
+
+        super.saveTasks();
     }
 }

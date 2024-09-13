@@ -61,5 +61,7 @@ public class EventCommand extends TaskCommand{
                 + PREFIX + "%s%n"
                 + PREFIX + "You currently have %d tasks in the list.%n";
         System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
+
+        super.saveTasks();
     }
 }
