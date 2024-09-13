@@ -2,15 +2,17 @@ package yapper.tasks;
 
 import yapper.stringHandlers.StringStorage;
 
-public class TaskDeadline extends Task {
+public class Event extends Task {
+    protected String startDate;
     protected String endDate;
-    public TaskDeadline(String taskDesc, String endDate) {
+    public Event(String taskDesc, String startDate, String endDate) {
         super(taskDesc);
+        this.startDate = startDate;
         this.endDate = endDate;
     }
     @Override
     public String taskToString() {
-        return "[D]" + super.taskToString() + ", due " + endDate;
+        return "[E]" + super.taskToString() + ", from " + startDate + " to " + endDate;
     }
     @Override
     public void printAddedTask(int taskCount) {

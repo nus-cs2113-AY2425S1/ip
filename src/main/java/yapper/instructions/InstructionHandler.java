@@ -6,9 +6,9 @@ import yapper.exceptions.ErrorHandler;
 import yapper.stringHandlers.InputStringHandler;
 import yapper.stringHandlers.OutputStringHandler;
 import yapper.tasks.Task;
-import yapper.tasks.TaskDeadline;
-import yapper.tasks.TaskEvent;
-import yapper.tasks.TaskTodo;
+import yapper.tasks.Deadline;
+import yapper.tasks.Event;
+import yapper.tasks.Todo;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
 public class InstructionHandler {
@@ -17,19 +17,19 @@ public class InstructionHandler {
     // UI Operations
     public static void handleAddInstruction(TaskManager taskManager, String todoDesc) {
         ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
-        TaskTodo todo = new TaskTodo(todoDesc);
+        Todo todo = new Todo(todoDesc);
         taskManager.addTask(todo);
         todo.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
         ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
-        TaskDeadline deadline = new TaskDeadline(taskDesc, endDate);
+        Deadline deadline = new Deadline(taskDesc, endDate);
         taskManager.addTask(deadline);
         deadline.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
         ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
-        TaskEvent event = new TaskEvent(taskDesc, startDate, endDate);
+        Event event = new Event(taskDesc, startDate, endDate);
         taskManager.addTask(event);
         event.printAddedTask(taskManager.getCurrTaskTotal());
     }
