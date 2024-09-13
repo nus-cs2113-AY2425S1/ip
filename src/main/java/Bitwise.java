@@ -21,6 +21,9 @@ public class Bitwise {
             } catch (InvalidCommandException e) {
                 OutputManager.printMessage("Invalid command: " + userInput);
                 OutputManager.printListCommands();
+            } catch (InvalidFormatException e) {
+                OutputManager.printMessage("Invalid format: " + e);
+                OutputManager.printLineBreak();
             }
         }
     }
@@ -34,8 +37,12 @@ public class Bitwise {
             OutputManager.printTasksList(tasksList, numberOfTasks);
         }
         else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
-            int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
-            markCompletionStatus(taskNumber, false);
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_UNMARK);
+            }
         }
         else if (userInput.startsWith(Constants.COMMAND_MARK)) {
             int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));

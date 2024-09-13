@@ -38,7 +38,7 @@ public class OutputManager {
 
     public static void printListCommands() {
         for (String command : Constants.LIST_COMMANDS) {
-            System.out.println(Constants.INDENTATION + command);
+            System.out.println(command);
         }
         System.out.println(Constants.LINE_BREAK);
     }
