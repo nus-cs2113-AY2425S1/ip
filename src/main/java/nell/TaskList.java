@@ -5,7 +5,7 @@ import nell.tasks.Task;
 public class TaskList {
     private Task[] tasks;
     private int taskCount;
-    
+
     public TaskList() {
         tasks = new Task[100];
         taskCount = 0;

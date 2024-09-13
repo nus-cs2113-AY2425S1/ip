@@ -30,8 +30,7 @@ public class Nell {
             """;
     public static final String INVALID_TASK_MESSAGE = "-> Invalid task!";
 
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static TaskList tasks = new TaskList();
 
 
     /**
@@ -50,8 +49,7 @@ public class Nell {
      * @param taskToAdd The task to be added to the list
      */
     private static void listAddTask(Task taskToAdd) {
-        tasks[taskCount] = taskToAdd;
-        taskCount++;
+        tasks.addTask(taskToAdd);
     }
 
     /**
@@ -59,9 +57,10 @@ public class Nell {
      */
     private static void listTasks() {
         System.out.println("-> The tasks listed are as follows:");
+        int taskCount = tasks.getTaskCount();
         for (int i = 0; i < taskCount; i++) {
             // Prints all tasks in list
-            printTaskAtIndex(tasks[i], (i + 1));
+            printTaskAtIndex(tasks.getTaskAtIndex(i), (i + 1));
         }
     }
 
@@ -75,7 +74,7 @@ public class Nell {
         ToDo toDoToAdd = new ToDo(description);
         listAddTask(toDoToAdd);
         System.out.println("   " + toDoToAdd);
-        System.out.println(String.format("   The list now has %d tasks", taskCount));
+        System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
     }
 
     /**
@@ -90,7 +89,7 @@ public class Nell {
             System.out.println("-> The task has been added to the list:");
             listAddTask(deadlineToAdd);
             System.out.println("   " + deadlineToAdd);
-            System.out.println(String.format("   The list now has %d tasks", taskCount));
+            System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DEADLINE_ERROR_MESSAGE);
         }
@@ -108,7 +107,7 @@ public class Nell {
             System.out.println("-> The task has been added to the list:");
             listAddTask(eventToAdd);
             System.out.println("   " + eventToAdd);
-            System.out.println(String.format("   The list now has %d tasks", taskCount));
+            System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(EVENT_ERROR_MESSAGE);
         }
@@ -122,9 +121,9 @@ public class Nell {
     private static void unmarkTask(String taskNumber) {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
-            tasks[taskIndex - 1].setDone(false);
+            tasks.getTaskAtIndex(taskIndex - 1).setDone(false);
             System.out.println("-> The following task has been marked not done:");
-            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+            printTaskAtIndex(tasks.getTaskAtIndex(taskIndex - 1), taskIndex);
         } catch (NumberFormatException e) {
             System.out.print(UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
@@ -142,9 +141,9 @@ public class Nell {
     private static void markTask(String taskNumber) {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
-            tasks[taskIndex - 1].setDone(true);
+            tasks.getTaskAtIndex(taskIndex - 1).setDone(true);
             System.out.println("-> The following task has been marked done:");
-            printTaskAtIndex(tasks[taskIndex - 1], taskIndex);
+            printTaskAtIndex(tasks.getTaskAtIndex(taskIndex - 1), taskIndex);
         } catch (NumberFormatException e) {
             System.out.print(MARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
