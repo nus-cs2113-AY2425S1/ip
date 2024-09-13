@@ -7,17 +7,13 @@ package niwa.task;
 public abstract class Task {
     /** Regular expression format for parsing commands **/
     protected static String format;
-    /** niwa.task.Task type (e.g., "todo", "event", "deadline") **/
-    protected String type;
-    /** Short notation for the task type (e.g., "T" for todo, "E" for event) **/
-    protected String shortType;
     /** Description of the task **/
     protected String description;
     /** Completion status of the task **/
     protected boolean isDone;
 
     /**
-     * Constructs a niwa.task.Task with the specified description.
+     * Constructs a task with the specified description.
      * The task is marked as undone by default.
      *
      * @param description The description of the task
@@ -33,7 +29,7 @@ public abstract class Task {
      * @return The type of the task as a string
      */
     public String getType() {
-        return type;
+        return "";
     }
 
     /**
@@ -42,7 +38,7 @@ public abstract class Task {
      * @return The short type of the task as a string
      */
     public String getShortType() {
-        return shortType;
+        return "";
     }
 
     /**
@@ -53,6 +49,16 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return isDone ? "X" : " "; // Return "X" for done, " " for not done
+    }
+
+    /**
+     * Returns the status number for the task.
+     * The number indicates whether the task is done or not.
+     *
+     * @return 1 if the task is done, 0 if not
+     */
+    public int getStatusNumber() {
+        return isDone ? 1 : 0; // Return "X" for done, " " for not done
     }
 
     /**
@@ -95,5 +101,24 @@ public abstract class Task {
      */
     public String getFullInfo() {
         return String.format("[%s][%s] %s", getShortType(), getStatusIcon(), getDescription());
+    }
+
+    /**
+     * Returns the full information about the task in a formatted string for file output.
+     * The format is: "shortType | isDone | description".
+     *
+     * @return A formatted string containing the task's full information
+     */
+    public String getFileOutput() {
+        return String.format("%s | %s | %s", getShortType(), getStatusNumber(), getDescription());
+    }
+
+    /**
+     * Return a task by reading a formatted String.
+     *
+     * @param inputString The input information of the task.
+     */
+    public static Task parseTask(String inputString){
+        return null;
     }
 }

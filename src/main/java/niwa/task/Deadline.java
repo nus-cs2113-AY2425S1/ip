@@ -1,5 +1,8 @@
 package niwa.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a deadline task with a description and a due date.
  * This class extends the niwa.task.Task class and specifies the type and short notation for deadline tasks.
@@ -9,7 +12,7 @@ public class Deadline extends Task {
     protected String byDay; // The due date of the deadline task
 
     /**
-     * Constructs a deadline niwa.task.Task with the specified description and due date.
+     * Constructs a deadline with the specified description and due date.
      * The task is marked as undone by default. The type and short notation are set specifically for deadline tasks.
      *
      * @param description The description of the deadline task
@@ -18,10 +21,27 @@ public class Deadline extends Task {
     public Deadline(String description, String byDay) {
         super(description);  // Initialize the description in the superclass (niwa.task.Task)
         this.byDay = byDay;  // Set the due date for the deadline task
-        type = "deadline";   // Set the task type to "deadline"
-        shortType = "D";     // Set the short notation for deadline tasks
     }
 
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task as a string
+     */
+    @Override
+    public String getType() {
+        return "deadline";
+    }
+
+    /**
+     * Returns the short notation for the task type.
+     *
+     * @return The short type of the task as a string
+     */
+    @Override
+    public String getShortType() {
+        return "D";
+    }
 
 
     // Getter for the due date of the deadline task
@@ -44,5 +64,43 @@ public class Deadline extends Task {
     public String getFullInfo() {
         return String.format("[%s][%s] %s (by: %s)",
                 getShortType(), getStatusIcon(), getDescription(), getByDay());
+    }
+
+    /**
+     * Returns the full information about the task in a formatted string for file output.
+     * The format is: "shortType | isDone | description | [byDay]".
+     *
+     * @return A formatted string containing the task's full information
+     */
+    @Override
+    public String getFileOutput() {
+        return String.format("%s | %s | %s | %s",
+                getShortType(), getStatusNumber(), getDescription(), getByDay());
+    }
+
+    public static Task parseTask(String inputString) {
+        String format = "^D \\| (\\d+) \\| (.+?) \\| (.+?)$";
+        // Compile the regex pattern for matching the command format
+        Pattern pattern = Pattern.compile(format);
+
+        // Create a matcher for the input command string
+        Matcher matcher = pattern.matcher(inputString);
+
+        // Check if the command string matches the expected pattern
+        if (matcher.matches()) {
+            // Extract and trim the captured groups
+            String segment1 = matcher.group(1).trim(); // isDone
+            String segment2 = matcher.group(2).trim(); // Description
+            String segment3 = matcher.group(3).trim(); // By day
+            // Return the segments as an array
+            Deadline temp = new Deadline(segment2, segment3);
+            if (segment1.equals("1")) {
+                temp.markAsDone();
+            }
+            return temp;
+        } else {
+            // Return null if the command does not match the expected format
+            return null;
+        }
     }
 }
