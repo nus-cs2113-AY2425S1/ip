@@ -35,24 +35,21 @@ public class Bitwise {
         OutputManager.printLineBreak();
         if (userInput.equalsIgnoreCase(Constants.COMMAND_LIST)) {
             OutputManager.printTasksList(tasksList, numberOfTasks);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
+        } else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
             try {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, false);
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_UNMARK);
             }
-        }
-        else if (userInput.startsWith(Constants.COMMAND_MARK)) {
+        } else if (userInput.startsWith(Constants.COMMAND_MARK)) {
             try {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, true);
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
             }
-        }
-        else {
+        } else {
             addToList(userInput);
         }
         OutputManager.printLineBreak();
@@ -80,20 +77,20 @@ public class Bitwise {
         String description;
         if (userInput.startsWith(Constants.COMMAND_TODO)) {
             description = userInput.substring(userInput.indexOf(" ") + 1);
+            if (description.isBlank() || !userInput.contains(" ")) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_TODO);
+            }
             newTask = new Todo(description);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
+        } else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
             String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
             newTask = new Deadline(description, deadline);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
+        } else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
             String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
             String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
             newTask = new Event(description, eventFrom, eventTo);
-        }
-        else {
+        } else {
             throw new InvalidCommandException(userInput);
         }
         tasksList[numberOfTasks] = newTask;
