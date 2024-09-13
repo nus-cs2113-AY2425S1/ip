@@ -21,6 +21,14 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
     /**
      * Returns a string representation of the Event task.
      * The format includes a label for events, the task's completion status,
@@ -29,7 +37,21 @@ public class Event extends Task {
      * @return A string representation of the Event task.
      */
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    protected String getTaskType() {
+        return "E";
+    }
+
+    protected String getFormattedDetails() {
+        return "from " + start + " to " + end;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("%s | %s | %s | from %s to %s",
+                getTaskType(),
+                getStatusIcon(),
+                getDescription(),
+                getStart(),
+                getEnd());
     }
 }

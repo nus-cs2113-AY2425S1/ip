@@ -3,6 +3,7 @@ package conglo;
 import conglo.manual.*;
 import conglo.task.*;
 import conglo.exception.*;
+import conglo.storage.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class Conglo {
 
     // Class variables
     protected static String command;
-    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> taskList = TaskStorage.loadTasks();
     protected static boolean isDelete = false;
 
     /**
@@ -52,6 +53,10 @@ public class Conglo {
         System.out.println(LINE_SEPARATOR);
     }
 
+    private static void saveTasks() {
+        TaskStorage.saveTasks(taskList);
+    }
+
     /**
      * Greets the user when the application starts.
      */
@@ -60,6 +65,8 @@ public class Conglo {
         System.out.println("Hola! I'm Conglo, the friendly task manager.");
         printLineSeparator();
         QuickManual.printManual();
+        printLineSeparator();
+        listTasks();
         printLineSeparator();
     }
 
@@ -77,7 +84,7 @@ public class Conglo {
             System.out.println("All done! Task added to list:");
         }
         String taskSuffix = size > 2 ? " tasks" : " task";
-        System.out.println(" " + task.toString());
+        System.out.println(" " + task.toFileFormat());
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
 
@@ -89,7 +96,7 @@ public class Conglo {
             System.out.println("The list is empty!");
         }
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            System.out.println((i + 1) + ". " + taskList.get(i).toFileFormat());
         }
     }
 
@@ -118,7 +125,7 @@ public class Conglo {
             taskList.get(i).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(taskList.get(i).toString());
+        System.out.println(taskList.get(i).toFileFormat());
     }
 
     /**
@@ -130,6 +137,7 @@ public class Conglo {
         Todo todo = new Todo(sentence);
         taskList.add(todo);
         echoTask(todo);
+        saveTasks();
     }
 
     /**
@@ -146,6 +154,7 @@ public class Conglo {
         Deadline deadline = new Deadline(words[0], words[1]);
         taskList.add(deadline);
         echoTask(deadline);
+        saveTasks();
     }
 
     /**
@@ -162,6 +171,7 @@ public class Conglo {
         Event event = new Event(words[0], words[1], words[2]);
         taskList.add(event);
         echoTask(event);
+        saveTasks();
     }
 
     public static void deleteTask(String word) throws CongloException.InvalidTaskNumber {
@@ -179,6 +189,7 @@ public class Conglo {
         echoTask(taskList.get(i));
         taskList.remove(i);
         isDelete = false;
+        saveTasks();
     }
 
     /**
