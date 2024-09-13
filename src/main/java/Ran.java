@@ -1,3 +1,17 @@
+package main.java;
+
+import ran.task.Deadline;
+import ran.task.Event;
+import ran.task.Task;
+import ran.task.TaskType;
+import ran.task.Todo;
+import ran.exception.CommandType;
+import ran.exception.MissingArgumentException;
+import ran.exception.MissingCommandException;
+import ran.exception.MissingDescriptionException;
+import ran.exception.EmptyListException;
+import ran.exception.OutOfListBoundsException;
+import ran.exception.RanException;
 import java.util.Scanner;
 
 public class Ran {
