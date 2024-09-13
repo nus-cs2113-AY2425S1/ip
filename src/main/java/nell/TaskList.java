@@ -16,8 +16,11 @@ public class TaskList {
     }
 
     public void addTask(Task taskToAdd) {
+        System.out.println("-> The task has been added to the list:");
         tasks[taskCount] = taskToAdd;
         taskCount++;
+        System.out.println("   " + taskToAdd);
+        System.out.println(String.format("   The list now has %d tasks", this.taskCount));
     }
 
     public Task getTaskAtIndex(int index) throws IndexOutOfBoundsException,

@@ -61,11 +61,8 @@ public class Nell {
      * @param description The description of the todo
      */
     private static void addToDo(String description) {
-        System.out.println("-> The task has been added to the list:");
         ToDo toDoToAdd = new ToDo(description);
         tasks.addTask(toDoToAdd);
-        System.out.println("   " + toDoToAdd);
-        System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
     }
 
     /**
@@ -77,10 +74,7 @@ public class Nell {
         try {
             String[] details = detail.split("/by");
             Deadline deadlineToAdd = new Deadline(details[0].trim(), details[1].trim());
-            System.out.println("-> The task has been added to the list:");
             tasks.addTask(deadlineToAdd);
-            System.out.println("   " + deadlineToAdd);
-            System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DEADLINE_ERROR_MESSAGE);
         }
@@ -95,10 +89,7 @@ public class Nell {
         try {
             String[] details = detail.split("/from|/to", 3);
             Event eventToAdd = new Event(details[0].trim(), details[1].trim(), details[2].trim());
-            System.out.println("-> The task has been added to the list:");
             tasks.addTask(eventToAdd);
-            System.out.println("   " + eventToAdd);
-            System.out.println(String.format("   The list now has %d tasks", tasks.getTaskCount()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(EVENT_ERROR_MESSAGE);
         }
