@@ -5,10 +5,9 @@ public class Event extends nell.tasks.Task {
     private String to;
 
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, "E");
         this.from = from;
         this.to = to;
-        this.type = "E";
     }
 
     public String toString() {

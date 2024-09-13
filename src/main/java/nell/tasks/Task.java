@@ -9,11 +9,12 @@ public class Task {
      * Constructs a new Task object, with a description as specified in the input string
      *
      * @param description The description of the task
+     * @param type The type of task
      */
-    public Task(String description) {
+    public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
-        this.type = " ";
+        this.type = type;
     }
 
     /**

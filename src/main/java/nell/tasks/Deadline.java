@@ -4,9 +4,8 @@ public class Deadline extends nell.tasks.Task {
     private String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, "D");
         this.by = by;
-        this.type = "D";
     }
 
     public String toString() {
