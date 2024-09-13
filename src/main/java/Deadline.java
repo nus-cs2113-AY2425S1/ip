@@ -18,11 +18,14 @@ public class Deadline extends Todo {
         this.inputArray = input.split("/");
         // Validate input length
         if (this.inputArray.length < 2) {
-            throw new IllegalArgumentException("Input must be in the format 'taskName/deadline'");
+            throw new IllegalArgumentException("Length issue");
         }
     }
 
     public String getTaskName(String[] inputArray) {
+        if (inputArray[0].isBlank()) {
+            throw new IllegalArgumentException("Task name cannot be blank");
+        }
         return inputArray[0];
     }
 

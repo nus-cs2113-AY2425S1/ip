@@ -3,6 +3,9 @@ public class Event extends Deadline {
 
     public Event(String input) {
         super(input);
+        if (this.inputArray.length < 3) {
+            throw new IllegalArgumentException("Length issue");
+        }
         this.deadlineTill = getDeadlineTill(inputArray);
     }
 

@@ -52,9 +52,13 @@ public class Fenix {
         case "unmark":
             unmarkAsDone(words);
             break;
-        default:
+        case "todo":
+        case "deadline":
+        case "event":
             processTasks(userInput);
             break;
+        default:
+            System.out.println("Please provide a valid command");
         }
         acceptUserInput();
     }
@@ -120,13 +124,16 @@ public class Fenix {
     public void processTasks(String userInput) {
         String type = getType(userInput);
         String information = getInformation(userInput);
-        if (type == null || information == null) {
-            System.out.println("Please provide a command with more than one word");
+        if (type == null || type.isBlank()) {
+            System.out.println("Please provide a command");
+            return;
+        }
+        else if (information == null || information.isBlank()) {
+            System.out.println("Please provide a task");
             return;
         }
         Task task = returnTaskObject(type, information);
         if (task == null) {
-            System.out.println("Please provide a valid command for the task type");
             return;
         }
         storeTask(task);
@@ -159,10 +166,35 @@ public class Fenix {
         case "todo":
             return new Todo(information);
         case "deadline":
-            return new Deadline(information);
+            try {
+                return new Deadline(information);
+            }
+            catch (IllegalArgumentException iae) {
+                String iaeMessage = iae.getMessage();
+                if (iae.getMessage().equals("Length issue")) {
+                    System.out.println("Task input must be in the format '{taskName} /by {Time}'");
+                }
+                else {
+                    System.out.println(iaeMessage);
+                }
+                return null;
+            }
         case "event":
-            return new Event(information);
+            try {
+                return new Event(information);
+            }
+            catch (IllegalArgumentException iae) {
+                String iaeMessage = iae.getMessage();
+                if (iaeMessage.equals("Length issue")) {
+                    System.out.println("Task input must be in the format '{taskName} /from {Time} /to {Time}'");
+                }
+                else {
+                    System.out.println(iaeMessage);
+                }
+                return null;
+            }
         default:
+            System.out.println("Please provide a valid command for the task type");
             return null;
         }
     }
