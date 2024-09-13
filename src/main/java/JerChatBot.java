@@ -1,5 +1,12 @@
+import datahandling.FileHandling;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import exception.EmptyDescriptionException;
 import exception.UnknownCommandException;
 import exception.InvalidTaskNumberException;
@@ -10,15 +17,16 @@ import task.Deadline;
 import task.ToDo;
 
 public class JerChatBot {
-
+    private static final String FILE_PATH = "./data/data.txt";
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final FileHandling datahandling = new FileHandling(FILE_PATH);
 
-    // define constant for task categories
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
 
     public static void main(String[] args) {
+        tasks.addAll(datahandling.loadTasksFromFile());
         Scanner scanner = new Scanner(System.in);
         printWelcomeMessage();
 
@@ -110,6 +118,7 @@ public class JerChatBot {
 
         tasks.get(taskIndex).markAsDone();
         printTaskMarkedAsDoneMessage(taskIndex);
+        saveTasksToFile();
     }
 
     private static int parseTaskIndex(String command) {
@@ -142,6 +151,7 @@ public class JerChatBot {
         System.out.println(" Marked this task as not done:");
         System.out.println(" " + tasks.get(taskIndex));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        saveTasksToFile();
     }
 
     private static void addTask(String taskDescription) throws EmptyDescriptionException, TaskListFullException, UnknownCommandException  {
@@ -160,6 +170,7 @@ public class JerChatBot {
 
         tasks.add(newTask);
         printTaskAddedMessage(newTask);
+        saveTasksToFile();
     }
 
     private static Task createTask(String categoryOfTask, String taskDetails) {
@@ -210,6 +221,7 @@ public class JerChatBot {
 
         Task taskToDelete = tasks.remove(taskIndex);
         printTaskDeletedMessage(taskToDelete);
+        saveTasksToFile();
     }
 
     private static void printTaskDeletedMessage(Task task) {
@@ -221,5 +233,9 @@ public class JerChatBot {
 
     private static boolean isValidTaskIndex(int index) {
         return index >= 0 && index < tasks.size();
+    }
+
+    private static void saveTasksToFile()  {
+        datahandling.saveTasksToFile(tasks);
     }
 }
