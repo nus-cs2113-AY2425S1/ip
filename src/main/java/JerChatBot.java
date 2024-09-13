@@ -48,6 +48,9 @@ public class JerChatBot {
                 case "unmark":
                     handleUnmarkCommand(commands);
                     break;
+                case "delete":
+                    handleDeleteCommand(commands);
+                    break;
                 case TODO:
                 case DEADLINE:
                 case EVENT:
@@ -198,6 +201,30 @@ public class JerChatBot {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" added: " + newTask);
         System.out.println(" Currently you have: " + taskCount + " tasks in your list");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    private static void handleDeleteCommand(String[] commands) throws InvalidTaskNumberException {
+        if (commands.length < 2) {
+            throw new InvalidTaskNumberException("Invalid command or task number. Please try again.");
+        }
+
+        int taskIndex = parseTaskIndex(commands[1]);
+        if (!isValidTaskIndex(taskIndex)) {
+            throw new InvalidTaskNumberException("Invalid command or task number. Please try again.");
+        }
+
+        Task taskToDelete = tasks[taskIndex];
+        System.arraycopy(tasks, taskIndex + 1, tasks, taskIndex, taskCount - taskIndex - 1);
+        tasks[--taskCount] = null;
+
+        printTaskDeletedMessage(taskToDelete);
+    }
+
+    private static void printTaskDeletedMessage(Task task) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(" Removed: " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in your list");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
