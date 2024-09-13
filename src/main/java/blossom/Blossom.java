@@ -1,3 +1,10 @@
+package blossom;
+
+import blossom.task.Deadline;
+import blossom.task.Event;
+import blossom.task.Task;
+import blossom.task.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
