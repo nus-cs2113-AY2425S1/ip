@@ -45,8 +45,12 @@ public class Bitwise {
             }
         }
         else if (userInput.startsWith(Constants.COMMAND_MARK)) {
-            int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
-            markCompletionStatus(taskNumber, true);
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, true);
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
+            }
         }
         else {
             addToList(userInput);
