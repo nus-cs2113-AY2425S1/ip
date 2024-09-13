@@ -1,3 +1,5 @@
+package Glendon.task;
+
 public class Task {
     protected String taskName;
     protected boolean isCompleted;
