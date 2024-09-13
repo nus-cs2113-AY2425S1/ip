@@ -52,5 +52,7 @@ public class UnmarkCommand extends TaskCommand {
         String message  = "OK, I've marked this task as undone:%n"
                 + PREFIX + "%s%n";
         System.out.printf(PREFIX + message, temp.getFullInfo());
+
+        super.saveTasks();
     }
 }

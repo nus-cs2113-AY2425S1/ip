@@ -6,10 +6,17 @@ import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.task.Task;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * niwa.Niwa chatbot class that processes user commands to manage a task list.
@@ -33,7 +40,7 @@ public class Niwa {
 
     // Static variables for error messages
     private static final String ERR_INDEX_NUMBER_FORMAT = "niwa.task.Task's index must be a number!";
-
+    private static final String OUTPUT_FILE_PATH = "./data/NiwaTaskList.txt";
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
 
@@ -50,6 +57,15 @@ public class Niwa {
      */
     public static String getName() {
         return NAME;
+    }
+
+    /**
+     * Getter for the chatbot's file path.
+     *
+     * @return The file path of the chatbot.
+     */
+    public static String getOutputFilePath() {
+        return OUTPUT_FILE_PATH;
     }
 
     /**
@@ -94,6 +110,7 @@ public class Niwa {
         registerCommands(new MarkCommand(tasks));
         registerCommands(new UnmarkCommand(tasks));
 
+        registerCommands(new SaveCommand(tasks));
         HelpCommand helpCommand = new HelpCommand();
         registerCommands(helpCommand);
         helpCommand.setCommands(new ArrayList<>(commands.values()));
