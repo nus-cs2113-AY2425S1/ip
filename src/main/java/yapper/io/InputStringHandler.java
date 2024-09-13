@@ -1,4 +1,7 @@
-package yapper;
+package yapper.io;
+
+import yapper.exceptions.ErrorHandler;
+import yapper.instructions.Instruction;
 
 // Input Text Parser for Yapper
 public class InputStringHandler {
@@ -7,7 +10,7 @@ public class InputStringHandler {
     private static String EVENT_END_DATE_DELIMITER = "/to";
 
     public static Instruction parseUserInput(String userInputString) {
-        if (userInputString.isEmpty()) System.out.println("no command given");
+        ErrorHandler.checkIfUserInputEmpty(userInputString);
 
         int splitAtIndex = userInputString.indexOf(' ');
         String instructionType = userInputString.substring(0, splitAtIndex);
@@ -22,12 +25,10 @@ public class InputStringHandler {
             }
         }
         String instructionArgs = userInputString.substring(splitAtIndex);
-        if (instructionArgs.isEmpty()) System.out.println(StringStorage.INCOMPLETE_INSTRUCTION_MESSAGE);
+        ErrorHandler.checkIfUserInputArgsEmpty(instructionArgs);
 
         // Handle Two-Argument Instructions
         switch (instructionType) {
-        case "add": // TODO remove
-            return new Instruction(Instruction.InstructionType.ADD, instructionArgs);
         case "todo":
             return new Instruction(Instruction.InstructionType.TODO, instructionArgs);
         case "mark":

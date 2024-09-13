@@ -1,4 +1,4 @@
-package yapper;
+package yapper.io;
 
 // Contains strings for the Yapper program
 public class StringStorage {

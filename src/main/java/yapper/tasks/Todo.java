@@ -1,16 +1,14 @@
 package yapper.tasks;
 
-import yapper.StringStorage;
+import yapper.io.StringStorage;
 
-public class TaskDeadline extends Task {
-    protected String endDate;
-    public TaskDeadline(String taskDesc, String endDate) {
+public class Todo extends Task {
+    public Todo(String taskDesc) {
         super(taskDesc);
-        this.endDate = endDate;
     }
-    @Override
+    @Override // do I need this?
     public String taskToString() {
-        return "[D]" + super.taskToString() + ", due " + endDate;
+        return "[T]" + super.taskToString();
     }
     @Override
     public void printAddedTask(int taskCount) {
