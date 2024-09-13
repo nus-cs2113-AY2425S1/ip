@@ -1,6 +1,7 @@
 package yapper.io;
 
 import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 
 // Input Text Parser for Yapper
@@ -10,8 +11,12 @@ public class InputStringHandler {
     private static String EVENT_END_DATE_DELIMITER = "/to";
 
     public static Instruction parseUserInput(String userInputString) {
-        ErrorHandler.checkIfUserInputEmpty(userInputString);
-
+        // User Input Validation
+        try {
+            ErrorHandler.checkIfUserInputEmpty(userInputString);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage()); //
+        }
         int splitAtIndex = userInputString.indexOf(' ');
         String instructionType = userInputString.substring(0, splitAtIndex);
 
@@ -20,21 +25,34 @@ public class InputStringHandler {
             switch (instructionType) {
             case "list":
                 return new Instruction(Instruction.InstructionType.LIST);
-            case "bye":
-                return new Instruction(Instruction.InstructionType.BYE);
+            case "bye": // TODO remove
+                return new Instruction(Instruction.InstructionType.BYE); // TODO remove
             }
         }
+
+        // Input Validation
         String instructionArgs = userInputString.substring(splitAtIndex);
-        ErrorHandler.checkIfUserInputArgsEmpty(instructionArgs);
+        try {
+            ErrorHandler.checkIfUserInputArgsEmpty(instructionArgs);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage()); //
+        }
 
         // Handle Two-Argument Instructions
         switch (instructionType) {
         case "todo":
             return new Instruction(Instruction.InstructionType.TODO, instructionArgs);
         case "mark":
-            return new Instruction(Instruction.InstructionType.MARK, Integer.parseInt(instructionArgs));
         case "unmark":
-            return new Instruction(Instruction.InstructionType.UNMARK, Integer.parseInt(instructionArgs));
+            try {
+                int taskOrdinal = Integer.parseInt(instructionArgs);
+                Instruction.InstructionType type = instructionType.equals("mark")
+                                                 ? Instruction.InstructionType.MARK
+                                                 : Instruction.InstructionType.UNMARK;
+                return new Instruction(type, taskOrdinal);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage()); // "invalid task number format"
+            }
         }
 
         // Handle Three-Argument Instructions
@@ -53,6 +71,9 @@ public class InputStringHandler {
             String endDate = dates[1].trim();
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
+
+        //
         System.out.println(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
+        return null; // TODO instruction cannot be parsed
     }
 }

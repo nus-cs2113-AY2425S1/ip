@@ -3,6 +3,7 @@ package yapper.instructions;
 import yapper.TaskManager;
 import yapper.Yapper;
 import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
 import yapper.io.OutputStringHandler;
 import yapper.tasks.Task;
@@ -16,31 +17,56 @@ public class InstructionHandler {
 
     // UI Operations
     public static void handleAddInstruction(TaskManager taskManager, String todoDesc) {
-        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        try {
+            ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+
         Todo todo = new Todo(todoDesc);
         taskManager.addTask(todo);
         todo.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
-        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        try {
+            ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+
         Deadline deadline = new Deadline(taskDesc, endDate);
         taskManager.addTask(deadline);
         deadline.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
-        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        try {
+            ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+
         Event event = new Event(taskDesc, startDate, endDate);
         taskManager.addTask(event);
         event.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleMarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
+        try {
+            ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+
         Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsDone();
         OutputStringHandler.printTaskStatus(task, true);
     }
     public static void handleUnmarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
+        try {
+            ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+
         Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsNotDone();
         OutputStringHandler.printTaskStatus(task, false);
