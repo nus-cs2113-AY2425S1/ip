@@ -208,17 +208,14 @@ public class JerChatBot {
             throw new InvalidTaskNumberException("Invalid command or task number. Please try again.");
         }
 
-        Task taskToDelete = tasks[taskIndex];
-        System.arraycopy(tasks, taskIndex + 1, tasks, taskIndex, taskCount - taskIndex - 1);
-        tasks[--taskCount] = null;
-
+        Task taskToDelete = tasks.remove(taskIndex);
         printTaskDeletedMessage(taskToDelete);
     }
 
     private static void printTaskDeletedMessage(Task task) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(" Removed: " + task);
-        System.out.println(" Now you have " + taskCount + " tasks in your list");
+        System.out.println(" Now you have " + tasks.size() + " tasks in your list");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
