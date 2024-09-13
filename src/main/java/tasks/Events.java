@@ -13,8 +13,10 @@ public class Events extends Task {
         return "[E] ";
     }
 
+    public String getFrom() { return from; }
+
     @Override
     public String toString(){
-        return (this.taskType()+ "["+ super.getStatusIcon()+ "] " + description + "from:" +from +" ");
+        return (this.taskType()+ "["+ super.getStatusIcon()+ "] " + description + " from:" + from );
     }
 }

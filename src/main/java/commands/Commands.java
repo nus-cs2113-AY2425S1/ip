@@ -37,6 +37,15 @@ public class Commands {
     }
 
     public static void delete(ArrayList<Task> taskList, int index ) {
-        taskList.remove(index-1);
+        try {
+            if (index < 0 || index > taskList.size()) {
+                System.out.println("Task number out of range.");
+                return;
+            }
+            taskList.remove(index-1);
+            System.out.println("Task removed. You now have " + taskList.size() + " tasks.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number.");
+        }
     }
 }
