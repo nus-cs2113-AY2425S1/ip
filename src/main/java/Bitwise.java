@@ -82,9 +82,16 @@ public class Bitwise {
             }
             newTask = new Todo(description);
         } else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
-            String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
-            newTask = new Deadline(description, deadline);
+            try {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
+                String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
+                if (description.isBlank() || deadline.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_BY)) {
+                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+                }
+                newTask = new Deadline(description, deadline);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+            }
         } else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
             String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
