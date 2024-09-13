@@ -1,3 +1,5 @@
+package bitwise.constants;
+
 public class Constants {
     // ASCII art from https://ascii-generator.site/t/
     public static final String LOGO = " ____   _  _              _            \n"

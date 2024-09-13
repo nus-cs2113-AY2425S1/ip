@@ -1,3 +1,8 @@
+package bitwise.utils;
+
+import bitwise.constants.Constants;
+import bitwise.tasks.Task;
+
 public class OutputManager {
 
     public static void printNumberOfTasks(int numberOfTasks) {

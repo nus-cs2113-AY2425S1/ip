@@ -1,3 +1,7 @@
+package bitwise.tasks;
+
+import bitwise.constants.Constants;
+
 public class Event extends Task {
 
     protected String eventFrom;

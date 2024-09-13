@@ -1,4 +1,10 @@
+package bitwise.chat;
+
 import java.util.Scanner;
+import bitwise.constants.Constants;
+import bitwise.exceptions.*;
+import bitwise.tasks.*;
+import bitwise.utils.OutputManager;
 
 public class Bitwise {
 
