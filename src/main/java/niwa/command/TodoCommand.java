@@ -25,7 +25,7 @@ public class TodoCommand extends TaskCommand{
      * @return An array containing the description, startDay, and endDay, or null if the command format is invalid
      */
     @Override
-    public String[] convertArguments(String command) {
+    public String[] parseArguments(String command) {
         // Compile the regex pattern for matching the command format
         Pattern pattern = Pattern.compile(argumentFormat);
 

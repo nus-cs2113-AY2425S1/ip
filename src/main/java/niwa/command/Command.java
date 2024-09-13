@@ -9,10 +9,10 @@ public abstract class Command {
     protected String guide;
     protected String[] arguments;
 
-    public abstract String[] convertArguments(String command);
+    public abstract String[] parseArguments(String command);
 
     public void execute(String rawArgumentString) throws NiwaInvalidArgumentException {
-        setArguments(convertArguments(rawArgumentString));
+        setArguments(parseArguments(rawArgumentString));
         if (arguments == null) {
             throw new NiwaInvalidArgumentException(guide);
         }
