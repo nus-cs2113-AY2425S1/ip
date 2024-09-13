@@ -40,6 +40,15 @@ public class Task {
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
+    public static void deleteTask(int taskNumber){
+        System.out.println("Noted. I've removed this task:");
+        Task taskToRemove = listOfTasks.get(taskNumber-1);
+        listLength--;
+        listOfTasks.remove(taskNumber-1);
+        System.out.println(taskToRemove);
+        System.out.printf("Now you have %d tasks in the list.\n" , listLength);
+    }
+
     public static void setAsDone(int listNumber){
         Task currentTask = listOfTasks.get(listNumber-1);
         System.out.println("Nice! I've marked this task as done:");

@@ -41,13 +41,18 @@ public class TheThinker {
             switch (userAction) {
 
             case "mark":
-                int numberToMark = UserInputParser.parseMarkAndUnmarkTask();
+                int numberToMark = UserInputParser.parseNumberAfterTask();
                 Task.setAsDone(numberToMark);
                 break;
 
             case "unmark":
-                int numberToUnmark = UserInputParser.parseMarkAndUnmarkTask();
+                int numberToUnmark = UserInputParser.parseNumberAfterTask();
                 Task.setAsNotDone(numberToUnmark);
+                break;
+
+            case "delete" :
+                int numberToDelete = UserInputParser.parseNumberAfterTask();
+                Task.deleteTask(numberToDelete);
                 break;
 
             case "todo":
@@ -96,6 +101,7 @@ public class TheThinker {
         System.out.println("Formats for the commands are : ");
         System.out.println("mark : mark [number]");
         System.out.println("unmark : unmark [number]");
+        System.out.println("delete : delete [number]");
         System.out.println("todo : todo [task]");
         System.out.println("event : event [task] /from [start time] /by [end time]");
         System.out.println("deadline : deadline [task] /by [time]");
@@ -103,7 +109,7 @@ public class TheThinker {
 
     public static void printCommands(){
         System.out.println("Command entered is not valid. Available commands are");
-        String[] commands = {"mark" , "unmark" , "todo" , "event" , "deadline" , "list" , "bye" , "help (get format)"};
+        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "help (get format)"};
         for(String command : commands){
             System.out.println("- " + command);
         }
