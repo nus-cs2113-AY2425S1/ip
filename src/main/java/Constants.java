@@ -10,6 +10,7 @@ public class Constants {
     public static final String SECTION_BREAK = "==================================================\n";
     public static final String LINE_BREAK = "--------------------------------------------------\n";
     public static final String INDENTATION = "        ";
+    public static final int MAX_LIST_SIZE = 100;
 
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
