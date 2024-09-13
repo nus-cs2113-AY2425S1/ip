@@ -15,6 +15,7 @@ import task.Task;
 import task.Event;
 import task.Deadline;
 import task.ToDo;
+import task.UserManual;
 
 public class JerChatBot {
     private static final String FILE_PATH = "./data/data.txt";
@@ -29,6 +30,7 @@ public class JerChatBot {
         tasks.addAll(datahandling.loadTasksFromFile());
         Scanner scanner = new Scanner(System.in);
         printWelcomeMessage();
+        UserManual.printUserManual();
 
         while (true) {
             String input = scanner.nextLine().trim();
