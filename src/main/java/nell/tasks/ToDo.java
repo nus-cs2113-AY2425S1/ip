@@ -8,6 +8,6 @@ public class ToDo extends nell.tasks.Task {
     }
 
     public String toString() {
-        return String.format("[T][%s] %s", this.getStatusIcon(), this.description);
+        return super.toString();
     }
 }

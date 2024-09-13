@@ -12,7 +12,7 @@ public class Event extends nell.tasks.Task {
     }
 
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(),
-                this.description, this.from, this.to);
+        return String.format("%s (from: %s to: %s)", super.toString(),
+                this.from, this.to);
     }
 }

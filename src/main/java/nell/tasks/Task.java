@@ -13,7 +13,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = "";
+        this.type = " ";
     }
 
     /**
@@ -50,6 +50,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[ ][%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[%S][%s] %s", this.type, this.getStatusIcon(), this.description);
     }
 }

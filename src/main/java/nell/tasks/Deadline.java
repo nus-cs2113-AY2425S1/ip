@@ -10,7 +10,6 @@ public class Deadline extends nell.tasks.Task {
     }
 
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(),
-                this.description, this.by);
+        return String.format("%s (by: %s)", super.toString(), this.by);
     }
 }
