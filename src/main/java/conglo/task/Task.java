@@ -3,7 +3,7 @@ package conglo.task;
 /**
  * Represents a task with a description and a completion status.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -22,10 +22,10 @@ public class Task {
      * Returns a status icon representing the task's completion status.
      * "X" indicates that the task is done; a space indicates it is not done.
      *
-     * @return A status icon ("X" if done, otherwise " ").
+     * @return A status icon ("✓" if done, otherwise "✗").
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "✓" : "✗");
     }
 
     public void markAsDone() {
@@ -40,14 +40,10 @@ public class Task {
         return description;
     }
 
-    /**
-     * Returns a string representation of the task, including its status icon
-     * and description.
-     *
-     * @return A string representation of the task.
-     */
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
-    }
+    public abstract String toFileFormat();
+
+    protected abstract String getTaskType();
+
+    protected abstract String getFormattedDetails();
+
 }

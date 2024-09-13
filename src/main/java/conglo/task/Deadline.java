@@ -18,15 +18,21 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    /**
-     * Returns a string representation of the Deadline task.
-     * The format includes a label for deadlines, the task's completion status,
-     * description, and the deadline date.
-     *
-     * @return A string representation of the Deadline task.
-     */
     @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+    protected String getTaskType() {
+        return "D";
+    }
+
+    protected String getFormattedDetails() {
+        return "by " + by;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("%s | %s | %s | %s",
+                getTaskType(),
+                getStatusIcon(),
+                getDescription(),
+                getFormattedDetails());
     }
 }

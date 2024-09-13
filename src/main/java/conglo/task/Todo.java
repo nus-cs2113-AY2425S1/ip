@@ -15,14 +15,21 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Returns a string representation of the To-do task.
-     * The format includes a label for to-dos and the task's completion status and description.
-     *
-     * @return A string representation of the To-do task.
-     */
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    protected String getTaskType() {
+        return "T";
+    }
+
+    @Override
+    protected String getFormattedDetails() {
+        return "";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("%s | %s | %s",
+                getTaskType(),
+                getStatusIcon(),
+                getDescription());
     }
 }
