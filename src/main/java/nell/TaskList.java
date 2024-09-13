@@ -25,4 +25,10 @@ public class TaskList {
     public Task getTaskAtIndex(int index) throws IndexOutOfBoundsException {
         return tasks.get(index);
     }
+
+    public Task removeTask(int index) throws IndexOutOfBoundsException {
+        Task taskToRemove = tasks.get(index);
+        tasks.remove(index);
+        return taskToRemove;
+    }
 }
