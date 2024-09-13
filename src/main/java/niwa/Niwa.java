@@ -32,7 +32,7 @@ public class Niwa {
             + PREFIX + "What can I do for you? Let's chat <3\n\n";
 
     // Static variables for error messages
-    private static final String ERR_INDEX_NUMBER_FORMAT = "niwa.task.Task's index must be a number!";
+    private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
 
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
