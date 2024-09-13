@@ -44,7 +44,7 @@ public class Jarvis {
      * Prints the greeting messages to the console.
      */
     private static void printGreetingMsgs() {
-        String[] greetings = {"Hello! I'm " + chatBotName + "\nWhat can I do for you?"}; // List of greetings
+        String[] greetings = { "Hello! I'm " + chatBotName + "\nWhat can I do for you?" }; // List of greetings
 
         // Print the greetings
         for (String greeting : greetings) {
@@ -58,7 +58,7 @@ public class Jarvis {
      * Prints the goodbye messages to the console.
      */
     private static void printGoodbyeMsgs() {
-        String[] goodbyes = {"Bye. Hope to see you again soon!"}; // List of goodbye messages
+        String[] goodbyes = { "Bye. Hope to see you again soon!" }; // List of goodbye messages
 
         // Print the goodbye messages
         for (String goodbye : goodbyes) {
@@ -77,7 +77,6 @@ public class Jarvis {
         Task.printAllTasks(taskList);
         printBreakLine();
     }
-
 
     /**
      * Splits the command and task from the input.
@@ -112,37 +111,37 @@ public class Jarvis {
             splitCommandAndTask(lineBufferString);
 
             switch (command) {
-            case "bye":
-                printGoodbyeMsgs();
-                break;
-            case "exit": // Habit of typing exit to exit the program
-                printGoodbyeMsgs();
-                break;
-            case Task.LIST_COMMAND_STRING: // List all the tasks
-                printTasks();
-                break;
-            case Todo.COMMAND_STRING: // Add a todo task
-                taskList[Task.getNumberOfTasks()] = new Todo(task);
-                printBreakLine();
-                break;
-            case Deadline.COMMAND_STRING: // Add a deadline task
-                taskList[Task.getNumberOfTasks()] = new Deadline(task);
-                printBreakLine();
-                break;
-            case Event.COMMAND_STRING: // Add an event task
-                taskList[Task.getNumberOfTasks()] = new Event(task);
-                printBreakLine();
-                break;
-            case Task.MARK_COMMAND_STRING: // Mark the task as done
-                int taskNumberMark = Integer.parseInt(task); // Get the task number
-                Task.markAsDone(taskList, taskNumberMark); // Mark the task as done
-                break;
-            case Task.UNMARK_COMMAND_STRING: // Mark the task as undone
-                int taskNumberUnmark = Integer.parseInt(task); // Get the task number
-                Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
-                break;
-            default:
-                throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
+                case "bye":
+                    printGoodbyeMsgs();
+                    break;
+                case "exit": // Habit of typing exit to exit the program
+                    printGoodbyeMsgs();
+                    break;
+                case Task.LIST_COMMAND_STRING: // List all the tasks
+                    printTasks();
+                    break;
+                case Todo.COMMAND_STRING: // Add a todo task
+                    taskList[Task.getNumberOfTasks()] = new Todo(task);
+                    printBreakLine();
+                    break;
+                case Deadline.COMMAND_STRING: // Add a deadline task
+                    taskList[Task.getNumberOfTasks()] = new Deadline(task);
+                    printBreakLine();
+                    break;
+                case Event.COMMAND_STRING: // Add an event task
+                    taskList[Task.getNumberOfTasks()] = new Event(task);
+                    printBreakLine();
+                    break;
+                case Task.MARK_COMMAND_STRING: // Mark the task as done
+                    int taskNumberMark = Integer.parseInt(task); // Get the task number
+                    Task.markAsDone(taskList, taskNumberMark); // Mark the task as done
+                    break;
+                case Task.UNMARK_COMMAND_STRING: // Mark the task as undone
+                    int taskNumberUnmark = Integer.parseInt(task); // Get the task number
+                    Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
+                    break;
+                default:
+                    throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
             }
 
             readInput(in, lineBufferString); // Recursively call the function to read the next input
@@ -154,7 +153,6 @@ public class Jarvis {
         } catch (NoSuchElementException e) {
             // FIXME: Facing unexpected NoSuchElementException error
         }
-
 
     }
 
