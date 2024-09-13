@@ -93,10 +93,17 @@ public class Bitwise {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
             }
         } else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
-            String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
-            String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
-            newTask = new Event(description, eventFrom, eventTo);
+            try {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
+                String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
+                String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
+                if (description.isBlank() || eventFrom.isBlank() || eventTo.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_FROM) || !userInput.contains(Constants.COMMAND_INFIX_TO)) {
+                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+                }
+                newTask = new Event(description, eventFrom, eventTo);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_EVENT);
+            }
         } else {
             throw new InvalidCommandException(userInput);
         }
