@@ -1,6 +1,6 @@
 package yapper.tasks;
 
-import yapper.stringHandlers.StringStorage;
+import yapper.io.StringStorage;
 
 // Task features of Yapper
 public class Task {

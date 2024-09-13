@@ -3,7 +3,7 @@ package yapper;
 import java.util.Scanner;
 
 import yapper.instructions.InstructionHandler;
-import yapper.stringHandlers.StringStorage;
+import yapper.io.StringStorage;
 
 // Main function for Yapper
 public class Yapper {

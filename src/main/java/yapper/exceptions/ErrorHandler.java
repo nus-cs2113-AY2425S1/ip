@@ -1,6 +1,6 @@
 package yapper.exceptions;
 
-import yapper.stringHandlers.StringStorage;
+import yapper.io.StringStorage;
 
 public class ErrorHandler {
     public static void checkIfListEmpty(int currTaskTotal) throws YapperException {

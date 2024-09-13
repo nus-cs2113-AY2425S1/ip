@@ -1,4 +1,4 @@
-package yapper.stringHandlers;
+package yapper.io;
 
 import yapper.exceptions.ErrorHandler;
 import yapper.instructions.Instruction;

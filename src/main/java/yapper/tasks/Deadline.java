@@ -1,6 +1,6 @@
 package yapper.tasks;
 
-import yapper.stringHandlers.StringStorage;
+import yapper.io.StringStorage;
 
 public class Deadline extends Task {
     protected String endDate;
