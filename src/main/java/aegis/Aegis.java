@@ -7,6 +7,12 @@ import aegis.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Aegis {
 
@@ -34,6 +40,7 @@ public class Aegis {
                                                                             \s""";
 
     private final static String SEPARATOR = "--------------------------------------------------";
+    private final static String FILE_PATH = "./data/duke.txt";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -46,6 +53,7 @@ public class Aegis {
         System.out.println("What can I do for you?");
 
         ArrayList<Task> taskList = new ArrayList<>();
+        loadTasksFromFile(taskList); // Load tasks at the beginning
 
         while (true) {
             System.out.println();
@@ -111,6 +119,7 @@ public class Aegis {
                 throw new AegisException("Invalid task number");
             }
             taskList.get(taskIndex).markAsDone();
+            saveTasksToFile(taskList);
             System.out.printf(" I've marked this task as done:%n   %s%n", taskList.get(taskIndex));
         } catch (AegisException | NumberFormatException e) {
             System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
@@ -124,6 +133,7 @@ public class Aegis {
                 throw new AegisException("Invalid task number");
             }
             taskList.get(taskIndex).unmarkAsDone();
+            saveTasksToFile(taskList); // Save after unmarking task
             System.out.printf(" I've marked this task as not done yet:%n   %s%n", taskList.get(taskIndex));
         } catch (AegisException | NumberFormatException e) {
             System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
@@ -142,6 +152,7 @@ public class Aegis {
 
             Deadline newDeadline = new Deadline(description, byTime);
             taskList.add(newDeadline);
+            saveTasksToFile(taskList);
             System.out.printf(" New deadline added: %n   %s%n", newDeadline);
             System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
         } catch (AegisException e) {
@@ -162,6 +173,7 @@ public class Aegis {
 
             Event newEvent = new Event(description, fromTime, toTime);
             taskList.add(newEvent);
+            saveTasksToFile(taskList);
             System.out.printf(" New event added: %n   %s%n", newEvent);
             System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
         } catch (AegisException e) {
@@ -177,10 +189,76 @@ public class Aegis {
             }
             Todo newTodo = new Todo(description);
             taskList.add(newTodo);
+            saveTasksToFile(taskList);
             System.out.printf(" New todo added: %n   %s%n", newTodo);
             System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
         } catch (AegisException e) {
             System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
+        }
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> taskList) {
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            FileWriter writer = new FileWriter(file);
+            for (Task task : taskList) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(" Anomaly detected: Error saving tasks to file.");
+        }
+    }
+
+    private static void loadTasksFromFile(ArrayList<Task> taskList) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println(" No previous task list found. Starting fresh.");
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+
+                switch (taskType) {
+                case "T":
+                    Todo todo = new Todo(parts[2]);
+                    if (isDone) {
+                        todo.markAsDone();
+                    }
+                    taskList.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(parts[2], parts[3]);
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
+                    taskList.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(parts[2], parts[3], parts[4]);
+                    if (isDone) {
+                        event.markAsDone();
+                    }
+                    taskList.add(event);
+                    break;
+                default:
+                    throw new AegisException("File format corrupted");
+                }
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(" No task file found. A new file will be created.");
+        } catch (IOException e) {
+            System.out.println(" Anomaly detected: Error reading from file.");
+        } catch (AegisException e) {
+            System.out.println(" Anomaly detected: File content is corrupted.");
         }
     }
 }
