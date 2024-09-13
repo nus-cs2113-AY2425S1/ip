@@ -1,6 +1,6 @@
 package yapper.tasks;
 
-import yapper.StringStorage;
+import yapper.stringHandlers.StringStorage;
 
 public class TaskTodo extends Task {
     public TaskTodo(String taskDesc) {

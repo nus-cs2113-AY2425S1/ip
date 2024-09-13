@@ -1,46 +1,46 @@
-package yapper;
+package yapper.instructions;
 
-import yapper.ErrorHandler;
-import yapper.stringClasses.InputStringHandler;
-import yapper.stringClasses.OutputStringHandler;
+import yapper.TaskManager;
+import yapper.Yapper;
+import yapper.exceptions.ErrorHandler;
+import yapper.stringHandlers.InputStringHandler;
+import yapper.stringHandlers.OutputStringHandler;
 import yapper.tasks.Task;
 import yapper.tasks.TaskDeadline;
 import yapper.tasks.TaskEvent;
 import yapper.tasks.TaskTodo;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
-public class UserInterface {
+public class InstructionHandler {
     private static final int INDEX_OFFSET = 1;
 
     // UI Operations
     public static void handleAddInstruction(TaskManager taskManager, String todoDesc) {
-        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
+        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
         TaskTodo todo = new TaskTodo(todoDesc);
         taskManager.addTask(todo);
         todo.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String endDate) {
-        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
+        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
         TaskDeadline deadline = new TaskDeadline(taskDesc, endDate);
         taskManager.addTask(deadline);
         deadline.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleAddInstruction(TaskManager taskManager, String taskDesc, String startDate, String endDate) {
-        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
+        ErrorHandler.checkIfListFull(taskManager.getCurrTaskTotal(), Yapper.maxCapacity);
         TaskEvent event = new TaskEvent(taskDesc, startDate, endDate);
         taskManager.addTask(event);
         event.printAddedTask(taskManager.getCurrTaskTotal());
     }
     public static void handleMarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        int currTaskTotal = taskManager.getCurrTaskTotal();
-        if (taskOrdinal >= 0 && taskOrdinal < currTaskTotal) System.out.println("ordinal invalid");
+        ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
         Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsDone();
         OutputStringHandler.printTaskStatus(task, true);
     }
     public static void handleUnmarkInstruction(TaskManager taskManager, Integer taskOrdinal) {
-        int currTaskTotal = taskManager.getCurrTaskTotal();
-        if (taskOrdinal >= 0 && taskOrdinal < currTaskTotal) System.out.println("ordinal invalid");
+        ErrorHandler.checkIfTaskOrdinalWithinRange(taskManager.getCurrTaskTotal(), taskOrdinal);
         Task task = taskManager.getTask(taskOrdinal - INDEX_OFFSET);
         task.markAsNotDone();
         OutputStringHandler.printTaskStatus(task, false);

@@ -1,4 +1,4 @@
-package yapper;
+package yapper.instructions;
 
 // Handles the various input instructions for Yapper
 public class Instruction {

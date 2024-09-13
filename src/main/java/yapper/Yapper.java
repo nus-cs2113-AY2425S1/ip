@@ -1,7 +1,9 @@
 package yapper;
 
 import java.util.Scanner;
-import yapper.stringClasses.StringStorage;
+
+import yapper.instructions.InstructionHandler;
+import yapper.stringHandlers.StringStorage;
 
 // Main function for Yapper
 public class Yapper {
@@ -18,7 +20,7 @@ public class Yapper {
             if (userInputString.trim().equals("bye")) {
                 break;
             }
-            UserInterface.handleInstruction(taskManager, userInputString);
+            InstructionHandler.handleInstruction(taskManager, userInputString);
         }
 
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);

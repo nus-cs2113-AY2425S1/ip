@@ -1,12 +1,14 @@
-package yapper;
+package yapper.stringHandlers;
 
+import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.YapperException;
 import yapper.tasks.Task;
 
 // Output Text Formatter for Yapper
 public class OutputStringHandler {
     // For Instruction: List
-    public static void printTasks(Task[] tasks, int taskCount) {
-        if (taskCount == 0) System.out.println("nothing in list");
+    public static void printTasks(Task[] tasks, int taskCount) throws YapperException {
+        ErrorHandler.checkIfListEmpty(taskCount);
 
         System.out.println(StringStorage.LINE_DIVIDER);
         System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
