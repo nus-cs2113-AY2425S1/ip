@@ -91,6 +91,7 @@ public class Niwa {
         registerCommands(new ListCommand(tasks));
 
         registerCommands(new DeleteCommand(tasks));
+        registerCommands(new ClearCommand(tasks));
         registerCommands(new MarkCommand(tasks));
         registerCommands(new UnmarkCommand(tasks));
 
