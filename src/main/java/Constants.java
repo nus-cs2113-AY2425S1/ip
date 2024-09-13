@@ -10,6 +10,7 @@ public class Constants {
     public static final String SECTION_BREAK = "==================================================\n";
     public static final String LINE_BREAK = "--------------------------------------------------\n";
     public static final String INDENTATION = "        ";
+    public static final int MAX_LIST_SIZE = 100;
 
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
@@ -35,4 +36,23 @@ public class Constants {
     public static final String ICON_EVENT = "[E]";
     public static final String ICON_TODO = "[T]";
     public static final String ICON_DEADLINE = "[D]";
+
+    public static final String DESCRIPTION_COMMAND_MARK = INDENTATION + "mark: use this command to mark a task as completed \n" +
+            INDENTATION + "command format: mark task_number \n";
+    public static final String DESCRIPTION_COMMAND_UNMARK = INDENTATION + "unmark: use this command to mark a task as not completed \n" +
+            INDENTATION + "command format: unmark task_number \n";
+    public static final String DESCRIPTION_COMMAND_TODO = INDENTATION + "todo: use this command to add a todo item to the list of tasks \n" +
+            INDENTATION + "command format: todo borrow books \n";
+    public static final String DESCRIPTION_COMMAND_EVENT = INDENTATION + "event: use this command to add an event to the list of tasks \n" +
+            INDENTATION + "command format: event watch movie /from 4pm /to 6pm \n";
+    public static final String DESCRIPTION_COMMAND_DEADLINE = INDENTATION + "todo: use this command to add an item with a deadline to the list of tasks \n" +
+            INDENTATION + "command format: deadline complete assignment /by 4pm \n";
+    public static final String DESCRIPTION_COMMAND_LIST = INDENTATION + "list: use this command to display the list of tasks \n" +
+            INDENTATION + "command format: list \n";
+    public static final String DESCRIPTION_COMMAND_END = INDENTATION + "bye: use this command to end the chatbot conversation \n" +
+            INDENTATION + "command format: bye \n";
+
+    public static final String[] LIST_COMMANDS = {DESCRIPTION_COMMAND_LIST, DESCRIPTION_COMMAND_DEADLINE, DESCRIPTION_COMMAND_EVENT,
+            DESCRIPTION_COMMAND_TODO, DESCRIPTION_COMMAND_MARK, DESCRIPTION_COMMAND_UNMARK, DESCRIPTION_COMMAND_END};
+
 }

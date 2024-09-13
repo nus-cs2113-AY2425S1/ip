@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Bitwise {
 
-    private static Task[] tasksList = new Task[100];
+    private static Task[] tasksList = new Task[Constants.MAX_LIST_SIZE];
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
@@ -16,7 +16,15 @@ public class Bitwise {
         Status status = Status.RUNNING;
         while (status != Status.EXIT) {
             userInput = getUserInput();
-            status = inputHandler(userInput);
+            try {
+                status = inputHandler(userInput);
+            } catch (InvalidCommandException e) {
+                OutputManager.printMessage("Invalid command: " + userInput);
+                OutputManager.printListCommands();
+            } catch (InvalidFormatException e) {
+                OutputManager.printMessage("Invalid format: " + e);
+                OutputManager.printLineBreak();
+            }
         }
     }
 
@@ -27,16 +35,21 @@ public class Bitwise {
         OutputManager.printLineBreak();
         if (userInput.equalsIgnoreCase(Constants.COMMAND_LIST)) {
             OutputManager.printTasksList(tasksList, numberOfTasks);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
-            int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
-            markCompletionStatus(taskNumber, false);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_MARK)) {
-            int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
-            markCompletionStatus(taskNumber, true);
-        }
-        else {
+        } else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_UNMARK);
+            }
+        } else if (userInput.startsWith(Constants.COMMAND_MARK)) {
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                markCompletionStatus(taskNumber, true);
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
+            }
+        } else {
             addToList(userInput);
         }
         OutputManager.printLineBreak();
@@ -64,21 +77,35 @@ public class Bitwise {
         String description;
         if (userInput.startsWith(Constants.COMMAND_TODO)) {
             description = userInput.substring(userInput.indexOf(" ") + 1);
+            if (description.isBlank() || !userInput.contains(" ")) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_TODO);
+            }
             newTask = new Todo(description);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
-            String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
-            newTask = new Deadline(description, deadline);
-        }
-        else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
-            String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
-            String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
-            newTask = new Event(description, eventFrom, eventTo);
-        }
-        else {
-            newTask = new Task(userInput);
+        } else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
+            try {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
+                String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
+                if (description.isBlank() || deadline.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_BY)) {
+                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+                }
+                newTask = new Deadline(description, deadline);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+            }
+        } else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
+            try {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
+                String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
+                String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
+                if (description.isBlank() || eventFrom.isBlank() || eventTo.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_FROM) || !userInput.contains(Constants.COMMAND_INFIX_TO)) {
+                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+                }
+                newTask = new Event(description, eventFrom, eventTo);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_EVENT);
+            }
+        } else {
+            throw new InvalidCommandException(userInput);
         }
         tasksList[numberOfTasks] = newTask;
         numberOfTasks++;
@@ -88,7 +115,15 @@ public class Bitwise {
 
     public static void markCompletionStatus(int taskNumber, boolean isCompleted) {
         int taskIndex = taskNumber - 1;
-        tasksList[taskIndex].markCompletionStatus(isCompleted);
+        try {
+            tasksList[taskIndex].markCompletionStatus(isCompleted);
+        } catch (IndexOutOfBoundsException e) {
+            OutputManager.printMessage("Task number exceeds max list size: " + Constants.MAX_LIST_SIZE);
+            return;
+        } catch (NullPointerException e) {
+            OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+            return;
+        }
         String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;
         OutputManager.printMessage(message);
         OutputManager.printTasksList(tasksList, numberOfTasks);
