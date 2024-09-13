@@ -1,3 +1,5 @@
+package king;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -100,10 +102,18 @@ public class King {
 
 
     private static void addToDoTask(String text) {
-        Task t = new Todo(text);
-        tasks.add(t);
-        tasksCount += 1;
-        printAddedTaskDescription(t);
+        String[] taskSpecifics = text.split(" ");
+
+        try {
+            String taskContent = taskSpecifics[1];
+            Task t = new Todo(taskContent);
+            tasks.add(t);
+            tasksCount += 1;
+            printAddedTaskDescription(t);
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(LINE + "Have u forgotten the task content?\n" + LINE);
+        }
     }
 
     private static void addDeadlineTask(String text) throws KingException {
@@ -149,7 +159,7 @@ public class King {
         printAddedTaskDescription(t);
     }
 
-    private static void addEventTask(String text) throws KingException{
+    private static void addEventTask(String text) throws KingException {
         String[] taskSpecifics = text.split(" ");
         int seperationIndexFirst = 0;
         int seperationIndexSecond = 0;
@@ -173,7 +183,8 @@ public class King {
 
             if (!existTo && !existFrom) {
                 throw new KingException("Both starting & ending time not detected. Please try again:)\n");
-            } if (!existFrom) {
+            }
+            if (!existFrom) {
                 throw new KingException("Starting time not detected. Please try again:)\n");
             } else if (!existTo) {
                 throw new KingException("Ending time not detected. Please try again:)\n");
@@ -215,7 +226,7 @@ public class King {
                            "\nNow you have " + tasksCount + " tasks in the list.\n" + LINE);
     }
 
-    private static void handleUserInputExceptions(String userInput) throws KingException{
+    private static void handleUserInputExceptions(String userInput) throws KingException {
         userInput = userInput.toLowerCase();
 
         if (userInput.isEmpty()) {
