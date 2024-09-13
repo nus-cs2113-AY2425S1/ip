@@ -26,14 +26,32 @@ public class KaiWen {
                 printLine();
                 if (taskCount == 0) {
                     System.out.println(" No tasks to display!");
-                    printLine();
                 } else {
                     System.out.println(" Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
-                    printLine();
                 }
+                printLine();
+            }
+            else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                tasks[taskCount] = new Todo(description);
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1]);
+            }
+            else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                tasks[taskCount] = new Deadline(parts[0], parts[1]);
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1]);
+            }
+            else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ");
+                String[] timeParts = parts[1].split(" /to ");
+                tasks[taskCount] = new Event(parts[0], timeParts[0], timeParts[1]);
+                taskCount++;
+                printAddedTask(tasks[taskCount - 1]);
             }
             else if (input.startsWith("mark ")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -55,20 +73,17 @@ public class KaiWen {
                     printLine();
                 }
             }
-            else {
-                if (taskCount < MAX_TASKS) {
-                    tasks[taskCount] = new Task(input);
-                    taskCount++;
-                    System.out.println(" added: " + input);
-                    printLine();
-                } else {
-                    System.out.println(" Task limit reached. Cannot add more tasks.");
-                    printLine();
-                }
-            }
         }
 
         scanner.close();
+    }
+
+    public static void printAddedTask(Task task) {
+        printLine();
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        printLine();
     }
 
     public static void printLine() {
