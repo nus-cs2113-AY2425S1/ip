@@ -1,3 +1,5 @@
+package yapper;
+
 // Input Text Parser for Yapper
 public class InputStringHandler {
     private static String DEADLINE_END_DATE_DELIMITER = "/by";
@@ -20,7 +22,7 @@ public class InputStringHandler {
             }
         }
         String instructionArgs = userInputString.substring(splitAtIndex);
-        // TODO error handling
+        if (instructionArgs.isEmpty()) System.out.println(StringStorage.INCOMPLETE_INSTRUCTION_MESSAGE);
 
         // Handle Two-Argument Instructions
         switch (instructionType) {

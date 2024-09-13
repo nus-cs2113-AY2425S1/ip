@@ -1,3 +1,10 @@
+package yapper;
+
+import yapper.tasks.Task;
+import yapper.tasks.TaskDeadline;
+import yapper.tasks.TaskEvent;
+import yapper.tasks.TaskTodo;
+
 import java.util.Scanner;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
@@ -5,15 +12,9 @@ public class UserInterface {
     private static final int INDEX_OFFSET = 1;
 
     // UI Operations
-    public static void handleAddInstruction(TaskManager taskManager, String taskDesc) {
+    public static void handleAddInstruction(TaskManager taskManager, String todoDesc) {
         if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
-        Task task = new Task(taskDesc);
-        taskManager.addTask(task);
-        task.printAddedTask(taskManager.getCurrTaskTotal());
-    }
-    public static void handleAddInstruction(TaskManager taskManager, String todoDesc, Instruction.InstructionType type) {
-        if (taskManager.getCurrTaskTotal() == Yapper.maxCapacity) System.out.println("list full");
-        TaskTodo todo = new TaskTodo(todoDesc); // type is to differentiate between overriden method handleAddInstruction() for task vs todo
+        TaskTodo todo = new TaskTodo(todoDesc);
         taskManager.addTask(todo);
         todo.printAddedTask(taskManager.getCurrTaskTotal());
     }
@@ -52,18 +53,15 @@ public class UserInterface {
         while (true) {
             String userInputString = scanner.nextLine();
             Instruction instruction = InputStringHandler.parseUserInput(userInputString);
+
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
-            case ADD:
-                String taskDesc = instruction.getInstructionDesc();
-                handleAddInstruction(taskManager, taskDesc);
-                break;
             case TODO:
                 String todoDesc = instruction.getInstructionDesc();
-                handleAddInstruction(taskManager, todoDesc, instructionType);
+                handleAddInstruction(taskManager, todoDesc);
                 break;
             case DEADLINE:
-                String deadlineDesc =instruction.getInstructionDesc();
+                String deadlineDesc = instruction.getInstructionDesc();
                 String deadline = instruction.getTaskDates()[0];
                 handleAddInstruction(taskManager, deadlineDesc, deadline);
                 break;

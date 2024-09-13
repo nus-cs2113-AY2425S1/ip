@@ -1,18 +1,20 @@
-public class TaskDeadline extends Task {
-    protected String endDate;
-    public TaskDeadline(String taskDesc, String endDate) {
+package yapper.tasks;
+
+import yapper.StringStorage;
+
+public class TaskTodo extends Task {
+    public TaskTodo(String taskDesc) {
         super(taskDesc);
-        this.endDate = endDate;
     }
-    @Override
+    @Override // do I need this?
     public String taskToString() {
-        return "[D]" + super.taskToString() + ", due " + endDate;
+        return "[T]" + super.taskToString();
     }
     @Override
     public void printAddedTask(int taskCount) {
         System.out.println(StringStorage.LINE_DIVIDER);
         System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( this.taskToString() );
+        System.out.println( "  " + this.taskToString() );
         System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
         System.out.println(StringStorage.LINE_DIVIDER);
     }

@@ -1,3 +1,7 @@
+package yapper.tasks;
+
+import yapper.StringStorage;
+
 // Task features of Yapper
 public class Task {
     protected String taskDesc;

@@ -1,3 +1,5 @@
+package yapper;
+
 // Contains strings for the Yapper program
 public class StringStorage {
     // TODO: make more conversational
