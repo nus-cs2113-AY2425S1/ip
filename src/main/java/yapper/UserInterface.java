@@ -1,11 +1,12 @@
 package yapper;
 
+import yapper.ErrorHandler;
+import yapper.stringClasses.InputStringHandler;
+import yapper.stringClasses.OutputStringHandler;
 import yapper.tasks.Task;
 import yapper.tasks.TaskDeadline;
 import yapper.tasks.TaskEvent;
 import yapper.tasks.TaskTodo;
-
-import java.util.Scanner;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
 public class UserInterface {
@@ -45,46 +46,36 @@ public class UserInterface {
         OutputStringHandler.printTaskStatus(task, false);
     }
 
-    // Main ChatBot Loop
-    public static void startYappin(TaskManager taskManager) {
-        System.out.println(StringStorage.START_UP_MESSAGE);
-//        System.out.println(StringStorage.HELP_MESSAGE); // TODO
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String userInputString = scanner.nextLine();
-            Instruction instruction = InputStringHandler.parseUserInput(userInputString);
 
-            Instruction.InstructionType instructionType = instruction.getInstructionType();
-            switch (instructionType) {
-            case TODO:
-                String todoDesc = instruction.getInstructionDesc();
-                handleAddInstruction(taskManager, todoDesc);
-                break;
-            case DEADLINE:
-                String deadlineDesc = instruction.getInstructionDesc();
-                String deadline = instruction.getTaskDates()[0];
-                handleAddInstruction(taskManager, deadlineDesc, deadline);
-                break;
-            case EVENT:
-                String eventDesc = instruction.getInstructionDesc();
-                String startDate = instruction.getTaskDates()[0];
-                String endDate = instruction.getTaskDates()[1];
-                handleAddInstruction(taskManager, eventDesc, startDate, endDate);
-                break;
-            case LIST:
-                OutputStringHandler.printTasks(taskManager.getAllTasks(), taskManager.getCurrTaskTotal());
-                break;
-            case MARK:
-                handleMarkInstruction(taskManager, instruction.getTaskOrdinal());
-                break;
-            case UNMARK:
-                handleUnmarkInstruction(taskManager, instruction.getTaskOrdinal());
-                break;
-            case BYE:
-                System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
-                return;
-            }
-            // TBA ?
+    public static void handleInstruction(TaskManager taskManager, String userInputString) {
+        Instruction instruction = InputStringHandler.parseUserInput(userInputString);
+        Instruction.InstructionType instructionType = instruction.getInstructionType();
+        switch (instructionType) {
+        case TODO:
+            String todoDesc = instruction.getInstructionDesc();
+            handleAddInstruction(taskManager, todoDesc);
+            break;
+        case DEADLINE:
+            String deadlineDesc = instruction.getInstructionDesc();
+            String deadline = instruction.getTaskDates()[0];
+            handleAddInstruction(taskManager, deadlineDesc, deadline);
+            break;
+        case EVENT:
+            String eventDesc = instruction.getInstructionDesc();
+            String startDate = instruction.getTaskDates()[0];
+            String endDate = instruction.getTaskDates()[1];
+            handleAddInstruction(taskManager, eventDesc, startDate, endDate);
+            break;
+        case LIST:
+            OutputStringHandler.printTasks(taskManager.getAllTasks(), taskManager.getCurrTaskTotal());
+            break;
+        case MARK:
+            handleMarkInstruction(taskManager, instruction.getTaskOrdinal());
+            break;
+        case UNMARK:
+            handleUnmarkInstruction(taskManager, instruction.getTaskOrdinal());
+            break;
         }
+        // BYE instruction is not handled here
     }
 }
