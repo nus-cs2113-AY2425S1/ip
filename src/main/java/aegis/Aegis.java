@@ -89,6 +89,9 @@ public class Aegis {
             case "todo":
                 addTodoTask(taskList, input);
                 break;
+            case "delete":
+                deleteTask(taskList, input);
+                break;
             default:
                 throw new AegisException(" Your command has not been authorized ");
             }
@@ -180,6 +183,20 @@ public class Aegis {
             System.out.printf(" New todo added: %n   %s%n", newTodo);
             System.out.printf(" %d tasks needed to be done. Let me assist you!%n", taskList.size());
         } catch (AegisException e) {
+            System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
+        }
+    }
+
+    private static void deleteTask(ArrayList<Task> taskList, String input) {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                throw new AegisException("Invalid task number");
+            }
+            Task removedTask = taskList.remove(taskIndex);
+            System.out.printf(" Noted. I've removed this task:%n   %s%n", removedTask);
+            System.out.printf(" Now you have %d tasks in the list.%n", taskList.size());
+        } catch (AegisException | NumberFormatException e) {
             System.out.printf(" Anomaly detected: [%s]%n", e.getMessage());
         }
     }
