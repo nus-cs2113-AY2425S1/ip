@@ -77,6 +77,33 @@ public class Doug {
         }
     }
 
+    public static void doDelete(String command) throws DougException{
+        //checkListFull();
+        if (counter <= 0) {
+            System.out.println(DASHED_LINE + "Your list is empty pal, ain't nothing to rid off.\n" + DASHED_LINE);
+            return;
+        }
+
+        command = command.replace("delete", "").trim();
+        if (command.isEmpty()) {
+            throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
+        }
+        int listIndex = Integer.parseInt(command);
+
+        try {
+            checkOutOfBounds(listIndex);
+
+            Task removedTask = tasks.get(listIndex - 1);
+            tasks.remove(listIndex - 1);
+            counter--;
+            System.out.println(DASHED_LINE + "I've deleted: " + removedTask + " for you.");
+            System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
+        } catch (DougException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public static void doToDo(String command) throws DougException{
         //checkListFull();
 
@@ -228,6 +255,8 @@ public class Doug {
             doDeadline(command);
         } else if (command.startsWith("event")) {
             doEvent(command);
+        } else if (command.startsWith("delete")) {
+            doDelete(command);
         } else {
             throw new DougException(DASHED_LINE + "Something seems off partner...\n" + DASHED_LINE);
         }
