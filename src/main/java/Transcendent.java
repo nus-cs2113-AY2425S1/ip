@@ -53,7 +53,34 @@ public class Transcendent {
         private static void printInvalidCommand() {
             Printer.printSeparator();
             System.out.println("This is an invalid instruction.");
-            System.out.println("Command for list of all valid instructions: help");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printInvalidDeadline() {
+            Printer.printSeparator();
+            System.out.println("Invalid deadline.");
+            System.out.println("Deadline creation syntax: ");
+            System.out.println("deadline *task* /by *by*");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printInvalidTodo() {
+            Printer.printSeparator();
+            System.out.println("Invalid todo.");
+            System.out.println("Todo creation syntax: ");
+            System.out.println("todo *task*");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printInvalidEvent() {
+            Printer.printSeparator();
+            System.out.println("Invalid event.");
+            System.out.println("Event creation syntax: ");
+            System.out.println("event *task* /from *from* /to *to*");
+            System.out.println("For list of all valid instructions: help");
             Printer.printSeparator();
         }
 
@@ -81,7 +108,6 @@ public class Transcendent {
             System.out.println("To exit: bye");
             Printer.printSeparator();
         }
-
     }
 
     private static class InputHandler {
@@ -97,13 +123,13 @@ public class Transcendent {
                     List.list();
                 } else if (command.equals("help")) {
                     Printer.printHelp();
-                } else if (command.startsWith("mark ") || command.startsWith("unmark ")) {
+                } else if (command.startsWith("mark") || command.startsWith("unmark")) {
                     markOrUnmark(command);
-                } else if (command.startsWith("deadline ")) {
+                } else if (command.startsWith("deadline")) {
                     List.addDeadline(command);
-                } else if (command.startsWith("todo ")) {
+                } else if (command.startsWith("todo")) {
                     List.addTodo(command);
-                } else if (command.startsWith("event ")) {
+                } else if (command.startsWith("event")) {
                     List.addEvent(command);
                 } else {
                     Printer.printInvalidCommand();
@@ -204,26 +230,35 @@ public class Transcendent {
                 listCount += 1;
                 Printer.printAddConfirm(newTask);
             } catch (ArrayIndexOutOfBoundsException e) {
-                Printer.printInvalidCommand();
+                Printer.printInvalidDeadline();
             }
         }
 
         private static void addTodo(String taskDesc) {
-            Task newTask = new ToDo(taskDesc.substring(5), listCount);
-            tasks[listCount] = newTask;
-            listCount += 1;
-            Printer.printAddConfirm(newTask);
+            try {
+                Task newTask = new ToDo(taskDesc.substring(5), listCount);
+                tasks[listCount] = newTask;
+                listCount += 1;
+                Printer.printAddConfirm(newTask);
+            }
+            catch (StringIndexOutOfBoundsException e) {
+                Printer.printInvalidTodo();
+            }
         }
 
         private static void addEvent(String taskDesc) {
             try {
                 String[] words = taskDesc.split(" /from | /to ");
-                Task newTask = new Event(words[0].substring(6), listCount, words[1], words[2]);
-                tasks[listCount] = newTask;
-                listCount += 1;
-                Printer.printAddConfirm(newTask);
+                try {
+                    Task newTask = new Event(words[0].substring(6), listCount, words[1], words[2]);
+                    tasks[listCount] = newTask;
+                    listCount += 1;
+                    Printer.printAddConfirm(newTask);
+                } catch (StringIndexOutOfBoundsException e) {
+                    Printer.printInvalidEvent();
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
-                Printer.printInvalidCommand();
+                Printer.printInvalidEvent();
             }
         }
 
