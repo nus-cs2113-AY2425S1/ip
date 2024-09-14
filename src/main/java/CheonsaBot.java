@@ -88,6 +88,9 @@ public class CheonsaBot {
             case "list":
                 printTaskList();
                 break;
+            case "delete":
+                deleteTask(argument);
+                break;
             default:
                 addTask(command, words);
                 break;
@@ -114,6 +117,7 @@ public class CheonsaBot {
                 System.out.println("Current number of tasks: " + tasks.size());
                 System.out.println(getHorizontalLine());
             }
+            
         } catch (NumberFormatException e) {
             System.out.println(getHorizontalLine());
             System.out.println("Invalid task number :(");
@@ -223,8 +227,6 @@ public class CheonsaBot {
         }
     }
 
-
-
      /**
      * Prints the list of tasks to the console.
      * Displays each task with its corresponding number.
@@ -239,5 +241,33 @@ public class CheonsaBot {
             }
         }
         System.out.println(getHorizontalLine());
+    }
+
+    /*
+     * Delete the task at specified index
+     * @param index The index of task to delete.
+     */
+    private static void deleteTask(String index) {
+        try {
+            int taskIndex = Integer.parseInt(index) - 1; // Parse once
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            
+            System.out.println(getHorizontalLine());
+            System.out.println("Removed: " + tasks.get(taskIndex).getDescription());
+            tasks.remove(taskIndex);
+            System.out.println("Only " + tasks.size() + " thing(s) left to do!");
+            System.out.println(getHorizontalLine());
+
+        } catch (NumberFormatException e) {
+            System.out.println(getHorizontalLine());
+            System.out.println("Invalid task number :(");
+            System.out.println(getHorizontalLine());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(getHorizontalLine());
+            System.out.println("That task doesn't exist :( Max is: " + tasks.size());
+            System.out.println(getHorizontalLine());
+        }
     }
 }
