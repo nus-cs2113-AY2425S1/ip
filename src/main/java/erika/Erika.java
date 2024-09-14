@@ -34,13 +34,15 @@ public class Erika {
             } else if (line.equals("list")) {
                 printList();
             } else if (line.contains("mark")) {
-                handleMark(line);
+                indexOperation(line, false);
             } else if (line.contains("todo")) {
                 addTodo(line);
             } else if (line.contains("deadline")) {
                 addDeadline(line);
             } else if (line.contains("event")) {
                 addEvent(line);
+            } else if (line.contains("delete")) {
+                indexOperation(line, true);
             } else {
                 throw new UnknownCommandException();
             }
@@ -129,6 +131,13 @@ public class Erika {
     }
 
     private static void handleMark(String line) throws IndexOutOfBoundsException, EmptyDescriptionException{
+    private static void indexOperation(String line, boolean isDelete) throws IndexOutOfBoundsException, EmptyDescriptionException{
+        if(!isDelete) {
+            markEntry(line);
+        } else {
+            deleteEntry(line);
+        }
+    }
         if (!line.contains("mark ")) {
             throw new EmptyDescriptionException("mark");
         }
