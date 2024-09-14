@@ -78,6 +78,7 @@ public class CommandHandler {
             taskManager.unmarkTask(taskIndex - 1);
             MessageDisplay.displayUnmarkMessage(taskManager.getTask(taskIndex - 1));
         }
+        taskManager.updateStorage();
     }
 
     private void handleTodoCase(String[] inputs) {
@@ -129,6 +130,7 @@ public class CommandHandler {
 
         MessageDisplay.displayDeleteMessage(taskManager.getTask(taskIndex - 1));
         taskManager.removeTask(taskIndex - 1);
+        taskManager.updateStorage();
     }
 
 }

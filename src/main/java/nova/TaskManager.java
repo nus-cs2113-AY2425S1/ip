@@ -3,12 +3,13 @@ package nova;
 import nova.exception.InsufficientSpaceException;
 import nova.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
 
     private static final int MAX_TASKS = 100;
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
@@ -20,7 +21,16 @@ public class TaskManager {
         }
     }
 
-    public void addTask(Task task) {
+    public static void addTask(Task task) {
+        tasks.add(task);
+        try {
+            Storage.appendToStorage(task.getTaskStorageInfo());
+        } catch (IOException e) {
+            MessageDisplay.displayStorageError();
+        }
+    }
+
+    public static void loadTask(Task task) {
         tasks.add(task);
     }
 
@@ -47,5 +57,17 @@ public class TaskManager {
             System.out.println("     " + (i + 1) + "." + tasks.get(i).getTaskInfo());
         }
         MessageDisplay.displaySeparator();
+    }
+
+    public void updateStorage() {
+        String updatedInfo = "";
+        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            updatedInfo += (tasks.get(i).getTaskStorageInfo() + System.lineSeparator());
+        }
+        try {
+            Storage.updateStorage(updatedInfo);
+        } catch (IOException e) {
+            MessageDisplay.displayStorageError();
+        }
     }
 }
