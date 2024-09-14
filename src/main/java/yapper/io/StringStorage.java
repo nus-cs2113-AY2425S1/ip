@@ -2,13 +2,24 @@ package yapper.io;
 
 // Contains strings for the Yapper program
 public class StringStorage {
-    // TODO: make more conversational
+    public static final String TODO_PREFIX     = "[T]";
+    public static final String DEADLINE_PREFIX = "[D]";
+    public static final String EVENT_PREFIX    = "[E]";
+
     public static final String LINE_DIVIDER =
             "____________________________________________________________";
     public static final String LINE_DIVIDER_INPUT =
             "_____________________ USER INPUT BELOW _____________________";
     public static final String LINE_DIVIDER_OUTPUT =
             "___________________ PROGRAM OUTPUT BELOW ___________________";
+    public static void printWithDividers(String message) {
+        System.out.println(LINE_DIVIDER_OUTPUT);
+        System.out.println(message);
+        System.out.println(LINE_DIVIDER_INPUT);
+    }
+
+    // TODO: make more conversational
+    // Single-Use Program Messages
     public static final String HELP_MESSAGE =
             "To jog your memory, here's what we can discuss: \n"
             + "say todo to for a task with no dates. \n"
@@ -31,6 +42,8 @@ public class StringStorage {
             + "Call for me whenever ya feel like listening again. \n"
             + "Cya! \n"
             + LINE_DIVIDER;
+
+    // Multi-Use Program Messages
     public static final String TASK_ADDED_STRING =
             "Now, ya gotta do this too: ";
     public static final String LIST_ALL_TASKS_STRING =

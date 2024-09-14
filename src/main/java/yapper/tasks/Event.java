@@ -3,23 +3,22 @@ package yapper.tasks;
 import yapper.io.StringStorage;
 
 public class Event extends Task {
+    // Additional Attributes
     protected String startDate;
     protected String endDate;
+
+    // Constructor
     public Event(String taskDesc, String startDate, String endDate) {
         super(taskDesc);
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    // toString Method
     @Override
     public String taskToString() {
-        return "[E]" + super.taskToString() + ", from " + startDate + " to " + endDate;
-    }
-    @Override
-    public void printAddedTask(int taskCount) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( "  " + this.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
+        return StringStorage.EVENT_PREFIX
+                + super.taskToString()
+                + ", from " + startDate + " to " + endDate;
     }
 }

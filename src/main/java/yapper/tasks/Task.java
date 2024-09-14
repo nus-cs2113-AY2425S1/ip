@@ -12,22 +12,22 @@ public class Task {
         this.taskDesc = taskDesc;
         this.isDone = false;
     }
-    // Task Operations
-    public void markAsDone() {
-        this.isDone = true;
-    }
-    public void markAsNotDone() {
-        this.isDone = false;
+    // Task Getters and Setters
+//    public String getDesc() { return taskDesc }
+//    public String setDesc(String taskDesc) { this.taskDesc = taskDesc; }
+    public boolean isDone() { return isDone; }
+    public void setDoneStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
+    // Task Print Operations
     public String taskToString() {
         return "[" + (isDone ? "X" : " ") + "] " + taskDesc;
     }
     public void printAddedTask(int taskCount) {
-        System.out.println(StringStorage.LINE_DIVIDER);
-        System.out.println(StringStorage.TASK_ADDED_STRING);
-        System.out.println( "  " + this.taskToString() );
-        System.out.println(StringStorage.LIST_SIZE_STRING + taskCount);
-        System.out.println(StringStorage.LINE_DIVIDER);
+        StringStorage.printWithDividers(
+                StringStorage.TASK_ADDED_STRING + "\n"
+                + "  " + this.taskToString() + "\n"
+                + StringStorage.LIST_SIZE_STRING + taskCount);
     }
 }
