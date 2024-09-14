@@ -1,9 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Yappatron {
-    public static final int MAX_TASKS = 100;
-    public static int taskNumber = 0;
-    public static Task[] taskArray = new Task[MAX_TASKS];
+    public static ArrayList<Task> taskArray = new ArrayList<>();
     public static void main(String[] args) {
         System.out.println("Hello! I'm Yappatron");
         System.out.println("What can I do for you?");
@@ -25,7 +24,7 @@ public class Yappatron {
             else if (input.equalsIgnoreCase("list")) {
                 taskManager.list();
             }
-            else{
+            else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
                 if (input.startsWith("todo")){
                     try {
                         taskManager.addTodo(input);
@@ -44,19 +43,24 @@ public class Yappatron {
                         System.out.println(e.getMessage());
                     }
                 }
-                else if (input.startsWith("event")){
+                else if (input.startsWith("event")) {
                     try {
                         taskManager.addEvent(input);
                         System.out.println("added: " + input);
-                    }catch (StringIndexOutOfBoundsException e){
+                    } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Please key in valid event. Include from and to in string.");
-                    }catch (EmptyTaskEntry e){
+                    } catch (EmptyTaskEntry e) {
                         System.out.println(e.getMessage());
                     }
                 }
-                else{
-                    System.out.println("I do not understand what that means!");
-                }
+            }
+
+            else if (input.startsWith("delete")){
+                String[] splitString = input.split(" ");
+                taskManager.deleteTask(Integer.parseInt(splitString[1]));
+            }
+            else{
+                System.out.println("I do not understand what that means!");
             }
         }while (exitStatus==0);
         System.out.println("Bye. Hope to see you again soon!");
