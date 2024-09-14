@@ -5,6 +5,8 @@ import nell.tasks.Event;
 import nell.tasks.Task;
 import nell.tasks.ToDo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Nell {
@@ -160,6 +162,19 @@ public class Nell {
     }
 
     /**
+     * Saves the task list data in a file
+     */
+    private static void saveToFile() {
+        try {
+            String filePath = "data/data.txt";
+            tasks.writeListToFile(filePath);
+            System.out.println("Data saved in data.txt");
+        } catch (IOException e) {
+            System.out.println("Data not saved due to error");
+        }
+    }
+
+    /**
      * Greet the user upon program startup
      */
     private static void greetUser() {
@@ -183,6 +198,7 @@ public class Nell {
             switch (commandWords[0]) {
             case "bye":
                 sayBye();
+                saveToFile();
                 isGettingCommands = false;
                 break;
 
