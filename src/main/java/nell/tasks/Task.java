@@ -17,6 +17,18 @@ public class Task {
     }
 
     /**
+     * Constructs a new Task object, with a specified doneness for the task
+     *
+     * @param description The description of the task
+     * @param isDone Whether the task is done or not
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = " ";
+    }
+
+    /**
      * Gets the description of a Task object
      *
      * @return The description of the Task object

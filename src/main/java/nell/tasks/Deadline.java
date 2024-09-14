@@ -9,6 +9,12 @@ public class Deadline extends nell.tasks.Task {
         this.type = "D";
     }
 
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+        this.type = "D";
+    }
+
     public String toString() {
         return String.format("%s (by: %s)", super.toString(), this.by);
     }
