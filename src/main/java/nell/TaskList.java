@@ -2,6 +2,8 @@ package nell;
 
 import nell.tasks.Task;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -32,5 +34,18 @@ public class TaskList {
         tasks.remove(index);
         System.out.println("   " + taskToRemove);
         System.out.println(String.format("   The list now has %d tasks", this.tasks.size()));
+    }
+
+    public void writeListToFile(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath, false);
+        for (Task task : tasks) {
+            String formatLine = task.getFileLine() + System.lineSeparator();
+            writer.write(formatLine);
+        }
+        writer.close();
+    }
+
+    public void loadTask(Task taskToAdd) {
+        tasks.add(taskToAdd);
     }
 }

@@ -18,6 +18,18 @@ public class Task {
     }
 
     /**
+     * Constructs a new Task object, with a specified doneness for the task
+     *
+     * @param description The description of the task
+     * @param isDone Whether the task is done or not
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = " ";
+    }
+
+    /**
      * Gets a status icon for the task, depending on whether it has been marked
      * done or not
      *
@@ -43,5 +55,14 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%S][%s] %s", this.type, this.getStatusIcon(), this.description);
+    }
+
+    /**
+     * Formats a string for writing into a .txt file
+     *
+     * @return the formatted string for writing to the file
+     */
+    public String getFileLine() {
+        return String.format("%s|%s|%s", this.type, this.getStatusIcon(), this.description);
     }
 }

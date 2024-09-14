@@ -5,6 +5,9 @@ import nell.tasks.Event;
 import nell.tasks.Task;
 import nell.tasks.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Nell {
@@ -176,6 +179,71 @@ public class Nell {
         System.out.println("-> Bye. Hope to see you again soon!");
     }
 
+    private static void loadFromFile() {
+        try {
+            File dataFile = new File("data/data.txt");
+            Scanner fileScanner = new Scanner(dataFile);
+            while (fileScanner.hasNext()) {
+                String fileTask = fileScanner.nextLine();
+                loadTask(fileTask);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Data not loaded - File not found");
+        }
+    }
+
+    /**
+     * Parses a task from the file
+     *
+     * @param taskLine The file line containing the task
+     */
+    private static void loadTask(String taskLine) {
+        String[] taskParameters = taskLine.split("\\|");
+        String taskType = taskParameters[0];
+        String taskDescription = taskParameters[2];
+
+        boolean taskIsDone = false;
+        if (taskParameters[1].equals("X"))
+        {
+            taskIsDone = true;
+        }
+
+        switch (taskType) {
+        case "T":
+            ToDo toDoToAdd = new ToDo(taskDescription, taskIsDone);
+            tasks.loadTask(toDoToAdd);
+            break;
+
+        case "D":
+            String deadlineBy = taskParameters[3];
+            Deadline deadlineToAdd = new Deadline(taskDescription, taskIsDone, deadlineBy);
+            tasks.loadTask(deadlineToAdd);
+            break;
+
+        case "E":
+            String eventFrom = taskParameters[3];
+            String eventTo = taskParameters[4];
+            Event eventToAdd = new Event(taskDescription, taskIsDone, eventFrom, eventTo);
+            tasks.loadTask(eventToAdd);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Saves the task list data in a file
+     */
+    private static void saveToFile() {
+        try {
+            String filePath = "data/data.txt";
+            tasks.writeListToFile(filePath);
+        } catch (IOException e) {
+            System.out.println("   Data not saved due to error");
+        }
+    }
+
     /**
      * Greet the user upon program startup
      */
@@ -200,6 +268,7 @@ public class Nell {
             switch (commandWords[0]) {
             case "bye":
                 sayBye();
+                saveToFile();
                 isGettingCommands = false;
                 break;
 
@@ -263,6 +332,7 @@ public class Nell {
     }
 
     public static void main(String[] args) {
+        loadFromFile();
         greetUser();
         getCommands();
     }
