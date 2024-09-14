@@ -1,9 +1,8 @@
-public class Deadline extends Todo {
+public class Deadline extends Task {
     protected String deadline;
     protected String[] inputArray;
 
-    public Deadline(String input) {
-        // Call the parent constructor with the task name
+    public Deadline(String input) throws FenixException {
         super();
         splitInput(input);
         // Assign the taskname
@@ -18,13 +17,13 @@ public class Deadline extends Todo {
         this.inputArray = input.split("/");
         // Validate input length
         if (this.inputArray.length < 2) {
-            throw new IllegalArgumentException("Length issue");
+            throw new IllegalArgumentException("Task input must be in the format '{taskName} /by {Time}'");
         }
     }
 
-    public String getTaskName(String[] inputArray) {
+    public String getTaskName(String[] inputArray) throws FenixException {
         if (inputArray[0].isBlank()) {
-            throw new IllegalArgumentException("Task name cannot be blank");
+            throw new FenixException("Task name cannot be blank");
         }
         return inputArray[0];
     }
@@ -33,7 +32,10 @@ public class Deadline extends Todo {
         return inputArray[1];
     }
 
+    @Override
     public String toString() {
-        return "[D][" + (isDone ? "X" : " ") + "] " + taskName + " (by: " + deadline.replaceFirst("^by\\s+", "") + ")";
+        String taskStatus = "[D][" + (isDone ? "X" : " ") + "] ";
+        String deadlineInfo = " (by: " + deadline.replaceFirst("^by\\s+", "") + ")";
+        return taskStatus + taskName + deadlineInfo;
     }
 }

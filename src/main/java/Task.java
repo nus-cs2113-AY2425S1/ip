@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected boolean isDone;
 
@@ -25,8 +25,5 @@ public class Task {
         this.isDone = false;
     }
 
-    // Override
-    public String toString() {
-        return "[T][" + (isDone ? "X" : " ") + "] " + taskName;
-    }
+    public abstract String toString();
 }
