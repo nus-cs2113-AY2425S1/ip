@@ -82,6 +82,7 @@ public class JeM {
         }
         int index = Integer.parseInt(parts[1]);
         System.out.println("I have removed this task: ");
+        storage.storagePrintTask(index);
         storage.storageDelete(index);
         storage.storageList();
     }
