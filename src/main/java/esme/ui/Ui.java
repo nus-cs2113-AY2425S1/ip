@@ -7,9 +7,41 @@ public class Ui {
     private TaskList taskList;
     private static final int SEPARATOR_LENGTH = 120;
     private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
+    private static final String esmeLogo = " _____                    \n" +
+            "| ____|___ _ __ ___   ___ \n" +
+            "|  _| / __| '_ ` _ \\ / _ \\ \n" +
+            "| |___\\__ \\ | | | | |  __/ \n" +
+            "|_____|___/_| |_| |_|\\___| ";
 
     public Ui() {
         taskList = new TaskList();
+    }
+
+    public void callToWork() {
+        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() +
+                " tasks waiting for you!");
+        displayLine(true);
+    }
+
+    public void deleteTaskFromList(String[] words) {
+        String description;
+        try {
+            int index = Integer.parseInt(words[1]);
+            if (!isIndexValid(index)) {
+                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
+                        "boundaries of our list!");
+            }
+            description = taskList.deleteTask(index);
+        } catch (IndexOutOfBoundsException | EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
+            return;
+        }
+        displayLine(true);
+        System.out.println("\t" + description + " has been removed from your destiny!");
+        displayLine(true);
+        callToWork();
     }
 
     public void addTaskToList(String command, String input) {
@@ -37,9 +69,7 @@ public class Ui {
         displayLine(true);
         System.out.println("\tThe stars have aligned and " + description + " is now part of your destiny!");
         displayLine(true);
-        System.out.println("\tTime to work! You got " + taskList.getNumberOfTasks() +
-                " tasks waiting for you!");
-        displayLine(true);
+        callToWork();
     }
 
     /**
@@ -49,7 +79,7 @@ public class Ui {
      * @return True if the index is valid, false otherwise.
      */
     public boolean isIndexValid(int index) {
-        return (index <= taskList.getNumberOfTasks() && index >= 0);
+        return (index <= taskList.getNumberOfTasks() && index > 0);
     }
 
     public boolean isTaskCompleted(int index) {
@@ -107,6 +137,10 @@ public class Ui {
                         command + " 1')");
             }
             int index = Integer.parseInt(words[1]);
+            if (!isIndexValid(index)) {
+                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
+                        "boundaries of our list!");
+            }
             if (!isTaskCompleted(index) && command.equals("unmark")) {
                 throw new EsmeException("The stars have revealed that this task is yet to be completed. " +
                         "Finish it before the cosmos frowns upon you.");
@@ -114,10 +148,6 @@ public class Ui {
             if (isTaskCompleted(index) && command.equals("mark")) {
                 throw new EsmeException("This task has already been blessed by the cosmos. " +
                         "Continue your journey with the next task.");
-            }
-            if (!isIndexValid(index)) {
-                throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
             }
             toggleTaskStatus(index,command);
         } catch (EsmeException e) {
@@ -140,11 +170,6 @@ public class Ui {
         displayLine(true);
     }
 
-    private static final String esmeLogo = " _____                    \n" +
-            "| ____|___ _ __ ___   ___ \n" +
-            "|  _| / __| '_ ` _ \\ / _ \\ \n" +
-            "| |___\\__ \\ | | | | |  __/ \n" +
-            "|_____|___/_| |_| |_|\\___| ";
 
     /**
      * Prints a line to the console to separate different sections of the UI.
