@@ -82,4 +82,9 @@ public class Storage {
             System.out.println((index) + "." + task.getStatusIcon() + " " + task);
         }
     }
+
+
+    public void storageClear(){
+        taskList.clear();
+    }
 }
