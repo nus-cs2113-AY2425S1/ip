@@ -1,13 +1,26 @@
 package TheThinker.Command;
 import TheThinker.Exceptions.FormattingException;
+import TheThinker.NewFile.NewFile;
 import TheThinker.Tasks.Task;
 import TheThinker.Parser.UserInputParser;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TheThinker {
 
     public static final String NAME = "TheThinker";
 
     public static void main(String[] args) {
+
+        printLoadingText();
+        NewFile data = null;
+
+        try {
+            data = new NewFile("TaskContents.txt");
+            data.loadFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. No data loaded. Please create the file under Data directory");
+        }
 
         printGreeting();
         String userInput;
@@ -16,7 +29,11 @@ public class TheThinker {
             userInput = UserInputParser.getUserInput();
             String userAction = UserInputParser.parseUserAction();
             doTaskAccordingToUserAction(userAction);
-
+            try {
+                data.writeTaskToFile();
+            } catch (IOException e) {
+                System.out.println("Failed to write task to file");
+            }
         }while(!userInput.equals("bye"));
     }
 
@@ -113,6 +130,10 @@ public class TheThinker {
         for(String command : commands){
             System.out.println("- " + command);
         }
+    }
+
+    public static void printLoadingText(){
+        System.out.println("Loading file now........");
     }
 
 }

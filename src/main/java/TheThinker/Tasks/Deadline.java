@@ -13,4 +13,9 @@ public class Deadline extends Task{
         char maskingChar = isMarkedAsDone ? 'X' : ' ';
         return " [" + taskType + "][" + maskingChar + "] " + taskDescription +" (by: " + deadline + ")";
     }
+
+    @Override
+    public String convertToFileFormat(){
+        return "T" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + deadline;
+    }
 }

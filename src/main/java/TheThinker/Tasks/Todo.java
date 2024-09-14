@@ -11,4 +11,9 @@ public class Todo extends Task{
         char maskingChar = isMarkedAsDone ? 'X' : ' ';
         return " [T][" + maskingChar + "] " + taskDescription;
     }
+
+    @Override
+    public String convertToFileFormat(){
+        return "T" + " | " + isMarkedAsDone + " | " + taskDescription;
+    }
 }

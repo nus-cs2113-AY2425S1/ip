@@ -40,6 +40,11 @@ public class Task {
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
+    public static void addTaskWithoutResponse(Task task){
+        listOfTasks.add(task);
+        listLength++;
+    }
+
     public static void deleteTask(int taskNumber){
         System.out.println("Noted. I've removed this task:");
         Task taskToRemove = listOfTasks.get(taskNumber-1);
