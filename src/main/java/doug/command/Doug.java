@@ -1,15 +1,15 @@
 package doug.command;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import doug.tasks.*;
 
 public class Doug {
 
     // Declaring Magic Literals
     private static final String DASHED_LINE = "______________________________________________\n";
-    static final int MAX_TASKS = 100;
 
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int counter = 0;
 
     private static boolean saidBye = false;
@@ -21,11 +21,11 @@ public class Doug {
         }
     }
 
-    public static void checkListFull() throws DougException {
-        if (counter >= MAX_TASKS) {
-            throw new DougException(DASHED_LINE + "Sorry partner, the list is full!\n" + DASHED_LINE);
-        }
-    }
+    //public static void checkListFull() throws DougException {
+    //    if (counter >= MAX_TASKS) {
+    //        throw new DougException(DASHED_LINE + "Sorry partner, the list is full!\n" + DASHED_LINE);
+    //    }
+    //}
 
     public static void doList() {
         if (counter == 0) {
@@ -36,41 +36,76 @@ public class Doug {
 
         System.out.println(DASHED_LINE + "Here, let me lay out your tasks for you.");
         for (int i = 0; i < counter; i++) {
-            System.out.println((i+1) + "." + tasks[i].toString());
+            System.out.println((i+1) + "." + tasks.get(i).toString());
         }
         System.out.print(DASHED_LINE);
     }
 
-    public static void doMark(String command) {
-        int listIndex = Integer.parseInt(command.substring(5));
+    public static void doMark(String command) throws DougException {
+        command = command.replace("mark", "").trim();
+        if (command.isEmpty()) {
+            throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
+        }
+        int listIndex = Integer.parseInt(command);
 
         try {
             checkOutOfBounds(listIndex);
 
-            tasks[listIndex - 1].markAsDone();
+            tasks.get(listIndex - 1).markAsDone();
             System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as done");
-            System.out.print(tasks[listIndex - 1].toString() + "\n" + DASHED_LINE);
+            System.out.print(tasks.get(listIndex - 1).toString() + "\n" + DASHED_LINE);
         } catch (DougException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static void doUnmark(String command) {
-        int listIndex = Integer.parseInt(command.substring(7));
+    public static void doUnmark(String command) throws DougException {
+        command = command.replace("unmark", "").trim();
+        if (command.isEmpty()) {
+            throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
+        }
+        int listIndex = Integer.parseInt(command);
 
         try {
             checkOutOfBounds(listIndex);
 
-            tasks[listIndex - 1].markAsNotDone();
+            tasks.get(listIndex - 1).markAsNotDone();
             System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as not done");
-            System.out.print(tasks[listIndex - 1].toString() + "\n" + DASHED_LINE);
+            System.out.print(tasks.get(listIndex - 1).toString() + "\n" + DASHED_LINE);
         } catch (DougException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void doDelete(String command) throws DougException{
+        //checkListFull();
+        if (counter <= 0) {
+            System.out.println(DASHED_LINE + "Your list is empty pal, ain't nothing to rid off.\n" + DASHED_LINE);
+            return;
+        }
+
+        command = command.replace("delete", "").trim();
+        if (command.isEmpty()) {
+            throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
+        }
+        int listIndex = Integer.parseInt(command);
+
+        try {
+            checkOutOfBounds(listIndex);
+
+            Task removedTask = tasks.get(listIndex - 1);
+            tasks.remove(listIndex - 1);
+            counter--;
+            System.out.println(DASHED_LINE + "I've deleted: " + removedTask + " for you.");
+            System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
+        } catch (DougException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static void doToDo(String command) throws DougException{
-        checkListFull();
+        //checkListFull();
 
         command = command.replace("todo", "").trim();
         if (command.isEmpty()) {
@@ -78,7 +113,7 @@ public class Doug {
         }
 
         Todo todoTask = new Todo(command);
-        tasks[counter] = todoTask;
+        tasks.add(todoTask);
         counter++;
 
         System.out.println(DASHED_LINE + "I've added: " + todoTask + " for you.");
@@ -86,7 +121,7 @@ public class Doug {
     }
 
     public static void doDeadline(String command) throws DougException {
-        checkListFull();
+        //checkListFull();
 
         command = command.replace("deadline", "").trim();
         if (command.isEmpty()) {
@@ -109,7 +144,7 @@ public class Doug {
         }
 
         Deadline deadlineTask = new Deadline(taskName, taskDeadline);
-        tasks[counter] = deadlineTask;
+        tasks.add(deadlineTask);
         counter++;
 
         System.out.println(DASHED_LINE + "I've added: " + deadlineTask + " for you.");
@@ -117,7 +152,7 @@ public class Doug {
     }
 
     public static void doEvent(String command) throws DougException {
-        checkListFull();
+        //checkListFull();
 
         command = command.replace("event", "").trim();
         if (command.isEmpty()) {
@@ -153,7 +188,7 @@ public class Doug {
         }
 
         Event eventTask = new Event(taskName, taskStart, taskEnd);
-        tasks[counter] = eventTask;
+        tasks.add(eventTask);
         counter++;
 
         System.out.println(DASHED_LINE + "I've added: " + eventTask + " for you.");
@@ -220,6 +255,8 @@ public class Doug {
             doDeadline(command);
         } else if (command.startsWith("event")) {
             doEvent(command);
+        } else if (command.startsWith("delete")) {
+            doDelete(command);
         } else {
             throw new DougException(DASHED_LINE + "Something seems off partner...\n" + DASHED_LINE);
         }
@@ -228,7 +265,7 @@ public class Doug {
 
     public static void main(String[] args) {
 
-        //sayWelcome();
+        sayWelcome();
         Scanner input = new Scanner(System.in);
 
         while (!saidBye) {
