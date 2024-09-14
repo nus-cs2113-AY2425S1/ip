@@ -30,6 +30,27 @@ public class TaskList {
         PrintUtils.lineBreak();
     }
 
+    public void deleteTask(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        int index;
+        Task task;
+        try {
+            index = Integer.parseInt(argument);
+            task = tasks.get(index - 1);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(argument);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFoundException("What. There is no task " + argument + ". "
+                    + "Try a number between 1 and " + tasks.size() + ".");
+        }
+
+        PrintUtils.lineBreak();
+        tasks.remove(task);
+        PrintUtils.println("Ok, deleted this task:");
+        PrintUtils.println(task.toString());
+        PrintUtils.println("Now you have " + tasks.size() + " tasks in the list.");
+        PrintUtils.lineBreak();
+    }
+
     public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
         try {
             setTaskStatus(argument, true);

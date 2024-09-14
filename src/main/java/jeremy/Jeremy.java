@@ -36,6 +36,9 @@ public class Jeremy {
                 case UNMARK:
                     taskList.markTaskAsNotDone(argument);
                     break;
+                case DELETE:
+                    taskList.deleteTask(argument);
+                    break;
                 case TODO:
                     taskList.addTask(new Todo(argument));
                     break;
