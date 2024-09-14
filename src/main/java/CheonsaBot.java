@@ -242,42 +242,42 @@ public class CheonsaBot {
      */
     private static void deleteTask(String index) {
         try {
-            int taskIndex = Integer.parseInt(index) - 1; // Parse once
+            int taskIndex = Integer.parseInt(index) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            
+    
             System.out.println(getHorizontalLine());
             System.out.println("Removed: " + tasks.get(taskIndex).getDescription());
             tasks.remove(taskIndex);
+            updateTaskFile(); // Rewrite the file after deletion
             System.out.println("Only " + tasks.size() + " thing(s) left to do!");
             System.out.println(getHorizontalLine());
-
-        } catch (NumberFormatException e) {
+    
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(getHorizontalLine());
-            System.out.println("Invalid task number :(");
-            System.out.println(getHorizontalLine());
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(getHorizontalLine());
-            System.out.println("That task doesn't exist :( Max is: " + tasks.size());
+            System.out.println("Error: Invalid task number! :(");
             System.out.println(getHorizontalLine());
         }
     }
 
     /**
      * Appends a task to the tasklist.txt file.
+     * @param task The task to write to the file on disk.
      */
     private static void appendTaskToFile(Task task) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(formatTaskForFile(task));
             writer.newLine();
         } catch (IOException e) {
-            System.out.println("Error appending task to file: " + e.getMessage());
+            System.out.println("Oh no, error appending task to file: " + e.getMessage() + " :(");
         }
     }
 
     /**
      * Formats a task as a string for saving to the file.
+     * @param task The task to write to the file on disk.
+     * @return A line to be saved to file on disk.
      */
     private static String formatTaskForFile(Task task) {
         String taskType = "";
@@ -356,6 +356,8 @@ public class CheonsaBot {
     /**
      * Parses a line from the file and creates the appropriate Task object.
      * Throws FormatException if the line is not in the correct format.
+     * @param line The line to read from the file on disk.
+     * @return A Task instance if succesfully parsed.
      */
     private static Task parseTaskFromLine(String line) throws FormatException {
         String[] parts = line.split(" \\| ");
@@ -384,5 +386,19 @@ public class CheonsaBot {
 
         if (isDone) task.setAsDone();
         return task;
+    }
+
+    /**
+     * Updates the tasklist.txt file after deleting a task by rewriting the entire file.
+     */
+    private static void updateTaskFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(formatTaskForFile(task));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating task file: " + e.getMessage());
+        }
     }
 }
