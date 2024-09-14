@@ -104,15 +104,21 @@ public class Dobby {
         switch (type) {
         case "Todo":
             Todo todo = new Todo(parts[2]);
-            if (isDone) todo.markAsDone();
+            if (isDone) {
+                todo.markAsDone();
+            }
             return todo;
         case "Deadline":
             Deadline deadline = new Deadline(parts[2], parts[3]);
-            if (isDone) deadline.markAsDone();
+            if (isDone) {
+                deadline.markAsDone();
+            }
             return deadline;
         case "Event":
             Event event = new Event(parts[2], parts[3], parts[4]);
-            if (isDone) event.markAsDone();
+            if (isDone) {
+                event.markAsDone();
+            }
             return event;
         default:
             return null;
@@ -162,12 +168,12 @@ public class Dobby {
         if (isValidTaskNumber(taskNumber)) {
             Task t = taskList.get(taskNumber - 1);
             taskList.remove(t);
-
             printSeparator();
             System.out.println("    Dobby is removing this task:");
             System.out.println("        " + t);
             System.out.println("    Dobby says master has " + taskList.size() + " remaining tasks!");
             printSeparator();
+            saveTasks();
         } else {
             printSeparator();
             System.out.println("    Dobby says that task number does not exist!");
@@ -206,6 +212,7 @@ public class Dobby {
         if (task != null) {
             taskList.add(task);
             printTaskAddedMessage();
+            saveTasks();
         }
     }
 
@@ -271,6 +278,7 @@ public class Dobby {
             }
             task.markAsDone();
             printTaskStatus("done", taskNumber);
+            saveTasks();
         }
     }
 
@@ -283,6 +291,7 @@ public class Dobby {
             }
             task.unmarkAsDone();
             printTaskStatus("incomplete", taskNumber);
+            saveTasks();
         }
     }
 
