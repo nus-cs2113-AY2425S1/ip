@@ -118,7 +118,7 @@ public class UserInputParser {
         return userInput;
     }
 
-    public static int parseMarkAndUnmarkTask() throws NumberFormatException , FormattingException{
+    public static int parseNumberAfterTask() throws NumberFormatException , FormattingException{
         String[] parsedInputs = userInput.split(" ");
 
         if(parsedInputs.length == 1){
