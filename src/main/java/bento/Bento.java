@@ -7,6 +7,7 @@ import tasks.Task;
 import tasks.ToDo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -240,13 +241,7 @@ public class Bento {
             input = removeMarkPrefix(input);
             int index = Integer.parseInt(input) - 1;
             updateTask(isDone, index);
-            printLine();
-            if (isDone) {
-                printMarked(index);
-            } else {
-                printUnmarked(index);
-            }
-            printLine();
+            printMarkUpdate(isDone, index);
         } catch (NumberFormatException e) {
             throw new InvalidIndexException();
         } catch (IndexOutOfBoundsException e) {
@@ -268,6 +263,16 @@ public class Bento {
         System.out.printf("\t\t%s\n", retrieveTask(index));
     }
 
+    public void printMarkUpdate(boolean isDone, int index) {
+        printLine();
+        if (isDone) {
+            printMarked(index);
+        } else {
+            printUnmarked(index);
+        }
+        printLine();
+    }
+
     // Overload
     public void markTaskAsDone(boolean isDone, int index) {
         updateTask(isDone, index);
@@ -283,7 +288,7 @@ public class Bento {
         try {
             String parsed = removeDeletePrefix(input);
             int index = Integer.parseInt(parsed) - 1;
-            Task task = TASKS.get(index);
+            Task task = retrieveTask(index);
             deleteTaskFromList(index);
             printDeleteTaskSuccessMessage(task);
         } catch (NumberFormatException e) {
@@ -366,7 +371,7 @@ public class Bento {
                 currentTask++;
             }
             listTasks();
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             // Exceptions encountered when loading the save file can be classified as LoadFileErrorExceptions
             throw new LoadFileErrorException();
         }
@@ -388,11 +393,7 @@ public class Bento {
             for (Task task : TASKS) {
                 saveWriter.write(task.getTaskAsCommand());
                 saveWriter.write(TASK_STATUS_DELIMITER);
-                if (task.isDone()) {
-                    saveWriter.write(TASK_DONE_INDICATOR);
-                } else {
-                    saveWriter.write(TASK_UNDONE_INDICATOR);
-                }
+                writeTaskStatus(task, saveWriter);
                 saveWriter.write(System.lineSeparator());
             }
             saveWriter.close();
@@ -402,13 +403,23 @@ public class Bento {
         }
     }
 
+    public void writeTaskStatus(Task task, FileWriter saveWriter) throws IOException {
+        if (task.isDone()) {
+            saveWriter.write(TASK_DONE_INDICATOR);
+        } else {
+            saveWriter.write(TASK_UNDONE_INDICATOR);
+        }
+    }
+
     public void run() {
         sayKonichiwa();
+
         try {
             loadTaskList();
         } catch (BentoException e) {
             System.out.print(e.getMessage());
         }
+
         while (!isExit) {
             String input = getUserInput();
             // Outputs success messages
