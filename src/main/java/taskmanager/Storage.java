@@ -1,7 +1,6 @@
 package taskmanager;
 
 import tasks.Task;
-import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
 import exceptions.InvalidCommandException;
@@ -22,7 +21,6 @@ public class Storage {
     public void storageInsert(Task task) {
         taskList.add(task);
         int numOfTasks = taskList.size();
-        String tasktype = "";
 
         System.out.println("Got it. I've added this task:");
         System.out.print(task.getStatusIcon() + " " + task.getContents());

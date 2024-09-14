@@ -49,7 +49,7 @@ public class JeM {
         System.out.println(" Just type out your tasks you have to complete and I will make a list of them for you.");
         System.out.println(" For tasks with no deadline, type todo <task name>, for tasks with deadlines, type deadline <task name> /by <date and time>");
         System.out.println(" For events, type event <task name> /from <date and time> /to <date and time>");
-        System.out.println(" Type 'list' to see the current list of tasks, and type 'delete <task number>' to delete that task.");
+        System.out.println(" Type 'list' to see the current list of tasks,'delete <task number>' to delete that task");
         System.out.println(" Finally, type 'bye' to end the chat!");
 
         printBreakLine();
@@ -70,7 +70,7 @@ public class JeM {
             handleDeadlineCommand(line, storage);
         } else if (line.toLowerCase().startsWith("event")) {
             handleEventCommand(line, storage);
-        } else {
+        }else {
             System.out.println("Unknown command: " + line);
         }
     }
@@ -81,9 +81,11 @@ public class JeM {
             throw new InvalidCommandException("Provide index of the task to delete");
         }
         int index = Integer.parseInt(parts[1]);
+        System.out.println("I have removed this task: ");
         storage.storageDelete(index);
         storage.storageList();
     }
+
 
     private static void handleUnmarkCommand(String line, Storage storage) throws InvalidCommandException {
         String[] parts = line.split(" ");
@@ -116,8 +118,8 @@ public class JeM {
     }
 
     private static void handleDeadlineCommand(String line, Storage storage) throws InvalidCommandException {
-        String[] parts = line.substring(9).split(" /by ");
-        if (parts[0].trim().length() <= 8 ){
+        String[] parts = line.substring(8).split(" /by ");
+        if (parts[0].trim().isEmpty() ){
             throw new InvalidCommandException("The description of the deadline task cannot be empty");
         }
         if (parts.length < 2){
@@ -135,7 +137,7 @@ public class JeM {
         }
 
         String[] parts = line.split(" /from ");
-        String preCleanedTaskContent = parts[0].trim(); //before removing the word event
+        String preCleanedTaskContent = parts[0].trim();
 
         if (preCleanedTaskContent.length() <= 5) {
             throw new InvalidCommandException("The description of the event task is missing");
