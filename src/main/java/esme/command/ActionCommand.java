@@ -12,6 +12,10 @@ public class ActionCommand extends Command {
 
     @Override
     public void run() {
-        ui.handleTaskStatus(words);
+        if (words[0].equals("delete")) {
+            ui.deleteTaskFromList(words);
+        } else {
+            ui.handleTaskStatus(words);
+        }
     }
 }

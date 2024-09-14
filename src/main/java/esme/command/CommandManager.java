@@ -89,10 +89,8 @@ public class CommandManager {
             break;
         case "mark":
         case "unmark":
-            new ActionCommand(ui,words).run();
-            break;
         case "delete":
-            new DeleteCommand(ui,words).run();
+            new ActionCommand(ui,words).run();
             break;
         case "list":
             new PrintCommand(ui).run();
