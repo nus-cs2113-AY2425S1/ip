@@ -3,6 +3,10 @@ package doug.command;
 import java.util.Scanner;
 import java.util.ArrayList;
 import doug.tasks.*;
+import  java.io.File;
+import  java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Doug {
 
@@ -52,6 +56,12 @@ public class Doug {
             checkOutOfBounds(listIndex);
 
             tasks.get(listIndex - 1).markAsDone();
+            try {
+                saveTasks();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
             System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as done");
             System.out.print(tasks.get(listIndex - 1).toString() + "\n" + DASHED_LINE);
         } catch (DougException e) {
@@ -70,6 +80,12 @@ public class Doug {
             checkOutOfBounds(listIndex);
 
             tasks.get(listIndex - 1).markAsNotDone();
+            try {
+                saveTasks();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
             System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as not done");
             System.out.print(tasks.get(listIndex - 1).toString() + "\n" + DASHED_LINE);
         } catch (DougException e) {
@@ -116,6 +132,12 @@ public class Doug {
         tasks.add(todoTask);
         counter++;
 
+        try {
+            saveTasks();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         System.out.println(DASHED_LINE + "I've added: " + todoTask + " for you.");
         System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
     }
@@ -146,6 +168,12 @@ public class Doug {
         Deadline deadlineTask = new Deadline(taskName, taskDeadline);
         tasks.add(deadlineTask);
         counter++;
+
+        try {
+            saveTasks();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(DASHED_LINE + "I've added: " + deadlineTask + " for you.");
         System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
@@ -191,6 +219,12 @@ public class Doug {
         tasks.add(eventTask);
         counter++;
 
+        try {
+            saveTasks();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         System.out.println(DASHED_LINE + "I've added: " + eventTask + " for you.");
         System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
     }
@@ -235,8 +269,114 @@ public class Doug {
 
 
         // Welcome statement
-        System.out.println(DASHED_LINE + "Howdy partner! My name is Doug Dimmadome.\n"
-                + "Now what can I do for ya?\n" + DASHED_LINE);
+        System.out.println(DASHED_LINE + "They call Doug Dimmadome in these parts.\n" + DASHED_LINE);
+    }
+
+
+    public static void saveTasks() throws IOException {
+        FileWriter writer = new FileWriter("./data/tasks.txt");
+        for (int i = 0; i < counter; i++) {
+            writer.write(tasks[i].saveString() + System.lineSeparator());
+        }
+        writer.close();
+    }
+
+
+    public static void loadToDo(String line) {
+        boolean isMarked = false;
+
+        if (line.contains("| X |")) {
+            isMarked = true;
+            line = line.replaceFirst("T \\| X \\|", "").trim();
+        } else {
+            line = line.replaceFirst("T \\|   \\|", "").trim();
+        }
+
+        Todo todoTask = new Todo(line);
+        tasks[counter] = todoTask;
+        counter++;
+
+        if (isMarked) {
+            todoTask.markAsDone();
+        }
+    }
+
+    public static void loadDeadline(String line) {
+        boolean isMarked = false;
+        if (line.contains("| X |")) {
+            isMarked = true;
+            line = line.replaceFirst("D \\| X \\|", "").trim();
+        } else {
+            line = line.replaceFirst("D \\|   \\|", "").trim();
+        }
+
+        int indexOfFirstBoundary = line.indexOf("| ");
+        String taskName = line.substring(0, indexOfFirstBoundary).trim();
+
+        line = line.replaceFirst(taskName, "");
+        String taskDeadline = line.replaceFirst("\\| ", "").trim();
+
+        Deadline deadlineTask = new Deadline(taskName, taskDeadline);
+        tasks[counter] = deadlineTask;
+        counter++;
+
+        if (isMarked) {
+            deadlineTask.markAsDone();
+        }
+    }
+
+    public static void loadEvent(String line) {
+        boolean isMarked = false;
+        if (line.contains("| X |")) {
+            isMarked = true;
+            line = line.replaceFirst("E \\| X \\|", "").trim();
+        } else {
+            line = line.replaceFirst("E \\|   \\|", "").trim();
+        }
+
+        int indexOfFirstBoundary = line.indexOf("| ");
+        String taskName = line.substring(0, indexOfFirstBoundary).trim();
+
+        line = line.replaceFirst(taskName, "");
+        line = line.replaceFirst("\\| ", "").trim();
+        int indexOfSecondBoundary = line.indexOf("| ");
+        String taskFrom = line.substring(0, indexOfSecondBoundary);
+
+        line = line.replaceFirst(taskFrom, "");
+        String taskTo = line.replaceFirst("\\| ", "").trim();
+
+        Event eventTask = new Event(taskName, taskFrom, taskTo);
+        tasks[counter] = eventTask;
+        counter++;
+
+        if (isMarked) {
+            eventTask.markAsDone();
+        }
+    }
+
+
+    public static void loadTasks() throws FileNotFoundException{
+        File tasksFile = new File("./data/tasks.txt"); 	// create a File for the given file path
+        Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File as the source
+        boolean isEmpty = true;
+        while (reader.hasNext()) {
+            String line = reader.nextLine();
+            isEmpty = false;
+            if(line.startsWith("T")) {
+                loadToDo(line);
+            } else if (line.startsWith("D")) {
+                loadDeadline(line);
+            } else if (line.startsWith("E")) {
+                loadEvent(line);
+            }
+        }
+        if (isEmpty) {
+            System.out.println("YEEHAW PARTNER, I see this is your first rodeo.\n" + "Now what can I do for ya?\n"
+                    + DASHED_LINE);
+            return;
+        }
+        System.out.println("Welcome back partner, YEEHAW!\n" + "Now what can I do for ya?\n" + DASHED_LINE);
+        doList();
     }
 
     public static void readInputs(String command) throws DougException{
@@ -266,6 +406,14 @@ public class Doug {
     public static void main(String[] args) {
 
         sayWelcome();
+
+        try {
+            loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("YEEHAW PARTNER, I see this is your first rodeo.\n" + "Now what can I do for ya?\n"
+                    + DASHED_LINE);
+        }
+
         Scanner input = new Scanner(System.in);
 
         while (!saidBye) {
