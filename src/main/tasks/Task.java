@@ -41,6 +41,7 @@ public class Task {
     }
 
     /**
+
      * Returns the isDone status of the task.
      *
      * @return A boolean representing if the task is done.
@@ -50,6 +51,7 @@ public class Task {
     }
 
     /**
+
      * Returns the description of the task.
      *
      * @return The description of the task.
