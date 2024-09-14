@@ -74,4 +74,8 @@ public class Task {
             System.out.printf("%d." + listOfTasks.get(i) + "\n", i+1);
         }
     }
+
+    public String convertToFileFormat(){
+        return "NIL" + " | " + isMarkedAsDone + " | " + taskDescription;
+    }
 }
