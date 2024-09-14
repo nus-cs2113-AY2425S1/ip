@@ -29,6 +29,10 @@ public class Nell {
                   event <description> /from <from-date> /to <to-date>
             """;
     public static final String INVALID_TASK_MESSAGE = "-> Invalid task!";
+    private static final String REMOVE_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  remove <task number>
+            """;
 
     private static TaskList tasks = new TaskList();
 
@@ -126,6 +130,22 @@ public class Nell {
             printTaskAtIndex(tasks.getTaskAtIndex(taskIndex - 1), taskIndex);
         } catch (NumberFormatException e) {
             System.out.print(MARK_ERROR_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(INVALID_TASK_MESSAGE);
+        }
+    }
+
+    /**
+     * Removes a task from the list
+     *
+     * @param taskNumber The command body
+     */
+    private static void removeTask(String taskNumber) {
+        try {
+            int taskIndex = Integer.parseInt(taskNumber);
+            tasks.removeTask(taskIndex - 1);
+        } catch (NumberFormatException e) {
+            System.out.print(REMOVE_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
         }
