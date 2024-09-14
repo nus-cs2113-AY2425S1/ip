@@ -18,15 +18,6 @@ public class Task {
     }
 
     /**
-     * Gets the description of a Task object
-     *
-     * @return The description of the Task object
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
      * Gets a status icon for the task, depending on whether it has been marked
      * done or not
      *
