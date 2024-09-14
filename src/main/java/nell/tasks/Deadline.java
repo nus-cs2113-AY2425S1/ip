@@ -12,4 +12,8 @@ public class Deadline extends nell.tasks.Task {
     public String toString() {
         return String.format("%s (by: %s)", super.toString(), this.by);
     }
+
+    public String getFileLine() {
+        return String.format("%s|%s", super.getFileLine(), this.by);
+    }
 }

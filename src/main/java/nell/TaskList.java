@@ -1,5 +1,6 @@
 package nell;
 
+import nell.tasks.Deadline;
 import nell.tasks.Task;
 
 import java.io.FileWriter;
@@ -32,7 +33,7 @@ public class TaskList {
     public void writeListToFile(String filePath) throws IOException {
         FileWriter writer = new FileWriter(filePath, false);
         for (Task task : tasks) {
-            String formatLine = task.toString() + "\n";
+            String formatLine = task.getFileLine() + System.lineSeparator();
             writer.write(formatLine);
         }
         writer.close();

@@ -52,4 +52,13 @@ public class Task {
     public String toString() {
         return String.format("[%S][%s] %s", this.type, this.getStatusIcon(), this.description);
     }
+
+    /**
+     * Formats a string for writing into a .txt file
+     *
+     * @return the formatted string for writing to the file
+     */
+    public String getFileLine() {
+        return String.format("%s|%s|%s", this.type, this.getStatusIcon(), this.description);
+    }
 }

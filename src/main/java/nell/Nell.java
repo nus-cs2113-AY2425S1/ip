@@ -168,9 +168,9 @@ public class Nell {
         try {
             String filePath = "data/data.txt";
             tasks.writeListToFile(filePath);
-            System.out.println("Data saved in data.txt");
+            System.out.println("   Data saved in data.txt");
         } catch (IOException e) {
-            System.out.println("Data not saved due to error");
+            System.out.println("   Data not saved due to error");
         }
     }
 

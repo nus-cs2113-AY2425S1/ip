@@ -15,4 +15,8 @@ public class Event extends nell.tasks.Task {
         return String.format("%s (from: %s to: %s)", super.toString(),
                 this.from, this.to);
     }
+
+    public String getFileLine() {
+        return String.format("%s|%s|%s", super.getFileLine(), this.from, this.to);
+    }
 }
