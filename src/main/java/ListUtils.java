@@ -173,6 +173,7 @@ public class ListUtils {
         userInputs.remove(taskIndex - 1);
         System.out.println("You have " + userInputs.size() + " quaggin tasks to do! get to work!");
         System.out.println(" ____________________________________________________________");
+        saveToFile();
     }
 
     public static void saveToFile() {
