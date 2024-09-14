@@ -16,7 +16,7 @@ public class Deadline extends Task {
         String[] parts = input.split("/", 2);
 
         if (parts.length != 2) {
-            throw new InvalidCommandFormatException("jeremy.task.Deadline dates should come after \"/by \"");
+            throw new InvalidCommandFormatException("Deadline dates should come after \"/by \"");
         }
 
         this.by = parts[1].trim().substring(3); // ignore "by "

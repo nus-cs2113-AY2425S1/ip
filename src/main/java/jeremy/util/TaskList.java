@@ -25,7 +25,7 @@ public class TaskList {
     public void addTask(Task task) {
         PrintUtils.lineBreak();
         tasks[size++] = task;
-        PrintUtils.println("Got it. I've added this jeremy.task:");
+        PrintUtils.println("Got it. I've added this task:");
         PrintUtils.println(task.toString());
         PrintUtils.println("Now you have " + size + " tasks in the list.");
         PrintUtils.lineBreak();
@@ -63,16 +63,16 @@ public class TaskList {
             if (isDone) {
                 tasks[taskNumber - 1].markDone();
                 PrintUtils.lineBreak();
-                PrintUtils.println("Nice! I've marked this jeremy.task as done:");
+                PrintUtils.println("Nice! I've marked this task as done:");
             } else {
                 tasks[taskNumber - 1].markNotDone();
                 PrintUtils.lineBreak();
-                PrintUtils.println("I've unmarked this jeremy.task:");
+                PrintUtils.println("I've unmarked this task:");
             }
             PrintUtils.println(tasks[taskNumber - 1].toString());
             PrintUtils.lineBreak();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-            throw new TaskNotFoundException("What. There is no jeremy.task " + taskNumber + ". "
+            throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
                     + "Try a number between 1 and " + this.size + ".");
         }
     }
