@@ -1,3 +1,11 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,10 +13,12 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+import tasks.FormatException;
 
 public class CheonsaBot {
     public static final int LINE_LENGTH = 60;
     public static ArrayList<Task> tasks = new ArrayList<>();
+    public static final String FILE_PATH = Paths.get(System.getProperty("user.home"), "tasklist.txt").toString(); 
 
     /**
      * The entry point of the application. Starts bot and listens for user input.
@@ -16,6 +26,8 @@ public class CheonsaBot {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
+        createFileIfNotExists(); 
+        loadTasksFromFile();    
         getGreeting();
         try (Scanner scanner = new Scanner(System.in)) {
             boolean running = true;
@@ -211,6 +223,7 @@ public class CheonsaBot {
 
             if (task != null) {
                 tasks.add(task);
+                appendTaskToFile(task); // Append the task to the file
                 System.out.println(getHorizontalLine());
                 System.out.println("Added: " + task);
                 System.out.println(getHorizontalLine());
@@ -220,29 +233,9 @@ public class CheonsaBot {
             System.out.println(getHorizontalLine());
             System.out.println("Error: " + e.getMessage());
             System.out.println(getHorizontalLine());
-        } catch (Exception e) {
-            System.out.println(getHorizontalLine());
-            System.out.println("Unexpected error: " + e.getMessage());
-            System.out.println(getHorizontalLine());
         }
     }
-
-     /**
-     * Prints the list of tasks to the console.
-     * Displays each task with its corresponding number.
-     */
-    private static void printTaskList() {
-        System.out.println(getHorizontalLine());
-        if (tasks.isEmpty()) {
-            System.out.println("Your task list is empty, maybe add a task?");
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
-            }
-        }
-        System.out.println(getHorizontalLine());
-    }
-
+  
     /*
      * Delete the task at specified index
      * @param index The index of task to delete.
@@ -269,5 +262,127 @@ public class CheonsaBot {
             System.out.println("That task doesn't exist :( Max is: " + tasks.size());
             System.out.println(getHorizontalLine());
         }
+    }
+
+    /**
+     * Appends a task to the tasklist.txt file.
+     */
+    private static void appendTaskToFile(Task task) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            writer.write(formatTaskForFile(task));
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Error appending task to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Formats a task as a string for saving to the file.
+     */
+    private static String formatTaskForFile(Task task) {
+        String taskType = "";
+        if (task instanceof ToDo) {
+            taskType = "T";
+        } else if (task instanceof Deadline) {
+            taskType = "D";
+        } else if (task instanceof Event) {
+            taskType = "E";
+        }
+
+        String isDone = String.valueOf(task.getIsDone());
+        String description = task.getDescription();
+
+        // Handle task-specific properties (like deadlines and event times)
+        String taskDetails = "";
+        if (task instanceof Deadline) {
+            taskDetails = ((Deadline) task).getBy();
+        } else if (task instanceof Event) {
+            taskDetails = ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+        }
+
+        return taskType + " | " + isDone + " | " + description + (taskDetails.isEmpty() ? "" : " | " + taskDetails);
+    }
+
+     /**
+     * Prints the list of tasks to the console.
+     * Displays each task with its corresponding number.
+     */
+    private static void printTaskList() {
+        System.out.println(getHorizontalLine());
+        if (tasks.isEmpty()) {
+            System.out.println("Your task list is empty, maybe add a task?");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+        System.out.println(getHorizontalLine());
+    }
+
+    /**
+     * Creates the tasklist.txt file if it doesn't exist.
+     */
+    private static void createFileIfNotExists() {
+        Path filePath = Paths.get(FILE_PATH);
+        if (!Files.exists(filePath)) {
+            try {
+                Files.createFile(filePath);
+            } catch (IOException e) {
+                System.out.println("Error creating task list file: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Loads tasks from the tasklist.txt file using Scanner.
+     * Skips lines that are incorrectly formatted.
+     */
+    private static void loadTasksFromFile() {
+        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                try {
+                    Task task = parseTaskFromLine(line);
+                    tasks.add(task);
+                } catch (FormatException e) {
+                    System.out.println("Skipping malformed line: " + line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: tasklist.txt not found");
+        }
+    }
+
+    /**
+     * Parses a line from the file and creates the appropriate Task object.
+     * Throws FormatException if the line is not in the correct format.
+     */
+    private static Task parseTaskFromLine(String line) throws FormatException {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) throw new FormatException("Invalid format");
+
+        String taskType = parts[0];
+        boolean isDone = Boolean.parseBoolean(parts[1]);
+        String description = parts[2];
+
+        Task task;
+        switch (taskType) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                if (parts.length < 4) throw new FormatException("Deadline task missing date");
+                task = new Deadline(description, parts[3]);
+                break;
+            case "E":
+                if (parts.length < 5) throw new FormatException("Event task missing time");
+                task = new Event(description, parts[3], parts[4]);
+                break;
+            default:
+                throw new FormatException("Unknown task type");
+        }
+
+        if (isDone) task.setAsDone();
+        return task;
     }
 }
