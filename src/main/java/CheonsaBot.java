@@ -227,8 +227,6 @@ public class CheonsaBot {
         }
     }
 
-
-
      /**
      * Prints the list of tasks to the console.
      * Displays each task with its corresponding number.
@@ -245,6 +243,10 @@ public class CheonsaBot {
         System.out.println(getHorizontalLine());
     }
 
+    /*
+     * Delete the task at specified index
+     * @param index The index of task to delete.
+     */
     private static void deleteTask(String index) {
         try {
             int taskIndex = Integer.parseInt(index) - 1; // Parse once
