@@ -6,6 +6,8 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    public static final String DIVIDER = " | ";
+
     private static int numberOfTasks = 0;
 
     public Task(String description) {
@@ -16,6 +18,10 @@ public class Task {
 
     public static int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    public static void removeTask() {
+        numberOfTasks--;
     }
 
     public void markDone() {
@@ -40,4 +46,9 @@ public class Task {
     public String getTaskInfo() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
+
+    public String getTaskStorageInfo() {
+        return "";
+    }
+
 }

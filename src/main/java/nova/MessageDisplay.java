@@ -53,4 +53,13 @@ public class MessageDisplay {
         displayMessage("Got it. I've added this task:" + NEW_LINE + "  " + message +
                 NEW_LINE + "Now you have " + numberOfTasks + " tasks in the list.");
     }
+
+    public static void displayDeleteMessage(Task task) {
+        displayMessage("Noted. I've removed this task:" + NEW_LINE + "  " + task.getTaskInfo() +
+                NEW_LINE + "Now you have " + (Task.getNumberOfTasks() - 1) + " tasks in the list.");
+    }
+
+    public static void displayStorageError(){
+        displayMessage("Storage error");
+    }
 }

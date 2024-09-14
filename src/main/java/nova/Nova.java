@@ -9,6 +9,7 @@ public class Nova {
         TaskManager taskManager = new TaskManager();
         InputValidator inputValidator = new InputValidator(taskManager);
         CommandHandler commandHandler = new CommandHandler(taskManager, inputValidator);
+        Storage.createStorage();
         Scanner sc = new Scanner(System.in);
 
         while (true) {

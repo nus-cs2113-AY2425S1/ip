@@ -1,6 +1,7 @@
 package nova;
 
 import nova.exception.InvalidInputException;
+import nova.task.Task;
 
 public class InputValidator {
 
@@ -18,9 +19,9 @@ public class InputValidator {
             throw new InvalidInputException("Invalid index. Please provide a valid task number after the command.");
         }
 
-        if (taskIndex <= 0 || taskIndex > taskManager.getNumberOfTasks()) {
+        if (taskIndex <= 0 || taskIndex > Task.getNumberOfTasks()) {
             throw new InvalidInputException("Invalid task index: " + taskIndex + ". " +
-                    "Please provide a number between 1 and " + taskManager.getNumberOfTasks() + ".");
+                    "Please provide a number between 1 and " + Task.getNumberOfTasks() + ".");
         }
 
         return taskIndex;

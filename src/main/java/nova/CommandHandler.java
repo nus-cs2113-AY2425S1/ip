@@ -46,6 +46,10 @@ public class CommandHandler {
             handleEventCase(inputs);
             break;
 
+        case "delete":
+            handleDeleteCase(inputs);
+            break;
+
         default:
             MessageDisplay.displayInvalidInputMessage();
             break;
@@ -74,6 +78,7 @@ public class CommandHandler {
             taskManager.unmarkTask(taskIndex - 1);
             MessageDisplay.displayUnmarkMessage(taskManager.getTask(taskIndex - 1));
         }
+        taskManager.updateStorage();
     }
 
     private void handleTodoCase(String[] inputs) {
@@ -113,4 +118,19 @@ public class CommandHandler {
             MessageDisplay.displayInvalidInputMessage(e.getMessage());
         }
     }
+
+    private void handleDeleteCase(String[] inputs) {
+        int taskIndex;
+        try {
+            taskIndex = inputValidator.validateIndex(inputs);
+        } catch (InvalidInputException e) {
+            MessageDisplay.displayInvalidInputMessage(e.getMessage());
+            return;
+        }
+
+        MessageDisplay.displayDeleteMessage(taskManager.getTask(taskIndex - 1));
+        taskManager.removeTask(taskIndex - 1);
+        taskManager.updateStorage();
+    }
+
 }
