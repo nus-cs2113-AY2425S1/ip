@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Jeremy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList(100);
+        TaskList taskList = new TaskList();
         PrintUtils.greeting();
         PrintUtils.logo();
 
