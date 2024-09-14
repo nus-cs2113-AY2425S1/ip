@@ -7,7 +7,7 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\yapper\exceptions\*.java ..\src\main\java\yapper\instructions\*.java ..\src\main\java\yapper\io\*.java ..\src\main\java\yapper\tasks\*.java ..\src\main\java\yapper\*.java
+javac -sourcepath ../src/main/java -Xlint:none -d ../bin ../src/main/java/yapper/Yapper.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

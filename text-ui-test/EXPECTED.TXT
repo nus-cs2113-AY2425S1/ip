@@ -1,6 +1,56 @@
+___________________ PROGRAM OUTPUT BELOW ___________________
+Wassup!
+Ya ready for me to yap yer ear off?
+Whatchu wanna talk about?
 ____________________________________________________________
- Hello! I'm Yapper
- What can I do for you?
+To jog your memory, here's what we can discuss:
+say todo to for a task with no dates.
+say deadline for a task with an end date.
+say event for a task with a start date and an end date.
+say list if you forgot what you said.
+say mark if you're done with something.
+say unmark if you're not done with something.
+say bye if you wanna stop.
+_____________________ USER INPUT BELOW _____________________
+todo Kylan: Answer CS2113 tutorial questions
 ____________________________________________________________
- Bye. Hope to see you again soon!
+Now, ya gotta do this too:
+  [T][ ] Kylan: Answer CS2113 tutorial questions
+Your list is now THIS BIG: 1
+____________________________________________________________
+deadline weekly CS2113 quiz /by Monday 9pm
+____________________________________________________________
+Now, ya gotta do this too:
+  [D][ ] weekly CS2113 quiz, due Monday 9pm
+Your list is now THIS BIG: 2
+____________________________________________________________
+list
+____________________________________________________________
+You don't remember your tasks? Lemme refresh your memory:
+1.[T][ ] Kylan: Answer CS2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz, due Monday 9pm
+____________________________________________________________
+event CS2113 lecture /from Friday 4pm /to Friday 6pm
+____________________________________________________________
+Now, ya gotta do this too:
+  [E][ ] CS2113 lecture, from Friday 6pm to Friday 6pm
+Your list is now THIS BIG: 3
+____________________________________________________________
+mark 1
+____________________________________________________________
+This task is now done:
+  yapper.tasks.Todo@76fb509a
+____________________________________________________________
+list
+____________________________________________________________
+You don't remember your tasks? Lemme refresh your memory:
+1.[T][X] Kylan: Answer CS2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz, due Monday 9pm
+3.[E][ ] CS2113 lecture, from Friday 6pm to Friday 6pm
+____________________________________________________________
+bye
+___________________ PROGRAM OUTPUT BELOW ___________________
+Thanks for listenin' to my yappin'.
+Call for me whenever ya feel like listening again.
+Cya!
 ____________________________________________________________
