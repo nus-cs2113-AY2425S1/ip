@@ -3,6 +3,8 @@ package esme.ui;
 import esme.exceptions.EsmeException;
 import esme.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
     private TaskList taskList;
     private static final int SEPARATOR_LENGTH = 120;
@@ -42,6 +44,14 @@ public class Ui {
         System.out.println("\t" + description + " has been removed from your destiny!");
         displayLine(true);
         callToWork();
+    }
+
+    public ArrayList<String> getFormattedTasks() {
+        return taskList.getFormattedTasks();
+    }
+
+    public int getNumberOfTasks() {
+        return taskList.getNumberOfTasks();
     }
 
     public void addTaskToList(String command, String input) {
@@ -212,6 +222,20 @@ public class Ui {
     public void handleUnknownCommand() {
         displayLine(true);
         System.out.println("\tThe stars are unclear on this command. Could you please try again?");
+        displayLine(true);
+    }
+
+    public void printNoFileMessage() {
+        displayLine(false);
+        System.out.println("No file detected! Please ensure the file \"tasklist.txt\" " +
+                "is in the root directory.");
+        displayLine(false);
+    }
+
+    public void printSaveErrorMessage() {
+        displayLine(true);
+        System.out.println("Error saving tasks to external drive! You can choose to CTRL + C to end the program " +
+                "or redo your tasks management.");
         displayLine(true);
     }
 }

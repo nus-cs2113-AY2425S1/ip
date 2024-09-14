@@ -4,8 +4,8 @@ package esme.task;
  * Represents a task with a description and a completion status.
  */
 public class Task {
-    private String description;
-    private boolean isCompleted;
+    protected String description;
+    protected boolean isCompleted;
 
     /**
      * Constructs a new task with the given description and sets the completion status to false.
@@ -43,6 +43,27 @@ public class Task {
     public void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    public String getTaskType() {
+        return "Task";
+    }
+
+//    public String convertTaskToInputFormat() {
+//        String task;
+//        switch (this.getTaskType()) {
+//        case "todo":
+//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
+//            break;
+//        case "event":
+//            task = "event " + this.getDescription() + " /from " + this. + " /to " + " /c " + this.getDescription();
+//            break;
+//        case "deadline":
+//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
+//            break;
+//        default:
+//        }
+//        return task;
+//    }
 
     @Override
     public String toString() {

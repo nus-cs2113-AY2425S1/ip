@@ -1,3 +1,4 @@
+import esme.Storage.Storage;
 import esme.ui.Ui;
 import esme.command.CommandManager;
 
@@ -7,14 +8,20 @@ public class ChatBot {
     private final Scanner inputScanner;
     private final Ui ui;
     private final CommandManager commandManager;
+    private Storage storage;
 
-    public ChatBot() {
+    public ChatBot(String filePath) {
         this.inputScanner = new Scanner(System.in);
         this.ui = new Ui();
-        this.commandManager = new CommandManager();
+        this.storage = new Storage(filePath);
+        this.commandManager = new CommandManager(this.ui,this.storage);
     }
 
     public void start() {
+        if (!commandManager.hasLoadSuccessful()) {
+            ui.printNoFileMessage();
+            System.exit(0);
+        }
         ui.greet();
         String line;
         boolean toExit = false;
@@ -25,13 +32,13 @@ public class ChatBot {
                 ui.promptEmptyInput();
                 continue;
             }
-            toExit = commandManager.handleCommand(ui,line);
+            toExit = commandManager.handleCommand(line);
         }
         inputScanner.close();
     }
 
     public static void main(String[] args) {
-        ChatBot esme = new ChatBot();
+        ChatBot esme = new ChatBot("tasklist.txt");
         esme.start();
     }
 }

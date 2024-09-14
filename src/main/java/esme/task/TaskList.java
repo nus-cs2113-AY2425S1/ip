@@ -22,6 +22,31 @@ public class TaskList {
         return tasks.size();
     }
 
+    public <T> String convertTaskToInputFormat(T task) {
+        String formattedTask = "";
+        if (task instanceof Todo) {
+            formattedTask = "todo " + ((Todo) task).getDescription() + " /c "
+                    + ((Todo) task).hasCompleted();
+        }
+        else if (task instanceof Event) {
+            formattedTask = "event " + ((Event) task).getDescription() + " /from " + ((Event) task).getFrom()
+                    + " /to " + ((Event) task).getTo() + " /c " + ((Event) task).hasCompleted();
+        }
+        else if (task instanceof Deadline) {
+            formattedTask = "deadline " + ((Deadline) task).getDescription() + " /by "
+                    + ((Deadline) task).getBy() + " /c " + ((Deadline) task).hasCompleted();
+        }
+        return formattedTask;
+    }
+
+    public ArrayList<String> getFormattedTasks() {
+        ArrayList<String> taskCollection = new ArrayList<>();
+        for (Task task : tasks) {
+            taskCollection.add(convertTaskToInputFormat(task));
+        }
+        return taskCollection;
+    }
+
     /**
      * Prints out the task list. The output will be in the format:
      * By the light of the moon, these are the tasks that guide your path:
