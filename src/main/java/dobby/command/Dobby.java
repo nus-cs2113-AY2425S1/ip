@@ -4,15 +4,14 @@ import dobby.tasks.Event;
 import dobby.tasks.Task;
 import dobby.tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dobby {
 
     private static final String DASH_LINE = "____________________________________________________________";
-    private static final int MAX_LIST_SIZE = 100;
-    private static final Task[] taskList = new Task[MAX_LIST_SIZE];
 
-    private static int listSize = 0;
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -68,12 +67,37 @@ public class Dobby {
             markTaskAsDone(line);
         } else if (line.startsWith("unmark ")) {
             unmarkTaskAsDone(line);
-        } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
+        } else if (isValidAddTaskCommand(line)) {
             addTask(line);
+        } else if (line.startsWith("delete ")) {
+            deleteTask(line);
         } else {
             throw new IllegalInputException();
         }
 
+    }
+
+    private static void deleteTask(String line) {
+        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        if (isValidTaskNumber(taskNumber)) {
+            Task t = taskList.get(taskNumber - 1);
+            taskList.remove(t);
+
+            printSeparator();
+            System.out.println("    Dobby is removing this task:");
+            System.out.println("        " + t);
+            System.out.println("    Dobby says master has " + taskList.size() + " remaining tasks!");
+            printSeparator();
+        } else {
+            printSeparator();
+            System.out.println("    Dobby says that task number does not exist!");
+            printSeparator();
+        }
+
+    }
+
+    private static boolean isValidAddTaskCommand(String line) {
+        return line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event");
     }
 
     private static void printWelcomeMessage() {
@@ -84,14 +108,14 @@ public class Dobby {
     }
 
     private static void printList() throws EmptyListException {
-        if (listSize == 0) {
+        if (taskList.isEmpty()) {
             throw new EmptyListException();
         }
 
         printSeparator();
         System.out.println("    Here are the tasks in master's list:");
-        for (int i = 1; i <= listSize; i++) {
-            Task t = taskList[i-1];
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task t = taskList.get(i-1);
             System.out.println("    " + i + "." + t);
         }
         printSeparator();
@@ -100,7 +124,7 @@ public class Dobby {
     private static void addTask (String line) throws MissingDescriptionException {
         Task task = createTask(line);
         if (task != null) {
-            addTaskToList(task);
+            taskList.add(task);
             printTaskAddedMessage();
         }
     }
@@ -144,18 +168,11 @@ public class Dobby {
         return new Event(taskDescription, fromTime, toTime);
     }
 
-    private static void addTaskToList(Task task) throws IndexOutOfBoundsException{
-        if (listSize >= MAX_LIST_SIZE) {
-            throw new IndexOutOfBoundsException();
-        }
-        taskList[listSize++] = task;
-    }
-
     private static void printTaskAddedMessage() {
         printSeparator();
         System.out.println("    Dobby has added this task:");
-        System.out.println("      " + taskList[listSize-1]);
-        System.out.println("    Dobby says master has " + Task.getNumberOfTasks() + " tasks in the list!");
+        System.out.println("      " + taskList.get(taskList.size()-1));
+        System.out.println("    Dobby says master has " + taskList.size() + " tasks in the list!");
         printSeparator();
     }
 
@@ -168,7 +185,7 @@ public class Dobby {
     private static void markTaskAsDone(String line) throws TaskAlreadyMarkedException {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (isValidTaskNumber(taskNumber)){
-            Task task = taskList[taskNumber-1];
+            Task task = taskList.get(taskNumber-1);
             if (task.isDone()){
                 throw new TaskAlreadyMarkedException();
             }
@@ -180,7 +197,7 @@ public class Dobby {
     private static void unmarkTaskAsDone(String line) throws TaskAlreadyUnmarkedException {
         int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
         if (isValidTaskNumber(taskNumber)) {
-            Task task = taskList[taskNumber-1];
+            Task task = taskList.get(taskNumber-1);
             if (!task.isDone()){
                 throw new TaskAlreadyUnmarkedException();
             }
@@ -190,7 +207,7 @@ public class Dobby {
     }
 
     private static boolean isValidTaskNumber(int taskNumber) {
-        return taskNumber > 0 && taskNumber <= listSize;
+        return taskNumber > 0 && taskNumber <= taskList.size();
     }
 
     private static void printTaskStatus(String status, int taskNumber) {
@@ -200,7 +217,7 @@ public class Dobby {
         } else if ("incomplete".equals(status)) {
             System.out.println("    Dobby has marked this task as incomplete:");
         }
-        System.out.println("      " + taskList[taskNumber-1]);
+        System.out.println("      " + taskList.get(taskNumber-1));
         printSeparator();
     }
 
