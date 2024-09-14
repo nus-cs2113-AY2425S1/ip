@@ -25,16 +25,31 @@ public class Ui {
         displayLine(true);
     }
 
+    public int generateIndex(String str) throws EsmeException {
+        int index;
+        try {
+            index = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            throw new EsmeException(str + " is not a number!");
+        }
+        return index;
+    }
+
     public void deleteTaskFromList(String[] words) {
+        String command = words[0];
         String description;
         try {
-            int index = Integer.parseInt(words[1]);
+            if (words.length != 2) {
+                throw new EsmeException("Error: Wrong format! Please use the format: command index (e.g., '" +
+                        command + " 1')");
+            }
+            int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
                         "boundaries of our list!");
             }
             description = taskList.deleteTask(index);
-        } catch (IndexOutOfBoundsException | EsmeException e) {
+        } catch (EsmeException e) {
             displayLine(true);
             System.out.println("\t" + e.getMessage());
             displayLine(true);
@@ -146,7 +161,7 @@ public class Ui {
                 throw new EsmeException("Error: Wrong format! Please use the format: command index (e.g., '" +
                         command + " 1')");
             }
-            int index = Integer.parseInt(words[1]);
+            int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
                         "boundaries of our list!");
