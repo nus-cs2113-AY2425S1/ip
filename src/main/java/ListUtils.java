@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ListUtils {
     //class to store task
-    private static class Task {
+    public static class Task {
         String description;
         boolean isDone;
         Task(String description) {
@@ -70,36 +70,32 @@ public class ListUtils {
 
     //create methods to add each respective task subclasses
 
+    public static void addTaskToList(Task task) {
+        userInputs.add(task);
+        System.out.println(" ____________________________________________________________");
+        System.out.println("added: ");
+        System.out.println("    " + task);
+        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
+        System.out.println(" ____________________________________________________________");
+    }
+
+    // Adding Todo task
     public static void addTodoToList(String description) {
         Todo todo = new Todo(description);
-        userInputs.add(todo);
-        System.out.println(" ____________________________________________________________");
-        System.out.println("added: ");
-        System.out.println("    " + todo);
-        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
-        System.out.println(" ____________________________________________________________");
+        addTaskToList(todo); // Reuse the helper method
     }
 
+    // Adding Deadline task
     public static void addDeadlineToList(String description, String by) {
         Deadline deadline = new Deadline(description, by);
-        userInputs.add(deadline);
-        System.out.println(" ____________________________________________________________");
-        System.out.println("added: ");
-        System.out.println("    " + deadline);
-        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
-        System.out.println(" ____________________________________________________________");
+        addTaskToList(deadline); // Reuse the helper method
     }
 
+    // Adding Event task
     public static void addEventToList(String description, String from, String to) {
         Event event = new Event(description, from, to);
-        userInputs.add(event);
-        System.out.println(" ____________________________________________________________");
-        System.out.println("added: ");
-        System.out.println("    " + event);
-        System.out.println("you have " + userInputs.size() + " quaggin tasks to do! get to work!");
-        System.out.println(" ____________________________________________________________");
+        addTaskToList(event); // Reuse the helper method
     }
-
     public static void displayList() {
         if (!userInputs.isEmpty()) {
             System.out.println(" ____________________________________________________________");
@@ -151,5 +147,14 @@ public class ListUtils {
         } else {
             System.out.println("invalid task number! quag");
         }
+    }
+
+    public static void deleteTask(int taskIndex) {
+        System.out.println(" ____________________________________________________________");
+        System.out.println("quag! deleted this task :");
+        System.out.println("  " + userInputs.get(taskIndex - 1));
+        userInputs.remove(taskIndex - 1);
+        System.out.println("You have " + userInputs.size() + " quaggin tasks to do! get to work!");
+        System.out.println(" ____________________________________________________________");
     }
 }

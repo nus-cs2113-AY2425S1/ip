@@ -35,6 +35,9 @@ public class Quag {
                 case "event":
                     addEvent(userInput);
                     break;
+                case "delete":
+                    deleteTask(userInput);
+                    break;
                 default:
                     displayCommandList(userInput);
                     break;
@@ -144,18 +147,34 @@ public class Quag {
 
     }
 
+    private static void deleteTask(String userInput) {
+        String[] parts = userInput.split(" ");
+        if (parts.length >= 2) {
+            try {
+                int taskIndex = Integer.parseInt(parts[1]);
+                ListUtils.deleteTask(taskIndex);
+            } catch (NumberFormatException e) {
+                System.out.println("That's not a quaggin number!!");
+            }
+        } else {
+            System.out.println("There's no quaggin number!!");
+        }
+    }
+
     private static void displayCommandList(String userInput) {
         //displays all the commands available and their descriptions
         System.out.println(userInput + " is not a valid command!");
         System.out.println("list of all quaggin commands:");
-        System.out.println("_______________________________________");
+        System.out.println("______________________________________________________________________________");
         System.out.println("list: lists out all your tasks");
         System.out.println("mark <index>: marks task corresponding to index");
         System.out.println("unmark <index>: unmarks task corresponding to index");
         System.out.println("todo <description>: adds task type todo to list");
         System.out.println("deadline <description> /by <date>: adds task type deadline to list");
         System.out.println("event <description> /from <date> /to <date>: adds task type event to list");
+        System.out.println("delete <index>: delete task corresponding to index");
         System.out.println("quag: exit program");
+        System.out.println("______________________________________________________________________________");
 
     }
 }
