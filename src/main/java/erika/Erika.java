@@ -138,6 +138,18 @@ public class Erika {
             deleteEntry(line);
         }
     }
+    private static void deleteEntry(String line) throws EmptyDescriptionException {
+        if (!line.contains("delete ")) {
+            throw new EmptyDescriptionException("delete");
+        }
+        markIndex = extractTaskIndex(line);
+        if (markIndex <= 0 || markIndex > Task.getTaskArraySize()) {
+            throw new IndexOutOfBoundsException();
+        }
+        printDeletedMessage();
+        tasks.remove(markIndex-1);
+        Task.decrementTaskArraySize();
+    }
         if (!line.contains("mark ")) {
             throw new EmptyDescriptionException("mark");
         }
