@@ -130,7 +130,6 @@ public class Erika {
         printAddedMessage(newTodo);
     }
 
-    private static void handleMark(String line) throws IndexOutOfBoundsException, EmptyDescriptionException{
     private static void indexOperation(String line, boolean isDelete) throws IndexOutOfBoundsException, EmptyDescriptionException{
         if(!isDelete) {
             markEntry(line);
