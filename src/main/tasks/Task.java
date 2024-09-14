@@ -41,6 +41,15 @@ public class Task {
     }
 
     /**
+     * Returns the isDone status of the task.
+     *
+     * @return A boolean representing if the task is done.
+     */
+    public boolean getIsDone() {
+        return this.isDone; // Mark done task with X
+    }
+
+    /**
      * Returns the description of the task.
      *
      * @return The description of the task.
