@@ -246,6 +246,14 @@ public class Nell {
                 }
                 break;
 
+            case "remove":
+                try {
+                    removeTask(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(REMOVE_ERROR_MESSAGE);
+                }
+                break;
+                
             default:
                 handleIncorrectInput();
                 break;
