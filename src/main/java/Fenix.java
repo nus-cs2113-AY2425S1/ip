@@ -1,16 +1,7 @@
 import java.util.Scanner;
 
-public class Fenix {
+public class Fenix implements SampleStrings {
 
-    public static final int HORIZONTAL_LINE_USER_COMMAND_LENGTH = 70;
-    public static final int HORIZONTAL_LINE_FENIX_MODIFICATION_LENGTH = 62;
-    public static final String HORIZONTAL_LINE_USER_COMMAND = "~".repeat(HORIZONTAL_LINE_USER_COMMAND_LENGTH);
-    public static final String HORIZONTAL_LINE_FENIX_MODIFICATION =
-            "\t\t" + "*".repeat(HORIZONTAL_LINE_FENIX_MODIFICATION_LENGTH);
-    public static final String ADD = "added: ";
-    public static final String GREETING = "Greetings. I am Fenix, your digital assistant.";
-    public static final String SERVICE_PROMPT = "How may I be of service to you today?";
-    public static final String FAREWELL = "It has been a pleasure assisting you. Farewell.";
     public static int taskNumber = 0;
     public static Task[] taskArray = new Task[100];
     private final Scanner scanner;
@@ -18,6 +9,22 @@ public class Fenix {
     // Constructor
     public Fenix() {
         this.scanner = new Scanner(System.in);
+    }
+
+    private static String getType(String userInput) {
+        try {
+            return (userInput.split(" ", 2))[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    private static String getInformation(String userInput) {
+        try {
+            return (userInput.split(" ", 2))[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void greet() {
@@ -52,9 +59,13 @@ public class Fenix {
         case "unmark":
             unmarkAsDone(words);
             break;
-        default:
+        case "todo":
+        case "deadline":
+        case "event":
             processTasks(userInput);
             break;
+        default:
+            System.out.println("Please provide a valid command");
         }
         acceptUserInput();
     }
@@ -66,38 +77,55 @@ public class Fenix {
     }
 
     public void showAllTasks(boolean isModified) {
-        String modifiedString = (isModified ? "\t" : "");
-        for (int i = 0; i < taskArray.length && taskArray[i] != null; i += 1) {
-            System.out.println(modifiedString + "\t" + (i + 1) + ". " + taskArray[i].toString());
+        String index;
+        String task;
+        String extraSpace = (isModified ? "\t" : "");
+        String space = extraSpace + "\t";
+        for (int i = 0; i < taskArray.length && !isNullElement(i); i += 1) {
+            index = (i + 1) + ". ";
+            task = taskArray[i].toString();
+            System.out.println(space + index + task);
         }
+    }
+
+    public boolean isNullElement(int i) {
+        return taskArray[i] == null;
     }
 
     private void markAsDone(String[] words) {
-        boolean hasTask = words.length > 1;
-        if (hasTask && isValidTaskIndex(words[1])) {
-            int taskIndex = Integer.parseInt(words[1]) - 1;
-            markTaskAsDone(taskIndex);
-        } else {
-            System.out.println("Please provide a valid task number to mark");
+        try {
+            String taskNumber = words[1];
+            if (isValidTaskNumber(taskNumber)) {
+                int taskIndex = Integer.parseInt(taskNumber) - 1;
+                markTaskAsDone(taskIndex);
+            } else {
+                System.out.println("Please provide a valid task number to mark");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please provide a task");
         }
     }
 
-    private void unmarkAsDone(String[] words) {
-        boolean hasTask = words.length > 1;
-        if (hasTask && isValidTaskIndex(words[1])) {
-            int taskIndex = Integer.parseInt(words[1]) - 1;
-            unmarkTaskAsDone(taskIndex);
-        } else {
-            System.out.println("Please provide a valid task number to unmark");
-        }
-    }
-
-    private boolean isValidTaskIndex(String input) {
+    private boolean isValidTaskNumber(String input) {
         try {
             int index = Integer.parseInt(input);
             return index > 0 && index <= taskNumber;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    private void unmarkAsDone(String[] words) {
+        try {
+            String taskNumber = words[1];
+            if (isValidTaskNumber(taskNumber)) {
+                int taskIndex = Integer.parseInt(taskNumber) - 1;
+                unmarkTaskAsDone(taskIndex);
+            } else {
+                System.out.println("Please provide a valid task number to unmark");
+            }
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+            System.out.println("Please provide a task");
         }
     }
 
@@ -120,13 +148,15 @@ public class Fenix {
     public void processTasks(String userInput) {
         String type = getType(userInput);
         String information = getInformation(userInput);
-        if (type == null || information == null) {
-            System.out.println("Please provide a command with more than one word");
+        if (type == null || type.isBlank()) {
+            System.out.println("Please provide a command");
+            return;
+        } else if (information == null || information.isBlank()) {
+            System.out.println("Please provide a task");
             return;
         }
         Task task = returnTaskObject(type, information);
         if (task == null) {
-            System.out.println("Please provide a valid command for the task type");
             return;
         }
         storeTask(task);
@@ -136,33 +166,26 @@ public class Fenix {
         System.out.println("You now have " + taskNumber + " tasks awaiting your attention.");
     }
 
-    private static String getType(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[0];
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    private static String getInformation(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[1];
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
     private Task returnTaskObject(String type, String information) {
         switch (type) {
         case "todo":
             return new Todo(information);
         case "deadline":
-            return new Deadline(information);
+            try {
+                return new Deadline(information);
+            } catch (IllegalArgumentException | FenixException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         case "event":
-            return new Event(information);
+            try {
+                return new Event(information);
+            } catch (IllegalArgumentException | FenixException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         default:
+            System.out.println("Please provide a valid command for the task type");
             return null;
         }
     }
