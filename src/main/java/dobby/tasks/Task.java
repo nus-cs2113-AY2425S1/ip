@@ -3,12 +3,10 @@ public class Task {
 
     private String description;
     private boolean isDone;
-    public static int numberOfTasks;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numberOfTasks++;
     }
 
     public String getDescription() {
@@ -28,10 +26,6 @@ public class Task {
             return "[X] " + description;
         }
         return "[ ] " + description;
-    }
-
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
     }
 
     public boolean isDone() {

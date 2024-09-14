@@ -67,12 +67,37 @@ public class Dobby {
             markTaskAsDone(line);
         } else if (line.startsWith("unmark ")) {
             unmarkTaskAsDone(line);
-        } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
+        } else if (isValidAddTaskCommand(line)) {
             addTask(line);
+        } else if (line.startsWith("delete ")) {
+            deleteTask(line);
         } else {
             throw new IllegalInputException();
         }
 
+    }
+
+    private static void deleteTask(String line) {
+        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        if (isValidTaskNumber(taskNumber)) {
+            Task t = taskList.get(taskNumber - 1);
+            taskList.remove(t);
+
+            printSeparator();
+            System.out.println("    Dobby is removing this task:");
+            System.out.println("        " + t);
+            System.out.println("    Dobby says master has " + taskList.size() + " remaining tasks!");
+            printSeparator();
+        } else {
+            printSeparator();
+            System.out.println("    Dobby says that task number does not exist!");
+            printSeparator();
+        }
+
+    }
+
+    private static boolean isValidAddTaskCommand(String line) {
+        return line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event");
     }
 
     private static void printWelcomeMessage() {
@@ -147,7 +172,7 @@ public class Dobby {
         printSeparator();
         System.out.println("    Dobby has added this task:");
         System.out.println("      " + taskList.get(taskList.size()-1));
-        System.out.println("    Dobby says master has " + Task.getNumberOfTasks() + " tasks in the list!");
+        System.out.println("    Dobby says master has " + taskList.size() + " tasks in the list!");
         printSeparator();
     }
 
