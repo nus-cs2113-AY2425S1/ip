@@ -100,7 +100,7 @@ public class Appal {
             }
             printOneTask(taskToMark);
             printSeparator();
-        } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
     }
