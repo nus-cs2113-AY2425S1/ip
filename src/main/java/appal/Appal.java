@@ -18,6 +18,7 @@ public class Appal {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_DELETE = "delete";
     public static final int COMMAND_INDEX = 0;
 
     // Integer constants for specific type of tasks
@@ -40,6 +41,7 @@ public class Appal {
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
+    public static final String DELETE_TASK_MESSAGE = "The task below has been removed, it's always okay to change your mind!";
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
 
     // Attributes
@@ -136,6 +138,22 @@ public class Appal {
         taskList.add(newEvent);
     }
 
+    public void deleteTask(String[] inputDetails) throws AppalException {
+        try {
+            int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
+            int listIndex = taskId - 1;
+            Task taskToDelete = taskList.get(listIndex);
+            taskList.remove(listIndex);
+            Task.setTotalTasks(Task.getTotalTasks() - 1);
+            printSeparator();
+            System.out.println(DELETE_TASK_MESSAGE);
+            printOneTask(taskToDelete);
+            printSeparator();
+        } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException();
+        }
+    }
+
     public void exitAppal() {
         isExited = true;
         printMessage(BYE_MESSAGE);
@@ -171,6 +189,9 @@ public class Appal {
                 break;
             case COMMAND_UNMARK:
                 markTask(inputDetails, false);
+                break;
+            case COMMAND_DELETE:
+                deleteTask(inputDetails);
                 break;
             default:
                 throw new AppalException();

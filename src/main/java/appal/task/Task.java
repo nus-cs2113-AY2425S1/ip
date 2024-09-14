@@ -27,15 +27,15 @@ public class Task {
         this.task = task;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
     public static int getTotalTasks() {
         return totalTasks;
+    }
+
+    public static void setTotalTasks(int totalTasks) {
+        Task.totalTasks = totalTasks;
     }
 }
