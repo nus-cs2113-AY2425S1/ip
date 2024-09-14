@@ -26,6 +26,8 @@ public class CommandHandler {
             handleDeadline(command);
         } else if (dissectedCommand[0].equals("event")) {
             handleEvent(command);
+        } else if (dissectedCommand[0].equals("delete")) {
+            handleDelete(dissectedCommand);
         } else {
             handleUnknown();
         }
@@ -122,6 +124,23 @@ public class CommandHandler {
             System.out.println("Please input the index of the task you wish to mark.");
         } catch (NumberFormatException e) {
             System.out.println("Index to mark should be a number.");
+        }
+    }
+
+    private static void handleDelete (String[] dissectedCommand) {
+        try {
+            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            if (TaskList.isValidTaskId(taskId)) {
+                System.out.println("Ok, I've removed this task:");
+                System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
+                TaskList.deleteTask(taskId);
+            } else {
+                System.out.println("Invalid task ID.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input the index of the task you wish to unmark.");
+        } catch (NumberFormatException e) {
+            System.out.println("Index to unmark should be a number.");
         }
     }
 

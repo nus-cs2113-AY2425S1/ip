@@ -21,6 +21,10 @@ public class TaskList {
         tasks.get(taskId).markAsUndone();
     }
 
+    public static void deleteTask (int taskId) {
+        tasks.remove(taskId);
+    }
+
     public static String getSingleTaskDetails (int taskId) {
         return tasks.get(taskId).getNameWithStatus();
     }
