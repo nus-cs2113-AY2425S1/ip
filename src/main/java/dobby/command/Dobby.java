@@ -4,6 +4,12 @@ import dobby.tasks.Event;
 import dobby.tasks.Task;
 import dobby.tasks.Todo;
 
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
+
 import java.util.Scanner;
 
 public class Dobby {
@@ -11,10 +17,13 @@ public class Dobby {
     private static final String DASH_LINE = "____________________________________________________________";
     private static final int MAX_LIST_SIZE = 100;
     private static final Task[] taskList = new Task[MAX_LIST_SIZE];
-
+    private static final String FILE_PATH = "./data/dobby.txt";
+    private static final String DIRECTORY_PATH = "./data";
     private static int listSize = 0;
 
     public static void main(String[] args) {
+
+        loadTasks();
 
         try (Scanner in = new Scanner(System.in)) {
             printWelcomeMessage();
@@ -26,36 +35,104 @@ public class Dobby {
                 }
                 try {
                     processCommand(line);
-                } catch (MissingDescriptionException e) {
-                    printSeparator();
-                    System.out.println("    Dobby thinks master should add a description here!");
-                    printSeparator();
-                } catch (IllegalInputException e) {
-                    printSeparator();
-                    System.out.println("    Dobby doesn't understand master's command!");
-                    printSeparator();
-                } catch (TaskAlreadyMarkedException e) {
-                    printSeparator();
-                    System.out.println("    Dobby says master's task is already marked!");
-                    printSeparator();
-                } catch (TaskAlreadyUnmarkedException e) {
-                    printSeparator();
-                    System.out.println("    Dobby says master's task is already unmarked!");
-                    printSeparator();
-                } catch (EmptyListException e) {
-                    printSeparator();
-                    System.out.println("    Dobby says master's list is empty!");
-                    printSeparator();
-                } catch (IndexOutOfBoundsException e) {
-                    printSeparator();
-                    System.out.println("    Dobby says master's list is full!");
-                    printSeparator();
+                } catch (Exception e) {
+                    handleExceptions(e);
                 }
             }
 
+            saveTasks();
             printGoodbyeMessage();
         }
 
+    }
+
+    private static void loadTasks() {
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = parseTaskFromFile(line);
+                    if (task != null) {
+                        taskList[listSize++] = task;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            }
+        }
+    }
+
+    private static void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (int i = 0; i < listSize; i++) {
+                writer.println(formatTaskForFile(taskList[i]));
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the tasks.");
+        }
+    }
+
+    private static String formatTaskForFile(Task task) {
+        String type = task.getClass().getSimpleName();
+        String status = task.isDone() ? "1" : "0";
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return type + "|" + status + "|" + deadline.getDescription() + "|" + deadline.getBy();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return type + "|" + status + "|" + event.getDescription() + "|" + event.getFromTime() + "|" + event.getToTime();
+        } else if (task instanceof Todo) {
+            return type + "|" + status + "|" + task.getDescription();
+        } else {
+            return type + "|" + status + "|" + task.getDescription();
+        }
+    }
+
+    private static Task parseTaskFromFile(String line) {
+        String[] parts = line.split("\\|");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+
+        switch (type) {
+        case "Todo":
+            Todo todo = new Todo(parts[2]);
+            if (isDone) todo.markAsDone();
+            return todo;
+        case "Deadline":
+            Deadline deadline = new Deadline(parts[2], parts[3]);
+            if (isDone) deadline.markAsDone();
+            return deadline;
+        case "Event":
+            Event event = new Event(parts[2], parts[3], parts[4]);
+            if (isDone) event.markAsDone();
+            return event;
+        default:
+            return null;
+        }
+    }
+
+    private static void handleExceptions(Exception e) {
+        printSeparator();
+        if (e instanceof MissingDescriptionException) {
+            System.out.println("    Dobby thinks master should add a description here!");
+        } else if (e instanceof IllegalInputException) {
+            System.out.println("    Dobby doesn't understand master's command!");
+        } else if (e instanceof TaskAlreadyMarkedException) {
+            System.out.println("    Dobby says master's task is already marked!");
+        } else if (e instanceof TaskAlreadyUnmarkedException) {
+            System.out.println("    Dobby says master's task is already unmarked!");
+        } else if (e instanceof EmptyListException) {
+            System.out.println("    Dobby says master's list is empty!");
+        } else if (e instanceof IndexOutOfBoundsException) {
+            System.out.println("    Dobby says master's list is full!");
+        }
+        printSeparator();
     }
 
     private static void processCommand (String line)
