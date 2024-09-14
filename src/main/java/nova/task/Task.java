@@ -18,6 +18,10 @@ public class Task {
         return numberOfTasks;
     }
 
+    public static void removeTask() {
+        numberOfTasks--;
+    }
+
     public void markDone() {
         this.isDone = true;
     }

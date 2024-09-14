@@ -7,7 +7,7 @@ public class Nova {
     public static void main(String[] args) {
         MessageDisplay.displayWelcomeMessage();
         TaskManager taskManager = new TaskManager();
-        InputValidator inputValidator = new InputValidator(taskManager);
+        InputValidator inputValidator = new InputValidator();
         CommandHandler commandHandler = new CommandHandler(taskManager, inputValidator);
         Scanner sc = new Scanner(System.in);
 
