@@ -40,6 +40,11 @@ public class Task {
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
+    public static void addTaskWithoutResponse(Task task){
+        listOfTasks.add(task);
+        listLength++;
+    }
+
     public static void setAsDone(int listNumber){
         Task currentTask = listOfTasks.get(listNumber-1);
         System.out.println("Nice! I've marked this task as done:");
@@ -59,5 +64,9 @@ public class Task {
         for(int i = 0; i < listLength; i++){
             System.out.printf("%d." + listOfTasks.get(i) + "\n", i+1);
         }
+    }
+
+    public String convertToFileFormat(){
+        return "T" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
 }

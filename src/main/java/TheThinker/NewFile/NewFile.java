@@ -1,32 +1,86 @@
 package TheThinker.NewFile;
+import TheThinker.Command.TheThinker;
+import TheThinker.Tasks.Deadline;
+import TheThinker.Tasks.Event;
+import TheThinker.Tasks.Task;
+import TheThinker.Tasks.Todo;
+import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class NewFile {
 
     public File file;
 
     public NewFile(String filename) {
-        this.file = new File("Data/" + filename);
+        this.file = new File("src/main/java/TheThinker/Data/" + filename);
     }
 
-    public String[] getLines() throws FileNotFoundException {
+    public File getFile(){
+        return this.file;
+    }
+
+    public void loadFile() throws FileNotFoundException {
         Scanner SCANNER = new Scanner(this.file);
-        ArrayList<String> listInputs =new ArrayList<>();
+
         while (SCANNER.hasNext()) {
-            listInputs.add(SCANNER.nextLine());
+            String input = SCANNER.nextLine();
+            String[] parameters = input.split(" \\| ");
+            doAccordingToParameters(parameters);
         }
 
-        String [] arrayInputs = new String[listInputs.size()];
-        arrayInputs = listInputs.toArray(arrayInputs);
-        return arrayInputs;
+        System.out.println("File data loaded");
+        TheThinker.printSeparation();
+        Task.listTasks();
     }
 
-    public void writeTaskToFile(){
+    public void doAccordingToParameters(String[] parameters){
+        switch (parameters[0]) {
+            case "T" :
+                Task.addTaskWithoutResponse(new Todo(parameters[2]));
+                if(Boolean.parseBoolean(parameters[1])){
+                    Task.setAsDone(Task.listLength);
+                }
+                break;
+            case "E" :
+                Task.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
+                if(Boolean.parseBoolean(parameters[1])){
+                    Task.setAsDone(Task.listLength);
+                }
+                break;
 
+            case "D" :
+                Task.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
+                if(Boolean.parseBoolean(parameters[1])){
+                    Task.setAsDone(Task.listLength);
+                }
+                break;
+
+            default :
+                System.out.println("Wrong task type");
+                break;
+        }
     }
+
+    public void writeTaskToFile() throws IOException {
+        FileWriter fw = new FileWriter(this.file);
+        String textToAdd = convertTaskListToString();
+        fw.write(textToAdd);
+        //System.out.println("File data written");
+        fw.close();
+    }
+
+    public String convertTaskListToString(){
+        String TaskListString = "";
+        for(Task task : Task.listOfTasks) {
+            String taskInFileFormat = task.convertToFileFormat();
+            TaskListString += (taskInFileFormat + "\n");
+        }
+        return TaskListString;
+    }
+
+
 
 }

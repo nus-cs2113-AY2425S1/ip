@@ -15,4 +15,9 @@ public class Event extends Task{
         char maskingChar = isMarkedAsDone ? 'X' : ' ';
         return " [" + taskType + "][" + maskingChar + "] " + taskDescription + " (from: " + startTime +" to: " + endTime + ")";
     }
+
+    @Override
+    public String convertToFileFormat(){
+        return "E" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + startTime + " | " + endTime;
+    }
 }
