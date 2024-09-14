@@ -190,6 +190,10 @@ public class Erika {
         printMessage(message);
     }
 
+    private static void printDeletedMessage() {
+        String message = "Nice! I've deleted this task:\n" + "\t" + tasks.get(markIndex-1);
+        printMessage(message);
+    }
     private static void printMarkedMessage() {
         String message = "Nice! I've marked this task as done:\n" + "\t[X] " +
                 tasks.get(markIndex-1).getDescription();
