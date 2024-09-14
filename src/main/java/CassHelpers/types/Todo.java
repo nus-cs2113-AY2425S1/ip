@@ -1,4 +1,4 @@
-package CassHelpers.Tasks;
+package CassHelpers.types;
 
 public class Todo extends Task{
 
@@ -9,5 +9,9 @@ public class Todo extends Task{
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    public String toWritableString(){
+        return "T"+super.toWritableString();
     }
 }

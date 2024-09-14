@@ -1,10 +1,10 @@
-package CassHelpers.Tasks;
+package CassHelpers.types;
 
 public class Task {
     protected String taskName;
     protected boolean isCompleted;
 
-    Task(String taskName){
+    public Task(String taskName){
         setTaskName(taskName);
         setCompleted(false);
     }
@@ -23,6 +23,10 @@ public class Task {
     @Override
     public String toString(){
         return ("["+(this.getStatusIcon())+"] "+this.getTaskName());
+    }
+
+    public String toWritableString(){
+        return ","+(this.isCompleted?1:0)+","+this.getTaskName();
     }
 
     public void setCompleted(boolean completed) {

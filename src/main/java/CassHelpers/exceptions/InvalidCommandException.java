@@ -1,4 +1,4 @@
-package CassHelpers.Exceptions;
+package CassHelpers.exceptions;
 
 public class InvalidCommandException extends RuntimeException {
     public InvalidCommandException(String message) {

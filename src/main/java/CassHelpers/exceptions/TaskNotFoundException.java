@@ -1,4 +1,4 @@
-package CassHelpers.Exceptions;
+package CassHelpers.exceptions;
 
 public class TaskNotFoundException extends RuntimeException {
     public TaskNotFoundException(String message) {
