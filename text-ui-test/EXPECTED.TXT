@@ -8,6 +8,7 @@ What can I do for you?
       todo <description>
       deadline <description> /by <by-date>
       event <description> /from <from-date> /to <to-date>
+      remove <number>
       bye
 -> The tasks listed are as follows:
 -> Invalid task!
@@ -54,5 +55,12 @@ What can I do for you?
    1. [T][ ] buy bread
    2. [D][ ] submit assignment (by: 3/9/2024 2359)
    3. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
+-> The following task has been removed from the list:
+   [T][ ] buy bread
+   The list now has 2 tasks
+-> The tasks listed are as follows:
+   1. [D][ ] submit assignment (by: 3/9/2024 2359)
+   2. [E][X] CS2113 tP project meeting (from: 2/9/2024 2000 to: 2/9/2024 2100)
 -> Bye. Hope to see you again soon!
+
 

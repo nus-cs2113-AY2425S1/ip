@@ -29,6 +29,10 @@ public class Nell {
                   event <description> /from <from-date> /to <to-date>
             """;
     public static final String INVALID_TASK_MESSAGE = "-> Invalid task!";
+    private static final String REMOVE_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  remove <task number>
+            """;
 
     private static TaskList tasks = new TaskList();
 
@@ -110,8 +114,6 @@ public class Nell {
             System.out.print(UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
-        } catch (NullPointerException e) {
-            System.out.println(INVALID_TASK_MESSAGE);
         }
     }
 
@@ -130,7 +132,21 @@ public class Nell {
             System.out.print(MARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
-        } catch (NullPointerException e) {
+        }
+    }
+
+    /**
+     * Removes a task from the list
+     *
+     * @param taskNumber The command body
+     */
+    private static void removeTask(String taskNumber) {
+        try {
+            int taskIndex = Integer.parseInt(taskNumber);
+            tasks.removeTask(taskIndex - 1);
+        } catch (NumberFormatException e) {
+            System.out.print(REMOVE_ERROR_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK_MESSAGE);
         }
     }
@@ -148,6 +164,7 @@ public class Nell {
                       todo <description>
                       deadline <description> /by <by-date>
                       event <description> /from <from-date> /to <to-date>
+                      remove <number>
                       bye
                 """);
     }
@@ -227,6 +244,14 @@ public class Nell {
                     addEvent(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(EVENT_ERROR_MESSAGE);
+                }
+                break;
+
+            case "remove":
+                try {
+                    removeTask(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(REMOVE_ERROR_MESSAGE);
                 }
                 break;
 
