@@ -18,4 +18,6 @@ list
 unmark 2
 mark 3
 list
+remove 1
+list
 bye

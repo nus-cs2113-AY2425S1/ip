@@ -164,6 +164,7 @@ public class Nell {
                       todo <description>
                       deadline <description> /by <by-date>
                       event <description> /from <from-date> /to <to-date>
+                      remove <number>
                       bye
                 """);
     }
@@ -253,7 +254,7 @@ public class Nell {
                     System.out.print(REMOVE_ERROR_MESSAGE);
                 }
                 break;
-                
+
             default:
                 handleIncorrectInput();
                 break;
