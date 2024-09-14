@@ -48,4 +48,8 @@ public class Task {
     public static void incrementTaskArraySize() {
         taskArraySize++;
     }
+
+    public static void decrementTaskArraySize() {
+        taskArraySize--;
+    }
 }
