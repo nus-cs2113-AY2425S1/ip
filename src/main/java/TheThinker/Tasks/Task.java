@@ -67,6 +67,6 @@ public class Task {
     }
 
     public String convertToFileFormat(){
-        return "T" + " | " + isMarkedAsDone + " | " + taskDescription;
+        return "NIL" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
 }

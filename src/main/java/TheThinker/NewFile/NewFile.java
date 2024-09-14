@@ -15,6 +15,13 @@ public class NewFile {
     public File file;
 
     public NewFile(String filename) {
+        File directory = new File("src/main/java/TheThinker/Data");
+
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.out.println("Directory Data does not exist");
+            System.out.println("Please create Package /Data under src/main/java/TheThinker/");
+        }
+
         this.file = new File("src/main/java/TheThinker/Data/" + filename);
     }
 
@@ -73,12 +80,12 @@ public class NewFile {
     }
 
     public String convertTaskListToString(){
-        String TaskListString = "";
+        StringBuilder TaskListString = new StringBuilder();
         for(Task task : Task.listOfTasks) {
             String taskInFileFormat = task.convertToFileFormat();
-            TaskListString += (taskInFileFormat + "\n");
+            TaskListString.append(taskInFileFormat).append("\n");
         }
-        return TaskListString;
+        return TaskListString.toString();
     }
 
 

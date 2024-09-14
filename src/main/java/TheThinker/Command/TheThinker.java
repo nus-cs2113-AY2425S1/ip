@@ -21,7 +21,7 @@ public class TheThinker {
             data = new NewFile("TaskContents.txt");
             data.loadFile();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. No data loaded");
+            System.out.println("File not found. No data loaded. Please create the file under Data directory");
         }
 
         printGreeting();
