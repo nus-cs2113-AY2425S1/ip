@@ -25,6 +25,7 @@ public class TodoList {
 
     public void saveTask(Task input){
         taskList.add(input);
+        fileUtil.appendTasktoFile(input);
         System.out.println("Got it. I've added this task: \n "+ input.toString());
         printCurrentListSize();
     }
@@ -35,6 +36,7 @@ public class TodoList {
         } else {
             String removedTaskDescription = taskList.get(index - 1).toString();
             taskList.remove(index - 1);
+            fileUtil.writeTasksToFile(this.taskList);
             System.out.println(" Noted, I've removed this task: ");
             System.out.println("  "+removedTaskDescription);
             printCurrentListSize();
@@ -48,6 +50,7 @@ public class TodoList {
             throw new TaskAlreadyMarkedException("Task has already been marked complete");
         } else {
             taskList.get(index - 1).setCompleted(true);
+            this.fileUtil.writeTasksToFile(this.taskList);
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println(" " + taskList.get(index - 1).toString());
         }
@@ -60,6 +63,7 @@ public class TodoList {
             throw new TaskAlreadyUnmarkedException("Task has already been marked incomplete");
         } else {
             taskList.get(index - 1).setCompleted(false);
+            this.fileUtil.writeTasksToFile(this.taskList);
             System.out.println(" OK, I've marked this task as not done yet: ");
             System.out.println(" " + taskList.get(index - 1).toString());
         }
@@ -117,9 +121,5 @@ public class TodoList {
         String deadlineTaskName = input.substring(0, byIndex).trim();
 
         saveTask(new Deadline(deadlineTaskName, by));
-    }
-
-    public void storeTasks() throws IOException {
-        fileUtil.writeTaskToFile(this.taskList);
     }
 }

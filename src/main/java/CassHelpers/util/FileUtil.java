@@ -19,7 +19,21 @@ public class FileUtil {
         this.fileName = fileName;
     }
 
-    public void writeTaskToFile(ArrayList<Task> taskList) {
+    public void appendTasktoFile(Task task) {
+        try {
+            File file = new File(this.fileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fileWriter = new FileWriter(this.fileName, true);
+            fileWriter.write(task.toWritableString()+"\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file. ");
+        }
+    }
+
+    public void writeTasksToFile(ArrayList<Task> taskList) {
         try {
             File file = new File(this.fileName);
             if (!file.exists()) {

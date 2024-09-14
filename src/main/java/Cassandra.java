@@ -1,7 +1,9 @@
 import CassHelpers.exceptions.*;
+import CassHelpers.types.Task;
 import CassHelpers.util.FileUtil;
 import CassHelpers.util.TodoList;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import static CassHelpers.util.Messages.displayIntroduction;
 import static CassHelpers.util.Messages.drawLine;
@@ -48,7 +50,6 @@ public class Cassandra {
                     todoList.printList();
                     break;
                 case "bye":
-                    todoList.storeTasks();
                     exit();
                     break;
                 case "todo":
@@ -68,8 +69,6 @@ public class Cassandra {
             System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task index.");
-        } catch (IOException e) {
-            System.out.println("Tasks couldn't be saved");
         }
     }
 
@@ -84,7 +83,8 @@ public class Cassandra {
     public static void main(String[] args) {
         displayIntroduction();
         FileUtil fileUtil = new FileUtil("tasks.txt");
-        TodoList todoList = new TodoList(fileUtil.readTaskFromFile(),fileUtil);
+        ArrayList<Task> savedTasks = fileUtil.readTaskFromFile();
+        TodoList todoList = new TodoList(savedTasks,fileUtil);
         while(!ifExit) {
             readUserCommand(todoList);
         }
