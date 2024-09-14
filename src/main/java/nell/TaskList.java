@@ -26,9 +26,11 @@ public class TaskList {
         return tasks.get(index);
     }
 
-    public Task removeTask(int index) throws IndexOutOfBoundsException {
+    public void removeTask(int index) throws IndexOutOfBoundsException {
         Task taskToRemove = tasks.get(index);
+        System.out.println("-> The following task has been removed from the list:");
         tasks.remove(index);
-        return taskToRemove;
+        System.out.println("   " + taskToRemove);
+        System.out.println(String.format("   The list now has %d tasks", this.tasks.size()));
     }
 }
