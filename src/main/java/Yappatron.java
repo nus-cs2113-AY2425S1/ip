@@ -1,12 +1,22 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Yappatron {
+    public static final String FILE_NAME = "yappatron.txt";
+
     public static final int MAX_TASKS = 100;
     public static int taskNumber = 0;
     public static Task[] taskArray = new Task[MAX_TASKS];
     public static void main(String[] args) {
         System.out.println("Hello! I'm Yappatron");
         System.out.println("What can I do for you?");
+        try{
+            FileManager.printFile(FILE_NAME);
+        }catch (FileNotFoundException e){
+            FileManager.createFile();
+        }
         Scanner in = new Scanner(System.in);
         String input;
         int exitStatus = 0;
@@ -59,6 +69,34 @@ public class Yappatron {
                 }
             }
         }while (exitStatus==0);
+//        for (int i = 0; i<taskNumber; i++){
+//            try {
+//                FileWriter fw = new FileWriter(FILE_NAME);
+//                FileWriter fw2 = new FileWriter(FILE_NAME, true);
+//                if (i==0) {
+//                    fw.write(taskArray[0].toString() + System.lineSeparator());
+//                    fw.close();
+//                }
+//                else{
+//                    fw2.write(taskArray[i].toString() + System.lineSeparator());
+//                    fw2.close();
+//                }
+//
+//            }catch (IOException e){
+//                System.out.println("Error occured while writing!");
+//            }
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_NAME);
+
+            for (int i=0; i<taskNumber; i++){
+                fileWriter.write(taskArray[i].toString() + System.lineSeparator());
+            }
+            fileWriter.close();
+        }catch (IOException e){
+            System.out.println("Error occured while writing!");
+            e.printStackTrace();
+        }
+
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
