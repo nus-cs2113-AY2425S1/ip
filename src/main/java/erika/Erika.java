@@ -138,6 +138,7 @@ public class Erika {
             deleteEntry(line);
         }
     }
+
     private static void deleteEntry(String line) throws EmptyDescriptionException {
         if (!line.contains("delete ")) {
             throw new EmptyDescriptionException("delete");
