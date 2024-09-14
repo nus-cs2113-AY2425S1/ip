@@ -1,5 +1,6 @@
 package yapper.exceptions;
 
+import yapper.exceptions.YapperException;
 import yapper.io.StringStorage;
 
 public class ErrorHandler {

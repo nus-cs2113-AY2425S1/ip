@@ -12,6 +12,7 @@ public class Task {
         this.taskDesc = taskDesc;
         this.isDone = false;
     }
+
     // Task Getters and Setters
 //    public String getDesc() { return taskDesc }
 //    public String setDesc(String taskDesc) { this.taskDesc = taskDesc; }

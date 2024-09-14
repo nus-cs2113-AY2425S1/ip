@@ -1,16 +1,15 @@
-package yapper;
+package yapper.tasks;
 
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
-import yapper.tasks.Task;
 
 // manages Tasks for Yapper
-public class TaskManager {
+public class TaskHandler {
     private Task[] tasks;
     private int currTaskTotal;
 
     // Constructor and Getters
-    public TaskManager(int maxCapacity) {
+    public TaskHandler(int maxCapacity) {
         tasks = new Task[maxCapacity];
         currTaskTotal = 0;
     }
