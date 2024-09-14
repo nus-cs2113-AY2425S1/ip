@@ -10,26 +10,18 @@ import java.io.FileNotFoundException;
 
 public class Doug {
 
-    // Declaring Magic Literals
+    // Declaring Magic Literal
     private static final String DASHED_LINE = "______________________________________________\n";
 
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int counter = 0;
-
     private static boolean saidBye = false;
-
 
     public static void checkOutOfBounds(int listIndex) throws DougException {
         if (listIndex > counter || listIndex <= 0) {
             throw new DougException(DASHED_LINE + "No can do bud, your input is invalid!\n" + DASHED_LINE);
         }
     }
-
-    //public static void checkListFull() throws DougException {
-    //    if (counter >= MAX_TASKS) {
-    //        throw new DougException(DASHED_LINE + "Sorry partner, the list is full!\n" + DASHED_LINE);
-    //    }
-    //}
 
     public static void doList() {
         if (counter == 0) {
@@ -54,7 +46,6 @@ public class Doug {
 
         try {
             checkOutOfBounds(listIndex);
-
             tasks.get(listIndex - 1).markAsDone();
             try {
                 saveTasks();
@@ -78,7 +69,6 @@ public class Doug {
 
         try {
             checkOutOfBounds(listIndex);
-
             tasks.get(listIndex - 1).markAsNotDone();
             try {
                 saveTasks();
@@ -94,7 +84,6 @@ public class Doug {
     }
 
     public static void doDelete(String command) throws DougException{
-        //checkListFull();
         if (counter <= 0) {
             System.out.println(DASHED_LINE + "Your list is empty pal, ain't nothing to rid off.\n" + DASHED_LINE);
             return;
@@ -112,17 +101,18 @@ public class Doug {
             Task removedTask = tasks.get(listIndex - 1);
             tasks.remove(listIndex - 1);
             counter--;
+
+            saveTasks();
+
             System.out.println(DASHED_LINE + "I've deleted: " + removedTask + " for you.");
             System.out.println("Your list is now " + counter + " tasks long partner\n" + DASHED_LINE);
-        } catch (DougException e) {
+        } catch (DougException | IOException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
     public static void doToDo(String command) throws DougException{
-        //checkListFull();
-
         command = command.replace("todo", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
@@ -143,8 +133,6 @@ public class Doug {
     }
 
     public static void doDeadline(String command) throws DougException {
-        //checkListFull();
-
         command = command.replace("deadline", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do here pal...\n" + DASHED_LINE);
@@ -180,8 +168,6 @@ public class Doug {
     }
 
     public static void doEvent(String command) throws DougException {
-        //checkListFull();
-
         command = command.replace("event", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do here pal...\n" + DASHED_LINE);
@@ -269,14 +255,14 @@ public class Doug {
 
 
         // Welcome statement
-        System.out.println(DASHED_LINE + "They call Doug Dimmadome in these parts.\n" + DASHED_LINE);
+        System.out.println(DASHED_LINE + "They call me Doug Dimmadome in these parts.\n" + DASHED_LINE);
     }
 
 
     public static void saveTasks() throws IOException {
         FileWriter writer = new FileWriter("./data/tasks.txt");
         for (int i = 0; i < counter; i++) {
-            writer.write(tasks[i].saveString() + System.lineSeparator());
+            writer.write(tasks.get(i).saveString() + System.lineSeparator());
         }
         writer.close();
     }
@@ -284,7 +270,6 @@ public class Doug {
 
     public static void loadToDo(String line) {
         boolean isMarked = false;
-
         if (line.contains("| X |")) {
             isMarked = true;
             line = line.replaceFirst("T \\| X \\|", "").trim();
@@ -293,7 +278,7 @@ public class Doug {
         }
 
         Todo todoTask = new Todo(line);
-        tasks[counter] = todoTask;
+        tasks.add(todoTask);
         counter++;
 
         if (isMarked) {
@@ -317,7 +302,7 @@ public class Doug {
         String taskDeadline = line.replaceFirst("\\| ", "").trim();
 
         Deadline deadlineTask = new Deadline(taskName, taskDeadline);
-        tasks[counter] = deadlineTask;
+        tasks.add(deadlineTask);
         counter++;
 
         if (isMarked) {
@@ -346,7 +331,7 @@ public class Doug {
         String taskTo = line.replaceFirst("\\| ", "").trim();
 
         Event eventTask = new Event(taskName, taskFrom, taskTo);
-        tasks[counter] = eventTask;
+        tasks.add(eventTask);
         counter++;
 
         if (isMarked) {
