@@ -17,6 +17,7 @@ public class Sirius {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String DELETE = "delete";
 
 
     // some regexes
@@ -26,7 +27,6 @@ public class Sirius {
     public static final String SEPARATOR = "-----------------------------";
 
     // data members
-    private static int taskCounter = 0;
     private static boolean isExit = true;
     private static boolean isValidToProcess = true;
     private static final ArrayList<Task> list = new ArrayList<>();
@@ -60,12 +60,13 @@ public class Sirius {
                 System.out.println("OK, I've marked this task as not done yet:");
             }
             System.out.println(list.get(taskNumber - 1).toString());
-            System.out.println(SEPARATOR);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("The task index is out of bounds! Please enter a valid task index");
         } catch (NumberFormatException e) {
             System.out.println("The task index must be a number! Please enter a valid index number!");
         }
+        System.out.println(SEPARATOR);
+
     }
     public static void addTask(String[] commandPieces, ArrayList<Task> list){
         System.out.println(SEPARATOR);
@@ -82,15 +83,31 @@ public class Sirius {
                 list.add(new Todo(taskName, false));
             }
         System.out.println("Got it. I've added this task:");
-        System.out.println(list.get(taskCounter).toString());
-        taskCounter++;
-        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+        System.out.println(list.get(list.size()-1).toString());
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(SEPARATOR);
+    }
+    public static void deleteTask(String[] commandPieces, ArrayList<Task> list){
+        System.out.println(SEPARATOR);
+        try {
+            int taskNumber = Integer.parseInt(commandPieces[1]);
+            if (taskNumber <= list.size()) {
+                System.out.println("Got it. I've removed this task:");
+            }
+            System.out.println(list.get(taskNumber - 1).toString());
+            list.remove(taskNumber-1);
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The task index is out of bounds! Please enter a valid task index");
+        } catch (NumberFormatException e) {
+            System.out.println("The task index must be a number! Please enter a valid index number!");
+        }
         System.out.println(SEPARATOR);
     }
     public static void listTasks(ArrayList<Task> list){
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCounter; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.print(i + 1 + ". ");
             System.out.println(list.get(i).toString());
         }
@@ -108,9 +125,10 @@ public class Sirius {
             switch (commandPrefix) {
                 case MARK:
                 case UNMARK:
+                case DELETE:
                     if (taskName.isEmpty()){
                         isValidToProcess = false;
-                        throw new IncompleteCommandException("task index");
+                        throw new IncompleteCommandException("The task index");
                     }
                     break;
                 case TODO:
@@ -151,7 +169,9 @@ public class Sirius {
                     }
                 }
         } catch (InvalidTaskContentException | IncompleteCommandException e) {
+            System.out.println(SEPARATOR);
             System.out.println(e.getMessage());
+            System.out.println(SEPARATOR);
         }
         return commandPieces;
     }
@@ -180,6 +200,11 @@ public class Sirius {
                     case UNMARK:
                         if (isValidToProcess) {
                             markTask(commandPieces, list, false);
+                        }
+                        break;
+                    case DELETE:
+                        if (isValidToProcess) {
+                            deleteTask(commandPieces, list);
                         }
                         break;
                     case TODO:
