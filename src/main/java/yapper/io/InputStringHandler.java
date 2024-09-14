@@ -10,28 +10,27 @@ public class InputStringHandler {
     private static String EVENT_START_DATE_DELIMITER = "/from";
     private static String EVENT_END_DATE_DELIMITER = "/to";
 
-    public static Instruction parseUserInput(String userInputString) {
+    public static Instruction parseUserInput(String userInputString) throws YapperException {
         // User Input Validation
         try {
             ErrorHandler.checkIfUserInputEmpty(userInputString);
         } catch (YapperException e) {
             System.out.println(e.getMessage()); //
         }
+        userInputString = userInputString.trim(); // remove trailing spaces
         int splitAtIndex = userInputString.indexOf(' ');
-        String instructionType = userInputString.substring(0, splitAtIndex);
-
+        String instructionType = (splitAtIndex == -1) ?
+                userInputString : userInputString.substring(0, splitAtIndex);
         // Handle One-Argument Instructions
-        if (splitAtIndex >= 0) {
+        if (splitAtIndex == -1) {
             switch (instructionType) {
             case "list":
                 return new Instruction(Instruction.InstructionType.LIST);
-            case "bye": // TODO remove
-                return new Instruction(Instruction.InstructionType.BYE); // TODO remove
             }
         }
 
         // Input Validation
-        String instructionArgs = userInputString.substring(splitAtIndex);
+        String instructionArgs = userInputString.substring(splitAtIndex).trim();
         try {
             ErrorHandler.checkIfUserInputArgsEmpty(instructionArgs);
         } catch (YapperException e) {
@@ -72,8 +71,7 @@ public class InputStringHandler {
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
 
-        //
-        System.out.println(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
-        return null; // TODO instruction cannot be parsed
+        // If none of the above code works, user input cannot be recognized
+        throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
     }
 }
