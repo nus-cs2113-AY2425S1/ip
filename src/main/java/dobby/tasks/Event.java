@@ -10,6 +10,14 @@ public class Event extends Task {
         this.toTime = toTime;
     }
 
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public String getToTime() {
+        return toTime;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + fromTime + " to: " + toTime + ")";
