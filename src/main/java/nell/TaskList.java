@@ -1,6 +1,5 @@
 package nell;
 
-import nell.tasks.Deadline;
 import nell.tasks.Task;
 
 import java.io.FileWriter;
@@ -37,5 +36,9 @@ public class TaskList {
             writer.write(formatLine);
         }
         writer.close();
+    }
+
+    public void loadTask(Task taskToAdd) {
+        tasks.add(taskToAdd);
     }
 }
