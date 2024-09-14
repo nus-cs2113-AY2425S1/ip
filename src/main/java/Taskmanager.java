@@ -4,7 +4,7 @@ public class Taskmanager {
         int index;
         splitInput = input.split(" ");
         index = Integer.parseInt(splitInput[1]) - 1;
-        Yappatron.taskArray[index].markAsDone();
+        Yappatron.taskArray.get(index).markAsDone();
     }
 
     public void unmark(String input){
@@ -12,15 +12,19 @@ public class Taskmanager {
         int index;
         splitInput = input.split(" ");
         index = Integer.parseInt(splitInput[1]) - 1;
-        Yappatron.taskArray[index].markAsUndone();
+        Yappatron.taskArray.get(index).markAsUndone();
     }
 
     public void list(){
-        int i;
+        int i=0;
         System.out.println("Here are the tasks in your list:");
-        for (i=0; i<Yappatron.taskNumber; i++){
-            System.out.print(i+1 + ". ");
-            System.out.println(Yappatron.taskArray[i]);
+//        for (i=0; i<Yappatron.taskNumber; i++){
+//            System.out.print(i+1 + ". ");
+//            System.out.println(Yappatron.taskArray[i]);
+//        }
+        for (Task t: Yappatron.taskArray){
+            System.out.print(++i + ". ");
+            System.out.println(t);
         }
     }
 
@@ -28,7 +32,7 @@ public class Taskmanager {
         if (input.trim().length() == "todo".length()){
             throw new EmptyTaskEntry();
         }
-        Yappatron.taskArray[Yappatron.taskNumber++] = new Todo(input.substring(input.indexOf(" ")));
+        Yappatron.taskArray.add(new Todo(input.substring(input.indexOf(" "))));
     }
 
     public void addDeadline(String input){
@@ -40,8 +44,8 @@ public class Taskmanager {
         if (!input.contains("by")){
             throw new StringIndexOutOfBoundsException();
         }
-        Yappatron.taskArray[Yappatron.taskNumber++] = new Deadline(input.substring(input.indexOf("deadline") +
-                STRLENGTH_DEADLINE, input.indexOf("by")), input.substring(input.indexOf("by") + STRLENGTH_BY));
+        Yappatron.taskArray.add(new Deadline(input.substring(input.indexOf("deadline") +
+                STRLENGTH_DEADLINE, input.indexOf("by")), input.substring(input.indexOf("by") + STRLENGTH_BY)));
     }
 
     public void addEvent(String input) {
@@ -59,6 +63,19 @@ public class Taskmanager {
         String activityName = input.substring(input.indexOf("event") + STRLENGTH_EVENT, indexFrom);
         String from = input.substring(indexFrom + STRLENGTH_FROM, indexTo);
         String to = input.substring(indexTo + STRLENGTH_TO);
-        Yappatron.taskArray[Yappatron.taskNumber++] = new Events(activityName, from, to);
+        Yappatron.taskArray.add(new Events(activityName, from, to));
+    }
+
+    public void deleteTask(int input){
+        try{
+            Task task = Yappatron.taskArray.get(input-1);
+            Yappatron.taskArray.remove(input-1);
+            System.out.println("I have removed the following task: ");
+            System.out.print(input);
+            System.out.println(task);
+            System.out.println("Now you have " + Yappatron.taskArray.size() + " tasks left");
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Task number does not exist!");
+        }
     }
 }
