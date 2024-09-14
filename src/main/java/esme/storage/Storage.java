@@ -1,4 +1,4 @@
-package esme.Storage;
+package esme.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,9 +26,9 @@ public class Storage {
 
     public ArrayList<String> loadFileContents() throws FileNotFoundException {
         ArrayList<String> content = new ArrayList<>();
-        Scanner s = new Scanner(inputFile);
-        while (s.hasNext()) {
-            content.add(s.nextLine());
+        Scanner reader = new Scanner(inputFile);
+        while (reader.hasNext()) {
+            content.add(reader.nextLine());
         }
         return content;
     }

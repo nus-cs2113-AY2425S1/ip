@@ -1,4 +1,4 @@
-import esme.Storage.Storage;
+import esme.storage.Storage;
 import esme.ui.Ui;
 import esme.command.CommandManager;
 
@@ -17,21 +17,21 @@ public class ChatBot {
         this.commandManager = new CommandManager(this.ui,this.storage);
     }
 
-    public void start() {
+    public void bootUp() {
         if (!commandManager.hasLoadSuccessful()) {
             ui.printNoFileMessage();
             System.exit(0);
         }
         ui.greet();
+    }
+
+    public void start() {
+        bootUp();
         String line;
         boolean toExit = false;
 
         while (!toExit) {
             line = inputScanner.nextLine();
-            if (line.isEmpty()) {
-                ui.promptEmptyInput();
-                continue;
-            }
             toExit = commandManager.handleCommand(line);
         }
         inputScanner.close();

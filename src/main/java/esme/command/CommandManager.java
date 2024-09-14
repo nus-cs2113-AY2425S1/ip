@@ -1,6 +1,6 @@
 package esme.command;
 
-import esme.Storage.Storage;
+import esme.storage.Storage;
 import esme.ui.Ui;
 
 import java.io.ByteArrayOutputStream;
@@ -18,11 +18,17 @@ public class CommandManager {
         this.ui = ui;
     }
 
-    public boolean hasLoadSuccessful() {
-        return loadContent();
+    public void loadContent() throws FileNotFoundException {
+        ArrayList<String> content = storage.loadFileContents();
+        for (String text : content) {
+            String[] parts = text.split(" /c ");
+            System.out.println(parts[0]);
+            System.out.println(parts[1]);
+            handleCommand(parts[0],parts[1].equals("true"));
+        }
     }
 
-    public boolean loadContent() {
+    public boolean hasLoadSuccessful() {
         boolean isSuccessful = true;
         // Save the current System.out
         PrintStream originalOut = System.out;
@@ -30,13 +36,7 @@ public class CommandManager {
         // Suppress output
         System.setOut(new PrintStream(new ByteArrayOutputStream()));
         try {
-            ArrayList<String> content = storage.loadFileContents();
-            for (String text : content) {
-                String[] parts = text.split(" /c ");
-                System.out.println(parts[0]);
-                System.out.println(parts[1]);
-                handleCommand(parts[0],parts[1].equals("true"));
-            }
+            loadContent();
         } catch (FileNotFoundException e) {
             isSuccessful = false;
         }
@@ -45,18 +45,32 @@ public class CommandManager {
     }
 
     public boolean handleCommand(String line) {
+        if (line.isEmpty()) {
+            ui.promptEmptyInput();
+            return false;
+        }
         return this.handleCommand(line,false);
     }
 
-    public boolean saveContent() {
+    public void saveContent() throws IOException {
+        storage.writeToFile(ui.getFormattedTasks());
+    }
+
+    public boolean hasSaveSuccessful() {
         boolean isSuccessful = true;
         try {
-            storage.writeToFile(ui.getFormattedTasks());
+            saveContent();
         } catch (IOException e) {
             isSuccessful = false;
             ui.printSaveErrorMessage();
         }
         return isSuccessful;
+    }
+
+    public void handleTaskCompletion(boolean isCompleted) {
+        if (isCompleted) {
+            ui.markTaskInList(ui.getNumberOfTasks());
+        }
     }
 
     public boolean handleCommand(String line, boolean isTaskCompleted) {
@@ -65,15 +79,13 @@ public class CommandManager {
         switch (words[0]) {
         case "bye":
             new ExitCommand(ui).run();
-            toExit = saveContent();
+            toExit = hasSaveSuccessful();
             break;
         case "todo":
         case "deadline":
         case "event":
             new EntryCommand(ui,words[0],line).run();
-            if (isTaskCompleted) {
-                ui.markTaskInList(ui.getNumberOfTasks());
-            }
+            handleTaskCompletion(isTaskCompleted);
             break;
         case "mark":
         case "unmark":
