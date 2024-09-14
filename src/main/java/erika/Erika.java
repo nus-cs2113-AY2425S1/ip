@@ -195,14 +195,12 @@ public class Erika {
         printMessage(message);
     }
     private static void printMarkedMessage() {
-        String message = "Nice! I've marked this task as done:\n" + "\t[X] " +
-                tasks.get(markIndex-1).getDescription();
+        String message = "Nice! I've marked this task as done:\n" + "\t\t" + tasks.get(markIndex-1);
         printMessage(message);
     }
 
     private static void printUnmarkedMessage() {
-        String message = "Nice! I've marked this task as not done yet:\n" + "\t[ ] " +
-                tasks.get(markIndex-1).getDescription();
+        String message = "Nice! I've marked this task as not done yet:\n" + "\t\t" + tasks.get(markIndex-1);
         printMessage(message);
     }
 
