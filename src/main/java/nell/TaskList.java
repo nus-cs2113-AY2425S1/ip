@@ -2,6 +2,9 @@ package nell;
 
 import nell.tasks.Task;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class TaskList {
     private Task[] tasks;
     private int taskCount;
@@ -26,5 +29,14 @@ public class TaskList {
     public Task getTaskAtIndex(int index) throws IndexOutOfBoundsException,
             NullPointerException {
         return tasks[index];
+    }
+    
+    public void writeListToFile(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath, true);
+        for (Task task : tasks) {
+            String formatLine = task.toString();
+            writer.write(formatLine);
+        }
+        writer.close();
     }
 }
