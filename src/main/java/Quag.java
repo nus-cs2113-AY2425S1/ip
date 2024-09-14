@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -7,8 +8,9 @@ public class Quag {
         String userInput;
         System.out.println("_______________________________________");
         System.out.println("Hello! I'm QUAG!");
-        System.out.println("What can I do for you today? quag");
-        System.out.println("_______________________________________");
+        System.out.println("This is your current list of tasks! quag");
+        ListUtils.loadFromFile();
+        displayList();
 
         while (true) {
             userInput = scanner.nextLine();
