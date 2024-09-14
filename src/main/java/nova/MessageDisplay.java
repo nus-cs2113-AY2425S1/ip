@@ -27,11 +27,6 @@ public class MessageDisplay {
         displayMessage("OK, I've marked this task as not done yet:" + NEW_LINE + "  " + task.getTaskInfo());
     }
 
-    public static void displayDeleteMessage(Task task) {
-        displayMessage("Noted. I've removed this task:" + NEW_LINE + "  " + task.getTaskInfo() +
-                NEW_LINE + "Now you have " + (Task.getNumberOfTasks() - 1) + " tasks in the list.");
-    }
-
     public static void displayInvalidInputMessage() {
         displayMessage("Invalid input. Please use one of the following commands:" + NEW_LINE +
                 "1. list" + NEW_LINE +
