@@ -7,6 +7,7 @@ import appal.task.Task;
 import appal.task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Appal {
     // Constants for commands
@@ -20,7 +21,7 @@ public class Appal {
     public static final int COMMAND_INDEX = 0;
 
     // Integer constants for specific type of tasks
-    public static final int MAX_TASKS = 100;
+    public static final int ZERO_INDEX_OFFSET = 1;
     public static final int TASK_INDEX = 1;
     public static final int BY_INDEX = 2;
     public static final int FROM_INDEX = 2;
@@ -43,7 +44,8 @@ public class Appal {
 
     // Attributes
     private boolean isExited = false;
-    private Task[] taskList = new Task[MAX_TASKS];
+    //private Task[] taskList = new Task[MAX_TASKS];
+    private ArrayList<Task> taskList = new ArrayList<>();
     private final Scanner in = new Scanner(System.in);
 
 
@@ -65,7 +67,7 @@ public class Appal {
         printSeparator();
         System.out.println(NEW_TASK_NOTICE);
         int latestTaskIndex = Task.getTotalTasks() - 1;
-        printOneTask(taskList[latestTaskIndex]);
+        printOneTask(taskList.get(latestTaskIndex));
         printSeparator();
     }
 
@@ -78,8 +80,8 @@ public class Appal {
         int totalTasks = Task.getTotalTasks();
         System.out.println("You have " + totalTasks + " to-dos!");
         for (int i = 0; i < totalTasks; i += 1) {
-            System.out.print(taskList[i].getId() + ".");
-            printOneTask(taskList[i]);
+            System.out.print((i + ZERO_INDEX_OFFSET) + ".");
+            printOneTask(taskList.get(i));
         }
         printSeparator();
     }
@@ -88,7 +90,7 @@ public class Appal {
         try {
             int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
             int listIndex = taskId - 1;
-            Task taskToMark = taskList[listIndex];
+            Task taskToMark = taskList.get(listIndex);
             taskToMark.setDone(isMark);
             printSeparator();
             if (isMark) {
@@ -110,28 +112,28 @@ public class Appal {
     }
 
     public void addToDo(String[] inputDetails) throws AppalException {
-        int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
-        taskList[totalToDos] = new ToDo(inputDetails[TASK_INDEX]);
+        ToDo newToDo = new ToDo(inputDetails[TASK_INDEX]);
+        taskList.add(newToDo);
     }
 
     public void addDeadline(String[] inputDetails) throws AppalException {
-        int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
         if (inputDetails[BY_INDEX] == null) {
             throw new UnspecifiedDeadlineException();
         }
-        taskList[totalToDos] = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
+        Deadline newDeadline = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
+        taskList.add(newDeadline);
     }
 
     public void addEvent(String[] inputDetails) throws AppalException{
-        int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
         if (inputDetails[FROM_INDEX] == null || inputDetails[TO_INDEX] == null) {
             throw new UnspecifiedEventDurationException();
         }
-        taskList[totalToDos] = new
+        Event newEvent = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
+        taskList.add(newEvent);
     }
 
     public void exitAppal() {
