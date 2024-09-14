@@ -150,6 +150,8 @@ public class Erika {
         tasks.remove(markIndex-1);
         Task.decrementTaskArraySize();
     }
+
+    private static void markEntry(String line) throws EmptyDescriptionException {
         if (!line.contains("mark ")) {
             throw new EmptyDescriptionException("mark");
         }
