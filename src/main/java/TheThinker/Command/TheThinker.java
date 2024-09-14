@@ -3,8 +3,6 @@ import TheThinker.Exceptions.FormattingException;
 import TheThinker.NewFile.NewFile;
 import TheThinker.Tasks.Task;
 import TheThinker.Parser.UserInputParser;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

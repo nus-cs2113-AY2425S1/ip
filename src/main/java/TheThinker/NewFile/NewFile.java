@@ -25,10 +25,6 @@ public class NewFile {
         this.file = new File("src/main/java/TheThinker/Data/" + filename);
     }
 
-    public File getFile(){
-        return this.file;
-    }
-
     public void loadFile() throws FileNotFoundException {
         Scanner SCANNER = new Scanner(this.file);
 
