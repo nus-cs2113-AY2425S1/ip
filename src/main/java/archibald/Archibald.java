@@ -80,6 +80,25 @@ public class Archibald {
         }
     }
 
+    public static void deleteTask(String input) {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                Task removedTask = tasks[taskIndex];
+                // remove the task from the list and shift rest of the task up
+                for (int i = taskIndex; i < taskCount - 1; i++) {
+                    tasks[i] = tasks[i + 1];
+                }
+                tasks[--taskCount] = null; // decrease the task count by removing tail
+    
+                printArchibaldResponse("Duly noted sire. Thy hath removed this task:\n  " + removedTask + "\nNow thou hath " + taskCount + " tasks in the list.");
+            } else {
+                throw new ArchibaldException("Error: Invalid task number.");
+            }
+        } catch (Exception e) {
+            printArchibaldResponse("Error: Thouth hath given an invalid command format or task number.");
+        }
+    }
     public static void main(String[] args) {
         String name = "Archibald";
         printArchibaldResponse("Hello, I am known as " + name + ",\nhow may I be of assistance!");
@@ -87,7 +106,6 @@ public class Archibald {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            
             if (input.equals("bye")) {
                 printArchibaldResponse("I bid thee farewell! May our paths cross again!");
                 break;
@@ -97,6 +115,8 @@ public class Archibald {
                 markTask(input);
             } else if (input.startsWith("unmark")) {
                 unmarkTask(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
                 addTask(input);
             }
