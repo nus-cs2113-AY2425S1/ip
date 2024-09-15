@@ -1,11 +1,11 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-
 import task.Task;
 import static method.Command.*;
 
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Iris {
-    static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks;
 
     public static void printDivider() {
         System.out.println("---------------------------------------------");
@@ -19,7 +19,7 @@ public class Iris {
             System.out.println("Tell me your needs! I'm here to help!");
             break;
         case "bye":
-            System.out.println("Bye. Hope to see you again soon!");
+            saveAndLeave(tasks);
             return true;
         case "list":
             listTasks(tasks);
@@ -44,7 +44,7 @@ public class Iris {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Iris!\nWhat can I do for you?");
+        tasks = loadAndStart();
         printDivider();
         boolean isEnded = false;
         Scanner in = new Scanner(System.in);
