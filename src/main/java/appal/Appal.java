@@ -45,19 +45,23 @@ public class Appal {
             "   :         ;\n" +
             "    \"..-\"-..\"\n";
     public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-    public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal!\nLet's get things rolling, what would you like to do today?";
+    public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal!" +
+            "\nLet's get things rolling, what would you like to do today?";
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
-    public static final String DELETE_TASK_MESSAGE = "The task below has been removed, it's always okay to change your mind!";
+    public static final String DELETE_TASK_MESSAGE = "The task below has been removed, " +
+            "it's always okay to change your mind!";
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
-    public static final String LOAD_SAVED_TASKS_MESSAGE = "I've helped you load your previously saved tasks! Type 'list' to check them out!";
+    public static final String LOAD_SAVED_TASKS_MESSAGE = "I've helped you load your previously saved tasks! " +
+            "Type 'list' to check them out!";
 
     // Constants for file reading
     public static final String FILE_PATH = "./data/saved_tasks.txt";
     public static final Path FILE_DIRECTORY = Paths.get("./data");
     public static final String COMMA_SEPARATOR = ", ";
     public static final String LINE_BREAK = "\n";
+    public static final String TASK_MARKED_VALUE = "1";
 
     // Attributes
     private boolean isExited = false;
@@ -190,6 +194,45 @@ public class Appal {
         printMessage(BYE_MESSAGE);
     }
 
+    private void loadFileContents() throws FileNotFoundException {
+        File savedTasks = new File(FILE_PATH); // create a File for the given file path
+        Scanner fileReader = new Scanner(savedTasks); // create a Scanner using the File as the source
+        int savedTasksCount = 0;
+        while (fileReader.hasNext()) {
+            String line = fileReader.nextLine();
+            String[] words = line.split(COMMA_SEPARATOR);
+            boolean isTaskMarked = words[0].equals(TASK_MARKED_VALUE);
+            String[] taskDetails = Arrays.copyOfRange(words, TASK_INDEX, words.length);
+            handleInput(taskDetails, false);
+            markTask(savedTasksCount, isTaskMarked);
+            savedTasksCount += 1;
+        }
+        Task.setTotalTasks(savedTasksCount);
+    }
+
+    public void loadExistingTasksData() throws NoSavedTasksException{
+        try {
+            loadFileContents();
+        } catch (FileNotFoundException e) {
+            throw new NoSavedTasksException();
+        }
+        printMessage(LOAD_SAVED_TASKS_MESSAGE);
+    }
+
+    public void saveTasksToFile() throws SaveTasksErrorException {
+        try {
+            Files.createDirectories(FILE_DIRECTORY);
+            FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
+            for (int i = 0; i < Task.getTotalTasks(); i++) {
+                fw.write(taskList.get(i).getStatusValue() + COMMA_SEPARATOR + taskList.get(i).getTaskInfo());
+                fw.write(LINE_BREAK);
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new SaveTasksErrorException();
+        }
+    }
+
     public void handleInput(String[] inputDetails, boolean isFromUser) {
         String command = inputDetails[COMMAND_INDEX];
         try {
@@ -224,45 +267,6 @@ public class Appal {
             }
         } catch (AppalException e) {
             printMessage(e.getMessage());
-        }
-    }
-
-    private void loadFileContents() throws FileNotFoundException {
-        File savedTasks = new File(FILE_PATH); // create a File for the given file path
-        Scanner fileReader = new Scanner(savedTasks); // create a Scanner using the File as the source
-        int savedTasksCount = 0;
-        while (fileReader.hasNext()) {
-            String line = fileReader.nextLine();
-            String[] words = line.split(", ");
-            boolean isTaskMarked = words[0].equals("1");
-            String[] taskDetails = Arrays.copyOfRange(words, 1, words.length);
-            handleInput(taskDetails, false);
-            markTask(savedTasksCount, isTaskMarked);
-            savedTasksCount += 1;
-        }
-        Task.setTotalTasks(savedTasksCount);
-    }
-
-    public void loadExistingTasksData() throws NoSavedTasksException{
-        try {
-            loadFileContents();
-        } catch (FileNotFoundException e) {
-            throw new NoSavedTasksException();
-        }
-        printMessage(LOAD_SAVED_TASKS_MESSAGE);
-    }
-
-    public void saveTasksToFile() throws SaveTasksErrorException {
-        try {
-            Files.createDirectories(FILE_DIRECTORY);
-            FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
-            for (int i = 0; i < Task.getTotalTasks(); i++) {
-                fw.write(taskList.get(i).getStatusValue() + COMMA_SEPARATOR + taskList.get(i).getTaskInfo());
-                fw.write(LINE_BREAK);
-            }
-            fw.close();
-        } catch (IOException e) {
-            throw new SaveTasksErrorException();
         }
     }
 
