@@ -7,6 +7,7 @@ import jeremy.task.Event;
 import jeremy.task.Todo;
 import jeremy.util.PrintUtils;
 import jeremy.util.TaskList;
+import jeremy.Storage;
 
 import java.util.Scanner;
 
@@ -72,6 +73,7 @@ public class Jeremy {
             userInput = scanner.nextLine();
         }
 
+        Storage.saveData(taskList);
         PrintUtils.bye();
     }
 }
