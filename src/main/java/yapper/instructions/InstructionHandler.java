@@ -5,30 +5,49 @@ import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
 import yapper.io.OutputStringHandler;
+import yapper.io.StringStorage;
 import yapper.tasks.Task;
 import yapper.tasks.Deadline;
 import yapper.tasks.Event;
 import yapper.tasks.Todo;
+
+import java.util.List;
 
 // Human-Yapper Interface. Should this be 2 Classes Instead?
 public class InstructionHandler {
     private static final int INDEX_OFFSET = 1;
 
     // UI Operations
+    public static void handleListInstruction(List<Task> tasks, int taskCount) {
+        try {
+            ErrorHandler.checkIfListEmpty(taskCount);
+            OutputStringHandler.printTasks(tasks, taskCount);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
+    }
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) {
+        // No Exception Handling here at the moment
         taskHandler.addTask(task);
+    }
+    public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
+        try {
+            ErrorHandler.checkIfTaskOrdinalWithinRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+            taskHandler.deleteTask(taskOrdinal);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
     }
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) {
         try {
             ErrorHandler.checkIfTaskOrdinalWithinRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+            taskHandler.updateTaskStatus(taskOrdinal - INDEX_OFFSET, isDone);
         } catch (YapperException e) {
-            System.out.println(e.getMessage());
-            return;
+            StringStorage.printWithDividers(e.getMessage());
         }
-        taskHandler.updateTaskStatus(taskOrdinal - INDEX_OFFSET, isDone);
     }
 
-
+    //
     public static void handleInstruction(TaskHandler taskHandler, String userInputString) {
         Instruction instruction = null;
         try {
@@ -39,6 +58,10 @@ public class InstructionHandler {
 
         Instruction.InstructionType instructionType = instruction.getInstructionType();
         switch (instructionType) {
+        case LIST:
+            handleListInstruction(taskHandler.getAllTasks(),
+                    taskHandler.getCurrTaskTotal());
+            break;
         case TODO:
             String todoDesc = instruction.getInstructionDesc();
             handleAddInstruction(taskHandler,
@@ -57,9 +80,9 @@ public class InstructionHandler {
             handleAddInstruction(taskHandler,
                     new Event(eventDesc, startDate, endDate) );
             break;
-        case LIST:
-            OutputStringHandler.printTasks(taskHandler.getAllTasks(),
-                    taskHandler.getCurrTaskTotal());
+        case DELETE:
+            handleDeleteInstruction(taskHandler,
+                    instruction.getTaskOrdinal() );
             break;
         case MARK:
             handleMarkingInstruction(taskHandler,
@@ -69,6 +92,7 @@ public class InstructionHandler {
             handleMarkingInstruction(taskHandler,
                     instruction.getTaskOrdinal(), false);
             break;
-        } // BYE instruction is not handled here
+        }
+        // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
     }
 }

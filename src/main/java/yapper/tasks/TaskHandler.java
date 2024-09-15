@@ -28,6 +28,10 @@ public class TaskHandler {
         tasks.add(task);
         task.printAddedTask(tasks.size());
     }
+    public void deleteTask(int taskOrdinal) {
+        Task task = tasks.remove(taskOrdinal);
+        task.printDeletedTask(tasks.size());
+    }
     public void updateTaskStatus(int taskOrdinal, boolean isDone) {
         Task task = tasks.get(taskOrdinal);
 
