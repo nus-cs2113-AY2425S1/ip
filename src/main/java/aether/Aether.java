@@ -6,17 +6,16 @@ import aether.task.Deadline;
 import aether.task.Event;
 import aether.ui.Display;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Aether class represents the main logic for a simple task manager program.
- * It allows users to add, mark, unmark tasks, and display tasks.
+ * It allows users to add, delete, mark, unmark tasks, and display tasks.
  */
 public class Aether {
     private boolean isExit = false;
-    private static final int MAX_TASKS = 100;
-    private Task[] tasks = new Task[MAX_TASKS];
-    private int taskCount = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList instead of array
 
     public static void main(String[] args) {
         Aether aether = new Aether();
@@ -44,12 +43,13 @@ public class Aether {
     private void handleCommand(String command) throws DukeException {
         command = command.trim();
         if (command.isEmpty()) {
-            throw new DukeException("Command cannot be empty. Please enter a valid command.");
+            throw new DukeException("Error: Command cannot be empty. Please enter a valid command.");
         }
 
-        String[] commandParts = command.split(" ", 2);
+        // Collapse multiple spaces between command and arguments
+        String[] commandParts = command.split("\\s+", 2);
         String commandName = commandParts[0].toLowerCase();
-        String arguments = commandParts.length > 1 ? commandParts[1] : "";
+        String arguments = commandParts.length > 1 ? commandParts[1].trim() : "";
 
         switch (commandName) {
         case "bye":
@@ -74,80 +74,112 @@ public class Aether {
         case "event":
             handleEventCommand(arguments);
             break;
+        case "delete":
+            handleDeleteCommand(arguments);
+            break;
         default:
-            throw new DukeException("Invalid command. Please try again.");
+            throw new DukeException("Error: Invalid command. Please enter a valid command.");
         }
         Display.printSeparator();
     }
 
     private void handleMarkCommand(String arguments, boolean isMark) throws DukeException {
+        if (tasks.isEmpty()) {
+            throw new DukeException("Error: The task list is empty. There are no tasks to mark.");
+        }
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
-            if (index < 0 || index >= taskCount) {
-                throw new DukeException("Invalid task number. Please enter a valid task index.");
+            if (index < 0 || index >= tasks.size()) {
+                throw new DukeException("Error: Invalid task number. Please enter a valid task number.");
             }
             markTaskStatus(index, isMark);
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid input. Please enter a valid task number.");
+            throw new DukeException("Error: Invalid input. Please enter a valid task number.");
         }
     }
 
     private void handleTodoCommand(String arguments) throws DukeException {
         if (arguments.isEmpty()) {
-            throw new DukeException("The description of a todo cannot be empty. Please enter a valid description.");
+            throw new DukeException("Error: The description of a todo cannot be empty.");
         } else {
             addTask(new Todo(arguments));
         }
     }
 
     private void handleDeadlineCommand(String arguments) throws DukeException {
-        String[] deadlineParts = arguments.split(" /by ", 2);
-        if (arguments.isEmpty() || deadlineParts.length < 2) {
-            throw new DukeException("Please enter a deadline in the format:\ndescription /by date.");
-        } else {
-            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+        if (arguments.isEmpty()) {
+            throw new DukeException("Error: The description of a deadline cannot be empty.");
         }
+        String[] deadlineParts = arguments.split(" /by ", 2);
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+            throw new DukeException("Error: Invalid deadline format. Please enter in the format:"
+                    + "\n'deadline <description> /by <date>'.");
+        }
+        String description = deadlineParts[0].trim();
+        String by = deadlineParts[1].trim();
+        addTask(new Deadline(description, by));
     }
 
     private void handleEventCommand(String arguments) throws DukeException {
-        String[] eventParts = arguments.split(" /from | /to ");
-        if (arguments.isEmpty() || eventParts.length < 3) {
-            throw new DukeException(
-                    "Please enter an event in the format:\ndescription /from start_time /to end_time."
-            );
-        } else {
-            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        if (arguments.isEmpty()) {
+            throw new DukeException("Error: The description of an event cannot be empty.");
         }
+        String[] eventParts = arguments.split(" /from ", 2);
+        if (eventParts.length < 2 || eventParts[0].trim().isEmpty()) {
+            throw new DukeException("Error: Invalid event format. Please enter in the format:"
+                    + "\n'event <description> /from <start_time> /to <end_time>'.");
+        }
+        String description = eventParts[0].trim();
+        String[] timeParts = eventParts[1].split(" /to ", 2);
+        if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+            throw new DukeException("Error: Invalid event time format. Please enter in the format:"
+                    + "\n'event <description> /from <start_time> /to <end_time>'.");
+        }
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+        addTask(new Event(description, from, to));
     }
 
-    private void addTask(Task task) throws DukeException {
-        if (taskCount < tasks.length) {
-            tasks[taskCount] = task;
-            taskCount++;
-            Display.response(
-                    "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list."
-            );
-        } else {
-            throw new DukeException("Task list is full. Sorry!");
+    private void handleDeleteCommand(String arguments) throws DukeException {
+        if (tasks.isEmpty()) {
+            throw new DukeException("Error: The task list is empty. There are no tasks to delete.");
         }
+        try {
+            int index = Integer.parseInt(arguments.trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new DukeException("Error: Invalid task number. Please enter a valid task number.");
+            }
+            Task removedTask = tasks.remove(index);
+            Display.response("Noted. I've removed this task:\n  " + removedTask);
+            Display.response("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Error: Invalid input. Please enter a valid task number.");
+        }
+    }
+    
+    private void addTask(Task task) {
+        tasks.add(task);
+        Display.response(
+                "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list."
+        );
     }
 
     private void listTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             Display.response("Task list is empty.");
         } else {
             Display.response("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
     }
 
     private void markTaskStatus(int index, boolean isDone) {
-        tasks[index].setDone(isDone);
+        tasks.get(index).setDone(isDone);
         String message = isDone
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
-        Display.response(message + (index + 1) + "." + tasks[index]);
+        Display.response(message + (index + 1) + "." + tasks.get(index));
     }
 }
