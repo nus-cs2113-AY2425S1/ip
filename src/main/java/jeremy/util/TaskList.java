@@ -13,6 +13,14 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public int getSize() {
+        return this.tasks.size();
+    }
+
+    public Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
     public void printList() {
         PrintUtils.lineBreak();
         for (Task task : tasks) {
