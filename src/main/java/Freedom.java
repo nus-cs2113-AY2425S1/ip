@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import freedom.exceptions.InvalidCommand;
 import freedom.tasks.Task;
@@ -6,7 +7,7 @@ import freedom.tasks.Deadline;
 import freedom.tasks.Event;
 
 public class Freedom {
-    protected static Task[] storage = new Task[100];
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     static int lastIndex = 0;
 
     static final String LOGO = "\t________________________________________\n";
@@ -52,22 +53,22 @@ public class Freedom {
                     return;
                 case "todo":
                     description = input.replaceFirst("todo", "");
-                    storage[lastIndex] = new ToDo(description);
+                    tasks.add(new ToDo(description));
                     break;
                 case "deadline":
                     description = input.replaceFirst("deadline", "");
-                    storage[lastIndex] = new Deadline(description);
+                    tasks.add(new Deadline(description));
                     break;
                 case "event":
                     description = input.replaceFirst("event", "");
-                    storage[lastIndex] = new Event(description);
+                    tasks.add(new Event(description));
                     break;
                 default:
                     throw new InvalidCommand();
 
             }
             System.out.println(LOGO + "\tGot it. I've added this task: ");
-            System.out.println("\t  " + storage[lastIndex].printLine());
+            System.out.println("\t  " + tasks.get(lastIndex).printLine());
             
             lastIndex++;
 
@@ -84,7 +85,7 @@ public class Freedom {
         int counter = 1;
         System.out.print(LOGO + "\tHere are the tasks in your list:\n");
         for (int i = 0; i < lastIndex; i++) {
-            System.out.println("\t" + counter + "." + storage[i].printLine());
+            System.out.println("\t" + counter + "." + tasks.get(i).printLine());
             counter++;
         }
         System.out.println(LOGO);
@@ -93,22 +94,26 @@ public class Freedom {
     public static void markTask(String[] words, boolean isDone) {
         final int TASK_INDEX = 1;
         int listNumber = Integer.parseInt(words[TASK_INDEX]);
-        final int taskIndexInStorage = listNumber - 1;
+        int taskIndexInStorage = listNumber - 1;
         String message;
+        Task taskToBeMarked;
 
         try {
             if (taskIndexInStorage >= lastIndex) {
                 throw new ArrayIndexOutOfBoundsException();
             }
+            taskToBeMarked = tasks.get(taskIndexInStorage);
             if (isDone) {
-                storage[taskIndexInStorage].markDone();
+                taskToBeMarked.markDone();
+                tasks.set(taskIndexInStorage, taskToBeMarked);
                 message = "\tNice! I've marked this task as done:";
             } else {
-                storage[taskIndexInStorage].markUndone();
+                taskToBeMarked.markUndone();
+                tasks.set(taskIndexInStorage, taskToBeMarked);
                 message = "\tOk, I've marked this task as not done yet:";
             }
             System.out.println(LOGO + message);
-            System.out.println("\t  " + storage[taskIndexInStorage].printLine());
+            System.out.println("\t  " + tasks.get(taskIndexInStorage).printLine());
             System.out.println(LOGO);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
