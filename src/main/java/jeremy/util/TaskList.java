@@ -4,30 +4,50 @@ import jeremy.exception.InvalidTaskNumberException;
 import jeremy.exception.TaskNotFoundException;
 import jeremy.task.Task;
 
-public class TaskList {
-    private final Task[] tasks;
-    private int size;
+import java.util.ArrayList;
 
-    public TaskList(int capacity) {
-        this.tasks = new Task[capacity];
-        this.size = 0;
+public class TaskList {
+    private final ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
     }
 
     public void printList() {
         PrintUtils.lineBreak();
-        for (int i = 0; i < size; i++) {
-            PrintUtils.print((i + 1) + ".");
-            PrintUtils.println(tasks[i].toString());
+        for (Task task : tasks) {
+            PrintUtils.println((tasks.indexOf(task) + 1) + ". " + task.toString());
         }
         PrintUtils.lineBreak();
     }
 
     public void addTask(Task task) {
         PrintUtils.lineBreak();
-        tasks[size++] = task;
+        tasks.add(task);
         PrintUtils.println("Got it. I've added this task:");
         PrintUtils.println(task.toString());
-        PrintUtils.println("Now you have " + size + " tasks in the list.");
+        PrintUtils.println("Now you have " + tasks.size() + " tasks in the list.");
+        PrintUtils.lineBreak();
+    }
+
+    public void deleteTask(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
+        int index;
+        Task task;
+        try {
+            index = Integer.parseInt(argument);
+            task = tasks.get(index - 1);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(argument);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFoundException("What. There is no task " + argument + ". "
+                    + "Try a number between 1 and " + tasks.size() + ".");
+        }
+
+        PrintUtils.lineBreak();
+        tasks.remove(task);
+        PrintUtils.println("Ok, deleted this task:");
+        PrintUtils.println(task.toString());
+        PrintUtils.println("Now you have " + tasks.size() + " tasks in the list.");
         PrintUtils.lineBreak();
     }
 
@@ -61,19 +81,19 @@ public class TaskList {
 
         try {
             if (isDone) {
-                tasks[taskNumber - 1].markDone();
+                tasks.get(taskNumber - 1).markDone();
                 PrintUtils.lineBreak();
                 PrintUtils.println("Nice! I've marked this task as done:");
             } else {
-                tasks[taskNumber - 1].markNotDone();
+                tasks.get(taskNumber - 1).markNotDone();
                 PrintUtils.lineBreak();
                 PrintUtils.println("I've unmarked this task:");
             }
-            PrintUtils.println(tasks[taskNumber - 1].toString());
+            PrintUtils.println(tasks.get(taskNumber - 1).toString());
             PrintUtils.lineBreak();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
-                    + "Try a number between 1 and " + this.size + ".");
+                    + "Try a number between 1 and " + tasks.size() + ".");
         }
     }
 }
