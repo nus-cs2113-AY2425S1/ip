@@ -1,6 +1,6 @@
 package task;
 
-public class Task{
+public abstract class Task{
     private String taskName;
     private boolean isMarked;
 
@@ -34,4 +34,5 @@ public class Task{
             return "[ ] " + taskName;
         }
     }
+    public abstract String toFileFormat();
 }
