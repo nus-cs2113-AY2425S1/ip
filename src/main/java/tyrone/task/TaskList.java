@@ -24,6 +24,15 @@ public class TaskList {
         return tasks[taskId].getNameWithStatus();
     }
 
+    public static String getAllTaskDetails () {
+        String details = "";
+        for (int i = 0; i < taskCount; i++) {
+            details += getSingleTaskDetails(i);
+            details += System.lineSeparator();
+        }
+        return details;
+    }
+
     public static void printList() {
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i+1) + ". " + tasks[i].getNameWithStatus());
