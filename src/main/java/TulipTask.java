@@ -62,6 +62,14 @@ public class TulipTask {
                     taskList.addEvent(commandArguments);
                     break;
 
+                case "save":
+                    taskList.saveTaskToFile();
+                    break;
+
+                case "load":
+                    taskList.loadTaskFromFile();
+                    break;
+
                 case "bye":
                     System.out.println(goodByeMessage);
                     return;
