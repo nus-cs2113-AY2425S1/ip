@@ -3,19 +3,15 @@ package task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private int taskNumber;
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
 
     //Constructor for task.TaskList
     public TaskList(){
-        taskNumber = 0;
-
-        //Assume there will be no more than 100 tasks
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
     }
 
     public int getTaskNumber() {
-        return taskNumber;
+        return tasks.size();
     }
 
     /**
@@ -24,11 +20,7 @@ public class TaskList {
      * @param task Name of the task is added.
      */
     public void storeTask(Task task) {
-        if (taskNumber >= tasks.length) {
-            return;
-        }
-        tasks[taskNumber] = task;
-        taskNumber += 1;
+        tasks.add(task);
     }
 
     /**
@@ -38,10 +30,10 @@ public class TaskList {
      */
     public String displayTasks() {
         String taskList = "";
-        for (int i = 0; i < taskNumber; i += 1) {
-            taskList += (i + 1) + ". " + tasks[i] + "\n";
+        for (int i = 0; i < tasks.size(); i += 1) {
+            taskList += (i + 1) + ". " + tasks.get(i) + "\n";
         }
-        return taskList.toString();
+        return taskList;
     }
 
     /**
@@ -51,10 +43,10 @@ public class TaskList {
      * @return A confirmation message.
      */
     public String markTaskAsDone(int index) {
-        if (index < 1 || index > taskNumber) {
+        if (index < 1 || index > tasks.size()) {
             return "Invalid task number.";
         }
-        Task task = tasks[index - 1];
+        Task task = tasks.get(index - 1);
         task.setAsDone();
         return "Nice! I've marked this task as done:\n" + task;
     }
@@ -66,10 +58,10 @@ public class TaskList {
      * @return A confirmation message.
      */
     public String markTaskAsNotDone(int index) {
-        if (index < 1 || index > taskNumber) {
+        if (index < 1 || index > tasks.size()) {
             return "Invalid task number.";
         }
-        Task task = tasks[index - 1];
+        Task task = tasks.get(index - 1);
         task.setAsUndone();
         return "OK, I've marked this task as not done yet:\n" + task;
     }
