@@ -13,41 +13,41 @@ say unmark if you're not done with something.
 say bye if you wanna stop.
 _____________________ USER INPUT BELOW _____________________
 todo Kylan: Answer CS2113 tutorial questions
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
   [T][ ] Kylan: Answer CS2113 tutorial questions
 Your list is now THIS BIG: 1
-____________________________________________________________
+_____________________ USER INPUT BELOW _____________________
 deadline weekly CS2113 quiz /by Monday 9pm
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
   [D][ ] weekly CS2113 quiz, due Monday 9pm
 Your list is now THIS BIG: 2
-____________________________________________________________
+_____________________ USER INPUT BELOW _____________________
 list
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 You don't remember your tasks? Lemme refresh your memory:
 1.[T][ ] Kylan: Answer CS2113 tutorial questions
 2.[D][ ] weekly CS2113 quiz, due Monday 9pm
-____________________________________________________________
+_____________________ USER INPUT BELOW _____________________
 event CS2113 lecture /from Friday 4pm /to Friday 6pm
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
   [E][ ] CS2113 lecture, from Friday 6pm to Friday 6pm
 Your list is now THIS BIG: 3
-____________________________________________________________
+_____________________ USER INPUT BELOW _____________________
 mark 1
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 This task is now done:
-  yapper.tasks.Todo@76fb509a
-____________________________________________________________
+  [T][X] Kylan: Answer CS2113 tutorial questions
+_____________________ USER INPUT BELOW _____________________
 list
-____________________________________________________________
+___________________ PROGRAM OUTPUT BELOW ___________________
 You don't remember your tasks? Lemme refresh your memory:
 1.[T][X] Kylan: Answer CS2113 tutorial questions
 2.[D][ ] weekly CS2113 quiz, due Monday 9pm
 3.[E][ ] CS2113 lecture, from Friday 6pm to Friday 6pm
-____________________________________________________________
+_____________________ USER INPUT BELOW _____________________
 bye
 ___________________ PROGRAM OUTPUT BELOW ___________________
 Thanks for listenin' to my yappin'.
