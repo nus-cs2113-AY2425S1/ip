@@ -21,8 +21,8 @@ public class Task {
         return "[" + (isDone ? "X" : " ") + "] "; // mark done task with X
     }
 
-    public String getType() {
-        return "";
+    public char getType() {
+        return 0;
     }
 
     public String getFrom() {
