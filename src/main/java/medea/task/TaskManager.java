@@ -3,20 +3,19 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private final ArrayList<Task> taskList;
-    private int currentTaskIndex;
 
     public TaskManager(){
-        currentTaskIndex = 0;
         taskList = new ArrayList<Task>();
     }
 
-    public int getCurrentTaskIndex(){
-        return currentTaskIndex;
+    public int getSize(){
+        return taskList.size();
     }
 
     private void addTask(Task newTask){
-        taskList.set(currentTaskIndex++, newTask);
-        System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", newTask, currentTaskIndex);
+        taskList.add(newTask);
+        String formatString = "Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n";
+        System.out.printf(formatString, newTask, taskList.size());
     }
 
     public void addTodo(String description){
@@ -43,7 +42,7 @@ public class TaskManager {
     }
 
     public void listTasks(){
-        for (int index = 0; index < currentTaskIndex; index++){
+        for (int index = 0; index < taskList.size(); index++){
             Task currentTask = taskList.get(index);
             System.out.printf("%d. %s%n", index + 1, currentTask);
         }
@@ -52,6 +51,7 @@ public class TaskManager {
     public void deleteTask(int index){
         Task deletedTask = taskList.get(index);
         taskList.remove(index);
-        System.out.printf("Got it. I've deleted this task:%n  %s%nNow you have %d tasks in the list.%n", deletedTask, currentTaskIndex);
+        String formatString = "Got it. I've deleted this task:%n  %s%nNow you have %d tasks in the list.%n";
+        System.out.printf(formatString, deletedTask, taskList.size());
     }
 }

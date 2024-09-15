@@ -71,9 +71,9 @@ public class CommandHandler {
 
     private void handleTaskDoneUpdate(String taskIndex, boolean isDone) {
         int index = parseTaskIndex(taskIndex);
-        int currentTaskIndex = taskManager.getCurrentTaskIndex();
+        int maxIndex = taskManager.getSize();
 
-        if (index < 0 || index >= currentTaskIndex) {
+        if (index < 0 || index >= maxIndex) {
             String errorMsg = String.format("Invalid %s command. Please provide a valid task number.%n", isDone ? "mark":"unmark");
             throw new MedeaException(errorMsg);
         }
@@ -83,9 +83,9 @@ public class CommandHandler {
 
     private void handleTaskDelete(String taskIndex) {
         int index = parseTaskIndex(taskIndex);
-        int currentTaskIndex = taskManager.getCurrentTaskIndex();
+        int maxIndex = taskManager.getSize();
 
-        if (index < 0 || index >= currentTaskIndex) {
+        if (index < 0 || index >= maxIndex) {
             throw new MedeaException("Invalid delete command. Please provide a valid task number.");
         }
 
