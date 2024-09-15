@@ -20,6 +20,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public int getStatusNumber(){ //Returns 1 if task is marked as finished
+        return (isDone ? 1 : 0);
+    }
+
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
@@ -34,6 +38,10 @@ public class Task {
 
     public static Task[] getList() {
         return list;
+    }
+
+    public String fileContent(){
+        return " | " + getStatusNumber() + " | " + description;
     }
 
     @Override
