@@ -1,23 +1,23 @@
 package yapper.tasks;
 
+import java.util.ArrayList;
+import java.util.List;
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
 
 // manages Tasks for Yapper
 public class TaskHandler {
-    private Task[] tasks;
-    private int currTaskTotal;
+    private List<Task> tasks;
 
-    // Constructor and Getters
-    public TaskHandler(int maxCapacity) {
-        tasks = new Task[maxCapacity];
-        currTaskTotal = 0;
+    public TaskHandler() {
+        tasks = new ArrayList<>();
     }
-    public Task[] getAllTasks() {
+    // Getters
+    public List<Task> getAllTasks() {
         return tasks;
     }
     public int getCurrTaskTotal() {
-        return currTaskTotal;
+        return tasks.size();
     }
 //    public Task getTask(int taskOrdinal) {
 //        return tasks[taskOrdinal];
@@ -25,12 +25,15 @@ public class TaskHandler {
 
     // TaskManager Operations
     public void addTask(Task task) {
-        tasks[currTaskTotal] = task;
-        currTaskTotal++;
-        task.printAddedTask(currTaskTotal);
+        tasks.add(task);
+        task.printAddedTask(tasks.size());
+    }
+    public void deleteTask(int taskOrdinal) {
+        Task task = tasks.remove(taskOrdinal);
+        task.printDeletedTask(tasks.size());
     }
     public void updateTaskStatus(int taskOrdinal, boolean isDone) {
-        Task task = tasks[taskOrdinal];
+        Task task = tasks.get(taskOrdinal);
 
         boolean isAlreadyInDesiredState =
                 ( isDone && task.isDone() ) || ( !isDone && !task.isDone() );

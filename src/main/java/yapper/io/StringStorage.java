@@ -44,10 +44,12 @@ public class StringStorage {
             + LINE_DIVIDER;
 
     // Multi-Use Program Messages
-    public static final String TASK_ADDED_STRING =
-            "Now, ya gotta do this too: ";
     public static final String LIST_ALL_TASKS_STRING =
             "You don't remember your tasks? Lemme refresh your memory: ";
+    public static final String TASK_ADDED_STRING =
+            "Now, ya gotta do this too: ";
+    public static final String TASK_DELETED_STRING =
+            "Now, ya dun hafta do dis anymore: ";
     public static final String LIST_SIZE_STRING =
             "Your list is now THIS BIG: ";
 

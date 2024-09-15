@@ -10,7 +10,7 @@ all while "yapping" at you.
 
 
 
-## Adding Tasks
+## Adding and Deleting Tasks
 
 To add a ToDo task, 
 use the todo command followed by the task description 
@@ -28,7 +28,7 @@ e.g. `deadline deadlineDesc /by endDate`.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
-  [D][ ] todoDesc, due endDate
+  [D][ ] deadlineDesc, due endDate
 Your list is now THIS BIG: 9
 ```
 
@@ -38,8 +38,18 @@ e.g. `event eventDesc /from startDate /to endDate`.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
-  [D][ ] eventDesc, from startDate to endDate
+  [E][ ] eventDesc, from startDate to endDate
 Your list is now THIS BIG: 9
+```
+
+To delete a (ToDo, Deadline or Event) task,
+use the delete command followed by the task number, 
+e.g. `delete 1`
+```
+___________________ PROGRAM OUTPUT BELOW ___________________
+Now, ya dun hafta do dis anymore: 
+  [E][ ] sleep, from today 2300 to tomorrow 0800
+Your list is now THIS BIG: 4
 ```
 
 ## Listing All Tasks

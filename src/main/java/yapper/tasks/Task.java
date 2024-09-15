@@ -31,4 +31,10 @@ public class Task {
                 + "  " + this.taskToString() + "\n"
                 + StringStorage.LIST_SIZE_STRING + taskCount);
     }
+    public void printDeletedTask(int taskCount) {
+        StringStorage.printWithDividers(
+                StringStorage.TASK_DELETED_STRING + "\n"
+                + "  " + this.taskToString() + "\n"
+                + StringStorage.LIST_SIZE_STRING + taskCount);
+    }
 }

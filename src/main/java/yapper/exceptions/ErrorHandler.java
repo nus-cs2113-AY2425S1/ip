@@ -9,11 +9,6 @@ public class ErrorHandler {
             throw new YapperException(StringStorage.LIST_EMPTY_MESSAGE);
         }
     }
-    public static void checkIfListFull(int currTaskTotal, int maxCapacity) throws YapperException {
-        if (currTaskTotal == maxCapacity) {
-            throw new YapperException(StringStorage.LIST_FULL_MESSAGE);
-        }
-    }
     public static void checkIfTaskOrdinalWithinRange(int currTaskTotal, int taskOrdinal) throws YapperException {
         if (taskOrdinal < 0 || taskOrdinal >= currTaskTotal) {
             throw new YapperException(StringStorage.LIST_OOB_MESSAGE);
