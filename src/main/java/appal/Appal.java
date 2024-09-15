@@ -84,11 +84,10 @@ public class Appal {
         printMessage(LOGO + WELCOME_MESSAGE);
     }
 
-    public void printReply() {
+    public void printReply(String message, int indexOfTaskToPrint) {
         printSeparator();
-        System.out.println(NEW_TASK_NOTICE);
-        int latestTaskIndex = Task.getTotalTasks() - 1;
-        printOneTask(taskList.get(latestTaskIndex));
+        System.out.println(message);
+        printOneTask(taskList.get(indexOfTaskToPrint));
         printSeparator();
     }
 
@@ -137,13 +136,18 @@ public class Appal {
         }
     }
 
+    public void updateUserOnAddedTask(boolean isFromUser) {
+        int latestTaskIndex = Task.getTotalTasks() - 1;
+        if (isFromUser) {
+            printReply(NEW_TASK_NOTICE, latestTaskIndex);
+        }
+    }
+
     public void addToDo(String[] inputDetails, boolean isFromUser) throws AppalException {
         checkForTask(inputDetails);
         ToDo newToDo = new ToDo(inputDetails[TASK_INDEX]);
         taskList.add(newToDo);
-        if (isFromUser) {
-            printReply();
-        }
+        updateUserOnAddedTask(isFromUser);
     }
 
     public void addDeadline(String[] inputDetails, boolean isFromUser) throws AppalException {
@@ -154,9 +158,7 @@ public class Appal {
         }
         Deadline newDeadline = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
         taskList.add(newDeadline);
-        if (isFromUser) {
-            printReply();
-        }
+        updateUserOnAddedTask(isFromUser);
     }
 
     public void addEvent(String[] inputDetails, boolean isFromUser) throws AppalException{
@@ -168,22 +170,16 @@ public class Appal {
         Event newEvent = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
         taskList.add(newEvent);
-        if (isFromUser) {
-            printReply();
-        }
+        updateUserOnAddedTask(isFromUser);
     }
 
     public void deleteTask(String[] inputDetails) throws AppalException {
         try {
             int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
-            int listIndex = taskId - 1;
-            Task taskToDelete = taskList.get(listIndex);
-            taskList.remove(listIndex);
+            int indexOfTaskToDelete = taskId - 1;
+            printReply(DELETE_TASK_MESSAGE, indexOfTaskToDelete);
+            taskList.remove(indexOfTaskToDelete);
             Task.setTotalTasks(Task.getTotalTasks() - 1);
-            printSeparator();
-            System.out.println(DELETE_TASK_MESSAGE);
-            printOneTask(taskToDelete);
-            printSeparator();
         } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
