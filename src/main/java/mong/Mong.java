@@ -4,11 +4,12 @@ import mong.exception.IllegalTaskFormatException;
 import mong.exception.IllegalTaskTypeException;
 import mong.task.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Mong {
-
+    public static ArrayList<Task> list = new ArrayList<>();
     public static final int LENGTH_DEADLINE = 8;
     public static final int LENGTH_BY = 3;
     public static final int LENGTH_TODO = 4;
@@ -24,7 +25,7 @@ public class Mong {
         // the itemIndex is -1 than the input from the user
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         try {
-            list[itemIndex].setCompleted(true);
+            list.get(itemIndex).setCompleted(true);
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
@@ -33,14 +34,14 @@ public class Mong {
     /**
      * Marks completed item in index as incompleted.
      */
-    public static void unmark(String input, Task[] list) {
+    public static void unmark(String input) {
         // the itemIndex is -1 than the input from the user
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (itemIndex < 0 || itemIndex >= list.length) {
+        if (itemIndex < 0 || itemIndex >= list.size()) {
             throw new NullPointerException();
         }
         try {
-            list[itemIndex].setCompleted(false);
+            list.get(itemIndex).setCompleted(false);
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
@@ -55,12 +56,12 @@ public class Mong {
     /**
      * Prints out an indexed list of commands given to Mong starting from 1.
      */
-    public static void printIndexedList(String input, Task[] list) throws IllegalTaskFormatException {
+    public static void printIndexedList(String input) throws IllegalTaskFormatException {
         if (!input.contentEquals("list")) {
             throw new IllegalTaskFormatException("Task format is incorrect!");
         }
-        for (int i = 0; i < list.length; i++) {
-            System.out.println(i + 1 + ". " + list[i]);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ". " + list.get(i));
         }
         System.out.println("MONG my god! You have " + Task.currentIndex + " task(s) in the list!");
     }
@@ -69,16 +70,16 @@ public class Mong {
      * Add a Task of type Deadline.
      * A deadline consists of the task description and deadline in String format.
      */
-    public static void addDeadline(Task[] list, String input) {
+    public static void addDeadline(String input) {
         int endOfCommand = input.indexOf("deadline") + LENGTH_DEADLINE;
         int endOfBy = input.lastIndexOf("/by") + LENGTH_BY;
         int startOfBy = input.indexOf("/by");
         try {
             String description = input.substring(endOfCommand, startOfBy);
             String deadline = input.substring(endOfBy + 1);
-            list[Task.currentIndex] = new Deadline(description, deadline);
+            list.add(new Deadline(description, deadline));
             System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list[Task.currentIndex - 1]);
+            System.out.println(list.get(list.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! No description or deadline?@#!");
         }
@@ -88,13 +89,13 @@ public class Mong {
      * Add a Task of type Todo.
      * A todo consists of the task description only.
      */
-    public static void addTodo(Task[] list, String input) {
+    public static void addTodo(String input) {
         int endOfCommand = input.indexOf("todo") + LENGTH_TODO;
         try {
             String description = input.substring(endOfCommand + 1);
-            list[Task.currentIndex] = new Todo(description);
+            list.add(new Todo(description));
             System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list[Task.currentIndex - 1]);
+            System.out.println(list.get(list.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! No description?@#!");
         }
@@ -114,9 +115,9 @@ public class Mong {
             String description = input.substring(endOfCommand + 1, startOfFrom);
             String from = input.substring(endOfFrom + 2, startOfTo - 1);
             String to = input.substring(endOfTo + 1);
-            list[Task.currentIndex] = new Event(description, from, to);
+            list.add(new Event(description, from, to));
             System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list[Task.currentIndex - 1]);
+            System.out.println(list.get(list.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! Missing description, /from or /to commands...");
         }
@@ -143,7 +144,6 @@ public class Mong {
     public static void addByTask() {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        Task[] list = new Task[100];
         TaskType command;
         try {
             command = decipherTaskType(input.split(" ")[0]);
@@ -156,25 +156,25 @@ public class Mong {
             case LIST:
                 // print items in an indexed list
                 try {
-                    printIndexedList(input, Arrays.copyOf(list, Task.currentIndex));
+                    printIndexedList(input);
                 } catch (IllegalTaskFormatException e) {
                     System.out.println("Oi oi MONG! Task format is incorrect...");
                 }
                 break;
             case MARK:
-                mark(input, list);
+                mark(input);
                 break;
             case UNMARK:
-                unmark(input, list);
+                unmark(input);
                 break;
             case DEADLINE:
-                addDeadline(list, input);
+                addDeadline(input);
                 break;
             case TODO:
-                addTodo(list, input);
+                addTodo(input);
                 break;
             case EVENT:
-                addEvent(list, input);
+                addEvent(input);
                 break;
             default:
                 System.out.println("MooONG?! That's not a valid command...");
