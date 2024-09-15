@@ -1,13 +1,13 @@
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import task.*;
 
 
 public class XiaoMe {
-    static Task[] tasks = new Task[100];
-    static Integer taskCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public enum Type {
         MARK,
@@ -88,8 +88,8 @@ public class XiaoMe {
                     System.out.println("""
                             \t____________________________________________________________
                             \tHere are the tasks in your list:""");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println("\t\t" + (i + 1) + "." + tasks[i].toString());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("\t\t" + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println("\t____________________________________________________________\n");
                     break;
@@ -101,27 +101,27 @@ public class XiaoMe {
                         int index = Integer.parseInt(markWords[1]) - 1;
 
                         if (Objects.equals(markWords[0], "mark")) {
-                            tasks[index].setDone(true);
+                            tasks.get(index).setDone(true);
 
                             System.out.println("\t____________________________________________________________\n"
                                     + "\tNice! I've marked this task as done:\n"
-                                    + "\t\t" + tasks[index].toString()
+                                    + "\t\t" + tasks.get(index)
                                     + "\n\t____________________________________________________________\n");
                         } else {
-                            tasks[index].setDone(false);
+                            tasks.get(index).setDone(false);
 
                             System.out.println("\t____________________________________________________________\n"
                                     + "\tOK, I've marked this task as not done yet:\n"
-                                    + "\t\t" + tasks[index].toString()
+                                    + "\t\t" + tasks.get(index)
                                     + "\n\t____________________________________________________________\n");
                         }
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    } catch (NumberFormatException e) {
                         System.out.println("""
                                 \t____________________________________________________________
                                 \tHEY mark/unmark should be followed by a valid integer
                                 \t____________________________________________________________
                                 """);
-                    } catch (NullPointerException e) {
+                    } catch (NullPointerException | IndexOutOfBoundsException e) {
                         System.out.println("""
                                 \t____________________________________________________________
                                 \tInteger provided does not have a corresponding task
@@ -142,13 +142,12 @@ public class XiaoMe {
                             throw new IllegalArgumentException();
                         }
 
-                        tasks[taskCount] = new Event(eventWords[0].replace("event", "").trim(), eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim()); // add task to storage
-                        taskCount += 1;
+                        tasks.add(new Event(eventWords[0].replace("event", "").trim(), eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim())); // add task to storage
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
                     } catch (Exception e) {
                         System.out.println("""
@@ -168,13 +167,12 @@ public class XiaoMe {
                             throw new IllegalArgumentException();
                         }
 
-                        tasks[taskCount] = new Deadline(lineWords[0].replace("deadline", "").trim(), lineWords[1].trim()); // add task to storage
-                        taskCount += 1;
+                        tasks.add(new Deadline(lineWords[0].replace("deadline", "").trim(), lineWords[1].trim())); // add task to storage
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
                     } catch (Exception e) {
                         System.out.println("""
@@ -195,13 +193,12 @@ public class XiaoMe {
                             throw new IllegalArgumentException();
                         }
 
-                        tasks[taskCount] = new Todo(string); // add task to storage
-                        taskCount += 1;
+                        tasks.add(new Todo(string)); // add task to storage
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks[taskCount - 1].toString() + "\n"
-                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
                     } catch (Exception e) {
                         System.out.println("""
@@ -217,30 +214,24 @@ public class XiaoMe {
                     try {
                         String[] markWords = line.split(" ");
                         int index = Integer.parseInt(markWords[1]) - 1;
-                        Task temp = tasks[index];
-                        if (temp == null) {
-                            throw new NullPointerException();
-                        }
+                        Task temp = tasks.get(index);
 
-                        for (int i = index; i < taskCount; i ++) {
-                            tasks[i] = tasks[i + 1];
-                        }
+                        tasks.remove(index);
 
-                        taskCount -= 1;
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tNoted. I've removed this task:\n"
-                                + "\t\t" + temp.toString() + "\n"
-                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t\t" + temp + "\n"
+                                + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
 
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    } catch (NumberFormatException e) {
                         System.out.println("""
                                 \t____________________________________________________________
                                 \tHEY delete should be followed by a valid integer
                                 \t____________________________________________________________
                                 """);
-                    } catch (NullPointerException e) {
+                    } catch (NullPointerException | IndexOutOfBoundsException e) {
                         System.out.println("""
                                 \t____________________________________________________________
                                 \tInteger provided does not have a corresponding task
