@@ -1,74 +1,28 @@
-import exception.*;
+import exception.LeginMissingParamsException;
+import exception.LeginEmptyTaskException;
+import exception.LeginIndexOutOfBoundsException;
+import exception.LeginInvalidCommandException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Legin {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int currentTaskCount = 0;
-    private static final String FILE_PATH = "./tasklist.txt";
 
     public static void horizontalLine() {
         System.out.println("______________________" +
                 "______________________________________");
     }
 
-    public static void addTextDataToArray(String[] words) throws LeginEmptyTaskException {
-       String taskType = words[0];
-       switch(taskType) {
-       case "T":
-           tasks.add(new Todo(words[2], true));
-           break;
-       case "D":
-           tasks.add(new Deadline(words[2], words[3]));
-           break;
-       case "E":
-           tasks.add(new Event(words[2], words[3], words[4]));
-           break;
-       }
-       if (words[1].equals("true")) {
-           tasks.get(currentTaskCount).markTask();
-       }
-       currentTaskCount++;
-    }
-
-    public static void inputTextFileData() {
-        try {
-            Scanner s = new Scanner(new File(FILE_PATH));
-            while (s.hasNext()) {
-                String[] words = s.nextLine().split("\\|");
-                addTextDataToArray(words);
-            }
-        }catch (FileNotFoundException | LeginEmptyTaskException e) {
-            printExceptionMessage(e);
-        }
-    }
-
-    public static void updateTextFile() throws IOException {
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH);
-            for (int i = 0; i < currentTaskCount; i++) {
-                fw.write(tasks.get(i).getWriteInfo() + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            printExceptionMessage(e);
-        }
-    }
-
     public static void greet() {
         horizontalLine();
         System.out.println("Hello! I'm Legin, your best online companion!");
         System.out.println("What can I do for you today my friend :D");
-        inputTextFileData();
         horizontalLine();
     }
     public static void bye() throws IOException {
@@ -77,7 +31,6 @@ public class Legin {
                 Character.toString(0x1F44B) +
                 ". Hope to see you again really soon! " +
                 Character.toString(0x1F608));
-        //updateTextFile();
         horizontalLine();
     }
 

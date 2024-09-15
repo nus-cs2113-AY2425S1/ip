@@ -13,11 +13,6 @@ public class Todo extends Task{
     }
 
     @Override
-    public String getWriteInfo() {
-        return "T|" + isDone + "|" + task;
-    }
-
-    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

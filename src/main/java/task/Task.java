@@ -34,10 +34,6 @@ public abstract class Task {
         this.task = task;
     }
 
-    public String getWriteInfo() {
-        return "";
-    }
-
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + task;

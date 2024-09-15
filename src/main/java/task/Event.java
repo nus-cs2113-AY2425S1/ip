@@ -42,11 +42,6 @@ public class Event extends Task{
     }
 
     @Override
-    public String getWriteInfo() {
-        return "E|" + isDone + "|" + task + "|" + eventStart + "|" + eventEnd;
-    }
-
-    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + eventStart + " to: " + eventEnd + ")";
     }
