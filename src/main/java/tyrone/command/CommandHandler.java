@@ -1,5 +1,6 @@
 package tyrone.command;
 
+import tyrone.FileReadWriter;
 import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.Deadline;
 import tyrone.task.Event;
@@ -29,6 +30,7 @@ public class CommandHandler {
         } else {
             handleUnknown();
         }
+        FileReadWriter.updateSaveFile();
     }
 
     private static void handleList() {

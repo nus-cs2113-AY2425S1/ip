@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Tyrone {
     public static void main(String[] args) {
+        FileReadWriter.createSaveFile();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hello! I'm Tyrone.\nWhat can I do for you?");
