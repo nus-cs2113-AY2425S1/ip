@@ -8,8 +8,8 @@ import yapper.io.StringStorage;
 // manages Tasks for Yapper
 public class TaskHandler {
     private List<Task> tasks;
-    
-    public TaskHandler(int maxCapacity) {
+
+    public TaskHandler() {
         tasks = new ArrayList<>();
     }
     // Getters
