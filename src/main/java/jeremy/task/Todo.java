@@ -17,4 +17,9 @@ public class Todo extends Task {
     public String toString() {
         return "[" + icon + "]" + super.toString();
     }
+
+    @Override
+    public String toStorageString() {
+        return icon + " | " + (isDone ? 1 : 0) + " | " + description;
+    }
 }

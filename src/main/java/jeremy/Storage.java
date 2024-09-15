@@ -16,7 +16,7 @@ public class Storage {
 
         try (FileWriter fw = new FileWriter(file)) {
             for (int i = 0; i < tasks.getSize(); i++) {
-                fw.write(tasks.getTask(i).toString() + System.lineSeparator());
+                fw.write(tasks.getTask(i).toStorageString() + System.lineSeparator());
             }
         } catch (IOException e) {
             PrintUtils.println("Unable to save data: " + e.getMessage());

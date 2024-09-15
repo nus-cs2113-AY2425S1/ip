@@ -29,4 +29,10 @@ public class Event extends Task {
     public String toString() {
         return "[" + icon + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toStorageString() {
+        return icon + " | " + (isDone ? 1 : 0) + " | " + description
+                + " | " + from + " | " + to;
+    }
 }
