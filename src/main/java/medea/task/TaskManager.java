@@ -1,12 +1,13 @@
 package medea.task;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private final Task[] taskList;
+    private final ArrayList<Task> taskList;
     private int currentTaskIndex;
 
     public TaskManager(){
         currentTaskIndex = 0;
-        taskList = new Task[100];
+        taskList = new ArrayList<Task>();
     }
 
     public int getCurrentTaskIndex(){
@@ -14,7 +15,7 @@ public class TaskManager {
     }
 
     private void addTask(Task newTask){
-        taskList[currentTaskIndex++] = newTask;
+        taskList.set(currentTaskIndex++, newTask);
         System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", newTask, currentTaskIndex);
     }
 
@@ -34,7 +35,7 @@ public class TaskManager {
     }
 
     public void updateTaskDoneStatus(int index, boolean isDone){
-        Task selectedTask = taskList[index];
+        Task selectedTask = taskList.get(index);
         String notification = isDone ? "Nice! I've marked this task as done:%n  %s%n"
                                      : "OK, I've marked this task as not done yet:%n %s%n";
         selectedTask.setIsDone(isDone);
@@ -43,7 +44,7 @@ public class TaskManager {
 
     public void listTasks(){
         for (int index = 0; index < currentTaskIndex; index++){
-            Task currentTask = taskList[index];
+            Task currentTask = taskList.get(index);
             System.out.printf("%d. %s%n", index + 1, currentTask);
         }
     }
