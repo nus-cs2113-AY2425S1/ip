@@ -7,13 +7,21 @@ import jeremy.task.Event;
 import jeremy.task.Todo;
 import jeremy.util.PrintUtils;
 import jeremy.util.TaskList;
+import jeremy.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Jeremy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList;
+        try {
+            taskList = Storage.readData();
+        } catch (FileNotFoundException e) {
+            PrintUtils.println("Storage file couldn't be created");
+            return;
+        }
         PrintUtils.greeting();
         PrintUtils.logo();
 
@@ -75,6 +83,7 @@ public class Jeremy {
             userInput = scanner.nextLine();
         }
 
+        Storage.saveData(taskList);
         PrintUtils.bye();
     }
 }
