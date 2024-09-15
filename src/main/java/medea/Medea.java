@@ -1,3 +1,5 @@
+package medea;
+import medea.command.CommandHandler;
 import java.util.Scanner;
 
 public class Medea {
@@ -6,8 +8,7 @@ public class Medea {
         greet();
 
         Scanner scanner = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
-        CommandHandler commandHandler = new CommandHandler(taskManager);
+        CommandHandler commandHandler = new CommandHandler();
 
         String input = scanner.nextLine();
 

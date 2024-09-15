@@ -1,9 +1,13 @@
+package medea.command;
+import medea.task.TaskManager;
+import medea.exceptions.MedeaException;
+
 public class CommandHandler {
     private TaskManager taskManager;
     private final int LINE_LENGTH = 50;
 
-    public CommandHandler(TaskManager taskManager){
-        this.taskManager = taskManager;
+    public CommandHandler(){
+        this.taskManager = new TaskManager();
     }
 
     public void handleInput(String input){
@@ -14,7 +18,11 @@ public class CommandHandler {
         Command command = Command.parseString(commandString);
 
         printLine();
-        handleCommand(command, argumentString);
+        try{
+            handleCommand(command, argumentString);
+        }catch(MedeaException e){
+            System.out.println(e.getMessage());
+        }
         printLine();
     }
 

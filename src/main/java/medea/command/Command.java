@@ -1,3 +1,5 @@
+package medea.command;
+
 public enum Command {
     LIST("list"),
     MARK("mark"),

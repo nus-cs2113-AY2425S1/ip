@@ -1,3 +1,5 @@
+package medea.task;
+
 public class TaskManager {
     private final Task[] taskList;
     private int currentTaskIndex;
