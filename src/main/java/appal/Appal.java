@@ -6,6 +6,9 @@ import appal.task.Event;
 import appal.task.Task;
 import appal.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Appal {
@@ -40,6 +43,9 @@ public class Appal {
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
+
+    // Constants for file reading
+    public static final String FILE_PATH = "./data/saved_tasks.txt";
 
     // Attributes
     private boolean isExited = false;
@@ -84,12 +90,11 @@ public class Appal {
         printSeparator();
     }
 
-    public void markTask(String[] inputDetails, boolean isMark) throws AppalException {
+    public void handleMarkTask(String[] inputDetails, boolean isMark) throws AppalException {
         try {
             int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
             int listIndex = taskId - 1;
-            Task taskToMark = taskList[listIndex];
-            taskToMark.setDone(isMark);
+            Task taskToMark = markTask(listIndex, isMark);
             printSeparator();
             if (isMark) {
                 System.out.println(TASK_DONE_MESSAGE);
@@ -101,6 +106,12 @@ public class Appal {
         } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
+    }
+
+    public Task markTask(int listIndex, boolean isMark) {
+        Task taskToMark = taskList[listIndex];
+        taskToMark.setDone(isMark);
+        return taskToMark;
     }
 
     public void checkForTask(String[] inputDetails) throws EmptyTaskException {
@@ -139,9 +150,7 @@ public class Appal {
         printMessage(BYE_MESSAGE);
     }
 
-    public void handleInput() {
-        String line = in.nextLine();
-        String[] inputDetails = Parser.extractInputDetails(line);
+    public void handleInput(String[] inputDetails) {
         String command = inputDetails[COMMAND_INDEX];
 
         try {
@@ -165,10 +174,10 @@ public class Appal {
                 printReply();
                 break;
             case COMMAND_MARK:
-                markTask(inputDetails, true);
+                handleMarkTask(inputDetails, true);
                 break;
             case COMMAND_UNMARK:
-                markTask(inputDetails, false);
+                handleMarkTask(inputDetails, false);
                 break;
             default:
                 throw new AppalException();
@@ -178,10 +187,37 @@ public class Appal {
         }
     }
 
+    private void loadFileContents() throws FileNotFoundException, AppalException {
+        File savedTasks = new File(FILE_PATH); // create a File for the given file path
+        Scanner fileReader = new Scanner(savedTasks); // create a Scanner using the File as the source
+        int savedTasksCount = 0;
+        while (fileReader.hasNext()) {
+            String line = fileReader.nextLine();
+            String[] words = line.split(", ");
+            boolean isTaskMarked = words[0].equals("1");
+            String[] taskDetails = Arrays.copyOfRange(words, 1, words.length);
+            handleInput(taskDetails);
+            markTask(savedTasksCount, isTaskMarked);
+            savedTasksCount += 1;
+        }
+        Task.setTotalTasks(savedTasksCount);
+    }
+
+    public void loadExistingTasksData() {
+        try {
+            loadFileContents();
+        } catch (FileNotFoundException | AppalException e) {
+            System.out.println("File not found");
+        }
+    }
+
     public void runAppal() {
         welcomeUser();
+        loadExistingTasksData();
         while (!isExited) {
-            handleInput();
+            String line = in.nextLine();
+            String[] inputDetails = Parser.extractInputDetails(line);
+            handleInput(inputDetails);
         }
     }
 }

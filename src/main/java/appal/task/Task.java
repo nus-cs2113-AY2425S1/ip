@@ -48,4 +48,8 @@ public class Task {
     public static int getTotalTasks() {
         return totalTasks;
     }
+
+    public static void setTotalTasks(int totalTasks) {
+        Task.totalTasks = totalTasks;
+    }
 }
