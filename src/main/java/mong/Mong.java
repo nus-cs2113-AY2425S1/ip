@@ -21,6 +21,7 @@ public class Mong {
     public static final int LENGTH_EVENT = 5;
     public static final int LENGTH_FROM = 4;
     public static final int LENGTH_TO = 3;
+    public static final int LENGTH_DELETE = 6;
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
 
     /**
@@ -129,6 +130,22 @@ public class Mong {
     }
 
     /**
+     * Delete a Task of any valid type.
+     */
+    public static void deleteTask(ArrayList<Task> list, String input) {
+        int endOfCommand = input.indexOf("delete") + LENGTH_DELETE;
+        int indexValue = Integer.parseInt(input.substring(endOfCommand + 1)) - 1;
+        try {
+            Task deletedTask = list.get(indexValue);
+            list.remove(indexValue);
+            System.out.println("Mong-?!@# This item has been removed: ");
+            System.out.println(deletedTask);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("Mong?!@ Item not in list.");
+        }
+    }
+
+    /**
      * Returns the TaskType enum value of the first word in the input.
      */
     public static TaskType decipherTaskType(String command) throws IllegalTaskTypeException {
@@ -181,6 +198,9 @@ public class Mong {
                 break;
             case EVENT:
                 addEvent(list, input);
+                break;
+            case DELETE:
+                deleteTask(list, input);
                 break;
             default:
                 System.out.println("MooONG?! That's not a valid command...");
