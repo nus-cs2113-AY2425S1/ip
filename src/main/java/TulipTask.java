@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class TulipTask {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TulipTaskException.InvalidTaskDescriptionException, TulipTaskException.InvalidEndDateException, TulipTaskException.InvalidStartDateException, TulipTaskException.InvalidDeadlineException, TulipTaskException.InvalidTaskIndexException {
         String logo = "                                         \n" +
                 "--.--     |    o     --.--          |    \n" +
                 "  |  .   .|    .,---.  |  ,---.,---.|__/ \n" +
@@ -43,23 +43,65 @@ public class TulipTask {
                     break;
 
                 case "mark":
-                    taskList.markTaskAsDone(commandArguments);
+                    try {
+                        taskList.markTaskAsDone(commandArguments);
+                    } catch (TulipTaskException.InvalidTaskIndexException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.printf("Invalid task index! Please input a number between 1 and %d \n", taskList.taskList.size());
+                        System.out.println("--------------------------------------------");
+                    }
                     break;
 
                 case "unmark":
-                    taskList.markTaskAsNotDone(commandArguments);
+                    try {
+                        taskList.markTaskAsNotDone(commandArguments);
+                    } catch (TulipTaskException.InvalidTaskIndexException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.printf("Invalid task index! Please input a number between 1 and %d \n", taskList.taskList.size());
+                        System.out.println("--------------------------------------------");
+                    }
                     break;
 
                 case "todo":
-                    taskList.addToDo(commandArguments);
+                    try {
+                        taskList.addToDo(commandArguments);
+                    } catch (TulipTaskException.InvalidTaskDescriptionException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Task description was not given :(");
+                        System.out.println("--------------------------------------------");
+                    }
                     break;
 
                 case "deadline":
-                    taskList.addDeadline(commandArguments);
+                    try {
+                        taskList.addDeadline(commandArguments);
+                    } catch (TulipTaskException.InvalidTaskDescriptionException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Task description was not given :(");
+                        System.out.println("--------------------------------------------");
+                    } catch (TulipTaskException.InvalidDeadlineException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Task deadline was not given, add a deadline by using /by to indicate task end date!");
+                        System.out.println("--------------------------------------------");
+                    }
                     break;
 
                 case "event":
-                    taskList.addEvent(commandArguments);
+                    try {
+                        taskList.addEvent(commandArguments);
+                    } catch (TulipTaskException.InvalidTaskDescriptionException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Task description was not given :(");
+                        System.out.println("--------------------------------------------");
+                    } catch (TulipTaskException.InvalidStartDateException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Event start date was not given, add a start date by using /from to indicate task start date!");
+                        System.out.println("--------------------------------------------");
+                    } catch (TulipTaskException.InvalidEndDateException e) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Event end date was not given, add a end date by using /to to indicate task end date!");
+                        System.out.println("--------------------------------------------");
+                    }
                     break;
 
                 case "delete":

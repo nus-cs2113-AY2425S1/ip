@@ -42,64 +42,47 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
-    public void addToDo(HashMap<String, String> commandArguments) {
+    public void addToDo(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskDescriptionException {
         String argument = commandArguments.get("argument");
         if (argument == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Task description was not given :(");
-            System.out.println("--------------------------------------------");
+            throw new TulipTaskException.InvalidTaskDescriptionException();
         }
 
         ToDo task = new ToDo(commandArguments.get("argument"));
         addTask(task);
     }
 
-    public void addDeadline(HashMap<String, String> commandArguments) {
+    public void addDeadline(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidDeadlineException, TulipTaskException.InvalidTaskDescriptionException {
         String argument = commandArguments.get("argument");
         String by = commandArguments.get("/by");
 
         if (argument == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Task description was not given :(");
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidTaskDescriptionException();
         }
 
         if (by == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Task deadline was not given, add a deadline by using /by to indicate task end date!");
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidDeadlineException();
         }
 
         Deadline task = new Deadline(argument, by);
         addTask(task);
     }
 
-    public void addEvent(HashMap<String, String> commandArguments) {
+    public void addEvent(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskDescriptionException, TulipTaskException.InvalidStartDateException, TulipTaskException.InvalidEndDateException {
         String argument = commandArguments.get("argument");
         String from = commandArguments.get("/from");
         String to = commandArguments.get("/to");
 
         if (argument == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Task description was not given :(");
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidTaskDescriptionException();
         }
 
         if (from == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Event start date was not given, add a start date by using /from to indicate task start date!");
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidStartDateException();
         }
 
         if (to == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Event end date was not given, add a end date by using /to to indicate task end date!");
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidEndDateException();
         }
 
         Event task = new Event(argument, from, to);
@@ -117,15 +100,12 @@ public class TaskList {
         this.taskIndex = index;
     }
 
-    public void markTaskAsDone(HashMap<String, String> commandArguments) {
+    public void markTaskAsDone(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskIndexException {
         String argument = commandArguments.get("argument");
         getTaskIndex(argument);
 
         if (this.taskIndex == INVALID_INDEX) {
-            System.out.println("--------------------------------------------");
-            System.out.printf("Invalid task index! Please input a number between 1 and %d \n", this.taskList.size());
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidTaskIndexException();
         }
 
         Task task = taskList.get(this.taskIndex);
@@ -136,15 +116,12 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
-    public void markTaskAsNotDone(HashMap<String, String> commandArguments) {
+    public void markTaskAsNotDone(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskIndexException {
         String argument = commandArguments.get("argument");
         getTaskIndex(argument);
 
         if (this.taskIndex == INVALID_INDEX) {
-            System.out.println("--------------------------------------------");
-            System.out.printf("Invalid task index! Please input a number between 1 and %d \n", this.taskList.size());
-            System.out.println("--------------------------------------------");
-            return;
+            throw new TulipTaskException.InvalidTaskIndexException();
         }
 
         Task task = taskList.get(this.taskIndex);
