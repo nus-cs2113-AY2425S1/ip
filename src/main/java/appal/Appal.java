@@ -42,7 +42,7 @@ public class Appal {
             "  (    ^_^  :7)\n" +
             "   :         ;\n" +
             "    \"..-\"-..\"\n";
-    public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+    public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
     public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal!\nLet's get things rolling, what would you like to do today?";
     public static final String NEW_TASK_NOTICE = "I've added the below to your to-do list, you can do it!";
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
@@ -53,6 +53,8 @@ public class Appal {
     // Constants for file reading
     public static final String FILE_PATH = "./data/saved_tasks.txt";
     public static final Path FILE_DIRECTORY = Paths.get("./data");
+    public static final String COMMA_SEPARATOR = ", ";
+    public static final String LINE_BREAK = "\n";
 
     // Attributes
     private boolean isExited = false;
@@ -171,7 +173,7 @@ public class Appal {
         try {
             switch (command) {
             case COMMAND_BYE:
-                appendToFile();
+                saveTasksToFile();
                 exitAppal();
                 break;
             case COMMAND_LIST:
@@ -197,12 +199,10 @@ public class Appal {
             }
         } catch (AppalException e) {
             printMessage(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private void loadFileContents() throws FileNotFoundException, AppalException {
+    private void loadFileContents() throws FileNotFoundException {
         File savedTasks = new File(FILE_PATH); // create a File for the given file path
         Scanner fileReader = new Scanner(savedTasks); // create a Scanner using the File as the source
         int savedTasksCount = 0;
@@ -218,32 +218,36 @@ public class Appal {
         Task.setTotalTasks(savedTasksCount);
     }
 
-    public void loadExistingTasksData() {
+    public void loadExistingTasksData() throws NoSavedTasksException{
         try {
             loadFileContents();
-        } catch (FileNotFoundException | AppalException e) {
-            System.out.println("File not found");
+        } catch (FileNotFoundException e) {
+            throw new NoSavedTasksException();
         }
         printMessage(LOAD_SAVED_TASKS_MESSAGE);
     }
 
-    public void appendToFile() throws IOException {
+    public void saveTasksToFile() throws SaveTasksErrorException {
         try {
             Files.createDirectories(FILE_DIRECTORY);
             FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
             for (int i = 0; i < Task.getTotalTasks(); i++) {
-                fw.write(taskList[i].getStatusValue() + ", " + taskList[i].getTaskInfo());
-                fw.write("\n");
+                fw.write(taskList[i].getStatusValue() + COMMA_SEPARATOR + taskList[i].getTaskInfo());
+                fw.write(LINE_BREAK);
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("error occurred");;
+            throw new SaveTasksErrorException();
         }
     }
 
     public void runAppal() {
         welcomeUser();
-        loadExistingTasksData();
+        try {
+            loadExistingTasksData();
+        } catch (NoSavedTasksException e) {
+            printMessage(e.getMessage());
+        }
         while (!isExited) {
             String line = in.nextLine();
             String[] inputDetails = Parser.extractInputDetails(line);
