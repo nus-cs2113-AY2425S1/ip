@@ -1,13 +1,13 @@
 package erika;
 
 import erika.exception.*;
+import erika.filesystem.FileSystem;
 import erika.settings.Settings;
 import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
 import erika.task.Todo;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
