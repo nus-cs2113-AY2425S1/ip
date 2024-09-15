@@ -240,17 +240,17 @@ public class Ui {
         displayLine(true);
     }
 
-    public void printNoFileMessage() {
-        displayLine(false);
-        System.out.println("No file detected! Please ensure the file \"tasklist.txt\" " +
-                "is in the root directory.");
-        displayLine(false);
-    }
-
     public void printSaveErrorMessage() {
         displayLine(true);
         System.out.println("Error saving tasks to external drive! You can choose to CTRL + C to end the program " +
                 "or redo your tasks management.");
         displayLine(true);
+    }
+
+    public void printCreateFileError() {
+        displayLine(false);
+        System.out.println("My sincere apologies. I can't seem to detect the file or create the file for you." +
+                " Please ensure the file \"tasklist.txt\" is in the root directory.");
+        displayLine(false);
     }
 }

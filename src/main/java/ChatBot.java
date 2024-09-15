@@ -2,6 +2,7 @@ import esme.storage.Storage;
 import esme.ui.Ui;
 import esme.command.CommandManager;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ChatBot {
@@ -18,9 +19,13 @@ public class ChatBot {
     }
 
     public void bootUp() {
-        if (!commandManager.hasLoadSuccessful()) {
-            ui.printNoFileMessage();
-            System.exit(0);
+        try {
+            if (!commandManager.hasLoadSuccessful()) {
+                storage.createFile();
+            }
+        } catch (IOException e) {
+            ui.printCreateFileError();
+            System.exit(1);
         }
         ui.greet();
     }

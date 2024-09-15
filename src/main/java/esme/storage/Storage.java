@@ -16,6 +16,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    public void createFile() throws IOException {
+        inputFile.createNewFile();
+    }
+
     public void writeToFile(ArrayList<String> textToAdd) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (String text : textToAdd) {
