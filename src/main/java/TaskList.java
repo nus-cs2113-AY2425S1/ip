@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 public class TaskList {
     public ArrayList<Task> taskList;
@@ -151,5 +153,63 @@ public class TaskList {
         System.out.println("Okay, I have marked this task as not done: ");
         System.out.println(task);
         System.out.println("--------------------------------------------");
+    }
+
+    public void saveTaskToFile() {
+        System.out.println("--------------------------------------------");
+        SaveTaskList.saveTasks(this.taskList);
+        System.out.println("--------------------------------------------");
+    }
+
+    public void loadTaskFromFile() {
+        List<String> list = SaveTaskList.loadTasks();
+        for (int i = 0; i < Objects.requireNonNull(list).size(); i++) {
+            parseTask(list.get(i));
+        }
+        System.out.println("--------------------------------------------");
+        System.out.println("Tasks have been successfully loaded!");
+        System.out.println("--------------------------------------------");
+    }
+
+    public void parseTask(String line) {
+        String type = line.substring(1, 2);
+        boolean completed = line.charAt(4) == 'X';
+
+        switch (type) {
+            case "T" -> {
+                String description = line.substring(7);
+                ToDo task = new ToDo(description);
+                this.taskList.add(task);
+                if (completed) {
+                    task.markAsDone();
+                }
+
+            }
+            case "D" -> {
+                int deadlineIndex = line.indexOf("(by:");
+                String description = line.substring(7, deadlineIndex).trim();
+                String deadline = line.substring(deadlineIndex + 5, line.length() - 1);
+                Deadline task = new Deadline(description, deadline);
+                this.taskList.add(task);
+                if (completed) {
+                    task.markAsDone();
+                }
+
+            }
+            case "E" -> {
+                int eventIndex = line.indexOf("(from:");
+                String description = line.substring(7, eventIndex).trim();
+                String timeInfo = line.substring(eventIndex + 6, line.length() - 1); // Extract time info
+
+                String[] timeParts = timeInfo.split(" to: ");
+                String eventStart = timeParts[0].trim();
+                String eventEnd = timeParts[1].trim();
+                Event task = new Event(description, eventStart, eventEnd);
+                this.taskList.add(task);
+                if (completed) {
+                    task.markAsDone();
+                }
+            }
+        }
     }
 }
