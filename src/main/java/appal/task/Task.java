@@ -2,7 +2,6 @@ package appal.task;
 
 public class Task {
     protected String task;
-    protected int id;
     protected boolean isDone;
     private static int totalTasks = 0;
 
@@ -10,7 +9,6 @@ public class Task {
         setTask(task);
         setDone(false);
         totalTasks += 1;
-        setId(totalTasks);
     }
 
     public String getStatusIcon() {
@@ -29,23 +27,15 @@ public class Task {
         this.task = task;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
     public static int getTotalTasks() {
         return totalTasks;
+    }
+
+    public static void setTotalTasks(int totalTasks) {
+        Task.totalTasks = totalTasks;
     }
 }
