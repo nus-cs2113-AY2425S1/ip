@@ -46,10 +46,9 @@ public class Freedom {
                     printList();
                     return;
                 case "mark":
-                    markTask(words, true);
-                    return;
                 case "unmark":
-                    markTask(words, false);
+                case "delete":
+                    editTask(words);
                     return;
                 case "todo":
                     description = input.replaceFirst("todo", "");
@@ -91,7 +90,8 @@ public class Freedom {
         System.out.println(LOGO);
     }
 
-    public static void markTask(String[] words, boolean isDone) {
+    public static void editTask(String[] words) {
+        final int COMMAND_INDEX = 0;
         final int TASK_INDEX = 1;
         int listNumber = Integer.parseInt(words[TASK_INDEX]);
         int taskIndexInStorage = listNumber - 1;
@@ -103,17 +103,27 @@ public class Freedom {
                 throw new ArrayIndexOutOfBoundsException();
             }
             taskToBeMarked = tasks.get(taskIndexInStorage);
-            if (isDone) {
-                taskToBeMarked.markDone();
-                tasks.set(taskIndexInStorage, taskToBeMarked);
-                message = "\tNice! I've marked this task as done:";
-            } else {
-                taskToBeMarked.markUndone();
-                tasks.set(taskIndexInStorage, taskToBeMarked);
-                message = "\tOk, I've marked this task as not done yet:";
+            switch (words[COMMAND_INDEX]) {
+                case "mark":
+                    taskToBeMarked.markDone();
+                    tasks.set(taskIndexInStorage, taskToBeMarked);
+                    message = "\tNice! I've marked this task as done:";
+                    break;
+                case "unmark":
+                    taskToBeMarked.markUndone();
+                    tasks.set(taskIndexInStorage, taskToBeMarked);
+                    message = "\tOk, I've marked this task as not done yet:";
+                    break;
+                case "delete":
+                    tasks.remove(taskIndexInStorage);
+                    message = "\tOk! This task has been deleted:";
+                    lastIndex--;
+                    break;
+                default:
+                    throw new Exception();
             }
             System.out.println(LOGO + message);
-            System.out.println("\t  " + tasks.get(taskIndexInStorage).printLine());
+            System.out.println("\t  " + taskToBeMarked.printLine());
             System.out.println(LOGO);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
