@@ -22,7 +22,11 @@ public class Task {
     }
 
     public char getType() {
+<<<<<<< HEAD
         return 'u';
+=======
+        return 0;
+>>>>>>> branch-level-6
     }
 
     public String getFrom() {
