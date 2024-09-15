@@ -12,6 +12,11 @@ public class Task {
     }
 
     @Override
+    public void finalize() {
+        taskArraySize--;
+    }
+
+    @Override
     public String toString() {
         return description;
     }
