@@ -7,13 +7,17 @@ import jeff.task.Event;
 import jeff.task.Task;
 import jeff.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jeff {
 
+    //ArrayList of tasks
+    private static ArrayList<Task> taskList = new ArrayList<>();
+
     //Constants
-    public static final String DIVIDER = "____________________________________________________________";
-    public static final String  introText = """
+    private static final String DIVIDER = "____________________________________________________________";
+    private static final String  introText = """
                 ____________________________________________________________
                 Hello! I'm JEFF!!!
                 
@@ -33,23 +37,23 @@ public class Jeff {
                 ____________________________________________________________
                 """;
 
-    public static final String exitText = """
+    private static final String exitText = """
                 ____________________________________________________________
                 Bye. Hope to see you again soon!
                 ____________________________________________________________
                 """;
 
-    public static final int TODO_LENGTH = 4;
-    public static final int DEADLINE_LENGTH = 8;
-    public static final int EVENT_LENGTH = 5;
-    public static final int SLASH_BY_LENGTH = 3;
-    public static final int SLASH_FROM_LENGTH = 5;
-    public static final int SLASH_TO_LENGTH = 3;
+    private static final int TODO_LENGTH = 4;
+    private static final int DEADLINE_LENGTH = 8;
+    private static final int EVENT_LENGTH = 5;
+    private static final int SLASH_BY_LENGTH = 3;
+    private static final int SLASH_FROM_LENGTH = 5;
+    private static final int SLASH_TO_LENGTH = 3;
 
     //Prints out lists of tasks
     public static void printList(){
-        for(int i = 1; i <= Task.getCount(); i++){
-            System.out.print(System.lineSeparator() + i + "." + Task.getList()[i-1]);
+        for(int i = 1; i <= taskList.size(); i++){
+            System.out.print(System.lineSeparator() + i + "." + taskList.get(i-1));
         }
     }
 
@@ -65,7 +69,7 @@ public class Jeff {
         }
         int taskNumber = Integer.parseInt(taskNumberString);
 
-        if(taskNumber > Task.getCount()){
+        if(taskNumber > taskList.size()){
             throw new IndexOutOfBoundsException();
         }
         return taskNumber;
@@ -75,7 +79,7 @@ public class Jeff {
     public static void markTask(String firstWord, String line) {
         try {
             int taskNumber = getTaskNumber(line);
-            Task t = Task.getList()[taskNumber - 1];
+            Task t = taskList.get(taskNumber - 1);
             if(firstWord.equals("mark")) {
                 t.setIsDone(true);
                 System.out.print("ogei marked task dOnE");
@@ -218,10 +222,13 @@ public class Jeff {
                 break;
             }
 
+            //Adding the different tasks to taskList once processed.
+            taskList.add(t);
+
             //Prints the following text if the user inputs the task with the correct fields
             System.out.print("Haiyaa the following task needs to be done:" + System.lineSeparator()
                     + "  " + t + System.lineSeparator() +
-                    "Now you have " + Task.getCount() + " task in ur list");
+                    "Now you have " + taskList.size() + " task in ur list");
 
         //Otherwise it will print what the user has done wrong, and how to rectify it
         } catch (TaskDescriptionException e) {
