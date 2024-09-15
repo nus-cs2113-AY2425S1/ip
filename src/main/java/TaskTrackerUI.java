@@ -91,4 +91,13 @@ public class TaskTrackerUI {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + currentTask.toString());
     }
+    // Menu Options - Delete ///////////////////////////////////////////////////////////////////////////////////////////
+    public void deleteTask(HashMap<String,String> argumentsList) throws CuboydException {
+        int index = parseValidTaskIndex(argumentsList, tasks);
+        Task currentTask = tasks.get(index);
+        tasks.remove(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + currentTask.toString());
+        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+    }
 }

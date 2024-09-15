@@ -46,6 +46,9 @@ public class Cuboyd {
                 case "unmark":
                     taskTrackerUI.unmarkTask(argumentsList);
                     break;
+                case "delete":
+                    taskTrackerUI.deleteTask(argumentsList);
+                    break;
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
                     isAskingInput = false;
@@ -58,6 +61,7 @@ public class Cuboyd {
                             "  - event\n" +
                             "  - mark\n" +
                             "  - unmark\n" +
+                            "  - delete\n" +
                             "  - bye"
                     );
                     break;
