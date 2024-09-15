@@ -1,0 +1,28 @@
+list
+run
+todo
+todo
+todo borrow book
+list
+deadline
+deadline
+deadline /by
+deadline study
+deadline study /by 5pm
+event  /from 5pm /to 7pm
+event run /from 5pm
+event run /from 5pm /to 7pm
+list
+mark 2
+mark 4
+mark 0
+mark -1
+unmark 4
+unmark 0
+unmark 2
+unmark -3
+event Career fair /from Monday 2pm /to Wednesday 5pm
+todo swim
+mark 4
+list
+bye
