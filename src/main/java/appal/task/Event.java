@@ -1,6 +1,7 @@
 package appal.task;
 
 public class Event extends Task {
+    protected static final String command = "event";
     protected String from;
     protected String to;
 
@@ -13,5 +14,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String getTaskInfo() {
+        return command + ", " + super.getTaskInfo() + ", " + from + ", " + to;
     }
 }

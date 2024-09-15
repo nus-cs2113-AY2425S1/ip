@@ -8,6 +8,11 @@ import appal.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -46,6 +51,7 @@ public class Appal {
 
     // Constants for file reading
     public static final String FILE_PATH = "./data/saved_tasks.txt";
+    public static final Path FILE_DIRECTORY = Paths.get("./data");
 
     // Attributes
     private boolean isExited = false;
@@ -156,6 +162,7 @@ public class Appal {
         try {
             switch (command) {
             case COMMAND_BYE:
+                appendToFile();
                 exitAppal();
                 break;
             case COMMAND_LIST:
@@ -184,6 +191,8 @@ public class Appal {
             }
         } catch (AppalException e) {
             printMessage(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -208,6 +217,20 @@ public class Appal {
             loadFileContents();
         } catch (FileNotFoundException | AppalException e) {
             System.out.println("File not found");
+        }
+    }
+
+    public void appendToFile() throws IOException {
+        try {
+            Files.createDirectories(FILE_DIRECTORY);
+            FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
+            for (int i = 0; i < Task.getTotalTasks(); i++) {
+                fw.write(taskList[i].getStatusValue() + ", " + taskList[i].getTaskInfo());
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("error occurred");;
         }
     }
 
