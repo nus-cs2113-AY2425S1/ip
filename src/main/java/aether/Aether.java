@@ -6,6 +6,7 @@ import aether.task.Deadline;
 import aether.task.Event;
 import aether.ui.Display;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,10 +18,27 @@ public class Aether {
     private static final int MAX_TASKS = 100;
     private Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
+    private Storage storage;
 
     public static void main(String[] args) {
         Aether aether = new Aether();
         aether.run();
+    }
+
+    public Aether() {
+        storage = new Storage("data/aether.txt");
+        try {
+            tasks = storage.load();
+            // Update taskCount based on loaded tasks
+            for (int i = 0; i < tasks.length; i++) {
+                if (tasks[i] == null) {
+                    break;
+                }
+                taskCount++;
+            }
+        } catch (IOException e) {
+            Display.response("Error loading tasks: " + e.getMessage());
+        }
     }
 
     public void run() {
@@ -87,6 +105,7 @@ public class Aether {
                 throw new DukeException("Invalid task number. Please enter a valid task index.");
             }
             markTaskStatus(index, isMark);
+            saveTasks();
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid input. Please enter a valid task number.");
         }
@@ -127,6 +146,7 @@ public class Aether {
             Display.response(
                     "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list."
             );
+            saveTasks();
         } else {
             throw new DukeException("Task list is full. Sorry!");
         }
@@ -149,5 +169,13 @@ public class Aether {
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
         Display.response(message + (index + 1) + "." + tasks[index]);
+    }
+
+    private void saveTasks() {
+        try {
+            storage.save(tasks, taskCount);
+        } catch (IOException e) {
+            Display.response("Error saving tasks: " + e.getMessage());
+        }
     }
 }

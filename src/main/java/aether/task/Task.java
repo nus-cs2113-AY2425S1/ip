@@ -3,7 +3,7 @@ package aether.task;
 /**
  * Task class, the base class for all types of tasks.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -24,4 +24,7 @@ public class Task {
     public String toString() {
         return "[" + getStatus() + "] " + description;
     }
+
+    // Add the abstract method
+    public abstract String toDataString();
 }
