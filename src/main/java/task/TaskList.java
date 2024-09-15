@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    //Constructor for task.TaskList
+    //Using ArrayList instead of Array
     public TaskList(){
         tasks = new ArrayList<>();
     }
@@ -64,5 +64,21 @@ public class TaskList {
         Task task = tasks.get(index - 1);
         task.setAsUndone();
         return "OK, I've marked this task as not done yet:\n" + task;
+    }
+
+    /**
+     * Delete task from ArrayList
+     *
+     * @param index The task number to be deleted.
+     * @return A confirmation message.
+     */
+    public String deleteTask(int index) {
+        if (index < 1 || index > tasks.size()) {
+            return "Invalid task number.";
+        }
+        Task deletedTask = tasks.remove(index - 1);
+        return "Noted. I've removed this task:\n"
+                + deletedTask +
+                "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }
