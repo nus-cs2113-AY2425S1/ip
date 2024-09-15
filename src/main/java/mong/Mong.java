@@ -2,7 +2,11 @@ package mong;
 
 import mong.exception.IllegalTaskFormatException;
 import mong.exception.IllegalTaskTypeException;
-import mong.task.*;
+import mong.task.Deadline;
+import mong.task.Event;
+import mong.task.Task;
+import mong.task.TaskType;
+import mong.task.Todo;
 
 import java.util.Arrays;
 import java.util.Scanner;
