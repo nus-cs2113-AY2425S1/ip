@@ -4,6 +4,8 @@ import mong.exception.IllegalTaskFormatException;
 import mong.exception.IllegalTaskTypeException;
 import mong.task.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,9 +21,35 @@ public class Mong {
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
 
     /**
+     * Adds tasks line by line from txt file.
+     */
+    public static void loadLineContents(String line) {
+        String[] lineData = line.split(" \\| ");
+        if (lineData[0].contentEquals("T")) {
+            addTodo(lineData[1], lineData[2]);
+        } else if (lineData[0].contentEquals("D")) {
+            addDeadline(lineData[1], lineData[2], lineData[3]);
+        } else if (lineData[0].contentEquals("E")) {
+            addEvent(lineData[1], lineData[2], lineData[3], lineData[4]);
+        }
+    }
+
+    /**
+     * Adds all tasks in txt file.
+     */
+    public static void loadFileContents(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            loadLineContents(line);
+        }
+    }
+
+    /**
      * Marks item in index as completed.
      */
-    public static void mark(String input, Task[] list) {
+    public static void mark(String input) {
         // the itemIndex is -1 than the input from the user
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         try {
@@ -67,6 +95,19 @@ public class Mong {
     }
 
     /**
+     * Add a Task of type Deadline from txt file.
+     * A deadline consists of the task description and deadline in String format.
+     */
+    public static void addDeadline(String isCompleted, String description, String by) {
+        list.add(new Deadline(description, by));
+        if (isCompleted.contentEquals("0")) {
+            list.get(list.size() - 1).setCompleted(false);
+        } else if (isCompleted.contentEquals("1")) {
+            list.get(list.size() - 1).setCompleted(true);
+        }
+    }
+
+    /**
      * Add a Task of type Deadline.
      * A deadline consists of the task description and deadline in String format.
      */
@@ -82,6 +123,19 @@ public class Mong {
             System.out.println(list.get(list.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! No description or deadline?@#!");
+        }
+    }
+
+    /**
+     * Add a Task of type Todo from txt file.
+     * A todo consists of the task description only.
+     */
+    public static void addTodo(String isCompleted, String description) {
+        list.add(new Todo(description));
+        if (isCompleted.contentEquals("0")) {
+            list.get(list.size() - 1).setCompleted(false);
+        } else if (isCompleted.contentEquals("1")) {
+            list.get(list.size() - 1).setCompleted(true);
         }
     }
 
@@ -105,7 +159,20 @@ public class Mong {
      * Add a Task of type Event.
      * An event consists of the task description and from/to period in String format.
      */
-    public static void addEvent(Task[] list, String input) {
+    public static void addEvent(String isCompleted, String description, String from, String to) {
+        list.add(new Event(description, from, to));
+        if (isCompleted.contentEquals("0")) {
+            list.get(list.size() - 1).setCompleted(false);
+        } else if (isCompleted.contentEquals("1")) {
+            list.get(list.size() - 1).setCompleted(true);
+        }
+    }
+
+    /**
+     * Add a Task of type Event.
+     * An event consists of the task description and from/to period in String format.
+     */
+    public static void addEvent(String input) {
         int endOfCommand = input.indexOf("event") + LENGTH_EVENT;
         int endOfFrom = input.lastIndexOf("/from") + LENGTH_FROM;
         int startOfFrom = input.indexOf("/from");
@@ -191,6 +258,11 @@ public class Mong {
     }
 
     public static void main(String[] args) {
+        try {
+            loadFileContents("src/main/java/mong/data/mong.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
         String logo = "\n" +
                 "\n" +
                 "___  ___                  _ \n" +
