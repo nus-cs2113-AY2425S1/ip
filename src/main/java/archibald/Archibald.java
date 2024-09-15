@@ -1,5 +1,8 @@
 package archibald;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import archibald.task.Deadline;
 import archibald.task.Event;
@@ -80,7 +83,58 @@ public class Archibald {
         }
     }
 
+    private static final String FILE_PATH = "./data/archibald.txt";
+
+    // method to save tasks whenever the list change
+    public static void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (int i = 0; i < taskCount; i++) {
+                writer.println(tasks[i].toSaveFormat());
+            }
+        } catch (IOException e) {
+            printArchibaldResponse("Error: Unable to save tasks to file.");
+        }
+    }
+
+    // startup-er method to load tasks from the file
+    public static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                Files.createDirectories(Paths.get("./data"));
+                file.createNewFile();
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                switch (type) {
+                    case "T":
+                        tasks[taskCount] = new Todo(parts[2]);
+                        break;
+                    case "D":
+                        tasks[taskCount] = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        tasks[taskCount] = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                }
+                if (isDone) {
+                    tasks[taskCount].markAsDone();
+                }
+                taskCount++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            printArchibaldResponse("Error: Unable to load tasks from file.");
+        }
+    }
+
     public static void main(String[] args) {
+        loadTasks(); // Load tasks previously saved on startup
         String name = "Archibald";
         printArchibaldResponse("Hello, I am known as " + name + ",\nhow may I be of assistance!");
 
@@ -90,6 +144,7 @@ public class Archibald {
             
             if (input.equals("bye")) {
                 printArchibaldResponse("I bid thee farewell! May our paths cross again!");
+                saveTasks(); //save task before exiting
                 break;
             } else if (input.equals("list")) {
                 printList();
@@ -100,6 +155,7 @@ public class Archibald {
             } else {
                 addTask(input);
             }
+            saveTasks(); //save tasks whenever list changes
         }
 
         scanner.close();
