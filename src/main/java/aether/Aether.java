@@ -6,6 +6,7 @@ import aether.task.Deadline;
 import aether.task.Event;
 import aether.ui.Display;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,11 +16,21 @@ import java.util.Scanner;
  */
 public class Aether {
     private boolean isExit = false;
-    private ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList instead of array
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
 
     public static void main(String[] args) {
         Aether aether = new Aether();
         aether.run();
+    }
+
+    public Aether() {
+        storage = new Storage("data/aether.txt");
+        try {
+            tasks = storage.load(); // Load tasks from storage
+        } catch (IOException e) {
+            Display.response("Error loading tasks: " + e.getMessage());
+        }
     }
 
     public void run() {
@@ -46,7 +57,6 @@ public class Aether {
             throw new DukeException("Error: Command cannot be empty. Please enter a valid command.");
         }
 
-        // Collapse multiple spaces between command and arguments
         String[] commandParts = command.split("\\s+", 2);
         String commandName = commandParts[0].toLowerCase();
         String arguments = commandParts.length > 1 ? commandParts[1].trim() : "";
@@ -93,6 +103,7 @@ public class Aether {
                 throw new DukeException("Error: Invalid task number. Please enter a valid task number.");
             }
             markTaskStatus(index, isMark);
+            saveTasks(); // Save after marking task
         } catch (NumberFormatException e) {
             throw new DukeException("Error: Invalid input. Please enter a valid task number.");
         }
@@ -152,16 +163,18 @@ public class Aether {
             Task removedTask = tasks.remove(index);
             Display.response("Noted. I've removed this task:\n  " + removedTask);
             Display.response("Now you have " + tasks.size() + " tasks in the list.");
+            saveTasks(); // Save after deletion
         } catch (NumberFormatException e) {
             throw new DukeException("Error: Invalid input. Please enter a valid task number.");
         }
     }
-    
+
     private void addTask(Task task) {
         tasks.add(task);
         Display.response(
                 "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list."
         );
+        saveTasks(); // Save after adding a task
     }
 
     private void listTasks() {
@@ -181,5 +194,13 @@ public class Aether {
                 ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n";
         Display.response(message + (index + 1) + "." + tasks.get(index));
+    }
+
+    private void saveTasks() {
+        try {
+            storage.save(tasks); // Save the updated tasks
+        } catch (IOException e) {
+            Display.response("Error saving tasks: " + e.getMessage());
+        }
     }
 }

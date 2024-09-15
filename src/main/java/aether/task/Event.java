@@ -1,8 +1,5 @@
 package aether.task;
 
-/**
- * Event class for tasks with start and end times.
- */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -16,5 +13,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toDataString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 }
