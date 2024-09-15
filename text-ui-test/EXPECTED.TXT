@@ -33,7 +33,7 @@ _____________________ USER INPUT BELOW _____________________
 event CS2113 lecture /from Friday 4pm /to Friday 6pm
 ___________________ PROGRAM OUTPUT BELOW ___________________
 Now, ya gotta do this too:
-  [E][ ] CS2113 lecture, from Friday 6pm to Friday 6pm
+  [E][ ] CS2113 lecture, from Friday 4pm to Friday 6pm
 Your list is now THIS BIG: 3
 _____________________ USER INPUT BELOW _____________________
 mark 1
