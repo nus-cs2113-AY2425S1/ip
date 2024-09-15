@@ -150,7 +150,9 @@ public class CommandHandler {
             throw new MedeaException("Invalid delete command. Please provide a valid task number.");
         }
 
-        taskManager.deleteTask(index);
+        Task deletedTask = taskManager.deleteTask(index);
+        String formatString = "Got it. I've deleted this task:%n  %s%nNow you have %d tasks in the list.%n";
+        System.out.printf(formatString, deletedTask, taskManager.getSize());
     }
 
     private int parseTaskIndex(String taskIndex) {
@@ -225,6 +227,6 @@ public class CommandHandler {
     }
 
     private void printAddTaskMessage(Task addedTask){
-        System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", addedTask, taskManager.getCurrentTaskIndex());
+        System.out.printf("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.%n", addedTask, taskManager.getSize());
     }
 }
