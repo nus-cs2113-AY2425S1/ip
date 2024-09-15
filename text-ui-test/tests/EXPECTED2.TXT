@@ -7,7 +7,7 @@
 How can I help you today?
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] Meeting (from: 10:00 to: 11:00)
 -------------------------------
@@ -56,27 +56,27 @@ Invalid argument(s): "/from" expected
 Usage: event <description> /from <from> /to <to>
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] a (from: b to: c)
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] @Meeting! (from: #StartTime* to: $EndTime^)
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] Lunch (from: 12:30 PM to: 01:30 PM)
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] Lunch Break (from: 12:00 to: 13:00)
 -------------------------------
 -------------------------------
-Deadline task added!
+Event task added!
 
 [E][ ] Special! Event (from: Start @ 9am to: End @ 5pm)
 -------------------------------
