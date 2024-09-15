@@ -96,6 +96,23 @@ public class Jeff {
         }
     }
 
+    //Deletes the specified task, catches any error thrown
+    private static void deleteTask(String firstWord, String line) {
+        try {
+            int taskNumber = getTaskNumber(line);
+            Task t = taskList.get(taskNumber - 1);
+            taskList.remove(taskNumber - 1);
+            System.out.print("i have reeeemoved the taskkk: " +
+                    System.lineSeparator() + t);
+        } catch(IllegalArgumentException e) {
+            System.out.print("eh how to delete a non-number task...");
+        } catch(IndexOutOfBoundsException e){
+            System.out.print("how to delete a non-existent task...");
+        }
+        System.out.print(System.lineSeparator() +
+                "YAYYYY!!! Only " + taskList.size() + " task(s) left in ur list!");
+    }
+
     public static void invalidInput(){
         System.out.print("eh can you give me one of the inputs i specified above...");
     }
@@ -110,6 +127,11 @@ public class Jeff {
         case "unmark":
             markTask(firstWord, line);
             break;
+        case "delete":
+            deleteTask(firstWord, line);
+            break;
+        default:
+            System.out.print("Some command not processed...");
         }
     }
 
@@ -228,7 +250,7 @@ public class Jeff {
             //Prints the following text if the user inputs the task with the correct fields
             System.out.print("Haiyaa the following task needs to be done:" + System.lineSeparator()
                     + "  " + t + System.lineSeparator() +
-                    "Now you have " + taskList.size() + " task in ur list");
+                    "Now you have " + taskList.size() + " task(s) in ur list");
 
         //Otherwise it will print what the user has done wrong, and how to rectify it
         } catch (TaskDescriptionException e) {
@@ -271,6 +293,7 @@ public class Jeff {
             case "list":
             case "mark":
             case "unmark":
+            case "delete":
                 processCommands(firstWord, line);
                 break;
             default:
