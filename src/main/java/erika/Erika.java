@@ -147,7 +147,7 @@ public class Erika {
             throw new IndexOutOfBoundsException();
         }
         printDeletedMessage();
-        tasks.remove(markIndex-1);
+        tasks.remove(markIndex - 1);
         Task.decrementTaskArraySize();
     }
 
