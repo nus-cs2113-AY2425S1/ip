@@ -36,9 +36,9 @@ public class TaskManager {
             tasks[taskCount] = new Event(description, from, to);
             taskCount++;
             System.out.println(LINE_SEPARATOR
-                    + "Got it. I've added this task:\n"
+                    + "added...\n"
                     + " " + tasks[taskCount - 1].toString() + "\n"
-                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "Now you have " + taskCount + " tasks in the list...all the best, im going back to bed\n"
                     + LINE_SEPARATOR);
             return;
         }
@@ -51,7 +51,8 @@ public class TaskManager {
 
             String description = parts[0].trim();
             if (description.isEmpty()) {
-                throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. Please use: deadline description /by date\n");
+                throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. "
+                        + "Please use: deadline description /by date\n");
 
             }
 
@@ -59,9 +60,9 @@ public class TaskManager {
             tasks[taskCount] = new Deadline(description, by);
             taskCount++;
             System.out.println(LINE_SEPARATOR
-                    + "Got it. I've added this task:\n"
+                    + "added...\n"
                     + " " + tasks[taskCount - 1].toString() + "\n"
-                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "Now you have " + taskCount + " tasks in the list...all the best, im going back to bed\n"
                     + LINE_SEPARATOR);
             return;
         }
@@ -74,22 +75,47 @@ public class TaskManager {
             tasks[taskCount] = new Todo(description);
             taskCount++;
             System.out.println(LINE_SEPARATOR
-                    + "Got it. I've added this task:\n"
+                    + "added...\n"
                     + " " + tasks[taskCount - 1].toString() + "\n"
-                    + "Now you have " + taskCount + " tasks in the list.\n"
+                    + "Now you have " + taskCount + " tasks in the list...all the best, im going back to bed\n"
                     + LINE_SEPARATOR);
             return;
         }
-        throw new SleepyException("Unknown command. Please start with 'event', 'deadline', or 'todo'.\n");
+        throw new SleepyException("Unknown command. "
+                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+    }
+
+    public void deleteTask(int taskIndex) throws SleepyException{
+        if (taskIndex < 0 || taskIndex > taskCount) {
+            throw new SleepyException("Invalid task number.");
+        }
+
+        System.out.println(LINE_SEPARATOR
+                + "I've removed the task...\n"
+                + " " + tasks[taskIndex - 1].toString() + "\n"
+                + "Now you have " + (taskCount - 1) + " tasks in the list...can I go and sleep now\n"
+                +LINE_SEPARATOR);
+
+        for (int i = taskIndex; i < taskCount - 1; i++) {
+            tasks[i - 1] = tasks[i];
+        }
+        tasks[taskCount - 1] = null;
+        taskCount--;
     }
 
     public void listTasks() {
-        System.out.println(LINE_SEPARATOR
-                + "Stop bothering me, u have unfinished tasks...:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        if (taskCount > 0) {
+            System.out.println(LINE_SEPARATOR
+                    + "Stop bothering me, u have unfinished tasks...:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + "." + tasks[i]);
+            }
+            System.out.println(LINE_SEPARATOR);
+        } else {
+            System.out.println(LINE_SEPARATOR
+                    + "You're done for the day...go snooze");
+            System.out.println(LINE_SEPARATOR);
         }
-        System.out.println(LINE_SEPARATOR);
     }
 
     public void markTask(int taskNumber) throws SleepyException {
@@ -100,7 +126,7 @@ public class TaskManager {
                     + " " + tasks[taskNumber - 1].toString() + "\n"
                     + LINE_SEPARATOR);
         } else {
-            throw new SleepyException("you haven't even finished your current tasks but you're do tasks that don't even exist...\n");
+            throw new SleepyException("this tasks doesn't even exist...\n");
 
         }
     }
