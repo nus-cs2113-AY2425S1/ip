@@ -24,4 +24,9 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    //general abstract method that going to be overridden by subclasses
+    public String toSaveFormat() {
+        return isDone + "|" + description;
+    }
 }
