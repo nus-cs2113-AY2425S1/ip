@@ -48,6 +48,8 @@ public class XiaoMe {
 
     public static void main(String[] args) {
 
+        Save.readFile();
+
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -115,7 +117,10 @@ public class XiaoMe {
                                     + "\t\t" + tasks.get(index)
                                     + "\n\t____________________________________________________________\n");
                         }
-                    } catch (NumberFormatException e) {
+
+                        Save.saveFile();
+
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                         System.out.println("""
                                 \t____________________________________________________________
                                 \tHEY mark/unmark should be followed by a valid integer
@@ -149,6 +154,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks.getLast() + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
@@ -174,6 +182,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks.getLast() + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
@@ -200,6 +211,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks.getLast() + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
