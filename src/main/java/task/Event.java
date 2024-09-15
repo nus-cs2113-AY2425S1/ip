@@ -27,13 +27,23 @@ public class Event extends Task{
     public Event(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
         super(getEventDescription(input));
         int startingIndexOfEventStart = input.indexOf("/from") + 6;
-        System.out.println(startingIndexOfEventStart);
         int endingIndexOfEventStart = input.indexOf("/to") - 1;
         int startingIndexOfEventEnd = endingIndexOfEventStart + 5;
         String eventStart = input.substring(startingIndexOfEventStart, endingIndexOfEventStart);
         String eventEnd = input.substring(startingIndexOfEventEnd);
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
+    }
+
+    public Event(String description, String eventStart, String eventEnd) throws LeginEmptyTaskException {
+        super(description);
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+    }
+
+    @Override
+    public String getWriteInfo() {
+        return "E|" + isDone + "|" + task + "|" + eventStart + "|" + eventEnd;
     }
 
     @Override
