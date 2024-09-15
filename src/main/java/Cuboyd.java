@@ -12,10 +12,10 @@ public class Cuboyd {
 
     // Main Loop ///////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
-        displayIntroText();
-
         // Command Entry
         TaskTrackerUI taskTrackerUI = new TaskTrackerUI();
+        displayIntroText();
+
         String line;
         HashMap<String, String> argumentsList;
         Scanner scanner = new Scanner(System.in);
