@@ -77,7 +77,7 @@ public class Legin {
                 Character.toString(0x1F44B) +
                 ". Hope to see you again really soon! " +
                 Character.toString(0x1F608));
-        //updateTextFile();
+        updateTextFile();
         horizontalLine();
     }
 
