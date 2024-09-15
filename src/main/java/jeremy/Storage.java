@@ -47,6 +47,11 @@ public class Storage {
     }
 
     public static TaskList readData() throws FileNotFoundException {
+        if (!new File(PATH).exists()) {
+            new File(PATH).mkdir();
+        }
+
+        // doesn't overwrite existing file
         File file = new File(PATH + FILE_NAME);
         Scanner scanner = new Scanner(file);
 
