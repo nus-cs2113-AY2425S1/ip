@@ -46,6 +46,9 @@ public class CommandHandler {
             case UNMARK:
                 handleTaskDoneUpdate(argumentString, false);
                 break;
+            case DELETE:
+                handleTaskDelete(argumentString);
+                break;
             case TODO:
                 handleTodoCommand(argumentString);
                 break;
@@ -76,6 +79,17 @@ public class CommandHandler {
         }
 
         taskManager.updateTaskDoneStatus(index, isDone);
+    }
+
+    private void handleTaskDelete(String taskIndex) {
+        int index = parseTaskIndex(taskIndex);
+        int currentTaskIndex = taskManager.getCurrentTaskIndex();
+
+        if (index < 0 || index >= currentTaskIndex) {
+            throw new MedeaException("Invalid delete command. Please provide a valid task number.");
+        }
+
+        taskManager.deleteTask(index);
     }
 
     private int parseTaskIndex(String taskIndex) {

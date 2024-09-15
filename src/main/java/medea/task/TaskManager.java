@@ -48,4 +48,10 @@ public class TaskManager {
             System.out.printf("%d. %s%n", index + 1, currentTask);
         }
     }
+
+    public void deleteTask(int index){
+        Task deletedTask = taskList.get(index);
+        taskList.remove(index);
+        System.out.printf("Got it. I've deleted this task:%n  %s%nNow you have %d tasks in the list.%n", deletedTask, currentTaskIndex);
+    }
 }

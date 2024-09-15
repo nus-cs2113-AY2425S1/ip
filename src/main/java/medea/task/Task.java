@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public void setIsDone( boolean isDone) {
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
