@@ -3,7 +3,9 @@ Hello! I'm Legin, your best online companion!
 What can I do for you today my friend :D
 ____________________________________________________________
 ____________________________________________________________
-added: make the bed
+Got it. I've added this task:
+[ ] make the bed
+Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -51,5 +53,5 @@ ____________________________________________________________
 4. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
 ____________________________________________________________
 ____________________________________________________________
-Bye 👋. Hope to see you again really soon! 😈
+Bye . Hope to see you again really soon!
 ____________________________________________________________
