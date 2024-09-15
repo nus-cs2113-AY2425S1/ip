@@ -21,6 +21,10 @@ public class Task {
         return description;
     }
 
+    public String generateFileLine() {
+        return "";
+    }
+
     public void setMark(boolean mark) {
         this.isDone = mark;
     }

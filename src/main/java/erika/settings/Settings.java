@@ -8,4 +8,8 @@ public class Settings {
     public static final int BY_REAR_OFFSET = 1;
     public static final int FROM_REAR_OFFSET = 1;
     public static final int TO_REAR_OFFSET = 1;
+
+    public static final String DIRECTORY = "data";
+    public static final String FILENAME = DIRECTORY + "/tasks.txt";
+    public static final String SEPARATOR = ",";
 }

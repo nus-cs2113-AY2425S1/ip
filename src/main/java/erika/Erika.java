@@ -1,15 +1,15 @@
 package erika;
 
-import erika.exception.EmptyDescriptionException;
-import erika.exception.EmptyListException;
-import erika.exception.FormatErrorException;
-import erika.exception.UnknownCommandException;
+import erika.exception.*;
 import erika.settings.Settings;
 import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
 import erika.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,11 +17,35 @@ public class Erika {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static Scanner in = new Scanner(System.in);
     private static int markIndex;
+    static FileSystem fileSystem = new FileSystem(Settings.FILENAME, Settings.SEPARATOR);
 
     public static void main(String[] args) {
         printWelcomeMessage();
+        initializeFileSystem();
+
         while (true) {
             if (mainLoop()) break;
+        }
+    }
+
+    private static void initializeFileSystem() {
+        try{
+            tasks = fileSystem.readFromFile();
+        } catch (FileNotFoundException e){
+            fileSystem.printFileNotFoundMessage();
+        } catch (FileFormatErrorException e) {
+            reinitFileSystem();
+        } catch (IOException e) {
+            printMessage("IO Error encountered when setting up fileSystem");
+        }
+    }
+
+    private static void reinitFileSystem() {
+        try{
+            printMessage(Settings.FILENAME + " is corrupted, re-creating the file");
+            fileSystem.writeToFile("",false);
+        } catch (IOException _e) {
+            printMessage("IO Error encountered when re-creating " + Settings.FILENAME);
         }
     }
 
@@ -30,6 +54,7 @@ public class Erika {
             String line = collectUserInput();
             if (line.equals("bye")) {
                 printGoodbyeMessage();
+                saveChangesToFileSystem();
                 return true;
             } else if (line.equals("list")) {
                 printList();
@@ -62,6 +87,14 @@ public class Erika {
         return false;
     }
 
+    private static void saveChangesToFileSystem() {
+        try{
+            fileSystem.updateFileSystemWithLocalTasks(tasks);
+        } catch (IOException e) {
+            printMessage("IO Error encountered when attempting to save changes to FS");
+        }
+    }
+
     private static void addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
         if(!line.contains("event ")) {
             throw new EmptyDescriptionException("Event");
@@ -89,6 +122,11 @@ public class Erika {
         }
         Event newEvent = new Event(description, fromText, toText);
         tasks.add(newEvent);
+        try {
+            fileSystem.appendTaskToFile(newEvent);
+        } catch (IOException e) {
+            printMessage("Unable to append Event to FS. IO Error occurred");
+        }
         return newEvent;
     }
 
@@ -118,6 +156,11 @@ public class Erika {
 
         Deadline newDeadline = new Deadline(description, byText);
         tasks.add(newDeadline);
+        try {
+            fileSystem.appendTaskToFile(newDeadline);
+        } catch (IOException e) {
+            printMessage("Unable to append Deadline to FS. IO Error occurred");
+        }
         return newDeadline;
     }
 
@@ -127,6 +170,11 @@ public class Erika {
         }
         Todo newTodo = new Todo(line.substring(line.indexOf(" ")+Settings.SPACE_OFFSET));
         tasks.add(newTodo);
+        try {
+            fileSystem.appendTaskToFile(newTodo);
+        } catch (IOException e) {
+            printMessage("Unable to append Todo to FS. IO Error occurred");
+        }
         printAddedMessage(newTodo);
     }
 
@@ -149,6 +197,7 @@ public class Erika {
         printDeletedMessage();
         tasks.remove(markIndex - 1);
         Task.decrementTaskArraySize();
+        FileSystem.setDirtyBit();
     }
 
     private static void markEntry(String line) throws EmptyDescriptionException {
@@ -166,6 +215,7 @@ public class Erika {
             tasks.get(markIndex - 1).setMark(true);
             printMarkedMessage();
         }
+        FileSystem.setDirtyBit();
     }
 
     private static int extractTaskIndex(String line) throws NumberFormatException{
