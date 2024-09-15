@@ -1,9 +1,11 @@
 package main;
 
-import java.util.Objects;
 import java.util.Scanner;
 import java.lang.Integer;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import task.*;
 import exception.*;
@@ -18,11 +20,11 @@ public class Sirius {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
 
-
     // some regexes
     public static final String SPACE = " ";
     public static final String EMPTY = "";
     public static final String SLASH = "/";
+    public static final String STATUS_DELIMINATOR = "|";
     public static final String SEPARATOR = "-----------------------------";
 
     // data members
@@ -145,7 +147,7 @@ public class Sirius {
                         throw new InvalidTaskContentException("You should declare '/from' and '/to' for event");
                     }
                     else {
-                        commandPieces[2] = slashCommand[1].replace("by", EMPTY).trim();
+                        commandPieces[2] = slashCommand[1].replace("from", EMPTY).trim();
                         commandPieces[3] = slashCommand[2].replace("to", EMPTY).trim();
                         return commandPieces;
                     }
@@ -154,6 +156,31 @@ public class Sirius {
             System.out.println(e.getMessage());
         }
         return commandPieces;
+    }
+    public static void saveTaskList(ArrayList<Task> list) {
+        try {
+            // If the directory DNE, create.
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                if (directory.mkdirs()){
+                    System.out.println("Directory created!");
+                }
+            }
+            // If the file DNE, create and write.
+            File file = new File(directory, "Sirius.txt");
+            if (!file.exists()) {
+                if (file.createNewFile()){
+                    System.out.println("File created!");
+                }
+            }
+            FileWriter writer = new FileWriter(file);
+            for (Task task : list) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the tasks.");
+        }
     }
 
     public static void main(String[] args) {
@@ -176,11 +203,13 @@ public class Sirius {
                         if (isValidToProcess){
                             markTask(commandPieces, list, true);
                         }
+                        saveTaskList(list);
                         break;
                     case UNMARK:
                         if (isValidToProcess) {
                             markTask(commandPieces, list, false);
                         }
+                        saveTaskList(list);
                         break;
                     case TODO:
                     case DEADLINE:
@@ -188,6 +217,7 @@ public class Sirius {
                         if (isValidToProcess) {
                             addTask(commandPieces, list);
                         }
+                        saveTaskList(list);
                         break;
                     default:
                         throw new IllegalCommandException("I don't understand it. Please enter an illegal command!");
