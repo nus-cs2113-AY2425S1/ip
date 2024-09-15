@@ -44,17 +44,10 @@ public class CodyChen {
 
         switch(type) {
         case 'D':
-<<<<<<< HEAD
             System.out.print("(by: " + tasks.get(startIndex).getFrom() + ")");
             break;
         case 'E':
             System.out.print("(by: " + tasks.get(startIndex).getFrom());
-=======
-            System.out.print(tasks.get(startIndex).getFrom() + ")");
-            break;
-        case 'E':
-            System.out.print(tasks.get(startIndex).getFrom());
->>>>>>> branch-level-6
             System.out.print(tasks.get(startIndex).getTo());
             break;
         }
@@ -141,15 +134,9 @@ public class CodyChen {
             switch(task.getType()){
             case 'T': System.out.println();
                 break;
-<<<<<<< HEAD
             case 'D': System.out.println("(by: " + task.getFrom() + ")");
                 break;
             case 'E': System.out.println("(by: " + task.getFrom() + task.getTo());
-=======
-            case 'D': System.out.println(task.getFrom() + ")");
-                break;
-            case 'E': System.out.println(task.getFrom() + task.getTo());
->>>>>>> branch-level-6
                 break;
             }
             loop += 1;
@@ -196,7 +183,6 @@ public class CodyChen {
     public static void main(String[] args) throws IOException {
         System.out.println("CodyChen Welcomes You");
         ArrayList<Task> tasks = new ArrayList<>();
-<<<<<<< HEAD
 
         /* Read from file */
         try {
@@ -215,8 +201,6 @@ public class CodyChen {
             System.out.println("File corrupted. Unable to restore data");
         }
 
-=======
->>>>>>> branch-level-6
 
         Scanner in = new Scanner(System.in);
         String line = "";
@@ -224,7 +208,6 @@ public class CodyChen {
         while(!line.equals("bye")) {
             line = in.nextLine();
 
-<<<<<<< HEAD
             if (line.contains("todo")) {
                 try {
                     typeofTask(line, tasks, 'T');
@@ -263,67 +246,14 @@ public class CodyChen {
                 }
             } else if (line.contains("list")) {
                 try {
-=======
-            if(line.contains("todo")){
-                try{
-                    typeofTask(line, tasks, 'T');
-                } catch(Exception e){
-                    System.out.println("Please specify todo <task>");
-                }
-            }
-
-            else if(line.contains("deadline")){
-                try{
-                    typeofTask(line, tasks, 'D');
-                } catch(Exception e){
-                    System.out.println("Please specify deadline <task> /by <End Date>");
-                }
-            }
-            else if(line.contains("event")){
-                try{
-                    typeofTask(line, tasks, 'E');
-                } catch(Exception e){
-                    System.out.println("Please specify event <task> /from <Start Date> /to <End Date>");
-                }
-            }
-            else if(line.contains("unmark")){
-                try{
-                    typeofTask(line, tasks, 'U');
-                } catch(Exception e){
-                    System.out.println("Please specify unmark <Task Number>");
-                }
-            }
-
-            else if(line.contains("mark")){
-                try{
-                    typeofTask(line, tasks, 'M');
-                } catch(Exception e){
-                    System.out.println("\"Please specify mark <Task Number>\"");
-                }
-            }
-
-            else if(line.contains("delete")){
-                try{
-                    typeofTask(line, tasks, 'X');
-                } catch(Exception e){
-                    System.out.println("The selected item is not found");
-                }
-            }
-
-            else if(line.contains("list")){
-                try{
->>>>>>> branch-level-6
                     listItemsFunc(tasks);
                 } catch (Exception e) {
                     System.out.println("Oops! I did not get that ><");
                 }
             } else if (line.contains("bye")) {
                 System.out.println(bye);
-<<<<<<< HEAD
             } else {
                 System.out.println("Please specify todo / deadline / event to start the bot");
-=======
->>>>>>> branch-level-6
             }
 
             /* Write to file */
