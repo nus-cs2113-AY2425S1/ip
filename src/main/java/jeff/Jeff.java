@@ -2,12 +2,17 @@ package jeff;
 
 import jeff.exception.TaskDescriptionException;
 import jeff.exception.TaskFieldException;
+import jeff.exception.InvalidFormatException;
 import jeff.task.Deadline;
 import jeff.task.Event;
 import jeff.task.Task;
 import jeff.task.Todo;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Jeff {
@@ -15,9 +20,12 @@ public class Jeff {
     //ArrayList of tasks
     private static ArrayList<Task> taskList = new ArrayList<>();
 
+    //Relative file path for
+    private static final String FILEPATH = "data/taskList.txt";
+
     //Constants
-    private static final String DIVIDER = "____________________________________________________________";
-    private static final String  introText = """
+    public static final String DIVIDER = "____________________________________________________________";
+    public static final String  introText = """
                 ____________________________________________________________
                 Hello! I'm JEFF!!!
                 
@@ -37,18 +45,18 @@ public class Jeff {
                 ____________________________________________________________
                 """;
 
-    private static final String exitText = """
+    public static final String exitText = """
                 ____________________________________________________________
                 Bye. Hope to see you again soon!
                 ____________________________________________________________
                 """;
 
-    private static final int TODO_LENGTH = 4;
-    private static final int DEADLINE_LENGTH = 8;
-    private static final int EVENT_LENGTH = 5;
-    private static final int SLASH_BY_LENGTH = 3;
-    private static final int SLASH_FROM_LENGTH = 5;
-    private static final int SLASH_TO_LENGTH = 3;
+    public static final int TODO_LENGTH = 4;
+    public static final int DEADLINE_LENGTH = 8;
+    public static final int EVENT_LENGTH = 5;
+    public static final int SLASH_BY_LENGTH = 3;
+    public static final int SLASH_FROM_LENGTH = 5;
+    public static final int SLASH_TO_LENGTH = 3;
 
     //Prints out lists of tasks
     public static void printList(){
@@ -289,12 +297,16 @@ public class Jeff {
             case "deadline":
             case "event":
                 processTasks(firstWord, line);
+                writeFileTask();
                 break;
             case "list":
+                processCommands(firstWord, line);
+                break;
             case "mark":
             case "unmark":
             case "delete":
                 processCommands(firstWord, line);
+                writeFileTask();
                 break;
             default:
                 invalidInput();
@@ -305,8 +317,77 @@ public class Jeff {
         }
     }
 
+    //Rewrites taskList to hard drive, runs every time a task is added, or marked/unmarked
+    private static void writeFileTask() {
+        try {
+            FileWriter fw = new FileWriter(FILEPATH);
+            StringBuilder fileContents = new StringBuilder();
+            for (int i = 1; i <= taskList.size(); i++) {
+                fileContents.append(taskList.get(i - 1).fileContent()).append(System.lineSeparator());
+            }
+            fw.write(fileContents.toString());
+            fw.close();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void processFileTask(String taskLine) throws InvalidFormatException{
+        String[] taskDetails = taskLine.split("\\|");
+
+        //Remove starting and trailing spaces, and check if the fields are empty
+        for(int i = 0; i < taskDetails.length; i++){
+            taskDetails[i] = taskDetails[i].trim();
+            if(taskDetails[i].isEmpty()){
+                throw new InvalidFormatException(taskLine);
+            }
+        }
+
+        //Check if the current line is in the expected format
+        if(taskDetails[0].equals("T") && taskDetails.length == 3){
+            new Todo(taskDetails[2]);
+        }
+        else if(taskDetails[0].equals("D") && taskDetails.length == 4){
+            new Deadline(taskDetails[2], taskDetails[3]);
+        }
+        else if(taskDetails[0].equals("E") && taskDetails.length == 5){
+            new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+        }
+        else{
+            throw new InvalidFormatException(taskLine);
+        }
+
+        if(taskDetails[1].equals("1")){
+            markTask("mark", Integer.toString(taskList.size()));
+        }
+    }
+
+    //Load the tasks from the txt file into list here
+    private static void loadTaskList() {
+        try {
+            File taskFile = new File(FILEPATH);
+            Scanner fileScanner = new Scanner(taskFile);
+
+            //Scans through all the lines in the txt file, and adds them to the taskList
+            while (fileScanner.hasNext()) {
+                try {
+                    processFileTask(fileScanner.nextLine());
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.print("File not found");
+        }
+    }
+
     //Prints Intro text, runs the chatbot, prints the Exit text
     public static void main(String[] args) {
+        //Loads taskList from hard drive
+        loadTaskList();
+
         System.out.print(introText);
         runBot();
         System.out.println(exitText);
