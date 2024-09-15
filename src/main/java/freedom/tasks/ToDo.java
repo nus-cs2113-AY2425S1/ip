@@ -1,3 +1,5 @@
+package freedom.tasks;
+
 import freedom.exceptions.DescriptionEmpty;
 
 public class ToDo extends Task {

@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import freedom.exceptions.InvalidCommand;
+import freedom.tasks.Task;
+import freedom.tasks.ToDo;
+import freedom.tasks.Deadline;
+import freedom.tasks.Event;
 
 public class Freedom {
     protected static Task[] storage = new Task[100];
