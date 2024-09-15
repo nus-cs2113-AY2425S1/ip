@@ -52,18 +52,16 @@ public class Save {
                 String line = scanner.nextLine();
                 String[] words = line.split("\\|");
                 if (Objects.equals(words[0], "T")) {
-                    XiaoMe.tasks[XiaoMe.taskCount] = new Todo(words[2]);
+                    XiaoMe.tasks.add(new Todo(words[2]));
                 } else if (Objects.equals(words[0], "D")) {
-                    XiaoMe.tasks[XiaoMe.taskCount] = new Deadline(words[2], words[3]);
+                    XiaoMe.tasks.add(new Deadline(words[2], words[3]));
                 } else if (Objects.equals(words[0], "E")) {
-                    XiaoMe.tasks[XiaoMe.taskCount] = new Event(words[2], words[3], words[4]);
+                    XiaoMe.tasks.add(new Event(words[2], words[3], words[4]));
                 }
 
                 if (Objects.equals(words[1], "X")) {
-                    XiaoMe.tasks[XiaoMe.taskCount].setDone(true);
+                    XiaoMe.tasks.getLast().setDone(true);
                 }
-
-                XiaoMe.taskCount += 1;
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading file.");
