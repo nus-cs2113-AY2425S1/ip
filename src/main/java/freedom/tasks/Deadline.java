@@ -1,3 +1,5 @@
+package freedom.tasks;
+
 import freedom.exceptions.DescriptionEmpty;
 import freedom.exceptions.TimeEmpty;
 
