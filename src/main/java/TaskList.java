@@ -19,6 +19,18 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    public void deleteTask(HashMap<String, String> commandArguments) {
+        String argument = commandArguments.get("argument");
+        getTaskIndex(argument);
+        Task task = taskList.get(this.taskIndex);
+        System.out.println("--------------------------------------------");
+        this.taskList.remove(task);
+        System.out.println("Okay! I have removed this task: ");
+        System.out.println(task.toString());
+        System.out.printf("You currently have %d tasks in your list \n", taskList.size());
+        System.out.println("--------------------------------------------");
+    }
+
     public void listTasks() {
         System.out.println("--------------------------------------------");
         System.out.println("Here are your current tasks: ");

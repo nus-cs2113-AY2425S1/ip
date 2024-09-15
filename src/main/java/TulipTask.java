@@ -62,6 +62,10 @@ public class TulipTask {
                     taskList.addEvent(commandArguments);
                     break;
 
+                case "delete":
+                    taskList.deleteTask(commandArguments);
+                    break;
+
                 case "bye":
                     System.out.println(goodByeMessage);
                     return;
