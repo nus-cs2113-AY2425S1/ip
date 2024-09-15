@@ -15,6 +15,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getStatusValue() {
+        return (isDone ? "1" : "0");
+    }
+
     public String toString() {
         return "[" + getStatusIcon() + "] " + getTask();
     }
@@ -37,5 +41,9 @@ public class Task {
 
     public static void setTotalTasks(int totalTasks) {
         Task.totalTasks = totalTasks;
+    }
+
+    public String getTaskInfo() {
+        return task;
     }
 }
