@@ -106,6 +106,16 @@ public class TaskTrackerUI {
         System.out.println("  " + currentTask.toString());
         save();
     }
+    // Menu Options - Delete ///////////////////////////////////////////////////////////////////////////////////////////
+    public void deleteTask(HashMap<String,String> argumentsList) throws CuboydException {
+        int index = parseValidTaskIndex(argumentsList, tasks);
+        Task currentTask = tasks.get(index);
+        tasks.remove(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + currentTask.toString());
+        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+        save();
+    }
     // Save & Load /////////////////////////////////////////////////////////////////////////////////////////////////////
     public static final String SAVE_FILE_PATH = "./savedata.txt";
     public void save() throws CuboydException {
@@ -197,14 +207,5 @@ public class TaskTrackerUI {
                     SAVE_FILE_PATH));
         }
         System.out.println("Loaded!");
-    }
-    // Menu Options - Delete ///////////////////////////////////////////////////////////////////////////////////////////
-    public void deleteTask(HashMap<String,String> argumentsList) throws CuboydException {
-        int index = parseValidTaskIndex(argumentsList, tasks);
-        Task currentTask = tasks.get(index);
-        tasks.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + currentTask.toString());
-        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
     }
 }
