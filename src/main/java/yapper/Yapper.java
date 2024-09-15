@@ -8,12 +8,11 @@ import yapper.tasks.TaskHandler;
 
 // Main function for Yapper
 public class Yapper {
-    public static final int maxCapacity = 100;
 
     // Main ChatBot Loop
     public static void startYappin(TaskHandler taskHandler) {
         System.out.println(StringStorage.START_UP_MESSAGE);
-        System.out.println(StringStorage.HELP_MESSAGE); // TODO
+        System.out.println(StringStorage.HELP_MESSAGE);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -27,9 +26,10 @@ public class Yapper {
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
     }
 
+    // Program Start
     public static void main(String[] args) {
         // Initialize
-        TaskHandler taskHandler = new TaskHandler(maxCapacity);
+        TaskHandler taskHandler = new TaskHandler();
         // Startup ChatBot Program
         startYappin(taskHandler);
     }

@@ -1,5 +1,7 @@
 package yapper.io;
 
+import java.util.List;
+
 import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
 import yapper.tasks.Task;
@@ -7,7 +9,7 @@ import yapper.tasks.Task;
 // Output Text Formatter for Yapper
 public class OutputStringHandler {
     // For Instruction: List
-    public static void printTasks(Task[] tasks, int taskCount) {
+    public static void printTasks(List<Task> tasks, int taskCount) {
         try {
             ErrorHandler.checkIfListEmpty(taskCount);
 
@@ -15,7 +17,7 @@ public class OutputStringHandler {
             System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
             for (int i = 0; i < taskCount; i++) {
                 System.out.print( (i + 1) + "." ); // task list is displayed 1-indexed
-                System.out.println( tasks[i].taskToString() );
+                System.out.println( tasks.get(i).taskToString() );
             }
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
         } catch (YapperException e) {

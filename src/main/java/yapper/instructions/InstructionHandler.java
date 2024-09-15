@@ -1,7 +1,6 @@
 package yapper.instructions;
 
 import yapper.tasks.TaskHandler;
-import yapper.Yapper;
 import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
@@ -17,12 +16,6 @@ public class InstructionHandler {
 
     // UI Operations
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) {
-        try {
-            ErrorHandler.checkIfListFull(taskHandler.getCurrTaskTotal(), Yapper.maxCapacity);
-        } catch (YapperException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
         taskHandler.addTask(task);
     }
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) {
