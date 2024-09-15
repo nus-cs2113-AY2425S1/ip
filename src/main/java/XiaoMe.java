@@ -15,7 +15,8 @@ public class XiaoMe {
         TODO,
         EVENT,
         DEADLINE,
-        BYE
+        BYE,
+        DELETE
     }
 
     public static Type checkType(String line) throws XiaoMeException {
@@ -38,6 +39,8 @@ public class XiaoMe {
             return Type.EVENT;
         } else if (Objects.equals(first, "mark") || Objects.equals(first, "unmark")) {
             return Type.MARK;
+        } else if (Objects.equals(first, "delete")) {
+            return Type.DELETE;
         }
 
         throw new XiaoMeException();
@@ -192,7 +195,7 @@ public class XiaoMe {
                             throw new IllegalArgumentException();
                         }
 
-                        tasks[taskCount] = new Todo(string.trim()); // add task to storage
+                        tasks[taskCount] = new Todo(string); // add task to storage
                         taskCount += 1;
 
                         System.out.println("\t____________________________________________________________\n"
@@ -210,6 +213,41 @@ public class XiaoMe {
                     }
                     break;
 
+                case DELETE:
+                    try {
+                        String[] markWords = line.split(" ");
+                        int index = Integer.parseInt(markWords[1]) - 1;
+                        Task temp = tasks[index];
+                        if (temp == null) {
+                            throw new NullPointerException();
+                        }
+
+                        for (int i = index; i < taskCount; i ++) {
+                            tasks[i] = tasks[i + 1];
+                        }
+
+                        taskCount -= 1;
+
+                        System.out.println("\t____________________________________________________________\n"
+                                + "\tNoted. I've removed this task:\n"
+                                + "\t\t" + temp.toString() + "\n"
+                                + "\tNow you have " + taskCount + " tasks in the list.\n"
+                                + "\t____________________________________________________________\n");
+
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tHEY delete should be followed by a valid integer
+                                \t____________________________________________________________
+                                """);
+                    } catch (NullPointerException e) {
+                        System.out.println("""
+                                \t____________________________________________________________
+                                \tInteger provided does not have a corresponding task
+                                \t____________________________________________________________
+                                """);
+                    }
+                    break;
             }
         }
     }
