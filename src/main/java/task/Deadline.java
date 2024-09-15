@@ -28,6 +28,11 @@ public class Deadline extends Task{
         this.by = input.substring(startingIndexOfDueDate);
     }
 
+    public Deadline(String description, String by) throws LeginEmptyTaskException {
+        super(description);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
