@@ -14,4 +14,9 @@ public class Event extends Task{
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", isDone ? "X":" ", description, start, end);
     }
+
+    @Override
+    public String generateFileLine() {
+        return String.format("E,%s,%s,%s,%s\n", isDone ? "1" : "0", description, start, end);
+    }
 }
