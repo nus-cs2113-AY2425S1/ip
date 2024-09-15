@@ -31,7 +31,7 @@ public class TaskList {
 
     public static String getAllTaskDetails () {
         String details = "";
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             details += getSingleTaskDetails(i);
             details += System.lineSeparator();
         }
