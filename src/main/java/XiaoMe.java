@@ -6,7 +6,7 @@ import task.*;
 
 
 public class XiaoMe {
-    static Task[] tasks = new Task[100];
+    public static Task[] tasks = new Task[100];
     static Integer taskCount = 0;
 
     public enum Type {
@@ -44,6 +44,8 @@ public class XiaoMe {
     }
 
     public static void main(String[] args) {
+
+        Save.readFile();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -112,6 +114,9 @@ public class XiaoMe {
                                     + "\t\t" + tasks[index].toString()
                                     + "\n\t____________________________________________________________\n");
                         }
+
+                        Save.saveFile();
+
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                         System.out.println("""
                                 \t____________________________________________________________
@@ -147,6 +152,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks[taskCount - 1].toString() + "\n"
                                 + "\tNow you have " + taskCount + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
@@ -173,6 +181,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks[taskCount - 1].toString() + "\n"
                                 + "\tNow you have " + taskCount + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
@@ -200,6 +211,9 @@ public class XiaoMe {
                                 + "\t\t" + tasks[taskCount - 1].toString() + "\n"
                                 + "\tNow you have " + taskCount + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
+
                     } catch (Exception e) {
                         System.out.println("""
                                 \t____________________________________________________________
