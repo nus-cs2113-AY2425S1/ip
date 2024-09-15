@@ -20,6 +20,7 @@ public class Mong {
     public static final int LENGTH_EVENT = 5;
     public static final int LENGTH_FROM = 4;
     public static final int LENGTH_TO = 2;
+    public static final int LENGTH_TO = 3;
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
 
     /**
@@ -80,6 +81,7 @@ public class Mong {
         int startOfBy = input.indexOf("/by");
         try {
             String description = input.substring(endOfCommand, startOfBy);
+            String description = input.substring(endOfCommand + 1, startOfBy);
             String deadline = input.substring(endOfBy + 1);
             list[Task.currentIndex] = new Deadline(description, deadline);
             System.out.println("Mong-ed! This item has been added: ");
@@ -117,6 +119,7 @@ public class Mong {
         int startOfTo = input.indexOf("/to");
         try {
             String description = input.substring(endOfCommand + 1, startOfFrom);
+            String description = input.substring(endOfCommand + 1, startOfFrom - 1);
             String from = input.substring(endOfFrom + 2, startOfTo - 1);
             String to = input.substring(endOfTo + 1);
             list[Task.currentIndex] = new Event(description, from, to);
