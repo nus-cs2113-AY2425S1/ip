@@ -48,6 +48,7 @@ public class Appal {
     public static final String TASK_DONE_MESSAGE = "Task done! One more step towards success :)";
     public static final String UNMARK_TASK_MESSAGE = "What's next on the agenda? :D";
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
+    public static final String LOAD_SAVED_TASKS_MESSAGE = "I've helped you load your previously saved tasks! Type 'list' to check them out!";
 
     // Constants for file reading
     public static final String FILE_PATH = "./data/saved_tasks.txt";
@@ -126,22 +127,28 @@ public class Appal {
         }
     }
 
-    public void addToDo(String[] inputDetails) throws AppalException {
+    public void addToDo(String[] inputDetails, boolean isFromUser) throws AppalException {
         int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
         taskList[totalToDos] = new ToDo(inputDetails[TASK_INDEX]);
+        if (isFromUser) {
+            printReply();
+        }
     }
 
-    public void addDeadline(String[] inputDetails) throws AppalException {
+    public void addDeadline(String[] inputDetails, boolean isFromUser) throws AppalException {
         int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
         if (inputDetails[BY_INDEX] == null) {
             throw new UnspecifiedDeadlineException();
         }
         taskList[totalToDos] = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
+        if (isFromUser) {
+            printReply();
+        }
     }
 
-    public void addEvent(String[] inputDetails) throws AppalException{
+    public void addEvent(String[] inputDetails, boolean isFromUser) throws AppalException{
         int totalToDos = Task.getTotalTasks();
         checkForTask(inputDetails);
         if (inputDetails[FROM_INDEX] == null || inputDetails[TO_INDEX] == null) {
@@ -149,6 +156,9 @@ public class Appal {
         }
         taskList[totalToDos] = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
+        if (isFromUser) {
+            printReply();
+        }
     }
 
     public void exitAppal() {
@@ -156,9 +166,8 @@ public class Appal {
         printMessage(BYE_MESSAGE);
     }
 
-    public void handleInput(String[] inputDetails) {
+    public void handleInput(String[] inputDetails, boolean isFromUser) {
         String command = inputDetails[COMMAND_INDEX];
-
         try {
             switch (command) {
             case COMMAND_BYE:
@@ -169,16 +178,13 @@ public class Appal {
                 printTaskList();
                 break;
             case COMMAND_TODO:
-                addToDo(inputDetails);
-                printReply();
+                addToDo(inputDetails, isFromUser);
                 break;
             case COMMAND_DEADLINE:
-                addDeadline(inputDetails);
-                printReply();
+                addDeadline(inputDetails, isFromUser);
                 break;
             case COMMAND_EVENT:
-                addEvent(inputDetails);
-                printReply();
+                addEvent(inputDetails, isFromUser);
                 break;
             case COMMAND_MARK:
                 handleMarkTask(inputDetails, true);
@@ -205,7 +211,7 @@ public class Appal {
             String[] words = line.split(", ");
             boolean isTaskMarked = words[0].equals("1");
             String[] taskDetails = Arrays.copyOfRange(words, 1, words.length);
-            handleInput(taskDetails);
+            handleInput(taskDetails, false);
             markTask(savedTasksCount, isTaskMarked);
             savedTasksCount += 1;
         }
@@ -218,6 +224,7 @@ public class Appal {
         } catch (FileNotFoundException | AppalException e) {
             System.out.println("File not found");
         }
+        printMessage(LOAD_SAVED_TASKS_MESSAGE);
     }
 
     public void appendToFile() throws IOException {
@@ -240,7 +247,7 @@ public class Appal {
         while (!isExited) {
             String line = in.nextLine();
             String[] inputDetails = Parser.extractInputDetails(line);
-            handleInput(inputDetails);
+            handleInput(inputDetails, true);
         }
     }
 }
