@@ -9,6 +9,7 @@ public class Medea {
 
         Scanner scanner = new Scanner(System.in);
         CommandHandler commandHandler = new CommandHandler();
+        commandHandler.loadTasks();
 
         String input = scanner.nextLine();
 
@@ -17,6 +18,7 @@ public class Medea {
             input = scanner.nextLine();
         }
 
+        commandHandler.saveTasks();
         sayGoodbye();
     }
 
