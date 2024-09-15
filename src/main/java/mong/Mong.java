@@ -9,7 +9,6 @@ import mong.task.TaskType;
 import mong.task.Todo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -32,7 +31,7 @@ public class Mong {
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         try {
             list.get(itemIndex).setCompleted(true);
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
     }
@@ -48,7 +47,7 @@ public class Mong {
         }
         try {
             list.get(itemIndex).setCompleted(false);
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
     }
