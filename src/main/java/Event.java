@@ -9,7 +9,7 @@ public class Event extends Deadline{
 
    @Override
     public String getTo() {
-        return " to: " + to + ") ";
+        return " to: " + to + ")";
     }
 }
 
