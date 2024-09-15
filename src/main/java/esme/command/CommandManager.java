@@ -76,7 +76,7 @@ public class CommandManager {
     public boolean handleCommand(String line, boolean isTaskCompleted) {
         boolean toExit = false;
         String[] words = line.split(" ");
-        switch (words[0]) {
+        switch (words[0].toLowerCase()) {
         case "bye":
             new ExitCommand(ui).run();
             toExit = hasSaveSuccessful();
@@ -94,6 +94,9 @@ public class CommandManager {
             break;
         case "list":
             new PrintCommand(ui).run();
+            break;
+        case "help":
+            new HelpCommand(ui).run();
             break;
         default:
             new UnknownCommand(ui).run();

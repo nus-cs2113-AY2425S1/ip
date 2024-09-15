@@ -9,6 +9,16 @@ public class Ui {
     private TaskList taskList;
     private static final int SEPARATOR_LENGTH = 120;
     private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
+    private static final String helpMessage = "Available commands:\n" +
+            "\t- bye: Exit the application.\n" +
+            "\t- todo [description]: Add a new todo task.\n" +
+            "\t- deadline [description] /by [date]: Add a new task with a deadline.\n" +
+            "\t- event [description] /from [date] /to [date]: Add a new event.\n" +
+            "\t- mark [task number]: Mark a task as completed.\n" +
+            "\t- unmark [task number]: Unmark a completed task.\n" +
+            "\t- delete [task number]: Delete a task.\n" +
+            "\t- list: List all tasks.\n" +
+            "\t- help: Show this help message.";
     private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
             "|  _| / __| '_ ` _ \\ / _ \\ \n" +
@@ -236,7 +246,8 @@ public class Ui {
 
     public void handleUnknownCommand() {
         displayLine(true);
-        System.out.println("\tThe stars are unclear on this command. Could you please try again?");
+        System.out.println("\tThe stars are unclear on this command. Could you please try again? " +
+                "Type \"help\" for more information.");
         displayLine(true);
     }
 
@@ -252,5 +263,12 @@ public class Ui {
         System.out.println("My sincere apologies. I can't seem to detect the file or create the file for you." +
                 " Please ensure the file \"tasklist.txt\" is in the root directory.");
         displayLine(false);
+    }
+
+    public void printHelpMessage() {
+        displayLine(true);
+
+        System.out.println("\t" + helpMessage);
+        displayLine(true);
     }
 }
