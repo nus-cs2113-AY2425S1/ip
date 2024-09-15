@@ -66,7 +66,7 @@ public class InputStringHandler {
             args = instructionArgs.split(EVENT_START_DATE_DELIMITER);
             String eventDesc = args[0].trim();
             String[] dates = args[1].split(EVENT_END_DATE_DELIMITER);
-            String startDate = dates[1].trim();
+            String startDate = dates[0].trim();
             String endDate = dates[1].trim();
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
