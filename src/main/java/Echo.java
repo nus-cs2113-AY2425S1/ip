@@ -47,7 +47,10 @@ public class Echo {
             new DeadlineCommand().execute(taskList, userInput);
         } else if (userInput.startsWith("event")) {
             new EventCommand().execute(taskList, userInput);
-        } else {
+        } else if (userInput.startsWith("delete")) {
+            new DeleteCommand().execute(taskList, userInput);
+        }
+        else {
             System.out.println(SEPARATOR);
             System.out.println("Invalid input, please try again.");
             System.out.println(SEPARATOR);
