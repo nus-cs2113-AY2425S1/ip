@@ -14,24 +14,22 @@ public class Tyrone {
     public static void getUserInput(String userInput) throws TyroneException {
         if (userInput.startsWith("mark ")) {
             int index = Integer.parseInt(userInput.substring(5)) - 1;
-            if (index >= 0 && index < Task.listCount) {
+            if (index >= 0 && index < Constants.toDoList.size()) {
                 Constants.markAsDone(index);
             } else {
                 System.out.println(Constants.LINE);
                 System.out.println("    Invalid task number bro.");
                 System.out.println(Constants.LINE);
             }
-            return;
         } else if (userInput.startsWith("unmark ")) {
             int index = Integer.parseInt(userInput.substring(7)) - 1;
-            if (index >= 0 && index < Task.listCount) {
+            if (index >= 0 && index < Constants.toDoList.size()) {
                 Constants.unmarkAsUndone(index);
             } else {
                 System.out.println(Constants.LINE);
                 System.out.println("    Invalid task number bro.");
                 System.out.println(Constants.LINE);
             }
-            return;
         } else if (userInput.startsWith("todo ")) {
             ToDo.createToDo(userInput);
         } else if (userInput.startsWith("deadline ")) {
@@ -61,6 +59,8 @@ public class Tyrone {
             }
         } else if (userInput.equals("list")) {
             Constants.getList();
+        } else if (userInput.equals("save")) {
+            Constants.saveTasks(); // Call save function
         } else {
             System.out.println(Constants.LINE);
             System.out.println("    Invalid command my brother.");

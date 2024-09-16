@@ -17,5 +17,8 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 src/main/java/Tyrone.class
-src/main/java/Tyrone$Constants.class
 src/main/java/*class
+src/main/java/tyrone/task/*class
+src/main/java/tyrone/constants/*class
+
+src/main/java/data/Tasks.txt
