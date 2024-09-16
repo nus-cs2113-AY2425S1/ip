@@ -143,7 +143,6 @@ public class TaskList {
         printAddedTask();
     }
 
-
     public void deleteTask(int id) {
         String taskString = allTasks.get(id - 1).toString();
         allTasks.remove(id - 1);
@@ -151,6 +150,27 @@ public class TaskList {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + taskString);
         printNumberOfTasks();
+    }
+
+    public void loadTodoFromFile(String[] tokens) {
+        boolean isDone = tokens[0].equals("1");
+        String description = tokens[1];
+        allTasks.add(new Todo(description, isDone));
+    }
+
+    public void loadDeadlineFromFile(String[] tokens) {
+        boolean isDone = tokens[0].equals("1");
+        String description = tokens[1];
+        String by  = tokens[2];
+        allTasks.add(new Deadline(description, isDone, by));
+    }
+
+    public void loadEventFromFile(String[] tokens) {
+        boolean isDone = tokens[0].equals("1");
+        String description = tokens[1];
+        String from  = tokens[2];
+        String to = tokens[3];
+        allTasks.add(new Event(description, isDone, from, to));
     }
 
     public String taskListToFile() {

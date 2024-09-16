@@ -42,15 +42,15 @@ public class FileHandling {
         while (s.hasNext()) {
             String input = s.nextLine();
             String[] tokens = input.split(" \\| ");
-            switch (tokens[0].toLowerCase()) {
+            switch (tokens[0].toUpperCase()) {
             case "T":
-                taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadTodoFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "D":
-                taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadDeadlineFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "E":
-                taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadEventFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             default:
                 System.err.println("Unable to process line.");
