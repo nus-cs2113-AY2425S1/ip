@@ -3,23 +3,37 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DianaAssistant {
     private static final String ENCLOSURE = "------------------------------";
+    private List<Task> tasks;
+
+    public DianaAssistant() throws IOException {
+        try {
+            this.tasks = Storage.loadTasks();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks, reverting to empty list");
+            this.tasks = new ArrayList<>();
+        }
+    }
 
     public void interact() {
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
-
         String input;
         while (true) {
             input = scanner.nextLine();
             if ("bye".equals(input)) {
+                try {
+                    Storage.saveTasks(tasks);
+                } catch (IOException e) {
+                    System.out.println("Saving tasks failed.");
+                }
                 break;
             }
             try {
