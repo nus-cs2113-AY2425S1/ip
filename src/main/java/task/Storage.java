@@ -8,4 +8,5 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private static final String FILE_PATH = "task/test.txt";
 }
