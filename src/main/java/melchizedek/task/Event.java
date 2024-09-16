@@ -28,6 +28,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String taskToFile() {
+        return "E | " + super.taskToFile() + " | " + from + " | " + to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }

@@ -18,6 +18,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String taskToFile() {
+        return "D | " + super.taskToFile() + " | " + by;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

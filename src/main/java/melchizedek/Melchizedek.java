@@ -46,7 +46,7 @@ public class Melchizedek {
 
     public static void main(String[] args) {
         sayHelloToUser();
-        FileHandling.loadFile();
+        FileHandling.loadFile(taskList);
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
@@ -56,6 +56,7 @@ public class Melchizedek {
 
             switch (tokens[0].toLowerCase()) {
             case "bye":
+                FileHandling.writeToFile(taskList);
                 sayByeToUser();
                 return;
 

@@ -12,7 +12,6 @@ public class TaskList {
         taskCount = 0;
     }
 
-
     public static String joinStringArray(String[] array, int from, int to, String delimiter) {
         String[] arrayCopy = Arrays.copyOfRange(array, from, to);
         return String.join(delimiter, arrayCopy);
@@ -108,5 +107,13 @@ public class TaskList {
         taskCount++;
 
         printAddedTask();
+    }
+
+    public String taskListToFile() {
+        String output = "";
+        for (int i = 0; i < taskCount; i++) {
+            output = output + allTasks[i].taskToFile() + System.lineSeparator();
+        }
+        return output;
     }
 }
