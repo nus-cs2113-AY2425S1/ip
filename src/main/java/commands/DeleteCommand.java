@@ -1,6 +1,5 @@
 package commands;
 
-import exception.BentoException;
 import exception.InvalidIndexException;
 import exception.MissingTaskException;
 import exception.SaveFileErrorException;

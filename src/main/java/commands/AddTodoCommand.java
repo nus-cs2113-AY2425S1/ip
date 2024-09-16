@@ -1,8 +1,6 @@
 package commands;
 
-import exception.InvalidIndexException;
 import exception.InvalidToDoException;
-import exception.MissingTaskException;
 import exception.SaveFileErrorException;
 import storage.Storage;
 import tasks.TaskList;

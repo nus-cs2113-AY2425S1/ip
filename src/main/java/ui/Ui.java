@@ -5,8 +5,6 @@ import tasks.TaskList;
 
 import java.util.Scanner;
 
-import static constants.Command.MARK_COMMAND;
-import static constants.Command.UNMARK_COMMAND;
 import static constants.Message.ADD_TASK_SUCCESS_MESSAGE;
 import static constants.Message.DELETE_TASK_SUCCESS_MESSAGE;
 import static constants.Message.EXISTING_TASKS_MESSAGE;
@@ -17,7 +15,6 @@ import static constants.Message.MARKED_MESSAGE;
 import static constants.Message.SAVE_TASK_LIST_SUCCESS_MESSAGE;
 import static constants.Message.SAYONARA_MESSAGE;
 import static constants.Message.UNMARKED_MESSAGE;
-import static constants.Regex.EMPTY_REGEX;
 
 public class Ui {
     private Scanner inputScanner;
@@ -67,10 +64,6 @@ public class Ui {
             System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
         }
         printLine();
-    }
-
-    public String removeMarkPrefix(String input) {
-        return input.replace(UNMARK_COMMAND, EMPTY_REGEX).replace(MARK_COMMAND, EMPTY_REGEX).trim();
     }
 
     public void printUnmarked(TaskList tasks, int index) {

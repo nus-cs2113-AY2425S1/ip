@@ -41,7 +41,7 @@ public class Storage {
                 currentTask++;
             }
             ui.listTasks(tasks);
-        } catch (FileNotFoundException | BentoException e) {
+        } catch (IndexOutOfBoundsException | FileNotFoundException | BentoException e) {
             throw new LoadFileErrorException();
         }
     }
