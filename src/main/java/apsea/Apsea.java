@@ -1,3 +1,11 @@
+package apsea;
+
+import apsea.exception.ApseaException;
+import apsea.task.Deadline;
+import apsea.task.Event;
+import apsea.task.Task;
+import apsea.task.Todo;
+
 import java.util.Scanner;
 
 public class Apsea {
