@@ -36,4 +36,8 @@ public abstract class Task {
     public String toString() {
         return "[" + type.getAbbreviation() + "] " + getStatusIcon() + " " + description;
     }
+
+    public String saveFormat() {
+        return type.getAbbreviation() + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
