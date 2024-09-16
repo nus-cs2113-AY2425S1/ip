@@ -8,6 +8,13 @@ public class TaskList {
     private final ArrayList<Task> list = new ArrayList<>();
 
     /**
+     * Returns index of item in TaskList
+     */
+    public Task getTask(int index) {
+        return list.get(index);
+    }
+
+    /**
      * Returns size of TaskList
      */
     public int size() {
@@ -38,6 +45,19 @@ public class TaskList {
             throw new IllegalArgumentException("Cannot add a null task to the list.");
         }
         this.list.add(task);
+    }
+
+    /**
+     * Deletes a new task.
+     *
+     * @param index The task object to be deleted.
+     * @throws IllegalArgumentException If the task is null.
+     */
+    public void deleteItem(int index) throws IllegalArgumentException {
+        if (this.list.get(index) == null) {
+            throw new IllegalArgumentException("Invalid Task!");
+        }
+        this.list.remove(index);
     }
 
     /**

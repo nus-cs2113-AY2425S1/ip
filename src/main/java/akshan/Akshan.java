@@ -113,6 +113,9 @@ public class Akshan {
         case EVENT:
             processTask(commandType, command, taskList);
             break;
+        case DELETE:
+            processDelete(splitInput[0], taskList);
+            break;
         default:
             throw new IllegalArgumentException("Uh oh, no command found in: " + command);
         }
@@ -170,6 +173,42 @@ public class Akshan {
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Task number out of range: " + parts[1]);
         }
+    }
+
+    /**
+     * Processes the delete command.
+     *
+     * @param command The command string.
+     * @param taskList The list of tasks.
+     * @throws IllegalArgumentException If the command format is invalid or the task number is out of range.
+     */
+    private static void processDelete(String command, TaskList taskList) throws IllegalArgumentException {
+        String[] parts = command.split(" ");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid delete command format");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]);
+            deleteTaskFromList(taskList, index - 1);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid task number: " + parts[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Task number out of range: " + parts[1]);
+        }
+    }
+
+    /**
+     * Deletes a task from the task list and prints a confirmation message.
+     *
+     * @param taskList The list of tasks.
+     * @param index The index of the task to be deleted.
+     */
+    private static void deleteTaskFromList(TaskList taskList, int index) {
+        Task deletedTask = taskList.getTask(index);
+        taskList.deleteItem(index);
+        System.out.println("Got it. I've removed this task:");
+        System.out.println("  " + deletedTask);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
