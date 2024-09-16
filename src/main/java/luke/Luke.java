@@ -9,6 +9,7 @@ import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -27,8 +28,9 @@ public class Luke {
             "____________________________________________________________";
 
     public static final int MAX_TASK_COUNT = 100;
-    private static Task[] tasks = new Task[MAX_TASK_COUNT];
-    private static int size = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+//    private static Task[] tasks = new Task[MAX_TASK_COUNT];
+//    private static int size = 0;
 
     private static void printReply(String reply) {
         System.out.println(HORIZONTAL_LINE);
@@ -41,14 +43,14 @@ public class Luke {
     }
 
     private static String numberOfTasksMessage() {
-        return String.format("Now you have %d %s in the list.", size, size > 1 ? "tasks" : "task");
+        return String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() > 1 ? "tasks" : "task");
     }
 
     private static void list() {
         printDivider();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. ", i + 1);
-            System.out.println(tasks[i].toString());
+            System.out.println(tasks.get(i).toString());
         }
         printDivider();
     }
@@ -77,11 +79,11 @@ public class Luke {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InsufficientArguments("Input index of task to mark.");
             }
-            if (idx < 0 || idx >= size) {
+            if (idx < 0 || idx >= tasks.size()) {
                 throw new IncorrectInput("Invalid index");
             }
-            tasks[idx].setAsDone();
-            printReply(String.format("Marked:\n  %s", tasks[idx].toString()));
+            tasks.get(idx).setAsDone();
+            printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
             break;
         case UNMARK:
             try {
@@ -91,21 +93,20 @@ public class Luke {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InsufficientArguments("Input index of task to mark.");
             }
-            if (idx < 0 || idx >= size) {
+            if (idx < 0 || idx >= tasks.size()) {
                 throw new IncorrectInput("Invalid index");
             }
-            tasks[idx].setAsUndone();
-            printReply(String.format("Unmarked:\n  %s", tasks[idx].toString()));
+            tasks.get(idx).setAsUndone();
+            printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
             break;
         case TODO:
             if (args.length == 0) {
                 throw new InsufficientArguments("todo command needs at least 1 argument.");
             }
             description = String.join(" ", args);
-            tasks[size] = new ToDo(description);
-            size++;
+            tasks.add(new ToDo(description));
             printReply(String.format("Task added: %s\n  %s",
-                    tasks[size - 1].toString(), numberOfTasksMessage()));
+                    tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
         case DEADLINE:
             for (int i = 0; i < args.length; i++) {
@@ -118,10 +119,9 @@ public class Luke {
             }
             description = String.join(" ", Arrays.copyOf(args, idx));
             deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
-            tasks[size] = new Deadline(description, deadlineStr);
-            size++;
+            tasks.add(new Deadline(description, deadlineStr));
             printReply(String.format("Added deadline: %s\n  %s",
-                    tasks[size - 1].toString(), numberOfTasksMessage()));
+                    tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
 
         case EVENT:
@@ -141,10 +141,9 @@ public class Luke {
             description = String.join(" ", Arrays.copyOf(args, fromIdx));
             fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
             toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
-            tasks[size] = new Event(description, fromStr, toStr);
-            size++;
+            tasks.add(new Event(description, fromStr, toStr));
             printReply(String.format("Added event: %s\n %s",
-                    tasks[size - 1].toString(), numberOfTasksMessage()));
+                    tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
         default:
             throw new InvalidCommand("Invalid command");
