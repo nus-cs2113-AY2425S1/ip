@@ -16,4 +16,15 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        String status;
+        if (isDone) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return "E | " + status + " | " + description;
+    }
 }

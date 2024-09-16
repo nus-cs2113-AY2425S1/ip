@@ -41,14 +41,8 @@ public class Task implements TaskOperations {
         return "[" + getMarker() + "] " + description;
     }
 
-    public String toFileFormat() {
-        String status;
-        if (isDone) {
-            status = "1";
-        } else {
-            status = "0";
-        }
-        return "T | " + status + " | " + description;
+    public String toFileFormat(){
+        return "Test";
     }
 
     public static Task getFileFormat(String fileString) {

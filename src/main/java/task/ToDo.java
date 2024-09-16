@@ -12,4 +12,15 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toFileFormat() {
+        String status;
+        if (isDone) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return "T | " + status + " | " + description;
+    }
 }
