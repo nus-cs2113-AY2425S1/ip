@@ -9,8 +9,8 @@ public class ToDo extends Task{
 
     //Override toString method to show marker
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public String getTaskMarker() {
+        return "T";
     }
 
     @Override

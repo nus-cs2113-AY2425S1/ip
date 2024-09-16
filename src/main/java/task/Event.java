@@ -13,8 +13,8 @@ public class Event extends Task {
 
     //Override toString method to show marker
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    public String getTaskMarker() {
+        return "E";
     }
 
     @Override
