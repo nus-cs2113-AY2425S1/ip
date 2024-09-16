@@ -2,53 +2,67 @@ package task;
 
 import others.TaskOperations;
 
-public class Task implements TaskOperations {
+public abstract class Task implements TaskOperations {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
-    //Constructor for task.Task
+    // Constructor for Task
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskType = "";
     }
 
     public String getMarker() {
-        String result;
-        if (isDone) {
-            result = "X";
-        } else {
-            result = " ";
-        }
-        return result;
+        return isDone ? "X" : " ";
     }
 
-    //Method to mark as undone
+    public String getTaskMarker() {
+        return taskType;
+    }
+
+    // Method to mark as undone
     public void setAsUndone() {
         this.isDone = false;
     }
 
-    //Method to mark as done
+    // Method to mark as done
     public void setAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Adds status icon and converts to a string for the task.
+     * Converts the task to a string format for display.
      *
-     * @return string of either "[X] description" or "[ ] description".
+     * @return string representation of the task.
      */
+    @Override
     public String toString() {
-        return "[" + getMarker() + "] " + description;
+        return "[" + getTaskMarker() + "] " + "[" + getMarker() + "] " + description;
     }
 
-    public String toFileFormat(){
-        return "Test";
-    }
+    public abstract String toFileFormat();
 
     public static Task getFileFormat(String fileString) {
         String[] parts = fileString.split(" \\| ");
         boolean isDone = parts[1].equals("1");
-        Task task = new Task(parts[2]);
+        Task task = null;
+
+        switch (parts[0]) {
+        case "T":
+            task = new ToDo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], "");
+            break;
+        case "E":
+            task = new Event(parts[2], "", "");
+            break;
+        default:
+            System.out.println("Invalid task type encountered: " + parts[0]);
+        }
+
         if (isDone) {
             task.setAsDone();
         }
