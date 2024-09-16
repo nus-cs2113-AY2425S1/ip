@@ -37,7 +37,7 @@ public class Ui {
     }
 
     public void displayExit() {
-        String exitMessage = "\t" + "Bye. Hope to see you again soon!";
+        String exitMessage = "\t" + "Farewell. Hope to see you again soon!";
         displayResponse(exitMessage);
     }
 
@@ -63,7 +63,7 @@ public class Ui {
     }
 
     public String taskDoneMessage(Task task) {
-        return "\t" + "Nice! I've marked this task as done:"
+        return "\t" + "Roger! I've marked this task as done:"
                 + System.lineSeparator() + "\t\t" + task;
     }
 
