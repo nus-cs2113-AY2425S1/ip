@@ -280,7 +280,16 @@ public class Mong {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        File directory = new File("src/main/java/mong/data/");
+        File file = new File(FILE_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        }
         try {
             loadFileContents(FILE_PATH);
         } catch (FileNotFoundException e) {
