@@ -27,7 +27,7 @@ public class Bento {
         try {
             storage.loadTaskList(tasks, ui, parser);
         } catch (BentoException e) {
-            System.out.print(e.getMessage());
+            ui.displayErrorMessage(e.getMessage());
         }
 
         while (!isExit) {
@@ -37,7 +37,7 @@ public class Bento {
                 userCommand.execute(tasks, ui, storage);
                 isExit = userCommand.isExit();
             } catch (BentoException e) {
-                System.out.print(e.getMessage());
+                ui.displayErrorMessage(e.getMessage());
             }
         }
     }

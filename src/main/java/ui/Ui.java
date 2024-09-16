@@ -102,4 +102,8 @@ public class Ui {
     public String getTaskCountMessage(TaskList tasks) {
         return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", tasks.getTaskCount());
     }
+
+    public void displayErrorMessage(String errorMessage) {
+        System.out.print(errorMessage);
+    }
 }
