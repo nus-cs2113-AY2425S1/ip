@@ -1,0 +1,9 @@
+todo tutorial
+deadline assignment /by Monday
+event Winter camp /from Tuesday /to Friday
+list
+mark 1
+mark 3
+mark 2
+list
+bye
