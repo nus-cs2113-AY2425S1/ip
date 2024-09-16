@@ -40,6 +40,13 @@ public class V {
         displayList(listOfTasks);
     }
 
+    public static void deleteTask(ArrayList<Task> listOfTasks, int position) {
+        Task task = listOfTasks.get(position - 1);
+        printBlock("Got it. The task below was removed:\n    " + task +
+                "\nNow you have " + listOfTasks.size() + " left");
+        listOfTasks.remove(position - 1);
+    }
+
     public static void addToDo(ArrayList<Task> listOfTasks, String description) {
         ToDo toDo = new ToDo(description);
         listOfTasks.add(toDo);
@@ -80,6 +87,7 @@ public class V {
         String description;
         String line;
         String[] lineArr;
+        int position;
         Scanner input = new Scanner(System.in);
 
         greet();
@@ -97,8 +105,12 @@ public class V {
                     displayList(listOfTasks);
                     break;
                 case "mark":
-                    int position = Integer.parseInt(lineArr[1]);
+                    position = Integer.parseInt(lineArr[1]);
                     markTask(listOfTasks, position);
+                    break;
+                case "delete":
+                    position = Integer.parseInt(lineArr[1]);
+                    deleteTask(listOfTasks, position);
                     break;
                 case "todo":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
