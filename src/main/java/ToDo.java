@@ -4,9 +4,13 @@ public class ToDo extends Task {
         super(description);
     }
 
-    public static void createNewToDo(String userInput) {
-        Aerus.tasks[Task.tasksCount] = new ToDo(userInput);
-        UI.printContent("Added ToDo: " + userInput);
+    public static void createNewToDo(String userInput) throws InvalidCreateToDoException {
+        if (userInput.length() > 1) {
+            Aerus.tasks[Task.tasksCount] = new ToDo(userInput);
+            UI.printContent("Added ToDo: " + userInput);
+        } else {
+            throw new InvalidCreateToDoException();
+        }
     }
 
     @Override

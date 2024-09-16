@@ -10,17 +10,17 @@ public class Task {
         tasksCount++;
     }
 
-    public static void createNewTask(String userInput) {
+    public static void createNewTask(String userInput) throws InvalidCreateTaskException,
+            InvalidCreateToDoException, InvalidCreateDeadlineException, InvalidCreateEventException {
         String[] userInputSplit = userInput.split(" ");
-        if (userInputSplit[0].equals("todo")) {
+        if (userInputSplit[0].equals("todo") && userInput.length() > 4) {
             ToDo.createNewToDo(userInput.substring(5));
-        } else if (userInputSplit[0].equals("event")) {
+        } else if (userInputSplit[0].equals("event") && userInput.length() > 5) {
             Event.createNewEvent(userInput.substring(6));
-        } else if (userInputSplit[0].equals("deadline")) {
+        } else if (userInputSplit[0].equals("deadline") && userInput.length() > 8) {
             Deadline.createNewDeadline(userInput.substring(9));
         } else {
-            Aerus.tasks[Task.tasksCount] = new Task(userInput);
-            UI.printContent("Added Task: " + userInput);
+            throw new InvalidCreateTaskException();
         }
     }
 

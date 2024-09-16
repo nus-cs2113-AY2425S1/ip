@@ -1,0 +1,2 @@
+public class InvalidCreateDeadlineException extends InvalidCreateTaskException{
+}
