@@ -145,6 +145,23 @@ public class Luke {
             printReply(String.format("Added event: %s\n %s",
                     tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
+        case DELETE:
+            if (args.length == 0) {
+                throw new InsufficientArguments("Delete command needs an index");
+            }
+            try {
+                idx = Integer.parseInt(args[0]) - 1;
+            } catch (NumberFormatException e) {
+                throw new IncorrectInput("Please input an integer");
+            }
+            if (idx < 0 || idx >= tasks.size()) {
+                throw new IncorrectInput("Invalid index");
+            }
+            Task taskToDelete = tasks.get(idx);
+            tasks.remove(taskToDelete);
+            printReply(String.format("Removed task:\n  %s\nNow you have %d %s in the list.",
+                    taskToDelete.toString(), tasks.size(), tasks.size() > 1 ? "tasks" : "task"));
+            break;
         default:
             throw new InvalidCommand("Invalid command");
         }
@@ -182,10 +199,16 @@ public class Luke {
             } catch (InsufficientArguments e) {
                 printReply(e.getMessage());
             }
-        } else if (command.equalsIgnoreCase("event")){
+        } else if (command.equalsIgnoreCase("event")) {
             try {
                 executeCommand(CommandType.EVENT, inputArr);
             } catch (InsufficientArguments e) {
+                printReply(e.getMessage());
+            }
+        } else if (command.equalsIgnoreCase("delete")) {
+            try {
+                executeCommand(CommandType.DELETE, inputArr);
+            } catch (InsufficientArguments | IncorrectInput e) {
                 printReply(e.getMessage());
             }
         } else {
