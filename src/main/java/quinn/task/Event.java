@@ -18,4 +18,8 @@ public class Event extends Task {
     public String toString() {
         return super.toString() + " (from: " + fromDateTimeInput + " to: " + toDateTimeInput + ")";
     }
+
+    public String saveFormat() {
+        return super.saveFormat() + " | " + fromDateTimeInput + " | " + toDateTimeInput;
+    }
 }

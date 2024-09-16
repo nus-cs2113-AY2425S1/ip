@@ -16,4 +16,8 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (by: " + byDateTimeInput + ")";
     }
+
+    public String saveFormat() {
+        return super.saveFormat() + " | " + byDateTimeInput;
+    }
 }

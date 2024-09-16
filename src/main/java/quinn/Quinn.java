@@ -6,21 +6,31 @@ import quinn.task.Event;
 import quinn.task.Task;
 import quinn.task.ToDo;
 import quinn.ui.Ui;
+import quinn.storage.Storage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Quinn {
-    private static final List<Task> tasks = new ArrayList<>();
-
     private final Ui ui;
+    private Storage storage;
+    private List<Task> tasks;
 
-    public Quinn() {
+    public Quinn(String folderName, String fileName) {
         ui = new Ui();
+
+        try {
+            storage = new Storage(folderName, fileName);
+            tasks = storage.loadTasksFromFile();
+        } catch (QuinnException | IOException e) {
+            ui.displayError(e.getMessage());
+            tasks = new ArrayList<>();
+        }
     }
 
     public static void main(String[] args) {
-        new Quinn().run();
+        new Quinn("data", "tasks.txt").run();
     }
 
     public void run() {
@@ -33,7 +43,7 @@ public class Quinn {
 
             try {
                 processCommand(commandLine);
-            } catch (QuinnException e) {
+            } catch (QuinnException | IOException e) {
                 ui.displayError(e.getMessage());
             } finally {
                 ui.displayLine();
@@ -41,7 +51,7 @@ public class Quinn {
         }
     }
 
-    public void processCommand(String commandLine) throws QuinnException {
+    public void processCommand(String commandLine) throws QuinnException, IOException {
         String[] commandLineParts = commandLine.split(" ", 2);
 
         String commandType;
@@ -62,7 +72,7 @@ public class Quinn {
         executeCommand(commandType, commandInfo);
     }
 
-    public void executeCommand(String commandType, String commandInfo) throws QuinnException {
+    public void executeCommand(String commandType, String commandInfo) throws QuinnException, IOException {
         int taskNum;
         Task task;
         String taskDescription;
@@ -220,13 +230,15 @@ public class Quinn {
         }
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws IOException {
         tasks.add(task);
 
         String response = ui.taskAddedMessage(task)
                 + System.lineSeparator()
                 + ui.numOfTasksInListMessage(tasks);
         ui.displayResponse(response);
+
+        storage.saveTasksToFile(tasks);
     }
 
     public void displayTasks() throws QuinnException {
@@ -238,25 +250,29 @@ public class Quinn {
         }
     }
 
-    public void markTask(int taskNum) throws QuinnException {
+    public void markTask(int taskNum) throws QuinnException, IOException {
         if (taskNum > 0 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
             task.setDone();
 
             String message = ui.taskDoneMessage(task);
             ui.displayResponse(message);
+
+            storage.saveTasksToFile(tasks);
         } else {
             throw new QuinnException("Task not found. Please try again!");
         }
     }
 
-    public void unmarkTask(int taskNum) throws QuinnException {
+    public void unmarkTask(int taskNum) throws QuinnException, IOException {
         if (taskNum > 0 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
             task.setNotDone();
 
             String message = ui.taskNotDoneMessage(task);
             ui.displayResponse(message);
+
+            storage.saveTasksToFile(tasks);
         } else {
             throw new QuinnException("Task not found. Please try again!");
         }
