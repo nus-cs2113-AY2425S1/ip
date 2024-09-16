@@ -1,8 +1,8 @@
-package November.Exceptions;
+package november.exceptions;
 
-import November.Tasks.Deadline;
-import November.Tasks.Event;
-import November.Tasks.Todo;
+import november.tasks.Deadline;
+import november.tasks.Event;
+import november.tasks.Todo;
 
 public class NovemberExceptions extends Exception{
     private static final String DEADLINE_DUE_DATE = "/by";

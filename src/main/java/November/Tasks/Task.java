@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Defines a task with a description and completion status.

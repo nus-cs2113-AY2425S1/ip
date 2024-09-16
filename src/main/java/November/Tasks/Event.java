@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Represents an Event task, which is a task that occurs within a specific time frame.
