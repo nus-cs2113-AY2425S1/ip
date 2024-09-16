@@ -7,6 +7,6 @@ public class Events extends Task{
         this.endTime = endTime;
     }
     public String toString(){
-        return "[E]" + super.toString() + " (by: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 }

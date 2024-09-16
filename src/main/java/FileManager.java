@@ -37,21 +37,21 @@ public class FileManager {
 
             else if (line.startsWith("[D]")){
                 int indexOfBy = line.indexOf("(by:");
-                String activity = line.substring(line.lastIndexOf("]")+3, indexOfBy-2);
-                String by = line.substring(indexOfBy + 5, line.length()-1);
-                Deadline deadline = new Deadline(activity, by);
+                String activity = line.substring(line.lastIndexOf("]")+2, indexOfBy-1);
+                String by = line.substring(indexOfBy + 4, line.length()-1);
+                Deadline deadline = new Deadline(activity.trim(), by.trim());
                 Yappatron.taskArray.add(deadline);
                 if (line.contains("[X]")){
                     deadline.markAsDone();
                 }
             }
             else{
-                int indexOfBy = line.indexOf("(by:");
+                int indexOfFrom = line.indexOf("(from:");
                 int indexOfTo = line.lastIndexOf("to");
-                String activity = line.substring(line.lastIndexOf("]")+3, indexOfBy-2);
-                String by = line.substring(indexOfBy + 5, indexOfTo-1);
-                String to = line.substring(indexOfTo+4, line.length()-1);
-                Events event = new Events(activity, by, to);
+                String activity = line.substring(line.lastIndexOf("]")+2, indexOfFrom-1);
+                String by = line.substring(indexOfFrom + 6, indexOfTo-1);
+                String to = line.substring(indexOfTo+2, line.length()-1);
+                Events event = new Events(activity.trim(), by.trim(), to.trim());
                 Yappatron.taskArray.add(event);
                 if (line.contains("[X]")){
                     event.markAsDone();
