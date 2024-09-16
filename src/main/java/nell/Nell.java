@@ -181,13 +181,20 @@ public class Nell {
 
     private static void loadFromFile() {
         try {
+            File directory = new File("data");
             File dataFile = new File("data/data.txt");
+
+            if (!dataFile.exists()) {
+                directory.mkdir();
+                dataFile.createNewFile();
+            }
+
             Scanner fileScanner = new Scanner(dataFile);
             while (fileScanner.hasNext()) {
                 String fileTask = fileScanner.nextLine();
                 loadTask(fileTask);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("Data not loaded - File not found");
         }
     }
