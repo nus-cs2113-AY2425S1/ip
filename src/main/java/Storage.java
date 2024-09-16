@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH = "./data/sleepy.txt";
+    private static final String DIRECTORY_PATH = "./src/main/data";
+    private static final String FILE_PATH = "C:/Users/Dell/Desktop/ip/data/sleepy.txt";
 
     public Storage() {
         File dir = new File(DIRECTORY_PATH);
