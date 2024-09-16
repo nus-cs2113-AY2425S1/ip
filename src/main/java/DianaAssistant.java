@@ -162,4 +162,30 @@ public class DianaAssistant {
                     "event <description> /from <start time> /to <end time>");
         }
     }
+
+    private void deleteTask (String input, List<Task> tasks) throws DianaException {
+
+        if (tasks.isEmpty()) {
+            throw new DianaException("Task list is empty");
+        }
+
+        try {
+            String substring = input.substring(input.indexOf(" ") + 1);
+            int taskNum = Integer.parseInt(substring) - 1;
+
+            if (taskNum < 0) {
+                throw new DianaException("Task number cannot be negative");
+            }
+
+            if (taskNum >= tasks.size()) {
+                throw new DianaException("Task number must be less than " + tasks.size());
+            }
+
+            System.out.println("Task: " + tasks.get(taskNum).toString() + " has been deleted");
+            tasks.remove(taskNum);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Number specified must be an integer");
+        }
+    }
 }
