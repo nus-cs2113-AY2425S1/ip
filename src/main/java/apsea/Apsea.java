@@ -34,9 +34,12 @@ public class Apsea {
     }
 
     private static void printAddTask() {
-        System.out.println("    I've added this task to the list");
+        System.out.println("    I've added this task to the list:");
         System.out.println("    " + tasks.get(tasks.size()-1));
-        System.out.println("    Now you have " + tasks.size() + " task(s) in the list:");
+    }
+
+    private static void printTotalTasks() {
+        System.out.println("    Now you have " + tasks.size() + " task(s) in the list");
     }
 
     public static void listTasks() {
@@ -84,6 +87,25 @@ public class Apsea {
         }
     }
 
+    public static void deleteTask(String[] words) {
+        try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            Task deletedTask = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+
+            printLine();
+            System.out.println("    OK, I've deleted this task:");
+            System.out.println("    " + deletedTask);
+            printTotalTasks();
+            printLine();
+        } catch (Exception e) {
+            printLine();
+            System.out.println("    Sorry, please use the format:\n"
+                    + "    delete [number]");
+            printLine();
+        }
+    }
+
     public static void addTodo(String line) throws ApseaException {
         final int NAME_POSITION = 5;
         if (line.length() <= NAME_POSITION) {
@@ -95,6 +117,7 @@ public class Apsea {
 
         printLine();
         printAddTask();
+        printTotalTasks();
         printLine();
     }
 
@@ -116,6 +139,7 @@ public class Apsea {
 
         printLine();
         printAddTask();
+        printTotalTasks();
         printLine();
     }
 
@@ -145,6 +169,7 @@ public class Apsea {
 
         printLine();
         printAddTask();
+        printTotalTasks();
         printLine();
     }
 
@@ -177,6 +202,9 @@ public class Apsea {
                     break;
                 case "unmark":
                     unmarkTask(words);
+                    break;
+                case "delete":
+                    deleteTask(words);
                     break;
                 default:
                     printError();
