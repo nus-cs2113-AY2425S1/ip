@@ -5,22 +5,21 @@ import codecatalyst.task.Event;
 import codecatalyst.task.Task;
 import codecatalyst.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CodeCatalyst {
-    private static final int MAX_TASKS = 100;
+
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS];
-        int taskCount = 0;
-
         printGreeting();
 
         while (true) {
             String input = scanner.nextLine();
             printDivider();
-            taskCount = processInput(input, scanner, tasks, taskCount);
+            processInput(input, scanner);
             printDivider();
         }
     }
@@ -30,11 +29,8 @@ public class CodeCatalyst {
      *
      * @param input The user input string.
      * @param scanner The scanner object for reading input.
-     * @param tasks The array of tasks.
-     * @param taskCount The number of current tasks.
-     * @return The updated task count.
      */
-    private static int processInput(String input, Scanner scanner, Task[] tasks, int taskCount) {
+    private static void processInput(String input, Scanner scanner) {
         try {
             String command = getCommand(input);
             switch (command) {
@@ -43,34 +39,32 @@ public class CodeCatalyst {
                 scanner.close();
                 break;
             case "list":
-                printTaskList(tasks, taskCount);
+                printTaskList();
                 break;
             case "mark":
-                handleTaskStatusChange(tasks, taskCount, input, true);
+                handleTaskStatusChange(input, true);
                 break;
             case "unmark":
-                handleTaskStatusChange(tasks, taskCount, input, false);
+                handleTaskStatusChange(input, false);
                 break;
             case "todo":
                 validateTodoInput(input);
-                taskCount = addTask(tasks, taskCount, new Todo(input.substring(5)));
+                addTask(new Todo(input.substring(5)));
                 break;
             case "deadline":
                 validateDeadlineInput(input);
-                taskCount = addDeadlineTask(tasks, taskCount, input);
+                addDeadlineTask(input);
                 break;
             case "event":
                 validateEventInput(input);
-                taskCount = addEventTask(tasks, taskCount, input);
+                addEventTask(input);
                 break;
             default:
                 throw new CodeCatalystException("Invalid input! Please enter a valid command.");
-                // break;
             }
         } catch (CodeCatalystException e) {
             System.out.println(e.getMessage());
         }
-        return taskCount;
     }
 
     private static void validateTodoInput(String input) throws CodeCatalystException {
@@ -98,8 +92,6 @@ public class CodeCatalyst {
             throw new CodeCatalystException("The task description, start date, or end date cannot be empty.");
         }
     }
-
-
 
     private static String getCommand(String input) {
         if (input.equals("bye")) {
@@ -136,19 +128,19 @@ public class CodeCatalyst {
         System.out.println("         Bye. Hope to see you again soon!");
     }
 
-    private static void printTaskList(Task[] tasks, int taskCount) {
+    private static void printTaskList() {
         System.out.println("         Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("         " + (i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("         " + (i + 1) + ". " + tasks.get(i));
         }
     }
 
-    private static void handleTaskStatusChange(Task[] tasks, int taskCount, String input, boolean isMark) {
+    private static void handleTaskStatusChange(String input, boolean isMark) {
         int taskNumber = extractTaskNumber(input, isMark);
         if (taskNumber == -1) {
             return;  // Invalid task number, already handled in extractTaskNumber.
         }
-        changeTaskStatus(tasks, taskCount, taskNumber, isMark);
+        changeTaskStatus(taskNumber, isMark);
     }
 
     /**
@@ -171,42 +163,40 @@ public class CodeCatalyst {
     /**
      * Change the status of the task to done or not done.
      *
-     * @param tasks The array of tasks.
-     * @param taskCount The current number of tasks.
      * @param taskNumber The task number to change status.
      * @param isMark True to mark the task as done, false to unmark.
      */
-    private static void changeTaskStatus(Task[] tasks, int taskCount, int taskNumber, boolean isMark) {
+    private static void changeTaskStatus(int taskNumber, boolean isMark) {
         int taskIndex = taskNumber - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
             if (isMark) {
-                tasks[taskIndex].markAsDone();
+                task.markAsDone();
                 System.out.println("         Nice! I've marked this task as done:");
             } else {
-                tasks[taskIndex].markAsNotDone();
+                task.markAsNotDone();
                 System.out.println("         Ok, I've marked this task as not done yet:");
             }
-            System.out.println("         " + tasks[taskIndex]);
+            System.out.println("         " + task);
         } else {
             System.out.println("         Invalid task number.");
         }
     }
 
-    private static int addTask(Task[] tasks, int taskCount, Task task) {
-        tasks[taskCount] = task;
+    private static void addTask(Task task) {
+        tasks.add(task);
         System.out.println("         Got it. I've added this task:");
-        System.out.println("         " + tasks[taskCount]);
-        System.out.println("         Now you have " + (taskCount + 1) + " tasks in the list.");
-        return taskCount + 1;
+        System.out.println("         " + task);
+        System.out.println("         Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static int addDeadlineTask(Task[] tasks, int taskCount, String input) {
+    private static void addDeadlineTask(String input) {
         String[] parts = input.substring(9).split(" /by ");
-        return addTask(tasks, taskCount, new Deadline(parts[0], parts[1]));
+        addTask(new Deadline(parts[0], parts[1]));
     }
 
-    private static int addEventTask(Task[] tasks, int taskCount, String input) {
+    private static void addEventTask(String input) {
         String[] parts = input.substring(6).split(" /from | /to ");
-        return addTask(tasks, taskCount,  new Event(parts[0], parts[1], parts[2]));
+        addTask(new Event(parts[0], parts[1], parts[2]));
     }
 }
