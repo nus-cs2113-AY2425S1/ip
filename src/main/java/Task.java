@@ -7,6 +7,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toFileFormat() {
+        return "T |" + (isDone ? "1" : "0") + " |" + description + "\n";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }

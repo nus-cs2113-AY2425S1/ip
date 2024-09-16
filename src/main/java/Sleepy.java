@@ -15,8 +15,9 @@ public class Sleepy {
         System.out.println(greeting);
 
         String line;
+        Storage storage = new Storage();
         Scanner in = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = new TaskManager(storage.loadTasks());
         line = in.nextLine();
         while (!line.equals("bye")) {
             try {
@@ -34,6 +35,8 @@ public class Sleepy {
                 } else {
                     taskManager.addTask(line);
                 }
+
+                storage.saveTasks(taskManager.getTasks());
             } catch (SleepyException e) {
                 System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
             } catch (NumberFormatException e) {
