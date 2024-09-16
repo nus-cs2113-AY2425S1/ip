@@ -1,13 +1,11 @@
 package joe;
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.io.FileWriter;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class Joe {
     private static final String INTENDATION = "      ";

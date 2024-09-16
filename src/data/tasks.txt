@@ -1,2 +1,3 @@
-[D] [done] cool (by: 122)
-[E] [done] asdfd (from: dddas to: ddd)
+[T] [done] list
+[E] [not done] asdf  (from: dd to: dd)
+[D] [not done] eating  (by: 11)

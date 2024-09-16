@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+#Jar Files
+*.jar
+
 # .class files
 *.class
 
