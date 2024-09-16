@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String toFileFormat() {
-        return "T |" + (isDone ? "1" : "0") + " |" + description + "\n";
+        return "T|" + (isDone ? "1" : "0") + "|" + description;
     }
 
     public String getDescription() {

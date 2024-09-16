@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 
 public class TaskManager {
-    private static ArrayList<Task> tasks;
-    private static int taskCount;
+    private ArrayList<Task> tasks;
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
 
-    public TaskManager() {
-        tasks = new ArrayList<>();
+    public TaskManager(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public void addTask(String input) throws SleepyException{

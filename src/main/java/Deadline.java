@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D |" + (isDone() ? "1" : "0") + getDescription() + " | " + by + "\n";
+        return "D|" + (isDone() ? "1" : "0") + "|" + getDescription() + "|" + by;
     }
 
     @Override

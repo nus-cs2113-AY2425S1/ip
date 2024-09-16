@@ -55,7 +55,6 @@ public class Storage {
 
                 if (taskInfo[1].equals("1")) {
                     task.markAsDone();
-                    ;
                 }
 
                 tasks.add(task);
