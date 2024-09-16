@@ -1,12 +1,18 @@
 package joe;
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.io.FileWriter;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Joe {
-    private static String INTENDATION = "      ";
-    private static String SEPARATOR = "_________________________________________________";
+    private static final String INTENDATION = "      ";
+    private static final String FILE_PATH = "src/data/tasks.txt";
+    private static final String SEPARATOR = "_________________________________________________";
     private static ArrayList<Task> toDoItemArrayList = new ArrayList<Task>();
     private static final String LOGO = "    (_)           \n"
             + INTENDATION + "     _  ___   ___ \n"
@@ -17,9 +23,31 @@ public class Joe {
             + INTENDATION + "  |__/            \n";
 
     public static void main(String[] args) {
+
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try {
+                readFromFile(FILE_PATH);
+            } catch (IOException ioException) {
+                System.out.println("Something went wrong during loading tasks.");
+            }
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException ioException) {
+                System.out.println("Creating a file for storing the tasks was unsuccessful.");
+            }
+        }
+
         printGreeting();
         chatWithJoe();
         printFarewell();
+
+        try {
+            writeToFile(FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("File not found!");
+        }
     }
 
     public static void chatWithJoe() {
@@ -67,6 +95,18 @@ public class Joe {
                 printReply("Invalid input. Second token is not a number.", "Retry: ");
             } catch (IndexOutOfBoundsException e) {
                 printReply("No todo with this number exists.", "Retry: ");
+            }
+            break;
+        case "delete":
+            try {
+                int toDoNumber = Integer.parseInt(tokens[1].strip());
+                Task itemToDelete = toDoItemArrayList.get(toDoNumber -1);
+                toDoItemArrayList.remove(toDoNumber - 1);
+                printReply(itemToDelete.toString(), "Deleted:");
+            } catch (NumberFormatException e) {
+                printReply("Invalid input. Second token is not a number.", "Retry: ");
+            } catch (IndexOutOfBoundsException e) {
+            printReply("No todo with this number exists.", "Retry: ");
             }
             break;
         default:
@@ -148,6 +188,47 @@ public class Joe {
     public static void printFarewell() {
         System.out.println(INTENDATION + "See you soon!");
         System.out.println(INTENDATION + SEPARATOR);
+    }
+
+    public static void writeToFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        FileWriter writer = new FileWriter(file);
+        toDoItemArrayList.stream()
+            .map(task -> task.toString())
+            .forEachOrdered(taskDescription -> {
+                try {
+                    writer.write(taskDescription + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+            });
+        writer.close();
+    }
+
+    public static void readFromFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] tokens = line.split(" ");
+            String taskTypeToken = tokens[0];
+            Task item;
+            switch (taskTypeToken) {
+            case "[T]":
+                item = Todo.readInTodo(line);
+                break;
+            case "[E]":
+                item = Event.readInEvent(line);
+                break;
+            case "[D]":
+                item = Deadline.readInDeadline(line);
+                break;
+            default:
+                System.out.println("Unknown task type during file loading");
+                throw new IOException();
+            }
+            addToList(item);
+        }
     }
 
     public static void printReply(String input, String actionPerformed) {

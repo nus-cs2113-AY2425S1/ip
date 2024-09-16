@@ -10,6 +10,11 @@ public class Task {
         this.isToDo = true;
     }
 
+    public Task(String itemDescription, boolean isToDo) {
+        this.itemDescription = itemDescription;
+        this.isToDo = isToDo;
+    }
+
     public String getItemDescription() {
         return this.itemDescription;
     }

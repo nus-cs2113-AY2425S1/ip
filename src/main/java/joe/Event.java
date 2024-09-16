@@ -12,6 +12,12 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    public Event(String itemDescription, String startDate, String endDate, boolean isToDo) {
+        super(itemDescription, isToDo);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public static String extractDescription(String input) {
         String fullDescription = extractDescription(input, "event");
         int indexOfDateSignaller = fullDescription.indexOf("/from");
@@ -43,6 +49,38 @@ public class Event extends Task{
         }
     }
 
+    public static Event readInEvent(String line) {
+        String itemDescription;
+        String startDate;
+        String endDate;
+        boolean isToDo;
+
+        if (line.contains("[not done]")) {
+            isToDo = false;
+        } else {
+            isToDo = true;
+        }
+
+        int startDescriptionIndex = line.indexOf("done]") + "done]".length();
+        int fromIndex = line.indexOf("(from:");
+        int toIndex = line.indexOf("to:");
+
+        itemDescription = line.substring(startDescriptionIndex, fromIndex).strip();
+
+        startDate = line.substring(
+            fromIndex + "(from:".length(),
+            toIndex
+        ).strip();
+
+        endDate = line.substring(
+            toIndex + "to:".length(),
+            line.length() - 1
+        ).strip();
+
+        return new Event(itemDescription, startDate, endDate, isToDo);
+
+    }
+
     @Override
     public String toString() {
         String checkBox;
@@ -54,7 +92,7 @@ public class Event extends Task{
 
         return "[E]" + checkBox + " " +
                 this.getItemDescription() +
-                "(from: " + startDate +
+                " (from: " + startDate +
                 " to: " + endDate + ")";
     }
 }
