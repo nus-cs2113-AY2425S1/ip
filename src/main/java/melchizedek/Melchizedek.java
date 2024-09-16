@@ -2,31 +2,38 @@ package melchizedek;
 
 import melchizedek.task.TaskList;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class Melchizedek {
 
     public static TaskList taskList = new TaskList();
     public static final String SEPARATOR = "\t____________________________________________________________";
 
+
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
-    public static void sayHelloToUser() {
+    private static void sayHelloToUser() {
         printSeparator();
         System.out.println("\tHello! I'm Melchizedek.");
         System.out.println("\tHow can I be a blessing to you?");
         printSeparator();
     }
 
-    public static void sayByeToUser() {
+    private static void sayByeToUser() {
         System.out.println("\tGoodbye. Hope to see you again soon! May peace be upon you.");
         printSeparator();
     }
 
-    public static void listCommands() {
+    private static void listCommands() {
         System.out.println("\tHere is a list of commands:");
         System.out.println("\tto add a todo: todo *description*");
         System.out.println("\tto add a deadline: deadline *description* /by *time*");
@@ -39,6 +46,7 @@ public class Melchizedek {
 
     public static void main(String[] args) {
         sayHelloToUser();
+        FileHandling.loadFile(taskList);
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
@@ -48,6 +56,7 @@ public class Melchizedek {
 
             switch (tokens[0].toLowerCase()) {
             case "bye":
+                FileHandling.writeToFile(taskList);
                 sayByeToUser();
                 return;
 

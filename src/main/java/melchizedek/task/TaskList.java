@@ -110,6 +110,7 @@ public class TaskList {
         printAddedTask();
     }
 
+
     public void deleteTask(int id) {
         String taskString = allTasks.get(id - 1).toString();
         allTasks.remove(id - 1);
@@ -117,5 +118,13 @@ public class TaskList {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + taskString);
         printNumberOfTasks(allTasks.size());
+    }
+
+    public String taskListToFile() {
+        String output = "";
+        for (int i = 0; i < taskCount; i++) {
+            output = output + allTasks.get(i).taskToFile() + System.lineSeparator();
+        }
+        return output;
     }
 }

@@ -28,11 +28,11 @@ public abstract class Task {
         return " ";
     }
 
-    public void printTask() {
-        System.out.print("[");
-        System.out.print(getStatusMark());
-        System.out.print("] ");
-        System.out.println(description);
+    public String taskToFile() {
+        if (isMarkAsDone) {
+            return "1 | " + description;
+        }
+        return "0 | " + description;
     }
 
     @Override
