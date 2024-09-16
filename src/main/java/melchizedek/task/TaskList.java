@@ -29,7 +29,6 @@ public class TaskList {
             System.out.print("\t" + (i + 1) +".");
             System.out.println(allTasks[i]);
         }
-        printSeparator();
     }
 
     public void printAddedTask() {
@@ -40,7 +39,6 @@ public class TaskList {
         } else {
             System.out.println("\tNow you have " + taskCount + " task in the list.");
         }
-        printSeparator();
     }
 
     public void markTaskAsDone(int id) {
@@ -48,7 +46,6 @@ public class TaskList {
 
         System.out.println("\tGreat! I've marked this task as done:");
         System.out.println("\t  " + allTasks[id - 1]);
-        printSeparator();
     }
 
     public void unmarkTaskAsDone(int id) {
@@ -56,7 +53,6 @@ public class TaskList {
 
         System.out.println("\tOK, I've marked this task as undone:");
         System.out.println("\t  " + allTasks[id - 1]);
-        printSeparator();
     }
 
     public void addTodo(String[] tokens) {
