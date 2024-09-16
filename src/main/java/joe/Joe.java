@@ -104,9 +104,9 @@ public class Joe {
                 toDoItemArrayList.remove(toDoNumber - 1);
                 printReply(itemToDelete.toString(), "Deleted:");
             } catch (NumberFormatException e) {
-                printReply("Invalid input. Second token is not a number.", "Retry: ");
+                printReply("Invalid input: Second token is not a number.", "Retry: ");
             } catch (IndexOutOfBoundsException e) {
-            printReply("No todo with this number exists.", "Retry: ");
+                printReply("No todo with this number exists.", "Retry: ");
             }
             break;
         default:
