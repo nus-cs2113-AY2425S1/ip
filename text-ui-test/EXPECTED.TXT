@@ -82,5 +82,17 @@
 	5.[T][ ] leave Abraham
 	____________________________________________________________
 	____________________________________________________________
+	Noted. I've removed this task:
+	  [E][ ] bless Abraham (from: 24/09 3pm to: 24/09 3.30pm)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Sure! Here are the tasks on your list:
+	1.[T][X] bring bread and wine
+	2.[D][X] meet Abraham (by: 24/09 3pm)
+	3.[T][ ] receive tithe from Abraham
+	4.[T][ ] leave Abraham
+	____________________________________________________________
+	____________________________________________________________
 	Goodbye. Hope to see you again soon! May peace be upon you.
 	____________________________________________________________

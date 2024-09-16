@@ -10,7 +10,6 @@ public class TaskList {
         allTasks = new ArrayList<>();
     }
 
-
     public static String joinStringArray(String[] array, int from, int to, String delimiter) {
         String[] arrayCopy = Arrays.copyOfRange(array, from, to);
         return String.join(delimiter, arrayCopy);
@@ -34,6 +33,10 @@ public class TaskList {
         int taskCount = allTasks.size();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + allTasks.get(taskCount - 1).toString());
+        printNumberOfTasks(taskCount);
+    }
+
+    private static void printNumberOfTasks(int taskCount) {
         if (taskCount > 1) {
             System.out.println("\tNow you have " + taskCount + " tasks in the list.");
         } else {
@@ -105,5 +108,14 @@ public class TaskList {
         allTasks.add(new Event(description, from, to));
 
         printAddedTask();
+    }
+
+    public void deleteTask(int id) {
+        String taskString = allTasks.get(id - 1).toString();
+        allTasks.remove(id - 1);
+
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + taskString);
+        printNumberOfTasks(allTasks.size());
     }
 }

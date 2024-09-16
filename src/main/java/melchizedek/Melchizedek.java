@@ -109,6 +109,15 @@ public class Melchizedek {
                 }
                 break;
 
+            case "delete":
+                try {
+                    taskList.deleteTask(Integer.parseInt(tokens[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\tOh no! Please specify which task number to delete.");
+                    System.out.println("\tExample: delete 1");
+                }
+                break;
+
             default:
                 System.out.println("\tSorry but I don't understand what you mean :(");
                 //listCommands();
