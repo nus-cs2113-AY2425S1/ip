@@ -24,9 +24,6 @@ public class V {
     }
 
     public static void displayList(ArrayList<Task> listOfTasks) {
-        // for (int i = 0; i < length; i++) {
-        //     System.out.println(String.format("%d.%s", i + 1, listOfTasks[i]));
-        // }
         int count = 1;
         System.out.println(LINE_SEPERATOR);
         for (Task task: listOfTasks) {
@@ -37,7 +34,6 @@ public class V {
     }
 
     public static void markTask(ArrayList<Task> listOfTasks, int position) {
-        // listOfTasks[position - 1].setDone();
         Task task = listOfTasks.get(position - 1);
         task.setDone();
         listOfTasks.set(position - 1, task);
