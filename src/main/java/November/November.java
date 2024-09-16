@@ -23,15 +23,20 @@ public class November {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
 
     private static final String INIT_SENTENCE = "Hello! I'm November."
             + System.lineSeparator() + "What can I do for you?";
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
     private static final String LIST_MESSAGE = "Here are the tasks in your list:";
     private static final String LIST_EMPTY_MESSAGE = "Your list is currently empty.";
-    private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done: ";
-    private static final String UNMARK_TASK_MESSAGE = "Ok, I've marked this task as not done yet: ";
+    private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:" + System.lineSeparator() + "  ";
+    private static final String UNMARK_TASK_MESSAGE = "Ok, I've marked this task as not done yet:" + System.lineSeparator() + "  ";
     private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:" + System.lineSeparator() + "  ";
+    private static final String DELETE_TASK_MESSAGE = "Got it. I've removed this task:" + System.lineSeparator() + "  ";
+    private static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
+    private static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
+    private static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means.";
 
     /**
      * Prints a line of underscores to mark the start of a print segment.
@@ -109,16 +114,16 @@ public class November {
                         int markIndex = Integer.parseInt(sentence[1]) - 1;
                         taskList.get(markIndex).setComplete();
                         beginSegment();
-                        System.out.print(MARK_TASK_MESSAGE + System.lineSeparator() + "  ");
+                        System.out.print(MARK_TASK_MESSAGE);
                         taskList.get(markIndex).printTask();
                         endSegment();
                     } catch (NumberFormatException e) {
                         beginSegment();
-                        System.out.println("Please provide a valid numerical index.");
+                        System.out.println(NONNUMERICAL_INDEX_MESSAGE);
                         endSegment();
                     } catch (IndexOutOfBoundsException e) {
                         beginSegment();
-                        System.out.println("Sorry, but that index is not within the list.");
+                        System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE);
                         endSegment();
                     }
                     break;
@@ -128,16 +133,16 @@ public class November {
                         int unmarkIndex = Integer.parseInt(sentence[1]) - 1;
                         taskList.get(unmarkIndex).setIncomplete();
                         beginSegment();
-                        System.out.print(UNMARK_TASK_MESSAGE + System.lineSeparator() + "  ");
+                        System.out.print(UNMARK_TASK_MESSAGE);
                         taskList.get(unmarkIndex).printTask();
                         endSegment();
                     } catch (NumberFormatException e) {
                         beginSegment();
-                        System.out.println("Please provide a valid numerical index.");
+                        System.out.println(NONNUMERICAL_INDEX_MESSAGE);
                         endSegment();
                     } catch (IndexOutOfBoundsException e) {
                         beginSegment();
-                        System.out.println("Sorry, but that index is outside the list.");
+                        System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE);
                         endSegment();
                     }
                     break;
@@ -195,10 +200,30 @@ public class November {
                         endSegment();
                     }
                     break;
+                case DELETE_COMMAND:
+                    try {
+                        // Deletes a task.
+                        int markIndex = Integer.parseInt(sentence[1]) - 1;
+                        beginSegment();
+                        System.out.print(DELETE_TASK_MESSAGE);
+                        taskList.get(markIndex).printTask();
+                        taskList.remove(markIndex);
+                        printTaskCount(taskList);
+                        endSegment();
+                    } catch (NumberFormatException e) {
+                        beginSegment();
+                        System.out.println(NONNUMERICAL_INDEX_MESSAGE);
+                        endSegment();
+                    } catch (IndexOutOfBoundsException e) {
+                        beginSegment();
+                        System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE);
+                        endSegment();
+                    }
+                    break;
                 default:
                     // Response to unrecognized inputs.
                     beginSegment();
-                    System.out.println("I'm sorry, I don't know what that means.");
+                    System.out.println(INVALID_INPUT_MESSAGE);
                     endSegment();
                     break;
             }
