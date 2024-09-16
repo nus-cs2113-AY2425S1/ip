@@ -13,6 +13,11 @@ public class Deadline extends Task {
         this.deadlineDate = deadlineDate;
     }
 
+    public Deadline(String itemDescription, String deadlineDate, boolean isToDo) {
+        super(itemDescription, isToDo);
+        this.deadlineDate = deadlineDate;
+    }
+
     public static String extractDescription(String input) {
         String fullDescription = extractDescription(input, "deadline");
         int indexOfDateSignaler = fullDescription.indexOf("/by");
@@ -27,6 +32,25 @@ public class Deadline extends Task {
         } else {
             return Optional.empty(); //Use optional to be stable if no date is passed in
         }
+    }
+
+    public static Deadline readInDeadline(String line) {
+        String itemDescription;
+        String deadlineDate;
+        boolean isToDo;
+
+        if (line.contains("[not done]")) {
+            isToDo = false;
+        } else {
+            isToDo = true;
+        }
+
+        int startDescriptionIndex = line.indexOf("done]") + "done]".length();
+        int startDateIndex = line.indexOf("(by:");
+        itemDescription = line.substring(startDescriptionIndex, startDateIndex).strip();
+        deadlineDate = line.substring(startDateIndex + "(by:".length(), line.length() - 1).strip();
+
+        return new Deadline(itemDescription, deadlineDate, isToDo);
     }
 
     @Override
