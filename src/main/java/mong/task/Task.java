@@ -4,7 +4,7 @@ public abstract class Task {
     private String description;
     private boolean isCompleted;
     private int index;
-    public static int currentIndex = 0;
+    private static int currentIndex = 0;
 
     public String getDescription() {
         return description;
