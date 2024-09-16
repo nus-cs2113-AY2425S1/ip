@@ -14,14 +14,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public String getBy() {
-        return by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
-    }
-
     @Override
     public String taskToFile() {
         return "D | " + super.taskToFile() + " | " + by;

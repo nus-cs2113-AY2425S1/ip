@@ -1,5 +1,7 @@
 package melchizedek;
 
+import melchizedek.exceptions.DescriptionNotPresentException;
+import melchizedek.exceptions.InvalidTaskNumberException;
 import melchizedek.task.TaskList;
 
 import java.util.Arrays;
@@ -29,14 +31,15 @@ public class Melchizedek {
     }
 
     private static void listCommands() {
-        System.out.println("\tHere is a list of commands:");
-        System.out.println("\tto add a todo: todo *description*");
-        System.out.println("\tto add a deadline: deadline *description* /by *time*");
-        System.out.println("\tto add an event: event *description* /from *time* /to *time*");
-        System.out.println("\tto mark a task as done: mark *task number*");
-        System.out.println("\tto unmark a task as done: unmark *task number*");
-        System.out.println("\tto display all tasks on the list: list");
-        System.out.println("\tto exit: bye");
+        System.out.println("\tHere is the list of commands:");
+        System.out.println("\t  to add a todo: todo DESCRIPTION");
+        System.out.println("\t  to add a deadline: deadline DESCRIPTION /by BY");
+        System.out.println("\t  to add an event: event DESCRIPTION /from FROM /to TO");
+        System.out.println("\t  to delete a task: delete TASK_NUMBER");
+        System.out.println("\t  to mark a task as done: mark TASK_NUMBER");
+        System.out.println("\t  to unmark a task as done: unmark TASK_NUMBER");
+        System.out.println("\t  to display all tasks on the list: list");
+        System.out.println("\t  to exit: bye");
     }
 
     public static void main(String[] args) {
@@ -55,6 +58,10 @@ public class Melchizedek {
                 sayByeToUser();
                 return;
 
+            case "help":
+                listCommands();
+                break;
+
             case "list":
                 taskList.printTaskList();
                 break;
@@ -65,6 +72,9 @@ public class Melchizedek {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\tOh no! Please specify which task number to mark.");
                     System.out.println("\tExample: mark 3");
+                } catch (InvalidTaskNumberException e) {
+                    System.out.println("\tUh oh! Please input a valid task number!");
+                    taskList.printNumberOfTasks();
                 }
                 break;
 
@@ -74,16 +84,19 @@ public class Melchizedek {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\tOh no! Please specify which task number to unmark.");
                     System.out.println("\tExample: unmark 2");
+                } catch (InvalidTaskNumberException e) {
+                    System.out.println("\tUh oh! Please input a valid task number!");
+                    taskList.printNumberOfTasks();
                 }
                 break;
 
             case "todo":
                 try {
                     if (tokens.length < 2) {
-                        throw new MelchizedekExceptions();
+                        throw new DescriptionNotPresentException();
                     }
                     taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (MelchizedekExceptions e) {
+                } catch (DescriptionNotPresentException e) {
                     System.out.println("\tUh oh! I cannot create a todo with no description!");
                     System.out.println("\tExample: todo read lecture notes");
                 }
@@ -92,10 +105,10 @@ public class Melchizedek {
             case "deadline":
                 try {
                     if (tokens.length < 2) {
-                        throw new MelchizedekExceptions();
+                        throw new DescriptionNotPresentException();
                     }
                     taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (MelchizedekExceptions e) {
+                } catch (DescriptionNotPresentException e) {
                     System.out.println("\tUh oh! I cannot create a deadline with no description!");
                     System.out.println("\tExample: deadline coding assignment /by 12pm");
                 }
@@ -104,10 +117,10 @@ public class Melchizedek {
             case "event":
                 try {
                     if (tokens.length < 2) {
-                        throw new MelchizedekExceptions();
+                        throw new DescriptionNotPresentException();
                     }
                     taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (MelchizedekExceptions e) {
+                } catch (DescriptionNotPresentException e) {
                     System.out.println("\tUh oh! I cannot create an event with no description!");
                     System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
                 }
@@ -119,12 +132,15 @@ public class Melchizedek {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\tOh no! Please specify which task number to delete.");
                     System.out.println("\tExample: delete 1");
+                } catch (InvalidTaskNumberException e) {
+                    System.out.println("\tUh oh! Please input a valid task number!");
+                    taskList.printNumberOfTasks();
                 }
                 break;
 
             default:
                 System.out.println("\tSorry but I don't understand what you mean :(");
-                //listCommands();
+                System.out.println("\t\"help\" to get a list of commands.");
                 break;
             }
 

@@ -1,14 +1,11 @@
 package melchizedek;
 
-import melchizedek.task.Task;
 import melchizedek.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,7 +13,6 @@ public class FileHandling {
 
     public static final String FILE_DIRECTORY = "./data";
     public static final String FILE_PATH = "./data/Melchizedek.txt";
-    public static final String COPY_FILE_PATH = "./data/temp.txt";
 
     public static void loadFile(TaskList taskList) {
         File dir = new File(FILE_DIRECTORY);
@@ -56,14 +52,6 @@ public class FileHandling {
                 System.err.println("Unable to process line.");
                 break;
             }
-        }
-    }
-
-    public static void createCopyOfFile(String filePath) {
-        try {
-            Files.copy(Paths.get(FILE_PATH), Paths.get(COPY_FILE_PATH));
-        } catch (IOException e) {
-            System.err.println("Error. No file could be created or found.");
         }
     }
 

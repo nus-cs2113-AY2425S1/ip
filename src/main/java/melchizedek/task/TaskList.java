@@ -1,5 +1,7 @@
 package melchizedek.task;
 
+import melchizedek.exceptions.InvalidTaskNumberException;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class TaskList {
         printNumberOfTasks();
     }
 
-    private void printNumberOfTasks() {
+    public void printNumberOfTasks() {
         int taskCount = allTasks.size();
         if (taskCount != 1) {
             System.out.println("\tNow you have " + taskCount + " tasks in the list.");
@@ -44,11 +46,9 @@ public class TaskList {
         }
     }
 
-    public void markTaskAsDone(int id) {
-        if (id > allTasks.size()) {
-            System.out.println("\tUh oh! Please input a valid task number!");
-            printNumberOfTasks();
-            return;
+    public void markTaskAsDone(int id) throws InvalidTaskNumberException {
+        if (id > allTasks.size() || id < 1) {
+            throw new InvalidTaskNumberException();
         }
 
         if (allTasks.get(id - 1).isMarkAsDone()) {
@@ -60,11 +60,9 @@ public class TaskList {
         System.out.println("\t  " + allTasks.get(id - 1).toString());
     }
 
-    public void unmarkTaskAsDone(int id) {
-        if (id > allTasks.size()) {
-            System.out.println("\tUh oh! Please input a valid task number!");
-            printNumberOfTasks();
-            return;
+    public void unmarkTaskAsDone(int id) throws InvalidTaskNumberException {
+        if (id > allTasks.size() || id < 1) {
+            throw new InvalidTaskNumberException();
         }
         if (!allTasks.get(id - 1).isMarkAsDone()) {
             System.out.println("\tHmmm... it was undone in the first place.");
@@ -143,7 +141,11 @@ public class TaskList {
         printAddedTask();
     }
 
-    public void deleteTask(int id) {
+    public void deleteTask(int id) throws InvalidTaskNumberException {
+        if (id > allTasks.size() || id < 1) {
+            throw new InvalidTaskNumberException();
+        }
+
         String taskString = allTasks.get(id - 1).toString();
         allTasks.remove(id - 1);
 
