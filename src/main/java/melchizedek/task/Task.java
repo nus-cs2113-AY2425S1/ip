@@ -1,7 +1,6 @@
 package melchizedek.task;
 
 public abstract class Task {
-    private int id;
     private String description;
     private boolean isMarkAsDone;
 
@@ -9,8 +8,7 @@ public abstract class Task {
         this.isMarkAsDone = false;
     }
 
-    public Task(int id, String description) {
-        this.id = id;
+    public Task(String description) {
         this.description = description;
         this.isMarkAsDone = false;
     }
