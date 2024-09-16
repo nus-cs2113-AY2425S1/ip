@@ -6,11 +6,11 @@ import apsea.task.Event;
 import apsea.task.Task;
 import apsea.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Apsea {
-    private static Task[] tasks = new Task[100];
-    private static int count = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>() ;
 
     public static void printLine() {
         System.out.println("    ________________________________________________________");
@@ -33,22 +33,31 @@ public class Apsea {
         printLine();
     }
 
-    public static void listTasks(Task[] tasks, int count) {
+    private static void printAddTask() {
+        System.out.println("    I've added this task to the list");
+        System.out.println("    " + tasks.get(tasks.size()-1));
+        System.out.println("    Now you have " + tasks.size() + " task(s) in the list:");
+    }
+
+    public static void listTasks() {
         printLine();
-        for (int i = 0; i < count; i++) {
-            System.out.println("    " + (i+1) + ". " + tasks[i]);
+
+        int count = 1;
+        for (Task task : tasks) {
+            System.out.println("    " + count + ". " + task);
+            count++;
         }
         printLine();
     }
 
-    public static void markTask(Task[] tasks, String[] words) {
+    public static void markTask(String[] words) {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
-            tasks[taskIndex].markAsDone();
+            (tasks.get(taskIndex)).markAsDone();
 
             printLine();
             System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("    " + tasks[taskIndex]);
+            System.out.println("    " + tasks.get(taskIndex));
             printLine();
         } catch (Exception e) {
             printLine();
@@ -58,14 +67,14 @@ public class Apsea {
         }
     }
 
-    public static void unmarkTask(Task[] tasks, String[] words) {
+    public static void unmarkTask(String[] words) {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
-            tasks[taskIndex].markAsUndone();
+            (tasks.get(taskIndex)).markAsUndone();
 
             printLine();
             System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + tasks[taskIndex]);
+            System.out.println("    " + tasks.get(taskIndex));
             printLine();
         } catch (Exception e) {
             printLine();
@@ -82,15 +91,13 @@ public class Apsea {
                     + "    todo [task name]");
         }
 
-        tasks[count] = new Todo(line.substring(NAME_POSITION));
-        count++;
+        tasks.add(new Todo(line.substring(NAME_POSITION)));
 
         printLine();
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks[count-1]);
-        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printAddTask();
         printLine();
     }
+
     public static boolean isValidDeadline(String line, int byPosition) {
         return (byPosition > 9) && (byPosition + 4 < line.length());
     }
@@ -104,14 +111,11 @@ public class Apsea {
                     + "    deadline [task name] /by [time]");
         }
 
-        tasks[count] = new Deadline(line.substring(NAME_POSITION, byPosition),
-                line.substring(byPosition + 4));
-        count++;
+        tasks.add(new Deadline(line.substring(NAME_POSITION, byPosition),
+                line.substring(byPosition + 4)));
 
         printLine();
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks[count - 1]);
-        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printAddTask();
         printLine();
     }
 
@@ -135,15 +139,12 @@ public class Apsea {
                     "    event [task name] /from [time] /to [event] ");
         }
 
-        tasks[count] = new Event(line.substring(NAME_POSITION, fromPosition),
-                line.substring(fromPosition + 6, toPosition - 1),
-                line.substring(toPosition + 4));
-        count++;
+        tasks.add(new Event(line.substring(NAME_POSITION, fromPosition),
+                        line.substring(fromPosition + 6, toPosition - 1),
+                        line.substring(toPosition + 4)));
 
         printLine();
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks[count - 1]);
-        System.out.println("    Now you have " + count + " task(s) in the list:");
+        printAddTask();
         printLine();
     }
 
@@ -160,7 +161,7 @@ public class Apsea {
                     isExit = true;
                     break;
                 case "list":
-                    listTasks(tasks, count);
+                    listTasks();
                     break;
                 case "todo":
                     addTodo(line);
@@ -172,10 +173,10 @@ public class Apsea {
                     addEvent(line);
                     break;
                 case "mark":
-                    markTask(tasks, words);
+                    markTask(words);
                     break;
                 case "unmark":
-                    unmarkTask(tasks, words);
+                    unmarkTask(words);
                     break;
                 default:
                     printError();
