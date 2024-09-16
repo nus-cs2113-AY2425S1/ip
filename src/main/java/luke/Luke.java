@@ -261,6 +261,10 @@ public class Luke {
     }
 
     private static void loadSavedTasks() throws IOException {
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
         File save = new File("data/tasks.txt");
         if (!save.exists()) {
             save.createNewFile();
