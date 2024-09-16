@@ -23,26 +23,29 @@ public class DianaAssistant {
             }
             try {
                 switch (processCommand(input)) {
-                    case "list":
-                        printList(tasks);
-                        break;
-                    case "mark":
-                        toMark(tasks, input, true);
-                        break;
-                    case "unmark":
-                        toMark(tasks, input, false);
-                        break;
-                    case "todo":
-                        addTodo(input, tasks);
-                        break;
-                    case "event":
-                        addEvent(input, tasks);
-                        break;
-                    case "deadline":
-                        addDeadline(input, tasks);
-                        break;
-                    default:
-                        throw new DianaException("Unknown command: " + input);
+                case "list":
+                    printList(tasks);
+                    break;
+                case "mark":
+                    toMark(tasks, input, true);
+                    break;
+                case "unmark":
+                    toMark(tasks, input, false);
+                    break;
+                case "todo":
+                    addTodo(input, tasks);
+                    break;
+                case "event":
+                    addEvent(input, tasks);
+                    break;
+                case "delete":
+                    deleteTask(input, tasks);
+                    break;
+                case "deadline":
+                    addDeadline(input, tasks);
+                    break;
+                default:
+                    throw new DianaException("Unknown command: " + input);
                 }
             } catch (DianaException e) {
                 System.out.println(e.getMessage());
@@ -70,8 +73,9 @@ public class DianaAssistant {
         System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
         System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
         System.out.println("4. Type either mark or unmark to indicate the completion rate of your task");
-        System.out.println("5. Type list to view the your list of tasks.");
-        System.out.println("6. Type bye to exit the programme");
+        System.out.println("5. Delete a task eg. [delete 1]");
+        System.out.println("6. Type list to view the your list of tasks.");
+        System.out.println("7. Type bye to exit the programme");
     }
 
     private void printEnclosure() {
@@ -160,6 +164,32 @@ public class DianaAssistant {
         } else {
             throw new DianaException("Format Invalid. Please use the following format: " +
                     "event <description> /from <start time> /to <end time>");
+        }
+    }
+
+    private void deleteTask (String input, List<Task> tasks) throws DianaException {
+
+        if (tasks.isEmpty()) {
+            throw new DianaException("Task list is empty");
+        }
+
+        try {
+            String substring = input.substring(input.indexOf(" ") + 1);
+            int taskNum = Integer.parseInt(substring) - 1;
+
+            if (taskNum < 0) {
+                throw new DianaException("Task number cannot be negative");
+            }
+
+            if (taskNum >= tasks.size()) {
+                throw new DianaException("Task number must be less than " + tasks.size());
+            }
+
+            System.out.println("Task: " + tasks.get(taskNum).toString() + " has been deleted");
+            tasks.remove(taskNum);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Number specified must be an integer");
         }
     }
 }
