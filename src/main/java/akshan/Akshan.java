@@ -204,8 +204,7 @@ public class Akshan {
      * @param index The index of the task to be deleted.
      */
     private static void deleteTaskFromList(TaskList taskList, int index) {
-        Task deletedTask = taskList.getTask(index);
-        taskList.deleteItem(index);
+        Task deletedTask = taskList.deleteItem(index);
         System.out.println("Got it. I've removed this task:");
         System.out.println("  " + deletedTask);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");

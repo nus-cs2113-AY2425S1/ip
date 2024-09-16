@@ -48,16 +48,17 @@ public class TaskList {
     }
 
     /**
-     * Deletes a new task.
+     * Deletes a task from the list.
      *
-     * @param index The task object to be deleted.
-     * @throws IllegalArgumentException If the task is null.
+     * @param index The index of the task to be deleted (0-based).
+     * @return The deleted Task object.
+     * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void deleteItem(int index) throws IllegalArgumentException {
-        if (this.list.get(index) == null) {
-            throw new IllegalArgumentException("Invalid Task!");
+    public Task deleteItem(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= list.size()) {
+            throw new IndexOutOfBoundsException("Task index out of range: " + (index + 1));
         }
-        this.list.remove(index);
+        return list.remove(index);
     }
 
     /**
