@@ -22,17 +22,20 @@ public class Sleepy {
             try {
                 if (line.equals("list")) {
                     taskManager.listTasks();
-                } else if (line.startsWith("mark ")) {
-                    int taskNumber = Integer.parseInt(line.substring(5));
+                } else if (line.startsWith("mark")) {
+                    int taskNumber = Integer.parseInt(line.substring(4).trim());
                     taskManager.markTask(taskNumber);
-                } else if (line.startsWith("unmark ")) {
-                    int taskNumber = Integer.parseInt(line.substring(7));
+                } else if (line.startsWith("unmark")) {
+                    int taskNumber = Integer.parseInt(line.substring(6).trim());
                     taskManager.unmarkTask(taskNumber);
+                } else if (line.startsWith("delete")){
+                    int taskNumber = Integer.parseInt(line.substring(6).trim());
+                    taskManager.deleteTask(taskNumber);
                 } else {
                     taskManager.addTask(line);
                 }
             } catch (SleepyException e) {
-                System.out.println(LINE_SEPARATOR + e.getMessage() + LINE_SEPARATOR);
+                System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
             } catch (NumberFormatException e) {
                 System.out.println(LINE_SEPARATOR + "Invalid task number format. Please enter a valid number.\n" + LINE_SEPARATOR);
             }
