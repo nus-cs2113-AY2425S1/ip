@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Represents a Deadline task, which is a task that must be completed by a specific date and time.
