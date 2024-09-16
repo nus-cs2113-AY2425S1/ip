@@ -294,7 +294,7 @@ public class Quinn {
         }
     }
 
-    public void deleteTask(int taskNum) throws QuinnException {
+    public void deleteTask(int taskNum) throws QuinnException, IOException {
         if (taskNum > 0 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
             tasks.remove(task);
@@ -303,6 +303,8 @@ public class Quinn {
                     + System.lineSeparator()
                     + ui.numOfTasksInListMessage(tasks);
             ui.displayResponse(message);
+
+            storage.saveTasksToFile(tasks);
         } else {
             throw new QuinnException("Task not found. Please try again!");
         }
