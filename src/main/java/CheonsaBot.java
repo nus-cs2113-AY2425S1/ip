@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +19,7 @@ import tasks.FormatException;
 public class CheonsaBot {
     public static final int LINE_LENGTH = 60;
     public static ArrayList<Task> tasks = new ArrayList<>();
-    public static final String FILE_PATH = Paths.get(System.getProperty("user.home"), "tasklist.txt").toString(); 
+    public static final String FILE_PATH = getJarDirectoryPath().resolve("tasklist.txt").toString(); 
 
     /**
      * The entry point of the application. Starts bot and listens for user input.
@@ -120,6 +121,7 @@ public class CheonsaBot {
             int index = Integer.parseInt(taskNumber) - 1;
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).setAsDone();
+                updateTaskFile();
                 System.out.println(getHorizontalLine());
                 System.out.println("Marked task as done: " + tasks.get(index));
                 System.out.println(getHorizontalLine());
@@ -147,6 +149,7 @@ public class CheonsaBot {
             int index = Integer.parseInt(taskNumber) - 1;
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).setAsUndone();
+                updateTaskFile();
                 System.out.println(getHorizontalLine());
                 System.out.println("Unmarked task: " + tasks.get(index));
                 System.out.println(getHorizontalLine());
@@ -317,6 +320,20 @@ public class CheonsaBot {
             }
         }
         System.out.println(getHorizontalLine());
+    }
+
+    /**
+     * Get the directory where the JAR file is located.
+     *
+     * @return The Path to the directory containing the JAR file.
+     */
+    private static Path getJarDirectoryPath() {
+        try {
+            // Get the location of the JAR file or class folder during development
+            return Paths.get(CheonsaBot.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Can't find JAR file path :(", e);
+        }
     }
 
     /**
