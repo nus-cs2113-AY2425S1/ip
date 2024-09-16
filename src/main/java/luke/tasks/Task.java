@@ -30,6 +30,10 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     // Methods for inheritance
     public String getBy() {
@@ -39,6 +43,9 @@ public class Task {
         return "";
     }
     public String getTo() {
+        return "";
+    }
+    public String toString2() {
         return "";
     }
 }

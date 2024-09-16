@@ -9,6 +9,10 @@ import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -28,6 +32,12 @@ public class Luke {
             "____________________________________________________________";
 
     public static final int MAX_TASK_COUNT = 100;
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int ISDONE_INDEX = 1;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int BY_INDEX = 3;
+    private static final int FROM_INDEX = 3;
+    private static final int TO_INDEX = 4;
     private static ArrayList<Task> tasks = new ArrayList<>();
 //    private static Task[] tasks = new Task[MAX_TASK_COUNT];
 //    private static int size = 0;
@@ -55,6 +65,17 @@ public class Luke {
         printDivider();
     }
 
+    private static void saveAllTasks() throws IOException {
+        FileWriter fw = new FileWriter("data/tasks.txt");
+        String line;
+        for (Task t : tasks) {
+            line = t.toString2();
+            fw.write(line);
+            fw.write(System.lineSeparator());
+        }
+        fw.close();
+    }
+
     private static void executeCommand(CommandType commandType, String[] inputArr) {
         int idx = -1;
         int fromIdx = -1;
@@ -67,6 +88,11 @@ public class Luke {
         switch (commandType) {
         case BYE:
             printReply("Bye. Hope to see you again soon!");
+            try {
+                saveAllTasks();
+            } catch (IOException e) {
+                printReply(String.format("Error occurred while saving data: %s", e.getMessage()));
+            }
             System.exit(0);
         case LIST:
             list();
@@ -200,8 +226,39 @@ public class Luke {
         printDivider();
     }
 
+    private static void loadSingleTask(String taskStr) {
+        String[] taskStrArr = taskStr.split("\\|");
+        switch (taskStrArr[TASK_TYPE_INDEX]) {
+        case "T" -> tasks.add(new ToDo(taskStrArr[DESCRIPTION_INDEX], taskStrArr[ISDONE_INDEX].equals("1")));
+        case "D" -> tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], taskStrArr[BY_INDEX],
+                taskStrArr[ISDONE_INDEX].equals("1")));
+        case "E" -> tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], taskStrArr[FROM_INDEX], taskStrArr[TO_INDEX],
+                taskStrArr[ISDONE_INDEX].equals("1")));
+        }
+    }
+
+    private static void loadSavedTasks() throws IOException {
+        File save = new File("data/tasks.txt");
+        if (!save.exists()) {
+            save.createNewFile();
+        }
+        Scanner s = new Scanner(save);
+        String line;
+        while (s.hasNext()) {
+            line = s.nextLine();
+            loadSingleTask(line);
+        }
+    }
+
     public static void main(String[] args) {
         printGreeting();
+        try {
+            loadSavedTasks();
+        } catch (FileNotFoundException e) {
+            // Do nothing
+        } catch (IOException e) {
+            printReply(String.format("Error: %s", e.getMessage()));
+        }
         Scanner in = new Scanner(System.in);
         String line;
 
