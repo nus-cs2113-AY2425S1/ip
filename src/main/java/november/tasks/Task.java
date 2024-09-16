@@ -69,4 +69,9 @@ public class Task {
     public void printTask() {
         System.out.println();
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

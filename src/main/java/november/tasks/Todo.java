@@ -31,4 +31,9 @@ public class Todo extends Task {
     public String getTaskIcon() {
         return "T";
     }
+
+    @Override
+    public String toString() {
+        return "todo | " + isComplete + " | " + description;
+    }
 }

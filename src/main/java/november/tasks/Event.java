@@ -38,4 +38,9 @@ public class Event extends Task {
     public String getTaskIcon() {
         return "E";
     }
+
+    @Override
+    public String toString() {
+        return "event | " + isComplete + " | " + description + " | " + start + " | " + end;
+    }
 }

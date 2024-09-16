@@ -35,4 +35,9 @@ public class Deadline extends Task {
     public String getTaskIcon() {
         return "D";
     }
+
+    @Override
+    public String toString() {
+        return "deadline | " + isComplete + " | " + description + " | " + by;
+    }
 }
