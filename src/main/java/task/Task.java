@@ -51,4 +51,13 @@ public class Task implements TaskOperations {
         return "T | " + status + " | " + description;
     }
 
+    public static Task getFileFormat(String fileString) {
+        String[] parts = fileString.split(" \\| ");
+        boolean isDone = parts[1].equals("1");
+        Task task = new Task(parts[2]);
+        if (isDone) {
+            task.setAsDone();
+        }
+        return task;
+    }
 }

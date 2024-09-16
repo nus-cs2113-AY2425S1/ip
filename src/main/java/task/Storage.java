@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "task/test.txt";
+    private static final String FILE_PATH = "./docs/test.txt";
 
     public void saveTasks(Task[] tasks, int taskNumber) {
         try {
@@ -26,6 +26,29 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks: " + e.getMessage());
         }
+    }
+
+    public Task[] loadTasks() {
+        File file = new File(FILE_PATH);
+        Task[] tasks = new Task[100];
+        int taskNumber = 0;
+
+        if (!file.exists()) {
+            return tasks;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                Task task = Task.getFileFormat(line);
+                tasks[taskNumber] = task;
+                taskNumber++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be found");
+        }
+
+        return tasks;
     }
 
 
