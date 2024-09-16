@@ -2,13 +2,8 @@ package melchizedek;
 
 import melchizedek.task.TaskList;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class Melchizedek {
@@ -85,10 +80,10 @@ public class Melchizedek {
             case "todo":
                 try {
                     if (tokens.length < 2) {
-                        throw new DescriptionNotPresentException();
+                        throw new MelchizedekExceptions();
                     }
                     taskList.addTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (DescriptionNotPresentException e) {
+                } catch (MelchizedekExceptions e) {
                     System.out.println("\tUh oh! I cannot create a todo with no description!");
                     System.out.println("\tExample: todo read lecture notes");
                 }
@@ -97,10 +92,10 @@ public class Melchizedek {
             case "deadline":
                 try {
                     if (tokens.length < 2) {
-                        throw new DescriptionNotPresentException();
+                        throw new MelchizedekExceptions();
                     }
                     taskList.addDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (DescriptionNotPresentException e) {
+                } catch (MelchizedekExceptions e) {
                     System.out.println("\tUh oh! I cannot create a deadline with no description!");
                     System.out.println("\tExample: deadline coding assignment /by 12pm");
                 }
@@ -109,10 +104,10 @@ public class Melchizedek {
             case "event":
                 try {
                     if (tokens.length < 2) {
-                        throw new DescriptionNotPresentException();
+                        throw new MelchizedekExceptions();
                     }
                     taskList.addEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
-                } catch (DescriptionNotPresentException e) {
+                } catch (MelchizedekExceptions e) {
                     System.out.println("\tUh oh! I cannot create an event with no description!");
                     System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
                 }

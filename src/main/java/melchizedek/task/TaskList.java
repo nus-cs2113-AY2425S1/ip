@@ -30,14 +30,14 @@ public class TaskList {
     }
 
     public void printAddedTask() {
-        int taskCount = allTasks.size();
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + allTasks.get(taskCount - 1).toString());
-        printNumberOfTasks(taskCount);
+        System.out.println("\t  " + allTasks.get(allTasks.size() - 1).toString());
+        printNumberOfTasks();
     }
 
-    private static void printNumberOfTasks(int taskCount) {
-        if (taskCount > 1) {
+    private void printNumberOfTasks() {
+        int taskCount = allTasks.size();
+        if (taskCount != 1) {
             System.out.println("\tNow you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println("\tNow you have " + taskCount + " task in the list.");
@@ -45,16 +45,33 @@ public class TaskList {
     }
 
     public void markTaskAsDone(int id) {
-        allTasks.get(id - 1).markTaskAsDone();
+        if (id > allTasks.size()) {
+            System.out.println("\tUh oh! Please input a valid task number!");
+            printNumberOfTasks();
+            return;
+        }
 
-        System.out.println("\tGreat! I've marked this task as done:");
+        if (allTasks.get(id - 1).isMarkAsDone()) {
+            System.out.println("\tSure! But it was already marked as done?");
+        } else {
+            allTasks.get(id - 1).markTaskAsDone();
+            System.out.println("\tGreat! I've marked this task as done:");
+        }
         System.out.println("\t  " + allTasks.get(id - 1).toString());
     }
 
     public void unmarkTaskAsDone(int id) {
-        allTasks.get(id - 1).unmarkTaskAsDone();
-
-        System.out.println("\tOK, I've marked this task as undone:");
+        if (id > allTasks.size()) {
+            System.out.println("\tUh oh! Please input a valid task number!");
+            printNumberOfTasks();
+            return;
+        }
+        if (!allTasks.get(id - 1).isMarkAsDone()) {
+            System.out.println("\tHmmm... it was undone in the first place.");
+        } else {
+            allTasks.get(id - 1).unmarkTaskAsDone();
+            System.out.println("\tOK, I've marked this task as undone:");
+        }
         System.out.println("\t  " + allTasks.get(id - 1).toString());
     }
 
@@ -62,7 +79,6 @@ public class TaskList {
         String description = String.join(" ", tokens);
 
         allTasks.add(new Todo(description));
-
         printAddedTask();
     }
 
@@ -74,15 +90,21 @@ public class TaskList {
                 break;
             }
         }
-        if (byIndex == -1) {
-            //handleIncompleteInput();
+
+        String description = null;
+        String by = null;
+        try {
+            description = joinStringArray(tokens, 0, byIndex, " ");
+            by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
+        } catch (IllegalArgumentException e) {
+            if (byIndex == -1) {
+                System.out.println("\tUh oh! I cannot process this task without the key \"/by\"!");
+                System.out.println("\tExample: deadline coding assignment /by 12pm");
+                return;
+            }
         }
 
-        String description = joinStringArray(tokens, 0, byIndex, " ");
-        String by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
-
         allTasks.add(new Deadline(description, by));
-
         printAddedTask();
     }
 
@@ -97,16 +119,27 @@ public class TaskList {
                 break;
             }
         }
-        if (fromIndex == -1 || toIndex == -1) {
-            //handleIncompleteInput();
+
+        String description = null;
+        String from = null;
+        String to = null;
+        try {
+            description = joinStringArray(tokens, 0, fromIndex, " ");
+            from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
+            to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
+        } catch (IllegalArgumentException e) {
+            if (fromIndex == -1) {
+                System.out.println("\tUh oh! I cannot process this task without the key \"/from\"!");
+            } else if (toIndex == -1) {
+                System.out.println("\tUh oh! I cannot process this task without the key \"/to\"!");
+            } else {
+                System.out.println("\tUh oh! I cannot process this task without the key \"/from\" and \"/to\"!");
+            }
+            System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
+            return;
         }
 
-        String description = joinStringArray(tokens, 0, fromIndex, " ");
-        String from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
-        String to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
-
         allTasks.add(new Event(description, from, to));
-
         printAddedTask();
     }
 
@@ -117,13 +150,13 @@ public class TaskList {
 
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + taskString);
-        printNumberOfTasks(allTasks.size());
+        printNumberOfTasks();
     }
 
     public String taskListToFile() {
         String output = "";
-        for (int i = 0; i < taskCount; i++) {
-            output = output + allTasks.get(i).taskToFile() + System.lineSeparator();
+        for (Task task : allTasks) {
+            output = output + task.taskToFile() + System.lineSeparator();
         }
         return output;
     }
