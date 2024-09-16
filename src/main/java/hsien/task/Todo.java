@@ -6,6 +6,6 @@ public class Todo extends Task{
     }
 
     public String getStatusDescription() {
-        return "[T]" + super.getStatusDescription();
+        return "[T] " + super.getStatusDescription();
     }
 }

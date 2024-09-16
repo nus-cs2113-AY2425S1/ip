@@ -15,6 +15,6 @@ public class Deadline extends Task{
 
     public String getStatusDescription() {
         String status = isMarked ? "X" : " ";
-        return String.format("[D][%s] %s (by: %s)", status, super.getDescription(), getByDate());
+        return String.format("[D] [%s] %s (by: %s)", status, super.getDescription(), getByDate());
     }
 }

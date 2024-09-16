@@ -20,6 +20,6 @@ public class Event extends Task{
 
     public String getStatusDescription() {
         String status = isMarked ? "X" : " ";
-        return String.format("[E][%s] %s (from: %s to: %s)", status, super.getDescription(), getFromDate(), getToDate());
+        return String.format("[E] [%s] %s (from: %s to: %s)", status, super.getDescription(), getFromDate(), getToDate());
     }
 }

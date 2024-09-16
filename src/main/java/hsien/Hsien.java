@@ -2,11 +2,16 @@ package hsien;
 
 import hsien.task.*;
 import hsien.exception.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.util.regex.*;
 
 public class Hsien {
 
@@ -50,6 +55,126 @@ public class Hsien {
         System.out.printf("Now you have %d tasks in the list\n", messages.size());
     }
 
+    public static void readFile(ArrayList<Task> messages) {
+        try {
+            File f = new File("tasks.txt");
+            Scanner line = new Scanner(f);
+            while (line.hasNext()) {
+                String[] processedLine = processFileLine(line.nextLine().replace("\n", ""));
+                addTaskFromFile(processedLine[0], processedLine[1], processedLine[2], messages);
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file does not exist
+            System.out.println("File not found");
+        } catch (HsienException e) {
+            System.out.println("Incorrec file input");
+        }
+    }
+
+    public static void writeFile(ArrayList<Task> messages) {
+        try {
+            String currentDir = System.getProperty("user.dir");
+            System.out.println("Current working directory: " + currentDir);
+            FileWriter fw = new FileWriter("tasks.txt");
+            for (Task task: messages) {
+                fw.write(task.getStatusDescription() + "\n");
+                System.out.println(task.getStatusDescription());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+        }
+    }
+
+
+    public static String[] processCommand(String input) {
+        String[] parts = input.split(" ");
+        String desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        String command = parts[0];
+        return new String[]{command, desc};
+    }
+
+    public static String[] processFileLine(String input) throws HsienException{
+        String[] parts = input.split(" ");
+        System.out.println(input);
+        String regex = "\\[(.*?)\\] \\[(.*?)\\] (.*)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input.trim());
+
+        if (matcher.matches()) {
+            String command = matcher.group(1); // Extract command from the first group
+            String isMark = matcher.group(2); // Extract mark status from the second group
+            String desc = matcher.group(3); // Extract description from the third group
+            return new String[]{command, isMark, desc};
+        } else {
+            throw new HsienException();
+        }
+    }
+
+    public static void addTaskFromFile(String command, String isMark, String desc, ArrayList<Task> messages) {
+        Task newTask = null;
+        String tempDesc;
+
+        // Create Task object based on action
+        if (command.equals("T")) {
+            newTask = new Todo(desc);
+        } else if (command.equals("D")) {
+            tempDesc = desc.split("\\(by:")[0].trim();
+            String byDate = desc.split("\\(by:")[1].trim();
+            newTask = new Deadline(tempDesc, byDate);
+        } else {
+            tempDesc = desc.split("\\(from:")[0].trim();
+            String[] dates = desc.split("\\(from:")[1].split("to:");
+            String fromDate = dates[0].trim();
+            String toDate = dates[1].substring(0, dates[1].length()-1).trim();
+            newTask = new Event(tempDesc, fromDate, toDate);
+        }
+
+        // Mark task
+        if (isMark.equals("X")) {
+            newTask.mark();
+        }
+
+        messages.add(newTask);
+        System.out.println("Added task: " + newTask.getDescription());
+        System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
+    }
+
+    public static void addTask(String command, String desc, ArrayList<Task> messages) {
+        // Empty task
+        try {
+            if (desc.isEmpty()) {
+                throw new HsienException();
+            }
+        } catch (HsienException e) {
+            System.out.println("Description cannot be left empty");
+            printLine();
+            return;
+        }
+
+        Task newTask = null;
+        String tempDesc;
+
+        // Create Task object based on action
+        if (command.equals("todo")) {
+            newTask = new Todo(desc);
+        } else if (command.equals("deadline")) {
+            tempDesc = desc.split("/by")[0].trim();
+            String byDate = desc.split("/by")[1].trim();
+            newTask = new Deadline(tempDesc, byDate);
+        } else {
+            tempDesc = desc.split("/from")[0].trim();
+            String[] dates = desc.split("/from")[1].split("/to");
+            String fromDate = dates[0].trim();
+            String toDate = dates[1].trim();
+            newTask = new Event(tempDesc, fromDate, toDate);
+        }
+
+        messages.add(newTask);
+        System.out.println("Added task: " + newTask.getDescription());
+        System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
+    }
+
     public static void main(String[] args) {
         printLine();
         printLogo();
@@ -59,18 +184,21 @@ public class Hsien {
 
         List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event");
         ArrayList<Task> messages = new ArrayList<>();
+        readFile(messages);
+        printLine();
+
         Scanner in = new Scanner(System.in);
         boolean isRunning = true;
 
         while (isRunning) {
             printCommands(validCommands);
             System.out.print("Please enter a command/add task (type 'bye' to exit): ");
-            String command = in.nextLine();
+            String input = in.nextLine();
 
-            String[] parts = command.split(" ");
-            String desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+            String[] processedCommand = processCommand(input);
             // Extract out the exact command
-            command = parts[0];
+            String command = processedCommand[0];
+            String desc = processedCommand[1];
 
             try {
                 // Check if valid commmand
@@ -82,8 +210,6 @@ public class Hsien {
                 printLine();
                 continue;
             }
-
-            Task newTask = null;
 
             if (command.equals("bye")) {
                 // Exit
@@ -121,39 +247,11 @@ public class Hsien {
                     System.out.println("Invalid number format");
                 }
             } else {
-                // Empty task
-                try {
-                    if (desc.isEmpty()) {
-                        throw new HsienException();
-                    }
-                } catch (HsienException e) {
-                    System.out.println("Description cannot be left empty");
-                    printLine();
-                    continue;
-                }
-
-                String tempDesc;
-
-                // Create Task object based on action
-                if (command.equals("todo")) {
-                    newTask = new Todo(desc);
-                } else if (command.equals("deadline")) {
-                    tempDesc = desc.split("/by")[0].trim();
-                    String byDate = desc.split("/by")[1].trim();
-                    newTask = new Deadline(tempDesc, byDate);
-                } else {
-                    tempDesc = desc.split("/from")[0].trim();
-                    String[] dates = desc.split("/from")[1].split("/to");
-                    String fromDate = dates[0].trim();
-                    String toDate = dates[1].trim();
-                    newTask = new Event(tempDesc, fromDate, toDate);
-                }
-                messages.add(newTask);
-                System.out.println("Added task: " + newTask.getDescription());
-                System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
+                addTask(command, desc, messages);
             }
             printLine();
         }
         in.close();
+        writeFile(messages);
     }
 }
