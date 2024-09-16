@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Represents an Event task, which is a task that occurs within a specific time frame.
@@ -37,5 +37,10 @@ public class Event extends Task {
     @Override
     public String getTaskIcon() {
         return "E";
+    }
+
+    @Override
+    public String toString() {
+        return "event | " + isComplete + " | " + description + " | " + start + " | " + end;
     }
 }

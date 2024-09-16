@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Defines a task with a description and completion status.
@@ -68,5 +68,10 @@ public class Task {
      */
     public void printTask() {
         System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

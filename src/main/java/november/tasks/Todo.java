@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Represents a Todo task, which is a basic type of task with no specific deadlines or events.
@@ -30,5 +30,10 @@ public class Todo extends Task {
     @Override
     public String getTaskIcon() {
         return "T";
+    }
+
+    @Override
+    public String toString() {
+        return "todo | " + isComplete + " | " + description;
     }
 }

@@ -1,4 +1,4 @@
-package November.Tasks;
+package november.tasks;
 
 /**
  * Represents a Deadline task, which is a task that must be completed by a specific date and time.
@@ -34,5 +34,10 @@ public class Deadline extends Task {
     @Override
     public String getTaskIcon() {
         return "D";
+    }
+
+    @Override
+    public String toString() {
+        return "deadline | " + isComplete + " | " + description + " | " + by;
     }
 }
