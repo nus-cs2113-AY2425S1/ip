@@ -10,14 +10,17 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static void createNewDeadline(String userInput) {
+    public static void createNewDeadline(String userInput) throws InvalidCreateDeadlineException {
         String[] deadlineInfo = userInput.split("/by");
-        Deadline deadline = new Deadline(deadlineInfo[0]);
-        if (deadlineInfo.length >= 2) {
-            deadline.by = deadlineInfo[1].strip();
+
+        if (deadlineInfo.length == 2) {
+            Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+            Aerus.tasks[Task.tasksCount-1] = deadline;
+            UI.printContent("Added Deadline: " + deadline.toString());
+        } else {
+            throw new InvalidCreateDeadlineException();
         }
-        Aerus.tasks[Task.tasksCount-1] = deadline;
-        UI.printContent("Added Deadline: " + deadline.toString());
+
     }
 
     @Override

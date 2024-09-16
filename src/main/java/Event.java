@@ -12,17 +12,15 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static void createNewEvent(String userInput) {
+    public static void createNewEvent(String userInput) throws InvalidCreateEventException {
         String[] eventInfo = userInput.split("/from|/to");
-        Event event = new Event(eventInfo[0]);
-        if (eventInfo.length >= 2) {
-            event.from = eventInfo[1].strip();
+        if (eventInfo.length == 3) {
+            Event event = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
+            Aerus.tasks[Task.tasksCount-1] = event;
+            UI.printContent("Added Event: " + event.toString());
+        } else {
+            throw new InvalidCreateEventException();
         }
-        if (eventInfo.length >= 3) {
-            event.to = eventInfo[2].strip();
-        }
-        Aerus.tasks[Task.tasksCount-1] = event;
-        UI.printContent("Added Event: " + event.toString());
     }
 
     @Override
