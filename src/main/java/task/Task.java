@@ -20,6 +20,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toFileFormat() {
+        return String.format("%s | %d | %s", getTaskType(), isDone ? 1 : 0, description);
+    }
+
+    public String getTaskType() {
+        return "T";
+    }
+
     // function override
     @Override
     public String toString() {

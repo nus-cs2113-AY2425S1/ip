@@ -3,22 +3,37 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DianaAssistant {
     private static final String ENCLOSURE = "------------------------------";
+    private List<Task> tasks;
+
+    public DianaAssistant() throws IOException {
+        try {
+            this.tasks = Storage.loadTasks();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks, reverting to empty list");
+            this.tasks = new ArrayList<>();
+        }
+    }
 
     public void interact() {
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
 
         String input;
         while (true) {
             input = scanner.nextLine();
             if ("bye".equals(input)) {
+                try {
+                    Storage.saveTasks(tasks);
+                } catch (IOException e) {
+                    System.out.println("Saving tasks failed.");
+                }
                 break;
             }
             try {
@@ -38,11 +53,11 @@ public class DianaAssistant {
                 case "event":
                     addEvent(input, tasks);
                     break;
-                case "delete":
-                    deleteTask(input, tasks);
-                    break;
                 case "deadline":
                     addDeadline(input, tasks);
+                    break;
+                case "delete":
+                    deleteTask(input, tasks);
                     break;
                 default:
                     throw new DianaException("Unknown command: " + input);
@@ -93,25 +108,30 @@ public class DianaAssistant {
         return;
     }
 
-    private void toMark (List<Task> tasks, String input, boolean shouldMark) {
+    private void toMark (List<Task> tasks, String input, boolean shouldMark) throws DianaException {
         try {
             String substring = input.substring(input.indexOf(" ") + 1);
-            int TaskNum = Integer.parseInt(substring) - 1;
-            if (TaskNum >= 0 && TaskNum < tasks.size()) {
-                Task task = tasks.get(TaskNum);
-                if (shouldMark) {
-                    task.markAsDone();
-                    printEnclosure();
-                    System.out.println("Nice! I've marked this task as done\n" + task.toString());
-                    printEnclosure();
-                } else {
-                    task.markAsNotDone();
-                    printEnclosure();
-                    System.out.println("Okay, I've marked this task as not done yet\n" + task.toString());
-                    printEnclosure();
-                }
+            int taskNum = Integer.parseInt(substring) - 1;
+
+            if (taskNum < 0) {
+                throw new DianaException("Task number cannot be negative");
+            }
+
+            if (taskNum >= tasks.size()) {
+                throw new DianaException("Task number must be less than " + tasks.size());
+            }
+
+            Task task = tasks.get(taskNum);
+            if (shouldMark) {
+                task.markAsDone();
+                printEnclosure();
+                System.out.println("Nice! I've marked this task as done\n" + task.toString());
+                printEnclosure();
             } else {
-                System.out.println("Please enter a number between 1 and " + (tasks.size() - 1));
+                task.markAsNotDone();
+                printEnclosure();
+                System.out.println("Okay, I've marked this task as not done yet\n" + task.toString());
+                printEnclosure();
             }
         } catch (NumberFormatException e) {
             System.out.println("Number specified must be an integer");
