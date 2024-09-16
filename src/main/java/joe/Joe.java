@@ -69,6 +69,18 @@ public class Joe {
                 printReply("No todo with this number exists.", "Retry: ");
             }
             break;
+        case "delete":
+            try {
+                int toDoNumber = Integer.parseInt(tokens[1].strip());
+                Task itemToDelete = toDoItemArrayList.get(toDoNumber -1);
+                toDoItemArrayList.remove(toDoNumber - 1);
+                printReply(itemToDelete.toString(), "Deleted:");
+            } catch (NumberFormatException e) {
+                printReply("Invalid input: Second token is not a number.", "Retry: ");
+            } catch (IndexOutOfBoundsException e) {
+                printReply("No todo with this number exists.", "Retry: ");
+            }
+            break;
         default:
             try {
                 createNewTask(commandToken, input);
