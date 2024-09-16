@@ -43,6 +43,13 @@ public class Hsien {
         }
     }
 
+    public static void deleteTask(ArrayList<Task> messages, int index) {
+        System.out.println("Noted I have removed this task");
+        System.out.println(messages.get(index).getStatusDescription());
+        messages.remove(index);
+        System.out.printf("Now you have %d tasks in the list\n", messages.size());
+    }
+
     public static void main(String[] args) {
         printLine();
         printLogo();
@@ -50,7 +57,7 @@ public class Hsien {
         System.out.println("Hello! I am Hsien, your personal chatbot...");
         printLine();
 
-        List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "todo", "deadline", "event");
+        List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event");
         ArrayList<Task> messages = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         boolean isRunning = true;
@@ -88,7 +95,7 @@ public class Hsien {
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
                 // Get the task index
                 int index = Integer.parseInt(desc);
-                boolean isMarking = command.startsWith("mark");
+                boolean isMarking = command.equals("mark");
 
                 // Out of bounds
                 if (index == 0 || index > messages.size())  {
@@ -107,6 +114,12 @@ public class Hsien {
 
                 // Print status of the task
                 System.out.println(messages.get(index - 1).getStatusDescription());
+            } else if (command.equals("delete")) {
+                try {
+                    deleteTask(messages, Integer.parseInt(desc)-1);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number format");
+                }
             } else {
                 // Empty task
                 try {
