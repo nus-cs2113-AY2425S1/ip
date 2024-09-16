@@ -23,6 +23,6 @@ public class Event extends nell.tasks.Task {
     }
 
     public String getFileLine() {
-        return String.format("%s%s|%s|", super.getFileLine(), this.from, this.to);
+        return String.format("%s|%s|%s", super.getFileLine(), this.from, this.to);
     }
 }
