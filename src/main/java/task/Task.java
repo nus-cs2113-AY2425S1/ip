@@ -40,4 +40,15 @@ public class Task implements TaskOperations {
     public String toString() {
         return "[" + getMarker() + "] " + description;
     }
+
+    public String toFileFormat() {
+        String status;
+        if (isDone) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return "T | " + status + " | " + description;
+    }
+
 }
