@@ -56,6 +56,8 @@ public class Tyrone {
             }
         } else if (userInput.equals("list")) {
             Constants.getList();
+        } else if (userInput.equals("save")) {
+            Constants.saveTasks(); // Call save function
         } else {
             System.out.println(Constants.LINE);
             System.out.println("    Invalid command my brother.");
