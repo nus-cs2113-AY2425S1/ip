@@ -3,13 +3,13 @@ package task;
 public class TaskList {
     private int taskNumber;
     private Task[] tasks;
+    private Storage storage;
 
-    //Constructor for task.TaskList
-    public TaskList(){
+    public TaskList() {
         taskNumber = 0;
-
-        //Assume there will be no more than 100 tasks
         tasks = new Task[100];
+        storage = new Storage();
+        loadTasks();
     }
 
     public int getTaskNumber() {
@@ -27,6 +27,7 @@ public class TaskList {
         }
         tasks[taskNumber] = task;
         taskNumber += 1;
+        saveTasks();
     }
 
     /**
@@ -54,6 +55,7 @@ public class TaskList {
         }
         Task task = tasks[index - 1];
         task.setAsDone();
+        saveTasks();
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -69,6 +71,20 @@ public class TaskList {
         }
         Task task = tasks[index - 1];
         task.setAsUndone();
+        saveTasks();
         return "OK, I've marked this task as not done yet:\n" + task;
+    }
+
+    public void saveTasks() {
+        storage.saveTasks(tasks, taskNumber);
+    }
+
+    public void loadTasks() {
+        Task[] loadedTasks = storage.loadTasks();
+        for (Task task : loadedTasks) {
+            if (task != null) {
+                tasks[taskNumber++] = task;
+            }
+        }
     }
 }
