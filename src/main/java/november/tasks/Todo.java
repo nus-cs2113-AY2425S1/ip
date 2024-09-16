@@ -32,6 +32,11 @@ public class Todo extends Task {
         return "T";
     }
 
+    /**
+     * Returns a string representation of the Todo task for saving to a file.
+     *
+     * @return A string representing the Todo task.
+     */
     @Override
     public String toString() {
         return "todo | " + isComplete + " | " + description;

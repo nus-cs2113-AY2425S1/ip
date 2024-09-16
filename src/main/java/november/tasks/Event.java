@@ -39,6 +39,11 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Returns a string representation of the Event task for saving to a file.
+     *
+     * @return A string representing the Event task.
+     */
     @Override
     public String toString() {
         return "event | " + isComplete + " | " + description + " | " + start + " | " + end;

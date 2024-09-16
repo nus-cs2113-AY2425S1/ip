@@ -23,7 +23,7 @@ public class Deadline extends Task {
     @Override
     public void printTask() {
         System.out.print("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
-        System.out.println(" (by:" + by + ")");
+        System.out.println(" (by: " + by + ")");
     }
 
     /**
@@ -36,6 +36,11 @@ public class Deadline extends Task {
         return "D";
     }
 
+    /**
+     * Returns a string representation of the Deadline task for saving to a file.
+     *
+     * @return A string representing the Deadline task.
+     */
     @Override
     public String toString() {
         return "deadline | " + isComplete + " | " + description + " | " + by;

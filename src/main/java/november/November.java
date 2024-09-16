@@ -26,6 +26,7 @@ public class November {
     private static final String TODO_COMMAND = "todo"; // Command to add a TODO task
     private static final String DEADLINE_COMMAND = "deadline"; // Command to add a DEADLINE task
     private static final String EVENT_COMMAND = "event"; // Command to add an EVENT task
+    private static final String DELETE_COMMAND = "delete"; // Command to delete a task
 
     private static final String INIT_SENTENCE = "Hello! I'm November." + System.lineSeparator() + "What can I do for you?"; // Initial greeting
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!"; // Exit message
@@ -34,11 +35,10 @@ public class November {
     private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:" + System.lineSeparator() + "  "; // Message when a task is marked as done
     private static final String UNMARK_TASK_MESSAGE = "Ok, I've marked this task as not done yet:" + System.lineSeparator() + "  "; // Message when a task is unmarked
     private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:" + System.lineSeparator() + "  "; // Message when a new task is added
-    private static final String DELETE_COMMAND = "delete";
-    private static final String DELETE_TASK_MESSAGE = "Got it. I've removed this task:" + System.lineSeparator() + "  ";
-    private static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
-    private static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
-    private static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means.";
+    private static final String DELETE_TASK_MESSAGE = "Got it. I've removed this task:" + System.lineSeparator() + "  "; // Message when a task is deleted
+    private static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index."; // Message for non-numeric index
+    private static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list."; // Message for out-of-bounds index
+    private static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means."; // Message for invalid input
 
     /**
      * Initializes the save file by creating the necessary directories and file if they do not exist.
@@ -48,17 +48,18 @@ public class November {
         Path filePath = dirPath.resolve("saveFile.txt"); // Path to the save file
         File file = new File(filePath.toString()); // File object for the save file
 
+        // Create directories if they do not exist
         if (!file.exists()) {
             try {
-                Files.createDirectories(dirPath); // Create directories if they do not exist
+                Files.createDirectories(dirPath);
             } catch (IOException e) {
                 System.out.println("Directory could not be created");
                 throw new RuntimeException(e);
             }
         }
 
+        // Create a save file if it does not already exist
         try {
-            // Create a save file if it does not already exist
             if (file.createNewFile()) {
                 System.out.println("No existing save file found. New save file created: " + file.getName());
             } else {
@@ -82,35 +83,35 @@ public class November {
             String line = s.nextLine(); // Read each line from the file
             String command = line.split(" ", 2)[0]; // Extract command from the line
             switch (command) {
-            case TODO_COMMAND:
-                String[] todoData = line.split(" \\| ", 3); // Split the line for TODO task data
-                String todoDescription = todoData[2]; // Get the description of the TODO task
-                Todo todoTask = NovemberExceptions.validTodo(todoDescription); // Create a TODO task
-                taskList.add(todoTask); // Add the TODO task to the list
-                if (Boolean.parseBoolean(todoData[1])) {
-                    markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
-                }
-                break;
-            case DEADLINE_COMMAND:
-                String[] deadlineData = line.split(" \\| ", 4); // Split the line for DEADLINE task data
-                String deadlineDescription = deadlineData[2] + " /by " + deadlineData[3]; // Format the description
-                Deadline deadlineTask = NovemberExceptions.validDeadline(deadlineDescription); // Create a DEADLINE task
-                taskList.add(deadlineTask); // Add the DEADLINE task to the list
-                if (Boolean.parseBoolean(deadlineData[1])) {
-                    markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
-                }
-                break;
-            case EVENT_COMMAND:
-                String[] eventData = line.split(" \\| ", 5); // Split the line for EVENT task data
-                String eventDescription = eventData[2] + " /from " + eventData[3] + " /to " + eventData[4]; // Format the description
-                Event eventTask = NovemberExceptions.validEvent(eventDescription); // Create an EVENT task
-                taskList.add(eventTask); // Add the EVENT task to the list
-                if (Boolean.parseBoolean(eventData[1])) {
-                    markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
-                }
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid entry in save file."); // Handle invalid entries
+                case TODO_COMMAND:
+                    String[] todoData = line.split(" \\| ", 3); // Split the line for TODO task data
+                    String todoDescription = todoData[2]; // Get the description of the TODO task
+                    Todo todoTask = NovemberExceptions.validTodo(todoDescription); // Create a TODO task
+                    taskList.add(todoTask); // Add the TODO task to the list
+                    if (Boolean.parseBoolean(todoData[1])) {
+                        markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
+                    }
+                    break;
+                case DEADLINE_COMMAND:
+                    String[] deadlineData = line.split(" \\| ", 4); // Split the line for DEADLINE task data
+                    String deadlineDescription = deadlineData[2] + " /by " + deadlineData[3]; // Format the description
+                    Deadline deadlineTask = NovemberExceptions.validDeadline(deadlineDescription); // Create a DEADLINE task
+                    taskList.add(deadlineTask); // Add the DEADLINE task to the list
+                    if (Boolean.parseBoolean(deadlineData[1])) {
+                        markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
+                    }
+                    break;
+                case EVENT_COMMAND:
+                    String[] eventData = line.split(" \\| ", 5); // Split the line for EVENT task data
+                    String eventDescription = eventData[2] + " /from " + eventData[3] + " /to " + eventData[4]; // Format the description
+                    Event eventTask = NovemberExceptions.validEvent(eventDescription); // Create an EVENT task
+                    taskList.add(eventTask); // Add the EVENT task to the list
+                    if (Boolean.parseBoolean(eventData[1])) {
+                        markTask(String.valueOf(taskList.size()), taskList, false); // Mark task if needed
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid entry in save file."); // Handle invalid entries
             }
         }
         System.out.println("Save file successfully loaded.");
@@ -145,6 +146,11 @@ public class November {
         System.out.println(SEPARATOR + System.lineSeparator());
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @param taskList The list of tasks to print.
+     */
     public static void printTaskList(List<Task> taskList) {
         beginSegment();
         if (taskList.isEmpty()) {
@@ -170,6 +176,12 @@ public class November {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a new TODO task to the list and updates the save file.
+     *
+     * @param description The description of the TODO task.
+     * @param taskList    The list to add the task to.
+     */
     private static void addNewTodo(String description, List<Task> taskList) {
         try {
             Todo todoTask = NovemberExceptions.validTodo(description); // Create a new TODO task
@@ -190,7 +202,7 @@ public class November {
     }
 
     /**
-     * Adds a new DEADLINE task to the list.
+     * Adds a new DEADLINE task to the list and updates the save file.
      *
      * @param description The description of the DEADLINE task.
      * @param taskList    The list to add the task to.
@@ -215,7 +227,7 @@ public class November {
     }
 
     /**
-     * Adds a new EVENT task to the list.
+     * Adds a new EVENT task to the list and updates the save file.
      *
      * @param description The description of the EVENT task.
      * @param taskList    The list to add the task to.
@@ -256,11 +268,11 @@ public class November {
             updateSaveFile(taskList); // Update the save file
         } catch (NumberFormatException e) {
             beginSegment();
-            System.out.println("Please provide a valid numerical index."); // Print error message for invalid index
+            System.out.println(NONNUMERICAL_INDEX_MESSAGE); // Print error message for invalid index
             endSegment();
         } catch (IndexOutOfBoundsException e) {
             beginSegment();
-            System.out.println("Sorry, but that unmark index is outside the list."); // Print error message for out-of-bounds index
+            System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE); // Print error message for out-of-bounds index
             endSegment();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -286,7 +298,7 @@ public class November {
             }
         } catch (NumberFormatException e) {
             beginSegment();
-            System.out.println("Please provide a valid numerical index."); // Print error message for invalid index
+            System.out.println(NONNUMERICAL_INDEX_MESSAGE); // Print error message for invalid index
             endSegment();
         } catch (IndexOutOfBoundsException e) {
             beginSegment();
@@ -295,6 +307,59 @@ public class November {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param sentence The input sentence containing the task index to delete.
+     * @param taskList The list of tasks.
+     */
+    private static void deleteTask(String[] sentence, List<Task> taskList) {
+        try {
+            int deleteIndex = Integer.parseInt(sentence[1]) - 1; // Parse the index and adjust for 0-based indexing
+            beginSegment();
+            System.out.print(DELETE_TASK_MESSAGE);
+            taskList.get(deleteIndex).printTask(); // Print the deleted task
+            taskList.remove(deleteIndex); // Remove the task from the list
+            printTaskCount(taskList); // Print the updated task count
+            endSegment();
+            updateSaveFile(taskList); // Update the save file
+        } catch (NumberFormatException e) {
+            beginSegment();
+            System.out.println(NONNUMERICAL_INDEX_MESSAGE); // Print error message for non-numeric index
+            endSegment();
+        } catch (IndexOutOfBoundsException e) {
+            beginSegment();
+            System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE); // Print error message for out-of-bounds index
+            endSegment();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Prints the exit message.
+     */
+    private static void printExitMessage() {
+        beginSegment();
+        System.out.println(EXIT_MESSAGE); // Print the exit message
+        endSegment();
+    }
+
+    /**
+     * Prints the message for unrecognized input.
+     */
+    private static void printUnrecognizedInputMessage() {
+        beginSegment();
+        System.out.println(INVALID_INPUT_MESSAGE); // Print the unrecognized input message
+        endSegment();
+    }
+
+    /**
+     * Main method to start the program and handle user input.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws FileNotFoundException If the save file is not found.
+     */
     public static void main(String[] args) throws FileNotFoundException {
         List<Task> taskList = new ArrayList<>(); // Initialize the task list
         initialiseSaveFile(); // Initialize the save file
@@ -340,38 +405,16 @@ public class November {
                     addNewEvent(description, taskList); // Add a new EVENT task
                     break;
                 case DELETE_COMMAND:
-                    try {
-                        // Deletes a task.
-                        int markIndex = Integer.parseInt(sentence[1]) - 1;
-                        beginSegment();
-                        System.out.print(DELETE_TASK_MESSAGE);
-                        taskList.get(markIndex).printTask();
-                        taskList.remove(markIndex);
-                        printTaskCount(taskList);
-                        endSegment();
-                    } catch (NumberFormatException e) {
-                        beginSegment();
-                        System.out.println(NONNUMERICAL_INDEX_MESSAGE);
-                        endSegment();
-                    } catch (IndexOutOfBoundsException e) {
-                        beginSegment();
-                        System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE);
-                        endSegment();
-                    }
+                    deleteTask(sentence, taskList); // Delete a task
                     break;
                 default:
-                    // Response to unrecognized inputs.
-                    beginSegment();
-                    System.out.println(INVALID_INPUT_MESSAGE);
-                    endSegment();
+                    printUnrecognizedInputMessage(); // Response to unrecognized inputs
                     break;
             }
 
-            input = scan.nextLine();
+            input = scan.nextLine(); // Read the next input
         }
 
-        beginSegment();
-        System.out.println(EXIT_MESSAGE); // Print the exit message
-        endSegment();
+        printExitMessage(); // Print the exit message
     }
 }

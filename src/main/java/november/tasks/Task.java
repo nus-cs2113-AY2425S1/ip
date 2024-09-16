@@ -70,6 +70,10 @@ public class Task {
         System.out.println();
     }
 
+    /**
+     * Returns a string representation of the Event task for saving to a file.
+     * Default implementation does nothing.
+     */
     @Override
     public String toString() {
         return super.toString();
