@@ -83,7 +83,7 @@ public class Conglo {
         } else {
             System.out.println("All done! Task added to list:");
         }
-        String taskSuffix = size > 2 ? " tasks" : " task";
+        String taskSuffix = size > 1 ? " tasks" : " task";
         System.out.println(" " + task.toFileFormat());
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
@@ -202,6 +202,9 @@ public class Conglo {
         String[] words = command.split(" ", 2);
         switch(words[0]) {
         case "list":
+            if (words.length > 1) {
+                throw new CongloException.InvalidFormat("list");
+            }
             listTasks();
             break;
         case "unmark":

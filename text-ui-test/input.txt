@@ -1,12 +1,24 @@
-todo Prepare slides for presentation
-deadline Submit report /by Friday 5pm
-list
-event Team meeting /from Wednesday 10am /to 12pm
-todo Review team feedback
-deadline Project submission /by next Monday 11:59pm
-event Code review /from Tuesday 2pm /to 4pm
-mark 2
-list
+todo read
+deadline assignment /by Saturday
 mark 1
+event presentation /from Thurs 10am /to 12pm
 list
+mark 2
+unmark 1
+list
+delete 1
+delete 2
+delete 1
+list
+todo
+event
+deadline
+deadline cook
+event career fair
+event exam /from 7 oct
+list all
+unmark
+mark
+delete
+haha
 bye
