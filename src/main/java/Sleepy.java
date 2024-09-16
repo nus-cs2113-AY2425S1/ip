@@ -18,6 +18,7 @@ public class Sleepy {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager(Storage.loadTasks());
         line = in.nextLine();
+        //checks for all the keywords
         while (!line.equals("bye")) {
             try {
                 if (line.equals("list")) {

@@ -14,12 +14,14 @@ public class TaskManager {
 
     public void addTask(String input) throws SleepyException{
         if (input.startsWith("event")) {
+            //checks if there is anything after from
             String[] parts = input.substring(5).split(" /from ");
             if (parts.length != 2) {
                 throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
             }
 
             String description = parts[0].trim();
+            //checks if there is anything after to
             String[] toParts = parts[1].split(" /to ");
             if (toParts.length != 2 || toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
                 throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
@@ -43,6 +45,7 @@ public class TaskManager {
 
         if (input.startsWith("deadline")) {
             String[] parts = input.substring(8).split(" /by ");
+            //checks if there is anything after by
             if (parts.length != 2) {
                 throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
             }

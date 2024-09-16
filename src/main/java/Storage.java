@@ -5,6 +5,7 @@ public class Storage {
     private static final String DIRECTORY_PATH = "./src/main/data";
     private static final String FILE_PATH = "C:/Users/Dell/Desktop/ip/data/sleepy.txt";
 
+    //creates file if is empty
     public Storage() {
         File dir = new File(DIRECTORY_PATH);
         if (!dir.exists()) {
