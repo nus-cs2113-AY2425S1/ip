@@ -4,13 +4,12 @@ import mong.exception.IllegalTaskFormatException;
 import mong.exception.IllegalTaskTypeException;
 import mong.task.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Mong {
+    public static final String FILE_PATH = "src/main/java/mong/data/mong.txt";
     public static ArrayList<Task> list = new ArrayList<>();
     public static final int LENGTH_DEADLINE = 8;
     public static final int LENGTH_BY = 3;
@@ -19,6 +18,26 @@ public class Mong {
     public static final int LENGTH_FROM = 4;
     public static final int LENGTH_TO = 2;
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
+
+    /**
+     * Writes new content to txt file.
+     */
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    /**
+     * Formats latest list to txt file format.
+     */
+    public static String parseListToTxt() {
+        StringBuilder textToAdd = new StringBuilder();
+        for (Task task : list) {
+            textToAdd.append(task.toFileFormat()).append(System.lineSeparator());
+        }
+        return textToAdd.toString();
+    }
 
     /**
      * Adds tasks line by line from txt file.
@@ -54,6 +73,8 @@ public class Mong {
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         try {
             list.get(itemIndex).setCompleted(true);
+            System.out.println("Mong >_<!!I have marked it as completed:");
+            System.out.println(list.get(itemIndex));
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
@@ -70,6 +91,8 @@ public class Mong {
         }
         try {
             list.get(itemIndex).setCompleted(false);
+            System.out.println("Mong-mong :<! The task has been unmarked:");
+            System.out.println(list.get(itemIndex));
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
         }
@@ -259,9 +282,9 @@ public class Mong {
 
     public static void main(String[] args) {
         try {
-            loadFileContents("src/main/java/mong/data/mong.txt");
+            loadFileContents(FILE_PATH);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found.");
         }
         String logo = "\n" +
                 "\n" +
@@ -282,5 +305,10 @@ public class Mong {
         printHorizontalLine();
         System.out.println("Mong-mong... See you again next time!");
         printHorizontalLine();
+        try {
+            writeToFile(parseListToTxt());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 }

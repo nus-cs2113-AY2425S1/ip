@@ -1,6 +1,6 @@
 package mong.task;
 
-public abstract class Task {
+public abstract class Task implements TaskManager {
     private String description;
     private boolean isCompleted;
     private int index;
@@ -23,13 +23,6 @@ public abstract class Task {
      */
     public void setCompleted(boolean completed) {
         isCompleted = completed;
-        if (isCompleted) {
-            System.out.println("Mong >_<!!I have marked it as completed:");
-            System.out.println(this);
-        } else {
-            System.out.println("Mong-mong :<! The task has been unmarked:");
-            System.out.println(this);
-        }
     }
 
     public int getIndex() {
@@ -39,6 +32,11 @@ public abstract class Task {
     public void setIndex() {
         this.index = currentIndex;
         currentIndex++;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return description;
     }
 
     @Override
