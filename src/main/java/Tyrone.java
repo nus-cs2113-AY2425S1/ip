@@ -44,7 +44,12 @@ public class Tyrone {
             } catch (MissingTimeInfoException e) {
                 Constants.missingTimeInfo();
             }
-        } else if (userInput.startsWith("event ")) {
+        }
+        else if (userInput.startsWith("delete ")) {
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            Constants.deleteTask(index);
+        } 
+        else if (userInput.startsWith("event ")) {
             try{
                 Event.createEvent(userInput);
             } catch (WrongEventFormatException e){

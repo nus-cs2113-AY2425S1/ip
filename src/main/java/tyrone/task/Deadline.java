@@ -1,4 +1,5 @@
 package tyrone.task;
+
 import tyrone.constants.Constants;
 import tyrone.exceptions.MissingTimeInfoException;
 import tyrone.exceptions.TyroneException;
@@ -27,12 +28,14 @@ public class Deadline extends Task {
             throw new MissingTimeInfoException();
         }
 
-        Constants.toDoList[Task.listCount] = new Deadline(parts[0].substring(9), parts[1]);
-        Task.listCount++;
+        // Add the new Deadline to the ArrayList
+        Deadline newDeadline = new Deadline(parts[0].substring(9), parts[1]);
+        Constants.toDoList.add(newDeadline);
+
         System.out.println(Constants.LINE);
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("      [D][ ] " + Constants.toDoList[Task.listCount - 1].getDescription() + " (by: " + ((Deadline) Constants.toDoList[Task.listCount - 1]).getDoBy() + ")");
-        System.out.println("    Now you have " + Task.listCount + " tasks in the list.");
+        System.out.println("    You better finish this deadline:");
+        System.out.println("      [D][ ] " + newDeadline.getDescription() + " (by: " + newDeadline.getDoBy() + ")");
+        System.out.println("    Now you have " + Constants.toDoList.size() + " tasks in the list.");
         System.out.println(Constants.LINE);
     }
 }
