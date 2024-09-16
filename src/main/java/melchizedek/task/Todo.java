@@ -2,8 +2,8 @@ package melchizedek.task;
 
 public class Todo extends Task {
 
-    public Todo(int id, String description) {
-        super(id, description);
+    public Todo(String description) {
+        super(description);
     }
 
     @Override

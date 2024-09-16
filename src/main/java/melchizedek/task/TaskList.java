@@ -1,17 +1,14 @@
 package melchizedek.task;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class TaskList {
-    private Task[] allTasks;
-    private int taskCount;
-    private final int MAX_TASKS = 100;
+    private ArrayList<Task> allTasks;
 
     public TaskList() {
-        allTasks = new Task[MAX_TASKS];
-        taskCount = 0;
+        allTasks = new ArrayList<>();
     }
-
 
     public static String joinStringArray(String[] array, int from, int to, String delimiter) {
         String[] arrayCopy = Arrays.copyOfRange(array, from, to);
@@ -19,51 +16,52 @@ public class TaskList {
     }
 
     public void printTaskList() {
-        if (taskCount == 0) {
+        if (allTasks.isEmpty()) {
             System.out.println("\tNo tasks added!");
             return;
         }
 
         System.out.println("\tSure! Here are the tasks on your list:");
-        for (int i = 0; i < taskCount; i++) {
+
+        for (int i = 0; i < allTasks.size(); i++) {
             System.out.print("\t" + (i + 1) +".");
-            System.out.println(allTasks[i]);
+            System.out.println(allTasks.get(i).toString());
         }
-        printSeparator();
     }
 
     public void printAddedTask() {
-        System.out.println("\tGot it. I've added this task: ");
-        System.out.println("\t  " + allTasks[taskCount - 1]);
+        int taskCount = allTasks.size();
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + allTasks.get(taskCount - 1).toString());
+        printNumberOfTasks(taskCount);
+    }
+
+    private static void printNumberOfTasks(int taskCount) {
         if (taskCount > 1) {
             System.out.println("\tNow you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println("\tNow you have " + taskCount + " task in the list.");
         }
-        printSeparator();
     }
 
     public void markTaskAsDone(int id) {
-        allTasks[id - 1].markTaskAsDone();
+        allTasks.get(id - 1).markTaskAsDone();
 
         System.out.println("\tGreat! I've marked this task as done:");
-        System.out.println("\t  " + allTasks[id - 1]);
-        printSeparator();
+        System.out.println("\t  " + allTasks.get(id - 1).toString());
     }
 
     public void unmarkTaskAsDone(int id) {
-        allTasks[id - 1].unmarkTaskAsDone();
+        allTasks.get(id - 1).unmarkTaskAsDone();
 
         System.out.println("\tOK, I've marked this task as undone:");
-        System.out.println("\t  " + allTasks[id - 1]);
-        printSeparator();
+        System.out.println("\t  " + allTasks.get(id - 1).toString());
     }
 
     public void addTodo(String[] tokens) {
         String description = String.join(" ", tokens);
 
-        allTasks[taskCount] = new Todo(taskCount + 1, description);
-        taskCount++;
+        allTasks.add(new Todo(description));
 
         printAddedTask();
     }
@@ -83,8 +81,7 @@ public class TaskList {
         String description = joinStringArray(tokens, 0, byIndex, " ");
         String by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
 
-        allTasks[taskCount] = new Deadline(taskCount + 1, description, by);
-        taskCount++;
+        allTasks.add(new Deadline(description, by));
 
         printAddedTask();
     }
@@ -108,9 +105,17 @@ public class TaskList {
         String from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
         String to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
 
-        allTasks[taskCount] = new Event(taskCount + 1, description, from, to);
-        taskCount++;
+        allTasks.add(new Event(description, from, to));
 
         printAddedTask();
+    }
+
+    public void deleteTask(int id) {
+        String taskString = allTasks.get(id - 1).toString();
+        allTasks.remove(id - 1);
+
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + taskString);
+        printNumberOfTasks(allTasks.size());
     }
 }
