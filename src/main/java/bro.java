@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class bro {
 
     private static final ArrayList<Task> storer = new ArrayList<>();
-//    private static final ArrayList<String> mark_tracker = new ArrayList<>();
 
     public static void level0() {
         System.out.println("Hello! I'm bro");
@@ -48,25 +47,44 @@ public class bro {
                 }
 
             } else if (line.startsWith("todo")) {
-                String description = line.substring(5);
-                Todo todo = new Todo(description);
-                storer.add(todo);
-                System.out.println("Got it. I've added this task\n " + todo);
-                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+
+                if (line.trim().length() <= 4) {
+                    System.out.println("Description of a todo cannot be empty. Please provide a task description.");
+                } else {
+                    String description = line.substring(5);
+                    Todo todo = new Todo(description);
+                    storer.add(todo);
+                    System.out.println("Got it. I've added this task\n " + todo);
+                    System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                }
 
             } else if (line.startsWith("deadline")) {
-                String[] infos = line.substring(9).split(" /by ");
-                Deadline deadline = new Deadline(infos[0], infos[1]);
-                storer.add(deadline);
-                System.out.println("Got it. I've added this task\n " + deadline);
-                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                try {
+                    String[] infos = line.substring(9).split(" /by ");
+                    if (infos.length < 2) {
+                        throw new Exception("Deadline description / date missing.");
+                    }
+                    Deadline deadline = new Deadline(infos[0], infos[1]);
+                    storer.add(deadline);
+                    System.out.println("Got it. I've added this task\n " + deadline);
+                    System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
 
             } else if (line.startsWith("event")) {
-                String[] infos = line.substring(6).split(" /from | /to ");
-                Event event = new Event(infos[0], infos[1], infos[2]);
-                storer.add(event);
-                System.out.println("Got it. I've added this task\n " + event);
-                System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                try {
+                    String[] infos = line.substring(6).split(" /from | /to ");
+                    if (infos.length < 3) {
+                        throw new Exception("Event description / date missing.");
+                    }
+                    Event event = new Event(infos[0], infos[1], infos[2]);
+                    storer.add(event);
+                    System.out.println("Got it. I've added this task\n " + event);
+                    System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
 
             } else if (line.startsWith("mark")) {
 
@@ -93,45 +111,6 @@ public class bro {
 
     }
 
-//    public static void mark() {
-//
-////      track if the current job is marked or unmarked
-//        for (int i = 0; i < storer.size(); i++) {
-////            System.out.println((i + 1) + ". " + storer.get(i));
-//            mark_tracker.add("[]");
-//        }
-//
-//        String line;
-//        Scanner in = new Scanner(System.in);
-//
-//        while(true) {
-//
-//            line = in.nextLine();
-//            String[] split_line = line.split(" ");
-//
-//            if (line.equals("list")) {
-//
-//                for (int i = 0; i < storer.size(); i++) {
-//                    System.out.println((i + 1) + ". " + mark_tracker.get(i) + " " + storer.get(i));
-//                }
-//
-//            } else if (split_line[0].equals("mark")) {
-//
-//                int task_num = Integer.parseInt(split_line[1]) - 1;
-//                mark_tracker.set(task_num, "[X]");
-//                System.out.println("Nice! I've marked this task as done:");
-//                System.out.println("[X] " + storer.get(task_num));
-//
-//            } else if (split_line[0].equals("unmark")) {
-//                int task_num = Integer.parseInt(split_line[1]) - 1;
-//                mark_tracker.set(task_num, "[]");
-//                System.out.println("Ok, I've marked this task as not done yet:");
-//                System.out.println("[] " + storer.get(task_num));
-//            }
-//        }
-//
-//
-//    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
