@@ -18,12 +18,13 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class Ran {
     private static boolean isTerminated = false; 
     private static int listCount = 0;
     private static final int MAX_TASK_LIST_SIZE = 100;
-    private static Task[] list = new Task[MAX_TASK_LIST_SIZE];
+    private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "\t____________________________________________________________";
     private static String filePath = "./data/ran.txt";
 
@@ -54,7 +55,7 @@ public class Ran {
     public static void printAddedTask() { 
         System.out.println(LINE);
         System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t " +  list[listCount - 1]);
+        System.out.println("\t " +  list.get(listCount - 1));
         // Conditional operator to pluralize "task" when listCount above 1
         System.out.println("\tYou currently have " + listCount + 
                 (listCount <= 1 ? " task" : " tasks") + " in your list.");
@@ -88,7 +89,8 @@ public class Ran {
         case TODO:
             // Take string after "todo" word
             description = input.substring(5);
-            list[listCount] = new Todo(description);
+            //list[listCount] = new Todo(description);
+            list.add(new Todo(description));
             break;
         case DEADLINE:
             int byIndex = input.indexOf("/by");
@@ -99,7 +101,8 @@ public class Ran {
             description = input.substring(9, byIndex - 1);
             // Take string after "/by"
             String by = input.substring(byIndex + 4);
-            list[listCount] = new Deadline(description, by);
+            //list[listCount] = new Deadline(description, by);
+            list.add(new Deadline(description, by));
             break;
         case EVENT:
             int fromIndex = input.indexOf("/from");
@@ -113,14 +116,15 @@ public class Ran {
             String from = input.substring(fromIndex + 6, toIndex - 1);
             // Take string after "/to"
             String to = input.substring(toIndex + 4);
-            list[listCount] = new Event(description, from, to);
+            //list[listCount] = new Event(description, from, to);
+            list.add(new Event(description, from, to));
             break;
         case UNDEFINED:
             // Fallthrough
         default:
-            list[listCount] = new Task(input);
+            break;
         }
-        addToDataFile(list[listCount].dataFileInput());
+        addToDataFile(list.get(listCount).dataFileInput());
         listCount++;
         printAddedTask();
     }
@@ -131,7 +135,7 @@ public class Ran {
         }
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + list[i]);
+            System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
         System.out.println(LINE);
     }
@@ -141,13 +145,13 @@ public class Ran {
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
-        String oldLine = list[taskNumber].dataFileInput();
-        list[taskNumber].setAsDone();
-        String newLine = list[taskNumber].dataFileInput();
+        String oldLine = list.get(taskNumber).dataFileInput();
+        list.get(taskNumber).setAsDone();
+        String newLine = list.get(taskNumber).dataFileInput();
         modifyDataFile(oldLine, newLine);
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + list[taskNumber]);
+        System.out.println("\t  " + list.get(taskNumber));
         System.out.println(LINE);
     }
 
@@ -156,16 +160,31 @@ public class Ran {
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
-        String oldLine = list[taskNumber].dataFileInput();
-        list[taskNumber].setAsUndone();
-        String newLine = list[taskNumber].dataFileInput();
+        String oldLine = list.get(taskNumber).dataFileInput();
+        list.get(taskNumber).setAsUndone();
+        String newLine = list.get(taskNumber).dataFileInput();
         System.out.println(LINE);
         modifyDataFile(oldLine, newLine);
         System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + list[taskNumber]);
+        System.out.println("\t  " + list.get(taskNumber));
         System.out.println(LINE);
     }
     
+    public static void deleteTask(String taskNum) throws OutOfListBoundsException {
+        int taskNumber = Integer.parseInt(taskNum) - 1;
+        if (taskNumber >= listCount || taskNumber < 0) {
+            throw new OutOfListBoundsException();
+        }
+        System.out.println(LINE);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + list.get(taskNumber));
+        list.remove(taskNumber);
+        listCount--;
+        System.out.println("\tYou currently have " + listCount + 
+                (listCount <= 1 ? " task" : " tasks") + " in your list.");
+        System.out.println(LINE);
+    }
+
     // Read user input for command, throw exception for invalid commands
     public static void executeCommand(String input, String[] instruction) 
             throws MissingCommandException, MissingDescriptionException, EmptyListException,
@@ -203,6 +222,12 @@ public class Ran {
                 unmarkTask(instruction[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException(CommandType.UNMARK);
+            }
+        } else if (instruction[0].equals("delete")) {
+            try {
+                deleteTask(instruction[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingArgumentException(CommandType.DELETE);
             }
         } else {
             throw new MissingCommandException();
@@ -271,13 +296,13 @@ public class Ran {
         String[] taskInstruction = task.split(", ");
         boolean isDone = taskInstruction[1].equals("1");
         if (taskInstruction[0].equals("T")) {
-            list[listCount] = new Todo(isDone, taskInstruction[2]);
+            list.get(listCount) = new Todo(isDone, taskInstruction[2]);
             listCount++;
         } else if (taskInstruction[0].equals("D")) {
-            list[listCount] = new Deadline(isDone, taskInstruction[2], taskInstruction[3]);
+            list.get(listCount) = new Deadline(isDone, taskInstruction[2], taskInstruction[3]);
             listCount++;
         } else if (taskInstruction[0].equals("E")) {
-            list[listCount] = new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]);
+            list.get(listCount) = new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]);
             listCount++;
         }
     }
