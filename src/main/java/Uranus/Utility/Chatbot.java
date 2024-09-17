@@ -10,13 +10,13 @@ public class Chatbot {
     // Constructor for chatbot
     public Chatbot() {
         printWelcomeMessage();
-        execute.printFunctions();
+        Functions.printFunctions();
         execute.taskmaster();
     }
 
     // Welcome Screen
     public static void printWelcomeMessage() {
-        execute.print(
+        Functions.print(
                 "Hello! I'm Uranus, the only Chatbot you'll ever need.",
                 "How can I be of service?"
         );
@@ -24,6 +24,6 @@ public class Chatbot {
 
     // Goodbye Screen
     public static void printByeMessage() {
-        execute.print("Bye. Hope to see you again!");
+        Functions.print("Bye. Hope to see you again!");
     }
 }
