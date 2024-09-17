@@ -1,15 +1,17 @@
-import java.security.Key;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Gertrude {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final Integer MAXIMUM_TASKS = 100;
-    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete"};
+    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event"};
     public static final String[] ONE_WORD_KEYWORDS = {"bye", "list"};
-
+    public static final String FILE_PATH = "src/main/java/data/gertrude.txt";
 
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -24,45 +26,32 @@ public class Gertrude {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void printList(ArrayList<Task> tasks) {
-        for (int i = 1; i <= tasks.size(); i++) {
+    public static void printList(Task[] tasks) {
+        for (int i = 1; i <= Task.taskIndex; i++) {
             System.out.print(i + ".");
-            tasks.get(i-1).printTask();
+            tasks[i-1].printTask();
         }
-        System.out.println("You have " + tasks.size() + " tasks in the list.");
+        System.out.println("You have " + Task.taskIndex + " tasks in the list.");
     }
 
-    public static void markTask(String[] lineInputArr, ArrayList<Task> tasks) {
+    public static void markTask(String[] lineInputArr, Task[] tasks) {
         int index = Integer.parseInt(lineInputArr[1]);
-        if (index < 1 || index > tasks.size()) {
+        if (index < 1 || index > Task.taskIndex) {
             System.out.println("That is not a valid index.");
         } else if (lineInputArr[0].equals("mark")) {
-            tasks.get(index - 1).markDone();
+            tasks[index - 1].markDone();
         } else {
-            tasks.get(index-1).markNotDone();
+            tasks[index-1].markNotDone();
         }
     }
 
-    public static void addTask(Task task, String lineInput, ArrayList<Task> tasks) {
-        tasks.add(task);
+    public static void addTask(Task task, String lineInput, Task[] tasks) {
+        tasks[Task.taskIndex] = task;
+        Task.taskIndex += 1;
         System.out.println("added: " + lineInput);
     }
 
-    public static void deleteTask(String[] lineInputArr, ArrayList<Task> tasks) {
-        try {
-            Task taskToRemove = tasks.get(Integer.parseInt(lineInputArr[1]) - 1);
-            System.out.println("Ok. I've removed this task: ");
-            taskToRemove.printTask();
-            tasks.remove(Integer.parseInt(lineInputArr[1])-1);
-            System.out.println("You now have " + tasks.size() + " tasks in the list.");
-        } catch (NumberFormatException e) {
-            System.out.println("That is not a valid number.");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("That is not a valid index.");
-        }
-    }
-
-    public static void addTodo(String[] lineInputArr, ArrayList<Task> tasks) {
+    public static void addTodo(String[] lineInputArr, Task[] tasks) {
         String name = "";
         for(int i = 1; i < lineInputArr.length; i++) {
             name += lineInputArr[i] + " ";
@@ -71,7 +60,7 @@ public class Gertrude {
         addTask(newTodo, name, tasks);
     }
 
-    public static void addDeadline(String[] lineInputArr, ArrayList<Task> tasks) throws GertrudeException, KeywordException {
+    public static void addDeadline(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
         String description = "";
         String deadline = "";
         boolean hasBy = false;
@@ -105,7 +94,7 @@ public class Gertrude {
         addTask(newDeadline, description, tasks);
     }
 
-    public static void addEvent(String[] lineInputArr, ArrayList<Task> tasks) throws GertrudeException, KeywordException {
+    public static void addEvent(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
         String description = "";
         String start = "";
         String end = "";
@@ -153,10 +142,59 @@ public class Gertrude {
         addTask(newEvent, description, tasks);
     }
 
+    public static Task[] openFile() throws FileNotFoundException, CorruptedFileException, IndexOutOfBoundsException {
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
+        String line;
+        Task[] tasks = new Task[MAXIMUM_TASKS];
+        while (s.hasNext()) {
+            line = s.nextLine();
+            String[] lineArr = line.split(" \\| ");
+            switch (lineArr[0]) {
+            case "T":
+                Todo newTodo = new Todo(lineArr[2]);
+                newTodo.done = lineArr[1];
+                tasks[Task.taskIndex] = newTodo;
+                break;
+            case "D":
+                Deadline newDeadline = new Deadline(lineArr[2], lineArr[3]);
+                newDeadline.done = lineArr[1];
+                tasks[Task.taskIndex] = newDeadline;
+                break;
+            case "E":
+                Event newEvent = new Event(lineArr[2], lineArr[3], lineArr[4]);
+                newEvent.done = lineArr[1];
+                tasks[Task.taskIndex] = newEvent;
+                break;
+            default:
+                throw new CorruptedFileException();
+            }
+            Task.taskIndex++;
+        }
+        return tasks;
+    }
+
+    public static void saveFile(Task[] tasks) throws IOException, FileNotFoundException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for(int i = 0; i < Task.taskIndex; i++) {
+            Task task = tasks[i];
+            fw.write(task.symbol + " | " + task.done + " | " + task.name + task.dataForSave() + System.lineSeparator());
+        }
+        fw.close();
+    }
 
     public static void main(String[] args) throws GertrudeException {
         printIntroduction();
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        Task[] tasks = new Task[MAXIMUM_TASKS];
+        try {
+            tasks = openFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            throw new GertrudeException();
+        } catch (CorruptedFileException | IndexOutOfBoundsException e) {
+            System.out.println("Corrupted file.");
+            throw new GertrudeException();
+        }
         boolean runLoop = true;
         while (runLoop) {
             String lineInput;
@@ -181,6 +219,13 @@ public class Gertrude {
                 case "bye":
                     printGoodbyeMessage();
                     runLoop = false;
+                    try {
+                        saveFile(tasks);
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found. Couldn't save.");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case "list":
                     printList(tasks);
@@ -196,9 +241,6 @@ public class Gertrude {
                     break;
                 case "event":
                     addEvent(lineInputArr, tasks);
-                    break;
-                case "delete":
-                    deleteTask(lineInputArr, tasks);
                     break;
                 default:
                     System.out.println("That is not a valid input.");

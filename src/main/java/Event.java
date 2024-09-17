@@ -23,4 +23,9 @@ public class Event extends Task {
         System.out.print("[" + this.symbol + "] " + "[" + this.done + "] " + this.name);
         System.out.println(" (from: " + this.startDate + " to: " + this.endDate + ")");
     }
+
+    @Override
+    public String dataForSave() {
+        return " | " + this.startDate + " | " + this.endDate;
+    }
 }

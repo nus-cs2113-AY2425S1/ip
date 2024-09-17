@@ -20,4 +20,9 @@ public class Deadline extends Task {
         System.out.print("[" + this.symbol + "] " + "[" + this.done + "] ");
         System.out.println(this.name + " (by: " + this.dueDate + ")");
     }
+
+    @Override
+    public String dataForSave() {
+        return " | " + this.dueDate;
+    }
 }

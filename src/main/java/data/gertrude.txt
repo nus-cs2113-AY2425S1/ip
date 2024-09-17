@@ -1,0 +1,4 @@
+T |   | die D
+T | X | hw 
+D |   | math  | 11:59 pm 
+E |   | dinner  | 6 pm  | 7 pm 
