@@ -5,6 +5,7 @@ import apsea.task.Deadline;
 import apsea.task.Event;
 import apsea.task.Task;
 import apsea.task.Todo;
+import apsea.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -173,6 +174,23 @@ public class Apsea {
         printLine();
     }
 
+    public static void loadTodo(String [] words){
+        boolean isDone = words[1].equals("1");
+        String description = words[2];
+        String todoCommand = "todo " + description;
+
+        try {
+            addTodo(todoCommand);
+            String[] markCommand = {"mark" , Integer.toString(count)};
+
+            if (isDone) {
+                markTask(tasks, markCommand);
+            }
+        } catch (ApseaException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void getInput() {
         String line;
         boolean isExit = false;
@@ -220,7 +238,9 @@ public class Apsea {
 
     public static void main(String[] args) {
         printHello();
+        Storage.loadFile(tasks);
         getInput();
+        Storage.saveData(tasks, count);
         printBye();
     }
 }
