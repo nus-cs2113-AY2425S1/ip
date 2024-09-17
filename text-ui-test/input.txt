@@ -24,4 +24,25 @@ event <event name>/from /to <end date>
 todo todo todo
 deadline deadline deadline /by /by /by
 event event event /from /from /from /to /to /to
+list
+mark 3
+list
+delete 4
+list
+delete 0
+list
+delete 3
+list
+delete 2
+list
+delete 1
+list
+delete 0
+list
+delete 1
+list
+delete 1
+list
+delete 1
+list
 bye
