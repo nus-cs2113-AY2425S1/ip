@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -27,12 +28,14 @@ test {
     }
 }
 
+sourceSets.main.java.srcDirs = ['src']
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("main.java.Ran")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ran"
     archiveClassifier = null
 }
 
