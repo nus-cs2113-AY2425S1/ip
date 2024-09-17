@@ -36,14 +36,27 @@ public class Cubone {
 
     // list to store user input
     static ArrayList<Task> inputed_tasks = new ArrayList<Task>();
-
+    static Boolean LogFileRead = false;
+    // read the tasks from the file
+    static {
+        try {
+            inputed_tasks = LogFile.readLogFile();
+            LogFileRead = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Prints a welcome message from Cubone.
      * The welcome message includes the Cubone logo and a chat bar.
      */
     public static void sayWelcomeMsg() {
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm Cubone\nWhat can I do for you?");
+        System.out.println("Hello! I'm Cubone");
+        if (LogFileRead) {
+            System.out.println("I have read " + inputed_tasks.size() + " tasks from the Log file");
+        }
+        System.out.println("What can I do for you?");
         System.out.println(CHAT_BAR);
     }
     

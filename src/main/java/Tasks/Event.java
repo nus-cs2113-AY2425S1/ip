@@ -15,7 +15,7 @@ public class Event extends Task{
     }
     @Override
     public String getPrefix(){
-        return "[D]" + super.getPrefix();
+        return "[E]" + super.getPrefix();
     }
 
 }
