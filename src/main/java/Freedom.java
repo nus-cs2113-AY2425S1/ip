@@ -139,30 +139,30 @@ public class Freedom {
 
     public static void loadData() throws Exception{
         final int COMMAND_INDEX = 0;
+        final int STATUS_INDEX = 1;
         final int DESCRIPTION_INDEX = 2;
         final int TIME_ONE = 3;
         final int TIME_TWO = 4;
-        String input;
+
+        boolean isDone;
 
         try {
             File data = new File("./data/freedom.txt");
             Scanner read = new Scanner(data);
             while (read.hasNextLine()) {
                 String[] words = read.nextLine().split("[|]");
+                isDone = words[STATUS_INDEX].trim().equals("1");
                 switch(words[COMMAND_INDEX].trim()) {
                     case "T":
-                        input = words[DESCRIPTION_INDEX].trim();
-                        tasks.add(new ToDo(input));
+                        tasks.add(new ToDo(words[DESCRIPTION_INDEX].trim(), isDone));
                         break;
                     case "D":
-                        input = words[DESCRIPTION_INDEX].trim() + "/by" + words[TIME_ONE].trim();
-                        tasks.add(new Deadline(input));
+                        tasks.add(new Deadline(words[DESCRIPTION_INDEX].trim(),
+                                isDone, words[TIME_ONE].trim()));
                         break;
                     case "E":
-                        input = words[DESCRIPTION_INDEX].trim()
-                                + "/from" + words[TIME_ONE].trim()
-                                + "/to" + words[TIME_TWO].trim();
-                        tasks.add(new Event(input));
+                        tasks.add(new Event(words[DESCRIPTION_INDEX].trim(), isDone,
+                                words[TIME_ONE].trim(), words[TIME_TWO].trim()));
                         break;
                     default:
                         throw new CannotReadFile();

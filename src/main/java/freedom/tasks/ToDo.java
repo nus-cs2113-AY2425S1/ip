@@ -15,6 +15,11 @@ public class ToDo extends Task {
         }
     }
 
+    public ToDo(String description, boolean isDone) throws Exception {
+        super(description);
+        this.isDone = isDone;
+    }
+
     public String printLine() {
         return "[T]" + super.printLine();
     }

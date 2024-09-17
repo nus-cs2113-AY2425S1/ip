@@ -40,6 +40,13 @@ public class Event extends Task{
         }
     }
 
+    public Event(String description, boolean isDone, String from, String to) throws Exception {
+        super(description);
+        this.isDone = isDone;
+        setFrom(from);
+        setTo(to);
+    }
+
     public void setFrom(String from) {
         this.from = from;
     }
