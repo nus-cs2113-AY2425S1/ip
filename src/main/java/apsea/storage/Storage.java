@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static apsea.Apsea.loadTodo;
@@ -17,7 +18,7 @@ public class Storage {
     private static final String SAVE_FILE_ERROR = "Sorry, there is an issue saving the data file.";
     private static final String SEPARATOR = "; ";
 
-    public static void loadData(Task[] tasks) throws FileNotFoundException {
+    public static void loadData() throws FileNotFoundException {
         System.out.println("Loading data...");
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
@@ -40,7 +41,7 @@ public class Storage {
         }
     }
 
-    public static void loadFile(Task[] tasks) {
+    public static void loadFile() {
 
         try {
             File dir = new File(FILE_DIR);
@@ -53,19 +54,19 @@ public class Storage {
 
             //create file if it does not exist, else load data
             if (!f.createNewFile()) {
-                loadData(tasks);
+                loadData();
             }
         } catch (IOException e) {
             System.out.println(MAKE_FILE_ERROR);
         }
     }
 
-    public static void saveData(Task[] tasks, int count) {
+    public static void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (int i = 0; i < count; i++) {
-                System.out.println(tasks[i].toFile());
-                fw.write(tasks[i].toFile());
+            for (Task task : tasks) {
+                System.out.println(task.toFile());
+                fw.write(task.toFile());
                 fw.write("\n");
             }
             fw.close();

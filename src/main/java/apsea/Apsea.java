@@ -181,10 +181,10 @@ public class Apsea {
 
         try {
             addTodo(todoCommand);
-            String[] markCommand = {"mark" , Integer.toString(count)};
+            String[] markCommand = {"mark" , Integer.toString(tasks.size())};
 
             if (isDone) {
-                markTask(tasks, markCommand);
+                markTask(markCommand);
             }
         } catch (ApseaException e) {
             System.out.println(e.getMessage());
@@ -238,9 +238,9 @@ public class Apsea {
 
     public static void main(String[] args) {
         printHello();
-        Storage.loadFile(tasks);
+        Storage.loadFile();
         getInput();
-        Storage.saveData(tasks, count);
+        Storage.saveData(tasks);
         printBye();
     }
 }
