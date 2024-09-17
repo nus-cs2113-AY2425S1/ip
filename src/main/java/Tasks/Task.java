@@ -23,8 +23,12 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    public String getPrefix(){
+        return "[" + this.getStatusIcon() + "]";
+    }
     
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return String.format("%9s", this.getPrefix() + " | ") + this.description;
     }
 }

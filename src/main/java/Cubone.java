@@ -7,6 +7,9 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+
+import utils.*;
+
 public class Cubone {
     static final String LOGO =   
             "   ______      __                       \n"+
@@ -275,6 +278,8 @@ public class Cubone {
                 break;
             }
             System.out.println(CHAT_BAR);
+            // log the tasks to the file
+            LogFile.updateLogFile(inputed_tasks);
         }
     }
 }
