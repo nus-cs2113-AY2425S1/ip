@@ -13,7 +13,8 @@ public class Duke {
     //task count
     private static int taskCount = 0;
 
-    private static String filePath = "./data/duke.txt";
+    private static String folderPath = "./data";
+    private static String filePath = folderPath+ "/duke.txt";
 
 
     //echo function for level-1
@@ -229,6 +230,11 @@ public class Duke {
 
     //load data from file to arraylist level-7
     public static void loadFileData() throws DukeException, IOException {
+
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
