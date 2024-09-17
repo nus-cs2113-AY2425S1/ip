@@ -59,12 +59,31 @@ public class CodeCatalyst {
                 validateEventInput(input);
                 addEventTask(input);
                 break;
+            case "delete":
+                handleDeleteTask(input);
+                break;
             default:
-                throw new CodeCatalystException("Invalid input! Please enter a valid command.");
+                throw new CodeCatalystException("         Invalid input! Please enter a valid command.");
             }
         } catch (CodeCatalystException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private static void handleDeleteTask(String input) throws CodeCatalystException {
+        try {
+            int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new CodeCatalystException("         Task number is out of bounds!");
+            }
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println("         Noted. I've removed this task:");
+            System.out.println("           " + removedTask);
+            System.out.println("         Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new CodeCatalystException("         Please enter a valid task number for deletion.");
+        }
+
     }
 
     private static void validateTodoInput(String input) throws CodeCatalystException {
@@ -108,6 +127,8 @@ public class CodeCatalyst {
             return "deadline";
         } else if (input.startsWith("event")) {
             return "event";
+        } else if (input.startsWith("delete ")) {
+            return "delete";
         } else {
             return "invalid";
         }
