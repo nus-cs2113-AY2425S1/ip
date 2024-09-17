@@ -7,7 +7,7 @@ public class Ryan {
     public static void main(String[] args) {
         boolean isExiting = false;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = FileManager.loadTasks();
 
         printGreeting();
 
@@ -60,6 +60,7 @@ public class Ryan {
                 handleError(e);
             }
         }
+        FileManager.saveTasks(tasks);
         printGoodbye();
         scanner.close();
     }
