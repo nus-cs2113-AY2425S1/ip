@@ -9,6 +9,14 @@ all while "yapping" at you.
 // Product intro goes here
 
 
+## Legend
+
+To perform this command,
+use the command_keyword [followed by additional arguments]
+e.g. `shown here is how to format input`.
+```
+shown here is a sample program output
+```
 
 ## Adding and Deleting Tasks
 
@@ -60,9 +68,9 @@ e.g. `list`
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
 You don't remember your tasks? Lemme refresh your memory:
-1.[T][X] look for internship
-2.[D][ ] Procrastinate, due Sunday 9pm
-3.[E][ ] visit career fair, from Monday 9pm to Friday 11pm
+1.[T][X] todoDesc 
+2.[D][ ] deadlineDesc, due endDate 
+3.[E][ ] eventDesc, from startDate to endDate 
 ```
 
 ## Marking and Unmarking Tasks
