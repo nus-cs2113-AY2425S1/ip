@@ -1,0 +1,5 @@
+T | ✓ | run
+E | ✗ | sleep | from 3am to 10pm
+D | ✗ | slides | by mon
+D | ✓ | eat | by 8pm
+E | ✗ | cs2113 lecture | from Fri 4pm to 6pm

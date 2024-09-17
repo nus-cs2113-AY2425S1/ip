@@ -22,7 +22,7 @@ public abstract class Task {
      * Returns a status icon representing the task's completion status.
      * "X" indicates that the task is done; a space indicates it is not done.
      *
-     * @return A status icon ("✓" if done, otherwise "✗").
+     * @return A status icon ("1" if done, otherwise "0").
      */
     public String getStatusIcon() {
         return (isDone ? "1" : "0");
