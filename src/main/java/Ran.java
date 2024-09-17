@@ -13,6 +13,9 @@ import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
 import ran.exception.RanException;
 import java.util.Scanner;
+import java.io.File;
+import java.util.Scanner;
+import java.io.IOException;
 
 public class Ran {
     private static boolean isTerminated = false; 
@@ -213,9 +216,33 @@ public class Ran {
         }
     }
 
+    public static File loadFile() throws IOException {
+        // Check for existence of directory
+        String directory = "./data";
+        File dir = new File(directory);
+        // If directory does not yet exist, create it
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+        // Check for existence of data file
+        File f = new File(directory + "/ran.txt");
+        // If file does not yet exist, create it
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        return f;
+    }
+
     public static void main(String[] args) {
         greet();
-        
+
+        // Check for data file, create directory and data file if necessary
+        try {
+            File f = loadFile();
+        } catch (IOException e) {
+            System.out.println("Unfortunately I, Ran, have ran into an issue accessing your data files.");
+        }
+
         // Take in user input from the terminal
         String input;
         Scanner in = new Scanner(System.in);
