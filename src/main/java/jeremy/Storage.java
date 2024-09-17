@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String PATH = "./src/main/java/jeremy/data/";
+    private static final String PATH = "./data/";
     private static final String FILE_NAME = "Jeremy.txt";
     private static final String SEPARATOR = " \\| ";
 
@@ -46,14 +46,21 @@ public class Storage {
     }
 
     public static TaskList readData() throws FileNotFoundException {
-        if (!new File(PATH).exists()) {
-            new File(PATH).mkdir();
+        File dir = new File(PATH);
+        if (!dir.exists()) {
+            dir.mkdir();
         }
 
-        // doesn't overwrite existing file
         File file = new File(PATH + FILE_NAME);
-        Scanner scanner = new Scanner(file);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new FileNotFoundException(e.getMessage());
+            }
+        }
 
+        Scanner scanner = new Scanner(file);
         TaskList taskList = new TaskList();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
