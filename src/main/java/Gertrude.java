@@ -1,18 +1,18 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Gertrude {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event"};
     public static final String[] ONE_WORD_KEYWORDS = {"bye", "list"};
-    public static final String FILE_PATH = "src/main/java/data/gertrude.txt";
+    public static final String FILE_PATH = "data/gertrude.txt"; //"src/main/java/data/gertrude.txt";
 
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -156,35 +156,47 @@ public class Gertrude {
         addTask(newEvent, description, tasks);
     }
 
-    public static ArrayList<Task> openFile() throws FileNotFoundException, CorruptedFileException, IndexOutOfBoundsException {
-        File f = new File(FILE_PATH);
-        Scanner s = new Scanner(f);
-        String line;
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        while (s.hasNext()) {
-            line = s.nextLine();
-            String[] lineArr = line.split(" \\| ");
-            switch (lineArr[0]) {
-            case "T":
-                Todo newTodo = new Todo(lineArr[2]);
-                newTodo.done = lineArr[1];
-                tasks.add(newTodo);
-                break;
-            case "D":
-                Deadline newDeadline = new Deadline(lineArr[2], lineArr[3]);
-                newDeadline.done = lineArr[1];
-                tasks.add(newDeadline);
-                break;
-            case "E":
-                Event newEvent = new Event(lineArr[2], lineArr[3], lineArr[4]);
-                newEvent.done = lineArr[1];
-                tasks.add(newEvent);
-                break;
-            default:
-                throw new CorruptedFileException();
+    public static ArrayList<Task> openFile() throws IOException, CorruptedFileException, IndexOutOfBoundsException {
+        try {
+            File dataDirectory = new File("data");
+            dataDirectory.mkdir();
+            File f = new File(FILE_PATH);
+            if (f.createNewFile()) {
+                System.out.println("Save file not found. Creating new file.");
+            } else {
+                System.out.println("Save file found. Loading save now.");
             }
+            Scanner s = new Scanner(f);
+            String line;
+            ArrayList<Task> tasks = new ArrayList<Task>();
+            while (s.hasNext()) {
+                line = s.nextLine();
+                String[] lineArr = line.split(" \\| ");
+                switch (lineArr[0]) {
+                case "T":
+                    Todo newTodo = new Todo(lineArr[2]);
+                    newTodo.done = lineArr[1];
+                    tasks.add(newTodo);
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(lineArr[2], lineArr[3]);
+                    newDeadline.done = lineArr[1];
+                    tasks.add(newDeadline);
+                    break;
+                case "E":
+                    Event newEvent = new Event(lineArr[2], lineArr[3], lineArr[4]);
+                    newEvent.done = lineArr[1];
+                    tasks.add(newEvent);
+                    break;
+                default:
+                    throw new CorruptedFileException();
+                }
+            }
+            return tasks;
+        } catch (IOException e) {
+            System.out.println("An IO error occurred.");
         }
-        return tasks;
+        return null;
     }
 
     public static void saveFile(ArrayList<Task> tasks) throws IOException, FileNotFoundException {
@@ -195,7 +207,8 @@ public class Gertrude {
         fw.close();
     }
 
-    public static void main(String[] args) throws GertrudeException {
+    public static void main(String[] args) throws GertrudeException, FileNotFoundException {
+        System.out.println(System.getProperty("user.dir"));
         printIntroduction();
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -203,7 +216,7 @@ public class Gertrude {
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             throw new GertrudeException();
-        } catch (CorruptedFileException | IndexOutOfBoundsException e) {
+        } catch (CorruptedFileException | IndexOutOfBoundsException | IOException e) {
             System.out.println("Corrupted file.");
             throw new GertrudeException();
         }
