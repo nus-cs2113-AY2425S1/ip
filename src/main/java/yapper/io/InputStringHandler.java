@@ -4,6 +4,7 @@ import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 
+// TODO finish and clean up input validation code
 // Input Text Parser for Yapper
 public class InputStringHandler {
     private static String DEADLINE_END_DATE_DELIMITER = "/by";
@@ -42,6 +43,7 @@ public class InputStringHandler {
         int taskOrdinal;
         switch (instructionType) {
         case "todo":
+            validateTodoInstruction(instructionArgs);
             return new Instruction(Instruction.InstructionType.TODO, instructionArgs);
         case "delete":
             try {
@@ -71,12 +73,7 @@ public class InputStringHandler {
             args = instructionArgs.split(DEADLINE_END_DATE_DELIMITER);
             String deadlineDesc = args[0].trim();
             String deadlineDate = args[1].trim();
-            try {
-                ErrorHandler.checkIfDeadlineArgsMissing(deadlineDesc, deadlineDate);
-            } catch (YapperException e) {
-                StringStorage.printWithDividers(e.getMessage());
-                return null;
-            }
+            validateDeadlineInstruction(deadlineDesc, deadlineDate);
             return new Instruction(Instruction.InstructionType.DEADLINE, deadlineDesc, deadlineDate);
         case "event":
             args = instructionArgs.split(EVENT_START_DATE_DELIMITER);
@@ -84,12 +81,7 @@ public class InputStringHandler {
             String[] dates = args[1].split(EVENT_END_DATE_DELIMITER);
             String startDate = dates[0].trim();
             String endDate = dates[1].trim();
-            try {
-                ErrorHandler.checkIfEventArgsMissing(eventDesc, startDate, endDate);
-            } catch (YapperException e) {
-                StringStorage.printWithDividers(e.getMessage());
-                return null;
-            }
+            validateEventInstruction(eventDesc, startDate, endDate);
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
         // TODO exception for incorrect arguments
@@ -97,5 +89,29 @@ public class InputStringHandler {
         // If none of the above code works, user input cannot be recognized
         throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
         // TODO is this how I should throw unrecognised exception error?
+    }
+
+
+    // TODO what to return?
+    public static void validateTodoInstruction(String todoDesc) {
+        try {
+            ErrorHandler.checkIfTodoArgsMissing(todoDesc);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
+    }
+    public static void validateDeadlineInstruction(String deadlineDesc, String deadlineDate) {
+        try {
+            ErrorHandler.checkIfDeadlineArgsMissing(deadlineDesc, deadlineDate);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
+    }
+    public static void validateEventInstruction(String eventDesc, String startDate, String endDate) {
+        try {
+            ErrorHandler.checkIfEventArgsMissing(eventDesc, startDate, endDate);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
     }
 }

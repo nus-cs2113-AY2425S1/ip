@@ -31,7 +31,7 @@ public class Instruction {
         this.taskDates = new String[] {startDate, endDate};
     }
     public Instruction(InstructionType type, Integer taskOrdinal) {
-        this.instructionType = type; // MARK, UNMARK
+        this.instructionType = type; // DELETE, MARK, UNMARK
         this.taskOrdinal = taskOrdinal;
     }
     // Getters

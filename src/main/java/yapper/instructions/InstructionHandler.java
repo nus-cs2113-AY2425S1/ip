@@ -1,12 +1,12 @@
 package yapper.instructions;
 
-import yapper.io.SaveFileHandler;
 import yapper.tasks.TaskHandler;
 import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
+import yapper.io.SaveFileHandler;
 import yapper.tasks.Task;
 import yapper.tasks.Deadline;
 import yapper.tasks.Event;
@@ -74,8 +74,9 @@ public class InstructionHandler {
         try {
             instruction = InputStringHandler.parseUserInput(userInputString);
         } catch (YapperException e) {
-            System.out.println(e.getMessage());
+            StringStorage.printWithDividers(e.getMessage());
         }
+        // TODO confirm if user input is complete at this line
 
         Instruction.InstructionType instructionType = instruction.getInstructionType();
         switch (instructionType) {
