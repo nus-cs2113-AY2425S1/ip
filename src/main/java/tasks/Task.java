@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -19,6 +19,12 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public abstract String fileFormat();
+
+    public void updateBool(boolean isDoneUpdated){
+        this.isDone = isDoneUpdated;
     }
 
     @Override
