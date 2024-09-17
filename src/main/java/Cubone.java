@@ -30,6 +30,8 @@ public class Cubone {
         put("deadline", "deadline <description> /by <date>");
         put("event", "event <description> /from <date> /to <date>");
         put("task", "task <description>");
+        put("delete", "delete <index>");
+        put("bye", "bye");
     }};
 
     static final String USAGE_MSG = "Usage: ";
