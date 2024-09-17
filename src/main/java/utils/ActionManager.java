@@ -72,7 +72,7 @@ public final class ActionManager {
             String eventFrom = argv[1];
             String eventTo = argv[2];
             tasks[taskCount] = new Event(eventName, eventFrom, eventTo);
-            System.out.println("Deadline task added!\n");
+            System.out.println("Event task added!\n");
             tasks[taskCount++].printTask();
         } catch (SuBotException e) {
             String msg = e.getMessage() + "\n" + UsageString.EVENT_USAGE;
