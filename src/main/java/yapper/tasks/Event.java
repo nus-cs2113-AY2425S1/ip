@@ -38,12 +38,4 @@ public class Event extends Task {
                 + StringStorage.STORAGE_DELIMITER + startDate
                 + StringStorage.STORAGE_DELIMITER + endDate;
     }
-    @Override
-    public static Event stringToTask(String taskAsString) {
-        String[] taskParts = StringStorage.splitByDelimiter(taskAsString);
-        Task task = Task.stringToTask(taskParts[0] + " | " + taskParts[1]);
-        String startDate = taskParts[2];
-        String endDate = taskParts[3];
-        return new Event(task.taskDesc, task.isDone, startDate, endDate);
-    }
 }

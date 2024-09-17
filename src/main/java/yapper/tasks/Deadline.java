@@ -34,11 +34,4 @@ public class Deadline extends Task {
                 + StringStorage.STORAGE_DELIMITER + super.taskToString()
                 + StringStorage.STORAGE_DELIMITER + endDate;
     }
-    @Override
-    public static Deadline stringToTask(String taskAsString) {
-        String[] taskParts = StringStorage.splitByDelimiter(taskAsString);
-        Task task = Task.stringToTask(taskParts[0] + " | " + taskParts[1]);
-        String endDate = taskParts[2];
-        return new Deadline(task.taskDesc, task.isDone, endDate);
-    }
 }

@@ -1,16 +1,15 @@
 package yapper.io;
 
-import yapper.tasks.Deadline;
-import yapper.tasks.Event;
-import yapper.tasks.Task;
-import yapper.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
+
+import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.YapperException;
+import yapper.tasks.*;
 
 public class SaveFileHandler {
     public static final String SAVE_FILE_PATH = "./data/duke.txt";
@@ -43,6 +42,7 @@ public class SaveFileHandler {
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
                 Task task = stringToTasks(taskData);
+                Task task = parseFileInput(taskData);
 //                if (task != null) {
 //                    addTask(task);
 //                }
@@ -55,22 +55,43 @@ public class SaveFileHandler {
         }
         System.out.println(StringStorage.AFTER_LOADING_STRING);
     }
-    private static Task stringToTasks(String taskData) {
+
+    private static Task parseFileInput(String taskData) {
         try {
-            String[] parts = taskData.split(" \\| ", 1);
-            String taskType = parts[0];
-//            String taskArgs = parts[1];
+            String[] taskParts = StringStorage.splitByDelimiter(taskData);
+
+            String taskType = taskParts[0];
+            try {
+                ErrorHandler.checkIfTaskTypeValid(taskType); // indirectly checks if missing
+            } catch (YapperException e) {
+                StringStorage.printWithDividers(e.getMessage());
+            }
+
+            String taskStatus = taskParts[1];
+            try {
+                ErrorHandler.checkIfTaskStatusValid(taskStatus); // indirectly checks if missing
+            } catch (YapperException e) {
+                StringStorage.printWithDividers(e.getMessage());
+            }
+            boolean isDone = taskStatus.equals(StringStorage.NOT_DONE_SYMBOL);
+
+            String taskDesc = taskParts[2];
+
             switch (taskType) {
-                case "T":
-                    return Todo.stringToTask(taskData);
-                case "D":
-                    return Deadline.stringToTask(taskData);
-                case "E":
-                    return Event.stringToTask(taskData);
+                case StringStorage.TODO_SYMBOL:
+                    ErrorHandler.checkIfTodoArgsMissing(taskDesc);
+                    return new Todo(taskDesc, isDone);
+                case StringStorage.DEADLINE_SYMBOL:
+                    ErrorHandler.checkIfDeadlineArgsMissing(taskDesc, taskParts[3]);
+                    return new Deadline(taskDesc, isDone, taskParts[3]);
+                case StringStorage.EVENT_SYMBOL:
+                    ErrorHandler.checkIfEventArgsMissing(taskDesc, taskParts[3], taskParts[4]);
+                    return new Event(taskDesc, isDone, taskParts[3], taskParts[4]);
             }
         } catch (Exception e) {
-            System.out.println("Corrupted data detected. Skipping line: " + taskData);
+            System.out.println("data unrecognised, skipping line: " + taskData);
         }
+        return null;
     }
 
 }

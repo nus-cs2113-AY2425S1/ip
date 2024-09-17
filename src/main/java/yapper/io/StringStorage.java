@@ -60,19 +60,25 @@ public class StringStorage {
     public static final String LIST_SIZE_STRING =
             "Your list is now THIS BIG: ";
     public static final String BEFORE_SAVING_STRING =
-            "saving data to: ";
+            "saving data to: "; // ok, just give me a while to recall
     public static final String AFTER_SAVING_STRING =
-            "saved successfully!";
+            "saved successfully!"; // Ok, I think I remember it all
     public static final String BEFORE_LOADING_STRING =
-            "retrieving data from: ";
+            "retrieving data from: "; // hold on, let me remember
     public static final String AFTER_LOADING_STRING =
-            "retrieved successfully!";
+            "retrieved successfully!"; // I've got it
 
     // Error Messages
-    public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
-            "I dunno whatcha just said. Repeat it for me will ya? ";
+    public static final String MISSING_DESCRIPTION_MESSAGE =
+            "task description not given";
+    public static final String MISSING_START_DATE_MESSAGE =
+            "start date not given";
+    public static final String MISSING_END_DATE_MESSAGE =
+            "end date not given";
     public static final String INCOMPLETE_INSTRUCTION_MESSAGE =
             "Sorry, you cut off there. Continue what you were saying? ";
+    public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
+            "I dunno whatcha just said. Repeat it for me will ya? ";
     public static final String LIST_EMPTY_MESSAGE =
             "list is empty. ";
 //    public static final String LIST_FULL_MESSAGE =

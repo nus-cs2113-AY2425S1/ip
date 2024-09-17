@@ -49,10 +49,4 @@ public class Task {
     public String taskToString() {
         return getDoneStatus() + StringStorage.STORAGE_DELIMITER + taskDesc;
     }
-    public static Task stringToTask(String taskAsString) {
-        String[] taskParts = StringStorage.splitByDelimiter(taskAsString);
-        boolean isDone = taskParts[0].equals(StringStorage.IS_DONE_SYMBOL);
-        String taskDesc = taskParts[1];
-        return new Task(taskDesc, isDone);
-    }
 }

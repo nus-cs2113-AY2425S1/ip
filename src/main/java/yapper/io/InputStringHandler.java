@@ -69,15 +69,27 @@ public class InputStringHandler {
         switch (instructionType) {
         case "deadline":
             args = instructionArgs.split(DEADLINE_END_DATE_DELIMITER);
-            String taskDesc = args[0].trim();
-            String deadline = args[1].trim();
-            return new Instruction(Instruction.InstructionType.DEADLINE, taskDesc, deadline);
+            String deadlineDesc = args[0].trim();
+            String deadlineDate = args[1].trim();
+            try {
+                ErrorHandler.checkIfDeadlineArgsMissing(deadlineDesc, deadlineDate);
+            } catch (YapperException e) {
+                StringStorage.printWithDividers(e.getMessage());
+                return null;
+            }
+            return new Instruction(Instruction.InstructionType.DEADLINE, deadlineDesc, deadlineDate);
         case "event":
             args = instructionArgs.split(EVENT_START_DATE_DELIMITER);
             String eventDesc = args[0].trim();
             String[] dates = args[1].split(EVENT_END_DATE_DELIMITER);
             String startDate = dates[0].trim();
             String endDate = dates[1].trim();
+            try {
+                ErrorHandler.checkIfEventArgsMissing(eventDesc, startDate, endDate);
+            } catch (YapperException e) {
+                StringStorage.printWithDividers(e.getMessage());
+                return null;
+            }
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
         }
         // TODO exception for incorrect arguments

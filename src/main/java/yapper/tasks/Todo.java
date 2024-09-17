@@ -27,8 +27,4 @@ public class Todo extends Task {
         return StringStorage.TODO_SYMBOL
                 + StringStorage.STORAGE_DELIMITER + super.taskToString();
     }
-    public Todo stringToTask(String taskAsString) {
-        Task task = Task.stringToTask(taskAsString);
-        return new Todo(task.taskDesc, task.isDone);
-    }
 }

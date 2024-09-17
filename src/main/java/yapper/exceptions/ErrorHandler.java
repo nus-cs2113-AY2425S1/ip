@@ -15,9 +15,43 @@ public class ErrorHandler {
             throw new YapperException(StringStorage.INCOMPLETE_INSTRUCTION_MESSAGE);
         }
     }
+    public static void checkIfTodoArgsMissing(String desc) throws YapperException {
+        if (desc.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_DESCRIPTION_MESSAGE);
+        }
+    }
+    public static void checkIfDeadlineArgsMissing(String desc, String endDate) throws YapperException {
+        if (desc.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_DESCRIPTION_MESSAGE);
+        } else if (endDate.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_END_DATE_MESSAGE);
+        }
+    }
+    public static void checkIfEventArgsMissing(String desc, String startDate, String endDate) throws YapperException {
+        if (desc.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_DESCRIPTION_MESSAGE);
+        } else if (startDate.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_START_DATE_MESSAGE);
+        } else if (endDate.isEmpty()) {
+            throw new YapperException(StringStorage.MISSING_END_DATE_MESSAGE);
+        }
+    }
+    public static void checkIfTaskTypeValid(String taskType) throws YapperException {
+        if ( !taskType.equals(StringStorage.TODO_SYMBOL) &&
+             !taskType.equals(StringStorage.DEADLINE_SYMBOL) &&
+             !taskType.equals(StringStorage.EVENT_SYMBOL) ) {
+            throw new YapperException("unrecognized task type");
+        }
+    }
+    public static void checkIfTaskStatusValid(String taskStatus) throws YapperException {
+        if (!taskStatus.equals(StringStorage.NOT_DONE_SYMBOL) &&
+            !taskStatus.equals(StringStorage.NOT_DONE_SYMBOL)) {
+            throw new YapperException("unrecognized task completion status");
+        }
+    }
     //    public static void checkIfUserInputRecognised();
 
-    // Ordinal Errors
+    // Ordinal Errors for: DELETE, MARK, UNMARK
     public static void checkIfListEmpty(int currTaskTotal) throws YapperException {
         if (currTaskTotal == 0) {
             throw new YapperException(StringStorage.LIST_EMPTY_MESSAGE);
