@@ -10,7 +10,7 @@ public abstract class FileManagement extends Functions{
     public static void save() {
 
         // Checks if the file exist. If not, create new file
-        try (FileWriter writer = new FileWriter("savedData/tasks.txt")) {
+        try (FileWriter writer = new FileWriter("tasksBackup.txt")) {
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
                 writer.write(task.getCommandInput() + System.lineSeparator());
@@ -24,7 +24,7 @@ public abstract class FileManagement extends Functions{
     }
 
     public static void load() {
-        File f = new File("savedData/tasks.txt");
+        File f = new File("tasksBackup.txt");
         PrintStream out = System.out;
         try (Scanner s = new Scanner(f)) {
 
