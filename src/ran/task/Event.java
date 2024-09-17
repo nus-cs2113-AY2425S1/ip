@@ -20,4 +20,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    public String dataFileInput() {
+        return "E, " + (isDone ? "1, " : "0, ") + description + ", " + from + ", " + to;
+    }
 }
