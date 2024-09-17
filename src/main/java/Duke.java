@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     //taskList variable for level-2 onwards
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
     //task count
     private static int taskCount = 0;
 
@@ -17,7 +18,7 @@ public class Duke {
     //add function for level-2
     public static void add(String task) {
         Task newTask = new Task(task);
-        taskList[taskCount] = newTask;
+        taskList.add(newTask);
         taskCount++;
         System.out.println("added: " + task);
     }
@@ -25,9 +26,14 @@ public class Duke {
 
     //list function for level-2
     public static void list() {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.print((i + 1) + ". ");
-            System.out.println(taskList[i].toString());
+        if(taskCount == 0) {
+            System.out.println("No tasks found");
+        }
+        else {
+            for (int i = 0; i < taskCount; i++) {
+                System.out.print((i + 1) + ". ");
+                System.out.println(taskList.get(i).toString());
+            }
         }
     }
 
@@ -37,7 +43,7 @@ public class Duke {
         try {
             checkMarkUnmarkInput(index);
             System.out.println("Nice! I've marked this task as done:");
-            taskList[index - 1].markAsDone();
+            taskList.get(index-1).markAsDone();
         } catch (DukeException e) {
             e.displayMessage();
         }
@@ -50,7 +56,7 @@ public class Duke {
         try {
             checkMarkUnmarkInput(index);
             System.out.println("Ok, I've marked this task as not done yet:");
-            taskList[index - 1].markAsNotDone();
+            taskList.get(index-1).markAsNotDone();
         } catch (DukeException e) {
             e.displayMessage();
         }
@@ -68,9 +74,9 @@ public class Duke {
 
         try {
             checkTodoInput(description);
-            taskList[taskCount] = new ToDo(description.trim());
+            taskList.add(new ToDo(description.trim()));
             System.out.println("Got it. I've added this task:");
-            System.out.println(taskList[taskCount].toString());
+            System.out.println(taskList.get(taskCount).toString());
             taskCount++;
             System.out.println("Now you have " + taskCount + " tasks in the list");
         } catch (DukeException e) {
@@ -103,9 +109,9 @@ public class Duke {
 
         try {
             checkDeadlineInput(description, state);
-            taskList[taskCount] = new Deadline(description.trim(), by.trim());
+            taskList.add(new Deadline(description.trim(), by.trim()));
             System.out.println("Got it. I've added this task:");
-            System.out.println(taskList[taskCount].toString());
+            System.out.println(taskList.get(taskCount).toString());
             taskCount++;
             System.out.println("Now you have " + taskCount + " tasks in the list");
         } catch (DukeException e) {
@@ -144,9 +150,9 @@ public class Duke {
 
         try {
             checkEventInput(description, state);
-            taskList[taskCount] = new Event(description.trim(), from.trim(), to.trim());
+            taskList.add(new Event(description.trim(), from.trim(), to.trim()));
             System.out.println("Got it. I've added this task:");
-            System.out.println(taskList[taskCount].toString());
+            System.out.println(taskList.get(taskCount).toString());
             taskCount++;
             System.out.println("Now you have " + taskCount + " tasks in the list");
         } catch (DukeException e) {
@@ -200,6 +206,19 @@ public class Duke {
         throw new DukeException("Sorry I cannot understand that");
     }
 
+
+    public static void deleteTask(int index) throws DukeException {
+        if (index-1 < 0 || index-1 > taskCount) {
+            throw new DukeException("You have input an invalid index");
+        }
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskList.get(index-1).toString());
+        taskList.remove(index-1);
+        taskCount--;
+        System.out.println("Now you have " + taskCount + " tasks in the list");
+    }
+
     //main function to execute the chatbot
     public void execute() throws DukeException {
         System.out.println("Hello I'm Lambo");
@@ -243,6 +262,9 @@ public class Duke {
                     break;
                 case "event":
                     addEvent(inputComponent);
+                    break;
+                case "delete":
+                    deleteTask(Integer.parseInt(inputComponent[1]));
                     break;
                 default:
                     try {
