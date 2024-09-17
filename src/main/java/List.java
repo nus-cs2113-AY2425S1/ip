@@ -9,6 +9,9 @@ public class List {
     public static final String DEADLINE_BY_KEYWORD = "/by";
     public static final String EVENT_FROM_KEYWORD = "/from";
     public static final String EVENT_TO_KEYWORD = "/to";
+    private static final String INVALID_MARK_MESSAGE = "mark <task index>";
+    private static final String INVALID_UNMARK_MESSAGE = "unmark <task index>";
+    private static final String INVALID_DELETE_MESSAGE = "delete <task index>";
 
     private int numItems;
     private Task[] itemList = new Task[100];
@@ -50,7 +53,10 @@ public class List {
     private static void printInvalidTaskMessage() {
         System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
                 + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
-                + INVALID_EVENT_INPUT_MESSAGE);
+                + INVALID_EVENT_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_MARK_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_UNMARK_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_DELETE_MESSAGE);
     }
 
     private void addEvent(String line) {
