@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static apsea.Apsea.loadDeadline;
 import static apsea.Apsea.loadTodo;
+import static apsea.Apsea.loadEvent;
 
 public class Storage {
     private static final String FILE_DIR = "./data";
@@ -19,23 +21,20 @@ public class Storage {
     private static final String SEPARATOR = "; ";
 
     public static void loadData() throws FileNotFoundException {
-        System.out.println("Loading data...");
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
-            System.out.println(line);
-            String[] words = line.split("; ");
-            System.out.println(words[0]);
+            String[] words = line.split(SEPARATOR);
             switch (words[0]) {
             case "T":
                 loadTodo(words);
                 break;
             case "D":
-                //loadDeadline();
+                loadDeadline(words);
                 break;
             case "E":
-                //loadEvent();
+                loadEvent(words);
                 break;
             }
         }
@@ -65,7 +64,6 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
-                System.out.println(task.toFile());
                 fw.write(task.toFile());
                 fw.write("\n");
             }

@@ -177,18 +177,25 @@ public class Apsea {
     public static void loadTodo(String [] words){
         boolean isDone = words[1].equals("1");
         String description = words[2];
-        String todoCommand = "todo " + description;
 
-        try {
-            addTodo(todoCommand);
-            String[] markCommand = {"mark" , Integer.toString(tasks.size())};
+        tasks.add(new Todo(description, isDone));
+    }
 
-            if (isDone) {
-                markTask(markCommand);
-            }
-        } catch (ApseaException e) {
-            System.out.println(e.getMessage());
-        }
+    public static void loadDeadline(String [] words){
+        boolean isDone = words[1].equals("1");
+        String description = words[2];
+        String by = words[3];
+
+        tasks.add(new Deadline(description, isDone, by));
+    }
+
+    public static void loadEvent(String [] words){
+        boolean isDone = words[1].equals("1");
+        String description = words[2];
+        String from = words[3];
+        String to = words[4];
+
+        tasks.add(new Event(description, isDone, from, to));
     }
 
     public static void getInput() {
