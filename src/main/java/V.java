@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class V {
 
@@ -22,53 +23,71 @@ public class V {
         printBlock("Hi I'm V\nWhat can I do for you?");
     }
 
-    public static void displayList(Task[] listOfTasks, int length) {
+    public static void displayList(ArrayList<Task> listOfTasks) {
+        int count = 1;
         System.out.println(LINE_SEPERATOR);
-        for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d.%s", i + 1, listOfTasks[i]));
+        for (Task task: listOfTasks) {
+            System.out.println(count + "." + task);
+            count++;
         }
         System.out.println(LINE_SEPERATOR);
     }
 
-    public static void markTask(Task[] listOfTasks, int position, int count) {
-        listOfTasks[position - 1].setDone();
-        displayList(listOfTasks, count);
+    public static void markTask(ArrayList<Task> listOfTasks, int position) {
+        Task task = listOfTasks.get(position - 1);
+        task.setDone();
+        listOfTasks.set(position - 1, task);
+        displayList(listOfTasks);
     }
 
-    public static void addToDo(Task[] listOfTasks, String description, int count) {
-        listOfTasks[count] = new ToDo(description);
-        printBlock(String.format("Got it. Task added\n %s", listOfTasks[count]));
+    public static void deleteTask(ArrayList<Task> listOfTasks, int position) {
+        Task task = listOfTasks.get(position - 1);
+        printBlock("Got it. The task below was removed:\n    " + task +
+                "\nNow you have " + listOfTasks.size() + " left");
+        listOfTasks.remove(position - 1);
     }
 
-    public static void addDeadline(Task[] listOfTasks, String description, int count) throws InvalidDeadlineException{
+    public static void addToDo(ArrayList<Task> listOfTasks, String description) {
+        ToDo toDo = new ToDo(description);
+        listOfTasks.add(toDo);
+        printBlock(String.format("Got it. Task added\n %s", toDo));
+    }
+
+    public static void addDeadline(ArrayList<Task> listOfTasks, String description) throws InvalidDeadlineException{
         String[] descriptionAndDeadline = description.split("/by");
         if (descriptionAndDeadline.length != 2) {
             throw new InvalidDeadlineException();
         }
         String descriptionText = descriptionAndDeadline[0].trim();
         String by = descriptionAndDeadline[1].trim();
-        listOfTasks[count] = new Deadline(descriptionText, by);
-        printBlock(String.format("Got it. Task added\n %s", listOfTasks[count]));
+
+        Deadline deadline = new Deadline(descriptionText, by);
+        listOfTasks.add(deadline);
+
+        printBlock(String.format("Got it. Task added\n %s", deadline));
     }
 
-    public static void addEvent(Task[] listOfTasks, String description, int count) {
+    public static void addEvent(ArrayList<Task> listOfTasks, String description) {
         String[] descriptionAndEventTimeline = description.split("/from");
         String descriptionText = descriptionAndEventTimeline[0].trim();
         String[] eventTimeline = descriptionAndEventTimeline[1].split("/to");
         String from = eventTimeline[0].trim();
         String to = eventTimeline[1].trim();
-        listOfTasks[count] = new Event(descriptionText, from, to);
-        printBlock(String.format("Got it. Task added\n %s", listOfTasks[count]));
+        
+        Event event = new Event(descriptionText, from, to);
+        listOfTasks.add(event);
+
+        printBlock(String.format("Got it. Task added\n %s", event));
     }
 
     public static void main(String[] args) {
 
         boolean isOnline = true;
-        Task[] listOfTasks = new Task[100];
-        int count = 0;
+        ArrayList<Task> listOfTasks = new ArrayList<>();
         String description;
         String line;
         String[] lineArr;
+        int position;
         Scanner input = new Scanner(System.in);
 
         greet();
@@ -83,26 +102,27 @@ public class V {
                     isOnline = false;
                     break;
                 case "list":
-                    displayList(listOfTasks, count);
+                    displayList(listOfTasks);
                     break;
                 case "mark":
-                    int position = Integer.parseInt(lineArr[1]);
-                    markTask(listOfTasks, position, count);
+                    position = Integer.parseInt(lineArr[1]);
+                    markTask(listOfTasks, position);
+                    break;
+                case "delete":
+                    position = Integer.parseInt(lineArr[1]);
+                    deleteTask(listOfTasks, position);
                     break;
                 case "todo":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addToDo(listOfTasks, description, count);
-                    count++;
+                    addToDo(listOfTasks, description);
                     break;
                 case "deadline":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addDeadline(listOfTasks, description, count);
-                    count++;
+                    addDeadline(listOfTasks, description);
                     break;
                 case "event":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addEvent(listOfTasks, description, count);
-                    count++;
+                    addEvent(listOfTasks, description);
                     break;
                 default:
                     System.out.println("Try again");
