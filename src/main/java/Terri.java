@@ -17,7 +17,7 @@ public class Terri {
                 "                                            \n";
 
         System.out.println("Hello from\n" + logo);
-        String divider = "____________________________________________________________";
+
         System.out.println("Heya! I'm Terri.");
         System.out.println("What can I help you with today?");
 
@@ -31,30 +31,38 @@ public class Terri {
         // Continually check for user input
         while (true) {
             String userInput = scanner.nextLine();
-            System.out.println(divider);
+            Terri.printDivider();
 
-            switch (userInput) {
+            // Isolate individual keywords in user input
+
+            String[] keyWord = userInput.split(" ");
+
+            switch (keyWord[0]) {
                 // Short-circuit check for exit input
                 case "bye":
-                    System.out.println("Bye then! See ya soon!\n"+divider);
+                    System.out.println("Bye then! See ya soon!\n");
+                    Terri.printDivider();
                     return;
+                // List all tasks with completion indicators
                 case "list":
-                    for (int i = 1; i <= taskCounter; i++) {
-                        System.out.println(i+". "
-                                + taskList[i-1].retrieveTaskName());
-                    }
-                    System.out.println(divider);
+                    TaskList.listTasks();
+                    break;
+                // Mark tasks complete
+                case "mark":
+                    TaskList.markDone(Integer.parseInt(keyWord[1]) - 1);
+                    break;
+                // Mark tasks not complete
+                case "unmark":
+                    TaskList.markNotDone(Integer.parseInt(keyWord[1]) - 1);
                     break;
                 // Create new task
                 default:
-                    taskList[taskCounter++] = new Task(userInput);
-                    System.out.println("Just added: " + userInput + "!");
-                    System.out.println(divider);
-                    break;
+                    TaskList.addTask(userInput);
             }
         }
-
     }
-
-
+    public static void printDivider() {
+        String divider = "____________________________________________________________";
+        System.out.println(divider);
+    }
 }

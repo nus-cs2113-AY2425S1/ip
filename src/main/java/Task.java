@@ -8,11 +8,19 @@ public class Task {
         this.isDone = false;
     }
 
-    public void updateCompletion(boolean status) {
-        this.isDone = status;
+    public void updateisDone(boolean newStatus) {
+        this.isDone = newStatus;
     }
 
-    public String retrieveTaskName() {
+    public String getTaskName() {
         return this.taskName;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "[X] " : "[ ] ");
     }
 }
