@@ -24,4 +24,8 @@ public class Task {
     public void markAsUnDone() {
         isDone = false;
     }
+
+    public String formattedTask() {
+        return "NULL";
+    }
 }

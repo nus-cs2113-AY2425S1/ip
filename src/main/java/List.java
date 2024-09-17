@@ -304,4 +304,12 @@ public class List {
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + itemArrayList.size() + " tasks in the list.");
     }
+
+    public String getFormattedTasks() {
+        String outputString = "";
+        for (Task a: itemArrayList) {
+                outputString += a.formattedTask() + System.lineSeparator();
+        }
+        return outputString;
+    }
 }
