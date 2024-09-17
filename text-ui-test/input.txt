@@ -4,3 +4,5 @@ list
 event CS2113 lecture /from Friday 4pm /to 6pm
 mark 1
 list
+delete 2
+list

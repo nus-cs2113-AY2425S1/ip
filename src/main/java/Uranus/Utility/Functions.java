@@ -55,8 +55,9 @@ public class Functions {
     private void processCommand(String input) {
         if (input.startsWith("mark") || input.startsWith("unmark")) {
             handleMarking(input);
-        }
-        else {
+        } else if (input.startsWith("delete")) {
+            handleDelete(input);
+        } else {
             switch (input) {
             case "bye":
                 Chatbot.printByeMessage();
@@ -78,6 +79,24 @@ public class Functions {
         }
     }
 
+    private void handleDelete(String input) {
+        try {
+            int index = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
+            if (index >= 0 && index < taskList.size()) {
+                print("Got it. I've removed this task:",
+                        "  " + taskStatus(index),
+                        "Now you have %d task(s) in the list".formatted(taskList.size() - 1));
+                taskList.remove(index);
+            } else {
+                print("No such task exists. Please try again.");
+            }
+        } catch (NumberFormatException e) {
+            print("Invalid task input. Please try again.", "Correct format: delete <int>");
+        } catch (IllegalArgumentException e) {
+            print("Task Number cannot be empty!");
+        }
+    }
+
     private void handleMarking(String input) {
         try {
             int taskNumIndex = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
@@ -90,7 +109,7 @@ public class Functions {
                     print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
                 }
             } else {
-                print("Invalid task input. Please try again.");
+                print("No such task exist. Please try again.");
             }
         } catch (NumberFormatException e) {
             print("Invalid task input. Please try again.", "Correct format: mark <int> / unmark <int>");
