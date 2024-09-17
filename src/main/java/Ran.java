@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Ran {
     private static boolean isTerminated = false; 
@@ -216,7 +217,7 @@ public class Ran {
         }
     }
 
-    public static File loadFile() throws IOException {
+    public static void loadFile() throws IOException {
         // Check for existence of directory
         String directory = "./data";
         File dir = new File(directory);
@@ -230,17 +231,47 @@ public class Ran {
         if (!f.exists()) {
             f.createNewFile();
         }
-        return f;
+    }
+    
+    public static void loadTask(String task) {
+        String[] taskInstruction = task.split(", ");
+        boolean isDone = taskInstruction[1].equals("1");
+        if (taskInstruction[0].equals("T")) {
+            list[listCount] = new Todo(isDone, taskInstruction[2]);
+            listCount++;
+        } else if (taskInstruction[0].equals("D")) {
+            list[listCount] = new Deadline(isDone, taskInstruction[2], taskInstruction[3]);
+            listCount++;
+        } else if (taskInstruction[0].equals("E")) {
+            list[listCount] = new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]);
+            listCount++;
+        }
+    }
+
+    public static void loadData(File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            loadTask(s.nextLine());
+        }
     }
 
     public static void main(String[] args) {
         greet();
-
+        
         // Check for data file, create directory and data file if necessary
         try {
-            File f = loadFile();
+            loadFile();
         } catch (IOException e) {
             System.out.println("Unfortunately I, Ran, have ran into an issue accessing your data files.");
+        } 
+        
+        File f = new File ("./data/ran.txt");
+
+        // Load data from data file
+        try {
+            loadData(f);
+        } catch (FileNotFoundException e) {
+            System.out.println("That is strange, I swear I thought your data file exists...");
         }
 
         // Take in user input from the terminal

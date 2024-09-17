@@ -21,7 +21,7 @@ public class Task {
         isDone = false;
     }
 
-	public String toString() {
-		return "[" + (isDone ? "X" : " ") + "] " + description;
-	}
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
 }
