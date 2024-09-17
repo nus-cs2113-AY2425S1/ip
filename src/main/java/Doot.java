@@ -45,6 +45,9 @@ public class Doot {
             case "unmark":
                 unmarkTask(digit);
                 break;
+            case "delete":
+                deleteTask(digit);
+                break;
             default:
                 addToList(command);
                 break;
@@ -157,10 +160,11 @@ public class Doot {
     }
 
     public static void deleteTask(int idx) {
-        Task toDelete = taskList.get(idx);
-        taskList.remove(idx);
-        System.out.println(DIVIDER + "Noted. I've removed this task: \n" + toDelete.toString() + "\n Now you have "
-                + taskList.size() + "tasks in this list." + DIVIDER);
+        int zeroIndexedIdx = idx - 1;
+        Task toDelete = taskList.get(zeroIndexedIdx);
+        taskList.remove(zeroIndexedIdx);
+        System.out.println(DIVIDER + "Noted. I've removed this task: \n" + toDelete.toString() + "\nNow you have "
+                + taskList.size() + " tasks in this list.\n" + DIVIDER);
     }
 
 }
