@@ -86,6 +86,9 @@ public class PlopBot {
             case "list":
                 list();
                 break;
+            case "delete":
+                delete(details);
+                break;
             case "help":
                 showHelp();
                 break;
@@ -234,6 +237,7 @@ public class PlopBot {
         catch (NumberFormatException | ArrayIndexOutOfBoundsException e){
             System.out.println("Invalid command. Please use 'mark <task number>'.");
         }
+        System.out.println(ECHO_LINE);
     }
 
     /**
@@ -325,6 +329,30 @@ public class PlopBot {
                 }
                 throw new IllegalArgumentException("Unable to parse time: " + timeString);
             }
+        }
+    }
+
+    private static void delete (String details) {
+        try {
+            int taskNumber = Integer.parseInt(details.trim());
+
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
+                throw new IllegalArgumentException("Invalid task number. Please enter a task number between 1 and " + tasks.size() + ".");
+            }
+
+            Task removedTask = tasks.remove(taskNumber - 1);
+            System.out.println(ECHO_LINE);
+            System.out.println("    Understood. Deleted the following task: ");
+            System.out.println("      " + removedTask);
+            System.out.println("    You now have " + tasks.size() + " tasks in the list.");
+            System.out.println(ECHO_LINE);
+
+        }
+        catch (NumberFormatException e) {
+            printError("Please provide a valid task number to delete.");
+        }
+        catch (IllegalArgumentException e) {
+            printError(e.getMessage());
         }
     }
 
