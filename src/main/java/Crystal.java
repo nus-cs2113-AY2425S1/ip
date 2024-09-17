@@ -7,6 +7,10 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Crystal {
     public static ArrayList<Task> tasks = new ArrayList<>();
@@ -82,7 +86,7 @@ public class Crystal {
     }
 
     public static void printExceptionMessage() {
-        System.out.println(" Can you repeat it again?");
+        System.out.println("Can you repeat it again?");
         horizontalLine();
     }
 
@@ -98,7 +102,7 @@ public class Crystal {
             String[] twoParts = line.substring(DEADLINE_CHAR_COUNT + 1).trim().split(" /by ");
             if (twoParts.length != 2) {
                 horizontalLine();
-                throw new IncompleteCommandException("You are missing some parameters!");
+                throw new IncompleteCommandException("You are missing some parameters! ");
             }
             String description = twoParts[0];
             String by = twoParts[1];
@@ -115,7 +119,7 @@ public class Crystal {
             String[] threeParts = line.substring(EVENT_CHAR_COUNT + 1).trim().split(" /from | /to ");
             if (threeParts.length != 3) {
                 horizontalLine();
-                throw new IncompleteCommandException("You are missing some parameters!");
+                throw new IncompleteCommandException("You are missing some parameters! ");
             }
             String description = threeParts[0];
             String from = threeParts[1];
@@ -125,6 +129,83 @@ public class Crystal {
             printAddedTaskMessage();
         } catch (IncompleteCommandException e) {
             printExceptionMessage();
+        }
+    }
+
+    private static void saveTaskList(ArrayList<Task> list) {
+        try {
+            // create separate dir for saved data if !exist()
+            File dir = new File("./data");
+            if (!dir.exists()) {
+                if (dir.mkdir()) {
+                    System.out.println("Directory for saved data created.");
+                }
+            }
+
+            // create data file if !exist()
+            File file = new File(dir, "Crystal.txt");
+            if (!file.exists()) {
+                if (file.createNewFile()) {
+                    System.out.println("Data file is created.");
+                }
+            }
+
+            // rewriting data in the list to the file
+            FileWriter fw = new FileWriter(file);
+            for (Task task : list) {
+                fw.write(task.fileFormat() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            horizontalLine();
+            System.out.print("Data is unable to save. ");
+            printExceptionMessage();
+        }
+    }
+
+    public static void updateTask(boolean isDoneUpdated, Task t) {
+        t.updateBool(isDoneUpdated);
+        tasks.add(t);
+        taskCount++;
+    }
+
+    public static void addTaskToList(String[] words) {
+        String command = words[0];
+        boolean isDoneUpdated = Boolean.parseBoolean(words[1]);
+        try {
+            switch (command) {
+            case "T":
+                Task todo = new Todo(words[2]);
+                updateTask(isDoneUpdated,todo);
+                break;
+            case "D":
+                Task deadline = new Deadline(words[2], words[3]);
+                updateTask(isDoneUpdated,deadline);
+                break;
+            case "E":
+                Task event = new Event(words[2], words[3], words[4]);
+                updateTask(isDoneUpdated,event);
+                break;
+            default:
+                throw new IOException("File is Corrupted.");
+            }
+        } catch (IOException e) {
+            horizontalLine();
+            System.out.print(e.getMessage());
+            printExceptionMessage();
+        }
+    }
+
+    public static void loadTaskList() {
+        try {
+            File file = new File("./data/Crystal.txt");
+            Scanner scan = new Scanner(file);
+            while (scan.hasNext()) {
+                String[] words = scan.nextLine().split("\\|");
+                addTaskToList(words);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No data to load.");
         }
     }
 
@@ -149,23 +230,28 @@ public class Crystal {
                 case "mark":
                     taskNumber = Integer.parseInt(words[1]);
                     mark(taskNumber);
+                    saveTaskList(tasks);
                     break;
                 case "unmark":
                     taskNumber = Integer.parseInt(words[1]);
                     unmark(taskNumber);
+                    saveTaskList(tasks);
                     break;
                 case "todo":
                     addTodo(line);
+                    saveTaskList(tasks);
                     break;
                 case "deadline":
                     addDeadline(line);
+                    saveTaskList(tasks);
                     break;
                 case "event":
                     addEvent(line);
+                    saveTaskList(tasks);
                     break;
                 default:
                     horizontalLine();
-                    throw new InvalidCommandException("Did you misspell or miss out something?");
+                    throw new InvalidCommandException("Did you misspell or miss out something? ");
                 }
             } catch (InvalidCommandException e) {
                 printExceptionMessage();
@@ -175,6 +261,7 @@ public class Crystal {
 
     public static void main(String[] args) {
         sayHello();
+        loadTaskList();
         callingCrystal();
         sayBye();
     }
