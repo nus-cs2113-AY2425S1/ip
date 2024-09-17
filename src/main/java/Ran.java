@@ -137,6 +137,21 @@ public class Ran {
         System.out.println(LINE);
     }
     
+    public static void deleteTask(String taskNum) throws OutOfListBoundsException {
+        int taskNumber = Integer.parseInt(taskNum) - 1;
+        if (taskNumber >= listCount || taskNumber < 0) {
+            throw new OutOfListBoundsException();
+        }
+        System.out.println(LINE);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + list.get(taskNumber));
+        list.remove(taskNumber);
+        listCount--;
+        System.out.println("\tYou currently have " + listCount + 
+                (listCount <= 1 ? " task" : " tasks") + " in your list.");
+        System.out.println(LINE);
+    }
+
     // Read user input for command, throw exception for invalid commands
     public static void executeCommand(String input, String[] instruction) 
             throws MissingCommandException, MissingDescriptionException, EmptyListException,
@@ -174,6 +189,12 @@ public class Ran {
                 unmarkTask(instruction[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException(CommandType.UNMARK);
+            }
+        } else if (instruction[0].equals("delete")) {
+            try {
+                deleteTask(instruction[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingArgumentException(CommandType.DELETE);
             }
         } else {
             throw new MissingCommandException();
