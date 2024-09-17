@@ -1,3 +1,5 @@
+package utils;
+
 public class SuBotException extends Exception{
     public SuBotException() {
     }

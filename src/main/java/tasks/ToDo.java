@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package tasks;
+
+public class ToDo extends Task {
 
     public ToDo(String command, boolean isDone) {
         super(command, isDone);

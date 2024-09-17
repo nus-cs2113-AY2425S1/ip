@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     protected String command;
     protected boolean isDone;
@@ -12,23 +14,23 @@ public class Task {
         this.isDone = false;
     }
 
-    protected String getCommand() {
+    public String getCommand() {
         return command;
     }
 
-    protected void setCommand(String command) {
+    public void setCommand(String command) {
         this.command = command;
     }
 
-    protected boolean isDone() {
+    public boolean isDone() {
         return isDone;
     }
 
-    protected void setDone(boolean done) {
+    public void setDone(boolean done) {
         isDone = done;
     }
 
-    protected void printTask() {
+    public void printTask() {
         String mark = (this.isDone) ? "X" : " ";
         System.out.printf("[%s] %s\n", mark, this.command);
     }
