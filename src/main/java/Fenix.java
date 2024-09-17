@@ -65,19 +65,12 @@ public class Fenix implements SampleStrings {
     }
 
     public void showAllTasks(boolean isModified) {
-        String index;
-        String task;
         String extraSpace = (isModified ? "\t" : "");
         String space = extraSpace + "\t";
-        for (int i = 0; i < taskArrayList.size() && !isNullElement(i); i += 1) {
-            index = (i + 1) + ". ";
-            task = taskArrayList.get(i).toString();
+        for (Task task : taskArrayList) {
+            String index = (taskArrayList.indexOf(task) + 1) + ". ";
             System.out.println(space + index + task);
         }
-    }
-
-    public boolean isNullElement(int i) {
-        return taskArrayList.get(i) == null;
     }
 
     private void markAsDone(String taskNumber) {
@@ -110,6 +103,12 @@ public class Fenix implements SampleStrings {
         }
     }
 
+    public void markTaskAsDone(int taskNumber) {
+        System.out.println("Task successfully completed. A job well executed.");
+        taskArrayList.get(taskNumber).markAsDone();
+        printListTaskStatusChange();
+    }
+
     private void unmarkAsDone(String taskNumber) {
         int taskIndex = getTaskIndex(taskNumber);
         if (taskIndex == -1)
@@ -119,17 +118,13 @@ public class Fenix implements SampleStrings {
         unmarkTaskAsDone(taskIndex);
     }
 
-    public void markTaskAsDone(int taskNumber) {
-        System.out.println("Task successfully completed. A job well executed.");
-        taskArrayList.get(taskNumber).markAsDone();
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        showAllTasks(true);
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-    }
-
     public void unmarkTaskAsDone(int taskNumber) {
         System.out.println("Understood. This task has been marked as not done yet.");
         taskArrayList.get(taskNumber).unmarkAsDone();
+        printListTaskStatusChange();
+    }
+
+    private void printListTaskStatusChange() {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         showAllTasks(true);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
@@ -148,8 +143,12 @@ public class Fenix implements SampleStrings {
             return;
         }
         storeTask(task);
+        printFenixModification(ADD, task);
+    }
+
+    private static void printFenixModification(String modification, Task task) {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("\t\t" + ADD + task);
+        System.out.println("\t\t" + modification + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         System.out.println("You now have " + taskArrayList.size() + " tasks awaiting your attention.");
     }
@@ -190,9 +189,6 @@ public class Fenix implements SampleStrings {
         }
         Task task = taskArrayList.get(taskIndex);
         taskArrayList.remove(taskIndex);
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("\t\t" + DELETE + task);
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("You now have " + taskArrayList.size() + " tasks awaiting your attention.");
+        printFenixModification(DELETE, task);
     }
 }
