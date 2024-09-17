@@ -49,15 +49,15 @@ Task successfully completed. A job well executed.
 		3. [E][ ] run  (from: 5pm to: 7pm)
 		**************************************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to mark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to mark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to mark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to unmark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to unmark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Understood. This task has been marked as not done yet.
 		**************************************************************
@@ -66,7 +66,7 @@ Understood. This task has been marked as not done yet.
 		3. [E][ ] run  (from: 5pm to: 7pm)
 		**************************************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please provide a valid task number to unmark
+Please provide a valid task number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		**************************************************************
 		added: [E][ ] Career fair  (from: Monday 2pm to: Wednesday 5pm)

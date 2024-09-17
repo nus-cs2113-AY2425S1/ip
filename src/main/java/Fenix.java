@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Fenix implements SampleStrings {
-
-    public static int taskNumber = 0;
+    
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
     private final Scanner scanner;
 
@@ -50,6 +49,9 @@ public class Fenix implements SampleStrings {
         case "event":
             processTasks(commandType, commandInfo);
             break;
+        case "delete":
+            deleteTask(commandInfo);
+            break;
         default:
             System.out.println("Please provide a valid command");
         }
@@ -79,38 +81,42 @@ public class Fenix implements SampleStrings {
     }
 
     private void markAsDone(String taskNumber) {
-        try {
-            if (isValidTaskNumber(taskNumber)) {
-                int taskIndex = Integer.parseInt(taskNumber) - 1;
-                markTaskAsDone(taskIndex);
-            } else {
-                System.out.println("Please provide a valid task number to mark");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please provide a task");
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
         }
+        markTaskAsDone(taskIndex);
+    }
+
+    private int getTaskIndex(String taskNumber) {
+        if (taskNumber.isBlank()) {
+            System.out.println("Please provide a task");
+            return -1;
+        }
+        if (!isValidTaskNumber(taskNumber)) {
+            System.out.println("Please provide a valid task number");
+            return -1;
+        }
+        return Integer.parseInt(taskNumber) - 1;
     }
 
     private boolean isValidTaskNumber(String input) {
         try {
             int index = Integer.parseInt(input);
-            return index > 0 && index <= taskNumber;
+            return index > 0 && index <= taskArrayList.size();
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     private void unmarkAsDone(String taskNumber) {
-        try {
-            if (isValidTaskNumber(taskNumber)) {
-                int taskIndex = Integer.parseInt(taskNumber) - 1;
-                unmarkTaskAsDone(taskIndex);
-            } else {
-                System.out.println("Please provide a valid task number to unmark");
-            }
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            System.out.println("Please provide a task");
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
         }
+        unmarkTaskAsDone(taskIndex);
     }
 
     public void markTaskAsDone(int taskNumber) {
@@ -145,7 +151,7 @@ public class Fenix implements SampleStrings {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         System.out.println("\t\t" + ADD + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("You now have " + taskNumber + " tasks awaiting your attention.");
+        System.out.println("You now have " + taskArrayList.size() + " tasks awaiting your attention.");
     }
 
     private Task returnTaskObject(String type, String information) {
@@ -174,6 +180,19 @@ public class Fenix implements SampleStrings {
 
     public void storeTask(Task task) {
         taskArrayList.add(task);
-        taskNumber++;
+    }
+
+    public void deleteTask(String taskNumber) {
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
+        }
+        Task task = taskArrayList.get(taskIndex);
+        taskArrayList.remove(taskIndex);
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+        System.out.println("\t\t" + DELETE + task);
+        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+        System.out.println("You now have " + taskArrayList.size() + " tasks awaiting your attention.");
     }
 }
