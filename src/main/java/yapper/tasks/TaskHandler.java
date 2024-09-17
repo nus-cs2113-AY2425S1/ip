@@ -40,17 +40,7 @@ public class TaskHandler {
         Task task = tasks.remove(taskOrdinal);
         task.printDeletedTask(tasks.size());
     }
-    public void updateTaskStatus(int taskOrdinal, boolean isDone) {
-        Task task = tasks.get(taskOrdinal);
-
-        boolean isAlreadyInDesiredState =
-                ( isDone && task.isDone() ) || ( !isDone && !task.isDone() );
-        if (isAlreadyInDesiredState) {
-            StringStorage.printWithDividers("This task is already " +
-                    (isDone ? "" : "not") + " marked as done" );
-            return;
-        }
-
+    public void updateTaskStatus(Task task, boolean isDone) {
         task.setDoneStatus(isDone);
         OutputStringHandler.printTaskStatus(task, isDone);
     }

@@ -84,5 +84,6 @@ public class InputStringHandler {
 
         // If none of the above code works, user input cannot be recognized
         throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
+        // TODO is this how I should throw unrecognised exception error?
     }
 }

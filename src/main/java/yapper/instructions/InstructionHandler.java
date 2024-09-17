@@ -15,7 +15,7 @@ import java.util.List;
 
 // Human-Yapper Interface
 public class InstructionHandler {
-    private static final int INDEX_OFFSET = 1;
+    private static final int INDEX_OFFSET = 1; // list is 1-indexed
 
     // UI Operations
     public static void handleListInstruction(List<Task> tasks, int taskCount) {
@@ -32,7 +32,8 @@ public class InstructionHandler {
     }
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
         try {
-            ErrorHandler.checkIfTaskOrdinalWithinRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+            // this should indirectly check if list is empty?
+            ErrorHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
@@ -40,8 +41,11 @@ public class InstructionHandler {
     }
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) {
         try {
-            ErrorHandler.checkIfTaskOrdinalWithinRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-            taskHandler.updateTaskStatus(taskOrdinal - INDEX_OFFSET, isDone);
+            ErrorHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+
+            Task task = taskHandler.getTask(taskOrdinal - INDEX_OFFSET);
+            ErrorHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
+            taskHandler.updateTaskStatus(task, isDone);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
