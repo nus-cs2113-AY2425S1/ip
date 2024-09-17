@@ -16,6 +16,22 @@ public class Task {
         this.isMarked = false;
     }
 
+    public boolean isMarked() {
+        return this.isMarked;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String toFile() {
+        return String.format("%s| %d| %s", getTaskType(), isMarked ? 1 : 0, description);
+    }
+
+    public String getTaskType() {
+        return "T";
+    }
+
     @Override
     public String toString() {
         return (isMarked ? "[X] " : "[ ] ") + description;

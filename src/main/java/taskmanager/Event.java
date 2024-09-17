@@ -11,6 +11,16 @@ public class Event extends Task {
     }
 
     @Override
+    public String getTaskType() {
+        return "E";
+    }
+
+    @Override
+    public String toFile() {
+        return String.format("%s | %d | %s | %s | %s", getTaskType(), isMarked() ? 1 : 0, getDescription(), from, to);
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
