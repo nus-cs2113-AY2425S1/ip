@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import freedom.exceptions.CannotReadFile;
 import freedom.exceptions.InvalidCommand;
@@ -15,6 +17,7 @@ public class Freedom {
     static int lastIndex = 0;
 
     static final String LOGO = "\t________________________________________\n";
+    static final String DATA_FILE_PATH = "./data/freedom.txt";
 
     public static void main(String[] args) {
         final String START_MESSAGE = """
@@ -64,14 +67,17 @@ public class Freedom {
                 case "todo":
                     description = input.replaceFirst("todo", "");
                     tasks.add(new ToDo(description));
+                    addToData("T");
                     break;
                 case "deadline":
                     description = input.replaceFirst("deadline", "");
                     tasks.add(new Deadline(description));
+                    addToData("D");
                     break;
                 case "event":
                     description = input.replaceFirst("event", "");
                     tasks.add(new Event(description));
+                    addToData("E");
                     break;
                 default:
                     throw new InvalidCommand();
@@ -147,7 +153,7 @@ public class Freedom {
         boolean isDone;
 
         try {
-            File data = new File("./data/freedom.txt");
+            File data = new File(DATA_FILE_PATH);
             Scanner read = new Scanner(data);
             while (read.hasNextLine()) {
                 String[] words = read.nextLine().split("[|]");
@@ -180,6 +186,28 @@ public class Freedom {
             throw new Exception();
         } catch (Exception e) {
             System.out.print("");
+        }
+    }
+
+    public static void addToData(String taskType) {
+        String taskInData;
+        final String DIVIDER = " | ";
+        try (FileWriter writer = new FileWriter(DATA_FILE_PATH, true)) {
+            Task taskToAdd = tasks.get(lastIndex);
+            String status = taskToAdd.getStatusIcon().equals("X") ? "1" : "0";
+            taskInData = "\n" + taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
+
+            if (taskType.equals("D")) {
+                taskInData += DIVIDER + taskToAdd.getDoneBy();
+            } else if (taskType.equals("E")) {
+                taskInData += DIVIDER + taskToAdd.getFrom() + DIVIDER + taskToAdd.getTo();
+            }
+
+            writer.write(taskInData);
+        } catch (IOException e){
+            System.out.print(LOGO);
+            System.out.println("\tCannot open data file :((");
+            System.out.println(LOGO);
         }
     }
 }

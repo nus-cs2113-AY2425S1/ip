@@ -37,7 +37,7 @@ public class Deadline extends Task{
         }
     }
 
-    public Deadline(String description, boolean isDone, String doneBy) throws Exception {
+    public Deadline(String description, boolean isDone, String doneBy) {
         super(description);
         this.isDone = isDone;
         setDoneBy(doneBy);

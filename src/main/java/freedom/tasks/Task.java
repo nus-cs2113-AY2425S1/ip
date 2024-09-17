@@ -59,4 +59,16 @@ public class Task {
         System.out.println("\tDescription cannot be empty!!");
         System.out.println(LOGO);
     }
+
+    public String getDoneBy() {
+        return "";
+    }
+
+    public String getFrom() {
+        return "";
+    }
+
+    public String getTo() {
+        return "";
+    }
 }
