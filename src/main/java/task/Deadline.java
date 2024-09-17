@@ -1,19 +1,19 @@
 package task;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String dueDate;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
-    public String getBy() {
-        return by;
+    public String getDueDate() {
+        return dueDate;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate + ")";
     }
 }

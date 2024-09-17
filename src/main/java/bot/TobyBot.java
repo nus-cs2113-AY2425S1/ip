@@ -5,7 +5,10 @@ import task.Todo;
 import task.Deadline;
 import task.Event;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,7 +60,6 @@ public class TobyBot {
             System.out.println(LINE);
 
             saveTasks();
-            
         }
     }
 
@@ -106,11 +108,11 @@ public class TobyBot {
             sb.append("T");
         } else if (task instanceof Deadline deadline) {
             sb.append("D");
-            sb.append(" | ").append(deadline.getBy());
+            sb.append(" | ").append(deadline.getDueDate());
         } else if (task instanceof Event event) {
             sb.append("E");
-            sb.append(" | ").append(event.getFrom());
-            sb.append(" | ").append(event.getTo());
+            sb.append(" | ").append(event.getStartTime());
+            sb.append(" | ").append(event.getEndTime());
         }
         sb.insert(1, " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription());
         return sb.toString();
