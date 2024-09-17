@@ -12,11 +12,11 @@ public class Functions {
 
     protected static final Scanner in = new Scanner(System.in);
     private static final String SEPARATOR = "_________________________________________________________";
-    private ArrayList<Task> taskList = new ArrayList<>();
+    protected static ArrayList<Task> taskList = new ArrayList<>();
 
     public Functions() {}
 
-    public void printFunctions(){
+    public static void printFunctions(){
         print(
                 "Currently, I am able to execute the following functions:",
                 "1. Add tasks: I can add tasks to your task list.",
@@ -37,7 +37,7 @@ public class Functions {
         );
     }
 
-    public void print(String... messages){
+    public static void print(String... messages){
         System.out.println(SEPARATOR);
         for (String message : messages) {
             System.out.println(message);
@@ -46,13 +46,15 @@ public class Functions {
     }
 
     public void taskmaster() {
+        FileManagement.load();
         while (true) {
             String input = in.nextLine();
             processCommand(input);
+            FileManagement.save();
         }
     }
 
-    private void processCommand(String input) {
+    protected static void processCommand(String input) {
         if (input.startsWith("mark") || input.startsWith("unmark")) {
             handleMarking(input);
         } else if (input.startsWith("delete")) {
@@ -79,7 +81,7 @@ public class Functions {
         }
     }
 
-    private void handleDelete(String input) {
+    private static void handleDelete(String input) {
         try {
             int index = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
             if (index >= 0 && index < taskList.size()) {
@@ -97,7 +99,7 @@ public class Functions {
         }
     }
 
-    private void handleMarking(String input) {
+    private static void handleMarking(String input) {
         try {
             int taskNumIndex = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
             if (taskNumIndex >= 0 && taskNumIndex < taskList.size()) {
@@ -118,11 +120,11 @@ public class Functions {
         }
     }
 
-    public String taskStatus(int index){
+    public static String taskStatus(int index){
         return taskList.get(index).getTaskStatus();
     }
 
-    private void listTasks() {
+    private static void listTasks() {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
@@ -131,7 +133,7 @@ public class Functions {
         System.out.println(SEPARATOR);
     }
 
-    private void addTask(String input) {
+    private static void addTask(String input) {
 
         try {
             if (input == null || input.trim().isEmpty()) {
@@ -152,7 +154,6 @@ public class Functions {
             } else{
                 throw new IllegalCommandException();
             }
-
             print("Got it. I've added this task:",
                     "  " + taskStatus(taskList.size() - 1),
                     "Now you have %d task(s) in the list".formatted(taskList.size()));
@@ -161,9 +162,8 @@ public class Functions {
         }
     }
 
-    private void echo(){
+    private static void echo(){
         while(true){
-
             System.out.println("Say anything! If you are no longer bored, type exit !");
             String input = in.nextLine();
             if(input.equals("exit")){
@@ -174,5 +174,4 @@ public class Functions {
             print(input);
         }
     }
-
 }
