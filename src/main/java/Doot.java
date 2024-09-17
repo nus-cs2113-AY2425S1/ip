@@ -1,10 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Doot {
     private static final String DIVIDER = "____________________________________________________________\n\n";
-    private static final int MAX_TASKS = 100;
-    private static Task[] taskList = new Task[MAX_TASKS];
-    private static int taskIdx = 0;
+    private static final int DEFAULT_TASKS = 100;
+    private static ArrayList<Task> taskList = new ArrayList<>(DEFAULT_TASKS);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -100,57 +100,67 @@ public class Doot {
     }
 
     public static void makeDeadline(String description, String by) {
-        taskList[taskIdx] = new Deadline(description, by);
-        taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
-                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        taskList.add(new Deadline(description, by));
+        System.out
+                .print(DIVIDER + "Got it. I've added this task:\n" + taskList.get(taskList.size() - 1).toString() + "\n"
+                        + "Now you have " + taskList.size() + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void makeEvent(String description, String to, String from) {
-        taskList[taskIdx] = new Event(description, to, from);
-        taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
-                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        taskList.add(new Event(description, to, from));
+        System.out
+                .print(DIVIDER + "Got it. I've added this task:\n" + taskList.get(taskList.size() - 1).toString() + "\n"
+                        + "Now you have " + taskList.size() + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void makeToDo(String description) throws DootException {
         if (description.equals("")) {
             throw new DootException("The description of a todo cannot be empty.");
         }
-        taskList[taskIdx] = new ToDo(description);
-        taskIdx++;
-        System.out.print(DIVIDER + "Got it. I've added this task:\n" + taskList[taskIdx - 1].toString() + "\n"
-                + "Now you have " + taskIdx + " tasks in the list.\n" + DIVIDER);
+        taskList.add(new ToDo(description));
+        System.out
+                .print(DIVIDER + "Got it. I've added this task:\n" + taskList.get(taskList.size() - 1).toString() + "\n"
+                        + "Now you have " + taskList.size() + " tasks in the list.\n" + DIVIDER);
     }
 
     public static void markTask(int idx) {
-        taskList[idx - 1].markDone();
-        System.out.println(DIVIDER + "Nice! I've marked this task as done: " + taskList[idx - 1].getDescription() + "\n"
+        taskList.get(taskList.size() - 1).markDone();
+        System.out.println(DIVIDER + "Nice! I've marked this task as done: "
+                + taskList.get(taskList.size() - 1).getDescription() + "\n"
                 + DIVIDER);
     }
 
     public static void unmarkTask(int idx) {
-        taskList[idx - 1].markUnDone();
-        System.out.println(DIVIDER + "OK, I've marked this task as not done yet: " + taskList[idx - 1].getDescription()
+        taskList.get(-1).markUnDone();
+        System.out.println(DIVIDER + "OK, I've marked this task as not done yet: "
+                + taskList.get(taskList.size() - 1).getDescription()
                 + "\n" + DIVIDER);
     }
 
     public static void addToList(String toAdd) {
-        taskList[taskIdx] = new Task(toAdd);
-        taskIdx++;
+        taskList.add(new Task(toAdd));
         System.out.print(DIVIDER + "added: " + toAdd + "\n" + DIVIDER);
     }
 
     public static void printList() {
         System.out.print(DIVIDER);
-        int curIdx = 1;
+        int curIdx = 0;
         System.out.println("Here are the tasks in your list:");
-        while (curIdx != taskIdx + 1) {
-            Task curTask = taskList[curIdx - 1];
-            System.out.println(curIdx + ". " + curTask.toString());
+        while (curIdx != taskList.size()) {
+            Task curTask = taskList.get(curIdx);
+            int oneIndexedIdx = curIdx + 1;
+            System.out.println(oneIndexedIdx + ". " + curTask.toString());
             curIdx++;
         }
         System.out.print(DIVIDER);
 
     }
+
+    public static void deleteTask(int idx) {
+        Task toDelete = taskList.get(idx);
+        taskList.remove(idx);
+        System.out.println(DIVIDER + "Noted. I've removed this task: \n" + toDelete.toString() + "\n Now you have "
+                + taskList.size() + "tasks in this list." + DIVIDER);
+    }
+
 }
