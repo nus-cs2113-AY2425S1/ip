@@ -13,7 +13,7 @@ import yapper.tasks.Todo;
 
 import java.util.List;
 
-// Human-Yapper Interface. Should this be 2 Classes Instead?
+// Human-Yapper Interface
 public class InstructionHandler {
     private static final int INDEX_OFFSET = 1;
 
@@ -42,6 +42,22 @@ public class InstructionHandler {
         try {
             ErrorHandler.checkIfTaskOrdinalWithinRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
             taskHandler.updateTaskStatus(taskOrdinal - INDEX_OFFSET, isDone);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
+    }
+    public static void handleSaveInstruction(TaskHandler taskHandler) {
+        try {
+            ErrorHandler.checkIfB(); // TODO
+            taskHandler.storeTasksData(taskHandler);
+        } catch (YapperException e) {
+            StringStorage.printWithDividers(e.getMessage());
+        }
+    }
+    public static void handleLoadInstruction(TaskHandler taskHandler) {
+        try {
+            ErrorHandler.checkIfA(); // TODO
+            taskHandler.loadTasksData(taskHandler);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
@@ -92,6 +108,16 @@ public class InstructionHandler {
             handleMarkingInstruction(taskHandler,
                     instruction.getTaskOrdinal(), false);
             break;
+        // WIP
+//        case SAVE:
+//            handleSaveInstruction(taskHandler);
+//            break;
+//        case LOAD:
+//            handleLoadInstruction(taskHandler);
+//            break;
+//        case HELP:
+//            StringStorage.printWithDividers(StringStorage.HELP_MESSAGE);
+//            break;
         }
         // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
     }

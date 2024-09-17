@@ -52,6 +52,14 @@ public class StringStorage {
             "Now, ya dun hafta do dis anymore: ";
     public static final String LIST_SIZE_STRING =
             "Your list is now THIS BIG: ";
+    public static final String BEFORE_SAVING_STRING =
+            "saving data to: ";
+    public static final String AFTER_SAVING_STRING =
+            "saved successfully!";
+    public static final String BEFORE_LOADING_STRING =
+            "retrieving data from: ";
+    public static final String AFTER_LOADING_STRING =
+            "retrieved successfully!";
 
     // Error Messages
     public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
@@ -60,8 +68,10 @@ public class StringStorage {
             "Sorry, you cut off there. Continue what you were saying? ";
     public static final String LIST_EMPTY_MESSAGE =
             "list is empty. ";
-    public static final String LIST_FULL_MESSAGE =
-            "Sorry, I ain't remembering more than this. ";
+//    public static final String LIST_FULL_MESSAGE =
+//            "Sorry, I ain't remembering more than this. ";
     public static final String LIST_OOB_MESSAGE =
             "given list ordinal is invalid. ";
+    public static final String SAVING_ERROR_MESSAGE = "error in saving data";
+    public static final String LOADING_ERROR_MESSAGE = "error in retrieving data";
 }
