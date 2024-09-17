@@ -50,3 +50,13 @@ Here are the tasks in your list:
 2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
 3. [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
 _________________________________________________________
+_________________________________________________________
+Got it. I've removed this task:
+  [D][ ] weekly 2113 quiz (by: Monday 9pm)
+Now you have 2 task(s) in the list
+_________________________________________________________
+_________________________________________________________
+Here are the tasks in your list:
+1. [T][X] Si Thu Lin Aung: Answer CS2113 tutorial questions
+2. [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
+_________________________________________________________
