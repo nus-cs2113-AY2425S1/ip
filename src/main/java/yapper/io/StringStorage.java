@@ -1,11 +1,19 @@
 package yapper.io;
 
+// TODO: make more conversational
 // Contains strings for the Yapper program
 public class StringStorage {
-    public static final String TODO_PREFIX     = "[T]";
-    public static final String DEADLINE_PREFIX = "[D]";
-    public static final String EVENT_PREFIX    = "[E]";
+    public static final String NOT_DONE_SYMBOL = " ";
+    public static final String  IS_DONE_SYMBOL = "X";
+    public static final String     TODO_SYMBOL = "T";
+    public static final String DEADLINE_SYMBOL = "D";
+    public static final String    EVENT_SYMBOL = "E";
+    public static final String STORAGE_DELIMITER = " | ";
+    public static String[] splitByDelimiter(String taskAsString) {
+        return taskAsString.split(" \\| ");
+    }
 
+    // Text Delimiter
     public static final String LINE_DIVIDER =
             "____________________________________________________________";
     public static final String LINE_DIVIDER_INPUT =
