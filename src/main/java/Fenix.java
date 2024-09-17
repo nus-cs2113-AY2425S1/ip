@@ -12,22 +12,6 @@ public class Fenix implements SampleStrings {
         this.scanner = new Scanner(System.in);
     }
 
-    private static String getType(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[0];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    private static String getInformation(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
     public void greet() {
         System.out.println(HORIZONTAL_LINE_USER_COMMAND);
         System.out.println(GREETING);
@@ -45,9 +29,10 @@ public class Fenix implements SampleStrings {
     }
 
     private void processUserInput(String userInput) {
-        String[] words = userInput.trim().split(" ");
-        String command = words[0];
-        switch (command) {
+        String[] words = userInput.trim().split(" ", 2);
+        String commandType = words[0];
+        String commandInfo = ((words.length > 1) ? words[1] : "") ;
+        switch (commandType) {
         case "bye":
             bidFarewell();
             return;
@@ -55,15 +40,15 @@ public class Fenix implements SampleStrings {
             showAllTasks(false);
             break;
         case "mark":
-            markAsDone(words);
+            markAsDone(commandInfo);
             break;
         case "unmark":
-            unmarkAsDone(words);
+            unmarkAsDone(commandInfo);
             break;
         case "todo":
         case "deadline":
         case "event":
-            processTasks(userInput);
+            processTasks(commandType, commandInfo);
             break;
         default:
             System.out.println("Please provide a valid command");
@@ -93,9 +78,8 @@ public class Fenix implements SampleStrings {
         return taskArrayList.get(i) == null;
     }
 
-    private void markAsDone(String[] words) {
+    private void markAsDone(String taskNumber) {
         try {
-            String taskNumber = words[1];
             if (isValidTaskNumber(taskNumber)) {
                 int taskIndex = Integer.parseInt(taskNumber) - 1;
                 markTaskAsDone(taskIndex);
@@ -116,9 +100,8 @@ public class Fenix implements SampleStrings {
         }
     }
 
-    private void unmarkAsDone(String[] words) {
+    private void unmarkAsDone(String taskNumber) {
         try {
-            String taskNumber = words[1];
             if (isValidTaskNumber(taskNumber)) {
                 int taskIndex = Integer.parseInt(taskNumber) - 1;
                 unmarkTaskAsDone(taskIndex);
@@ -146,17 +129,15 @@ public class Fenix implements SampleStrings {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
     }
 
-    public void processTasks(String userInput) {
-        String type = getType(userInput);
-        String information = getInformation(userInput);
-        if (type == null || type.isBlank()) {
+    public void processTasks(String commandType, String commandInfo) {
+        if (commandType == null || commandType.isBlank()) {
             System.out.println("Please provide a command");
             return;
-        } else if (information == null || information.isBlank()) {
+        } else if (commandInfo == null || commandInfo.isBlank()) {
             System.out.println("Please provide a task");
             return;
         }
-        Task task = returnTaskObject(type, information);
+        Task task = returnTaskObject(commandType, commandInfo);
         if (task == null) {
             return;
         }
