@@ -81,6 +81,20 @@ public class Ran {
         fw.write(dataFileContent);
         fw.close();
     }
+    
+    public static void deleteFromDataFile(String line) throws IOException {
+        Scanner sc = new Scanner(new File(filePath));
+        StringBuffer buffer = new StringBuffer();
+        while (sc.hasNext()) {
+            buffer.append(sc.nextLine() + System.lineSeparator());
+        }
+        String dataFileContent = buffer.toString();
+        sc.close();
+        dataFileContent = dataFileContent.replaceAll(line + System.lineSeparator() , "");
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(dataFileContent);
+        fw.close();
+    }
 
     // Process task based on its type into relevant fields to be added
     public static void processTask(String input, TaskType type) throws MissingArgumentException, IOException {
@@ -170,7 +184,7 @@ public class Ran {
         System.out.println(LINE);
     }
     
-    public static void deleteTask(String taskNum) throws OutOfListBoundsException {
+    public static void deleteTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
@@ -178,6 +192,7 @@ public class Ran {
         System.out.println(LINE);
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + list.get(taskNumber));
+        deleteFromDataFile(list.get(taskNumber).dataFileInput());
         list.remove(taskNumber);
         listCount--;
         System.out.println("\tYou currently have " + listCount + 
@@ -296,13 +311,13 @@ public class Ran {
         String[] taskInstruction = task.split(", ");
         boolean isDone = taskInstruction[1].equals("1");
         if (taskInstruction[0].equals("T")) {
-            list.get(listCount) = new Todo(isDone, taskInstruction[2]);
+            list.add(new Todo(isDone, taskInstruction[2]));
             listCount++;
         } else if (taskInstruction[0].equals("D")) {
-            list.get(listCount) = new Deadline(isDone, taskInstruction[2], taskInstruction[3]);
+            list.add(new Deadline(isDone, taskInstruction[2], taskInstruction[3]));
             listCount++;
         } else if (taskInstruction[0].equals("E")) {
-            list.get(listCount) = new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]);
+            list.add(new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]));
             listCount++;
         }
     }
