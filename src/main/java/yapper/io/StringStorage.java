@@ -18,32 +18,31 @@ public class StringStorage {
         System.out.println(LINE_DIVIDER_INPUT);
     }
 
-    // TODO: make more conversational
-    // Single-Use Program Messages
+    // Program Strings that are full Messages
     public static final String HELP_MESSAGE =
             "To jog your memory, here's what we can discuss: \n"
-            + "say todo to for a task with no dates. \n"
-            + "say deadline for a task with an end date. \n"
-            + "say event for a task with a start date and an end date. \n"
-            + "say list if you forgot what you said. \n"
-            + "say mark if you're done with something. \n"
-            + "say unmark if you're not done with something. \n"
-            + "say bye if you wanna stop. \n"
-            + LINE_DIVIDER_INPUT;
+            // Nullary Argument Commands
+            + "list" + ", if you forgot what you said. \n"
+            + "bye"  + ", if you want me to stop yappin. "
+            // Unary Argument Commands
+            + "delete [index]" + ", if you don't want something. \n"
+            +   "mark [index]" + ", if you're done with something. \n"
+            + "unmark [index]" + ", if you're not done with something. \n"
+            + "todo [todoDesc]" + ", to for a task with no dates. \n"
+            // Binary Argument Commands
+            + "deadline [deadlineDesc] /by [end]" + ", for a task with an end date. \n"
+            // Trinary Argument Commands
+            + "event [eventDesc] /from [start] /to [end]" + ", for a task with a start date and an end date. \n";
     public static final String START_UP_MESSAGE =
-            LINE_DIVIDER_OUTPUT + "\n"
-            + "Wassup! \n"
+            "Wassup! \n"
             + "Ya ready for me to yap yer ear off? \n"
-            + "Whatchu wanna talk about? \n"
-            + LINE_DIVIDER;
+            + "Whatchu wanna talk about? ";
     public static final String SHUT_DOWN_MESSAGE =
-            LINE_DIVIDER_OUTPUT + "\n"
-            + "Thanks for listenin' to my yappin'. \n"
+            "Thanks for listenin' to my yappin'. \n"
             + "Call for me whenever ya feel like listening again. \n"
-            + "Cya! \n"
-            + LINE_DIVIDER;
+            + "Cya! ";
 
-    // Multi-Use Program Messages
+    // Program Strings that are part of a Message
     public static final String LIST_ALL_TASKS_STRING =
             "You don't remember your tasks? Lemme refresh your memory: ";
     public static final String TASK_ADDED_STRING =

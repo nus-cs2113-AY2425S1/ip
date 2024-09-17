@@ -11,8 +11,11 @@ public class Yapper {
 
     // Main ChatBot Loop
     public static void startYappin(TaskHandler taskHandler) {
+        System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         System.out.println(StringStorage.START_UP_MESSAGE);
+        System.out.println(StringStorage.LINE_DIVIDER);
         System.out.println(StringStorage.HELP_MESSAGE);
+        System.out.println(StringStorage.LINE_DIVIDER_INPUT);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -23,7 +26,9 @@ public class Yapper {
             InstructionHandler.handleInstruction(taskHandler, userInputString);
         }
 
+        System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
+        System.out.println(StringStorage.LINE_DIVIDER);
     }
 
     // Program Start
