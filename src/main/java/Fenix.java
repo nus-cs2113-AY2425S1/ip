@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Fenix implements SampleStrings {
 
     public static int taskNumber = 0;
-    public static Task[] taskArray = new Task[100];
+    public static ArrayList<Task> taskArrayList = new ArrayList<>();
     private final Scanner scanner;
 
     // Constructor
@@ -81,15 +82,15 @@ public class Fenix implements SampleStrings {
         String task;
         String extraSpace = (isModified ? "\t" : "");
         String space = extraSpace + "\t";
-        for (int i = 0; i < taskArray.length && !isNullElement(i); i += 1) {
+        for (int i = 0; i < taskArrayList.size() && !isNullElement(i); i += 1) {
             index = (i + 1) + ". ";
-            task = taskArray[i].toString();
+            task = taskArrayList.get(i).toString();
             System.out.println(space + index + task);
         }
     }
 
     public boolean isNullElement(int i) {
-        return taskArray[i] == null;
+        return taskArrayList.get(i) == null;
     }
 
     private void markAsDone(String[] words) {
@@ -131,7 +132,7 @@ public class Fenix implements SampleStrings {
 
     public void markTaskAsDone(int taskNumber) {
         System.out.println("Task successfully completed. A job well executed.");
-        taskArray[taskNumber].markAsDone();
+        taskArrayList.get(taskNumber).markAsDone();
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         showAllTasks(true);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
@@ -139,7 +140,7 @@ public class Fenix implements SampleStrings {
 
     public void unmarkTaskAsDone(int taskNumber) {
         System.out.println("Understood. This task has been marked as not done yet.");
-        taskArray[taskNumber].unmarkAsDone();
+        taskArrayList.get(taskNumber).unmarkAsDone();
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         showAllTasks(true);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
@@ -191,7 +192,7 @@ public class Fenix implements SampleStrings {
     }
 
     public void storeTask(Task task) {
-        taskArray[taskNumber] = task;
+        taskArrayList.add(task);
         taskNumber++;
     }
 }
