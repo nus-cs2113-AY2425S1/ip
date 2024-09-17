@@ -3,6 +3,7 @@ import task.Event;
 import task.ToDo;
 import task.Deadline;
 import exception.LiaException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,8 +29,7 @@ public class Lia {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        Task[] tasks = new Task[100];  // Fixed-size array to store tasks
-        int taskCount = 0;  // Counter to keep track of the number of tasks
+        ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList to store tasks dynamically
 
         // Greet the user with enthusiasm
         printLine();
@@ -52,7 +52,7 @@ public class Lia {
                 }
 
                 // Handle commands
-                taskCount = handleCommand(inputArr, tasks, taskCount);
+                handleCommand(inputArr, tasks);
 
             } catch (LiaException e) {
                 // Handle any Lia-specific exceptions
@@ -69,33 +69,30 @@ public class Lia {
      * Handles the user input command and performs the corresponding action.
      *
      * @param inputArr The split user input containing the command and arguments.
-     * @param tasks The array of tasks to manage.
-     * @param taskCount The current number of tasks.
+     * @param tasks The list of tasks to manage.
      * @throws LiaException if the input is invalid or unrecognized.
      */
-    private static int handleCommand(String[] inputArr, Task[] tasks, int taskCount) throws LiaException {
+    private static void handleCommand(String[] inputArr, ArrayList<Task> tasks) throws LiaException {
         String command = inputArr[0];
 
         switch (command.toLowerCase()) {
         case "list":
-            printTasks(tasks, taskCount);
+            printTasks(tasks);
             break;
         case "todo":
             if (inputArr.length < 2 || inputArr[1].isBlank()) {
                 throw new LiaException("Oops! The description of a todo cannot be empty.");
             }
-            tasks[taskCount] = new ToDo(inputArr[1]);
-            addTaskAndPrint(tasks[taskCount], taskCount + 1);
-            taskCount++;
+            tasks.add(new ToDo(inputArr[1]));
+            addTaskAndPrint(tasks.get(tasks.size() - 1), tasks.size());
             break;
         case "deadline":
             if (inputArr.length < 2 || !inputArr[1].contains("/by")) {
                 throw new LiaException("Oops! The deadline command requires a description and '/by' followed by a date.");
             }
             String[] deadlineDetails = inputArr[1].split(" /by ", 2);
-            tasks[taskCount] = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-            addTaskAndPrint(tasks[taskCount], taskCount + 1);
-            taskCount++;
+            tasks.add(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+            addTaskAndPrint(tasks.get(tasks.size() - 1), tasks.size());
             break;
         case "event":
             if (inputArr.length < 2 || !inputArr[1].contains("/from") || !inputArr[1].contains("/to")) {
@@ -103,45 +100,42 @@ public class Lia {
             }
             String[] eventDetails = inputArr[1].split(" /from ", 2);
             String[] times = eventDetails[1].split(" /to ", 2);
-            tasks[taskCount] = new Event(eventDetails[0], times[0], times[1]);
-            addTaskAndPrint(tasks[taskCount], taskCount + 1);
-            taskCount++;
+            tasks.add(new Event(eventDetails[0], times[0], times[1]));
+            addTaskAndPrint(tasks.get(tasks.size() - 1), tasks.size());
             break;
         case "mark":
             if (inputArr.length < 2) {
                 throw new LiaException("Oops! You must specify a task number to mark.");
             }
-            markTask(inputArr[1], tasks, taskCount, true);
+            markTask(inputArr[1], tasks, true);
             break;
         case "unmark":
             if (inputArr.length < 2) {
                 throw new LiaException("Oops! You must specify a task number to unmark.");
             }
-            markTask(inputArr[1], tasks, taskCount, false);
+            markTask(inputArr[1], tasks, false);
             break;
         default:
             throw new LiaException("Oops! I don't recognize that command.");
         }
-        return taskCount;
     }
 
     /**
      * Marks or unmarks a task as done or not done.
      *
      * @param taskNumberStr The task number to mark or unmark.
-     * @param tasks The array of tasks.
-     * @param taskCount The current number of tasks.
+     * @param tasks The list of tasks.
      * @param markDone True to mark the task as done, false to unmark it.
      * @throws LiaException if the task number is invalid.
      */
-    private static void markTask(String taskNumberStr, Task[] tasks, int taskCount, boolean markDone) throws LiaException {
+    private static void markTask(String taskNumberStr, ArrayList<Task> tasks, boolean markDone) throws LiaException {
         try {
             int taskIndex = Integer.parseInt(taskNumberStr) - 1;
-            if (taskIndex < 0 || taskIndex >= taskCount) {
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 throw new LiaException("Oops! Task number " + taskNumberStr + " does not exist.");
             }
 
-            Task task = tasks[taskIndex];
+            Task task = tasks.get(taskIndex);
 
             if (markDone) {
                 task.markAsDone();
@@ -164,17 +158,16 @@ public class Lia {
     /**
      * Prints the list of tasks.
      *
-     * @param tasks The array of tasks.
-     * @param taskCount The number of tasks in the list.
+     * @param tasks The list of tasks.
      */
-    private static void printTasks(Task[] tasks, int taskCount) {
+    private static void printTasks(ArrayList<Task> tasks) {
         printLine();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(INDENTATION + "No tasks found.");
         } else {
             System.out.println(INDENTATION + "Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(INDENTATION + (i + 1) + "." + tasks[i].toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(INDENTATION + (i + 1) + "." + tasks.get(i).toString());
             }
         }
         printLine();
@@ -201,3 +194,4 @@ public class Lia {
         System.out.println(INDENTATION + "___________________________________________________________");
     }
 }
+
