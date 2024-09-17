@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Eva {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
-    public static final int MAX_TASKS = 100;
     private final static TaskManager taskManager = new TaskManager();
 
     public static void main(String[] args) {
@@ -12,8 +11,6 @@ public class Eva {
 
         String line;
         Scanner in = new Scanner(System.in);
-        int count = 0;
-        Task[] tasks = new Task[MAX_TASKS];
 
         while(true) {
 
@@ -66,6 +63,8 @@ public class Eva {
             return "deadline";
         } else if (line.startsWith("event")) {
             return "event";
+        } else if (line.startsWith("delete")) {
+            return "delete";
         } else {
             throw new EvaException("Sorry!! I don't understand what does " + line + " means!");
         }

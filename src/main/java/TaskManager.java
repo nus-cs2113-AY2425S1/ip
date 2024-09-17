@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+
 public class TaskManager {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
     public static final int MAX_TASKS = 100;
 
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int count;
 
     public TaskManager() {
-        tasks = new Task[MAX_TASKS];
+        tasks = new ArrayList<>();
         count = 0;
 
     }
@@ -15,7 +17,7 @@ public class TaskManager {
     public void printTaskList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
-            System.out.println(i + 1 + ". " + tasks[i]);
+            System.out.println(i + 1 + ". " + tasks.get(i).toString());
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -29,10 +31,10 @@ public class TaskManager {
                     "Please provide a valid task number between 1 and " + count + ".");
         }
 
-        tasks[taskNumber].setMarkAsDone();
+        tasks.get(taskNumber).setMarkAsDone();
 
         System.out.println("Great! This task is marked as done: ");
-        System.out.println(tasks[taskNumber]);
+        System.out.println(tasks.get(taskNumber).toString());
         System.out.println("Well done! ;)");
         System.out.println(HORIZONTAL_LINE);
     }
@@ -46,10 +48,10 @@ public class TaskManager {
                     "Please provide a valid task number between 1 and " + count + ".");
         }
 
-        tasks[taskNumber].setMarkAsNotDone();
+        tasks.get(taskNumber).setMarkAsNotDone();
 
         System.out.println("Ok, This task is marked as not done yet: ");
-        System.out.println(tasks[taskNumber]);
+        System.out.println(tasks.get(taskNumber).toString());
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -67,11 +69,11 @@ public class TaskManager {
                     " \nPlease try again by typing todo (name of task).");
         }
 
-        tasks[count] = new Todo(todoDesc);
+        tasks.add(new Todo(todoDesc));
 
         System.out.println("Okay, I've added this todo: ");
-        System.out.println(tasks[count]);
-        printNumTasks(tasks, count);
+        System.out.println(tasks.get(count).toString());
+        printNumTasks(count);
         System.out.println(HORIZONTAL_LINE);
 
         count++;
@@ -95,11 +97,11 @@ public class TaskManager {
                     "\nPlease try again!");
         }
 
-        tasks[count] = new Deadline(description, by);
+        tasks.add(new Deadline(description, by));
 
         System.out.println("Okay, I've added this deadline: ");
-        System.out.println(tasks[count]);
-        printNumTasks(tasks, count);
+        System.out.println(tasks.get(count).toString());
+        printNumTasks(count);
         System.out.println(HORIZONTAL_LINE);
 
         count++;
@@ -124,17 +126,17 @@ public class TaskManager {
                     "\nPlease try again!");
         }
 
-        tasks[count] = new Event(eventDesc, from, to);
+        tasks.add(new Event(eventDesc, from, to));
 
         System.out.println("Okay, I've added this event: ");
-        System.out.println(tasks[count]);
-        printNumTasks(tasks, count);
+        System.out.println(tasks.get(count).toString());
+        printNumTasks(count);
         System.out.println(HORIZONTAL_LINE);
 
         count++;
     }
 
-    public void printNumTasks(Task[] tasks, int count) {
+    public void printNumTasks(int count) {
         System.out.println("Now you have " + (count + 1) + " tasks in the list.");
     }
 }
