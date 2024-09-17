@@ -1,12 +1,22 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.IOException;
 
 public class KaiWen {
-    private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./Users/robertwang/ip/kaiwen.txt";
+    private static Storage storage;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        storage = new Storage(FILE_PATH);
+
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
 
         printLine();
         System.out.println(" Hello! I'm KaiWen");
@@ -16,19 +26,24 @@ public class KaiWen {
         while (true) {
             String input = scanner.nextLine();
 
-            try {
-                handleInput(input);
-            } catch (KaiException e) {
-                printLine();
-                System.out.println(" OOPS!!! " + e.getMessage());
-                printLine();
-            }
-
             if (input.equals("bye")) {
                 printLine();
                 System.out.println(" Bye. Hope to see you again soon!");
                 printLine();
                 break;
+            }
+
+            try {
+                handleInput(input);
+                storage.save(tasks);
+            } catch (KaiException e) {
+                printLine();
+                System.out.println(" OOPS!!! " + e.getMessage());
+                printLine();
+            } catch (IOException e) {
+                printLine();
+                System.out.println(" OOPS!!! Error saving tasks: " + e.getMessage());
+                printLine();
             }
         }
 
@@ -48,6 +63,8 @@ public class KaiWen {
             handleMarkCommand(input);
         } else if (input.startsWith("unmark")) {
             handleUnmarkCommand(input);
+        } else if (input.startsWith("delete")) {
+            handleDeleteCommand(input);
         } else {
             throw new KaiException("I'm sorry, but I don't know what that means :-(");
         }
@@ -58,9 +75,8 @@ public class KaiWen {
             throw new KaiException("The description of a todo cannot be empty.");
         }
         String description = input.substring(5).trim();
-        tasks[taskCount] = new Todo(description);
-        taskCount++;
-        printAddedTask(tasks[taskCount - 1]);
+        tasks.add(new Todo(description));
+        printAddedTask(tasks.get(tasks.size() - 1));
     }
 
     public static void handleDeadlineCommand(String input) throws KaiException {
@@ -71,9 +87,8 @@ public class KaiWen {
         if (parts.length < 2) {
             throw new KaiException("The deadline needs a description and a '/by' date.");
         }
-        tasks[taskCount] = new Deadline(parts[0].trim(), parts[1].trim());
-        taskCount++;
-        printAddedTask(tasks[taskCount - 1]);
+        tasks.add(new Deadline(parts[0].trim(), parts[1].trim()));
+        printAddedTask(tasks.get(tasks.size() - 1));
     }
 
     public static void handleEventCommand(String input) throws KaiException {
@@ -85,19 +100,18 @@ public class KaiWen {
             throw new KaiException("The event needs a description, a '/from' time, and a '/to' time.");
         }
         String[] timeParts = parts[1].split(" /to ");
-        tasks[taskCount] = new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
-        taskCount++;
-        printAddedTask(tasks[taskCount - 1]);
+        tasks.add(new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+        printAddedTask(tasks.get(tasks.size() - 1));
     }
 
     public static void handleListCommand() {
         printLine();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" No tasks to display!");
         } else {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
         printLine();
@@ -109,13 +123,13 @@ public class KaiWen {
             throw new KaiException("You must specify a task number to mark.");
         }
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= taskCount) {
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new KaiException("Task number is out of range.");
         }
-        tasks[taskNumber].markAsDone();
+        tasks.get(taskNumber).markAsDone();
         printLine();
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + tasks[taskNumber]);
+        System.out.println("   " + tasks.get(taskNumber));
         printLine();
     }
 
@@ -125,21 +139,42 @@ public class KaiWen {
             throw new KaiException("You must specify a task number to unmark.");
         }
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= taskCount) {
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new KaiException("Task number is out of range.");
         }
-        tasks[taskNumber].markAsNotDone();
+        tasks.get(taskNumber).markAsNotDone();
         printLine();
         System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + tasks[taskNumber]);
+        System.out.println("   " + tasks.get(taskNumber));
         printLine();
+    }
+
+    public static void handleDeleteCommand(String input) throws KaiException {
+        try {
+            String[] parts = input.split(" ");
+            if (parts.length < 2) {
+                throw new KaiException("You must specify a task number to delete.");
+            }
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                throw new KaiException("Invalid task number. Please provide a valid task number.");
+            }
+            Task removedTask = tasks.remove(taskNumber);
+            printLine();
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + removedTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            printLine();
+        } catch (NumberFormatException e) {
+            throw new KaiException("Please enter a valid task number.");
+        }
     }
 
     public static void printAddedTask(Task task) {
         printLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         printLine();
     }
 
