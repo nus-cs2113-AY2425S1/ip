@@ -13,6 +13,11 @@ import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
 import ran.exception.RanException;
 import java.util.Scanner;
+import java.io.File;
+import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Ran {
     private static boolean isTerminated = false; 
@@ -20,6 +25,7 @@ public class Ran {
     private static final int MAX_TASK_LIST_SIZE = 100;
     private static Task[] list = new Task[MAX_TASK_LIST_SIZE];
     private static final String LINE = "\t____________________________________________________________";
+    private static String filePath = "./data/ran.txt";
 
     public static void greet() {
         System.out.println(LINE);
@@ -55,8 +61,28 @@ public class Ran {
         System.out.println(LINE);
     }
 
+    public static void addToDataFile(String input) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(input + System.lineSeparator());
+        fw.close();
+    }
+
+    public static void modifyDataFile(String oldLine, String newLine) throws IOException {
+        Scanner sc = new Scanner(new File(filePath));
+        StringBuffer buffer = new StringBuffer();
+        while (sc.hasNext()) {
+            buffer.append(sc.nextLine() + System.lineSeparator());
+        }
+        String dataFileContent = buffer.toString();
+        sc.close();
+        dataFileContent = dataFileContent.replaceAll(oldLine, newLine);
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(dataFileContent);
+        fw.close();
+    }
+
     // Process task based on its type into relevant fields to be added
-    public static void processTask(String input, TaskType type) throws MissingArgumentException {
+    public static void processTask(String input, TaskType type) throws MissingArgumentException, IOException {
         String description = input;
         switch (type) {
         case TODO:
@@ -90,9 +116,11 @@ public class Ran {
             list[listCount] = new Event(description, from, to);
             break;
         case UNDEFINED:
+            // Fallthrough
         default:
             list[listCount] = new Task(input);
         }
+        addToDataFile(list[listCount].dataFileInput());
         listCount++;
         printAddedTask();
     }
@@ -108,25 +136,31 @@ public class Ran {
         System.out.println(LINE);
     }
 
-    public static void markTask(String taskNum) throws OutOfListBoundsException {
+    public static void markTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
+        String oldLine = list[taskNumber].dataFileInput();
         list[taskNumber].setAsDone();
+        String newLine = list[taskNumber].dataFileInput();
+        modifyDataFile(oldLine, newLine);
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + list[taskNumber]);
         System.out.println(LINE);
     }
 
-    public static void unmarkTask(String taskNum) throws OutOfListBoundsException {
+    public static void unmarkTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
+        String oldLine = list[taskNumber].dataFileInput();
         list[taskNumber].setAsUndone();
+        String newLine = list[taskNumber].dataFileInput();
         System.out.println(LINE);
+        modifyDataFile(oldLine, newLine);
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + list[taskNumber]);
         System.out.println(LINE);
@@ -135,7 +169,7 @@ public class Ran {
     // Read user input for command, throw exception for invalid commands
     public static void executeCommand(String input, String[] instruction) 
             throws MissingCommandException, MissingDescriptionException, EmptyListException,
-            OutOfListBoundsException, MissingArgumentException {
+            OutOfListBoundsException, MissingArgumentException, IOException {
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
@@ -210,12 +244,70 @@ public class Ran {
             System.out.println(LINE);
             System.out.println("\tThere appears to be something wrong with command's arguments.");
             System.out.println(LINE);
+        } catch (IOException e) {
+            System.out.println(LINE);
+            System.out.println("\tMethink something wrong happened to your datafile.");
+            System.out.println(LINE);
+        }
+    }
+
+    public static void loadFile() throws IOException {
+        // Check for existence of directory
+        String directory = "./data";
+        File dir = new File(directory);
+        // If directory does not yet exist, create it
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+        // Check for existence of data file
+        File f = new File(filePath);
+        // If file does not yet exist, create it
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+    }
+    
+    public static void loadTask(String task) {
+        String[] taskInstruction = task.split(", ");
+        boolean isDone = taskInstruction[1].equals("1");
+        if (taskInstruction[0].equals("T")) {
+            list[listCount] = new Todo(isDone, taskInstruction[2]);
+            listCount++;
+        } else if (taskInstruction[0].equals("D")) {
+            list[listCount] = new Deadline(isDone, taskInstruction[2], taskInstruction[3]);
+            listCount++;
+        } else if (taskInstruction[0].equals("E")) {
+            list[listCount] = new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]);
+            listCount++;
+        }
+    }
+
+    public static void loadData(File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            loadTask(s.nextLine());
         }
     }
 
     public static void main(String[] args) {
         greet();
         
+        // Check for data file, create directory and data file if necessary
+        try {
+            loadFile();
+        } catch (IOException e) {
+            System.out.println("Unfortunately I, Ran, have ran into an issue accessing your data files.");
+        } 
+        
+        File f = new File (filePath);
+
+        // Load data from data file
+        try {
+            loadData(f);
+        } catch (FileNotFoundException e) {
+            System.out.println("That is strange, I swear I thought your data file exists...");
+        }
+
         // Take in user input from the terminal
         String input;
         Scanner in = new Scanner(System.in);
