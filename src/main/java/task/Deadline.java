@@ -19,6 +19,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the task information formatted for saving to a file.
+     *
+     * @return The Deadline task as a formatted string suitable for saving to a file.
+     */
+    @Override
+    public String toFileFormat() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    }
+
+    /**
      * Returns a string representation of the Deadline task.
      *
      * @return A string representing the Deadline task.
