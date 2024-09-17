@@ -25,7 +25,7 @@ public class Task {
     }
 
     public String toFile() {
-        return String.format("%s| %d| %s", getTaskType(), isMarked ? 1 : 0, description);
+        return String.format("%s | %d | %s", getTaskType(), isMarked() ? 1 : 0, getDescription());
     }
 
     public String getTaskType() {
