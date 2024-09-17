@@ -42,33 +42,35 @@ public class Crystal {
 
     public static void mark(int taskNumber) {
         try {
-            if (taskNumber > taskCount | taskNumber < 1) {
+            int index = taskNumber - 1;
+            if (index >= taskCount | index < 0) {
                 horizontalLine();
                 throw new IllegalCommandException("This number is not valid.");
             }
-            Task t = tasks.get(taskNumber);
+            Task t = tasks.get(index);
             t.markAsDone();
             horizontalLine();
             System.out.println("YAY!! This task is now marked done:\n" + t);
             horizontalLine();
         } catch (IllegalCommandException e) {
-            printExceptionMessage();
+            printExceptionMessage(e);
         }
     }
 
     public static void unmark(int taskNumber) {
         try {
-            if (taskNumber > taskCount | taskNumber < 1) {
+            int index = taskNumber - 1;
+            if (index >= taskCount | index < 0) {
                 horizontalLine();
                 throw new IllegalCommandException("This number is not valid.");
             }
-            Task t = tasks.get(taskNumber);
+            Task t = tasks.get(index);
             t.unmark();
             horizontalLine();
             System.out.println("OK, I've marked this task as not done yet:\n" + t);
             horizontalLine();
         } catch (IllegalCommandException e) {
-            printExceptionMessage();
+            printExceptionMessage(e);
         }
     }
 
@@ -81,7 +83,14 @@ public class Crystal {
         horizontalLine();
     }
 
-    public static void printExceptionMessage() {
+    public static void printExceptionMessage(Exception e) {
+        if (e instanceof IllegalCommandException) {
+            System.out.print(e.getMessage());
+        } else if (e instanceof IncompleteCommandException) {
+            System.out.print(e.getMessage());
+        } else {
+            System.out.print(e.getMessage());
+        }
         System.out.println(" Can you repeat it again?");
         horizontalLine();
     }
@@ -106,7 +115,7 @@ public class Crystal {
             tasks.add(t);
             printAddedTaskMessage();
         } catch (IncompleteCommandException e) {
-            printExceptionMessage();
+            printExceptionMessage(e);
         }
     }
 
@@ -124,7 +133,26 @@ public class Crystal {
             tasks.add(t);
             printAddedTaskMessage();
         } catch (IncompleteCommandException e) {
-            printExceptionMessage();
+            printExceptionMessage(e);
+        }
+    }
+
+    public static void delete(int taskNumber) {
+        try {
+            int index = taskNumber - 1;
+            if (index >= taskCount | index < 0) {
+                horizontalLine();
+                throw new IllegalCommandException("This number is not valid.");
+            }
+            Task t = tasks.get(index);
+            tasks.remove(index);
+            taskCount--;
+            horizontalLine();
+            System.out.println("Noted. I have deleted the task below: \n" + t);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            horizontalLine();
+        } catch (IllegalCommandException e) {
+            printExceptionMessage(e);
         }
     }
 
@@ -163,12 +191,16 @@ public class Crystal {
                 case "event":
                     addEvent(line);
                     break;
+                case "delete":
+                    taskNumber = Integer.parseInt(words[1]);
+                    delete(taskNumber);
+                    break;
                 default:
                     horizontalLine();
                     throw new InvalidCommandException("Did you misspell or miss out something?");
                 }
             } catch (InvalidCommandException e) {
-                printExceptionMessage();
+                printExceptionMessage(e);
             }
         }
     }
