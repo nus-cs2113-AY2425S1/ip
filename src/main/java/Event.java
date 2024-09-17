@@ -1,4 +1,5 @@
 public class Event extends Task {
+    private final String TYPE = "E";
     private String from;
     private String to;
 
@@ -8,8 +9,19 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public String getfrom() {
+    @Override
+    public String getType() {
+        return TYPE;
+    }
+
+    @Override
+    public String getFrom() {
         return this.from;
+    }
+
+    @Override
+    public String getTo() {
+        return this.to;
     }
 
     @Override

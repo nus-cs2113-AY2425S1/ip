@@ -1,10 +1,17 @@
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class V {
 
     private static final String LINE_SEPERATOR = "____________________________________________________________";
+    private static final String SAVE_FILE_PATH = "./V.txt";
 
     // Print 2 line seperators between a block of text for cleaner CLI
     public static void printBlock(String text) {
@@ -80,10 +87,97 @@ public class V {
         printBlock(String.format("Got it. Task added\n %s", event));
     }
 
+    public static int loadSave(Task[] listOfTasks) {
+        int count = 0;
+        if (Files.exists(Paths.get(SAVE_FILE_PATH))) {
+            try {
+                File saveFile = new File(SAVE_FILE_PATH);
+                Scanner fileScanner = new Scanner(saveFile);
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    String[] lineArr = line.trim().split(" ");
+                    String description;
+                    switch (lineArr[0].toLowerCase()) {
+                    case "mark":
+                        int position = Integer.parseInt(lineArr[1]);
+                        markTask(listOfTasks, position, count);
+                        break;
+                    case "todo":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addToDo(listOfTasks, description, count);
+                        count++;
+                        break;
+                    case "deadline":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addDeadline(listOfTasks, description, count);
+                        count++;
+                        break;
+                    case "event":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addEvent(listOfTasks, description, count);
+                        count++;
+                        break;
+                    default:
+                        System.out.println(fileScanner.hasNext());
+                        break;
+                    }
+                }
+                fileScanner.close();
+                return count;
+            } catch (FileNotFoundException error) {
+                System.out.println();
+            } catch (NumberFormatException error) {
+                printBlock("You need to input a valid integer for the task that you want to mark as done");
+            } catch (InvalidDeadlineException error) {
+                printBlock("You did not enter a valid deadline." + 
+                        " Remember to add a \"/by\" before a valid deadline.");
+            }
+        } else {
+            try {
+                Files.createFile(Paths.get(SAVE_FILE_PATH));
+            } catch (IOException error) {
+                System.out.println(error);
+            }
+        }
+        return 0;
+    }
+
+    public static void saveTasks(Task[] listOfTasks, int count) {
+        try {
+            File saveFile = new File(SAVE_FILE_PATH);
+            FileWriter clearSaveFile = new FileWriter(saveFile);
+            clearSaveFile.write("");
+            clearSaveFile.close();
+            FileWriter saveFileWriter = new FileWriter(saveFile, true);
+            for (int i = 0; i < count; i++) {
+                Task task = listOfTasks[i];
+                switch(task.getType()) {
+                case "T":
+                    saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
+                    break;
+                case "D":
+                    saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
+                    break;
+                case "E":
+                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /by " + task.getTo() + System.lineSeparator());
+                    break;
+                default:
+                    break;
+                }
+                if (task.getStatus().equals("X")) {
+                    saveFileWriter.write("mark " + (i+1) + System.lineSeparator());
+                }
+            }
+            saveFileWriter.close();
+        } catch (IOException error) {
+            System.out.println(error);
+        }
+    }
+
     public static void main(String[] args) {
 
         boolean isOnline = true;
-        ArrayList<Task> listOfTasks = new ArrayList<>();
+        ArrayList<Task> listOfTasks = new Task[100];
         String description;
         String line;
         String[] lineArr;
@@ -91,6 +185,7 @@ public class V {
         Scanner input = new Scanner(System.in);
 
         greet();
+        int count = loadSave(listOfTasks);
         
         while (isOnline) {
             try {
@@ -100,6 +195,7 @@ public class V {
                 case "bye":
                     input.close();
                     isOnline = false;
+                    saveTasks(listOfTasks, count);
                     break;
                 case "list":
                     displayList(listOfTasks);
