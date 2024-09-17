@@ -2,6 +2,9 @@ import exception.EmptyDateFieldException;
 import exception.EmptyDescriptionException;
 import task.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class List {
     public static final String INVALID_EVENT_INPUT_MESSAGE = "event <event name> /from <start date/time> /end <end date/time>";
     public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <deadline>";
@@ -14,14 +17,17 @@ public class List {
     private static final String INVALID_DELETE_MESSAGE = "delete <task index>";
 
     private int numItems;
-    private Task[] itemList = new Task[100];
+    private Task[] itemList = new Task[0];
+    ArrayList<Task> itemArrayList = new ArrayList<>(Arrays.asList(itemList));
+
+
 
     public List() {
         this.numItems = 0;
     }
 
     public int getNumItems() {
-        return numItems;
+        return itemArrayList.size();
     }
 
     public void addItem(String line) {
@@ -64,8 +70,10 @@ public class List {
             String eventDescription = extractEventDescription(line);
             String eventStartDate = extractEventStartDate(line);
             String eventEndDate = extractEventEndDate(line);
-            itemList[numItems] = new Event(eventDescription, eventStartDate, eventEndDate);
-            outputAddedMessage(itemList[numItems]);
+            //itemList[numItems] = new Event(eventDescription, eventStartDate, eventEndDate);
+            Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
+            itemArrayList.add(newEvent);
+            outputAddedMessage(newEvent);
             numItems += 1;
         } catch (EmptyDescriptionException e) {
             printTaskDescriptionEmptyMessage();
@@ -77,8 +85,10 @@ public class List {
     private void addTodo(String line) {
         try {
             String todoDescription = extractTodoDescription(line);
-            itemList[numItems] = new Todo(todoDescription);
-            outputAddedMessage(itemList[numItems]);
+            //itemList[numItems] = new Todo(todoDescription);
+            Todo newTodo = new Todo(todoDescription);
+            itemArrayList.add(newTodo);
+            outputAddedMessage(newTodo);
             numItems += 1;
         } catch (EmptyDescriptionException e) {
             printTaskDescriptionEmptyMessage();
@@ -93,8 +103,10 @@ public class List {
         try {
             String deadlineDescription = extractDeadlineDescription(line);
             String deadlineDate = extractDeadlineDate(line);
-            itemList[numItems] = new Deadline(deadlineDescription, deadlineDate);
-            outputAddedMessage(itemList[numItems]);
+            //itemList[numItems] = new Deadline(deadlineDescription, deadlineDate);
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+            itemArrayList.add(newDeadline);
+            outputAddedMessage(newDeadline);
             numItems += 1;
         } catch (EmptyDescriptionException e) {
             printTaskDescriptionEmptyMessage();
@@ -197,8 +209,13 @@ public class List {
 
     public void printList() {
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < numItems; i++) {
-            System.out.println("\t" + (i + 1) + "." + itemList[i]);
+//        for (int i = 0; i < numItems; i++) {
+//            System.out.println("\t" + (i + 1) + "." + itemList[i]);
+//        }
+        int i = 0;
+        for (Task a: itemArrayList) {
+            System.out.println("\t" + (i + 1) + "." + a);
+            i += 1;
         }
     }
 
@@ -212,14 +229,20 @@ public class List {
                 this.markListItemAsDone(itemNum);
                 printTaskMarkedMessage(itemNum);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException  e) {
             printInputIndexNotAnIntegerMessage();
+        } catch (Exception e) {
+            printUnknownErrorMessage();
         }
+    }
+
+    private static void printUnknownErrorMessage() {
+        System.out.println("Unknown error experienced.");
     }
 
     private void printTaskMarkedMessage(int itemNum) {
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + itemList[itemNum - 1]);
+        System.out.println("\t  " + itemArrayList.get(itemNum - 1));
     }
 
     private static void printInputIndexOutOfRangeMessage() {
@@ -236,14 +259,16 @@ public class List {
                 this.markListItemAsUnDone(itemNum);
                 printTaskUnmarkedMessage(itemNum);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException  e) {
             printInputIndexNotAnIntegerMessage();
+        } catch (Exception e) {
+            printUnknownErrorMessage();
         }
     }
 
     private void printTaskUnmarkedMessage(int itemNum) {
         System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + itemList[itemNum - 1]);
+        System.out.println("\t  " + itemArrayList.get(itemNum - 1));
     }
 
     private static void printInputIndexNotAnIntegerMessage() {
@@ -255,11 +280,11 @@ public class List {
     }
 
     public void markListItemAsDone(int itemNum) {
-        itemList[itemNum - 1].markAsDone();
+        itemArrayList.get(itemNum - 1).markAsDone();
     }
 
     public void markListItemAsUnDone(int itemNum) {
-        itemList[itemNum - 1].markAsUnDone();
+        itemArrayList.get(itemNum - 1).markAsUnDone();
     }
 
     public String itemGetDoneStatusIcon(int itemNum) {
