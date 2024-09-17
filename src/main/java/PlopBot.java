@@ -59,6 +59,11 @@ public class PlopBot {
      * @param userInput
      */
     static boolean processInput(String userInput) {
+       if (userInput.isEmpty()) {
+           printError("The input cannot be empty.");
+           return false;
+       }
+
         if (userInput.toLowerCase().startsWith("mark") || userInput.toLowerCase().startsWith("unmark")) {
             toggleMark(userInput);
             return false;
@@ -92,13 +97,18 @@ public class PlopBot {
                 farewellMessage();
                 return true;
             default:
-                System.out.println("    Unknown command. Type 'help' for a list of commands.");
+                printError("Unknown command. Type 'help' for a list of commands.");
                 break;
         }
         return false;
     }
 
     private static void addTodo(String details) {
+        if (details.isEmpty()) {
+            printError("The description of a To-Do task cannot be empty.");
+            return;
+        }
+
         Task newToDo = new Task(details);
         tasks.add(newToDo);
         System.out.println(ECHO_LINE);
@@ -113,11 +123,18 @@ public class PlopBot {
             String[] parts = details.split(" /by ", 2);
 
             if (parts.length != 2) {
-                throw new IllegalArgumentException("Invalid deadline format");
+                throw new IllegalArgumentException("Invalid deadline format.");
             }
 
             String description = parts[0].trim();
             String dueDateString = parts[1].trim();
+
+            if (description.isEmpty() || dueDateString.isEmpty()) {
+                printError("The descriptions of a Deadline task cannot be empty.");
+                return;
+            }
+
+
             LocalDate dueDate = parseDateString(dueDateString);
             Task newDeadline = new Task(description, dueDate);
             tasks.add(newDeadline);
@@ -128,6 +145,8 @@ public class PlopBot {
             System.out.println(ECHO_LINE);
         }
         catch (Exception e) {
+            printError(e.getMessage() + "\n    Usage: deadline description /by DATE" +
+                                        "\n    DATE can be 'Sunday', 'Mon', 'Tuesday', or 'YYYY-MM-DD'");
         }
         System.out.println("");
     }
@@ -138,12 +157,18 @@ public class PlopBot {
             String[] parts = details.split(" /from | /to ");
 
             if (parts.length != 3) {
-                throw new IllegalArgumentException("Invalid event format");
+                throw new IllegalArgumentException("Invalid event format.");
             }
 
             String description = parts[0].trim();
             String startTimeString = parts[1].trim();
             String endTimeString = parts[2].trim();
+
+            if (description.isEmpty() || startTimeString.isEmpty() || endTimeString.isEmpty()) {
+                printError("The descriptions of an Event task cannot be empty.");
+                return;
+            }
+
             LocalDateTime startTime = parseDateTimeString(startTimeString, null);
             LocalDateTime endTime;
 
@@ -165,9 +190,8 @@ public class PlopBot {
             System.out.println("");
         }
         catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            System.out.println("Use 'event description /from START_TIME /to END_TIME'");
-            System.out.println("TIME can be 'Mon 2pm', 'Tuesday 14:00', or 'YYYY-MM-DD HH:MM'");
+            printError(e.getMessage() + "\n    Usage: event description /from START_TIME /to END_TIME" +
+                                        "\n    TIME can be 'Mon 2pm', 'Tuesday 14:00', or 'YYYY-MM-DD HH:MM'");
         }
     }
 
@@ -302,6 +326,12 @@ public class PlopBot {
                 throw new IllegalArgumentException("Unable to parse time: " + timeString);
             }
         }
+    }
+
+    private static void printError (String message) {
+        System.out.println(ECHO_LINE);
+        System.out.println("    Oops! " + message);
+        System.out.println(ECHO_LINE);
     }
 
     /**
