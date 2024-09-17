@@ -206,7 +206,7 @@ public class Duke {
         throw new DukeException("Sorry I cannot understand that");
     }
 
-
+    //delete method for level-6
     public static void deleteTask(int index) throws DukeException {
         if (index-1 < 0 || index-1 > taskCount) {
             throw new DukeException("You have input an invalid index");
