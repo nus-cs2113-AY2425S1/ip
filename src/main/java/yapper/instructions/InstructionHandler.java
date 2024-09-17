@@ -1,5 +1,6 @@
 package yapper.instructions;
 
+import yapper.io.SaveFileHandler;
 import yapper.tasks.TaskHandler;
 import yapper.exceptions.ErrorHandler;
 import yapper.exceptions.YapperException;
@@ -53,7 +54,7 @@ public class InstructionHandler {
     public static void handleSaveInstruction(TaskHandler taskHandler) {
         try {
             ErrorHandler.checkIfB(); // TODO
-            taskHandler.storeTasksData(taskHandler);
+            SaveFileHandler.storeTasksData(taskHandler);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
@@ -61,7 +62,7 @@ public class InstructionHandler {
     public static void handleLoadInstruction(TaskHandler taskHandler) {
         try {
             ErrorHandler.checkIfA(); // TODO
-            taskHandler.loadTasksData(taskHandler);
+            SaveFileHandler.loadTasksData();
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
