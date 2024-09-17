@@ -41,17 +41,13 @@ public class King {
                 printList();
             } else if (userInput.toLowerCase().startsWith("mark")) {
                 try {
-                    tasks.get(parseTaskIndex(userInput)).markAsDone();
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(LINE + "You cannot mark any task that's not on ur list!\n" + LINE);
+                    markTaskDone(parseTaskIndex(userInput));
                 } catch (KingException e) {
                     System.out.println(LINE + e.getMessage() + LINE);
                 }
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 try {
-                    tasks.get(parseTaskIndex(userInput)).markAsUndone();
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(LINE + "You cannot unmark any task that's not on ur list!\n" + LINE);
+                    markTaskUndone(parseTaskIndex(userInput));
                 } catch (KingException e) {
                     System.out.println(LINE + e.getMessage() + LINE);
                 }
@@ -61,6 +57,12 @@ public class King {
                 addDeadlineTask(userInput);
             } else if (userInput.toLowerCase().startsWith("event")) {
                 addEventTask(userInput);
+            } else if (userInput.toLowerCase().startsWith("delete")) {
+                try {
+                    deleteTask(parseTaskIndex(userInput));
+                } catch (KingException e) {
+                    System.out.println(LINE + e.getMessage() + LINE);
+                }
             }
         }
         toExit();
@@ -78,9 +80,27 @@ public class King {
 
         } catch (NumberFormatException e) {
             throw new KingException("Your input can only be numbers!\n");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new KingException("Have u forgotten to input the task number?\n");
         }
 
         return taskIndex;
+    }
+
+    private static void markTaskDone(int index) throws KingException {
+        try {
+            tasks.get(index).markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KingException("You cannot mark any task that's not on ur list!\n");
+        }
+    }
+
+    private static void markTaskUndone(int index) throws KingException {
+        try {
+            tasks.get(index).markAsUndone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KingException("You cannot unmark any task that's not on ur list!\n");
+        }
     }
 
 
@@ -234,8 +254,21 @@ public class King {
         } else if (!((userInput.startsWith("todo")) || userInput.startsWith("deadline")
                      || userInput.startsWith("event") || userInput.startsWith("list")
                      || userInput.startsWith("mark") || userInput.startsWith("unmark")
-                     || userInput.startsWith("bye"))) {
+                     || userInput.startsWith("bye") || userInput.startsWith("delete"))) {
             throw new KingException("Please first tell me what type of task you are doing:)\n");
+        }
+    }
+
+    private static void deleteTask(int index) throws KingException {
+        try {
+            String text = LINE + "Sure thing. I've removed this task:\n   "
+                          + tasks.get(index).getTaskDescription() +
+                          "\nNow you have " + (tasksCount - 1) + " tasks in the list.\n" + LINE;
+            tasks.remove(index);
+            tasksCount -= 1;
+            System.out.println(text);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KingException("The task you want to delete does not exist!\n");
         }
     }
 
