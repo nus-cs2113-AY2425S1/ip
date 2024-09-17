@@ -6,6 +6,7 @@ public class Mel {
     public static final int MARK_WORD_LEN = 4;
     public static final int UNMARK_WORD_LEN = 6;
     public static final int INPUT_SPACE_BUFFER = 2;
+    private static final int DELETE_WORD_LEN = 6;
 
     public static void main(String[] args) {
         printIntroMessage();
@@ -39,6 +40,10 @@ public class Mel {
                 userList.unmarkItem(line);
                 printHorizontalLine();
 
+            } else if (isDelete(line)) {
+                userList.deleteItem(line);
+                printHorizontalLine();
+
             } else {
                 userList.addItem(line);
                 printHorizontalLine();
@@ -64,6 +69,10 @@ public class Mel {
 
     private static boolean isUnmark(String line) {
         return line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark");
+    }
+
+    private static boolean isDelete(String line) {
+        return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
     }
 
     private static void printHorizontalLine() {

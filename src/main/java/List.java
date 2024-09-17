@@ -265,4 +265,30 @@ public class List {
     public String itemGetDoneStatusIcon(int itemNum) {
         return itemList[itemNum - 1].getDoneStatusIcon();
     }
+
+    public void deleteItem(String line) {
+        try {
+            int itemNum = Integer.parseInt(line.substring(7));
+
+            if (itemNum > this.getNumItems() || itemNum <= 0) {
+                printInputIndexOutOfRangeMessage();
+            } else {
+                Task deletedTask = itemList[itemNum - 1];
+                this.deleteListItem(itemNum);
+                printTaskDeletedMessage(deletedTask);
+            }
+        } catch (Exception e) {
+            printInputIndexNotAnIntegerMessage();
+        }
+    }
+
+    private void deleteListItem(int itemNum) {
+        System.out.println("<Delete function to be filled>");
+    }
+
+    private void printTaskDeletedMessage(Task task) {
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + task);
+        System.out.println("\tNow you have " + (numItems+1) + " tasks in the list.");
+    }
 }
