@@ -87,8 +87,7 @@ public class V {
         printBlock(String.format("Got it. Task added\n %s", event));
     }
 
-    public static int loadSave(Task[] listOfTasks) {
-        int count = 0;
+    public static void loadSave(ArrayList<Task> listOfTasks) {
         if (Files.exists(Paths.get(SAVE_FILE_PATH))) {
             try {
                 File saveFile = new File(SAVE_FILE_PATH);
@@ -100,30 +99,28 @@ public class V {
                     switch (lineArr[0].toLowerCase()) {
                     case "mark":
                         int position = Integer.parseInt(lineArr[1]);
-                        markTask(listOfTasks, position, count);
+                        markTask(listOfTasks, position);
                         break;
                     case "todo":
                         description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addToDo(listOfTasks, description, count);
-                        count++;
+                        addToDo(listOfTasks, description);
                         break;
                     case "deadline":
                         description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addDeadline(listOfTasks, description, count);
-                        count++;
+                        addDeadline(listOfTasks, description);
                         break;
                     case "event":
                         description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addEvent(listOfTasks, description, count);
-                        count++;
+                        addEvent(listOfTasks, description);
                         break;
                     default:
-                        System.out.println(fileScanner.hasNext());
+                        System.out.println("An error occured while loading the save file");
                         break;
                     }
                 }
                 fileScanner.close();
-                return count;
+                printBlock("Here are your list of tasks");
+                displayList(listOfTasks);
             } catch (FileNotFoundException error) {
                 System.out.println();
             } catch (NumberFormatException error) {
@@ -139,18 +136,16 @@ public class V {
                 System.out.println(error);
             }
         }
-        return 0;
     }
 
-    public static void saveTasks(Task[] listOfTasks, int count) {
+    public static void saveTasks(ArrayList<Task> listOfTasks) {
         try {
             File saveFile = new File(SAVE_FILE_PATH);
             FileWriter clearSaveFile = new FileWriter(saveFile);
             clearSaveFile.write("");
             clearSaveFile.close();
             FileWriter saveFileWriter = new FileWriter(saveFile, true);
-            for (int i = 0; i < count; i++) {
-                Task task = listOfTasks[i];
+            for (Task task: listOfTasks) {
                 switch(task.getType()) {
                 case "T":
                     saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
@@ -165,7 +160,7 @@ public class V {
                     break;
                 }
                 if (task.getStatus().equals("X")) {
-                    saveFileWriter.write("mark " + (i+1) + System.lineSeparator());
+                    saveFileWriter.write("mark " + (listOfTasks.indexOf(task) + 1) + System.lineSeparator());
                 }
             }
             saveFileWriter.close();
@@ -177,7 +172,7 @@ public class V {
     public static void main(String[] args) {
 
         boolean isOnline = true;
-        ArrayList<Task> listOfTasks = new Task[100];
+        ArrayList<Task> listOfTasks = new ArrayList<>();
         String description;
         String line;
         String[] lineArr;
@@ -185,7 +180,7 @@ public class V {
         Scanner input = new Scanner(System.in);
 
         greet();
-        int count = loadSave(listOfTasks);
+        loadSave(listOfTasks);
         
         while (isOnline) {
             try {
@@ -195,7 +190,7 @@ public class V {
                 case "bye":
                     input.close();
                     isOnline = false;
-                    saveTasks(listOfTasks, count);
+                    saveTasks(listOfTasks);
                     break;
                 case "list":
                     displayList(listOfTasks);
