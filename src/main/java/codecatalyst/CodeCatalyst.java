@@ -5,15 +5,23 @@ import codecatalyst.task.Event;
 import codecatalyst.task.Task;
 import codecatalyst.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
 
 public class CodeCatalyst {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "data\\CodeCatalystData";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        loadTasksFromFile();
         printGreeting();
 
         while (true) {
@@ -22,6 +30,74 @@ public class CodeCatalyst {
             processInput(input, scanner);
             printDivider();
         }
+    }
+
+
+    private static void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("          No previous tasks found. Starting afresh.");
+            return;
+        }
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                switch (taskType) {
+                case "T":
+                    Todo todoTask = new Todo(description);
+                    if (isDone) {
+                        todoTask.markAsDone();
+                    }
+                    tasks.add(todoTask);
+                    break;
+                case "D":
+                    Deadline deadlineTask = new Deadline(description, parts[3]);
+                    if (isDone) {
+                        deadlineTask.markAsDone();
+                    }
+                    tasks.add(deadlineTask);
+                    break;
+                case "E":
+                    String[] timeParts = parts[3].split("-");
+                    String startTime = timeParts[0];
+                    String endTime = timeParts[1];
+
+                    Event eventTask = new Event(description, startTime, endTime);
+                    if (isDone) {
+                        eventTask.markAsDone();
+                    }
+                    tasks.add(eventTask);
+                    break;
+                default:
+                    System.out.println("Invalid task type: " + taskType);
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+    }
+
+    private static void saveTasksToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (Task task : tasks) {
+            String CompletionNumber = task.isDone() ? "1" : "0";
+
+            if (task instanceof Todo){
+                fw.write("T | " + CompletionNumber + " | " + task.getDescription() + "\n");
+            } else if (task instanceof Deadline){
+                fw.write("D | " + CompletionNumber + " | " + task.getDescription() + " | " +
+                        ((Deadline) task).getBy() + "\n");
+            } else if (task instanceof Event){
+                fw.write("E | " + CompletionNumber + " | " + task.getDescription() + " | " +
+                        ((Event) task).getFrom() + "-" + ((Event) task).getTo() + "\n");
+            }
+        }
+        fw.close();
     }
 
     /**
@@ -36,7 +112,6 @@ public class CodeCatalyst {
             switch (command) {
             case "bye":
                 printGoodbye();
-                scanner.close();
                 break;
             case "list":
                 printTaskList();
@@ -141,6 +216,11 @@ public class CodeCatalyst {
             return;  // Invalid task number, already handled in extractTaskNumber.
         }
         changeTaskStatus(taskNumber, isMark);
+        try {
+            saveTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file.");;
+        }
     }
 
     /**
@@ -188,6 +268,12 @@ public class CodeCatalyst {
         System.out.println("         Got it. I've added this task:");
         System.out.println("         " + task);
         System.out.println("         Now you have " + tasks.size() + " tasks in the list.");
+
+        try {
+            saveTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file.");;
+        }
     }
 
     private static void addDeadlineTask(String input) {
