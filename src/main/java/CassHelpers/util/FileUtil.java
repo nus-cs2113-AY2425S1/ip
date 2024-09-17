@@ -6,26 +6,49 @@ import CassHelpers.types.Task;
 import CassHelpers.types.Todo;
 
 import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileUtil {
-    private String fileName;
-
-    public FileUtil(String fileName) {
-        this.fileName = fileName;
+    private final File dir;
+    private final File file;
+    public FileUtil(String directoryPath,String fileName) {
+        this.dir = new File(directoryPath);
+        createDir();
+        this.file = new File(dir, fileName);
+        createFile();
     }
 
-    public void appendTasktoFile(Task task) {
+    public void createDir() {
         try {
-            File file = new File(this.fileName);
-            if (!file.exists()) {
-                file.createNewFile();
+            if(!dir.exists()){
+                if(!dir.mkdirs()){
+                    throw new IOException("Could not create directory");
+                }
             }
-            FileWriter fileWriter = new FileWriter(this.fileName, true);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createFile() {
+         try {
+             if(!file.exists()){
+                    if(!file.createNewFile()){
+                        throw new IOException("Could not create file");
+                    }
+             }
+        } catch (IOException e) {
+             System.out.println(e.getMessage());
+        }
+    }
+
+    public void appendTaskToFile(Task task) {
+        try {
+
+            FileWriter fileWriter = new FileWriter(file.getPath(), true);
             fileWriter.write(task.toWritableString()+"\n");
             fileWriter.close();
         } catch (IOException e) {
@@ -35,11 +58,7 @@ public class FileUtil {
 
     public void writeTasksToFile(ArrayList<Task> taskList) {
         try {
-            File file = new File(this.fileName);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fileWriter = new FileWriter(this.fileName);
+            FileWriter fileWriter = new FileWriter(file.getPath());
             for (Task task : taskList) {
                 fileWriter.write(task.toWritableString()+"\n");
             }
@@ -51,10 +70,10 @@ public class FileUtil {
 
     public ArrayList<Task> readTaskFromFile(){
         ArrayList<Task> taskList = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.fileName))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = taskFormatter(line);
+        try {
+        Scanner scanner = new Scanner(this.file);
+            while (scanner.hasNext()) {
+                Task task = taskFormatter(scanner.nextLine());
                 taskList.add(task);
             }
         } catch (IOException e) {
@@ -64,7 +83,7 @@ public class FileUtil {
     }
 
     private Task taskFormatter(String line) {
-        String lineParser[] = line.split(",");
+        String[] lineParser = line.split(",");
         Task task = new Task("dummy");
         switch (lineParser[0]){
             case "T":

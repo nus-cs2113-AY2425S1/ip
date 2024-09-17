@@ -2,7 +2,6 @@ import CassHelpers.exceptions.*;
 import CassHelpers.types.Task;
 import CassHelpers.util.FileUtil;
 import CassHelpers.util.TodoList;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static CassHelpers.util.Messages.displayIntroduction;
@@ -82,7 +81,7 @@ public class Cassandra {
 
     public static void main(String[] args) {
         displayIntroduction();
-        FileUtil fileUtil = new FileUtil("tasks.txt");
+        FileUtil fileUtil = new FileUtil("./data","tasks.txt");
         ArrayList<Task> savedTasks = fileUtil.readTaskFromFile();
         TodoList todoList = new TodoList(savedTasks,fileUtil);
         while(!ifExit) {

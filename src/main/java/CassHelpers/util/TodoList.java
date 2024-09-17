@@ -6,7 +6,6 @@ import CassHelpers.types.Event;
 import CassHelpers.types.Task;
 import CassHelpers.types.Todo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TodoList {
@@ -14,7 +13,7 @@ public class TodoList {
     private final FileUtil fileUtil;
 
     public TodoList(FileUtil fileUtil){
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new ArrayList<>();
         this.fileUtil = fileUtil;
     }
 
@@ -25,7 +24,7 @@ public class TodoList {
 
     public void saveTask(Task input){
         taskList.add(input);
-        fileUtil.appendTasktoFile(input);
+        fileUtil.appendTaskToFile(input);
         System.out.println("Got it. I've added this task: \n "+ input.toString());
         printCurrentListSize();
     }
