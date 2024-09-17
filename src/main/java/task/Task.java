@@ -36,6 +36,15 @@ public class Task {
     }
 
     /**
+     * Returns the task information formatted for saving to a file.
+     *
+     * @return The task as a formatted string suitable for saving to a file.
+     */
+    public String toFileFormat() {
+        return null;
+    }
+
+    /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {

@@ -22,6 +22,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the task information formatted for saving to a file.
+     *
+     * @return The Event task as a formatted string suitable for saving to a file.
+     */
+    @Override
+    public String toFileFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " | " + end;
+    }
+
+    /**
      * Returns a string representation of the Event task.
      *
      * @return A string representing the Event task.

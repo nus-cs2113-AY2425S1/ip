@@ -3,14 +3,24 @@ import task.Event;
 import task.ToDo;
 import task.Deadline;
 import exception.LiaException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Lia is a simple chatbot program that helps users manage tasks.
  */
 public class Lia {
     private static final String INDENTATION = "    "; // Constant for Chatbot output indentation
+    private static final String FILE_PATH = "./data/lia.txt"; // Path to save tasks
 
     public static void main(String[] args) {
         // Customizing the chatbot with the name Lia
@@ -29,7 +39,7 @@ public class Lia {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList to store tasks dynamically
+        ArrayList<Task> tasks = loadTasks();  // Load tasks from file
 
         // Greet the user with enthusiasm
         printLine();
@@ -54,6 +64,9 @@ public class Lia {
                 // Handle commands
                 handleCommand(inputArr, tasks);
 
+                // Save tasks to file after every command
+                saveTasks(tasks);
+
             } catch (LiaException e) {
                 // Handle any Lia-specific exceptions
                 printLine();
@@ -63,6 +76,64 @@ public class Lia {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Loads tasks from the file at startup.
+     * <p>
+     * If the file contains invalid or corrupted data (i.e., not in the expected format),
+     * the line will be skipped, and a warning will be printed.
+     *
+     * @return The list of tasks loaded from the file.
+     */
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Path filePath = Paths.get(FILE_PATH);
+
+        try {
+            if (!Files.exists(filePath)) {
+                // If file doesn't exist, create the file and the directory
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+            } else {
+                // Read the file line by line and load tasks
+                List<String> lines = Files.readAllLines(filePath);
+                for (String line : lines) {
+                    try {
+                        // Validate and parse the task line
+                        String[] data = line.split(" \\| ");
+                        switch (data[0]) {
+                        case "T":
+                            if (data.length != 3) throw new IOException("Invalid ToDo format.");
+                            ToDo todo = new ToDo(data[2]);
+                            if (data[1].equals("1")) todo.markAsDone();
+                            tasks.add(todo);
+                            break;
+                        case "D":
+                            if (data.length != 4) throw new IOException("Invalid Deadline format.");
+                            Deadline deadline = new Deadline(data[2], data[3]);
+                            if (data[1].equals("1")) deadline.markAsDone();
+                            tasks.add(deadline);
+                            break;
+                        case "E":
+                            if (data.length != 5) throw new IOException("Invalid Event format.");
+                            Event event = new Event(data[2], data[3], data[4]);
+                            if (data[1].equals("1")) event.markAsDone();
+                            tasks.add(event);
+                            break;
+                        default:
+                            System.out.println(INDENTATION + "Warning: Unrecognized task type in file. Skipping line.");
+                        }
+                    } catch (IOException | ArrayIndexOutOfBoundsException e) {
+                        // Catch and handle malformed or corrupted lines
+                        System.out.println(INDENTATION + "Warning: Corrupted data in file. Skipping line: " + line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file.");
+        }
+        return tasks;
     }
 
     /**
@@ -153,7 +224,7 @@ public class Lia {
                 System.out.println(INDENTATION + "OK, I've unmarked this task:");
             }
 
-            System.out.println(INDENTATION + task.toString());
+            System.out.println(INDENTATION + task);
             printLine();
 
         } catch (NumberFormatException e) {
@@ -216,6 +287,22 @@ public class Lia {
 
         } catch (NumberFormatException e) {
             throw new LiaException("Oops! Please enter a valid task number.");
+        }
+    }
+
+    /**
+     * Saves the current tasks to a file.
+     *
+     * @param tasks The list of tasks to save.
+     */
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(INDENTATION + "Error saving tasks to file: " + e.getMessage());
         }
     }
 
