@@ -115,6 +115,12 @@ public class Lia {
             }
             markTask(inputArr[1], tasks, false);
             break;
+        case "delete":
+            if (inputArr.length < 2) {
+                throw new LiaException("Oops! You must specify a task number to delete.");
+            }
+            deleteTask(inputArr[1], tasks);
+            break;
         default:
             throw new LiaException("Oops! I don't recognize that command.");
         }
@@ -185,6 +191,32 @@ public class Lia {
         System.out.println(INDENTATION + task.toString());
         System.out.println(INDENTATION + "Now you have " + taskCount + " tasks in the list.");
         printLine();
+    }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskNumberStr The task number to delete.
+     * @param tasks The list of tasks.
+     * @throws LiaException if the task number is invalid.
+     */
+    private static void deleteTask(String taskNumberStr, ArrayList<Task> tasks) throws LiaException {
+        try {
+            int taskIndex = Integer.parseInt(taskNumberStr) - 1;
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new LiaException("Oops! Task number " + taskNumberStr + " does not exist.");
+            }
+
+            Task task = tasks.remove(taskIndex); // Remove the task from the list
+            printLine();
+            System.out.println(INDENTATION + "Noted. I've removed this task:");
+            System.out.println(INDENTATION + task.toString());
+            System.out.println(INDENTATION + "Now you have " + tasks.size() + " tasks in the list.");
+            printLine();
+
+        } catch (NumberFormatException e) {
+            throw new LiaException("Oops! Please enter a valid task number.");
+        }
     }
 
     /**
