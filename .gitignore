@@ -21,4 +21,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 V.txt
+*.jar
+src/main/java/META-INF/
 # text-ui-test/EXPECTED-UNIX.TXT
