@@ -69,18 +69,15 @@ public class Hsien {
             // Handle the case where the file does not exist
             System.out.println("File not found");
         } catch (HsienException e) {
-            System.out.println("Incorrec file input");
+            System.out.println("Incorrect file input");
         }
     }
 
     public static void writeFile(ArrayList<Task> messages) {
         try {
-            String currentDir = System.getProperty("user.dir");
-            System.out.println("Current working directory: " + currentDir);
             FileWriter fw = new FileWriter("tasks.txt");
             for (Task task: messages) {
                 fw.write(task.getStatusDescription() + "\n");
-                System.out.println(task.getStatusDescription());
             }
             fw.close();
         } catch (IOException e) {
