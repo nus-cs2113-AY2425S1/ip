@@ -7,7 +7,7 @@ public class Gertrude {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final Integer MAXIMUM_TASKS = 100;
-    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event"};
+    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete"};
     public static final String[] ONE_WORD_KEYWORDS = {"bye", "list"};
 
 
@@ -46,6 +46,20 @@ public class Gertrude {
     public static void addTask(Task task, String lineInput, ArrayList<Task> tasks) {
         tasks.add(task);
         System.out.println("added: " + lineInput);
+    }
+
+    public static void deleteTask(String[] lineInputArr, ArrayList<Task> tasks) {
+        try {
+            Task taskToRemove = tasks.get(Integer.parseInt(lineInputArr[1]) - 1);
+            System.out.println("Ok. I've removed this task: ");
+            taskToRemove.printTask();
+            tasks.remove(Integer.parseInt(lineInputArr[1])-1);
+            System.out.println("You now have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("That is not a valid number.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("That is not a valid index.");
+        }
     }
 
     public static void addTodo(String[] lineInputArr, ArrayList<Task> tasks) {
@@ -182,6 +196,9 @@ public class Gertrude {
                     break;
                 case "event":
                     addEvent(lineInputArr, tasks);
+                    break;
+                case "delete":
+                    deleteTask(lineInputArr, tasks);
                     break;
                 default:
                     System.out.println("That is not a valid input.");
