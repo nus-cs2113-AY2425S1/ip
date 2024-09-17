@@ -1,6 +1,7 @@
 import java.security.Key;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Gertrude {
 
@@ -23,32 +24,31 @@ public class Gertrude {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void printList(Task[] tasks) {
-        for (int i = 1; i <= Task.taskIndex; i++) {
+    public static void printList(ArrayList<Task> tasks) {
+        for (int i = 1; i <= tasks.size(); i++) {
             System.out.print(i + ".");
-            tasks[i-1].printTask();
+            tasks.get(i-1).printTask();
         }
-        System.out.println("You have " + Task.taskIndex + " tasks in the list.");
+        System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void markTask(String[] lineInputArr, Task[] tasks) {
+    public static void markTask(String[] lineInputArr, ArrayList<Task> tasks) {
         int index = Integer.parseInt(lineInputArr[1]);
-        if (index < 1 || index > Task.taskIndex) {
+        if (index < 1 || index > tasks.size()) {
             System.out.println("That is not a valid index.");
         } else if (lineInputArr[0].equals("mark")) {
-            tasks[index - 1].markDone();
+            tasks.get(index - 1).markDone();
         } else {
-            tasks[index-1].markNotDone();
+            tasks.get(index-1).markNotDone();
         }
     }
 
-    public static void addTask(Task task, String lineInput, Task[] tasks) {
-        tasks[Task.taskIndex] = task;
-        Task.taskIndex += 1;
+    public static void addTask(Task task, String lineInput, ArrayList<Task> tasks) {
+        tasks.add(task);
         System.out.println("added: " + lineInput);
     }
 
-    public static void addTodo(String[] lineInputArr, Task[] tasks) {
+    public static void addTodo(String[] lineInputArr, ArrayList<Task> tasks) {
         String name = "";
         for(int i = 1; i < lineInputArr.length; i++) {
             name += lineInputArr[i] + " ";
@@ -57,7 +57,7 @@ public class Gertrude {
         addTask(newTodo, name, tasks);
     }
 
-    public static void addDeadline(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
+    public static void addDeadline(String[] lineInputArr, ArrayList<Task> tasks) throws GertrudeException, KeywordException {
         String description = "";
         String deadline = "";
         boolean hasBy = false;
@@ -91,7 +91,7 @@ public class Gertrude {
         addTask(newDeadline, description, tasks);
     }
 
-    public static void addEvent(String[] lineInputArr, Task[] tasks) throws GertrudeException, KeywordException {
+    public static void addEvent(String[] lineInputArr, ArrayList<Task> tasks) throws GertrudeException, KeywordException {
         String description = "";
         String start = "";
         String end = "";
@@ -142,7 +142,7 @@ public class Gertrude {
 
     public static void main(String[] args) throws GertrudeException {
         printIntroduction();
-        Task[] tasks = new Task[MAXIMUM_TASKS];
+        ArrayList<Task> tasks = new ArrayList<Task>();
         boolean runLoop = true;
         while (runLoop) {
             String lineInput;
