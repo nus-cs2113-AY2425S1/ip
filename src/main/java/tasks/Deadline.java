@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package tasks;
+
+public class Deadline extends Task {
     private String time;
     public Deadline(String command, boolean isDone, String time) {
         super(command, isDone);

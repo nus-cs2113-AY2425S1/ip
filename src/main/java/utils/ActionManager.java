@@ -1,7 +1,15 @@
+package utils;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 public final class ActionManager {
     private static final int MAX_CAPACITY = 100;
     private static final Task[] tasks = new Task[MAX_CAPACITY];
     private static int taskCount = 0;
+    public static boolean isRunning = true;
     private static final class UsageString {
         private static final String LIST_USAGE = "Usage: list";
         private static final String MARK_UNMARK_USAGE = "Usage: mark/unmark <taskNumber>";
@@ -117,7 +125,7 @@ public final class ActionManager {
      * for further processing.
      * @param command Input command
      */
-      static void process(String command) {
+      public static void process(String command) {
         //Split `command` into `action` and `argString`
         String[] argv = command.split(" ", 2);
         //argv will have at least length of 1 because that's how split() works
@@ -133,7 +141,7 @@ public final class ActionManager {
         try {
             switch (action) {
             case "bye":
-                SuBOT.isRunning = false; //Halt signal for parent class
+                isRunning = false; //Halt signal for parent class
                 break;
             case "list":
                 listAllTask();

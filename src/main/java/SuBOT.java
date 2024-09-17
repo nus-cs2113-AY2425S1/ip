@@ -1,15 +1,16 @@
+import utils.ActionManager;
+
 import java.util.Scanner;
 
 public class SuBOT {
     public static final String SEPARATOR = "-------------------------------";
-    protected static boolean isRunning = true;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         greeting();
         System.out.println(SEPARATOR);
-        while (isRunning) {
+        while (ActionManager.isRunning) {
             String command = sc.nextLine();
             System.out.println(SEPARATOR);
             ActionManager.process(command);
