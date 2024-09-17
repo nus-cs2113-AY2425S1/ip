@@ -41,6 +41,8 @@ public class Freedom {
                 }
                 handleInput(line);
             }
+
+            saveData();
         } catch (Exception e) {
             System.out.print("");
         }
@@ -67,17 +69,14 @@ public class Freedom {
                 case "todo":
                     description = input.replaceFirst("todo", "");
                     tasks.add(new ToDo(description));
-                    addToData("T");
                     break;
                 case "deadline":
                     description = input.replaceFirst("deadline", "");
                     tasks.add(new Deadline(description));
-                    addToData("D");
                     break;
                 case "event":
                     description = input.replaceFirst("event", "");
                     tasks.add(new Event(description));
-                    addToData("E");
                     break;
                 default:
                     throw new InvalidCommand();
@@ -189,22 +188,31 @@ public class Freedom {
         }
     }
 
-    public static void addToData(String taskType) {
-        String taskInData;
+    public static void saveData() {
         final String DIVIDER = " | ";
-        try (FileWriter writer = new FileWriter(DATA_FILE_PATH, true)) {
-            Task taskToAdd = tasks.get(lastIndex);
-            String status = taskToAdd.getStatusIcon().equals("X") ? "1" : "0";
-            taskInData = "\n" + taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
 
-            if (taskType.equals("D")) {
-                taskInData += DIVIDER + taskToAdd.getDoneBy();
-            } else if (taskType.equals("E")) {
-                taskInData += DIVIDER + taskToAdd.getFrom() + DIVIDER + taskToAdd.getTo();
+        String taskInData;
+        Task taskToAdd;
+        String taskType;
+
+        try (FileWriter writer = new FileWriter(DATA_FILE_PATH)) {
+            for (int i = 0; i < lastIndex; i++) {
+                taskToAdd = tasks.get(i);
+                taskType = taskToAdd.getType();
+                String status = taskToAdd.getStatusIcon().equals("X") ? "1" : "0";
+                taskInData = taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
+
+                if (taskType.equals("D")) {
+                    taskInData += DIVIDER + taskToAdd.getDoneBy();
+                } else if (taskType.equals("E")) {
+                    taskInData += DIVIDER + taskToAdd.getFrom() + DIVIDER + taskToAdd.getTo();
+                }
+
+                taskInData += "\n";
+                writer.write(taskInData);
             }
-
-            writer.write(taskInData);
-        } catch (IOException e){
+            System.out.println("\tData saved!");
+        } catch (IOException e) {
             System.out.print(LOGO);
             System.out.println("\tCannot open data file :((");
             System.out.println(LOGO);

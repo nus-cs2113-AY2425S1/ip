@@ -1,6 +1,7 @@
 package freedom.tasks;
 
 public class Task {
+    protected String type;
     protected String description;
     protected boolean isDone;
     protected static final String LOGO = "\t________________________________________\n";
@@ -40,6 +41,10 @@ public class Task {
 
     public String getStatusIcon() {
         return isDone ? "X" : " ";
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void updateDescription(String newDescription) {
