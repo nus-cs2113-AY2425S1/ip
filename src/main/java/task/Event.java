@@ -14,4 +14,9 @@ public class Event extends Task {
     public String toString() {
         return ("[E][" + getDoneStatusIcon() + "] " + description + " (from: " + startDate + " to: " + endDate + ")");
     }
+
+    @Override
+    public String formattedTask() {
+        return ("E | " + getDoneStatusIcon() + " | " + description + " | " + startDate + " | " + endDate);
+    }
 }
