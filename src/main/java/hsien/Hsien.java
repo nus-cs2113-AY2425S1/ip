@@ -28,6 +28,14 @@ public class Hsien {
         System.out.println("\n" + "-".repeat(50) + "\n");
     }
 
+    public static void welcomeMessage() {
+        printLine();
+        printLogo();
+        // Greet
+        System.out.println("Hello! I am Hsien, your personal chatbot...");
+        printLine();
+    }
+
     public static void printList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("List is currently empty. Please add a task!");
@@ -46,13 +54,7 @@ public class Hsien {
         for (int i=1; i<= validCommands.size(); i+=1) {
             System.out.printf("%d. %s\n", i, validCommands.get(i - 1));
         }
-    }
-
-    public static void deleteTask(ArrayList<Task> messages, int index) {
-        System.out.println("Noted I have removed this task");
-        System.out.println(messages.get(index).getStatusDescription());
-        messages.remove(index);
-        System.out.printf("Now you have %d tasks in the list\n", messages.size());
+        System.out.print("Please enter a command/add task (type 'bye' to exit): ");
     }
 
     public static void readFile(ArrayList<Task> messages) {
@@ -85,7 +87,6 @@ public class Hsien {
             System.out.println("An error occurred while writing to the file.");
         }
     }
-
 
     public static String[] processCommand(String input) {
         String[] parts = input.split(" ");
@@ -137,7 +138,7 @@ public class Hsien {
 
         messages.add(newTask);
         System.out.println("Added task: " + newTask.getDescription());
-        System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
+        System.out.printf("Now you have [%d] tasks in the list.%n", messages.size());
     }
 
     public static void addTask(String command, String desc, ArrayList<Task> messages) {
@@ -172,27 +173,47 @@ public class Hsien {
 
         messages.add(newTask);
         System.out.println("Added task: " + newTask.getDescription());
-        System.out.println(String.format("Now you have [%d] tasks in the list.", messages.size()));
+        System.out.printf("Now you have [%d] tasks in the list.%n", messages.size());
+    }
+
+    public static void handleMark(String command, String desc, ArrayList<Task> messages) {
+        // Get the task index
+        int index = Integer.parseInt(desc);
+        boolean isMarking = command.equals("mark");
+
+        // Perform marking or unmarking
+        if (isMarking) {
+            messages.get(index - 1).mark();
+            System.out.println("You marked " + index + " as marked");
+        } else {
+            messages.get(index - 1).unmark();
+            System.out.println("You marked " + index + " as unmarked");
+        }
+
+        // Print status of the task
+        System.out.println(messages.get(index - 1).getStatusDescription());
+    }
+
+    public static void deleteTask(ArrayList<Task> messages, int index) {
+        System.out.println("Noted I have removed this task");
+        System.out.println(messages.get(index).getStatusDescription());
+        messages.remove(index);
+        System.out.printf("Now you have %d tasks in the list\n", messages.size());
     }
 
     public static void main(String[] args) {
-        printLine();
-        printLogo();
-        // Greet
-        System.out.println("Hello! I am Hsien, your personal chatbot...");
-        printLine();
-
+        // Initialise variables
         List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event");
         ArrayList<Task> messages = new ArrayList<>();
-        readFile(messages);
-        printLine();
-
         Scanner in = new Scanner(System.in);
         boolean isRunning = true;
 
+        welcomeMessage();
+        readFile(messages);
+        printLine();
+
         while (isRunning) {
             printCommands(validCommands);
-            System.out.print("Please enter a command/add task (type 'bye' to exit): ");
             String input = in.nextLine();
 
             String[] processedCommand = processCommand(input);
@@ -200,8 +221,8 @@ public class Hsien {
             String command = processedCommand[0];
             String desc = processedCommand[1];
 
+            // Check if valid command
             try {
-                // Check if valid commmand
                 if (!validCommands.contains(command)) {
                     throw new HsienException();
                 }
@@ -211,6 +232,7 @@ public class Hsien {
                 continue;
             }
 
+            // Handle command
             if (command.equals("bye")) {
                 // Exit
                 System.out.println("Have a good day! Bye!");
@@ -219,27 +241,11 @@ public class Hsien {
             } else if (command.equals("list")) {
                 printList(messages);
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
-                // Get the task index
-                int index = Integer.parseInt(desc);
-                boolean isMarking = command.equals("mark");
-
-                // Out of bounds
-                if (index == 0 || index > messages.size())  {
+                try {
+                    handleMark(command, desc, messages);
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Index out of bounds");
-                    continue;
                 }
-
-                // Perform marking or unmarking
-                if (isMarking) {
-                    messages.get(index - 1).mark();
-                    System.out.println("You marked " + index + " as marked");
-                } else {
-                    messages.get(index - 1).unmark();
-                    System.out.println("You marked " + index + " as unmarked");
-                }
-
-                // Print status of the task
-                System.out.println(messages.get(index - 1).getStatusDescription());
             } else if (command.equals("delete")) {
                 try {
                     deleteTask(messages, Integer.parseInt(desc)-1);
