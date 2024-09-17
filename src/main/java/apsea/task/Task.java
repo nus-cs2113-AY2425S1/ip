@@ -13,6 +13,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getFileStatusIcon() {
+        return (isDone ? "1" : "0");
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -25,5 +29,9 @@ public class Task {
     public String toString() {
         return " [" + getStatusIcon() + "] "
             + this.description;
+    }
+
+    public String toFile() {
+        return getFileStatusIcon() + "; " + this.description;
     }
 }
