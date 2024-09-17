@@ -22,13 +22,22 @@ public class Task {
     }
 
     // Task Print Operations
-    public String taskToString() {
-        return "[" + (isDone ? "X" : " ") + "] " + taskDesc;
-    }
     public void printAddedTask(int taskCount) {
         StringStorage.printWithDividers(
                 StringStorage.TASK_ADDED_STRING + "\n"
                 + "  " + this.taskToString() + "\n"
                 + StringStorage.LIST_SIZE_STRING + taskCount);
+    }
+    // Task Conversion Operations
+    public String taskToString() {
+        return String.format("%d | %s", isDone ? "X" : " ", taskDesc);
+    }
+    public static Task stringToTask(String taskAsString) {
+        String[] parts = taskAsString.split(" \\| ");
+        String isDone = parts[1];
+        String taskDesc = parts[2];
+        Task task = new Task(taskDesc);
+        task.setDoneStatus( isDone.equals("X") );
+        return task;
     }
 }

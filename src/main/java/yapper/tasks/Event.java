@@ -14,11 +14,20 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    // toString Method
+    /// Task Conversion Operations
     @Override
     public String taskToString() {
-        return StringStorage.EVENT_PREFIX
-                + super.taskToString()
-                + ", from " + startDate + " to " + endDate;
+        return "E" + " | " + super.taskToString() + " | " + startDate + " | " + endDate;
+    }
+    @Override
+    public static Event stringToTask(String taskAsString) {
+        String[] parts = taskAsString.split(" \\| ");
+        String isDone = parts[1];
+        String taskDesc = parts[2];
+        String startDate = parts[3];
+        String endDate = parts[4];
+        Event event = new Event(taskDesc, startDate, endDate);
+        event.setDoneStatus( isDone.equals("X") );
+        return event;
     }
 }

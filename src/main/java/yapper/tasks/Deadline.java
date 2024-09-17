@@ -12,11 +12,19 @@ public class Deadline extends Task {
         this.endDate = endDate;
     }
 
-    // toString Method
+    // Task Conversion Operations
     @Override
     public String taskToString() {
-        return StringStorage.DEADLINE_PREFIX
-                + super.taskToString()
-                + ", due " + endDate;
+        return "D" + " | " + super.taskToString() + " | " + endDate;
+    }
+    @Override
+    public static Deadline stringToTask(String taskAsString) {
+        String[] parts = taskAsString.split(" \\| ");
+        String isDone = parts[1];
+        String taskDesc = parts[2];
+        String endDate = parts[3];
+        Deadline deadline = new Deadline(taskDesc, endDate);
+        deadline.setDoneStatus( isDone.equals("X") );
+        return deadline;
     }
 }
