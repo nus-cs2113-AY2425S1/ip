@@ -24,6 +24,18 @@ public class Task {
         return null;
     }
 
+    public String getBy() {
+        return null;
+    }
+
+    public String getFrom() {
+        return null;
+    }
+
+    public String getTo() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatus(), this.description);
