@@ -14,11 +14,11 @@ public class Ryan {
         while (!isExiting) {
             String userInput = scanner.nextLine();
             String[] splitInput = userInput.split(" ", 2);
-            String Command = splitInput[0];
+            String command = splitInput[0];
             String inputBody = splitInput.length > 1 ? splitInput[1] : "";
 
             try {
-                switch (Command) {
+                switch (command) {
                     case "bye":
                         isExiting = true;
                         Utils.horizontalLine();
@@ -38,6 +38,10 @@ public class Ryan {
 
                     case "event":
                         addEvent(tasks, inputBody);
+                        break;
+
+                    case "delete":
+                        deleteTask(tasks, inputBody);
                         break;
 
                     case "mark":
@@ -177,6 +181,19 @@ public class Ryan {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Utils.horizontalLine();
+    }
+
+    public static void deleteTask(ArrayList<Task> tasks, String inputBody) throws RyanException {
+        Utils.horizontalLine();
+        int index = parseIndex(inputBody);
+        if (isValidIndex(index, tasks.size())) {
+            Task task = tasks.remove(index);
+            System.out.println("OK, I've removed this task:\n" + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            throw new RyanException("Invalid task number.");
+        }
         Utils.horizontalLine();
     }
 
