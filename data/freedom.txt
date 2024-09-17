@@ -1,6 +1,6 @@
-T | 1 | Assignment
-D | 0 | Homework | 20 sep
-E | 1 | Concert | 1000 | 1200
-D | 1 | Quiz | 30 sep
-T | 0 | Tutorial
-E | 0 | Exam | 0900 | 1100
+T | X | Assignment
+D |   | Homework | 20 sep
+E |   | Concert | 1000 | 1200
+D | X | Quiz | 30 sep
+T |   | Tutorial
+E |   | Exam | 0900 | 1100

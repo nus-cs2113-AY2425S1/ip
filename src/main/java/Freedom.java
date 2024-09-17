@@ -156,7 +156,7 @@ public class Freedom {
             Scanner read = new Scanner(data);
             while (read.hasNextLine()) {
                 String[] words = read.nextLine().split("[|]");
-                isDone = words[STATUS_INDEX].trim().equals("1");
+                isDone = words[STATUS_INDEX].trim().equals("X");
                 switch(words[COMMAND_INDEX].trim()) {
                     case "T":
                         tasks.add(new ToDo(words[DESCRIPTION_INDEX].trim(), isDone));
@@ -194,12 +194,13 @@ public class Freedom {
         String taskInData;
         Task taskToAdd;
         String taskType;
+        String status;
 
         try (FileWriter writer = new FileWriter(DATA_FILE_PATH)) {
             for (int i = 0; i < lastIndex; i++) {
                 taskToAdd = tasks.get(i);
                 taskType = taskToAdd.getType();
-                String status = taskToAdd.getStatusIcon().equals("X") ? "1" : "0";
+                status = taskToAdd.getStatusIcon();
                 taskInData = taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
 
                 if (taskType.equals("D")) {
