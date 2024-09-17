@@ -284,22 +284,24 @@ public class List {
             if (itemNum > this.getNumItems() || itemNum <= 0) {
                 printInputIndexOutOfRangeMessage();
             } else {
-                Task deletedTask = itemList[itemNum - 1];
+                Task deletedTask = itemArrayList.get(itemNum - 1);
                 this.deleteListItem(itemNum);
                 printTaskDeletedMessage(deletedTask);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException  e) {
             printInputIndexNotAnIntegerMessage();
+        } catch (Exception e) {
+            printUnknownErrorMessage();
         }
     }
 
     private void deleteListItem(int itemNum) {
-        System.out.println("<Delete function to be filled>");
+        itemArrayList.remove(itemNum - 1);
     }
 
     private void printTaskDeletedMessage(Task task) {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + task);
-        System.out.println("\tNow you have " + (numItems+1) + " tasks in the list.");
+        System.out.println("\tNow you have " + itemArrayList.size() + " tasks in the list.");
     }
 }
