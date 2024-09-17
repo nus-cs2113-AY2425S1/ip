@@ -154,7 +154,7 @@ public class V {
                     saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
                     break;
                 case "E":
-                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /by " + task.getTo() + System.lineSeparator());
+                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /to " + task.getTo() + System.lineSeparator());
                     break;
                 default:
                     break;
