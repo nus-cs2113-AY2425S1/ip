@@ -4,8 +4,8 @@ import CassHelpers.util.FileUtil;
 import CassHelpers.util.TodoList;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static CassHelpers.util.Messages.displayIntroduction;
-import static CassHelpers.util.Messages.drawLine;
+
+import static CassHelpers.util.Messages.*;
 
 public class Cassandra {
 
@@ -59,6 +59,9 @@ public class Cassandra {
                     break;
                 case "event":
                     todoList.addEvent(input);
+                    break;
+                case "help":
+                    displayHelpInstructions();
                     break;
                 default:
                     throw new InvalidCommandException("Sorry, unknown command.");

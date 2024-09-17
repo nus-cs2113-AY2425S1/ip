@@ -28,4 +28,40 @@ public class Messages {
         System.out.println(" What can I do for you?");
         drawLine();
     }
+
+    public static void displayHelpInstructions() {
+        System.out.println("Welcome to Cassandra - Your Task Manager App!");
+        System.out.println("Here are the commands you can use:");
+
+        System.out.println("\n1. Add a Todo Task:");
+        System.out.println("   todo <task_description>");
+        System.out.println("   Example: todo Read a book");
+
+        System.out.println("\n2. Add a Deadline Task:");
+        System.out.println("   deadline <task_description> /by <due_date>");
+        System.out.println("   Example: deadline Submit assignment /by 2024-09-15");
+
+        System.out.println("\n3. Add an Event Task:");
+        System.out.println("   event <event_description> /from <start_time> /to <end_time>");
+        System.out.println("   Example: event Team meeting /from 2pm /to 4pm");
+
+        System.out.println("\n4. List All Tasks:");
+        System.out.println("   list");
+        System.out.println("   Displays all tasks currently in your list.");
+
+        System.out.println("\n5. Mark a Task as Complete:");
+        System.out.println("   mark <task_index>");
+        System.out.println("   Example: mark 2");
+
+        System.out.println("\n6. Unmark a Task (set as incomplete):");
+        System.out.println("   unmark <task_index>");
+        System.out.println("   Example: unmark 2");
+
+        System.out.println("\n7. Exit the App:");
+        System.out.println("   bye");
+        System.out.println("   Exits the application.");
+
+        System.out.println("\nNote:");
+        System.out.println(" - Task indices start from 1.");
+    }
 }
