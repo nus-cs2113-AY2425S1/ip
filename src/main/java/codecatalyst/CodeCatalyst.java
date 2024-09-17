@@ -159,6 +159,11 @@ public class CodeCatalyst {
             throw new CodeCatalystException("         Please enter a valid task number for deletion.");
         }
 
+        try {
+            saveTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Error deleting tasks to file.");;
+        }
     }
 
     private static void validateTodoInput(String input) throws CodeCatalystException {
