@@ -41,7 +41,8 @@ public class Cubone {
     static {
         try {
             inputed_tasks = LogFile.readLogFile();
-            LogFileRead = true;
+            if (inputed_tasks.size() > 0)
+                LogFileRead = true;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -104,6 +104,8 @@ public class LogFile {
             scanner.close();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error reading the log file, invalid data detected.");
+            return new ArrayList<Task>();
         }
         return tasks;
     }
