@@ -81,6 +81,9 @@ public class Lia {
     /**
      * Loads tasks from the file at startup.
      *
+     * If the file contains invalid or corrupted data (i.e., not in the expected format),
+     * the line will be skipped, and a warning will be printed.
+     *
      * @return The list of tasks loaded from the file.
      */
     private static ArrayList<Task> loadTasks() {
@@ -96,23 +99,34 @@ public class Lia {
                 // Read the file line by line and load tasks
                 List<String> lines = Files.readAllLines(filePath);
                 for (String line : lines) {
-                    String[] data = line.split(" \\| ");
-                    switch (data[0]) {
-                    case "T":
-                        ToDo todo = new ToDo(data[2]);
-                        if (data[1].equals("1")) todo.markAsDone();
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(data[2], data[3]);
-                        if (data[1].equals("1")) deadline.markAsDone();
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(data[2], data[3], data[4]);
-                        if (data[1].equals("1")) event.markAsDone();
-                        tasks.add(event);
-                        break;
+                    try {
+                        // Validate and parse the task line
+                        String[] data = line.split(" \\| ");
+                        switch (data[0]) {
+                        case "T":
+                            if (data.length != 3) throw new IOException("Invalid ToDo format.");
+                            ToDo todo = new ToDo(data[2]);
+                            if (data[1].equals("1")) todo.markAsDone();
+                            tasks.add(todo);
+                            break;
+                        case "D":
+                            if (data.length != 4) throw new IOException("Invalid Deadline format.");
+                            Deadline deadline = new Deadline(data[2], data[3]);
+                            if (data[1].equals("1")) deadline.markAsDone();
+                            tasks.add(deadline);
+                            break;
+                        case "E":
+                            if (data.length != 5) throw new IOException("Invalid Event format.");
+                            Event event = new Event(data[2], data[3], data[4]);
+                            if (data[1].equals("1")) event.markAsDone();
+                            tasks.add(event);
+                            break;
+                        default:
+                            System.out.println(INDENTATION + "Warning: Unrecognized task type in file. Skipping line.");
+                        }
+                    } catch (IOException | ArrayIndexOutOfBoundsException e) {
+                        // Catch and handle malformed or corrupted lines
+                        System.out.println(INDENTATION + "Warning: Corrupted data in file. Skipping line: " + line);
                     }
                 }
             }
