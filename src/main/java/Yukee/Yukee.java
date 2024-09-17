@@ -11,7 +11,7 @@ import Yukee.exception.EmptyDescriptionException;
 import Yukee.exception.InvalidCommandException;
 
 public class Yukee {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./src/main/java/yukee.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -93,7 +93,7 @@ public class Yukee {
                                 System.out.println("Noted. I've removed this task:");
                                 System.out.println("  " + removedTask);
                                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                                saveTasksToFile(); // 删除任务后保存到文件
+                                saveTasksToFile(); //
                             } else {
                                 System.out.println("Invalid task number. Please try again.");
                             }
@@ -152,7 +152,7 @@ public class Yukee {
 
                     case "hello":
                     case "hi":
-                        System.out.println("Hello there! I'm Yukee, your personal assistant. I can help you manage tasks. Just let me know what you'd like to do! (✿◠‿◠)");
+                        System.out.println("Hello there! I'm Yukee, your personal assistant. I can help you manage tasks. Just let me know what you'd like to do!");
                         break;
 
                     default:
