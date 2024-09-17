@@ -10,7 +10,6 @@ import jeff.task.Todo;
 
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -57,6 +56,10 @@ public class Jeff {
     public static final int SLASH_BY_LENGTH = 3;
     public static final int SLASH_FROM_LENGTH = 5;
     public static final int SLASH_TO_LENGTH = 3;
+
+    public static final int TODO_FILE_FIELD_LENGTH = 3;
+    public static final int DEADLINE_FILE_FIELD_LENGTH = 4;
+    public static final int EVENT_FILE_FIELD_LENGTH = 5;
 
     //Prints out lists of tasks
     public static void printList(){
@@ -279,7 +282,7 @@ public class Jeff {
         }
     }
 
-    public static void runBot(){
+    public static void runBot() throws IOException {
         Scanner in = new Scanner(System.in);
         String line;
         System.out.print("You say:" + System.lineSeparator());
@@ -318,73 +321,128 @@ public class Jeff {
     }
 
     //Rewrites taskList to hard drive, runs every time a task is added, or marked/unmarked
-    private static void writeFileTask() {
-        try {
-            FileWriter fw = new FileWriter(FILEPATH);
-            StringBuilder fileContents = new StringBuilder();
-            for (int i = 1; i <= taskList.size(); i++) {
-                fileContents.append(taskList.get(i - 1).fileContent()).append(System.lineSeparator());
-            }
-            fw.write(fileContents.toString());
-            fw.close();
+    private static void writeFileTask() throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH);
+        StringBuilder fileContents = new StringBuilder();
+        for (int i = 1; i <= taskList.size(); i++) {
+            fileContents.append(taskList.get(i - 1).fileContent()).append(System.lineSeparator());
         }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
+        fw.write(fileContents.toString());
+        fw.close();
+    }
+
+    //Adds todo from txt file to taskList
+    private static void processFileTodo(String[] taskDetails) throws InvalidFormatException {
+        if (taskDetails.length == TODO_FILE_FIELD_LENGTH) {
+            taskList.add(new Todo(taskDetails[2]));
+        } else {
+            throw new InvalidFormatException("todo");
         }
     }
 
-    private static void processFileTask(String taskLine) throws InvalidFormatException{
+    //Adds Deadline from txt file to taskList
+    private static void processFileDeadline(String[] taskDetails) throws InvalidFormatException {
+        if (taskDetails.length == DEADLINE_FILE_FIELD_LENGTH) {
+            taskList.add(new Deadline(taskDetails[2], taskDetails[3]));
+        } else {
+            throw new InvalidFormatException("deadline");
+        }
+    }
+
+    //Adds Event from txt file to taskList
+    private static void processFileEvent(String[] taskDetails) throws InvalidFormatException {
+        if (taskDetails.length == EVENT_FILE_FIELD_LENGTH) {
+            taskList.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+        } else {
+            throw new InvalidFormatException("event");
+        }
+    }
+
+    //Processes the different task types from txt file
+    private static void processFileTaskTypes(String[] taskDetails) throws InvalidFormatException {
+        String taskType = taskDetails[0];
+
+        switch (taskType) {
+        case "T":
+            processFileTodo(taskDetails);
+            break;
+        case "D":
+            processFileDeadline(taskDetails);
+            break;
+        case "E":
+            processFileEvent(taskDetails);
+            break;
+        default:
+            throw new InvalidFormatException("Unknown task type");
+        }
+    }
+
+    //Splits taskLine into the various fields
+    private static String[] getFileTaskDetails(String taskLine) throws InvalidFormatException {
         String[] taskDetails = taskLine.split("\\|");
 
         //Remove starting and trailing spaces, and check if the fields are empty
         for(int i = 0; i < taskDetails.length; i++){
             taskDetails[i] = taskDetails[i].trim();
             if(taskDetails[i].isEmpty()){
-                throw new InvalidFormatException(taskLine);
+                throw new InvalidFormatException("Empty task field");
             }
         }
+        return taskDetails;
+    }
 
-        //Check if the current line is in the expected format
-        if(taskDetails[0].equals("T") && taskDetails.length == 3){
-            new Todo(taskDetails[2]);
-        }
-        else if(taskDetails[0].equals("D") && taskDetails.length == 4){
-            new Deadline(taskDetails[2], taskDetails[3]);
-        }
-        else if(taskDetails[0].equals("E") && taskDetails.length == 5){
-            new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-        }
-        else{
-            throw new InvalidFormatException(taskLine);
-        }
+    //Adds the task into the taskList if valid
+    private static void processFileTasks(String taskLine) {
+        try {
+            //Splits the taskDetails and ensures the fields are not empty
+            String[] taskDetails = getFileTaskDetails(taskLine);
 
-        if(taskDetails[1].equals("1")){
-            markTask("mark", Integer.toString(taskList.size()));
+            //Processes different the different task types and add them to taskList if valid
+            processFileTaskTypes(taskDetails);
+
+            if (taskDetails[1].equals("1")) {
+                taskList.get(taskList.size() - 1).setIsDone(true);
+                System.out.println(taskList.get(taskList.size() - 1));
+            }
+        } catch (InvalidFormatException e) {
+            System.out.print("Invalid input error: " + e.getMessage() + System.lineSeparator() +
+                    "Input was: " + taskLine);
+        }
+    }
+
+    //Creates txt task file if it doesn't exist, do nothing if it does
+    private static void createTaskFile(File taskFile) throws IOException {
+        taskFile.createNewFile();
+    }
+
+    //Creates 'data' directory in the root address if it doesn't exist, do nothing if it does
+    private static void createDataDirectory(File taskFile) {
+        File directory = taskFile.getParentFile();
+        //Check if directory exists
+        if(!directory.exists()) {
+            directory.mkdirs();
         }
     }
 
     //Load the tasks from the txt file into list here
-    private static void loadTaskList() {
-        try {
-            File taskFile = new File(FILEPATH);
-            Scanner fileScanner = new Scanner(taskFile);
+    private static void loadTaskList() throws IOException {
+        File taskFile = new File(FILEPATH);
 
-            //Scans through all the lines in the txt file, and adds them to the taskList
-            while (fileScanner.hasNext()) {
-                try {
-                    processFileTask(fileScanner.nextLine());
-                } catch (InvalidFormatException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.out.print("File not found");
+        //Creates directory if it does not yet exist. Otherwise, it does nothing.
+        createDataDirectory(taskFile);
+
+        //Creates task file if it does not yet exist. Otherwise, it does nothing.
+        createTaskFile(taskFile);
+
+        Scanner fileScanner = new Scanner(taskFile);
+        //Scans through all the lines in the txt file, and adds them to the taskList
+        while (fileScanner.hasNext()) {
+            processFileTasks(fileScanner.nextLine());
         }
     }
 
     //Prints Intro text, runs the chatbot, prints the Exit text
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //Loads taskList from hard drive
         loadTaskList();
 
