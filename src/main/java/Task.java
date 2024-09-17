@@ -31,4 +31,8 @@ public class Task {
         System.out.println("OK, I've marked this task as not done yet:");
         printTask();
     }
+
+    public String dataForSave() {
+        return "";
+    }
 }
