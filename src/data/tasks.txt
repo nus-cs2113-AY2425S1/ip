@@ -1,3 +1,1 @@
-[T] [done] list
-[E] [not done] asdf  (from: dd to: dd)
-[D] [not done] eating  (by: 11)
+[T] [not done] list

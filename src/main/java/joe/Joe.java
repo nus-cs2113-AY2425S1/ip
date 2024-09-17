@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.io.File;
 
 public class Joe {
+    private static final String userHome = System.getProperty("user.home");
     private static final String INTENDATION = "      ";
-    private static final String FILE_PATH = "src/data/tasks.txt";
+    private static final String FILE_PATH = userHome + "/tasks.txt";
     private static final String SEPARATOR = "_________________________________________________";
     private static ArrayList<Task> toDoItemArrayList = new ArrayList<Task>();
     private static final String LOGO = "    (_)           \n"
