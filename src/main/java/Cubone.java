@@ -158,6 +158,22 @@ public class Cubone {
         System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param index the index of the task to be deleted
+     */
+    public static void deleteTask(int index) {
+        try{
+            Task deletedTask = inputed_tasks.remove(index);
+            System.out.println("Noted. I've removed this task:\n" + deletedTask.toString());
+            System.out.println("now you have " + inputed_tasks.size() + " tasks in the list");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("task not found: " + e.getMessage());
+            return;
+        }
+    }
+
     public static void main(String[] args) {
         sayWelcomeMsg();
 
@@ -219,7 +235,6 @@ public class Cubone {
                     if (command.length < 2 || command[1].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     addTodoTask(command[1]);
                 } catch (CuboneMissingParameterError e) {
                     System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
@@ -232,13 +247,10 @@ public class Cubone {
                     if (command.length < 2 || command[1].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     String[] deadlineCommand = command[1].split(" /by ");
-
                     if (deadlineCommand.length < 2 || deadlineCommand[0].isBlank() || deadlineCommand[1].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     addDeadlineTask(deadlineCommand[0], deadlineCommand[1]);
                 } catch (CuboneMissingParameterError e) {
                     System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
@@ -251,22 +263,28 @@ public class Cubone {
                     if (command.length < 2 || command[1].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     String[] eventCommand = command[1].split(" /from ");
-
                     if (eventCommand.length < 2 || eventCommand[0].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     String[] eventCommand2 = eventCommand[1].split(" /to ");
-
                     if (eventCommand2.length < 2 || eventCommand2[0].isBlank() || eventCommand2[1].isBlank()) {
                         throw new CuboneMissingParameterError();
                     }
-
                     addEventTask(eventCommand[0], eventCommand2[0], eventCommand2[1]);
                 } catch (CuboneMissingParameterError e) {
                     System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                }
+                break;
+            case "delete":
+                // delete task
+                try {
+                    int deleteIndex = Integer.parseInt(command[1]);
+                    deleteTask(deleteIndex - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ Oh No! Missing parameter.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ Oh No! Invalid index.\n" + USAGE_MSG + COMMAND_USAGES.get(command[0]));
                 }
                 break;
             default:
