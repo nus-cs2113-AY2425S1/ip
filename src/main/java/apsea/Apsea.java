@@ -14,33 +14,33 @@ public class Apsea {
     private static ArrayList<Task> tasks = new ArrayList<>() ;
 
     public static void printLine() {
-        System.out.println("    ________________________________________________________");
+        System.out.println("\t________________________________________________________");
     }
     public static void printHello() {
         printLine();
-        System.out.println("    Hello! I'm Apsea!\n"
-                + "    What can I do for you?");
+        System.out.println("\tHello! I'm Apsea!\n"
+                + "\tWhat can I do for you?");
         printLine();
     }
     public static void printBye() {
         printLine();
-        System.out.println("    Bye. Hope to see you again soon");
+        System.out.println("\tBye. Hope to see you again soon");
         printLine();
     }
 
     public static void printError() {
         printLine();
-        System.out.println("    Sorry, please try again with a valid command.");
+        System.out.println("\tSorry, please try again with a valid command.");
         printLine();
     }
 
     private static void printAddTask() {
-        System.out.println("    I've added this task to the list:");
-        System.out.println("    " + tasks.get(tasks.size()-1));
+        System.out.println("\tI've added this task to the list:");
+        System.out.println("\t" + tasks.get(tasks.size()-1));
     }
 
     private static void printTotalTasks() {
-        System.out.println("    Now you have " + tasks.size() + " task(s) in the list");
+        System.out.println("\tNow you have " + tasks.size() + " task(s) in the list");
     }
 
     public static void listTasks() {
@@ -48,7 +48,7 @@ public class Apsea {
 
         int count = 1;
         for (Task task : tasks) {
-            System.out.println("    " + count + ". " + task);
+            System.out.println("\t" + count + ". " + task);
             count++;
         }
         printLine();
@@ -60,13 +60,13 @@ public class Apsea {
             (tasks.get(taskIndex)).markAsDone();
 
             printLine();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("    " + tasks.get(taskIndex));
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t" + tasks.get(taskIndex));
             printLine();
         } catch (Exception e) {
             printLine();
-            System.out.println("    Sorry, please use the format:\n"
-                    + "    mark [number]");
+            System.out.println("\tSorry, please use the format:\n"
+                    + "\tmark [number]");
             printLine();
         }
     }
@@ -77,13 +77,13 @@ public class Apsea {
             (tasks.get(taskIndex)).markAsUndone();
 
             printLine();
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + tasks.get(taskIndex));
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t" + tasks.get(taskIndex));
             printLine();
         } catch (Exception e) {
             printLine();
-            System.out.println("    Sorry, please use the format:\n"
-                    + "    unmark [number]");
+            System.out.println("\tSorry, please use the format:\n"
+                    + "\tunmark [number]");
             printLine();
         }
     }
@@ -95,14 +95,14 @@ public class Apsea {
             tasks.remove(taskIndex);
 
             printLine();
-            System.out.println("    OK, I've deleted this task:");
-            System.out.println("    " + deletedTask);
+            System.out.println("\tOK, I've deleted this task:");
+            System.out.println("\t" + deletedTask);
             printTotalTasks();
             printLine();
         } catch (Exception e) {
             printLine();
-            System.out.println("    Sorry, please use the format:\n"
-                    + "    delete [number]");
+            System.out.println("\tSorry, please use the format:\n"
+                    + "\tdelete [number]");
             printLine();
         }
     }
@@ -110,8 +110,8 @@ public class Apsea {
     public static void addTodo(String line) throws ApseaException {
         final int NAME_POSITION = 5;
         if (line.length() <= NAME_POSITION) {
-            throw new ApseaException("    Sorry, please use the format:\n"
-                    + "    todo [task name]");
+            throw new ApseaException("\tSorry, please use the format:\n"
+                    + "\ttodo [task name]");
         }
 
         tasks.add(new Todo(line.substring(NAME_POSITION)));
@@ -131,8 +131,8 @@ public class Apsea {
         int byPosition = line.indexOf("/by");
 
         if (!isValidDeadline(line, byPosition)) {
-            throw new ApseaException("    Sorry, please use the format:\n"
-                    + "    deadline [task name] /by [time]");
+            throw new ApseaException("\tSorry, please use the format:\n"
+                    + "\tdeadline [task name] /by [time]");
         }
 
         tasks.add(new Deadline(line.substring(NAME_POSITION, byPosition),
@@ -160,8 +160,8 @@ public class Apsea {
         int toPosition = line.indexOf("/to");
 
         if (!isValidEvent(line, fromPosition, toPosition)) {
-            throw new ApseaException("    Sorry, Please use the format:\n" +
-                    "    event [task name] /from [time] /to [event] ");
+            throw new ApseaException("\tSorry, Please use the format:\n" +
+                    "\tevent [task name] /from [time] /to [event] ");
         }
 
         tasks.add(new Event(line.substring(NAME_POSITION, fromPosition),
