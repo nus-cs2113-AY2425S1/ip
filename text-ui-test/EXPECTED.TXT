@@ -97,6 +97,9 @@
 		todo <task name>
 		deadline <deadline name> /by <deadline>
 		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
 	________________________________________
 
 	________________________________________
@@ -116,6 +119,9 @@
 		todo <task name>
 		deadline <deadline name> /by <deadline>
 		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
 	________________________________________
 
 	________________________________________
