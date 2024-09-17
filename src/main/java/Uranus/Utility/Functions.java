@@ -1,7 +1,7 @@
 package Uranus.Utility;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 import Uranus.Tasks.Deadlines;
 import Uranus.Tasks.Events;
 import Uranus.Tasks.Task;
@@ -12,8 +12,7 @@ public class Functions {
 
     protected static final Scanner in = new Scanner(System.in);
     private static final String SEPARATOR = "_________________________________________________________";
-    private Task[] taskList = new Task[100];
-    private int taskCounter = 0;
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     public Functions() {}
 
@@ -82,12 +81,12 @@ public class Functions {
     private void handleMarking(String input) {
         try {
             int taskNumIndex = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
-            if (taskNumIndex >= 0 && taskNumIndex < taskCounter) {
+            if (taskNumIndex >= 0 && taskNumIndex < taskList.size()) {
                 if (input.startsWith("mark")) {
-                    taskList[taskNumIndex].setDone();
+                    taskList.get(taskNumIndex).setDone();
                     print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
                 } else {
-                    taskList[taskNumIndex].setNotDone();
+                    taskList.get(taskNumIndex).setNotDone();
                     print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
                 }
             } else {
@@ -101,13 +100,13 @@ public class Functions {
     }
 
     public String taskStatus(int index){
-        return taskList[index].getTaskStatus();
+        return taskList.get(index).getTaskStatus();
     }
 
     private void listTasks() {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCounter; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + ". " + taskStatus(i));
         }
         System.out.println(SEPARATOR);
@@ -124,20 +123,20 @@ public class Functions {
                     input.trim().equals("event")){
                 throw new EmptyCommandException();
             } else if (input.startsWith("todo ")){
-                taskList[taskCounter++] = new ToDos(input);
+                taskList.add(new ToDos(input));
             } else if (input.startsWith("deadline ")){
-                taskList[taskCounter++] = new Deadlines(input);
+                taskList.add(new Deadlines(input));
             } else if (input.startsWith("event ")){
-                taskList[taskCounter++] = new Events(input);
+                taskList.add(new Events(input));
             } else if (input.startsWith("task ")){
-                taskList[taskCounter++] = new Task(input);
+                taskList.add(new Task(input));
             } else{
                 throw new IllegalCommandException();
             }
 
             print("Got it. I've added this task:",
-                    "  " + taskStatus(taskCounter - 1),
-                    "Now you have %d task(s) in the list".formatted(taskCounter));
+                    "  " + taskStatus(taskList.size() - 1),
+                    "Now you have %d task(s) in the list".formatted(taskList.size()));
         } catch (UranusExceptions e){
             print(e.getMessage());
         }
