@@ -13,12 +13,13 @@ import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
 import ran.exception.RanException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ran {
     private static boolean isTerminated = false; 
     private static int listCount = 0;
     private static final int MAX_TASK_LIST_SIZE = 100;
-    private static Task[] list = new Task[MAX_TASK_LIST_SIZE];
+    private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "\t____________________________________________________________";
 
     public static void greet() {
@@ -48,7 +49,7 @@ public class Ran {
     public static void printAddedTask() { 
         System.out.println(LINE);
         System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t " +  list[listCount - 1]);
+        System.out.println("\t " +  list.get(listCount - 1));
         // Conditional operator to pluralize "task" when listCount above 1
         System.out.println("\tYou currently have " + listCount + 
                 (listCount <= 1 ? " task" : " tasks") + " in your list.");
@@ -62,7 +63,8 @@ public class Ran {
         case TODO:
             // Take string after "todo" word
             description = input.substring(5);
-            list[listCount] = new Todo(description);
+            //list[listCount] = new Todo(description);
+            list.add(new Todo(description));
             break;
         case DEADLINE:
             int byIndex = input.indexOf("/by");
@@ -73,7 +75,8 @@ public class Ran {
             description = input.substring(9, byIndex - 1);
             // Take string after "/by"
             String by = input.substring(byIndex + 4);
-            list[listCount] = new Deadline(description, by);
+            //list[listCount] = new Deadline(description, by);
+            list.add(new Deadline(description, by));
             break;
         case EVENT:
             int fromIndex = input.indexOf("/from");
@@ -87,11 +90,13 @@ public class Ran {
             String from = input.substring(fromIndex + 6, toIndex - 1);
             // Take string after "/to"
             String to = input.substring(toIndex + 4);
-            list[listCount] = new Event(description, from, to);
+            //list[listCount] = new Event(description, from, to);
+            list.add(new Event(description, from, to));
             break;
         case UNDEFINED:
+            // Fallthrough
         default:
-            list[listCount] = new Task(input);
+            break;
         }
         listCount++;
         printAddedTask();
@@ -103,7 +108,7 @@ public class Ran {
         }
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + list[i]);
+            System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
         System.out.println(LINE);
     }
@@ -113,10 +118,10 @@ public class Ran {
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
-        list[taskNumber].setAsDone();
+        list.get(taskNumber).setAsDone();
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + list[taskNumber]);
+        System.out.println("\t  " + list.get(taskNumber));
         System.out.println(LINE);
     }
 
@@ -125,10 +130,10 @@ public class Ran {
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
-        list[taskNumber].setAsUndone();
+        list.get(taskNumber).setAsUndone();
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + list[taskNumber]);
+        System.out.println("\t  " + list.get(taskNumber));
         System.out.println(LINE);
     }
     
