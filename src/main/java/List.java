@@ -70,7 +70,6 @@ public class List {
             String eventDescription = extractEventDescription(line);
             String eventStartDate = extractEventStartDate(line);
             String eventEndDate = extractEventEndDate(line);
-            //itemList[numItems] = new Event(eventDescription, eventStartDate, eventEndDate);
             Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
             itemArrayList.add(newEvent);
             outputAddedMessage(newEvent);
@@ -85,7 +84,6 @@ public class List {
     private void addTodo(String line) {
         try {
             String todoDescription = extractTodoDescription(line);
-            //itemList[numItems] = new Todo(todoDescription);
             Todo newTodo = new Todo(todoDescription);
             itemArrayList.add(newTodo);
             outputAddedMessage(newTodo);
@@ -103,7 +101,6 @@ public class List {
         try {
             String deadlineDescription = extractDeadlineDescription(line);
             String deadlineDate = extractDeadlineDate(line);
-            //itemList[numItems] = new Deadline(deadlineDescription, deadlineDate);
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
             itemArrayList.add(newDeadline);
             outputAddedMessage(newDeadline);
@@ -209,9 +206,6 @@ public class List {
 
     public void printList() {
         System.out.println("\tHere are the tasks in your list:");
-//        for (int i = 0; i < numItems; i++) {
-//            System.out.println("\t" + (i + 1) + "." + itemList[i]);
-//        }
         int i = 0;
         for (Task a: itemArrayList) {
             System.out.println("\t" + (i + 1) + "." + a);
@@ -275,20 +269,12 @@ public class List {
         System.out.println("\tInput index was not a integer.");
     }
 
-    public String getItemDescription(int itemNum) {
-        return itemList[itemNum - 1].getDescription();
-    }
-
     public void markListItemAsDone(int itemNum) {
         itemArrayList.get(itemNum - 1).markAsDone();
     }
 
     public void markListItemAsUnDone(int itemNum) {
         itemArrayList.get(itemNum - 1).markAsUnDone();
-    }
-
-    public String itemGetDoneStatusIcon(int itemNum) {
-        return itemList[itemNum - 1].getDoneStatusIcon();
     }
 
     public void deleteItem(String line) {
