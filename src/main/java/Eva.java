@@ -39,6 +39,9 @@ public class Eva {
                 case "event":
                     taskManager.printEvent(line);
                     break;
+                case "delete":
+                    taskManager.deleteTask(line);
+                    break;
                 }
             } catch (EvaException e) {
                 System.out.println(e.getMessage());

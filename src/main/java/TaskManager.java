@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class TaskManager {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
-    public static final int MAX_TASKS = 100;
 
     private ArrayList<Task> tasks;
     private int count;
@@ -53,6 +52,26 @@ public class TaskManager {
         System.out.println("Ok, This task is marked as not done yet: ");
         System.out.println(tasks.get(taskNumber).toString());
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void deleteTask(String line) throws EvaException {
+        int taskNumber = extractDigit(line) - 1;
+
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
+                    "Please provide a valid task number between 1 and " + count + ".");
+        }
+
+        String temp = tasks.get(taskNumber).toString();
+
+        tasks.remove(taskNumber);
+        count = count - 1;
+
+        System.out.println("Okay. I have deleted task " + (taskNumber + 1) + ".");
+        System.out.println(temp);
+        printNumTasks(count - 1);
+        System.out.println(HORIZONTAL_LINE);
+
     }
 
     public static int extractDigit(String input) {
