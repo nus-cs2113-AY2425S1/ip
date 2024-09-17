@@ -21,6 +21,7 @@ public class Conglo {
     // Class variables
     protected static String command;
     private static final ArrayList<Task> taskList = TaskStorage.loadTasks();
+    protected static boolean isDelete = false;
 
     /**
      * The main method that starts the Conglo application. It handles user input
@@ -76,8 +77,13 @@ public class Conglo {
      */
     public static void echoTask(Task task) {
         int size = taskList.size();
-        System.out.println("All done! Task added to list:");
-        String taskSuffix = size > 2 ? " tasks" : " task";
+        if (isDelete) {
+            System.out.println("Okie! Task is removed from list:");
+            size--;
+        } else {
+            System.out.println("All done! Task added to list:");
+        }
+        String taskSuffix = size > 1 ? " tasks" : " task";
         System.out.println(" " + task.toFileFormat());
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
@@ -168,6 +174,24 @@ public class Conglo {
         saveTasks();
     }
 
+    public static void deleteTask(String word) throws CongloException.InvalidTaskNumber {
+        int i;
+        try {
+            i = Integer.parseInt(word) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid format! Please provide a task number >.<");
+            return;
+        }
+        if (i >= taskList.size() || i < 0) {
+            throw new CongloException.InvalidTaskNumber();
+        }
+        isDelete = true;
+        echoTask(taskList.get(i));
+        taskList.remove(i);
+        isDelete = false;
+        saveTasks();
+    }
+
     /**
      * Processes the user's command and invokes the corresponding action.
      *
@@ -178,6 +202,9 @@ public class Conglo {
         String[] words = command.split(" ", 2);
         switch(words[0]) {
         case "list":
+            if (words.length > 1) {
+                throw new CongloException.InvalidFormat("list");
+            }
             listTasks();
             break;
         case "unmark":
@@ -186,6 +213,12 @@ public class Conglo {
                 throw new CongloException.MissingTaskNumber(words[0]);
             }
             markTask(words);
+            break;
+        case "delete":
+            if (words.length == 1 || words[1].isEmpty()) {
+                throw new CongloException.MissingTaskNumber(words[0]);
+            }
+            deleteTask(words[1]);
             break;
         case "todo":
             if (words.length == 1 || words[1].isEmpty()) {

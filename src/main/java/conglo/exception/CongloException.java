@@ -42,6 +42,8 @@ public class CongloException extends Exception {
 
         private static String generateMessage(String type) {
             switch (type) {
+            case "list":
+                return "Do you mean 'list'?";
             case "deadline":
                 return "Oh dear, your deadline command is a bit off."
                         + System.lineSeparator() + "Please use: deadline [description] /by [deadline].";

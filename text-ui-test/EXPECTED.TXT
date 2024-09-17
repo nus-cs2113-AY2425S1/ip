@@ -1,52 +1,85 @@
-Hola! I'm Conglo the friendly bot.
-What brings you here today?
+-------------------------------------
+Hola! I'm Conglo, the friendly task manager.
+-------------------------------------
+Here's a quick manual to get you started:
+1. Add a todo: todo [description]
+2. Add a deadline: deadline [description] /by [deadline]
+3. Add an event: event [description] /from [start time] /to [end time]
+4. Mark a task as done: mark [task number]
+5. Unmark a task: unmark [task number]
+6. Delete a task: delete [task number]
+7. List all tasks: list
+8. Exit the application: bye
+-------------------------------------
+The list is empty!
 -------------------------------------
 All done! Task added to list:
- [T][ ] Prepare slides for presentation
+ T | 0 | read
 The list has 1 task now.
 -------------------------------------
 All done! Task added to list:
- [D][ ] Submit report (by: Friday 5pm)
+ D | 0 | assignment | by Saturday
 The list has 2 tasks now.
 -------------------------------------
-1. [T][ ] Prepare slides for presentation
-2. [D][ ] Submit report (by: Friday 5pm)
+Nice! I've marked this task as done:
+T | 1 | read
 -------------------------------------
 All done! Task added to list:
- [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
+ E | 0 | presentation | from Thurs 10am to 12pm
 The list has 3 tasks now.
 -------------------------------------
-All done! Task added to list:
- [T][ ] Review team feedback
-The list has 4 tasks now.
--------------------------------------
-All done! Task added to list:
- [D][ ] Project submission (by: next Monday 11:59pm)
-The list has 5 tasks now.
--------------------------------------
-All done! Task added to list:
- [E][ ] Code review (from: Tuesday 2pm to: 4pm)
-The list has 6 tasks now.
+1. T | 1 | read
+2. D | 0 | assignment | by Saturday
+3. E | 0 | presentation | from Thurs 10am to 12pm
 -------------------------------------
 Nice! I've marked this task as done:
-[X] Submit report
+D | 1 | assignment | by Saturday
 -------------------------------------
-1. [T][ ] Prepare slides for presentation
-2. [D][X] Submit report (by: Friday 5pm)
-3. [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
-4. [T][ ] Review team feedback
-5. [D][ ] Project submission (by: next Monday 11:59pm)
-6. [E][ ] Code review (from: Tuesday 2pm to: 4pm)
+OK, I've marked this task as not done yet:
+T | 0 | read
 -------------------------------------
-Nice! I've marked this task as done:
-[X] Prepare slides for presentation
+1. T | 0 | read
+2. D | 1 | assignment | by Saturday
+3. E | 0 | presentation | from Thurs 10am to 12pm
 -------------------------------------
-1. [T][X] Prepare slides for presentation
-2. [D][X] Submit report (by: Friday 5pm)
-3. [E][ ] Team meeting (from: Wednesday 10am to: 12pm)
-4. [T][ ] Review team feedback
-5. [D][ ] Project submission (by: next Monday 11:59pm)
-6. [E][ ] Code review (from: Tuesday 2pm to: 4pm)
+Okie! Task is removed from list:
+ T | 0 | read
+The list has 2 tasks now.
+-------------------------------------
+Okie! Task is removed from list:
+ E | 0 | presentation | from Thurs 10am to 12pm
+The list has 1 task now.
+-------------------------------------
+Okie! Task is removed from list:
+ D | 1 | assignment | by Saturday
+The list has 0 task now.
+-------------------------------------
+The list is empty!
+-------------------------------------
+Oopsies, please add a description of Todo.
+-------------------------------------
+Oopsies, please add a description of event.
+-------------------------------------
+Oopsies, please add a description of deadline.
+-------------------------------------
+Oh dear, your deadline command is a bit off.
+Please use: deadline [description] /by [deadline].
+-------------------------------------
+Oh no! Your event command needs a bit of tweaking.
+Try: event [description] /from [start time] /to [end time].
+-------------------------------------
+Oh no! Your event command needs a bit of tweaking.
+Try: event [description] /from [start time] /to [end time].
+-------------------------------------
+Do you mean 'list'?
+-------------------------------------
+Please provide task number to unmark.
+-------------------------------------
+Please provide task number to mark.
+-------------------------------------
+Please provide task number to delete.
+-------------------------------------
+Sorry, I'm not smart enough to understand what you mean.
 -------------------------------------
 Goodbye. See you next time!
 -------------------------------------
