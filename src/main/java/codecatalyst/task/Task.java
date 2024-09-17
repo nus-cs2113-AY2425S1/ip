@@ -37,6 +37,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean isDone(){
+        return isDone;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
 
     /**
      * Abstract method that must be implemented by subclasses.

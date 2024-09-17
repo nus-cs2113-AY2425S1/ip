@@ -14,6 +14,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getBy() {
+        return by;
+    }
+
     /**
      * Returns the string representation of the Deadline task.
      *
