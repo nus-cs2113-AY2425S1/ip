@@ -1,0 +1,3 @@
+T | 0 | Assignment
+D | 1 | Homework | 20 sep
+E | 0 | Concert | 1000 | 1200

@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import freedom.exceptions.CannotReadFile;
 import freedom.exceptions.InvalidCommand;
 import freedom.tasks.Task;
 import freedom.tasks.ToDo;
@@ -22,14 +26,20 @@ public class Freedom {
         System.out.println(LOGO + START_MESSAGE + LOGO);
         Scanner in = new Scanner(System.in);
 
-        // Super loop for getting inputs
-        while (in.hasNextLine()) {
-            String line = in.nextLine();
+        try {
+            loadData();
 
-            if (line.equals("bye")) {
-                break;
+            // Super loop for getting inputs
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+
+                if (line.equals("bye")) {
+                    break;
+                }
+                handleInput(line);
             }
-            handleInput(line);
+        } catch (Exception e) {
+            System.out.print("");
         }
 
         System.out.println(LOGO + CLOSING_MESSAGE + LOGO);
@@ -122,6 +132,52 @@ public class Freedom {
                     \tYou can use list to check
                     """);
             System.out.println(LOGO);
+        } catch (Exception e) {
+            System.out.print("");
+        }
+    }
+
+    public static void loadData() throws Exception{
+        final int COMMAND_INDEX = 0;
+        final int DESCRIPTION_INDEX = 2;
+        final int TIME_ONE = 3;
+        final int TIME_TWO = 4;
+        String input;
+
+        try {
+            File data = new File("./data/freedom.txt");
+            Scanner read = new Scanner(data);
+            while (read.hasNextLine()) {
+                String[] words = read.nextLine().split("[|]");
+                switch(words[COMMAND_INDEX].trim()) {
+                    case "T":
+                        input = words[DESCRIPTION_INDEX].trim();
+                        tasks.add(new ToDo(input));
+                        break;
+                    case "D":
+                        input = words[DESCRIPTION_INDEX].trim() + "/by" + words[TIME_ONE].trim();
+                        tasks.add(new Deadline(input));
+                        break;
+                    case "E":
+                        input = words[DESCRIPTION_INDEX].trim()
+                                + "/from" + words[TIME_ONE].trim()
+                                + "/to" + words[TIME_TWO].trim();
+                        tasks.add(new Event(input));
+                        break;
+                    default:
+                        throw new CannotReadFile();
+                }
+                lastIndex++;
+            }
+            System.out.println("\tData Loaded!");
+            printList();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (CannotReadFile e) {
+            System.out.print(LOGO);
+            System.out.println("\tCannot Load Data! File might be corrupted :(");
+            System.out.println(LOGO);
+            throw new Exception();
         } catch (Exception e) {
             System.out.print("");
         }
