@@ -159,5 +159,136 @@
 	________________________________________
 
 	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	4.[T][ ] todo todo
+	5.[D][ ] deadline deadline (by: /by /by)
+	6.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Nice! I've marked this task as done:
+	  [E][X] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	4.[T][ ] todo todo
+	5.[D][ ] deadline deadline (by: /by /by)
+	6.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [T][ ] todo todo
+	Now you have 5 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	4.[D][ ] deadline deadline (by: /by /by)
+	5.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	4.[D][ ] deadline deadline (by: /by /by)
+	5.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [E][X] project meeting (from: Mon 2pm to: 4pm)
+	Now you have 4 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[D][ ] deadline deadline (by: /by /by)
+	4.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [D][ ] return book (by: Sunday)
+	Now you have 3 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] deadline deadline (by: /by /by)
+	3.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [T][ ] borrow book
+	Now you have 2 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[D][ ] deadline deadline (by: /by /by)
+	2.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[D][ ] deadline deadline (by: /by /by)
+	2.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [D][ ] deadline deadline (by: /by /by)
+	Now you have 1 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [E][ ] event event (from: /from /from to: /to /to)
+	Now you have 0 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
 	Bye. Hope to see you again soon!
 	________________________________________
