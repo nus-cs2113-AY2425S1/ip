@@ -127,4 +127,11 @@ public abstract class Task {
      */
     @Override
     public abstract String toString();
+
+    /**
+     * Returns a string representation of the task suitable to be stored in data file.
+     *
+     * @return String representation of the task (storage format).
+     */
+    public abstract String toStorageString(String separator);
 }

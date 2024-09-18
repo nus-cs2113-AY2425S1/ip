@@ -2,9 +2,9 @@ package akshan.storage;
 
 import java.io.File;
 import java.util.Scanner;
-import java.util.Arrays;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 import akshan.task.TaskList;
 import akshan.task.Task;
@@ -16,7 +16,7 @@ public class StorageHandler {
     private static File storage;
     private final static String STORAGE_FOLDER_PATH = "./data";
     private final static String STORAGE_PATH = "./data/akshan.txt";
-    private final static String SEPARATOR = " \\| ";
+    private final static String SEPARATOR = " <-> ";
 
     public StorageHandler(TaskList taskList) throws IOException {
         // Create data folder if it does not exist
@@ -83,6 +83,22 @@ public class StorageHandler {
         }
         catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Invalid task input format in data file!!");
+        }
+    }
+
+    public void saveData(TaskList taskList) throws IOException {
+        try {
+            FileWriter fw = new FileWriter(STORAGE_PATH);
+
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i);
+                String data = task.toStorageString(SEPARATOR);
+                fw.write(data + "\n");
+            }
+
+            fw.close();
+        } catch (IOException e) {
+            throw new IOException("Where art thou file?");
         }
     }
 }

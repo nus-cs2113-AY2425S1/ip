@@ -60,6 +60,7 @@ public class Akshan {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
             printLine();
+            storageHandler.saveData(taskList);
             line = input.nextLine();
         }
         bye();
