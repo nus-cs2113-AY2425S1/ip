@@ -63,8 +63,10 @@ public class Bosco {
             executeListTasks();
             break;
         case "mark":
+            executeMarkTask(commandArgs);
+            break;
         case "unmark":
-            executeMarkUnmarkTask(commandType, commandArgs);
+            executeUnmarkTask(commandArgs);
             break;
         case "delete":
             executeDeleteTask(commandArgs);
@@ -107,32 +109,30 @@ public class Bosco {
         System.out.println(DIVIDER);
     }
 
-    private static void executeMarkUnmarkTask(String commandType, String commandArgs) {
-        int taskNumber = Integer.parseInt(commandArgs);
-        if (taskNumber < 1 || taskNumber > tasksList.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        Task selectedTask = tasksList.get(taskNumber - 1);
-        switch (commandType) {
-        case "mark":
-            selectedTask.markAsDone();
-            printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
-            break;
-        case "unmark":
-            selectedTask.markAsNotDone();
-            printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
-            break;
-        }
+    private static void executeMarkTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        selectedTask.markAsDone();
+        printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
+    }
+
+    private static void executeUnmarkTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        selectedTask.markAsNotDone();
+        printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
     }
 
     private static void executeDeleteTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        tasksList.remove(selectedTask);
+        printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
+    }
+
+    private static Task getSelectedTaskFromCommandArgs(String commandArgs) {
         int taskNumber = Integer.parseInt(commandArgs);
         if (taskNumber < 1 || taskNumber > tasksList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        Task selectedTask = tasksList.get(taskNumber - 1);
-        tasksList.remove(selectedTask);
-        printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
+        return tasksList.get(taskNumber - 1);
     }
 
     private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
