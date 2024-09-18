@@ -2,6 +2,7 @@ package king;
 
 public class Deadline extends Task {
 
+    protected final String taskStartTime = "NIL";
     protected String taskEndTime;
     protected final String TASKTYPEICON = "[D]";
 

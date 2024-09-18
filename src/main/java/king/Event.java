@@ -2,19 +2,19 @@ package king;
 
 public class Event extends Task {
 
-    protected String startTime;
+    protected String taskStartTime;
     protected String taskEndTime;
     protected final String TASKTYPEICON = "[E]";
 
 
     public Event(String description, String taskStartTime, String taskEndTime) {
         super(description);
-        this.startTime = taskStartTime;
+        this.taskStartTime = taskStartTime;
         this.taskEndTime = taskEndTime;
     }
 
     protected String getTaskDescription() {
-        return TASKTYPEICON + getStatusIcon() + description + " (from: " + startTime + " to: " + taskEndTime + ")";
+        return TASKTYPEICON + getStatusIcon() + description + " (from: " + taskStartTime + " to: " + taskEndTime + ")";
     }
 
     @Override

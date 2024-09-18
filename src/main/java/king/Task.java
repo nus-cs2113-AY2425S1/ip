@@ -1,6 +1,10 @@
 package king;
 
 public class Task {
+
+    protected final String taskStartTime = "NIL";
+    protected final String taskEndTime = "NIL";
+    public static final String TASKTYPEICON = "[ ]";
     protected String description;
     protected boolean isDone;
 

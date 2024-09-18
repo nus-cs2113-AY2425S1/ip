@@ -1,5 +1,7 @@
 package king;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +11,7 @@ public class King {
     protected static ArrayList<Task> tasks = new ArrayList<>();
     private final static String LINE = "____________________________________________________________\n";
 
-    private static void toGreet() throws KingException {
+    private static void toGreet() throws KingException, IOException {
         String logo =
                 "| |/ /|_ _|| \\| | / _` |\n" +
                 "| ' <  | | | .` || (_| |\n" +
@@ -17,11 +19,24 @@ public class King {
 
         System.out.println("\nHello from\n" + logo);
 
-        System.out.println(" Hello! I'm " + NAME + "\n" +
-                           " What can I do for you?\n" + LINE);
+        if (FileAccess.checkFile()) {
+            try {
+                tasks = FileAccess.readFile();
+                tasksCount += tasks.size();
+                System.out.println("Welcome back! You have tasks saved previously.");
+                printList();
+            } catch (KingException e) {
+                System.out.println(e.getMessage() + LINE);
+            }
+        } else {
+            FileAccess.readFile();
+            System.out.println(" Hello! I'm " + NAME + "\n" +
+                               " What can I do for you?\n" + LINE);
+        }
 
         toChat();
     }
+
 
     private static void toChat() throws KingException {
         Scanner scanner = new Scanner(System.in);
@@ -134,6 +149,8 @@ public class King {
         } catch (IndexOutOfBoundsException e) {
             System.out.println(LINE + "Have u forgotten the task content?\n" + LINE);
         }
+
+        FileAccess.updateFile();
     }
 
     private static void addDeadlineTask(String text) throws KingException {
@@ -177,6 +194,8 @@ public class King {
         tasks.add(t);
         tasksCount += 1;
         printAddedTaskDescription(t);
+
+        FileAccess.updateFile();
     }
 
     private static void addEventTask(String text) throws KingException {
@@ -238,6 +257,8 @@ public class King {
         tasks.add(t);
         tasksCount += 1;
         printAddedTaskDescription(t);
+
+        FileAccess.updateFile();
     }
 
     private static void printAddedTaskDescription(Task t) {
@@ -273,7 +294,7 @@ public class King {
     }
 
 
-    public static void main(String[] args) throws KingException {
+    public static void main(String[] args) throws KingException, IOException {
         toGreet();
     }
 }
