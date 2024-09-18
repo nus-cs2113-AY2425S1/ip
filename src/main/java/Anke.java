@@ -1,5 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Anke {
     static int count = 0;
@@ -49,14 +53,19 @@ public class Anke {
             printList(tasks);
         } else if (line.length() > 5 && line.startsWith("mark ")) {
             mark(line, tasks);
+            saveFile(tasks);
         } else if (line.length() > 7 && line.startsWith("unmark ")) {
             unmark(line, tasks);
+            saveFile(tasks);
         } else if (line.length() > 3 && line.startsWith("todo")) {
             createTodo(tasks, line);
+            saveFile(tasks);
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
             createDeadline(tasks, line);
+            saveFile(tasks);
         } else if (line.length() > 6 && line.startsWith("event ")) {
             createEvent(tasks, line);
+            saveFile(tasks);
         } else {
             handleWrongFormat();
         }
@@ -212,5 +221,17 @@ public class Anke {
         System.out.println("todo {String s} : create todo with description {s}");
         System.out.println("deadline {String s1} /by {String s2} : create deadline with description {s1} and due date {s2}");
         System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}\n");
+    }
+
+    private static void saveFile(Task[] tasks) {
+        try {
+            FileWriter fw = new FileWriter("./Anke.txt");
+            for (int i = 0; i < count; ++i) {
+                fw.write(tasks[i]+ System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong during saving changes: " + e.getMessage());
+        }
     }
 }
