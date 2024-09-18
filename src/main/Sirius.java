@@ -88,6 +88,8 @@ public class Sirius {
         System.out.println("Got it. I've added this task:");
         System.out.println(list.get(list.size()-1).toString());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(list.get(list.size()-1).toString());
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
     public static void deleteTask(String[] commandPieces, ArrayList<Task> list){
@@ -200,9 +202,43 @@ public class Sirius {
             System.out.println("An error occurred while saving the tasks.");
         }
     }
+    public static void loadTaskList() {
+        try {
+            File file = new File("./data/sirius.txt");
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    fromFileFormat(line);
+                }
+                scanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Task file not found, starting with an empty list.");
+        }
+    }
+    public static void fromFileFormat(String line){
+        String[] splitLine = line.split(STATUS_DELIMINATOR);
+        String commandPrefix = splitLine[0].trim();  //T or D or E
+        boolean isMarked = splitLine[1].trim().equals("1");
+        String taskName = splitLine[2].trim();
+        switch (commandPrefix) {
+            case "T":
+                list.add(new Todo(taskName, isMarked));
+                break;
+            case "D":
+                Deadline a = new Deadline(taskName, isMarked, splitLine[3].trim());
+                list.add(a);
+                break;
+            case "E":
+                list.add(new Event(taskName, isMarked, splitLine[3].trim(), splitLine[4].trim()));
+                break;
+        }
+    }
 
     public static void main(String[] args) {
         sayHello();
+        loadTaskList();  // read from the data/Sirius.txt file.
         Scanner scanner = new Scanner(System.in);
         while (isExit) {
             isValidToProcess = true; // reset
