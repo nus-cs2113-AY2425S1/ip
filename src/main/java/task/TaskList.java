@@ -4,10 +4,18 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    private int taskNumber;
+    private Task[] tasks;
+    private Storage storage;
 
     //Using ArrayList instead of Array
     public TaskList(){
         tasks = new ArrayList<>();
+    public TaskList() {
+        taskNumber = 0;
+        tasks = new Task[100];
+        storage = new Storage();
+        loadTasks();
     }
 
     public int getTaskNumber() {
@@ -20,7 +28,12 @@ public class TaskList {
      * @param task Name of the task is added.
      */
     public void storeTask(Task task) {
-        tasks.add(task);
+        if (taskNumber >= tasks.length) {
+            return;
+        }
+        tasks[taskNumber] = task;
+        taskNumber += 1;
+        saveTasks();
     }
 
     /**
@@ -48,6 +61,7 @@ public class TaskList {
         }
         Task task = tasks.get(index - 1);
         task.setAsDone();
+        saveTasks();
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -63,6 +77,7 @@ public class TaskList {
         }
         Task task = tasks.get(index - 1);
         task.setAsUndone();
+        saveTasks();
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 
@@ -80,5 +95,18 @@ public class TaskList {
         return "Noted. I've removed this task:\n"
                 + deletedTask +
                 "\nNow you have " + tasks.size() + " tasks in the list.";
+    }
+
+    public void saveTasks() {
+        storage.saveTasks(tasks, taskNumber);
+    }
+
+    public void loadTasks() {
+        Task[] loadedTasks = storage.loadTasks();
+        for (Task task : loadedTasks) {
+            if (task != null) {
+                tasks[taskNumber++] = task;
+            }
+        }
     }
 }

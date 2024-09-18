@@ -12,7 +12,18 @@ public class Deadline extends Task {
 
     //Override toString method to show marker
     @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+    public String getTaskMarker() {
+        return "D";
+    }
+
+    @Override
+    public String toFileFormat() {
+        String status;
+        if (isDone) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return "D | " + status + " | " + description +  " (by: " + dueDate + ")";
     }
 }

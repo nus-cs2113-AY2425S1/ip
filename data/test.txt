@@ -1,0 +1,6 @@
+T | 0 | hi
+T | 0 | mean
+E | 0 | lecture (from: 4pm to: 6pm) (from:  to: )
+D | 0 | quiz (by: Monday 9pm) (by: )
+T | 0 | meana
+T | 0 | test

@@ -9,7 +9,18 @@ public class ToDo extends Task{
 
     //Override toString method to show marker
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public String getTaskMarker() {
+        return "T";
+    }
+
+    @Override
+    public String toFileFormat() {
+        String status;
+        if (isDone) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return "T | " + status + " | " + description;
     }
 }
