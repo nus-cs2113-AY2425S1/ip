@@ -16,4 +16,9 @@ public class Deadline extends Task {
         return "[D]" + currentStatus() + " " + description + " (by: " + by + ")";
     }
 
+    @Override
+    public String toSave() {
+        return "D |" + super.toSave() + " | " + by;
+    }
+
 }

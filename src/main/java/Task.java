@@ -24,9 +24,15 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    public String toSave() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return currentStatus() + " " + description;
     }
+
+
 
 }
