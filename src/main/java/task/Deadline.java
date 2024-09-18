@@ -10,6 +10,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " (by: " + dueDate + ")";
+    }
+
     //Override toString method to show marker
     @Override
     public String getTaskMarker() {
@@ -24,6 +29,6 @@ public class Deadline extends Task {
         } else {
             status = "0";
         }
-        return "D | " + status + " | " + description;
+        return "D | " + status + " | " + description + " (by: " + dueDate + ")";
     }
 }

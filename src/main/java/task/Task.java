@@ -54,10 +54,17 @@ public abstract class Task implements TaskOperations {
             task = new ToDo(parts[2]);
             break;
         case "D":
-            task = new Deadline(parts[2], "");
+            String[] deadlineParts = parts[2].split(" \\(by: ");
+            String taskName = deadlineParts[0].trim();
+            String dueDate = deadlineParts[1].replace(")", "").trim();
+            task = new Deadline(taskName, dueDate);
             break;
         case "E":
-            task = new Event(parts[2], "", "");
+            String[] eventParts = parts[2].split(" \\(from: | to: ");
+            String eventName = eventParts[0].trim(); // Get the event name
+            String fromDate = eventParts[1].replace(")", "").trim();
+            String toDate = eventParts[2].replace(")", "").trim();
+            task = new Event(eventName, fromDate, toDate);
             break;
         default:
             System.out.println("Invalid task type encountered: " + parts[0]);

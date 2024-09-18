@@ -11,6 +11,11 @@ public class Event extends Task {
         this.end = end;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " (from: " + start + " to: " + end + ")";
+    }
+
     //Override toString method to show marker
     @Override
     public String getTaskMarker() {
@@ -25,6 +30,6 @@ public class Event extends Task {
         } else {
             status = "0";
         }
-        return "E | " + status + " | " + description;
+        return "E | " + status + " | " + description + " (from: "+ start + " to: " + end + ")";
     }
 }
