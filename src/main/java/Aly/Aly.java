@@ -3,6 +3,8 @@ import Task.Task;
 import Task.Todo;
 import Task.Deadline;
 import Task.Event;
+
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,7 +13,6 @@ public class Aly {
     //Constants
     private static final String RETURNING_TO_MAIN_MENU_MESSAGE = "Returning to main menu!";
     private static final String RETURN_TO_MAIN_MENU_MESSAGE = "Enter 0 to return to main menu anytime!";
-    private static final int MAX_TASKS = 100;
     private static final String LOGO = "    _      _     _   _\n"
             + "   / \\    | |   \\ \\ / /\n"
             + "  / _ \\   | |    \\ V / \n"
@@ -26,7 +27,7 @@ public class Aly {
 
     //Initialising global variables/arrays
     private static Scanner in = new Scanner(System.in);
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     //User can pick which function they want to use, old functions don't need to be deleted
     private static void initialise() {
@@ -51,12 +52,12 @@ public class Aly {
                 case "2":
                     System.out.println(RETURN_TO_MAIN_MENU_MESSAGE);
                     printLine();
-                    createTask(tasks);
+                    createTask(taskList);
                     break;
                 case "3":
                     System.out.println(RETURN_TO_MAIN_MENU_MESSAGE);
                     printLine();
-                    markTask(tasks);
+                    markTask(taskList);
                     break;
                 default:
                     throw new InputMismatchException();
@@ -101,7 +102,7 @@ public class Aly {
     }
 
     //User can pick which function to use, new functions can be added on easily
-    private static void createTask(Task[] listItems) {
+    private static void createTask(ArrayList<Task> listItems) {
         boolean isExit = false;
         int index = 0;
         index = getIndex(listItems, index);
@@ -152,7 +153,7 @@ public class Aly {
     }
 
     //Reusable to print any list of tasks
-    private static void listTasks(Task[] listItems) {
+    private static void listTasks(ArrayList<Task> listItems) {
         printLine();
         int count = 1;
         System.out.println("Your task list:");
@@ -175,19 +176,21 @@ public class Aly {
     }
 
     //Handles to-do inputs
-    private static int addTodo(Task[] listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
-        if (task.isEmpty()) {
-            throw new IllegalFormatException();
-        }
-        if (index > MAX_TASKS || index < 0) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
+    private static int addTodo(ArrayList<Task> listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
         if (listItems == null) {
             throw new NullPointerException();
         }
 
+        if (task.isEmpty()) {
+            throw new IllegalFormatException();
+        }
+
+        if (index > listItems.size() || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         printLine();
-        listItems[index] = new Todo(task.trim());
+        listItems.set(index, new Todo(task.trim()));
         index++;
         System.out.println("Added this task: " + task.trim());
         System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
@@ -196,17 +199,19 @@ public class Aly {
     }
 
     //Handles deadline inputs
-    private static int addDeadline(Task[] listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
+    private static int addDeadline(ArrayList<Task> listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
         String[] taskParts = task.split("by");
+
+        if (listItems == null) {
+            throw new NullPointerException();
+        }
 
         if (task.isEmpty() || taskParts.length != 2) {
             throw new IllegalFormatException();
         }
-        if (index > MAX_TASKS || index < 0) {
+
+        if (index > listItems.size() || index < 0) {
             throw new ArrayIndexOutOfBoundsException();
-        }
-        if (listItems == null) {
-            throw new NullPointerException();
         }
 
         String taskDeadline = taskParts[0].trim();
@@ -216,7 +221,7 @@ public class Aly {
         }
 
         printLine();
-        listItems[index] = new Deadline(taskDeadline, taskBy);
+        listItems.set(index, new Deadline(taskDeadline, taskBy));
         index++;
         System.out.println("Added this task: " + taskDeadline);
         System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
@@ -225,7 +230,7 @@ public class Aly {
     }
 
     //Handles event inputs
-    private static int addEvent(Task[] listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
+    private static int addEvent(ArrayList<Task> listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
         String[] taskParts = task.split("from|to");
 
         if (task.isEmpty() || taskParts.length != 3) {
@@ -234,7 +239,7 @@ public class Aly {
         if (listItems == null) {
             throw new NullPointerException();
         }
-        if (index > MAX_TASKS || index < 0) {
+        if (index > listItems.size() || index < 0) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
@@ -246,7 +251,7 @@ public class Aly {
         }
 
         printLine();
-        listItems[index] = new Event(taskEvent, taskFrom, taskTo);
+        listItems.set(index, new Event(taskEvent, taskFrom, taskTo));
         index++;
         System.out.println("Added this task: " + taskEvent);
         System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
@@ -255,7 +260,7 @@ public class Aly {
     }
 
     //Task statuses can be toggled easily and future statuses can be added easily as well
-    private static void markTask(Task[] taskList) {
+    private static void markTask(ArrayList<Task> taskList) {
         boolean isExit = false;
         int index = 0;
         index = getIndex(taskList, index);
@@ -300,9 +305,9 @@ public class Aly {
     }
 
     //Reusable function to find the current index in any list
-    private static int getIndex(Task[] listItems, int index) {
+    private static int getIndex(ArrayList<Task> listItems, int index) {
         for (int i = 0; i < 101; i++) {
-            if (listItems[i] == null) {
+            if (listItems.get(i) == null) {
                 index = i;
                 break;
             }
@@ -311,7 +316,7 @@ public class Aly {
     }
 
     //Handles any user inputs about toggling task status
-    private static void handleMarking(String firstWord, String[] splitInput, int index, Task[] taskList) throws IllegalFormatException, InputMismatchException {
+    private static void handleMarking(String firstWord, String[] splitInput, int index, ArrayList<Task> taskList) throws IllegalFormatException, InputMismatchException {
         int indexNum;
         try {
             indexNum = Integer.parseInt(splitInput[1]);
@@ -331,13 +336,13 @@ public class Aly {
     }
 
     //Reduce nested loops
-    private static void markAsDone(String firstWord, Task[] taskList, int indexNum) {
+    private static void markAsDone(String firstWord, ArrayList<Task> taskList, int indexNum) {
         if (firstWord.equals("mark")) {
-            taskList[indexNum - 1].setDone(true);
-            System.out.println("\"" + taskList[indexNum - 1].getDescription() + "\" marked as done!");
+            taskList.get(indexNum - 1).setDone(true);
+            System.out.println("\"" + taskList.get(indexNum - 1).getDescription() + "\" marked as done!");
         } else {
-            taskList[indexNum - 1].setDone(false);
-            System.out.println("\"" + taskList[indexNum - 1].getDescription() + "\" marked as undone!");
+            taskList.get(indexNum - 1).setDone(false);
+            System.out.println("\"" + taskList.get(indexNum - 1).getDescription() + "\" marked as undone!");
         }
     }
 
