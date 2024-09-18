@@ -58,4 +58,16 @@ Here are the tasks in your list:
 2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 3.[E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)
 ────────────────────────────────────────────────────────────
+  Noted. I've removed this task: 
+  [T][✓] Answer CS2113 tutorial questions
+Now you have 2 tasks in the list.
+  Noted. I've removed this task: 
+  [E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)
+Now you have 1 tasks in the list.
+  Noted. I've removed this task: 
+  [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+Now you have 0 tasks in the list.
+  ────────────────────────────────────────────────────────────
+The list is empty.
+────────────────────────────────────────────────────────────
   
