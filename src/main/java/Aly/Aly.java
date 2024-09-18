@@ -3,12 +3,21 @@ import Task.Task;
 import Task.Todo;
 import Task.Deadline;
 import Task.Event;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 public class Aly {
 
     //Constants
+    private static final Path SAVE_FILE = Paths.get("data","taskdata.txt");
     private static final String RETURNING_TO_MAIN_MENU_MESSAGE = "Returning to main menu!";
     private static final String RETURN_TO_MAIN_MENU_MESSAGE = "Enter 0 to return to main menu anytime!";
     private static final int MAX_TASKS = 100;
@@ -24,6 +33,88 @@ public class Aly {
         System.out.println(LINE_SEPARATOR);
     }
 
+
+    public static void readTasksFromFile(String fileName) {
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            int index = 0;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                String[] taskDetails = line.split("\\|");
+
+                switch (taskDetails[0]) {
+                case "T":
+                    tasks[index] = new Todo(taskDetails[2].trim());
+                    tasks[index].setDone(taskDetails[1].trim().equals("1"));
+                    break;
+                case "D":
+                    tasks[index] = new Deadline(taskDetails[2].trim(), taskDetails[3].trim());
+                    tasks[index].setDone(taskDetails[1].trim().equals("1"));
+                    break;
+                case "E":
+                    tasks[index] = new Event(taskDetails[2].trim(), taskDetails[3].trim(), taskDetails[4].trim());
+                    tasks[index].setDone(taskDetails[1].trim().equals("1"));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Idk what task is this siah: " + taskDetails[0]);
+                }
+
+                index++;
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Your file dont have lah... maybe because: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error! Your file sucks because: " + e.getMessage());
+        }
+    }
+
+    private static void writeTasksToFile(String fileName) {
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+
+            for (Task task : tasks) {
+                if (task != null) {
+                    String toSave = task.toString();
+                    char status = '0';
+                    if (toSave.charAt(4) == 'X') {
+                        status = '1';
+                    }
+                    char type = toSave.charAt(1);
+                    switch (type) {
+                    case 'T':
+                        int endIndex = 6;
+                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(endIndex);
+                        break;
+                    case 'D':
+                        int byIndex = toSave.indexOf("(by: ");
+                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(6, byIndex-1) + "|" + toSave.substring(byIndex+5,toSave.length()-1);
+                        break;
+                    case 'E':
+                        int fromIndex = toSave.indexOf("(from: ");
+                        int toIndex = toSave.indexOf("to: ");
+                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(6,fromIndex-1) + "|" + toSave.substring(fromIndex+7,toIndex) + "|" + toSave.substring(toIndex+4,toSave.length()-1);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Idk what task is this siah, how to save??");
+                    }
+                    fileWriter.write(toSave + System.lineSeparator());
+                }
+            }
+
+            fileWriter.close();
+
+            System.out.println("Tasks recorded successfully to " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error! Your file sucks because: " + e.getMessage());
+        }
+    }
+
+
     //Initialising global variables/arrays
     private static Scanner in = new Scanner(System.in);
     private static Task[] tasks = new Task[MAX_TASKS];
@@ -36,6 +127,11 @@ public class Aly {
             System.out.println("Faster lah! Enter 1 for echo function, "
                     + "2 for task creation function, "
                     + "3 for task marking function, 0 to exit");
+            printLine();
+            createDirectory();
+            File file = new File(SAVE_FILE.toString());
+            createFile(file);
+            readTasksFromFile(file.toString());
             printLine();
             try {
                 String input = in.nextLine().trim();
@@ -121,12 +217,15 @@ public class Aly {
                     break;
                 case "todo":
                     index = addTodo(listItems, taskDetails, index);
+                    writeTasksToFile(SAVE_FILE.toString());
                     break;
                 case "deadline":
                     index = addDeadline(listItems, taskDetails, index);
+                    writeTasksToFile(SAVE_FILE.toString());
                     break;
                 case "event":
                     index = addEvent(listItems, taskDetails, index);
+                    writeTasksToFile(SAVE_FILE.toString());
                     break;
                 case "0":
                     isExit = true;
@@ -148,6 +247,34 @@ public class Aly {
                     printLine();
                 }
             }
+        }
+    }
+
+    private static void createFile(File file) {
+        System.out.println("Searching for " + SAVE_FILE + "...");
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Cannot find file so I help you create already! File name: " + SAVE_FILE);
+            } else {
+                System.out.println("File already exists, I will edit that!");
+            }
+        } catch (IOException e) {
+            System.out.println("Error! File sucks because: " + e.getMessage());
+        }
+    }
+
+    private static void createDirectory() {
+        Path directory = SAVE_FILE.getParent(); // Get the parent directory
+        System.out.println("Searching for directory: " + directory);
+        if (directory != null && !Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                System.out.println("Idk why cannot make directory siah: " + e.getMessage());
+            }
+            System.out.println("Directory didn't exist but I made it for u liao! You're welcome!");
+        } else {
+            System.out.println("Directory already exists, I will check in there!");
         }
     }
 
@@ -197,7 +324,7 @@ public class Aly {
 
     //Handles deadline inputs
     private static int addDeadline(Task[] listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
-        String[] taskParts = task.split("by");
+        String[] taskParts = task.split("\\bby\\b");
 
         if (task.isEmpty() || taskParts.length != 2) {
             throw new IllegalFormatException();
@@ -226,7 +353,7 @@ public class Aly {
 
     //Handles event inputs
     private static int addEvent(Task[] listItems, String task, int index) throws IllegalFormatException, ArrayIndexOutOfBoundsException, NullPointerException {
-        String[] taskParts = task.split("from|to");
+        String[] taskParts = task.split("\\bfrom\\b|\\bto\\b");
 
         if (task.isEmpty() || taskParts.length != 3) {
             throw new IllegalFormatException();
@@ -277,6 +404,7 @@ public class Aly {
                 case "mark":
                 case "unmark":
                     handleMarking(firstWord, splitInput, index, taskList);
+                    writeTasksToFile(SAVE_FILE.toString());
                     break;
                 case "0":
                     isExit = true;
