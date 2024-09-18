@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.FileOutputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
@@ -40,10 +41,11 @@ public class Doot {
                 } catch (EOFException e) {
                     fileHasData = false;
                 }
-                objectReader.close();
-                fileReader.close();
-
             }
+            objectReader.close();
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Read file does not exist, will be created!");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e);
         }
@@ -55,7 +57,9 @@ public class Doot {
             FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
             ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
             for (Task task : taskList) {
-                objectWriter.writeObject(task);
+                if (task != null) {
+                    objectWriter.writeObject(task);
+                }
             }
             objectWriter.close();
             fileWriter.close();
@@ -80,6 +84,7 @@ public class Doot {
         } else {
             handleDefault(cmd, args);
         }
+        writeTaskData();
     }
 
     private static void handleWordDigit(String command, String args) {
