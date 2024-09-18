@@ -1,5 +1,6 @@
 import model.*;
 import exception.MondayException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -11,10 +12,13 @@ public class Monday {
             + "|_|  |_|\\___/|_| |_|\\__,_|\\__,_|\\__, |\n"
             + "                                |___/  \n";
     private static final String LINE = "____________________________________________________________";
+    private static final String FILE_PATH = "../data/monday.txt";
+
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Monday monday = new Monday();
+        monday.loadTasks();
         monday.run();
     }
 
@@ -49,6 +53,7 @@ public class Monday {
                     deleteTask(input);
                 } else if (input.equalsIgnoreCase("bye")) {
                     printGoodbyeMessage();
+                    saveTasks();
                     break;
                 } else {
                     addTask(input); // This might throw a MondayException
@@ -178,5 +183,80 @@ public class Monday {
 
     private boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= 0 && taskNumber < tasks.size();
+    }
+
+    private void saveTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            // Create the parent directory if it doesn't exist
+            file.getParentFile().mkdirs();
+
+            PrintWriter printWriter = new PrintWriter(new FileWriter(file));
+            for (Task task : tasks) {
+                if (task instanceof Todo) {
+                    Todo todo = (Todo) task;
+                    printWriter.println("T | " + (todo.isDone() ? "1" : "0") + " | " + todo.getDescription());
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    printWriter.println("D | " + (deadline.isDone() ? "1" : "0") + " | " + deadline.getDescription() + " | " + deadline.getBy());
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    printWriter.println("E | " + (event.isDone() ? "1" : "0") + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo());
+                }
+            }
+            printWriter.close();
+            System.out.println("    Tasks saved to file.");
+        } catch (IOException e) {
+            System.out.println("    OOPS!!! There was an error saving the tasks.");
+            e.printStackTrace(); // For debugging purposes
+        }
+    }
+
+    private void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                // File doesn't exist; return or handle it as needed
+                System.out.println("    No saved tasks found.");
+                return;
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String type = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                if (type.equals("T")) {
+                    Task task = new Todo(description);
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                } else if (type.equals("D")) {
+                    String by = parts[3].trim();
+                    Task task = new Deadline(description, by);
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                } else if (type.equals("E")) {
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    Task task = new Event(description, from, to);
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+            System.out.println("    Tasks loaded from file.");
+        } catch (IOException e) {
+            System.out.println("    OOPS!!! There was an error loading the tasks.");
+            e.printStackTrace(); // For debugging purposes
+        }
     }
 }

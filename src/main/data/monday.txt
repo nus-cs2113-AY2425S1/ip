@@ -1,0 +1,4 @@
+T | 1 | read book
+D | 1 | write code | Monday
+E | 0 | powerlifting | 1pm | 6pm
+T | 0 | eat
