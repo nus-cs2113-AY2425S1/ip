@@ -68,9 +68,6 @@ public class Bebe {
             case "help":
                 showHelp();
                 break;
-            case "delete":
-                handleDelete(words);
-                break;
             default:
                 throw new BebeException("I'm sorry, but I don't understand that command. Try using 'help' to guide you.");
         }
@@ -110,13 +107,6 @@ public class Bebe {
         }
         String[] eventParts = words[1].split(" /from | /to ");
         addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
-    }
-
-    private static void handleDelete(String[] words) throws BebeException{
-        if (words.length < 2) {
-            throw new BebeException("Task number to delete cannot be empty. Use format: delete <task number>");
-        }
-        deleteTask(words[1]);
     }
 
     private static void exitChatbot() {
@@ -187,27 +177,6 @@ public class Bebe {
     }
 
     /**
-     * Deletes a task from the list.
-     *
-     * @param taskNumber The index of the task to delete.
-     */
-    private static void deleteTask(String taskNumber) throws BebeException {
-        try {
-            int index = Integer.parseInt(taskNumber) - 1;
-            if (index >= 0 && index < tasks.size()) {
-                Task task = tasks.remove(index);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else {
-                throw new BebeException("Invalid task number.");
-            }
-        } catch (NumberFormatException e) {
-            throw new BebeException("Please provide a valid task number.");
-        }
-    }
-
-    /**
      * Prints the available commands and their descriptions.
      */
     private static void showHelp() {
@@ -218,7 +187,6 @@ public class Bebe {
         System.out.println("  list                            - Lists all tasks.");
         System.out.println("  mark <task number>              - Marks a task as done.");
         System.out.println("  unmark <task number>            - Marks a task as not done.");
-        System.out.println("  delete <task number>            - Deletes a task.");
         System.out.println("  help                            - Shows this help message.");
         System.out.println("  bye                             - Exits the chatbot.");
         System.out.println("So what can I do for you?");
