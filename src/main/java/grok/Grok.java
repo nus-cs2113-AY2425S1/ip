@@ -5,13 +5,20 @@ import grok.tasks.Todo;
 import grok.tasks.Deadline;
 import grok.tasks.Event;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Grok {
+    private static final String FILE_PATH = "./data/grok.txt";
+    private static Task[] tasks = new Task[100];
+    private static int taskCount = 0;
+
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
 
         printLine();
         System.out.println("Hello, I am Grok! Your favourite personal assistant that helps you keep track of tasks :)");
@@ -33,6 +40,7 @@ public class Grok {
                     printLine();
                     System.out.println("Bye. Hope to see you again soon! Keep Grokking :)");
                     printLine();
+                    saveTasksToFile();
                     break;
                 } else if (input.equals("list")) {
                     printLine();
@@ -52,6 +60,7 @@ public class Grok {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks[taskNumber]);
                     printLine();
+                    saveTasksToFile();
                 } else if (input.startsWith("unmark")) {
                     String taskNumberStr = input.substring(6).trim();
                     if (taskNumberStr.isEmpty()) {
@@ -63,8 +72,9 @@ public class Grok {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks[taskNumber]);
                     printLine();
+                    saveTasksToFile();
                 } else if (input.startsWith("todo")) {
-                    String description = input.substring(4).trim(); // Adjusted for any missing spaces
+                    String description = input.substring(4).trim();
                     if (description.isEmpty()) {
                         throw new GrokException("Oh no, todo cannot be empty. Do something!");
                     }
@@ -75,6 +85,7 @@ public class Grok {
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
+                    saveTasksToFile();
                 } else if (input.startsWith("deadline")) {
                     String[] details = input.substring(8).trim().split(" /by ");
                     if (details.length < 2) {
@@ -87,6 +98,7 @@ public class Grok {
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
+                    saveTasksToFile();
                 } else if (input.startsWith("event")) {
                     String[] details = input.substring(5).trim().split(" /from | /to ");
                     if (details.length < 3) {
@@ -99,6 +111,7 @@ public class Grok {
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
+                    saveTasksToFile();
                 } else if (input.startsWith("delete")) {
                     String taskNumberStr = input.substring(6).trim();
                     if (taskNumberStr.isEmpty()) {
@@ -118,6 +131,7 @@ public class Grok {
                     taskCount--;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
+                    saveTasksToFile();
                 } else {
                     throw new GrokException("I'm sorry, I don't grok that command. Please try again :(");
                 }
@@ -137,5 +151,56 @@ public class Grok {
 
     public static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (int i = 0; i < taskCount; i++) {
+                fileWriter.write(tasks[i].toSaveFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+        }
+    }
+
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return;
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String taskLine = fileScanner.nextLine();
+                String[] taskDetails = taskLine.split(" \\| ");
+                String taskType = taskDetails[0];
+                boolean isDone = taskDetails[1].equals("1");
+
+                if (taskType.equals("T")) {
+                    tasks[taskCount] = new Todo(taskDetails[2]);
+                } else if (taskType.equals("D")) {
+                    tasks[taskCount] = new Deadline(taskDetails[2], taskDetails[3]);
+                } else if (taskType.equals("E")) {
+                    tasks[taskCount] = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                }
+
+                if (isDone) {
+                    tasks[taskCount].markAsDone();
+                }
+                taskCount++;
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks.");
+        }
     }
 }
