@@ -284,6 +284,12 @@ public class Bosco {
             } catch (MissingPrefixException e) {
                 printMessages("Error: missing " + e.missingPrefix + " prefix.");
             }
+
+            try {
+                writeToFile(FILE_PATH);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
