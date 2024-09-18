@@ -4,10 +4,10 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+import java.util.ArrayList;
 
 public final class ActionManager {
-    private static final int MAX_CAPACITY = 100;
-    private static final Task[] tasks = new Task[MAX_CAPACITY];
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
     public static boolean isRunning = true;
     private static final class UsageString {
@@ -16,6 +16,7 @@ public final class ActionManager {
         private static final String EVENT_USAGE = "Usage: event <description> /from <from> /to <to>";
         private static final String TODO_USAGE = "Usage: todo <description>";
         private static final String DEADLINE_USAGE = "Usage: deadline <name> /by <time>";
+        private static final String DELETE_USAGE = "Usage: delete <taskNumber>";
         private static final String DEFAULT = "All commands: list, mark, unmark, event, todo, deadline";
     }
 
@@ -31,7 +32,7 @@ public final class ActionManager {
 
         for (int i = 0; i < taskCount; ++i) {
             System.out.printf("%d.", i + 1);
-            tasks[i].printTask();
+            tasks.get(i).printTask();
         }
     }
 
@@ -39,19 +40,19 @@ public final class ActionManager {
      * Marks/unmarks a task as done
      * @param action <code>mark</code> or <code>unmark</code>
      * @param argString Task index as <code>String</code>
-     * @throws SuBotException If argString cannot be parsed to <code>Int</code>
+     * @throws SuBotException If argString cannot be parsed to <code>int</code>
      */
     private static void markUnmarkTask(String action, String argString) throws SuBotException {
         try {
-            int taskIndex = Parser.parseMarkUnmark(argString);
+            int taskIndex = Parser.parseTaskIndex(argString);
             if (taskIndex >= taskCount) {
                 System.out.println("Task not found");
                 return;
             }
             boolean isMark = action.equals("mark");
-            tasks[taskIndex].setDone(isMark);
+            tasks.get(taskIndex).setDone(isMark);
             System.out.printf("I have %sed the following task for you:\n", action);
-            tasks[taskIndex].printTask();
+            tasks.get(taskIndex).printTask();
         } catch (SuBotException e) {
             String msg = e.getMessage() + "\n" + UsageString.MARK_UNMARK_USAGE;
             throw new SuBotException(msg);
@@ -71,9 +72,9 @@ public final class ActionManager {
             String eventName = argv[0];
             String eventFrom = argv[1];
             String eventTo = argv[2];
-            tasks[taskCount] = new Event(eventName, eventFrom, eventTo);
+            tasks.add(new Event(eventName, eventFrom, eventTo));
             System.out.println("Event task added!\n");
-            tasks[taskCount++].printTask();
+            tasks.get(taskCount++).printTask();
         } catch (SuBotException e) {
             String msg = e.getMessage() + "\n" + UsageString.EVENT_USAGE;
             throw new SuBotException(msg);
@@ -88,9 +89,9 @@ public final class ActionManager {
     private static void addTodo(String description) throws SuBotException{
         try {
             Parser.validateToDo(description); //Doesn't need a parser
-            tasks[taskCount] = new ToDo(description);
+            tasks.add(new ToDo(description));
             System.out.println("Todo task added!\n");
-            tasks[taskCount++].printTask();
+            tasks.get(taskCount++).printTask();
         } catch (SuBotException e) {
             String msg = e.getMessage() + "\n" + UsageString.TODO_USAGE;
             throw new SuBotException(msg);
@@ -108,14 +109,37 @@ public final class ActionManager {
             String[] argv = Parser.parseDeadline(argString);
             String dlName  = argv[0];
             String dlTime  = argv[1];
-            tasks[taskCount] = new Deadline(dlName, dlTime);
+            tasks.add(new Deadline(dlName, dlTime));
             System.out.println("Deadline task added!\n");
-            tasks[taskCount++].printTask();
+            tasks.get(taskCount++).printTask();
         } catch (SuBotException e) {
             String msg = e.getMessage() + "\n" + UsageString.DEADLINE_USAGE;
             throw new SuBotException(msg);
         }
     }
+
+    /**
+     * Delete a Task
+     * @param argString Task index as <code>String</code>
+     * @throws SuBotException If argString cannot be parsed to <code>int</code>
+     */
+    private static void deleteTask(String argString) throws SuBotException {
+        try {
+            int taskIndex = Parser.parseTaskIndex(argString); //Index starts from 0
+            if (taskIndex >= taskCount) {
+                System.out.println("Task not found");
+                return;
+            }
+            Task removed = tasks.remove(taskIndex);
+            taskCount--;
+            System.out.println("I have deleted the following task for you:\n");
+            removed.printTask();
+        } catch (SuBotException e) {
+            String msg = e.getMessage() + "\n" + UsageString.DELETE_USAGE;
+            throw new SuBotException(msg);
+        }
+    }
+
 
     /**
      * Processes user's input command.
@@ -158,6 +182,9 @@ public final class ActionManager {
                 break;
             case "event":
                 addEvent(argString);
+                break;
+            case "delete":
+                deleteTask(argString);
                 break;
             default:
                 throw new SuBotException(action + "\n" + UsageString.DEFAULT);
