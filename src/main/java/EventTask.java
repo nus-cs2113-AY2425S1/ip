@@ -8,6 +8,24 @@ public class EventTask extends Task {
         this.to = to;
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    // New method to return event details as a string (from and to times)
+    public String getEventDetails() {
+        return from + " /to " + to;  // Returns the event details as "from /to to"
+    }
+
+    @Override
+    public String getType() {
+        return "E";  // E for EventTask
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

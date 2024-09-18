@@ -14,6 +14,12 @@ public class DeadlineTask extends Task {
         return by;
     }
 
+    // Implementing the task type for DeadlineTask
+    @Override
+    public String getType() {
+        return "D";  // D for DeadlineTask
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

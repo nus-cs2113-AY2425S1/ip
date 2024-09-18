@@ -1,36 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Andy {
 
-    private static List<Task> itemList = new ArrayList<>(); // List to store tasks
+    private TaskManager taskManager;  // TaskManager handles the task list and storage
 
-    // Method to greet the user
-    private static void greetUser() {
-        System.out.println("_______________________________________");
-        System.out.println("Hello! I'm ANDY");
-        System.out.println(" ");
-        System.out.println("     _    _    _    _ ");
-        System.out.println("    / \\  / \\  / \\  / \\ ");
-        System.out.println("   ( A )( N )( D )( Y )");
-        System.out.println("    \\_/  \\_/  \\_/  \\_/ ");
-        System.out.println(" ");
-        System.out.println("What can I do for you?");
-        System.out.println("Type 'todo <task>' to add a todo item.");
-        System.out.println("Type 'deadline <task> /by <time>' to add a deadline.");
-        System.out.println("Type 'event <task> /from <start time> /to <end time>' to add an event.");
-        System.out.println("Type 'list' followed by an item to add it to the list.");
-        System.out.println("Type 'list show' to display all items in the list.");
-        System.out.println("Type 'mark <number>' to mark a task as done.");
-        System.out.println("Type 'unmark <number>' to mark a task as not done.");
-        System.out.println("_______________________________________");
+    public Andy() {
+        taskManager = new TaskManager();  // Initialize TaskManager (loads tasks from storage)
     }
 
-    // Main method
-    public static void main(String[] args) {
+    public void run() {
         greetUser(); // Greet the user
-
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
@@ -57,7 +36,7 @@ public class Andy {
                     if (input.substring(4).trim().isEmpty()) {
                         throw new AndyException("Task description cannot be empty!");
                     }
-                    addItemToList(new TodoTask(input.substring(5).trim()));
+                    taskManager.addTask(new TodoTask(input.substring(5).trim())); // Add task to TaskManager
                     break;
 
                 case "deadline":
@@ -65,7 +44,7 @@ public class Andy {
                     if (parts.length != 2) {
                         throw new AndyException("Invalid deadline format. Use: deadline <task> /by <time>");
                     }
-                    addItemToList(new DeadlineTask(parts[0].trim(), parts[1].trim()));
+                    taskManager.addTask(new DeadlineTask(parts[0].trim(), parts[1].trim())); // Add DeadlineTask
                     break;
 
                 case "event":
@@ -77,7 +56,7 @@ public class Andy {
                     if (timeParts.length != 2) {
                         throw new AndyException("Invalid event format. Use: event <task> /from <start time> /to <end time>");
                     }
-                    addItemToList(new EventTask(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+                    taskManager.addTask(new EventTask(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim())); // Add EventTask
                     break;
 
                 default:
@@ -93,21 +72,29 @@ public class Andy {
             }
         }
 
-        exit();
-        scanner.close(); // To avoid resource leaks.
+        exit(); // Display the exit message
+        scanner.close(); // Close the scanner to avoid resource leaks
+    }
+
+    // Method to greet the user
+    private static void greetUser() {
+        System.out.println("_______________________________________");
+        System.out.println("Hello! I'm ANDY");
+        System.out.println("What can I do for you?");
+        System.out.println("_______________________________________");
     }
 
     // Method to handle list input
-    private static void handleListInput(String input) {
+    private void handleListInput(String input) {
         String[] parts = input.split(" ", 2); // Split the input into command and item
 
         if (parts.length > 1) {
             String command = parts[1];
 
             if (command.equals("show")) {
-                showList(); // Correctly handle 'list show' to display the list
+                taskManager.showTasks(); // Show tasks in TaskManager
             } else {
-                addItemToList(new TodoTask(command)); // Add the item to the list as a TodoTask
+                taskManager.addTask(new TodoTask(command)); // Add the item to TaskManager as a TodoTask
             }
         } else {
             System.out.println("Please provide a valid list command or item.");
@@ -115,32 +102,23 @@ public class Andy {
     }
 
     // Method to mark a task as done
-    private static void markTaskAsDone(String input) {
+    private void markTaskAsDone(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-            itemList.get(taskNumber).setDone(true);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[X] " + itemList.get(taskNumber).getDescription());
+            taskManager.markTaskAsDone(taskNumber);  // Delegate to TaskManager
         } catch (Exception e) {
             System.out.println("Invalid task number. Please try again.");
         }
     }
 
     // Method to mark a task as not done
-    private static void markTaskAsNotDone(String input) {
+    private void markTaskAsNotDone(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-            itemList.get(taskNumber).setDone(false);
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[ ] " + itemList.get(taskNumber).getDescription());
+            taskManager.markTaskAsNotDone(taskNumber);  // Delegate to TaskManager
         } catch (Exception e) {
             System.out.println("Invalid task number. Please try again.");
         }
-    }
-
-    // Echo method to repeat input
-    private static void echo(String input) {
-        System.out.println("You said: " + input);
     }
 
     // Method to exit the program
@@ -150,24 +128,8 @@ public class Andy {
         System.out.println("_______________________________________");
     }
 
-    // Method to add a task to the list
-    private static void addItemToList(Task task) {
-        itemList.add(task);
-        System.out.println("Item added to the list: " + task.getDescription());
+    public static void main(String[] args) {
+        Andy andy = new Andy(); // Initialize Andy
+        andy.run();  // Start the main loop
     }
-
-    // Method to display the list
-    private static void showList() {
-        System.out.println("_______________________________________");
-        System.out.println("Items in your list:");
-        if (itemList.isEmpty()) {
-            System.out.println("The list is empty.");
-        } else {
-            for (int i = 0; i < itemList.size(); i++) {
-                System.out.println((i + 1) + "." + itemList.get(i));
-            }
-        }
-        System.out.println("_______________________________________");
-    }
-
 }
