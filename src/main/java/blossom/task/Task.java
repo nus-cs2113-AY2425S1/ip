@@ -29,6 +29,10 @@ public class Task {
         isDone = false;
     }
 
+    public String toFileFormat() {
+        String result = " | " + (this.isDone ? "1" : "0") + " | " + this.getDescription();
+        return result;
+    }
     @Override
     public String toString() {
        String result = this.getStatusIcon() + " " + this.getDescription();
