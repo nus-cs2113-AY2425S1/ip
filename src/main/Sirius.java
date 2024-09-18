@@ -88,8 +88,6 @@ public class Sirius {
         System.out.println("Got it. I've added this task:");
         System.out.println(list.get(list.size()-1).toString());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(list.get(list.size()-1).toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
     public static void deleteTask(String[] commandPieces, ArrayList<Task> list){
@@ -280,7 +278,8 @@ public class Sirius {
                         saveTaskList(list);
                         break;
                     default:
-                        throw new IllegalCommandException("I don't understand it. Please enter an illegal command!");
+                        System.out.println(SEPARATOR);
+                        throw new IllegalCommandException("I don't understand it. Please enter an illegal command!" + "\n" + SEPARATOR);
                 }
             } catch(IllegalCommandException e){
                 System.out.println(e.getMessage());
