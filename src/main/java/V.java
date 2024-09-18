@@ -49,9 +49,9 @@ public class V {
 
     public static void deleteTask(ArrayList<Task> listOfTasks, int position) {
         Task task = listOfTasks.get(position - 1);
+        listOfTasks.remove(position - 1);
         printBlock("Got it. The task below was removed:\n    " + task +
                 "\nNow you have " + listOfTasks.size() + " left");
-        listOfTasks.remove(position - 1);
     }
 
     public static void addToDo(ArrayList<Task> listOfTasks, String description) {
