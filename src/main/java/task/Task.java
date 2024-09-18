@@ -61,7 +61,7 @@ public abstract class Task implements TaskOperations {
             break;
         case "E":
             String[] eventParts = parts[2].split(" \\(from: | to: ");
-            String eventName = eventParts[0].trim(); // Get the event name
+            String eventName = eventParts[0].trim();
             String fromDate = eventParts[1].replace(")", "").trim();
             String toDate = eventParts[2].replace(")", "").trim();
             task = new Event(eventName, fromDate, toDate);

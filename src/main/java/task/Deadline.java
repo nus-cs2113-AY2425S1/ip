@@ -15,7 +15,6 @@ public class Deadline extends Task {
         return super.toString() + " (by: " + dueDate + ")";
     }
 
-    //Override toString method to show marker
     @Override
     public String getTaskMarker() {
         return "D";
