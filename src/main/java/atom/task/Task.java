@@ -4,16 +4,9 @@ public class Task {
     protected String item;
     protected boolean isDone;
 
-    public static int taskCount = 0;
-
     public Task(String item) {
         this.item = item;
         this.isDone = false;
-        taskCount++;
-    }
-
-    public static int getTaskCount() {
-        return taskCount;
     }
 
     public String getItem() {
