@@ -31,6 +31,7 @@ public class Echo {
         } while (!userInput.equalsIgnoreCase("bye"));
 
         // Print the exit message from Echo
+        taskList.saveTasks();
         printExitMessage(exitMessage);
     }
 

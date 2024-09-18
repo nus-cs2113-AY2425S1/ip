@@ -25,6 +25,6 @@ public class Event extends Task {
         } else {
             status = "0";
         }
-        return "E | " + status + " | " + description + " (from: " + start + " to: " + end + ")";
+        return "E | " + status + " | " + description;
     }
 }

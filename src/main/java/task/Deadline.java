@@ -24,6 +24,6 @@ public class Deadline extends Task {
         } else {
             status = "0";
         }
-        return "D | " + status + " | " + description +  " (by: " + dueDate + ")";
+        return "D | " + status + " | " + description;
     }
 }
