@@ -7,6 +7,10 @@ import blossom.task.Todo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Blossom {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -25,6 +29,64 @@ public class Blossom {
     private static final int LENGTH_OF_TODO = 5;
     private static final int LENGTH_OF_DEADLINE = 9;
     private static final int LENGTH_OF_EVENT = 6;
+    private static final String FILE_PATH = "./data/blossom.txt";
+
+    public static void loadTasks() throws BlossomException {
+        File f = new File(FILE_PATH); // create a File for the given file path
+        try (Scanner s = new Scanner(f)) {
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                addTaskFromFile(line);
+            }
+        } catch (BlossomException | FileNotFoundException e) {
+            System.out.println("Data file not found! Creating a new one....");
+            new File("./data").mkdirs();
+        }
+    }
+
+    public static void saveTasks() {
+        try (FileWriter fw = new FileWriter(FILE_PATH, false)) {
+            for (Task item : LIST_OF_TASKS) {
+                fw.write( item.toFileFormat()+ "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while trying to save tasks to file.");
+        }
+    }
+
+    public static void addTaskFromFile(String fileInput) throws BlossomException {
+        String[] parts = fileInput.split("\\|");
+        String type = parts[0].trim();
+        boolean isDone = Boolean.parseBoolean(parts[1].trim());
+        String description = parts[2].trim();
+        switch (type) {
+        case "T":
+            Todo todo = new Todo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            LIST_OF_TASKS.add(todo);
+            break;
+        case "D":
+            String by = parts[3].trim();
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            LIST_OF_TASKS.add(deadline);
+            break;
+        case "E":
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            Event event = new Event(description, from, to);
+            if (isDone) {
+                event.markAsDone();
+            }
+            LIST_OF_TASKS.add(event);
+            break;
+        }
+    }
+
 
     public static void printItems() {
         // Print items in order
@@ -101,6 +163,11 @@ public class Blossom {
 
     public static void main(String[] args) {
         printIntro();
+        try {
+            loadTasks();
+        } catch (BlossomException e) {
+            throw new RuntimeException(e);
+        }
         Scanner input = new Scanner(System.in);
         // Repeatedly takes in input until it's a key word
         while(input.hasNext()) {
@@ -127,6 +194,7 @@ public class Blossom {
                 System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
                 System.out.println(HORIZONTAL_LINE);
                 input.close();
+                saveTasks();
                 System.exit(0);
             }
         }
