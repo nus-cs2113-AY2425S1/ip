@@ -119,3 +119,4 @@ public class Grok {
         System.out.println("____________________________________________________________");
     }
 }
+// Added error handling for Level-5
