@@ -1,6 +1,7 @@
 package org.ajay.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +18,15 @@ public class Storage {
 
 
     public static void loadTaskList(ArrayList<Task> taskList) throws EmptyArgumentException, IllegalArgumentException {
+        // Check if the file exists
+        File f = new File(filePath);
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         // Try block to check for exceptions
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
