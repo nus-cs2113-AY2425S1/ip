@@ -14,12 +14,13 @@ import java.time.format.DateTimeParseException;
 
 import static constants.Command.EVENT_COMMAND;
 import static constants.Regex.FROM_PREFIX;
+import static constants.Regex.INPUT_DATE_FORMAT;
 import static constants.Regex.TO_PREFIX;
 
 public class AddEventCommand extends Command {
     private String userInput;
     private boolean fromUserInput;
-    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
 
     public AddEventCommand(String userInput, boolean fromUserInput) {
         super(EVENT_COMMAND);

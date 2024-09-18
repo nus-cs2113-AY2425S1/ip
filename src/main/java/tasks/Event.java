@@ -3,12 +3,15 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static constants.Regex.DISPLAY_DATE_FORMAT;
+import static constants.Regex.INPUT_DATE_FORMAT;
+
 public class Event extends Task {
     private static final String COMMAND_FORMAT = "event %s /from %s /to %s";
     private LocalDate from;
     private LocalDate to;
-    private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-    private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern(DISPLAY_DATE_FORMAT);
+    private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
 
     public Event(String taskName, LocalDate from, LocalDate to) {
         super(taskName);

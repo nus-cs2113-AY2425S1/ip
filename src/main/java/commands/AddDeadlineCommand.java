@@ -14,11 +14,12 @@ import java.time.format.DateTimeParseException;
 
 import static constants.Command.DEADLINE_COMMAND;
 import static constants.Regex.BY_PREFIX;
+import static constants.Regex.INPUT_DATE_FORMAT;
 
 public class AddDeadlineCommand extends Command {
     private String userInput;
     private boolean fromUserInput;
-    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
 
     public AddDeadlineCommand(String userInput, boolean fromUserInput) {
         super(DEADLINE_COMMAND);

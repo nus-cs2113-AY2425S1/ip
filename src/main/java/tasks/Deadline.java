@@ -2,13 +2,15 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
+import static constants.Regex.DISPLAY_DATE_FORMAT;
+import static constants.Regex.INPUT_DATE_FORMAT;
 
 public class Deadline extends Task {
     // private String by;
     private LocalDate by;
-    private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-    private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern(DISPLAY_DATE_FORMAT);
+    private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
 
     public Deadline(String taskName, LocalDate by) {
         super(taskName);

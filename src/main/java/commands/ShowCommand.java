@@ -1,11 +1,7 @@
 package commands;
 
-import exception.BentoException;
 import exception.InvalidDateFormatException;
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
@@ -14,10 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static constants.Command.SHOW_COMMAND;
+import static constants.Regex.INPUT_DATE_FORMAT;
 
 public class ShowCommand extends Command {
     private String dateOfInterestString;
-    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
 
     public ShowCommand(String userInput) {
         super(SHOW_COMMAND);
