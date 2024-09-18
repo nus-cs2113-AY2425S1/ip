@@ -1,0 +1,107 @@
+               ____  ____  ______
+   _______  __/ __ )/ __ \/_  __/
+  / ___/ / / / __  / / / / / /
+ (__  ) /_/ / /_/ / /_/ / / /
+/____/\__,_/_____/\____/ /_/
+
+How can I help you today?
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask2
+-------------------------------
+-------------------------------
+Todo task added!
+
+[T][ ] demoTask3
+-------------------------------
+-------------------------------
+I have deleted the following task for you:
+
+[T][ ] demoTask1
+-------------------------------
+-------------------------------
+Task not found
+-------------------------------
+-------------------------------
+Task not found
+-------------------------------
+-------------------------------
+Task not found
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number cannot be blank
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+I have deleted the following task for you:
+
+[T][ ] demoTask2
+-------------------------------
+-------------------------------
+I have deleted the following task for you:
+
+[T][ ] demoTask3
+-------------------------------
+-------------------------------
+Invalid argument(s): Task number must be a positive integer
+Usage: delete <taskNumber>
+-------------------------------
+-------------------------------
+No task found
+-------------------------------
+-------------------------------
+-------------------------------
+Bye bye...
+System shutting down...
+Goodbye world!
