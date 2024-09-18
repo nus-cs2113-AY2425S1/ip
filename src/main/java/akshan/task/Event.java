@@ -35,4 +35,15 @@ public class Event extends Task {
         return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name
                 + " (from: " + this.start + " to: " + this.end + ")";
     }
+
+    /**
+     * Returns a string representation of the event task suitable to be stored in data file.
+     *
+     * @return String representation of the event task (storage format).
+     */
+    @Override
+    public String toStorageString(String separator) {
+        return this.type + separator + (super.isDone ? "1" : "0") + separator + this.name
+                + separator + this.start + separator + this.end;
+    };
 }

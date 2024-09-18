@@ -3,7 +3,9 @@ package akshan;
 import akshan.command.CommandType;
 import akshan.task.Task;
 import akshan.task.TaskList;
+import akshan.storage.StorageHandler;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +43,10 @@ public class Akshan {
     /**
      * Main method to run the Akshan bot.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         TaskList taskList = new TaskList();
+        StorageHandler storageHandler = new StorageHandler(taskList);
 
         init();
         String line = input.nextLine();
@@ -57,6 +60,7 @@ public class Akshan {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
             printLine();
+            storageHandler.saveData(taskList);
             line = input.nextLine();
         }
         bye();

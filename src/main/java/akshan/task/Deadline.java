@@ -32,4 +32,15 @@ public class Deadline extends Task {
         return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name
                 + " (by: " + this.by + ")";
     }
+
+    /**
+     * Returns a string representation of the deadline task suitable to be stored in data file.
+     *
+     * @return String representation of the deadline task (storage format).
+     */
+    @Override
+    public String toStorageString(String separator) {
+        return this.type + separator + (super.isDone ? "1" : "0") + separator + this.name
+                + separator + this.by;
+    };
 }

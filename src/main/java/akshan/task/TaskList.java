@@ -22,6 +22,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the task at stored at a specific index in the ArrayList.
+     *
+     * @param index Index of the task.
+     */
+    public Task getTask(int index) {
+        return list.get(index);
+    }
+
+    /**
      * Prints list of tasks with their completion status.
      */
     public void printList() {
