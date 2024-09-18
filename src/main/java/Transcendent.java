@@ -50,6 +50,13 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
+        private static void printDeleteConfirm(List.Task task) {
+            Printer.printSeparator();
+            System.out.println("I have deleted the following task.");
+            System.out.println(task.toString());
+            Printer.printSeparator();
+        }
+
         private static void printInvalidCommand() {
             Printer.printSeparator();
             System.out.println("This is an invalid instruction.");
@@ -84,6 +91,39 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
+        private static void printInvalidMark() {
+            Printer.printSeparator();
+            System.out.println("Invalid mark statement.");
+            System.out.println("Mark syntax: ");
+            System.out.println("mark *task_number*");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printInvalidUnmark() {
+            Printer.printSeparator();
+            System.out.println("Invalid unmark statement.");
+            System.out.println("Unmark syntax: ");
+            System.out.println("unmark *task_number*");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printInvalidDelete() {
+            Printer.printSeparator();
+            System.out.println("Invalid delete statement.");
+            System.out.println("Delete syntax: ");
+            System.out.println("delete *task_number*");
+            System.out.println("For list of all valid instructions: help");
+            Printer.printSeparator();
+        }
+
+        private static void printNonExistentTask() {
+            Printer.printSeparator();
+            System.out.println("The specified task does not exist.");
+            Printer.printSeparator();
+        }
+
         private static void printAlreadyMarked() {
             Printer.printSeparator();
             System.out.println("This task is already marked.");
@@ -96,6 +136,12 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
+        private static void printEmptyList() {
+            Printer.printSeparator();
+            System.out.println("The list is empty.");
+            Printer.printSeparator();
+        }
+
         private static void printHelp() {
             Printer.printSeparator();
             System.out.println("All actions:");
@@ -104,6 +150,7 @@ public class Transcendent {
             System.out.println("To add a event: event *task* /from *from* /to *to*");
             System.out.println("To mark a task: mark *task_number*");
             System.out.println("To unmark a task: unmark *task_number*");
+            System.out.println("To delete a task: delete *task_number*");
             System.out.println("To list all tasks: list");
             System.out.println("To exit: bye");
             Printer.printSeparator();
@@ -131,6 +178,8 @@ public class Transcendent {
                     List.addTodo(command);
                 } else if (command.startsWith("event")) {
                     List.addEvent(command);
+                } else if (command.startsWith("delete")) {
+                    List.deleteTask(command);
                 } else {
                     Printer.printInvalidCommand();
                 }
@@ -138,19 +187,33 @@ public class Transcendent {
         }
 
         private static void markOrUnmark(String command) {
-            String numberString = command.split(" ")[1];
-            int index;
             try {
-                index = Integer.parseInt(numberString) - 1;
-                if (index >= List.listCount) {
-                    Printer.printInvalidCommand();
-                } else if (command.startsWith("mark ")) {
-                    List.mark(index);
-                } else {
-                    List.unmark(index);
+                String numberString = command.split(" ")[1];
+                int index;
+                try {
+                    index = Integer.parseInt(numberString) - 1;
+                    if (List.listCount == 0) {
+                        Printer.printEmptyList();
+                    } else if (index >= List.listCount) {
+                        Printer.printNonExistentTask();
+                    } else if (command.startsWith("mark ")) {
+                        List.mark(index);
+                    } else {
+                        List.unmark(index);
+                    }
+                } catch (NumberFormatException e) {
+                    if (command.startsWith("mark")) {
+                        Printer.printInvalidMark();
+                    } else {
+                        Printer.printInvalidUnmark();
+                    }
                 }
-            } catch (NumberFormatException e) {
-                Printer.printInvalidCommand();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (command.startsWith("mark")) {
+                    Printer.printInvalidMark();
+                } else {
+                    Printer.printInvalidUnmark();
+                }
             }
         }
 
@@ -163,54 +226,52 @@ public class Transcendent {
         private static class Task {
             protected String description;
             protected boolean isDone;
-            protected int taskNum;
-            public Task(String description, int taskNum) {
+            public Task(String description) {
                 this.description = description;
                 this.isDone = false;
-                this.taskNum = taskNum;
             }
             public String getStatusIcon() {
                 return (isDone ? "[X]" : "[ ]");
             }
             @Override
             public String toString() {
-                return tasks[taskNum].getStatusIcon() + " " + tasks[taskNum].description;
+                return this.getStatusIcon() + " " + this.description;
             }
         }
 
         private static class Deadline extends Task {
             protected String by;
-            private Deadline(String description, int taskNum, String by) {
-                super(description, taskNum);
+            private Deadline(String description, String by) {
+                super(description);
                 this.by = by;
             }
             @Override
             public String toString() {
-                return (this.taskNum + 1) + "." + "[D]" + super.toString() + " (by: " + by + ")";
+                return "[D]" + super.toString() + " (by: " + by + ")";
             }
         }
 
         private static class ToDo extends Task {
-            private ToDo(String description, int taskNum) {
-                super(description, taskNum);
+            private ToDo(String description) {
+                super(description);
             }
             @Override
             public String toString() {
-                return (this.taskNum + 1) + "." + "[T]" + super.toString();
+                return "[T]" + super.toString();
             }
         }
 
         private static class Event extends Task {
             protected String from;
             protected String to;
-            private Event(String description, int taskNum, String from, String to) {
-                super(description, taskNum);
+            private Event(String description, String from, String to) {
+                super(description);
                 this.from = from;
                 this.to = to;
             }
             @Override
             public String toString() {
-                return (this.taskNum + 1) + "." + "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+                return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
             }
         }
 
@@ -225,7 +286,7 @@ public class Transcendent {
         private static void addDeadline(String taskDesc) {
             try {
                 String[] words = taskDesc.split(" /by ");
-                Task newTask = new Deadline(words[0].substring(9), listCount, words[1]);
+                Task newTask = new Deadline(words[0].substring(9), words[1]);
                 tasks[listCount] = newTask;
                 listCount += 1;
                 Printer.printAddConfirm(newTask);
@@ -236,7 +297,7 @@ public class Transcendent {
 
         private static void addTodo(String taskDesc) {
             try {
-                Task newTask = new ToDo(taskDesc.substring(5), listCount);
+                Task newTask = new ToDo(taskDesc.substring(5));
                 tasks[listCount] = newTask;
                 listCount += 1;
                 Printer.printAddConfirm(newTask);
@@ -250,7 +311,7 @@ public class Transcendent {
             try {
                 String[] words = taskDesc.split(" /from | /to ");
                 try {
-                    Task newTask = new Event(words[0].substring(6), listCount, words[1], words[2]);
+                    Task newTask = new Event(words[0].substring(6), words[1], words[2]);
                     tasks[listCount] = newTask;
                     listCount += 1;
                     Printer.printAddConfirm(newTask);
@@ -262,12 +323,49 @@ public class Transcendent {
             }
         }
 
-        private static void list() {
-            Printer.printSeparator();
-            for (int i = 0; i < listCount; i += 1) {
-                System.out.println(tasks[i].toString());
+        private static void deleteTask (String command) {
+            try {
+                String numberString = command.split(" ")[1];
+                int toBeDeleted;
+                try {
+                    toBeDeleted = Integer.parseInt(numberString) - 1;
+                    if (listCount == 0) {
+                        Printer.printEmptyList();
+                    } else if (toBeDeleted >= listCount) {
+                        Printer.printNonExistentTask();
+                    } else {
+                        Printer.printDeleteConfirm(tasks[toBeDeleted]);
+                        while (toBeDeleted < listCount) {
+                            tasks[toBeDeleted] = tasks[toBeDeleted + 1];
+                            toBeDeleted += 1;
+                        }
+                        listCount -= 1;
+                    }
+                } catch (NumberFormatException e) {
+                    Printer.printInvalidDelete();
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Printer.printInvalidDelete();
             }
-            Printer.printSeparator();
+        }
+
+        private static void list() {
+            if (listCount == 0) {
+                Printer.printEmptyList();
+            } else {
+                Printer.printSeparator();
+                String toBePrinted = "The list has " + listCount + " task";
+                if (listCount == 1) {
+                    toBePrinted += ".";
+                } else {
+                    toBePrinted += "s.";
+                }
+                System.out.println(toBePrinted);
+                for (int i = 0; i < listCount; i += 1) {
+                    System.out.println(i + 1 + "." + tasks[i].toString());
+                }
+                Printer.printSeparator();
+            }
         }
 
         private static void mark(int toBeMarked){
