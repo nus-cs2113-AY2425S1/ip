@@ -1,5 +1,6 @@
 package org.ajay.task;
 
+import java.util.ArrayList;
 import org.ajay.exceptions.EmptyArgumentException;
 import org.ajay.exceptions.Error;
 
@@ -95,6 +96,11 @@ public class Task {
         taskList[taskNumber - 1].markAsDone(); // Mark the task as done
     }
 
+    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) {
+        // taskList[taskNumber - 1].markAsDone(); // Mark the task as done
+        taskList.get(taskNumber - 1).markAsDone();
+    }
+
     /**
      * Marks the task as not done.
      */
@@ -113,6 +119,11 @@ public class Task {
      */
     public static void markAsUndone(Task[] taskList, int taskNumber) {
         taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
+    }
+
+    public static void markAsUndone(ArrayList<Task> taskList, int taskNumber) {
+        // taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
+        taskList.get(taskNumber - 1).markAsUndone();
     }
 
     /**
@@ -153,6 +164,17 @@ public class Task {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < Task.getNumberOfTasks(); i++) {
                 System.out.println((i + 1) + "." + taskList[i].toString());
+            }
+        }
+    }
+
+    public static void printAllTasks(ArrayList<Task> taskList) {
+        if (getNumberOfTasks() == 0) {
+            System.out.println("The list is empty.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+                System.out.println((i + 1) + "." + taskList.get(i).toString());
             }
         }
     }
