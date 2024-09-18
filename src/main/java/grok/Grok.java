@@ -20,8 +20,9 @@ public class Grok {
         System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
         System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
         System.out.println("4. Type either mark or unmark and the task number to indicate completion of task");
-        System.out.println("5. Type list to view your list of tasks.");
-        System.out.println("6. Type bye to exit the programme");
+        System.out.println("5. Type delete followed by the task number to remove a task from your list");
+        System.out.println("6. Type list to view your list of tasks.");
+        System.out.println("7. Type bye to exit the programme");
         printLine();
 
         while (true) {
@@ -98,6 +99,25 @@ public class Grok {
                     taskCount++;
                     System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
+                } else if (input.startsWith("delete")) {
+                    String taskNumberStr = input.substring(6).trim();
+                    if (taskNumberStr.isEmpty()) {
+                        throw new GrokException("Oh no, delete must be followed by a task number. Please try again!");
+                    }
+                    int taskNumber = Integer.parseInt(taskNumberStr) - 1;
+                    if (taskNumber < 0 || taskNumber >= taskCount) {
+                        throw new GrokException("Invalid task number. Please enter a number within the range.");
+                    }
+                    printLine();
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks[taskNumber]);
+                    // Shift tasks to fill the gap
+                    for (int i = taskNumber; i < taskCount - 1; i++) {
+                        tasks[i] = tasks[i + 1];
+                    }
+                    taskCount--;
+                    System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                    printLine();
                 } else {
                     throw new GrokException("I'm sorry, I don't grok that command. Please try again :(");
                 }
@@ -119,4 +139,3 @@ public class Grok {
         System.out.println("____________________________________________________________");
     }
 }
-// Added error handling for Level-5
