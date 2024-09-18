@@ -1,6 +1,7 @@
 import model.*;
 import exception.MondayException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Monday {
     private static final String LOGO = " __  __                 _             \n"
@@ -10,9 +11,7 @@ public class Monday {
             + "|_|  |_|\\___/|_| |_|\\__,_|\\__,_|\\__, |\n"
             + "                                |___/  \n";
     private static final String LINE = "____________________________________________________________";
-    private static final int MAX_TASKS = 100;
-    private Task[] tasks = new Task[MAX_TASKS];
-    private int taskCount = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Monday monday = new Monday();
@@ -46,6 +45,8 @@ public class Monday {
                     markTaskAsDone(input);
                 } else if (input.startsWith("unmark ")) {
                     unmarkTaskAsNotDone(input);
+                } else if (input.startsWith("delete ")) {
+                    deleteTask(input);
                 } else if (input.equalsIgnoreCase("bye")) {
                     printGoodbyeMessage();
                     break;
@@ -62,8 +63,8 @@ public class Monday {
 
     private void listTasks() {
         System.out.println("    Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("    " + (i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + tasks.get(i));
         }
     }
 
@@ -71,9 +72,9 @@ public class Monday {
         try {
             int taskNumber = Integer.parseInt(input.substring(5)) - 1;
             if (isValidTaskNumber(taskNumber)) {
-                tasks[taskNumber].markAsDone();
+                tasks.get(taskNumber).markAsDone();
                 System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      " + tasks[taskNumber]);
+                System.out.println("      " + tasks.get(taskNumber));
             } else {
                 throw new MondayException("Invalid task number.");
             }
@@ -88,9 +89,27 @@ public class Monday {
         try {
             int taskNumber = Integer.parseInt(input.substring(7)) - 1;
             if (isValidTaskNumber(taskNumber)) {
-                tasks[taskNumber].markAsNotDone();
+                tasks.get(taskNumber).markAsNotDone();
                 System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      " + tasks[taskNumber]);
+                System.out.println("      " + tasks.get(taskNumber));
+            } else {
+                throw new MondayException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("    OOPS!!! Please enter a valid task number.");
+        } catch (MondayException e) {
+            System.out.println("    OOPS!!! " + e.getMessage());
+        }
+    }
+
+    private void deleteTask(String input) {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+            if (isValidTaskNumber(taskNumber)) {
+                Task removedTask = tasks.remove(taskNumber);
+                System.out.println("    Noted. I've removed this task:");
+                System.out.println("      " + removedTask);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
             } else {
                 throw new MondayException("Invalid task number.");
             }
@@ -147,11 +166,10 @@ public class Monday {
                     + "For example, 'todo <description>' or 'deadline <description> /by <time>'.");
         }
 
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + task);
-        System.out.println("    Now you have " + taskCount + " tasks in the list.");
+        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private void printGoodbyeMessage() {
@@ -159,6 +177,6 @@ public class Monday {
     }
 
     private boolean isValidTaskNumber(int taskNumber) {
-        return taskNumber >= 0 && taskNumber < taskCount;
+        return taskNumber >= 0 && taskNumber < tasks.size();
     }
 }
