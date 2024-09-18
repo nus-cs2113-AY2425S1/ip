@@ -6,24 +6,20 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
-    protected static int numberOfTasks = 0;
     private final static int MAX_LIST_COUNT = 100;
 
     // Constant
     protected final static String SEPARATOR_LINE = "____________________________________________________________________\n";
     protected final static String INDENT = "  ";
+    private static final String DELIMITER = "||";
 
     // Constructors
     public Task(String description) throws InsufficientSpaceException {
-        if (numberOfTasks >= MAX_LIST_COUNT) {
-            throw new InsufficientSpaceException();
-        }
+
         this.description = description;
         this.isDone = false;
-        numberOfTasks++;
         System.out.println(SEPARATOR_LINE +
-                INDENT + "Added duke.task: '" + description +  "'!\n" +
-                INDENT + "You have " + numberOfTasks + " tasks in your to do list.\n" +
+                INDENT + "Added task: '" + description +  "'!\n" +
                 SEPARATOR_LINE);
     }
 
@@ -36,16 +32,29 @@ public class Task {
         return description;
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     public void setStatus(Boolean status) {
         this.isDone = status;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done duke.task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
+    public String getTaskType () {
+        if (this instanceof Todo) {
+            return "T";
+        } else if (this instanceof Deadline) {
+            return "D";
+        } else if (this instanceof Event) {
+            return "E";
+        } else {
+            // Handle unexpected task types
+            throw new IllegalStateException("Unknown task type");
+        }
     }
 
     // Other methods
@@ -53,4 +62,13 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    // Formats task into string consisting of the task's class name, a boolean indicating
+    // whether it's done, the task description -- for storage in data.txt
+    public String serialise() {
+        String status = isDone? "1" : "0";
+        return getTaskType() + DELIMITER + status + DELIMITER + description;
+    }
 }
+
+
+
