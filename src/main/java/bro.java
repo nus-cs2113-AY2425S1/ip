@@ -147,9 +147,8 @@ public class bro {
                     storer.add(event);
                     System.out.println("Got it. I've added this task\n " + event);
                     System.out.println("Now you have " + storer.size() + " tasks in the list.");
-                } catch (Exception e) {
-
                     saveTasks();
+
                 } catch (Exception e){
                     System.out.println(e.getMessage());
                 }
@@ -165,6 +164,7 @@ public class bro {
                     System.out.println("I've removed this task for you: ");
                     System.out.println(tasktoRemove);
                     System.out.println("Now you have " + storer.size() + " tasks in the list.");
+                    saveTasks();
 
                 } catch (Exception e){
                     System.out.println(("Error: " + e.getMessage()));
