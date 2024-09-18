@@ -140,6 +140,17 @@ public class Ellio {
         System.out.println(BotText.lineBorder + BotText.messageUnmark + "  " + listTasks.get(index-1).getTask() + "\n" + BotText.lineBorder);
     }
 
+    public static void deleteTask(int index){
+        if(index > numberTask){
+            throw new IndexOutOfBoundsException();
+        }
+        Task deletedTask = listTasks.get(index-1);
+        System.out.println(BotText.lineBorder + "Got it. I've removed this task:\n  " + deletedTask.getTask());
+        listTasks.remove(index-1);
+        numberTask--;
+        System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+    }
+
     public static void getInput(){
         String input;
         Scanner in = new Scanner(System.in);
@@ -188,6 +199,14 @@ public class Ellio {
         }
         else if(input.startsWith("event")){
             addEvent(input);
+        }
+        else if(input.startsWith("delete")){
+            String indexNum = getTaskIndex(input);
+            try {
+                deleteTask(Integer.parseInt(indexNum));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(BotText.lineBorder + BotText.messageInvalidIndex + numberTask + " \n" + BotText.lineBorder);
+            }
         }
         else{
             throw new IllegalArgumentException();
