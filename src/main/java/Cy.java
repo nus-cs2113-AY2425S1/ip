@@ -6,6 +6,11 @@ import exceptions.IllegalCommandException;
 import exceptions.IllegalEmptyException;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Cy {
 
@@ -165,9 +170,27 @@ public class Cy {
         return count + 1;
     }
 
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void loadData() {
+        try {
+            printFileContents("./data/cy.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry, file is not found");
+        }
+    }
+
     public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
         System.out.println("Hello, I'm Cy");
-        System.out.println("What can I do for you?");
+        System.out.println("Let me load your prexisting submissions! What can I do for you?");
+
+        loadData();
 
         Task[] items = new Task[MAX_LIST];
         int count = 0;
@@ -202,4 +225,5 @@ public class Cy {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
+
 }
