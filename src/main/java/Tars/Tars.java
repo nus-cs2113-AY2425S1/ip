@@ -113,11 +113,15 @@ public class Tars {
             else if (input.startsWith("mark"))
             {
                 markTask(input, taskList, ui);
-            } else if (input.startsWith("unmark"))
+            }
+            else if (input.startsWith("unmark"))
             {
                 unmarkTask(input, taskList, ui);
             }
-            // Handle unrecognized commands
+            else if (input.startsWith("delete"))
+            {
+                deleteTask(input, taskList, ui);
+            }
             else
             {
                 // Array of humorous exception messages
@@ -240,6 +244,37 @@ public class Tars {
         {
             // If user input is not a valid number, provide a clear correction method
             throw new TarsException("Hmm, that doesn't look like a number. Remember, you need to enter 'unmark' followed by the task number. For example: 'unmark 1'.");
+        }
+    }
+
+    // Function to delete a task
+    public static void deleteTask(String input, List<Task> taskList, UserInterface ui) throws TarsException {
+        try {
+            // Check if there's a task number after 'delete'
+            if (!input.contains(" "))
+            {
+                throw new TarsException("Oops! The correct format is 'delete <task number>'. Try something like: 'delete 1'.");
+            }
+
+            // Extract the task number from the user input
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Ensure the task number is within the valid range
+            if (taskNumber < 0 || taskNumber >= taskList.size())
+            {
+                throw new TarsException("Oops! That task number is out of range. How about choosing a number between 1 and " + taskList.size() + "? I'm sure you'll get it right!");
+            }
+
+            // Remove the task and inform the user
+            Task removedTask = taskList.remove(taskNumber);
+            ui.printSeparator();
+            System.out.println("Noted. I've successfully removed this task: ");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + taskList.size() + " tasks left in your list. Keep going!");
+            ui.printSeparator();
+        } catch (NumberFormatException e) {
+            // Catch if the user entered something that isn't a valid number
+            throw new TarsException("Uh-oh! That doesn't look like a number to me. Try 'delete' followed by a valid task number, like 'delete 1'.");
         }
     }
 
