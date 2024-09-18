@@ -4,11 +4,11 @@ import initializer.Initializer;
 import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataStorage {
-    private static Hashtable<String, Task> storedItems = new Hashtable<>();
+    private static ArrayList<Task> storedItems = new ArrayList<>();
 
     public static void storeData(Scanner scanner) throws EmptyCommandException {
         displayGuide();
@@ -60,9 +60,9 @@ public class DataStorage {
             }
             addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
         } else if (line.startsWith("mark ")) {
-            markTask(line.substring(5));
+            markTask(Integer.valueOf(line.substring(5)));
         } else if (line.startsWith("unmark ")) {
-            unmarkTask(line.substring(7));
+            unmarkTask(Integer.valueOf(line.substring(7)));
         } else if (line.equalsIgnoreCase("Q")) {
             displayGuide();
         } else
@@ -72,33 +72,34 @@ public class DataStorage {
     }
 
     private static void addTask(Task task) {
-        storedItems.put(task.getDescription(), task);
+        storedItems.add(task);
         System.out.println("Added: " + task);
     }
 
     private static void listItems() {
-        for (Task task : storedItems.values()) {
-            System.out.println(task);
+        for (Task task : storedItems) {
+            int index = storedItems.indexOf(task);
+            System.out.println(index + ": " + task);
         }
     }
 
-    private static void markTask(String description) {
-        Task task = storedItems.get(description);
+    private static void markTask(Integer index) {
+        Task task = storedItems.get(index);
         if (task != null) {
             task.mark();
             System.out.println("Marked as done: " + task);
         } else {
-            System.out.println(description + " not found.");
+            System.out.println("Index " + String.valueOf(index) + " is not found.");
         }
     }
 
-    private static void unmarkTask(String description) {
-        Task task = storedItems.get(description);
+    private static void unmarkTask(Integer index ) {
+        Task task = storedItems.get(index);
         if (task != null) {
             task.unmark();
             System.out.println("Unmarked: " + task);
         } else {
-            System.out.println(description + " not found.");
+            System.out.println("Index " + String.valueOf(index) + " is not found.");
         }
     }
 }
