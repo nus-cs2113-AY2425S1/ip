@@ -3,6 +3,7 @@ package wildpeace.task;
 import initializer.Initializer;
 import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
+import wildpeace.exceptions.InvalidInputException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,6 +24,8 @@ public class DataStorage {
                     processInput(line, scanner);
                 } catch (EmptyCommandException e) {
                     System.out.println("Item cannot be empty.");
+                } catch (InvalidInputException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
@@ -37,7 +40,7 @@ public class DataStorage {
         System.out.println("Return to tutorial by entering Q");
     }
 
-    private static void processInput(String line, Scanner scanner) throws EmptyCommandException {
+    private static void processInput(String line, Scanner scanner) throws EmptyCommandException, InvalidInputException {
         if (line.equalsIgnoreCase("list")) {
             listItems();
         } else if (line.startsWith("todo ")) {
@@ -60,9 +63,18 @@ public class DataStorage {
             }
             addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
         } else if (line.startsWith("mark ")) {
-            markTask(Integer.valueOf(line.substring(5)));
+            try {
+                markTask(Integer.valueOf(line.substring(5)));
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid mark number");
+            }
         } else if (line.startsWith("unmark ")) {
-            unmarkTask(Integer.valueOf(line.substring(7)));
+            try {
+                unmarkTask(Integer.valueOf(line.substring(7)));
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid unmark number");
+            }
+
         } else if (line.equalsIgnoreCase("Q")) {
             displayGuide();
         } else
@@ -83,8 +95,12 @@ public class DataStorage {
         }
     }
 
-    private static void markTask(Integer index) {
-        Task task = storedItems.get(index);
+    private static void markTask(Integer index) throws InvalidInputException {
+        int key = index - 1;
+        if(key >= storedItems.size() || key <= 0) {
+            throw new InvalidInputException();
+        }
+        Task task = storedItems.get(key);
         if (task != null) {
             task.mark();
             System.out.println("Marked as done: " + task);
@@ -93,8 +109,12 @@ public class DataStorage {
         }
     }
 
-    private static void unmarkTask(Integer index ) {
-        Task task = storedItems.get(index);
+    private static void unmarkTask(Integer index ) throws InvalidInputException {
+        int key = index - 1;
+        if(key >= storedItems.size() || key <= 0) {
+            throw new InvalidInputException();
+        }
+        Task task = storedItems.get(key);
         if (task != null) {
             task.unmark();
             System.out.println("Unmarked: " + task);
