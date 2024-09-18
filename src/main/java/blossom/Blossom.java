@@ -60,7 +60,15 @@ public class Blossom {
     public static void addTask (String input) throws BlossomException {
         System.out.println(HORIZONTAL_LINE);
         catchInputErrors(input);
+        Task item = createTask(input);
+        System.out.println("Ok!! I've added this task :D");
+        System.out.println(item.toString());
+        LIST_OF_TASKS.add(item);
+        printNumberOfTasks();
+        System.out.println(HORIZONTAL_LINE);
+    }
 
+    public static Task createTask(String input) throws BlossomException {
         Task item = new Task(input); // Default item if unspecified task type
         if(input.contains("todo")) {
             item = new Todo(input.substring(LENGTH_OF_TODO));
@@ -74,11 +82,7 @@ public class Blossom {
         } else {
             throw new BlossomException("Sorry~~ idk what that means ( • ᴖ • ｡)");
         }
-        System.out.println("Ok!! I've added this task :D");
-        System.out.println(item.toString());
-        LIST_OF_TASKS.add(item);
-        System.out.println("Now you have " + LIST_OF_TASKS.size() +" tasks in the list!");
-        System.out.println(HORIZONTAL_LINE);
+        return item;
     }
 
     public static void catchInputErrors(String input) throws BlossomException {
@@ -98,6 +102,19 @@ public class Blossom {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void deleteTask(int indexOfTask) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Removing this task now! ᕙ(  •̀ ᗜ •́  )ᕗ ");
+        System.out.println(LIST_OF_TASKS.get(indexOfTask-1).toString());
+        printNumberOfTasks();
+        System.out.println(HORIZONTAL_LINE);
+        LIST_OF_TASKS.remove(indexOfTask-1);
+    }
+
+    public static void printNumberOfTasks() {
+        System.out.println("Now you have " + LIST_OF_TASKS.size() + " tasks in the list.");
+    }
+
 
     public static void main(String[] args) {
         printIntro();
@@ -113,6 +130,10 @@ public class Blossom {
                     // Call the unmark and mark function
                     String[] parsedLine = line.split(" ");
                     markAndUnmarkItem(Integer.parseInt(parsedLine[1]), parsedLine[0]);
+                }
+                else if (line.contains("delete")) {
+                    String[] parsedLine = line.split(" ");
+                    deleteTask(Integer.parseInt(parsedLine[1]));
                 }
                 else {
                     try {
