@@ -39,14 +39,29 @@ public class Doot {
                     taskIdx++;
                 } catch (EOFException e) {
                     fileHasData = false;
-            }
-            objectReader.close();
-            fileReader.close();
+                }
+                objectReader.close();
+                fileReader.close();
 
+            }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e);
         }
 
+    }
+
+    public static void writeTaskData() {
+        try {
+            FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
+            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
+            for (Task task : taskList) {
+                objectWriter.writeObject(task);
+            }
+            objectWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public static void findCommand(String command) {
