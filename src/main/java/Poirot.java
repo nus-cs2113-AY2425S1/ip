@@ -33,7 +33,19 @@ public class Poirot {
         System.out.println("Now you have " + last_index + " tasks in the list.");
         System.out.println(LINE);
     }
-
+    public static void deleteTask(int index) {
+        Task removedTask = tasks[index];
+        for (int i = index; i < last_index - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[last_index - 1] = null;
+        last_index--;
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + last_index + " tasks in the list.");
+        System.out.println(LINE);
+    }
     public static void main(String[] args) {
         System.out.println(LINE);
         System.out.println("Hello! I'm POIROT\n");
@@ -93,6 +105,11 @@ public class Poirot {
                         String[] eventParts = input.substring(6).split(" /from ");
                         String[] timeParts = eventParts[1].split(" /to ");
                         add(new Event(eventParts[0], timeParts[0], timeParts[1]));
+                        break;
+                    case "delete":
+                        validateTaskNumber(list_input);
+                        int z = Integer.parseInt(list_input[1]) - 1;
+                        deleteTask(z);
                         break;
                     default:
                         throw new PoirotException("What the hell you wanna say?");
