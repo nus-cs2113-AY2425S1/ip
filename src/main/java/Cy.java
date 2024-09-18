@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Cy {
 
-    public static final int MAX_LIST = 100;
     public static final String HORIZONTAL_LINE = "______________________________________";
     public static ArrayList<Task> items = new ArrayList<>();
 
@@ -168,11 +167,16 @@ public class Cy {
         return count + 1;
     }
 
-    public static int deleteItem(int count, String[] splitInputs) throws IllegalEmptyException{
+    public static int deleteItem(int count, String[] splitInputs){
 
         int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
-        Task deleteItem = items.get(deleteIndex);
 
+        if (deleteIndex < 0 || deleteIndex >= items.size()) {
+            System.out.println("Invalid task number. Please try again.");
+            return count;
+        }
+
+        Task deleteItem = items.get(deleteIndex);
         items.remove(deleteIndex);
 
         printLine();
