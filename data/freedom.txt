@@ -1,6 +1,3 @@
-T | X | Assignment
-D |   | Homework | 20 sep
-E |   | Concert | 1000 | 1200
-D | X | Quiz | 30 sep
-T |   | Tutorial
-E |   | Exam | 0900 | 1100
+E |   | concert | 2000 | 2300
+T | X | assignment
+D |   | quiz | 2359

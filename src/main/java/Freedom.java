@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import freedom.exceptions.CannotCreateDirectory;
 import freedom.exceptions.CannotReadFile;
 import freedom.exceptions.InvalidCommand;
 import freedom.tasks.Task;
@@ -30,6 +31,7 @@ public class Freedom {
         Scanner in = new Scanner(System.in);
 
         try {
+            checkData();
             loadData();
 
             // Super loop for getting inputs
@@ -217,6 +219,28 @@ public class Freedom {
             System.out.print(LOGO);
             System.out.println("\tCannot open data file :((");
             System.out.println(LOGO);
+        }
+    }
+
+    public static void checkData() throws Exception{
+        try {
+            File directory = new File("./data");
+            if(!directory.exists()) {
+                if(!directory.mkdir()) {
+                    throw new CannotCreateDirectory();
+                }
+            }
+            File dataFile = new File("./data/freedom.txt");
+            if(dataFile.createNewFile()) {
+                System.out.println("\tData file created!");
+            }
+        } catch (IOException e) {
+            System.out.print(LOGO);
+        } catch (CannotCreateDirectory e) {
+            System.out.print(LOGO);
+            System.out.println("\tCannot create directory :(");
+            System.out.println(LOGO);
+            throw new Exception();
         }
     }
 }
