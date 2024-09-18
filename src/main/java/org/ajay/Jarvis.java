@@ -7,6 +7,7 @@ import org.ajay.exceptions.*;
 import org.ajay.exceptions.Error;
 import org.ajay.exceptions.IllegalArgumentException;
 import org.ajay.task.*;
+import org.ajay.utils.Storage;
 
 public class Jarvis {
     // Constants
@@ -126,28 +127,40 @@ public class Jarvis {
                 // taskList[Task.getNumberOfTasks()] = new Todo(task);
                 taskList.add(new Todo(task));
                 printBreakLine();
+
+                Storage.saveTaskList(taskList);
                 break;
             case Deadline.COMMAND_STRING: // Add a deadline task
                 // taskList[Task.getNumberOfTasks()] = new Deadline(task);
                 taskList.add(new Deadline(task));
                 printBreakLine();
+
+                Storage.saveTaskList(taskList);
                 break;
             case Event.COMMAND_STRING: // Add an event task
                 // taskList[Task.getNumberOfTasks()] = new Event(task);
                 taskList.add(new Event(task));
                 printBreakLine();
+
+                Storage.saveTaskList(taskList);
                 break;
             case Task.MARK_COMMAND_STRING: // Mark the task as done
                 int taskNumberMark = Integer.parseInt(task); // Get the task number
                 Task.markAsDone(taskList, taskNumberMark); // Mark the task as done
+
+                Storage.saveTaskList(taskList);
                 break;
             case Task.UNMARK_COMMAND_STRING: // Mark the task as undone
                 int taskNumberUnmark = Integer.parseInt(task); // Get the task number
                 Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
+
+                Storage.saveTaskList(taskList);
                 break;
             case Task.DELETE_COMMAND_STRING: // Delete the task
                 int taskNumberDelete = Integer.parseInt(task); // Get the task number
                 Task.deleteTask(taskList, taskNumberDelete); // Delete the task
+
+                Storage.saveTaskList(taskList);
                 break;
             default:
                 throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
@@ -204,6 +217,13 @@ public class Jarvis {
 
         System.out.println("Hello from\n" + logo);
         printGreetingMsgs();
+
+        try {
+            Storage.loadTaskList(taskList);
+        } catch (EmptyArgumentException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
         readInput(in, lineBufferString); // Read the input from the user
     }
 }

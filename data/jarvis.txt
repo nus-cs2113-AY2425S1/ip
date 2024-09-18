@@ -1,0 +1,4 @@
+T | 1 | Answer CS2113 tutorial questions
+D | 0 | weekly CS2113 quiz | Monday 9pm
+E | 1 | CS2113 lecture | Friday 4 | 6 pm
+T | 0 | ajay

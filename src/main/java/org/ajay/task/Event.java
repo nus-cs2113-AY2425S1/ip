@@ -8,6 +8,7 @@ public class Event extends Task {
     public final static String COMMAND_STRING = "event"; // Command string for the Event class
     final static String FROM_KEYWORD_STRING = "/from"; // Keyword string for the from date
     final static String TO_KEYWORD_STRING = "/to"; // Keyword string for the to date
+    public final static String TASK_STRING = "E";
 
     protected String from;
     protected String to;
@@ -40,6 +41,23 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws EmptyArgumentException {
         super(description);
+        setFrom(from);
+        setTo(to);
+
+    }
+
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description description of the event
+     * @param from        from date
+     * @param to          to date
+     */
+    public Event(boolean isDone, String description, String from, String to) throws EmptyArgumentException {
+        super(description);
+        super.setDoneState(isDone);
+        setFrom(from);
+        setTo(to);
     }
 
     /**
@@ -135,7 +153,18 @@ public class Event extends Task {
     }
 
     @Override
+    public String saveTaskString() {
+        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+    }
+
+    public static Event loadTaskString(boolean isDone, String description, String from, String to) throws EmptyArgumentException {
+        Event event = new Event(isDone, description, from, to);
+        return event;
+    }
+
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + TASK_STRING + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
