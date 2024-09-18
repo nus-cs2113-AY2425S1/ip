@@ -6,7 +6,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
-    //Using ArrayList instead of Array
+    // Using ArrayList instead of Array
     public TaskList(){
         tasks = new ArrayList<>();
         storage = new Storage();
@@ -99,4 +99,3 @@ public class TaskList {
         }
     }
 }
-
