@@ -5,16 +5,16 @@ import commands.Todo;
 import exceptions.IllegalCommandException;
 import exceptions.IllegalEmptyException;
 
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Cy {
 
     public static final int MAX_LIST = 100;
+    public static final String FILE_PATH = "src/main/java/data/cy.txt";
 
     public static void printLine() {
         System.out.println("______________________________________");
@@ -86,6 +86,7 @@ public class Cy {
         printLine();
         System.out.println("added: " + input);
         printLine();
+        saveNewData(input, "A");
 
         return count;
     }
@@ -93,7 +94,7 @@ public class Cy {
     public static String trimString(String input) throws IllegalEmptyException {
         String output = input.trim();
 
-        String[] outputSplit= output.split(" ",2);
+        String[] outputSplit = output.split(" ", 2);
 
         if (outputSplit.length < 2 || outputSplit[1].isEmpty()) {
             System.out.println("Please enter a valid description");
@@ -103,7 +104,7 @@ public class Cy {
         return outputSplit[1];
     }
 
-    public static int addTodo(Task[] items, int count, String input) throws IllegalEmptyException{
+    public static int addTodo(Task[] items, int count, String input) throws IllegalEmptyException {
         input = trimString(input);
 
         items[count] = new Todo(input);
@@ -114,10 +115,12 @@ public class Cy {
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
 
+        saveNewData(input, "T");
+
         return count + 1;
     }
 
-    public static int addDeadline(Task[] items, int count, String input) throws IllegalEmptyException{
+    public static int addDeadline(Task[] items, int count, String input) throws IllegalEmptyException {
 
         if (!input.contains("/by")) {
             System.out.println("Input must contain '/by' keyword.");
@@ -142,10 +145,12 @@ public class Cy {
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
 
+        saveNewData(input, "D");
+
         return count + 1;
     }
 
-    public static int addEvent(Task[] items, int count, String input) throws IllegalEmptyException{
+    public static int addEvent(Task[] items, int count, String input) throws IllegalEmptyException {
 
         input = trimString(input);
 
@@ -167,30 +172,62 @@ public class Cy {
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
 
+        saveNewData(input, "E");
+
         return count + 1;
     }
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
+    private static void printFileContents() throws FileNotFoundException {
+        File f = new File(FILE_PATH); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             System.out.println(s.nextLine());
         }
     }
 
-    private static void loadData() {
+    private static void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
+        fw.write(System.lineSeparator() + textToAppend);
+        fw.close();
+    }
+
+    private static void loadExistingData() {
         try {
-            printFileContents("./data/cy.txt");
+            printFileContents();
         } catch (FileNotFoundException e) {
             System.out.println("Sorry, file is not found");
         }
     }
 
-    public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
-        System.out.println("Hello, I'm Cy");
-        System.out.println("Let me load your prexisting submissions! What can I do for you?");
+    private static void saveNewData(String input, String taskType) {
+        String textToAppend = "";
 
-        loadData();
+        switch (taskType) {
+            case "T":
+                textToAppend = "T | 0 | " + input + System.lineSeparator();
+                break;
+            case "D":
+                textToAppend = "D | 0 | " + input + System.lineSeparator();
+                break;
+            case "E":
+                textToAppend = "E | 0 | " + input + System.lineSeparator();
+                break;
+            default:
+                System.out.println("Please enter a valid task type.");
+        }
+
+        try {
+            appendToFile(textToAppend);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws IllegalCommandException, IllegalEmptyException {
+        System.out.println("Hello, I'm Cy");
+        System.out.println("Let me load your previous submissions! What can I do for you?");
+
+        loadExistingData();
 
         Task[] items = new Task[MAX_LIST];
         int count = 0;
@@ -225,5 +262,6 @@ public class Cy {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
+
 
 }
