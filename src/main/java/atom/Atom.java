@@ -94,7 +94,7 @@ public class Atom {
 
         System.out.println("Gotcha! TODO task added to list!");
         System.out.println("> [" + todo.setTaskType() + "]" + "[ ] " + todo.getItem());
-        System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+        System.out.println("You now have " + tasksList.size() + " tasks in your list!");
     }
 
     private static void addDeadlineTask(String deadlineName, String by, ArrayList<Task> tasksList) {
@@ -104,7 +104,7 @@ public class Atom {
         System.out.println("Gotcha! DEADLINE task added to list");
         System.out.println("> [" + deadline.setTaskType() + "]" + "[ ] "
                 + deadline.getItem() + " (by: " + deadline.getBy() + ")");
-        System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+        System.out.println("You now have " + tasksList.size() + " tasks in your list!");
     }
 
     private static void addEventTask(String eventName, String from, String to, ArrayList<Task> tasksList) {
@@ -114,7 +114,25 @@ public class Atom {
         System.out.println("Gotcha! EVENT task added to list");
         System.out.println("> [" + event.setTaskType() + "]" + "[ ] " + event.getItem()
                 + " (from: " + event.getFrom() + " to: " + event.getTo() + ")");
-        System.out.println("You now have " + Task.getTaskCount() + " tasks in your list!");
+        System.out.println("You now have " + tasksList.size() + " tasks in your list!");
+    }
+
+    private static void deleteTask(ArrayList<Task> tasksList, int taskId) {
+        Task currTask = tasksList.get(taskId);
+        tasksList.remove(currTask);
+
+        System.out.println("Okie Dokie!! Removed task from list:");
+        System.out.print("> [" + currTask.setTaskType() + "]" +
+                "[" + currTask.getStatus() + "] " + currTask.getItem());
+
+        if (currTask.setTaskType().equals("D")) {
+            System.out.print(" (by: " + currTask.getBy() + ")");
+        } else if (currTask.setTaskType().equals("E")) {
+            System.out.print(" (from: " + currTask.getFrom() + " to: " + currTask.getTo() + ")");
+        }
+
+        System.out.println();
+        System.out.println("You now have " + tasksList.size() + " tasks in your list.");
     }
 
     public static void main(String[] args) {
@@ -141,6 +159,7 @@ public class Atom {
         System.out.println("* \"todo <task>\" -> set task as TODO");
         System.out.println("* \"deadline <task> /by <date/time>\" -> set task as DEADLINE");
         System.out.println("* \"event <task> /from <date/time> /to <date/time>\" -> set task as EVENT");
+        System.out.println("* \"delete <task id>\" -> delete task from list");
 
         printDivider();
 
@@ -159,11 +178,7 @@ public class Atom {
             printDivider();
 
             if (line.equalsIgnoreCase("list")) {
-                if (Task.getTaskCount() == 0) {
-                    System.out.println("Oh oh! List is empty.");
-                } else {
-                    printList(tasksList);
-                }
+                 printList(tasksList);
 
             } else if (keyword.equals("mark") || (keyword.equals("unmark"))) {
                 try {
@@ -173,7 +188,7 @@ public class Atom {
 
                     int taskId = Integer.parseInt(words[1]) - 1;
 
-                    if (taskId >= Task.getTaskCount() || taskId < 0) {
+                    if (taskId >= tasksList.size() || taskId < 0) {
                         throw new TaskIdOutOfBoundsException();
                     }
 
@@ -187,6 +202,7 @@ public class Atom {
                     System.out.println("Please specify the task id!!");
                 } catch (NumberFormatException e) {
                     System.out.println("Task id must be a number!");
+                    System.out.println("Pssst, just a reminder, I'm SPACE sensitive!!");
                 } catch (TaskIdOutOfBoundsException e) {
                     System.out.println("Invalid task id");
                     System.out.println("-> Use the \"list\" command to view your current tasks");
@@ -267,6 +283,29 @@ public class Atom {
                     System.out.println("-> \"event <task> /from <date/time> /to <date/time>\"");
                 }
 
+            } else if (keyword.equals("delete")) {
+                try {
+                    if (words.length == 1) {
+                        throw new EmptyTaskIdException();
+                    }
+
+                    int taskId = Integer.parseInt(words[1]) - 1;
+
+                    if (taskId >= tasksList.size() || taskId < 0) {
+                        throw new TaskIdOutOfBoundsException();
+                    }
+
+                    deleteTask(tasksList, taskId);
+
+                } catch (EmptyTaskIdException e) {
+                    System.out.println("Please specify task id!!");
+                } catch (NumberFormatException e) {
+                    System.out.println("Task id must be a number!");
+                    System.out.println("Pssst, just a reminder, I'm SPACE sensitive!!");
+                } catch (TaskIdOutOfBoundsException e) {
+                    System.out.println("Invalid task id");
+                    System.out.println("-> Use the \"list\" command to view your current tasks");
+                }
             } else {
                 System.out.println("Me no understand what you saying...");
             }
