@@ -19,6 +19,9 @@ public abstract class Task {
         isDone = done;
     }
 
+    // Abstract method to get the task type (to be implemented by subclasses)
+    public abstract String getType();
+
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;
