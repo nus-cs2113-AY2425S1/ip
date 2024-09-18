@@ -1,30 +1,43 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private static final String COMMAND_FORMAT = "event %s /from %s /to %s";
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
+    private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Event(String taskName, String from, String to) {
+    public Event(String taskName, LocalDate from, LocalDate to) {
         super(taskName);
         this.from = from;
         this.to = to;
     }
 
     public String getFrom() {
-        return from;
+        return displayFormatter.format(from);
     }
 
     public String getTo() {
-        return to;
+        return displayFormatter.format(to);
     }
 
-    public void setFrom(String from) {
+    public void setFrom(LocalDate from) {
         this.from = from;
     }
 
-    public void setTo(String to) {
+    public void setTo(LocalDate to) {
         this.to = to;
+    }
+
+    public String getFromAsCommand() {
+        return saveFormatter.format(from);
+    }
+
+    public String getToAsCommand() {
+        return saveFormatter.format(to);
     }
 
     @Override
@@ -34,6 +47,6 @@ public class Event extends Task {
 
     @Override
     public String getTaskAsCommand() {
-        return String.format(COMMAND_FORMAT, getTaskName(), getFrom(), getTo());
+        return String.format(COMMAND_FORMAT, getTaskName(), getFromAsCommand(), getToAsCommand());
     }
 }

@@ -7,6 +7,10 @@ import tasks.Event;
 import tasks.TaskList;
 import ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static constants.Command.EVENT_COMMAND;
 import static constants.Regex.FROM_PREFIX;
 import static constants.Regex.TO_PREFIX;
@@ -14,11 +18,16 @@ import static constants.Regex.TO_PREFIX;
 public class AddEventCommand extends Command {
     private String userInput;
     private boolean fromUserInput;
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public AddEventCommand(String userInput, boolean fromUserInput) {
         super(EVENT_COMMAND);
         this.userInput = userInput;
         this.fromUserInput = fromUserInput;
+    }
+
+    public boolean isValidFromAndTo(LocalDate from, LocalDate to) {
+        return (to.isAfter(from) || to.isEqual(from));
     }
 
     @Override
@@ -38,14 +47,24 @@ public class AddEventCommand extends Command {
         if (eventName.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
             throw new InvalidEventException();
         }
+        try {
+            LocalDate fromDate = LocalDate.parse(fromString, inputFormatter);
+            LocalDate toDate = LocalDate.parse(toString, inputFormatter);
 
-        Event toAdd = new Event(eventName, fromString, toString);
-        tasks.addTask(toAdd);
+            if (!isValidFromAndTo(fromDate, toDate)) {
+                throw new InvalidEventException();
+            }
 
-        if (fromUserInput) {
-            ui.printAddTaskSuccessMessage(toAdd.toString(), tasks);
+            Event toAdd = new Event(eventName, fromDate, toDate);
+            tasks.addTask(toAdd);
+
+            if (fromUserInput) {
+                ui.printAddTaskSuccessMessage(toAdd.toString(), tasks);
+            }
+
+            saveTask(storage, tasks, ui);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException();
         }
-
-        saveTask(storage, tasks, ui);
     }
 }

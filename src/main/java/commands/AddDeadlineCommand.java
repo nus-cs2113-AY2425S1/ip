@@ -7,12 +7,17 @@ import tasks.Deadline;
 import tasks.TaskList;
 import ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static constants.Command.DEADLINE_COMMAND;
 import static constants.Regex.BY_PREFIX;
 
 public class AddDeadlineCommand extends Command {
     private String userInput;
     private boolean fromUserInput;
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public AddDeadlineCommand(String userInput, boolean fromUserInput) {
         super(DEADLINE_COMMAND);
@@ -36,13 +41,22 @@ public class AddDeadlineCommand extends Command {
             throw new InvalidDeadlineException();
         }
 
-        Deadline toAdd = new Deadline(deadlineName, deadlineBy);
-        tasks.addTask(toAdd);
+        // Parse deadlineBy as a LocalDateTime Object
+        try {
+            LocalDate deadlineDate = LocalDate.parse(deadlineBy, inputFormatter);
+            // Update String representation
+            // deadlineBy = date.format(saveFormatter);
 
-        if (fromUserInput) {
-            ui.printAddTaskSuccessMessage(toAdd.toString(), tasks);
+            Deadline toAdd = new Deadline(deadlineName, deadlineDate);
+            tasks.addTask(toAdd);
+
+            if (fromUserInput) {
+                ui.printAddTaskSuccessMessage(toAdd.toString(), tasks);
+            }
+
+            saveTask(storage, tasks, ui);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineException();
         }
-
-        saveTask(storage, tasks, ui);
     }
 }
