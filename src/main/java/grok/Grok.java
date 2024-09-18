@@ -109,7 +109,6 @@ public class Grok {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks[taskCount]);
                     taskCount++;
-                    System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                     printLine();
                     saveTasksToFile();
                 } else if (input.startsWith("delete")) {
@@ -169,7 +168,6 @@ public class Grok {
             System.out.println("An error occurred while saving tasks.");
         }
     }
-
 
     private static void loadTasksFromFile() {
         try {
