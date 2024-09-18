@@ -58,8 +58,16 @@ public class Atom {
         currTask.markAsDone();
 
         System.out.println("Wonderful! Task successfully marked as DONE!");
-        System.out.println("> [" + currTask.setTaskType() + "]["
+        System.out.print("> [" + currTask.setTaskType() + "]["
                 + currTask.getStatus() + "] " + currTask.getItem());
+
+        if (currTask.setTaskType().equals("D")) {
+            System.out.print(" (by: " + currTask.getBy() + ")");
+        } else if (currTask.setTaskType().equals("E")) {
+            System.out.print(" (from: " + currTask.getFrom() + " to: " + currTask.getTo() + ")");
+        }
+
+        System.out.println();
 
     }
 
@@ -68,8 +76,16 @@ public class Atom {
         currTask.markAsUndone();
 
         System.out.println("Got it. Task successfully marked as UNDONE!");
-        System.out.println("> [" + currTask.setTaskType() + "]["
+        System.out.print("> [" + currTask.setTaskType() + "]["
                 + currTask.getStatus() + "] " + currTask.getItem());
+
+        if (currTask.setTaskType().equals("D")) {
+            System.out.print(" (by: " + currTask.getBy() + ")");
+        } else if (currTask.setTaskType().equals("E")) {
+            System.out.print(" (from: " + currTask.getFrom() + " to: " + currTask.getTo() + ")");
+        }
+
+        System.out.println();
     }
 
     private static void addTodoTask(String line, ArrayList<Task> tasksList) {
