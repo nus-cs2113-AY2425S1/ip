@@ -88,13 +88,13 @@ public class Printer {
                 taskList.add(task);
                 break;
             case "D":
-                String[] deadlineParts = description.split(" ", 2);
-                Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                String[] deadlineParts = description.split("\\|", 2);
+                Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
                 taskList.add(deadline);
                 break;
             case "E":
-                String[] eventParts = description.split(" ", 2);
-                Events event = new Events(eventParts[0], eventParts[1]);
+                String[] eventParts = description.split("\\| ", 2);
+                Events event = new Events(eventParts[0].trim(), eventParts[1].trim());
                 taskList.add(event);
                 break;
             default:
@@ -144,9 +144,9 @@ public class Printer {
             if (task != null) {
                 String line = getString(task);
                 if (task instanceof Deadline deadline) {
-                    line += deadline.getBy();
+                    line += "| " + deadline.getBy();
                 } else if (task instanceof Events event) {
-                    line += event.getFrom();
+                    line += "| " + event.getFrom();
                 }
                 fw.write(line + System.lineSeparator());
             }

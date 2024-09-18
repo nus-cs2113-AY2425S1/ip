@@ -14,10 +14,14 @@ import static poppy.Printer.Print;
 public class Poppy {
 
     public static void main(String[] args) {
-        String path = "Poppy.txt";
+        String path = "./data/Poppy.txt";
 
         File file = new File(path);
        try{
+           File parentDir = file.getParentFile();
+           if (parentDir != null && !parentDir.exists()){
+               parentDir.mkdirs();
+           }
            if(!file.exists()){
                file.createNewFile();
            }
