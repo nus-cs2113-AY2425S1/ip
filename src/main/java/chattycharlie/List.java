@@ -1,9 +1,9 @@
-package ChattyCharlie;
+package chattycharlie;
 
-import ChattyCharlie.Task.Deadline;
-import ChattyCharlie.Task.Event;
-import ChattyCharlie.Task.Task;
-import ChattyCharlie.Task.Todo;
+import chattycharlie.task.Deadline;
+import chattycharlie.task.Event;
+import chattycharlie.task.Task;
+import chattycharlie.task.Todo;
 
 //LIST CLASS
     public class List {

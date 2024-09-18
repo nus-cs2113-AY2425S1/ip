@@ -1,15 +1,14 @@
-package ChattyCharlie;
+package chattycharlie;
 
-import ChattyCharlie.Task.Deadline;
-import ChattyCharlie.Task.Event;
-import ChattyCharlie.Task.Todo;
+import chattycharlie.task.Deadline;
+import chattycharlie.task.Event;
+import chattycharlie.task.Todo;
 
 import java.util.Scanner;
 
 public class ChattyCharlie {
 
-    //MAIN ALGO
-    public static void ScheduleMaker() throws CharlieExceptions { //Echo as a function
+    public static void scheduleMaker() throws CharlieExceptions { //Echo as a function
         String line = null;
         //make the scanner
         Scanner in = new Scanner(System.in);
@@ -149,7 +148,7 @@ public class ChattyCharlie {
 
     public static void main (String[]args) throws CharlieExceptions{
         System.out.println(StringDesign.LOGO + StringDesign.CHARLIE + StringDesign.GREETING);
-        ScheduleMaker();
+        scheduleMaker();
         System.out.println(StringDesign.CHARLIE + StringDesign.FAREWELL);
 
     }

@@ -1,6 +1,6 @@
-package ChattyCharlie.Task;
+package chattycharlie.task;
 
-import ChattyCharlie.CommandType;
+import chattycharlie.CommandType;
 
 //Deadline Class
 public class Deadline extends Task {

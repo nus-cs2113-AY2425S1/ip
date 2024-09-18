@@ -1,4 +1,4 @@
-package ChattyCharlie;
+package chattycharlie;
 
 public class CharlieExceptions extends Exception{
     public CharlieExceptions(String message){

@@ -1,6 +1,6 @@
-package ChattyCharlie.Task;
+package chattycharlie.task;
 
-import ChattyCharlie.CommandType;
+import chattycharlie.CommandType;
 
 //Events
 public class Event extends Task {

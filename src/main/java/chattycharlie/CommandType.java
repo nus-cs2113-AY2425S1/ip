@@ -1,4 +1,4 @@
-package ChattyCharlie;
+package chattycharlie;
 
 public enum CommandType {
     TODO,

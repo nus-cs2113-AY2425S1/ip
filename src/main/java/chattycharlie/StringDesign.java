@@ -1,4 +1,4 @@
-package ChattyCharlie;
+package chattycharlie;
 
 public class StringDesign {
     //this class is for all my Strings and designs
