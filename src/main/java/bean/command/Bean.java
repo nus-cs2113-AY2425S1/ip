@@ -76,12 +76,12 @@ public class Bean {
         System.out.println(SEPARATOR_LINE);
     }
 
-    // Extract task number as int from user input for mark and unmark commands
+    // Extract task number as int from user input for mark, unmark and delete commands
     public static int obtainTaskNum(String userInput) throws TaskNumOutOfBoundsException {
         // Obtain task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
         int taskNum = Integer.parseInt(words[1].trim());
-        if (taskNum < 0 || taskNum > Task.getNumberOfTasks()) {
+        if (taskNum < 0 || taskNum > tasks.size()) {
             throw new TaskNumOutOfBoundsException();
         }
         return taskNum;
@@ -107,7 +107,7 @@ public class Bean {
     }
 
     public static void addTask(String userInput, TaskType taskType) throws InsufficientSpaceException {
-        if (Task.getNumberOfTasks() >= MAX_LIST_COUNT) {
+        if (tasks.size() >= MAX_LIST_COUNT) {
             throw new InsufficientSpaceException();
         }
         if (taskType == TaskType.TODO) {
@@ -138,6 +138,11 @@ public class Bean {
         }
     }
 
+    public static void deleteTask(int taskNum) {
+        int taskIndex = taskNum - 1;
+        tasks.remove(taskIndex);
+    }
+
     public static void printInvalidInputMessage() {
         printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
@@ -155,7 +160,7 @@ public class Bean {
         String userInput;
         Scanner in = new Scanner(System.in);
 
-        while (Task.getNumberOfTasks() < MAX_LIST_COUNT + 1) {
+        while (tasks.size() < MAX_LIST_COUNT + 1) {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
 
@@ -189,6 +194,10 @@ public class Bean {
                     addTask(userInput, TaskType.EVENT);
                     break;
 
+                case "delete":
+                    deleteTask(obtainTaskNum(userInput));
+                    break;
+
                 default:
                     throw new InvalidInputException();
 
@@ -201,7 +210,7 @@ public class Bean {
 
             } catch (TaskNumOutOfBoundsException e) {
                 printFormattedReply(INDENT + "Please enter a valid task number!\n" +
-                        INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
+                        INDENT + "You currently have " + tasks.size() + " tasks.");
 
             } catch (InsufficientSpaceException e) {
                 printFormattedReply(INDENT + "Sorry, you have reached the maximum list size of " + MAX_LIST_COUNT);
