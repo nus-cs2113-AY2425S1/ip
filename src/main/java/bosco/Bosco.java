@@ -19,11 +19,11 @@ public class Bosco {
     private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
     private static final String MESSAGE_MARK_UNDONE = "OK, I've marked this task as not done yet:";
     private static final String MESSAGE_ADDED_TASK = "Got it. I've added this task:";
+    private static final String MESSAGE_DELETED_TASK = "Noted. I've removed this task:";
     private static final String DEADLINE_PREFIX_BY = "/by";
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
 
-    private static final int MAX_TASKS = 100;
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private static final ArrayList<Task> tasksList = new ArrayList<>();
@@ -63,8 +63,13 @@ public class Bosco {
             executeListTasks();
             break;
         case "mark":
+            executeMarkTask(commandArgs);
+            break;
         case "unmark":
-            executeMarkUnmarkTask(commandType, commandArgs);
+            executeUnmarkTask(commandArgs);
+            break;
+        case "delete":
+            executeDeleteTask(commandArgs);
             break;
         case "todo":
             executeAddTodo(commandArgs);
@@ -104,22 +109,30 @@ public class Bosco {
         System.out.println(DIVIDER);
     }
 
-    private static void executeMarkUnmarkTask(String commandType, String commandArgs) {
+    private static void executeMarkTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        selectedTask.markAsDone();
+        printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
+    }
+
+    private static void executeUnmarkTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        selectedTask.markAsNotDone();
+        printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
+    }
+
+    private static void executeDeleteTask(String commandArgs) {
+        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
+        tasksList.remove(selectedTask);
+        printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
+    }
+
+    private static Task getSelectedTaskFromCommandArgs(String commandArgs) {
         int taskNumber = Integer.parseInt(commandArgs);
         if (taskNumber < 1 || taskNumber > tasksList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        Task selectedTask = tasksList.get(taskNumber - 1);
-        switch (commandType) {
-        case "mark":
-            selectedTask.markAsDone();
-            printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
-            break;
-        case "unmark":
-            selectedTask.markAsNotDone();
-            printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
-            break;
-        }
+        return tasksList.get(taskNumber - 1);
     }
 
     private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
@@ -187,7 +200,7 @@ public class Bosco {
             } catch (IllegalCommandException e) {
                 printMessages("Error: invalid command. Please try again!");
             } catch (NumberFormatException e) {
-                printMessages("Error: invalid mark/unmark input. Please provide a number!");
+                printMessages("Error: invalid index input. Please provide a number!");
             } catch (IndexOutOfBoundsException e) {
                 printMessages("Error: input out of bounds. List has " + tasksList.size() + " tasks.");
             } catch (EmptyDescriptionException e) {

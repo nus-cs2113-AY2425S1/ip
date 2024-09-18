@@ -21,4 +21,9 @@ list
 unmark 4'
 unmark 4
 list
+delete 9
+delete 7
+delete
+delete 2
+list
 bye
