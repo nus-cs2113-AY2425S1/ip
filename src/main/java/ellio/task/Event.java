@@ -5,13 +5,17 @@ public class Event extends Task{
     protected String eventStartTime;
     protected String eventEndTime;
 
-    public Event(String description, String eventStartTime, String eventEndTime) {
-        super(description);
+    public Event(String description, String isDone, String eventStartTime, String eventEndTime) {
+        super(description, isDone);
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
     }
 
     public String getTask(){
         return "[E]" + super.getTask() + " (" + eventStartTime + " " +eventEndTime + ")";
+    }
+
+    public String getSaveFileTask(){
+        return " e " + super.getSaveFileTask() + " | " + eventStartTime + " | " + eventEndTime;
     }
 }
