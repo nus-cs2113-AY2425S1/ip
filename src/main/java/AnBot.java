@@ -70,6 +70,14 @@ public class AnBot {
                     } catch (NumberFormatException e) {
                         System.out.println("ERROR: The task index is not correct!");
                     }
+                } else if (input.startsWith("delete ")) {
+                    String inputNumber = input.substring(7).trim(); 
+                    try {
+                        int number = Integer.parseInt(inputNumber); 
+                        addList.delete(number);
+                    } catch (NumberFormatException e) {
+                        System.out.println("ERROR: The task index is not correct!");
+                    }
                 } else {
                     throw new AnBotException("Error command. Please enter another input."); 
                 }
