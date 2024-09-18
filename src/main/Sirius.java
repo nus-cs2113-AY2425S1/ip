@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.lang.Integer;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class Sirius {
     public static final String SPACE = " ";
     public static final String EMPTY = "";
     public static final String SLASH = "/";
-    public static final String STATUS_DELIMINATOR = "|";
+    public static final String STATUS_DELIMINATOR = "\\|";
     public static final String SEPARATOR = "-----------------------------";
 
     // data members
@@ -159,17 +160,15 @@ public class Sirius {
     }
     public static void saveTaskList(ArrayList<Task> list) {
         try {
-            // If the directory DNE, create.
             File directory = new File("./data");
             if (!directory.exists()) {
-                if (directory.mkdirs()){
+                if (directory.mkdirs()){  // If the directory DNE, create.
                     System.out.println("Directory created!");
                 }
             }
-            // If the file DNE, create and write.
             File file = new File(directory, "Sirius.txt");
             if (!file.exists()) {
-                if (file.createNewFile()){
+                if (file.createNewFile()){  // If the file DNE, create and write.
                     System.out.println("File created!");
                 }
             }
@@ -182,9 +181,46 @@ public class Sirius {
             System.out.println("An error occurred while saving the tasks.");
         }
     }
+    public static void loadTaskList() {
+        try {
+            File file = new File("./data/sirius.txt");
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    fromFileFormat(line);
+                }
+                scanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Task file not found, starting with an empty list.");
+        }
+    }
+    public static void fromFileFormat(String line){
+        String[] splitLine = line.split(STATUS_DELIMINATOR);
+        String commandPrefix = splitLine[0].trim();  //T or D or E
+        boolean isMarked = splitLine[1].trim().equals("1");
+        String taskName = splitLine[2].trim();
+        switch (commandPrefix) {
+            case "T":
+                list.add(new Todo(taskName, isMarked));
+                taskCounter++;
+                break;
+            case "D":
+                Deadline a = new Deadline(taskName, isMarked, splitLine[3].trim());
+                list.add(a);
+                taskCounter++;
+                break;
+            case "E":
+                list.add(new Event(taskName, isMarked, splitLine[3].trim(), splitLine[4].trim()));
+                taskCounter++;
+                break;
+        }
+    }
 
     public static void main(String[] args) {
         sayHello();
+        loadTaskList();  // read from the data/Sirius.txt file.
         Scanner scanner = new Scanner(System.in);
         while (isExit) {
             isValidToProcess = true; // reset

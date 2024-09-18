@@ -3,7 +3,7 @@ package task;
 public class Todo extends Task {
 
     public Todo(String taskName, boolean isMarked) {
-        super(taskName, false);
+        super(taskName, isMarked);
     }
 
     @Override

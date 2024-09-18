@@ -6,7 +6,7 @@ public class Event extends Task {
     protected String to;
 
     public Event(String taskName, boolean isMarked, String from, String to) {
-        super(taskName, false);
+        super(taskName, isMarked);
         this.from = from;
         this.to = to;
     }
@@ -30,6 +30,6 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + (isMarked()? "1":"0") + " | " + getTaskName() + " | " + getFrom() + " - " + getTo();
+        return "E | " + (isMarked()? "1":"0") + " | " + getTaskName() + " | " + getFrom() + " | " + getTo();
     }
 }
