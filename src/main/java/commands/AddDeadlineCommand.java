@@ -1,5 +1,6 @@
 package commands;
 
+import exception.InvalidDateFormatException;
 import exception.InvalidDeadlineException;
 import exception.SaveFileErrorException;
 import storage.Storage;
@@ -26,7 +27,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDeadlineException, SaveFileErrorException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDeadlineException, SaveFileErrorException, InvalidDateFormatException {
         userInput = parser.removeDeadlinePrefix(userInput);
         int indexOfByPrefix = userInput.indexOf(BY_PREFIX);
 
@@ -56,7 +57,7 @@ public class AddDeadlineCommand extends Command {
 
             saveTask(storage, tasks, ui);
         } catch (DateTimeParseException e) {
-            throw new InvalidDeadlineException();
+            throw new InvalidDateFormatException();
         }
     }
 }

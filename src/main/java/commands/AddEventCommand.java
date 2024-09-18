@@ -1,5 +1,6 @@
 package commands;
 
+import exception.InvalidDateFormatException;
 import exception.InvalidEventException;
 import exception.SaveFileErrorException;
 import storage.Storage;
@@ -31,7 +32,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidEventException, SaveFileErrorException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidEventException, SaveFileErrorException, InvalidDateFormatException {
         userInput = parser.removeEventPrefix(userInput);
         int indexOfFrom = userInput.indexOf(FROM_PREFIX);
         int indexOfTo = userInput.indexOf(TO_PREFIX);
@@ -64,7 +65,7 @@ public class AddEventCommand extends Command {
 
             saveTask(storage, tasks, ui);
         } catch (DateTimeParseException e) {
-            throw new InvalidEventException();
+            throw new InvalidDateFormatException();
         }
     }
 }

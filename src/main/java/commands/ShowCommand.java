@@ -1,6 +1,7 @@
 package commands;
 
 import exception.BentoException;
+import exception.InvalidDateFormatException;
 import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
@@ -24,13 +25,13 @@ public class ShowCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BentoException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateFormatException {
         try {
             dateOfInterestString = parser.removeShowPrefix(dateOfInterestString);
             LocalDate dateOfInterest = LocalDate.parse(dateOfInterestString, inputFormatter);
             ui.listTasksOfInterest(dateOfInterest, tasks);
         } catch (DateTimeParseException e) {
-            throw new BentoException();
+            throw new InvalidDateFormatException();
         }
     }
 }
