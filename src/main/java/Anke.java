@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Anke {
     static int count = 0;
@@ -49,16 +54,22 @@ public class Anke {
             printList(tasks);
         } else if (line.length() > 5 && line.startsWith("mark ")) {
             mark(line, tasks);
+            saveFile(tasks);
         } else if (line.length() > 7 && line.startsWith("unmark ")) {
             unmark(line, tasks);
+            saveFile(tasks);
         } else if (line.startsWith("todo")) {
             createTodo(tasks, line);
+            saveFile(tasks);
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
             createDeadline(tasks, line);
+            saveFile(tasks);
         } else if (line.length() > 6 && line.startsWith("event ")) {
             createEvent(tasks, line);
+            saveFile(tasks);
         } else if (line.length() > 7 && line.startsWith("delete ")) {
             deleteTask(tasks, line);
+            saveFile(tasks);
         } else {
             handleWrongFormat();
         }
@@ -117,7 +128,7 @@ public class Anke {
             addTask(tasks, task);
         } catch (EmptyTaskException e) {
             System.out.println("The description of a todo cannot be empty.\n");
-        } catch (EmptyByOrFromException e) {
+        } catch (EmptyByOrFromException ignored) {
         }
     }
 
@@ -193,10 +204,13 @@ public class Anke {
               throw new EmptyTaskException();
         } else if (endIndex == -2 && line.substring(beginIndex).trim() != "") {
             return line.substring(beginIndex).trim();
-        } else if (line.substring(beginIndex, endIndex).trim() != "") {
-            return line.substring(beginIndex, endIndex).trim();
         } else {
-            throw new EmptyTaskException();
+            String trimName = line.substring(beginIndex, endIndex).trim();
+            if (trimName != "") {
+                return trimName;
+            } else {
+                throw new EmptyTaskException();
+            }
         }
     }
 
@@ -217,8 +231,8 @@ public class Anke {
         System.out.println("unmark {int n} : set task number {n} as not done");
         System.out.println("todo {String s} : create todo with description {s}");
         System.out.println("deadline {String s1} /by {String s2} : create deadline with description {s1} and due date {s2}");
-        System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}\n");
-        System.out.println("delete {int n} : remove task number {n} from the list");
+        System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}");
+        System.out.println("delete {int n} : remove task number {n} from the list\n");
     }
 
     private static void deleteTask(ArrayList<Task> tasks, String line) {
@@ -235,6 +249,18 @@ public class Anke {
             System.out.println("Please enter a task index from 1 to " + count + "\n");
         } catch (TaskSameStateException e) {
             System.out.println("ERROR\n"); //won't fall into this case
+        }
+    }
+
+    private static void saveFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter("./Anke.txt");
+            for (int i = 0; i < count; ++i) {
+                fw.write(tasks.get(i)+ System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong during saving changes: " + e.getMessage());
         }
     }
 }
