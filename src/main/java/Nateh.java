@@ -3,7 +3,6 @@ import classes.Event;
 import classes.Task;
 import classes.Todo;
 import exceptions.IllegalCommandException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,9 +77,9 @@ public class Nateh {
     }
     public static void handleTodo(ArrayList<Task> list, String input) {
         try {
-            list.addLast(new Todo(input));
+            list.add(new Todo(input));
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("added: " + list.getLast().getTask());
+            System.out.println("added: " + list.get(list.size() - 1).getTask());
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -91,10 +90,10 @@ public class Nateh {
     }
     public static void handleDeadline(ArrayList<Task> list, String input) {
         try {
-            list.addLast(new Deadlines(input));
+            list.add(new Deadlines(input));
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
-            list.getLast().print();
+            list.get(list.size() - 1).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -105,10 +104,10 @@ public class Nateh {
     }
     public static void handleEvent(ArrayList<Task> list, String input) {
         try {
-            list.addLast(new Event(input));
+            list.add(new Event(input));
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
-            list.getLast().print();
+            list.get(list.size() - 1).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -133,7 +132,7 @@ public class Nateh {
         }
     }
 
-    public static void handleInvalid() throws IllegalCommandException{
+    public static void handleInvalid() throws IllegalCommandException {
         throw new IllegalCommandException();
     }
     
