@@ -46,7 +46,7 @@ public class Akshan {
     public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         TaskList taskList = new TaskList();
-        StorageHandler storageHandler = new StorageHandler();
+        StorageHandler storageHandler = new StorageHandler(taskList);
 
         init();
         String line = input.nextLine();

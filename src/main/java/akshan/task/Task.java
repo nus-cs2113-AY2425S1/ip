@@ -99,15 +99,25 @@ public abstract class Task {
      * @param newStatus The task's new status.
      */
     public void setStatus(boolean newStatus) {
-        if (newStatus == isDone) {
+        if (newStatus == this.isDone) {
             System.out.println("Oops, the task has already been marked as " + getStatusString() + "!");
             System.out.println("  " + this);
             return;
         }
 
-        isDone = newStatus;
+        this.isDone = newStatus;
         System.out.println(newStatus ? "Nice! I've marked this task as done:" : "OK, I've marked this task as not done yet:");
         System.out.println("  " + this);
+    }
+
+    /**
+     * Silently sets the status of the task, does not print an acknowledgement message.
+     * If there is redundant task setting, print error message.
+     *
+     * @param newStatus The task's new status.
+     */
+    public void setStatusSilent(boolean newStatus) {
+        this.isDone = newStatus;
     }
 
     /**
