@@ -30,6 +30,11 @@ public class Task {
     public String toString() {
         return "[ ][" + getStatusIcon() + "] " + getDescription();
     }
+
+    // Base toSaveFormat method for generic tasks
+    public String toSaveFormat() {
+        return "  | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
 
 
