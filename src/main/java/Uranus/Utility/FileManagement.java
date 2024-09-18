@@ -26,22 +26,21 @@ public abstract class FileManagement extends Functions{
     public static void load() {
         File f = new File("tasksBackup.txt");
         PrintStream out = System.out;
+        // Redirect System.out to a dummy stream (this solution was from gpt)
+        System.setOut(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {}
+        }));
+
         try (Scanner s = new Scanner(f)) {
-
-            // Redirect System.out to a dummy stream (this solution was from gpt)
-            System.setOut(new PrintStream(new OutputStream() {
-                @Override
-                public void write(int b) {}
-            }));
-
             while (s.hasNext()) {
                 Functions.processCommand(s.nextLine());
             }
-            System.setOut(out);
         } catch (FileNotFoundException e) {
-            System.setOut(out);
             print("Error loading tasks: " + e.getMessage());
             print("Backup task.txt file added");
         }
+
+        System.setOut(out);
     }
 }
