@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "./docs/test.txt";
+    private static final String FILE_PATH = "./data/test.txt";
 
     public void saveTasks(Task[] tasks, int taskNumber) {
         try {
