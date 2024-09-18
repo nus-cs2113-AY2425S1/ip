@@ -8,6 +8,7 @@ import bosco.exception.IllegalCommandException;
 import bosco.exception.EmptyDescriptionException;
 import bosco.exception.MissingPrefixException;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,21 +43,21 @@ public class Bosco {
     }
 
     private static Path createFilePathIfNotExists(String filePath) {
-        Path path = Paths.get(filePath);
+        Path p = Paths.get(filePath);
         try {
-            Files.createDirectories(path.getParent());
-            if (!Files.exists(path)) {
-                Files.createFile(path);
+            Files.createDirectories(p.getParent());
+            if (!Files.exists(p)) {
+                Files.createFile(p);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return path;
+        return p;
     }
 
     private static void addTaskFromFileLine(String fileLine) {
         String[] stringParts = fileLine.split(" \\| ");
-        boolean isDone = (stringParts[1].equals("1"));
+        boolean isDone = (stringParts[1].equals("X"));
         String taskType = stringParts[0];
         String description = stringParts[2];
         switch(taskType) {
@@ -69,6 +70,26 @@ public class Bosco {
         case "E":
             tasksList.add(new Event(description, isDone, stringParts[3], stringParts[4]));
             break;
+        }
+    }
+
+    private static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task: tasksList) {
+            fw.write(getFileInputForTask(task) + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static String getFileInputForTask(Task task) {
+        if (task instanceof Todo) {
+            return "T | " + task.getStatusIcon() + " | " + task.getDescription();
+        } else if (task instanceof Deadline) {
+            return "D | " + task.getStatusIcon() + " | " + task.getDescription()
+                    + " | " + ((Deadline)task).getBy();
+        } else {
+            return "E | " + task.getStatusIcon() + " | " + task.getDescription()
+                    + " | " + ((Event)task).getFrom() + " | " + ((Event)task).getTo();
         }
     }
 
@@ -218,6 +239,11 @@ public class Bosco {
     }
 
     private static void executeExitProgram() {
+        try {
+            writeToFile(FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         printExitMessage();
         System.exit(0);
     }
@@ -226,7 +252,7 @@ public class Bosco {
         try {
             loadFileContents(FILE_PATH);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         printWelcomeMessage();
         while (true) {
