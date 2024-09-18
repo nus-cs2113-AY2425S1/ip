@@ -151,7 +151,7 @@ public class XiaoMe {
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
 
@@ -179,7 +179,7 @@ public class XiaoMe {
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
 
@@ -208,7 +208,7 @@ public class XiaoMe {
 
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tGot it. I've added this task:\n"
-                                + "\t\t" + tasks.getLast() + "\n"
+                                + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
 

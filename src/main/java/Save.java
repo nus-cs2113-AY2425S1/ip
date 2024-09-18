@@ -10,7 +10,7 @@ public class Save {
 
     public static void saveFile() {
         try {
-            File f = new File("./src/main/java/tasks.txt");
+            File f = new File("./tasks.txt");
             if (!f.exists()) {
                 // file does not exist
                 f.createNewFile();
@@ -18,7 +18,7 @@ public class Save {
 
             // writing to the file
             // opening a file using FileWriter automatically overwrites its preexisting content
-            FileWriter writer = new FileWriter("./src/main/java/tasks.txt");
+            FileWriter writer = new FileWriter("./tasks.txt");
             for (Task task : XiaoMe.tasks) {
                 if (task instanceof Todo) {
                     // T|<icon>|<description>
@@ -41,7 +41,7 @@ public class Save {
 
     public static void readFile() {
         try {
-            File f = new File("./src/main/java/tasks.txt");
+            File f = new File("./tasks.txt");
             if (!f.exists()) {
                 // file does not exist
                 f.createNewFile();
@@ -60,7 +60,7 @@ public class Save {
                 }
 
                 if (Objects.equals(words[1], "X")) {
-                    XiaoMe.tasks.getLast().setDone(true);
+                    XiaoMe.tasks.get(XiaoMe.tasks.size() - 1).setDone(true);
                 }
             }
         } catch (IOException e) {
@@ -69,5 +69,4 @@ public class Save {
             System.out.println("File data is corrupted");
         }
     }
-
 }
