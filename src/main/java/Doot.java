@@ -1,12 +1,22 @@
 import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class Doot {
     private static final String DIVIDER = "____________________________________________________________\n\n";
     private static final int DEFAULT_TASKS = 100;
     private static ArrayList<Task> taskList = new ArrayList<>(DEFAULT_TASKS);
+    private static final String FILE_NAME = "dootData.txt";
 
     public static void main(String[] args) {
+        loadTaskData();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
         String currentInput = scanner.nextLine();
@@ -16,6 +26,45 @@ public class Doot {
         }
         System.out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
         scanner.close();
+    }
+
+    public static void loadTaskData() {
+        try {
+            FileInputStream fileReader = new FileInputStream(FILE_NAME);
+            ObjectInputStream objectReader = new ObjectInputStream(fileReader);
+            boolean fileHasData = true;
+            while (fileHasData) {
+                try {
+                    Object taskToAdd = objectReader.readObject();
+                    taskList.add((Task) taskToAdd);
+                } catch (EOFException e) {
+                    fileHasData = false;
+                }
+            }
+            objectReader.close();
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Read file does not exist, will be created!");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public static void writeTaskData() {
+        try {
+            FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
+            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
+            for (Task task : taskList) {
+                if (task != null) {
+                    objectWriter.writeObject(task);
+                }
+            }
+            objectWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public static void findCommand(String command) {
@@ -34,6 +83,7 @@ public class Doot {
         } else {
             handleDefault(cmd, args);
         }
+        writeTaskData();
     }
 
     private static void handleWordDigit(String command, String args) {
