@@ -1,6 +1,9 @@
 import model.*;
 import exception.MondayException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Monday {
     private static final String LOGO = " __  __                 _             \n"
@@ -152,6 +155,68 @@ public class Monday {
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + task);
         System.out.println("    Now you have " + taskCount + " tasks in the list.");
+    }
+
+    private void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("./data/tasks.txt"))) {
+            for (int i = 0; i < taskCount; i++) {
+                Task task = tasks[i];
+                String taskType = task instanceof Todo ? "T" :
+                        task instanceof Deadline ? "D" :
+                                task instanceof Event ? "E" : "";
+                String status = task.isDone ? "1" : "0";
+                String taskData = taskType + " | " + status + " | " + task.description;
+                if (task instanceof Deadline) {
+                    taskData += " | " + ((Deadline) task).by;
+                } else if (task instanceof Event) {
+                    taskData += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                }
+                writer.println(taskData);
+            }
+        } catch (IOException e) {
+            System.out.println("    OOPS!!! There was an error saving the tasks.");
+        }
+    }
+
+    private void loadTasks() {
+        File file = new File("./data/tasks.txt");
+        if (file.exists()) {
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    String taskType = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+                    Task task = null;
+
+                    switch (taskType) {
+                    case "T":
+                        task = new Todo(description);
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        task = new Deadline(description, by);
+                        break;
+                    case "E":
+                        String from = parts[3];
+                        String to = parts[4];
+                        task = new Event(description, from, to);
+                        break;
+                    }
+
+                    if (task != null) {
+                        if (isDone) {
+                            task.markAsDone();
+                        }
+                        tasks[taskCount] = task;
+                        taskCount++;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("    OOPS!!! The file could not be found.");
+            }
+        }
     }
 
     private void printGoodbyeMessage() {
