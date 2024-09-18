@@ -15,9 +15,10 @@ public class Cy {
 
     public static final int MAX_LIST = 100;
     public static final String FILE_PATH = "src/main/java/data/cy.txt";
+    public static final String HORIZONTAL_LINE = "______________________________________";
 
     public static void printLine() {
-        System.out.println("______________________________________");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void markOutput(Task task) {
@@ -86,7 +87,6 @@ public class Cy {
         printLine();
         System.out.println("added: " + input);
         printLine();
-        saveNewData(input, "A");
 
         return count;
     }
@@ -122,8 +122,8 @@ public class Cy {
 
     public static int addDeadline(Task[] items, int count, String input) throws IllegalEmptyException {
 
-        if (!input.contains("/by")) {
-            System.out.println("Input must contain '/by' keyword.");
+        if (!input.contains("by")) {
+            System.out.println("Input must contain 'by' keyword.");
             return count;
         }
 
@@ -134,7 +134,7 @@ public class Cy {
             throw new IllegalEmptyException();
         }
 
-        String[] splitInputs = input.split("/by", 2);
+        String[] splitInputs = input.split("by", 2);
         String deadline = splitInputs[0] + "(by:" + splitInputs[1] + ")";
 
         items[count] = new Deadline(deadline);
@@ -154,12 +154,12 @@ public class Cy {
 
         input = trimString(input);
 
-        if (!input.contains("/from") || !input.contains("/to")) {
-            System.out.println("Input must contain both '/from' and '/to' keywords.");
+        if (!input.contains("from") || !input.contains("to")) {
+            System.out.println("Input must contain both 'from' and 'to' keywords.");
             return count;
         }
 
-        String[] splitInputs = input.split("/from|/to");
+        String[] splitInputs = input.split("from|to");
         String start = splitInputs[1];
         String end = splitInputs[2];
         String event = splitInputs[0] + "(from:" + start + "to:" + end + ")";
