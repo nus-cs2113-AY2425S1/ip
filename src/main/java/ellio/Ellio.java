@@ -5,7 +5,12 @@ import ellio.task.Event;
 import ellio.task.Task;
 import ellio.task.Todo;
 
+import java.io.*;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class Ellio {
 
@@ -14,6 +19,8 @@ public class Ellio {
     public static final int MAX_TASK = 100;
     private static Task[] listTasks = new Task[MAX_TASK];
     private static int numberTask = 0;
+    private static final String SAVED_TASK_FILEPATH = "./data/Ellio.txt";
+    public static File saveFile = new File(SAVED_TASK_FILEPATH);
 
     public static void endProgram(){
         System.out.println(BotText.lineBorder + BotText.messageGoodbye + BotText.lineBorder);
@@ -21,6 +28,67 @@ public class Ellio {
 
     public static void startProgram(){
         System.out.println(BotText.lineBorder + BotText.messageWelcome + BotText.lineBorder);
+        openFile();
+    }
+
+    public static void openFile(){
+        if(!saveFile.exists()){
+            createFile();
+        }
+        else{
+            extractFileContent();
+        }
+    }
+
+    public static void createFile(){
+        try{
+            File parentDir = saveFile.getParentFile();
+            if(!parentDir.exists() && parentDir != null){
+                parentDir.mkdirs();
+            }
+            saveFile.createNewFile();
+        } catch (IOException e){
+            System.out.println("Error Occured: " + e.getMessage());
+        }
+    }
+
+    public static void extractFileContent(){
+        try {
+            Scanner s = new Scanner(saveFile);
+            while(s.hasNextLine()){
+                String line = s.nextLine().trim();
+                String[] parts = line.split(" \\| ");
+                switch(parts[0]){
+                case "t":
+                    listTasks[numberTask] = new Todo(parts[2], parts[1]);
+                    numberTask++;
+                    break;
+                case "d":
+                    listTasks[numberTask] = new Deadline(parts[2], parts[1], parts[3]);
+                    numberTask++;
+                    break;
+                case "e":
+                    listTasks[numberTask] = new Event(parts[2], parts[1], parts[3], parts[4]);
+                    numberTask++;
+                    break;
+                default:
+                    System.out.println("Error Reading File");
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error Occured: " + e.getMessage());
+        }
+    }
+
+    public static void saveTask(String savedTask){
+        try {
+            FileWriter fw = new FileWriter(saveFile, true);
+            fw.write( System.lineSeparator() + savedTask);
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void printList() throws IndexOutOfBoundsException{
@@ -37,11 +105,12 @@ public class Ellio {
 
     public static void addToDo(String line){
         String description = line.replace("todo ", "");
-        Todo newTodo = new Todo(description);
+        Todo newTodo = new Todo(description, "0");
         listTasks[numberTask] = newTodo;
         numberTask++;
         System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newTodo.getTask());
         System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+        saveTask(newTodo.getSaveFileTask());
     }
 
     public static void addDeadline(String line){
@@ -51,6 +120,7 @@ public class Ellio {
             numberTask++;
             System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newDeadline.getTask());
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
+            saveTask(newDeadline.getSaveFileTask());
         } catch (EllioExceptions e){
             System.out.println(e.getMessage());
         } catch (StringIndexOutOfBoundsException e){
@@ -73,7 +143,7 @@ public class Ellio {
         //add Semicolon behind by
         deadline = deadline.replace("by", "by:");
 
-        return new Deadline(description, deadline);
+        return new Deadline(description, "0", deadline);
     }
 
     public static void addEvent(String line){
@@ -83,7 +153,7 @@ public class Ellio {
             numberTask++;
             System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newEvent.getTask());
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
-
+            saveTask(newEvent.getSaveFileTask());
         }
         catch (EllioExceptions e){
             System.out.println(e.getMessage());
@@ -115,7 +185,7 @@ public class Ellio {
         eventStart = eventStart.replace("from", "from:");
         eventEnd = eventEnd.replace("to", "to:");
 
-        return new Event(description, eventStart, eventEnd);
+        return new Event(description, "0", eventStart, eventEnd);
     }
 
     public static void markList(int index){
