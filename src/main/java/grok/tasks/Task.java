@@ -13,12 +13,21 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
 
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    // Method to format how the task should be saved in the file
+    public String toSaveFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
