@@ -108,6 +108,7 @@ public class King {
         } catch (IndexOutOfBoundsException e) {
             throw new KingException("You cannot mark any task that's not on ur list!\n");
         }
+        FileAccess.updateFile();
     }
 
     private static void markTaskUndone(int index) throws KingException {
@@ -116,6 +117,7 @@ public class King {
         } catch (IndexOutOfBoundsException e) {
             throw new KingException("You cannot unmark any task that's not on ur list!\n");
         }
+        FileAccess.updateFile();
     }
 
 
