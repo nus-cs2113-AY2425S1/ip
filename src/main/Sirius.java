@@ -29,7 +29,6 @@ public class Sirius {
     public static final String SEPARATOR = "-----------------------------";
 
     // data members
-    private static int taskCounter = 0;
     private static boolean isExit = true;
     private static boolean isValidToProcess = true;
     private static final ArrayList<Task> list = new ArrayList<>();
@@ -85,15 +84,14 @@ public class Sirius {
                 list.add(new Todo(taskName, false));
             }
         System.out.println("Got it. I've added this task:");
-        System.out.println(list.get(taskCounter).toString());
-        taskCounter++;
-        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+        System.out.println(list.get(list.size()-1).toString());
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
     public static void listTasks(ArrayList<Task> list){
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCounter; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.print(i + 1 + ". ");
             System.out.println(list.get(i).toString());
         }
@@ -204,16 +202,13 @@ public class Sirius {
         switch (commandPrefix) {
             case "T":
                 list.add(new Todo(taskName, isMarked));
-                taskCounter++;
                 break;
             case "D":
                 Deadline a = new Deadline(taskName, isMarked, splitLine[3].trim());
                 list.add(a);
-                taskCounter++;
                 break;
             case "E":
                 list.add(new Event(taskName, isMarked, splitLine[3].trim(), splitLine[4].trim()));
-                taskCounter++;
                 break;
         }
     }
