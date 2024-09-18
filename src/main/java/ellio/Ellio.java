@@ -6,13 +6,14 @@ import ellio.task.Task;
 import ellio.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ellio {
 
     public static final int DEADLINE_INPUT_SPACING = 9;
     public static final int EVENT_INPUT_SPACING = 6;
     public static final int MAX_TASK = 100;
-    private static Task[] listTasks = new Task[MAX_TASK];
+    private static ArrayList<Task> listTasks = new ArrayList<>();
     private static int numberTask = 0;
 
     public static void endProgram(){
@@ -29,8 +30,9 @@ public class Ellio {
         }
 
         System.out.print(BotText.lineBorder + BotText.messageList);
-        for (int i = 0; i < numberTask; i++) {
-            System.out.println((i + 1) + "." + listTasks[i].getTask());
+        for (int i = 0; i < listTasks.size(); i++){
+            Task task = listTasks.get(i);
+            System.out.println((i + 1) + "." + task.getTask());
         }
         System.out.println(BotText.lineBorder);
     }
@@ -38,7 +40,7 @@ public class Ellio {
     public static void addToDo(String line){
         String description = line.replace("todo ", "");
         Todo newTodo = new Todo(description);
-        listTasks[numberTask] = newTodo;
+        listTasks.add(newTodo);
         numberTask++;
         System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newTodo.getTask());
         System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
@@ -47,7 +49,8 @@ public class Ellio {
     public static void addDeadline(String line){
         try {
             Deadline newDeadline = formatDeadline(line);
-            listTasks[numberTask] = newDeadline;
+            //listTasks[numberTask] = newDeadline;
+            listTasks.add(newDeadline);
             numberTask++;
             System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newDeadline.getTask());
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
@@ -79,7 +82,8 @@ public class Ellio {
     public static void addEvent(String line){
         try {
             Event newEvent = formatEvent(line);
-            listTasks[numberTask] = newEvent;
+            //listTasks[numberTask] = newEvent;
+            listTasks.add(newEvent);
             numberTask++;
             System.out.println(BotText.lineBorder + "Got it. I've added this task:\n  " + newEvent.getTask());
             System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
@@ -122,16 +126,29 @@ public class Ellio {
         if(index > numberTask){
             throw new IndexOutOfBoundsException();
         }
-        listTasks[index-1].markTaskAsDone();
-        System.out.println(BotText.lineBorder + BotText.messageMarked + "  " + listTasks[index-1].getTask() + "\n" + BotText.lineBorder);
+        //listTasks[index-1].markTaskAsDone();
+        listTasks.get(index-1).markTaskAsDone();
+        System.out.println(BotText.lineBorder + BotText.messageMarked + "  " + listTasks.get(index-1).getTask() + "\n" + BotText.lineBorder);
     }
 
     public static void unmarkList(int index){
         if(index > numberTask){
             throw new IndexOutOfBoundsException();
         }
-        listTasks[index-1].unmarkTaskAsDone();
-        System.out.println(BotText.lineBorder + BotText.messageUnmark + "  " + listTasks[index-1].getTask() + "\n" + BotText.lineBorder);
+        //listTasks[index-1].unmarkTaskAsDone();
+        listTasks.get(index-1).unmarkTaskAsDone();
+        System.out.println(BotText.lineBorder + BotText.messageUnmark + "  " + listTasks.get(index-1).getTask() + "\n" + BotText.lineBorder);
+    }
+
+    public static void deleteTask(int index){
+        if(index > numberTask){
+            throw new IndexOutOfBoundsException();
+        }
+        Task deletedTask = listTasks.get(index-1);
+        System.out.println(BotText.lineBorder + "Got it. I've removed this task:\n  " + deletedTask.getTask());
+        listTasks.remove(index-1);
+        numberTask--;
+        System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
     }
 
     public static void getInput(){
@@ -182,6 +199,14 @@ public class Ellio {
         }
         else if(input.startsWith("event")){
             addEvent(input);
+        }
+        else if(input.startsWith("delete")){
+            String indexNum = getTaskIndex(input);
+            try {
+                deleteTask(Integer.parseInt(indexNum));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(BotText.lineBorder + BotText.messageInvalidIndex + numberTask + " \n" + BotText.lineBorder);
+            }
         }
         else{
             throw new IllegalArgumentException();
