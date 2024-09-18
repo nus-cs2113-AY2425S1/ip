@@ -14,7 +14,7 @@ public class Mel {
     public static final int UNMARK_WORD_LEN = 6;
     public static final int INPUT_SPACE_BUFFER = 2;
     private static final int DELETE_WORD_LEN = 6;
-    private static final String LIST_FILE_PATH = "C:\\Users\\YK Personal\\Desktop\\Y2S1\\CS2113\\indiv_proj\\ip\\data\\Mel.txt";
+    private static final String LIST_FILE_PATH = ".\\data\\Mel.txt";
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
