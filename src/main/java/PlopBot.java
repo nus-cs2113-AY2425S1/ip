@@ -1,4 +1,8 @@
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,8 +21,8 @@ public class PlopBot {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Task> tasks;
     private static String userName;
-    //private static final String DATA_DIR = "./data";
-    //private static final String DATA_FILE = DATA_DIR + "/plopBot.txt";
+    private static final String DATA_DIR = "./data";
+    private static final String DATA_FILE = DATA_DIR + "/plopBot.txt";
 
     public static void main(String[] args) {
         welcomeMessage();
@@ -367,12 +371,28 @@ public class PlopBot {
 
     private static ArrayList<Task> loadTasks() {
         ArrayList<Task> loadedTasks = new ArrayList<>();
+        try {
+            Files.createDirectories(Paths.get(DATA_DIR));
 
+        }
+        catch (IOException e) {
+            printError("An error occurred while loading tasks: " + e.getMessage());
+        }
         return loadedTasks;
     }
 
     private static void saveTasks() {
+        try {
+            Files.createDirectories(Paths.get(DATA_DIR));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE));
 
+            for (Task task : tasks) {
+
+            }
+        }
+        catch (IOException e ) {
+            printError("An error occurred while saving tasks: " + e.getMessage());
+        }
     }
 
     /**
