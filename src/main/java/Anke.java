@@ -33,9 +33,9 @@ public class Anke {
     }
 
     public static void main(String[] args) {
-        printWelcome();
         ArrayList<Task> tasks = new ArrayList<>();
-//        Task[] tasks = new Task[100];
+        load(tasks);
+        printWelcome();
         String line = "";
         while (!line.equals("bye")) {
             line = getInput();
@@ -47,6 +47,56 @@ public class Anke {
         }
 
         printBye();
+    }
+
+    private static void load(ArrayList<Task> tasks) {
+        try{
+            System.out.println("Loading data from file");
+            loadTasks(tasks);
+            System.out.println("Finish loading data\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, no data loaded");
+        }
+    }
+
+    private static void loadTasks(ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File("./Anke.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            try {
+                String data = "";
+                switch (line.charAt(1)) {
+                case 'T':
+                    data = "todo " + line.substring(7);
+                    System.out.println(data);
+                    createTodo(tasks, data);
+                    break;
+                case 'D':
+                    data = "deadline " + line.substring(7);
+                    data = data.replace("(","/");
+                    data = data.replace(")","");
+                    data = data.replace(":","");
+                    System.out.println(data);
+                    createDeadline(tasks, data);
+                    break;
+                case 'E':
+                    data = "event " + line.substring(7);
+                    data = data.replace("(","/");
+                    data = data.replace(")","");
+                    data = data.replace("to","/to");
+                    data = data.replace(":","");
+                    System.out.println(data);
+                    createEvent(tasks, data);
+                    break;
+                }
+                if (line.charAt(4) == 'X') {
+                    markTask(tasks, count);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                continue;
+            }
+        }
     }
 
     private static void handleTasks(String line, ArrayList<Task> tasks) {
@@ -217,10 +267,10 @@ public class Anke {
     private static String getFrom(String line, int fromIndex, int toIndex) throws EmptyToException, EmptyByOrFromException {
         if (toIndex == -1 || toIndex + 4 > line.length() - 1) {
             throw new EmptyToException();
-        } else if (fromIndex + 6 <= toIndex - 1){
+        } else if (fromIndex + 6 >= toIndex){
             throw new EmptyByOrFromException();
         } else {
-            return line.substring(fromIndex + 6, toIndex - 1).trim();
+            return line.substring(fromIndex + 6, toIndex).trim();
         }
     }
 
