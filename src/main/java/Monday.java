@@ -198,7 +198,8 @@ public class Monday {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
-                System.out.println("    No previous tasks found.");
+                // File doesn't exist; return or handle it as needed
+                System.out.println("    No saved tasks found.");
                 return;
             }
 
@@ -206,37 +207,37 @@ public class Monday {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
+                String type = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
 
-                switch (type) {
-                case "T":
+                if (type.equals("T")) {
                     tasks[taskCount++] = new Todo(description);
-                    tasks[taskCount - 1].markAsDone();
-                    break;
-                case "D":
-                    String by = parts[3];
+                    if (isDone) {
+                        tasks[taskCount - 1].markAsDone();
+                    }
+                } else if (type.equals("D")) {
+                    String by = parts[3].trim();
                     tasks[taskCount++] = new Deadline(description, by);
-                    tasks[taskCount - 1].markAsDone();
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
+                    if (isDone) {
+                        tasks[taskCount - 1].markAsDone();
+                    }
+                } else if (type.equals("E")) {
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
                     tasks[taskCount++] = new Event(description, from, to);
-                    tasks[taskCount - 1].markAsDone();
-                    break;
-                default:
-                    throw new MondayException("Unknown task type.");
+                    if (isDone) {
+                        tasks[taskCount - 1].markAsDone();
+                    }
                 }
             }
-
             scanner.close();
             System.out.println("    Tasks loaded from file.");
-        } catch (FileNotFoundException e) {
-            System.out.println("    OOPS!!! No saved tasks found.");
-        } catch (MondayException e) {
-            System.out.println("    OOPS!!! " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("    OOPS!!! There was an error loading the tasks.");
+            e.printStackTrace(); // For debugging purposes
         }
     }
+
+    
 }
