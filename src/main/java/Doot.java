@@ -1,12 +1,20 @@
 import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 
 public class Doot {
     private static final String DIVIDER = "____________________________________________________________\n\n";
     private static final int MAX_TASKS = 100;
     private static Task[] taskList = new Task[MAX_TASKS];
     private static int taskIdx = 0;
+    private static final String FILE_NAME = "dootData.txt";
 
     public static void main(String[] args) {
+        loadTaskData();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
         String currentInput = scanner.nextLine();
@@ -16,6 +24,36 @@ public class Doot {
         }
         System.out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
         scanner.close();
+
+        saveTaskData();
+    }
+
+    public static void saveTaskData() {
+
+        try {
+            FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
+            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
+            for (Task task : taskList) {
+                objectWriter.writeObject(task);
+            }
+            objectWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void loadTaskData() {
+        try {
+            FileInputStream fileReader = new FileInputStream(FILE_NAME);
+            ObjectInputStream objectReader = new ObjectInputStream(fileReader);
+            objectReader.close();
+            fileReader.close();
+
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     public static void findCommand(String command) {
