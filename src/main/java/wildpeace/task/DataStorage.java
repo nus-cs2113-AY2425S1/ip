@@ -40,7 +40,8 @@ public class DataStorage {
         System.out.println("Return to tutorial by entering Q");
     }
 
-    private static void processInput(String line, Scanner scanner) throws EmptyCommandException, InvalidInputException {
+    private static void processInput(@org.jetbrains.annotations.NotNull String line, Scanner scanner)
+    throws EmptyCommandException, InvalidInputException {
         if (line.equalsIgnoreCase("list")) {
             listItems();
         } else if (line.startsWith("todo ")) {
@@ -64,13 +65,19 @@ public class DataStorage {
             addTask(new Task(line.substring(6), at, Task.TaskType.EVENT));
         } else if (line.startsWith("mark ")) {
             try {
-                markTask(Integer.valueOf(line.substring(5)));
+                int index = Integer.parseInt(line.substring(5).trim());
+                markTask(index);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mark number. Please enter a valid integer.");
             } catch (InvalidInputException e) {
                 System.out.println("Invalid mark number");
             }
         } else if (line.startsWith("unmark ")) {
             try {
-                unmarkTask(Integer.valueOf(line.substring(7)));
+                int index = Integer.parseInt(line.substring(7).trim());
+                unmarkTask(index);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mark number. Please enter a valid integer.");
             } catch (InvalidInputException e) {
                 System.out.println("Invalid unmark number");
             }
@@ -97,7 +104,7 @@ public class DataStorage {
 
     private static void markTask(Integer index) throws InvalidInputException {
         int key = index - 1;
-        if(key >= storedItems.size() || key <= 0) {
+        if(key >= storedItems.size() || key < 0) {
             throw new InvalidInputException();
         }
         Task task = storedItems.get(key);
@@ -111,7 +118,7 @@ public class DataStorage {
 
     private static void unmarkTask(Integer index ) throws InvalidInputException {
         int key = index - 1;
-        if(key >= storedItems.size() || key <= 0) {
+        if(key >= storedItems.size() || key < 0) {
             throw new InvalidInputException();
         }
         Task task = storedItems.get(key);
