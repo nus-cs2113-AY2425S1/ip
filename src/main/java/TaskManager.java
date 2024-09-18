@@ -58,13 +58,17 @@ public class TaskManager {
             }
 
             String by = parts[1].trim();
-            Task task = new Deadline(description, by);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
+            try {
+                Task task = new Deadline(description, by);
+                tasks.add(task);
+                System.out.println(LINE_SEPARATOR
+                        + "added...\n"
+                        + " " + tasks.get(tasks.size() - 1).toString() + "\n"
+                        + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
+                        + LINE_SEPARATOR);
+            } catch (IllegalArgumentException e) {
+                System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
+            }
             return;
         }
 
