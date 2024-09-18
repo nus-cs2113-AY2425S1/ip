@@ -299,6 +299,7 @@ public class Bebe {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("  " + task.toString());
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                saveTasksToFile();
             } else {
                 throw new BebeException("Invalid task number.");
             }
