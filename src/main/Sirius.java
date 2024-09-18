@@ -183,17 +183,17 @@ public class Sirius {
             File directory = new File("./data");
             if (!directory.exists()) {
                 if (directory.mkdirs()){
-                    System.out.println("Directory created!");
+                    System.out.println("Directory called \"data\" is created!");
                 }
             }
             // If the file DNE, create and write.
             File file = new File(directory, "Sirius.txt");
             if (!file.exists()) {
                 if (file.createNewFile()){
-                    System.out.println("File created!");
+                    System.out.println("File created to store your task list!");
                 }
             }
-            FileWriter writer = new FileWriter(file);
+            FileWriter writer = new FileWriter(file);  // override the previous contents in txt file.
             for (Task task : list) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }
@@ -235,6 +235,7 @@ public class Sirius {
                         if (isValidToProcess) {
                             deleteTask(commandPieces, list);
                         }
+                        saveTaskList(list);
                         break;
                     case TODO:
                     case DEADLINE:
