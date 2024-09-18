@@ -15,8 +15,10 @@ import static constants.Message.GREETING_MESSAGE;
 import static constants.Message.LINE_MESSAGE;
 import static constants.Message.LOGO;
 import static constants.Message.MARKED_MESSAGE;
+import static constants.Message.NO_TASK_OF_INTEREST_MESSAGE;
 import static constants.Message.SAVE_TASK_LIST_SUCCESS_MESSAGE;
 import static constants.Message.SAYONARA_MESSAGE;
+import static constants.Message.TASKS_OF_INTEREST_MESSAGE;
 import static constants.Message.UNMARKED_MESSAGE;
 
 public class Ui {
@@ -76,14 +78,14 @@ public class Ui {
             Task task = tasks.retrieveTask(i);
             if (isDeadlineOfInterest(dateOfInterest, task) || isEventOfInterest(dateOfInterest, task)) {
                 if (currentTask == 0) {
-                    System.out.println("\tHere are your tasks of interest!");
+                    System.out.println(TASKS_OF_INTEREST_MESSAGE);
                 }
                 System.out.printf("\t%d. %s\n", currentTask + 1, task);
                 currentTask++;
             }
         }
         if (currentTask == 0) {
-            System.out.println("\tI can't seem to find any tasks that match your date of interest!");
+            System.out.println(NO_TASK_OF_INTEREST_MESSAGE);
         }
         printLine();
     }
