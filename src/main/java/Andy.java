@@ -41,6 +41,11 @@ public class Andy {
                 String command = input.split(" ")[0]; // Get the first word as the command
 
                 switch (command) {
+
+
+                case "delete":
+                    TaskDeleter.deleteTask(itemList, input);
+                    break;
                 case "list":
                     handleListInput(input);
                     break;
