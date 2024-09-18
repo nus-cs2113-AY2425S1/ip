@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import org.ajay.exceptions.*;
 import org.ajay.exceptions.Error;
+import org.ajay.exceptions.IllegalArgumentException;
 import org.ajay.task.*;
 
 public class Jarvis {
@@ -144,12 +145,17 @@ public class Jarvis {
                 int taskNumberUnmark = Integer.parseInt(task); // Get the task number
                 Task.markAsUndone(taskList, taskNumberUnmark); // Mark the task as undone
                 break;
+            case Task.DELETE_COMMAND_STRING: // Delete the task
+                int taskNumberDelete = Integer.parseInt(task); // Get the task number
+                Task.deleteTask(taskList, taskNumberDelete); // Delete the task
+                break;
             default:
                 throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
             }
 
             readInput(in, lineBufferString); // Recursively call the function to read the next input
-        } catch (EmptyArgumentException | IllegalCommandException | InvalidCommandFormatException e) {
+        } catch (EmptyArgumentException | IllegalCommandException | InvalidCommandFormatException |
+                 IllegalArgumentException e) {
             printBreakLine();
             System.out.println(e);
             printBreakLine();

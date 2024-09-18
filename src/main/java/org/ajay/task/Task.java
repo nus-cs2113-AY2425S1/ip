@@ -3,15 +3,18 @@ package org.ajay.task;
 import java.util.ArrayList;
 import org.ajay.exceptions.EmptyArgumentException;
 import org.ajay.exceptions.Error;
+import org.ajay.exceptions.IllegalArgumentException;
 
 public class Task {
     public final static String MARK_COMMAND_STRING = "mark";
     public final static String UNMARK_COMMAND_STRING = "unmark";
     public final static String LIST_COMMAND_STRING = "list";
+    public final static String DELETE_COMMAND_STRING = "delete";
 
     protected String description; // Description of the task
     private boolean isDone;     // Status of the task
 
+    // TODO: Possible to use arraylist length
     private static int numberOfTasks = 0; // Number of tasks in the list
 
     /**
@@ -83,7 +86,6 @@ public class Task {
         this.isDone = true;
 
         System.out.println("Nice! I've marked this task as done: \n  " + toString());
-
     }
 
     /**
@@ -124,6 +126,18 @@ public class Task {
     public static void markAsUndone(ArrayList<Task> taskList, int taskNumber) {
         // taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
         taskList.get(taskNumber - 1).markAsUndone();
+    }
+
+    public static void deleteTask(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
+
+        if (taskNumber > numberOfTasks) {
+            throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
+        }
+
+        System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
+        taskList.remove(taskNumber - 1);
+        numberOfTasks--;
+        printNumberOfTasks();
     }
 
     /**
