@@ -9,6 +9,7 @@ import bosco.exception.EmptyDescriptionException;
 import bosco.exception.MissingPrefixException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bosco {
     private static final String DIVIDER =
@@ -25,8 +26,7 @@ public class Bosco {
     private static final int MAX_TASKS = 100;
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private static final Task[] taskList = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasksList = new ArrayList<>();
 
     private static void printWelcomeMessage() {
         printMessages("Hello! I'm Bosco APD.", "What can I do for you?");
@@ -89,27 +89,27 @@ public class Bosco {
     }
 
     private static String getTaskCountMessage() {
-        return String.format("Now you have %1$d tasks in the list.", taskCount);
+        return String.format("Now you have %1$d tasks in the list.", tasksList.size());
     }
 
     private static void executeListTasks() {
-        if (taskCount == 0) {
+        if (tasksList.isEmpty()) {
             printMessages("No tasks in list. You're all caught up!");
             return;
         }
         System.out.println(DIVIDER);
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(INDENT_START + (i + 1) + "." + taskList[i]);
+        for (int i = 0; i < tasksList.size(); i++) {
+            System.out.println(INDENT_START + (i + 1) + "." + tasksList.get(i));
         }
         System.out.println(DIVIDER);
     }
 
     private static void executeMarkUnmarkTask(String commandType, String commandArgs) {
         int taskNumber = Integer.parseInt(commandArgs);
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasksList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        Task selectedTask = taskList[taskNumber - 1];
+        Task selectedTask = tasksList.get(taskNumber - 1);
         switch (commandType) {
         case "mark":
             selectedTask.markAsDone();
@@ -127,7 +127,7 @@ public class Bosco {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        addToTaskList(new Todo(description));
+        addToTasksList(new Todo(description));
     }
 
     private static void executeAddDeadline(String commandArgs)
@@ -141,7 +141,7 @@ public class Bosco {
             throw new EmptyDescriptionException();
         }
         String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
-        addToTaskList(new Deadline(description, by));
+        addToTasksList(new Deadline(description, by));
     }
 
     private static void executeAddEvent(String commandArgs)
@@ -161,16 +161,15 @@ public class Bosco {
         String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
                 EVENT_PREFIX_FROM).strip();
         String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
-        addToTaskList(new Event(description, from, to));
+        addToTasksList(new Event(description, from, to));
     }
 
     private static String removePrefix(String inputStr, String prefix) {
         return inputStr.replace(prefix, "");
     }
 
-    private static void addToTaskList(Task newTask) {
-        taskList[taskCount] = newTask;
-        taskCount++;
+    private static void addToTasksList(Task newTask) {
+        tasksList.add(newTask);
         printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
     }
 
@@ -190,7 +189,7 @@ public class Bosco {
             } catch (NumberFormatException e) {
                 printMessages("Error: invalid mark/unmark input. Please provide a number!");
             } catch (IndexOutOfBoundsException e) {
-                printMessages("Error: input out of bounds. List has " + taskCount + " tasks.");
+                printMessages("Error: input out of bounds. List has " + tasksList.size() + " tasks.");
             } catch (EmptyDescriptionException e) {
                 printMessages("Error: task description is empty. Please provide a description!");
             } catch (MissingPrefixException e) {
