@@ -82,8 +82,24 @@ public class bro {
                     storer.add(event);
                     System.out.println("Got it. I've added this task\n " + event);
                     System.out.println("Now you have " + storer.size() + " tasks in the list.");
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
+                }
+
+            } else if (line.startsWith("delete")){
+                try {
+                    int taskInt = Integer.parseInt(line.split(" ")[1]) - 1;
+                    if (taskInt < 0 || taskInt >= storer.size()) {
+                        throw new Exception("Invalid task number.");
+                    }
+
+                    Task tasktoRemove = storer.remove(taskInt);
+                    System.out.println("I've removed this task for you: ");
+                    System.out.println(tasktoRemove);
+                    System.out.println("Now you have " + storer.size() + " tasks in the list.");
+
+                } catch (Exception e){
+                    System.out.println(("Error: " + e.getMessage()));
                 }
 
             } else if (line.startsWith("mark")) {
