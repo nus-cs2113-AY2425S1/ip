@@ -8,10 +8,17 @@ import bosco.exception.IllegalCommandException;
 import bosco.exception.EmptyDescriptionException;
 import bosco.exception.MissingPrefixException;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bosco {
+    private static final String FILE_PATH = "./data/bosco.txt";
     private static final String DIVIDER =
             "\t________________________________________________________________________________";
     private static final String INDENT_START = "\t ";
@@ -24,9 +31,68 @@ public class Bosco {
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
 
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final Scanner CLI_SCANNER = new Scanner(System.in);
 
     private static final ArrayList<Task> tasksList = new ArrayList<>();
+
+    private static void loadFileContents(String filePath) throws IOException {
+        Path inputPath = createFilePathIfNotExists(filePath);
+        Scanner fileScanner = new Scanner(inputPath);
+        while (fileScanner.hasNext()) {
+            addTaskFromFileLine(fileScanner.nextLine());
+        }
+    }
+
+    private static Path createFilePathIfNotExists(String filePath) {
+        Path p = Paths.get(filePath);
+        try {
+            Files.createDirectories(p.getParent());
+            if (!Files.exists(p)) {
+                Files.createFile(p);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    private static void addTaskFromFileLine(String fileLine) {
+        String[] stringParts = fileLine.split(" \\| ");
+        boolean isDone = (stringParts[1].equals("X"));
+        String taskType = stringParts[0];
+        String description = stringParts[2];
+        switch(taskType) {
+        case "T":
+            tasksList.add(new Todo(description, isDone));
+            break;
+        case "D":
+            tasksList.add(new Deadline(description, isDone, stringParts[3]));
+            break;
+        case "E":
+            tasksList.add(new Event(description, isDone, stringParts[3], stringParts[4]));
+            break;
+        }
+    }
+
+    private static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task: tasksList) {
+            fw.write(getFileInputForTask(task) + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static String getFileInputForTask(Task task) {
+        if (task instanceof Todo) {
+            return "T | " + task.getStatusIcon() + " | " + task.getDescription();
+        } else if (task instanceof Deadline) {
+            return "D | " + task.getStatusIcon() + " | " + task.getDescription()
+                    + " | " + ((Deadline)task).getBy();
+        } else {
+            return "E | " + task.getStatusIcon() + " | " + task.getDescription()
+                    + " | " + ((Event)task).getFrom() + " | " + ((Event)task).getTo();
+        }
+    }
 
     private static void printWelcomeMessage() {
         printMessages("Hello! I'm Bosco APD.", "What can I do for you?");
@@ -45,10 +111,10 @@ public class Bosco {
     }
 
     private static String getUserInput() {
-        String userInputString = SCANNER.nextLine();
+        String userInputString = CLI_SCANNER.nextLine();
         // Ignore blank lines
         while (userInputString.trim().isEmpty()) {
-            userInputString = SCANNER.nextLine();
+            userInputString = CLI_SCANNER.nextLine();
         }
         return userInputString;
     }
@@ -140,7 +206,7 @@ public class Bosco {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        addToTasksList(new Todo(description));
+        addToTasksList(new Todo(description, false));
     }
 
     private static void executeAddDeadline(String commandArgs)
@@ -154,7 +220,7 @@ public class Bosco {
             throw new EmptyDescriptionException();
         }
         String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
-        addToTasksList(new Deadline(description, by));
+        addToTasksList(new Deadline(description, false, by));
     }
 
     private static void executeAddEvent(String commandArgs)
@@ -174,7 +240,7 @@ public class Bosco {
         String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
                 EVENT_PREFIX_FROM).strip();
         String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
-        addToTasksList(new Event(description, from, to));
+        addToTasksList(new Event(description, false, from, to));
     }
 
     private static String removePrefix(String inputStr, String prefix) {
@@ -187,11 +253,21 @@ public class Bosco {
     }
 
     private static void executeExitProgram() {
+        try {
+            writeToFile(FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         printExitMessage();
         System.exit(0);
     }
 
     public static void main(String[] args) {
+        try {
+            loadFileContents(FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         printWelcomeMessage();
         while (true) {
             String userInputString = getUserInput();
