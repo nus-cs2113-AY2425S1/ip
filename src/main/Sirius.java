@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.lang.Integer;
 import java.util.ArrayList;
@@ -21,11 +22,12 @@ public class Sirius {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
 
+
     // some regexes
     public static final String SPACE = " ";
     public static final String EMPTY = "";
     public static final String SLASH = "/";
-    public static final String STATUS_DELIMINATOR = "|";
+    public static final String STATUS_DELIMINATOR = "\\|";
     public static final String SEPARATOR = "-----------------------------";
 
     // data members
@@ -62,13 +64,12 @@ public class Sirius {
                 System.out.println("OK, I've marked this task as not done yet:");
             }
             System.out.println(list.get(taskNumber - 1).toString());
+            System.out.println(SEPARATOR);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("The task index is out of bounds! Please enter a valid task index");
         } catch (NumberFormatException e) {
             System.out.println("The task index must be a number! Please enter a valid index number!");
         }
-        System.out.println(SEPARATOR);
-
     }
     public static void addTask(String[] commandPieces, ArrayList<Task> list){
         System.out.println(SEPARATOR);
@@ -127,10 +128,9 @@ public class Sirius {
             switch (commandPrefix) {
                 case MARK:
                 case UNMARK:
-                case DELETE:
                     if (taskName.isEmpty()){
                         isValidToProcess = false;
-                        throw new IncompleteCommandException("The task index");
+                        throw new IncompleteCommandException("task index");
                     }
                     break;
                 case TODO:
@@ -179,18 +179,16 @@ public class Sirius {
     }
     public static void saveTaskList(ArrayList<Task> list) {
         try {
-            // If the directory DNE, create.
             File directory = new File("./data");
             if (!directory.exists()) {
-                if (directory.mkdirs()){
-                    System.out.println("Directory called \"data\" is created!");
+                if (directory.mkdirs()){  // If the directory DNE, create.
+                    System.out.println("Directory created!");
                 }
             }
-            // If the file DNE, create and write.
             File file = new File(directory, "Sirius.txt");
             if (!file.exists()) {
-                if (file.createNewFile()){
-                    System.out.println("File created to store your task list!");
+                if (file.createNewFile()){  // If the file DNE, create and write.
+                    System.out.println("File created!");
                 }
             }
             FileWriter writer = new FileWriter(file);  // override the previous contents in txt file.
