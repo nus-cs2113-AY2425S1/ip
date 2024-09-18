@@ -30,6 +30,7 @@ public class Storage {
 
     public void storageInsert(Task task) {
         taskList.add(task);
+        saveTasks();
         int numOfTasks = taskList.size();
 
         System.out.println("Got it. I've added this task:");
@@ -50,6 +51,7 @@ public class Storage {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
         taskList.remove(index - 1);
+        saveTasks();
     }
 
     public void storageMark(int index) throws InvalidCommandException {
@@ -57,6 +59,7 @@ public class Storage {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
         taskList.get(index - 1).setStatus();
+        saveTasks();
     }
 
     public void storageUnmark(int index) throws InvalidCommandException {
@@ -64,6 +67,7 @@ public class Storage {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
         taskList.get(index - 1).unsetStatus();
+        saveTasks();
     }
 
     public void storageList() {
@@ -96,6 +100,7 @@ public class Storage {
 
     public void storageClear(){
         taskList.clear();
+        saveTasks();
     }
 }
 

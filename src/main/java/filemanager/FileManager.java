@@ -49,7 +49,6 @@ public class FileManager {
             for (Task task : tasks) {
                 writer.write(task.fileFormat() + System.lineSeparator());
             }
-            System.out.println("Saving tasks to: " + new File(filePath).getAbsolutePath());
 
             writer.flush();
             writer.close();
@@ -58,40 +57,62 @@ public class FileManager {
         }
     }
 
-    private Task parseTask(String taskLine) {
-        String[] parts = taskLine.split(" \\| ");
-        String taskType = parts[0];  // T, D, or E
-        boolean isDone = parts[1].equals("1");  // "1" means done, "0" means not done
-        String description = parts[2];
+    public Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");  // Split the line by " | " delimiter
 
+        String taskType = parts[0];  // The first part tells us the task type (T, D, or E)
+        boolean isCompleted = parts[1].equals("+");  // The second part is + or - indicating completion
+
+        // Handle different task types with the correct number of parts
         switch (taskType) {
-            case "T": // Todo
-                Todo todo = new Todo(description);
-                if (isDone) {
-                    todo.setStatus();
+            case "T":
+                if (parts.length < 3) {
+                    System.out.println("Invalid ToDo task format: " + line);
+                    return null;
                 }
-                return todo;
+                String taskName = parts[2];
+                Task todoTask = new Todo(taskName);
+                if (isCompleted) {
+                    todoTask.setStatus();
+                }
+                return todoTask;
 
-            case "D": // Deadline
-                String deadline = parts[3];  // The deadline is in the 4th part
-                Deadline dl = new Deadline(description, deadline);
-                if (isDone) {
-                    dl.setStatus();
+            case "D":
+                if (parts.length < 4) {
+                    System.out.println("Invalid Deadline task format: " + line);
+                    return null;  // Skip invalid tasks
                 }
-                return dl;
+                String deadlineTaskName = parts[2];  // The third part is the task name for Deadline
+                String deadline = parts[3].replace("by ", "");  // Remove the "by" part for Deadline
+                Task deadlineTask = new Deadline(deadlineTaskName, deadline);
+                if (isCompleted) {
+                    deadlineTask.setStatus();
+                }
+                return deadlineTask;
 
-            case "E": // Event
-                String[] eventTimes = parts[3].split(" ");
-                String startTime = eventTimes[0];
-                String endTime = eventTimes[1];
-                Event event = new Event(description, startTime, endTime);
-                if (isDone) {
-                    event.setStatus();
+            case "E":
+                if (parts.length < 4) {
+                    System.out.println("Invalid Event task format: " + line);
+                    return null;  // Skip invalid tasks
                 }
-                return event;
+                String eventTaskName = parts[2];  // The third part is the task name for Event
+                String[] eventTimes = parts[3].replace("from ", "").split(" to ");  // Split start and end times
+                if (eventTimes.length < 2) {
+                    System.out.println("Invalid Event task time format: " + line);
+                    return null;  // Skip invalid tasks
+                }
+                String start = eventTimes[0];
+                String end = eventTimes[1];
+                Task eventTask = new Event(eventTaskName, start, end);
+                if (isCompleted) {
+                    eventTask.setStatus();
+                }
+                return eventTask;
 
             default:
-                return null;  // Handle unknown task type (shouldn't happen if the format is correct)
+                System.out.println("Unrecognized task format: " + line);
+                return null;
         }
     }
+
 }

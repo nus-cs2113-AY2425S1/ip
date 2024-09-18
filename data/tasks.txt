@@ -1,8 +1,1 @@
-T | - | clean
-D | - | essay | by by by by by by by tmrw
-E | - | bday | from from to from
-T | - | gym
-D | - | cs assignment | by by by by tmrw 6pm
-T | - | eat
-E | - | interview | from from to 2pm
-T | - | play
+E | - | Atul attend CS2113 lecture Friday 23 Feb 2024 | from 4 to 6pm
