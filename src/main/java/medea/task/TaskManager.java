@@ -49,8 +49,14 @@ public class TaskManager {
     }
 
     public String getTaskListString(){
+        int listSize = getSize();
+
+        if (listSize == 0){
+            return "No items currently in your task list.\n";
+        }
+
         StringBuilder output = new StringBuilder();
-        for (int index = 0; index < getSize(); index++){
+        for (int index = 0; index < listSize; index++){
             Task currentTask = taskList.get(index);
             String currentTaskString = String.format("%d. %s%n", index + 1, currentTask);
             output.append(currentTaskString);

@@ -62,9 +62,34 @@ public class CommandHandler {
     }
 
     private void writeTasksToFile(String csvString) throws IOException {
+        createFileIfNotExists(TASK_DATA_PATH);
         FileWriter fileWriter =  new FileWriter(TASK_DATA_PATH);
         fileWriter.write(csvString);
         fileWriter.close();
+    }
+
+
+    public void createFileIfNotExists(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) return;
+
+        File parentDir = file.getParentFile();
+
+        // Create directories if they don't exist
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        try {
+            // Try to create the file if it does not exist
+            if (file.createNewFile()) {
+                System.out.println("File created at: " + filePath);
+            } else {
+                System.out.println("Failed to create the file.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file.");
+        }
     }
 
     public void handleInput(String input){
