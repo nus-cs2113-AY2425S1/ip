@@ -16,11 +16,19 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+
+    public String getFromAsString() {
         return displayFormatter.format(from);
     }
 
-    public String getTo() {
+    public String getToAsString() {
         return displayFormatter.format(to);
     }
 
@@ -42,7 +50,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), getFrom(), getTo());
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), getFromAsString(), getToAsString());
     }
 
     @Override

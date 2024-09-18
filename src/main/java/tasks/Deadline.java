@@ -19,7 +19,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public String getBy() {
+    public String getByAsString() {
         return displayFormatter.format(by);
     }
 
@@ -27,9 +27,13 @@ public class Deadline extends Task {
         return saveFormatter.format(by);
     }
 
+    public LocalDate getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), getBy());
+        return String.format("[D]%s (by: %s)", super.toString(), getByAsString());
     }
 
     @Override

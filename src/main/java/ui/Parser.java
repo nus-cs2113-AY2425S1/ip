@@ -8,6 +8,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
+import commands.ShowCommand;
 import exception.InvalidCommandException;
 
 import static constants.Command.BYE_COMMAND;
@@ -17,6 +18,7 @@ import static constants.Command.DELETE_COMMAND;
 import static constants.Command.EVENT_COMMAND;
 import static constants.Command.LIST_COMMAND;
 import static constants.Command.MARK_COMMAND;
+import static constants.Command.SHOW_COMMAND;
 import static constants.Command.TASK_INDEX;
 import static constants.Command.TASK_STATUS_INDEX;
 import static constants.Command.TODO_COMMAND;
@@ -44,6 +46,7 @@ public class Parser {
             case DEADLINE_COMMAND -> new AddDeadlineCommand(trimmedInput, fromUserInput);
             case EVENT_COMMAND -> new AddEventCommand(trimmedInput, fromUserInput);
             case DELETE_COMMAND -> new DeleteCommand(trimmedInput);
+            case SHOW_COMMAND -> new ShowCommand(trimmedInput);
             default -> throw new InvalidCommandException();
         };
     }
@@ -102,5 +105,9 @@ public class Parser {
 
     public String getCommandString(String line) {
         return line.split(TASK_STATUS_DELIMITER_REGEX)[TASK_INDEX];
+    }
+
+    public String removeShowPrefix(String input) {
+        return input.replace(SHOW_COMMAND, EMPTY_REGEX).trim();
     }
 }

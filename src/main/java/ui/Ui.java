@@ -1,8 +1,11 @@
 package ui;
 
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import static constants.Message.ADD_TASK_SUCCESS_MESSAGE;
@@ -64,6 +67,33 @@ public class Ui {
             System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
         }
         printLine();
+    }
+
+    public void listTasksOfInterest(LocalDate dateOfInterest, TaskList tasks) {
+        printLine();
+        int currentTask = 0;
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            Task task = tasks.retrieveTask(i);
+            if (isDeadlineOfInterest(dateOfInterest, task) || isEventOfInterest(dateOfInterest, task)) {
+                if (currentTask == 0) {
+                    System.out.println("\tHere are your tasks of interest!");
+                }
+                System.out.printf("\t%d. %s\n", currentTask + 1, task);
+                currentTask++;
+            }
+        }
+        if (currentTask == 0) {
+            System.out.println("\tI can't seem to find any tasks that match your date of interest!");
+        }
+        printLine();
+    }
+
+    public boolean isEventOfInterest(LocalDate dateOfInterest, Task task) {
+        return task instanceof Event && (((Event) task).getFrom().equals(dateOfInterest) || ((Event) task).getTo().equals(dateOfInterest));
+    }
+
+    public boolean isDeadlineOfInterest(LocalDate dateOfInterest, Task task) {
+        return task instanceof Deadline && ((Deadline) task).getBy().equals(dateOfInterest);
     }
 
     public void printUnmarked(TaskList tasks, int index) {
