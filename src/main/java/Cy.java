@@ -168,10 +168,17 @@ public class Cy {
         return count + 1;
     }
 
-    public static int deleteItem(int count, String input) throws IllegalEmptyException{
-        input = trimString(input);
-        return count - 1;
+    public static int deleteItem(int count, String[] splitInputs) throws IllegalEmptyException{
 
+        int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
+        Task deleteItem = items.get(deleteIndex);
+
+        items.remove(deleteIndex);
+
+        printLine();
+        System.out.println("Got it. I've deleted this task:");
+        System.out.println(deleteItem.getStatusIcon() + " " + deleteItem.getDescription());
+        return count - 1;
     }
 
     public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
@@ -200,7 +207,7 @@ public class Cy {
             } else if (splitInputs[0].equalsIgnoreCase("event")) {
                 count = addEvent(count, input);
             } else if (splitInputs[0].equalsIgnoreCase("delete")){
-                count = deleteItem(count, input);
+                count = deleteItem(count, splitInputs);
             } else {
                 System.out.println("Please enter a valid command");
                 throw new IllegalCommandException();
