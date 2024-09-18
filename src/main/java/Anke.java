@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class Anke {
     static int count = 0;
@@ -20,17 +20,17 @@ public class Anke {
         return line;
     }
 
-    private static void printList(Task[] tasks) {
+    private static void printList(ArrayList<Task> tasks) {
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println("");
     }
 
     public static void main(String[] args) {
         printWelcome();
-
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
+//        Task[] tasks = new Task[100];
         String line = "";
         while (!line.equals("bye")) {
             line = getInput();
@@ -44,28 +44,30 @@ public class Anke {
         printBye();
     }
 
-    private static void handleTasks(String line, Task[] tasks) {
+    private static void handleTasks(String line, ArrayList<Task> tasks) {
         if (line.equals("list")) {
             printList(tasks);
         } else if (line.length() > 5 && line.startsWith("mark ")) {
             mark(line, tasks);
         } else if (line.length() > 7 && line.startsWith("unmark ")) {
             unmark(line, tasks);
-        } else if (line.length() > 3 && line.startsWith("todo")) {
+        } else if (line.startsWith("todo")) {
             createTodo(tasks, line);
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
             createDeadline(tasks, line);
         } else if (line.length() > 6 && line.startsWith("event ")) {
             createEvent(tasks, line);
+        } else if (line.length() > 7 && line.startsWith("delete ")) {
+            deleteTask(tasks, line);
         } else {
             handleWrongFormat();
         }
     }
 
-    private static void mark(String line, Task[] tasks) {
+    private static void mark(String line, ArrayList<Task> tasks) {
         try {
             int beginIndex = 5;
-            int index = getIndex(tasks, line, beginIndex);
+            int index = getIndex(tasks, line, beginIndex, "mark");
             markTask(tasks, index);
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid number after mark\n");
@@ -76,10 +78,10 @@ public class Anke {
         }
     }
 
-    private static void unmark(String line, Task[] tasks) {
+    private static void unmark(String line, ArrayList<Task> tasks) {
         try {
             int beginIndex = 7;
-            int index = getIndex(tasks, line, beginIndex);
+            int index = getIndex(tasks, line, beginIndex, "unmark");
             unmarkTask(tasks, index);
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid number after unmark\n");
@@ -90,24 +92,24 @@ public class Anke {
         }
     }
 
-    private static void markTask(Task[] tasks, int index) {
-        tasks[index - 1].setDone(true);
+    private static void markTask(ArrayList<Task> tasks, int index) {
+        tasks.get(index - 1).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[index - 1].toString() + "\n");
+        System.out.println(tasks.get(index - 1).toString() + "\n");
     }
 
-    private static void unmarkTask(Task[] tasks, int index) {
-        tasks[index - 1].setDone(false);
+    private static void unmarkTask(ArrayList<Task> tasks, int index) {
+        tasks.get(index - 1).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[index - 1].toString() + "\n");
+        System.out.println(tasks.get(index - 1).toString() + "\n");
     }
 
-    private static void createTask(Task[] tasks, String line) {
+    private static void createTask(ArrayList<Task> tasks, String line) {
         Task task = new Task(line);
         addTask(tasks, task);
     }
 
-    private static void createTodo(Task[] tasks, String line) {
+    private static void createTodo(ArrayList<Task> tasks, String line) {
         try{
             int beginIndex = 5;
             String taskName = getTaskName(line, beginIndex, -2);
@@ -119,7 +121,7 @@ public class Anke {
         }
     }
 
-    private static void createDeadline(Task[] tasks, String line) {
+    private static void createDeadline(ArrayList<Task> tasks, String line) {
         try {
             int beginIndex = 9;
             int byIndex = line.indexOf("/by");
@@ -133,7 +135,7 @@ public class Anke {
         }
     }
 
-    private static void createEvent(Task[] tasks, String line) {
+    private static void createEvent(ArrayList<Task> tasks, String line) {
         try {
             int beginIndex = 6;
             int fromIndex = line.indexOf("/from");
@@ -151,28 +153,32 @@ public class Anke {
         }
     }
 
-    private static void addTask(Task[] tasks, Task task) {
-        tasks[count] = task;
+    private static void addTask(ArrayList<Task> tasks, Task task) {
+//        tasks[count] = task;
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
         count++;
         System.out.println("Now you have " + count + " tasks in the list.\n");
     }
 
-    private static int getIndex(Task[] tasks, String line, int beginIndex) throws NumberFormatException, IndexOutOfRangeException, TaskSameStateException {
+    private static int getIndex(ArrayList<Task> tasks, String line, int beginIndex, String func) throws NumberFormatException, IndexOutOfRangeException, TaskSameStateException {
         try {
             int index = Integer.parseInt(line.substring(beginIndex));
             String state;
             if (index < 0 || index > count) {
                 throw new IndexOutOfRangeException();
             }
-            if (beginIndex == 5) {
+            if (func == "mark") {
                 state = "X";
-            } else {
+                if (tasks.get(index - 1).getStatusIcon() == state) {
+                    throw new TaskSameStateException();
+                }
+            } else if (func == "unmark"){
                 state = " ";
-            }
-            if (tasks[index - 1].getStatusIcon() == state) {
-                throw new TaskSameStateException();
+                if (tasks.get(index - 1).getStatusIcon() == state) {
+                    throw new TaskSameStateException();
+                }
             }
             return index;
         } catch (NumberFormatException e) {
@@ -212,5 +218,23 @@ public class Anke {
         System.out.println("todo {String s} : create todo with description {s}");
         System.out.println("deadline {String s1} /by {String s2} : create deadline with description {s1} and due date {s2}");
         System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}\n");
+        System.out.println("delete {int n} : remove task number {n} from the list");
+    }
+
+    private static void deleteTask(ArrayList<Task> tasks, String line) {
+        try {
+            int index = getIndex(tasks, line, 7, "delete");
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println(tasks.get(index - 1));
+            tasks.remove(index - 1);
+            --count;
+            System.out.println("Now you have " + count + " tasks in the list.\n");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number after delete\n");
+        } catch (IndexOutOfRangeException e) {
+            System.out.println("Please enter a task index from 1 to " + count + "\n");
+        } catch (TaskSameStateException e) {
+            System.out.println("ERROR\n"); //won't fall into this case
+        }
     }
 }
