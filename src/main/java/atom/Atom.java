@@ -29,6 +29,11 @@ public class Atom {
     }
 
     public static void printList(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("Oh oh! List is empty.");
+            return;
+        }
+
         int index = 1;
 
         System.out.println("Here is your list:\n");
