@@ -188,9 +188,10 @@ public class Monday {
     private void saveTasks() {
         try {
             File file = new File(FILE_PATH);
-            // Create the parent directory if it doesn't exist
-            file.getParentFile().mkdirs();
-
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs(); // Create the parent directories if they do not exist
+            }
             PrintWriter printWriter = new PrintWriter(new FileWriter(file));
             for (Task task : tasks) {
                 if (task instanceof Todo) {
@@ -211,6 +212,7 @@ public class Monday {
             e.printStackTrace(); // For debugging purposes
         }
     }
+
 
     private void loadTasks() {
         try {
