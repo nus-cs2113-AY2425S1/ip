@@ -12,24 +12,28 @@ public class Task {
         return isDone;
     }
 
-    public Task(String contents){
+    public Task(String contents) {
         this.task = contents;
         this.isDone = false;
     }
 
-    public String getStatusIcon(){
+    public String getTask() {
+        return task;
+    }
+
+    public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void setStatus(){
+    public void setStatus() {
         isDone = true;
     }
 
-    public void unsetStatus(){
+    public void unsetStatus() {
         isDone = false;
     }
 
-    public String getContents(){
+    public String getContents() {
         return task;
     }
 
@@ -38,4 +42,7 @@ public class Task {
         return this.task;
     }
 
+    public String fileFormat(){
+        return ("T | " + (getIsDone() ? "+" : "-") + " | " + getTask());
+    }
 }

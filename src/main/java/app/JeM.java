@@ -1,5 +1,6 @@
 package app;
 
+import filemanager.FileManager;
 import taskmanager.Storage;
 import exceptions.InvalidCommandException;
 import tasks.Task;
@@ -7,6 +8,7 @@ import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class JeM {
@@ -20,6 +22,7 @@ public class JeM {
         while (true) {
             String line = scanner.nextLine().trim();
             if (line.equalsIgnoreCase("bye")) {
+                storage.saveTasks();
                 exitChatBot();
                 break;
             }
@@ -115,6 +118,7 @@ public class JeM {
         String taskContent = line.substring(5).trim();
         Task task = new Todo(taskContent);
         storage.storageInsert(task);
+        storage.storageList();
     }
 
     private static void handleDeadlineCommand(String line, Storage storage) throws InvalidCommandException {
@@ -129,6 +133,7 @@ public class JeM {
         String deadline = parts[1].trim();
         Task task = new Deadline(taskContent, deadline);
         storage.storageInsert(task);
+        storage.storageList();
     }
 
     private static void handleEventCommand(String line, Storage storage) throws InvalidCommandException {
@@ -157,6 +162,7 @@ public class JeM {
 
         Task task = new Event(taskContent, start, end);
         storage.storageInsert(task);
+        storage.storageList();
     }
 
     private static void exitChatBot() {

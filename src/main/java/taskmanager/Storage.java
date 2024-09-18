@@ -2,21 +2,30 @@ package taskmanager;
 
 import tasks.Task;
 import tasks.Deadline;
+import tasks.Todo;
 import tasks.Event;
 import exceptions.InvalidCommandException;
 
 import java.util.ArrayList;
-import java.util.List;
+import filemanager.FileManager;
 
 
 public class Storage {
 
 
-    private List<Task> taskList;
+    private ArrayList<Task> taskList;
+    FileManager fileManager;
 
     public Storage() {
         taskList = new ArrayList<Task>();
+        fileManager = new FileManager("C:\\Users\\ASUS\\Documents\\NUS\\Yr 2 Sem 1\\CS2113\\ip\\.\\data\\tasks.txt");
+        taskList = fileManager.loadTasks();
     }
+
+    public void saveTasks() {
+        fileManager.saveTasksToFile(taskList);
+    }
+
 
     public void storageInsert(Task task) {
         taskList.add(task);
@@ -71,4 +80,6 @@ public class Storage {
             index++;
         }
     }
+
 }
+

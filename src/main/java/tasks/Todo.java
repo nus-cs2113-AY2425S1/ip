@@ -8,7 +8,7 @@ public class Todo extends Task{
 
     @Override
     public String getStatusIcon() {
-        return "[T]" + (getIsDone() ? "[X]" : "[ ]");
+        return ("[T]" + (getIsDone() ? "[X]" : "[ ]"));
     }
 
 }

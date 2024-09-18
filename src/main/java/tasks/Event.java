@@ -16,6 +16,11 @@ public class Event extends Task{
         return "[E]" + (getIsDone() ? "[X]" : "[ ]");
     }
 
+    @Override
+    public String fileFormat(){
+        return ("E | " + (getIsDone() ? "+" : "-") + " | " + getTask() + " | from " + start + " to " + end);
+    }
+
     public String getStart(){
         return this.start;
     }
