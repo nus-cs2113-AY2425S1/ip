@@ -226,7 +226,7 @@ public class Aly {
                 case "mark":
                 case "unmark":
                 case "delete":
-                    handleTasks(firstWord, splitInput, index);
+                    index = handleTasks(firstWord, splitInput, index);
                     writeTasksToFile(SAVE_FILE.toString());
                     break;
                 case "exit":
@@ -321,7 +321,7 @@ public class Aly {
         taskList.add(index, new Todo(task.trim()));
         index++;
         System.out.println("Added this task: " + task.trim());
-        System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
+        System.out.println("You have " + taskList.size() + " tasks in your list now.");
 
         return index;
     }
@@ -352,7 +352,7 @@ public class Aly {
         taskList.add(index, new Deadline(taskDeadline, taskBy));
         index++;
         System.out.println("Added this task: " + taskDeadline);
-        System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
+        System.out.println("You have " + taskList.size() + " tasks in your list now.");
 
         return index;
     }
@@ -382,7 +382,7 @@ public class Aly {
         taskList.add(index, new Event(taskEvent, taskFrom, taskTo));
         index++;
         System.out.println("Added this task: " + taskEvent);
-        System.out.println("You have " + Task.getTaskCounter() + " tasks in your list now.");
+        System.out.println("You have " + taskList.size() + " tasks in your list now.");
 
         return index;
     }
@@ -397,7 +397,7 @@ public class Aly {
     }
 
     //Handles any user inputs about toggling task status
-    private static void handleTasks(String firstWord, String[] splitInput, int index) throws IllegalFormatException, InputMismatchException {
+    private static int handleTasks(String firstWord, String[] splitInput, int index) throws IllegalFormatException, InputMismatchException {
         int indexNum;
         try {
             indexNum = Integer.parseInt(splitInput[1]);
@@ -416,13 +416,16 @@ public class Aly {
             markAsDone(firstWord, indexNum);
         } else if (firstWord.equals("delete")) {
             delete(indexNum);
+            index--;
         } else {
             throw new IllegalFormatException();
         }
+
+        return index;
     }
 
     //Reduce nested loops
-    private static void markAsDone(String firstWord, int indexNum) {
+    private static void markAsDone(String firstWord, int indexNum) throws ArrayIndexOutOfBoundsException {
         if (firstWord.equals("mark")) {
             taskList.get(indexNum - 1).setDone(true);
             System.out.println("\"" + taskList.get(indexNum - 1).getDescription() + "\" marked as done!");
@@ -436,6 +439,7 @@ public class Aly {
     private static void delete(int indexNum) {
         System.out.println("Deleted this task: " + taskList.get(indexNum - 1).getDescription());
         taskList.remove(indexNum - 1);
+        System.out.println("You have " + taskList.size() + " tasks in your list now.");
     }
 
     //Start of Aly chatbot
