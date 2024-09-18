@@ -4,16 +4,11 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    private int taskNumber;
-    private Task[] tasks;
     private Storage storage;
 
     //Using ArrayList instead of Array
     public TaskList(){
         tasks = new ArrayList<>();
-    public TaskList() {
-        taskNumber = 0;
-        tasks = new Task[100];
         storage = new Storage();
         loadTasks();
     }
@@ -28,11 +23,7 @@ public class TaskList {
      * @param task Name of the task is added.
      */
     public void storeTask(Task task) {
-        if (taskNumber >= tasks.length) {
-            return;
-        }
-        tasks[taskNumber] = task;
-        taskNumber += 1;
+        tasks.add(task);
         saveTasks();
     }
 
@@ -98,15 +89,13 @@ public class TaskList {
     }
 
     public void saveTasks() {
-        storage.saveTasks(tasks, taskNumber);
+        storage.saveTasks(tasks);
     }
 
     public void loadTasks() {
-        Task[] loadedTasks = storage.loadTasks();
-        for (Task task : loadedTasks) {
-            if (task != null) {
-                tasks[taskNumber++] = task;
-            }
+        ArrayList<Task> loadedTasks = storage.loadTasks();
+        if (loadedTasks != null) {
+            tasks.addAll(loadedTasks);
         }
     }
 }
