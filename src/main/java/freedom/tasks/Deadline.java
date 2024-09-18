@@ -8,6 +8,7 @@ public class Deadline extends Task{
 
     public Deadline(String description) throws Exception {
         super(description);
+        this.type = "D";
         final int DESCRIPTION_INDEX = 0;
         final int DONE_BY_INDEX = 1;
 
@@ -35,6 +36,13 @@ public class Deadline extends Task{
             System.out.println(LOGO);
             throw new Exception("No deadline given");
         }
+    }
+
+    public Deadline(String description, boolean isDone, String doneBy) {
+        super(description);
+        this.type = "D";
+        this.isDone = isDone;
+        setDoneBy(doneBy);
     }
 
     public void setDoneBy(String doneBy) {

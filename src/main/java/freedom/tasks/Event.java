@@ -9,6 +9,7 @@ public class Event extends Task{
 
     public Event(String description) throws Exception {
         super(description);
+        this.type = "E";
         final int DESCRIPTION_INDEX = 0;
         final int FROM_INDEX = 1;
         final int TO_INDEX = 2;
@@ -38,6 +39,14 @@ public class Event extends Task{
             System.out.println(LOGO);
             throw new Exception("No from/to time given");
         }
+    }
+
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description);
+        this.type = "E";
+        this.isDone = isDone;
+        setFrom(from);
+        setTo(to);
     }
 
     public void setFrom(String from) {
