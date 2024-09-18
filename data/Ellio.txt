@@ -1,5 +1,4 @@
  e | 1 | project meeting | from: Aug 6th | to: later
  t | 0 | readbook
  d | 1 | return book | by: June 6th
- t | 0 | new task
  d | 0 | CS2113 IP | by: Friday

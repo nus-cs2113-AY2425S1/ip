@@ -5,7 +5,6 @@ import ellio.task.Event;
 import ellio.task.Task;
 import ellio.task.Todo;
 
-import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -87,6 +86,25 @@ public class Ellio {
             FileWriter fw = new FileWriter(saveFile, true);
             fw.write( System.lineSeparator() + savedTask);
             fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateSavedTaskFile(){
+        if(listTasks.isEmpty()){
+            return;
+        }
+
+        String updatedTasksForSaveFile = listTasks.get(0).getSaveFileTask();
+        for(int i = 1; i < listTasks.size(); i++){
+            updatedTasksForSaveFile += System.lineSeparator() + listTasks.get(i).getSaveFileTask();
+        }
+        try{
+            FileWriter fw = new FileWriter(saveFile);
+            fw.write(updatedTasksForSaveFile);
+            fw.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -215,6 +233,7 @@ public class Ellio {
         System.out.println(BotText.lineBorder + "Got it. I've removed this task:\n  " + deletedTask.getTask());
         listTasks.remove(index-1);
         numberTask--;
+        updateSavedTaskFile();
         System.out.println("Now you have " + numberTask + " tasks in the list.\n" + BotText.lineBorder);
     }
 
