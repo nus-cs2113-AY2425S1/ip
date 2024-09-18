@@ -24,7 +24,7 @@ public class Jeff {
 
     //Constants
     public static final String DIVIDER = "____________________________________________________________";
-    public static final String  introText = """
+    public static final String INTRO_TEXT = """
                 ____________________________________________________________
                 Hello! I'm JEFF!!!
                 
@@ -36,6 +36,7 @@ public class Jeff {
                 List of commands I support!!!!
                 Type 'list' to display everything you've said!
                 Type 'mark'/'unmark' to change the status of inputted tasks!
+                Type 'delete' to delete a task in the list!
                 Type 'bye' to exit!
                 
                 Follow the above formats closely!
@@ -44,7 +45,7 @@ public class Jeff {
                 ____________________________________________________________
                 """;
 
-    public static final String exitText = """
+    public static final String EXIT_TEXT = """
                 ____________________________________________________________
                 Bye. Hope to see you again soon!
                 ____________________________________________________________
@@ -60,6 +61,12 @@ public class Jeff {
     public static final int TODO_FILE_FIELD_LENGTH = 3;
     public static final int DEADLINE_FILE_FIELD_LENGTH = 4;
     public static final int EVENT_FILE_FIELD_LENGTH = 5;
+
+    private static final int FILETASK_TASK_INDEX = 0;
+    private static final int FILETASK_MARK_INDEX = 1;
+    private static final int FILETASK_DESC_INDEX = 2;
+    private static final int FILETASK_FIELD1_INDEX = 3;
+    private static final int FILETASK_FIELD2_INDEX = 4;
 
     //Prints out lists of tasks
     public static void printList(){
@@ -90,34 +97,34 @@ public class Jeff {
     public static void markTask(String firstWord, String line) {
         try {
             int taskNumber = getTaskNumber(line);
-            Task t = taskList.get(taskNumber - 1);
+            Task task = taskList.get(taskNumber - 1);
             if(firstWord.equals("mark")) {
-                t.setIsDone(true);
+                task.setIsDone(true);
                 System.out.print("ogei marked task dOnE");
             }
             else{
-                t.setIsDone(false);
+                task.setIsDone(false);
                 System.out.print("womp womp task not finished :(");
             }
-            System.out.print(System.lineSeparator() + t);
-        } catch(IllegalArgumentException e) {
+            System.out.print(System.lineSeparator() + task);
+        } catch(IllegalArgumentException errorMessage) {
             System.out.print("can u plsplspls give me a number!!!");
-        } catch(IndexOutOfBoundsException e){
+        } catch(IndexOutOfBoundsException errorMessage){
             System.out.print("u tryna mark a task number that isn't in the list...");
         }
     }
 
     //Deletes the specified task, catches any error thrown
-    private static void deleteTask(String firstWord, String line) {
+    private static void deleteTask(String line) {
         try {
             int taskNumber = getTaskNumber(line);
-            Task t = taskList.get(taskNumber - 1);
+            Task task = taskList.get(taskNumber - 1);
             taskList.remove(taskNumber - 1);
             System.out.print("i have reeeemoved the taskkk: " +
-                    System.lineSeparator() + t);
-        } catch(IllegalArgumentException e) {
+                    System.lineSeparator() + task);
+        } catch(IllegalArgumentException errorMessage) {
             System.out.print("eh how to delete a non-number task...");
-        } catch(IndexOutOfBoundsException e){
+        } catch(IndexOutOfBoundsException errorMessage){
             System.out.print("how to delete a non-existent task...");
         }
         System.out.print(System.lineSeparator() +
@@ -139,26 +146,21 @@ public class Jeff {
             markTask(firstWord, line);
             break;
         case "delete":
-            deleteTask(firstWord, line);
+            deleteTask(line);
             break;
         default:
             System.out.print("Some command not processed...");
         }
     }
 
-    //Returns the description of a task, returns an empty string otherwise
+    //Returns the description of a task
     public static String processTaskDescription(String line , int start, int end){
         //If the task fields are empty, set the end number to the length of the line
         if(start > end){
             end = line.length();
         }
         //Remove the empty space before the description
-        String description = line.substring(start, end).trim();
-        //Ensuring the description is not just empty spaces
-        if(description.isEmpty()){
-            return "";
-        }
-        return description;
+        return line.substring(start, end).trim();
     }
 
     //Returns the field of the task, returns an empty string otherwise
@@ -238,37 +240,37 @@ public class Jeff {
 
     //Creates new objects based on the type of tasks
     public static void processTasks(String firstWord, String line) {
-        Task t;
+        Task task;
         try {
             switch (firstWord) {
             case "todo":
-                t = processTodo(line);
+                task = processTodo(line);
                 break;
             case "deadline":
-                t = processDeadline(line);
+                task = processDeadline(line);
                 break;
             case "event":
-                t = processEvent(line);
+                task = processEvent(line);
                 break;
             default:
-                t = null;
+                task = null;
                 break;
             }
 
             //Adding the different tasks to taskList once processed.
-            taskList.add(t);
+            taskList.add(task);
 
             //Prints the following text if the user inputs the task with the correct fields
             System.out.print("Haiyaa the following task needs to be done:" + System.lineSeparator()
-                    + "  " + t + System.lineSeparator() +
+                    + "  " + task + System.lineSeparator() +
                     "Now you have " + taskList.size() + " task(s) in ur list");
 
         //Otherwise it will print what the user has done wrong, and how to rectify it
-        } catch (TaskDescriptionException e) {
-            System.out.print("Oi!!! Your " + e.getMessage() + " must have a description la...");
-        } catch (TaskFieldException e) {
-            System.out.print("walao eh... your task is missing " + e.getMessage() + " " + "field(s) la..." +
-                    " follow the format can anot");
+        } catch (TaskDescriptionException errorMessage) {
+            System.out.print("Oi!!! Your " + errorMessage.getMessage() + " must have a description la...");
+        } catch (TaskFieldException errorMessage) {
+            System.out.print("walao eh... your task is missing " + errorMessage.getMessage()
+                    + " " + "field(s) la..." + " follow the format can anot");
         }
     }
 
@@ -334,7 +336,7 @@ public class Jeff {
     //Adds todo from txt file to taskList
     private static void processFileTodo(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == TODO_FILE_FIELD_LENGTH) {
-            taskList.add(new Todo(taskDetails[2]));
+            taskList.add(new Todo(taskDetails[FILETASK_DESC_INDEX]));
         } else {
             throw new InvalidFormatException("todo");
         }
@@ -343,7 +345,7 @@ public class Jeff {
     //Adds Deadline from txt file to taskList
     private static void processFileDeadline(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == DEADLINE_FILE_FIELD_LENGTH) {
-            taskList.add(new Deadline(taskDetails[2], taskDetails[3]));
+            taskList.add(new Deadline(taskDetails[FILETASK_DESC_INDEX], taskDetails[FILETASK_FIELD1_INDEX]));
         } else {
             throw new InvalidFormatException("deadline");
         }
@@ -352,7 +354,8 @@ public class Jeff {
     //Adds Event from txt file to taskList
     private static void processFileEvent(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == EVENT_FILE_FIELD_LENGTH) {
-            taskList.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+            taskList.add(new Event(taskDetails[FILETASK_DESC_INDEX], taskDetails[FILETASK_FIELD1_INDEX],
+                    taskDetails[FILETASK_FIELD2_INDEX]));
         } else {
             throw new InvalidFormatException("event");
         }
@@ -360,7 +363,7 @@ public class Jeff {
 
     //Processes the different task types from txt file
     private static void processFileTaskTypes(String[] taskDetails) throws InvalidFormatException {
-        String taskType = taskDetails[0];
+        String taskType = taskDetails[FILETASK_TASK_INDEX];
 
         switch (taskType) {
         case "T":
@@ -400,13 +403,13 @@ public class Jeff {
             //Processes different the different task types and add them to taskList if valid
             processFileTaskTypes(taskDetails);
 
-            if (taskDetails[1].equals("1")) {
+            if (taskDetails[FILETASK_MARK_INDEX].equals("1")) {
                 taskList.get(taskList.size() - 1).setIsDone(true);
-                System.out.println(taskList.get(taskList.size() - 1));
             }
-        } catch (InvalidFormatException e) {
-            System.out.print("Invalid input error: " + e.getMessage() + System.lineSeparator() +
-                    "Input was: " + taskLine);
+        } catch (InvalidFormatException errorMessage) {
+            System.out.print("An error occurred while loading the task list." + System.lineSeparator() +
+                    "Invalid input error: " + errorMessage.getMessage() + System.lineSeparator() +
+                    "Text File input was: " + taskLine);
         }
     }
 
@@ -446,8 +449,8 @@ public class Jeff {
         //Loads taskList from hard drive
         loadTaskList();
 
-        System.out.print(introText);
+        System.out.print(INTRO_TEXT);
         runBot();
-        System.out.println(exitText);
+        System.out.println(EXIT_TEXT);
     }
 }
