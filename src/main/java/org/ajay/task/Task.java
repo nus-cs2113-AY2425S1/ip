@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.ajay.exceptions.EmptyArgumentException;
 import org.ajay.exceptions.Error;
 
-public class Task {
+public abstract class Task {
     public final static String MARK_COMMAND_STRING = "mark";
     public final static String UNMARK_COMMAND_STRING = "unmark";
     public final static String LIST_COMMAND_STRING = "list";
@@ -83,7 +83,6 @@ public class Task {
         this.isDone = true;
 
         System.out.println("Nice! I've marked this task as done: \n  " + toString());
-
     }
 
     /**
@@ -107,8 +106,7 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
 
-        System.out.print("OK, I've marked this task as not done yet: \n  ");
-        this.toString();
+        System.out.println("OK, I've marked this task as not done yet: \n  " + this.toString());
     }
 
     /**
@@ -151,6 +149,10 @@ public class Task {
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
+
+    public abstract String saveTaskString();
+
+    // public abstract String loadTaskString();
 
     /**
      * Prints all the tasks in the list.

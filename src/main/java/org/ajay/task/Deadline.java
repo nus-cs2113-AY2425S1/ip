@@ -8,6 +8,7 @@ public class Deadline extends Task {
     public final static String COMMAND_STRING = "deadline";
     final static String BY_KEYWORD_STRING = "/by";
     protected String by;
+    public final static String TASK_STRING = "D";
 
     /**
      * Constructor for the Deadline class.
@@ -25,6 +26,7 @@ public class Deadline extends Task {
         Task.printNumberOfTasks();
     }
 
+
     /**
      * Constructor for the Deadline class.
      *
@@ -38,6 +40,12 @@ public class Deadline extends Task {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this.toString());
         Task.printNumberOfTasks();
+    }
+
+    public Deadline(boolean isDone, String description, String by) throws EmptyArgumentException {
+        super(description);
+        setBy(by);
+        super.setDoneState(isDone);
     }
 
     /**
@@ -95,7 +103,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveTaskString() {
+        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + by;
+    }
+
+    public static Deadline loadTaskString(boolean isDone, String description, String by) throws EmptyArgumentException {
+        Deadline deadline = new Deadline(isDone, description, by);
+        return deadline;
+    }
+
+
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + TASK_STRING + "]" + super.toString() + " (by: " + by + ")";
     }
 }
