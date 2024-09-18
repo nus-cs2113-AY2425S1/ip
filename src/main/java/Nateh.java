@@ -3,30 +3,32 @@ import classes.Event;
 import classes.Task;
 import classes.Todo;
 import exceptions.IllegalCommandException;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nateh {
     
-    public static void printList(Task[] list, int length) {
+    public static void printList(ArrayList<Task> list) {
         System.out.print(Skeleton.LINE_BREAK);
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.print(i + 1 + ". ");
-            list[i].print();
+            list.get(i).print();
         }
         System.out.print(Skeleton.LINE_BREAK);
     }
 
-    public static void handleMark(String[] splitInput, Task[] list) {
+    public static void handleMark(String[] splitInput, ArrayList<Task> list) {
         try {
             int index;
             index = Integer.parseInt(splitInput[1]) - 1;
-            if (Task.getLength() == 0) {
+            if (list.isEmpty()) {
                 throw new NullPointerException();
             }
-            list[index].setDone(true);
+            list.get(index).setDone(true);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Wow! Great job! :)");
-            list[index].print();
+            list.get(index).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (NumberFormatException e) {
             System.out.print(Skeleton.LINE_BREAK);
@@ -45,17 +47,17 @@ public class Nateh {
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
-    private static void handleUnmark(String[] splitInput, Task[] list) {
+    public static void handleUnmark(String[] splitInput, ArrayList<Task> list) {
         try {
             int index;
             index = Integer.parseInt(splitInput[1]) - 1;
-            if (Task.getLength() == 0) {
+            if (list.isEmpty()) {
                 throw new NullPointerException();
             }
-            list[index].setDone(false);
+            list.get(index).setDone(false);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Aw you didn't get to finish. :(");
-            list[index].print();
+            list.get(index).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (NumberFormatException e) {
             System.out.print(Skeleton.LINE_BREAK);
@@ -74,11 +76,11 @@ public class Nateh {
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
-    private static void handleTodo(Task[] list, String input) {
+    public static void handleTodo(ArrayList<Task> list, String input) {
         try {
-            list[Task.getLength()] = new Todo(input);
+            list.addLast(new Todo(input));
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("added: " + list[Task.getLength() - 1].getTask());
+            System.out.println("added: " + list.getLast().getTask());
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -87,12 +89,12 @@ public class Nateh {
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
-    private static void handleDeadline(Task[] list, String input) {
+    public static void handleDeadline(ArrayList<Task> list, String input) {
         try {
-            list[Task.getLength()] = new Deadlines(input);
+            list.addLast(new Deadlines(input));
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
-            list[Task.getLength() - 1].print();
+            list.getLast().print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -101,12 +103,12 @@ public class Nateh {
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
-    private static void handleEvent(Task[] list, String input) {
+    public static void handleEvent(ArrayList<Task> list, String input) {
         try {
-            list[Task.getLength()] = new Event(input);
+            list.addLast(new Event(input));
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
-            list[Task.getLength() - 1].print();
+            list.getLast().print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
@@ -115,7 +117,23 @@ public class Nateh {
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
-    private static void handleInvalid() throws IllegalCommandException{
+    public static void handleDelete(ArrayList<Task> list, int index) {
+        try {
+            Task temp = list.get(index);
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Okay. I've deleted the task:");
+            temp.print();
+            System.out.printf("Now you have %d tasks\n", list.size());
+            System.out.print(Skeleton.LINE_BREAK);
+            list.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
+            System.out.print(Skeleton.LINE_BREAK);
+        }
+    }
+
+    public static void handleInvalid() throws IllegalCommandException{
         throw new IllegalCommandException();
     }
     
@@ -123,8 +141,7 @@ public class Nateh {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String input = "";
-        Task[] list = new Task[100];
-        list[0] = new Task();
+        ArrayList<Task> list = new ArrayList<>();
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(Skeleton.SKELETON);
@@ -135,7 +152,7 @@ public class Nateh {
             try {
                 switch (splitInput[0]) {
                 case "list":
-                    printList(list, Task.getLength());
+                    printList(list);
                     break;
                 case "mark":
                     handleMark(splitInput, list);
@@ -156,6 +173,9 @@ public class Nateh {
                     break;
                 case "event":
                     handleEvent(list, input);
+                    break;
+                case "delete":
+                    handleDelete(list, Integer.parseInt(splitInput[1]) - 1);
                     break;
                 default:
                     handleInvalid();
