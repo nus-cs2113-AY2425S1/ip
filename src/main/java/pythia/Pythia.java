@@ -74,14 +74,25 @@ public class Pythia {
     public static void markTask(Integer taskNumber) {
         if (taskNumber <= taskList.size()) {
             taskList.get(taskNumber - 1).markAsDone();
-            String msg = "Nice! I've marked this pythia.task as done:\n\t" + taskList.get(taskNumber - 1).toString();
+            String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
             IO.printResponse(msg);
         } else {
-            IO.printResponse("There is no such pythia.task :(");
+            IO.printResponse("There is no such task :(");
         }
         remainingTasks--;
     }
-    
+
+    public static void deleteTask(Integer taskNumber) {
+        if (taskNumber <= taskList.size()) {
+            String msg = "Nice! I've deleted this task:\n\t" + taskList.get(taskNumber - 1).toString();
+            taskList.remove(taskNumber - 1);
+            IO.printResponse(msg);
+        } else {
+            IO.printResponse("There is no such task :(");
+        }
+        remainingTasks--;
+    }
+
     public static void main(String[] args) {
         IO.init();
         greet();
