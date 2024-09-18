@@ -232,12 +232,13 @@ public class XiaoMe {
 
                         tasks.remove(index);
 
-
                         System.out.println("\t____________________________________________________________\n"
                                 + "\tNoted. I've removed this task:\n"
                                 + "\t\t" + temp + "\n"
                                 + "\tNow you have " + tasks.size() + " tasks in the list.\n"
                                 + "\t____________________________________________________________\n");
+
+                        Save.saveFile();
 
                     } catch (NumberFormatException e) {
                         System.out.println("""
