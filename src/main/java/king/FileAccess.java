@@ -36,36 +36,43 @@ public class FileAccess {
         }
     }
 
-    protected static ArrayList<Task> readFile() throws IOException {
+    protected static ArrayList<Task> readFile() throws IOException, KingException {
         if (!checkFile()) {
             createNewFile();
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        File f = new File(defaultFilePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        String[] taskDetails;
+        try {
 
-        while (s.hasNext()) {
-            String task = s.nextLine();
-            taskDetails = task.split("\\|");
+            ArrayList<Task> tasks = new ArrayList<>();
+            File f = new File(defaultFilePath); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            String[] taskDetails;
 
-            if (taskDetails[0].equals("[T]")) {
-                Todo t = new Todo(taskDetails[2]);
-                t.isDone = taskDetails[1].equals("true");
-                tasks.add(t);
+            while (s.hasNext()) {
+                String task = s.nextLine();
+                taskDetails = task.split("\\|");
 
-            } else if (taskDetails[0].equals("[D]")) {
-                Deadline d = new Deadline(taskDetails[2], taskDetails[4]);
-                d.isDone = taskDetails[1].equals("true");
-                tasks.add(d);
+                if (taskDetails[0].equals("[T]")) {
+                    Todo t = new Todo(taskDetails[2]);
+                    t.isDone = taskDetails[1].equals("true");
+                    tasks.add(t);
 
-            } else if (taskDetails[0].equals("[E]")) {
-                Event e = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                e.isDone = taskDetails[1].equals("true");
-                tasks.add(e);
+                } else if (taskDetails[0].equals("[D]")) {
+                    Deadline d = new Deadline(taskDetails[2], taskDetails[4]);
+                    d.isDone = taskDetails[1].equals("true");
+                    tasks.add(d);
+
+                } else if (taskDetails[0].equals("[E]")) {
+                    Event e = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                    e.isDone = taskDetails[1].equals("true");
+                    tasks.add(e);
+                }
+
             }
-
+        } catch (Exception e) {
+            deleteFile();
+            createNewFile();
+            throw new KingException("The saved file is corrupted! Clearing the file now...");
         }
         return tasks;
     }

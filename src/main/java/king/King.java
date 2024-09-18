@@ -20,10 +20,14 @@ public class King {
         System.out.println("\nHello from\n" + logo);
 
         if (FileAccess.checkFile()) {
-            tasks = FileAccess.readFile();
-            tasksCount += tasks.size();
-            System.out.println("Welcome back! You have tasks saved previously.");
-            printList();
+            try {
+                tasks = FileAccess.readFile();
+                tasksCount += tasks.size();
+                System.out.println("Welcome back! You have tasks saved previously.");
+                printList();
+            } catch (KingException e) {
+                System.out.println(e.getMessage() + LINE);
+            }
         } else {
             FileAccess.readFile();
             System.out.println(" Hello! I'm " + NAME + "\n" +
