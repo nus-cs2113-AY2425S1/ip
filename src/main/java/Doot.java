@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.FileOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -24,34 +25,26 @@ public class Doot {
         }
         System.out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
         scanner.close();
-
-        saveTaskData();
-    }
-
-    public static void saveTaskData() {
-
-        try {
-            FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
-            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
-            for (Task task : taskList) {
-                objectWriter.writeObject(task);
-            }
-            objectWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
     }
 
     public static void loadTaskData() {
         try {
             FileInputStream fileReader = new FileInputStream(FILE_NAME);
             ObjectInputStream objectReader = new ObjectInputStream(fileReader);
+            boolean fileHasData = true;
+            while (fileHasData) {
+                try {
+                    Object taskToAdd = objectReader.readObject();
+                    taskList[taskIdx] = (Task) taskToAdd;
+                    taskIdx++;
+                } catch (EOFException e) {
+                    fileHasData = false;
+            }
             objectReader.close();
             fileReader.close();
 
-        } catch (IOException e) {
-            System.out.println(e.toString());
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
         }
 
     }
