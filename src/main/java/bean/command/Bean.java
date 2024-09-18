@@ -138,7 +138,10 @@ public class Bean {
         }
     }
 
-    public static void deleteTask(int taskNum) {
+    public static void deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
+        if (taskNum < 0 || taskNum > tasks.size()) {
+            throw new TaskNumOutOfBoundsException();
+        }
         int taskIndex = taskNum - 1;
         tasks.remove(taskIndex);
         printFormattedReply(INDENT + "Deleted task: " + tasks.get(taskIndex) + ".");
