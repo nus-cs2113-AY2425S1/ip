@@ -1,17 +1,21 @@
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String DIRECTORY_PATH = "./src/main/data";
-    private static final String FILE_PATH = "C:/Users/Dell/Desktop/ip/data/sleepy.txt";
+    private static final String DIRECTORY_NAME = "data";
+    private static final String FILE_PATH = "sleepy.txt";
 
     //creates file if is empty
     public Storage() {
-        File dir = new File(DIRECTORY_PATH);
+        String directoryPath = Paths.get("").toAbsolutePath() + File.separator + DIRECTORY_NAME;
+        String filePath = directoryPath + File.separator + FILE_PATH;
+
+        File dir = new File(directoryPath);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         try {
             if (!file.exists()) {
                 file.createNewFile();
