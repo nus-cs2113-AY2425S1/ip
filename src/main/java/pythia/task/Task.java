@@ -1,6 +1,6 @@
 package pythia.task;
 
-public class Task {
+public class Task implements Savable {
     private String name;
     private boolean isDone;
 
@@ -32,5 +32,10 @@ public class Task {
         } else {
             return "[X] " + name;
         }
+    }
+
+    @Override
+    public String toTxt() {
+        return (isDone ? "1" : "0") + " | " + name;
     }
 }
