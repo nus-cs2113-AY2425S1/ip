@@ -1,3 +1,4 @@
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,10 +17,12 @@ public class PlopBot {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Task> tasks;
     private static String userName;
+    //private static final String DATA_DIR = "./data";
+    //private static final String DATA_FILE = DATA_DIR + "/plopBot.txt";
 
     public static void main(String[] args) {
         welcomeMessage();
-        tasks = new ArrayList<>();
+        tasks = loadTasks();
         inputReader();
     }
 
@@ -360,6 +363,16 @@ public class PlopBot {
         System.out.println(ECHO_LINE);
         System.out.println("    Oops! " + message);
         System.out.println(ECHO_LINE);
+    }
+
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> loadedTasks = new ArrayList<>();
+
+        return loadedTasks;
+    }
+
+    private static void saveTasks() {
+
     }
 
     /**
