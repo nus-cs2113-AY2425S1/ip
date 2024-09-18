@@ -8,6 +8,13 @@ public class TaskList {
     private final ArrayList<Task> list = new ArrayList<>();
 
     /**
+     * Returns index of item in TaskList
+     */
+    public Task getTask(int index) {
+        return list.get(index);
+    }
+
+    /**
      * Returns size of TaskList
      */
     public int size() {
@@ -38,6 +45,20 @@ public class TaskList {
             throw new IllegalArgumentException("Cannot add a null task to the list.");
         }
         this.list.add(task);
+    }
+
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index The index of the task to be deleted (0-based).
+     * @return The deleted Task object.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
+    public Task deleteItem(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= list.size()) {
+            throw new IndexOutOfBoundsException("Task index out of range: " + (index + 1));
+        }
+        return list.remove(index);
     }
 
     /**

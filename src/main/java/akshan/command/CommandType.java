@@ -10,7 +10,8 @@ public enum CommandType {
     UNMARK("unmark"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    DELETE("delete");
 
     private final String command;
 
