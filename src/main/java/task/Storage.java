@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private static final String FILE_PATH = "./data/test.txt";
 
-    public void saveTasks(Task[] tasks, int taskNumber) {
+    public void saveTasks(ArrayList<Task> tasks) {
         try {
             File f = new File(FILE_PATH);
             File directory = f.getParentFile();
@@ -18,8 +19,8 @@ public class Storage {
                 directory.mkdirs();
             }
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (int i = 0; i < taskNumber; i++) {
-                fw.write(tasks[i].toFileFormat());
+            for (Task task : tasks) {
+                fw.write(task.toFileFormat());
                 fw.append("\n");
             }
             fw.close();
@@ -28,10 +29,9 @@ public class Storage {
         }
     }
 
-    public Task[] loadTasks() {
+    public ArrayList<Task> loadTasks() {
         File file = new File(FILE_PATH);
-        Task[] tasks = new Task[100];
-        int taskNumber = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
             return tasks;
@@ -41,8 +41,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 Task task = Task.getFileFormat(line);
-                tasks[taskNumber] = task;
-                taskNumber++;
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found");
@@ -50,7 +49,4 @@ public class Storage {
 
         return tasks;
     }
-
-
 }
-
