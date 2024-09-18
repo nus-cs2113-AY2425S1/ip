@@ -16,4 +16,5 @@ abstract class Task {
         this.isDone = isDone;
     }
     public abstract String toString();
+    public abstract String toFileString();
 }

@@ -1,8 +1,10 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Poirot {
     public static final String LINE = "____________________________________________________________\n";
     private static Task[] tasks = new Task[100];
+    private static final String FILE_PATH = "./data/duke.txt";
     private static int last_index = 0;
 
     public static void echo(String msg) {
@@ -32,6 +34,65 @@ public class Poirot {
         System.out.println("  " + task);
         System.out.println("Now you have " + last_index + " tasks in the list.");
         System.out.println(LINE);
+        saveTasksToFile();
+    }
+
+    public static void saveTasksToFile() {
+        try {
+            File dir = new File("./data");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (int i = 0; i < last_index; i++) {
+                writer.write(tasks[i].toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return; // No file to load from
+            }
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        add(new Todo(description));
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        add(new Deadline(description, by));
+                        break;
+                    case "E":
+                        String from = parts[3];
+                        String to = parts[4];
+                        add(new Event(description, from, to));
+                        break;
+                    default:
+                        System.out.println("Corrupted data: " + line);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found.");
+        }
+    }
+
+    public static void markTask(int index, boolean isDone) {
+        tasks[index].setDone(isDone);
+        saveTasksToFile();
     }
 
     public static void main(String[] args) {
@@ -39,6 +100,9 @@ public class Poirot {
         System.out.println("Hello! I'm POIROT\n");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
+
+        loadTasksFromFile();
+
         boolean working = true;
         Scanner scan = new Scanner(System.in);
         while (working) {
@@ -61,6 +125,7 @@ public class Poirot {
                         System.out.print("[" + tasks[x].getStatusIcon() + "] ");
                         System.out.println(tasks[x].getDescription());
                         System.out.println(LINE);
+                        saveTasksToFile(); // Save the task after marking it
                         break;
                     case "unmark":
                         validateTaskNumber(list_input);
@@ -71,6 +136,7 @@ public class Poirot {
                         System.out.print("[" + tasks[y].getStatusIcon() + "] ");
                         System.out.println(tasks[y].getDescription());
                         System.out.println(LINE);
+                        saveTasksToFile();
                         break;
                     case "todo":
                         if (input.trim().length() <= 5) {
