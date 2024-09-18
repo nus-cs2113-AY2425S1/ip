@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import akshan.task.TaskList;
 import akshan.task.Task;
@@ -14,13 +16,13 @@ import akshan.task.Event;
 
 public class StorageHandler {
     private static File storage;
-    private final static String STORAGE_FOLDER_PATH = "./data";
-    private final static String STORAGE_PATH = "./data/akshan.txt";
-    private final static String SEPARATOR = " <-> ";
+    private static final Path STORAGE_FOLDER_PATH = Paths.get("data");
+    private static final Path STORAGE_PATH = STORAGE_FOLDER_PATH.resolve("akshan.txt");
+    private static final String SEPARATOR = " <-> ";
 
     public StorageHandler(TaskList taskList) throws IOException {
         // Create data folder if it does not exist
-        File storageFolder = new File(STORAGE_FOLDER_PATH);
+        File storageFolder = new File(String.valueOf(STORAGE_FOLDER_PATH));
         if (!storageFolder.exists()) {
             System.out.println("No data folder found, creating new data folder...");
             if (!storageFolder.mkdir()) {
@@ -32,7 +34,7 @@ public class StorageHandler {
         }
 
         // Create data file if it does not exist
-        storage = new File(STORAGE_PATH);
+        storage = new File(String.valueOf(STORAGE_PATH));
         if (!storage.exists()) {
             System.out.println("No data file found, creating new data folder...");
             if (!storage.createNewFile()) {
@@ -88,7 +90,7 @@ public class StorageHandler {
 
     public void saveData(TaskList taskList) throws IOException {
         try {
-            FileWriter fw = new FileWriter(STORAGE_PATH);
+            FileWriter fw = new FileWriter(String.valueOf(STORAGE_PATH));
 
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.getTask(i);
