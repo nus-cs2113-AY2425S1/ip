@@ -70,6 +70,8 @@ public class JeM {
             handleDeadlineCommand(line, storage);
         } else if (line.toLowerCase().startsWith("event")) {
             handleEventCommand(line, storage);
+        }else if (line.toLowerCase().startsWith("clear")) {
+            handleClearCommand(storage);
         }else {
             System.out.println("Unknown command: " + line);
         }
@@ -82,10 +84,15 @@ public class JeM {
         }
         int index = Integer.parseInt(parts[1]);
         System.out.println("I have removed this task: ");
+        storage.storagePrintTask(index);
         storage.storageDelete(index);
         storage.storageList();
     }
 
+    private static void handleClearCommand(Storage storage) {
+        storage.storageClear();
+        System.out.println("Your Task list is empty");
+    }
 
     private static void handleUnmarkCommand(String line, Storage storage) throws InvalidCommandException {
         String[] parts = line.split(" ");

@@ -71,4 +71,20 @@ public class Storage {
             index++;
         }
     }
+
+    public void storagePrintTask(int index){
+        Task task = taskList.get(index - 1);
+        if (task instanceof Deadline) {
+            System.out.println((index) + "." + task.getStatusIcon() + " " + task + " (by: " + ((Deadline) task).getDeadline() + ")");
+        }else if (task instanceof Event) {
+            System.out.println((index) + "." + task.getStatusIcon() + " " + task + " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
+        }else{
+            System.out.println((index) + "." + task.getStatusIcon() + " " + task);
+        }
+    }
+
+
+    public void storageClear(){
+        taskList.clear();
+    }
 }
