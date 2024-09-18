@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import archibald.task.Deadline;
 import archibald.task.Event;
@@ -17,8 +19,7 @@ class ArchibaldException extends Exception {
 
 public class Archibald {
 
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void printArchibaldResponse(String message) {
         System.out.println("____________________________________________________________");
@@ -28,10 +29,6 @@ public class Archibald {
 
     public static void addTask(String input) {
         try {
-            if (taskCount >= tasks.length) {
-                throw new ArchibaldException("Error: Task list is full!");
-            }
-    
             String[] parts = input.split(" ", 2);
             String type = parts[0].toLowerCase();
     
@@ -41,45 +38,45 @@ public class Archibald {
                 }
             }
     
+            Task newTask;
             switch (type) {
                 case "todo":
-                    tasks[taskCount++] = new Todo(parts[1]);
+                    newTask = new Todo(parts[1]);
                     break;
                 case "deadline":
                     String[] deadlineParts = parts[1].split(" /by ", 2);
                     if (deadlineParts.length < 2) {
                         throw new ArchibaldException("Error: Deadline must include '/by' followed by a date.");
                     }
-                    tasks[taskCount++] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
                     break;
                 case "event":
                     String[] eventParts = parts[1].split(" /from | /to ");
                     if (eventParts.length < 3) {
                         throw new ArchibaldException("Error: Event must include '/from' and '/to' followed by dates.");
                     }
-                    tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                    newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
                     break;
                 default:
                     throw new ArchibaldException("Error: In spite of my knowledge... I don't know what that means >:(");
             }
     
-            printArchibaldResponse("Got it. I've added this task:\n  " + tasks[taskCount - 1] +
-                                   "\nNow you have " + taskCount + " tasks in the list.");
+            tasks.add(newTask);
+            printArchibaldResponse("Got it. I've added this task:\n  " + newTask +
+                                   "\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (ArchibaldException e) {
             printArchibaldResponse(e.getMessage());
         }
     }
     
-
-
     public static void printList() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             printArchibaldResponse("The task list is currently empty.");
             return;
         }
         printArchibaldResponse("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -88,8 +85,8 @@ public class Archibald {
     // method to save tasks whenever the list change
     public static void saveTasks() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
-            for (int i = 0; i < taskCount; i++) {
-                writer.println(tasks[i].toSaveFormat());
+            for (Task task : tasks) {
+                writer.println(task.toSaveFormat());
             }
         } catch (IOException e) {
             printArchibaldResponse("Error: Unable to save tasks to file.");
@@ -111,21 +108,24 @@ public class Archibald {
                 String[] parts = line.split(" \\| ");
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
+                Task task;
                 switch (type) {
                     case "T":
-                        tasks[taskCount] = new Todo(parts[2]);
+                        task = new Todo(parts[2]);
                         break;
                     case "D":
-                        tasks[taskCount] = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(parts[2], parts[3]);
                         break;
                     case "E":
-                        tasks[taskCount] = new Event(parts[2], parts[3], parts[4]);
+                        task = new Event(parts[2], parts[3], parts[4]);
                         break;
+                    default:
+                        continue;
                 }
                 if (isDone) {
-                    tasks[taskCount].markAsDone();
+                    task.markAsDone();
                 }
-                taskCount++;
+                tasks.add(task);
             }
             reader.close();
         } catch (IOException e) {
@@ -136,15 +136,9 @@ public class Archibald {
     public static void deleteTask(String input) {
         try {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                Task removedTask = tasks[taskIndex];
-                // remove the task from the list and shift rest of the task up
-                for (int i = taskIndex; i < taskCount - 1; i++) {
-                    tasks[i] = tasks[i + 1];
-                }
-                tasks[--taskCount] = null; // decrease the task count by removing tail
-    
-                printArchibaldResponse("Duly noted sire. Thy hath removed this task:\n  " + removedTask + "\nNow thou hath " + taskCount + " tasks in the list.");
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.remove(taskIndex);
+                printArchibaldResponse("Duly noted sire. Thy hath removed this task:\n  " + removedTask + "\nNow thou hath " + tasks.size() + " tasks in the list.");
             } else {
                 throw new ArchibaldException("Error: Invalid task number.");
             }
@@ -152,6 +146,7 @@ public class Archibald {
             printArchibaldResponse("Error: Thouth hath given an invalid command format or task number.");
         }
     }
+
     public static void main(String[] args) {
         loadTasks(); // Load tasks previously saved on startup
         String name = "Archibald";
@@ -184,9 +179,9 @@ public class Archibald {
     public static void markTask(String input) {
         try {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
-                printArchibaldResponse("Great Wizard of Skibidiness! Thou hath completed task:\n  " + tasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsDone();
+                printArchibaldResponse("Great Wizard of Skibidiness! Thou hath completed task:\n  " + tasks.get(taskIndex));
             } else {
                 throw new ArchibaldException("Error: Invalid task number.");
             }
@@ -198,9 +193,9 @@ public class Archibald {
     public static void unmarkTask(String input) {
         try {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsNotDone();
-                printArchibaldResponse("Big yikers! The task hath been marked undone:\n  " + tasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsNotDone();
+                printArchibaldResponse("Big yikers! The task hath been marked undone:\n  " + tasks.get(taskIndex));
             } else {
                 throw new ArchibaldException("Error: Invalid task number.");
             }
