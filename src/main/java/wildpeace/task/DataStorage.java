@@ -81,7 +81,15 @@ public class DataStorage {
             } catch (InvalidInputException e) {
                 System.out.println("Invalid unmark number");
             }
-
+        } else if (line.startsWith("delete")) {
+            try {
+                int index = Integer.parseInt(line.substring(7).trim());
+                delete(index);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mark number. Please enter a valid integer.");
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid unmark number");
+            }
         } else if (line.equalsIgnoreCase("Q")) {
             displayGuide();
         } else
@@ -98,7 +106,7 @@ public class DataStorage {
     private static void listItems() {
         for (Task task : storedItems) {
             int index = storedItems.indexOf(task);
-            System.out.println(index + ": " + task);
+            System.out.println(index + 1 + ": " + task);
         }
     }
 
@@ -128,5 +136,15 @@ public class DataStorage {
         } else {
             System.out.println("Index " + String.valueOf(index) + " is not found.");
         }
+    }
+    private static void delete(Integer index) throws InvalidInputException {
+        int key = index - 1;
+        if(key >= storedItems.size() || key < 0) {
+            throw new InvalidInputException();
+        }
+        System.out.println("Noted, I have removed this task:" );
+        System.out.println(storedItems.get(key));
+        storedItems.remove(key);
+        System.out.println("Now you have " + storedItems.size() + " items in your plan" );
     }
 }
