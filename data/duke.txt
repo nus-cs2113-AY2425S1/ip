@@ -1,0 +1,6 @@
+  | 1 | fker
+  | 1 | dog
+T | 1 | pig
+D | 1 | cb | 1
+  | 1 | lsit
+E | 1 | gj | 3 | g

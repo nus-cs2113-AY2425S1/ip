@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,9 +15,16 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in); //Scanner object named "scanner"
         ArrayList<Task> tasks = new ArrayList<>(); //Array of "task" object to store the tasks
-        //   int taskCount = 0; //Counter for the number of tasks
-        String input;
 
+        //load tasks from file at the start
+        try {
+            tasks = loadTasks();
+        } catch (FileNotFoundException e)
+        {
+            System.out.println("No previous task data found. Starting with an empty list.");
+        }
+
+        String input;
         while (true) {
             input = scanner.nextLine();
 
@@ -40,6 +51,7 @@ public class Main {
                     System.out.println("It’s done. Now, get lost before I toss you out of my swamp!");
                     System.out.println("     [" + tasks.get(taskNumber).getStatusIcon() + "] " + tasks.get(taskNumber).getDescription());
                     System.out.println("____________________________________________________________");
+                    saveTasks(tasks);
                 }
                 else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
                 {
@@ -49,18 +61,21 @@ public class Main {
                     System.out.println("It’s unmarked. Gonna change it again? Make up your mind, or get out of my swamp!");
                     System.out.println("     [" + tasks.get(taskNumber).getStatusIcon() + "] " + tasks.get(taskNumber).getDescription());
                     System.out.println("____________________________________________________________");
+                    saveTasks(tasks);
                 }
                 else if (input.startsWith("todo"))
                 {
                     String description = input.substring(5); //at index 5 of the string, the description starts
                     tasks.add(new Todo(description)); //put new task todo object in task array
                     printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
+                    saveTasks(tasks);
                 }
                 else if (input.startsWith("deadline"))
                 {
                     String[] parts = input.substring(9).split(" /by ");
                     tasks.add(new Deadline(parts[0], parts[1]));
                     printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
+                    saveTasks(tasks);
                 }
                 else if (input.startsWith("event"))
                 {
@@ -68,6 +83,7 @@ public class Main {
                     String[] time = description[1].split(" /to ");
                     tasks.add(new Event(description[0], time[0], time[1]));
                     printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
+                    saveTasks(tasks);
                 }
                 else if(input.startsWith("delete"))
                 {
@@ -78,6 +94,7 @@ public class Main {
                     System.out.println("   " + taskToRemove);
                     System.out.println("____________________________________________________________");
                     tasks.remove(taskNumber);
+                    saveTasks(tasks);
                 }
                 else //store whatever user input in "tasks" array
                 {
@@ -85,6 +102,7 @@ public class Main {
                     System.out.println("____________________________________________________________");
                     System.out.println(" added: " + input);
                     System.out.println("____________________________________________________________");
+                    saveTasks(tasks);
                 }
             }
             catch (NumberFormatException e){ //catch when trying to convert string to number. but i think wont happen.
@@ -102,6 +120,9 @@ public class Main {
             catch (IndexOutOfBoundsException e){
                 System.out.println("that task is not even in my swamp donkey! Try another task. ");
             }
+            catch (IOException e){
+                System.out.println("fail to save task to file");
+            }
         }
 
         System.out.println("____________________________________________________________"); //first line after "bye"
@@ -117,6 +138,72 @@ public class Main {
         System.out.println("   " + task);
         System.out.println(" Now you have " + taskCount + " tasks in my swamp.");
         System.out.println("____________________________________________________________");
+    }
+
+
+    // Method to save tasks to a file
+    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        File file = new File("data");
+        if (!file.exists()) {
+            file.mkdirs(); // Create the directory if it dont exist
+        }
+        FileWriter fw = new FileWriter(new File(file, "duke.txt"));
+
+        for (Task task : tasks) //iterate over all tasks, and save them in rquired format.
+        {
+            fw.write(task.toSaveFormat() + "\n");
+        }
+        fw.close();
+    }
+
+    // Method to load tasks from a file
+    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File("data/duke.txt");
+        if (file.exists()) {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task task;
+                switch (parts[0]) {
+                    case "T":
+                        task = new Todo(parts[2]);
+                        if (parts[1].equals("1"))
+                        {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        if (parts[1].equals("1"))
+                        {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                        break;
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        if (parts[1].equals("1"))
+                        {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                        break;
+                    case " ": //for generic tasks
+                        task = new Task(parts[2]);
+                        if (parts[1].equals("1"))
+                        {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                        break;
+                }
+            }
+            sc.close();
+        }
+        return tasks;
     }
 
     public static void printShrekFace() {
