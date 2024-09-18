@@ -16,6 +16,7 @@ public class DianaAssistant {
         try {
             this.tasks = Storage.loadTasks();
         } catch (IOException e) {
+            // ensures that tasks come with empty list if fail
             System.out.println("Error loading tasks, reverting to empty list");
             this.tasks = new ArrayList<>();
         }
