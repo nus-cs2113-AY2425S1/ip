@@ -155,6 +155,7 @@ public class November {
         beginSegment();
         if (taskList.isEmpty()) {
             System.out.println(LIST_EMPTY_MESSAGE);
+            endSegment();
             return;
         }
         int index = 0;
