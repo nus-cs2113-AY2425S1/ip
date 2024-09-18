@@ -34,6 +34,9 @@ public class Aly {
         System.out.println(LINE_SEPARATOR);
     }
 
+    //Initialising global variables/arrays
+    private static Scanner in = new Scanner(System.in);
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void readTasksFromFile(String fileName) {
         try {
@@ -115,23 +118,19 @@ public class Aly {
         }
     }
 
-
-    //Initialising global variables/arrays
-    private static Scanner in = new Scanner(System.in);
-    private static ArrayList<Task> taskList = new ArrayList<>();
-
     //User can pick which function they want to use, old functions don't need to be deleted
     private static void initialise() {
         boolean isExit = false;
+        printLine();
+        createDirectory();
+        File file = new File(SAVE_FILE.toString());
+        createFile(file);
+        readTasksFromFile(file.toString());
+        printLine();
         while (!isExit) {
             System.out.println("I'm hungry, what do you want?");
             System.out.println("Faster lah! Enter 'echo' for echo function, "
                     + "'task' for task list function, 'exit' to exit");
-            printLine();
-            createDirectory();
-            File file = new File(SAVE_FILE.toString());
-            createFile(file);
-            readTasksFromFile(file.toString());
             printLine();
             try {
                 String input = in.nextLine().trim();
@@ -391,11 +390,8 @@ public class Aly {
     //Reusable function to find the current index in any list
     private static int getIndex() {
         int index = 0;
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i) == null) {
-                index = i;
-                break;
-            }
+        while (index < taskList.size()) {
+            index++;
         }
         return index;
     }
