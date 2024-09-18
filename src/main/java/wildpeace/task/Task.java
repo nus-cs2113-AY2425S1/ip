@@ -62,6 +62,6 @@ public class Task {
     public String toString() {
         String markStr = (markStatus == MarkStatus.MARKED) ? "[X]" : "[ ]";
         String taskTypeStr = "[" + taskType.toString().charAt(0) + "]";
-        return markStr + " " + taskTypeStr + " " + description + (deadline != null ? " (by: " + deadline + ")" : "");
+        return taskTypeStr + " " + markStr + " " + description + (deadline != null ? " (by: " + deadline + ")" : "");
     }
 }
