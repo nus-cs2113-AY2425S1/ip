@@ -24,4 +24,8 @@ public class Deadlines extends Task {
         System.out.print(getDoneMarker() + " " + this.task);
         System.out.printf(" (by: %s)\n", this.deadline);
     }
+    @Override
+    public String toString() {
+        return String.format("%s%s %s (by: %s)", getTypeMarker(), getDoneMarker(), this.task, this.deadline);
+    }
 }

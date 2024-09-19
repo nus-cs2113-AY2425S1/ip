@@ -26,4 +26,9 @@ public class Event extends Task {
         System.out.print(getDoneMarker() + " " + this.task);
         System.out.printf(" (from: %s to: %s)\n", this.from, this.to);
     }
+    @Override
+    public String toString() {
+        return String.format("%s%s %s (from: %s to: %s)", getTypeMarker(), getDoneMarker(),
+                this.task, this.from, this.to);
+    }
 }

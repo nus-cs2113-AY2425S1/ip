@@ -52,4 +52,8 @@ public class Task {
     public void print() {
         System.out.println(getDoneMarker() + " " + this.task);
     }
+    @Override
+    public String toString() {
+        return getDoneMarker() + " " + this.task;
+    }
 }

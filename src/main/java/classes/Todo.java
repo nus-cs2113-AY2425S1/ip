@@ -14,4 +14,8 @@ public class Todo extends Task {
         System.out.print(getTypeMarker());
         super.print();
     }
+    @Override
+    public String toString() {
+        return getTypeMarker() + super.toString();
+    }
 }
