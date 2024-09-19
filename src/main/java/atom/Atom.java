@@ -287,6 +287,33 @@ public class Atom {
 
         printDivider();
 
+        //write data into AtomList.txt file
+        try {
+            FileWriter fw = new FileWriter(file);
+
+            Task[] populatedTasksList = Arrays.copyOf(tasksList, Task.getTaskCount());
+            for (Task task : populatedTasksList) {
+                String separator = " | ";
+                String doneStatus = (task.getStatus().equals("X")) ? "1" : "0";
+
+                fw.write(task.setTaskType() + separator + doneStatus
+                        + separator + task.getItem());
+
+                if (task.setTaskType().equals("D")) {
+                    fw.write(separator + task.getBy());
+                } else if (task.setTaskType().equals("E")) {
+                    fw.write(separator + task.getFrom() + "-" + task.getTo());
+                }
+
+                fw.write(System.lineSeparator());
+            }
+
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Oh no!! Something went wrong..");
+        }
+
         System.out.println("Bye Bye. See ya soon!");
 
         printDivider();
