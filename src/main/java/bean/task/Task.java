@@ -25,9 +25,6 @@ public class Task {
     public Task(String description, Boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-        System.out.println(SEPARATOR_LINE +
-                INDENT + "Added task: '" + description +  "'!\n" +
-                SEPARATOR_LINE);
     }
 
 

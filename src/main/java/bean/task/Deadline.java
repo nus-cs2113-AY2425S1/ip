@@ -3,7 +3,7 @@ package bean.task;
 import bean.exceptions.InsufficientSpaceException;
 
 public class Deadline extends Task {
-    private static final String DELIMITER = "||";
+    private static final String DELIMITER = "//";
 
     protected String by;
 
