@@ -1,7 +1,4597 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+$$$$$$$$\                               $$\ 
+\__$$  __|                              \__|
+   $$ |    $$$$$$\   $$$$$$\   $$$$$$\  $$\ 
+   $$ |   $$  __$$\ $$  __$$\ $$  __$$\ $$ |
+   $$ |   $$$$$$$$ |$$ |  \__|$$ |  \__|$$ |
+   $$ |   $$   ____|$$ |      $$ |      $$ |
+   $$ |   \$$$$$$$\ $$ |      $$ |      $$ |
+   \__|    \_______|\__|      \__|      \__|
+                                            
+
+Heya! I'm Terri.
+I can log a ton of different tasks for you use different keywords followed by a description to tell me what to do:
+____________________________________________________________
+KEYWORDS:
+'todo' + (description) : logs a task with no specific due date
+'deadline' + (description) + '/by (due date)' : logs a task due at a specific point in time
+'event' +  (description) + '/from (start time)' + '/to (end time)' : logs an event occurring during a specified period
+If I don't see one of the above keywords, I'll just assume you're inputting a ToDo!
+____________________________________________________________
+UTILITY:
+'list' : Generates a list of all currently logged tasks/events, ordered oldest-newest. The number before each task is it's 'task number'
+'mark' + '(task number)' : Records that a task has been completed
+'unmark' + '(task number)' : Records that a task has not been completed
+____________________________________________________________
+So - what can I help you with today?
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There is now (1) logged task/event.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (2) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (3) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (4) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (5) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (6) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (7) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (8) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (9) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (10) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (11) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (12) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (13) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (14) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (15) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (16) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (17) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (18) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (19) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (20) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (21) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (22) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (23) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (24) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (25) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (26) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (27) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (28) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (29) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (30) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (31) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (32) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (33) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (34) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (35) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (36) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (37) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (38) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (39) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (40) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (41) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (42) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (43) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (44) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (45) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (46) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (47) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (48) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (49) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (50) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (51) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (52) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (53) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (54) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (55) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (56) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (57) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (58) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (59) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (60) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (61) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (62) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (63) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (64) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (65) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (66) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (67) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (68) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (69) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (70) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (71) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (72) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (73) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (74) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (75) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (76) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (77) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (78) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (79) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (80) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (81) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (82) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (83) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (84) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (85) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (86) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (87) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (88) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (89) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (90) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (91) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (92) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (93) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (94) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (95) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (96) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (97) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST2' to your list as a Deadline!
+There are now (98) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Just added: 'TEST3' to your list as an Event!
+There are now (99) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just added: todo TEST1 to your list as a ToDo!
+There are now (100) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+1. [X] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Just marked that task completed!
+3. [X] TEST3
+____________________________________________________________
+____________________________________________________________
+Just marked that task as not completed!
+1. [ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Here's what you've got in your list:
+1. [T][ ] todo TEST1
+2. [D][ ] TEST2 (By: TIME1)
+3. [E][X] TEST3 (From: TIME2 To: TIME3)
+4. [T][ ] todo TEST1
+5. [D][ ] TEST2 (By: TIME1)
+6. [E][ ] TEST3 (From: TIME2 To: TIME3)
+7. [T][ ] todo TEST1
+8. [D][ ] TEST2 (By: TIME1)
+9. [E][ ] TEST3 (From: TIME2 To: TIME3)
+10. [T][ ] todo TEST1
+11. [D][ ] TEST2 (By: TIME1)
+12. [E][ ] TEST3 (From: TIME2 To: TIME3)
+13. [T][ ] todo TEST1
+14. [D][ ] TEST2 (By: TIME1)
+15. [E][ ] TEST3 (From: TIME2 To: TIME3)
+16. [T][ ] todo TEST1
+17. [D][ ] TEST2 (By: TIME1)
+18. [E][ ] TEST3 (From: TIME2 To: TIME3)
+19. [T][ ] todo TEST1
+20. [D][ ] TEST2 (By: TIME1)
+21. [E][ ] TEST3 (From: TIME2 To: TIME3)
+22. [T][ ] todo TEST1
+23. [D][ ] TEST2 (By: TIME1)
+24. [E][ ] TEST3 (From: TIME2 To: TIME3)
+25. [T][ ] todo TEST1
+26. [D][ ] TEST2 (By: TIME1)
+27. [E][ ] TEST3 (From: TIME2 To: TIME3)
+28. [T][ ] todo TEST1
+29. [D][ ] TEST2 (By: TIME1)
+30. [E][ ] TEST3 (From: TIME2 To: TIME3)
+31. [T][ ] todo TEST1
+32. [D][ ] TEST2 (By: TIME1)
+33. [E][ ] TEST3 (From: TIME2 To: TIME3)
+34. [T][ ] todo TEST1
+35. [D][ ] TEST2 (By: TIME1)
+36. [E][ ] TEST3 (From: TIME2 To: TIME3)
+37. [T][ ] todo TEST1
+38. [D][ ] TEST2 (By: TIME1)
+39. [E][ ] TEST3 (From: TIME2 To: TIME3)
+40. [T][ ] todo TEST1
+41. [D][ ] TEST2 (By: TIME1)
+42. [E][ ] TEST3 (From: TIME2 To: TIME3)
+43. [T][ ] todo TEST1
+44. [D][ ] TEST2 (By: TIME1)
+45. [E][ ] TEST3 (From: TIME2 To: TIME3)
+46. [T][ ] todo TEST1
+47. [D][ ] TEST2 (By: TIME1)
+48. [E][ ] TEST3 (From: TIME2 To: TIME3)
+49. [T][ ] todo TEST1
+50. [D][ ] TEST2 (By: TIME1)
+51. [E][ ] TEST3 (From: TIME2 To: TIME3)
+52. [T][ ] todo TEST1
+53. [D][ ] TEST2 (By: TIME1)
+54. [E][ ] TEST3 (From: TIME2 To: TIME3)
+55. [T][ ] todo TEST1
+56. [D][ ] TEST2 (By: TIME1)
+57. [E][ ] TEST3 (From: TIME2 To: TIME3)
+58. [T][ ] todo TEST1
+59. [D][ ] TEST2 (By: TIME1)
+60. [E][ ] TEST3 (From: TIME2 To: TIME3)
+61. [T][ ] todo TEST1
+62. [D][ ] TEST2 (By: TIME1)
+63. [E][ ] TEST3 (From: TIME2 To: TIME3)
+64. [T][ ] todo TEST1
+65. [D][ ] TEST2 (By: TIME1)
+66. [E][ ] TEST3 (From: TIME2 To: TIME3)
+67. [T][ ] todo TEST1
+68. [D][ ] TEST2 (By: TIME1)
+69. [E][ ] TEST3 (From: TIME2 To: TIME3)
+70. [T][ ] todo TEST1
+71. [D][ ] TEST2 (By: TIME1)
+72. [E][ ] TEST3 (From: TIME2 To: TIME3)
+73. [T][ ] todo TEST1
+74. [D][ ] TEST2 (By: TIME1)
+75. [E][ ] TEST3 (From: TIME2 To: TIME3)
+76. [T][ ] todo TEST1
+77. [D][ ] TEST2 (By: TIME1)
+78. [E][ ] TEST3 (From: TIME2 To: TIME3)
+79. [T][ ] todo TEST1
+80. [D][ ] TEST2 (By: TIME1)
+81. [E][ ] TEST3 (From: TIME2 To: TIME3)
+82. [T][ ] todo TEST1
+83. [D][ ] TEST2 (By: TIME1)
+84. [E][ ] TEST3 (From: TIME2 To: TIME3)
+85. [T][ ] todo TEST1
+86. [D][ ] TEST2 (By: TIME1)
+87. [E][ ] TEST3 (From: TIME2 To: TIME3)
+88. [T][ ] todo TEST1
+89. [D][ ] TEST2 (By: TIME1)
+90. [E][ ] TEST3 (From: TIME2 To: TIME3)
+91. [T][ ] todo TEST1
+92. [D][ ] TEST2 (By: TIME1)
+93. [E][ ] TEST3 (From: TIME2 To: TIME3)
+94. [T][ ] todo TEST1
+95. [D][ ] TEST2 (By: TIME1)
+96. [E][ ] TEST3 (From: TIME2 To: TIME3)
+97. [T][ ] todo TEST1
+98. [D][ ] TEST2 (By: TIME1)
+99. [E][ ] TEST3 (From: TIME2 To: TIME3)
+100. [T][ ] todo TEST1
+____________________________________________________________
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
+____________________________________________________________
+Maximum number of items (100) has been reached
+Please delete a task in order to add an item.
