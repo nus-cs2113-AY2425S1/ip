@@ -121,7 +121,7 @@ public class Grok {
                         throw new GrokException("Invalid task number. Please enter a number within the range.");
                     }
                     printLine();
-                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("Okay, I've removed this task:");
                     System.out.println(tasks[taskNumber]);
                     // Shift tasks to fill the gap
                     for (int i = taskNumber; i < taskCount - 1; i++) {
