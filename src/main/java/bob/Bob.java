@@ -1,5 +1,6 @@
 package bob;
 
+import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
@@ -21,19 +22,23 @@ public class Bob {
     private static final String DEADLINE_BY = " /by ";
     private static final String EVENT_FROM = " /from ";
     private static final String EVENT_TO = " /to ";
+    private static final String FILE_PATH = "data/bob.txt";
 
     public static void main(String[] args) {
-        
+
         printGreeting();
-        
+
+        Storage storage = new Storage(FILE_PATH);
+        ArrayList<Task> tasks = storage.load();
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (true) {
 
             String input = scanner.nextLine();
 
             if (input.equals(COMMAND_BYE)) {
+                storage.save(tasks);
                 exit();
                 break;
             } else if (input.equals(COMMAND_LIST)) {
@@ -49,8 +54,10 @@ public class Bob {
                 if (description.isEmpty()) {
                     printEmptyDescription("todo");
                 } else {
-                    tasks.add(new ToDo(description));
+                    Task newTask = new ToDo(description);
+                    tasks.add(newTask);
                     printAddedTask(tasks);
+                    storage.appendTask(newTask);
                 }
             } else if (input.equals(COMMAND_DEADLINE)) {
                 printEmptyDescription("deadline");
@@ -62,8 +69,10 @@ public class Bob {
                 } else {
                     try {
                         String by = components[1];
-                        tasks.add(new Deadline(description, by));
+                        Task newTask = new Deadline(description, by);
+                        tasks.add(newTask);
                         printAddedTask(tasks);
+                        storage.appendTask(newTask);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         printSeparator();
                         System.out.println("Sorry! Please provide a valid deadline with '/by <date/time>'.");
@@ -83,8 +92,10 @@ public class Bob {
                         String description = input.substring(COMMAND_EVENT.length() +1, fromIndex);
                         String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
                         String to = input.substring(toIndex + EVENT_TO.length());
-                        tasks.add(new Event(description, from, to));
+                        Task newTask = new Event(description, from, to);
+                        tasks.add(newTask);
                         printAddedTask(tasks);
+                        storage.appendTask(newTask);
                     } catch (StringIndexOutOfBoundsException e) {
                         printSeparator();
                         System.out.println("Sorry! Please provide a valid event with '/from <start date/time> /to <end date/time>'.");
@@ -102,11 +113,13 @@ public class Bob {
     }
 
     public static void printGreeting() {
-        String logo = "  ____        _\n"
-                + " | |_) \\ ___ | |___\n"
-                + " |  _ //  _  \\   _ \\\n"
-                + " | |_)\\\\ (_) /  |_) |\n"
-                + " |____/ \\___/|_|___/\n";
+        String logo = """
+              ____        _
+             | |_) \\ ___ | |___
+             |  _ //  _  \\   _ \\
+             | |_)\\\\ (_) /  |_) |
+             |____/ \\___/|_|___/
+            """;
 
         System.out.println(logo);
         System.out.println("Hello! I'm Bob");
