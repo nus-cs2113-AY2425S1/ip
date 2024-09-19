@@ -3,12 +3,13 @@ package bean.command;
 import bean.exceptions.EmptyListException;
 import bean.exceptions.InsufficientSpaceException;
 import bean.exceptions.InvalidInputException;
-import bean.exceptions.InvalidTaskNumException;
+import bean.exceptions.TaskNumOutOfBoundsException;
 import bean.task.Deadline;
 import bean.task.Event;
 import bean.task.Task;
 import bean.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bean {
@@ -23,7 +24,8 @@ public class Bean {
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
 
-    private static Task[] toDoList = new Task[MAX_LIST_COUNT];
+//    private static Task[] toDoList = new Task[MAX_LIST_COUNT];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -60,30 +62,27 @@ public class Bean {
                 SEPARATOR_LINE);
     }
 
-    public static void printToDoList() throws EmptyListException {
-        if (toDoList[0] == null) {
+    public static void printTasks() throws EmptyListException {
+        if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
 
         System.out.println(SEPARATOR_LINE +
                 INDENT + "TO DO LIST:\n");
 
-        for (int i = 0; i < toDoList.length; i++) {
-            if (toDoList[i] == null) {
-                break;
-            }
-            System.out.println(INDENT + (i + 1) + ". " + toDoList[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(INDENT + (i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println(SEPARATOR_LINE);
     }
 
-    // Extract task number as int from user input for mark and unmark commands
-    public static int obtainTaskNum(String userInput) throws InvalidTaskNumException {
+    // Extract task number as int from user input for mark, unmark and delete commands
+    public static int obtainTaskNum(String userInput) throws TaskNumOutOfBoundsException {
         // Obtain task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
         int taskNum = Integer.parseInt(words[1].trim());
-        if (taskNum < 0 || taskNum > Task.getNumberOfTasks()) {
-            throw new InvalidTaskNumException();
+        if (taskNum < 0 || taskNum > tasks.size()) {
+            throw new TaskNumOutOfBoundsException();
         }
         return taskNum;
     }
@@ -91,29 +90,31 @@ public class Bean {
     public static void markTaskAsDone(int taskNum) {
 
         int taskIndex = taskNum - 1;
-        toDoList[taskIndex].setStatus(true);
+        Task task = tasks.get(taskIndex);
+        task.setStatus(true);
         // Confirmation message
         printFormattedReply(INDENT + "Task " + taskNum + " has been marked as DONE:\n" +
-                INDENT + INDENT + toDoList[taskIndex].toString());
+                INDENT + INDENT + task);
     }
 
     public static void unmarkTaskAsDone(int taskNum) {
         int taskIndex = taskNum - 1;
-        toDoList[taskIndex].setStatus(false);
+        Task task = tasks.get(taskIndex);
+        task.setStatus(false);
         // Confirmation message
         printFormattedReply(INDENT + "Task " + taskNum + " has been marked as UNDONE:\n" +
-                INDENT + INDENT + toDoList[taskIndex].toString());
+                INDENT + INDENT + task);
     }
 
     public static void addTask(String userInput, TaskType taskType) throws InsufficientSpaceException {
-        if (Task.getNumberOfTasks() >= MAX_LIST_COUNT) {
+        if (tasks.size() >= MAX_LIST_COUNT) {
             throw new InsufficientSpaceException();
         }
         if (taskType == TaskType.TODO) {
             // Extract description
             String description = userInput.split("todo ")[1].trim();
 
-            toDoList[Task.getNumberOfTasks()] = new Todo(description);
+            tasks.add(new Todo(description));
         } else if (taskType == TaskType.DEADLINE) {
             // Extract description and by
             String[] parts = userInput.split("/by ");
@@ -121,7 +122,7 @@ public class Bean {
             String description = parts[0].substring("deadline ".length()).trim();
             String by = parts[1].trim();
 
-            toDoList[Task.getNumberOfTasks()] = new Deadline(description, by);
+            tasks.add(new Deadline(description, by));
         } else {
             // taskType == TaskType.EVENT
             // Extract description, from and to
@@ -133,8 +134,17 @@ public class Bean {
             String from = splitFromTo[0].trim();
             String to = splitFromTo[1].trim();
 
-            toDoList[Task.getNumberOfTasks()] = new Event(description, from, to);
+           tasks.add(new Event(description, from, to));
         }
+    }
+
+    public static void deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
+        if (taskNum < 0 || taskNum > tasks.size()) {
+            throw new TaskNumOutOfBoundsException();
+        }
+        int taskIndex = taskNum - 1;
+        tasks.remove(taskIndex);
+        printFormattedReply(INDENT + "Deleted task: " + tasks.get(taskIndex) + ".");
     }
 
     public static void printInvalidInputMessage() {
@@ -154,7 +164,7 @@ public class Bean {
         String userInput;
         Scanner in = new Scanner(System.in);
 
-        while (Task.getNumberOfTasks() < MAX_LIST_COUNT + 1) {
+        while (tasks.size() < MAX_LIST_COUNT + 1) {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
 
@@ -165,7 +175,7 @@ public class Bean {
                     return;
 
                 case "list":
-                    printToDoList();
+                    printTasks();
                     break;
 
                 case "mark":
@@ -188,6 +198,10 @@ public class Bean {
                     addTask(userInput, TaskType.EVENT);
                     break;
 
+                case "delete":
+                    deleteTask(obtainTaskNum(userInput));
+                    break;
+
                 default:
                     throw new InvalidInputException();
 
@@ -198,9 +212,9 @@ public class Bean {
             } catch (EmptyListException e) {
                 printFormattedReply(INDENT + "Nothing in your to do list yet!");
 
-            } catch (InvalidTaskNumException e) {
+            } catch (TaskNumOutOfBoundsException e) {
                 printFormattedReply(INDENT + "Please enter a valid task number!\n" +
-                        INDENT + "You currently have " + Task.getNumberOfTasks() + " tasks.");
+                        INDENT + "You currently have " + tasks.size() + " tasks.");
 
             } catch (InsufficientSpaceException e) {
                 printFormattedReply(INDENT + "Sorry, you have reached the maximum list size of " + MAX_LIST_COUNT);
