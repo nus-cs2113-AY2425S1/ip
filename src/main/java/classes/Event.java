@@ -16,6 +16,12 @@ public class Event extends Task {
         this.to = input.substring(input.indexOf("/to") + 4);
     }
 
+    public Event(String task, boolean isDone, String to, String from) {
+        super(task, isDone);
+        this.to = to;
+        this.from = from;
+    }
+
     public String getTypeMarker() {
         return "[E]";
     }
@@ -28,7 +34,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return String.format("%s%s %s (from: %s to: %s)", getTypeMarker(), getDoneMarker(),
+        return String.format("%s | %b | %s | %s | %s)", getTypeMarker(), this.isDone,
                 this.task, this.from, this.to);
     }
 }

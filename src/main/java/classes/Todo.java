@@ -6,6 +6,11 @@ public class Todo extends Task {
         super(input.substring(!input.contains(" ") ? -1 : input.indexOf(" ") + 1));
     }
 
+    public Todo(String task, boolean isDone) {
+        super(task, isDone);
+    }
+
+
     public String getTypeMarker() {
         return "[T]";
     }
@@ -16,6 +21,6 @@ public class Todo extends Task {
     }
     @Override
     public String toString() {
-        return getTypeMarker() + super.toString();
+        return String.format("%s | %b | %s", getTypeMarker(), this.isDone, this.task);
     }
 }
