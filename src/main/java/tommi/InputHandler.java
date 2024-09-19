@@ -27,7 +27,7 @@ public class InputHandler {
                 } else {
                     throw new IllegalArgumentException(
                             "____________________________________________________________\n" +
-                            "Please provide what should be in the todo.\n" +
+                            "Please provide what you want in the todo.\n" +
                             "____________________________________________________________"
                     );
                 }
