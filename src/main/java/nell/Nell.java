@@ -209,11 +209,7 @@ public class Nell {
         String taskType = taskParameters[0];
         String taskDescription = taskParameters[2];
 
-        boolean taskIsDone = false;
-        if (taskParameters[1].equals("X"))
-        {
-            taskIsDone = true;
-        }
+        boolean taskIsDone = taskParameters[1].equals("X");
 
         switch (taskType) {
         case "T":
