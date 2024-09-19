@@ -89,7 +89,7 @@ public class messageHandler {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
             String[] strings = input.split(" ");
-            String eventName = strings[1].split(" ")[1];
+            String eventName = strings[strings.length - 1].substring(2);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
@@ -100,7 +100,7 @@ public class messageHandler {
             List<Message> messages = list.getMessages();
             String[] strings = input.split("/");
             String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-2].split(" ")[1];
+            String eventName = strings[strings.length-2].substring(2);
             Message message = new Message(eventName, endTime, 2);
             messages.add(message);
             list.setMessages(messages);
@@ -113,7 +113,7 @@ public class messageHandler {
             String[] strings = input.split("/");
             String startTime = strings[strings.length-2].split(" ")[1];
             String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-3].split(" ")[1];
+            String eventName = strings[strings.length-3].substring(2) ;
             Message message = new Message(eventName, startTime, endTime, 3);
             messages.add(message);
             list.setMessages(messages);
@@ -146,5 +146,17 @@ public class messageHandler {
             System.out.println("I have marked this task as done!\n" + "[X] " + messages.get(number-1).getMessage());
             System.out.println("-----------------------------------\n");
         }
+    }
+
+    public static void delete(messageList list, int number) {
+        List<Message> messages = list.getMessages();
+        if(number - 1 > messages.size() || number < 1) {
+            System.out.println("You are deleting an event that does not exist");
+        }
+        messages.remove(number - 1);
+        list.setMessages(messages);
+        System.out.println("------------------------------------\n");
+        System.out.println("You have successfully deleted this task");
+        System.out.println("------------------------------------\n");
     }
 }
