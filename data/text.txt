@@ -1,0 +1,4 @@
+T|1|read book
+T|0|burn book
+T|0|return book
+T|1|read book

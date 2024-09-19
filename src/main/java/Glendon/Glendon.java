@@ -4,16 +4,29 @@ import Glendon.task.Deadline;
 import Glendon.task.Event;
 import Glendon.task.Task;
 import Glendon.task.Todo;
+import Glendon.task.SavedList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Glendon {
     public static final int maxNumberOfTask = 100;
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static int taskCounter = 0;
+    public static final String directory = "./data";
+    public static final String filePath = "./data/text.txt";
 
     public static void main(String[] args) {
+
+        try {
+            SavedList.loadSavedTasks(filePath, taskList);
+        } catch (FileNotFoundException e) {
+            SavedList.createTaskFile(filePath, taskList);
+        }
+
+        taskCounter = taskList.size();
+
         printWelcomeMessage();
 
         Scanner in = new Scanner(System.in);
@@ -24,6 +37,7 @@ public class Glendon {
             case "bye":
                 printBye();
                 response = null;
+                SavedList.saveTasks(filePath, taskList);
                 break;
             case "list":
                 printList();

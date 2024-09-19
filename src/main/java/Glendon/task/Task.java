@@ -27,5 +27,13 @@ public class Task {
         answer = "[" + marked + "] " + taskName;
         return answer;
     }
+
+    public String saveToFile() {
+        int completionIndicator = 0;
+        if (isCompleted()) {
+            completionIndicator = 1;
+        }
+        return completionIndicator + "|" + taskName;
+    }
 }
 
