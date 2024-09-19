@@ -24,7 +24,6 @@ public class Mong {
     public static final int LENGTH_EVENT = 5;
     public static final int LENGTH_FROM = 4;
     public static final int LENGTH_TO = 3;
-    public static final int LENGTH_DELETE = 6;
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
 
     /**
@@ -80,6 +79,9 @@ public class Mong {
     public static void mark(String input) {
         // the itemIndex is -1 than the input from the user
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (itemIndex < 0 || itemIndex >= list.size()) {
+            throw new NullPointerException();
+        }
         try {
             list.get(itemIndex).setCompleted(true);
             System.out.println("Mong >_<!!I have marked it as completed:");
@@ -227,9 +229,11 @@ public class Mong {
     /**
      * Delete a Task of any valid type.
      */
-    public static void deleteTask(ArrayList<Task> list, String input) {
-        int endOfCommand = input.indexOf("delete") + LENGTH_DELETE;
-        int indexValue = Integer.parseInt(input.substring(endOfCommand + 1)) - 1;
+    public static void deleteTask(String input) {
+        int indexValue = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (indexValue < 0 || indexValue >= list.size()) {
+            throw new NullPointerException();
+        }
         try {
             Task deletedTask = list.get(indexValue);
             list.remove(indexValue);
@@ -295,7 +299,7 @@ public class Mong {
                 addEvent(input);
                 break;
             case DELETE:
-                deleteTask(list, input);
+                deleteTask(input);
                 break;
             default:
                 System.out.println("MooONG?! That's not a valid command...");
