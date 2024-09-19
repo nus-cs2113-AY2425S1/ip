@@ -1,9 +1,11 @@
 package bob;
 
+import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
+
 import java.util.Scanner;
 
 public class Bob {
@@ -19,21 +21,37 @@ public class Bob {
     private static final String DEADLINE_BY = " /by ";
     private static final String EVENT_FROM = " /from ";
     private static final String EVENT_TO = " /to ";
+    private static final String FILE_PATH = "data/bob.txt";
     private static final int MAX_TASKS = 100;
 
+    private static Storage storage;
+    private static Task[] tasks;
+
     public static void main(String[] args) {
-        
+
         printGreeting();
-        
-        Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS];
+
+        storage = new Storage(FILE_PATH);
+        Task[] loadedTasks = storage.load();
+
+        // Count the number of tasks that are not null
         int taskCount = 0;
+        for (Task task : loadedTasks) {
+            if (task != null) {
+                taskCount++;
+            }
+        }
+
+        tasks = new Task[MAX_TASKS];
+        System.arraycopy(loadedTasks, 0, tasks, 0, taskCount);
+
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
-
             String input = scanner.nextLine();
 
             if (input.equals(COMMAND_BYE)) {
+                storage.save(tasks);
                 exit();
                 break;
             } else if (input.equals(COMMAND_LIST)) {
@@ -49,8 +67,10 @@ public class Bob {
                 if (description.isEmpty()) {
                     printEmptyDescription("todo");
                 } else {
-                    tasks[taskCount] = new ToDo(description);
+                    Task newTask = new ToDo(description);
+                    tasks[taskCount] = newTask;
                     taskCount++;
+                    storage.appendTask(newTask);
                     printAddedTask(tasks, taskCount);
                 }
             } else if (input.equals(COMMAND_DEADLINE)) {
@@ -63,8 +83,10 @@ public class Bob {
                 } else {
                     try {
                         String by = components[1];
-                        tasks[taskCount] = new Deadline(description, by);
+                        Task newTask = new Deadline(description, by);
+                        tasks[taskCount] = newTask;
                         taskCount++;
+                        storage.appendTask(newTask);
                         printAddedTask(tasks, taskCount);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         printSeparator();
@@ -82,11 +104,13 @@ public class Bob {
                     printEmptyDescription("event");
                 } else {
                     try {
-                        String description = input.substring(COMMAND_EVENT.length() +1, fromIndex);
+                        String description = input.substring(COMMAND_EVENT.length() + 1, fromIndex);
                         String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
                         String to = input.substring(toIndex + EVENT_TO.length());
-                        tasks[taskCount] = new Event(description, from, to);
+                        Task newTask = new Event(description, from, to);
+                        tasks[taskCount] = newTask;
                         taskCount++;
+                        storage.appendTask(newTask);
                         printAddedTask(tasks, taskCount);
                     } catch (StringIndexOutOfBoundsException e) {
                         printSeparator();
@@ -112,13 +136,13 @@ public class Bob {
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
     }
-    
+
     public static void exit() {
         printSeparator();
         System.out.println("Bye. Hope to see you again soon!");
         printSeparator();
     }
-    
+
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }
@@ -151,11 +175,12 @@ public class Bob {
                 System.out.println("Sorry! This task is already marked as done.");
             } else {
                 tasks[taskIndex].markAsDone();
+                storage.save(tasks);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[taskIndex]);
             }
             printSeparator();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
@@ -181,11 +206,12 @@ public class Bob {
                 System.out.println("Sorry! This task is already unmarked.");
             } else {
                 tasks[taskIndex].unmark();
+                storage.save(tasks);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[taskIndex]);
             }
             printSeparator();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
