@@ -78,11 +78,19 @@ public class KBot {
                     addEventTask(argument);
                 }
                 break;
+            case "delete":
+                try {
+                    deleteTask(Integer.parseInt(argument));
+                } catch (NumberFormatException e) {
+                    throw new KBotException("Invalid task number to delete.");
+                }
+                break;
             default:
                 throw KBotException.unknownCommand();
         }
         return true;
     }
+
 
     // Utility Methods
 
@@ -185,4 +193,19 @@ public class KBot {
         System.out.println("  " + task);
         printSeparator();
     }
+
+    public void deleteTask(int taskIndex) throws KBotException {
+        if (taskIndex < 1 || taskIndex > tasks.size()) {
+            throw new KBotException("OOPS!!! Task does not exist.");
+        }
+        Task removedTask = tasks.remove(taskIndex - 1); // Adjust for 0-based index
+        System.out.println(SEPARATOR);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(SEPARATOR);
+    }
+
 }
+
+
