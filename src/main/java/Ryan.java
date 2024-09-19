@@ -53,7 +53,7 @@ public class Ryan {
                         break;
 
                     default:
-                        addTask(tasks, userInput);
+                        defaultCase();
                         break;
                 }
             } catch (RyanException e) {
@@ -69,6 +69,12 @@ public class Ryan {
         Utils.horizontalLine();
         System.out.println("Hello! I'm Ryan");
         System.out.println("What can I do for you?");
+        Utils.horizontalLine();
+    }
+
+    private static void defaultCase() {
+        Utils.horizontalLine();
+        System.out.println("Invalid command");
         Utils.horizontalLine();
     }
 
