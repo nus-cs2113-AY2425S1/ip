@@ -21,7 +21,13 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/grok.Grok.java` file, right-click it, and choose `Run grok.Grok.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    ____________________________________________________________
-   Hello! I'm Grok
-   What can I do for you?
-   ____________________________________________________________
-   ```
+   Hello, I am Grok! Your favourite personal assistant that helps you keep track of tasks :)
+   Here are the list of things Grok can do for you:
+   1. Create a todo task eg. [todo read book]
+   2. Create an event task eg. [event read book /from 2pm /to 4pm]
+   3. Create a deadline task eg. [deadline read book /by 2pm]
+   4. Type either mark or unmark and the task number to indicate completion of task
+   5. Type list to view your list of tasks.
+   6. Type bye to exit the programme
+      ____________________________________________________________
+      ```
