@@ -132,6 +132,27 @@ public class Atom {
         Scanner scanner = new Scanner(System.in);
         Task[] tasksList = new Task[MAX_NUMBER_OF_TASKS];
 
+        File folder = new File("./data");
+        File file = new File("./data/AtomList.txt");
+
+        //create directory if it does not exist
+        if (folder.mkdir()) {
+            System.out.println("Folder data created.");
+        } else {
+            System.out.println("Folder already exists.");
+        }
+
+        //create txt file if it does not exist
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created.");
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("Oops!! An error occurred.");
+        }
+
         System.out.print("Enter command: ");
 
         line = scanner.nextLine().trim();
