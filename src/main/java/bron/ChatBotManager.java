@@ -4,6 +4,7 @@ import bron.command.Command;
 import bron.command.CommandHandler;
 import bron.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatBotManager {
@@ -11,7 +12,7 @@ public class ChatBotManager {
     private CommandHandler commandHandler;
     private Scanner input;
 
-    public ChatBotManager(Task[] tasks, int taskCount) {
+    public ChatBotManager(ArrayList<Task> tasks, int taskCount) {
         this.commandHandler = new CommandHandler(tasks, taskCount);
         this.input = new Scanner(System.in);
     }

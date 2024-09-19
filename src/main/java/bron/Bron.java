@@ -1,8 +1,10 @@
 package bron;
 
+import java.util.ArrayList;
 import bron.task.Task;
 
 public class Bron {
+
 
     public static final String LOGO = """
               ____    ____      ____    _     _
@@ -16,7 +18,7 @@ public class Bron {
     public static void main(String[] args) {
         displayIntro();
 
-        Task[] tasks = initializeTasks();
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         ChatBotManager chatBotManager = new ChatBotManager(tasks, taskCount);

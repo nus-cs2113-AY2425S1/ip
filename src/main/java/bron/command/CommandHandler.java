@@ -6,13 +6,13 @@ import bron.task.Event;
 import bron.task.Task;
 import bron.task.ToDo;
 
-public class CommandHandler {
-    private Task[] tasks;
-    private int taskCount;
+import java.util.ArrayList;
 
-    public CommandHandler(Task[] tasks, int taskCount) {
+public class CommandHandler {
+    private ArrayList<Task> tasks;
+
+    public CommandHandler(ArrayList<Task> tasks, int taskCount) {
         this.tasks = tasks;
-        this.taskCount = taskCount;
     }
 
     public void handleCommand(Command command, String line) {
@@ -57,23 +57,23 @@ public class CommandHandler {
     }
 
     private void handleList() {
-        System.out.println("You got " + taskCount + " task(s)");
-        int listCount = 0;
-        while (tasks[listCount] != null) {
-            System.out.println(listCount + 1 + ". " + tasks[listCount++]);
+        System.out.println("You got " + tasks.size() + " task(s)");
+        int count = 1;
+        for (Task task : tasks) {
+            System.out.println(count + ". " + task);
         }
     }
 
     private void handleMark(int index) throws TaskIndexOutOfBoundsException {
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
         System.out.println("Good shit kid! I've marked this task as done:");
-        System.out.println("  " + tasks[index]);
+        System.out.println("  " + tasks.get(index));
     }
 
     private void handleUnmark(int index) throws TaskIndexOutOfBoundsException {
-        tasks[index].markAsNotDone();
+        tasks.get(index).markAsNotDone();
         System.out.println("Get yo shit together son, this task aint done yet:");
-        System.out.println("  " + tasks[index]);
+        System.out.println("  " + tasks.get(index));
     }
 
     private void handleTodo(String line) throws EmptyTodoDescriptionException {
@@ -83,11 +83,11 @@ public class CommandHandler {
 
             String taskDescription = line.substring(line.indexOf(" ") + 1).trim();
             ToDo todo = new ToDo(taskDescription);
-            tasks[taskCount++] = todo;
+            tasks.add(todo);
 
             System.out.println("Got it. I've added this task:");
             System.out.println(todo);
-            System.out.println("You got " + taskCount + " task(s)");
+            System.out.println("You got " + tasks.size() + " task(s)");
     }
 
     private void handleDeadline(String line) throws InvalidDeadlineFormatException {
@@ -108,11 +108,11 @@ public class CommandHandler {
             String byWhen = deadlineParts[1].trim();
 
             Deadline deadline = new Deadline(taskDescription, byWhen);
-            tasks[taskCount++] = deadline;
+            tasks.add(deadline);
 
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + deadline);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private void handleEvent(String line) throws InvalidEventFormatException {
@@ -140,10 +140,10 @@ public class CommandHandler {
             String toTime = timeParts[1].trim();
 
             Event event = new Event(taskDescription, fromTime, toTime);
-            tasks[taskCount++] = event;
+            tasks.add(event);
 
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + event);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
