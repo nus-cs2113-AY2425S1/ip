@@ -27,6 +27,9 @@ public class CommandHandler {
             case MARK:
                 handleMark(parseIndex(line));
                 break;
+            case DELETE:
+                deleteTask(parseIndex(line));
+                break;
             case UNMARK:
                 handleUnmark(parseIndex(line));
                 break;
@@ -60,8 +63,14 @@ public class CommandHandler {
         System.out.println("You got " + tasks.size() + " task(s)");
         int count = 1;
         for (Task task : tasks) {
-            System.out.println(count + ". " + task);
+            System.out.println(count++ + ". " + task);
         }
+    }
+
+    private void deleteTask(int index) throws TaskIndexOutOfBoundsException {
+        tasks.remove(index);
+        System.out.println("You deleted \n" + tasks.get(index));
+        System.out.println("You have " + tasks.size() + " task(s)");
     }
 
     private void handleMark(int index) throws TaskIndexOutOfBoundsException {
