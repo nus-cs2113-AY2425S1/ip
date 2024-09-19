@@ -1,10 +1,9 @@
 package Glendon;
 
 import Glendon.task.Deadline;
-import Glendon.task.Event;
+import Glendon .task.Event;
 import Glendon.task.Task;
 import Glendon.task.Todo;
-import Glendon.task.SavedList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,7 +13,6 @@ public class Glendon {
     public static final int maxNumberOfTask = 100;
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static int taskCounter = 0;
-    public static final String directory = "./data";
     public static final String filePath = "./data/text.txt";
 
     public static void main(String[] args) {

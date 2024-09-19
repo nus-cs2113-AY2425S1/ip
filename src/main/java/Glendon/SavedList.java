@@ -1,24 +1,29 @@
-package Glendon.task;
+package Glendon;
+
+import Glendon.task.Deadline;
+import Glendon.task.Event;
+import Glendon.task.Task;
+import Glendon.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Glendon.Glendon;
 public class SavedList {
 
     public static void createTaskFile(String filePath, ArrayList<Task> taskList) {
         File taskFile = new File(filePath);
         File parentFile = taskFile.getParentFile();
-        if (parentFile == null && !parentFile.exists()) {
-            parentFile.mkdirs();
+        if (parentFile == null || !parentFile.exists()) {
+            new File("./data").mkdirs();
         }
         try {
             taskFile.createNewFile();
         } catch (IOException e) {
-            System.out.println("    Issue with creating file");
+            System.out.println("    Issue with creating file" + e.getMessage());
         }
     }
 
@@ -52,7 +57,14 @@ public class SavedList {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("    Issue with saving file");
+            if (e instanceof FileNotFoundException) {
+                System.out.println("    Error: File not found at " + filePath);
+            } else if (e instanceof AccessDeniedException) {
+                System.out.println("    Error: Access denied while saving to " + filePath);
+            } else {
+                System.out.println("    Unexpected error saving file: " + e.getMessage());
+            }
+            //System.out.println("    Issue with saving file");
         }
     }
 }
