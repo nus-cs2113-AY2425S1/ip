@@ -15,6 +15,9 @@ public class Prompt {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    public final static String EXIT_STRING = "bye";
+    public final static String EXIT_STRING_ALT = "exit";
+
     public static String command; // Variable to store the command
     public static String task; // Variable to store the task
 

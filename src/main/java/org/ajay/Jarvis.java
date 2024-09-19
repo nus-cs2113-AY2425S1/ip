@@ -35,11 +35,11 @@ public class Jarvis {
             Prompt.splitCommandAndTask(lineBufferString);
 
             switch (Prompt.command) {
-            case "bye":
+            case Prompt.EXIT_STRING: // Exit the program
                 in.close();
                 Prompt.printGoodbyeMsgs();
                 break;
-            case "exit": // Habit of typing exit to exit the program
+            case Prompt.EXIT_STRING_ALT: // Habit of typing exit to exit the program
                 in.close();
                 Prompt.printGoodbyeMsgs();
                 break;
