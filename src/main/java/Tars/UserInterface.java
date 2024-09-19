@@ -23,7 +23,7 @@ public class UserInterface {
 
     public void showGoodbyeMessage() {
         printSeparator();
-        System.out.println("    Oh, leaving already? Fine, I’ll just sit here calculating the probability of you returning. It's... pretty high.");
+        System.out.println("    Oh, leaving already? Fine, I will just sit here calculating the probability of you returning. It's... pretty high.");
         printSeparator();
     }
 
