@@ -54,7 +54,6 @@ public class Erika {
             String line = collectUserInput();
             if (line.equals("bye")) {
                 printGoodbyeMessage();
-                saveChangesToFileSystem();
                 return true;
             } else if (line.equals("list")) {
                 printList();
@@ -197,7 +196,7 @@ public class Erika {
         printDeletedMessage();
         tasks.remove(markIndex-1);
         Task.decrementTaskArraySize();
-        FileSystem.setDirtyBit();
+        saveChangesToFileSystem();
     }
 
     private static void markEntry(String line) throws EmptyDescriptionException {
@@ -215,7 +214,7 @@ public class Erika {
             tasks.get(markIndex - 1).setMark(true);
             printMarkedMessage();
         }
-        FileSystem.setDirtyBit();
+        saveChangesToFileSystem();
     }
 
     private static int extractTaskIndex(String line) throws NumberFormatException{

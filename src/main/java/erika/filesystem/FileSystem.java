@@ -16,7 +16,6 @@ import java.io.IOException;
 public class FileSystem {
     private String filePath;
     private String separator;
-    private static boolean dirtyBit = false;
     public FileSystem(String filePath, String separator) {
         this.filePath = filePath;
         this.separator = separator;
@@ -51,9 +50,6 @@ public class FileSystem {
     }
 
     public void updateFileSystemWithLocalTasks(ArrayList<Task> tasks) throws IOException{
-        if (!dirtyBit) {
-            return;
-        }
         FileWriter fw = new FileWriter(filePath, false);
         for (Task t : tasks) {
             String res = t.generateFileLine();
@@ -64,14 +60,6 @@ public class FileSystem {
 
     public void printFileNotFoundMessage() {
         System.out.println("\t" + filePath + " not found. Creating new file.");
-    }
-
-    public static void setDirtyBit() {
-        dirtyBit = true;
-    }
-
-    public static boolean getDirtyBit() {
-        return dirtyBit;
     }
 
     private void createDirectory(String directoryName) {
