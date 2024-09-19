@@ -6,7 +6,6 @@ import nell.tasks.Task;
 import nell.tasks.ToDo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
