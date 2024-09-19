@@ -3,10 +3,16 @@ package org.ajay;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import org.ajay.exceptions.*;
+import org.ajay.Ui.Prompt;
+import org.ajay.exceptions.EmptyArgumentException;
 import org.ajay.exceptions.Error;
 import org.ajay.exceptions.IllegalArgumentException;
-import org.ajay.task.*;
+import org.ajay.exceptions.IllegalCommandException;
+import org.ajay.exceptions.InvalidCommandFormatException;
+import org.ajay.task.Deadline;
+import org.ajay.task.Event;
+import org.ajay.task.Task;
+import org.ajay.task.Todo;
 import org.ajay.utils.Storage;
 
 public class Jarvis {
