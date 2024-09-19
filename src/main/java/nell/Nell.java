@@ -271,7 +271,6 @@ public class Nell {
             switch (commandWords[0]) {
             case "bye":
                 sayBye();
-                saveToFile();
                 isGettingCommands = false;
                 break;
 
@@ -331,6 +330,7 @@ public class Nell {
                 handleIncorrectInput();
                 break;
             }
+            saveToFile();
         }
     }
 
