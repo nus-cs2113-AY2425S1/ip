@@ -3,9 +3,11 @@ import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.task.DataStorage;
 import wildpeace.task.Echo;
 
+import java.io.File;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
+import static wildpeace.task.DataStorage.storeData;
 
 public class Initializer {
     public static void initialise(Scanner scanner, LLMChat llmChat) throws EmptyCommandException {
@@ -19,7 +21,7 @@ public class Initializer {
             Echo.echo(scanner);
             break;
         case "2":
-            DataStorage.storeData(scanner);
+            storeData(scanner);
             break;
   /*      case "3":
             llmChat.chatWithAudience(scanner);
