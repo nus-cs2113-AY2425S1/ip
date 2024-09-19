@@ -2,20 +2,26 @@ import utils.ActionManager;
 
 import java.util.Scanner;
 
+import static utils.ActionManager.process;
+import static utils.ActionManager.save;
+import static utils.ActionManager.load;
+
 public class SuBOT {
     public static final String SEPARATOR = "-------------------------------";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        load();
         greeting();
         System.out.println(SEPARATOR);
         while (ActionManager.isRunning) {
             String command = sc.nextLine();
             System.out.println(SEPARATOR);
-            ActionManager.process(command);
+            process(command);
             System.out.println(SEPARATOR);
         }
+        save();
         goodbye();
     }
 

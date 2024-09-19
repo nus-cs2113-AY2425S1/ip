@@ -5,6 +5,14 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 public final class ActionManager {
     private static final int MAX_CAPACITY = 100;
     private static final Task[] tasks = new Task[MAX_CAPACITY];
@@ -18,6 +26,10 @@ public final class ActionManager {
         private static final String DEADLINE_USAGE = "Usage: deadline <name> /by <time>";
         private static final String DEFAULT = "All commands: list, mark, unmark, event, todo, deadline";
     }
+    private static final String fileName = "tasks.subot";
+    private static final Path savePath = Path.of(System.getProperty("user.dir")
+            , fileName);
+
 
     /**
      * List all tasks in the format: <code>[T/D/E][isDone?] &lt;name&gt;
@@ -117,6 +129,45 @@ public final class ActionManager {
         }
     }
 
+    public static void save() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream(savePath.toFile())
+            );
+            oos.writeObject(tasks);
+            oos.flush();
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("Failed to save tasks to file, retry? (y/n)");
+            Scanner sc = new Scanner(System.in);
+            char choice = sc.next().charAt(0);
+            if (choice == 'y' | choice == 'Y') save();
+        } finally {
+            System.out.println("Tasks saved to \"" + savePath.toFile() + "\"");
+        }
+    }
+
+    public static void load() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(
+                    new FileInputStream(savePath.toFile())
+            );
+            Task[] list = (Task[]) ois.readObject();
+            for (Task task : list) {
+                if (task == null) continue;
+                tasks[taskCount++] = task;
+            }
+            ois.close();
+            if (taskCount == 0) {
+                throw new Exception();
+            } else {
+                System.out.println("Loaded " + taskCount + " tasks!");
+            }
+        } catch (Exception e) {
+            System.out.println("No save file detected!");
+        }
+    }
+
     /**
      * Processes user's input command.
      * This method takes the first word in <code>command</code>
@@ -125,7 +176,7 @@ public final class ActionManager {
      * for further processing.
      * @param command Input command
      */
-      public static void process(String command) {
+    public static void process(String command) {
         //Split `command` into `action` and `argString`
         String[] argv = command.split(" ", 2);
         //argv will have at least length of 1 because that's how split() works
@@ -166,6 +217,7 @@ public final class ActionManager {
             System.out.println("Invalid argument(s): " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected exception: " + e);
+            e.printStackTrace();
         }
     }
 }
