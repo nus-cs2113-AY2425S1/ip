@@ -3,14 +3,13 @@ package Utils;
 import Entity.Message;
 import Entity.messageList;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
 
-    public static void preHandle(messageList list) throws IOException {
+    public static void preHandle(messageList list) {
         Scanner scanner = new Scanner(System.in);
         String input = null;
         while(true) {
@@ -85,7 +84,7 @@ public class messageHandler {
         System.out.println("-----------------------------------\n");
     }
 
-    public static void addList(messageList list, String input) throws IOException {
+    public static void addList(messageList list, String input){
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
@@ -95,7 +94,6 @@ public class messageHandler {
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
-            saveHandler.writeToFile(message);
         }
 
         else if(input.contains("deadline")) {
@@ -108,7 +106,6 @@ public class messageHandler {
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
-            saveHandler.writeToFile(message);
         }
 
         else if(input.contains("event")) {
@@ -122,7 +119,6 @@ public class messageHandler {
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
-            saveHandler.writeToFile(message);
         }
         int taskNumber = list.getMessages().size();
         System.out.println("Now you have " + taskNumber + " tasks");
