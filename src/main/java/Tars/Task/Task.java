@@ -6,31 +6,34 @@ public class Task {
 
     public Task() {}
 
-    // Constructor that takes a task description, with the initial status set to not done.
+    // New constructor, accepts description and marks the task as not done
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    // Returns the task status icon, "X" if the task is done, otherwise a space.
+    // Returns task status icon, "X" if completed, otherwise a space
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");  // true -- "X"; false -- " ";
+        return (isDone ? "X" : " ");  // Return "X" if completed, otherwise space
     }
 
-    // Marks the task as done.
+    // Mark task as done
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // Marks the task as not done.
-    public void markAsNotDone () {
+    // Mark task as not done
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
-    // Returns the string representation of the task, including the status icon and description.
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    // This is the format for saving to file, subclasses will override this method
+    public String toSaveFormat() {
+        return description;  // Subclasses will override this method
+    }
 }

@@ -1,0 +1,6 @@
+T | 1 | dasdad
+T | 0 | dsadad
+T | 0 | dasda
+T | 0 | dsada
+T | 0 | 111
+T | 0 | 2222
