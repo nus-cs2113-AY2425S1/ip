@@ -176,6 +176,7 @@ public class Poirot {
                         validateTaskNumber(list_input);
                         int z = Integer.parseInt(list_input[1]) - 1;
                         deleteTask(z);
+                        saveTasksToFile();
                         break;
                     default:
                         throw new PoirotException("What the hell you wanna say?");
