@@ -34,6 +34,15 @@ public class Message {
         this.type = type;
     }
 
+    //retrive
+    public Message(String message, boolean isDone, String startTime, String endTime, int type) {
+        this.message = message;
+        this.isDone = false;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.type = type;
+    }
+
     public int getType() {
         return type;
     }

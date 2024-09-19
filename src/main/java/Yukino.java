@@ -1,21 +1,14 @@
 import Entity.Message;
 import Entity.messageList;
 import Utils.messageHandler;
+import Utils.saveHandler;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Yukino {
 
-
-    public static void handleMessage(String message) {
-        if(message == null || message.equals(""))
-            return;
-        if (message.equals("bye")) {
-            System.out.println("Bye! Hope to see you soon!\n");
-        }
-    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = "__   __         _        \n"
                 + "\\ \\ / /_     _ / /___ __ ______ ______      \n"
                 + " \\   / //  / // ___/ / // ___ ///--/ /     \n"
@@ -26,9 +19,14 @@ public class Yukino {
         System.out.println("What can I do for you?\n");
         System.out.println("-----------------------------------\n");
 
+
+        messageList list = new messageList();
+
+
+        saveHandler.initFile(list);
         Scanner scanner = new Scanner(System.in);
         String input = null;
-        messageList list = new messageList();
+
         messageHandler messageHandler = new messageHandler();
         messageHandler.preHandle(list);
     }
