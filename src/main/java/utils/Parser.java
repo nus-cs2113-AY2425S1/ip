@@ -7,7 +7,7 @@ public final class Parser {
      * @return Task number (starts from 1)
      * @throws SuBotException If invalid task number
      */
-    static int parseMarkUnmark(String args) throws SuBotException {
+    static int parseTaskIndex(String args) throws SuBotException {
         if (args.isBlank()) {
             throw new SuBotException("Task number cannot be blank");
         }

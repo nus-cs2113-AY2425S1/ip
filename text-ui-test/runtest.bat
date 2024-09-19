@@ -15,7 +15,7 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-for /L %%I IN (1,1,4) DO (
+for /L %%I IN (1,1,5) DO (
 java -classpath ..\bin SuBOT < .\tests\input%%I.txt > .\tests\ACTUAL%%I.TXT
 FC .\tests\ACTUAL%%I.TXT .\tests\EXPECTED%%I.TXT
 )
