@@ -36,11 +36,7 @@ public class Task {
      * @return X if isDone is true, space otherwise
      */
     public char getStatusIcon() {
-        if (isDone) {
-            return 'X';
-        }
-
-        return ' ';
+        return (isDone) ? 'X' : ' ';
     }
 
     /**
