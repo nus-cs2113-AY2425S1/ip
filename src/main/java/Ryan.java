@@ -56,11 +56,11 @@ public class Ryan {
                         defaultCase();
                         break;
                 }
+                FileManager.saveTasks(tasks);
             } catch (RyanException e) {
                 handleError(e);
             }
         }
-        FileManager.saveTasks(tasks);
         printGoodbye();
         scanner.close();
     }
