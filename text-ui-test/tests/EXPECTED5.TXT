@@ -1,3 +1,4 @@
+No save file detected!
                ____  ____  ______
    _______  __/ __ )/ __ \/_  __/
   / ___/ / / / __  / / / / / /
@@ -102,6 +103,7 @@ No task found
 -------------------------------
 -------------------------------
 -------------------------------
+Tasks saved to "<currentDir>\tasks.subot"
 Bye bye...
 System shutting down...
 Goodbye world!

@@ -1,3 +1,4 @@
+No save file detected!
                ____  ____  ______
    _______  __/ __ )/ __ \/_  __/
   / ___/ / / / __  / / / / / /
@@ -138,6 +139,7 @@ I have unmarked the following task for you:
 -------------------------------
 -------------------------------
 -------------------------------
+Tasks saved to "<currentDir>\tasks.subot"
 Bye bye...
 System shutting down...
 Goodbye world!
