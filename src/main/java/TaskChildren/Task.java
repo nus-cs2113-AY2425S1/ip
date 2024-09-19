@@ -1,10 +1,11 @@
 package TaskChildren; // Package for Task-related classes
+import java.util.ArrayList;
 
 // Parent class Task which serves as a base for ToDo, Deadline, and Event tasks
 public class Task {
 
     // Array to keep track of all tasks added
-    private static Task[] tasks = new Task[100]; // Task array of size 100 to store tasks
+    private static ArrayList<Task> tasks = new ArrayList<>(100); // Task array of size 100 to store tasks
     private static int taskCount = 0; // Counter to keep track of the number of tasks
 
     // Object-specific variables
@@ -14,13 +15,13 @@ public class Task {
     // Constructor Function: initializes a Task object and adds it to the tasks array
     public Task(String inputString){
         this.taskString = inputString; // Set the task description
-        tasks[taskCount] = this; // Add the current task to the array
+        tasks.add(this); // Add the current task to the array
         taskCount++; // Increment the task count
     }
 
     // Static method to delete the latest task in case of errors
     public static void deleteLatestTask(){
-        tasks[taskCount-1] = null; // Remove the latest task from the array
+        tasks.remove(taskCount - 1); // Remove the latest task from the array
         taskCount--; // Decrement the task count
     }
 
@@ -34,16 +35,16 @@ public class Task {
 
     // Static method to mark a task as done by index
     public static void mark(int taskIndex){
-        tasks[taskIndex].isDone = true; // Mark the task as done
+        tasks.get(taskIndex).isDone = true; // Mark the task as done
         System.out.println("Fantastica!!!! I marked it:"); // Success message in Spanish
-        System.out.println(tasks[taskIndex].checkboxString()); // Display the updated task
+        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
     }
 
     // Static method to unmark a task as undone by index
     public static void unmark(int taskIndex){
-        tasks[taskIndex].isDone = false; // Unmark the task as not done
+        tasks.get(taskIndex).isDone = false; // Unmark the task as not done
         System.out.println("Ay Caramba, I unmarked it:"); // Message indicating task was unmarked
-        System.out.println(tasks[taskIndex].checkboxString()); // Display the updated task
+        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
     }
 
     // Method to create and return a string with a checkbox (marked or unmarked) for the task
@@ -66,7 +67,7 @@ public class Task {
             System.out.println("Si compinche, your tasks:"); // Message when displaying tasks
             for (int i = 0; i < taskCount; i++){
                 // Print each task with its index and checkbox format
-                System.out.println((i+1) + "." + tasks[i].checkboxString());
+                System.out.println((i+1) + "." + tasks.get(i).checkboxString());
             }
         }
     }
