@@ -119,6 +119,22 @@ public class Parser {
         Collections.addAll(argumentList, what, fromWhen, toWhen);
     }
 
+    public void parseDelete(String rawText) throws PythiaException {
+        Pattern pattern = Pattern.compile("delete\\s(.+)");
+        Matcher matcher = pattern.matcher(rawText);
+
+        String what = "";
+
+        if (matcher.find()) {
+            what = matcher.group(1);
+        } else {
+            throw new PythiaException(parsingErrorMessage, "Please specify what should I delete.");
+        }
+
+        argumentList.clear();
+        Collections.addAll(argumentList, what);
+    }
+
     public void parse(String rawText) throws PythiaException {
         commandType = parseCommandType(rawText);
         argumentList = new ArrayList<>();
@@ -131,6 +147,7 @@ public class Parser {
             case "todo" -> parseToDo(rawText);
             case "deadline" -> parseDeadline(rawText);
             case "event" -> parseEvent(rawText);
+            case "delete" -> parseDelete(rawText);
         }
     }
 
@@ -147,6 +164,7 @@ public class Parser {
             case "todo" -> Pythia.addToDo(argumentList.get(0));
             case "deadline" -> Pythia.addDeadline(argumentList.get(0), argumentList.get(1));
             case "event" -> Pythia.addEvent(argumentList.get(0), argumentList.get(1), argumentList.get(2));
+            case "delete" -> Pythia.deleteTask(Integer.parseInt(argumentList.get(0)));
             default -> throw new PythiaException(parsingErrorMessage, "Hmm. I am not sure what you mean.");
         }
     }
