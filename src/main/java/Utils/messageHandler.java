@@ -3,13 +3,14 @@ package Utils;
 import Entity.Message;
 import Entity.messageList;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
 
-    public static void preHandle(messageList list) {
+    public static void preHandle(messageList list) throws IOException {
         Scanner scanner = new Scanner(System.in);
         String input = null;
         while(true) {
@@ -24,6 +25,8 @@ public class messageHandler {
                 messageHandler.listShow(list);
             } else if (input.contains("mark") || input.contains("unmark")) {
                 messageHandler.mark(list, input);
+            } else if (input.contains("delete")) {
+                messageHandler.delete(list, input);
             } else {
                 messageHandler.addList(list, input);
             }
@@ -84,12 +87,13 @@ public class messageHandler {
         System.out.println("-----------------------------------\n");
     }
 
-    public static void addList(messageList list, String input){
+    public static void addList(messageList list, String input) throws IOException {
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
             String[] strings = input.split(" ");
             String eventName = strings[1];
+            message.setMessage(eventName);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
@@ -120,6 +124,7 @@ public class messageHandler {
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
         }
+        saveHandler.writeToFile(list);
         int taskNumber = list.getMessages().size();
         System.out.println("Now you have " + taskNumber + " tasks");
         System.out.println("-----------------------------------\n");
@@ -146,5 +151,20 @@ public class messageHandler {
             System.out.println("I have marked this task as done!\n" + "[X] " + messages.get(number-1).getMessage());
             System.out.println("-----------------------------------\n");
         }
+    }
+
+    public static void delete(messageList list, String input) throws IOException {
+        String[] sentences = input.split(" ");
+        int number = Integer.parseInt(sentences[1]);
+        List<Message> messages = list.getMessages();
+        if(number - 1 > messages.size() || number < 1) {
+            System.out.println("You are deleting an event that does not exist");
+        }
+        messages.remove(number - 1);
+        list.setMessages(messages);
+        saveHandler.writeToFile(list);
+        System.out.println("------------------------------------\n");
+        System.out.println("You have successfully deleted this task");
+        System.out.println("------------------------------------\n");
     }
 }
