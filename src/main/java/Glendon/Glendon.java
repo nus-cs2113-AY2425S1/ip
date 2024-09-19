@@ -4,16 +4,27 @@ import Glendon.task.Deadline;
 import Glendon.task.Event;
 import Glendon.task.Task;
 import Glendon.task.Todo;
+import Glendon.task.SavedList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Glendon {
     public static final int maxNumberOfTask = 100;
-    public static Task[] list = new Task[maxNumberOfTask];
+    public static Task[] taskList = new Task[maxNumberOfTask];
     public static int taskCounter = 0;
+    public static final String directory = "./data";
+    public static final String filePath = "./data/text.txt";
 
     public static void main(String[] args) {
+
+        try {
+            SavedList.loadSavedTasks(filePath, taskList);
+        } catch (FileNotFoundException e) {
+            SavedList.createTaskFile(filePath, taskList);
+        }
+
         printWelcomeMessage();
 
         Scanner in = new Scanner(System.in);
@@ -24,6 +35,7 @@ public class Glendon {
             case "bye":
                 printBye();
                 response = null;
+                SavedList.saveTasks(filePath, taskList);
                 break;
             case "list":
                 printList();
@@ -76,7 +88,7 @@ public class Glendon {
     private static void addEvent(String response) {
         try{
             String[] answers = response.split("/");
-            list[taskCounter] = new Event(answers[0].substring(6), answers[1].substring(5), answers[2].substring(3));
+            taskList[taskCounter] = new Event(answers[0].substring(6), answers[1].substring(5), answers[2].substring(3));;
             printAddedTask();
             taskCounter++;
         } catch (StringIndexOutOfBoundsException e) {
@@ -86,14 +98,14 @@ public class Glendon {
 
     private static void printAddedTask() {
         System.out.println("    Got it. I've added this task:");
-        System.out.println("        " + list[taskCounter]);
+        System.out.println("        " + taskList[taskCounter]);
         System.out.println("    Now you have " + (taskCounter+1) + " tasks in the list.");
     }
 
     private static void addDeadline(String response) {
         try {
             String[] answers = response.split("/");
-            list[taskCounter] = new Deadline(answers[0].substring(9), answers[1].substring(3));
+            taskList[taskCounter] = new Deadline(answers[0].substring(9), answers[1].substring(3));
             printAddedTask();
             taskCounter++;
         } catch (StringIndexOutOfBoundsException e) {
@@ -103,7 +115,7 @@ public class Glendon {
 
     private static void addTodo(String response) {
         try {
-            list[taskCounter] = new Todo(response.substring(5));
+            taskList[taskCounter] = new Todo(response.substring(5));
             printAddedTask();
             taskCounter++;
         } catch (StringIndexOutOfBoundsException e) {
@@ -114,9 +126,9 @@ public class Glendon {
     private static void unmarkDone(String response) {
         try {
             int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
-            list[taskValue].setCompleted(false);
+            taskList[taskValue].setCompleted(false);
             System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("        " + list[taskValue]);
+            System.out.println("        " + taskList[taskValue]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("    I can't read your mind, you need to tell me what your task number is.");
         }
@@ -130,9 +142,9 @@ public class Glendon {
     private static void markDone(String response) {
         try {
             int taskValue = Integer.parseInt(response.split(" ")[1]) - 1;
-            list[taskValue].setCompleted(true);
+            taskList[taskValue].setCompleted(true);
             System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("        " + list[taskValue]);
+            System.out.println("        " + taskList[taskValue]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("    I can't read your mind, you need to tell me what your task number is.");
         } catch (NumberFormatException e) {
@@ -144,8 +156,8 @@ public class Glendon {
         int taskNumber = 1;
         Task currentTask;
         System.out.println("    Here are the tasks in your list:");
-        for (int i = 0; i < list.length; i++) {
-            currentTask = list[i];
+        for (int i = 0; i < taskList.length; i++) {
+            currentTask = taskList[i];
             if (currentTask != null) {
                 System.out.println("        " + taskNumber + ". " + currentTask.toString());
                 taskNumber++;
