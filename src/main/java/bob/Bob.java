@@ -4,6 +4,7 @@ import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
@@ -16,18 +17,17 @@ public class Bob {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_DELETE = "delete";
     private static final String DEADLINE_BY = " /by ";
     private static final String EVENT_FROM = " /from ";
     private static final String EVENT_TO = " /to ";
-    private static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
         
         printGreeting();
         
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (true) {
 
@@ -37,11 +37,11 @@ public class Bob {
                 exit();
                 break;
             } else if (input.equals(COMMAND_LIST)) {
-                printList(tasks, taskCount);
+                printList(tasks);
             } else if (input.startsWith(COMMAND_MARK)) {
-                markTask(input, tasks, taskCount);
+                markTask(input, tasks);
             } else if (input.startsWith(COMMAND_UNMARK)) {
-                unmarkTask(input, tasks, taskCount);
+                unmarkTask(input, tasks);
             } else if (input.equals(COMMAND_TODO)) {
                 printEmptyDescription("todo");
             } else if (input.startsWith(COMMAND_TODO + " ")) {
@@ -49,9 +49,8 @@ public class Bob {
                 if (description.isEmpty()) {
                     printEmptyDescription("todo");
                 } else {
-                    tasks[taskCount] = new ToDo(description);
-                    taskCount++;
-                    printAddedTask(tasks, taskCount);
+                    tasks.add(new ToDo(description));
+                    printAddedTask(tasks);
                 }
             } else if (input.equals(COMMAND_DEADLINE)) {
                 printEmptyDescription("deadline");
@@ -63,9 +62,8 @@ public class Bob {
                 } else {
                     try {
                         String by = components[1];
-                        tasks[taskCount] = new Deadline(description, by);
-                        taskCount++;
-                        printAddedTask(tasks, taskCount);
+                        tasks.add(new Deadline(description, by));
+                        printAddedTask(tasks);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         printSeparator();
                         System.out.println("Sorry! Please provide a valid deadline with '/by <date/time>'.");
@@ -85,16 +83,18 @@ public class Bob {
                         String description = input.substring(COMMAND_EVENT.length() +1, fromIndex);
                         String from = input.substring(fromIndex + EVENT_FROM.length(), toIndex);
                         String to = input.substring(toIndex + EVENT_TO.length());
-                        tasks[taskCount] = new Event(description, from, to);
-                        taskCount++;
-                        printAddedTask(tasks, taskCount);
+                        tasks.add(new Event(description, from, to));
+                        printAddedTask(tasks);
                     } catch (StringIndexOutOfBoundsException e) {
                         printSeparator();
                         System.out.println("Sorry! Please provide a valid event with '/from <start date/time> /to <end date/time>'.");
                         printSeparator();
                     }
                 }
-            } else {
+            } else if (input.startsWith(COMMAND_DELETE)) {
+                deleteTask(input, tasks);
+            }
+            else {
                 printInvalidInput();
             }
         }
@@ -123,23 +123,23 @@ public class Bob {
         System.out.println(SEPARATOR);
     }
 
-    public static void printList(Task[] tasks, int taskCount) {
+    public static void printList(ArrayList<Task> tasks) {
         printSeparator();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("Sorry! Your list is empty.");
             printSeparator();
             return;
         }
-        System.out.println("Here " + (taskCount == 1 ? "is" : "are") + " the " + (taskCount == 1 ? "task" : "tasks") + " in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        System.out.println("Here " + (tasks.size() == 1 ? "is" : "are") + " the " + (tasks.size() == 1 ? "task" : "tasks") + " in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         printSeparator();
     }
 
-    private static void markTask(String input, Task[] tasks, int taskCount) {
+    private static void markTask(String input, ArrayList<Task> tasks) {
         printSeparator();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("Sorry! Your list is empty, please add a task before marking as done.");
             printSeparator();
             return;
@@ -147,29 +147,29 @@ public class Bob {
         try {
             String[] inputsInString = input.split(" ");
             int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
-            if (tasks[taskIndex].getStatusIcon().equals("X")) {
+            if (tasks.get(taskIndex).getStatusIcon().equals("X")) {
                 System.out.println("Sorry! This task is already marked as done.");
             } else {
-                tasks[taskIndex].markAsDone();
+                tasks.get(taskIndex).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
             }
             printSeparator();
         } catch (NullPointerException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
-            System.out.println("Please input a valid task number from 1 to " + taskCount);
+            System.out.println("Please input a valid task number from 1 to " + tasks.size());
             printSeparator();
         } catch (NumberFormatException e) {
-            System.out.println("Sorry! Please input a valid task number from 1 to " + taskCount + " after inputting the word 'mark'.");
+            System.out.println("Sorry! Please input a valid task number from 1 to " + tasks.size() + " after inputting the word 'mark'.");
             printSeparator();
         }
     }
 
-    private static void unmarkTask(String input, Task[] tasks, int taskCount) {
+    private static void unmarkTask(String input, ArrayList<Task> tasks) {
         printSeparator();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("Sorry! Your list is empty, please add a task before unmarking.");
             printSeparator();
             return;
@@ -177,22 +177,22 @@ public class Bob {
         try {
             String[] inputsInString = input.split(" ");
             int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
-            if (tasks[taskIndex].getStatusIcon().equals(" ")) {
+            if (tasks.get(taskIndex).getStatusIcon().equals(" ")) {
                 System.out.println("Sorry! This task is already unmarked.");
             } else {
-                tasks[taskIndex].unmark();
+                tasks.get(taskIndex).unmark();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
             }
             printSeparator();
         } catch (NullPointerException e) {
             String[] inputsInString = input.split(" ");
             int inputTaskNumber = Integer.parseInt(inputsInString[1]);
             System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
-            System.out.println("Please input a valid task number from 1 to " + taskCount + ".");
+            System.out.println("Please input a valid task number from 1 to " + tasks.size() + ".");
             printSeparator();
         } catch (NumberFormatException e) {
-            System.out.println("Sorry! Please input a valid task number from 1 to " + taskCount + " after inputting the word 'unmark'.");
+            System.out.println("Sorry! Please input a valid task number from 1 to " + tasks.size() + " after inputting the word 'unmark'.");
             printSeparator();
         }
     }
@@ -207,12 +207,39 @@ public class Bob {
         printSeparator();
     }
 
-    public static void printAddedTask (Task[] tasks, int taskCount) {
+    public static void printAddedTask (ArrayList<Task> tasks) {
         printSeparator();
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " " + (taskCount == 1 ? "task" : "tasks") + " in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");
         printSeparator();
+    }
+
+    public static void deleteTask(String input, ArrayList<Task> tasks) {
+        printSeparator();
+        if (tasks.isEmpty()) {
+            System.out.println("Sorry! Your list is empty, there is nothing to delete.");
+            printSeparator();
+            return;
+        }
+        try {
+            String[] inputsInString = input.split(" ");
+            int taskIndex = Integer.parseInt(inputsInString[1]) - 1;
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+            printSeparator();
+        } catch (NullPointerException e) {
+            String[] inputsInString = input.split(" ");
+            int inputTaskNumber = Integer.parseInt(inputsInString[1]);
+            System.out.println("Sorry! Task " + inputTaskNumber + " is not found in the list.");
+            System.out.println("Please input a valid task number from 1 to " + tasks.size() + ".");
+            printSeparator();
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry! Please input a valid task number from 1 to " + tasks.size() + " after inputting the word 'delete'.");
+            printSeparator();
+        }
     }
 
     public static void printInvalidInput() {
