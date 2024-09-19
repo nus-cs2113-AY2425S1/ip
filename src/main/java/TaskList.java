@@ -44,6 +44,26 @@ public class TaskList {
         Terri.printDivider();
     }
 
+    // Parse deadline information from user input and log Deadline
+    public static void handleDeadline(String[] keyWord) {
+        String newBy = null;
+        String newDeadline = null;
+        StringBuilder tempDeadlineInfo = new StringBuilder();
+
+        // Iterate through user input to concatenate
+        // deadline description/date information
+        for (int i = 1; i <= keyWord.length; i++) {
+            if (keyWord[i].equals("/by")) {
+                newBy = Terri.extractSubArray(keyWord, i+1, keyWord.length);
+                newDeadline = tempDeadlineInfo.toString().trim();
+                break;
+            }
+            tempDeadlineInfo.append(keyWord[i]).append(" ");
+        }
+
+        TaskList.addDeadline(newDeadline, newBy);
+    }
+
     public static void addDeadline(String newDeadline, String newBy) {
         if (checkTasklistCapacity()) {
             return;
@@ -53,6 +73,28 @@ public class TaskList {
         printNumberOfTasks();
         Terri.printDivider();
     }
+
+    // Parse event information from user input and log event
+    public static void handleEvent(String[] keyWord) {
+        int startIdx = 0;
+        int endIdx = 0;
+
+        // Locate time information in user-input
+        for (int i = 0; i < keyWord.length; i++) {
+            if (keyWord[i].equals("/from")) startIdx = i;
+            if (keyWord[i].equals("/to")) {
+                endIdx = i;
+                break;
+            }
+        }
+
+        String newDescription = Terri.extractSubArray(keyWord, 1, startIdx);
+        String newStart = Terri.extractSubArray(keyWord, startIdx + 1, endIdx);
+        String newEnd = Terri.extractSubArray(keyWord, endIdx + 1, keyWord.length);
+
+        TaskList.addEvent(newDescription, newStart, newEnd);
+    }
+
 
     public static void addEvent(String newEvent, String From, String To) {
         if (checkTasklistCapacity()) {
@@ -64,19 +106,23 @@ public class TaskList {
         Terri.printDivider();
     }
 
+    // Updates task isDone field to be completed
     public static void markDone(int taskIndex) {
         tasks[taskIndex].setDone(true);
         System.out.println("Just marked that task completed!");
         System.out.println((taskIndex+1)+". "
+                + tasks[taskIndex].getTypeIcon()
                 + tasks[taskIndex].getStatusIcon()
                 + tasks[taskIndex].getTaskName());
         Terri.printDivider();
     }
 
+    // Updates task isDone field to be not completed
     public static void markNotDone(int taskIndex) {
         tasks[taskIndex].setDone(false);
         System.out.println("Just marked that task as not completed!");
-        System.out.println((taskIndex+1)+ ". "
+        System.out.println((taskIndex+1)+". "
+                + tasks[taskIndex].getTypeIcon()
                 + tasks[taskIndex].getStatusIcon()
                 + tasks[taskIndex].getTaskName());
         Terri.printDivider();
@@ -99,5 +145,6 @@ public class TaskList {
         }
         return false;
     }
+
 
 }
