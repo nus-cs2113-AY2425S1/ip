@@ -5,13 +5,43 @@ import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.exceptions.InvalidInputException;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataStorage {
     private static ArrayList<Task> storedItems = new ArrayList<>();
+    private static final String FILE_PATH = "tasks.json";
+    private static Gson gson = new Gson();
+    private static void saveToJson() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            gson.toJson(storedItems, writer);  // Save the current state of storedItems to the file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void loadFromJson() {
+        try (FileReader reader = new FileReader(FILE_PATH)) {
+            Type listType = new TypeToken<ArrayList<Task>>() {}.getType();  // Correct Type for Task list
+            ArrayList<Task> loadedTasks = gson.fromJson(reader, listType);  // Read and load tasks from the file
 
+            if (loadedTasks != null) {
+                storedItems = loadedTasks;  // If the file has valid tasks, assign it to storedItems
+            }
+
+        } catch (IOException e) {
+            // If the file doesn't exist or can't be read, start with an empty list
+            System.out.println("No existing tasks found. Starting fresh.");
+        }
+    }
     public static void storeData(Scanner scanner) throws EmptyCommandException {
+        loadFromJson();
         displayGuide();
         boolean exit = false;
 
@@ -88,11 +118,13 @@ public class DataStorage {
         {
             System.out.println("Unknown/ Incomplete command.");
         }
+        saveToJson();
     }
 
     private static void addTask(Task task) {
         storedItems.add(task);
         System.out.println("Added: " + task);
+        saveToJson();
     }
 
     private static void listItems() {
@@ -114,6 +146,7 @@ public class DataStorage {
         } else {
             System.out.println("Index " + String.valueOf(index) + " is not found.");
         }
+        saveToJson();
     }
 
     private static void unmarkTask(Integer index ) throws InvalidInputException {
@@ -128,5 +161,6 @@ public class DataStorage {
         } else {
             System.out.println("Index " + String.valueOf(index) + " is not found.");
         }
+        saveToJson();
     }
 }
