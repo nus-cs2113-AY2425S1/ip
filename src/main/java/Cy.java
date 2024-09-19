@@ -200,27 +200,36 @@ public class Cy {
     }
 
     private static void saveNewData(String input, String taskType) {
-        String textToAppend = "";
 
-        switch (taskType) {
-            case "T":
-                textToAppend = "T | 0 | " + input + System.lineSeparator();
-                break;
-            case "D":
-                textToAppend = "D | 0 | " + input + System.lineSeparator();
-                break;
-            case "E":
-                textToAppend = "E | 0 | " + input + System.lineSeparator();
-                break;
-            default:
-                System.out.println("Please enter a valid task type.");
-        }
+        String textToAppend = getString(input, taskType);
 
         try {
             appendToFile(textToAppend);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
+    }
+
+    private static String getString(String input, String taskType) {
+        String textToAppend = "";
+        switch (taskType) {
+            case "T":
+                textToAppend = "T | 0 | " + input;
+                break;
+            case "D":
+                String[] splitInput = input.split("by");
+                textToAppend = "D | 0 | " + splitInput[0] + " | " + splitInput[1];
+                break;
+            case "E":
+                String[] splitInputs = input.split("from|to");
+                String start = splitInputs[1];
+                String end = splitInputs[2];
+                textToAppend = "E | 0 | " + splitInputs[0] + " | " + start + "-" + end;
+                break;
+            default:
+                System.out.println("Please enter a valid task type.");
+        }
+        return textToAppend;
     }
 
     public static void main(String[] args) throws IllegalCommandException, IllegalEmptyException {
