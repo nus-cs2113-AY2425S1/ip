@@ -27,7 +27,8 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    2. Create an event task eg. [event read book /from 2pm /to 4pm]
    3. Create a deadline task eg. [deadline read book /by 2pm]
    4. Type either mark or unmark and the task number to indicate completion of task
-   5. Type list to view your list of tasks.
-   6. Type bye to exit the programme
-      ____________________________________________________________
-      ```
+   5. Type delete followed by the task number to remove a task from your list
+   6. Type list to view your list of tasks.
+   7. Type bye to exit the programme
+   ____________________________________________________________
+         ```
