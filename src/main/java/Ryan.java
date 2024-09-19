@@ -211,7 +211,12 @@ public class Ryan {
     }
 
     private static void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(
+                "  GGGGG    OOOOO   OOOOO  DDDDD   BBBBB   Y   Y  EEEEE\n" +
+                " G        O     O O     O D    D  B    B   Y Y   E\n" +
+                " G  GGG   O     O O     O D    D  BBBBB     Y    EEEE\n" +
+                " G    G   O     O O     O D    D  B    B    Y    E\n" +
+                "  GGGGG    OOOOO   OOOOO  DDDDD   BBBBB     Y    EEEEE\n");
         Utils.horizontalLine();
     }
 }
