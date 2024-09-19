@@ -10,6 +10,7 @@ public class Constants {
             "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
-
+    public static final String DATA_FILE_PATH = "data/bean.txt";
+    public final static String DELIMITER = "//";
 
 }

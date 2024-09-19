@@ -8,6 +8,7 @@ import bean.task.Deadline;
 import bean.task.Event;
 import bean.task.Task;
 import bean.task.Todo;
+import bean.constants.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,17 +18,11 @@ import java.io.IOException;
 
 public class Bean {
     // Constants
-    private final static String SEPARATOR_LINE = "_".repeat(60) + "\n";
-    private final static String INDENT = "  ";
-    private final static int MAX_LIST_COUNT = 100;
-    private final static String LOGO = "  ┏━┓\n" +
-            "  ┃ ┃\n" +
-            "  ┃ ┗━━┳━━━┳━━━━┳━━━┓\n" +
-            "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
-            "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
-            "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
-    private static final String DATA_FILE_PATH = "data/bean.txt";
-    private static  final String DELIMITER = "//";
+    private final static String SEPARATOR_LINE = Constants.SEPARATOR_LINE;
+    private final static String INDENT = Constants.INDENT;
+    private final static int MAX_LIST_COUNT = Constants.MAX_LIST_COUNT;
+    private final static String LOGO = Constants.LOGO;
+    private static final String DATA_FILE_PATH = Constants.DATA_FILE_PATH;
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 
@@ -48,7 +43,6 @@ public class Bean {
     }
 
     public static void deserialise(String toDeserialise) {
-
         if (toDeserialise == null) {
             throw new RuntimeException("Could not load saved data.");
         }
@@ -56,7 +50,7 @@ public class Bean {
         // 'T||<1/0>||<description>'
         // 'D||<1/0>||<description>||<by>'
         // 'E||<1/0>||<description>||<from>||<to>'
-        String[] parts = toDeserialise.split(DELIMITER);
+        String[] parts = toDeserialise.split(Constants.DELIMITER);
         String taskClass = parts[0];
         Boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -81,7 +75,7 @@ public class Bean {
         }
     }
 
-    // TODO method to read bean.txt to retrieve tasks from memory on start
+    // Read bean.txt to retrieve tasks from memory on start
     public static void retrieveFromDataFile() throws IOException {
         File f = new File(DATA_FILE_PATH);
         Scanner scanner = new Scanner(f);
@@ -101,6 +95,13 @@ public class Bean {
         fw.close();
     }
 
+    private static void appendNextLineToFile(String nextLine) throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH, true); // create a FileWriter in append mode
+        fw.write(nextLine + "\n");
+        fw.close();
+    }
+
+    // Set up data file and retrieve saved data
     public static void setUp() throws IOException {
         initialiseDataFile();
         retrieveFromDataFile();
@@ -230,20 +231,15 @@ public class Bean {
     public static void printInvalidInputMessage() {
         printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
-                INDENT + "1. To add a new duke.task:\n" +
+                INDENT + "1. To add a new task:\n" +
                 INDENT + INDENT + "a. todo [description]\n" +
                 INDENT + INDENT + "b. deadline [description] /by [by]\n" +
                 INDENT + INDENT + "c. event [description] /from [from] /to [to]\n" +
                 INDENT + INDENT + INDENT + "example: event dinner /from 6pm /to 8pm\n" +
-                INDENT + "2. To view your to do list: list\n" +
+                INDENT + "2. To view your task list: list\n" +
                 INDENT + "3. To mark a task as done: mark [task number]\n" +
-                INDENT + "4. To mark a task as undone: unmark [task number]");
-    }
-
-    private static void appendNextLineToFile(String nextLine) throws IOException {
-        FileWriter fw = new FileWriter(DATA_FILE_PATH, true); // create a FileWriter in append mode
-        fw.write(nextLine + "\n");
-        fw.close();
+                INDENT + "4. To mark a task as undone: unmark [task number]\n" +
+                INDENT + "5. To delete a task from your task list: delete [task number]");
     }
 
     public static void processUserInput() throws InvalidInputException {
@@ -311,10 +307,14 @@ public class Bean {
         }
     }
 
-    public static void main(String[] args) throws InvalidInputException, IOException {
+    public static void run() throws IOException {
         setUp();
         greet();
         processUserInput();
         exit();
+    }
+
+    public static void main(String[] args) throws InvalidInputException, IOException {
+        run();
     }
 }
