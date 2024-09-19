@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/test.txt";
+    private static final String FILE_PATH = "C:/Users/Louis Joe/IdeaProjects/ip/data/test.txt";
 
     public void saveTasks(ArrayList<Task> tasks) {
         try {
