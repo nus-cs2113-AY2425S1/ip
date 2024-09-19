@@ -72,8 +72,8 @@ public class Atom {
                 + currTask.getStatus() + "] " + currTask.getItem());
     }
 
-    private static void addTodoTask(String line, Task[] tasksList) {
-        Todo todo = new Todo(line.substring(TODO_START_INDEX));
+    private static void addTodoTask(String todoName, Task[] tasksList) {
+        Todo todo = new Todo(todoName.trim());
         tasksList[Task.getTaskCount() - 1] = todo;
 
         System.out.println("Gotcha! TODO task added to list!");
@@ -153,6 +153,50 @@ public class Atom {
             System.out.println("Oops!! An error occurred.");
         }
 
+        //load data (if any) to the list
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNext()) {
+                String fileLine = fileScanner.nextLine().trim();
+                String[] fileLineParams = fileLine.split("\\|");
+
+                String taskType = fileLineParams[0].trim();
+                boolean doneStatus = (fileLineParams[1].trim().equals("1"));
+                String taskName = fileLineParams[2].trim();
+
+                switch (taskType) {
+                case "T":
+                    addTodoTask(taskName, tasksList);
+                    if (doneStatus) {
+                        int taskId = Task.getTaskCount() - 1;
+                        tasksList[taskId].markAsDone();
+                    }
+                    break;
+                case "D":
+                    String taskDeadline = fileLineParams[3].trim();
+                    addDeadlineTask(taskName, taskDeadline, tasksList);
+                    if (doneStatus) {
+                        int taskId = Task.getTaskCount() - 1;
+                        tasksList[taskId].markAsDone();
+                    }
+                    break;
+                case "E":
+                    String taskDuration = fileLineParams[3].trim();
+                    String[] taskDurationParams = taskDuration.split("-");
+                    addEventTask(taskName, taskDurationParams[0].trim(), taskDurationParams[1].trim(), tasksList);
+                    if (doneStatus) {
+                        int taskId = Task.getTaskCount() - 1;
+                        tasksList[taskId].markAsDone();
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found..");
+        }
+
         System.out.print("Enter command: ");
 
         line = scanner.nextLine().trim();
@@ -203,7 +247,8 @@ public class Atom {
                         throw new EmptyTodoException();
                     }
 
-                    addTodoTask(line, tasksList);
+                    String todoName = line.substring(TODO_START_INDEX);
+                    addTodoTask(todoName, tasksList);
 
                 } catch (EmptyTodoException e) {
                     System.out.println("Erm... what's the name of the task again??");
