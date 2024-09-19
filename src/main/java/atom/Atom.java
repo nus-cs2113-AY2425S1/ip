@@ -92,18 +92,28 @@ public class Atom {
         System.out.println();
     }
 
-    private static void addTodoTask(String todoName, ArrayList<Task> tasksList) {
+    private static Todo addTodoTask(String todoName, ArrayList<Task> tasksList) {
         Todo todo = new Todo(todoName.trim());
         tasksList.add(todo);
+        return todo;
+    }
+
+    private static void addTodoTaskWithMessage(String todoName, ArrayList<Task> tasksList) {
+        Todo todo = addTodoTask(todoName, tasksList);
 
         System.out.println("Gotcha! TODO task added to list!");
         System.out.println("> [" + todo.setTaskType() + "]" + "[ ] " + todo.getItem());
         System.out.println("You now have " + tasksList.size() + " tasks in your list!");
     }
 
-    private static void addDeadlineTask(String deadlineName, String by, ArrayList<Task> tasksList) {
+    private static Deadline addDeadlineTask(String deadlineName, String by, ArrayList<Task> tasksList) {
         Deadline deadline = new Deadline(deadlineName.trim(), by.trim());
         tasksList.add(deadline);
+        return deadline;
+    }
+
+    private static void addDeadlineTaskWithMessage(String deadlineName, String by, ArrayList<Task> tasksList) {
+        Deadline deadline = addDeadlineTask(deadlineName, by, tasksList);
 
         System.out.println("Gotcha! DEADLINE task added to list");
         System.out.println("> [" + deadline.setTaskType() + "]" + "[ ] "
@@ -111,9 +121,14 @@ public class Atom {
         System.out.println("You now have " + tasksList.size() + " tasks in your list!");
     }
 
-    private static void addEventTask(String eventName, String from, String to, ArrayList<Task> tasksList) {
+    private static Event addEventTask(String eventName, String from, String to, ArrayList<Task> tasksList) {
         Event event = new Event(eventName.trim(), from.trim(), to.trim());
         tasksList.add(event);
+        return event;
+    }
+
+    private static void addEventTaskWithMessage(String eventName, String from, String to, ArrayList<Task> tasksList) {
+        Event event = addEventTask(eventName, from, to, tasksList);
 
         System.out.println("Gotcha! EVENT task added to list");
         System.out.println("> [" + event.setTaskType() + "]" + "[ ] " + event.getItem()
@@ -205,27 +220,28 @@ public class Atom {
 
                 switch (taskType) {
                 case "T":
-                    addTodoTask(taskName, tasksList);
+                    Todo todo = addTodoTask(taskName, tasksList);
                     if (doneStatus) {
-                        int taskId = tasksList.size() - 1;
-                        tasksList.get(taskId).markAsDone();
+                        todo.markAsDone();
                     }
                     break;
                 case "D":
                     String taskDeadline = fileLineParams[3].trim();
-                    addDeadlineTask(taskName, taskDeadline, tasksList);
+
+                    Deadline deadline = addDeadlineTask(taskName, taskDeadline, tasksList);
                     if (doneStatus) {
-                        int taskId = tasksList.size() - 1;
-                        tasksList.get(taskId).markAsDone();
+                        deadline.markAsDone();
                     }
                     break;
                 case "E":
                     String taskDuration = fileLineParams[3].trim();
                     String[] taskDurationParams = taskDuration.split("-");
-                    addEventTask(taskName, taskDurationParams[0].trim(), taskDurationParams[1].trim(), tasksList);
+                    String taskFrom = taskDurationParams[0].trim();
+                    String taskTo = taskDurationParams[1].trim();
+
+                    Event event = addEventTask(taskName, taskFrom, taskTo, tasksList);
                     if (doneStatus) {
-                        int taskId = tasksList.size() - 1;
-                        tasksList.get(taskId).markAsDone();
+                        event.markAsDone();
                     }
                     break;
                 default:
@@ -284,7 +300,7 @@ public class Atom {
                     }
 
                     String todoName = line.substring(TODO_START_INDEX);
-                    addTodoTask(todoName, tasksList);
+                    addTodoTaskWithMessage(todoName, tasksList);
 
                 } catch (EmptyTodoException e) {
                     System.out.println("Erm... what's the name of the task again??");
@@ -307,7 +323,7 @@ public class Atom {
                     if (deadlineName.trim().isEmpty()) {
                         System.out.println("Hey!! Your deadline task is missing!!");
                     } else {
-                        addDeadlineTask(deadlineName, by, tasksList);
+                        addDeadlineTaskWithMessage(deadlineName, by, tasksList);
                     }
 
                 } catch (EmptyDeadlineException e) {
@@ -342,7 +358,7 @@ public class Atom {
                     if (eventName.trim().isEmpty()) {
                         System.out.println("Really?! An event without a name??");
                     } else {
-                        addEventTask(eventName, from, to, tasksList);
+                        addEventTaskWithMessage(eventName, from, to, tasksList);
                     }
 
                 } catch (EmptyEventException e) {
