@@ -1,9 +1,7 @@
 package initializer;
 import wildpeace.exceptions.EmptyCommandException;
-import wildpeace.task.DataStorage;
 import wildpeace.task.Echo;
 
-import java.io.File;
 import java.util.Scanner;
 
 import static java.lang.System.exit;

@@ -41,7 +41,7 @@ public class DataStorage {
     }
 
     private static void processInput(@org.jetbrains.annotations.NotNull String line, Scanner scanner)
-    throws EmptyCommandException, InvalidInputException {
+            throws EmptyCommandException, InvalidInputException {
         if (line.equalsIgnoreCase("list")) {
             listItems();
         } else if (line.startsWith("todo ")) {
