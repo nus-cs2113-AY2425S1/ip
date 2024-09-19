@@ -101,6 +101,11 @@ public class Bean {
         fw.close();
     }
 
+    public static void setUp() throws IOException {
+        initialiseDataFile();
+        retrieveFromDataFile();
+    }
+
     // Print logo with greeting message
     public static void greet() {
         System.out.println(SEPARATOR_LINE +
@@ -292,8 +297,7 @@ public class Bean {
     }
 
     public static void main(String[] args) throws InvalidInputException, IOException {
-        initialiseDataFile();
-        retrieveFromDataFile();
+        setUp();
         greet();
         processUserInput();
         exit();
