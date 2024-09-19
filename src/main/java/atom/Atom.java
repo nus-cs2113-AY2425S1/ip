@@ -13,6 +13,10 @@ import atom.task.Task;
 import atom.task.Todo;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Atom {
@@ -88,8 +92,8 @@ public class Atom {
         System.out.println();
     }
 
-    private static void addTodoTask(String line, ArrayList<Task> tasksList) {
-        Todo todo = new Todo(line.substring(TODO_START_INDEX));
+    private static void addTodoTask(String todoName, ArrayList<Task> tasksList) {
+        Todo todo = new Todo(todoName.trim());
         tasksList.add(todo);
 
         System.out.println("Gotcha! TODO task added to list!");
@@ -167,6 +171,71 @@ public class Atom {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasksList = new ArrayList<>();
 
+        File folder = new File("./data");
+        File file = new File("./data/AtomList.txt");
+
+        //create directory if it does not exist
+        if (folder.mkdir()) {
+            System.out.println("Folder data created.");
+        } else {
+            System.out.println("Folder already exists.");
+        }
+
+        //create txt file if it does not exist
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created.");
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("Oops!! An error occurred.");
+        }
+
+        //load data (if any) to the list
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNext()) {
+                String fileLine = fileScanner.nextLine().trim();
+                String[] fileLineParams = fileLine.split("\\|");
+
+                String taskType = fileLineParams[0].trim();
+                boolean doneStatus = (fileLineParams[1].trim().equals("1"));
+                String taskName = fileLineParams[2].trim();
+
+                switch (taskType) {
+                case "T":
+                    addTodoTask(taskName, tasksList);
+                    if (doneStatus) {
+                        int taskId = tasksList.size() - 1;
+                        tasksList.get(taskId).markAsDone();
+                    }
+                    break;
+                case "D":
+                    String taskDeadline = fileLineParams[3].trim();
+                    addDeadlineTask(taskName, taskDeadline, tasksList);
+                    if (doneStatus) {
+                        int taskId = tasksList.size() - 1;
+                        tasksList.get(taskId).markAsDone();
+                    }
+                    break;
+                case "E":
+                    String taskDuration = fileLineParams[3].trim();
+                    String[] taskDurationParams = taskDuration.split("-");
+                    addEventTask(taskName, taskDurationParams[0].trim(), taskDurationParams[1].trim(), tasksList);
+                    if (doneStatus) {
+                        int taskId = tasksList.size() - 1;
+                        tasksList.get(taskId).markAsDone();
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found..");
+        }
+
         System.out.print("Enter command: ");
 
         line = scanner.nextLine().trim();
@@ -214,7 +283,8 @@ public class Atom {
                         throw new EmptyTodoException();
                     }
 
-                    addTodoTask(line, tasksList);
+                    String todoName = line.substring(TODO_START_INDEX);
+                    addTodoTask(todoName, tasksList);
 
                 } catch (EmptyTodoException e) {
                     System.out.println("Erm... what's the name of the task again??");
@@ -320,6 +390,32 @@ public class Atom {
         }
 
         printDivider();
+
+        //write data into AtomList.txt file
+        try {
+            FileWriter fw = new FileWriter(file);
+
+            for (Task task : tasksList) {
+                String separator = " | ";
+                String doneStatus = (task.getStatus().equals("X")) ? "1" : "0";
+
+                fw.write(task.setTaskType() + separator + doneStatus
+                        + separator + task.getItem());
+
+                if (task.setTaskType().equals("D")) {
+                    fw.write(separator + task.getBy());
+                } else if (task.setTaskType().equals("E")) {
+                    fw.write(separator + task.getFrom() + "-" + task.getTo());
+                }
+
+                fw.write(System.lineSeparator());
+            }
+
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Oh no!! Something went wrong..");
+        }
 
         System.out.println("Bye Bye. See ya soon!");
 
