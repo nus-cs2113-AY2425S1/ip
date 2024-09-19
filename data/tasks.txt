@@ -1,6 +1,5 @@
-T | 1 | dasdad
-T | 0 | dsadad
-T | 0 | dasda
-T | 0 | dsada
-T | 0 | 111
-T | 0 | 2222
+T | 1 | borrow book
+D | 0 | return book | Sunday
+E | 0 | project meeting | Mon 2pm | 4pm
+T | 0 | 7788
+T | 1 | 1010
