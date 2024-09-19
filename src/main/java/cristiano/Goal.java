@@ -9,32 +9,16 @@ public class Goal {
         this.isDone = false;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public String getStatusIcon() {
-        return isDone ? "X" : " "; // mark done task with X
+        return isDone ? "X" : " ";
     }
 
     public void markAsDone(Ronaldo ronaldoInstance) {
-        if (isDone()) {
-            ronaldoInstance.reject("Marked");
-            return;
-        }
         this.isDone = true;
-        System.out.println("SIUUU! Congrats, one step closer to achieving your dreams! This goal is now achieved:\n" +
-                this + "\n");
     }
 
     public void markAsUndone(Ronaldo ronaldoInstance) {
-        if (!isDone()) {
-            ronaldoInstance.reject("Unmarked");
-            return;
-        }
         this.isDone = false;
-        System.out.println("Ronaldo is disappointed in you. Work harder! This goal is now yet to achieve:\n" +
-                this + "\n");
     }
 
     @Override
@@ -42,4 +26,17 @@ public class Goal {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public String toFileFormat() {
+        return "G | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    public static Goal fromFileFormat(String line) {
+        String[] parts = line.split(" \\| ");
+        String description = parts[2];
+        Goal goal = new Goal(description);
+        if (parts[1].equals("1")) {
+            goal.isDone = true;
+        }
+        return goal;
+    }
 }

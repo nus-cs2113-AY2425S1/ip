@@ -1,4 +1,5 @@
 import cristiano.Ronaldo;
+import cristiano.Storage;
 
 import java.util.Scanner;
 
@@ -16,9 +17,13 @@ public class Main {
      * @param args Command line arguments;
      */
     public static void main(String[] args) {
-        Ronaldo ronaldoInstance = new Ronaldo();
+        String path = "C:/Anderson/NUS/2024-25/2024-25 Year 2 Sem 1 Modules/" +
+                "CS2113 Software Engineering and OOP/Individual Project/data/cr7.txt";
+        Storage storage = new Storage(path);
+        Ronaldo ronaldoInstance = new Ronaldo(storage);
         ronaldoInstance.greet();
         Scanner in = new Scanner(System.in);
+
 
         while (true) {
             String words = in.nextLine();
@@ -32,7 +37,8 @@ public class Main {
             }
 
             String[] input = words.split(" ", 2);
-            switch (input[0]) {
+            String command = input[0];
+            switch (command) {
                 case "bye":
                     ronaldoInstance.exit();
                     in.close();
@@ -53,6 +59,9 @@ public class Main {
                 case "deadline":
                     ronaldoInstance.addDeadline(input[1]);
                     break;
+                case "delete":
+                    ronaldoInstance.delete(input[1]);
+                    break;
                 default:
                     ronaldoInstance.reject("Format");
                     break;
@@ -61,4 +70,3 @@ public class Main {
     }
 
 }
-

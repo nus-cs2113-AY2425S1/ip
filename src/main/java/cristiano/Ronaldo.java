@@ -1,6 +1,8 @@
 package cristiano;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * This class includes the main methods to handle inputs from the user.
@@ -10,10 +12,28 @@ import java.util.ArrayList;
  */
 public class Ronaldo {
     private static final ArrayList<Goal> goals = new ArrayList<>();
+    private final Storage storage;
+
+    public Ronaldo(Storage storage) {
+        this.storage = storage;
+        try {
+            goals.addAll(storage.loadGoals());
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous data found. Starting fresh.");
+        }
+    }
+
+    public void saveGoals() {
+        try {
+            storage.saveGoals(goals);
+        } catch (IOException e) {
+            System.out.println("Failed to save goals.");
+        }
+    }
 
     public void greet() {
         String indent = "------------------------------------------------------------------------------ \n";
-        System.out.print( indent + "Hello! I'm Cristiano Ronaldo! The greatest footballer of all time.");
+        System.out.print(indent + "Hello! I'm Cristiano Ronaldo! The greatest footballer of all time.");
         exclaim();
         System.out.println("Hehehe what can I do for you?\n"  + indent);
     }
@@ -101,12 +121,14 @@ public class Ronaldo {
                 reject("Mark/Unmark");
                 return;
             }
-            int taskNumber = Integer.parseInt(input[1]) - 1;
-            Goal goal = goals.get(taskNumber);
+            int goalNumber = Integer.parseInt(input[1]) - 1;
+            Goal goal = goals.get(goalNumber);
             if (input[0].equals("mark")) {
                 goal.markAsDone(this);
+                saveGoals();
             } else if (input[0].equals("unmark")) {
                 goal.markAsUndone(this);
+                saveGoals();
             }
         } catch (NumberFormatException e) {
             reject("Mark/Unmark");
@@ -150,6 +172,7 @@ public class Ronaldo {
             goals.add(event);
             System.out.println("GOALLL! Your event has been added: \n" + event + "\n");
             printGoalCount();
+            saveGoals();
         } catch (IndexOutOfBoundsException e) {
             reject("Event");
         }
@@ -167,6 +190,7 @@ public class Ronaldo {
             goals.add(todo);
             System.out.println("GOALLL! Your todo has been added: \n" + todo + "\n");
             printGoalCount();
+            saveGoals();
         } catch (IndexOutOfBoundsException e) {
             reject("Todo");
         }
@@ -185,8 +209,23 @@ public class Ronaldo {
             goals.add(deadline);
             System.out.println("GOALLL! Your deadline has been added: \n" + deadline + "\n");
             printGoalCount();
+            saveGoals();
         } catch (IndexOutOfBoundsException e) {
             reject("Deadline");
+        }
+    }
+
+    public void delete(String input) {
+        try {
+            int goalNumber = Integer.parseInt(input) - 1;
+            System.out.println("VAR disallowed your goal: \n" + goals.get(goalNumber).toString());
+            goals.remove(goalNumber);
+            printGoalCount();
+            saveGoals();
+        } catch (NumberFormatException e) {
+            reject("Mark/Unmark");
+        } catch (IndexOutOfBoundsException e) {
+            reject("Range");
         }
     }
 
