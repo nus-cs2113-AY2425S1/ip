@@ -9,8 +9,11 @@ import bean.task.Event;
 import bean.task.Task;
 import bean.task.Todo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Bean {
     // Constants
@@ -23,12 +26,84 @@ public class Bean {
             "  ┃  ┏┓┃ ┃━┫ ┏┓ ┃ ┏┓ ┓ ┏━━━━━━┓\n" +
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
+    private static final String DATA_FILE_PATH = "data/bean.txt";
+    private static  final String DELIMITER = "//";
 
-//    private static Task[] toDoList = new Task[MAX_LIST_COUNT];
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
+    }
+
+    // Checks if data file exists and creates one if none exist
+    public static void initialiseDataFile() throws IOException {
+        File dataFile = new File(DATA_FILE_PATH);
+
+        if (!dataFile.exists()) {
+            if (!dataFile.getParentFile().exists()) {
+                dataFile.getParentFile().mkdirs();
+            }
+            dataFile.createNewFile();
+        }
+    }
+
+    public static void deserialise(String toDeserialise) {
+
+        if (toDeserialise == null) {
+            throw new RuntimeException("Could not load saved data.");
+        }
+
+        // 'T||<1/0>||<description>'
+        // 'D||<1/0>||<description>||<by>'
+        // 'E||<1/0>||<description>||<from>||<to>'
+        String[] parts = toDeserialise.split(DELIMITER);
+        String taskClass = parts[0];
+        Boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        if (taskClass.equals("T")) {
+            // Todo
+            tasks.add(new Todo(description, isDone));
+
+        } else if (taskClass.equals("D")) {
+            // Deadline
+           String by = parts[3];
+           tasks.add(new Deadline(description, by, isDone));
+
+        } else if (taskClass.equals("E")) {
+            // Event
+            String from = parts[3];
+            String to = parts[4];
+            tasks.add(new Event(description, from, to, isDone));
+
+        } else {
+            throw new RuntimeException("Could not load saved data. File corrupted.");
+        }
+    }
+
+    // TODO method to read bean.txt to retrieve tasks from memory on start
+    public static void retrieveFromDataFile() throws IOException {
+        File f = new File(DATA_FILE_PATH);
+        Scanner scanner = new Scanner(f);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            deserialise(line);
+        }
+    }
+
+    // Overwrite contents of bean.txt with updated task info when tasks are updated
+    public static void overwriteDataFile() throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH);
+        for (Task task : tasks) {
+            fw.write(task.serialise() + "\n");
+        }
+        fw.close();
+    }
+
+    public static void setUp() throws IOException {
+        initialiseDataFile();
+        retrieveFromDataFile();
     }
 
     // Print logo with greeting message
@@ -87,34 +162,36 @@ public class Bean {
         return taskNum;
     }
 
-    public static void markTaskAsDone(int taskNum) {
+    public static void markTaskAsDone(int taskNum) throws IOException {
 
         int taskIndex = taskNum - 1;
-        Task task = tasks.get(taskIndex);
-        task.setStatus(true);
+        tasks.get(taskIndex).setStatus(true);
         // Confirmation message
         printFormattedReply(INDENT + "Task " + taskNum + " has been marked as DONE:\n" +
-                INDENT + INDENT + task);
+                INDENT + INDENT + tasks.get(taskIndex).toString());
+        overwriteDataFile();
     }
 
-    public static void unmarkTaskAsDone(int taskNum) {
+    public static void unmarkTaskAsDone(int taskNum) throws IOException {
         int taskIndex = taskNum - 1;
-        Task task = tasks.get(taskIndex);
-        task.setStatus(false);
+        tasks.get(taskIndex).setStatus(false);
         // Confirmation message
         printFormattedReply(INDENT + "Task " + taskNum + " has been marked as UNDONE:\n" +
-                INDENT + INDENT + task);
+                INDENT + INDENT + tasks.get(taskIndex).toString());
+        overwriteDataFile();
     }
 
-    public static void addTask(String userInput, TaskType taskType) throws InsufficientSpaceException {
+    public static void addTask(String userInput, TaskType taskType) throws InsufficientSpaceException, IOException {
         if (tasks.size() >= MAX_LIST_COUNT) {
             throw new InsufficientSpaceException();
         }
+
         if (taskType == TaskType.TODO) {
             // Extract description
             String description = userInput.split("todo ")[1].trim();
 
             tasks.add(new Todo(description));
+
         } else if (taskType == TaskType.DEADLINE) {
             // Extract description and by
             String[] parts = userInput.split("/by ");
@@ -123,6 +200,7 @@ public class Bean {
             String by = parts[1].trim();
 
             tasks.add(new Deadline(description, by));
+
         } else {
             // taskType == TaskType.EVENT
             // Extract description, from and to
@@ -134,8 +212,9 @@ public class Bean {
             String from = splitFromTo[0].trim();
             String to = splitFromTo[1].trim();
 
-           tasks.add(new Event(description, from, to));
+            tasks.add(new Event(description, from, to));
         }
+        appendNextLineToFile(tasks.get(tasks.size() - 1).serialise());
     }
 
     public static void deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
@@ -150,14 +229,20 @@ public class Bean {
     public static void printInvalidInputMessage() {
         printFormattedReply(INDENT + "Sorry, I am not equipped to respond to that yet... :(\n" +
                 INDENT + "These are the commands I understand:\n" +
-                INDENT + "1. To add a new task:\n" +
+                INDENT + "1. To add a new duke.task:\n" +
                 INDENT + INDENT + "a. todo [description]\n" +
                 INDENT + INDENT + "b. deadline [description] /by [by]\n" +
                 INDENT + INDENT + "c. event [description] /from [from] /to [to]\n" +
                 INDENT + INDENT + INDENT + "example: event dinner /from 6pm /to 8pm\n" +
                 INDENT + "2. To view your to do list: list\n" +
                 INDENT + "3. To mark a task as done: mark [task number]\n" +
-                INDENT + "4. To mark a task as undone: unmark task number]");
+                INDENT + "4. To mark a task as undone: unmark [task number]");
+    }
+
+    private static void appendNextLineToFile(String nextLine) throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH, true); // create a FileWriter in append mode
+        fw.write(nextLine + "\n");
+        fw.close();
     }
 
     public static void processUserInput() throws InvalidInputException {
@@ -219,11 +304,14 @@ public class Bean {
             } catch (InsufficientSpaceException e) {
                 printFormattedReply(INDENT + "Sorry, you have reached the maximum list size of " + MAX_LIST_COUNT);
 
+            } catch (IOException e) {
+                printFormattedReply("Something went wrong! " + e.getMessage());
             }
         }
     }
 
-    public static void main(String[] args) throws InvalidInputException {
+    public static void main(String[] args) throws InvalidInputException, IOException {
+        setUp();
         greet();
         processUserInput();
         exit();
