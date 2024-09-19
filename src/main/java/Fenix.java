@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Fenix implements SampleStrings {
@@ -5,10 +6,12 @@ public class Fenix implements SampleStrings {
     public static int taskNumber = 0;
     public static Task[] taskArray = new Task[100];
     private final Scanner scanner;
+    public FileHandler fileHandler;
 
     // Constructor
     public Fenix() {
         this.scanner = new Scanner(System.in);
+        this.fileHandler = new FileHandler();
     }
 
     private static String getType(String userInput) {
@@ -71,9 +74,21 @@ public class Fenix implements SampleStrings {
     }
 
     public void bidFarewell() {
+        saveAllInfo();
         System.out.println(FAREWELL);
         System.out.println(HORIZONTAL_LINE_USER_COMMAND);
         scanner.close();
+    }
+
+    public void saveAllInfo() {
+        for (Task task : taskArray) {
+            try {
+                this.fileHandler.writeToFile(task.toString());
+            }
+            catch (IOException | NullPointerException e) {
+                return;
+            }
+        }
     }
 
     public void showAllTasks(boolean isModified) {
@@ -193,5 +208,12 @@ public class Fenix implements SampleStrings {
     public void storeTask(Task task) {
         taskArray[taskNumber] = task;
         taskNumber++;
+        try {
+            this.fileHandler.appendToFile(task.toString());
+            this.fileHandler.appendToFile(System.lineSeparator());
+        }
+        catch (IOException | NullPointerException e) {
+            return;
+        }
     }
 }
