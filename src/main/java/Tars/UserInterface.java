@@ -9,14 +9,18 @@ public class UserInterface {
         System.out.println("    " + "------------------------------------------------------------");
     }
 
-    // Parameter: taskList - the list of tasks to be displayed.
+    // Display the tasks or show a message if the task list is empty
     public void showTasks(List<Task> taskList) {
         printSeparator();
-        System.out.println("    Here are your tasks. If you're planning world domination, you're off to a slow start: ");
-
-        // Iterates over the task list and prints each task.
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+        if (taskList.isEmpty()) {
+            // Show message when task list is empty
+            System.out.println("    Your task list is empty. Looks like you have nothing to do... for now.");
+        } else {
+            // Show tasks if the list is not empty
+            System.out.println("    Here are your tasks. If you're planning world domination, you're off to a slow start: ");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+            }
         }
         printSeparator();
     }
