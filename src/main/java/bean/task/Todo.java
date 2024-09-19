@@ -4,8 +4,12 @@ import bean.exceptions.InsufficientSpaceException;
 
 public class Todo extends Task {
 
-    public Todo(String description) throws InsufficientSpaceException {
+    public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
     @Override

@@ -27,6 +27,7 @@ public class Bean {
             "  ┃  ┗┛┃ ┃━┫ ┏┓ ┃ ┃┃ ┃ ┃• ᴗ • ┫\n" +
             "  ┗━━ ━┻━━━┻━┛┗━┻━┛┗━┛ ┗━━━━━━┛\n";
     private static final String DATA_FILE_PATH = "data/bean.txt";
+    private static  final String DELIMITER = "//";
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 
@@ -46,7 +47,50 @@ public class Bean {
         }
     }
 
+    public static void deserialise(String toDeserialise) {
+
+        if (toDeserialise == null) {
+            throw new RuntimeException("Could not load saved data.");
+        }
+
+        // 'T||<1/0>||<description>'
+        // 'D||<1/0>||<description>||<by>'
+        // 'E||<1/0>||<description>||<from>||<to>'
+        String[] parts = toDeserialise.split(DELIMITER);
+        String taskClass = parts[0];
+        Boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        if (taskClass.equals("T")) {
+            // Todo
+            tasks.add(new Todo(description, isDone));
+
+        } else if (taskClass.equals("D")) {
+            // Deadline
+           String by = parts[3];
+           tasks.add(new Deadline(description, by, isDone));
+
+        } else if (taskClass.equals("E")) {
+            // Event
+            String from = parts[3];
+            String to = parts[4];
+            tasks.add(new Event(description, from, to, isDone));
+
+        } else {
+            throw new RuntimeException("Could not load saved data. File corrupted.");
+        }
+    }
+
     // TODO method to read bean.txt to retrieve tasks from memory on start
+    public static void retrieveFromDataFile() throws IOException {
+        File f = new File(DATA_FILE_PATH);
+        Scanner scanner = new Scanner(f);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            deserialise(line);
+        }
+    }
 
     // Overwrite contents of bean.txt with updated task info when tasks are updated
     public static void overwriteDataFile() throws IOException {
@@ -135,6 +179,7 @@ public class Bean {
         if (tasks.size() >= MAX_LIST_COUNT) {
             throw new InsufficientSpaceException();
         }
+
         if (taskType == TaskType.TODO) {
             // Extract description
             String description = userInput.split("todo ")[1].trim();
@@ -248,6 +293,7 @@ public class Bean {
 
     public static void main(String[] args) throws InvalidInputException, IOException {
         initialiseDataFile();
+        retrieveFromDataFile();
         greet();
         processUserInput();
         exit();
