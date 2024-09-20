@@ -3,7 +3,7 @@ public class Todo extends Task {
         super(description);
     }
 
-    //override to string in task
+    @Override
     public String toString() {
         return "[T][" + getStatusIcon() + "] " + getDescription();
     }

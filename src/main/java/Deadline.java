@@ -6,7 +6,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    //overide to string in task
+    @Override
     public String toString() {
         return "[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")";
     }

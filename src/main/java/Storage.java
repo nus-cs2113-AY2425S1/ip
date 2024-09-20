@@ -25,34 +25,34 @@ public class Storage {
                 Task task;
 
                 switch (parts[0]) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], parts[3]);
-                        if (parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
-                        if (parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                        break;
-                    case " ":
-                        task = new Task(parts[2]);
-                        if (parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                        break;
+                case "T":
+                    task = new Todo(parts[2]);
+                    if (parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], parts[3]);
+                    if (parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                    break;
+                case "E":
+                    task = new Event(parts[2], parts[3], parts[4]);
+                    if (parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                    break;
+                case " ":
+                    task = new Task(parts[2]);
+                    if (parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                    break;
                 }
             }
             sc.close();

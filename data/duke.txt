@@ -1,5 +1,6 @@
+  | 1 | hi
 T | 0 | gay
 D | 0 | sex | 7
-E | 0 | gay | 1 | 9
-E | 0 | fk | 9 | igjso
-  | 0 | hi
+  | 1 | lsit
+E | 0 | orgy | monday | fridat
+T | 0 | 

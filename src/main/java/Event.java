@@ -8,11 +8,12 @@ public class Event extends Task {
         this.to = to;
     }
 
-    //overide to string in task class
+    @Override
     public String toString() {
         return "[E][" + getStatusIcon() + "] " + getDescription() + " (from: " + from + " to: " + to + ")";
     }
 
+    @Override
     public String toSaveFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
