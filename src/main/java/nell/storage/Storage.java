@@ -1,6 +1,7 @@
 package nell.storage;
 
 import nell.TaskList;
+import nell.common.Messages;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
 import nell.tasks.ToDo;
@@ -39,7 +40,7 @@ public class Storage {
                 dataFile.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("   Cannot find or create data file!");
+            System.out.println(Messages.FILE_CREATE_ERROR_MESSAGE);
         }
     }
 
@@ -90,7 +91,7 @@ public class Storage {
                 loadTask(fileTask);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("   Cannot read data file!");
+            System.out.println(Messages.FILE_READ_ERROR_MESSAGE);
         }
     }
 
@@ -101,7 +102,7 @@ public class Storage {
         try {
             this.tasks.writeListToFile(this.dataFile.getPath());
         } catch (IOException e) {
-            System.out.println("   Data not saved due to error");
+            System.out.println(Messages.FILE_SAVE_ERROR_MESSAGE);
         }
     }
 }

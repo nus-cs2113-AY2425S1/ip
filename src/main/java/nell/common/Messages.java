@@ -47,4 +47,7 @@ public class Messages {
     public static final String HELLO_MESSAGE = "Hello! I'm Nell!";
     public static final String PROMPT_MESSAGE = "What can I do for you?";
     public static final String LIST_TASKS_MESSAGE = "-> The tasks listed are as follows:";
+    public static final String FILE_CREATE_ERROR_MESSAGE = "   Cannot find or create data file!";
+    public static final String FILE_READ_ERROR_MESSAGE = "   Cannot read data file!";
+    public static final String FILE_SAVE_ERROR_MESSAGE = "   Data not saved due to error";
 }
