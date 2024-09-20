@@ -29,13 +29,19 @@ public class InstructionHandler {
     }
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) {
         // No Exception Handling here at the moment
+
         taskHandler.addTask(task);
+        task.printAddedTask(taskHandler.getCurrTaskTotal());
+        SaveFileHandler.storeTask(task);
     }
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
+        // OOB method should indirectly check if list is empty?
         try {
-            // this should indirectly check if list is empty?
             ErrorHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+
+            Task task = taskHandler.getTask(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
+            task.printDeletedTask(taskHandler.getCurrTaskTotal());
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
