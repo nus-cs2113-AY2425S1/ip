@@ -1,16 +1,16 @@
 package niwa.command;
 
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.task.Task;
+import niwa.messages.NiwaExceptionMessages;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarkCommand extends TaskCommand {
+public class MarkCommand extends Command {
 
-    public MarkCommand(List<Task> tasks) {
-        super(tasks);
+    public MarkCommand() {
         setFormat("^\\d+$");
         setWord("mark");
         setGuide("mark [task index]: Mark the task at the given index as done.");
@@ -42,18 +42,22 @@ public class MarkCommand extends TaskCommand {
     @Override
     public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException {
         super.execute(indexString);
-        int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
-        if (index < 0 || index >= TaskCommand.tasks.size()) {
-            throw new NiwaTaskIndexOutOfBoundException(TaskCommand.tasks.size());
+        try {
+            int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
+
+            Task temp = TaskList.getInstance().findTask(index);
+            temp.markAsDone();
+
+            String message = "OK, I've marked this task as done:%n"
+                    + PREFIX + "%s%n";
+            System.out.printf(PREFIX + message, temp.getFullInfo());
+
+            ExecutedCommand.saveTasks();
+
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            System.out.println (PREFIX + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println(PREFIX + NiwaExceptionMessages.MESSAGE_INDEX_NUMBER_FORMAT);
         }
-
-        Task temp = TaskCommand.tasks.get(index);
-        temp.markAsDone();
-
-        String message  = "OK, I've marked this task as done:%n"
-                + PREFIX + "%s%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo());
-
-        super.saveTasks();
     }
 }

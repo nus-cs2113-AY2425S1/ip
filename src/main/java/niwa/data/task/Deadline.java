@@ -1,14 +1,14 @@
-package niwa.task;
+package niwa.data.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Represents a deadline task with a description and a due date.
- * This class extends the niwa.task.Task class and specifies the type and short notation for deadline tasks.
+ * This class extends the niwa.data.task.Task class and specifies the type and short notation for deadline tasks.
  */
 public class Deadline extends Task {
-    /** niwa.task.Deadline information **/
+    /** niwa.data.task.Deadline information **/
     protected String byDay; // The due date of the deadline task
 
     /**
@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param byDay The due date for the deadline task
      */
     public Deadline(String description, String byDay) {
-        super(description);  // Initialize the description in the superclass (niwa.task.Task)
+        super(description);  // Initialize the description in the superclass (niwa.data.task.Task)
         this.byDay = byDay;  // Set the due date for the deadline task
     }
 
@@ -101,6 +101,23 @@ public class Deadline extends Task {
         } else {
             // Return null if the command does not match the expected format
             return null;
+        }
+    }
+
+    /**
+     * Returns true if both tasks have the same identity fields.
+     *
+     * @param inputTask The task to compare.
+     */
+    @Override
+    public boolean isSameTask(Task inputTask) {
+        if (inputTask == this) {
+            return true;
+        } else if (inputTask != null) {
+            return inputTask.description.equals(description)
+                    && ((Deadline) inputTask).byDay.equals(byDay);
+        } else {
+            return false;
         }
     }
 }

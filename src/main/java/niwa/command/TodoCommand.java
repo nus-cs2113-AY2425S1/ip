@@ -1,15 +1,16 @@
 package niwa.command;
 
-import niwa.task.Task;
-import niwa.task.ToDo;
+import niwa.exception.NiwaDuplicateTaskException;
+import niwa.messages.NiwaMesssages;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
+import niwa.data.task.ToDo;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TodoCommand extends TaskCommand{
-    public TodoCommand(List<Task> tasks) {
-        super(tasks);
+public class TodoCommand extends Command{
+    public TodoCommand() {
         setFormat("(.+?)");
         setWord("todo");
         setGuide("todo [task description]: "
@@ -53,14 +54,17 @@ public class TodoCommand extends TaskCommand{
     @Override
     public void execute(String taskInfo) {
         super.execute(taskInfo);
-        Task temp = new ToDo(arguments[0]);
-        tasks.add(temp);
+        try {
+            Task temp = new ToDo(arguments[0]);
+            TaskList.getInstance().addTask(temp);
 
-        String message = "Got it. I've added this todo:%n"
-                + PREFIX + "%s%n"
-                + PREFIX + "You currently have %d tasks in the list.%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
-
-        super.saveTasks();
+            String message = "Got it. I've added this deadline:%n"
+                    + PREFIX + "%s%n"
+                    + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
+            System.out.printf(PREFIX + message, temp.getFullInfo(), TaskList.getInstance().getTaskListSize());
+            ExecutedCommand.saveTasks();
+        } catch (NiwaDuplicateTaskException e) {
+            System.out.printf(PREFIX + e.getMessage());
+        }
     }
 }

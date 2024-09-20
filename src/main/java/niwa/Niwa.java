@@ -4,7 +4,7 @@ import niwa.command.*;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.task.Task;
+import niwa.data.task.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +32,6 @@ public class Niwa {
             + PREFIX + "What can I do for you? Let's chat <3\n"
             + PREFIX + "---> Type 'help' to see the guide.\n\n";
 
-    // Static variables for error messages
-    private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
     private static final String HOME = System.getProperty("user.home");
 
     // inserts correct file path separator on *nix and Windows
@@ -100,20 +98,20 @@ public class Niwa {
         registerCommands(new ByeCommand(this));
         registerCommands(new EchoCommand());
 
-        registerCommands(new DeadlineCommand(tasks));
-        registerCommands(new TodoCommand(tasks));
-        registerCommands(new EventCommand(tasks));
+        registerCommands(new DeadlineCommand());
+        registerCommands(new TodoCommand());
+        registerCommands(new EventCommand());
 
-        registerCommands(new ListCommand(tasks));
+        registerCommands(new ListCommand());
 
-        registerCommands(new DeleteCommand(tasks));
-        registerCommands(new ClearCommand(tasks));
-        registerCommands(new MarkCommand(tasks));
-        registerCommands(new UnmarkCommand(tasks));
+        registerCommands(new DeleteCommand());
+        registerCommands(new ClearCommand());
+        registerCommands(new MarkCommand());
+        registerCommands(new UnmarkCommand());
 
-        registerCommands(new SaveCommand(tasks));
+        registerCommands(new SaveCommand());
 
-        ReadCommand readCommand = new ReadCommand(tasks);
+        ReadCommand readCommand = new ReadCommand();
         registerCommands(readCommand);
 
         HelpCommand helpCommand = new HelpCommand();
@@ -146,11 +144,9 @@ public class Niwa {
             else {
                 throw new NiwaInvalidSyntaxException();
             }
-        } catch (NiwaInvalidSyntaxException | NiwaInvalidArgumentException
-                 | NiwaTaskIndexOutOfBoundException e) {
+        } catch (NiwaInvalidSyntaxException | NiwaInvalidArgumentException | NiwaTaskIndexOutOfBoundException |
+                 NumberFormatException e) {
             System.out.println(PREFIX + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
         } finally {
             System.out.println(SEPARATOR);
         }

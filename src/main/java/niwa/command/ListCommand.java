@@ -1,12 +1,10 @@
 package niwa.command;
 
-import niwa.task.Task;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
-import java.util.List;
-
-public class ListCommand extends TaskCommand {
-    public ListCommand(List<Task> tasks) {
-        super(tasks);
+public class ListCommand extends Command {
+    public ListCommand() {
         setFormat("");
         setWord("list");
         setGuide("list: List all current tasks.");
@@ -31,7 +29,7 @@ public class ListCommand extends TaskCommand {
         System.out.println(PREFIX + "Here are the tasks in your list:");
         int index = 1;
 
-        for (Task task : TaskCommand.tasks) {
+        for (Task task : TaskList.getInstance().getTaskList()) {
             System.out.printf(PREFIX + "%d. %s%n", index++, task.getFullInfo());
         }
     }

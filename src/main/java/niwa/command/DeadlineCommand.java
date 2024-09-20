@@ -1,15 +1,16 @@
 package niwa.command;
 
-import niwa.task.Deadline;
-import niwa.task.Task;
+import niwa.exception.NiwaDuplicateTaskException;
+import niwa.messages.NiwaMesssages;
+import niwa.data.task.Deadline;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeadlineCommand extends TaskCommand{
-    public DeadlineCommand(List<Task> tasks) {
-        super(tasks);
+public class DeadlineCommand extends Command{
+    public DeadlineCommand() {
         setFormat("(.+?)\\s*/by\\s*(.+?)");
         setWord("deadline");
         setGuide("deadline [task description] /by [time]:"
@@ -53,14 +54,18 @@ public class DeadlineCommand extends TaskCommand{
     @Override
     public void execute(String taskInfo) {
         super.execute(taskInfo);
-        Task temp = new Deadline(arguments[0], arguments[1]);
-        tasks.add(temp);
+        try {
+            Task temp = new Deadline(arguments[0], arguments[1]);
+            TaskList.getInstance().addTask(temp);
 
-        String message = "Got it. I've added this deadline:%n"
-                + PREFIX + "%s%n"
-                + PREFIX + "You currently have %d tasks in the list.%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
+            String message = "Got it. I've added this deadline:%n"
+                    + PREFIX + "%s%n"
+                    + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
+            System.out.printf(PREFIX + message, temp.getFullInfo(), TaskList.getInstance().getTaskListSize());
 
-        super.saveTasks();
+            ExecutedCommand.saveTasks();
+        } catch (NiwaDuplicateTaskException e) {
+            System.out.printf(PREFIX + e.getMessage());
+        }
     }
 }

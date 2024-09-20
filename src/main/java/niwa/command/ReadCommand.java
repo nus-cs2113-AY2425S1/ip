@@ -1,13 +1,9 @@
 package niwa.command;
 
 import niwa.Niwa;
-import niwa.task.Deadline;
-import niwa.task.Event;
-import niwa.task.Task;
-import niwa.task.ToDo;
+import niwa.data.task.*;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.nio.file.*;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,9 +11,8 @@ import java.util.regex.Pattern;
 
 import java.io.IOException;
 
-public class ReadCommand extends TaskCommand{
-    public ReadCommand(List<Task> tasks) {
-        super(tasks);
+public class ReadCommand extends Command{
+    public ReadCommand() {
         setFormat("^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$");
         setWord("read");
         setGuide("read [.txt file path]: Read the tasks in the file and add to the list.");
@@ -75,7 +70,7 @@ public class ReadCommand extends TaskCommand{
                 };
 
                 if(temp!=null) {
-                    tasks.add(temp);
+                    TaskList.getInstance().addTask(temp);
                     System.out.printf(PREFIX + "Adding %s... %s%n", temp.getType(), temp.getFullInfo());
                 }
             }
@@ -85,7 +80,7 @@ public class ReadCommand extends TaskCommand{
         }
 
         if (!arguments[0].equals(Niwa.getOutputFilePath())) {
-            super.saveTasks();
+            ExecutedCommand.saveTasks();
         }
     }
 }

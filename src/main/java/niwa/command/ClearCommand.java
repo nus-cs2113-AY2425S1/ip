@@ -1,12 +1,10 @@
 package niwa.command;
 
-import niwa.task.Task;
+import niwa.messages.NiwaMesssages;
+import niwa.data.task.TaskList;
 
-import java.util.List;
-
-public class ClearCommand extends TaskCommand{
-    public ClearCommand(List<Task> tasks) {
-        super(tasks);
+public class ClearCommand extends Command{
+    public ClearCommand() {
         setFormat("");
         setWord("clear");
         setGuide("clear: Clear all tasks in the list.");
@@ -28,15 +26,13 @@ public class ClearCommand extends TaskCommand{
     @Override
     public void execute(String rawArgumentString) {
         super.execute(rawArgumentString);
-        tasks.clear();
+        TaskList.getInstance().clearTaskList();
 
         // Prepare the message to confirm deletion.
         String message = "OK, I've clear your task list.%n"
-                + PREFIX + "You currently have %d tasks in the list.%n";;
+                + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
 
         // Print out a confirmation message with task details and remaining task count.
-        System.out.printf(PREFIX + message, tasks.size());
-
-        super.saveTasks();
+        System.out.printf(PREFIX + message, TaskList.getInstance().getTaskListSize());
     }
 }

@@ -1,15 +1,16 @@
 package niwa.command;
 
-import niwa.task.Event;
-import niwa.task.Task;
+import niwa.exception.NiwaDuplicateTaskException;
+import niwa.messages.NiwaMesssages;
+import niwa.data.task.Event;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EventCommand extends TaskCommand{
-    public EventCommand(List<Task> tasks) {
-        super(tasks);
+public class EventCommand extends Command{
+    public EventCommand() {
         setFormat("(.+?)\\s*/from\\s*(.+?)\\s*/to\\s*(.+)");
         setWord("event");
         setGuide("event [task description] /from [time] /to [time]: "
@@ -54,14 +55,18 @@ public class EventCommand extends TaskCommand{
     @Override
     public void execute(String taskInfo) {
         super.execute(taskInfo);
-        Task temp = new Event(arguments[0], arguments[1], arguments[2]);
-        tasks.add(temp);
+        try {
+            Task temp = new Event(arguments[0], arguments[1], arguments[2]);
+            TaskList.getInstance().addTask(temp);
 
-        String message = "Got it. I've added this event:%n"
-                + PREFIX + "%s%n"
-                + PREFIX + "You currently have %d tasks in the list.%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo(), tasks.size());
+            String message = "Got it. I've added this deadline:%n"
+                    + PREFIX + "%s%n"
+                    + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
+            System.out.printf(PREFIX + message, temp.getFullInfo(), TaskList.getInstance().getTaskListSize());
 
-        super.saveTasks();
+            ExecutedCommand.saveTasks();
+        } catch (NiwaDuplicateTaskException e) {
+            System.out.printf(PREFIX + e.getMessage());
+        }
     }
 }

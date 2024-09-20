@@ -1,6 +1,7 @@
 package niwa.command;
 
-import niwa.task.Task;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
 import java.io.BufferedWriter;
 import java.nio.file.*;
@@ -10,9 +11,8 @@ import java.util.regex.Pattern;
 
 import java.io.IOException;
 
-public class SaveCommand extends TaskCommand{
-    public SaveCommand(List<Task> tasks) {
-        super(tasks);
+public class SaveCommand extends Command{
+    public SaveCommand() {
         setFormat("^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$");
         setWord("save");
         setGuide("save [.txt file path]: Save the task list to the given path.");
@@ -61,7 +61,7 @@ public class SaveCommand extends TaskCommand{
             return;
         }
 
-        for (Task task: tasks) {
+        for (Task task: TaskList.getInstance().getTaskList()) {
             try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND)){
                 writer.write(task.getFileOutput());
                 writer.newLine();
@@ -70,7 +70,6 @@ public class SaveCommand extends TaskCommand{
                 return;
             }
         }
-
         System.out.println(PREFIX+"Save completed!");
     }
 }

@@ -1,16 +1,16 @@
 package niwa.command;
 
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.task.Task;
+import niwa.messages.NiwaExceptionMessages;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UnmarkCommand extends TaskCommand {
+public class UnmarkCommand extends Command {
 
-    public UnmarkCommand(List<Task> tasks) {
-        super(tasks);
+    public UnmarkCommand() {
         setFormat("^\\d+$");
         setWord("unmark");
         setGuide("unmark [task index]: unmark the task at the given index.");
@@ -41,18 +41,21 @@ public class UnmarkCommand extends TaskCommand {
     @Override
     public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException {
         super.execute(indexString);
-        int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
-        if (index < 0 || index >= tasks.size()) {
-            throw new NiwaTaskIndexOutOfBoundException(tasks.size());
+        try {
+            int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
+
+            Task temp = TaskList.getInstance().findTask(index);
+            temp.markAsUndone();
+
+            String message = "OK, I've marked this task as undone:%n"
+                    + PREFIX + "%s%n";
+            System.out.printf(PREFIX + message, temp.getFullInfo());
+            
+            ExecutedCommand.saveTasks();
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            System.out.println (PREFIX + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println(PREFIX + NiwaExceptionMessages.MESSAGE_INDEX_NUMBER_FORMAT);
         }
-
-        Task temp = tasks.get(index);
-        temp.markAsUndone();
-
-        String message  = "OK, I've marked this task as undone:%n"
-                + PREFIX + "%s%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo());
-
-        super.saveTasks();
     }
 }

@@ -1,11 +1,11 @@
-package niwa.task;
+package niwa.data.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Represents a to-do task with a description and a completion status.
- * This class extends the niwa.task.Task class and specifies the type and short notation for to-do tasks.
+ * This class extends the niwa.data.task.Task class and specifies the type and short notation for to-do tasks.
  */
 public class ToDo extends Task {
 
@@ -16,7 +16,7 @@ public class ToDo extends Task {
      * @param description The description of the to-do task.
      */
     public ToDo(String description) {
-        super(description);  // Initialize the description in the superclass (niwa.task.Task)
+        super(description);  // Initialize the description in the superclass (niwa.data.task.Task)
     }
 
     /**
@@ -62,6 +62,22 @@ public class ToDo extends Task {
         } else {
             // Return null if the command does not match the expected format
             return null;
+        }
+    }
+
+    /**
+     * Returns true if both tasks have the same identity fields.
+     *
+     * @param inputTask The task to compare.
+     */
+    @Override
+    public boolean isSameTask(Task inputTask) {
+        if (inputTask == this) {
+            return true;
+        } else if (inputTask != null) {
+            return inputTask.description.equals(description);
+        } else {
+            return false;
         }
     }
 }
