@@ -1,12 +1,12 @@
 package TaskChildren; // Package for Task-related classes
+import java.util.ArrayList;
 
 // Parent class Task which serves as a base for ToDo, Deadline, and Event tasks
 public class Task {
 
     // Array to keep track of all tasks added
-    private static Task[] tasks = new Task[100]; // Task array of size 100 to store tasks
-    private static int taskCount = 0; // Counter to keep track of the number of tasks
     public String inputString;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     // Object-specific variables
     public String taskString; // String to hold the task description
@@ -15,18 +15,22 @@ public class Task {
     // Constructor Function: initializes a Task object and adds it to the tasks array
     public Task(String inputString){
         this.taskString = inputString; // Set the task description
-        tasks[taskCount] = this; // Add the current task to the array
-        taskCount++; // Increment the task count
+        tasks.add(this); // Add the current task to the array
+    }
+
+    public static void deleteTask(int taskIndex){
+        String taskString = tasks.get(taskIndex).checkboxString();
+        tasks.remove(taskIndex);
+        System.out.println("Ay Caramba, Task deleted: " + taskString);
     }
 
     // Static method to delete the latest task in case of errors
     public static void deleteLatestTask(){
-        tasks[taskCount-1] = null; // Remove the latest task from the array
-        taskCount--; // Decrement the task count
+        tasks.remove(tasks.size() - 1); // Remove the latest task from the array
     }
 
     public static void markLatestTask(){
-        tasks[taskCount-1].isDone = true;
+        tasks.get(tasks.size() - 1).isDone = true;
     }
 
     public static int size() {
@@ -34,7 +38,7 @@ public class Task {
     }
 
     public static String dataFileEntry(int index) {
-        return (tasks[index].inputString + " /isdone " + tasks[index].isDone);
+        return (tasks.get(index).inputString + " /isdone " + tasks.get(index).isDone);
     }
 
     // Method to display a message when a task is successfully created
@@ -42,21 +46,21 @@ public class Task {
         System.out.println("Muy Bien, work hard compadre!"); // Success message in Spanish
         System.out.println("I've Added the Task:");
         System.out.println(checkboxString()); // Display the task in checkbox format
-        System.out.println("You've got " + taskCount + " tasks, better start working!"); // Display the current task count
+        System.out.println("You've got " + tasks.size() + " tasks, better start working!"); // Display the current task count
     }
 
     // Static method to mark a task as done by index
     public static void mark(int taskIndex){
-        tasks[taskIndex].isDone = true; // Mark the task as done
+        tasks.get(taskIndex).isDone = true; // Mark the task as done
         System.out.println("Fantastica!!!! I marked it:"); // Success message in Spanish
-        System.out.println(tasks[taskIndex].checkboxString()); // Display the updated task
+        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
     }
 
     // Static method to unmark a task as undone by index
     public static void unmark(int taskIndex){
-        tasks[taskIndex].isDone = false; // Unmark the task as not done
+        tasks.get(taskIndex).isDone = false; // Unmark the task as not done
         System.out.println("Ay Caramba, I unmarked it:"); // Message indicating task was unmarked
-        System.out.println(tasks[taskIndex].checkboxString()); // Display the updated task
+        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
     }
 
     // Method to create and return a string with a checkbox (marked or unmarked) for the task
@@ -73,13 +77,13 @@ public class Task {
 
     // Static method to print all tasks in the list
     public static void printTasksList(){
-        if (taskCount == 0){
+        if (tasks.size() == 0){
             System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
         } else {
             System.out.println("Si compinche, your tasks:"); // Message when displaying tasks
-            for (int i = 0; i < taskCount; i++){
+            for (int i = 0; i < tasks.size(); i++){
                 // Print each task with its index and checkbox format
-                System.out.println((i+1) + "." + tasks[i].checkboxString());
+                System.out.println((i+1) + "." + tasks.get(i).checkboxString());
             }
         }
     }

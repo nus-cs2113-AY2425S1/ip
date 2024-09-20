@@ -122,12 +122,25 @@ public class Juan {
         else if (line.equals("list")) {
             Task.printTasksList(); // Print task list from Task class
         }
+        // Handle "delete" command
+        else if (line.startsWith("delete ")) {
+            try {
+                int taskIndex = Integer.parseInt(line.replace("delete ", "")) - 1; // Parse the task index
+                Task.deleteTask(taskIndex); // Mark the task as done
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                // Handle invalid index or format exceptions
+                System.out.println(porFavor + "DELETE EXCEPTION: INVALID TASK INDEX");
+            } catch (NullPointerException e) {
+                // Handle null task case
+                System.out.println(porFavor + "DELETE EXCEPTION: NULL TASK INDEX");
+            }
+        }
         // Handle "mark" command to mark a task as completed
         else if (line.startsWith("mark ")) {
             try {
                 int taskIndex = Integer.parseInt(line.replace("mark ", "")) - 1; // Parse the task index
                 Task.mark(taskIndex); // Mark the task as done
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Handle invalid index or format exceptions
                 System.out.println(porFavor + "MARK EXCEPTION: INVALID TASK INDEX");
             } catch (NullPointerException e) {
@@ -140,7 +153,7 @@ public class Juan {
             try {
                 int taskIndex = Integer.parseInt(line.replace("unmark ", "")) - 1; // Parse the task index
                 Task.unmark(taskIndex); // Unmark the task
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Handle invalid index or format exceptions
                 System.out.println(porFavor + "UNMARK EXCEPTION: INVALID TASK INDEX");
             } catch (NullPointerException e) {
