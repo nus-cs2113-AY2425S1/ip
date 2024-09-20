@@ -7,8 +7,13 @@ import esme.ui.Ui;
  * When run, it will print the task list to the user.
  */
 public class PrintCommand extends Command {
-    public PrintCommand(Ui ui) {
+    private String[] words;
+    private String input;
+
+    public PrintCommand(Ui ui, String[] words, String input) {
         super(ui);
+        this.words = words;
+        this.input = input;
     }
 
     /**
@@ -16,7 +21,13 @@ public class PrintCommand extends Command {
      */
     @Override
     public void run() {
-        super.ui.printTaskList();
+        if (words[0].equals("list")) {
+            super.ui.printTaskList();
+        } else if (words[0].equals("find")) {
+            super.ui.printTaskFound(input);
+        } else {
+            super.ui.printTasksIn(words);
+        }
     }
 }
 

@@ -2,7 +2,13 @@ package esme.task;
 
 import esme.exceptions.EsmeException;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 /**
  * Represents a list that stores the current tasks added by the user
@@ -35,14 +41,14 @@ public class TaskList {
         return tasks.size();
     }
 
-    
+
     /**
      * Converts a given task into its input format for saving to a file.
      * The format is as follows:
      * For Todo tasks: "todo <description> /c <completed>"
      * For Event tasks: "event <description> /from <from> /to <to> /c <completed>"
      * For Deadline tasks: "deadline <description> /by <by> /c <completed>"
-     * 
+     *
      * @param task The task to be converted
      * @return The task in its input format
      */
@@ -77,7 +83,11 @@ public class TaskList {
     }
 
     /**
-     * Prints all the tasks in the task list to the user
+     * Prints out the task list. The output will be in the format:
+     * By the light of the moon, these are the tasks that guide your path:
+     * <index>. [X] <task name>
+     * <index>. [ ] <task name>
+     * ...
      */
     public void printTaskList() {
         System.out.println("\tBy the light of the moon, these are the tasks that guide your path:");
@@ -129,7 +139,16 @@ public class TaskList {
         }
         String description = parts[0].replace("deadline ", "").trim();
         String by = parts[1].trim();
-        tasks.add(new Deadline(description, by));
+
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate deadlineDate;
+        try {
+            deadlineDate = LocalDate.parse(by, formatter);
+            tasks.add(new Deadline(description, deadlineDate));
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The date format is incorrect. Use 'yyyy-MM-dd'");
+        }
         return description;
     }
 
@@ -148,8 +167,64 @@ public class TaskList {
         String description = parts[0].replace("event ", "").trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-        tasks.add(new Event(description, from, to));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate fromDate = LocalDate.parse(from, formatter);
+            LocalDate toDate = LocalDate.parse(to, formatter);
+            tasks.add(new Event(description, fromDate, toDate));
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The date format is incorrect. Use 'YYYY-MM-DD'");
+        }
         return description;
+    }
+
+    public ArrayList<Task> findTask(String line) throws EsmeException {
+        String[] parts = line.split(" ", 2);
+        if (parts.length != 2) {
+            throw new EsmeException("Error: The find format is incorrect. Use 'find <keyword>'");
+        }
+        ArrayList<Task> taskArray = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(parts[1])) {
+                taskArray.add(task);
+            }
+        }
+        return taskArray;
+    }
+
+    public ArrayList<Task> getTasksIn(String[] line) throws EsmeException {
+        ArrayList<Task> list = new ArrayList<>();
+        if (line.length != 3) {
+            throw new EsmeException("Error: The task format is wrong. Use 'task in <Date>'");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(line[2], formatter);
+            Month month = date.getMonth();
+            int year = date.getYear();
+            for (Task task : tasks) {
+                getTaskInMonth(task, month, year, list);
+            }
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The task format is wrong. Use 'task in <YYYY-MM-DD>'");
+        }
+        return list;
+    }
+
+    private void getTaskInMonth(Task task, Month month, int year, ArrayList<Task> list) {
+        if (task instanceof Deadline chore) {
+            if (chore.getLocalDate().getMonth() == month && chore.getLocalDate().getYear() == year) {
+                list.add(task);
+            }
+        }
+        else if (task instanceof Event event) {
+            if (event.getLocalDateFrom().getYear() != year && event.getLocalDateTo().getYear() != year) {
+                return;
+            }
+            if (event.getLocalDateFrom().getMonth() == month || ((Event) task).getLocalDateTo().getMonth() == month) {
+                list.add(task);
+            }
+        }
     }
 
     /**

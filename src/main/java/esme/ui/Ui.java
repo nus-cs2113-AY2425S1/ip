@@ -1,6 +1,7 @@
 package esme.ui;
 
 import esme.exceptions.EsmeException;
+import esme.task.Task;
 import esme.task.TaskList;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class Ui {
     private static final String helpMessage = "Available commands:\n" +
             "\t- bye: Exit the application.\n" +
             "\t- todo [description]: Add a new todo task.\n" +
-            "\t- deadline [description] /by [date]: Add a new task with a deadline.\n" +
-            "\t- event [description] /from [date] /to [date]: Add a new event.\n" +
+            "\t- deadline [description] /by [YYYY-MM-DD]: Add a new task with a deadline.\n" +
+            "\t- event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]: Add a new event.\n" +
             "\t- mark [task number]: Mark a task as completed.\n" +
             "\t- unmark [task number]: Unmark a completed task.\n" +
             "\t- delete [task number]: Delete a task.\n" +
             "\t- list: List all tasks.\n" +
+            "\t- task in [YYYY-MM-DD]: List all task in the same year and month.\n" +
+            "\t- find [keyword]: Find a task by keyword.\n" +
             "\t- help: Show this help message.";
     private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
@@ -43,7 +46,7 @@ public class Ui {
     /**
      * Converts a given string to an integer, or throws an EsmeException if the conversion fails.
      * This method is used to validate user input when asking for a task index.
-     * 
+     *
      * @param str The string to be converted.
      * @return The integer value of the string.
      * @throws EsmeException If the string cannot be converted to an integer.
@@ -65,7 +68,7 @@ public class Ui {
      * If the index is not valid, it throws an EsmeException.
      * If the task is successfully deleted, it prints a message to the user and calls callToWork() to print the number of tasks left.
      * If an exception is thrown, it prints an error message to the user and returns without calling callToWork().
-     * 
+     *
      * @param words The words array containing the command and index.
      */
     public void deleteTaskFromList(String[] words) {
@@ -79,7 +82,7 @@ public class Ui {
             int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
+                        "boundaries of our list! Type 'list' for the index.");
             }
             description = taskList.deleteTask(index);
         } catch (EsmeException e) {
@@ -100,7 +103,7 @@ public class Ui {
      * <index>. [X] <task name>
      * <index>. [ ] <task name>
      * ...
-     * 
+     *
      * @return An ArrayList containing the formatted tasks.
      */
     public ArrayList<String> getFormattedTasks() {
@@ -109,7 +112,7 @@ public class Ui {
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return The number of tasks in the list.
      */
     public int getNumberOfTasks() {
@@ -121,7 +124,7 @@ public class Ui {
      * The command can be one of "todo", "deadline", or "event", and the
      * input should be in the format required for the corresponding task type.
      * If the command or input is invalid, an EsmeException is thrown.
-     * 
+     *
      * @param command The command to add the correct type of task.
      * @param input The input the user has provided.
      */
@@ -153,7 +156,6 @@ public class Ui {
         callToWork();
     }
 
-    
     /**
      * Returns true if the given index is valid, meaning it is within the range of the list size and greater than zero.
      * 
@@ -164,11 +166,11 @@ public class Ui {
         return (index <= taskList.getNumberOfTasks() && index > 0);
     }
 
-    
+
     /**
      * Returns true if the task at the given index is completed, false otherwise.
      * The index on the Ui is 1-based, meaning the first task is at index 1.
-     * 
+     *
      * @param index The index of the task.
      * @return True if the task is completed, false otherwise.
      */
@@ -176,7 +178,6 @@ public class Ui {
         return taskList.getTask(index - 1).hasCompleted();
     }
 
-    
     /**
      * Marks the task at the given index as completed.
      * The index on the Ui is 1-based, meaning the first task is at index 1.
@@ -191,7 +192,6 @@ public class Ui {
         displayLine(true);
     }
 
-    
     /**
      * Unmarks the task at the given index as uncompleted.
      * The index on the Ui is 1-based, meaning the first task is at index 1.
@@ -206,7 +206,7 @@ public class Ui {
         displayLine(true);
     }
 
-    
+
     /**
      * Handles the task status command given in the words array.
      * If the command is "mark" or "unmark", it marks or unmarks the task at the given
@@ -231,7 +231,7 @@ public class Ui {
             int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
+                        "boundaries of our list! Type 'list' for the index.");
             }
             if (!isTaskCompleted(index) && command.equals("unmark")) {
                 throw new EsmeException("The stars have revealed that this task is yet to be completed. " +
@@ -253,7 +253,7 @@ public class Ui {
      * Toggles the task status based on the given command and index.
      * If the command is "mark", it marks the task at the given index as completed.
      * If the command is "unmark", it unmarks the task at the given index as uncompleted.
-     * 
+     *
      * @param taskIndex The index of the task to be toggled.
      * @param command The command to toggle the task status.
      */
@@ -292,6 +292,43 @@ public class Ui {
             System.out.println("\t" + SEPARATOR);
         } else {
             System.out.println(SEPARATOR);
+        }
+    }
+
+    public void printTaskFound(String line) {
+        try {
+            ArrayList<Task> list = taskList.findTask(line);
+            displayLine(true);
+            if (list.isEmpty()) {
+                System.out.println("\tNo similar tasks found!");
+            }
+            for (Task task : list) {
+                System.out.println("\t" + task);
+            }
+            System.out.println("\tType 'list' to see the index to delete, mark, unmark task!");
+            displayLine(true);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
+        }
+    }
+
+    public void printTasksIn(String[] words) {
+        try {
+            ArrayList<Task> list = taskList.getTasksIn(words);
+            displayLine(true);
+            if (list.isEmpty()) {
+                System.out.println("\tNo task in this month and year!");
+            }
+            for (Task task : list) {
+                System.out.println("\t" + task);
+            }
+            displayLine(true);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
         }
     }
 
@@ -381,4 +418,3 @@ public class Ui {
         displayLine(true);
     }
 }
-

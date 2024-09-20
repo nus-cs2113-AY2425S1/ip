@@ -1,0 +1,3 @@
+todo book /c false
+deadline sailing /by tmr /c false
+event homework /from tmr /to day after /c false

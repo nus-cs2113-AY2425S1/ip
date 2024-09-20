@@ -44,15 +44,6 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-
-    /**
-     * Returns the type of task, which is "Task" in this case.
-     * 
-     * @return The type of task, which is "Task" in this case.
-     */
-    public String getTaskType() {
-        return "Task";
-    }
     /**
      * Returns a string representation of the task, which is in the format of
      * "[X] <description>" if the task is completed, or "[ ] <description>" if

@@ -8,7 +8,7 @@ public class Todo extends Task {
 
     /**
      * Creates a new Todo task with the given description.
-     * 
+     *
      * @param description The description of the task.
      */
     public Todo(String description) {
@@ -17,19 +17,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the type of the task.
-     * 
-     * @return The type of the task, which is "todo" in this case.
-     */
-    @Override
-    public String getTaskType() {
-        return this.taskType;
-    }
-
-    /**
      * Returns a string representation of the Todo task, which is in the format of
      * "[T][] <description>".
-     * 
+     *
      * @return A string representation of the Todo task.
      */
     @Override

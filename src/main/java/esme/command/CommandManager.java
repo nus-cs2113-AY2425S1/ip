@@ -133,7 +133,7 @@ public class CommandManager {
         case "todo":
         case "deadline":
         case "event":
-            new EntryCommand(ui,words[0],line).run();
+            new EntryCommand(ui,words[0].toLowerCase(),line).run();
             handleTaskCompletion(isTaskCompleted);
             break;
         case "mark":
@@ -142,7 +142,9 @@ public class CommandManager {
             new ActionCommand(ui,words).run();
             break;
         case "list":
-            new PrintCommand(ui).run();
+        case "find":
+        case "task":
+            new PrintCommand(ui,words,line).run();
             break;
         case "help":
             new HelpCommand(ui).run();

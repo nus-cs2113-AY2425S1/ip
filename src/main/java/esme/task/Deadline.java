@@ -1,11 +1,14 @@
 package esme.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A Deadline task is a type of Task that has a deadline by which it must be completed.
  */
 public class Deadline extends Task {
     private String taskType;
-    private String by;
+    private LocalDate by;
 
     /**
      * Creates a new Deadline task with the given description and deadline.
@@ -13,29 +16,22 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param by The deadline by which the task must be completed.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
         this.taskType = "deadline";
     }
 
-    /**
-     * Returns the deadline by which the task must be completed.
-     *
-     * @return The deadline of the Deadline task.
-     */
-    public String getBy() {
+    public LocalDate getLocalDate() {
         return this.by;
     }
 
-    /**
-     * Returns the type of the task, which is "deadline" in this case.
-     *
-     * @return The type of the task, which is "deadline" in this case.
-     */
-    @Override
-    public String getTaskType() {
-        return this.taskType;
+    public String getBy() {
+        return by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public String getDate() {
+        return by.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
     /**
@@ -46,6 +42,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + getDate() + ")";
     }
 }
