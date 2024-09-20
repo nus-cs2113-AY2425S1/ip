@@ -37,6 +37,8 @@ public class DBot {
                 event(line);
             } else if (line.startsWith("deadline ")) {
                 deadline(line);
+            } else if (line.startsWith("delete ")) {
+                delete(line);
             } else {
                 System.out.println("Unknown command: " + line);
             }
@@ -128,5 +130,18 @@ public class DBot {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private static void delete(String line) {
+        try {
+            int option = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
+            System.out.println("Nice! I've marked this task as done:");
+            Task removed = taskList.remove(option - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(removed);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (Exception e) {
+            System.out.println("Invalid input, input must be a positive integer and must exist");
+        }
     }
 }
