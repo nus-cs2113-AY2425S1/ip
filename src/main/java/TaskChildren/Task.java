@@ -34,7 +34,7 @@ public class Task {
     }
 
     public static int size() {
-        return taskCount;
+        return tasks.size();
     }
 
     public static String dataFileEntry(int index) {
@@ -77,7 +77,7 @@ public class Task {
 
     // Static method to print all tasks in the list
     public static void printTasksList(){
-        if (tasks.size() == 0){
+        if (tasks.isEmpty()){
             System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
         } else {
             System.out.println("Si compinche, your tasks:"); // Message when displaying tasks
