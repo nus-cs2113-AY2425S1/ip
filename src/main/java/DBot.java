@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ public class DBot {
 
     public static void main(String[] args) {
         isOn = true;
-        taskList = new ArrayList<>();
+        taskList = Utilities.loadData();
 
         final String BREAK_LINE = "____________________________________________________________";
         final String GREETING_LINE = BREAK_LINE + "\nHello! I'm DBot\nWhat can I do for you?\n" + BREAK_LINE;
@@ -43,6 +45,10 @@ public class DBot {
                 System.out.println("Unknown command: " + line);
             }
 
+            boolean saveSuccess = Utilities.saveData(taskList);
+            if (!saveSuccess) {
+                System.out.println("Critical error: Cannot save data");
+            }
             System.out.println(BREAK_LINE);
         }
     }

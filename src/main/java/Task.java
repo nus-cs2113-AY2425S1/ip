@@ -7,7 +7,7 @@ public class Task {
     }
 
     public Task(String task, boolean isDone) {
-        this.task = task.strip();
+        this.task = task.trim();
         this.isDone = isDone;
     }
 

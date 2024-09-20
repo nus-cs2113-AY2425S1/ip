@@ -3,7 +3,11 @@ public class Deadline extends Task {
 
     public Deadline(String task, String by) {
         super(task);
-        this.by = by;
+        this.by = by.trim();
+    }
+
+    public String getBy() {
+        return by;
     }
 
     @Override
