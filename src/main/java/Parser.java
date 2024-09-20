@@ -1,3 +1,6 @@
+import sleepy.task.Deadline;
+import sleepy.task.Task;
+
 public class Parser {
     public Task parseCommand(String command) {
         String[] parts = command.split("/by");
