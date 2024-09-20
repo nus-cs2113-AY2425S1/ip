@@ -8,10 +8,6 @@ public class Todo extends Task {
         this.taskType = "todo";
     }
 
-    @Override
-    public String getTaskType() {
-        return this.taskType;
-    }
 
     @Override
     public String toString() {

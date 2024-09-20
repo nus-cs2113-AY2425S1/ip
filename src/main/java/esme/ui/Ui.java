@@ -13,12 +13,13 @@ public class Ui {
     private static final String helpMessage = "Available commands:\n" +
             "\t- bye: Exit the application.\n" +
             "\t- todo [description]: Add a new todo task.\n" +
-            "\t- deadline [description] /by [date]: Add a new task with a deadline.\n" +
-            "\t- event [description] /from [date] /to [date]: Add a new event.\n" +
+            "\t- deadline [description] /by [YYYY-MM-DD]: Add a new task with a deadline.\n" +
+            "\t- event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]: Add a new event.\n" +
             "\t- mark [task number]: Mark a task as completed.\n" +
             "\t- unmark [task number]: Unmark a completed task.\n" +
             "\t- delete [task number]: Delete a task.\n" +
             "\t- list: List all tasks.\n" +
+            "\t- task in [YYYY-MM-DD]: List all task in the same year and month.\n" +
             "\t- find [keyword]: Find a task by keyword.\n" +
             "\t- help: Show this help message.";
     private static final String esmeLogo = " _____                    \n" +
@@ -233,6 +234,24 @@ public class Ui {
                 System.out.println("\t" + task);
             }
             System.out.println("\tType 'list' to see the index to delete, mark, unmark task!");
+            displayLine(true);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
+        }
+    }
+
+    public void printTasksIn(String[] words) {
+        try {
+            ArrayList<Task> list = taskList.getTasksIn(words);
+            displayLine(true);
+            if (list.isEmpty()) {
+                System.out.println("\tNo task in this month and year!");
+            }
+            for (Task task : list) {
+                System.out.println("\t" + task);
+            }
             displayLine(true);
         } catch (EsmeException e) {
             displayLine(true);
