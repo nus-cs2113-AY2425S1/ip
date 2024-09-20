@@ -1,5 +1,5 @@
-T |   | eat
+T | X | eat
 D |   | do my iP | tomorrow
-E | X | homework | 9pm   | 11pm
+E | X | homework | 9pm    | 11pm
 T |   | eoeidj
 D | X | poppo | 88pm
