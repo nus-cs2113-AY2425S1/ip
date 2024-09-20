@@ -44,27 +44,6 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public String getTaskType() {
-        return "Task";
-    }
-
-//    public String convertTaskToInputFormat() {
-//        String task;
-//        switch (this.getTaskType()) {
-//        case "todo":
-//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
-//            break;
-//        case "event":
-//            task = "event " + this.getDescription() + " /from " + this. + " /to " + " /c " + this.getDescription();
-//            break;
-//        case "deadline":
-//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
-//            break;
-//        default:
-//        }
-//        return task;
-//    }
-
     @Override
     public String toString() {
         String status = isCompleted ? "[X] " : "[ ] ";
