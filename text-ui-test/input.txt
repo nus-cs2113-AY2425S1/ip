@@ -1,10 +1,17 @@
-todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo read a book
+hello
+deadline tutorial /by 2024-10-29
 list
+event F1 race /from 2024-09-26 /to 2024-10-12
+list
+task in 2024-10-22
+find a
 mark 1
+mark 3
 list
 unmark 1
+list
+delete 1
 list
 bye
