@@ -10,6 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the reading and writing of data between a data file and a list of tasks.
+ * A <code>Storage</code> object handles the saving and loading of data between a <code>File</code>
+ * and a <code>TaskList</code>
+ */
 public class Storage {
     private File dataFile;
     private TaskList tasks;
