@@ -56,7 +56,15 @@ public class Bitwise {
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
             }
-        } else {
+        } else if (userInput.startsWith(Constants.COMMAND_DELETE)) {
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                deleteTask(taskNumber);
+            } catch (IndexOutOfBoundsException e) {
+                OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+                return Status.RUNNING;
+            }
+        }else {
             addToList(userInput);
         }
         OutputManager.printLineBreak();
@@ -131,5 +139,13 @@ public class Bitwise {
         String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;
         OutputManager.printMessage(message);
         OutputManager.printTasksList(tasksList, numberOfTasks);
+    }
+
+    public static void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        Task deletedTask = tasksList.remove(taskIndex);
+        numberOfTasks--;
+        OutputManager.printMessageDeletedTask(deletedTask.toString());
+        OutputManager.printNumberOfTasks(numberOfTasks);
     }
 }
