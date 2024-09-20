@@ -16,7 +16,7 @@ public class Nell {
      * Lists out the currently stored tasks in TaskList
      */
     private static void listTasks() {
-        System.out.println("-> The tasks listed are as follows:");
+        System.out.println(Messages.LIST_TASKS_MESSAGE);
         int taskCount = tasks.getTaskCount();
         for (int i = 0; i < taskCount; i++) {
             // Prints all tasks in list
@@ -73,7 +73,7 @@ public class Nell {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
             tasks.getTaskAtIndex(taskIndex - 1).setDone(false);
-            System.out.println("-> The following task has been marked not done:");
+            System.out.println(Messages.UNMARK_MESSAGE);
             System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
             System.out.print(Messages.UNMARK_ERROR_MESSAGE);
@@ -91,7 +91,7 @@ public class Nell {
         try {
             int taskIndex = Integer.parseInt(taskNumber);
             tasks.getTaskAtIndex(taskIndex - 1).setDone(true);
-            System.out.println("-> The following task has been marked done:");
+            System.out.println(Messages.MARK_MESSAGE);
             System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
             System.out.print(Messages.MARK_ERROR_MESSAGE);
@@ -120,33 +120,22 @@ public class Nell {
      * Handles wrong or wrongly formatted commands
      */
     private static void handleIncorrectInput() {
-        System.out.print("""
-                -> Invalid command!
-                   Please enter one of the following commands:
-                      list
-                      mark <number>
-                      unmark <number>
-                      todo <description>
-                      deadline <description> /by <by-date>
-                      event <description> /from <from-date> /to <to-date>
-                      remove <number>
-                      bye
-                """);
+        System.out.print(Messages.INVALID_COMMAND_MESSAGE);
     }
 
     /**
      * Says bye to the user
      */
     private static void sayBye() {
-        System.out.println("-> Bye. Hope to see you again soon!");
+        System.out.println(Messages.BYE_MESSAGE);
     }
-
+    
     /**
      * Greet the user upon program startup
      */
     private static void greetUser() {
-        System.out.println("Hello! I'm Nell!");
-        System.out.println("What can I do for you?");
+        System.out.println(Messages.HELLO_MESSAGE);
+        System.out.println(Messages.PROMPT_MESSAGE);
     }
 
     /**

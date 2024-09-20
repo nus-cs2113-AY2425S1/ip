@@ -29,4 +29,22 @@ public class Messages {
             -> Please input the command as follows:
                   remove <task number>
             """;
+    public static final String BYE_MESSAGE = "-> Bye. Hope to see you again soon!";
+    public static final String INVALID_COMMAND_MESSAGE = """
+            -> Invalid command!
+               Please enter one of the following commands:
+                  list
+                  mark <number>
+                  unmark <number>
+                  todo <description>
+                  deadline <description> /by <by-date>
+                  event <description> /from <from-date> /to <to-date>
+                  remove <number>
+                  bye
+            """;
+    public static final String UNMARK_MESSAGE = "-> The following task has been marked not done:";
+    public static final String MARK_MESSAGE = "-> The following task has been marked done:";
+    public static final String HELLO_MESSAGE = "Hello! I'm Nell!";
+    public static final String PROMPT_MESSAGE = "What can I do for you?";
+    public static final String LIST_TASKS_MESSAGE = "-> The tasks listed are as follows:";
 }
