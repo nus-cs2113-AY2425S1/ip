@@ -163,6 +163,12 @@ public class Bitwise {
         int taskIndex = taskNumber - 1;
         Task deletedTask = tasksList.remove(taskIndex);
         numberOfTasks--;
+        try {
+            FileManager.saveTasksList(tasksList, numberOfTasks);
+        } catch (IOException e) {
+            System.out.println("Error saving task list");
+            return;
+        }
         OutputManager.printMessageDeletedTask(deletedTask.toString());
         OutputManager.printNumberOfTasks(numberOfTasks);
     }
