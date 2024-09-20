@@ -15,6 +15,8 @@ public class ChattyCharlie {
 
         //create an instance of list class
         List list = new List();
+        // import the file to list
+
         CommandType command = null;
         //accept an insert
         while (true) {
