@@ -5,10 +5,11 @@ import bitwise.constants.Constants;
 import bitwise.exceptions.*;
 import bitwise.tasks.*;
 import bitwise.utils.OutputManager;
+import java.util.ArrayList;
 
 public class Bitwise {
 
-    private static Task[] tasksList = new Task[Constants.MAX_LIST_SIZE];
+    private static ArrayList<Task> tasksList = new ArrayList<Task>();
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
@@ -55,7 +56,15 @@ public class Bitwise {
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
             }
-        } else {
+        } else if (userInput.startsWith(Constants.COMMAND_DELETE)) {
+            try {
+                int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+                deleteTask(taskNumber);
+            } catch (IndexOutOfBoundsException e) {
+                OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+                return Status.RUNNING;
+            }
+        }else {
             addToList(userInput);
         }
         OutputManager.printLineBreak();
@@ -113,7 +122,7 @@ public class Bitwise {
         } else {
             throw new InvalidCommandException(userInput);
         }
-        tasksList[numberOfTasks] = newTask;
+        tasksList.add(newTask);
         numberOfTasks++;
         OutputManager.printMessageAddedTask(newTask.toString());
         OutputManager.printNumberOfTasks(numberOfTasks);
@@ -122,16 +131,21 @@ public class Bitwise {
     public static void markCompletionStatus(int taskNumber, boolean isCompleted) {
         int taskIndex = taskNumber - 1;
         try {
-            tasksList[taskIndex].markCompletionStatus(isCompleted);
+            tasksList.get(taskIndex).markCompletionStatus(isCompleted);
         } catch (IndexOutOfBoundsException e) {
-            OutputManager.printMessage("Task number exceeds max list size: " + Constants.MAX_LIST_SIZE);
-            return;
-        } catch (NullPointerException e) {
             OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
             return;
         }
         String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;
         OutputManager.printMessage(message);
         OutputManager.printTasksList(tasksList, numberOfTasks);
+    }
+
+    public static void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        Task deletedTask = tasksList.remove(taskIndex);
+        numberOfTasks--;
+        OutputManager.printMessageDeletedTask(deletedTask.toString());
+        OutputManager.printNumberOfTasks(numberOfTasks);
     }
 }
