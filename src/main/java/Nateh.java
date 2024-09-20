@@ -3,8 +3,11 @@ import classes.Event;
 import classes.Task;
 import classes.Todo;
 import exceptions.IllegalCommandException;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+
 
 public class Nateh {
     
@@ -25,6 +28,7 @@ public class Nateh {
                 throw new NullPointerException();
             }
             list[index].setDone(true);
+            FileHandler.markTask(index);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Wow! Great job! :)");
             list[index].print();
@@ -44,6 +48,10 @@ public class Nateh {
             System.out.println("Uh oh. I think you gave too big a number :/ ");
             System.out.println("format: mark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
+        } catch (IOException e) {
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Hmm, there seems to be a File error?");
+            System.out.print(Skeleton.LINE_BREAK);
         }
     }
     private static void handleUnmark(String[] splitInput, Task[] list) {
@@ -54,6 +62,7 @@ public class Nateh {
                 throw new NullPointerException();
             }
             list[index].setDone(false);
+            FileHandler.unmarkTask(index);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Aw you didn't get to finish. :(");
             list[index].print();
@@ -72,6 +81,10 @@ public class Nateh {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Uh oh. I think you gave too big a number :/ ");
             System.out.println("format: unmark <number smaller than number of tasks>");
+            System.out.print(Skeleton.LINE_BREAK);
+        } catch (IOException e) {
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Hmm, there seems to be a File error?");
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
@@ -145,8 +158,8 @@ public class Nateh {
             list = FileHandler.readTasks();
         } catch (IOException e) {
             list = new Task[100];
+            list[0] = new Task();
         }
-        list[0] = new Task();
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(Skeleton.SKELETON);
