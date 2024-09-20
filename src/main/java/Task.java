@@ -16,7 +16,7 @@ public class Task {
   }
 
   public void markAsNotDone() {
-    this.isDone = false;
+    this.isDone = false;   
   }
 
   @Override
