@@ -126,10 +126,13 @@ public class Amy {
     }
     public static void main(String[] args) {
         chooseAction("greet");
+        taskList = TaskManager.loadTasks();
         Scanner scanner = new Scanner(System.in);
         while(!isExit){
             String request = scanner.nextLine().trim();
             chooseAction(request);
         }
+        TaskManager.saveTasks(taskList);
+
     }
 }
