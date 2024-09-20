@@ -137,4 +137,24 @@ public class TaskManager {
     public void printNumTasks(Task[] tasks, int count) {
         System.out.println("Now you have " + (count + 1) + " tasks in the list.");
     }
+    private void saveTasksToFile() {
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                boolean dirCreated = directory.mkdirs();
+                if (!dirCreated) {
+                    System.out.println("An error occurred: Could not create the directory.");
+                    return;
+                }
+            }
+
+            try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                for (Task task : tasks) {
+                    fw.write(task.toString().trim() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file.");
+        }
+    }
 }
