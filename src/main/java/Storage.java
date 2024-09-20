@@ -1,4 +1,13 @@
-import java.io.*;
+import sleepy.task.Deadline;
+import sleepy.task.Event;
+import sleepy.task.Task;
+import sleepy.task.Todo;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -8,6 +17,7 @@ public class Storage {
 
     //creates file if is empty
     public Storage() {
+        //to get to the absolute path of the file
         String directoryPath = Paths.get("").toAbsolutePath() + File.separator + DIRECTORY_NAME;
         String filePath = directoryPath + File.separator + FILE_PATH;
 
@@ -26,7 +36,8 @@ public class Storage {
     }
 
     public static void saveTasks(ArrayList<Task> tasks) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+        String filePath = Paths.get("").toAbsolutePath() + File.separator + DIRECTORY_NAME + File.separator + FILE_PATH;
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 writer.write(task.toFileFormat() + "\n");
             }

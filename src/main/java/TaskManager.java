@@ -1,3 +1,8 @@
+import sleepy.task.Deadline;
+import sleepy.task.Event;
+import sleepy.task.Task;
+import sleepy.task.Todo;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -12,78 +17,78 @@ public class TaskManager {
         return tasks;
     }
 
-    public void addTask(String input) throws SleepyException{
+    public void addTask(String input) throws SleepyException {
         if (input.startsWith("event")) {
-            //checks if there is anything after from
-            String[] parts = input.substring(5).split(" /from ");
-            if (parts.length != 2) {
-                throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
-            }
+            addEvent(input);
+        } else if (input.startsWith("deadline")) {
+            addDeadline(input);
+        } else if (input.startsWith("todo")) {
+            addTodo(input);
+        } else {
+            throw new SleepyException("Unknown command. "
+                    + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+        }
+    }
 
-            String description = parts[0].trim();
-            //checks if there is anything after to
-            String[] toParts = parts[1].split(" /to ");
-            if (toParts.length != 2 || toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
-                throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
-            }
-
-            if (description.isEmpty()) {
-                throw new SleepyException("Invalid event format. The event description cannot be empty\n");
-            }
-
-            String from = toParts[0].trim();
-            String to = toParts[1].trim();
-            Task task = new Event(description, from, to);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
-            return;
+    private void addEvent(String input) throws SleepyException {
+        String[] parts = input.substring(5).split(" /from ");
+        if (parts.length != 2) {
+            throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
         }
 
-        if (input.startsWith("deadline")) {
-            String[] parts = input.substring(8).split(" /by ");
-            //checks if there is anything after by
-            if (parts.length != 2) {
-                throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
-            }
+        String description = parts[0].trim();
+        String[] toParts = parts[1].split(" /to ");
+        if (toParts.length != 2 || toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
+            throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
+        }
 
-            String description = parts[0].trim();
-            if (description.isEmpty()) {
-                throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. "
-                        + "Please use: deadline description /by date\n");
+        if (description.isEmpty()) {
+            throw new SleepyException("Invalid event format. The event description cannot be empty\n");
+        }
 
-            }
+        String from = toParts[0].trim();
+        String to = toParts[1].trim();
+        Task task = new Event(description, from, to);
+        addTaskToList(task);
+    }
 
-            String by = parts[1].trim();
+    private void addDeadline(String input) throws SleepyException {
+        String[] parts = input.substring(8).split(" /by ");
+        if (parts.length != 2) {
+            throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
+        }
+
+        String description = parts[0].trim();
+        if (description.isEmpty()) {
+            throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. "
+                    + "Please use: deadline description /by date\n");
+        }
+
+        String by = parts[1].trim();
+        try {
             Task task = new Deadline(description, by);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
-            return;
+            addTaskToList(task);
+        } catch (IllegalArgumentException e) {
+            System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
         }
+    }
 
-        if (input.startsWith("todo")) {
-            String description = input.substring(4).trim();
-            if (description.isEmpty()) {
-                throw new SleepyException("Invalid todo format. Todo description cannot be empty\n");
-            }
-            Task task = new Todo(description);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
-            return;
+    private void addTodo(String input) throws SleepyException {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new SleepyException("Invalid todo format. Todo description cannot be empty\n");
         }
-        throw new SleepyException("Unknown command. "
-                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+        Task task = new Todo(description);
+        addTaskToList(task);
+    }
+
+    private void addTaskToList(Task task) {
+        tasks.add(task);
+        System.out.println(LINE_SEPARATOR
+                + "added...\n"
+                + " " + tasks.get(tasks.size() - 1).toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
+                + LINE_SEPARATOR);
     }
 
     public void deleteTask(int taskIndex) throws SleepyException{
