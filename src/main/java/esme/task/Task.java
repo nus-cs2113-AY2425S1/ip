@@ -44,26 +44,22 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
+
+    /**
+     * Returns the type of task, which is "Task" in this case.
+     * 
+     * @return The type of task, which is "Task" in this case.
+     */
     public String getTaskType() {
         return "Task";
     }
-
-//    public String convertTaskToInputFormat() {
-//        String task;
-//        switch (this.getTaskType()) {
-//        case "todo":
-//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
-//            break;
-//        case "event":
-//            task = "event " + this.getDescription() + " /from " + this. + " /to " + " /c " + this.getDescription();
-//            break;
-//        case "deadline":
-//            task = "todo " + this.getDescription() + " /c " + this.getDescription();
-//            break;
-//        default:
-//        }
-//        return task;
-//    }
+    /**
+     * Returns a string representation of the task, which is in the format of
+     * "[X] <description>" if the task is completed, or "[ ] <description>" if
+     * the task is not completed.
+     *
+     * @return a string representation of the task
+     */
 
     @Override
     public String toString() {
