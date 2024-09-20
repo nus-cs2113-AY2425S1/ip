@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.io.*;
 
 public class TaskManager {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
+    private static final String FILE_PATH = "data/eva.txt";
 
     private ArrayList<Task> tasks;
     private int count;
@@ -10,7 +12,7 @@ public class TaskManager {
     public TaskManager() {
         tasks = new ArrayList<>();
         count = 0;
-
+        loadTasksFromFile();
     }
 
     public void printTaskList() {
@@ -36,6 +38,8 @@ public class TaskManager {
         System.out.println(tasks.get(taskNumber).toString());
         System.out.println("Well done! ;)");
         System.out.println(HORIZONTAL_LINE);
+
+        saveTasksToFile();
     }
 
     public void unmarkTask(String line) throws EvaException {
@@ -52,6 +56,8 @@ public class TaskManager {
         System.out.println("Ok, This task is marked as not done yet: ");
         System.out.println(tasks.get(taskNumber).toString());
         System.out.println(HORIZONTAL_LINE);
+
+        saveTasksToFile();
     }
 
     public void deleteTask(String line) throws EvaException {
@@ -72,6 +78,7 @@ public class TaskManager {
         printNumTasks(count - 1);
         System.out.println(HORIZONTAL_LINE);
 
+        saveTasksToFile();
     }
 
     public static int extractDigit(String input) {
@@ -96,6 +103,8 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
 
         count++;
+
+        saveTasksToFile();
     }
 
     public void printDeadline(String line) throws EvaException {
@@ -124,6 +133,8 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
 
         count++;
+
+        saveTasksToFile();
     }
 
     public void printEvent(String line) throws EvaException {
@@ -153,9 +164,74 @@ public class TaskManager {
         System.out.println(HORIZONTAL_LINE);
 
         count++;
+
+        saveTasksToFile();
     }
 
     public void printNumTasks(int count) {
         System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+    }
+
+    private void saveTasksToFile() {
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                boolean dirCreated = directory.mkdirs();
+                if (!dirCreated) {
+                    System.out.println("An error occurred: Could not create the directory.");
+                    return;
+                }
+            }
+
+            try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                for (Task task : tasks) {
+                    fw.write(task.toString().trim() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file.");
+        }
+    }
+
+    private void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return;
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = parseTaskFromString(line);
+                if (task != null) {
+                    tasks.add(task);
+                    count++;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file.");
+        }
+    }
+
+    private Task parseTaskFromString(String line) {
+        line = line.trim();
+
+        if (line.startsWith("[T]")) {
+            return new Todo(line.substring(6));
+        } else if (line.startsWith("[D]")) {
+            String[] parts = line.split("\\(by: ");
+            String description = parts[0].substring(6);
+            String by = parts[1].replace(")", "");
+            return new Deadline(description, by);
+        } else if (line.startsWith("[E]")) {
+            String[] parts = line.split("\\(from: | to: |\\)");
+            String description = parts[0].substring(6);
+            String from = parts[1];
+            String to = parts[2];
+            return new Event(description, from, to);
+        }
+        return null;
     }
 }
