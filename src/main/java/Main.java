@@ -12,9 +12,10 @@ public class Main {
         ui.showWelcome();
         ArrayList<Task> tasks = new ArrayList<>(); //Array of "task" object to store the tasks
 
+        Storage storage = new Storage("data/duke.txt");
         //load tasks from file at the start
         try {
-            tasks = loadTasks();
+            tasks = storage.loadTasks();
         }
         catch (FileNotFoundException e) {
             ui.showLoadingError();
@@ -40,14 +41,14 @@ public class Main {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text. minus 1 to get correct index in the "tasks" array
                     tasks.get(taskNumber).markAsDone();
                     ui.showTaskMarked(tasks.get(taskNumber));
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else if (input.startsWith("unmark")) //unmark task and print acknowledge message when user unmarks a task
                 {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; //get the integer in the text
                     tasks.get(taskNumber).markAsNotDone();
                     ui.showTaskUnmarked(tasks.get(taskNumber));
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else if (input.startsWith("todo"))
                 {
@@ -55,7 +56,7 @@ public class Main {
                     Todo newTodo = new Todo(description);
                     tasks.add(newTodo);
                     ui.showTaskAdded(newTodo, tasks.size());
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else if (input.startsWith("deadline"))
                 {
@@ -63,7 +64,7 @@ public class Main {
                     Deadline newDeadline = new Deadline(parts[0], parts[1]);
                     tasks.add(newDeadline);
                     ui.showTaskAdded(newDeadline, tasks.size());
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else if (input.startsWith("event"))
                 {
@@ -72,7 +73,7 @@ public class Main {
                     Event newEvent = new Event(description[0], time[0], time[1]);
                     tasks.add(newEvent);
                     ui.showTaskAdded(newEvent, tasks.size());
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else if(input.startsWith("delete"))
                 {
@@ -80,14 +81,14 @@ public class Main {
                     Task taskToRemove = tasks.get(taskNumber);
                     ui.showTaskDeleted(taskToRemove);
                     tasks.remove(taskNumber);
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
                 else //store other input from user as a task object
                 {
                     Task newTask = new Task(input);
                     tasks.add(newTask);
                     ui.showTaskAdded(newTask, tasks.size());
-                    saveTasks(tasks);
+                    storage.saveTasks(tasks);
                 }
             }
             catch (NumberFormatException e){
@@ -112,71 +113,6 @@ public class Main {
 
     }
 
-
-    // Method to save tasks to a file
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        File file = new File("data");
-        if (!file.exists()) {
-            file.mkdirs(); // Create the directory if it dont exist
-        }
-        FileWriter fw = new FileWriter(new File(file, "duke.txt"));
-
-        for (Task task : tasks) //iterate over all tasks, and save them in rquired format.
-        {
-            fw.write(task.toSaveFormat() + "\n");
-        }
-        fw.close();
-    }
-
-    // Method to load tasks from a file and add it to the ArrayList
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File("data/duke.txt");
-        if (file.exists()) {
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                String[] parts = line.split(" \\| ");
-                Task task;
-                switch (parts[0]) {
-                case "T":
-                    task = new Todo(parts[2]);
-                    if (parts[1].equals("1"))
-                    {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                case "D":
-                    task = new Deadline(parts[2], parts[3]);
-                    if (parts[1].equals("1"))
-                    {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                case "E":
-                    task = new Event(parts[2], parts[3], parts[4]);
-                    if (parts[1].equals("1"))
-                    {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                case " ": //for generic tasks
-                    task = new Task(parts[2]);
-                    if (parts[1].equals("1"))
-                    {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                }
-            }
-            sc.close();
-        }
-        return tasks;
-    }
 
 }
 
