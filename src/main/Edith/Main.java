@@ -1,14 +1,18 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Main {
-    Scanner sc=new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
     private final String myName;
     ArrayList<Task> tasks;
 
     public Main(String myName) {
         this.myName = myName;
-        tasks=new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public void printHorizontalLine() {
@@ -137,8 +141,37 @@ public class Main {
         } while (true);
     }
 
+    public static void printFileContents(String absolutePath, File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        File f = new File("data/tasks.txt");
+        String absolutePath = f.getAbsolutePath();
+        try {
+            printFileContents(absolutePath, f);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+        //System.out.println("file exists?: " + f.exists());
+        //System.out.println("is Directory?: " + f.isDirectory());
         Main Edith = new Main("Edith");
         Edith.talkToUser();
+        }
     }
 }
