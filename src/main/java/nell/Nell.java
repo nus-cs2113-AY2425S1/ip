@@ -5,8 +5,6 @@ import nell.tasks.Deadline;
 import nell.tasks.Event;
 import nell.tasks.ToDo;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Nell {
