@@ -21,6 +21,7 @@ public class Constants {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_INFIX_BY = "/by";
     public static final String COMMAND_INFIX_FROM = "/from";
     public static final String COMMAND_INFIX_TO = "/to";
@@ -32,6 +33,7 @@ public class Constants {
     public static final String MESSAGE_UNMARKED = "I've added the task back in";
     public static final String MESSAGE_TASK_LIST = "Here are the tasks in your list: ";
     public static final String MESSAGE_ADDED = "Got it! Added:\n";
+    public static final String MESSAGE_DELETED = "Got it! Deleted:\n";
 
     public static final String ICON_COMPLETED = "[X]";
     public static final String ICON_NOT_COMPLETED = "[ ]";
