@@ -6,6 +6,7 @@ public class Task {
     // Array to keep track of all tasks added
     private static Task[] tasks = new Task[100]; // Task array of size 100 to store tasks
     private static int taskCount = 0; // Counter to keep track of the number of tasks
+    public String inputString;
 
     // Object-specific variables
     public String taskString; // String to hold the task description
@@ -22,6 +23,18 @@ public class Task {
     public static void deleteLatestTask(){
         tasks[taskCount-1] = null; // Remove the latest task from the array
         taskCount--; // Decrement the task count
+    }
+
+    public static void markLatestTask(){
+        tasks[taskCount-1].isDone = true;
+    }
+
+    public static int size() {
+        return taskCount;
+    }
+
+    public static String dataFileEntry(int index) {
+        return (tasks[index].inputString + " /isdone " + tasks[index].isDone);
     }
 
     // Method to display a message when a task is successfully created

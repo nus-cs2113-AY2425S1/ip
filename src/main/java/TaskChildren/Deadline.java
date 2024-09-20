@@ -8,11 +8,12 @@ public class Deadline extends Task {
     // Variable to store the deadline date/time string
     private String deadlineString;
 
+
     // Constructor for creating a Deadline task
-    public Deadline(String inputString) throws DeadlineConstructorException {
+    public Deadline(String inputString, boolean constructorMessage) throws DeadlineConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/by" keyword)
         super(inputString.replace("deadline ", "").split(" /by ")[0]);
-
+        this.inputString = inputString;
         // Check if the "/by" keyword is missing or if the task description is empty
         if (!(inputString.contains(" /by ")) || this.taskString.isEmpty()) {
             throw new DeadlineConstructorException(inputString); // Throw custom exception if validation fails
@@ -22,7 +23,9 @@ public class Deadline extends Task {
         this.deadlineString = inputString.replace("deadline ", "").split(" /by ")[1];
 
         // Display a confirmation message when a Deadline task is successfully created
-        constructorMessage();
+        if (constructorMessage) {
+            constructorMessage();
+        }
     }
 
     // Override the checkboxString method to include the "[D]" tag and the deadline information
