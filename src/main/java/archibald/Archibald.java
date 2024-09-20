@@ -1,6 +1,11 @@
 package archibald;
 import java.util.Scanner;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,6 +24,14 @@ class ArchibaldException extends Exception {
 
 public class Archibald {
 
+    private static final String TASK_TYPE_TODO = "todo";
+    private static final String TASK_TYPE_DEADLINE = "deadline";
+    private static final String TASK_TYPE_EVENT = "event";
+    private static final String DEADLINE_SEPARATOR = " /by ";
+    private static final String EVENT_SEPARATOR_FROM = " /from ";
+    private static final String EVENT_SEPARATOR_TO = " /to ";
+    private static final int SPLIT_LIMIT = 2;
+
     private static List<Task> tasks = new ArrayList<>();
 
     public static void printArchibaldResponse(String message) {
@@ -29,41 +42,41 @@ public class Archibald {
 
     public static void addTask(String input) {
         try {
-            String[] parts = input.split(" ", 2);
+            String[] parts = input.split(" ", SPLIT_LIMIT);
             String type = parts[0].toLowerCase();
     
-            if (type.equals("todo") || type.equals("deadline") || type.equals("event")) {
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            if (type.equals(TASK_TYPE_TODO) || type.equals(TASK_TYPE_DEADLINE) || type.equals(TASK_TYPE_EVENT)) {
+                if (parts.length < SPLIT_LIMIT || parts[1].trim().isEmpty()) {
                     throw new ArchibaldException("Error: By royal decree, the description of a " + type + " cannot be empty.");
                 }
             }
     
             Task newTask;
             switch (type) {
-                case "todo":
-                    newTask = new Todo(parts[1]);
-                    break;
-                case "deadline":
-                    String[] deadlineParts = parts[1].split(" /by ", 2);
-                    if (deadlineParts.length < 2) {
-                        throw new ArchibaldException("Error: Deadline must include '/by' followed by a date.");
-                    }
-                    newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-                    break;
-                case "event":
-                    String[] eventParts = parts[1].split(" /from | /to ");
-                    if (eventParts.length < 3) {
-                        throw new ArchibaldException("Error: Event must include '/from' and '/to' followed by dates.");
-                    }
-                    newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                    break;
-                default:
-                    throw new ArchibaldException("Error: In spite of my knowledge... I don't know what that means >:(");
+            case TASK_TYPE_TODO:
+                newTask = new Todo(parts[1]);
+                break;
+            case TASK_TYPE_DEADLINE:
+                String[] deadlineParts = parts[1].split(DEADLINE_SEPARATOR, SPLIT_LIMIT);
+                if (deadlineParts.length < SPLIT_LIMIT) {
+                    throw new ArchibaldException("Error: Deadline must include '/by' followed by a date.");
+                }
+                newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+                break;
+            case TASK_TYPE_EVENT:
+                String[] eventParts = parts[1].split(EVENT_SEPARATOR_FROM + "|" + EVENT_SEPARATOR_TO);
+                if (eventParts.length < 3) {
+                    throw new ArchibaldException("Error: Event must include '/from' and '/to' followed by dates.");
+                }
+                newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                break;
+            default:
+                throw new ArchibaldException("Error: In spite of my knowledge... I don't know what that means >:(");
             }
     
             tasks.add(newTask);
             printArchibaldResponse("Got it. I've added this task:\n  " + newTask +
-                                   "\nNow you have " + tasks.size() + " tasks in the list.");
+                    "\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (ArchibaldException e) {
             printArchibaldResponse(e.getMessage());
         }
@@ -110,17 +123,17 @@ public class Archibald {
                 boolean isDone = parts[1].equals("1");
                 Task task;
                 switch (type) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], parts[3]);
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    task = new Todo(parts[2]);
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], parts[3]);
+                    break;
+                case "E":
+                    task = new Event(parts[2], parts[3], parts[4]);
+                    break;
+                default:
+                    continue;
                 }
                 if (isDone) {
                     task.markAsDone();
@@ -138,7 +151,9 @@ public class Archibald {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                 Task removedTask = tasks.remove(taskIndex);
-                printArchibaldResponse("Duly noted sire. Thy hath removed this task:\n  " + removedTask + "\nNow thou hath " + tasks.size() + " tasks in the list.");
+                printArchibaldResponse("Duly noted sire. Thy hath removed this task:\n  " 
+                        + removedTask + "\nNow thou hath " + tasks.size() 
+                        + " tasks in the list.");
             } else {
                 throw new ArchibaldException("Error: Invalid task number.");
             }
