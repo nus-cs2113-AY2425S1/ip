@@ -15,6 +15,14 @@ public class Event extends Task {
         this.taskType = "event";
     }
 
+    public LocalDate getLocalDateFrom() {
+        return this.from;
+    }
+
+    public LocalDate getLocalDateTo() {
+        return this.to;
+    }
+
     public String getDateFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
@@ -29,11 +37,6 @@ public class Event extends Task {
 
     public String getDateTo() {
         return this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-    }
-
-    @Override
-    public String getTaskType() {
-        return this.taskType;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package esme.ui;
 
 import esme.exceptions.EsmeException;
+import esme.task.Task;
 import esme.task.TaskList;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Ui {
             "\t- unmark [task number]: Unmark a completed task.\n" +
             "\t- delete [task number]: Delete a task.\n" +
             "\t- list: List all tasks.\n" +
+            "\t- task in [YYYY-MM-DD]: List all task in the same year and month.\n" +
             "\t- help: Show this help message.";
     private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
@@ -217,6 +219,24 @@ public class Ui {
             System.out.println("\t" + SEPARATOR);
         } else {
             System.out.println(SEPARATOR);
+        }
+    }
+
+    public void printTasksIn(String[] line) {
+        try {
+            ArrayList<Task> list = taskList.getTasksIn(line);
+            displayLine(true);
+            if (list.isEmpty()) {
+                System.out.println("\t" + "No task in this month and year!");
+            }
+            for (Task task : list) {
+                System.out.println("\t" + task);
+            }
+            displayLine(true);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
         }
     }
 

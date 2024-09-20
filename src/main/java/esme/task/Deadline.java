@@ -2,7 +2,6 @@ package esme.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
     private String taskType;
@@ -14,17 +13,16 @@ public class Deadline extends Task {
         this.taskType = "deadline";
     }
 
+    public LocalDate getLocalDate() {
+        return this.by;
+    }
+
     public String getBy() {
         return by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getDate() {
         return by.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-    }
-
-    @Override
-    public String getTaskType() {
-        return this.taskType;
     }
 
     @Override

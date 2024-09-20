@@ -1,6 +1,9 @@
 package esme.task;
 
 import esme.exceptions.EsmeException;
+
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -114,9 +117,44 @@ public class TaskList {
             LocalDate toDate = LocalDate.parse(to, formatter);
             tasks.add(new Event(description, fromDate, toDate));
         } catch (DateTimeParseException e) {
-            throw new EsmeException("Error: The date format is incorrect. Use 'yyyy-MM-dd'");
+            throw new EsmeException("Error: The date format is incorrect. Use 'YYYY-MM-DD'");
         }
         return description;
+    }
+
+    public ArrayList<Task> getTasksIn(String[] line) throws EsmeException {
+        ArrayList<Task> list = new ArrayList<>();
+        if (line.length != 3) {
+            throw new EsmeException("Error: The task format is wrong. Use 'task in <Date>'");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(line[2], formatter);
+            Month month = date.getMonth();
+            int year = date.getYear();
+            for (Task task : tasks) {
+                getTaskInMonth(task, month, year, list);
+            }
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The task format is wrong. Use 'task in <YYYY-MM-DD>'");
+        }
+        return list;
+    }
+
+    private void getTaskInMonth(Task task, Month month, int year, ArrayList<Task> list) {
+        if (task instanceof Deadline chore) {
+            if (chore.getLocalDate().getMonth() == month && chore.getLocalDate().getYear() == year) {
+                list.add(task);
+            }
+        }
+        else if (task instanceof Event event) {
+            if (event.getLocalDateFrom().getYear() != year && event.getLocalDateTo().getYear() != year) {
+                return;
+            }
+            if (event.getLocalDateFrom().getMonth() == month || ((Event) task).getLocalDateTo().getMonth() == month) {
+                list.add(task);
+            }
+        }
     }
 
     public void markTask(int taskIndex) {
