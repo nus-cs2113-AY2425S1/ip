@@ -1,5 +1,6 @@
 package nell;
 
+import nell.storage.Storage;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
 import nell.tasks.ToDo;
@@ -36,6 +37,7 @@ public class Nell {
             """;
 
     private static TaskList tasks = new TaskList();
+    private static Storage dataStorage = new Storage("./data/data.txt", tasks);
 
     /**
      * Lists out the currently stored tasks in TaskList
@@ -166,74 +168,6 @@ public class Nell {
         System.out.println("-> Bye. Hope to see you again soon!");
     }
 
-    private static void loadFromFile() {
-        try {
-            File directory = new File("data");
-            File dataFile = new File("data/data.txt");
-
-            if (!dataFile.exists()) {
-                directory.mkdir();
-                dataFile.createNewFile();
-            }
-
-            Scanner fileScanner = new Scanner(dataFile);
-            while (fileScanner.hasNext()) {
-                String fileTask = fileScanner.nextLine();
-                loadTask(fileTask);
-            }
-        } catch (IOException e) {
-            System.out.println("Data not loaded - File not found");
-        }
-    }
-
-    /**
-     * Parses a task from the file
-     *
-     * @param taskLine The file line containing the task
-     */
-    private static void loadTask(String taskLine) {
-        String[] taskParameters = taskLine.split("\\|");
-        String taskType = taskParameters[0];
-        String taskDescription = taskParameters[2];
-
-        boolean taskIsDone = taskParameters[1].equals("X");
-
-        switch (taskType) {
-        case "T":
-            ToDo toDoToAdd = new ToDo(taskDescription, taskIsDone);
-            tasks.loadTask(toDoToAdd);
-            break;
-
-        case "D":
-            String deadlineBy = taskParameters[3];
-            Deadline deadlineToAdd = new Deadline(taskDescription, taskIsDone, deadlineBy);
-            tasks.loadTask(deadlineToAdd);
-            break;
-
-        case "E":
-            String eventFrom = taskParameters[3];
-            String eventTo = taskParameters[4];
-            Event eventToAdd = new Event(taskDescription, taskIsDone, eventFrom, eventTo);
-            tasks.loadTask(eventToAdd);
-            break;
-
-        default:
-            break;
-        }
-    }
-
-    /**
-     * Saves the task list data in a file
-     */
-    private static void saveToFile() {
-        try {
-            String filePath = "data/data.txt";
-            tasks.writeListToFile(filePath);
-        } catch (IOException e) {
-            System.out.println("   Data not saved due to error");
-        }
-    }
-
     /**
      * Greet the user upon program startup
      */
@@ -317,12 +251,12 @@ public class Nell {
                 handleIncorrectInput();
                 break;
             }
-            saveToFile();
+            dataStorage.saveToFile();
         }
     }
 
     public static void main(String[] args) {
-        loadFromFile();
+        dataStorage.loadFromFile();
         greetUser();
         getCommands();
     }
