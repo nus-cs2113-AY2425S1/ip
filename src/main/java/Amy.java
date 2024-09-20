@@ -59,6 +59,16 @@ public class Amy {
         System.out.println(line);
         System.out.println(taskList.get(taskNo));
     }
+    public static void deleteTask(int taskNo){
+        if(!isValidTask(taskNo)){
+            return;
+        }
+
+        String line = "Noted. I have removed this task!";
+        System.out.println(line);
+        System.out.println(taskList.get(taskNo));
+        taskList.remove(taskNo);
+    }
 
     /***
      * Check for out of bounds task numbers.
@@ -78,7 +88,7 @@ public class Amy {
         String[] args = new String[100];
         String[] parts;
         switch(key){
-            case "mark", "unmark":
+            case "mark", "unmark", "delete":
                 args[0] = request.split(" ")[1]; //1 argument
                 break;
             case "todo":
@@ -126,6 +136,7 @@ public class Amy {
                 case "todo" -> addTodo(requestParser(request));
                 case "deadline" -> addDeadline(requestParser(request));
                 case "event" -> addEvent(requestParser(request));
+                case "delete" -> deleteTask(Integer.parseInt(requestParser(request)[0]) - 1);
                 default -> System.out.println("I didn't understand what you meant （；´д｀）ゞ I'm still learning so do try again next time!");
             }
         } catch (IndexOutOfBoundsException e){
