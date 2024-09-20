@@ -1,9 +1,11 @@
 package bitwise.chat;
 
+import java.io.IOException;
 import java.util.Scanner;
 import bitwise.constants.Constants;
 import bitwise.exceptions.*;
 import bitwise.tasks.*;
+import bitwise.utils.FileManager;
 import bitwise.utils.OutputManager;
 import java.util.ArrayList;
 
@@ -13,6 +15,10 @@ public class Bitwise {
     private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
+        try {
+            numberOfTasks = FileManager.getTasks(tasksList);
+        } catch (IOException ignored) {
+        }
         OutputManager.printWelcomeMessage();
         mainManager();
         OutputManager.printExitMessage();
@@ -124,6 +130,12 @@ public class Bitwise {
         }
         tasksList.add(newTask);
         numberOfTasks++;
+        try {
+            FileManager.saveTask(newTask);
+        } catch (IOException e) {
+            System.out.println("Error saving task list");
+            return;
+        }
         OutputManager.printMessageAddedTask(newTask.toString());
         OutputManager.printNumberOfTasks(numberOfTasks);
     }
@@ -134,6 +146,12 @@ public class Bitwise {
             tasksList.get(taskIndex).markCompletionStatus(isCompleted);
         } catch (IndexOutOfBoundsException e) {
             OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+            return;
+        }
+        try {
+            FileManager.saveTasksList(tasksList, numberOfTasks);
+        } catch (IOException e) {
+            System.out.println("Error saving task list");
             return;
         }
         String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;

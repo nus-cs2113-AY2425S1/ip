@@ -13,6 +13,9 @@ public class Constants {
     public static final String LINE_BREAK = "--------------------------------------------------\n";
     public static final String INDENTATION = "        ";
     public static final int MAX_LIST_SIZE = 100;
+    public static final String FILE_DIR_PATH = "data";
+    public static final String FILE_NAME = "tasks.txt";
+    public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
 
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
@@ -58,5 +61,9 @@ public class Constants {
 
     public static final String[] LIST_COMMANDS = {DESCRIPTION_COMMAND_LIST, DESCRIPTION_COMMAND_DEADLINE, DESCRIPTION_COMMAND_EVENT,
             DESCRIPTION_COMMAND_TODO, DESCRIPTION_COMMAND_MARK, DESCRIPTION_COMMAND_UNMARK, DESCRIPTION_COMMAND_END};
+
+    public static final int PARSE_ICON_INDEX = 0;
+    public static final int PARSE_IS_COMPLETED_INDEX = 0;
+    public static final int PARSE_DESCRIPTION_START_INDEX = 4;
 
 }
