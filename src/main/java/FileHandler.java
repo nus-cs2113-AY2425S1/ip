@@ -3,19 +3,23 @@ import classes.Deadlines;
 import classes.Event;
 import classes.Task;
 import classes.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class FileHandler {
-    private static final String pathName = "../data/Tasks.txt";
+    private static final String pathName = "./data/Tasks.txt";
     public static void createFile() {
         try {
+            if (!Files.exists(Path.of("./data"))) {
+                Files.createDirectory(Path.of("./data"));
+            }
             File tasks = new File(pathName);
             if (tasks.createNewFile()) {
                 System.out.print(Skeleton.LINE_BREAK);
