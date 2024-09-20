@@ -50,4 +50,7 @@ public class Messages {
     public static final String FILE_CREATE_ERROR_MESSAGE = "   Cannot find or create data file!";
     public static final String FILE_READ_ERROR_MESSAGE = "   Cannot read data file!";
     public static final String FILE_SAVE_ERROR_MESSAGE = "   Data not saved due to error";
+    public static final String TASK_ADD_MESSAGE = "-> The task has been added to the list:";
+    public static final String NEW_TASK_COUNT_MESSAGE = "   The list now has %d tasks";
+    public static final String TASK_REMOVE_MESSAGE = "-> The following task has been removed from the list:";
 }

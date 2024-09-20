@@ -1,5 +1,6 @@
 package nell;
 
+import nell.common.Messages;
 import nell.tasks.Task;
 
 import java.io.FileWriter;
@@ -18,10 +19,10 @@ public class TaskList {
     }
 
     public void addTask(Task taskToAdd) {
-        System.out.println("-> The task has been added to the list:");
+        System.out.println(Messages.TASK_ADD_MESSAGE);
         tasks.add(taskToAdd);
         System.out.println("   " + taskToAdd);
-        System.out.println(String.format("   The list now has %d tasks", this.tasks.size()));
+        System.out.println(String.format(Messages.NEW_TASK_COUNT_MESSAGE, this.tasks.size()));
     }
 
     public Task getTaskAtIndex(int index) throws IndexOutOfBoundsException {
@@ -39,10 +40,10 @@ public class TaskList {
 
     public void removeTask(int index) throws IndexOutOfBoundsException {
         Task taskToRemove = tasks.get(index);
-        System.out.println("-> The following task has been removed from the list:");
+        System.out.println(Messages.TASK_REMOVE_MESSAGE);
         tasks.remove(index);
         System.out.println("   " + taskToRemove);
-        System.out.println(String.format("   The list now has %d tasks", this.tasks.size()));
+        System.out.println(String.format(Messages.NEW_TASK_COUNT_MESSAGE, this.tasks.size()));
     }
 
     public void writeListToFile(String filePath) throws IOException {
