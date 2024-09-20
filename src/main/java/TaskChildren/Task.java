@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Task {
 
     // Array to keep track of all tasks added
+    public String inputString;
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     // Object-specific variables
@@ -26,6 +27,18 @@ public class Task {
     // Static method to delete the latest task in case of errors
     public static void deleteLatestTask(){
         tasks.remove(tasks.size() - 1); // Remove the latest task from the array
+    }
+
+    public static void markLatestTask(){
+        tasks.get(tasks.size() - 1).isDone = true;
+    }
+
+    public static int size() {
+        return taskCount;
+    }
+
+    public static String dataFileEntry(int index) {
+        return (tasks.get(index).inputString + " /isdone " + tasks.get(index).isDone);
     }
 
     // Method to display a message when a task is successfully created

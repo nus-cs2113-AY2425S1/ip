@@ -1,17 +1,27 @@
 import CustomExceptions.*; // Import custom exception classes
 import TaskChildren.*; // Import task-related classes like ToDo, Deadline, and Event
+import java.io.File;
+import java.io.FileWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner; // Import Scanner for user input
 
 public class Juan {
     // Constant for common error message to improve code readability and reusability
     private final static String porFavor = "Por Favor?\n";
 
+    private final static String dataFilePath = "data.text";
+
     // Main entry point for the application
     public static void main(String[] args) {
         // Display initial line and welcome message
         lineMessage();
         helloMessage();
+        lineMessage();
+
+        // Add function to Read Data
+        readData();
         lineMessage();
 
         // Continue chatting as long as user doesn't exit
@@ -21,9 +31,80 @@ public class Juan {
             continueChatting = chatFeature();
         }
 
+        // Add Function to Write Data
+        writeDate();
+        lineMessage();
         // Display goodbye message when the chat ends
         byeMessage();
         lineMessage();
+    }
+
+    public static void readData() {
+
+        File dataFile = new File(dataFilePath);
+        try {
+            Scanner scanner = new Scanner(dataFile);
+            while (scanner.hasNextLine()) {
+                String inputLine = scanner.nextLine();
+                String[] lineSegments = inputLine.split(" /isdone ");
+                String line = lineSegments[0];
+                boolean isDone = Boolean.parseBoolean(lineSegments[1]);
+                if (line.startsWith("todo ")) {
+                    try {
+                        new ToDo(line, false); // Create a new ToDo object
+                    } catch (ToDoConstructorException e) {
+                        // Handle custom ToDo exception
+                        System.out.println("CORRUPTED: " + line);
+                        return;
+                    }
+                }
+                // Handle "deadline" command to create a new Deadline task
+                else if (line.startsWith("deadline ")) {
+                    try {
+                        new Deadline(line, false); // Create a new Deadline object
+                    } catch (DeadlineConstructorException e) {
+                        // Handle custom Deadline exception
+                        System.out.println("CORRUPTED: " + line);
+                        return;
+                    }
+                }
+                // Handle "event" command to create a new Event task
+                else if (line.startsWith("event ")) {
+                    try {
+                        new Event(line, false); // Create a new Event object
+                    } catch (EventConstructorException e) {
+                        // Handle custom Event exception
+                        System.out.println("CORRUPTED: " + line);
+                        return;
+                    }
+                }
+                else {
+                    System.out.println("CORRUPTED: " + line);
+                    return;
+                }
+
+                if (isDone) {
+                    Task.markLatestTask();
+                }
+            }
+            System.out.println("Data File Read");
+        } catch (FileNotFoundException e) {
+            System.out.println("Data File does not exist");
+        }
+
+    }
+
+    public static void writeDate() {
+        try {
+            FileWriter writer = new FileWriter(dataFilePath);
+            for (int i = 0; i < Task.size(); i++) {
+                writer.write(Task.dataFileEntry(i));
+            }
+            writer.close();
+            System.out.println("Data File Written");
+        } catch (IOException e) {
+            System.out.println("Error writing to file");
+        }
     }
 
     // Handles user input and executes corresponding actions
@@ -84,7 +165,7 @@ public class Juan {
         // Handle "todo" command to create a new ToDo task
         else if (line.startsWith("todo ")) {
             try {
-                new ToDo(line); // Create a new ToDo object
+                new ToDo(line, true); // Create a new ToDo object
             } catch (ToDoConstructorException e) {
                 // Handle custom ToDo exception
                 System.out.println(porFavor + e.getMessage());
@@ -93,7 +174,7 @@ public class Juan {
         // Handle "deadline" command to create a new Deadline task
         else if (line.startsWith("deadline ")) {
             try {
-                new Deadline(line); // Create a new Deadline object
+                new Deadline(line, true); // Create a new Deadline object
             } catch (DeadlineConstructorException e) {
                 // Handle custom Deadline exception
                 System.out.println(porFavor + e.getMessage());
@@ -102,7 +183,7 @@ public class Juan {
         // Handle "event" command to create a new Event task
         else if (line.startsWith("event ")) {
             try {
-                new Event(line); // Create a new Event object
+                new Event(line, true); // Create a new Event object
             } catch (EventConstructorException e) {
                 // Handle custom Event exception
                 System.out.println(porFavor + e.getMessage());

@@ -10,9 +10,11 @@ public class Event extends Task {
     private String toString;
 
     // Constructor for creating an Event task
-    public Event(String inputString) throws EventConstructorException {
+    public Event(String inputString, boolean constructorMessage) throws EventConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/from" keyword)
         super(inputString.replace("event ", "").split(" /from ")[0]);
+
+        this.inputString = inputString;
 
         // Validate if both "/from" and "/to" keywords are present, and the task description is not empty
         if (!(inputString.contains(" /from ") & inputString.contains(" /to ")) || this.taskString.isEmpty()) {
@@ -32,7 +34,9 @@ public class Event extends Task {
         this.toString = fromToStrings[1];
 
         // Display a confirmation message when an Event task is successfully created
-        constructorMessage();
+        if (constructorMessage) {
+            constructorMessage();
+        }
     }
 
     // Override the checkboxString method to include the "[E]" tag, start time, and end time
