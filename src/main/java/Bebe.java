@@ -10,6 +10,22 @@ public class Bebe {
 
     private static final String FILE_PATH = "./data/bebe.txt";
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    public static final String STATUS_DONE = "1";
+    public static final String STATUS_NOT_DONE = "0";
+    public static final String TYPE_TODO = "T";
+    public static final String TYPE_DEADLINE= "D";
+    public static final String TYPE_EVENT = "E";
+    public static final String PATH_NAME = "./data";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_MARK = "mark";
+    public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_LOCATION = "location";
+    public static final String COMMAND_HELP = "help";
+    public static final String COMMAND_DELETE = "delete";
 
     public static void main(String[] args) {
         loadTasksFromFile();
@@ -50,34 +66,36 @@ public class Bebe {
      * Processes the user's input and calls the appropriate methods.
      */
     private static void processUserInput(String[] words) throws BebeException {
-        switch (words[0].toLowerCase()) {
-            case "bye":
+        String command = words[0].toLowerCase();
+        switch (command) {
+            case COMMAND_BYE:
                 exitChatbot();
                 break;
-            case "list":
+            case COMMAND_LIST:
                 listTasks();
                 break;
-            case "mark":
+            case COMMAND_MARK:
                 handleMark(words);
                 break;
-            case "unmark":
+            case COMMAND_UNMARK:
                 handleUnmark(words);
                 break;
-            case "todo":
+            case COMMAND_TODO:
                 handleTodo(words);
                 break;
-            case "deadline":
+            case COMMAND_DEADLINE:
                 handleDeadline(words);
                 break;
-            case "event":
+            case COMMAND_EVENT:
                 handleEvent(words);
                 break;
-            case "location":
+            case COMMAND_LOCATION:
                 showFileLocation();
-            case "help":
+                break;
+            case COMMAND_HELP:
                 showHelp();
                 break;
-            case "delete":
+            case COMMAND_DELETE:
                 handleDelete(words);
                 break;
             default:
@@ -203,7 +221,7 @@ public class Bebe {
      */
     private static void saveTasksToFile() {
         try {
-            File directory = new File("./data");
+            File directory = new File(PATH_NAME);
             if (!directory.exists()) {
                 directory.mkdir(); // Create directory if it doesn't exist
             }
@@ -223,17 +241,17 @@ public class Bebe {
      */
     private static String taskToFileFormat(Task task) {
         String type = "";
-        String status = task.isDone ? "1" : "0"; // 1 for done, 0 for not done
+        String status = task.isDone ? STATUS_DONE : STATUS_NOT_DONE; // 1 for done, 0 for not done
 
         if (task instanceof Todo) {
-            type = "T";
+            type = TYPE_TODO;
             return type + " | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {
-            type = "D";
+            type = TYPE_DEADLINE;
             Deadline deadline = (Deadline) task;
             return type + " | " + status + " | " + task.description + " | " + deadline.by;
         } else if (task instanceof Event) {
-            type = "E";
+            type = TYPE_EVENT;
             Event event = (Event) task;
             return type + " | " + status + " | " + task.description + " | " + event.from + " to " + event.to;
         }
@@ -256,17 +274,17 @@ public class Bebe {
                 String[] parts = line.split(" \\| ");
 
                 switch (parts[0]) {
-                    case "T":
+                    case TYPE_TODO:
                         Todo todo = new Todo(parts[2]);
                         if (parts[1].equals("1")) todo.markAsDone();
                         tasks.add(todo);
                         break;
-                    case "D":
+                    case TYPE_DEADLINE:
                         Deadline deadline = new Deadline(parts[2], parts[3]);
                         if (parts[1].equals("1")) deadline.markAsDone();
                         tasks.add(deadline);
                         break;
-                    case "E":
+                    case TYPE_EVENT:
                         String[] timeParts = parts[3].split(" to ");
                         Event event = new Event(parts[2], timeParts[0], timeParts[1]);
                         if (parts[1].equals("1")) event.markAsDone();
@@ -286,6 +304,7 @@ public class Bebe {
     private static void showFileLocation() {
         System.out.println("The tasks are being saved at: " + new File(FILE_PATH).getAbsolutePath());
     }
+
     /**
      * Deletes a task from the list.
      *
@@ -309,7 +328,6 @@ public class Bebe {
     }
 
     /**
-
      * Prints the available commands and their descriptions.
      */
     private static void showHelp() {
