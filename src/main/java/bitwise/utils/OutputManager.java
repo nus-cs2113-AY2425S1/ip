@@ -39,6 +39,10 @@ public class OutputManager {
         System.out.println(Constants.INDENTATION + Constants.MESSAGE_ADDED + Constants.INDENTATION + taskInfo);
     }
 
+    public static void printMessageDeletedTask(String taskInfo) {
+        System.out.println(Constants.INDENTATION + Constants.MESSAGE_DELETED + Constants.INDENTATION + taskInfo);
+    }
+
     public static void printEchoInput(String input) {
         System.out.print(Constants.LINE_BREAK + Constants.INDENTATION + input + Constants.LINE_BREAK);
     }
