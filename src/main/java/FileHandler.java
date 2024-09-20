@@ -73,14 +73,10 @@ public class FileHandler {
         Scanner input = new Scanner(tasks);
         ArrayList<String> tempList = new ArrayList<>();
         String holder;
-        int counter = 0;
         while (input.hasNextLine()) {
-            holder = input.nextLine();
-            if (counter != index) {
-                tempList.add(holder);
-            }
+            tempList.add(input.nextLine());
         }
-        tempList.set(index, tempList.get(index).replace("true", "false"));
+        tempList.remove(index);
         FileWriter writer = new FileWriter(pathName, false);
         for (String line : tempList) {
             System.out.println(line);
@@ -88,25 +84,23 @@ public class FileHandler {
         }
         writer.close();
     }
-    public static Task[] readTasks() throws IOException {
+    public static ArrayList<Task> readTasks() throws IOException {
         File tasks = new File(pathName);
         Scanner input = new Scanner(tasks);
-        Task[] list = new Task[100];
-        int length = 0;
+        ArrayList<Task> list = new ArrayList<>();
         while (input.hasNextLine()) {
             String in = input.nextLine();
             String[] splitInput = in.split(" \\| ");
             if (splitInput[0].equals("[T]")) {
-                list[length] = new Todo(splitInput[2], Boolean.parseBoolean(splitInput[1]));
+                list.add(new Todo(splitInput[2], Boolean.parseBoolean(splitInput[1])));
             } else if (splitInput[0].equals("[D]")) {
-                list[length] = new Deadlines(splitInput[2], Boolean.parseBoolean(splitInput[1]),
-                        splitInput[3]);
+                list.add(new Deadlines(splitInput[2], Boolean.parseBoolean(splitInput[1]),
+                        splitInput[3]));
                 System.out.println(splitInput[0]);
             } else if (splitInput[0].equals("[E]")) {
-                list[length] = new Event(splitInput[2], Boolean.parseBoolean(splitInput[1]),
-                        splitInput[3], splitInput[4]);
+                list.add(new Event(splitInput[2], Boolean.parseBoolean(splitInput[1]),
+                        splitInput[3], splitInput[4]));
             }
-            length++;
         }
         return list;
     }

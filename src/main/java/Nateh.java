@@ -90,7 +90,7 @@ public class Nateh {
     public static void handleTodo(ArrayList<Task> list, String input) {
         try {
             list.add(new Todo(input));
-            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
+            FileHandler.addTask(list.get(list.size() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("added: " + list.get(list.size() - 1).getTask());
             System.out.print(Skeleton.LINE_BREAK);
@@ -108,7 +108,7 @@ public class Nateh {
     public static void handleDeadline(ArrayList<Task> list, String input) {
         try {
             list.add(new Deadlines(input));
-            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
+            FileHandler.addTask(list.get(list.size() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
             list.get(list.size() - 1).print();
@@ -127,7 +127,7 @@ public class Nateh {
     public static void handleEvent(ArrayList<Task> list, String input) {
         try {
             list.add(new Event(input));
-            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
+            FileHandler.addTask(list.get(list.size() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
             list.get(list.size() - 1).print();
@@ -152,10 +152,15 @@ public class Nateh {
             System.out.printf("Now you have %d tasks\n", list.size());
             System.out.print(Skeleton.LINE_BREAK);
             list.remove(index);
+            FileHandler.deleteTask(index);
         } catch (IndexOutOfBoundsException e) {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
             System.out.print(Skeleton.LINE_BREAK);
+        }  catch (IOException e) {
+            System.out.print((Skeleton.LINE_BREAK));
+            System.out.println("Seems like an error occurred");
+            System.out.print((Skeleton.LINE_BREAK));
         }
     }
 
