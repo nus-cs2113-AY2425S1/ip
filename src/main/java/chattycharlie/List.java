@@ -1,5 +1,7 @@
 package chattycharlie;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import chattycharlie.task.Deadline;
 import chattycharlie.task.Event;
 import chattycharlie.task.Task;
@@ -8,24 +10,24 @@ import chattycharlie.task.Todo;
 //LIST CLASS
     public class List {
         //make a list of task
-        private Task[] tasks;
+        private ArrayList<Task> tasks;
         private int size;
 
         //constructor
         public List() {
-            tasks = new Task[100];
+            tasks = new ArrayList<Task>();
             size = 0;
         }
 
         //Method to add an item to the list
         public void addTask(Task task) {
             //add the text into the list
-            tasks[size] = task;
+            tasks.add(task);
             //account for the item
             size++;
         }
 
-        public Task[] getList() {
+        public ArrayList<Task> getList() {
             return this.tasks;
         }
 
@@ -36,10 +38,10 @@ import chattycharlie.task.Todo;
         //To mark
         public void mark(int index) {
             if (index >= 0 && index < size) {
-                tasks[index].markTask();
+                tasks.get(index).markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE+ "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].getDescription());
+                System.out.println(StringDesign.SPACE+ "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
             } else {
                 System.out.println(StringDesign.SPACE+ "Invalid task number.");
             }
@@ -48,14 +50,30 @@ import chattycharlie.task.Todo;
         //To unmark
         public void unmark(int index) {
             if (index >= 0 && index < size) {
-                tasks[index].unmarkTask();
+                tasks.get(index).unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE + "[" + tasks[index].getMarkedStatus() + "] " + tasks[index].getDescription());
+                System.out.println(StringDesign.SPACE + "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
             } else {
                 System.out.println(StringDesign.SPACE + "Invalid task number.");
             }
         }
+
+        //To delete
+    public void delete(int index) {
+            if (index >= 0 && index < size) {
+                int remainingTask;
+                if(tasks.get(index).getIsDoneStatus()) {
+                    remainingTask = countUnmarkedTasks();
+                } else {
+                    remainingTask = countUnmarkedTasks() -1;
+                }
+                System.out.println(StringDesign.SPACE + "Task is removed." + " Pending task: " + remainingTask);
+                System.out.println(StringDesign.SPACE + "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
+                tasks.remove(index);
+                size--;
+            }
+    }
 
         //To print list
         public void printList() {
@@ -65,7 +83,7 @@ import chattycharlie.task.Todo;
             System.out.println("pending Task: " + remainingTask);
             for (int i = 0; i < size; i++) {
                 int number = i+1;
-                Task task = tasks[i];
+                Task task = tasks.get(i);
                 //use a switch to determine
                 switch (task.getType()) {
                 case TODO:
@@ -93,7 +111,7 @@ import chattycharlie.task.Todo;
         public int countUnmarkedTasks() {
             int count = 0;
             for (int i = 0; i < size; i++) {
-                if (!tasks[i].getIsDoneStatus()) {
+                if (!tasks.get(i).getIsDoneStatus()) {
                     count++;
                 }
             }

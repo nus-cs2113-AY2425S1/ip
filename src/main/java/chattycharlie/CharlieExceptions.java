@@ -17,4 +17,12 @@ public class CharlieExceptions extends Exception{
     public static CharlieExceptions missingTimes() {
         return new CharlieExceptions("Your event is missing or incomplete!");
     }
+
+    public static CharlieExceptions missingDelete() {
+        return new CharlieExceptions("You forgot to specify which task.");
+    }
+
+    public static CharlieExceptions deleteIndexOutOfBound() {
+        return new CharlieExceptions("Did you make a typo, that task does not exist!");
+    }
 }

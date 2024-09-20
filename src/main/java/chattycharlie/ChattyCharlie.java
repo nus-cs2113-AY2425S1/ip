@@ -130,6 +130,17 @@ public class ChattyCharlie {
                     //print
                     System.out.println(StringDesign.LINE);
                     break;
+                case DELETE:
+                    String deleteIndex = line.substring(7).trim();
+                    if (deleteIndex == null) {
+                        throw CharlieExceptions.missingDelete();
+                    }
+                    int deleteNo = Integer.parseInt(deleteIndex) - 1;
+                    if(deleteNo > list.getSize() || deleteNo < 0) {
+                        throw CharlieExceptions.deleteIndexOutOfBound();
+                    }
+                    //delete the task
+                    list.delete(deleteNo);
                 default:
                     break;
                 }
