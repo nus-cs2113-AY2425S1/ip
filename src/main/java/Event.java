@@ -1,3 +1,5 @@
+import exception.InvalidCreateEventException;
+
 public class Event extends Task {
 
     protected String from;
@@ -16,7 +18,7 @@ public class Event extends Task {
         String[] eventInfo = userInput.split("/from|/to");
         if (eventInfo.length == 3) {
             Event event = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
-            Aerus.tasks[Task.tasksCount-1] = event;
+            Aerus.tasks.add(event);
             UI.printContent("Added Event: " + event.toString());
         } else {
             throw new InvalidCreateEventException();
