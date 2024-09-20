@@ -93,7 +93,8 @@ public class CommandManager {
             new ActionCommand(ui,words).run();
             break;
         case "list":
-            new PrintCommand(ui).run();
+        case "find":
+            new PrintCommand(ui,words[0].toLowerCase(),line).run();
             break;
         case "help":
             new HelpCommand(ui).run();

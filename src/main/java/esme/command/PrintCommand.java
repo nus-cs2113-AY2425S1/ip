@@ -3,12 +3,21 @@ package esme.command;
 import esme.ui.Ui;
 
 public class PrintCommand extends Command {
-    public PrintCommand(Ui ui) {
+    private String command;
+    private String input;
+
+    public PrintCommand(Ui ui, String command, String input) {
         super(ui);
+        this.command = command;
+        this.input = input;
     }
 
     @Override
     public void run() {
-        super.ui.printTaskList();
+        if (command.equals("list")) {
+            super.ui.printTaskList();
+        } else if (command.equals("find")) {
+            super.ui.printTaskFound(input);
+        }
     }
 }
