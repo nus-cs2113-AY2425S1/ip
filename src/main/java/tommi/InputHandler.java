@@ -18,8 +18,12 @@ public class InputHandler {
                 TaskList.markTask(taskIndex);
                 break;
             case "unmark":
-                taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                taskIndex = Integer.parseInt(words[1]) - 1;
                 TaskList.unmarkTask(taskIndex);
+                break;
+            case "delete":
+                taskIndex = Integer.parseInt(words[1]) - 1;
+                TaskList.deleteTask(taskIndex);
                 break;
             case "todo":
                 if (words.length > 1 && !words[1].isEmpty()) {
