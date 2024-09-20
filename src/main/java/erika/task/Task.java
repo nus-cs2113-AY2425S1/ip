@@ -4,6 +4,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     private static int taskArraySize = 0;
+    public static int markIndex;
 
     public Task (String description) {
         this.description = description;
@@ -38,17 +39,5 @@ public class Task {
 
     public static int getTaskArraySize() {
         return taskArraySize;
-    }
-
-    public static void setTaskArraySize(int size) {
-        taskArraySize = size;
-    }
-
-    public static void incrementTaskArraySize() {
-        taskArraySize++;
-    }
-
-    public static void decrementTaskArraySize() {
-        taskArraySize--;
     }
 }
