@@ -44,6 +44,10 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
+    public String getTaskType() {
+        return "Task";
+    }
+
     @Override
     public String toString() {
         String status = isCompleted ? "[X] " : "[ ] ";

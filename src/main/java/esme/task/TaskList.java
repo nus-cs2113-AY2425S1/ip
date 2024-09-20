@@ -53,13 +53,7 @@ public class TaskList {
         return taskCollection;
     }
 
-    /**
-     * Prints out the task list. The output will be in the format:
-     * By the light of the moon, these are the tasks that guide your path:
-     * <index>. [X] <task name>
-     * <index>. [ ] <task name>
-     * ...
-     */
+
     public void printTaskList() {
         System.out.println("\tBy the light of the moon, these are the tasks that guide your path:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -120,6 +114,20 @@ public class TaskList {
             throw new EsmeException("Error: The date format is incorrect. Use 'YYYY-MM-DD'");
         }
         return description;
+    }
+
+    public ArrayList<Task> findTask(String line) throws EsmeException {
+        String[] parts = line.split(" ", 2);
+        if (parts.length != 2) {
+            throw new EsmeException("Error: The find format is incorrect. Use 'find <keyword>'");
+        }
+        ArrayList<Task> taskArray = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(parts[1])) {
+                taskArray.add(task);
+            }
+        }
+        return taskArray;
     }
 
     public ArrayList<Task> getTasksIn(String[] line) throws EsmeException {

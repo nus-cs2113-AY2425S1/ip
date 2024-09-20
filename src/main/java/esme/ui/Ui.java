@@ -20,6 +20,7 @@ public class Ui {
             "\t- delete [task number]: Delete a task.\n" +
             "\t- list: List all tasks.\n" +
             "\t- task in [YYYY-MM-DD]: List all task in the same year and month.\n" +
+            "\t- find [keyword]: Find a task by keyword.\n" +
             "\t- help: Show this help message.";
     private static final String esmeLogo = " _____                    \n" +
             "| ____|___ _ __ ___   ___ \n" +
@@ -58,7 +59,7 @@ public class Ui {
             int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
+                        "boundaries of our list! Type 'list' for the index.");
             }
             description = taskList.deleteTask(index);
         } catch (EsmeException e) {
@@ -176,7 +177,7 @@ public class Ui {
             int index = generateIndex(words[1]);
             if (!isIndexValid(index)) {
                 throw new EsmeException("Oh dear, it seems the index has wandered beyond the " +
-                        "boundaries of our list!");
+                        "boundaries of our list! Type 'list' for the index.");
             }
             if (!isTaskCompleted(index) && command.equals("unmark")) {
                 throw new EsmeException("The stars have revealed that this task is yet to be completed. " +
@@ -222,12 +223,31 @@ public class Ui {
         }
     }
 
-    public void printTasksIn(String[] line) {
+    public void printTaskFound(String line) {
         try {
-            ArrayList<Task> list = taskList.getTasksIn(line);
+            ArrayList<Task> list = taskList.findTask(line);
             displayLine(true);
             if (list.isEmpty()) {
-                System.out.println("\t" + "No task in this month and year!");
+                System.out.println("\tNo similar tasks found!");
+            }
+            for (Task task : list) {
+                System.out.println("\t" + task);
+            }
+            System.out.println("\tType 'list' to see the index to delete, mark, unmark task!");
+            displayLine(true);
+        } catch (EsmeException e) {
+            displayLine(true);
+            System.out.println("\t" + e.getMessage());
+            displayLine(true);
+        }
+    }
+
+    public void printTasksIn(String[] words) {
+        try {
+            ArrayList<Task> list = taskList.getTasksIn(words);
+            displayLine(true);
+            if (list.isEmpty()) {
+                System.out.println("\tNo task in this month and year!");
             }
             for (Task task : list) {
                 System.out.println("\t" + task);
