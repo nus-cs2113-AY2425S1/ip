@@ -178,4 +178,24 @@ public class TaskManager {
             System.out.println("An error occurred while loading tasks from file.");
         }
     }
+
+    private Task parseTaskFromString(String line) {
+        line = line.trim();
+
+        if (line.startsWith("[T]")) {
+            return new Todo(line.substring(6));
+        } else if (line.startsWith("[D]")) {
+            String[] parts = line.split("\\(by: ");
+            String description = parts[0].substring(6);
+            String by = parts[1].replace(")", "");
+            return new Deadline(description, by);
+        } else if (line.startsWith("[E]")) {
+            String[] parts = line.split("\\(from: | to: |\\)");
+            String description = parts[0].substring(6);
+            String from = parts[1];
+            String to = parts[2];
+            return new Event(description, from, to);
+        }
+        return null;
+    }
 }
