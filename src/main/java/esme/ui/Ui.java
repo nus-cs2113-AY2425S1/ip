@@ -12,8 +12,8 @@ public class Ui {
     private static final String helpMessage = "Available commands:\n" +
             "\t- bye: Exit the application.\n" +
             "\t- todo [description]: Add a new todo task.\n" +
-            "\t- deadline [description] /by [date]: Add a new task with a deadline.\n" +
-            "\t- event [description] /from [date] /to [date]: Add a new event.\n" +
+            "\t- deadline [description] /by [YYYY-MM-DD]: Add a new task with a deadline.\n" +
+            "\t- event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]: Add a new event.\n" +
             "\t- mark [task number]: Mark a task as completed.\n" +
             "\t- unmark [task number]: Unmark a completed task.\n" +
             "\t- delete [task number]: Delete a task.\n" +

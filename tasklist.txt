@@ -1,0 +1,2 @@
+deadline doawo /by 2020-12-10 /c false
+event sailing /from 2020-12-10 /to 2021-01-05 /c true

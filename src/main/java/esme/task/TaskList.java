@@ -1,8 +1,11 @@
 package esme.task;
 
 import esme.exceptions.EsmeException;
-
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 /**
  * Represents a list that stores the current tasks added by the user
@@ -84,7 +87,16 @@ public class TaskList {
         }
         String description = parts[0].replace("deadline ", "").trim();
         String by = parts[1].trim();
-        tasks.add(new Deadline(description, by));
+
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate deadlineDate;
+        try {
+            deadlineDate = LocalDate.parse(by, formatter);
+            tasks.add(new Deadline(description, deadlineDate));
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The date format is incorrect. Use 'yyyy-MM-dd'");
+        }
         return description;
     }
 
@@ -96,7 +108,14 @@ public class TaskList {
         String description = parts[0].replace("event ", "").trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-        tasks.add(new Event(description, from, to));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate fromDate = LocalDate.parse(from, formatter);
+            LocalDate toDate = LocalDate.parse(to, formatter);
+            tasks.add(new Event(description, fromDate, toDate));
+        } catch (DateTimeParseException e) {
+            throw new EsmeException("Error: The date format is incorrect. Use 'yyyy-MM-dd'");
+        }
         return description;
     }
 
