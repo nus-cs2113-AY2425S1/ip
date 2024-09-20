@@ -58,12 +58,11 @@ public class FileManager {
     }
 
     public Task parseTask(String line) {
-        String[] parts = line.split(" \\| ");  // Split the line by " | " delimiter
+        String[] parts = line.split(" \\| ");
 
-        String taskType = parts[0];  // The first part tells us the task type (T, D, or E)
-        boolean isCompleted = parts[1].equals("+");  // The second part is + or - indicating completion
+        String taskType = parts[0];
+        boolean isCompleted = parts[1].equals("+");
 
-        // Handle different task types with the correct number of parts
         switch (taskType) {
             case "T":
                 if (parts.length < 3) {
@@ -82,8 +81,8 @@ public class FileManager {
                     System.out.println("Invalid Deadline task format: " + line);
                     return null;  // Skip invalid tasks
                 }
-                String deadlineTaskName = parts[2];  // The third part is the task name for Deadline
-                String deadline = parts[3].replace("by ", "");  // Remove the "by" part for Deadline
+                String deadlineTaskName = parts[2];
+                String deadline = parts[3].replace("by ", "");
                 Task deadlineTask = new Deadline(deadlineTaskName, deadline);
                 if (isCompleted) {
                     deadlineTask.setStatus();
@@ -95,11 +94,11 @@ public class FileManager {
                     System.out.println("Invalid Event task format: " + line);
                     return null;  // Skip invalid tasks
                 }
-                String eventTaskName = parts[2];  // The third part is the task name for Event
-                String[] eventTimes = parts[3].replace("from ", "").split(" to ");  // Split start and end times
+                String eventTaskName = parts[2];
+                String[] eventTimes = parts[3].replace("from ", "").split(" to ");
                 if (eventTimes.length < 2) {
                     System.out.println("Invalid Event task time format: " + line);
-                    return null;  // Skip invalid tasks
+                    return null;
                 }
                 String start = eventTimes[0];
                 String end = eventTimes[1];

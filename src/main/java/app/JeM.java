@@ -22,7 +22,6 @@ public class JeM {
         while (true) {
             String line = scanner.nextLine().trim();
             if (line.equalsIgnoreCase("bye")) {
-                //storage.saveTasks();
                 exitChatBot();
                 break;
             }
