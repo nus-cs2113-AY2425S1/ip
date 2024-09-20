@@ -7,6 +7,11 @@ public class Deadlines extends Task {
         this.deadline = deadline;
     }
 
+    public Deadlines(String task, boolean isDone, String deadline) {
+        super(task, isDone);
+        this.deadline = deadline;
+    }
+
     public Deadlines(String input) {
         super(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1));
         this.deadline = input.substring(input.indexOf("/by") + 4);
@@ -23,5 +28,9 @@ public class Deadlines extends Task {
         System.out.print(getTypeMarker());
         System.out.print(getDoneMarker() + " " + this.task);
         System.out.printf(" (by: %s)\n", this.deadline);
+    }
+    @Override
+    public String toString() {
+        return String.format("%s | %b | %s | %s)", getTypeMarker(), this.isDone, this.task, this.deadline);
     }
 }

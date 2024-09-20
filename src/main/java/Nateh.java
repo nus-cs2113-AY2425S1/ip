@@ -4,6 +4,8 @@ import classes.Task;
 import classes.Todo;
 import exceptions.IllegalCommandException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Nateh {
@@ -25,6 +27,7 @@ public class Nateh {
                 throw new NullPointerException();
             }
             list.get(index).setDone(true);
+            FileHandler.markTask(index);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Wow! Great job! :)");
             list.get(index).print();
@@ -44,6 +47,10 @@ public class Nateh {
             System.out.println("Uh oh. I think you gave too big a number :/ ");
             System.out.println("format: mark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
+        } catch (IOException e) {
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Hmm, there seems to be a File error?");
+            System.out.print(Skeleton.LINE_BREAK);
         }
     }
     public static void handleUnmark(String[] splitInput, ArrayList<Task> list) {
@@ -54,6 +61,7 @@ public class Nateh {
                 throw new NullPointerException();
             }
             list.get(index).setDone(false);
+            FileHandler.unmarkTask(index);
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Aw you didn't get to finish. :(");
             list.get(index).print();
@@ -73,11 +81,16 @@ public class Nateh {
             System.out.println("Uh oh. I think you gave too big a number :/ ");
             System.out.println("format: unmark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
+        } catch (IOException e) {
+            System.out.print(Skeleton.LINE_BREAK);
+            System.out.println("Hmm, there seems to be a File error?");
+            System.out.print(Skeleton.LINE_BREAK);
         }
     }
     public static void handleTodo(ArrayList<Task> list, String input) {
         try {
             list.add(new Todo(input));
+            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("added: " + list.get(list.size() - 1).getTask());
             System.out.print(Skeleton.LINE_BREAK);
@@ -86,11 +99,16 @@ public class Nateh {
             System.out.println("OH NO! You seem to be missing a description");
             System.out.println("Format: todo <description>");
             System.out.print((Skeleton.LINE_BREAK));
+        } catch (IOException e) {
+            System.out.print((Skeleton.LINE_BREAK));
+            System.out.println("Seems like an error occurred");
+            System.out.print((Skeleton.LINE_BREAK));
         }
     }
     public static void handleDeadline(ArrayList<Task> list, String input) {
         try {
             list.add(new Deadlines(input));
+            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
             list.get(list.size() - 1).print();
@@ -100,11 +118,16 @@ public class Nateh {
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /by <deadline>");
             System.out.print((Skeleton.LINE_BREAK));
+        } catch (IOException e) {
+            System.out.print((Skeleton.LINE_BREAK));
+            System.out.println("Seems like an error occurred");
+            System.out.print((Skeleton.LINE_BREAK));
         }
     }
     public static void handleEvent(ArrayList<Task> list, String input) {
         try {
             list.add(new Event(input));
+            FileHandler.addTask(list.get(Task.getLength() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
             list.get(list.size() - 1).print();
@@ -113,6 +136,10 @@ public class Nateh {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /from <from> /to <to>");
+            System.out.print((Skeleton.LINE_BREAK));
+        }  catch (IOException e) {
+            System.out.print((Skeleton.LINE_BREAK));
+            System.out.println("Seems like an error occurred");
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
@@ -139,8 +166,14 @@ public class Nateh {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        FileHandler.createFile();
         String input = "";
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list;
+        try {
+            list = FileHandler.readTasks();
+        } catch (IOException e) {
+            list = new ArrayList<>();
+        }
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(Skeleton.SKELETON);
