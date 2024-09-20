@@ -2,7 +2,6 @@ package nell;
 
 import nell.tasks.Deadline;
 import nell.tasks.Event;
-import nell.tasks.Task;
 import nell.tasks.ToDo;
 
 import java.io.File;
@@ -38,17 +37,6 @@ public class Nell {
 
     private static TaskList tasks = new TaskList();
 
-
-    /**
-     * Prints out the formatted string for the task at a specified index
-     *
-     * @param task  The task at the specified index
-     * @param index The index of task
-     */
-    private static void printTaskAtIndex(Task task, int index) {
-        System.out.println(String.format("   %d. %s", index, task));
-    }
-
     /**
      * Lists out the currently stored tasks in TaskList
      */
@@ -57,7 +45,7 @@ public class Nell {
         int taskCount = tasks.getTaskCount();
         for (int i = 0; i < taskCount; i++) {
             // Prints all tasks in list
-            printTaskAtIndex(tasks.getTaskAtIndex(i), (i + 1));
+            System.out.println(tasks.getTaskStringAtIndex(i));
         }
     }
 
@@ -111,7 +99,7 @@ public class Nell {
             int taskIndex = Integer.parseInt(taskNumber);
             tasks.getTaskAtIndex(taskIndex - 1).setDone(false);
             System.out.println("-> The following task has been marked not done:");
-            printTaskAtIndex(tasks.getTaskAtIndex(taskIndex - 1), taskIndex);
+            System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
             System.out.print(UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
@@ -129,7 +117,7 @@ public class Nell {
             int taskIndex = Integer.parseInt(taskNumber);
             tasks.getTaskAtIndex(taskIndex - 1).setDone(true);
             System.out.println("-> The following task has been marked done:");
-            printTaskAtIndex(tasks.getTaskAtIndex(taskIndex - 1), taskIndex);
+            System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
             System.out.print(MARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {

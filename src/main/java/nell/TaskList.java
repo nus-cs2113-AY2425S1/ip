@@ -28,6 +28,15 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Returns the formatted string for the task at a specified index
+     *
+     * @param index The index of the task
+     */
+    public String getTaskStringAtIndex(int index) throws IndexOutOfBoundsException {
+        return String.format("   %d. %s", (index + 1), tasks.get(index));
+    }
+
     public void removeTask(int index) throws IndexOutOfBoundsException {
         Task taskToRemove = tasks.get(index);
         System.out.println("-> The following task has been removed from the list:");
