@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     
     protected String description; 
     protected boolean isDone; 
@@ -6,6 +6,11 @@ public class Task {
     public Task (String description) {
         this.description = description; 
         this.isDone = false; 
+    }
+
+    public Task (String description, boolean isDone) {
+        this.description = description; 
+        this.isDone = isDone; 
     }
 
     public void markDone() {
@@ -28,4 +33,6 @@ public class Task {
     public String toString() { 
         return isDone() + " " + description; 
     }
+
+    public abstract String writeFile(); 
 }
