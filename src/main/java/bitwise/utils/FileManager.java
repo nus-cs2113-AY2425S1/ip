@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
@@ -20,11 +21,11 @@ public class FileManager {
         tasks.createNewFile();
     }
 
-    public static void saveTasksList(Task[] tasksList, int numberOfTasks) throws IOException{
+    public static void saveTasksList(ArrayList<Task> tasksList, int numberOfTasks) throws IOException{
         createFileIfNotExists();
         FileWriter fw = new FileWriter(Constants.FILE_PATH);
         for (int i = 0; i < numberOfTasks; i++) {
-            fw.write(tasksList[i].toString() + System.lineSeparator());
+            fw.write(tasksList.get(i).toString() + System.lineSeparator());
         }
         fw.close();
     }
@@ -36,7 +37,7 @@ public class FileManager {
         fw.close();
     }
 
-    public static int getTasks(Task[] tasksList) throws IOException{
+    public static int getTasks(ArrayList<Task> tasksList) throws IOException{
         File f = new File(Constants.FILE_PATH);
         int numberOfTasks = 0;
         if (!f.exists()) {
@@ -50,17 +51,17 @@ public class FileManager {
             switch(line.substring(Constants.PARSE_ICON_INDEX, line.indexOf(" "))) {
             case Constants.ICON_TODO:
                 newTask = TextParser.handleTodo(toProcess);
-                tasksList[numberOfTasks] = newTask;
+                tasksList.add(newTask);
                 numberOfTasks++;
                 break;
             case Constants.ICON_EVENT:
                 newTask = TextParser.handleEvent(toProcess);
-                tasksList[numberOfTasks] = newTask;
+                tasksList.add(newTask);
                 numberOfTasks++;
                 break;
             case Constants.ICON_DEADLINE:
                 newTask = TextParser.handleDeadline(toProcess);
-                tasksList[numberOfTasks] = newTask;
+                tasksList.add(newTask);
                 numberOfTasks++;
                 break;
             default:
