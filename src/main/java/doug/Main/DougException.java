@@ -1,4 +1,4 @@
-package doug.command;
+package doug.Main;
 
 public class DougException extends Exception {
     public DougException(String message) {
