@@ -1,5 +1,6 @@
 package nell;
 
+import nell.common.Messages;
 import nell.storage.Storage;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
@@ -8,32 +9,6 @@ import nell.tasks.ToDo;
 import java.util.Scanner;
 
 public class Nell {
-    private static final String UNMARK_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  unmark <task number>
-            """;
-    private static final String MARK_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  mark <task number>
-            """;
-    private static final String TODO_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  todo <description>
-            """;
-    private static final String DEADLINE_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  deadline <description> /by <by-date>
-            """;
-    private static final String EVENT_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  event <description> /from <from-date> /to <to-date>
-            """;
-    public static final String INVALID_TASK_MESSAGE = "-> Invalid task!";
-    private static final String REMOVE_ERROR_MESSAGE = """
-            -> Please input the command as follows:
-                  remove <task number>
-            """;
-
     private static TaskList tasks = new TaskList();
     private static Storage dataStorage = new Storage("./data/data.txt", tasks);
 
@@ -70,7 +45,7 @@ public class Nell {
             Deadline deadlineToAdd = new Deadline(details[0].trim(), details[1].trim());
             tasks.addTask(deadlineToAdd);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DEADLINE_ERROR_MESSAGE);
+            System.out.println(Messages.DEADLINE_ERROR_MESSAGE);
         }
     }
 
@@ -85,7 +60,7 @@ public class Nell {
             Event eventToAdd = new Event(details[0].trim(), details[1].trim(), details[2].trim());
             tasks.addTask(eventToAdd);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(EVENT_ERROR_MESSAGE);
+            System.out.println(Messages.EVENT_ERROR_MESSAGE);
         }
     }
 
@@ -101,9 +76,9 @@ public class Nell {
             System.out.println("-> The following task has been marked not done:");
             System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
-            System.out.print(UNMARK_ERROR_MESSAGE);
+            System.out.print(Messages.UNMARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(INVALID_TASK_MESSAGE);
+            System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }
 
@@ -119,9 +94,9 @@ public class Nell {
             System.out.println("-> The following task has been marked done:");
             System.out.println(tasks.getTaskStringAtIndex(taskIndex - 1));
         } catch (NumberFormatException e) {
-            System.out.print(MARK_ERROR_MESSAGE);
+            System.out.print(Messages.MARK_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(INVALID_TASK_MESSAGE);
+            System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }
 
@@ -135,9 +110,9 @@ public class Nell {
             int taskIndex = Integer.parseInt(taskNumber);
             tasks.removeTask(taskIndex - 1);
         } catch (NumberFormatException e) {
-            System.out.print(REMOVE_ERROR_MESSAGE);
+            System.out.print(Messages.REMOVE_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(INVALID_TASK_MESSAGE);
+            System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }
 
@@ -201,7 +176,7 @@ public class Nell {
                 try {
                     markTask(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(MARK_ERROR_MESSAGE);
+                    System.out.print(Messages.MARK_ERROR_MESSAGE);
                 }
                 break;
 
@@ -209,7 +184,7 @@ public class Nell {
                 try {
                     unmarkTask(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(UNMARK_ERROR_MESSAGE);
+                    System.out.print(Messages.UNMARK_ERROR_MESSAGE);
                 }
                 break;
 
@@ -217,7 +192,7 @@ public class Nell {
                 try {
                     addToDo(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(TODO_ERROR_MESSAGE);
+                    System.out.print(Messages.TODO_ERROR_MESSAGE);
                 }
                 break;
 
@@ -225,7 +200,7 @@ public class Nell {
                 try {
                     addDeadline(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(DEADLINE_ERROR_MESSAGE);
+                    System.out.print(Messages.DEADLINE_ERROR_MESSAGE);
                 }
                 break;
 
@@ -233,7 +208,7 @@ public class Nell {
                 try {
                     addEvent(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(EVENT_ERROR_MESSAGE);
+                    System.out.print(Messages.EVENT_ERROR_MESSAGE);
                 }
                 break;
 
@@ -241,7 +216,7 @@ public class Nell {
                 try {
                     removeTask(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.print(REMOVE_ERROR_MESSAGE);
+                    System.out.print(Messages.REMOVE_ERROR_MESSAGE);
                 }
                 break;
 
