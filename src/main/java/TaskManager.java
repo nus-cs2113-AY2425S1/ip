@@ -157,4 +157,25 @@ public class TaskManager {
             System.out.println("An error occurred while saving tasks to file.");
         }
     }
+    private void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return;
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = parseTaskFromString(line);
+                if (task != null) {
+                    tasks.add(task);
+                    count++;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file.");
+        }
+    }
 }
