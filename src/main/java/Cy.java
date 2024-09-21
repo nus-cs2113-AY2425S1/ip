@@ -10,11 +10,11 @@ import java.util.Scanner;
 
 public class Cy {
 
-    public static final String HORIZONTAL_LINE = "______________________________________";
+    public static final int MAX_LIST = 100;
     public static ArrayList<Task> items = new ArrayList<>();
 
     public static void printLine() {
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println("______________________________________");
     }
 
     public static void markOutput(Task task) {
@@ -47,31 +47,31 @@ public class Cy {
         return false;
     }
 
-    public static void markItem(String[] splitInputs, int count) {
+    public static void markItem(String[] splitInputs, Task[] items, int count) {
         if (isMarkError(splitInputs, count)) {
             return;
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items.get(index).setDone(true);
-        markOutput(items.get(index));
+        items[index].setDone(true);
+        markOutput(items[index]);
     }
 
-    public static void unmarkItem(String[] splitInputs,int count) {
+    public static void unmarkItem(String[] splitInputs, Task[] items, int count) {
         if (isMarkError(splitInputs, count)) {
             return;
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items.get(index).setDone(false);
-        markOutput(items.get(index));
+        items[index].setDone(false);
+        markOutput(items[index]);
     }
 
-    public static void printList(int count) {
+    public static void printList(Task[] items, int count) {
         printLine();
         System.out.println("Here are the tasks in your list");
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + items.get(i).getStatusIcon() + " " + items.get(i).getDescription());
+            System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].getDescription());
         }
         printLine();
     }
@@ -189,6 +189,7 @@ public class Cy {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
 
+        Task[] items = new Task[MAX_LIST];
         int count = 0;
 
         Scanner scan = new Scanner(System.in);
@@ -199,11 +200,11 @@ public class Cy {
             String[] splitInputs = input.split(" ");
 
             if (input.equalsIgnoreCase("list")) {
-                printList(count);
+                printList(items, count);
             } else if (splitInputs[0].equalsIgnoreCase("mark")) {
-                markItem(splitInputs, count);
+                markItem(splitInputs, items, count);
             } else if (splitInputs[0].equalsIgnoreCase("unmark")) {
-                unmarkItem(splitInputs, count);
+                unmarkItem(splitInputs, items, count);
             } else if (splitInputs[0].equalsIgnoreCase("todo")) {
                 count = addTodo(count, input);
             } else if (splitInputs[0].equalsIgnoreCase("deadline")) {
