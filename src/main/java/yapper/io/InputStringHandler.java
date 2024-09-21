@@ -7,8 +7,6 @@ import yapper.instructions.Instruction;
 // TODO finish and clean up input validation code
 // Input Text Parser for Yapper
 public class InputStringHandler {
-    private static String DEADLINE_END_DATE_DELIMITER = "/by";
-    private static String EVENT_START_DATE_DELIMITER = "/from";
     private static String EVENT_END_DATE_DELIMITER = "/to";
 
     public static Instruction parseUserInput(String userInputString) throws YapperException {

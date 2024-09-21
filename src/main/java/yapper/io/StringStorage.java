@@ -6,6 +6,11 @@ public class StringStorage {
     // List Ordinal is 0-indexed, but Display is 1-indexed
     public static final int INDEX_OFFSET = 1;
 
+    // For Input
+
+    static String DEADLINE_END_DATE_DELIMITER = "/by";
+    static String  EVENT_START_DATE_DELIMITER = "/from";
+    static String    EVENT_END_DATE_DELIMITER = "/to";
     // For Output
     public static final String NOT_DONE_SYMBOL = " ";
     public static final String  IS_DONE_SYMBOL = "X";
