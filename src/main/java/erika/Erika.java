@@ -2,11 +2,14 @@ package erika;
 
 import erika.command.Command;
 import erika.console.Console;
+import erika.exception.ErikaException;
 import erika.filesystem.FileSystem;
 import erika.parser.Parser;
 import erika.settings.Settings;
 import erika.ui.Ui;
 import erika.tasklist.TaskList;
+
+import java.io.IOException;
 
 public class Erika {
     private static Ui ui;
@@ -26,9 +29,15 @@ public class Erika {
         boolean isExit = false;
         while (!isExit) {
             String line = ui.collectUserInput();
-            Command c = parser.parseInput(line);
-            c.execute(taskList, ui, fileSystem);
-            isExit = c.isExit();
+            try {
+                Command c = parser.parseInput(line);
+                c.execute(taskList, fileSystem);
+                isExit = c.isExit();
+            } catch (ErikaException e) {
+                Console.printMessage(e.getMessage());
+            } catch (IOException e) {
+                Console.printMessage("Error: IO Exception while writing to filesystem");
+            }
         }
     }
     public static void main(String[] args) {
