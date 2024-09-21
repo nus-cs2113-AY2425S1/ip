@@ -7,7 +7,13 @@ public class StringStorage {
     public static final int INDEX_OFFSET = 1;
 
     // For Input
-
+    public static final String     LIST_INSTRUCTION_PREFIX = "list";
+    public static final String     TODO_INSTRUCTION_PREFIX = "todo";
+    public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
+    public static final String    EVENT_INSTRUCTION_PREFIX = "event";
+    public static final String   DELETE_INSTRUCTION_PREFIX = "delete";
+    public static final String     MARK_INSTRUCTION_PREFIX = "mark";
+    public static final String   UNMARK_INSTRUCTION_PREFIX = "unmark";
     static String DEADLINE_END_DATE_DELIMITER = "/by";
     static String  EVENT_START_DATE_DELIMITER = "/from";
     static String    EVENT_END_DATE_DELIMITER = "/to";
