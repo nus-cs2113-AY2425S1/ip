@@ -56,11 +56,9 @@ public class Parser {
      * @return Command object based upon single-word command
      */
     private Command parseSingleWordCommand(String command) {
-        switch (command) {
-        case "list":
+        if (command.equals("list")) {
             return new ListCommand(tasks);
-
-        default:
+        } else {
             return new IncorrectCommand(tasks);
         }
     }
