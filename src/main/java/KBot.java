@@ -1,8 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KBot {
     private static final String SEPARATOR = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/KBot.txt"; // relative path for saving tasks
     private ArrayList<Task> tasks;
     private Scanner scanner;
 
@@ -78,9 +80,18 @@ public class KBot {
                     addEventTask(argument);
                 }
                 break;
+            case "delete":
+                try {
+                    deleteTask(Integer.parseInt(argument));
+                } catch (NumberFormatException e) {
+                    throw new KBotException("Invalid task number to delete.");
+                }
+                break;
             default:
                 throw KBotException.unknownCommand();
         }
+
+        saveTasksToFile(); // Save the updated task list after each change
         return true;
     }
 
@@ -184,5 +195,36 @@ public class KBot {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
         printSeparator();
+    }
+
+    public void deleteTask(int taskIndex) throws KBotException {
+        if (taskIndex < 1 || taskIndex > tasks.size()) {
+            throw new KBotException("OOPS!!! Task does not exist.");
+        }
+        Task removedTask = tasks.remove(taskIndex - 1); // Adjust for 0-based index
+        System.out.println(SEPARATOR);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(SEPARATOR);
+    }
+
+    // File Saving and Loading Methods
+
+    private void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they do not exist
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
+        }
     }
 }
