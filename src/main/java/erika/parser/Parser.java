@@ -4,11 +4,9 @@ import erika.command.*;
 import erika.command.addcommand.AddDeadlineCommand;
 import erika.command.addcommand.AddEventCommand;
 import erika.command.addcommand.AddTodoCommand;
-import erika.console.Console;
 import erika.exception.*;
 import erika.settings.Settings;
-import erika.task.Event;
-import erika.task.Task;
+
 
 import java.io.IOException;
 
@@ -40,7 +38,7 @@ public class Parser {
             throw new FormatErrorException("missing /from parameter");
         }
         if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
-            throw new FormatErrorException("missing /from parameter");
+            throw new EmptyDescriptionException("Event");
         }
         int indexOfTo = line.indexOf("/to ");
         if(indexOfTo == -1) {
@@ -49,11 +47,14 @@ public class Parser {
         if(line.substring(line.indexOf(" ")).indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
             throw new FormatErrorException("missing /from parameter");
         }
+
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
         int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
+
         String description = line.substring(substringStart, substringEnd);
         String fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
         String toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
         }
@@ -69,7 +70,7 @@ public class Parser {
             throw new FormatErrorException("missing /by parameter");
         }
         if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
-            throw new FormatErrorException("missing /by parameter");
+            throw new EmptyDescriptionException("Deadline");
         }
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
         int substringEnd = indexOfBy - Settings.BY_REAR_OFFSET;
@@ -110,6 +111,15 @@ public class Parser {
         }
     }
 
+    private FindCommand findByKey(String line) throws EmptyDescriptionException {
+        if (!line.contains("find ")) {
+            throw new EmptyDescriptionException("find");
+        }
+        int start = line.indexOf(" ");
+        String key = line.substring(start).trim();
+        return new FindCommand(key);
+    }
+
     public Command parseInput(String line) throws IOException, ErikaException{
         String errMsg = "";
         if (line.equals("bye")) {
@@ -126,6 +136,8 @@ public class Parser {
             return addEvent(line);
         } else if (line.contains("delete")) {
             return deleteEntry(line);
+        } else if(line.contains("find")) {
+            return findByKey(line);
         } else {
             throw new UnknownCommandException();
         }
