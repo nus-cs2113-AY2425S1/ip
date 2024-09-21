@@ -29,4 +29,8 @@ public class Task {
         return getStatusIcon();
     }
 
+    public String getDescription() {
+        return description;
+    }
+
 }

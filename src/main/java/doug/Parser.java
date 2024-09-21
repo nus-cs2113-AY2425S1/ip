@@ -26,6 +26,8 @@ public class Parser {
             parseEvent(tasks, command);
         } else if (command.startsWith("delete")) {
             parseDelete(tasks, command);
+        } else if (command.startsWith("find")) {
+            parseFind(tasks, command);
         } else {
             throw new DougException(DASHED_LINE + "Something seems off partner...\n" + DASHED_LINE);
         }
@@ -150,5 +152,13 @@ public class Parser {
         } catch (DougException | IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void parseFind(TaskList tasks, String command) throws DougException {
+        command = command.replace("find", "").trim();
+        if (command.isEmpty()) {
+            throw new DougException(DASHED_LINE + "It ain't clear to me what you want to find pal...\n" + DASHED_LINE);
+        }
+        FindCommand.findTask(tasks, command);
     }
 }
