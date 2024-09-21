@@ -32,41 +32,27 @@ public class Console {
 
     public static void printAddedMessage(Task newTask) {
         String message = "Got it. I've added this task:\n" + "\t  " + newTask + "\n" +
-                String.format("\tNow you have %d task%s in the list.", Task.getTaskArraySize(),
-                        (Task.getTaskArraySize() > 1) ? "s" : "");
+                String.format("\tNow you have %d task%s in the list.", TaskList.getTaskArraySize(),
+                        (TaskList.getTaskArraySize() > 1) ? "s" : "");
         printMessage(message);
     }
 
-    public static void printDeletedMessage(TaskList tasks) {
-        String message = "Nice! I've deleted this task:\n" + "\t" + tasks.get(Task.markIndex - 1);
+    public static void printDeletedMessage(Task deletedTask) {
+        String message = "Nice! I've deleted this task:\n" + "\t" + deletedTask + "\n\t" +
+                "Now you have " + (TaskList.getTaskArraySize() - 1) + " tasks in the list.";
         printMessage(message);
     }
-    public void printMarkedMessage(TaskList tasks) {
-        String message = "Nice! I've marked this task as done:\n" + "\t\t" + tasks.get(Task.markIndex - 1);
+    public static void printMarkedMessage(Task markedTask) {
+        String message = "Nice! I've marked this task as done:\n" + "\t\t" + markedTask;
         printMessage(message);
     }
 
-    public void printUnmarkedMessage(TaskList tasks) {
-        String message = "Nice! I've marked this task as not done yet:\n" + "\t\t" + tasks.get(Task.markIndex - 1);
+    public static void printUnmarkedMessage(Task unmarkedTask) {
+        String message = "Nice! I've marked this task as not done yet:\n" + "\t\t" + unmarkedTask;
         printMessage(message);
     }
 
     public static void printGoodbyeMessage() {
         printMessage("Bye! Hope to see you again soon!");
-    }
-
-    public void printList(TaskList tasks) throws EmptyListException {
-        String message = "";
-        if (Task.getTaskArraySize() == 0) {
-            throw new EmptyListException();
-        }
-        message += "Here are the tasks in your list:\n";
-        for (int i = 0; i < Task.getTaskArraySize(); i++) {
-            message += "\t" + Integer.toString(i + 1) + "." + tasks.get(i);
-            if (i < Task.getTaskArraySize() - 1) {
-                message += "\n";
-            }
-        }
-        printMessage(message);
     }
 }
