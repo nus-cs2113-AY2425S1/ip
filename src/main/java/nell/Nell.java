@@ -154,6 +154,14 @@ public class Nell {
     }
 
     /**
+     * Prints a list of tasks that contain a given keyword
+     */
+    private static void findMatchingTasks(String keyword) {
+        System.out.println("-> The matching tasks are as follows:");
+        System.out.println(tasks.getMatchingTaskList(keyword));
+    }
+
+    /**
      * Handles wrong or wrongly formatted commands
      */
     private static void handleIncorrectInput() {
