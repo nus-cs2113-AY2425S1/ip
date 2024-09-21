@@ -3,12 +3,21 @@ package doug.Commands;
 import doug.Storage;
 import doug.TaskList;
 import doug.tasks.Task;
+import static doug.UI.DASHED_LINE;
 
 import java.io.IOException;
 
-import static doug.UI.DASHED_LINE;
-
+/**
+ * Base class for all other command classes to inherit from
+ */
 public class Command {
+
+    /**
+     * Adds the newly created task to the existing TaskList object holding the ArrayList of tasks
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param newTask The newly created task (Todo, Deadline or Event)
+     */
     public static void addNewTask(TaskList tasks, Task newTask) {
         tasks.addTask(newTask);
 

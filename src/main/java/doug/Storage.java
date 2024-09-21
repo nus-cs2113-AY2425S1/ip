@@ -11,8 +11,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class that deals with saving and loading tasks from the local .txt file
+ */
 public class Storage {
 
+    /**
+     * Re-writes the save file by adding all existing tasks to it
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @throws IOException If the save file cannot be opened or written to properly
+     */
     public static void saveTasks(TaskList tasks) throws IOException {
         File dir = new File("./data");
         // If directory does not yet exist, create it
@@ -27,6 +36,40 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Reads the save file line by line and adds the saved tasks to the TaskList tasks object
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @throws FileNotFoundException If save file cannot be found
+     */
+    public static void loadTasks(TaskList tasks) throws FileNotFoundException {
+        File tasksFile = new File("./data/tasks.txt"); 	// create a File for the given file path
+        Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File as the source
+        boolean isEmpty = true;
+        while (reader.hasNext()) {
+            String line = reader.nextLine();
+            isEmpty = false;
+            if(line.startsWith("T")) {
+                loadToDo(tasks, line);
+            } else if (line.startsWith("D")) {
+                loadDeadline(tasks, line);
+            } else if (line.startsWith("E")) {
+                loadEvent(tasks, line);
+            }
+        }
+        UI.sayExistingUserWelcome();
+        if (isEmpty) {
+            return;
+        }
+        ListCommand.listTasks(tasks);
+    }
+
+    /**
+     * Parses the line containing todo task and adds it to the TaskList tasks object
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param line Line from save file storing data on a todo task
+     */
     public static void loadToDo(TaskList tasks, String line) {
         boolean isMarked = false;
         if (line.contains("| X |")) {
@@ -44,6 +87,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the line containing deadline task and adds it to the TaskList tasks object
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param line Line from save file storing data on a deadline task
+     */
     public static void loadDeadline(TaskList tasks, String line) {
         boolean isMarked = false;
         if (line.contains("| X |")) {
@@ -67,6 +116,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the line containing event task and adds it to the TaskList tasks object
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param line Line from save file storing data on a event task
+     */
     public static void loadEvent(TaskList tasks, String line) {
         boolean isMarked = false;
         if (line.contains("| X |")) {
@@ -94,30 +149,6 @@ public class Storage {
             eventTask.markAsDone();
         }
     }
-
-
-    public static void loadTasks(TaskList tasks) throws FileNotFoundException {
-        File tasksFile = new File("./data/tasks.txt"); 	// create a File for the given file path
-        Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File as the source
-        boolean isEmpty = true;
-        while (reader.hasNext()) {
-            String line = reader.nextLine();
-            isEmpty = false;
-            if(line.startsWith("T")) {
-                loadToDo(tasks, line);
-            } else if (line.startsWith("D")) {
-                loadDeadline(tasks, line);
-            } else if (line.startsWith("E")) {
-                loadEvent(tasks, line);
-            }
-        }
-        UI.sayExistingUserWelcome();
-        if (isEmpty) {
-            return;
-        }
-        ListCommand.listTasks(tasks);
-    }
-
 
 }
 

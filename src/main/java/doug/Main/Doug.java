@@ -8,6 +8,9 @@ import doug.Storage;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents the main chatbot Doug.
+ */
 public class Doug {
 
     public static void main(String[] args) {

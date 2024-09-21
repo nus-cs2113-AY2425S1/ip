@@ -1,10 +1,19 @@
 package doug.Commands;
 
 import doug.TaskList;
-
 import static doug.UI.DASHED_LINE;
 
+/**
+ * Represents the actions of the List command
+ * Lists out all the tasks currently in the ArrayList of tasks
+ */
 public class ListCommand {
+
+    /**
+     * Lists in order, all the existing tasks in the ArrayList of tasks
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     */
     public static void listTasks(TaskList tasks) {
         if (tasks.getCount() == 0) {
             System.out.println(DASHED_LINE + "Got nothing on your roster bud.");
