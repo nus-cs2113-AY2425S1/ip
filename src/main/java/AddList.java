@@ -1,9 +1,8 @@
 import java.util.ArrayList; 
-import java.util.List; 
 
 public class AddList {
 
-    private List<Task> tasks; 
+    private ArrayList<Task> tasks; 
     protected static final String SEPARATOR = "\t ___________________________"; 
 
     public AddList() {
@@ -70,6 +69,18 @@ public class AddList {
             System.out.println(SEPARATOR); 
         } else {
             System.out.println("Invalid entry number!"); 
+        }
+    }
+
+    public void delete(int i) {
+        if (i >= 1 && i <= tasks.size()) {
+            System.out.println(SEPARATOR); 
+            System.out.println("\t Noted. I've removed this task: "); 
+            System.out.println("\t" + tasks.get(i-1)); 
+            tasks.remove(i-1); 
+            System.out.println("\t Now you have " + tasks.size() +" tasks in the list. "); 
+            System.out.println(SEPARATOR); 
+
         }
     }
 
