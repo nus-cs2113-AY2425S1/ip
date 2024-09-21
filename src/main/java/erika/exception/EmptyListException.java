@@ -1,5 +1,10 @@
 package erika.exception;
 
-public class EmptyListException extends Exception{
+import erika.Erika;
+
+public class EmptyListException extends ErikaException {
+    public EmptyListException() {
+        super("Error: List is empty, please consider adding some items!");
+    }
 
 }
