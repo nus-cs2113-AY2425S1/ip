@@ -35,6 +35,10 @@ public class Nell {
             -> Please input the command as follows:
                   remove <task number>
             """;
+    private static final String FIND_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  find <keyword>
+            """;
 
     private static TaskList tasks = new TaskList();
 
@@ -330,6 +334,14 @@ public class Nell {
                     removeTask(commandWords[1]);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(REMOVE_ERROR_MESSAGE);
+                }
+                break;
+
+            case "find":
+                try {
+                    findMatchingTasks(commandWords[1]);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(FIND_ERROR_MESSAGE);
                 }
                 break;
 
