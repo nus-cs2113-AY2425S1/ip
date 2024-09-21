@@ -16,8 +16,8 @@ import nell.common.Messages;
  * Handles the parsing and execution of commands entered by the user into the UI
  */
 public class Parser {
-    private final int SINGLE_WORD_LENGTH = 1;
-    private final int MULTI_WORD_LENGTH = 2;
+    private static final int SINGLE_WORD_LENGTH = 1;
+    private static final int MULTI_WORD_LENGTH = 2;
 
     private TaskList tasks;
 
