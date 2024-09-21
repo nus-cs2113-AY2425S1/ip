@@ -16,6 +16,20 @@ public class OutputStringHandler {
         }
         System.out.println(StringStorage.LINE_DIVIDER_INPUT);
     }
+    // For Instruction: Add
+    public static void printAddedTask(Task task, int taskCount) {
+        StringStorage.printWithDividers(
+                StringStorage.TASK_ADDED_STRING + "\n"
+                + "  " + task.taskToDisplay() + "\n" // spacing is to be consistent with ordinal
+                + StringStorage.LIST_SIZE_STRING + taskCount);
+    }
+    // For Instruction: Delete
+    public static void printDeletedTask(Task task, int taskCount) {
+        StringStorage.printWithDividers(
+                StringStorage.TASK_DELETED_STRING + "\n"
+                + "  " + task.taskToDisplay() + "\n"
+                + StringStorage.LIST_SIZE_STRING + taskCount);
+    }
     // For Instruction: Mark, Unmark
     public static void printTaskStatus(Task task, boolean isDone) {
         String status = (isDone ? "done" : "undone");

@@ -32,19 +32,6 @@ public class Task {
     public String taskToDisplay() {
         return "[" + getDoneStatus() + "] " + taskDesc;
     }
-    public void printAddedTask(int taskCount) {
-        StringStorage.printWithDividers(
-                StringStorage.TASK_ADDED_STRING + "\n"
-                + "  " + this.taskToDisplay() + "\n" // spacing is to be consistent with ordinal
-                + StringStorage.LIST_SIZE_STRING + taskCount);
-    }
-    public void printDeletedTask(int taskCount) {
-        StringStorage.printWithDividers(
-                StringStorage.TASK_DELETED_STRING + "\n"
-                + "  " + this.taskToDisplay() + "\n"
-                + StringStorage.LIST_SIZE_STRING + taskCount);
-    }
-
     // Task Conversion Operations for Saving/Loading Data
     public String taskToString() {
         return getDoneStatus() + StringStorage.STORAGE_DELIMITER + taskDesc;
