@@ -26,8 +26,8 @@ public class DeadlineCommand extends Command{
             throw new IndexOutOfBoundsException(Messages.DEADLINE_ERROR_MESSAGE);
         }
 
-        this.description = details[0];
-        this.by = details[1];
+        this.description = details[0].trim();
+        this.by = details[1].trim();
     }
 
     /**
