@@ -11,8 +11,8 @@ import java.util.Scanner;
  * Represents an object that takes user input and prints messages in Nell.
  */
 public class Ui {
-    private Parser parser;
-    private Storage dataStorage;
+    private final Parser parser;
+    private final Storage dataStorage;
 
     /**
      * Constructs a new Ui object with a given parser
