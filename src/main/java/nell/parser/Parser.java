@@ -16,6 +16,9 @@ import nell.common.Messages;
  * Handles the parsing and execution of commands entered by the user into the UI
  */
 public class Parser {
+    private final int SINGLE_WORD_LENGTH = 1;
+    private final int MULTI_WORD_LENGTH = 2;
+
     private TaskList tasks;
 
     /**
@@ -37,10 +40,10 @@ public class Parser {
     public Command parseCommand(String command) {
         String[] commandWords = command.split(" ", 2);
         switch (commandWords.length) {
-        case 1:
+        case SINGLE_WORD_LENGTH:
             return parseSingleWordCommand(command);
 
-        case 2:
+        case MULTI_WORD_LENGTH:
             return parseMultiWordCommand(commandWords);
 
         default:
