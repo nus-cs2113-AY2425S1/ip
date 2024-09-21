@@ -52,7 +52,7 @@ public class ExceptionHandler {
     //    public static void checkIfUserInputRecognised();
 
     // Ordinal Errors for: DELETE, MARK, UNMARK
-    public static void checkIfListEmpty(int currTaskTotal) throws YapperException {
+    public static void checkIfTaskOrdinalIsOutOfRange(int currTaskTotal) throws YapperException {
         if (currTaskTotal == 0) {
             throw new YapperException(StringStorage.LIST_EMPTY_MESSAGE);
         }

@@ -12,17 +12,15 @@ import yapper.tasks.Deadline;
 import yapper.tasks.Event;
 import yapper.tasks.Todo;
 
-import java.util.List;
-
 // Human-Yapper Interface
 public class InstructionHandler {
     // UI Operations: Error_Check -> Do -> Print -> Update_File
-    public static void handleListInstruction(List<Task> tasks, int taskCount) {
+    public static void handleListInstruction(TaskHandler taskHandler) {
         try {
             // Error_Check
-            ExceptionHandler.checkIfListEmpty(taskCount);
+            ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal());
             // Do & Print
-            OutputStringHandler.printTasks(tasks, taskCount);
+            OutputStringHandler.printTasks(taskHandler.getAllTasks(), taskHandler.getCurrTaskTotal());
             // No Update_File needed
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
@@ -34,11 +32,11 @@ public class InstructionHandler {
             // Do
             taskHandler.addTask(task);
             // Print
-            task.printAddedTask(taskHandler.getCurrTaskTotal());
+            OutputStringHandler.printAddedTask(task, taskHandler.getCurrTaskTotal());
             // Update_File
             SaveFileHandler.storeAddedTask(task);
         } catch (YapperException e) {
-            throw new RuntimeException(e);
+            StringStorage.printWithDividers(e.getMessage());
         }
     }
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
@@ -50,7 +48,7 @@ public class InstructionHandler {
             Task task = taskHandler.getTask(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
             // Print
-            task.printDeletedTask(taskHandler.getCurrTaskTotal());
+            OutputStringHandler.printDeletedTask(task, taskHandler.getCurrTaskTotal());
             // Update_File
             SaveFileHandler.unstoreDeletedTask(taskOrdinal);
         } catch (YapperException e) {
@@ -87,8 +85,7 @@ public class InstructionHandler {
         Instruction.InstructionType instructionType = instruction.getInstructionType();
         switch (instructionType) {
         case LIST:
-            handleListInstruction(taskHandler.getAllTasks(),
-                    taskHandler.getCurrTaskTotal());
+            handleListInstruction(taskHandler);
             break;
         case TODO:
             String todoDesc = instruction.getInstructionDesc();
