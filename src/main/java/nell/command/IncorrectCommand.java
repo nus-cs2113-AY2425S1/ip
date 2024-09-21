@@ -7,6 +7,8 @@ import nell.common.Messages;
  * Represents an incorrect command
  */
 public class IncorrectCommand extends Command{
+    private final String message;
+
     /**
      * Constructs a new IncorrectCommand object with a specified task list
      *
@@ -14,12 +16,24 @@ public class IncorrectCommand extends Command{
      */
     public IncorrectCommand(TaskList tasks) {
         super("incorrect", tasks);
+        this.message = Messages.INVALID_COMMAND_MESSAGE;
     }
 
     /**
-     * Executes command - informs user that input command is invalid
+     * Constructs a new IncorrectCommand object with a specified task list and message
+     *
+     * @param tasks The specified task list
+     * @param message The specified message
+     */
+    public IncorrectCommand(TaskList tasks, String message) {
+        super("incorrect", tasks);
+        this.message = message;
+    }
+
+    /**
+     * Executes command - prints message to user
      */
     public void execute() {
-        System.out.print(Messages.INVALID_COMMAND_MESSAGE);
+        System.out.print(message);
     }
 }
