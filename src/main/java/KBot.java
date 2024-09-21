@@ -1,8 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KBot {
     private static final String SEPARATOR = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/KBot.txt"; // relative path for saving tasks
     private ArrayList<Task> tasks;
     private Scanner scanner;
 
@@ -88,9 +90,10 @@ public class KBot {
             default:
                 throw KBotException.unknownCommand();
         }
+
+        saveTasksToFile(); // Save the updated task list after each change
         return true;
     }
-
 
     // Utility Methods
 
@@ -206,6 +209,22 @@ public class KBot {
         System.out.println(SEPARATOR);
     }
 
+    // File Saving and Loading Methods
+
+    private void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they do not exist
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
 }
-
-
