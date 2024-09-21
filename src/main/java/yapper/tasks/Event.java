@@ -29,8 +29,7 @@ public class Event extends Task {
         return "[" + StringStorage.EVENT_SYMBOL + "]"
                 + super.taskToDisplay() + ", from " + startDate + " to " + endDate;
     }
-
-    /// Task Conversion Operations
+    // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
         return StringStorage.EVENT_SYMBOL

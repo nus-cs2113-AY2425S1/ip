@@ -20,8 +20,7 @@ public class Todo extends Task {
         return "[" + StringStorage.TODO_SYMBOL +"]"
                 + super.taskToDisplay();
     }
-
-    // Task Conversion Operations
+    // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
         return StringStorage.TODO_SYMBOL

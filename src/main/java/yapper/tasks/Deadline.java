@@ -26,8 +26,7 @@ public class Deadline extends Task {
         return "[" + StringStorage.DEADLINE_SYMBOL + "]"
                 + super.taskToDisplay() + ", by " + endDate;
     }
-
-    // Task Conversion Operations
+    // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
         return StringStorage.DEADLINE_SYMBOL
