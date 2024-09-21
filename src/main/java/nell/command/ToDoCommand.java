@@ -17,7 +17,7 @@ public class ToDoCommand extends Command{
      */
     public ToDoCommand(TaskList tasks, String description) {
         super("todo", tasks);
-        this.description = description;
+        this.description = description.trim();
     }
 
     /**
