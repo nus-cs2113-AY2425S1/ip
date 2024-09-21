@@ -1,17 +1,12 @@
 list
-todo read a book
-hello
-deadline tutorial /by 2024-10-29
-list
-event F1 race /from 2024-09-26 /to 2024-10-12
-list
-task in 2024-10-22
-find a
-mark 1
-mark 3
-list
-unmark 1
-list
+todo grocery shopping
+deadline CS3244 tutorial /by 2024-09-26
+event sailing regatta /from 2024-09-28 /to 2024-09-29
 delete 1
+mark 1
+unmark 1
+find sail
+task in 2024-09-01
 list
+help
 bye
