@@ -1,12 +1,12 @@
 package yapper.instructions;
 
-import yapper.tasks.TaskHandler;
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
 import yapper.io.SaveFileHandler;
+import yapper.tasks.TaskHandler;
 import yapper.tasks.Task;
 import yapper.tasks.Deadline;
 import yapper.tasks.Event;
@@ -16,56 +16,59 @@ import java.util.List;
 
 // Human-Yapper Interface
 public class InstructionHandler {
+    // UI Operations: Error_Check -> Do -> Print -> Update_File
     public static void handleListInstruction(List<Task> tasks, int taskCount) {
         try {
-            ErrorHandler.checkIfListEmpty(taskCount);
+            // Error_Check
+            ExceptionHandler.checkIfListEmpty(taskCount);
+            // Do & Print
             OutputStringHandler.printTasks(tasks, taskCount);
+            // No Update_File needed
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
     }
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) {
-        // No Exception Handling here at the moment
-
-        taskHandler.addTask(task);
-        task.printAddedTask(taskHandler.getCurrTaskTotal());
-        SaveFileHandler.storeTask(task);
+        try {
+            // No Error_Check yet
+            // Do
+            taskHandler.addTask(task);
+            // Print
+            task.printAddedTask(taskHandler.getCurrTaskTotal());
+            // Update_File
+            SaveFileHandler.storeAddedTask(task);
+        } catch (YapperException e) {
+            throw new RuntimeException(e);
+        }
     }
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
         // OOB method should indirectly check if list is empty?
         try {
-            ErrorHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-
+            // No Error_Check yet
+            ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+            // Do
             Task task = taskHandler.getTask(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
+            // Print
             task.printDeletedTask(taskHandler.getCurrTaskTotal());
+            // Update_File
+            SaveFileHandler.unstoreDeletedTask(taskOrdinal);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
     }
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) {
         try {
-            ErrorHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-
-            Task task = taskHandler.getTask(taskOrdinal - INDEX_OFFSET);
-            ErrorHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
+            // Error Check
+            ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
+            Task task = taskHandler.getTask(taskOrdinal - StringStorage.INDEX_OFFSET); // need for methods later
+            ExceptionHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
+            // Do
             taskHandler.updateTaskStatus(task, isDone);
-        } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
-        }
-    }
-    public static void handleSaveInstruction(TaskHandler taskHandler) {
-        try {
-            ErrorHandler.checkIfB(); // TODO
-            SaveFileHandler.storeTasksData(taskHandler);
-        } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
-        }
-    }
-    public static void handleLoadInstruction(TaskHandler taskHandler) {
-        try {
-            ErrorHandler.checkIfA(); // TODO
-            SaveFileHandler.loadTasksData();
+            // Print
+            OutputStringHandler.printTaskStatus(task, isDone);
+            // Update_File
+            SaveFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }

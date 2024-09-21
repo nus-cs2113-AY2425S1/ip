@@ -3,6 +3,7 @@ package yapper;
 import java.util.Scanner;
 
 import yapper.instructions.InstructionHandler;
+import yapper.io.SaveFileHandler;
 import yapper.io.StringStorage;
 import yapper.tasks.TaskHandler;
 
@@ -34,7 +35,7 @@ public class Yapper {
     // Program Start
     public static void main(String[] args) {
         // Initialize
-        TaskHandler taskHandler = new TaskHandler();
+        TaskHandler taskHandler = SaveFileHandler.loadTasks();
         // Startup ChatBot Program
         startYappin(taskHandler);
     }
