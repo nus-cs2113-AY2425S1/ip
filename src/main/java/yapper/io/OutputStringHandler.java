@@ -12,7 +12,7 @@ public class OutputStringHandler {
         System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
         for (int i = 0; i < taskCount; i++) {
             System.out.print( (i + 1) + "." ); // task list is displayed 1-indexed
-            System.out.println( tasks.get(i).taskToString() );
+            System.out.println( tasks.get(i).taskToDisplay() );
         }
         System.out.println(StringStorage.LINE_DIVIDER_INPUT);
     }
