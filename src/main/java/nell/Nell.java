@@ -179,6 +179,7 @@ public class Nell {
                       deadline <description> /by <by-date>
                       event <description> /from <from-date> /to <to-date>
                       remove <number>
+                      find <keyword>
                       bye
                 """);
     }
