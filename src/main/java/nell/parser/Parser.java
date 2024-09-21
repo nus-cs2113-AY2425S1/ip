@@ -28,10 +28,11 @@ public class Parser {
     }
 
     /**
-     * Parses a given command and executes it.
-     * If the command is invalid, prints a message that it is so.
+     * Returns a Command object based upon the specified command
+     * If the command is invalid, returns an incorrect command
      *
-     * @param command The command to be parsed and executed
+     * @param command The command word for the command
+     * @return Command object based upon command
      */
     public Command parseCommand(String command) {
         String[] commandWords = command.split(" ", 2);
@@ -48,10 +49,11 @@ public class Parser {
     }
 
     /**
-     * Parses a given single-word command and executes it.
-     * If the command is invalid, prints a message that it is so.
+     * Returns a Command object based upon the specified single-word command
+     * If the command is invalid, returns an incorrect command
      *
      * @param command The command word of the single-word command
+     * @return Command object based upon single-word command
      */
     private Command parseSingleWordCommand(String command) {
         switch (command) {
@@ -64,10 +66,11 @@ public class Parser {
     }
 
     /**
-     * Parses a given multi-word command and executes it.
-     * If the command is invalid, prints a message that it is so.
+     * Returns a Command object based upon the specified multi-word command
+     * If the command is invalid, returns an incorrect command
      *
-     * @param commandWords The command word and body of the multi-word command
+     * @param commandWords The command words of the multi-word command
+     * @return Command object based upon multi-word command
      */
     private Command parseMultiWordCommand(String[] commandWords) {
         switch (commandWords[0]) {
