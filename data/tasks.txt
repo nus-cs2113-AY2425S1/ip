@@ -1,7 +1,1 @@
-D |   | school | tomorrow
-D |   | school | 2022-09-22
-D |   | school | 2022-09-22 1245
-D |   | school | 2022-09-22 1839
-D |   | homework | 1987-03-28 1432
-E |   | fishing | 1999-08-05 | 1999-08-07 1234
-E |   | groisu | 2022-09-08     1245 | 2021-03-21   fve
+
