@@ -76,11 +76,9 @@ public class Parser {
                 int taskIndex = Integer.parseInt(commandWords[1]);
                 return new MarkCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.MARK_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
             } catch (NumberFormatException e) {
-                System.out.print(Messages.MARK_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
             }
 
         case "unmark":
@@ -88,35 +86,30 @@ public class Parser {
                 int taskIndex = Integer.parseInt(commandWords[1]);
                 return new UnmarkCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.UNMARK_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
             } catch (NumberFormatException e) {
-                System.out.print(Messages.UNMARK_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
             }
 
         case "todo":
             try {
                 return new ToDoCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.TODO_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.TODO_ERROR_MESSAGE);
             }
 
         case "deadline":
             try {
                 return new DeadlineCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.DEADLINE_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.DEADLINE_ERROR_MESSAGE);
             }
 
         case "event":
             try {
                 return new EventCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.EVENT_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
             }
 
         case "remove":
@@ -124,17 +117,13 @@ public class Parser {
                 int taskIndex = Integer.parseInt(commandWords[1]);
                 return new RemoveCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(Messages.REMOVE_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
             } catch (NumberFormatException e) {
-                System.out.print(Messages.REMOVE_ERROR_MESSAGE);
-                break;
+                return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
             }
 
         default:
             return new IncorrectCommand(tasks);
         }
-
-        return new IncorrectCommand(tasks);
     }
 }
