@@ -1,5 +1,6 @@
 package nell.ui;
 
+import nell.command.Command;
 import nell.common.Messages;
 import nell.parser.Parser;
 import nell.storage.Storage;
@@ -49,12 +50,13 @@ public class Ui {
 
         while (isGettingCommands) {
             // Get user command and respond accordingly
-            String command = input.nextLine();
-            if (command.equals("bye")) {
-                sayBye();
+            String rawCommand = input.nextLine();
+            if (rawCommand.equals("bye")) {
                 isGettingCommands = false;
             } else {
-                parser.parseCommand(command);
+                Command parsedCommand = parser.parseCommand(rawCommand);
+                parsedCommand.execute();
+
             }
             dataStorage.saveToFile();
         }

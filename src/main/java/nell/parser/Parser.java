@@ -1,6 +1,7 @@
 package nell.parser;
 
 import nell.TaskList;
+import nell.command.*;
 import nell.common.Messages;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
@@ -138,20 +139,17 @@ public class Parser {
      *
      * @param command The command to be parsed and executed
      */
-    public void parseCommand(String command) {
+    public Command parseCommand(String command) {
         String[] commandWords = command.split(" ", 2);
         switch (commandWords.length) {
         case 1:
-            parseSingleWordCommand(command);
-            break;
+            return parseSingleWordCommand(command);
 
         case 2:
-            parseMultiWordCommand(commandWords);
-            break;
+            return parseMultiWordCommand(commandWords);
 
         default:
-            handleIncorrectInput();
-            break;
+            return new IncorrectCommand(tasks);
         }
     }
 
@@ -161,15 +159,13 @@ public class Parser {
      *
      * @param command The command word of the single-word command
      */
-    private void parseSingleWordCommand(String command) {
+    private Command parseSingleWordCommand(String command) {
         switch (command) {
         case "list":
-            listTasks();
-            break;
+            return new ListCommand(tasks);
 
         default:
-            handleIncorrectInput();
-            break;
+            return new IncorrectCommand(tasks);
         }
     }
 
@@ -179,59 +175,72 @@ public class Parser {
      *
      * @param commandWords The command word and body of the multi-word command
      */
-    private void parseMultiWordCommand(String[] commandWords) {
+    private Command parseMultiWordCommand(String[] commandWords) {
         switch (commandWords[0]) {
         case "mark":
             try {
-                markTask(commandWords[1]);
+                int taskIndex = Integer.parseInt(commandWords[1]);
+                return new MarkCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.MARK_ERROR_MESSAGE);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print(Messages.MARK_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         case "unmark":
             try {
-                unmarkTask(commandWords[1]);
+                int taskIndex = Integer.parseInt(commandWords[1]);
+                return new UnmarkCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.UNMARK_ERROR_MESSAGE);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print(Messages.UNMARK_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         case "todo":
             try {
-                addToDo(commandWords[1]);
+                return new ToDoCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.TODO_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         case "deadline":
             try {
-                addDeadline(commandWords[1]);
+                return new DeadlineCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.DEADLINE_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         case "event":
             try {
-                addEvent(commandWords[1]);
+                return new EventCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.EVENT_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         case "remove":
             try {
-                removeTask(commandWords[1]);
+                int taskIndex = Integer.parseInt(commandWords[1]);
+                return new RemoveCommand(tasks, taskIndex);
             } catch (IndexOutOfBoundsException e) {
                 System.out.print(Messages.REMOVE_ERROR_MESSAGE);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print(Messages.REMOVE_ERROR_MESSAGE);
+                break;
             }
-            break;
 
         default:
-            handleIncorrectInput();
-            break;
+            return new IncorrectCommand(tasks);
         }
+
+        return new IncorrectCommand(tasks);
     }
 }
