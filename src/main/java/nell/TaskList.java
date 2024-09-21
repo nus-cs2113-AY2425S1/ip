@@ -48,4 +48,23 @@ public class TaskList {
     public void loadTask(Task taskToAdd) {
         tasks.add(taskToAdd);
     }
+
+    /**
+     * Returns a list of tasks that contain a specified keyword.
+     * If no tasks are found, returns an empty string
+     *
+     * @param keyword The keyword
+     * @return A list of matching tasks, in the form of a formatted string
+     */
+    public String getMatchingTaskList(String keyword) {
+        String matchingTaskList = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).containsKeyword(keyword)) {
+                matchingTaskList += String.format("   %d. %s", i, tasks.get(i));
+                matchingTaskList += System.lineSeparator();
+            }
+        }
+
+        return matchingTaskList;
+    }
 }
