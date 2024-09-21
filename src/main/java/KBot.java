@@ -211,6 +211,9 @@ public class KBot {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch-Level-7
     // File Saving and Loading Methods
 
     private void saveTasksToFile() {
@@ -229,8 +232,11 @@ public class KBot {
             System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
         }
     }
+<<<<<<< HEAD
 =======
 >>>>>>> branch-Level-6
+=======
+>>>>>>> branch-Level-7
 }
 
 
