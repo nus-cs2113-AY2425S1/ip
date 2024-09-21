@@ -11,9 +11,6 @@ import nell.command.RemoveCommand;
 import nell.command.ToDoCommand;
 import nell.command.UnmarkCommand;
 import nell.common.Messages;
-import nell.tasks.Deadline;
-import nell.tasks.Event;
-import nell.tasks.ToDo;
 
 /**
  * Handles the parsing and execution of commands entered by the user into the UI
