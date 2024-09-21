@@ -95,6 +95,7 @@ public class KBot {
         return true;
     }
 
+
     // Utility Methods
 
     private void greetUser() {
@@ -209,6 +210,7 @@ public class KBot {
         System.out.println(SEPARATOR);
     }
 
+<<<<<<< HEAD
     // File Saving and Loading Methods
 
     private void saveTasksToFile() {
@@ -227,4 +229,8 @@ public class KBot {
             System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
         }
     }
+=======
+>>>>>>> branch-Level-6
 }
+
+
