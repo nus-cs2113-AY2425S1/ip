@@ -3,11 +3,12 @@ package nus.edu.rizzler.manager;
 import nus.edu.rizzler.exception.InvalidInputException;
 import nus.edu.rizzler.task.Task;
 import nus.edu.rizzler.ui.Emoji;
+import java.util.ArrayList;
 
 public class TaskManager {
     Emoji emoji = new Emoji();
 
-    public static Task[] taskList = new Task[100];
+    public static ArrayList<Task> taskList = new ArrayList<>();
     public static int totalTaskCount = 0;
 
     public TaskManager() {}
@@ -24,7 +25,7 @@ public class TaskManager {
         } else {
             System.out.println("\nHere’s the rundown on the tasks!");
             for (int i = 0; i < totalTaskCount; i++) {
-                System.out.println((i + 1) + ". " + taskList[i]);
+                System.out.println((i + 1) + ". " + taskList.get(i));
             }
         }
         System.out.println("--------------------------------------------------------");
@@ -32,12 +33,12 @@ public class TaskManager {
 
     public void addTask(String taskDescription) {
         try {
-            taskList[totalTaskCount] = Task.parseTaskString(taskDescription);
+            taskList.add(Task.parseTaskString(taskDescription));
             totalTaskCount++;
 
             System.out.printf("\nYou have %d task(s) in your list now!\n%n", totalTaskCount);
             String actionMessage = "Let's make it happen! " + emoji.getRockstarHandEmoji() + emoji.getFireEmoji();
-            displayTaskAction(taskList[totalTaskCount - 1], totalTaskCount, actionMessage);
+            displayTaskAction(taskList.get(totalTaskCount - 1), totalTaskCount, actionMessage);
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
         }
@@ -51,7 +52,7 @@ public class TaskManager {
             System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
 
         } else {
-            Task task = taskList[taskNumber - 1];
+            Task task = taskList.get(taskNumber - 1);
             task.setIsDone(true);
 
             String actionMessage = "\nGood Job! " + emoji.getPartyPopperEmoji();
@@ -67,7 +68,7 @@ public class TaskManager {
             System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
 
         } else {
-            Task task = taskList[taskNumber - 1];
+            Task task = taskList.get(taskNumber - 1);
             task.setIsDone(false);
 
             String actionMessage = "\nNo worries! Task reset. " + emoji.getReverseEmoji();
@@ -83,10 +84,10 @@ public class TaskManager {
             System.out.println("ERROR: Task number out of range. Please enter a valid task number" + emoji.getExclamationMarkEmoji());
 
         } else {
-            Task task = taskList[taskNumber - 1];
+            Task task = taskList.get(taskNumber - 1);
             task.setIsDone(true);
 
-            taskList[taskNumber - 1] = null;
+            taskList.remove(taskNumber - 1);
             totalTaskCount--;
 
             String actionMessage = "Task deleted: ";
