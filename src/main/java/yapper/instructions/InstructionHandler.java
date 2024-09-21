@@ -120,13 +120,6 @@ public class InstructionHandler {
             handleMarkingInstruction(taskHandler,
                     instruction.getTaskOrdinal(), false);
             break;
-        // WIP
-//        case SAVE:
-//            handleSaveInstruction(taskHandler);
-//            break;
-//        case LOAD:
-//            handleLoadInstruction(taskHandler);
-//            break;
 //        case HELP:
 //            StringStorage.printWithDividers(StringStorage.HELP_MESSAGE);
 //            break;
