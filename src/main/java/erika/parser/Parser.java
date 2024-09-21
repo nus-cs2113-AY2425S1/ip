@@ -1,13 +1,14 @@
 package erika.parser;
 
-import erika.command.Command;
+import erika.command.*;
+import erika.command.addcommand.AddDeadlineCommand;
+import erika.command.addcommand.AddEventCommand;
+import erika.command.addcommand.AddTodoCommand;
 import erika.console.Console;
 import erika.exception.*;
 import erika.settings.Settings;
-import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
-import erika.task.Todo;
 
 import java.io.IOException;
 
@@ -22,39 +23,32 @@ public class Parser {
         }
     }
 
-    private void saveChangesToFileSystem() {
-        try{
-            fileSystem.updateFileSystemWithLocalTasks(tasks);
-        } catch (IOException e) {
-            Console.printMessage("IO Error encountered when attempting to save changes to FS");
-        }
-    }
-
-    private void indexOperation(String line, boolean isDelete) throws IndexOutOfBoundsException, EmptyDescriptionException{
+    private Command indexOperation(String line, boolean isDelete) throws IndexOutOfBoundsException, EmptyDescriptionException{
         if(!isDelete) {
-            markEntry(line);
+            return markEntry(line);
         } else {
-            deleteEntry(line);
+            return deleteEntry(line);
         }
     }
 
-    private void addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
+    private AddEventCommand addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
         if(!line.contains("event ")) {
             throw new EmptyDescriptionException("Event");
         }
         int indexOfFrom = line.indexOf("/from ");
+        if (indexOfFrom == -1) {
+            throw new FormatErrorException("missing /from parameter");
+        }
         if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
-            throw new FormatErrorException();
+            throw new FormatErrorException("missing /from parameter");
         }
         int indexOfTo = line.indexOf("/to ");
-        if (indexOfFrom == -1 || indexOfTo == -1) {
-            throw new FormatErrorException();
+        if(indexOfTo == -1) {
+            throw new FormatErrorException("missing /to parameter");
         }
-        Event newEvent = addNewEvent(line, indexOfFrom, indexOfTo);
-        Console.printAddedMessage(newEvent);
-    }
-
-    private Event addNewEvent(String line, int indexOfFrom, int indexOfTo) throws EmptyDescriptionException {
+        if(line.substring(line.indexOf(" ")).indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
+            throw new FormatErrorException("missing /from parameter");
+        }
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
         int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
         String description = line.substring(substringStart, substringEnd);
@@ -63,32 +57,20 @@ public class Parser {
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
         }
-        Event newEvent = new Event(description, fromText, toText);
-        tasks.add(newEvent);
-        try {
-            fileSystem.appendTaskToFile(newEvent);
-        } catch (IOException e) {
-            Console.printMessage("Unable to append Event to FS. IO Error occurred");
-        }
-        return newEvent;
+        return new AddEventCommand(description, fromText, toText);
     }
 
-    private void addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
+    private AddDeadlineCommand addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
         if (!line.contains("deadline ")) {
             throw new EmptyDescriptionException("Deadline");
         }
         int indexOfBy = line.indexOf("/by ");
-        if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
-            throw new FormatErrorException();
-        }
         if (indexOfBy == -1) {
-            throw new FormatErrorException();
+            throw new FormatErrorException("missing /by parameter");
         }
-        Deadline newDeadline = addNewDeadline(line, indexOfBy);
-        Console.printAddedMessage(newDeadline);
-    }
-
-    private Deadline addNewDeadline(String line, int indexOfBy) throws EmptyDescriptionException {
+        if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
+            throw new FormatErrorException("missing /by parameter");
+        }
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
         int substringEnd = indexOfBy - Settings.BY_REAR_OFFSET;
         String description = line.substring(substringStart, substringEnd);
@@ -96,96 +78,57 @@ public class Parser {
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Deadline");
         }
-
-        Deadline newDeadline = new Deadline(description, byText);
-        tasks.add(newDeadline);
-        try {
-            fileSystem.appendTaskToFile(newDeadline);
-        } catch (IOException e) {
-            Console.printMessage("Unable to append Deadline to FS. IO Error occurred");
-        }
-        return newDeadline;
+        return new AddDeadlineCommand(description,byText);
     }
 
-    private void addTodo(String line) throws EmptyDescriptionException{
+    private AddTodoCommand addTodo(String line) throws EmptyDescriptionException{
         if (!line.contains("todo ")) {
             throw new EmptyDescriptionException("Todo");
         }
-        Todo newTodo = new Todo(line.substring(line.indexOf(" ")+Settings.SPACE_OFFSET));
-        tasks.add(newTodo);
-        try {
-            fileSystem.appendTaskToFile(newTodo);
-        } catch (IOException e) {
-            Console.printMessage("Unable to append Todo to FS. IO Error occurred");
-        }
-        Console.printAddedMessage(newTodo);
+
+        String description = line.substring(line.indexOf(" ")+Settings.SPACE_OFFSET);
+        return new AddTodoCommand(description);
     }
 
-    private void deleteEntry(String line) throws EmptyDescriptionException {
+    private DeleteCommand deleteEntry(String line) throws EmptyDescriptionException {
         if (!line.contains("delete ")) {
             throw new EmptyDescriptionException("delete");
         }
         int index = extractTaskIndex(line);
-
-        console.printDeletedMessage();
-        saveChangesToFileSystem();
+        return new DeleteCommand(index);
     }
 
-    private void markEntry(String line) throws EmptyDescriptionException {
+    private Command markEntry(String line) throws EmptyDescriptionException {
         if (!line.contains("mark ")) {
             throw new EmptyDescriptionException("mark");
         }
-        Task.markIndex = extractTaskIndex(line);
-        if (Task.markIndex <= 0 || Task.markIndex > Task.getTaskArraySize()) {
-            throw new IndexOutOfBoundsException();
-        }
+        int markIndex = extractTaskIndex(line);
         if (line.contains("unmark ")) {
-            tasks.get(Task.markIndex - 1).setMark(false);
-            console.printUnmarkedMessage();
+            return new UnmarkCommand(markIndex);
         } else {
-            tasks.get(Task.markIndex - 1).setMark(true);
-            console.printMarkedMessage();
+            return new MarkCommand(markIndex);
         }
-        saveChangesToFileSystem();
     }
 
-    public Command parseInput(String line) {
-        try{
-            if (line.equals("bye")) {
-                Console.printGoodbyeMessage();
-                return true;
-            } else if (line.equals("list")) {
-                console.printList();
-            } else if (line.contains("mark")) {
-                indexOperation(line, false);
-            } else if (line.contains("todo")) {
-                addTodo(line);
-            } else if (line.contains("deadline")) {
-                addDeadline(line);
-            } else if (line.contains("event")) {
-                addEvent(line);
-            } else if (line.contains("delete")) {
-                indexOperation(line, true);
-            } else {
-                throw new UnknownCommandException();
-            }
-        } catch (UnknownCommandException e) {
-            Console.printMessage("Error! Unknown Command, please try again!");
-        } catch (
-        FormatErrorException e) {
-            Console.printMessage("Error! Invalid Command Format, please try again!");
-        } catch (IndexOutOfBoundsException e) {
-            Console.printMessage("Error! Task " + Task.markIndex + " is out of bounds!");
-        } catch (NumberFormatException e) {
-            Console.printMessage("Error! Please input a valid number!");
-        } catch (
-        EmptyListException e) {
-            Console.printMessage("It seems that there are no tasks! Please consider adding some!");
-        } catch (
-        EmptyDescriptionException e) {
-            Console.printMessage("Error! Description of " + e.taskType + " cannot be empty!");
+    public Command parseInput(String line) throws IOException, ErikaException{
+        String errMsg = "";
+        if (line.equals("bye")) {
+            return new ExitCommand();
+        } else if (line.equals("list")) {
+            return new ListCommand();
+        } else if (line.contains("mark")) {
+           return markEntry(line);
+        } else if (line.contains("todo")) {
+            return addTodo(line);
+        } else if (line.contains("deadline")) {
+            return addDeadline(line);
+        } else if (line.contains("event")) {
+            return addEvent(line);
+        } else if (line.contains("delete")) {
+            return deleteEntry(line);
+        } else {
+            throw new UnknownCommandException();
         }
-        return false;
     }
 
 }
