@@ -1,10 +1,13 @@
 package niwa.command;
 
 import niwa.Niwa;
+import niwa.data.Storage;
 import niwa.data.task.*;
+import niwa.exception.NiwaDuplicateTaskException;
 
 import java.io.BufferedReader;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,43 +43,23 @@ public class ReadCommand extends Command{
     public void execute(String path) {
         super.execute(path);
 
-        Path filePath = Paths.get(arguments[0]);
-        Path directory = filePath.getParent();
+        String dataPath = arguments[0];
+        Storage storage = new Storage(dataPath);
+        ArrayList<Task> tasks = new ArrayList<>();
 
-        // Check if the directory exists
-        if (directory != null && !Files.exists(directory)) {
-            System.out.println(PREFIX+"Directory not found: " + directory);
-            return;
-        }
-
-        // Check if the file exists
-        if (!Files.exists(filePath)) {
-            System.out.println(PREFIX+"File not found: " + filePath);
-            return;
-        }
-
-        // Read the file and add to task list
-        try (BufferedReader reader = Files.newBufferedReader(filePath)){
-            String line;
-            // Read the file line by line
-            while ((line = reader.readLine()) != null) {
-                if (line.isEmpty()) continue;
-
-                Task temp = switch (line.charAt(0)) {
-                    case 'T' -> ToDo.parseTask(line);
-                    case 'D' -> Deadline.parseTask(line);
-                    case 'E' -> Event.parseTask(line);
-                    default -> null;
-                };
-
-                if(temp!=null) {
-                    TaskList.getInstance().addTask(temp);
-                    System.out.printf(PREFIX + "Adding %s... %s%n", temp.getType(), temp.getFullInfo());
-                }
-            }
-
+        try {
+            tasks = storage.loadTaskList();
         } catch (IOException e) {
-            System.out.println(PREFIX+"Error occurred when reading the file: " + e.getMessage());
+            System.out.println(PREFIX + e.getMessage());
+        }
+
+        for (Task task: tasks) {
+            try {
+                System.out.println(PREFIX + "Adding..." + task.getFileOutput());
+                TaskList.getInstance().addTask(task);
+            } catch (NiwaDuplicateTaskException e) {
+                System.out.println(PREFIX + e.getMessage());
+            }
         }
 
         if (!arguments[0].equals(Niwa.getOutputFilePath())) {

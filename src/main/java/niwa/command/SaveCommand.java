@@ -1,9 +1,11 @@
 package niwa.command;
 
+import niwa.data.Storage;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.nio.file.*;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -40,36 +42,15 @@ public class SaveCommand extends Command{
     public void execute(String path) {
         super.execute(path);
 
-        Path filePath = Paths.get(arguments[0]);
-        Path directory = filePath.getParent();
+        String dataPath = arguments[0];
+        Storage storage = new Storage(dataPath);
 
-        // Check if the directory exists
-        if (directory != null && !Files.exists(directory)) {
-            try {
-                // If the directory doesn't exist, create it
-                Files.createDirectories(directory);
-            } catch (IOException e) {
-                System.out.println(PREFIX+"Failed to create necessary directory: " + e.getMessage());
-                return;
-            }
-        }
         try {
-            // Create or clear the file
-            Files.write(filePath, new byte[0], StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            String message = storage.writeTaskList(TaskList.getInstance().getTaskList());
+            System.out.println(PREFIX+message);
         } catch (IOException e) {
-            System.out.println(PREFIX+"Failed to create necessary file: " + e.getMessage());
-            return;
+            System.out.println(PREFIX+e.getMessage());
         }
 
-        for (Task task: TaskList.getInstance().getTaskList()) {
-            try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND)){
-                writer.write(task.getFileOutput());
-                writer.newLine();
-            } catch (IOException e) {
-                System.out.println(PREFIX+"Failed to save to the file: " + e.getMessage());
-                return;
-            }
-        }
-        System.out.println(PREFIX+"Save completed!");
     }
 }
