@@ -1,14 +1,8 @@
 package nell;
 
-import nell.common.Messages;
 import nell.parser.Parser;
 import nell.storage.Storage;
-import nell.tasks.Deadline;
-import nell.tasks.Event;
-import nell.tasks.ToDo;
 import nell.ui.Ui;
-
-import java.util.Scanner;
 
 public class Nell {
     private static TaskList tasks = new TaskList();
