@@ -1,6 +1,6 @@
 package yapper.io;
 
-import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 
@@ -14,7 +14,7 @@ public class InputStringHandler {
     public static Instruction parseUserInput(String userInputString) throws YapperException {
         // User Input Validation
         try {
-            ErrorHandler.checkIfUserInputEmpty(userInputString);
+            ExceptionHandler.checkIfUserInputEmpty(userInputString);
         } catch (YapperException e) {
             System.out.println(e.getMessage()); //
         }
@@ -34,7 +34,7 @@ public class InputStringHandler {
         // User Input Validation
         String instructionArgs = userInputString.substring(splitAtIndex).trim();
         try {
-            ErrorHandler.checkIfUserInputArgsEmpty(instructionArgs);
+            ExceptionHandler.checkIfUserInputArgsEmpty(instructionArgs);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage()); //
         }
@@ -95,21 +95,21 @@ public class InputStringHandler {
     // TODO what to return?
     public static void validateTodoInstruction(String todoDesc) {
         try {
-            ErrorHandler.checkIfTodoArgsMissing(todoDesc);
+            ExceptionHandler.checkIfTodoArgsMissing(todoDesc);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
     }
     public static void validateDeadlineInstruction(String deadlineDesc, String deadlineDate) {
         try {
-            ErrorHandler.checkIfDeadlineArgsMissing(deadlineDesc, deadlineDate);
+            ExceptionHandler.checkIfDeadlineArgsMissing(deadlineDesc, deadlineDate);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }
     }
     public static void validateEventInstruction(String eventDesc, String startDate, String endDate) {
         try {
-            ErrorHandler.checkIfEventArgsMissing(eventDesc, startDate, endDate);
+            ExceptionHandler.checkIfEventArgsMissing(eventDesc, startDate, endDate);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
         }

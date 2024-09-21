@@ -1,7 +1,7 @@
 package yapper.instructions;
 
 import yapper.tasks.TaskHandler;
-import yapper.exceptions.ErrorHandler;
+import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.io.InputStringHandler;
 import yapper.io.OutputStringHandler;
@@ -16,9 +16,6 @@ import java.util.List;
 
 // Human-Yapper Interface
 public class InstructionHandler {
-    private static final int INDEX_OFFSET = 1; // list is 1-indexed
-
-    // UI Operations
     public static void handleListInstruction(List<Task> tasks, int taskCount) {
         try {
             ErrorHandler.checkIfListEmpty(taskCount);

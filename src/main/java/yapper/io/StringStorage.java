@@ -3,6 +3,10 @@ package yapper.io;
 // TODO: make more conversational
 // Contains strings for the Yapper program
 public class StringStorage {
+    // List Ordinal is 0-indexed, but Display is 1-indexed
+    public static final int INDEX_OFFSET = 1;
+
+    // For Output
     public static final String NOT_DONE_SYMBOL = " ";
     public static final String  IS_DONE_SYMBOL = "X";
     public static final String     TODO_SYMBOL = "T";

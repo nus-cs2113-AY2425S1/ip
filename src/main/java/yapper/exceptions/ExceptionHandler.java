@@ -2,7 +2,7 @@ package yapper.exceptions;
 
 import yapper.io.StringStorage;
 
-public class ErrorHandler {
+public class ExceptionHandler {
 
     // User Input Validation Errors
     public static void checkIfUserInputEmpty(String userInputString) throws YapperException {
