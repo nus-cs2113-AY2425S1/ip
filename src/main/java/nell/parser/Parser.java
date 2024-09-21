@@ -140,11 +140,47 @@ public class Parser {
      */
     public void parseCommand(String command) {
         String[] commandWords = command.split(" ", 2);
-        switch (commandWords[0]) {
+        switch (commandWords.length) {
+        case 1:
+            parseSingleWordCommand(command);
+            break;
+
+        case 2:
+            parseMultiWordCommand(commandWords);
+            break;
+
+        default:
+            handleIncorrectInput();
+            break;
+        }
+    }
+
+    /**
+     * Parses a given single-word command and executes it.
+     * If the command is invalid, prints a message that it is so.
+     *
+     * @param command The command word of the single-word command
+     */
+    private void parseSingleWordCommand(String command) {
+        switch (command) {
         case "list":
             listTasks();
             break;
 
+        default:
+            handleIncorrectInput();
+            break;
+        }
+    }
+
+    /**
+     * Parses a given multi-word command and executes it.
+     * If the command is invalid, prints a message that it is so.
+     *
+     * @param commandWords The command word and body of the multi-word command
+     */
+    private void parseMultiWordCommand(String[] commandWords) {
+        switch (commandWords[0]) {
         case "mark":
             try {
                 markTask(commandWords[1]);
