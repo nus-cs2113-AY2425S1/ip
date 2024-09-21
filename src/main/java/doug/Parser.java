@@ -155,7 +155,14 @@ public class Parser {
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
         }
-        int listIndex = Integer.parseInt(command);
+        int listIndex = -1;
+
+        try {
+            listIndex = Integer.parseInt(command);
+        } catch (NumberFormatException e) {
+            System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
+            return;
+        }
 
         try {
             tasks.checkOutOfBounds(listIndex);
@@ -178,7 +185,14 @@ public class Parser {
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
         }
-        int listIndex = Integer.parseInt(command);
+        int listIndex = -1;
+
+        try {
+            listIndex = Integer.parseInt(command);
+        } catch (NumberFormatException e) {
+            System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
+            return;
+        }
 
         try {
             tasks.checkOutOfBounds(listIndex);
@@ -201,7 +215,14 @@ public class Parser {
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
         }
-        int listIndex = Integer.parseInt(command);
+        int listIndex = -1;
+
+        try {
+            listIndex = Integer.parseInt(command);
+        } catch (NumberFormatException e) {
+            System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
+            return;
+        }
 
         try {
             tasks.checkOutOfBounds(listIndex);

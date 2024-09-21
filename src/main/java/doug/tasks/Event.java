@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class representing Event tasks
+ * Inherits from Task class
+ */
 public class Event extends Task{
     protected String from;
     protected String to;
@@ -41,6 +45,11 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Overload method to return a custom string representing the task
+     *
+     * @return String describing the task's details
+     */
     @Override
     public String toString(){
         String fromInString;
@@ -68,6 +77,11 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + fromInString + " to: " + toInString + ")";
     }
 
+    /**
+     * To return a custom string to be written in save file
+     *
+     * @return String describing the task's details in the proper format for save file
+     */
     @Override
     public String saveString() {
         String saveFromInString;

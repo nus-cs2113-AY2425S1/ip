@@ -13,17 +13,8 @@ import java.io.FileNotFoundException;
  */
 public class Doug {
 
-    public static void main(String[] args) {
+    public static void run(TaskList tasks) {
         boolean saidBye = false;
-        TaskList tasks = new TaskList();
-        UI.printLogo();
-
-        try {
-            Storage.loadTasks(tasks);
-        } catch (FileNotFoundException e) {
-            UI.sayNewUserWelcome();
-        }
-
         Scanner input = new Scanner(System.in);
 
         while (!saidBye) {
@@ -36,5 +27,19 @@ public class Doug {
         }
 
         UI.sayGoodbye();
+    }
+
+    public static void main(String[] args) {
+
+        TaskList tasks = new TaskList();
+        UI.printLogo();
+
+        try {
+            Storage.loadTasks(tasks);
+        } catch (FileNotFoundException e) {
+            UI.sayNewUserWelcome();
+        }
+
+        run(tasks);
     }
 }

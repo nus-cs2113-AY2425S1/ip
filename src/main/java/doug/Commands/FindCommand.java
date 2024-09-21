@@ -1,10 +1,20 @@
 package doug.Commands;
 
 import doug.TaskList;
-
 import static doug.UI.DASHED_LINE;
 
+/**
+ * Represents the actions of the Find command
+ * Tries to find and print all existing tasks that match the entered keyword
+ */
 public class FindCommand extends Command {
+
+    /**
+     * Checks all tasks in current ArrayList to see if they contain the keyword
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param keyword The word/phrase to find within existing tasks
+     */
     public static void findTask(TaskList tasks, String keyword) {
         boolean found = false;
         System.out.println(DASHED_LINE);

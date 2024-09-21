@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class representing Deadline tasks
+ * Inherits from Task class
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDateTime dateAndTime;
@@ -26,6 +30,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Overload method to return a custom string representing the task
+     *
+     * @return String describing the task's details
+     */
     @Override
     public String toString(){
         String dateInString;
@@ -42,6 +51,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + dateInString + ")";
     }
 
+    /**
+     * To return a custom string to be written in save file
+     *
+     * @return String describing the task's details in the proper format for save file
+     */
     @Override
     public String saveString() {
         String saveDateInString;
