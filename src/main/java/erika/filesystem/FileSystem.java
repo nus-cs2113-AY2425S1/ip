@@ -6,6 +6,7 @@ import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
 import erika.task.Todo;
+import erika.tasklist.TaskList;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -21,7 +22,6 @@ public class FileSystem {
     public FileSystem(String filePath, String separator) {
         this.filePath = filePath;
         this.separator = separator;
-        initializeFileSystem();
     }
 
     private void reinitFileSystem() {
@@ -36,7 +36,7 @@ public class FileSystem {
     public ArrayList<Task> initializeFileSystem() {
         ArrayList<Task> tasks = new ArrayList<>();
         try{
-            tasks = readFromFile();
+            readFromFile(tasks);
         } catch (FileNotFoundException e){
             printFileNotFoundMessage();
         } catch (FileFormatErrorException e) {
@@ -48,8 +48,7 @@ public class FileSystem {
         }
     }
 
-    public ArrayList<Task> readFromFile() throws FileNotFoundException, IOException, FileFormatErrorException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public void readFromFile(ArrayList<Task> tasks) throws FileNotFoundException, IOException, FileFormatErrorException {
         File f = new File(filePath);
         if(!f.exists()) {
             createDirectory(Settings.DIRECTORY);
@@ -61,7 +60,6 @@ public class FileSystem {
         while (s.hasNext()) {
             parseLine(tasks, s.nextLine(), lineNumber++);
         }
-        return tasks;
     }
 
     public void writeToFile(String textToAdd, boolean isAppend) throws IOException {
@@ -74,12 +72,9 @@ public class FileSystem {
         writeToFile(task.generateFileLine(),true);
     }
 
-    public void updateFileSystemWithLocalTasks(ArrayList<Task> tasks) throws IOException{
+    public void updateFileSystemWithLocalTasks(TaskList tasks) throws IOException{
         FileWriter fw = new FileWriter(filePath, false);
-        String res = "";
-        for (Task t : tasks) {
-            res += t.generateFileLine();
-        }
+        String res = tasks.printFileLine();
         fw.write(res);
         fw.close();
     }
