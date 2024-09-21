@@ -1,12 +1,25 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList; 
 
 public class AddList {
 
     private ArrayList<Task> tasks; 
+    public FileClass filePath; 
+    
     protected static final String SEPARATOR = "\t ___________________________"; 
 
-    public AddList() {
-        this.tasks = new ArrayList<>(); 
+    public AddList(FileClass filePath) {
+        this.filePath = filePath; 
+        try {
+            this.tasks = filePath.read();  // Attempt to read from the file
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Starting with an empty task list.");
+            this.tasks = new ArrayList<>();  // Initialize with an empty list if file is not found
+        }
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
     
     public void addTodo(String description) {
