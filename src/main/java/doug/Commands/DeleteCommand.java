@@ -3,13 +3,23 @@ package doug.Commands;
 import doug.Storage;
 import doug.TaskList;
 import doug.tasks.Task;
+import static doug.UI.DASHED_LINE;
 
 import java.io.IOException;
 
-import static doug.UI.DASHED_LINE;
-
+/**
+ * Represents the actions of the Delete command
+ * Removes the indicated task from the ArrayList of tasks
+ */
 public class DeleteCommand extends Command {
-    public static void deleteTask(TaskList tasks, int taskIndex) throws IOException {
+
+    /**
+     * Removes the selected task from the existing TaskList object
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param taskIndex The index of the task in the ArrayList to be deleted
+     */
+    public static void deleteTask(TaskList tasks, int taskIndex) {
         Task removedTask = tasks.getTask(taskIndex - 1);
         tasks.removeTask(taskIndex - 1);
 

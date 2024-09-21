@@ -1,5 +1,8 @@
 package doug;
 
+/**
+ * Class that deals with showing certain UI elements to the user
+ */
 public class UI {
     public static final String DASHED_LINE = "__________________________________________________________\n";
     private static final String hat = "                                    %,                         ,#.\n";
@@ -54,6 +57,9 @@ public class UI {
             + "Hope to see you around these parts again soon!\n"
             + DASHED_LINE;
 
+    /**
+     * Prints the Doug Dimmadome ASCII art to the CLI
+     */
     public static void printLogo() {
         for (int i = 0; i < hatHeight; i++) {
             System.out.println(hat);
@@ -61,14 +67,23 @@ public class UI {
         System.out.println(face);
     }
 
+    /**
+     * Prints the message to new users to the CLI
+     */
     public static void sayNewUserWelcome() {
         System.out.println(newWelcomeMessage);
     }
 
+    /**
+     * Prints the message to existing users to the CLI
+     */
     public static void sayExistingUserWelcome() {
         System.out.println(existingWelcomeMessage);
     }
 
+    /**
+     * Prints the closing message to the CLI
+     */
     public static void sayGoodbye() {
         System.out.println(goodbyeMessage);
     }
