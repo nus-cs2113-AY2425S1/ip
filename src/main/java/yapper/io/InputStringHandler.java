@@ -83,12 +83,12 @@ public class InputStringHandler {
             String endDate = dates[1].trim();
             validateEventInstruction(eventDesc, startDate, endDate);
             return new Instruction(Instruction.InstructionType.EVENT, eventDesc, startDate, endDate);
+        default:
+            // If none of the above code works, user input cannot be recognized
+            throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
+            // TODO is this how I should throw unrecognised exception error?
         }
         // TODO exception for incorrect arguments
-
-        // If none of the above code works, user input cannot be recognized
-        throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
-        // TODO is this how I should throw unrecognised exception error?
     }
 
 
