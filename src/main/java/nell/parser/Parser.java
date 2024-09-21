@@ -122,6 +122,7 @@ public class Parser {
     }
 
     /**
+     * Returns a Command object based upon a specified command keyword and index
      *
      * @param commandWord The specified command keyword
      * @param index The task index
