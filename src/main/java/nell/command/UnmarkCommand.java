@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command{
 
     /**
      * Executes task - marks a specified task as not done.
-     * If task is not in task list, informs user that the task is invalid.
+     * If the task is not in the task list, informs user that the task is invalid.
      */
     public void execute() {
         try {
