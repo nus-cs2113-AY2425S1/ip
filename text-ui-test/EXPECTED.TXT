@@ -26,7 +26,6 @@ What can I do for you?
    1. [T][X] buy bread
 -> Please input the command as follows:
       deadline <description> /by <by-date>
-
 -> The task has been added to the list:
    [D][ ] submit assignment (by: 3/9/2024 2359)
    The list now has 2 tasks
