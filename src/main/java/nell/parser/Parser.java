@@ -73,21 +73,15 @@ public class Parser {
         switch (commandWords[0]) {
         case "mark":
             try {
-                int taskIndex = Integer.parseInt(commandWords[1]);
-                return new MarkCommand(tasks, taskIndex);
+                return parseCommandWithIndex("mark", commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
-            } catch (NumberFormatException e) {
                 return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
             }
 
         case "unmark":
             try {
-                int taskIndex = Integer.parseInt(commandWords[1]);
-                return new UnmarkCommand(tasks, taskIndex);
+                return parseCommandWithIndex("unmark", commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
-            } catch (NumberFormatException e) {
                 return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
             }
 
@@ -114,16 +108,52 @@ public class Parser {
 
         case "remove":
             try {
-                int taskIndex = Integer.parseInt(commandWords[1]);
-                return new RemoveCommand(tasks, taskIndex);
+                return parseCommandWithIndex("remove", commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
-                return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
-            } catch (NumberFormatException e) {
                 return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
             }
 
         default:
             return new IncorrectCommand(tasks);
+        }
+    }
+
+    /**
+     *
+     * @param commandWord The specified command keyword
+     * @param index The task index
+     * @return Command object corresponding to command keyword
+     */
+    private Command parseCommandWithIndex(String commandWord, String index) {
+        try {
+            int taskIndex = Integer.parseInt(index);
+            switch (commandWord) {
+            case "mark":
+                return new MarkCommand(tasks, taskIndex);
+
+            case "unmark":
+                return new UnmarkCommand(tasks, taskIndex);
+
+            case "remove":
+                return new RemoveCommand(tasks, taskIndex);
+
+            default:
+                return new IncorrectCommand(tasks);
+            }
+        } catch (NumberFormatException e){
+            switch (commandWord) {
+            case "mark":
+                return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
+
+            case "unmark":
+                return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
+
+            case "remove":
+                return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
+
+            default:
+                return new IncorrectCommand(tasks);
+            }
         }
     }
 }
