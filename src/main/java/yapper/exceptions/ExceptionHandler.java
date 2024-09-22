@@ -106,18 +106,6 @@ public class ExceptionHandler {
         }
     }
 
-    // File Errors
-    public static void checkIfB() throws YapperException { // TODO rename
-        if (false) { // TODO condition
-            throw new YapperException(StringStorage.SAVING_ERROR_MESSAGE); // TODO message
-        }
-    }
-    public static void checkIfA() throws YapperException { // todo rename
-        if (false) { // TODO condition
-            throw new YapperException(StringStorage.LOADING_ERROR_MESSAGE); // TODO message
-        }
-    }
-
 //    public static void template() { // TODO rename
 //        if () { // TODO condition
 //            throw new YapperException("tba"); // TODO message

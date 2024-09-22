@@ -23,7 +23,10 @@ public class SaveFileHandler {
             fileWriter.close();
             System.out.println(StringStorage.AFTER_SAVING_STRING);
         } catch (IOException e) {
-            throw new YapperException("error occurred when saving task to file: " + e.getMessage()); // ?
+            throw new YapperException(
+                    StringStorage.SAVING_ERROR_MESSAGE +
+                    "error occurred when saving task to file: "
+                    + e.getMessage()); // ?
         }
     }
     public static void unstoreDeletedTask(int taskOrdinal) throws YapperException {
@@ -45,7 +48,10 @@ public class SaveFileHandler {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new YapperException("error occurred when deleting task from file: " + e.getMessage());
+            throw new YapperException(
+                    StringStorage.SAVING_ERROR_MESSAGE
+                    + "error occurred when deleting task from file: "
+                    + e.getMessage());
         }
     }
     public static void amendTaskStatus(Task task, int taskOrdinal) throws YapperException {
@@ -67,7 +73,10 @@ public class SaveFileHandler {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new YapperException("error occurred when amending task status in file: " + e.getMessage());
+            throw new YapperException(
+                    StringStorage.SAVING_ERROR_MESSAGE +
+                    "error occurred when amending task status in file: "
+                    + e.getMessage());
         }
     }
 
@@ -91,6 +100,7 @@ public class SaveFileHandler {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
+            System.out.println(StringStorage.LOADING_ERROR_MESSAGE);
             System.out.println("File not found. Starting with an empty task list."); // ?
         }
 
