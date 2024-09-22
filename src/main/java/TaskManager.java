@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-import sleepy.task.Deadline;
-import sleepy.task.Event;
-import sleepy.task.Task;
-import sleepy.task.Todo;
-=======
->>>>>>> parent of 5e6721d (Merge branch 'A-Packages')
+import sleepy.Task.Deadline;
+import sleepy.Task.Event;
+import sleepy.Task.Task;
+import sleepy.Task.Todo;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -19,16 +17,14 @@ public class TaskManager {
         return tasks;
     }
 
-    public void addTask(String input) throws SleepyException{
+    public void addTask(String input) throws SleepyException {
         if (input.startsWith("event")) {
-            //checks if there is anything after from
             String[] parts = input.substring(5).split(" /from ");
             if (parts.length != 2) {
                 throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
             }
 
             String description = parts[0].trim();
-            //checks if there is anything after to
             String[] toParts = parts[1].split(" /to ");
             if (toParts.length != 2 || toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
                 throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
@@ -51,20 +47,29 @@ public class TaskManager {
         }
 
         if (input.startsWith("deadline")) {
-            String[] parts = input.substring(8).split(" /by ");
-            //checks if there is anything after by
-            if (parts.length != 2) {
-                throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
-            }
+            addDeadline(input);
+            return;
+        }
 
-            String description = parts[0].trim();
+        if (input.startsWith("todo")) {
+            String description = input.substring(4).trim();
             if (description.isEmpty()) {
-                throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. "
-                        + "Please use: deadline description /by date\n");
-
+                throw new SleepyException("Invalid todo format. sleepy.Task.Todo description cannot be empty\n");
             }
+            Task task = new Todo(description);
+            tasks.add(task);
+            System.out.println(LINE_SEPARATOR
+                    + "added...\n"
+                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
+                    + LINE_SEPARATOR);
+            return;
+        }
 
-<<<<<<< HEAD
+        throw new SleepyException("Unknown command. "
+                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+    }
+
     private void addDeadline(String input) throws SleepyException {
         String[] parts = input.substring(8).split(" /by ");
         if (parts.length != 2) {
@@ -79,37 +84,12 @@ public class TaskManager {
 
         String by = parts[1].trim();
         Task task = new Deadline(description, by);
-        addTaskToList(task);
-    }
-=======
-            String by = parts[1].trim();
-            Task task = new Deadline(description, by);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
-            return;
-        }
->>>>>>> parent of 5e6721d (Merge branch 'A-Packages')
-
-        if (input.startsWith("todo")) {
-            String description = input.substring(4).trim();
-            if (description.isEmpty()) {
-                throw new SleepyException("Invalid todo format. Todo description cannot be empty\n");
-            }
-            Task task = new Todo(description);
-            tasks.add(task);
-            System.out.println(LINE_SEPARATOR
-                    + "added...\n"
-                    + " " + tasks.get(tasks.size() - 1).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
-                    + LINE_SEPARATOR);
-            return;
-        }
-        throw new SleepyException("Unknown command. "
-                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+        tasks.add(task);
+        System.out.println(LINE_SEPARATOR
+                + "added...\n"
+                + " " + tasks.get(tasks.size() - 1).toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list...all the best, im going back to bed\n"
+                + LINE_SEPARATOR);
     }
 
     public void deleteTask(int taskIndex) throws SleepyException {
@@ -148,7 +128,7 @@ public class TaskManager {
                     + " " + tasks.get(taskNumber - 1).toString() + "\n"
                     + LINE_SEPARATOR);
         } else {
-            throw new SleepyException("this task doesn't even exist...\n");
+            throw new SleepyException("This task doesn't even exist...\n");
         }
     }
 
@@ -160,7 +140,7 @@ public class TaskManager {
                     + " " + tasks.get(taskNumber - 1).toString() + "\n"
                     + LINE_SEPARATOR);
         } else {
-            throw new SleepyException("ummm...the task doesn't even exist...maybe you should get some sleep\n");
+            throw new SleepyException("Ummm...the task doesn't even exist...maybe you should get some sleep\n");
         }
     }
 
@@ -172,13 +152,13 @@ public class TaskManager {
         System.out.println(LINE_SEPARATOR
                 + "Here are the matching tasks in your list:");
 
-        //a flag to track whether any tasks for found
         boolean taskFound = false;
         int taskIndex = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 System.out.println(taskIndex + ". " + task);
                 taskFound = true;
+                taskIndex++;
             }
         }
 

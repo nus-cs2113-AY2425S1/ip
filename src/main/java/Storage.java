@@ -1,3 +1,8 @@
+import sleepy.Task.Deadline;
+import sleepy.Task.Event;
+import sleepy.Task.Task;
+import sleepy.Task.Todo;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
