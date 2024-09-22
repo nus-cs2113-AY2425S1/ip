@@ -40,7 +40,7 @@ import java.util.ArrayList;
                 tasks.get(index).markTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Well Done! 1 task down, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE+ "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
+                System.out.println(StringDesign.SPACE+ tasks.get(index).toString());
             } else {
                 System.out.println(StringDesign.SPACE+ "Invalid task number.");
             }
@@ -52,7 +52,7 @@ import java.util.ArrayList;
                 tasks.get(index).unmarkTask();
                 int remainingTask = countUnmarkedTasks();
                 System.out.println(StringDesign.SPACE + "Hmmm, not quite done yet, " + remainingTask + " to go.");
-                System.out.println(StringDesign.SPACE + "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
+                System.out.println(StringDesign.SPACE + tasks.get(index).toString());
             } else {
                 System.out.println(StringDesign.SPACE + "Invalid task number.");
             }
@@ -68,7 +68,7 @@ import java.util.ArrayList;
                     remainingTask = countUnmarkedTasks() -1;
                 }
                 System.out.println(StringDesign.SPACE + "Task is removed." + " Pending task: " + remainingTask);
-                System.out.println(StringDesign.SPACE + "[" + tasks.get(index).getType() + "][" + tasks.get(index).getMarkedStatus() + "] " + tasks.get(index).getDescription());
+                System.out.println(StringDesign.SPACE + tasks.get(index).toString());
                 tasks.remove(index);
                 size--;
             }
