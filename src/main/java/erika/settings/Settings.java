@@ -1,5 +1,7 @@
 package erika.settings;
-
+/**
+ * Represents a Settings object used to store all constants
+ */
 public class Settings {
     public static final int FROM_LENGTH_OFFSET = 6;
     public static final int TO_LENGTH_OFFSET = 4;
