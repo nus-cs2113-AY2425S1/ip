@@ -5,7 +5,7 @@ import nell.TaskList;
 /**
  * Represents an executable find command
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String keyword;
 
     /**

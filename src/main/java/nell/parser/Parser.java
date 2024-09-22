@@ -5,6 +5,7 @@ import nell.command.Command;
 import nell.command.DeadlineCommand;
 import nell.command.EventCommand;
 import nell.command.IncorrectCommand;
+import nell.command.FindCommand;
 import nell.command.ListCommand;
 import nell.command.MarkCommand;
 import nell.command.RemoveCommand;
