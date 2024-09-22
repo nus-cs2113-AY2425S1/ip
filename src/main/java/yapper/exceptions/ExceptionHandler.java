@@ -5,9 +5,12 @@ import yapper.io.StringStorage;
 public class ExceptionHandler {
 
     // User Input Validation Errors
-    public static void checkIfUserInputEmpty(String userInputString) throws YapperException {
-        if (userInputString.isEmpty()) {
-            throw new YapperException("no command given"); // TODO
+    public static void checkIfUserInputEmpty(String userInputString, boolean isAboutArgs) throws YapperException {
+        // Boolean is to differentiate between exceptions
+        if (userInputString.isEmpty() && !isAboutArgs) {
+            throw new YapperException("did you say something?"); // TODO
+        } else if ( userInputString.isEmpty() ) {
+            throw new YapperException("Absence of Instruction Arguments"); // TODO
         }
     }
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {

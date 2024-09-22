@@ -23,6 +23,7 @@ public class Yapper {
                 StringStorage.printWithDividers(
                     StringStorage.BYE_INSTRUCTION_PREFIX
                     + " does not need other parameters");
+                continue;
             }
             InstructionHandler.handleInstruction(taskHandler, userInputString);
         }
@@ -31,7 +32,7 @@ public class Yapper {
 
     // Program Start/End with Startup/Shutdown Messages respectively
     public static void main(String[] args) {
-        // Initialize
+        // Pre-Program Message
 //        TaskHandler taskHandler = new TaskHandler();
         TaskHandler taskHandler = SaveFileHandler.loadTasks();
         if (taskHandler.getCurrTaskTotal() == 0) {
@@ -39,13 +40,15 @@ public class Yapper {
             System.out.println(StringStorage.START_UP_MESSAGE);
             System.out.println(StringStorage.LINE_DIVIDER);
             System.out.println(StringStorage.HELP_MESSAGE);
-            System.out.println(StringStorage.LINE_DIVIDER_INPUT);
         } else {
             System.out.println("let us resume where we left off, shall we?");
         }
+        System.out.println(StringStorage.LINE_DIVIDER_INPUT);
+
         // Startup ChatBot Program
         startYappin(taskHandler);
 
+        // Post-Program Message
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
         System.out.println(StringStorage.LINE_DIVIDER);

@@ -80,7 +80,7 @@ public class InstructionHandler {
     public static void handleInstruction(TaskHandler taskHandler, String userInputString) {
         Instruction instruction = null;
         try {
-            instruction = InputStringHandler.parseUserInput(userInputString);
+            instruction = InputStringHandler.parseUserInput(userInputString.trim());
         } catch (YapperException e) {
             StringStorage.printWithDividers(
                     "cannot handle instruction because: \n" + e.getMessage());

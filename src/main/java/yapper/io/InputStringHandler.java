@@ -11,22 +11,20 @@ public class InputStringHandler {
     public static Instruction parseUserInput(String userInputString) throws YapperException {
         // Check if User Input Empty
         try {
-            userInputString = userInputString.trim();
-            ExceptionHandler.checkIfUserInputEmpty(userInputString);
+            ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             // Handle 1-Argument Instructions: Instruction
-            if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX)) ) {
-                if (userInputString.trim() != StringStorage.LIST_INSTRUCTION_PREFIX) {
+            if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
+                if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                     throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
             }
-            int splitAtIndex = userInputString.indexOf(' ');
-            String instructionType = (splitAtIndex == -1) ?
-                    userInputString : userInputString.substring(0, splitAtIndex);
-            // how do i get rid of the 2 lines above while still checking if args missing?
-            String instructionArgs = userInputString.substring(splitAtIndex).trim();
-            ExceptionHandler.checkIfUserInputEmpty(instructionArgs);
+            String[] instructionParts = userInputString.split(" ", 2);
+            String instructionType = instructionParts[0];
+            String instructionArgs = instructionParts.length > 1
+                    ? instructionParts[1].trim() : "";
+            ExceptionHandler.checkIfUserInputEmpty(instructionArgs, true);
 
             switch (instructionType) {
             case StringStorage.TODO_INSTRUCTION_PREFIX:
@@ -60,13 +58,15 @@ public class InputStringHandler {
             case StringStorage.MARK_INSTRUCTION_PREFIX:
             case StringStorage.UNMARK_INSTRUCTION_PREFIX:
                 int taskOrdinal = Integer.parseInt( instructionArgs.trim() );
-                Instruction.InstructionType type = instructionType.equals(StringStorage.MARK_INSTRUCTION_PREFIX)
-                                                 ? Instruction.InstructionType.MARK
-                                                 : Instruction.InstructionType.UNMARK;
+                Instruction.InstructionType type = instructionType.equals(
+                        StringStorage.MARK_INSTRUCTION_PREFIX)
+                        ? Instruction.InstructionType.MARK
+                        : Instruction.InstructionType.UNMARK;
                 return new Instruction(type, taskOrdinal);
             default:
                 // If none of the above code works, user input cannot be recognized
-                throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
+                throw new YapperException(
+                        StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
             }
         } catch (YapperException e) {
             throw new YapperException(
