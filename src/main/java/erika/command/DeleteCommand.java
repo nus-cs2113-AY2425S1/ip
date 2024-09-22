@@ -35,6 +35,11 @@ public class DeleteCommand extends Command{
      */
 
     private void deleteTask(TaskList tasks, int index) throws OutOfBoundsException {
+        if (index == -1) {
+            tasks.deleteAll();
+            Console.printMessage("All tasks deleted. There are now 0 tasks");
+            return;
+        }
         if (index < 1 || index > TaskList.getTaskArraySize()) {
             throw new OutOfBoundsException();
         }
