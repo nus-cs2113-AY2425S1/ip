@@ -115,4 +115,12 @@ public class Ui {
     public static void printSeparator() {
         System.out.println("  " + DASH_LINE);
     }
+
+    public static void showMessage(String message) {
+        System.out.println("    " + message);
+    }
+
+    public static void printTask(int taskNumber, Task task) {
+        System.out.println("    " + taskNumber + "." + task);
+    }
 }

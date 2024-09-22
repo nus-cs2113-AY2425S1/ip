@@ -149,6 +149,38 @@ public class TaskList {
         }
     }
 
+
+   
+    /**
+     * Finds tasks in the task list that contain the specified keyword in their descriptions.
+     * 
+     * @param line The command line input that contains the 'find' command and the keyword.
+     * @param ui The Ui object used to print messages and task details to the user.
+     */
+    public void findTasks(String line, Ui ui) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        String keyword = line.substring(line.indexOf("find") + 5).trim();
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            ui.printSeparator();
+            ui.showMessage("Dobby found no tasks containing: " + keyword);
+            ui.printSeparator();
+        } else {
+            ui.printSeparator();
+            ui.showMessage("Here are the matching tasks in master's list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                ui.printTask(i+1, matchingTasks.get(i));
+            }
+            ui.printSeparator();
+        }
+    }
+
     /**
      * Validates whether the task number provided is within the bounds of the task list.
      *
