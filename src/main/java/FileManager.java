@@ -1,17 +1,29 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    public static final String FILE_NAME = "yappatron.txt";
-
-    public static void createFile(){
+    public static final String FILE_NAME = "./data/yappatron.txt";
+    private static File f;
+    public FileManager(){
+        f = new File(FILE_NAME);
+    }
+    public File getFile(){
+        return f;
+    }
+    public void createFile(){
         try {
-            File f = new File(FILE_NAME);
-            if (f.createNewFile()) {
-                System.out.println("File has been created successfully");
+
+            if (f.exists()) {
+                System.out.println("This file exists");
+                return;
             }
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs();
+            }
+            f.createNewFile();
         }catch (IOException e){
             System.out.println("An error occured");
             e.printStackTrace();
@@ -19,8 +31,7 @@ public class FileManager {
     }
 
 
-    public static void printFile(String filepath) throws FileNotFoundException {
-        File f = new File(filepath);
+    public void printFile() throws FileNotFoundException {
         Scanner s = new Scanner(f);
         while (s.hasNext()){
             String line = s.nextLine();
@@ -50,7 +61,7 @@ public class FileManager {
                 int indexOfTo = line.lastIndexOf("to");
                 String activity = line.substring(line.lastIndexOf("]")+2, indexOfFrom-1);
                 String by = line.substring(indexOfFrom + 6, indexOfTo-1);
-                String to = line.substring(indexOfTo+2, line.length()-1);
+                String to = line.substring(indexOfTo+3, line.length()-1);
                 Events event = new Events(activity.trim(), by.trim(), to.trim());
                 Yappatron.taskArray.add(event);
                 if (line.contains("[X]")){
@@ -60,5 +71,19 @@ public class FileManager {
         }
     }
 
+    public void writeFile() throws IOException{
 
-}
+        FileWriter fileWriter = new FileWriter(FILE_NAME);
+
+        for (int i=0; i<Yappatron.taskArray.size(); i++){
+            fileWriter.write(Yappatron.taskArray.get(i).toString() + System.lineSeparator());
+        }
+        fileWriter.close();
+
+        }
+
+    }
+
+
+
+

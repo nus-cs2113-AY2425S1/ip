@@ -1,23 +1,17 @@
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 public class Yappatron {
-    public static final String FILE_NAME = "yappatron.txt";
-
-//    public static final int MAX_TASKS = 100;
-//    public static int taskNumber = 0;
     public static ArrayList<Task> taskArray = new ArrayList<>();
-
     public static void main(String[] args) {
+        FileManager fileManager = new FileManager();
         System.out.println("Hello! I'm Yappatron");
         System.out.println("What can I do for you?");
         try{
-            FileManager.printFile(FILE_NAME);
+            fileManager.printFile();
         }catch (FileNotFoundException e){
-            FileManager.createFile();
+            fileManager.createFile();
         }
         Scanner in = new Scanner(System.in);
         String input;
@@ -78,12 +72,7 @@ public class Yappatron {
         }while (exitStatus==0);
 
         try {
-            FileWriter fileWriter = new FileWriter(FILE_NAME);
-
-            for (int i=0; i<taskArray.size(); i++){
-                fileWriter.write(taskArray.get(i).toString() + System.lineSeparator());
-            }
-            fileWriter.close();
+            fileManager.writeFile();
         }catch (IOException e){
             System.out.println("Error occured while writing!");
             e.printStackTrace();
