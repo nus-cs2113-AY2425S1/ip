@@ -6,6 +6,9 @@ import nova.exception.InsufficientSpaceException;
 import nova.exception.InvalidInputException;
 import nova.task.Event;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a command to create an Event task.
  * This command allows the user to specify a task description, a start time, and an end time.
@@ -16,11 +19,12 @@ public class EventCommand extends Command {
      * The command word for the Event command.
      */
     public static final String COMMAND_WORD = "event";
+    private static final String EVENT_USAGE = "Usage: event <task description> /from <start date> /to <end date>.";
 
-    /**
-     * The usage instructions for the Event command.
-     */
-    private static final String EVENT_USAGE = "Usage: event <task description> /from <start time> /to <end time>.";
+    private static String description;
+    private static LocalDate from;
+    private static LocalDate to;
+
 
     /**
      * Executes the Event command by validating input, checking space,
@@ -30,11 +34,10 @@ public class EventCommand extends Command {
      * @param taskManager The TaskList instance managing tasks.
      */
     public static void execute(String[] inputs, TaskList taskManager) {
-        String[] validatedInput;
         try {
-            validatedInput = validateEventInput(inputs);
+            validateEventInput(inputs);
             taskManager.checkSpace();
-            taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
+            taskManager.addTask(new Event(description, from, to));
         } catch (InvalidInputException e) {
             Ui.displayInvalidInputMessage(e.getMessage(), EVENT_USAGE);
         } catch (InsufficientSpaceException e) {
@@ -42,15 +45,7 @@ public class EventCommand extends Command {
         }
     }
 
-    /**
-     * Validates the input for creating an Event task.
-     * Ensures that the input has the correct format and contains necessary components.
-     *
-     * @param inputs The input arguments provided by the user.
-     * @return An array containing the task description, start time, and end time.
-     * @throws InvalidInputException If the input format is invalid.
-     */
-    protected static String[] validateEventInput(String[] inputs) {
+    protected static void validateEventInput(String[] inputs) {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }
@@ -68,6 +63,12 @@ public class EventCommand extends Command {
         if (eventDetails.length != 2) {
             throw new InvalidInputException("Description/start/end not entered.");
         }
-        return new String[]{splitInput[0], eventDetails[0], eventDetails[1]};
+        description = splitInput[0];
+        try {
+            from = LocalDate.parse(eventDetails[0]);
+            to = LocalDate.parse(eventDetails[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }

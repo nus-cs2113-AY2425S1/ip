@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+D | X | abc | 2019-12-01
+T |   | todo abc
+E |   | lask | 2019-12-01 | 2019-12-12
+=======
 T | X | abc
 D | X | dsa | sadka
 E |   | sald | asj | ald
 T |   | apple or
 T |   | le o
+>>>>>>> origin/master

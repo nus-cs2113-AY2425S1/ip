@@ -1,30 +1,15 @@
 package nova.task;
 
-/**
- * Represents an Event task that extends the base Task class.
- * An Event task has a description, a completion status, and start and end times.
- */
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    /**
-     * The start time of the Event.
-     */
-    String from;
+    LocalDate from;
+    LocalDate to;
 
-    /**
-     * The end time of the Event.
-     */
-    String to;
-
-    /**
-     * Constructs a new Event task with the specified description, start time, and end time.
-     * The task is initially not done, and an acknowledgement message is printed.
-     *
-     * @param description The description of the Event task.
-     * @param from       The start time of the Event task.
-     * @param to         The end time of the Event task.
-     */
-    public Event(String description, String from, String to) {
+    public Event (String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -42,8 +27,8 @@ public class Event extends Task {
      */
     public Event(String isDone, String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
         if (isDone.equals("X")) {
             this.isDone = true;
         }
@@ -56,7 +41,9 @@ public class Event extends Task {
      */
     @Override
     public String getTaskInfo() {
-        return "[E][" + this.getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[E][" + this.getStatusIcon() + "] " + description
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -68,4 +55,12 @@ public class Event extends Task {
     public String getTaskStorageInfo() {
         return "E" + DIVIDER + this.getStatusIcon() + DIVIDER + description + DIVIDER + from + DIVIDER + to;
     }
+
+    public boolean isDate(LocalDate date) {
+        if (date.isBefore(from) || date.isAfter(to)) {
+            return false;
+        }
+        return true;
+    }
+
 }

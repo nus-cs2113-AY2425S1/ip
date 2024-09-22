@@ -4,6 +4,7 @@ import nova.exception.InsufficientSpaceException;
 import nova.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -130,6 +131,10 @@ public class TaskList {
      */
     public String getTaskInfo(int i) {
         return tasks.get(i).getTaskInfo();
+    }
+
+    public boolean isDate(int i, LocalDate localDate) {
+        return tasks.get(i).isDate(localDate);
     }
 
     public boolean doesContain(int i, String phrase) {

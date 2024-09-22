@@ -37,7 +37,7 @@ public class Parser {
             return ExitCommand.execute();
 
         case ListCommand.COMMAND_WORD:
-            ListCommand.execute(taskManager);
+            ListCommand.execute(inputs, taskManager);
             break;
 
         case MarkAndUnmarkCommand.COMMAND_WORD1:

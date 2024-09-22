@@ -2,25 +2,14 @@ package nova.task;
 
 import nova.Storage;
 
-/**
- * Represents a Deadline task that extends the base Task class.
- * A Deadline task has a description, a completion status, and a due date.
- */
-public class Deadline extends Task {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    /**
-     * The due date for the Deadline task.
-     */
-    String by;
+public class Deadline extends Task{
 
-    /**
-     * Constructs a new Deadline task with the specified description and due date.
-     * The task is initially not done, and an acknowledgement message is printed.
-     *
-     * @param description The description of the Deadline task.
-     * @param by          The due date for the Deadline task.
-     */
-    public Deadline(String description, String by) {
+    LocalDate by;
+
+    public Deadline (String description, LocalDate by) {
         super(description);
         this.by = by;
         printAcknowledgementMessage(getTaskInfo());
@@ -36,7 +25,7 @@ public class Deadline extends Task {
      */
     public Deadline(String isDone, String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
         if (isDone.equals("X")) {
             this.isDone = true;
         }
@@ -49,7 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskInfo() {
-        return "[D][" + this.getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[D][" + this.getStatusIcon() + "] " + description + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -60,5 +49,12 @@ public class Deadline extends Task {
     @Override
     public String getTaskStorageInfo() {
         return "D" + DIVIDER + this.getStatusIcon() + DIVIDER + description + DIVIDER + by;
+    }
+
+    public boolean isDate(LocalDate date) {
+        if (by.equals(date)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -6,10 +6,14 @@ import nova.exception.InsufficientSpaceException;
 import nova.exception.InvalidInputException;
 import nova.task.Deadline;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a command to create a Deadline task.
  * This command allows the user to specify a task description and a due date.
  */
+
 public class DeadlineCommand extends Command {
 
     /**
@@ -22,6 +26,9 @@ public class DeadlineCommand extends Command {
      */
     private static final String DEADLINE_USAGE = "Usage: deadline <task description> /by <due date>.";
 
+    private static String description;
+    private static LocalDate by;
+
     /**
      * Executes the Deadline command by validating input, checking space,
      * and adding a new Deadline task to the task manager.
@@ -29,12 +36,12 @@ public class DeadlineCommand extends Command {
      * @param inputs     The input arguments provided by the user.
      * @param taskManager The TaskList instance managing tasks.
      */
+
     public static void execute(String[] inputs, TaskList taskManager) {
-        String[] validatedInput;
         try {
-            validatedInput = validateDeadlineInput(inputs);
+            validateDeadlineInput(inputs);
             taskManager.checkSpace();
-            taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
+            taskManager.addTask(new Deadline(description, by));
         } catch (InvalidInputException e) {
             Ui.displayInvalidInputMessage(e.getMessage(), DEADLINE_USAGE);
         } catch (InsufficientSpaceException e) {
@@ -42,15 +49,14 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    /**
+        /**
      * Validates the input for creating a Deadline task.
      * Ensures that the input has the correct format and contains necessary components.
      *
      * @param inputs The input arguments provided by the user.
-     * @return An array containing the task description and due date.
      * @throws InvalidInputException If the input format is invalid.
      */
-    protected static String[] validateDeadlineInput(String[] inputs) throws InvalidInputException {
+    protected static void validateDeadlineInput(String[] inputs) throws InvalidInputException {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }
@@ -61,6 +67,11 @@ public class DeadlineCommand extends Command {
         if (splitInput.length != 2) {
             throw new InvalidInputException("Description/deadline not entered.");
         }
-        return splitInput;
+        description = splitInput[0];
+        try {
+            by = LocalDate.parse(splitInput[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }

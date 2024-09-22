@@ -2,6 +2,9 @@ package nova.task;
 
 import nova.Ui;
 
+
+import java.time.LocalDate;
+
 /**
  * Represents a generic task with a description and a completion status.
  * Provides methods to mark tasks as done, retrieve task information, and manage the total number of tasks.
@@ -115,6 +118,11 @@ public class Task {
      */
     public String getTaskStorageInfo() {
         return "";
+    }
+
+
+    public boolean isDate(LocalDate date) {
+        return false;
     }
 
     public boolean doesContain(String phrase) {

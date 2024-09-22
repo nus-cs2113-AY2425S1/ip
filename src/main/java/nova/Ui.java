@@ -58,7 +58,7 @@ public class Ui {
      */
     public static void displayInvalidInputMessage() {
         displayMessage("Invalid input. Please use one of the following commands:" + NEW_LINE +
-                "1. list" + NEW_LINE +
+                "1. list [yyyy-mm-dd]" + NEW_LINE +
                 "2. mark <task number>" + NEW_LINE +
                 "3. unmark <task number>" + NEW_LINE +
                 "4. todo <task description>" + NEW_LINE +
