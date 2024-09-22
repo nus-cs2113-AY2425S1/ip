@@ -2,10 +2,9 @@ package TheThinker.Command;
 
 import TheThinker.Exceptions.FormattingException;
 import TheThinker.NewFile.NewFile;
-import TheThinker.Tasks.Task;
+import TheThinker.Tasks.TaskList;
 import TheThinker.Parser.UserInputParser;
 import TheThinker.Ui.UiControl;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -78,29 +77,29 @@ public class TheThinker{
 
             case "mark":
                 int numberToMark = UserInputParser.parseNumberAfterTask();
-                Task.setAsDone(numberToMark);
+                TaskList.setAsDone(numberToMark);
                 break;
 
             case "unmark":
                 int numberToUnmark = UserInputParser.parseNumberAfterTask();
-                Task.setAsNotDone(numberToUnmark);
+                TaskList.setAsNotDone(numberToUnmark);
                 break;
 
             case "delete" :
                 int numberToDelete = UserInputParser.parseNumberAfterTask();
-                Task.deleteTask(numberToDelete);
+                TaskList.deleteTask(numberToDelete);
                 break;
 
             case "todo":
-                Task.addTask(UserInputParser.parseTodo());
+                TaskList.addTask(UserInputParser.parseTodo());
                 break;
 
             case "event":
-                Task.addTask(UserInputParser.parseEvent());
+                TaskList.addTask(UserInputParser.parseEvent());
                 break;
 
             case "deadline":
-                Task.addTask(UserInputParser.parseDeadline());
+                TaskList.addTask(UserInputParser.parseDeadline());
                 break;
 
             case "bye":
@@ -108,7 +107,7 @@ public class TheThinker{
                 break;
 
             case "list":
-                Task.listTasks();
+                TaskList.listTasks();
                 break;
 
             case "help":

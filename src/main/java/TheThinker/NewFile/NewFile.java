@@ -3,6 +3,7 @@ package TheThinker.NewFile;
 import TheThinker.Tasks.Deadline;
 import TheThinker.Tasks.Event;
 import TheThinker.Tasks.Task;
+import TheThinker.Tasks.TaskList;
 import TheThinker.Tasks.Todo;
 import TheThinker.Ui.UiControl;
 
@@ -43,28 +44,28 @@ public class NewFile {
 
         System.out.println("File data loaded");
         UiControl.printSeparation();
-        Task.listTasks();
+        TaskList.listTasks();
     }
 
     public void addTaskAccordingToFileData(String[] parameters){
         switch (parameters[0]) {
             case "T" :
-                Task.addTaskWithoutResponse(new Todo(parameters[2]));
+                TaskList.addTaskWithoutResponse(new Todo(parameters[2]));
                 if(Boolean.parseBoolean(parameters[1])){
-                    Task.setAsDone(Task.listLength);
+                    TaskList.setAsDone(TaskList.listLength);
                 }
                 break;
             case "E" :
-                Task.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
+                TaskList.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
                 if(Boolean.parseBoolean(parameters[1])){
-                    Task.setAsDone(Task.listLength);
+                    TaskList.setAsDone(TaskList.listLength);
                 }
                 break;
 
             case "D" :
-                Task.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
+                TaskList.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
                 if(Boolean.parseBoolean(parameters[1])){
-                    Task.setAsDone(Task.listLength);
+                    TaskList.setAsDone(TaskList.listLength);
                 }
                 break;
 
@@ -83,7 +84,7 @@ public class NewFile {
 
     public String convertTaskListToString(){
         StringBuilder TaskListString = new StringBuilder();
-        for(Task task : Task.listOfTasks) {
+        for(Task task : TaskList.listOfTasks) {
             String taskInFileFormat = task.convertToFileFormat();
             TaskListString.append(taskInFileFormat).append("\n");
         }
