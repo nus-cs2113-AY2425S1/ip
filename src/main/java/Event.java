@@ -1,6 +1,4 @@
-package sleepy.task;
-
-public class Event extends Task {
+public class Event extends Task{
 
     protected String from;
     protected String to;
