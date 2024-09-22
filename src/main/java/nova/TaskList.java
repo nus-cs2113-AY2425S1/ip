@@ -66,6 +66,10 @@ public class TaskList {
     }
 
     public String getTaskInfo(int i) {
-        return tasks.get(i).getTaskStorageInfo();
+        return tasks.get(i).getTaskInfo();
+    }
+
+    public boolean doesContain(int i, String phrase) {
+        return tasks.get(i).doesContain(phrase);
     }
 }

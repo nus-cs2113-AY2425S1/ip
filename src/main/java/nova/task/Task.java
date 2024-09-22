@@ -51,4 +51,8 @@ public class Task {
         return "";
     }
 
+    public boolean doesContain(String phrase) {
+        return description.contains(phrase);
+    }
+
 }

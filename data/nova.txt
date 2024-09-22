@@ -1,3 +1,5 @@
 T | X | abc
 D | X | dsa | sadka
 E |   | sald | asj | ald
+T |   | apple or
+T |   | le o
