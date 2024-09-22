@@ -1,4 +1,4 @@
-package TheThinker.NewFile;
+package TheThinker.File;
 
 import TheThinker.Tasks.Deadline;
 import TheThinker.Tasks.Event;

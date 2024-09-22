@@ -23,7 +23,6 @@ public class UserInputParser {
 
     public static Task parseTodo() throws FormattingException {
 
-        String taskType = userInput.substring(0 , LENGTH_OF_TODO);
         String taskDescription = userInput.substring(LENGTH_OF_TODO).trim();
 
         if(taskDescription.isEmpty()){
@@ -94,28 +93,15 @@ public class UserInputParser {
         return new Deadline(taskDescription , deadline);
     }
 
-    public static char getCorrespondingCharForTaskType(String type){
-        switch(type){
-        case "todo" :
-            return 'T';
-        case "event" :
-            return 'E';
-        case "deadline" :
-            return 'D';
-        default:
-            return ' ';
-        }
+    public static String getUserInput(){
+        userInput = scanner.nextLine();
+        userInput = userInput.trim();
+        return userInput;
     }
 
     public static String parseUserAction(){
         String[] wordsInUserInput = userInput.split(" ");
         return wordsInUserInput[0];
-    }
-
-    public static String getUserInput(){
-        userInput = scanner.nextLine();
-        userInput = userInput.trim();
-        return userInput;
     }
 
     public static int parseNumberAfterTask() throws NumberFormatException , FormattingException{
