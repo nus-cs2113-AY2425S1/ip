@@ -17,6 +17,8 @@ public class Parser {
 
         if (line.equals("list")) {
             ui.printList(taskList);
+        } else if (line.startsWith("find ")){
+            taskList.findTasks(line, ui);
         } else if (line.startsWith("mark ")) {
             taskList.markTaskAsDone(line, ui, storage);
         } else if (line.startsWith("unmark ")) {
