@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task
+ * Inherits Task class
+ */
 public class Event extends Task{
     protected String start = null;
     protected LocalDate startDate = null;
@@ -14,6 +18,11 @@ public class Event extends Task{
     protected LocalDate endDate = null;
     protected LocalDateTime endDateTime = null;
 
+    /**
+     * @param description <code>String</code> that represents the description of the event
+     * @param start <code>String</code> textual representation of the start time
+     * @param end <code>String</code> textual representation of the end time
+     */
     public Event(String description, String start, String end){
         super(description);
         getStart(start);
@@ -43,7 +52,9 @@ public class Event extends Task{
             }
         }
     }
-
+    /**
+     * Overrides the <code>toString</code> method and prints out the deadline in a specific format for printing to console
+     */
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", isDone ? "X":" ", description,
@@ -52,7 +63,9 @@ public class Event extends Task{
                             endDateTime != null ? endDateTime.format(Settings.DATE_TIME_OUT_FORMATTER) :
                                 endDate != null ? endDate.format(Settings.DATE_OUT_FORMATTER) : end);
     }
-
+    /**
+     * Overrides the <code>toString</code> method and prints out the deadline in a specific format for printing to console
+     */
     @Override
     public String generateFileLine() {
         return String.format("E,%s,%s,%s,%s\n", isDone ? "1" : "0", description,

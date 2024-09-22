@@ -1,4 +1,8 @@
 package erika.settings;
+/**
+ * Represents a Settings object used to store all constants
+ */
+
 
 import java.time.format.DateTimeFormatter;
 
