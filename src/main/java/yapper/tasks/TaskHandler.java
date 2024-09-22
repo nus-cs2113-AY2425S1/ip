@@ -18,6 +18,9 @@ public class TaskHandler {
     public int getCurrTaskTotal() {
         return tasks.size();
     }
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
     public Task getTask(int taskOrdinal) {
         return tasks.get(taskOrdinal);
     }

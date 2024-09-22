@@ -23,12 +23,13 @@ public class InstructionHandler {
             OutputStringHandler.printTasks(taskHandler.getAllTasks(), taskHandler.getCurrTaskTotal());
             // No Update_File needed
         } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
+            StringStorage.printWithDividers(
+                    "cannot handle list instruction because: \n" + e.getMessage());
         }
     }
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) {
         try {
-            // No Error_Check yet
+            // No Error_Check yet ?
             // Do
             taskHandler.addTask(task);
             // Print
@@ -36,7 +37,8 @@ public class InstructionHandler {
             // Update_File
             SaveFileHandler.storeAddedTask(task);
         } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
+            StringStorage.printWithDividers(
+                    "cannot handle add instruction because: \n" + e.getMessage());
         }
     }
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) {
@@ -52,7 +54,8 @@ public class InstructionHandler {
             // Update_File
             SaveFileHandler.unstoreDeletedTask(taskOrdinal);
         } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
+            StringStorage.printWithDividers(
+                    "cannot handle delete instruction because: \n" + e.getMessage());
         }
     }
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) {
@@ -68,7 +71,8 @@ public class InstructionHandler {
             // Update_File
             SaveFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
         } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
+            StringStorage.printWithDividers(
+                    "cannot handle mark instruction because: \n" + e.getMessage());
         }
     }
 
@@ -78,7 +82,8 @@ public class InstructionHandler {
         try {
             instruction = InputStringHandler.parseUserInput(userInputString);
         } catch (YapperException e) {
-            StringStorage.printWithDividers(e.getMessage());
+            StringStorage.printWithDividers(
+                    "cannot handle instruction because: \n" + e.getMessage());
             return;
         }
         // TO DECIDE: try-catch to extend to the whole method?

@@ -16,7 +16,8 @@ public class InputStringHandler {
             // Handle 1-Argument Instructions: Instruction
             if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX)) ) {
                 if (userInputString.trim() != StringStorage.LIST_INSTRUCTION_PREFIX) {
-                    throw new YapperException("list does not need other parameters");
+                    throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
+                            + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
             }
@@ -66,14 +67,13 @@ public class InputStringHandler {
             default:
                 // If none of the above code works, user input cannot be recognized
                 throw new YapperException(StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
-                return null;
             }
         } catch (YapperException e) {
-            System.out.println("failed to recognize instruction because: " + e.getMessage());
-            return null;
+            throw new YapperException(
+                    "failed to recognize instruction because: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("failed to recognize instruction because: " + e.getMessage());
-            return null;
+            throw new YapperException(
+                    "failed to recognize instruction because: " + e.getMessage());
         }
     }
 

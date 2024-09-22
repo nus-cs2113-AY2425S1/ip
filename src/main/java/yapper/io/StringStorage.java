@@ -16,9 +16,10 @@ public class StringStorage {
     public static final String   DELETE_INSTRUCTION_PREFIX = "delete";
     public static final String     MARK_INSTRUCTION_PREFIX = "mark";
     public static final String   UNMARK_INSTRUCTION_PREFIX = "unmark";
-    static String DEADLINE_END_DATE_DELIMITER = "/by";
-    static String  EVENT_START_DATE_DELIMITER = "/from";
-    static String    EVENT_END_DATE_DELIMITER = "/to";
+    public static final String      BYE_INSTRUCTION_PREFIX = "bye";
+    public static final String DEADLINE_END_DATE_DELIMITER = "/by";
+    public static final String  EVENT_START_DATE_DELIMITER = "/from";
+    public static final String    EVENT_END_DATE_DELIMITER = "/to";
     // For File Input-Output
     public static final String NOT_DONE_SYMBOL = " ";
     public static final String  IS_DONE_SYMBOL = "X";
@@ -85,7 +86,7 @@ public class StringStorage {
     public static final String AFTER_LOADING_STRING =
             "retrieved successfully!"; // I've got it
 
-    // Error Messages
+    // Exception Messages
     public static final String MISSING_DESCRIPTION_MESSAGE =
             "task description not given";
     public static final String MISSING_START_DATE_MESSAGE =
