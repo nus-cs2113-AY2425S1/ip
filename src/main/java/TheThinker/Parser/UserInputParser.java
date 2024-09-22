@@ -20,6 +20,7 @@ public class UserInputParser {
     public static final String EVENT_FORMAT = "Please follow format : event [task] /from [start time] /to [end time]";
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
     public static final String TODO_FORMAT = "Please follow format : todo [task]";
+    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
 
     public static Task parseTodo() throws FormattingException {
 
@@ -117,5 +118,16 @@ public class UserInputParser {
 
         String numberToMark = parsedInputs[1].trim();
         return Integer.parseInt(numberToMark);
+    }
+
+    public static String parseDateAfterGet() throws FormattingException{
+        String[] parsedInputs = userInput.split(" ");
+        if(parsedInputs.length != 2){
+            throw new FormattingException("specified date is missing. " + GET_FORMAT);
+        }
+        if(!Date.isDateOnlyFormat(parsedInputs[1].trim())){
+            throw new FormattingException("date is in the wrong format. " + GET_FORMAT);
+        }
+        return parsedInputs[1].trim();
     }
 }

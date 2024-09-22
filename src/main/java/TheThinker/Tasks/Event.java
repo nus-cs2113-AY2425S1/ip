@@ -20,4 +20,8 @@ public class Event extends Task{
     public String convertToFileFormat(){
         return "E" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + startTime + " | " + endTime;
     }
+
+    public String getTaskDate(){
+        return startTime;
+    }
 }

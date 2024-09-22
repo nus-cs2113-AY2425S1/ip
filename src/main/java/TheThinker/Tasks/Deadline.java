@@ -18,4 +18,8 @@ public class Deadline extends Task{
     public String convertToFileFormat(){
         return "D" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + deadline;
     }
+
+    public String getTaskDate(){
+        return deadline;
+    }
 }
