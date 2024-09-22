@@ -1,4 +1,4 @@
-package dobby.command;
+package dobby.exceptions;
 public class TaskAlreadyMarkedException extends Exception {
 
 }
