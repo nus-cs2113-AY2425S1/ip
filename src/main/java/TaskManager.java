@@ -5,6 +5,9 @@ import sleepy.Task.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
+    public static final String EVENT = "event";
+    public static final String DEADLINE = "deadline";
+    public static final String TODO = "todo";
     private ArrayList<Task> tasks;
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
 
@@ -16,12 +19,13 @@ public class TaskManager {
         return tasks;
     }
 
+    //add different tasks based on input, else throw exception
     public void addTask(String input) throws SleepyException {
-        if (input.startsWith("event")) {
+        if (input.startsWith(EVENT)) {
             addEvent(input);
-        } else if (input.startsWith("deadline")) {
+        } else if (input.startsWith(DEADLINE)) {
             addDeadline(input);
-        } else if (input.startsWith("todo")) {
+        } else if (input.startsWith(TODO)) {
             addTodo(input);
         } else {
             throw new SleepyException("Unknown command. "
@@ -30,6 +34,7 @@ public class TaskManager {
     }
 
     private void addEvent(String input) throws SleepyException {
+        //splitting and checking if there are at least 2 parts (description and event time)
         String[] parts = input.substring(5).split(" /from ");
         if (parts.length != 2) {
             throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
@@ -37,6 +42,7 @@ public class TaskManager {
 
         String description = parts[0].trim();
         String[] toParts = parts[1].split(" /to ");
+        //splitting and checking if event has a from and to component
         if (toParts.length != 2 || toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
             throw new SleepyException("Invalid event format. Please use: event description /from time /to time\n");
         }
@@ -53,6 +59,7 @@ public class TaskManager {
 
     private void addDeadline(String input) throws SleepyException {
         String[] parts = input.substring(8).split(" /by ");
+        //checking if deadline has a description and by component
         if (parts.length != 2) {
             throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
         }
@@ -154,6 +161,7 @@ public class TaskManager {
         boolean taskFound = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
+            //making it easier to find keywords by changing all to lowercase
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 System.out.println((i + 1) + "." + task);
                 taskFound = true;
