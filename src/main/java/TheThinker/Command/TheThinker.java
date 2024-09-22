@@ -45,7 +45,7 @@ public class TheThinker{
     }
 
     private static NewFile loadDefaultFileElseInputNewFile() throws FileNotFoundException {
-        printLoadingText();
+        UiControl.printLoadingText();
         NewFile data = new NewFile("TaskContents.txt");
 
         if(!data.isFileExist()) {
@@ -111,11 +111,11 @@ public class TheThinker{
                 break;
 
             case "help":
-                printHelp();
+                UiControl.printHelp();
                 break;
 
             default:
-                printCommands();
+                UiControl.printCommands();
                 break;
             }
             UiControl.printSeparation();
@@ -130,28 +130,6 @@ public class TheThinker{
             System.out.println("The task number after [mark] is not a number / not in the correct format");
 
         }
-    }
-
-    public static void printHelp(){
-        System.out.println("Formats for the commands are : ");
-        System.out.println("mark : mark [number]");
-        System.out.println("unmark : unmark [number]");
-        System.out.println("delete : delete [number]");
-        System.out.println("todo : todo [task]");
-        System.out.println("event : event [task] /from [start time] /by [end time]");
-        System.out.println("deadline : deadline [task] /by [time]");
-    }
-
-    public static void printCommands(){
-        System.out.println("Command entered is not valid. Available commands are");
-        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "help (get format)"};
-        for(String command : commands){
-            System.out.println("- " + command);
-        }
-    }
-
-    public static void printLoadingText(){
-        System.out.println("Loading file now........");
     }
 
 }

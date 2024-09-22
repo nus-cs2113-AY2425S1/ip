@@ -18,4 +18,26 @@ public class UiControl {
     public static void printSeparation() {
         System.out.println("_".repeat(60));
     }
+
+    public static void printHelp(){
+        System.out.println("Formats for the commands are : ");
+        System.out.println("mark : mark [number]");
+        System.out.println("unmark : unmark [number]");
+        System.out.println("delete : delete [number]");
+        System.out.println("todo : todo [task]");
+        System.out.println("event : event [task] /from [start time] /by [end time]");
+        System.out.println("deadline : deadline [task] /by [time]");
+    }
+
+    public static void printCommands(){
+        System.out.println("Command entered is not valid. Available commands are");
+        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "help (get format)"};
+        for(String command : commands){
+            System.out.println("- " + command);
+        }
+    }
+
+    public static void printLoadingText(){
+        System.out.println("Loading file now........");
+    }
 }
