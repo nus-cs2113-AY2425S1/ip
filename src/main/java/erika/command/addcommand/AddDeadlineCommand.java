@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
+
 import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand extends AddCommand {
@@ -22,7 +22,7 @@ public class AddDeadlineCommand extends AddCommand {
     @Override
     public void execute(TaskList tasks, FileSystem fileSystem) throws IOException, OutOfBoundsException {
         Deadline deadline = getDeadline();
-        tasks.add(deadline);
+        add(tasks, deadline);
         fileSystem.appendTaskToFile(deadline);
     }
 
@@ -32,7 +32,7 @@ public class AddDeadlineCommand extends AddCommand {
             return new Deadline(description, datetime);
         } catch (DateTimeParseException e1) {
             try {
-                return new Deadline(description, LocalDate.parse(by,Settings.DATE_IN_FORMATTER));
+                return new Deadline(description, LocalDate.parse(by, Settings.DATE_IN_FORMATTER));
             } catch (DateTimeParseException e2) {
                 return new Deadline(description, by);
             }

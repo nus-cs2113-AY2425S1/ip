@@ -1,5 +1,6 @@
 package erika.command;
 
+import erika.console.Console;
 import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
 import erika.task.Task;
@@ -17,9 +18,16 @@ public class UnmarkCommand extends Command{
         if (index <= 0 || index > tasks.getTaskArraySize()) {
             throw new OutOfBoundsException();
         }
-        tasks.markEntry(index, false);
+        unmarkEntry(tasks, index);
         fileSystem.updateFileSystemWithLocalTasks(tasks);
     }
+
+    private void unmarkEntry(TaskList tasks, int index) {
+        Task task = tasks.getTask(index - 1);
+        task.setMark(false);
+        Console.printUnmarkedMessage(task);
+    }
+
     public boolean isExit() {
         return false;
     }

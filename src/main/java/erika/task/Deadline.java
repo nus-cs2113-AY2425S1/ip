@@ -35,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String generateFileLine() {
         return String.format("D,%s,%s,%s\n", isDone ? "1" : "0", description, (deadlineDateTime != null) ?
-                deadlineDateTime.format(Settings.DATE_IN_FORMATTER) : (deadlineDate != null) ?
-                deadlineDate.format(Settings.DATE_TIME_IN_FORMATTER) : deadline);
+                deadlineDateTime.format(Settings.DATE_TIME_IN_FORMATTER) : (deadlineDate != null) ?
+                deadlineDate.format(Settings.DATE_IN_FORMATTER) : deadline);
     }
 }

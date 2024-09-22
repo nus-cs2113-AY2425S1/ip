@@ -1,6 +1,5 @@
 package erika.command.addcommand;
 
-import erika.console.Console;
 import erika.filesystem.FileSystem;
 import erika.task.Todo;
 import erika.tasklist.TaskList;
@@ -14,9 +13,7 @@ public class AddTodoCommand extends AddCommand{
     @Override
     public void execute(TaskList tasks, FileSystem fileSystem) throws IOException{
         Todo newTodo = new Todo(description);
-        tasks.add(newTodo);
+        add(tasks, newTodo);
         fileSystem.appendTaskToFile(newTodo);
     }
-
-
 }
