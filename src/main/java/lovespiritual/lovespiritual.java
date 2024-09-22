@@ -29,7 +29,7 @@ public class lovespiritual {
                     printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printList(taskCount, tasks);
+                    printList(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, tasks);
                 } else if (input.startsWith("unmark")) {
@@ -200,11 +200,11 @@ public class lovespiritual {
         }
     }
 
-    private static void printList(int taskCount, ArrayList <Task> tasks) {
+    private static void printList(ArrayList <Task> tasks) {
         System.out.println(SEPARATOR);
-        System.out.println("Here's your list! (・∀・) Ready to tackle it?");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            System.out.println("Here's your list! (・∀・) Ready to tackle it?");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println(SEPARATOR);
     }
