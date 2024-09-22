@@ -10,7 +10,7 @@ public class FindCommand extends Command {
 
     public FindCommand(String description) {
         this.description = description;
-    }`
+    }
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws IrisException {
