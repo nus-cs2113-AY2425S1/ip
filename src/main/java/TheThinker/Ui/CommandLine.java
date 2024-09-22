@@ -65,6 +65,11 @@ public class CommandLine {
                 TaskList.listTasksOfDate(date);
                 break;
 
+            case "find":
+                String keyword = UserInputParser.parseKeywordAfterFind();
+                TaskList.listTasksOfKeyword(keyword);
+                break;
+
             case "bye":
                 UiControl.printBye();
                 break;

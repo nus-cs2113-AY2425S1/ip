@@ -62,4 +62,15 @@ public class TaskList {
             }
         }
     }
+
+    public static void listTasksOfKeyword(String keyword){
+        System.out.println("Here are the matching tasks in your list:");
+        int counter = 0;
+        for(int i = 0; i < listLength; i++){
+            if(listOfTasks.get(i).taskDescription.toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
+                counter++;
+            }
+        }
+    }
 }
