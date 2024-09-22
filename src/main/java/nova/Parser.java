@@ -2,14 +2,35 @@ package nova;
 
 import nova.command.*;
 
-public class CommandHandler {
+/**
+ * Parses and processes user input commands.
+ * The {@code Parser} directs commands to their respective command handlers
+ * based on the input and manages task operations through the {@code TaskList}.
+ */
+public class Parser {
 
+    /**
+     * The task manager that handles task operations.
+     */
     private TaskList taskManager;
 
-    public CommandHandler(TaskList taskManager) {
+    /**
+     * Constructs a {@code Parser} with a task manager to handle user input commands.
+     *
+     * @param taskManager The task manager that manages the tasks.
+     */
+    public Parser(TaskList taskManager) {
         this.taskManager = taskManager;
     }
 
+    /**
+     * Handles user input by determining which command to execute based on the input string.
+     * It matches the first element of the input array to a command and invokes the relevant
+     * command execution method.
+     *
+     * @param inputs The array of input strings, where the first string indicates the command.
+     * @return {@code true} if the command is an exit command, otherwise {@code false}.
+     */
     public boolean handleInput(String[] inputs) {
         switch (inputs[0].toLowerCase()) {
         case ExitCommand.COMMAND_WORD:
