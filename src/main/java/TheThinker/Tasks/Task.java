@@ -31,4 +31,8 @@ public class Task {
     public String convertToFileFormat(){
         return "NIL" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
+
+    public String getTaskDate(){
+        return "NIL";
+    }
 }

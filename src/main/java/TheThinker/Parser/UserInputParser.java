@@ -20,6 +20,7 @@ public class UserInputParser {
     public static final String EVENT_FORMAT = "Please follow format : event [task] /from [start time] /to [end time]";
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
     public static final String TODO_FORMAT = "Please follow format : todo [task]";
+    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
 
     public static Task parseTodo() throws FormattingException {
 
@@ -54,13 +55,13 @@ public class UserInputParser {
             throw new FormattingException("/to is missing. " + EVENT_FORMAT);
         }
 
-        String startTime = remainingTaskDescription.substring(0, indexOfSecondSlash).trim();
+        String startTime = Date.convertDateFormat(remainingTaskDescription.substring(0, indexOfSecondSlash).trim());
 
         if(startTime.isEmpty()){
             throw new FormattingException("start time is missing. " + EVENT_FORMAT);
         }
 
-        String endTime = remainingTaskDescription.substring(indexOfSecondSlash + LENGTH_OF_SLASH_TO).trim();
+        String endTime = Date.convertDateFormat(remainingTaskDescription.substring(indexOfSecondSlash + LENGTH_OF_SLASH_TO).trim());
 
         if(endTime.isEmpty()){
             throw new FormattingException("end time is missing. " + EVENT_FORMAT);
@@ -84,7 +85,7 @@ public class UserInputParser {
             throw new FormattingException("task to do is missing. " + DEADLINE_FORMAT);
         }
 
-        String deadline = remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim();
+        String deadline = Date.convertDateFormat(remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim());
 
         if(deadline.isEmpty()){
             throw new FormattingException("deadline is missing. " + DEADLINE_FORMAT);
@@ -117,5 +118,16 @@ public class UserInputParser {
 
         String numberToMark = parsedInputs[1].trim();
         return Integer.parseInt(numberToMark);
+    }
+
+    public static String parseDateAfterGet() throws FormattingException{
+        String[] parsedInputs = userInput.split(" ");
+        if(parsedInputs.length != 2){
+            throw new FormattingException("specified date is missing. " + GET_FORMAT);
+        }
+        if(!Date.isDateOnlyFormat(parsedInputs[1].trim())){
+            throw new FormattingException("date is in the wrong format. " + GET_FORMAT);
+        }
+        return parsedInputs[1].trim();
     }
 }

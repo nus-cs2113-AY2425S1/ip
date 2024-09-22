@@ -16,4 +16,9 @@ public class Todo extends Task{
     public String convertToFileFormat(){
         return "T" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
+
+    @Override
+    public String getTaskDate(){
+        return "empty";
+    }
 }

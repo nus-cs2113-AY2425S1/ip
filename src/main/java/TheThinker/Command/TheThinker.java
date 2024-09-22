@@ -15,7 +15,7 @@ public class TheThinker{
         try {
             NewFile data = FileLoader.loadDefaultFileElseInputNewFile();
             UiControl.printGreeting();
-            CommandLine.pollForUserInput(data);
+            CommandLine.pollForUserInputTillBye(data);
 
         } catch (FileNotFoundException e) {
             System.out.println("Please create file before proceeding");

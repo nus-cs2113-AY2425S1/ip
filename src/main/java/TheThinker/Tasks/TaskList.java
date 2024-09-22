@@ -1,5 +1,7 @@
 package TheThinker.Tasks;
 
+import TheThinker.Parser.Date;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -44,9 +46,20 @@ public class TaskList {
     }
 
     public static void listTasks(){
-        System.out.println("Here are the tasks in your list:"); /* to add the individual to_string*/
+        System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < listLength; i++){
             System.out.printf("%d." + listOfTasks.get(i) + "\n", i+1);
+        }
+    }
+
+    public static void listTasksOfDate(String date){
+        System.out.println("Here are the tasks in your list in " + date + " :");
+        int counter = 0;
+        for(int i = 0; i < listLength; i++){
+            if(Date.isMatchingDateByType(listOfTasks.get(i) , date)) {
+                System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
+                counter++;
+            }
         }
     }
 }

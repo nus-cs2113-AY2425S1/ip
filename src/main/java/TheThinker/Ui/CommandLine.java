@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class CommandLine {
 
-    public static void pollForUserInput(NewFile data) {
+    public static void pollForUserInputTillBye(NewFile data) {
         String userInput;
         do{
             userInput = getUserInputAndDoTask();
@@ -58,6 +58,11 @@ public class CommandLine {
 
             case "deadline":
                 TaskList.addTask(UserInputParser.parseDeadline());
+                break;
+
+            case "get":
+                String date = UserInputParser.parseDateAfterGet();
+                TaskList.listTasksOfDate(date);
                 break;
 
             case "bye":
