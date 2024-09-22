@@ -14,7 +14,6 @@ import java.io.IOException;
 abstract public class Command {
     /**
      * Executes the required operations to perform the command issued by the user
-     *
      * @param tasks A TaskList object storing the current list of tasks
      * @param fileSystem The current filesystem for storing data into memory.
      * @return null
@@ -23,10 +22,8 @@ abstract public class Command {
      */
     abstract public void execute(TaskList tasks, FileSystem fileSystem) throws IOException, OutOfBoundsException;
     /**
-     * Executes the required operations to perform the command issued by the user
-     *
+     * Checks if the command is an exit command
      * @return whether the current command is an ExitCommand
-     *
      */
     abstract public boolean isExit();
 }
