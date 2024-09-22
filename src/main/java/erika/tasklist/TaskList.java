@@ -29,6 +29,11 @@ public class TaskList {
         tasks.remove(index);
         decrementTaskArraySize();
     }
+
+    public void deleteAll() {
+        tasks.removeAll(tasks);
+        setTaskArraySize(0);
+    }
     /**
      * Adds a <code>Task</code> to the list
      * @param task represnets the task to be added to the list
