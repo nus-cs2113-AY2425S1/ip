@@ -30,6 +30,7 @@ public class Blossom {
     private static final int LENGTH_OF_DEADLINE = 9;
     private static final int LENGTH_OF_EVENT = 6;
     private static final String FILE_PATH = "./data/blossom.txt";
+    private static Ui ui = new Ui();
 
     public static void loadTasks() throws BlossomException {
         File f = new File(FILE_PATH); // create a File for the given file path
@@ -87,19 +88,6 @@ public class Blossom {
         }
     }
 
-
-    public static void printItems() {
-        // Print items in order
-        System.out.println("Try hard to get these tasks done~~ ");
-        int orderInList = 1;
-        System.out.println(HORIZONTAL_LINE);
-        for(Task item : LIST_OF_TASKS) {
-            System.out.println(orderInList+ ". " + item.toString());
-            orderInList++;
-        }
-        System.out.println(HORIZONTAL_LINE);
-    }
-
     public static void markAndUnmarkItem(int itemIndex, String action) {
         itemIndex--;
         // If this item is marked - change boolean
@@ -123,10 +111,10 @@ public class Blossom {
         System.out.println(HORIZONTAL_LINE);
         catchInputErrors(input);
         Task item = createTask(input);
-        System.out.println("Ok!! I've added this task :D");
+        System.out.println("Ok!! I've added this task *\\ (>o<) /*");
         System.out.println(item.toString());
         LIST_OF_TASKS.add(item);
-        printNumberOfTasks();
+        ui.printNumberOfTasks(LIST_OF_TASKS);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -158,28 +146,18 @@ public class Blossom {
             throw new BlossomException("Oopsie!!! (;° ロ°) The description of an event cannot be empty~~ ");
         }
     }
-    public static void printIntro() {
-        System.out.println(LOGO + "\n" +"Hello, I'm Blossom! ⸜(｡˃ ᵕ ˂ )⸝♡");
-        System.out.println("Your wish is my command (シ_ _ )シ");
-        System.out.println(HORIZONTAL_LINE);
-    }
 
     public static void deleteTask(int indexOfTask) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Removing this task now! ᕙ(  •̀ ᗜ •́  )ᕗ ");
         System.out.println(LIST_OF_TASKS.get(indexOfTask-1).toString());
-        printNumberOfTasks();
         System.out.println(HORIZONTAL_LINE);
         LIST_OF_TASKS.remove(indexOfTask-1);
+        ui.printNumberOfTasks(LIST_OF_TASKS);
     }
-
-    public static void printNumberOfTasks() {
-        System.out.println("Now you have " + LIST_OF_TASKS.size() + " tasks in the list.");
-    }
-
 
     public static void main(String[] args) {
-        printIntro();
+        ui.printIntro();
         try {
             loadTasks();
         } catch (BlossomException e) {
@@ -191,7 +169,7 @@ public class Blossom {
             String line = input.nextLine();
             if(!line.equalsIgnoreCase("bye")) {
                 if(line.equalsIgnoreCase("list")) {
-                    printItems();
+                    ui.printItems(LIST_OF_TASKS);
                 }
                 else if(line.contains("mark") || line.contains("unmark")) {
                     // Call the unmark and mark function
