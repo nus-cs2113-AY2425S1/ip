@@ -1,9 +1,10 @@
 package erika.command;
 
+import erika.console.Console;
 import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
 import erika.tasklist.TaskList;
-
+import erika.task.Task;
 import java.io.IOException;
 /**
  * Represents a specific "Unmark" command as interpreted from the user. An <code>Unmark</code> object corresponds
@@ -26,13 +27,19 @@ public class UnmarkCommand extends Command{
         if (index <= 0 || index > tasks.getTaskArraySize()) {
             throw new OutOfBoundsException();
         }
-        tasks.markEntry(index, false);
+        unmarkEntry(tasks, index);
         fileSystem.updateFileSystemWithLocalTasks(tasks);
     }
     /**
      * Checks if the command is an exit command
      * @return <code>false</code> since UnmarkCommands are not ExitCommands
      */
+    private void unmarkEntry(TaskList tasks, int index) {
+        Task task = tasks.getTask(index - 1);
+        task.setMark(false);
+        Console.printUnmarkedMessage(task);
+    }
+
     public boolean isExit() {
         return false;
     }

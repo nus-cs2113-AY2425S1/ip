@@ -25,12 +25,8 @@ public class TaskList {
      * @param index represnets the index of the list we wish to delete
      * @throws OutOfBoundsException when index is out of the range of the list
      */
-    public void deleteTask(int index) throws OutOfBoundsException {
-        if (index <= 0 || index > getTaskArraySize()) {
-            throw new OutOfBoundsException();
-        }
-        Console.printDeletedMessage(tasks.get(index - 1));
-        tasks.remove(index - 1);
+    public void deleteTask(int index) {
+        tasks.remove(index);
         decrementTaskArraySize();
     }
     /**
@@ -40,7 +36,6 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
         incrementTaskArraySize();
-        Console.printAddedMessage(task);
     }
     /**
      * Setter to set the static variable <code>int taskArraySize</code>
@@ -60,14 +55,14 @@ public class TaskList {
      * Setter to increment the static variable <code>int taskArraySize</code> by 1
      * Used when adding a <code>Task</code>
      */
-    public static void incrementTaskArraySize() {
+    private static void incrementTaskArraySize() {
         taskArraySize++;
     }
     /**
      * Setter to increment the static variable <code>int taskArraySize</code> by 1
      * Used when adding a <code>Task</code>
      */
-    public static void decrementTaskArraySize() {
+    private static void decrementTaskArraySize() {
         taskArraySize--;
     }
     /**
@@ -109,10 +104,18 @@ public class TaskList {
      * @return String to be written to the text file
      * @throws EmptyListException when the list is empty
      */
-    public String printList() throws EmptyListException{
+    public String printList() throws EmptyListException {
         return IntStream.range(0, taskArraySize)
                 .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
                 .collect(Collectors.joining("\n\t"));
     }
 
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        incrementTaskArraySize();
+    }
 }

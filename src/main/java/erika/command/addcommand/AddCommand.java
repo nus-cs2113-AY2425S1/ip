@@ -1,8 +1,10 @@
 package erika.command.addcommand;
 
 import erika.command.Command;
+import erika.console.Console;
 import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
+import erika.task.Task;
 import erika.tasklist.TaskList;
 
 import java.io.IOException;
@@ -34,6 +36,12 @@ public class AddCommand extends Command {
      * Executes the required operations to perform the command issued by the user
      * @return <code>false</code> since AddCommands are not ExitCommands
      */
+
+    protected void add(TaskList tasks, Task task) {
+        tasks.addTask(task);
+        Console.printAddedMessage(task);
+    }
+
     public boolean isExit() {
         return false;
     }

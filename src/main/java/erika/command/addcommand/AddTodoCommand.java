@@ -21,9 +21,7 @@ public class AddTodoCommand extends AddCommand{
      */
     public void execute(TaskList tasks, FileSystem fileSystem) throws IOException{
         Todo newTodo = new Todo(description);
-        tasks.add(newTodo);
+        add(tasks, newTodo);
         fileSystem.appendTaskToFile(newTodo);
     }
-
-
 }

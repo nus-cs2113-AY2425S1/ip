@@ -1,5 +1,6 @@
 package erika.command;
 
+import erika.console.Console;
 import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
 import erika.tasklist.TaskList;
@@ -25,13 +26,21 @@ public class DeleteCommand extends Command{
      * @param fileSystem FileSystem object used to interface with the file system of the host
      */
     public void execute(TaskList tasks, FileSystem fileSystem) throws OutOfBoundsException, IOException {
-        tasks.deleteTask(index);
+        deleteTask(tasks, index);
         fileSystem.updateFileSystemWithLocalTasks(tasks);
     }
     /**
      * Checks if the command is an exit command
      * @return <code>false</code> since DeleteCommands are not ExitCommands
      */
+
+    private void deleteTask(TaskList tasks, int index) throws OutOfBoundsException {
+        if (index < 1 || index > TaskList.getTaskArraySize()) {
+            throw new OutOfBoundsException();
+        }
+        Console.printDeletedMessage(tasks.getTask(index - 1));
+        tasks.deleteTask(index - 1);
+    }
     public boolean isExit() {
         return false;
     }

@@ -1,5 +1,4 @@
 package erika.command.addcommand;
-import erika.console.Console;
 import erika.filesystem.FileSystem;
 import erika.task.Event;
 import erika.tasklist.TaskList;
@@ -30,7 +29,7 @@ public class AddEventCommand extends AddCommand {
     @Override
     public void execute(TaskList tasks, FileSystem fileSystem) throws IOException {
         Event newEvent = new Event(description, from, to);
-        tasks.add(newEvent);
+        add(tasks, newEvent);
         fileSystem.appendTaskToFile(newEvent);
     }
 }

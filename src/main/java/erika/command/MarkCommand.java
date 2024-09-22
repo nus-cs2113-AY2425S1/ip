@@ -4,7 +4,6 @@ import erika.console.Console;
 import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
 import erika.task.Task;
-import erika.ui.Ui;
 import erika.tasklist.TaskList;
 
 import java.io.IOException;
@@ -29,13 +28,20 @@ public class MarkCommand extends Command {
         if (index <= 0 || index > tasks.getTaskArraySize()) {
             throw new OutOfBoundsException();
         }
-        tasks.markEntry(index, true);
+        markEntry(tasks, index);
         fileSystem.updateFileSystemWithLocalTasks(tasks);
     }
     /**
      * Checks if the command is an exit command
      * @return <code>false</code> since MarkCommands are not ExitCommands
      */
+
+    private void markEntry(TaskList tasks, int index) {
+        Task task = tasks.getTask(index - 1);
+        task.setMark(true);
+        Console.printMarkedMessage(task);
+    }
+
     public boolean isExit() {
         return false;
     }
