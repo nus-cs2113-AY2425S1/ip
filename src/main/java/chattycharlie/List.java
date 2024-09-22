@@ -1,11 +1,10 @@
 package chattycharlie;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import chattycharlie.task.Deadline;
 import chattycharlie.task.Event;
 import chattycharlie.task.Task;
 import chattycharlie.task.Todo;
+import java.util.ArrayList;
 
 //LIST CLASS
     public class List {
