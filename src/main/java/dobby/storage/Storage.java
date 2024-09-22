@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 
-
+/**
+ * The Storage class handles the saving and loading of tasks to and from a file. It manages the
+ * file operations to maintain the task list across program executions.
+ */
 public class Storage {
 
     private static final String FILE_PATH = "./data/dobby.txt";
@@ -24,7 +27,11 @@ public class Storage {
     public static final String DEADLINE = "Deadline";
     public static final String EVENT = "Event";
 
-
+    /**
+     * Loads tasks from the file into the provided task list.
+     *
+     * @param taskList The list of tasks to load the tasks into.
+     */
     public void loadTasks(ArrayList<Task> taskList) {
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists() && !directory.mkdir()) {
@@ -50,6 +57,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the task list into the file.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> taskList) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
             for (Task t: taskList) {
@@ -60,6 +72,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats a task into a string suitable for file storage.
+     *
+     * @param task The task to format.
+     * @return A formatted string representing the task.
+     */
     public static String formatTaskForFile(Task task) {
         String type = task.getClass().getSimpleName();
         String status = task.isDone() ? "1" : "0";
@@ -76,6 +94,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from a line of text retrieved from the file.
+     *
+     * @param line The line of text representing a task.
+     * @return The Task object corresponding to the line, or null if parsing fails.
+     */
     public static Task parseTaskFromFile(String line) {
         String[] parts = line.split(TASK_SPLITTER);
         String type = parts[0];
