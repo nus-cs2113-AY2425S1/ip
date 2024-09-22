@@ -10,54 +10,38 @@ public class Sleepy {
                  |____/ |____| |____| |____| |__|     |__|
                 """;
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
-
-    private static final String CMD_LIST = "list";
-    private static final String CMD_MARK = "mark";
-    private static final String CMD_UNMARK = "unmark";
-    private static final String CMD_DELETE = "delete";
     private static final String CMD_BYE = "bye";
-    public static final String CMD_FIND = "find";
+
+    private final Scanner input;
+    private final TaskManager taskManager;
+
+    public Sleepy(TaskManager taskManager) {
+        this.taskManager = taskManager;
+        this.input = new Scanner(System.in);
+    }
 
     public static void main(String[] args) {
         System.out.println(LOGO);
-        String greeting = getGreeting();
-        System.out.println(greeting);
+        Sleepy ui = new Sleepy(new TaskManager(Storage.loadTasks()));
+        ui.run();
+    }
 
-        String line;
-        Scanner input = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager(Storage.loadTasks());
-        line = input.nextLine();
-        //checks for all the keywords
+    public void run() {
+        System.out.println(getGreeting());
+
+        String line = input.nextLine();
         while (!line.equals(CMD_BYE)) {
             try {
-                if (line.equals(CMD_LIST)) {
-                    taskManager.listTasks();
-                } else if (line.startsWith(CMD_MARK)) {
-                    int taskNumber = Integer.parseInt(line.substring(4).trim());
-                    taskManager.markTask(taskNumber);
-                } else if (line.startsWith(CMD_UNMARK)) {
-                    int taskNumber = Integer.parseInt(line.substring(6).trim());
-                    taskManager.unmarkTask(taskNumber);
-                } else if (line.startsWith(CMD_DELETE)){
-                    int taskNumber = Integer.parseInt(line.substring(6).trim());
-                    taskManager.deleteTask(taskNumber);
-                } else if (line.startsWith(CMD_FIND)) {
-                    String keyword = line.substring(4).trim();
-                    taskManager.findTask(keyword);
-                } else {
-                    taskManager.addTask(line);
-                }
-
+                Parser.parse(line, taskManager);
                 Storage.saveTasks(taskManager.getTasks());
             } catch (SleepyException e) {
-                System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
+                System.out.println(LINE_SEPARATOR + e.getMessage() + LINE_SEPARATOR);
             } catch (NumberFormatException e) {
                 System.out.println(LINE_SEPARATOR + "Invalid task number format. Please enter a valid number.\n" + LINE_SEPARATOR);
             }
             line = input.nextLine();
         }
-        String goodbye = getGoodbye();
-        System.out.println(goodbye);
+        System.out.println(getGoodbye());
     }
 
     private static String getGoodbye() {
