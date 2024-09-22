@@ -4,12 +4,12 @@ import november.tasks.Task;
 
 import java.util.List;
 
-import static november.messages.Messages.EXIT_MESSAGE;
-import static november.messages.Messages.INIT_SENTENCE;
-import static november.messages.Messages.INVALID_INPUT_MESSAGE;
-import static november.messages.Messages.LIST_EMPTY_MESSAGE;
-import static november.messages.Messages.LIST_MESSAGE;
-import static november.messages.Messages.SEPARATOR;
+import static november.strings.Strings.EXIT_MESSAGE;
+import static november.strings.Strings.INIT_SENTENCE;
+import static november.strings.Strings.INVALID_INPUT_MESSAGE;
+import static november.strings.Strings.LIST_EMPTY_MESSAGE;
+import static november.strings.Strings.LIST_MESSAGE;
+import static november.strings.Strings.SEPARATOR;
 
 public class Ui {
     /**

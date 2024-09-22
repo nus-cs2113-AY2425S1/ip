@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static november.tasklist.TaskList.markTask;
 
-import static november.messages.Messages.DEADLINE_COMMAND;
-import static november.messages.Messages.EVENT_COMMAND;
-import static november.messages.Messages.TODO_COMMAND;
+import static november.strings.Strings.DEADLINE_COMMAND;
+import static november.strings.Strings.EVENT_COMMAND;
+import static november.strings.Strings.TODO_COMMAND;
 
 public class Storage {
 
@@ -64,7 +64,7 @@ public class Storage {
      * @param taskList The list to populate with tasks from the save file.
      * @throws FileNotFoundException If the save file is not found.
      */
-    public static void loadSaveFile(List<Task> taskList) throws FileNotFoundException {
+    public static void loadSaveFile(ArrayList<Task> taskList) throws FileNotFoundException {
         Scanner s = new Scanner(saveFile); // Create a Scanner to read the save file
         while (s.hasNext()) {
             String line = s.nextLine(); // Read each line from the file
@@ -110,7 +110,7 @@ public class Storage {
      * @param taskList The list of tasks to be saved.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void updateSaveFile(List<Task> taskList) throws IOException {
+    public static void updateSaveFile(ArrayList<Task> taskList) throws IOException {
         try (FileWriter fw = new FileWriter(saveFile)) {
             for (Task task : taskList) {
                 fw.write(task.toString()); // Write the task to the file
