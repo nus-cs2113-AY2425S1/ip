@@ -178,17 +178,6 @@ public class lovespiritual {
         }
     }
 
-    private static int addTask(Task[] tasks, int taskCount, Task input, String[] taskTypes) {
-        tasks[taskCount] = input;
-        taskTypes[taskCount] = "[ ]";
-        taskCount++;
-        System.out.println(SEPARATOR);
-        System.out.println("added: " + input);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println(SEPARATOR);
-        return taskCount;
-    }
-
     private static void printList(int taskCount, ArrayList <Task> tasks) {
         System.out.println(SEPARATOR);
         System.out.println("Here's your list! (・∀・) Ready to tackle it?");
