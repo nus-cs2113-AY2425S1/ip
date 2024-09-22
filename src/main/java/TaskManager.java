@@ -1,8 +1,7 @@
-import sleepy.task.Deadline;
-import sleepy.task.Event;
-import sleepy.task.Task;
-import sleepy.task.Todo;
-
+import sleepy.Task.Deadline;
+import sleepy.Task.Event;
+import sleepy.Task.Task;
+import sleepy.Task.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
