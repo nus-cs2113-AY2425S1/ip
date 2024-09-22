@@ -2,7 +2,6 @@ import sleepy.task.Deadline;
 import sleepy.task.Event;
 import sleepy.task.Task;
 import sleepy.task.Todo;
-
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -65,12 +64,8 @@ public class TaskManager {
         }
 
         String by = parts[1].trim();
-        try {
-            Task task = new Deadline(description, by);
-            addTaskToList(task);
-        } catch (IllegalArgumentException e) {
-            System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
-        }
+        Task task = new Deadline(description, by);
+        addTaskToList(task);
     }
 
     private void addTodo(String input) throws SleepyException {
@@ -91,7 +86,7 @@ public class TaskManager {
                 + LINE_SEPARATOR);
     }
 
-    public void deleteTask(int taskIndex) throws SleepyException{
+    public void deleteTask(int taskIndex) throws SleepyException {
         if (taskIndex <= 0 || taskIndex > tasks.size()) {
             throw new SleepyException("Invalid task number.");
         }
@@ -100,7 +95,7 @@ public class TaskManager {
                 + "I've removed the task...\n"
                 + " " + tasks.get(taskIndex - 1).toString() + "\n"
                 + "Now you have " + (tasks.size() - 1) + " tasks in the list...can I go and sleep now\n"
-                +LINE_SEPARATOR);
+                + LINE_SEPARATOR);
         tasks.remove(taskIndex - 1);
     }
 
@@ -127,8 +122,7 @@ public class TaskManager {
                     + " " + tasks.get(taskNumber - 1).toString() + "\n"
                     + LINE_SEPARATOR);
         } else {
-            throw new SleepyException("this tasks doesn't even exist...\n");
-
+            throw new SleepyException("this task doesn't even exist...\n");
         }
     }
 
@@ -143,4 +137,29 @@ public class TaskManager {
             throw new SleepyException("ummm...the task doesn't even exist...maybe you should get some sleep\n");
         }
     }
+
+    public void findTask(String keyword) throws SleepyException {
+        if (keyword.isEmpty()) {
+            throw new SleepyException("Keyword cannot be empty");
+        }
+
+        System.out.println(LINE_SEPARATOR
+                + "Here are the matching tasks in your list:");
+
+        //a flag to track whether any tasks for found
+        boolean taskFound = false;
+        int taskIndex = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(taskIndex + ". " + task);
+                taskFound = true;
+            }
+        }
+
+        if (!taskFound) {
+            System.out.println("No tasks matching the keyword were found.");
+        }
+        System.out.println(LINE_SEPARATOR);
+    }
 }
+
