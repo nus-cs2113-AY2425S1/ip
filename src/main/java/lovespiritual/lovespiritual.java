@@ -6,6 +6,7 @@ import lovespiritual.task.Event;
 import lovespiritual.task.Task;
 import lovespiritual.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class lovespiritual {
@@ -14,9 +15,7 @@ public class lovespiritual {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS]; // array of tasks
-        boolean[] isMarked = new boolean[MAX_TASKS]; // check if task is marked
-        String[] taskTypes = new String[MAX_TASKS]; // task category
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0; // count the number of tasks added in the array
 
         printWelcomeScreen();
@@ -30,18 +29,21 @@ public class lovespiritual {
                     printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printList(taskCount, isMarked, taskTypes, tasks);
+                    printList(tasks);
                 } else if (input.startsWith("mark")) {
-                    markTask(input, taskCount, isMarked, tasks);
+                    markTask(input, taskCount, tasks);
                 } else if (input.startsWith("unmark")) {
-                    unmarkTask(input, taskCount, isMarked, tasks);
+                    unmarkTask(input, taskCount, tasks);
                 } else if (input.startsWith("todo")) {
-                    taskCount = todo(input, tasks, taskCount);
+                    taskCount = todo(input, tasks);
                 } else if (input.startsWith("deadline")) {
-                    taskCount = deadline(input, taskCount, tasks);
+                    taskCount = deadline(input, tasks);
                 } else if (input.startsWith("event")) {
-                    taskCount = event(input, tasks, taskCount);
-                } else {
+                    taskCount = event(input, tasks);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input, tasks, taskCount);
+                }
+                else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
             } catch (lovespiritualException e) {
@@ -56,7 +58,30 @@ public class lovespiritual {
         }
     }
 
-    private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
+    private static void deleteTask(String input, ArrayList<Task> tasks, int taskCount) throws lovespiritualException {
+        String taskNumber = input.substring("delete".length()).trim();
+        if (taskNumber.isEmpty()) {
+            throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
+        }
+        int indexNumber;
+        try {
+            indexNumber = Integer.parseInt(taskNumber) - 1;
+        } catch (NumberFormatException e) {
+            throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
+        }
+        Task removedTask = tasks.get(indexNumber);
+        if (indexNumber >= 0 && indexNumber < taskCount) {
+            tasks.remove(indexNumber);
+            System.out.println(SEPARATOR);
+            System.out.println("Got it! (◠‿◠) This task is removed!");
+            System.out.println(removedTask);
+            System.out.println(SEPARATOR);
+        } else {
+            throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
+        }
+    }
+
+    private static int event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Uh-oh! (・_・;) Your event description seems to be missing!");
@@ -84,17 +109,16 @@ public class lovespiritual {
         }
         from = time[0].trim();
         to = time[1].trim();
-        tasks[taskCount] = new Event(taskDescription, from, to);
-        taskCount++;
+        tasks.add(new Event(taskDescription, from, to));
         System.out.println(SEPARATOR);
         System.out.println("Yay! (•‿•) I've added your task!");
-        System.out.println(tasks[taskCount - 1]);
-        System.out.println("Woot! (^▽^) You now have \" + taskCount + \" tasks in your list!");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Woot! (^▽^) You now have " + tasks.size() + " tasks in your list!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
-    private static int deadline(String input, int taskCount, Task[] tasks) throws lovespiritualException {
+    private static int deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Oops! (｡•́︿•̀｡) Your deadline needs a little description!");
@@ -113,32 +137,30 @@ public class lovespiritual {
         }
         taskDescription = taskDetails[0].trim();
         by = taskDetails[1].trim();
-        tasks[taskCount] = new Deadline(taskDescription, by);
-        taskCount++;
+        tasks.add(new Deadline(taskDescription, by));
         System.out.println(SEPARATOR);
         System.out.println("Yippee! (★^O^★) Task added successfully!");
-        System.out.println(tasks[taskCount - 1]);
-        System.out.println("Wow! (｡♥‿♥｡) You now have " + taskCount + " tasks! Keep going!");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
-    private static int todo(String input, Task[] tasks, int taskCount) throws lovespiritualException {
+    private static int todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
             throw new lovespiritualException("Hmm... (¬‿¬) What's the todo? Looks like the description's missing!");
         }
-        tasks[taskCount] = new Todo(taskDescription);
-        taskCount++;
+        tasks.add(new Todo(taskDescription));
         System.out.println(SEPARATOR);
         System.out.println("Woohoo! (＾▽＾) Your task is safely added!");
         System.out.println(" [T][ ] " + taskDescription);
-        System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + taskCount + " tasks lined up!");
+        System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + tasks.size() + " tasks lined up!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
-    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
+    private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
@@ -150,17 +172,17 @@ public class lovespiritual {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            tasks[indexNumber].unmark();
+            tasks.get(indexNumber).unmark();
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task isn't done yet!");
-            System.out.println(tasks[indexNumber]);
+            System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
             throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
         }
     }
 
-    private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
+    private static void markTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Hmm... (ʘ‿ʘ) A valid number, please?");
@@ -172,32 +194,25 @@ public class lovespiritual {
             throw new lovespiritualException("Whoa there! (O.O) That’s not a number! Can you double-check?");
         }
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            tasks[indexNumber].mark();
+            tasks.get(indexNumber).mark();
             System.out.println(SEPARATOR);
             System.out.println("Yay! (^_^) This task is all done!");
-            System.out.println(tasks[indexNumber]);
+            System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
             throw new lovespiritualException("Hmm... (°ヘ°) That number seems a bit off. Try again?");
         }
     }
 
-    private static int addTask(Task[] tasks, int taskCount, Task input, String[] taskTypes) {
-        tasks[taskCount] = input;
-        taskTypes[taskCount] = "[ ]";
-        taskCount++;
+    private static void printList(ArrayList <Task> tasks) {
         System.out.println(SEPARATOR);
-        System.out.println("added: " + input);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println(SEPARATOR);
-        return taskCount;
-    }
-
-    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, Task[] tasks) {
-        System.out.println(SEPARATOR);
-        for (int i = 0; i < taskCount; i++) {
+        if (tasks.size() == 0) {
+            System.out.println("There is nothing on your list yet!");
+        } else {
             System.out.println("Here's your list! (・∀・) Ready to tackle it?");
-            System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
         }
         System.out.println(SEPARATOR);
     }
