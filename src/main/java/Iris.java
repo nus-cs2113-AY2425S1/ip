@@ -1,61 +1,48 @@
-import task.Task;
-import static method.Command.*;
-
-import java.util.Scanner;
-import java.util.ArrayList;
+import data.Storage;
+import exceptions.IrisException;
+import task.TaskList;
+import ui.Ui;
+import command.Parser;
+import command.Command;
 
 public class Iris {
-    static ArrayList<Task> tasks;
+    private static final String STORAGE_FILE_PATH = "C:\\Users\\pingh\\OneDrive\\Desktop\\ip\\src\\main\\java\\data\\iris.txt";
 
-    private final static String DIVIDER = "---------------------------------------------";
-    private final static String EMPTY_COMMAND_MESSAGE = "Tell me your needs! I'm here to help!";
-    private final static String INVALID_COMMAND_MESSAGE = "HUH?!? I don't recognize this command :(";
+    private static Storage storage;
+    private TaskList tasks;
+    private static Ui ui;
 
-
-    public static void printDivider() {
-        System.out.println(DIVIDER);
+    public Iris(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IrisException e) {
+            Ui.showErrorMessage(e.getMessage());
+            Ui.showDivider();
+            tasks = new TaskList();
+        }
     }
 
-    public static boolean chat(String text) {
-        String command = text.split(" ")[0].toLowerCase();
-        printDivider();
-        switch (command) {
-        case "":
-            System.out.println(EMPTY_COMMAND_MESSAGE);
-            break;
-        case "bye":
-            saveAndLeave(tasks);
-            return true;
-        case "list":
-            listTasks(tasks);
-            break;
-        case "delete":
-            deleteTask(tasks, text);
-            break;
-        case "mark":
-            changeTaskStatus(tasks, text, true);
-            break;
-        case "unmark":
-            changeTaskStatus(tasks, text, false);
-            break;
-        case "deadline", "todo", "event":
-            addTask(tasks, text);
-            break;
-        default:
-            System.out.println(INVALID_COMMAND_MESSAGE);
+    public void run() {
+        Ui.showWelcomeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Ui.showDivider();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, storage);
+                isExit = c.isExit();
+            } catch (IrisException e) {
+                Ui.showErrorMessage(e.getMessage());
+            } finally {
+                Ui.showDivider();
+            }
         }
-        printDivider();
-        return false;
     }
 
     public static void main(String[] args) {
-        tasks = loadAndStart();
-        printDivider();
-        boolean isEnded = false;
-        Scanner in = new Scanner(System.in);
-        while (!isEnded) {
-            String line = in.nextLine();
-            isEnded = chat(line);
-        }
+        new Iris(STORAGE_FILE_PATH).run();
     }
 }
