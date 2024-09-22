@@ -83,14 +83,13 @@ public class lovespiritual {
         }
         from = time[0].trim();
         to = time[1].trim();
-        tasks[taskCount] = new Event(taskDescription, from, to);
-        taskCount++;
+        tasks.add(new Event(taskDescription, from, to));
         System.out.println(SEPARATOR);
         System.out.println("Yay! (•‿•) I've added your task!");
-        System.out.println(tasks[taskCount - 1]);
-        System.out.println("Woot! (^▽^) You now have \" + taskCount + \" tasks in your list!");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Woot! (^▽^) You now have " + tasks.size() + " tasks in your list!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
     private static int deadline(String input, int taskCount, Task[] tasks) throws lovespiritualException {
@@ -112,14 +111,13 @@ public class lovespiritual {
         }
         taskDescription = taskDetails[0].trim();
         by = taskDetails[1].trim();
-        tasks[taskCount] = new Deadline(taskDescription, by);
-        taskCount++;
+        tasks.add(new Deadline(taskDescription, by));
         System.out.println(SEPARATOR);
         System.out.println("Yippee! (★^O^★) Task added successfully!");
-        System.out.println(tasks[taskCount - 1]);
-        System.out.println("Wow! (｡♥‿♥｡) You now have " + taskCount + " tasks! Keep going!");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
     private static int todo(String input, Task[] tasks, int taskCount) throws lovespiritualException {
@@ -127,14 +125,13 @@ public class lovespiritual {
         if (taskDescription.isEmpty()) {
             throw new lovespiritualException("Hmm... (¬‿¬) What's the todo? Looks like the description's missing!");
         }
-        tasks[taskCount] = new Todo(taskDescription);
-        taskCount++;
+        tasks.add(new Todo(taskDescription));
         System.out.println(SEPARATOR);
         System.out.println("Woohoo! (＾▽＾) Your task is safely added!");
         System.out.println(" [T][ ] " + taskDescription);
-        System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + taskCount + " tasks lined up!");
+        System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + tasks.size() + " tasks lined up!");
         System.out.println(SEPARATOR);
-        return taskCount;
+        return tasks.size();
     }
 
     private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
