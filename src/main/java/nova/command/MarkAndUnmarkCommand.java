@@ -5,11 +5,28 @@ import nova.Ui;
 import nova.exception.InvalidInputException;
 import nova.task.Task;
 
-public class MarkAndUnmarkCommand extends Command{
+/**
+ * Represents a command to mark or unmark tasks in the task manager.
+ * This command allows users to update the completion status of tasks.
+ */
+public class MarkAndUnmarkCommand extends Command {
 
+    /**
+     * The command word for marking tasks.
+     */
     public static final String COMMAND_WORD1 = "mark";
+
+    /**
+     * The command word for unmarking tasks.
+     */
     public static final String COMMAND_WORD2 = "unmark";
 
+    /**
+     * Executes the mark or unmark command based on user input.
+     *
+     * @param inputs      The user input containing the command and task index.
+     * @param taskManager The TaskList instance managing tasks.
+     */
     public static void execute(String[] inputs, TaskList taskManager) {
         int taskIndex;
         try {
@@ -19,7 +36,7 @@ public class MarkAndUnmarkCommand extends Command{
             return;
         }
 
-        if (inputs[0].equals("mark")) {
+        if (inputs[0].equals(COMMAND_WORD1)) {
             taskManager.markTask(taskIndex - 1);
             Ui.displayMarkMessage(taskManager.getTask(taskIndex - 1));
         } else {
@@ -29,6 +46,13 @@ public class MarkAndUnmarkCommand extends Command{
         taskManager.updateStorage();
     }
 
+    /**
+     * Validates the task index provided by the user.
+     *
+     * @param inputs The user input containing the command and task index.
+     * @return The validated task index.
+     * @throws InvalidInputException If the index is invalid.
+     */
     protected static int validateIndex(String[] inputs) throws InvalidInputException {
         int taskIndex;
         try {
