@@ -1,4 +1,4 @@
-package sleepy.task;
+package sleepy.Task;
 
 public class Event extends Task {
 

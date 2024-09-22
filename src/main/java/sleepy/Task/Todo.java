@@ -1,4 +1,4 @@
-package sleepy.task;
+package sleepy.Task;
 
 public class Todo extends Task {
 
