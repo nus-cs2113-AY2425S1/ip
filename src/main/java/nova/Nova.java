@@ -7,13 +7,13 @@ public class Nova {
     public static void main(String[] args) {
         Ui.displayWelcomeMessage();
         TaskList taskManager = new TaskList();
-        CommandHandler commandHandler = new CommandHandler(taskManager);
+        Parser parser = new Parser(taskManager);
         Storage.createStorage();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             String[] userInput = getUserInput(sc);
-            if (commandHandler.handleInput(userInput)) {
+            if (parser.handleInput(userInput)) {
                 return;
             }
         }

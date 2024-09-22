@@ -2,11 +2,11 @@ package nova;
 
 import nova.command.*;
 
-public class CommandHandler {
+public class Parser {
 
     private TaskList taskManager;
 
-    public CommandHandler(TaskList taskManager) {
+    public Parser(TaskList taskManager) {
         this.taskManager = taskManager;
     }
 
