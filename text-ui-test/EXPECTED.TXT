@@ -1,4 +1,4 @@
-Accessing existing save file...
+No existing save file found. New save file created: saveFile.txt
 Save file successfully loaded.
 ____________________________________________________________
 Hello! I'm November.
@@ -13,7 +13,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book  (by: June 6th)
+  [D][ ] return book  (by:  June 6th)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
@@ -48,7 +48,7 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
+2. [D][ ] return book  (by:  June 6th)
 3. [E][ ] project meeting  (from: Aug 6th 2pm  to: 4pm)
 4. [T][X] join sports club
 5. [T][ ] borrow book
@@ -56,7 +56,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book  (by: Sunday)
+  [D][ ] return book  (by:  Sunday)
 Now you have 6 tasks in the list.
 ____________________________________________________________
 
