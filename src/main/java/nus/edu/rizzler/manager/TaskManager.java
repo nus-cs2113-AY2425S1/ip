@@ -111,7 +111,7 @@ public class TaskManager {
 
             for (String data : savedDataList) {
                 Task task = Task.parseSavedString(data);
-                taskList.set(totalTaskCount + 1, task);
+                taskList.add(task);
                 totalTaskCount++;
             }
 
@@ -143,6 +143,12 @@ public class TaskManager {
             String actionMessage = "Task deleted: ";
             System.out.printf("\nYou have %d task(s) in your list now!\n%n", totalTaskCount);
             displayTaskAction(task, taskNumber, actionMessage);
+        }
+
+        try {
+            updateFile();
+        } catch (IOException e) {
+            System.out.println("RizzlerData.txt not found! Data cannot be saved!");
         }
     }
 }
