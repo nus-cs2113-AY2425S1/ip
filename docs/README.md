@@ -17,13 +17,41 @@ Erika is a handy CLI task organizer for your daily tasks, supporting Todos, Dead
 ## Adding Todos: <code>todo</code>
 Adds a <b>todo</b> to the list of tasks
 
-## Adding deadlines
+Format: <code>todo DESCRIPTION</code>
 
-// Describe the action and its outcome.
+Example: `todo borrow book`
 
-// Give examples of usage
+Erika will then confirm with the following sample message
 
-Example: `keyword (optional arguments)`
+```
+        ____________________________________________________________
+        Got it. I've added this task:
+          [T][ ] borrow book
+        Now you have 3 tasks in the list.
+        ____________________________________________________________
+```
+
+## Adding Deadlines: <code>deadline</code>
+Adds a <b>deadline</b> to the list of tasks. Deadlines are defined to be tasks with a <b>by</b> attribute.
+
+Format: <code>deadline DESCRIPTION /by DEADLINE</code>
+
+Where <code>DEADLINE</code> can either be:
+1. An unformatted <code>string</code>, example <code>tomorrow</code>
+2. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy</code> which will be interpreted as a Java<code>LocalDate</code> object
+3. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy hh:mm</code> which will be interpreted as a Java<code>LocalDateTime</code> object
+
+Example: `deadline return book /by tomorrow`, `deadline return book /by 23/09/2024`, `deadline return book /by 23/09/2024 23:59` for each of the three aforementioned cases respectively. 
+
+Erika will then confirm with the following sample message
+
+```
+        ____________________________________________________________
+        Got it. I've added this task:
+          [D][ ] return book (by: 23/09/24 23:59)
+        Now you have 4 tasks in the list.
+        ____________________________________________________________
+```
 
 // A description of the expected outcome goes here
 
