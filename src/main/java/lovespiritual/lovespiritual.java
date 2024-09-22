@@ -23,6 +23,8 @@ public class lovespiritual {
         String[] taskTypes = new String[MAX_TASKS]; // task category
         int taskCount = 0; // count the number of tasks added in the array
 
+        loadTasks();
+
         printWelcomeScreen();
 
         // loop that keeps recurring when the program is running
@@ -31,20 +33,26 @@ public class lovespiritual {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
+                    saveTasks();
                     printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printList(taskCount, isMarked, taskTypes, tasks);
+                    printList(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, isMarked, tasks);
+                    saveTasks();
                 } else if (input.startsWith("unmark")) {
                     unmarkTask(input, taskCount, isMarked, tasks);
+                    saveTasks();
                 } else if (input.startsWith("todo")) {
                     taskCount = todo(input, tasks, taskCount);
+                    saveTasks();
                 } else if (input.startsWith("deadline")) {
                     taskCount = deadline(input, taskCount, tasks);
+                    saveTasks();
                 } else if (input.startsWith("event")) {
                     taskCount = event(input, tasks, taskCount);
+                    saveTasks();
                 } else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
@@ -60,7 +68,6 @@ public class lovespiritual {
         }
     }
 
-    private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
     private static void saveTasks() {
         try {
             File file = new File(FILE_PATH);
@@ -312,11 +319,11 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, Task[] tasks) {
+    private static void printList(ArrayList<Task> tasks) {
         System.out.println(SEPARATOR);
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("Here's your list! (・∀・) Ready to tackle it?");
-            System.out.println((i + 1) + ". " + tasks[i]);
+        System.out.println("Here's your list! (・∀・) Ready to tackle it?");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println(SEPARATOR);
     }
