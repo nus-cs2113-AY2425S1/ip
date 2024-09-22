@@ -54,6 +54,29 @@ Erika will then confirm with the following sample message
 ```
 
 // A description of the expected outcome goes here
+## Adding Events: <code>event</code>
+Adds an <b>event</b> to the list of tasks. Events are defined to be tasks with a <b>start</b> and <b>end</b> attribute. 
+
+Format: <code>event DESCRIPTION /from START /to END</code> <b>or </b> <code>event DESCRIPTION /to END /from START</code>
+
+#### Note: The order of parameters <i>does not matter</i>.
+
+Where <code>START</code> and <code>END</code> can either be:
+1. An unformatted <code>string</code>, example <code>tomorrow</code>
+2. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy</code> which will be interpreted as a Java<code>LocalDate</code> object
+3. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy hh:mm</code> which will be interpreted as a Java<code>LocalDateTime</code> object
+
+Example: `event book fair /from Monday /to Friday`, `event book fair /from 23/09/2024 /to 30/09/2024`, `event book fair /from 23/09/2024 00:00 /to 30/09/2024 23:59` for each of the three aforementioned cases respectively.
+
+Erika will then confirm with the following sample message
+
+```
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] book fair (from: 23/09/24 00:00 to: 30/09/24 23:59)
+	Now you have 1 task in the list.
+	____________________________________________________________
+```
 
 ```
 expected output
