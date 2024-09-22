@@ -86,6 +86,30 @@ public class TaskList {
         }
     }
 
+    public void findTasks(String line, Ui ui) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        String keyword = line.substring(line.indexOf("find") + 5).trim();
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            ui.printSeparator();
+            ui.showMessage("Dobby found no tasks containing: " + keyword);
+            ui.printSeparator();
+        } else {
+            ui.printSeparator();
+            ui.showMessage("Here are the matching tasks in master's list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                ui.printTask(i+1, matchingTasks.get(i));
+            }
+            ui.printSeparator();
+        }
+    }
+
     public boolean isValidTaskNumber(int taskNumber) {
         return taskNumber > 0 && taskNumber <= taskList.size();
     }
