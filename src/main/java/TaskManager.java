@@ -3,6 +3,9 @@ import sleepy.Task.Event;
 import sleepy.Task.Task;
 import sleepy.Task.Todo;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class TaskManager {
     public static final String EVENT = "event";
@@ -59,7 +62,8 @@ public class TaskManager {
 
     private void addDeadline(String input) throws SleepyException {
         String[] parts = input.substring(8).split(" /by ");
-        //checking if deadline has a description and by component
+
+        // Checking if the deadline has a description and by component
         if (parts.length != 2) {
             throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
         }
@@ -71,9 +75,19 @@ public class TaskManager {
         }
 
         String by = parts[1].trim();
+
         try {
-            Task task = new Deadline(description, by);
+            // Define the expected date-time format for parsing
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+            // Parse the 'by' string into a LocalDateTime object
+            LocalDateTime byDateTime = LocalDateTime.parse(by, formatter);
+
+            // Create the Deadline task with the parsed LocalDateTime
+            Task task = new Deadline(description, byDateTime);
             addTaskToList(task);
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE_SEPARATOR + "Invalid date-time format. Please use: yyyy-MM-dd HHmm\n" + LINE_SEPARATOR);
         } catch (IllegalArgumentException e) {
             System.out.println(LINE_SEPARATOR + e.getMessage() + "\n" + LINE_SEPARATOR);
         }
@@ -155,8 +169,7 @@ public class TaskManager {
             throw new SleepyException("Keyword cannot be empty.");
         }
 
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(LINE_SEPARATOR + "Here are the matching tasks in your list:");
 
         boolean taskFound = false;
         for (int i = 0; i < tasks.size(); i++) {

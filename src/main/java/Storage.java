@@ -9,7 +9,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private static final String DIRECTORY_NAME = "data";
@@ -46,6 +49,7 @@ public class Storage {
 
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -58,7 +62,8 @@ public class Storage {
                         task = new Todo(taskInfo[2]);
                         break;
                     case "D":
-                        task = new Deadline(taskInfo[2], taskInfo[3]);
+                        LocalDateTime by = LocalDateTime.parse(taskInfo[3], formatter);
+                        task = new Deadline(taskInfo[2], by);
                         break;
                     case "E":
                         task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
