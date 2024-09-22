@@ -10,6 +10,7 @@ public class Messages {
     public static final String DELETE_COMMAND = "delete"; // Command to delete a task
     public static final String MARK_COMMAND = "mark"; // Command to mark a task as done
     public static final String UNMARK_COMMAND = "unmark"; // Command to unmark a task
+    public static final String FIND_COMMAND = "find"; // Command to exit the chatbot
     public static final String EXIT_COMMAND = "bye"; // Command to exit the chatbot
 
     public static final String INIT_SENTENCE = "Hello! I'm November." + System.lineSeparator() + "What can I do for you?"; // Initial greeting

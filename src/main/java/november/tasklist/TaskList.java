@@ -182,4 +182,25 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the list matching a keyword.
+     *
+     * @param keyword The input keyword to be searched for.
+     * @param taskList The list of tasks.
+     */
+    public static void findTask(String keyword, List<Task> taskList) {
+        boolean taskFound = false;
+        beginSegment();
+        System.out.println("Searching for tasks containing the specified keyword: " + keyword);
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                task.printTask();
+                taskFound = true;
+            }
+        }
+        if (!taskFound) {
+            System.out.println("No matching tasks found");
+        }
+        endSegment();
+    }
 }
