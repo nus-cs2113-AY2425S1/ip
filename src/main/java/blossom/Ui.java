@@ -35,13 +35,13 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printIntro() {
+    public void printIntro() {
         System.out.println(LOGO + "\n" +"Hello, I'm Blossom! ⸜(｡˃ ᵕ ˂ )⸝♡");
         System.out.println("Your wish is my command (シ_ _ )シ");
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printNumberOfTasks(ArrayList<Task> listOfTasks) {
+    public void printNumberOfTasks(ArrayList<Task> listOfTasks) {
         System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
     }
 
