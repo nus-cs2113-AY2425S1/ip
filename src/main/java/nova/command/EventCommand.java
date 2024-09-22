@@ -9,8 +9,15 @@ import nova.task.Event;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to create an Event task.
+ * This command allows the user to specify a task description, a start time, and an end time.
+ */
 public class EventCommand extends Command {
 
+    /**
+     * The command word for the Event command.
+     */
     public static final String COMMAND_WORD = "event";
     private static final String EVENT_USAGE = "Usage: event <task description> /from <start date> /to <end date>.";
 
@@ -18,6 +25,14 @@ public class EventCommand extends Command {
     private static LocalDate from;
     private static LocalDate to;
 
+
+    /**
+     * Executes the Event command by validating input, checking space,
+     * and adding a new Event task to the task manager.
+     *
+     * @param inputs     The input arguments provided by the user.
+     * @param taskManager The TaskList instance managing tasks.
+     */
     public static void execute(String[] inputs, TaskList taskManager) {
         try {
             validateEventInput(inputs);
@@ -42,11 +57,11 @@ public class EventCommand extends Command {
         }
         String[] splitInput = inputs[1].split(" /from ");
         if (splitInput.length != 2) {
-            throw new InvalidInputException("description/start/end not entered.");
+            throw new InvalidInputException("Description/start/end not entered.");
         }
         String[] eventDetails = splitInput[1].split(" /to ");
         if (eventDetails.length != 2) {
-            throw new InvalidInputException("description/start/end not entered.");
+            throw new InvalidInputException("Description/start/end not entered.");
         }
         description = splitInput[0];
         try {

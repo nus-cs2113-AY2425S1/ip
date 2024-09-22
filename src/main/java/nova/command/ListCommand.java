@@ -7,12 +7,21 @@ import nova.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to list all tasks in the task manager.
+ * This command retrieves and displays the current tasks for the user.
+ */
+
 public class ListCommand extends Command {
 
+    /**
+     * The command word for the List command.
+     */
     public static final String COMMAND_WORD = "list";
     public static final String LIST_ALL_MESSAGE = "Listing all tasks";
     public static final String LIST_TASK_DATE_MESSAGE = "Listing all task on ";
     public static final String SPACING = "\n     ";
+
 
     public static void execute(String[] inputs, TaskList taskManager) {
         try {
