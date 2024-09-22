@@ -1,38 +1,34 @@
 package TheThinker.Command;
+
 import TheThinker.Exceptions.FormattingException;
 import TheThinker.NewFile.NewFile;
 import TheThinker.Tasks.Task;
 import TheThinker.Parser.UserInputParser;
+import TheThinker.Ui.UiControl;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class TheThinker {
+public class TheThinker{
 
     public static final String NAME = "TheThinker";
 
     public static void main(String[] args) {
 
-        printLoadingText();
-        NewFile data = null;
-
         try {
-            printSeparation();
-            System.out.println("Input file name you want to extract data from under the Data directory [filename.txt]");
-            printSeparation();
-            String filename = UserInputParser.getUserInput();
-            data = new NewFile(filename);
-            data.loadFile();
+            NewFile data = loadDefaultFileElseInputNewFile();
+            UiControl.printGreeting();
+            pollForUserInput(data);
+
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. No data loaded. Please create the file under Data directory");
+            System.out.println("Please create file before proceeding");
         }
+    }
 
-        printGreeting();
+    private static void pollForUserInput(NewFile data) {
         String userInput;
-
         do{
-            userInput = UserInputParser.getUserInput();
-            String userAction = UserInputParser.parseUserAction();
-            doTaskAccordingToUserAction(userAction);
+            userInput = getUserInputAndDoTask();
             try {
                 data.writeTaskToFile();
             } catch (IOException e) {
@@ -41,23 +37,42 @@ public class TheThinker {
         }while(!userInput.equals("bye"));
     }
 
-    public static void printGreeting(){
-        printSeparation();
-        System.out.println("Hello! I'm " + NAME);
-        System.out.println("What can I do for you?");
-        printSeparation();
+    private static String getUserInputAndDoTask() {
+        String userInput;
+        userInput = UserInputParser.getUserInput();
+        String userAction = UserInputParser.parseUserAction();
+        doTaskAccordingToUserAction(userAction);
+        return userInput;
     }
 
-    public static void printBye(){
-        System.out.println("Bye. Hope to see you again soon!");
+    private static NewFile loadDefaultFileElseInputNewFile() throws FileNotFoundException {
+        printLoadingText();
+        NewFile data = new NewFile("TaskContents.txt");
+
+        if(!data.isFileExist()) {
+            try {
+                data = inputFileNameAndLoadFile();
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found. No data loaded. Please create the file under Data directory");
+            }
+        }else{
+            data.loadFile();
+        }
+        return data;
     }
 
-    public static void printSeparation(){
-        System.out.println("_".repeat(60));
+    public static NewFile inputFileNameAndLoadFile() throws FileNotFoundException{
+        UiControl.printSeparation();
+        System.out.println("Input file name you want to extract data from under the Data directory [filename.txt]");
+        UiControl.printSeparation();
+        String filename = UserInputParser.getUserInput();
+        NewFile data = new NewFile(filename);
+        data.loadFile();
+        return data;
     }
 
     public static void doTaskAccordingToUserAction(String userAction){
-        printSeparation();
+        UiControl.printSeparation();
         try {
             switch (userAction) {
 
@@ -89,7 +104,7 @@ public class TheThinker {
                 break;
 
             case "bye":
-                printBye();
+                UiControl.printBye();
                 break;
 
             case "list":
@@ -104,7 +119,7 @@ public class TheThinker {
                 printCommands();
                 break;
             }
-            printSeparation();
+            UiControl.printSeparation();
 
         }catch(FormattingException e){
             e.printErrorMessage();

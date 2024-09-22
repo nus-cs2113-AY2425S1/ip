@@ -1,9 +1,11 @@
 package TheThinker.NewFile;
-import TheThinker.Command.TheThinker;
+
 import TheThinker.Tasks.Deadline;
 import TheThinker.Tasks.Event;
 import TheThinker.Tasks.Task;
 import TheThinker.Tasks.Todo;
+import TheThinker.Ui.UiControl;
+
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +28,10 @@ public class NewFile {
         this.file = new File(FILE_DIR_FROM_IP_DIR + "/" + filename);
     }
 
+    public boolean isFileExist() {
+        return this.file.exists();
+    }
+
     public void loadFile() throws FileNotFoundException {
         Scanner SCANNER = new Scanner(this.file);
 
@@ -36,7 +42,7 @@ public class NewFile {
         }
 
         System.out.println("File data loaded");
-        TheThinker.printSeparation();
+        UiControl.printSeparation();
         Task.listTasks();
     }
 
@@ -72,7 +78,6 @@ public class NewFile {
         FileWriter fw = new FileWriter(this.file);
         String textToAdd = convertTaskListToString();
         fw.write(textToAdd);
-        //System.out.println("File data written");
         fw.close();
     }
 
