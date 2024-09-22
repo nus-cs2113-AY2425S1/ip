@@ -113,14 +113,41 @@ If the `index` supplied is <b>out of the range</b> of the current task list, Eri
 	Error: Supplied index is out of bounds
 	____________________________________________________________
 ```
-expected output
+
+## Marking Tasks: `mark`
+
+Marks a task (todo, deadline or event) as <code>done</code>.
+
+Format: <code>mark INDEX</code>
+
+where <code>INDEX</code> is the 1-index of the entry you wish to mark.
+
+Example: `mark 1`
+
+Erika will then confirm with the following sample message
+
+```angular2html
+	____________________________________________________________
+	Nice! I've marked this task as done:
+		[T][X] hello
+	____________________________________________________________
 ```
 
-## Feature ABC
+## Unmarking Tasks: `unmark`
 
-// Feature details
+Marks a task (todo, deadline or event) as <code>not done</code>.
 
+Format: <code>unmark INDEX</code>
 
-## Feature XYZ
+where <code>INDEX</code> is the 1-index of the entry you wish to mark.
 
-// Feature details
+Example: `unmark 1`
+
+Erika will then confirm with the following sample message
+
+```angular2html
+	____________________________________________________________
+    Nice! I've marked this task as not done yet:
+    [T][ ] hello
+    ____________________________________________________________
+```
