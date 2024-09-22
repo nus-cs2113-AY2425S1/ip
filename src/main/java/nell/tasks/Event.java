@@ -1,8 +1,8 @@
 package nell.tasks;
 
 public class Event extends nell.tasks.Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Event(String description, String from, String to) {
         super(description, "E");
