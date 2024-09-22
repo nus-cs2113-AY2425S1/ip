@@ -61,6 +61,10 @@ public class Parser {
             DeleteCommand.execute(inputs, taskManager);
             break;
 
+        case FindCommand.COMMAND_WORD:
+            FindCommand.execute(inputs, taskManager);
+            break;
+
         default:
             Ui.displayInvalidInputMessage();
             break;

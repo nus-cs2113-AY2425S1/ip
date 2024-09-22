@@ -116,4 +116,9 @@ public class Task {
     public String getTaskStorageInfo() {
         return "";
     }
+
+    public boolean doesContain(String phrase) {
+        return description.contains(phrase);
+    }
+
 }
