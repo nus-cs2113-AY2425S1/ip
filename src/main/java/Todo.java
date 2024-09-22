@@ -5,9 +5,16 @@ public class Todo extends Task{
         super(taskName);
     }
 
+    public Todo(boolean isDone, String formattedTaskInfo) {
+        super(isDone, formattedTaskInfo);
+    }
+
     @Override
     public String toString() {
         String taskStatus = "[T][" + (isDone ? "X" : " ") + "] ";
-        return taskStatus + taskName;
+        if (formattedTaskInfo.isBlank()) {
+            return taskStatus + taskName;
+        }
+        return taskStatus + formattedTaskInfo;
     }
 }

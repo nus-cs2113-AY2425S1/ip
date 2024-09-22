@@ -12,6 +12,10 @@ public class Deadline extends Task {
         //System.out.println(deadlineBy);
     }
 
+    public Deadline(boolean isDone, String formattedTaskInfo) {
+        super(isDone, formattedTaskInfo);
+    }
+
     // Combined helper method to extract either taskName or deadline
     private void splitInput(String input) {
         this.inputArray = input.split("/");
@@ -35,7 +39,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String taskStatus = "[D][" + (isDone ? "X" : " ") + "] ";
-        String deadlineInfo = " (by: " + deadline.replaceFirst("^by\\s+", "") + ")";
-        return taskStatus + taskName + deadlineInfo;
+        if (formattedTaskInfo.isBlank()) {
+            String deadlineInfo = " (by: " + deadline.replaceFirst("^by\\s+", "") + ")";
+            return taskStatus + taskName + deadlineInfo;
+        }
+        return taskStatus + formattedTaskInfo;
     }
 }

@@ -1,12 +1,18 @@
 public abstract class Task {
-    protected String taskName;
     protected boolean isDone;
+    protected String taskName;
+    protected String formattedTaskInfo = "";
 
     public Task() {}
 
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false; // Default to not done
+    }
+
+    public Task(boolean isDone, String formattedTaskInfo) {
+        this.isDone = isDone;
+        this.formattedTaskInfo = formattedTaskInfo;
     }
 
     public String getTaskName() {

@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Fenix implements SampleStrings {
 
@@ -26,6 +28,49 @@ public class Fenix implements SampleStrings {
         try {
             return (userInput.split(" ", 2))[1];
         } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public void loadAllInfo() {
+        try {
+            String fileContent = getFileInfo();
+            decipherAllInfo(fileContent);
+        }
+        catch (FileNotFoundException ignored) {
+        }
+    }
+
+    public String getFileInfo() throws FileNotFoundException {
+        String fileContent = "";
+        fileContent = this.fileHandler.loadFileContents();
+        return fileContent;
+    }
+
+    public void decipherAllInfo(String fileContent) {
+        String[] arrayOfTasks = fileContent.split("\n");
+        for (String task : arrayOfTasks) {
+            String[] stringArray = task.split("\\|");
+            String taskType = stringArray[1];
+            String taskStatus = stringArray[2];
+            String taskInfo = stringArray[3].trim();
+            taskArray[taskNumber] = returnTaskObject(taskType, taskStatus, taskInfo);
+            taskNumber++;
+        }
+    }
+
+    private Task returnTaskObject(String taskType, String taskStatus, String taskInfo) {
+        boolean isDone = (taskStatus.equals("X"));
+        if (taskType.equals("T")) {
+            return new Todo(isDone, taskInfo);
+        }
+        else if (taskType.equals("D")) {
+            return new Deadline(isDone, taskInfo);
+        }
+        else if (taskType.equals("E")) {
+            return new Event(isDone, taskInfo);
+        }
+        else {
             return null;
         }
     }
@@ -74,16 +119,30 @@ public class Fenix implements SampleStrings {
     }
 
     public void bidFarewell() {
+        clearAllInfo();
         saveAllInfo();
         System.out.println(FAREWELL);
         System.out.println(HORIZONTAL_LINE_USER_COMMAND);
         scanner.close();
     }
 
+    private void clearAllInfo() {
+        try {
+            this.fileHandler.writeToFile("");
+        }
+        catch (IOException | NullPointerException ignored) {
+        }
+    }
+
     public void saveAllInfo() {
         for (Task task : taskArray) {
             try {
-                this.fileHandler.writeToFile(task.toString());
+                String taskToWrite = task.toString();
+                taskToWrite = taskToWrite.replaceAll("\\[", "|");
+                taskToWrite = taskToWrite.replaceAll("]", "|");
+                taskToWrite = taskToWrite.replace("||", "|");
+                this.fileHandler.appendToFile(taskToWrite);
+                this.fileHandler.appendToFile("\n");
             }
             catch (IOException | NullPointerException e) {
                 return;
@@ -208,12 +267,5 @@ public class Fenix implements SampleStrings {
     public void storeTask(Task task) {
         taskArray[taskNumber] = task;
         taskNumber++;
-        try {
-            this.fileHandler.appendToFile(task.toString());
-            this.fileHandler.appendToFile(System.lineSeparator());
-        }
-        catch (IOException | NullPointerException e) {
-            return;
-        }
     }
 }
