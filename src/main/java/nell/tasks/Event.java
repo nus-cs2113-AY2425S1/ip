@@ -1,16 +1,21 @@
 package nell.tasks;
 
-public class Event extends nell.tasks.Task {
-    private final String from;
-    private final String to;
+import nell.common.DateFormats;
 
-    public Event(String description, String from, String to) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends nell.tasks.Task {
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, "E");
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -19,10 +24,11 @@ public class Event extends nell.tasks.Task {
 
     public String toString() {
         return String.format("%s (from: %s to: %s)", super.toString(),
-                this.from, this.to);
+                DateFormats.OUTPUT_DATE_FORMAT.format(this.from), DateFormats.OUTPUT_DATE_FORMAT.format(this.to));
     }
 
     public String getFileLine() {
-        return String.format("%s|%s|%s", super.getFileLine(), this.from, this.to);
+        return String.format("%s|%s|%s", super.getFileLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.from),
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.to));
     }
 }

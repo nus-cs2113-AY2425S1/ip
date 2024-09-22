@@ -112,6 +112,8 @@ public class Parser {
                 return new EventCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
             }
 
         case "remove":

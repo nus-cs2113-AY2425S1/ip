@@ -71,8 +71,8 @@ public class Storage {
             break;
 
         case "E":
-            String eventFrom = taskParameters[3];
-            String eventTo = taskParameters[4];
+            LocalDateTime eventFrom = LocalDateTime.parse(taskParameters[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime eventTo = LocalDateTime.parse(taskParameters[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             Event eventToAdd = new Event(taskDescription, taskIsDone, eventFrom, eventTo);
             tasks.loadTask(eventToAdd);
             break;
