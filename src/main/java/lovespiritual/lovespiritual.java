@@ -55,7 +55,7 @@ public class lovespiritual {
         }
     }
 
-    private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
+    private static int event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Uh-oh! (・_・;) Your event description seems to be missing!");
@@ -92,7 +92,7 @@ public class lovespiritual {
         return tasks.size();
     }
 
-    private static int deadline(String input, int taskCount, Task[] tasks) throws lovespiritualException {
+    private static int deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Oops! (｡•́︿•̀｡) Your deadline needs a little description!");
@@ -120,7 +120,7 @@ public class lovespiritual {
         return tasks.size();
     }
 
-    private static int todo(String input, Task[] tasks, int taskCount) throws lovespiritualException {
+    private static int todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
             throw new lovespiritualException("Hmm... (¬‿¬) What's the todo? Looks like the description's missing!");
@@ -134,7 +134,7 @@ public class lovespiritual {
         return tasks.size();
     }
 
-    private static void unmarkTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
+    private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
@@ -156,7 +156,7 @@ public class lovespiritual {
         }
     }
 
-    private static void markTask(String input, int taskCount, boolean[] isMarked, Task[] tasks) throws lovespiritualException {
+    private static void markTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Hmm... (ʘ‿ʘ) A valid number, please?");
@@ -189,7 +189,7 @@ public class lovespiritual {
         return taskCount;
     }
 
-    private static void printList(int taskCount, boolean[] isMarked, String[] taskTypes, Task[] tasks) {
+    private static void printList(int taskCount, ArrayList <Task> tasks) {
         System.out.println(SEPARATOR);
         System.out.println("Here's your list! (・∀・) Ready to tackle it?");
         for (int i = 0; i < taskCount; i++) {
