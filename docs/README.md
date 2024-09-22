@@ -53,7 +53,6 @@ Erika will then confirm with the following sample message
         ____________________________________________________________
 ```
 
-// A description of the expected outcome goes here
 ## Adding Events: <code>event</code>
 Adds an <b>event</b> to the list of tasks. Events are defined to be tasks with a <b>start</b> and <b>end</b> attribute. 
 
@@ -208,3 +207,31 @@ executing```find todo``` produces
     ____________________________________________________________
 ```
 
+
+## Saving Data: 
+
+- Tasks are automatically saved in <b>real-time</b> (after each command execution) to a text file (```./data/tasks.txt```).
+
+#### Note: ```./data/task.txt``` is a relative path that is with respect to the directory from which Erika is run from the terminal application. 
+- Tasks are stored in a single line with the following format: 
+```
+[TASK_TYPE],[MARK_STATUS],[DESCRIPTION],{DEADLINE}/{START},{END}
+```
+
+Where ```[TASK_TYPE]``` takes on one of the letters ```T```,```D``` or ```E``` representing ```Todo```, ```Deadline``` and ```Event``` Tasks respectively, ```MARK_STATUS``` takes on either a ```0``` (not done) or a ```1``` (done), and ```[DESCRIPTION]```,```{DEADLINE}/{START}``` and ```{END}``` take on ```string``` values, with ```{ }``` representing optional parameters.
+
+Example - Supposing the following commands are executed sequentially: 
+
+```angular2html
+todo todo task 
+deadline deadline task /by deadline
+event event task /from start /to end
+```
+The corresponding ```./data/tasks.txt``` file will contain the following data:
+```angular2html
+T,0,todo task
+D,0,deadline task,deadline
+E,0,event task,start,end
+```
+- Upon startup, Erika checks for the existence of this file. If it does not exist, an empty file is created. If it exists, the file is read and the entries are automatically loaded into Erika and can be accessed/manipulated. 
+- Advanced users are free to directly modify the ```./data/tasks.txt``` file to directly add/modify tasks to their liking. 
