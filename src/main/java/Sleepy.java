@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class Sleepy {
+    public static final String MARK = "mark";
     private static final String LOGO = """
                 ____________________________________________________________
                   ____   _      ____   ____  ____   __    __
@@ -9,6 +10,12 @@ public class Sleepy {
                  |____/ |____| |____| |____| |__|     |__|
                 """;
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
+    public static final String BYE = "bye";
+    public static final String LIST = "list";
+    public static final String UNMARK = "unmark";
+    public static final String DELETE = "delete";
+    public static final String FIND = "find";
+
     public static void main(String[] args) {
         System.out.println(LOGO);
         String greeting = getGreeting();
@@ -19,20 +26,20 @@ public class Sleepy {
         TaskManager taskManager = new TaskManager(Storage.loadTasks());
         line = in.nextLine();
         //checks for all the keywords
-        while (!line.equals("bye")) {
+        while (!line.equals(BYE)) {
             try {
-                if (line.equals("list")) {
+                if (line.equals(LIST)) {
                     taskManager.listTasks();
-                } else if (line.startsWith("mark")) {
+                } else if (line.startsWith(MARK)) {
                     int taskNumber = Integer.parseInt(line.substring(4).trim());
                     taskManager.markTask(taskNumber);
-                } else if (line.startsWith("unmark")) {
+                } else if (line.startsWith(UNMARK)) {
                     int taskNumber = Integer.parseInt(line.substring(6).trim());
                     taskManager.unmarkTask(taskNumber);
-                } else if (line.startsWith("delete")){
+                } else if (line.startsWith(DELETE)){
                     int taskNumber = Integer.parseInt(line.substring(6).trim());
                     taskManager.deleteTask(taskNumber);
-                } else if (line.startsWith("find")) {
+                } else if (line.startsWith(FIND)) {
                     String keyword = line.substring(4).trim();
                     taskManager.findTask(keyword);
                 } else {
