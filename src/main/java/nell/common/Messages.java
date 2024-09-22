@@ -44,6 +44,7 @@ public class Messages {
                   deadline <description> /by <by-date>
                   event <description> /from <from-date> /to <to-date>
                   remove <number>
+                  find <keyword>
                   bye
             """;
     public static final String UNMARK_MESSAGE = "-> The following task has been marked not done:";
