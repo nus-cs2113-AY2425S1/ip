@@ -1,30 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Fenix implements SampleStrings {
-
-    public static int taskNumber = 0;
-    public static Task[] taskArray = new Task[100];
+    
+    public static ArrayList<Task> taskArrayList = new ArrayList<>();
     private final Scanner scanner;
 
     // Constructor
     public Fenix() {
         this.scanner = new Scanner(System.in);
-    }
-
-    private static String getType(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[0];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    private static String getInformation(String userInput) {
-        try {
-            return (userInput.split(" ", 2))[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
     }
 
     public void greet() {
@@ -44,9 +28,10 @@ public class Fenix implements SampleStrings {
     }
 
     private void processUserInput(String userInput) {
-        String[] words = userInput.trim().split(" ");
-        String command = words[0];
-        switch (command) {
+        String[] words = userInput.trim().split(" ", 2);
+        String commandType = words[0];
+        String commandInfo = ((words.length > 1) ? words[1] : "") ;
+        switch (commandType) {
         case "bye":
             bidFarewell();
             return;
@@ -54,15 +39,18 @@ public class Fenix implements SampleStrings {
             showAllTasks(false);
             break;
         case "mark":
-            markAsDone(words);
+            markAsDone(commandInfo);
             break;
         case "unmark":
-            unmarkAsDone(words);
+            unmarkAsDone(commandInfo);
             break;
         case "todo":
         case "deadline":
         case "event":
-            processTasks(userInput);
+            processTasks(commandType, commandInfo);
+            break;
+        case "delete":
+            deleteTask(commandInfo);
             break;
         default:
             System.out.println("Please provide a valid command");
@@ -77,93 +65,92 @@ public class Fenix implements SampleStrings {
     }
 
     public void showAllTasks(boolean isModified) {
-        String index;
-        String task;
         String extraSpace = (isModified ? "\t" : "");
         String space = extraSpace + "\t";
-        for (int i = 0; i < taskArray.length && !isNullElement(i); i += 1) {
-            index = (i + 1) + ". ";
-            task = taskArray[i].toString();
+        for (Task task : taskArrayList) {
+            String index = (taskArrayList.indexOf(task) + 1) + ". ";
             System.out.println(space + index + task);
         }
     }
 
-    public boolean isNullElement(int i) {
-        return taskArray[i] == null;
+    private void markAsDone(String taskNumber) {
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
+        }
+        markTaskAsDone(taskIndex);
     }
 
-    private void markAsDone(String[] words) {
-        try {
-            String taskNumber = words[1];
-            if (isValidTaskNumber(taskNumber)) {
-                int taskIndex = Integer.parseInt(taskNumber) - 1;
-                markTaskAsDone(taskIndex);
-            } else {
-                System.out.println("Please provide a valid task number to mark");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
+    private int getTaskIndex(String taskNumber) {
+        if (taskNumber.isBlank()) {
             System.out.println("Please provide a task");
+            return -1;
         }
+        if (!isValidTaskNumber(taskNumber)) {
+            System.out.println("Please provide a valid task number");
+            return -1;
+        }
+        return Integer.parseInt(taskNumber) - 1;
     }
 
     private boolean isValidTaskNumber(String input) {
         try {
             int index = Integer.parseInt(input);
-            return index > 0 && index <= taskNumber;
+            return index > 0 && index <= taskArrayList.size();
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    private void unmarkAsDone(String[] words) {
-        try {
-            String taskNumber = words[1];
-            if (isValidTaskNumber(taskNumber)) {
-                int taskIndex = Integer.parseInt(taskNumber) - 1;
-                unmarkTaskAsDone(taskIndex);
-            } else {
-                System.out.println("Please provide a valid task number to unmark");
-            }
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            System.out.println("Please provide a task");
-        }
-    }
-
     public void markTaskAsDone(int taskNumber) {
         System.out.println("Task successfully completed. A job well executed.");
-        taskArray[taskNumber].markAsDone();
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        showAllTasks(true);
-        System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
+        taskArrayList.get(taskNumber).markAsDone();
+        printListTaskStatusChange();
+    }
+
+    private void unmarkAsDone(String taskNumber) {
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
+        }
+        unmarkTaskAsDone(taskIndex);
     }
 
     public void unmarkTaskAsDone(int taskNumber) {
         System.out.println("Understood. This task has been marked as not done yet.");
-        taskArray[taskNumber].unmarkAsDone();
+        taskArrayList.get(taskNumber).unmarkAsDone();
+        printListTaskStatusChange();
+    }
+
+    private void printListTaskStatusChange() {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         showAllTasks(true);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
     }
 
-    public void processTasks(String userInput) {
-        String type = getType(userInput);
-        String information = getInformation(userInput);
-        if (type == null || type.isBlank()) {
+    public void processTasks(String commandType, String commandInfo) {
+        if (commandType == null || commandType.isBlank()) {
             System.out.println("Please provide a command");
             return;
-        } else if (information == null || information.isBlank()) {
+        } else if (commandInfo == null || commandInfo.isBlank()) {
             System.out.println("Please provide a task");
             return;
         }
-        Task task = returnTaskObject(type, information);
+        Task task = returnTaskObject(commandType, commandInfo);
         if (task == null) {
             return;
         }
         storeTask(task);
+        printFenixModification(ADD, task);
+    }
+
+    private static void printFenixModification(String modification, Task task) {
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("\t\t" + ADD + task);
+        System.out.println("\t\t" + modification + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("You now have " + taskNumber + " tasks awaiting your attention.");
+        System.out.println("You now have " + taskArrayList.size() + " tasks awaiting your attention.");
     }
 
     private Task returnTaskObject(String type, String information) {
@@ -191,7 +178,17 @@ public class Fenix implements SampleStrings {
     }
 
     public void storeTask(Task task) {
-        taskArray[taskNumber] = task;
-        taskNumber++;
+        taskArrayList.add(task);
+    }
+
+    public void deleteTask(String taskNumber) {
+        int taskIndex = getTaskIndex(taskNumber);
+        if (taskIndex == -1)
+        {
+            return;
+        }
+        Task task = taskArrayList.get(taskIndex);
+        taskArrayList.remove(taskIndex);
+        printFenixModification(DELETE, task);
     }
 }
