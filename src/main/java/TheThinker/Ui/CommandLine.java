@@ -20,7 +20,7 @@ public class CommandLine {
         }while(!userInput.equals("bye"));
     }
 
-    public static String getUserInputAndDoTask() {
+    private static String getUserInputAndDoTask() {
         String userInput;
         userInput = UserInputParser.getUserInput();
         String userAction = UserInputParser.parseUserAction();
@@ -28,7 +28,7 @@ public class CommandLine {
         return userInput;
     }
 
-    public static void doTaskAccordingToUserAction(String userAction){
+    private static void doTaskAccordingToUserAction(String userAction){
         UiControl.printSeparation();
         try {
             switch (userAction) {

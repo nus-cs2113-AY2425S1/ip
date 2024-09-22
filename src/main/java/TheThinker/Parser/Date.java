@@ -12,22 +12,11 @@ public class Date {
     public static DateTimeFormatter resultDateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy , h a");
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static LocalDateTime parseIntoDateTimeObject(String date){
+    private static LocalDateTime parseIntoDateTimeObject(String date){
         return LocalDateTime.parse(date, dateTimeFormatter);
     }
 
-    public static boolean isDateOneLater(String date1, String date2){
-        LocalDateTime firstDate = parseIntoDateTimeObject(date1);
-        LocalDateTime secondDate = parseIntoDateTimeObject(date2);
-        return firstDate.isAfter(secondDate);
-    }
-
-    public static void printDate(String date) {
-        LocalDateTime dateObject = parseIntoDateTimeObject(date);
-        System.out.println(dateObject.format(resultDateTimeFormatter)); // -> Oct 15 2019
-    }
-
-    public static String toString(String date) {
+    private static String toString(String date) {
         LocalDateTime dateObject = parseIntoDateTimeObject(date);
         return dateObject.format(resultDateTimeFormatter); // -> Oct 15 2019
     }

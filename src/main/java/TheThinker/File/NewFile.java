@@ -6,7 +6,6 @@ import TheThinker.Tasks.Task;
 import TheThinker.Tasks.TaskList;
 import TheThinker.Tasks.Todo;
 import TheThinker.Ui.UiControl;
-
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,7 +46,7 @@ public class NewFile {
         TaskList.listTasks();
     }
 
-    public void addTaskAccordingToFileData(String[] parameters){
+    private void addTaskAccordingToFileData(String[] parameters){
         switch (parameters[0]) {
             case "T" :
                 TaskList.addTaskWithoutResponse(new Todo(parameters[2]));

@@ -2,7 +2,6 @@ package TheThinker.File;
 
 import TheThinker.Parser.UserInputParser;
 import TheThinker.Ui.UiControl;
-
 import java.io.FileNotFoundException;
 
 public class FileLoader {
@@ -23,7 +22,7 @@ public class FileLoader {
         return data;
     }
 
-    public static NewFile inputFileNameAndLoadFile() throws FileNotFoundException{
+    private static NewFile inputFileNameAndLoadFile() throws FileNotFoundException{
         UiControl.printSeparation();
         System.out.println("Input file name you want to extract data from under the Data directory [filename.txt]");
         UiControl.printSeparation();
