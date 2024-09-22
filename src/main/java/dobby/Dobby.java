@@ -7,8 +7,18 @@ import dobby.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * The main class of the Dobby application. This class initializes the core components:
+ * Storage, TaskList, Ui, and Parser. It loads tasks from storage, processes user commands,
+ * and saves tasks back to storage upon exit.
+ */
 public class Dobby {
 
+    /**
+     * The entry point of the Dobby application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
