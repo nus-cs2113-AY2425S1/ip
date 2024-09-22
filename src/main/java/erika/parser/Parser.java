@@ -33,14 +33,14 @@ public class Parser {
         if(!line.contains("event ")) {
             throw new EmptyDescriptionException("Event");
         }
-        int indexOfFrom = line.indexOf("/from ");
+        int indexOfFrom = line.indexOf(" /from ");
         if (indexOfFrom == -1) {
             throw new FormatErrorException("missing /from parameter");
         }
         if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
             throw new EmptyDescriptionException("Event");
         }
-        int indexOfTo = line.indexOf("/to ");
+        int indexOfTo = line.indexOf(" /to ");
         if(indexOfTo == -1) {
             throw new FormatErrorException("missing /to parameter");
         }
@@ -65,7 +65,7 @@ public class Parser {
         if (!line.contains("deadline ")) {
             throw new EmptyDescriptionException("Deadline");
         }
-        int indexOfBy = line.indexOf("/by ");
+        int indexOfBy = line.indexOf(" /by ");
         if (indexOfBy == -1) {
             throw new FormatErrorException("missing /by parameter");
         }
