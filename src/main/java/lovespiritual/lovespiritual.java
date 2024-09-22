@@ -41,26 +41,7 @@ public class lovespiritual {
                 } else if (input.startsWith("event")) {
                     taskCount = event(input, tasks);
                 } else if (input.startsWith("delete")) {
-                    String taskNumber = input.substring("delete".length()).trim();
-                    if (taskNumber.isEmpty()) {
-                        throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
-                    }
-                    int indexNumber;
-                    try {
-                        indexNumber = Integer.parseInt(taskNumber) - 1;
-                    } catch (NumberFormatException e) {
-                        throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
-                    }
-                    Task removedTask = tasks.get(indexNumber);
-                    if (indexNumber >= 0 && indexNumber < taskCount) {
-                        tasks.remove(indexNumber);
-                        System.out.println(SEPARATOR);
-                        System.out.println("Got it! (◠‿◠) This task is removed!");
-                        System.out.println(removedTask);
-                        System.out.println(SEPARATOR);
-                    } else {
-                        throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
-                    }
+                    deleteTask(input, tasks, taskCount);
                 }
                 else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
@@ -74,6 +55,29 @@ public class lovespiritual {
                 System.out.println("Oh no! (＞﹏＜) Something went a little wrong...");
                 System.out.println(SEPARATOR);
             }
+        }
+    }
+
+    private static void deleteTask(String input, ArrayList<Task> tasks, int taskCount) throws lovespiritualException {
+        String taskNumber = input.substring("delete".length()).trim();
+        if (taskNumber.isEmpty()) {
+            throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
+        }
+        int indexNumber;
+        try {
+            indexNumber = Integer.parseInt(taskNumber) - 1;
+        } catch (NumberFormatException e) {
+            throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
+        }
+        Task removedTask = tasks.get(indexNumber);
+        if (indexNumber >= 0 && indexNumber < taskCount) {
+            tasks.remove(indexNumber);
+            System.out.println(SEPARATOR);
+            System.out.println("Got it! (◠‿◠) This task is removed!");
+            System.out.println(removedTask);
+            System.out.println(SEPARATOR);
+        } else {
+            throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
         }
     }
 
