@@ -77,6 +77,30 @@ public class lovespiritual {
             System.out.println(SEPARATOR);
         }
     }
+
+    private static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = extractTasks(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error loading tasks (•︵•): " + e.getMessage());
+            System.out.println(SEPARATOR);
+        }
+    }
+
+
     private static String savedFormat(Task task) {
         String taskType = "";
         String formattedTask = "";
