@@ -1,4 +1,4 @@
-# Sleepy User Guide
+## Sleepy User Guide
 
 // Product screenshot goes here
 
@@ -12,18 +12,19 @@ Copy the file to the folder you want to use as the home folder for your Sleepy c
 
 Open a command terminal, cd into the folder you put the jar file in, and use the java -jar ip.jar command to run the application.
 
-- Features
-  - Adding a deadline task: deadline
-  - Adding an event task: event
-  - Adding a todo task: todo
-  - Listing tasks: list
-  - Marking a task: mark
-  - Unmarking a task: unmark
-  - Deleting a task: delete
-  - Finding tasks: find
-  - Exiting the program: bye
-- Command summary
-## Adding a Deadline task: Deadline
+## Contents
+- [Adding a Deadline Task: deadline](#adding-a-deadline-task-deadline)
+- [Adding an Event Task: event](#adding-an-event-task-event)
+- [Adding a Todo Task: todo](#adding-a-todo-task-todo)
+- [Listing Tasks: list](#listing-tasks-list)
+- [Marking a Task: mark](#marking-a-task-mark)
+- [Unmarking a Task: unmark](#unmarking-a-task-unmark)
+- [Deleting a Task: delete](#deleting-a-task-delete)
+- [Finding Tasks: find](#finding-tasks-find)
+- [Exiting the Program: bye](#exiting-the-program-bye)
+- [Command Summary](#command-summary)
+
+## Adding a Deadline task: deadline
 
 Adds a deadline task to the task list
 
@@ -174,3 +175,17 @@ ____________________________________________________________
 Bye. Going back to sleep...ZZZ
 ____________________________________________________________
 ```
+## Command summary
+
+| Action   | Format, examples                                                                                |
+|----------|-------------------------------------------------------------------------------------------------|
+| Deadline | `deadline [task] /by [yyyy-MM-dd HHmm]`<br/>e.g. `deadline complete README /by 2024-09-28 2359` |
+| Event    | `event [task] /from [time] /to [time]`<br/>e.g. `event zouk /from 10pm /to 4am`                 |
+| Todo     | `todo [task]` <br/>e.g.`todo laundry`                                                           |
+| List     | `list`                                                                                          |
+| Mark     | `mark [task index]`<br/>e.g.`mark 1`                                                            |
+| Unmark   | `unmark [task index]`<br/>e.g.`unmark 1`                                                        |
+| Delete   | `delete [task index]`<br/>e.g.`delete 1`                                                        |
+| Find     | `find [keyword]`<br/>e.g.`find zouk`                                                            |
+| Exit     | `bye`                                                                                           |
+ 
