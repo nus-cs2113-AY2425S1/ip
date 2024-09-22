@@ -1,2 +1,2 @@
-T | 1 | Khanh attend CS2113 Lecture Friday 20 Sep 2024
 T | 0 | Khanh attend CS2113 Lecture Friday 20 Sep 2024
+T | 0 | Khanh submit UG draft

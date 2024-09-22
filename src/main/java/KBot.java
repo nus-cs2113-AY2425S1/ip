@@ -209,7 +209,7 @@ public class KBot {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
-    
+
     // File Saving and Loading Methods
 
     private void saveTasksToFile() {
