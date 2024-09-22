@@ -9,6 +9,8 @@ import nell.tasks.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -63,7 +65,7 @@ public class Storage {
             break;
 
         case "D":
-            String deadlineBy = taskParameters[3];
+            LocalDateTime deadlineBy = LocalDateTime.parse(taskParameters[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             Deadline deadlineToAdd = new Deadline(taskDescription, taskIsDone, deadlineBy);
             tasks.loadTask(deadlineToAdd);
             break;

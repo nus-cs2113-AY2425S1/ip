@@ -12,6 +12,8 @@ import nell.command.ToDoCommand;
 import nell.command.UnmarkCommand;
 import nell.common.Messages;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Handles the parsing and execution of commands entered by the user into the UI
  */
@@ -101,6 +103,8 @@ public class Parser {
                 return new DeadlineCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 return new IncorrectCommand(tasks, Messages.DEADLINE_ERROR_MESSAGE);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
             }
 
         case "event":

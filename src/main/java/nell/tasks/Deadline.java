@@ -1,24 +1,29 @@
 package nell.tasks;
 
-public class Deadline extends nell.tasks.Task {
-    private final String by;
+import nell.common.DateFormats;
 
-    public Deadline(String description, String by) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends nell.tasks.Task {
+    private final LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description, "D");
         this.by = by;
     }
 
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
         this.type = "D";
     }
 
     public String toString() {
-        return String.format("%s (by: %s)", super.toString(), this.by);
+        return String.format("%s (by: %s)", super.toString(), DateFormats.OUTPUT_DATE_FORMAT.format(this.by));
     }
 
     public String getFileLine() {
-        return String.format("%s|%s", super.getFileLine(), this.by);
+        return String.format("%s|%s", super.getFileLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.by));
     }
 }
