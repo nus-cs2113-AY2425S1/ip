@@ -78,6 +78,40 @@ Erika will then confirm with the following sample message
 	____________________________________________________________
 ```
 
+## Deleting Tasks: `delete`
+
+Deletes a task (todo, deadline or event) from the list. 
+
+Format: <code>delete PARAMETER</code>
+
+Where `PARAMETER` can be either
+1. An interger `index` that represents the 1-index position of the entry in the list.
+2. Keyword `all` that will delete <b>all</b> entries in the list.
+
+Example: `delete 1`, `delete all`
+
+Erika will then confirm with the following sample message in the case of deletion of a <i>single</i> entry
+
+```
+	____________________________________________________________
+	Nice! I've deleted this task:
+	[T][ ] delete me
+	Now you have 3 tasks in the list.
+	____________________________________________________________
+```
+Or in the case of deleting <i>all</i> entries
+```
+	____________________________________________________________
+	All tasks deleted. There are now 0 tasks
+	____________________________________________________________
+```
+### Note: 
+If the `index` supplied is <b>out of the range</b> of the current task list, Erika throws an `OutOfBoundsException`:
+
+```
+	____________________________________________________________
+	Error: Supplied index is out of bounds
+	____________________________________________________________
 ```
 expected output
 ```
