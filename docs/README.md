@@ -151,3 +151,60 @@ Erika will then confirm with the following sample message
     [T][ ] hello
     ____________________________________________________________
 ```
+
+## Listing Tasks: <code>list</code>
+
+Lists all the tasks in the current list in the following format:
+
+<code>[INDEX]. [TASK_TYPE][MARK_STATUS] [TASK DESCRIPTION] </code>
+
+Where ```Index``` can take an ```integer``` value, ```TASK_TYPE``` takes one of the letters ```T```,```D``` or ```E``` and ```MARK_STATUS``` takes the value of either ```[X]``` (marked) or ```[ ]``` (unmarked).
+
+Example:
+
+Running the following command sequence: 
+
+```angular2html
+todo todo task 
+deadline deadline task /by deadline
+event event task /from start /to end
+```
+
+Produces the following result when ```list``` is executed immediately after: 
+
+```
+	____________________________________________________________
+	Here are the items in your list: 
+	1. [T][ ] todo task
+	2. [D][ ] deadline task (by: deadline)
+	3. [E][ ] event task (from: start to: end)
+	____________________________________________________________
+```
+## Searching for Tasks: <code>find</code>
+
+Returns tasks with ```DESCRIPTION``` matching the ```KEY```
+
+<code>find KEY</code>
+
+Where ```KEY``` is a ```string``` to match.
+
+Example: Supposing our list of tasks is as follows
+
+```
+	____________________________________________________________
+	Here are the items in your list: 
+	1. [T][ ] todo task
+	2. [D][ ] deadline task (by: deadline)
+	3. [E][ ] event task (from: start to: end)
+	____________________________________________________________
+```
+
+executing```find todo``` produces
+
+```
+    ____________________________________________________________
+    Here are the matching items in your list:
+    1. [T][ ] todo task
+    ____________________________________________________________
+```
+
