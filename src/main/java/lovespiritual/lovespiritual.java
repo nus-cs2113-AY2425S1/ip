@@ -6,18 +6,22 @@ import lovespiritual.task.Event;
 import lovespiritual.task.Task;
 import lovespiritual.task.Todo;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
     public static final int MAX_TASKS = 100;
+    public static final String FILE_PATH = "./data/lovespiritual.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        int taskCount = 0; // count the number of tasks added in the array
+        int taskCount = 0;
 
+        loadTasks();
         printWelcomeScreen();
 
         // loop that keeps recurring when the program is running
@@ -26,6 +30,7 @@ public class lovespiritual {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
+                    saveTasks();
                     printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
@@ -78,6 +83,120 @@ public class lovespiritual {
             System.out.println(SEPARATOR);
         } else {
             throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : tasks) {
+                writer.write(savedFormat(task));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error saving tasks (×_×;): " + e.getMessage());
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    private static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = extractTasks(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error loading tasks (•︵•): " + e.getMessage());
+            System.out.println(SEPARATOR);
+        }
+    }
+
+
+    private static String savedFormat(Task task) {
+        String taskType = "";
+        String formattedTask = "";
+
+        if (task instanceof Todo) {
+            taskType = "T";
+            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description;
+        } else if (task instanceof Deadline) {
+            taskType = "D";
+            Deadline deadline = (Deadline) task;
+            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description + " | " + deadline.by;
+        } else if (task instanceof Event) {
+            taskType = "E";
+            Event event = (Event) task;
+            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description + " | " + event.from + " | " + event.to;
+        }
+        return formattedTask;
+    }
+
+
+    private static Task extractTasks(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+
+            if (parts.length < 3) {
+                throw new lovespiritualException("Error reading task from file: Incomplete task data.");
+            }
+
+            String type = parts[0];
+            boolean isMarked = parts[1].equals("1");
+            String description = parts[2];
+            Task task;
+
+            switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw new lovespiritualException("Error reading Deadline from file: Missing 'by' date.");
+                }
+                String by = parts[3];
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    throw new lovespiritualException("Error reading Event from file: Missing 'from' or 'to' time.");
+                }
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+                break;
+            default:
+                throw new lovespiritualException("Error reading task from file: Unknown task type.");
+            }
+
+            if (isMarked) {
+                task.mark();
+            }
+
+            return task;
+        } catch (lovespiritualException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(e.getMessage());
+            System.out.println(SEPARATOR);
+            return null;
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error parsing task from file: " + e.getMessage());
+            System.out.println(SEPARATOR);
+            return null;
         }
     }
 
