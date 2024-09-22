@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static TaskList instance;
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     // Private constructor to prevent instantiation
     private TaskList() {
@@ -34,6 +34,16 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
+
+    /**
+     * Sets the tasks in the list of tasks.
+     *
+     * @param tasks the input list of tasks
+     */
+    public void setTaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     /**
      * Returns the size of the list of tasks.
@@ -104,12 +114,9 @@ public class TaskList {
      * @param task the task to check
      */
     public boolean isContainingDuplicate(Task task){
-        for (Task p : tasks) {
-            if (p.isSameTask(task)) {
-                return true;
-            }
-        }
-        return false;
+        return tasks.stream()
+                .filter((t) -> t.getType().equals(task.getType()))
+                .anyMatch(t -> t.isSameTask(task));
     }
 
 
