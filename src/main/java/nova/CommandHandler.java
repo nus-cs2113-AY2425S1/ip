@@ -1,136 +1,49 @@
 package nova;
 
-import nova.exception.InsufficientSpaceException;
-import nova.exception.InvalidInputException;
-import nova.task.Deadline;
-import nova.task.Event;
-import nova.task.Todo;
+import nova.command.*;
 
 public class CommandHandler {
 
-    private static final String TODO_USAGE = "Usage: todo <task description>.";
-    private static final String DEADLINE_USAGE = "Usage: deadline <task description> /by <due date>.";
-    private static final String EVENT_USAGE = "Usage: event <task description> /from <start time> /to <end time>.";
+    private TaskList taskManager;
 
-    private TaskManager taskManager;
-    private InputValidator inputValidator;
-
-    public CommandHandler(TaskManager taskManager, InputValidator inputValidator) {
+    public CommandHandler(TaskList taskManager) {
         this.taskManager = taskManager;
-        this.inputValidator = inputValidator;
     }
 
     public boolean handleInput(String[] inputs) {
         switch (inputs[0].toLowerCase()) {
-        case "bye":
-            return handleByeCase();
+        case ExitCommand.COMMAND_WORD:
+            return ExitCommand.execute();
 
-        case "list":
-            taskManager.listTasks();
+        case ListCommand.COMMAND_WORD:
+            ListCommand.execute(taskManager);
             break;
 
-        case "mark":
-        case "unmark":
-            handleMarkAndUnmarkCase(inputs);
+        case MarkAndUnmarkCommand.COMMAND_WORD1:
+        case MarkAndUnmarkCommand.COMMAND_WORD2:
+            MarkAndUnmarkCommand.execute(inputs, taskManager);
             break;
 
-        case "todo":
-            handleTodoCase(inputs);
+        case TodoCommand.COMMAND_WORD:
+            TodoCommand.execute(inputs, taskManager);
             break;
 
-        case "deadline":
-            handleDeadlineCase(inputs);
+        case DeadlineCommand.COMMAND_WORD:
+            DeadlineCommand.execute(inputs, taskManager);
             break;
 
-        case "event":
-            handleEventCase(inputs);
+        case EventCommand.COMMAND_WORD:
+            EventCommand.execute(inputs, taskManager);
             break;
 
-        case "delete":
-            handleDeleteCase(inputs);
+        case DeleteCommand.COMMAND_WORD:
+            DeleteCommand.execute(inputs, taskManager);
             break;
 
         default:
-            MessageDisplay.displayInvalidInputMessage();
+            Ui.displayInvalidInputMessage();
             break;
         }
         return false;
     }
-
-    private boolean handleByeCase() {
-        MessageDisplay.displayByeMessage();
-        return true;
-    }
-
-    private void handleMarkAndUnmarkCase(String[] inputs) {
-        int taskIndex;
-        try {
-            taskIndex = inputValidator.validateIndex(inputs);
-        } catch (InvalidInputException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage());
-            return;
-        }
-
-        if (inputs[0].equals("mark")) {
-            taskManager.markTask(taskIndex - 1);
-            MessageDisplay.displayMarkMessage(taskManager.getTask(taskIndex - 1));
-        } else {
-            taskManager.unmarkTask(taskIndex - 1);
-            MessageDisplay.displayUnmarkMessage(taskManager.getTask(taskIndex - 1));
-        }
-        taskManager.updateStorage();
-    }
-
-    private void handleTodoCase(String[] inputs) {
-        try {
-            inputValidator.validateTodoInput(inputs);
-            taskManager.checkSpace();
-            taskManager.addTask(new Todo(inputs[1]));
-        } catch (InvalidInputException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage(), TODO_USAGE);
-        } catch (InsufficientSpaceException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage());
-        }
-    }
-
-    private void handleDeadlineCase(String[] inputs) {
-        String[] validatedInput;
-        try {
-            validatedInput = inputValidator.validateDeadlineInput(inputs);
-            taskManager.checkSpace();
-            taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
-        } catch (InvalidInputException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage(), DEADLINE_USAGE);
-        } catch (InsufficientSpaceException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage());
-        }
-    }
-
-    private void handleEventCase(String[] inputs) {
-        String[] validatedInput;
-        try {
-            validatedInput = inputValidator.validateEventInput(inputs);
-            taskManager.checkSpace();
-            taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
-        } catch (InvalidInputException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage(), EVENT_USAGE);
-        } catch (InsufficientSpaceException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage());
-        }
-    }
-
-    private void handleDeleteCase(String[] inputs) {
-        int taskIndex;
-        try {
-            taskIndex = inputValidator.validateIndex(inputs);
-        } catch (InvalidInputException e) {
-            MessageDisplay.displayInvalidInputMessage(e.getMessage());
-            return;
-        }
-
-        MessageDisplay.displayDeleteMessage(taskManager.getTask(taskIndex - 1));
-        taskManager.removeTask(taskIndex - 1);
-        taskManager.updateStorage();
-    }
-
 }

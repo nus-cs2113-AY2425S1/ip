@@ -2,7 +2,7 @@ package nova;
 
 import nova.task.Task;
 
-public class MessageDisplay {
+public class Ui {
 
     public static final String SEPARATOR = "    ___________________________________________________________________";
     public static final String NEW_LINE = "\n     ";
@@ -13,10 +13,6 @@ public class MessageDisplay {
 
     public static void displayWelcomeMessage() {
         displayMessage("Hello! I'm Nova" + NEW_LINE + "What can I do for you?");
-    }
-
-    public static void displayByeMessage() {
-        displayMessage("Bye. Hope to see you again soon!");
     }
 
     public static void displayMarkMessage(Task task) {

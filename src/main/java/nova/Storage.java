@@ -40,24 +40,24 @@ public class Storage {
                 switch (line[0]) {
 
                 case "T":
-                    TaskManager.loadTask(new Todo(line[1], line[2]));
+                    TaskList.loadTask(new Todo(line[1], line[2]));
                     break;
 
                 case "D":
-                    TaskManager.loadTask(new Deadline(line[1], line[2], line[3]));
+                    TaskList.loadTask(new Deadline(line[1], line[2], line[3]));
                     break;
 
                 case "E":
-                    TaskManager.loadTask(new Event(line[1], line[2], line[3], line[4]));
+                    TaskList.loadTask(new Event(line[1], line[2], line[3], line[4]));
                     break;
 
                 default:
-                    MessageDisplay.displayStorageError();
+                    Ui.displayStorageError();
                     break;
                 }
             }
         } catch (FileNotFoundException e) {
-            MessageDisplay.displayStorageError();
+            Ui.displayStorageError();
         }
     }
 

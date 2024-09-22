@@ -1,6 +1,6 @@
 package nova.task;
 
-import nova.MessageDisplay;
+import nova.Ui;
 
 public class Task {
     protected String description;
@@ -40,7 +40,7 @@ public class Task {
         return description;
     }
     public void printAcknowledgementMessage(String message) {
-        MessageDisplay.displayAcknowledgementMessage(message, numberOfTasks);
+        Ui.displayAcknowledgementMessage(message, numberOfTasks);
     }
 
     public String getTaskInfo() {

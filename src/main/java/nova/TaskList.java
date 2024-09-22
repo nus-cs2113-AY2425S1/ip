@@ -6,12 +6,12 @@ import nova.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
 
     private static final int MAX_TASKS = 100;
-    private static ArrayList<Task> tasks;
+    static ArrayList<Task> tasks;
 
-    public TaskManager() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
@@ -26,7 +26,7 @@ public class TaskManager {
         try {
             Storage.appendToStorage(task.getTaskStorageInfo());
         } catch (IOException e) {
-            MessageDisplay.displayStorageError();
+            Ui.displayStorageError();
         }
     }
 
@@ -51,13 +51,7 @@ public class TaskManager {
         return tasks.get(index);
     }
 
-    public void listTasks() {
-        MessageDisplay.displaySeparator();
-        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.get(i).getTaskInfo());
-        }
-        MessageDisplay.displaySeparator();
-    }
+
 
     public void updateStorage() {
         String updatedInfo = "";
@@ -67,7 +61,11 @@ public class TaskManager {
         try {
             Storage.updateStorage(updatedInfo);
         } catch (IOException e) {
-            MessageDisplay.displayStorageError();
+            Ui.displayStorageError();
         }
+    }
+
+    public String getTaskInfo(int i) {
+        return tasks.get(i).getTaskStorageInfo();
     }
 }

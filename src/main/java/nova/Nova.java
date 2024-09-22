@@ -5,10 +5,9 @@ import java.util.Scanner;
 public class Nova {
 
     public static void main(String[] args) {
-        MessageDisplay.displayWelcomeMessage();
-        TaskManager taskManager = new TaskManager();
-        InputValidator inputValidator = new InputValidator();
-        CommandHandler commandHandler = new CommandHandler(taskManager, inputValidator);
+        Ui.displayWelcomeMessage();
+        TaskList taskManager = new TaskList();
+        CommandHandler commandHandler = new CommandHandler(taskManager);
         Storage.createStorage();
         Scanner sc = new Scanner(System.in);
 
