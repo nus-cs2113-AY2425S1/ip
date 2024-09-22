@@ -61,6 +61,22 @@ public class lovespiritual {
     }
 
     private static int event(String input, Task[] tasks, int taskCount) throws lovespiritualException {
+    private static void saveTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : tasks) {
+                writer.write(formatTaskForSave(task));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error saving tasks (×_×;): " + e.getMessage());
+            System.out.println(SEPARATOR);
+        }
+    }
     private static int event(String input, ArrayList<Task> tasks, int taskCount) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
