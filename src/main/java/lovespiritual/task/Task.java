@@ -1,8 +1,8 @@
 package lovespiritual.task;
 
 public class Task {
-    protected String description;
-    protected boolean isMarked;
+    public String description;
+    public boolean isMarked;
 
     public Task(String description) {
         this.description = description;
