@@ -1,11 +1,15 @@
 package niwa;
 
 import niwa.command.*;
+import niwa.data.Storage;
+import niwa.data.task.TaskList;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.data.task.Task;
+import niwa.parser.CommandParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,12 +46,8 @@ public class Niwa {
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
 
-    /** List to store tasks */
-    private List<Task> tasks = new ArrayList<>();
-
-    /** Map command with its word **/
-    private Map<String, Command> commands = new HashMap<>();
-
+    private CommandParser parser;
+    private Storage storage;
     /**
      * Getter for the chatbot's name.
      *
@@ -94,36 +94,41 @@ public class Niwa {
     public Niwa() {
         isRunning = true;
         printGreet(NAME, LOGO);
+        storage = new Storage(getOutputFilePath());
+        parser = new CommandParser();
+        try {
+            parser.registerCommands(new ByeCommand(this));
+            parser.registerCommands(new EchoCommand());
 
-        registerCommands(new ByeCommand(this));
-        registerCommands(new EchoCommand());
+            parser.registerCommands(new DeadlineCommand());
+            parser.registerCommands(new TodoCommand());
+            parser.registerCommands(new EventCommand());
 
-        registerCommands(new DeadlineCommand());
-        registerCommands(new TodoCommand());
-        registerCommands(new EventCommand());
+            parser.registerCommands(new ListCommand());
 
-        registerCommands(new ListCommand());
+            parser.registerCommands(new DeleteCommand());
+            parser.registerCommands(new ClearCommand());
+            parser.registerCommands(new MarkCommand());
+            parser.registerCommands(new UnmarkCommand());
 
-        registerCommands(new DeleteCommand());
-        registerCommands(new ClearCommand());
-        registerCommands(new MarkCommand());
-        registerCommands(new UnmarkCommand());
 
-        registerCommands(new SaveCommand());
+            parser.registerCommands(new SaveCommand());
+            parser.registerCommands(new ReadCommand());
 
-        ReadCommand readCommand = new ReadCommand();
-        registerCommands(readCommand);
+            HelpCommand helpCommand = new HelpCommand();
+            parser.registerCommands(helpCommand);
 
-        HelpCommand helpCommand = new HelpCommand();
-        registerCommands(helpCommand);
-        helpCommand.setCommands(new ArrayList<>(commands.values()));
+            helpCommand.setCommands(new ArrayList<Command>(parser.getCommands().values()));
 
-        System.out.println(PREFIX + "---> Reading from default data file...");
-        processCommand(readCommand.getWord() + " " + PATH.toString());
-    }
+            System.out.println(PREFIX + "---> Reading from default data file...");
 
-    public void registerCommands(Command command) {
-        commands.put(command.getWord(), command);
+            ReadCommand readCommand = new ReadCommand();
+            parser.registerCommands(readCommand);
+            processCommand(ReadCommand.COMMAND_WORD+ " "+ getOutputFilePath());
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -133,20 +138,13 @@ public class Niwa {
      */
     public void processCommand(String commandString) {
         System.out.println(SEPARATOR);
-        String[] commandParts = commandString.split(" ", 2);
-
+        Command command = null;
         try {
-            Command command = commands.get(commandParts[0]);
-            if (command != null) {
-                if (commandParts.length == 2) { command.execute(commandParts[1]); }
-                else { command.execute(""); }
-            }
-            else {
-                throw new NiwaInvalidSyntaxException();
-            }
-        } catch (NiwaInvalidSyntaxException | NiwaInvalidArgumentException | NiwaTaskIndexOutOfBoundException |
-                 NumberFormatException e) {
-            System.out.println(PREFIX + e.getMessage());
+            command = parser.parseCommand(commandString);
+            command.execute();
+        } catch (NoSuchFieldException | IllegalAccessException | NiwaInvalidSyntaxException |
+                 NiwaInvalidArgumentException e) {
+            System.out.println(e.getMessage());
         } finally {
             System.out.println(SEPARATOR);
         }

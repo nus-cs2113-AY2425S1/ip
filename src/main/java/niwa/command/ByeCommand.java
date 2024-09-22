@@ -1,14 +1,15 @@
 package niwa.command;
 
 import niwa.Niwa;
+import niwa.exception.NiwaInvalidArgumentException;
 
 public class ByeCommand extends Command {
+    public static final String COMMAND_WORD = "bye";
+    public static final String COMMAND_GUIDE = "bye: End the chat.";
+    public static final String[] COMMAND_KEYWORDS = {};
     Niwa chatbot;
 
     public ByeCommand(Niwa chatbot) {
-        setFormat("");
-        setWord("bye");
-        setGuide("bye: End the chat.");
         setChatbot(chatbot);
     }
 
@@ -16,22 +17,26 @@ public class ByeCommand extends Command {
         this.chatbot = chatbot;
     }
 
-    @Override
-    public String[] parseArguments(String command) {
-        if (!command.isEmpty()) {
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
-        return new String[0];
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Prints a farewell message and inactivate niwa.Niwa chatbot.
      *
-     * @param rawArgumentString should be null.
      */
     @Override
-    public void execute(String rawArgumentString) {
-        super.execute(rawArgumentString);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
         System.out.println(PREFIX + "Bye bae. Hope to see you again! Moah~");
         chatbot.setRunning(false);
     }

@@ -3,6 +3,7 @@ package niwa.command;
 import niwa.data.Storage;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
+import niwa.exception.NiwaInvalidArgumentException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,35 +15,43 @@ import java.util.regex.Pattern;
 import java.io.IOException;
 
 public class SaveCommand extends Command{
-    public SaveCommand() {
-        setFormat("^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$");
-        setWord("save");
-        setGuide("save [.txt file path]: Save the task list to the given path.");
-    }
+    public static final String COMMAND_WORD = "save";
+    public static final String COMMAND_GUIDE = "save [.txt file path]: Save the task list to the given path.";
+    public static final String[] COMMAND_KEYWORDS = {""};
 
-    @Override
-    public String[] parseArguments(String command) {
+    public static final String PATH_FORMAT = "^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$";
+
+    public boolean isCorrectPath(String path) {
         // Compile the regex pattern for matching the command format
-        Pattern pattern = Pattern.compile(argumentFormat);
+        Pattern pattern = Pattern.compile(PATH_FORMAT);
 
         // Create a matcher for the input command string
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = pattern.matcher(path);
 
-        // Check if the command string matches the expected pattern
-        if (matcher.matches()) {
-            // Return the segments as an array
-            return new String[]{command};
-        } else {
-            // Return null if the command does not match the expected format
-            return null;
-        }
+        return matcher.matches();
     }
 
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
+        }
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
+    }
     @Override
-    public void execute(String path) {
-        super.execute(path);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+        String dataPath = arguments.get(COMMAND_KEYWORDS[0]);
 
-        String dataPath = arguments[0];
+        if (!isCorrectPath(dataPath)) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
         Storage storage = new Storage(dataPath);
 
         try {

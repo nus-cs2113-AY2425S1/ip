@@ -1,24 +1,33 @@
 package niwa.command;
 
+import niwa.exception.NiwaInvalidArgumentException;
+
 public class EchoCommand extends Command {
-    public EchoCommand() {
-        setFormat("(.*?)");
-        setWord("echo");
-        setGuide("echo [string]: Echo the string.");
-    }
+    public static final String COMMAND_WORD = "echo";
+    public static final String COMMAND_GUIDE = "echo [string]: Echo the string.";
+    public static final String[] COMMAND_KEYWORDS = {""};
 
-    @Override
-    public String[] parseArguments(String command) {
-        return new String[0];
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
+        }
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Echo a String.
      *
-     * @param inputString the line to be echoed.
      */
     @Override
-    public void execute(String inputString) {
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+        String inputString = arguments.get(COMMAND_KEYWORDS[0]);
         System.out.println(PREFIX + inputString);
     }
 

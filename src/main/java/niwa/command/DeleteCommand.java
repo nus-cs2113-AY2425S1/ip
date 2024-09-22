@@ -1,5 +1,6 @@
 package niwa.command;
 
+import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.messages.NiwaExceptionMessages;
 import niwa.messages.NiwaMesssages;
@@ -11,51 +12,37 @@ import java.util.regex.Pattern;
 
 public class DeleteCommand extends Command {
 
-    public DeleteCommand() {
-        setFormat("^\\d+$"); // The expected format is a single number representing the task index.
-        setWord("delete"); // Command word for this action is "delete".
-        setGuide("delete [task index]: Delete the task at the given index."); // Help guide for the delete command.
-    }
+    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_GUIDE = "delete [task index]: Delete the task at the given index.";
+    public static final String[] COMMAND_KEYWORDS = {""};
 
-    /**
-     * Parses the command string to extract delete details.
-     * The command should be in the format: "delete [index: int]".
-     *
-     * @param command The command string that the user input.
-     * @return An array of strings containing the parsed arguments, or null if the format is incorrect.
-     */
-    @Override
-    public String[] parseArguments(String command) {
-        // Compile the regex pattern for matching the command format.
-        Pattern pattern = Pattern.compile(argumentFormat);
-
-        // Create a matcher for the input command string.
-        Matcher matcher = pattern.matcher(command);
-
-        // Check if the command string matches the expected pattern.
-        if (matcher.matches()) {
-            // Return the command split into an array of segments (i.e., arguments).
-            return command.split(" ");
-        } else {
-            // If the command does not match the expected format, return null.
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Executes the deletion of a task based on the provided index.
      *
-     * @param indexString The index of the task to delete, passed as a string.
      * @throws NumberFormatException if the index is not a valid number.
      * @throws NiwaTaskIndexOutOfBoundException if the index is out of bounds of the task list.
      */
     @Override
-    public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException{
-        // Call the parent execute method to parse arguments
-        super.execute(indexString);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+
+        String indexString = arguments.get(COMMAND_KEYWORDS[0]);
         try {
             // Parse the index from the arguments array (convert to zero-based index).
-            int index = Integer.parseInt(arguments[0]) - 1;
+            int index = Integer.parseInt(indexString) - 1;
 
             Task temp = TaskList.getInstance().deleteTask(index);
 

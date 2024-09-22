@@ -4,6 +4,7 @@ import niwa.Niwa;
 import niwa.data.Storage;
 import niwa.data.task.*;
 import niwa.exception.NiwaDuplicateTaskException;
+import niwa.exception.NiwaInvalidArgumentException;
 
 import java.io.BufferedReader;
 import java.nio.file.*;
@@ -15,35 +16,44 @@ import java.util.regex.Pattern;
 import java.io.IOException;
 
 public class ReadCommand extends Command{
-    public ReadCommand() {
-        setFormat("^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$");
-        setWord("read");
-        setGuide("read [.txt file path]: Read the tasks in the file and add to the list.");
-    }
+    public static final String COMMAND_WORD = "read";
+    public static final String COMMAND_GUIDE = "read [.txt file path]: Read the tasks in the file and add to the list.";
+    public static final String[] COMMAND_KEYWORDS = {""};
 
-    @Override
-    public String[] parseArguments(String command) {
+    public static final String PATH_FORMAT = "^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$";
+
+    public boolean isCorrectPath(String path) {
         // Compile the regex pattern for matching the command format
-        Pattern pattern = Pattern.compile(argumentFormat);
+        Pattern pattern = Pattern.compile(PATH_FORMAT);
 
         // Create a matcher for the input command string
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = pattern.matcher(path);
 
-        // Check if the command string matches the expected pattern
-        if (matcher.matches()) {
-            // Return the segments as an array
-            return new String[]{command};
-        } else {
-            // Return null if the command does not match the expected format
-            return null;
-        }
+        return matcher.matches();
     }
 
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
+        }
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
+    }
     @Override
-    public void execute(String path) {
-        super.execute(path);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+        String dataPath = arguments.get(COMMAND_KEYWORDS[0]);
 
-        String dataPath = arguments[0];
+        if (!isCorrectPath(dataPath)) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+
         Storage storage = new Storage(dataPath);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -62,7 +72,7 @@ public class ReadCommand extends Command{
             }
         }
 
-        if (!arguments[0].equals(Niwa.getOutputFilePath())) {
+        if (!dataPath.equals(Niwa.getOutputFilePath())) {
             ExecutedCommand.saveTasks();
         }
     }

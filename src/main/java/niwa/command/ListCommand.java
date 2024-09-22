@@ -2,30 +2,33 @@ package niwa.command;
 
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
+import niwa.exception.NiwaInvalidArgumentException;
 
 public class ListCommand extends Command {
-    public ListCommand() {
-        setFormat("");
-        setWord("list");
-        setGuide("list: List all current tasks.");
-    }
+    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_GUIDE = "list: List all current tasks.";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    @Override
-    public String[] parseArguments(String command) {
-        if (!command.isEmpty()) {
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
-        return new String[0];
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Lists all tasks in the task list.
      *
-     * @param rawArgumentString should be null.
      */
     @Override
-    public void execute(String rawArgumentString) {
-        super.execute(rawArgumentString);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
         System.out.println(PREFIX + "Here are the tasks in your list:");
         int index = 1;
 

@@ -2,43 +2,20 @@ package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Command {
     protected static final String PREFIX = "\t";
-    protected String argumentFormat;
-    protected String word;
-    protected String guide;
-    protected String[] arguments;
+    public static final String COMMAND_WORD = "";
+    public static final String COMMAND_GUIDE = "";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    public abstract String[] parseArguments(String command);
+    protected Map<String, String> arguments = new HashMap<>();
 
-    public void execute(String rawArgumentString) throws NiwaInvalidArgumentException {
-        setArguments(parseArguments(rawArgumentString));
-        if (arguments == null) {
-            throw new NiwaInvalidArgumentException(guide);
-        }
-    }
 
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public String getGuide() {
-        return guide;
-    }
-
-    public void setGuide(String guide) {
-        this.guide = guide;
-    }
-
-    public void setFormat(String format) {
-        this.argumentFormat = format;
-    }
-
-    public void setArguments(String[] arguments) {
+    public abstract void execute() throws NiwaInvalidArgumentException;
+    public void setArguments(Map<String, String> arguments) {
         this.arguments = arguments;
     }
 }

@@ -1,31 +1,34 @@
 package niwa.command;
 
+import niwa.exception.NiwaInvalidArgumentException;
 import niwa.messages.NiwaMesssages;
 import niwa.data.task.TaskList;
 
 public class ClearCommand extends Command{
-    public ClearCommand() {
-        setFormat("");
-        setWord("clear");
-        setGuide("clear: Clear all tasks in the list.");
-    }
+    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_GUIDE = "clear: Clear all tasks in the list.";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    @Override
-    public String[] parseArguments(String command) {
-        if (!command.isEmpty()) {
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
-        return new String[0];
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Clear all tasks in the list
      *
-     * @param rawArgumentString should be null.
      */
     @Override
-    public void execute(String rawArgumentString) {
-        super.execute(rawArgumentString);
+    public void execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
         TaskList.getInstance().clearTaskList();
 
         // Prepare the message to confirm deletion.
