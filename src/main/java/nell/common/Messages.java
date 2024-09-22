@@ -54,7 +54,7 @@ public class Messages {
     public static final String NEW_TASK_COUNT_MESSAGE = "   The list now has %d tasks";
     public static final String TASK_REMOVE_MESSAGE = "-> The following task has been removed from the list:";
     public static final String INVALID_DATE_TIME_MESSAGE = """
-            -> Invalid date and times!
+            -> Invalid date and time!
                Please key in dates and times in this format:
                   yyyy-MM-dd HHmm
             """;
