@@ -135,7 +135,7 @@ public class UserInputParser {
     public static String parseKeywordAfterFind() throws FormattingException{
         String[] parsedInputs = userInput.split(" ");
         if(parsedInputs.length != 2){
-            throw new FormattingException("keyword is missing. " + GET_FORMAT);
+            throw new FormattingException("keyword is missing. " + FIND_FORMAT);
         }
 
         return parsedInputs[1].trim();
