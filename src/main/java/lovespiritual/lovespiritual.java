@@ -146,10 +146,10 @@ public class lovespiritual {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            tasks[indexNumber].unmark();
+            tasks.get(indexNumber).unmark();
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task isn't done yet!");
-            System.out.println(tasks[indexNumber]);
+            System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
             throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
@@ -168,10 +168,10 @@ public class lovespiritual {
             throw new lovespiritualException("Whoa there! (O.O) That’s not a number! Can you double-check?");
         }
         if (indexNumber >= 0 && indexNumber < taskCount) {
-            tasks[indexNumber].mark();
+            tasks.get(indexNumber).mark();
             System.out.println(SEPARATOR);
             System.out.println("Yay! (^_^) This task is all done!");
-            System.out.println(tasks[indexNumber]);
+            System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
             throw new lovespiritualException("Hmm... (°ヘ°) That number seems a bit off. Try again?");
