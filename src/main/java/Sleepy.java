@@ -16,6 +16,7 @@ public class Sleepy {
     private static final String CMD_UNMARK = "unmark";
     private static final String CMD_DELETE = "delete";
     private static final String CMD_BYE = "bye";
+    public static final String CMD_FIND = "find";
 
     public static void main(String[] args) {
         System.out.println(LOGO);
@@ -40,6 +41,9 @@ public class Sleepy {
                 } else if (line.startsWith(CMD_DELETE)){
                     int taskNumber = Integer.parseInt(line.substring(6).trim());
                     taskManager.deleteTask(taskNumber);
+                } else if (line.startsWith(CMD_FIND)) {
+                    String keyword = line.substring(4).trim();
+                    taskManager.findTask(keyword);
                 } else {
                     taskManager.addTask(line);
                 }

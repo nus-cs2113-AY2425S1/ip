@@ -143,4 +143,28 @@ public class TaskManager {
             throw new SleepyException("ummm...the task doesn't even exist...maybe you should get some sleep\n");
         }
     }
+
+    public void findTask(String keyword) throws SleepyException {
+        if (keyword.isEmpty()) {
+            throw new SleepyException("Keyword cannot be empty.");
+        }
+
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Here are the matching tasks in your list:");
+
+        boolean taskFound = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println((i + 1) + "." + task);
+                taskFound = true;
+            }
+        }
+
+        if (!taskFound) {
+            System.out.println("No tasks matching the keyword were found.");
+        }
+
+        System.out.println(LINE_SEPARATOR);
+    }
 }
