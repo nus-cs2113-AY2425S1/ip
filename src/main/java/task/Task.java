@@ -3,7 +3,7 @@ package task;
 import java.io.Serializable;
 
 public class Task implements Serializable {
-    protected String description;
+    public String description;
     protected boolean isDone;
     protected String date;
 
