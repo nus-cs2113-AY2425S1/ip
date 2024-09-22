@@ -83,7 +83,7 @@ public class TaskManager {
             return;
         }
         throw new SleepyException("Unknown command. "
-                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', or 'todo'.\n");
+                + "Please start with 'list', 'mark', 'unmark', 'delete', 'event', 'deadline', 'todo', or 'find'.\n");
     }
 
     public void deleteTask(int taskIndex) throws SleepyException{
@@ -137,5 +137,29 @@ public class TaskManager {
         } else {
             throw new SleepyException("ummm...the task doesn't even exist...maybe you should get some sleep\n");
         }
+    }
+
+    public void findTask(String keyword) throws SleepyException {
+        if (keyword.isEmpty()) {
+            throw new SleepyException("Keyword cannot be empty");
+        }
+
+        System.out.println(LINE_SEPARATOR
+                + "Here are the matching tasks in your list:");
+
+        //a flag to track whether any tasks for found
+        boolean taskFound = false;
+        int taskIndex = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(taskIndex + ". " + task);
+                taskFound = true;
+            }
+        }
+
+        if (!taskFound) {
+            System.out.println("No tasks matching the keyword were found.");
+        }
+        System.out.println(LINE_SEPARATOR);
     }
 }

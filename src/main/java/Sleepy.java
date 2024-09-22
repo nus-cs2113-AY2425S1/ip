@@ -32,6 +32,9 @@ public class Sleepy {
                 } else if (line.startsWith("delete")){
                     int taskNumber = Integer.parseInt(line.substring(6).trim());
                     taskManager.deleteTask(taskNumber);
+                } else if (line.startsWith("find")) {
+                    String keyword = line.substring(4).trim();
+                    taskManager.findTask(keyword);
                 } else {
                     taskManager.addTask(line);
                 }
