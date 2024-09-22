@@ -7,86 +7,15 @@ import blossom.task.Todo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Blossom {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String LOGO =
-            """
-                     _______     .---.       ,-----.       .-'''-.    .-'''-.     ,-----.    ,---.    ,---.\s
-                    \\  ____  \\   | ,_|     .'  .-,  '.    / _     \\  / _     \\  .'  .-,  '.  |    \\  /    |\s
-                    | |    \\ | ,-./  )    / ,-.|  \\ _ \\  (`' )/`--' (`' )/`--' / ,-.|  \\ _ \\ |  ,  \\/  ,  |\s
-                    | |____/ / \\  '_ '`) ;  \\  '_ /  | :(_ o _).   (_ o _).   ;  \\  '_ /  | :|  |\\_   /|  |\s
-                    |   _ _ '.  > (_)  ) |  _`,/ \\ _/  | (_,_). '.  (_,_). '. |  _`,/ \\ _/  ||  _( )_/ |  |\s
-                    |  ( ' )  \\(  .  .-' : (  '\\_/ \\   ;.---.  \\  :.---.  \\  :: (  '\\_/ \\   ;| (_ o _) |  |\s
-                    | (_{;}_) | `-'`-'|___\\ `"/  \\  ) / \\    `-'  |\\    `-'  | \\ `"/  \\  ) / |  (_,_)  |  |\s
-                    |  (_,_)  /  |        \\'. \\_/``".'   \\       /  \\       /   '. \\_/``".'  |  |      |  |\s
-                    /_______.'   `--------`  '-----'      `-...-'    `-...-'      '-----'    '--'      '--'""";
     private static final ArrayList<Task> LIST_OF_TASKS = new ArrayList<Task>();
     private static final int LENGTH_OF_TODO = 5;
     private static final int LENGTH_OF_DEADLINE = 9;
     private static final int LENGTH_OF_EVENT = 6;
-    private static final String FILE_PATH = "./data/blossom.txt";
+    private static Storage storage = new Storage("./data/blossom.txt", LIST_OF_TASKS);
     private static Ui ui = new Ui();
-
-    public static void loadTasks() throws BlossomException {
-        File f = new File(FILE_PATH); // create a File for the given file path
-        try (Scanner s = new Scanner(f)) {
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                addTaskFromFile(line);
-            }
-        } catch (BlossomException | FileNotFoundException e) {
-            System.out.println("Data file not found! Creating a new one....");
-            new File("./data").mkdirs();
-        }
-    }
-
-    public static void saveTasks() {
-        try (FileWriter fw = new FileWriter(FILE_PATH, false)) {
-            for (Task item : LIST_OF_TASKS) {
-                fw.write( item.toFileFormat()+ "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while trying to save tasks to file.");
-        }
-    }
-
-    public static void addTaskFromFile(String fileInput) throws BlossomException {
-        String[] parts = fileInput.split("\\|");
-        String type = parts[0].trim();
-        boolean isDone = Boolean.parseBoolean(parts[1].trim());
-        String description = parts[2].trim();
-        switch (type) {
-        case "T":
-            Todo todo = new Todo(description);
-            if (isDone) {
-                todo.markAsDone();
-            }
-            LIST_OF_TASKS.add(todo);
-            break;
-        case "D":
-            String by = parts[3].trim();
-            Deadline deadline = new Deadline(description, by);
-            if (isDone) {
-                deadline.markAsDone();
-            }
-            LIST_OF_TASKS.add(deadline);
-            break;
-        case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
-            Event event = new Event(description, from, to);
-            if (isDone) {
-                event.markAsDone();
-            }
-            LIST_OF_TASKS.add(event);
-            break;
-        }
-    }
 
     public static void markAndUnmarkItem(int itemIndex, String action) {
         itemIndex--;
@@ -159,7 +88,7 @@ public class Blossom {
     public static void main(String[] args) {
         ui.printIntro();
         try {
-            loadTasks();
+            storage.loadTasks();
         } catch (BlossomException e) {
             throw new RuntimeException(e);
         }
@@ -193,7 +122,7 @@ public class Blossom {
                 System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
                 System.out.println(HORIZONTAL_LINE);
                 input.close();
-                saveTasks();
+                storage.saveTasks();
                 System.exit(0);
             }
         }
