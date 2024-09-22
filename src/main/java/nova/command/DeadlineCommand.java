@@ -6,17 +6,22 @@ import nova.exception.InsufficientSpaceException;
 import nova.exception.InvalidInputException;
 import nova.task.Deadline;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
     private static final String DEADLINE_USAGE = "Usage: deadline <task description> /by <due date>.";
 
+    private static String description;
+    private static LocalDate by;
+
     public static void execute(String[] inputs, TaskList taskManager) {
-        String[] validatedInput;
         try {
-            validatedInput = validateDeadlineInput(inputs);
+            validateDeadlineInput(inputs);
             taskManager.checkSpace();
-            taskManager.addTask(new Deadline(validatedInput[0], validatedInput[1]));
+            taskManager.addTask(new Deadline(description, by));
         } catch (InvalidInputException e) {
             Ui.displayInvalidInputMessage(e.getMessage(), DEADLINE_USAGE);
         } catch (InsufficientSpaceException e) {
@@ -24,7 +29,7 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    protected static String[] validateDeadlineInput(String[] inputs) throws InvalidInputException {
+    protected static void validateDeadlineInput(String[] inputs) throws InvalidInputException {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }
@@ -35,6 +40,11 @@ public class DeadlineCommand extends Command {
         if (splitInput.length != 2) {
             throw new InvalidInputException("description/deadline not entered.");
         }
-        return splitInput;
+        description = splitInput[0];
+        try {
+            by = LocalDate.parse(splitInput[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }

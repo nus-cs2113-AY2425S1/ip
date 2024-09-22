@@ -6,17 +6,23 @@ import nova.exception.InsufficientSpaceException;
 import nova.exception.InvalidInputException;
 import nova.task.Event;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
-    private static final String EVENT_USAGE = "Usage: event <task description> /from <start time> /to <end time>.";
+    private static final String EVENT_USAGE = "Usage: event <task description> /from <start date> /to <end date>.";
+
+    private static String description;
+    private static LocalDate from;
+    private static LocalDate to;
 
     public static void execute(String[] inputs, TaskList taskManager) {
-        String[] validatedInput;
         try {
-            validatedInput = validateEventInput(inputs);
+            validateEventInput(inputs);
             taskManager.checkSpace();
-            taskManager.addTask(new Event(validatedInput[0], validatedInput[1], validatedInput[2]));
+            taskManager.addTask(new Event(description, from, to));
         } catch (InvalidInputException e) {
             Ui.displayInvalidInputMessage(e.getMessage(), EVENT_USAGE);
         } catch (InsufficientSpaceException e) {
@@ -24,7 +30,7 @@ public class EventCommand extends Command {
         }
     }
 
-    protected static String[] validateEventInput(String[] inputs) {
+    protected static void validateEventInput(String[] inputs) {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }
@@ -42,6 +48,12 @@ public class EventCommand extends Command {
         if (eventDetails.length != 2) {
             throw new InvalidInputException("description/start/end not entered.");
         }
-        return new String[]{splitInput[0], eventDetails[0], eventDetails[1]};
+        description = splitInput[0];
+        try {
+            from = LocalDate.parse(eventDetails[0]);
+            to = LocalDate.parse(eventDetails[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }

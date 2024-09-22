@@ -2,6 +2,8 @@ package nova.task;
 
 import nova.Ui;
 
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -49,6 +51,10 @@ public class Task {
 
     public String getTaskStorageInfo() {
         return "";
+    }
+
+    public boolean isDate(LocalDate date) {
+        return false;
     }
 
 }
