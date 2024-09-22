@@ -1,6 +1,6 @@
 package niwa.exception;
 
-public class NiwaException extends RuntimeException {
+public class NiwaException extends Exception {
     String message;
     public NiwaException() {
         super();
