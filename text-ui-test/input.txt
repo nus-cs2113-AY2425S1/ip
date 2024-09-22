@@ -1,12 +1,34 @@
 list
 todo borrow book
+todo
+todoborrow book
 list
-deadline return book /by Sunday
+deadline return book /by 19/09/2024 19:55
+deadline return book /by 19/09/2024
+deadline return book /by now
+deadline /by now
+deadline
+deadline return book/by now
+deadlinereturn book /by now
+deadline return book /bynow
 list
-event project meeting /from Mon 2pm /to 4pm
+event library visit /from 19/09/2024 19:10 /to 19/09/2024 20:35
+event library visit /from 19/09/2024 /to 19/09/2024
+event library visit /from start time /to end time
+event
+event /from start time /to end time
+event /from /to
+eventlibrary visit /from start time /to end time
+event library visit /from /to end time
+event library visit /from start time /to
+event library visit/from start time /to end time
+event library visit /fromstart time /to end time
+event library visit /from start time/to end time
+event library visit /from start time /toend time
 list
-mark 1
-mark 2
-mark 3
+todo to be deleted
+delete 4
+list
+delete all
 list
 bye

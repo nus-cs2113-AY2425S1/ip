@@ -7,7 +7,7 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\erika\*.java ..\src\main\java\erika\task\*.java ..\src\main\java\erika\exception\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\erika\*.java ..\src\main\java\erika\task\*.java ..\src\main\java\erika\exception\*.java ..\src\main\java\erika\command\*.java ..\src\main\java\erika\console\*.java ..\src\main\java\erika\filesystem\*.java ..\src\main\java\erika\parser\*.java ..\src\main\java\erika\settings\*.java ..\src\main\java\erika\ui\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
