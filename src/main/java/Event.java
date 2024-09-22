@@ -9,6 +9,10 @@ public class Event extends Deadline {
         this.deadlineTill = getDeadlineTill(inputArray);
     }
 
+    public Event(boolean isDone, String formattedTaskInfo) {
+        super(isDone, formattedTaskInfo);
+    }
+
     public String getDeadlineTill(String[] inputArray) {
         return inputArray[2];
     }
@@ -16,8 +20,11 @@ public class Event extends Deadline {
     @Override
     public String toString() {
         String taskStatus = "[E][" + (isDone ? "X" : " ") + "] ";
-        String from = " (from: " + deadline.replaceFirst("^from\\s+", "");
-        String to = "to: " + deadlineTill.replaceFirst("^to\\s+", "") + ")";
-        return taskStatus + taskName + from + to;
+        if (formattedTaskInfo.isBlank()) {
+            String from = " (from: " + deadline.replaceFirst("^from\\s+", "");
+            String to = "to: " + deadlineTill.replaceFirst("^to\\s+", "") + ")";
+            return taskStatus + taskName + from + to;
+        }
+        return taskStatus + formattedTaskInfo;
     }
 }

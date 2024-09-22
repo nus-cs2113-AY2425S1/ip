@@ -1,14 +1,56 @@
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Fenix implements SampleStrings {
     
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
     private final Scanner scanner;
+    public FileHandler fileHandler;
 
     // Constructor
     public Fenix() {
         this.scanner = new Scanner(System.in);
+        this.fileHandler = new FileHandler();
+    }
+
+    public void loadAllInfo() {
+        try {
+            String fileContent = getFileInfo();
+            if (!fileContent.isBlank()) {
+                decipherAllInfo(fileContent);
+            }
+        }
+        catch (FileNotFoundException ignored) {
+        }
+    }
+
+    public String getFileInfo() throws FileNotFoundException {
+        String fileContent = "";
+        fileContent = this.fileHandler.loadFileContents();
+        return fileContent;
+    }
+
+    public void decipherAllInfo(String fileContent) {
+        String[] arrayOfTasks = fileContent.split("\n");
+        for (String task : arrayOfTasks) {
+            String[] stringArray = task.split("\\|");
+            String taskType = stringArray[1];
+            String taskStatus = stringArray[2];
+            String taskInfo = stringArray[3].trim();
+            taskArrayList.add(returnTaskObject(taskType, taskStatus, taskInfo));
+        }
+    }
+
+    private Task returnTaskObject(String taskType, String taskStatus, String taskInfo) {
+        boolean isDone = (taskStatus.equals("X"));
+        return switch (taskType) {
+            case "T" -> new Todo(isDone, taskInfo);
+            case "D" -> new Deadline(isDone, taskInfo);
+            case "E" -> new Event(isDone, taskInfo);
+            default -> null;
+        };
     }
 
     public void greet() {
@@ -59,9 +101,35 @@ public class Fenix implements SampleStrings {
     }
 
     public void bidFarewell() {
+        clearAllInfo();
+        saveAllInfo();
         System.out.println(FAREWELL);
         System.out.println(HORIZONTAL_LINE_USER_COMMAND);
         scanner.close();
+    }
+
+    private void clearAllInfo() {
+        try {
+            this.fileHandler.writeToFile("");
+        }
+        catch (IOException | NullPointerException ignored) {
+        }
+    }
+
+    public void saveAllInfo() {
+        for (Task task : taskArrayList) {
+            try {
+                String taskToWrite = task.toString();
+                taskToWrite = taskToWrite.replaceAll("\\[", "|");
+                taskToWrite = taskToWrite.replaceAll("]", "|");
+                taskToWrite = taskToWrite.replace("||", "|");
+                this.fileHandler.appendToFile(taskToWrite);
+                this.fileHandler.appendToFile("\n");
+            }
+            catch (IOException | NullPointerException e) {
+                return;
+            }
+        }
     }
 
     public void showAllTasks(boolean isModified) {
