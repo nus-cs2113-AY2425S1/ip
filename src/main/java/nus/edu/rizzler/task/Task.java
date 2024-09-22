@@ -90,4 +90,112 @@ public class Task {
             throw new InvalidInputException("ERROR: Invalid task format. Please follow the task format in the menu" + emoji.getExclamationMarkEmoji());
         }
     }
+
+    public static Task parseSavedString(String taskDescription) throws InvalidInputException {
+        if (taskDescription == null || taskDescription.trim().isEmpty()) {
+            throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+        }
+
+        taskDescription = taskDescription.trim();
+
+        if (taskDescription.startsWith("[T]")) {
+            taskDescription = taskDescription.substring(3).trim();
+            if (taskDescription.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            int lastSpaceIndex = taskDescription.lastIndexOf(" ");
+            if (lastSpaceIndex == -1 || lastSpaceIndex == taskDescription.length() - 1) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            String taskName = taskDescription.substring(0, lastSpaceIndex).trim();
+            String isDoneEmoji = taskDescription.substring(lastSpaceIndex + 1).trim();
+
+            boolean isDone = validateIsDoneEmoji(isDoneEmoji);
+
+            if (taskName.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            Todo todo = new Todo(taskName);
+            todo.setIsDone(isDone);
+            return todo;
+
+        } else if (taskDescription.startsWith("[D]")) {
+            taskDescription = taskDescription.substring(3).trim();
+            if (taskDescription.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            int byIndex = taskDescription.indexOf("(by:");
+            int closingBracketIndex = taskDescription.indexOf(")");
+
+            if (byIndex == -1 || closingBracketIndex == -1) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            String taskName = taskDescription.substring(0, byIndex).trim();
+            String by = taskDescription.substring(byIndex + 4, closingBracketIndex).trim();
+            String isDoneEmoji = taskDescription.substring(closingBracketIndex + 1).trim();
+
+            if (isDoneEmoji.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+            boolean isDone = validateIsDoneEmoji(isDoneEmoji);
+
+            if (taskName.isEmpty() || by.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            Deadline deadline = new Deadline(taskName, by);
+            deadline.setIsDone(isDone);
+            return deadline;
+
+        } else if (taskDescription.startsWith("[E]")) {
+            taskDescription = taskDescription.substring(3).trim();
+            if (taskDescription.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            int fromIndex = taskDescription.indexOf("(from:");
+            int toIndex = taskDescription.indexOf("to:");
+            int closingBracketIndex = taskDescription.indexOf(")");
+
+            if (fromIndex == -1 || toIndex == -1 || closingBracketIndex == -1) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            String taskName = taskDescription.substring(0, fromIndex).trim();
+            String from = taskDescription.substring(fromIndex + 6, toIndex).trim();
+            String to = taskDescription.substring(toIndex + 3, closingBracketIndex).trim();
+            String isDoneEmoji = taskDescription.substring(closingBracketIndex + 1).trim();
+
+            if (isDoneEmoji.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+            boolean isDone = validateIsDoneEmoji(isDoneEmoji);
+
+            if (taskName.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+            }
+
+            Event event = new Event(taskName, from, to);
+            event.setIsDone(isDone);
+            return event;
+
+        } else {
+            throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+        }
+    }
+
+    private static boolean validateIsDoneEmoji(String isDoneEmoji) throws InvalidInputException {
+        if (isDoneEmoji.equals(emoji.getTickEmoji())) {
+            return true;
+        } else if (isDoneEmoji.equals(emoji.getHourglassEmoji())) {
+            return false;
+        } else {
+            throw new InvalidInputException("ERROR: Rizzler.txt is corrupted" + emoji.getExclamationMarkEmoji());
+        }
+    }
 }
