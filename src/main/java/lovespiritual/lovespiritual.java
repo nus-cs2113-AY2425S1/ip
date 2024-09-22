@@ -18,7 +18,6 @@ public class lovespiritual {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         loadTasks();
@@ -37,16 +36,22 @@ public class lovespiritual {
                     printList(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, tasks);
+                    saveTasks();
                 } else if (input.startsWith("unmark")) {
                     unmarkTask(input, taskCount, tasks);
+                    saveTasks();
                 } else if (input.startsWith("todo")) {
                     taskCount = todo(input, tasks);
+                    saveTasks();
                 } else if (input.startsWith("deadline")) {
                     taskCount = deadline(input, tasks);
+                    saveTasks();
                 } else if (input.startsWith("event")) {
                     taskCount = event(input, tasks);
+                    saveTasks();
                 } else if (input.startsWith("delete")) {
                     deleteTask(input, tasks, taskCount);
+                    saveTasks();
                 }
                 else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
