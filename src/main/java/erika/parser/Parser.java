@@ -13,6 +13,9 @@ import java.io.IOException;
 public class Parser {
 
     private static int extractTaskIndex(String line) throws NumberFormatException {
+        if (line.contains(" all")) {
+            return -1;
+        }
         String digitString = line.replaceAll("[^0-9-]", "");
         if (!digitString.isEmpty()) {
             return Integer.parseInt(digitString);
@@ -52,8 +55,16 @@ public class Parser {
         int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
 
         String description = line.substring(substringStart, substringEnd);
-        String fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
-        String toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+        String fromText;
+        String toText;
+        if (indexOfFrom < indexOfTo) {
+            fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
+            toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+        } else {
+            fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET);
+            toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET, indexOfFrom - Settings.FROM_REAR_OFFSET);
+        }
+
 
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
@@ -124,23 +135,27 @@ public class Parser {
         String errMsg = "";
         if (line.equals("bye")) {
             return new ExitCommand();
-        } else if (line.equals("list")) {
-            return new ListCommand();
-        } else if (line.contains("mark")) {
-           return markEntry(line);
-        } else if (line.contains("todo")) {
-            return addTodo(line);
-        } else if (line.contains("deadline")) {
-            return addDeadline(line);
-        } else if (line.contains("event")) {
-            return addEvent(line);
-        } else if (line.contains("delete")) {
-            return deleteEntry(line);
-        } else if(line.contains("find")) {
+        } else if (checkCommand(line, "find")){
             return findByKey(line);
+        } else if (checkCommand(line, "list")) {
+            return new ListCommand();
+        } else if (checkCommand(line, "mark")) {
+           return markEntry(line);
+        } else if (checkCommand(line, "todo")) {
+            return addTodo(line);
+        } else if (checkCommand(line, "deadline")) {
+            return addDeadline(line);
+        } else if (checkCommand(line, "event")) {
+            return addEvent(line);
+        } else if (checkCommand(line, "delete")) {
+            return deleteEntry(line);
         } else {
             throw new UnknownCommandException();
         }
+    }
+
+    private boolean checkCommand(String line, String keyword) {
+        return (line.contains(keyword) && line.indexOf(keyword) == 0);
     }
 
 }
