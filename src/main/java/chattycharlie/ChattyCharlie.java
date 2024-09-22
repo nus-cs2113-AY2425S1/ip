@@ -10,13 +10,17 @@ public class ChattyCharlie {
 
     public static void scheduleMaker() throws CharlieExceptions { //Echo as a function
         String line = null;
+        CommandType command = null;
         //make the scanner
         Scanner in = new Scanner(System.in);
 
         //create an instance of list class
         List list = new List();
-        CommandType command = null;
-        //accept an insert
+
+        //read in the file
+        list.readTaskFromFile("text.txt");
+
+
         while (true) {
             try {
                 //takes in an input
@@ -124,6 +128,7 @@ public class ChattyCharlie {
                     System.out.println(StringDesign.LINE);
                     break;
                 case BYE:
+                    list.saveTasksToFile("text.txt");
                     return; //just exit
                 case LIST:
                     list.printList();
