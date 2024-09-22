@@ -71,70 +71,67 @@ public class SaveFileHandler {
         }
     }
 
+    // File Data Retrieval Operations
     public static TaskHandler loadTasks() {
         TaskHandler taskHandler = new TaskHandler();
         File file = new File(SAVE_FILE_PATH);
-//        System.out.println(StringStorage.BEFORE_LOADING_STRING + SAVE_FILE_PATH);
-        if (!file.exists()) {
-            System.out.println("no saved tasks found. start with empty task list"); //
-            return taskHandler; // guard clause for if file doesn't exist
-        }
+        int invalidTaskCount = 0;
+        System.out.println(StringStorage.BEFORE_LOADING_STRING + SAVE_FILE_PATH);
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
-                Task task = loadTask(taskData);
-                if (task != null) {
+                try {
+                    Task task = loadTask(taskData);
                     taskHandler.addTask(task);
+                } catch (YapperException e) {
+                    System.out.println("skipping invalid task: " + e.getMessage());
+                    invalidTaskCount++;
                 }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Starting with an empty task list."); // ?
-        } catch (Exception e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
         }
-//        System.out.println(StringStorage.AFTER_LOADING_STRING);
+        if (invalidTaskCount > 0) {
+            System.out.println("total invalid tasks: " + invalidTaskCount); // ?
+        } else {
+            System.out.println("no invalid tasks detected in file");;
+        }
+        System.out.println(StringStorage.AFTER_LOADING_STRING);
+        System.out.println(StringStorage.LINE_DIVIDER);
         return taskHandler;
     }
-    private static Task loadTask(String taskData) {
+    private static Task loadTask(String taskData) throws YapperException {
         try {
             String[] taskParts = StringStorage.splitByDelimiter(taskData);
-
+            // Check Task Type, indirectly checks if missing
             String taskType = taskParts[0];
-            try {
-                ExceptionHandler.checkIfTaskTypeValid(taskType); // indirectly checks if missing
-            } catch (YapperException e) {
-                StringStorage.printWithDividers(e.getMessage());
-                return null;
-            }
-
+            ExceptionHandler.checkIfTaskTypeValid(taskType);
+            // Check Task Status, indirectly checks if missing
             String taskStatus = taskParts[1];
-            try {
-                ExceptionHandler.checkIfTaskStatusValid(taskStatus); // indirectly checks if missing
-            } catch (YapperException e) {
-                StringStorage.printWithDividers(e.getMessage());
-                return null;
-            }
-            boolean isDone = taskStatus.equals(StringStorage.NOT_DONE_SYMBOL);
-
+            ExceptionHandler.checkIfTaskStatusValid(taskStatus);
+            boolean isDone = taskStatus.equals(StringStorage.IS_DONE_SYMBOL);
+            // Check Desc and other Arguments, indirectly checks if missing
             String taskDesc = taskParts[2];
             switch (taskType) {
                 case StringStorage.TODO_SYMBOL:
-                    InputStringHandler.validateTodoInstruction(taskDesc);
+                    ExceptionHandler.checkIfTodoArgsMissing(
+                            taskDesc.trim() );
                     return new Todo(taskDesc, isDone);
                 case StringStorage.DEADLINE_SYMBOL:
-                    InputStringHandler.validateDeadlineInstruction(taskDesc, taskParts[3]);
+                    ExceptionHandler.checkIfDeadlineArgsMissing(
+                            taskDesc.trim(), taskParts[3].trim() );
                     return new Deadline(taskDesc, isDone, taskParts[3]);
                 case StringStorage.EVENT_SYMBOL:
-                    InputStringHandler.validateEventInstruction(taskDesc, taskParts[3], taskParts[4]);
+                    ExceptionHandler.checkIfEventArgsMissing(
+                            taskDesc.trim(), taskParts[3].trim(), taskParts[4].trim() );
                     return new Event(taskDesc, isDone, taskParts[3], taskParts[4]);
             }
-        } catch (Exception e) {
-            System.out.println("data unrecognised, skipping line: " + taskData); // ?
-            return null;
+        } catch (YapperException e) {
+            throw new YapperException(taskData + " because " + e.getMessage()); // ?
         }
-        return null; // ?
+        return null; // what to do with return statement?
     }
 
 }
