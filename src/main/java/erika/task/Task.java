@@ -3,12 +3,10 @@ package erika.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static int taskArraySize = 0;
 
     public Task (String description) {
         this.description = description;
         this.isDone = false;
-        taskArraySize++;
     }
 
     @Override
@@ -34,21 +32,5 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public static int getTaskArraySize() {
-        return taskArraySize;
-    }
-
-    public static void setTaskArraySize(int size) {
-        taskArraySize = size;
-    }
-
-    public static void incrementTaskArraySize() {
-        taskArraySize++;
-    }
-
-    public static void decrementTaskArraySize() {
-        taskArraySize--;
     }
 }

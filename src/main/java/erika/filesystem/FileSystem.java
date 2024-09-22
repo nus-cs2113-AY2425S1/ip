@@ -1,10 +1,12 @@
 package erika.filesystem;
+import erika.console.Console;
 import erika.exception.FileFormatErrorException;
 import erika.settings.Settings;
 import erika.task.Deadline;
 import erika.task.Event;
 import erika.task.Task;
 import erika.task.Todo;
+import erika.tasklist.TaskList;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -16,12 +18,37 @@ import java.io.IOException;
 public class FileSystem {
     private String filePath;
     private String separator;
+
     public FileSystem(String filePath, String separator) {
         this.filePath = filePath;
         this.separator = separator;
     }
 
-    public ArrayList<Task> readFromFile() throws FileNotFoundException, IOException, FileFormatErrorException {
+    private void reinitFileSystem() {
+        try{
+            Console.printMessage(Settings.FILENAME + " is corrupted, re-creating the file");
+            writeToFile("",false);
+        } catch (IOException _e) {
+            Console.printMessage("IO Error encountered when re-creating " + Settings.FILENAME);
+        }
+    }
+
+    public ArrayList<Task> initializeFileSystem() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try{
+            readFromFile(tasks);
+        } catch (FileNotFoundException e){
+            printFileNotFoundMessage();
+        } catch (FileFormatErrorException e) {
+            reinitFileSystem();
+        } catch (IOException e) {
+            Console.printMessage("IO Error encountered when setting up fileSystem");
+        } finally {
+            return tasks;
+        }
+    }
+
+    public void readFromFile(ArrayList<Task> tasks) throws FileNotFoundException, IOException, FileFormatErrorException {
         File f = new File(filePath);
         if(!f.exists()) {
             createDirectory(Settings.DIRECTORY);
@@ -29,12 +56,10 @@ public class FileSystem {
             throw new FileNotFoundException(filePath);
         }
         Scanner s = new Scanner(f);
-        ArrayList<Task> tasks = new ArrayList<>();
         int lineNumber = 1;
         while (s.hasNext()) {
             parseLine(tasks, s.nextLine(), lineNumber++);
         }
-        return tasks;
     }
 
     public void writeToFile(String textToAdd, boolean isAppend) throws IOException {
@@ -44,17 +69,13 @@ public class FileSystem {
     }
 
     public void appendTaskToFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(task.generateFileLine());
-        fw.close();
+        writeToFile(task.generateFileLine(),true);
     }
 
-    public void updateFileSystemWithLocalTasks(ArrayList<Task> tasks) throws IOException{
+    public void updateFileSystemWithLocalTasks(TaskList tasks) throws IOException{
         FileWriter fw = new FileWriter(filePath, false);
-        for (Task t : tasks) {
-            String res = t.generateFileLine();
-            fw.write(res);
-        }
+        String res = tasks.printFileLine();
+        fw.write(res);
         fw.close();
     }
 
