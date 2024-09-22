@@ -7,8 +7,13 @@ import java.util.ArrayList;
 public class Iris {
     static ArrayList<Task> tasks;
 
+    private final static String DIVIDER = "---------------------------------------------";
+    private final static String EMPTY_COMMAND_MESSAGE = "Tell me your needs! I'm here to help!";
+    private final static String INVALID_COMMAND_MESSAGE = "HUH?!? I don't recognize this command :(";
+
+
     public static void printDivider() {
-        System.out.println("---------------------------------------------");
+        System.out.println(DIVIDER);
     }
 
     public static boolean chat(String text) {
@@ -16,7 +21,7 @@ public class Iris {
         printDivider();
         switch (command) {
         case "":
-            System.out.println("Tell me your needs! I'm here to help!");
+            System.out.println(EMPTY_COMMAND_MESSAGE);
             break;
         case "bye":
             saveAndLeave(tasks);
@@ -37,7 +42,7 @@ public class Iris {
             addTask(tasks, text);
             break;
         default:
-            System.out.println("HUH?!? I don't recognize this command :(");
+            System.out.println(INVALID_COMMAND_MESSAGE);
         }
         printDivider();
         return false;
