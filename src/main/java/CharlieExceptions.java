@@ -15,4 +15,12 @@ public class CharlieExceptions extends Exception{
     public static CharlieExceptions missingTimes() {
         return new CharlieExceptions("Your event is missing or incomplete!");
     }
+
+    public static CharlieExceptions alreadyMarked() {
+        return new CharlieExceptions("Your task is already marked!");
+    }
+
+    public static CharlieExceptions alreadyUnmarked() {
+        return new CharlieExceptions("Your task is already unmarked!");
+    }
 }

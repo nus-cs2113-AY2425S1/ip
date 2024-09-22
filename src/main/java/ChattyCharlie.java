@@ -103,8 +103,13 @@ public class ChattyCharlie {
                     String markIndex = line.substring(4).trim();
                     //convert the string number into an int
                     int markNo = Integer.parseInt(markIndex) -1; //convert to array
+                    Task markedTask = list.getTasks(markNo);
                     //mark it
-                    list.mark(markNo);
+                    if (markedTask.getMarkedStatus().equals(" ")) {
+                        list.mark(markNo);
+                    } else {
+                        throw CharlieExceptions.alreadyMarked();
+                    }
                     //print
                     System.out.println(StringDesign.LINE);
                     break;
@@ -114,7 +119,12 @@ public class ChattyCharlie {
                     //convert the string no into a int
                     int unmarkNo = Integer.parseInt(unmarkIndex) -1;
                     //mark it
-                    list.unmark(unmarkNo);
+                    Task unmarkedTask = list.getTasks(unmarkNo);
+                    if (unmarkedTask.getMarkedStatus().equals("X")) {
+                        list.unmark(unmarkNo);
+                    } else {
+                        throw CharlieExceptions.alreadyUnmarked();
+                    }
                     //print
                     System.out.println(StringDesign.LINE);
                     break;

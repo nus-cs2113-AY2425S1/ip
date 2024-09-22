@@ -18,6 +18,10 @@
             size++;
         }
 
+        public Task getTasks(int index) {
+            return this.tasks[index];
+        }
+
         public Task[] getList() {
             return this.tasks;
         }
