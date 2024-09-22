@@ -28,11 +28,12 @@ public class UiControl {
         System.out.println("event : event [task] /from [start time] /by [end time]");
         System.out.println("deadline : deadline [task] /by [time]");
         System.out.println("get : get [dd/mm/yyyy]");
+        System.out.println("find : find [keyword]");
     }
 
     public static void printCommands(){
         System.out.println("Command entered is not valid. Available commands are");
-        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "get" , "help (get format)"};
+        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "get" , "find", "help (get format)"};
         for(String command : commands){
             System.out.println("- " + command);
         }

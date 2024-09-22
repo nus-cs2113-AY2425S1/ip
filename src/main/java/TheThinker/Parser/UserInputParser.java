@@ -21,6 +21,7 @@ public class UserInputParser {
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
     public static final String TODO_FORMAT = "Please follow format : todo [task]";
     public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
+    public static final String FIND_FORMAT = "Please follow format : find [keyword]";
 
     public static Task parseTodo() throws FormattingException {
 
@@ -128,6 +129,15 @@ public class UserInputParser {
         if(!Date.isDateOnlyFormat(parsedInputs[1].trim())){
             throw new FormattingException("date is in the wrong format. " + GET_FORMAT);
         }
+        return parsedInputs[1].trim();
+    }
+
+    public static String parseKeywordAfterFind() throws FormattingException{
+        String[] parsedInputs = userInput.split(" ");
+        if(parsedInputs.length != 2){
+            throw new FormattingException("keyword is missing. " + FIND_FORMAT);
+        }
+
         return parsedInputs[1].trim();
     }
 }
