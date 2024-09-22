@@ -29,17 +29,17 @@ public class lovespiritual {
                     printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printList(taskCount, isMarked, taskTypes, tasks);
+                    printList(taskCount, tasks);
                 } else if (input.startsWith("mark")) {
-                    markTask(input, taskCount, isMarked, tasks);
+                    markTask(input, taskCount, tasks);
                 } else if (input.startsWith("unmark")) {
-                    unmarkTask(input, taskCount, isMarked, tasks);
+                    unmarkTask(input, taskCount, tasks);
                 } else if (input.startsWith("todo")) {
-                    taskCount = todo(input, tasks, taskCount);
+                    taskCount = todo(input, tasks);
                 } else if (input.startsWith("deadline")) {
-                    taskCount = deadline(input, taskCount, tasks);
+                    taskCount = deadline(input, tasks);
                 } else if (input.startsWith("event")) {
-                    taskCount = event(input, tasks, taskCount);
+                    taskCount = event(input, tasks);
                 } else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
