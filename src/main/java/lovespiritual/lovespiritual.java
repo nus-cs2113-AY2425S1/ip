@@ -6,6 +6,7 @@ import lovespiritual.task.Event;
 import lovespiritual.task.Task;
 import lovespiritual.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class lovespiritual {
@@ -14,9 +15,7 @@ public class lovespiritual {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS]; // array of tasks
-        boolean[] isMarked = new boolean[MAX_TASKS]; // check if task is marked
-        String[] taskTypes = new String[MAX_TASKS]; // task category
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0; // count the number of tasks added in the array
 
         printWelcomeScreen();
