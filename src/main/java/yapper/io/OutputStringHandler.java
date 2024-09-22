@@ -16,7 +16,7 @@ public class OutputStringHandler {
         }
         System.out.println(StringStorage.LINE_DIVIDER_INPUT);
     }
-    // For Instruction: Add
+    // For Instruction: Todo Deadline Event
     public static void printAddedTask(Task task, int taskCount) {
         StringStorage.printWithDividers(
                 StringStorage.TASK_ADDED_STRING + "\n"
@@ -33,6 +33,7 @@ public class OutputStringHandler {
     // For Instruction: Mark, Unmark
     public static void printTaskStatus(Task task, boolean isDone) {
         String status = (isDone ? "done" : "undone");
-        StringStorage.printWithDividers("This task is now " + status + ": \n" + "  " + task.taskToString());
+        StringStorage.printWithDividers(
+                "This task is now " + status + ": \n" + "  " + task.taskToString());
     }
 }

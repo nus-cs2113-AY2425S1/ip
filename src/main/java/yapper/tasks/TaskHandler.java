@@ -21,6 +21,9 @@ public class TaskHandler {
     public Task getTask(int taskOrdinal) {
         return tasks.get(taskOrdinal);
     }
+    public int getTaskOrdinal(Task task) {
+        return tasks.indexOf(task);
+    }
 
     // Create, Update, Delete Operations
     public void addTask(Task task) {

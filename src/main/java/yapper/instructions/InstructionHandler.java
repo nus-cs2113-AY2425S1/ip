@@ -79,9 +79,9 @@ public class InstructionHandler {
             instruction = InputStringHandler.parseUserInput(userInputString);
         } catch (YapperException e) {
             StringStorage.printWithDividers(e.getMessage());
+            return;
         }
-        // TODO confirm if user input is complete at this line
-
+        // TO DECIDE: try-catch to extend to the whole method?
         Instruction.InstructionType instructionType = instruction.getInstructionType();
         switch (instructionType) {
         case LIST:

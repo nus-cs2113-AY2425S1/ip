@@ -3,10 +3,12 @@ package yapper.io;
 // TODO: make more conversational
 // Contains strings for the Yapper program
 public class StringStorage {
-    // List Ordinal is 0-indexed, but Display is 1-indexed
+    // List Array   is 0-indexed, i.e. 0, 1, ...
+    // List Display is 1-indexed, i.e. 1, 2, ...
+    // User Input Ordinal == Internal Use Ordinal + 1
     public static final int INDEX_OFFSET = 1;
 
-    // For Input
+    // For User Input-Output
     public static final String     LIST_INSTRUCTION_PREFIX = "list";
     public static final String     TODO_INSTRUCTION_PREFIX = "todo";
     public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
@@ -17,7 +19,7 @@ public class StringStorage {
     static String DEADLINE_END_DATE_DELIMITER = "/by";
     static String  EVENT_START_DATE_DELIMITER = "/from";
     static String    EVENT_END_DATE_DELIMITER = "/to";
-    // For Output
+    // For File Input-Output
     public static final String NOT_DONE_SYMBOL = " ";
     public static final String  IS_DONE_SYMBOL = "X";
     public static final String     TODO_SYMBOL = "T";

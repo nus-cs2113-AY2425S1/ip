@@ -17,8 +17,8 @@ public class Task {
         this.isDone = isDone;
     }
     // Getters and Setters
-    public String getDesc() { return taskDesc }
-    public String setDesc(String taskDesc) { this.taskDesc = taskDesc; }
+    public String getDesc() { return taskDesc; }
+    public void setDesc(String taskDesc) { this.taskDesc = taskDesc; }
     public String getDoneStatus() {
         return isDone ? StringStorage.NOT_DONE_SYMBOL : StringStorage.IS_DONE_SYMBOL;
     }

@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.tasks.*;
+import yapper.tasks.*; // need all classes in tasks folder
 
 public class SaveFileHandler {
     public static final String SAVE_FILE_PATH = "./data/duke.txt";
 
-    // File Store-Unstore-s Operations based on Create-Delete-Update Operations
+    // File Data Saving Operations
     public static void storeAddedTask(Task task) throws YapperException {
         try {
             System.out.println(StringStorage.BEFORE_SAVING_STRING + SAVE_FILE_PATH);
