@@ -13,16 +13,17 @@ import java.io.IOException;
 public class NewFile {
 
     public File file;
+    public final String FILE_DIR_FROM_IP_DIR = "src/main/java/TheThinker/Data";
 
     public NewFile(String filename) {
-        File directory = new File("src/main/java/TheThinker/Data");
+        File directory = new File(FILE_DIR_FROM_IP_DIR);
 
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Directory Data does not exist");
             System.out.println("Please create Package /Data under src/main/java/TheThinker/");
         }
 
-        this.file = new File("src/main/java/TheThinker/Data/" + filename);
+        this.file = new File(FILE_DIR_FROM_IP_DIR + "/" + filename);
     }
 
     public void loadFile() throws FileNotFoundException {
@@ -31,7 +32,7 @@ public class NewFile {
         while (SCANNER.hasNext()) {
             String input = SCANNER.nextLine();
             String[] parameters = input.split(" \\| ");
-            doAccordingToParameters(parameters);
+            addTaskAccordingToFileData(parameters);
         }
 
         System.out.println("File data loaded");
@@ -39,7 +40,7 @@ public class NewFile {
         Task.listTasks();
     }
 
-    public void doAccordingToParameters(String[] parameters){
+    public void addTaskAccordingToFileData(String[] parameters){
         switch (parameters[0]) {
             case "T" :
                 Task.addTaskWithoutResponse(new Todo(parameters[2]));

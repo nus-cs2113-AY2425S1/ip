@@ -1,4 +1,0 @@
-T | false | read book
-T | false | return book
-E | false | project meeting | Aug 6th 2pm | 4pm
-T | false | join sports club

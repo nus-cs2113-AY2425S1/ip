@@ -16,7 +16,11 @@ public class TheThinker {
         NewFile data = null;
 
         try {
-            data = new NewFile("TaskContents.txt");
+            printSeparation();
+            System.out.println("Input file name you want to extract data from under the Data directory [filename.txt]");
+            printSeparation();
+            String filename = UserInputParser.getUserInput();
+            data = new NewFile(filename);
             data.loadFile();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. No data loaded. Please create the file under Data directory");

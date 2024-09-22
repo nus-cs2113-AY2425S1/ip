@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class UserInputParser {
     public static String userInput;
-    public static final Scanner SCANNER = new Scanner(System.in);
+    public static final Scanner scanner = new Scanner(System.in);
     public static final int LENGTH_OF_TODO = 4;
     public static final int LENGTH_OF_EVENT = 5;
     public static final int LENGTH_OF_DEADLINE = 8;
@@ -113,7 +113,7 @@ public class UserInputParser {
     }
 
     public static String getUserInput(){
-        userInput = SCANNER.nextLine();
+        userInput = scanner.nextLine();
         userInput = userInput.trim();
         return userInput;
     }
