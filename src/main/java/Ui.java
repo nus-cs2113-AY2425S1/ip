@@ -38,6 +38,20 @@ public class Ui {
         }
     }
 
+    public void printAllMatchingTask(String matchingWords, int taskCount, ArrayList<Task> tasks) {
+        int indexToPrint = 1;
+        for (int i = 0; i < taskCount; i++) {
+           if (tasks.get(i).getTask().contains(matchingWords)) {
+               System.out.print(indexToPrint + ". ");
+               System.out.println(tasks.get(i));
+               indexToPrint++;
+           }
+        }
+        if (indexToPrint == 1) {
+            System.out.println("Hmmmm seems like there is no matching tasks :<");
+        }
+    }
+
     public void printAddedTaskMessage(ArrayList<Task> tasks, int taskCount) {
         horizontalLine();
         System.out.println("Got it. I've added this task:");

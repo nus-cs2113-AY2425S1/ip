@@ -48,6 +48,9 @@ public class Parser {
                 checkIndexValidity(taskList, indexOfTaskToDelete);
                 taskList.deleteTask(indexOfTaskToDelete);
                 break;
+            case "find":
+                taskList.findAllMatchingTask(input);
+                break;
             default:
                 throw new LeginInvalidCommandException();
             }
