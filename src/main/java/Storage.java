@@ -113,11 +113,11 @@ public class Storage {
                 case 'T': fw.write(task.getDescription());
                     break;
                 case 'D': fw.write(task.getDescription());
-                    fw.write ("(by: " + task.getFrom() + ")");
+                    fw.write ("(by: " + task.formattedDeadline() + ")");
                     break;
                 case 'E': fw.write(task.getDescription());
-                    fw.write("(by: " + task.getFrom());
-                    fw.write(task.getTo());
+                    fw.write("(by: " + task.formattedDeadline());
+                    fw.write(task.formattedEvent());
                     break;
                 }
                 fw.write("\n");

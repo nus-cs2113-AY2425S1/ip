@@ -28,14 +28,39 @@ public class Ui {
                 System.out.println();
                 break;
             case 'D':
-                System.out.println("(by: " + task.getFrom() + ")");
+                System.out.println("(by: " + task.formattedDeadline() + ")");
                 break;
             case 'E':
-                System.out.println("(by: " + task.getFrom() + task.getTo());
+                System.out.println("(by: " + task.formattedDeadline() + task.formattedEvent());
                 break;
             }
             loop += 1;
         }
+    }
+
+    public void toFind(TaskList taskList, String wordtoFind){
+        System.out.println("____________________\n" + "Showing relevant searches ");
+        int loop = 1;
+        ArrayList<Task> tasks = taskList.getTask();
+        for (Task task : tasks) {
+            if(task.getDescription().contains(wordtoFind)){
+                System.out.print(loop + "."); // Prints object Array
+                System.out.print("[" + task.getType() + "]" + task.getStatusIcon() + task.getDescription());
+                switch (task.getType()) {
+                case 'T':
+                    System.out.println();
+                    break;
+                case 'D':
+                    System.out.println("(by: " + task.formattedDeadline() + ")");
+                    break;
+                case 'E':
+                    System.out.println("(by: " + task.formattedDeadline() + task.formattedEvent());
+                    break;
+                }
+            }
+            loop += 1;
+        }
+
     }
 
     public void listEmpty(){
@@ -56,7 +81,7 @@ public class Ui {
         System.out.println("[" + tasks.getTask(index).getType() + "]" +
                 tasks.getTask(index).getStatusIcon() +
                 tasks.getTask(index).getDescription() +
-                "(by: " + tasks.getTask(index).getFrom() + ")");
+                "(by: " + tasks.getTask(index).formattedDeadline() + ")");
     }
 
     public void showEventAdded(TaskList tasks){
@@ -65,8 +90,8 @@ public class Ui {
         System.out.println("[" + tasks.getTask(index).getType() + "]" +
                 tasks.getTask(index).getStatusIcon() +
                 tasks.getTask(index).getDescription() +
-                "(by: " + tasks.getTask(index).getFrom() +
-                tasks.getTask(index).getTo() + ")");
+                "(by: " + tasks.getTask(index).formattedDeadline() +
+                tasks.getTask(index).formattedEvent());
     }
 
     public void showTaskDeleted(TaskList tasks, int index) {

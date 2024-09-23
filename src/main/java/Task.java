@@ -32,4 +32,12 @@ public class Task {
     public String getTo() {
         return "";
     }
+
+    public String formattedDeadline(){
+        return "";
+    }
+
+    public String formattedEvent(){
+        return "";
+    }
 }

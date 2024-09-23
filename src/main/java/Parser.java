@@ -61,6 +61,13 @@ public class Parser {
                 System.out.println(" " + e.getMessage());
             }
             break;
+
+        case "find":
+            try{
+                return new FindCommand(line);
+            } catch (Exception e){
+                System.out.println("The selected item is not found");
+            }
         }
         return null;
     }

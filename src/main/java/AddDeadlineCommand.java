@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class AddDeadlineCommand extends Command {
     private String taskName;
     private String by;
@@ -9,8 +13,15 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){
-        Task task = new Deadline(taskName, by);
-        tasks.addTask(task);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try{
+            LocalDate date = LocalDate.parse(by, formatter);
+            Task task = new Deadline(taskName, date);
+            tasks.addTask(task);
+        } catch (DateTimeParseException e) {
+            Task task = new Deadline(taskName, by);
+            tasks.addTask(task);
+        }
         ui.showDeadlineAdded(tasks);
         storage.save(tasks);
     }
