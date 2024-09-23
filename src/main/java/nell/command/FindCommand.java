@@ -1,6 +1,6 @@
 package nell.command;
 
-import nell.common.*;
+import nell.common.Messages;
 import nell.list.TaskList;
 
 /**
