@@ -39,7 +39,7 @@ public class InputStringHandler {
                     instructionArgs.indexOf(StringStorage.DEADLINE_END_DATE_DELIMITER));
                 String[] deadlineArgs = splitStringByDeadlineKeyword(instructionArgs);
                 ExceptionHandler.checkIfDeadlineArgsMissing(
-                    deadlineArgs[0].trim(), deadlineArgs[1].trim() );
+                        deadlineArgs[0], deadlineArgs[1]);
                 return new Instruction(Instruction.InstructionType.DEADLINE,
                         deadlineArgs[0], deadlineArgs[1] );
             case StringStorage.EVENT_INSTRUCTION_PREFIX:
@@ -48,7 +48,7 @@ public class InputStringHandler {
                     instructionArgs.indexOf(StringStorage.EVENT_END_DATE_DELIMITER));
                 String[] eventArgs = splitStringByEventKeywords(instructionArgs);
                 ExceptionHandler.checkIfEventArgsMissing(
-                    eventArgs[0].trim(), eventArgs[1].trim(), eventArgs[2].trim() );
+                        eventArgs[0], eventArgs[1], eventArgs[2] );
                 return new Instruction(Instruction.InstructionType.EVENT,
                         eventArgs[0], eventArgs[1], eventArgs[2] );
             case StringStorage.DELETE_INSTRUCTION_PREFIX:
@@ -77,7 +77,7 @@ public class InputStringHandler {
         }
     }
 
-    // Methods to Split By Keywords
+    // User-Input-related Methods to Split by delimiter into keywords
     public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.DEADLINE_END_DATE_DELIMITER, -2);
@@ -86,9 +86,11 @@ public class InputStringHandler {
         return new String[] {deadlineDesc, deadlineDate};
     }
     public static String[] splitStringByEventKeywords(String instructionArgs) {
-        String[] eventArgs = instructionArgs.split(StringStorage.EVENT_START_DATE_DELIMITER, -2);
+        String[] eventArgs = instructionArgs.split(
+                StringStorage.EVENT_START_DATE_DELIMITER, -2);
         String eventDesc = eventArgs[0].trim();
-        String[] dates = eventArgs[1].split(StringStorage.EVENT_END_DATE_DELIMITER, -2);
+        String[] dates = eventArgs[1].split(
+                StringStorage.EVENT_END_DATE_DELIMITER, -2);
         String startDate = dates[0].trim();
         String endDate = dates[1].trim();
         return new String[] {eventDesc, startDate, endDate};

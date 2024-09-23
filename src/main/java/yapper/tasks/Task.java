@@ -34,6 +34,8 @@ public class Task {
     }
     // Task Conversion Operations for Saving/Loading Data
     public String taskToString() {
-        return getDoneStatus() + StringStorage.STORAGE_DELIMITER + taskDesc;
+        return getDoneStatus() + " " +
+                StringStorage.COMBINE_USING_DELIMITER + " "
+                + taskDesc;
     }
 }

@@ -98,6 +98,10 @@ public class SaveFileHandler {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
+                if (taskData.isEmpty()) {
+                    break; // end scanning once blank line is detected
+                }
+
                 try {
                     Task task = loadTask(taskData);
                     taskHandler.addTask(task);
@@ -122,6 +126,9 @@ public class SaveFileHandler {
     private static Task loadTask(String taskData) throws YapperException {
         try {
             String[] taskParts = StringStorage.splitByDelimiter(taskData);
+            if (taskParts.length < 3) {
+                throw new YapperException("invalid task format, missing fields");
+            }
             // Check Task Type, indirectly checks if missing
             String taskType = taskParts[0];
             ExceptionHandler.checkIfTaskTypeValid(taskType);
@@ -130,26 +137,48 @@ public class SaveFileHandler {
             ExceptionHandler.checkIfTaskStatusValid(taskStatus);
             boolean isDone = taskStatus.equals(StringStorage.IS_DONE_SYMBOL);
             // Check Desc and other Arguments, indirectly checks if missing
-            String taskDesc = taskParts[2];
+            String remainingParts = taskParts[2];
             switch (taskType) {
                 case StringStorage.TODO_SYMBOL:
+                    // no need to split
                     ExceptionHandler.checkIfTodoArgsMissing(
-                            taskDesc.trim() );
-                    return new Todo(taskDesc, isDone);
+                            remainingParts.trim() );
+                    return new Todo(remainingParts, isDone);
                 case StringStorage.DEADLINE_SYMBOL:
+                    String[] deadlineArgs = splitStringByDeadlineKeyword(remainingParts);
                     ExceptionHandler.checkIfDeadlineArgsMissing(
-                            taskDesc.trim(), taskParts[3].trim() );
-                    return new Deadline(taskDesc, isDone, taskParts[3]);
+                            deadlineArgs[0], deadlineArgs[1] );
+                    return new Deadline(deadlineArgs[0], isDone, deadlineArgs[1] );
                 case StringStorage.EVENT_SYMBOL:
+                    String[] eventArgs = splitStringByEventKeywords(remainingParts);
                     ExceptionHandler.checkIfEventArgsMissing(
-                            taskDesc.trim(), taskParts[3].trim(), taskParts[4].trim() );
-                    return new Event(taskDesc, isDone, taskParts[3], taskParts[4]);
+                            eventArgs[0], eventArgs[1], eventArgs[2] );
+                    return new Event(eventArgs[0], isDone, eventArgs[1], eventArgs[2]);
                 default:
                     throw new YapperException("loadTask method reached default switch-case");
             }
         } catch (YapperException e) {
-            throw new YapperException(taskData + " because " + e.getMessage()); // ?
+            throw new YapperException(taskData + ", because " + e.getMessage()); // ?
         }
+    }
+
+    // User-Input-related Methods to Split by delimiter into keywords
+    public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
+        String[] deadlineArgs = instructionArgs.split(
+                StringStorage.SPLIT_USING_DELIMITER, -2);
+        String deadlineDesc = deadlineArgs[0].trim();
+        String deadlineDate = deadlineArgs[1].trim();
+        return new String[] {deadlineDesc, deadlineDate};
+    }
+    public static String[] splitStringByEventKeywords(String instructionArgs) {
+        String[] eventArgs = instructionArgs.split(
+                StringStorage.SPLIT_USING_DELIMITER, -2);
+        String eventDesc = eventArgs[0].trim();
+        String[] dates = eventArgs[1].split(
+                StringStorage.SPLIT_USING_DELIMITER, -2);
+        String startDate = dates[0].trim();
+        String endDate = dates[1].trim();
+        return new String[] {eventDesc, startDate, endDate};
     }
 
 }

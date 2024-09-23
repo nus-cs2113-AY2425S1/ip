@@ -26,9 +26,10 @@ public class StringStorage {
     public static final String     TODO_SYMBOL = "T";
     public static final String DEADLINE_SYMBOL = "D";
     public static final String    EVENT_SYMBOL = "E";
-    public static final String STORAGE_DELIMITER = " | ";
+    public static final String COMBINE_USING_DELIMITER = "|";
+    public static final String   SPLIT_USING_DELIMITER = "\\|";
     public static String[] splitByDelimiter(String taskAsString) {
-        return taskAsString.split(" \\| ");
+        return taskAsString.split(SPLIT_USING_DELIMITER, 3);
     }
 
     // Text Delimiter
@@ -79,14 +80,14 @@ public class StringStorage {
             "Now, ya dun hafta do dis anymore: ";
     public static final String LIST_SIZE_STRING =
             "Your list is now THIS BIG: ";
-    public static final String BEFORE_SAVING_STRING =
-            "saving data to: "; // ok, just give me a while to recall
-    public static final String AFTER_SAVING_STRING =
-            "saved successfully!"; // Ok, I think I remember it all
-    public static final String BEFORE_LOADING_STRING =
-            "retrieving data from: "; // hold on, let me remember
-    public static final String AFTER_LOADING_STRING =
-            "retrieved successfully!"; // I've got it
+//    public static final String BEFORE_SAVING_STRING =
+//            "saving data to: "; // ok, just give me a while to recall
+//    public static final String AFTER_SAVING_STRING =
+//            "saved successfully!"; // Ok, I think I remember it all
+//    public static final String BEFORE_LOADING_STRING =
+//            "retrieving data from: "; // hold on, let me remember
+//    public static final String AFTER_LOADING_STRING =
+//            "retrieved successfully!"; // I've got it
 
 
     // Exception Strings Below:
@@ -134,15 +135,15 @@ public class StringStorage {
             "Task type abbreviation is not any of these: "
             + TODO_SYMBOL + ", "
             + DEADLINE_SYMBOL + ", "
-            + EVENT_SYMBOL + "\n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I don't remember if what kind of task this is.";
+            + EVENT_SYMBOL; // + "\n" +
+//            LINE_DIVIDER_YAPPER + "\n"+
+//            "I don't remember if what kind of task this is.";
     public static final String INVALID_TASK_STATUS_MESSAGE =
             "Task completion status abbreviation is not any of these: "
             + IS_DONE_SYMBOL + ", "
-            + NOT_DONE_SYMBOL + "\n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I don't remember if this task was done or not.";
+            + NOT_DONE_SYMBOL; // + "\n" +
+//            LINE_DIVIDER_YAPPER + "\n"+
+//            "I don't remember if this task was done or not.";
     public static final String LIST_EMPTY_MESSAGE =
             "List is empty. \n" +
             LINE_DIVIDER_YAPPER + "\n"+

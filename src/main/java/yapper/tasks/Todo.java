@@ -23,7 +23,8 @@ public class Todo extends Task {
     // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
-        return StringStorage.TODO_SYMBOL
-                + StringStorage.STORAGE_DELIMITER + super.taskToString();
+        return StringStorage.TODO_SYMBOL + " "
+                + StringStorage.COMBINE_USING_DELIMITER + " "
+                + super.taskToString();
     }
 }
