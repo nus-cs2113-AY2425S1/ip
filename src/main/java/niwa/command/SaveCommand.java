@@ -4,10 +4,12 @@ import niwa.data.Storage;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,7 +45,7 @@ public class SaveCommand extends Command{
         return true;
     }
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
@@ -52,14 +54,16 @@ public class SaveCommand extends Command{
         if (!isCorrectPath(dataPath)) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
+
         Storage storage = new Storage(dataPath);
 
+        ArrayList<String> messages = new ArrayList<>();
         try {
-            String message = storage.writeTaskList(TaskList.getInstance().getTaskList());
-            System.out.println(PREFIX+message);
+            storage.writeTaskList(TaskList.getInstance().getTaskList());
+            messages.add(String.format(NiwaMesssages.MESSAGE_SAVE_COMPLETE, dataPath));
         } catch (IOException e) {
-            System.out.println(PREFIX+e.getMessage());
+            messages.add(String.format(NiwaMesssages.MESSAGE_SAVE_FAILED, e.getMessage()));
         }
-
+        return new CommandResult(messages);
     }
 }

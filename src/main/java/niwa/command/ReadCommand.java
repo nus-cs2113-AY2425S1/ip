@@ -5,6 +5,7 @@ import niwa.data.Storage;
 import niwa.data.task.*;
 import niwa.exception.NiwaDuplicateTaskException;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
 
 import java.io.BufferedReader;
 import java.nio.file.*;
@@ -44,7 +45,7 @@ public class ReadCommand extends Command{
         return true;
     }
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
@@ -57,23 +58,27 @@ public class ReadCommand extends Command{
         Storage storage = new Storage(dataPath);
         ArrayList<Task> tasks = new ArrayList<>();
 
+        ArrayList<String> messages = new ArrayList<>();
+
         try {
+            messages.add(String.format(NiwaMesssages.MESSAGE_READ_INFORM, dataPath));
             tasks = storage.loadTaskList();
         } catch (IOException e) {
-            System.out.println(PREFIX + e.getMessage());
+            messages.add(String.format(NiwaMesssages.MESSAGE_READ_FAILED, e.getMessage()));
         }
 
         for (Task task: tasks) {
             try {
-                System.out.println(PREFIX + "Adding..." + task.getFileOutput());
+                messages.add("Adding..." + task.getFileOutput());
                 TaskList.getInstance().addTask(task);
             } catch (NiwaDuplicateTaskException e) {
-                System.out.println(PREFIX + e.getMessage());
+                messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));
             }
         }
 
         if (!dataPath.equals(Niwa.getOutputFilePath())) {
-            ExecutedCommand.saveTasks();
+            messages.add(autoSaveTasks());
         }
+        return new CommandResult(messages);
     }
 }

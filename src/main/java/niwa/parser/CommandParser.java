@@ -1,29 +1,36 @@
 package niwa.parser;
 
 import niwa.command.Command;
+import niwa.exception.NiwaException;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.messages.NiwaMesssages;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CommandParser {
     /** Map command with its word **/
-    private Map<String, Command> commands = new HashMap<>();
+    private Map<String, Command> commands = new LinkedHashMap<>();
 
     public Map<String, Command> getCommands() {
         return commands;
     }
 
-    public void registerCommands(Command command) throws NoSuchFieldException, IllegalAccessException {
-        String commandWord = (String) command.getClass().getField("COMMAND_WORD").get(null);
-        commands.put(commandWord, command);
+    public void registerCommands(Command command) {
+        String commandWord = null;
+        try {
+            commandWord = (String) command.getClass().getField("COMMAND_WORD").get(null);
+            commands.put(commandWord, command);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            //Pass
+        }
     }
 
     public Command parseCommand (String commandString)
-            throws NiwaInvalidSyntaxException,
-            NoSuchFieldException, IllegalAccessException {
+            throws NiwaException {
         String[] commandParts = commandString.split(" ", 2);
 
         Map<String, String> arguments = new HashMap<>();
@@ -36,7 +43,12 @@ public class CommandParser {
         }
 
         if (command != null) {
-            String [] keywords = (String[]) command.getClass().getField("COMMAND_KEYWORDS").get(null);
+            String [] keywords = null;
+            try {
+                keywords = (String[]) command.getClass().getField("COMMAND_KEYWORDS").get(null);
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                throw new NiwaException(String.format(NiwaMesssages.MESSAGE_PARSE_FAILED, e.getMessage()));
+            }
             splitCommandRecursively(argumentString, keywords, arguments, "");
             command.setArguments(arguments);
         } else {

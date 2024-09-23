@@ -2,6 +2,7 @@ package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelpCommand extends Command {
@@ -30,19 +31,22 @@ public class HelpCommand extends Command {
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
+
+        ArrayList<String> messages = new ArrayList<>();
         for (Command command : commands) {
             try {
                 String guide = (String) command.getClass().getField("COMMAND_GUIDE").get(null);
-                System.out.printf(PREFIX + guide + "\n");
+                messages.add(guide);
             } catch (IllegalAccessException | NoSuchFieldException e) {
-                System.out.printf("Invalid command: " + e.getMessage());
+                messages.add("Invalid command: " + e.getMessage());
             }
 
         }
+        return new CommandResult(messages);
     }
 
 }

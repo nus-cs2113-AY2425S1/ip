@@ -7,6 +7,7 @@ import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 import niwa.data.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,23 +33,29 @@ public class TodoCommand extends Command{
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
 
         String description = arguments.get(COMMAND_KEYWORDS[0]);
+
+        ArrayList<String> messages = new ArrayList<>();
         try {
             Task temp = new ToDo(description);
             TaskList.getInstance().addTask(temp);
 
-            String message = "Got it. I've added this deadline:%n"
-                    + PREFIX + "%s%n"
-                    + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
-            System.out.printf(PREFIX + message, temp.getFullInfo(), TaskList.getInstance().getTaskListSize());
-            ExecutedCommand.saveTasks();
+            messages.add(String.format(NiwaMesssages.MESSAGE_ADD_SUCCESS, temp.getType()));
+            messages.add("\t" + temp.getFullInfo());
+            messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
+                    TaskList.getInstance().getTaskListSize()));
+
+            messages.add(autoSaveTasks());
+
         } catch (NiwaDuplicateTaskException e) {
-            System.out.printf(PREFIX + e.getMessage());
+            messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));
         }
+
+        return new CommandResult(messages);
     }
 }

@@ -2,11 +2,14 @@ package niwa.command;
 
 import niwa.exception.NiwaDuplicateTaskException;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.messages.NiwaExceptionMessages;
 import niwa.messages.NiwaMesssages;
 import niwa.data.task.Deadline;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +35,7 @@ public class DeadlineCommand extends Command{
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
@@ -40,18 +43,23 @@ public class DeadlineCommand extends Command{
         String description = arguments.get(COMMAND_KEYWORDS[0]);
         String byDay = arguments.get(COMMAND_KEYWORDS[1]);
 
+        ArrayList<String> messages = new ArrayList<>();
+
         try {
             Task temp = new Deadline(description, byDay);
             TaskList.getInstance().addTask(temp);
 
-            String message = "Got it. I've added this deadline:%n"
-                    + PREFIX + "%s%n"
-                    + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
-            System.out.printf(PREFIX + message, temp.getFullInfo(), TaskList.getInstance().getTaskListSize());
+            messages.add(String.format(NiwaMesssages.MESSAGE_ADD_SUCCESS, temp.getType()));
+            messages.add("\t" + temp.getFullInfo());
+            messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
+                    TaskList.getInstance().getTaskListSize()));
 
-            ExecutedCommand.saveTasks();
+            messages.add(autoSaveTasks());
+
         } catch (NiwaDuplicateTaskException e) {
-            System.out.printf(PREFIX + e.getMessage());
+            messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));
         }
+
+        return new CommandResult(messages);
     }
 }

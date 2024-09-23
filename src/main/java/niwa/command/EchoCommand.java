@@ -2,6 +2,8 @@ package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
 
+import java.util.ArrayList;
+
 public class EchoCommand extends Command {
     public static final String COMMAND_WORD = "echo";
     public static final String COMMAND_GUIDE = "echo [string]: Echo the string.";
@@ -23,12 +25,17 @@ public class EchoCommand extends Command {
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
+
+        ArrayList<String> messages = new ArrayList<>();
+
         String inputString = arguments.get(COMMAND_KEYWORDS[0]);
-        System.out.println(PREFIX + inputString);
+        messages.add(inputString);
+
+        return new CommandResult(messages);
     }
 
 }

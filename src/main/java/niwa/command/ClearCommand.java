@@ -1,8 +1,14 @@
 package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.messages.NiwaExceptionMessages;
 import niwa.messages.NiwaMesssages;
 import niwa.data.task.TaskList;
+import niwa.messages.NiwaShortMessages;
+import niwa.ui.NiwaUI;
+
+import java.util.ArrayList;
 
 public class ClearCommand extends Command{
     public static final String COMMAND_WORD = "clear";
@@ -25,17 +31,29 @@ public class ClearCommand extends Command{
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
-        TaskList.getInstance().clearTaskList();
+        ArrayList<String> messages = new ArrayList<>();
 
-        // Prepare the message to confirm deletion.
-        String message = "OK, I've clear your task list.%n"
-                + PREFIX + NiwaMesssages.MESSAGE_LIST_SIZE_INFORM;
+        NiwaUI ui = new NiwaUI();
+        ui.printMiddleMessage(NiwaMesssages.MESSAGE_CLEAR_ASK);
 
-        // Print out a confirmation message with task details and remaining task count.
-        System.out.printf(PREFIX + message, TaskList.getInstance().getTaskListSize());
+        String response = ui.getUserCommand().toUpperCase().trim();
+
+        if (response.equals(NiwaShortMessages.YES_MESSAGE)) {
+            TaskList.getInstance().clearTaskList();
+
+            messages.add(NiwaMesssages.MESSAGE_CLEAR_SUCCESS);
+            messages.add(autoSaveTasks());
+        } else {
+            messages.add(NiwaMesssages.MESSAGE_CLEAR_CANCEL);
+        }
+
+        messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
+                TaskList.getInstance().getTaskListSize()));
+
+        return new CommandResult(messages);
     }
 }

@@ -3,6 +3,9 @@ package niwa.command;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
+
+import java.util.ArrayList;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
@@ -25,15 +28,20 @@ public class ListCommand extends Command {
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
-        System.out.println(PREFIX + "Here are the tasks in your list:");
-        int index = 1;
 
-        for (Task task : TaskList.getInstance().getTaskList()) {
-            System.out.printf(PREFIX + "%d. %s%n", index++, task.getFullInfo());
+        ArrayList<String> messages = new ArrayList<>();
+        ArrayList<Task> returnedTasks = TaskList.getInstance().getTaskList();
+
+        if (returnedTasks.isEmpty()) {
+            messages.add(NiwaMesssages.MESSAGE_LIST_EMPTY);
         }
+        else {
+            messages.add(NiwaMesssages.MESSAGE_LIST_SUCCESS);
+        }
+        return new CommandResult(messages, returnedTasks);
     }
 }

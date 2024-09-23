@@ -2,6 +2,9 @@ package niwa.command;
 
 import niwa.Niwa;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
+
+import java.util.ArrayList;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
@@ -33,12 +36,17 @@ public class ByeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException{
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
-        System.out.println(PREFIX + "Bye bae. Hope to see you again! Moah~");
+
+        ArrayList<String> messages = new ArrayList<>();
+
         chatbot.setRunning(false);
+        messages.add(NiwaMesssages.BYE_MESSAGE);
+
+        return new CommandResult(messages);
     }
 
 }

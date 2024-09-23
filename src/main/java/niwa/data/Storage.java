@@ -69,7 +69,7 @@ public class Storage {
         return allTasks;
     }
 
-    public String writeTaskList (ArrayList<Task> tasks) throws IOException {
+    public void writeTaskList (ArrayList<Task> tasks) throws IOException {
         if (!dataFile.exists()) {
             createFile();
         } else {
@@ -84,7 +84,6 @@ public class Storage {
         } catch (IOException e) {
             throw new IOException("Failed to save to the file: " + e.getMessage());
         }
-        return ("Save completed!");
     }
 
     public ArrayList<Task> loadTaskList () throws IOException {

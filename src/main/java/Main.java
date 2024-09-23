@@ -12,13 +12,6 @@ public class Main {
         // Create an instance of the Niwa chatbot
         Niwa chatBot = new Niwa();
 
-        // Continue running the chatbot as long as it is active
-        // Retrieve and process the next command from the user
-        Scanner scanner = new Scanner(System.in);
-        while (chatBot.getRunning() && scanner.hasNextLine()) {
-            String command = scanner.nextLine();
-            // Process the input
-            chatBot.processCommand(command);
-        }
+        chatBot.run();
     }
 }

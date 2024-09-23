@@ -6,7 +6,9 @@ import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.messages.NiwaExceptionMessages;
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
+import niwa.messages.NiwaMesssages;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,12 +34,13 @@ public class UnmarkCommand extends Command {
      *
      */
     @Override
-    public void execute() throws NiwaInvalidArgumentException {
+    public CommandResult execute() throws NiwaInvalidArgumentException {
         if (!isValidArguments()) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
 
         String indexString = arguments.get(COMMAND_KEYWORDS[0]);
+        ArrayList<String> messages = new ArrayList<>();
         try {
             // Parse the index from the arguments array (convert to zero-based index).
             int index = Integer.parseInt(indexString) - 1;
@@ -45,15 +48,18 @@ public class UnmarkCommand extends Command {
             Task temp = TaskList.getInstance().findTask(index);
             temp.markAsUndone();
 
-            String message = "OK, I've marked this task as undone:%n"
-                    + PREFIX + "%s%n";
-            System.out.printf(PREFIX + message, temp.getFullInfo());
+            messages.add(String.format(NiwaMesssages.MESSAGE_UNMARK_SUCCESS, temp.getType()));
+            messages.add("\t" + temp.getFullInfo());
 
-            ExecutedCommand.saveTasks();
+            messages.add(autoSaveTasks());
+
         } catch (NiwaTaskIndexOutOfBoundException e) {
-            System.out.println (PREFIX + e.getMessage());
+            messages.add(String.format(NiwaMesssages.MESSAGE_UNMARK_FAILED, e.getMessage()));
         } catch (NumberFormatException e) {
-            System.out.println(PREFIX + NiwaExceptionMessages.MESSAGE_INDEX_NUMBER_FORMAT);
+            messages.add(String.format(NiwaMesssages.MESSAGE_UNMARK_FAILED,
+                    NiwaExceptionMessages.MESSAGE_INDEX_NUMBER_FORMAT));
         }
+
+        return new CommandResult(messages);
     }
 }
