@@ -20,7 +20,7 @@ public class Task {
     public String getDesc() { return taskDesc; }
     public void setDesc(String taskDesc) { this.taskDesc = taskDesc; }
     public String getDoneStatus() {
-        return isDone ? StringStorage.NOT_DONE_SYMBOL : StringStorage.IS_DONE_SYMBOL;
+        return isDone ? StringStorage.IS_DONE_SYMBOL : StringStorage.NOT_DONE_SYMBOL;
     }
     public boolean isDone() { return isDone; }
     public void setDoneStatus(boolean isDone) {
