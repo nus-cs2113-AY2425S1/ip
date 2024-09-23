@@ -9,8 +9,18 @@ public interface UiControl {
 
     static void printGreeting() {
         UiControl.printSeparation();
+        String asciiArt =
+                "  _______ _       _______ _     _       _              \n" +
+                        " |__   __| |     |__   __| |   (_)     | |             \n" +
+                        "    | |  | |__   ___| |  | |__  _ _ __ | | _____ _ __   \n" +
+                        "    | |  | '_ \\ / _ \\ |  | '_ \\| | '_ \\| |/ / _ \\ '__|  \n" +
+                        "    | |  | | | |  __/ |  | | | | | | | |   <  __/ |     \n" +
+                        "    |_|  |_| |_|\\___|_|  |_| |_|_|_| |_|_|\\_\\___|_|     \n";
+
+        System.out.println(asciiArt);
         System.out.println("Hello! I'm " + TheThinker.NAME);
         System.out.println("What can I do for you?");
+        System.out.println();
         UiControl.printSeparation();
     }
 
