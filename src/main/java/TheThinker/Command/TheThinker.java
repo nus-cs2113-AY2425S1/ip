@@ -6,6 +6,11 @@ import TheThinker.Ui.CommandLine;
 import TheThinker.Ui.UiControl;
 import java.io.FileNotFoundException;
 
+/**
+ * Class which contains the main function.
+ * Loads file , polls for user input till bye command is received
+ * If default file and user's newly input file is not valid , program ends.
+ */
 public class TheThinker{
 
     public static final String NAME = "TheThinker";
