@@ -35,6 +35,10 @@ public class NiwaUI {
         System.out.println(PREFIX + message);
     }
 
+    public void printMiddleMessage(String message) {
+        System.out.print(PREFIX + message);
+    }
+
     public void printMessages(List<String> messages) {
         messages.forEach(this::printMessage);
     }
