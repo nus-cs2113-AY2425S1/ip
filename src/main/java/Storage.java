@@ -4,18 +4,36 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
-
+/**
+ * The Storage class handles the creation, loading, and saving of task data
+ * to and from a specified file. It ensures that the file exists and is formatted
+ * correctly for reading and writing task information.
+ */
 public class Storage {
     private File dataFile;
-
+    /**
+     * Returns the data file associated with this Storage instance.
+     *
+     * @return The File object representing the data file.
+     */
     public File getDataFile() {
         return dataFile;
     }
 
+    /**
+     * Constructs a Storage object with the specified file name.
+     *
+     * @param dataFileName The name of the file to store task data.
+     */
     public Storage(String dataFileName) {
         this.dataFile = new File(dataFileName);
     }
 
+    /**
+     * Creates the data file if it does not already exist.
+     * If the file exists, it attempts to read from it.
+     * Prints an error message if there is an issue during file creation.
+     */
     public void createFile() {
         try {
             if (dataFile.exists()) {
@@ -29,6 +47,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the contents of the data file and returns a list of tasks.
+     *
+     * @return An ArrayList containing Task objects.
+     * @throws IOException If there is an error reading the file.
+     */
+
     private ArrayList readFile() throws IOException{
         if(dataFile.length() == 0){
             System.out.println("File is empty");
@@ -41,6 +66,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Loads task data from the data file and returns a list of tasks.
+     *
+     * @return An ArrayList containing Task objects, or null if there was an error.
+     */
     public ArrayList<Task> loadData(){
         ArrayList<Task> filteredData = null;
         try{
@@ -54,6 +84,12 @@ public class Storage {
         return filteredData;
     }
 
+    /**
+     * Parses a list of task strings and creates Task objects.
+     *
+     * @param taskString An ArrayList of strings representing tasks.
+     * @return An ArrayList containing Task objects.
+     */
     private ArrayList<Task> parse(ArrayList<String> taskString){
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -98,7 +134,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Saves the current list of tasks to the data file.
+     *
+     * @param taskList The TaskList object containing tasks to save.
+     */
     public void save(TaskList taskList){
         ArrayList<Task> tasks = taskList.getTask();
         try {
@@ -129,8 +169,4 @@ public class Storage {
             System.out.println("Unable to be stored to file");
         }
     }
-
-
-
-
 }
