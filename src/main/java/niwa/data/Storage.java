@@ -23,7 +23,7 @@ public class Storage {
             throw new IOException("File exists.");
         }
         try {
-            if (!dataFile.getParentFile().exists()) {
+            if (dataFile.getParentFile() != null && !dataFile.getParentFile().exists()) {
                 dataFile.getParentFile().mkdirs();
             }
             dataFile.createNewFile();

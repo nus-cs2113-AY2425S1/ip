@@ -56,6 +56,7 @@ public class ReadCommand extends Command{
             tasks = storage.loadTaskList();
         } catch (IOException e) {
             messages.add(String.format(NiwaMesssages.MESSAGE_READ_FAILED, e.getMessage()));
+            return new CommandResult(messages);
         }
 
         for (Task task: tasks) {
