@@ -8,14 +8,7 @@ import nova.Ui;
  */
 public class ExitCommand extends Command {
 
-    /**
-     * The command word for the Exit command.
-     */
     public static final String COMMAND_WORD = "bye";
-
-    /**
-     * The message displayed to the user upon exiting.
-     */
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
 
     /**

@@ -69,15 +69,15 @@ public class Storage {
                 String[] line = nextLine.split(" \\| ");
                 switch (line[0]) {
 
-                case "T":
+                case Todo.TYPE:
                     TaskList.loadTask(new Todo(line[1], line[2]));
                     break;
 
-                case "D":
+                case Deadline.TYPE:
                     TaskList.loadTask(new Deadline(line[1], line[2], line[3]));
                     break;
 
-                case "E":
+                case Event.TYPE:
                     TaskList.loadTask(new Event(line[1], line[2], line[3], line[4]));
                     break;
 

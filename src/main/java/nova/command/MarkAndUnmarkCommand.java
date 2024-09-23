@@ -53,7 +53,7 @@ public class MarkAndUnmarkCommand extends Command {
      * @return The validated task index.
      * @throws InvalidInputException If the index is invalid.
      */
-    protected static int validateIndex(String[] inputs) throws InvalidInputException {
+    private static int validateIndex(String[] inputs) throws InvalidInputException {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(inputs[1]);

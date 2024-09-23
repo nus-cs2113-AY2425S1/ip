@@ -15,9 +15,6 @@ import java.time.format.DateTimeParseException;
  */
 public class EventCommand extends Command {
 
-    /**
-     * The command word for the Event command.
-     */
     public static final String COMMAND_WORD = "event";
     private static final String EVENT_USAGE = "Usage: event <task description> /from <start date> /to <end date>.";
 
@@ -30,7 +27,7 @@ public class EventCommand extends Command {
      * Executes the Event command by validating input, checking space,
      * and adding a new Event task to the task manager.
      *
-     * @param inputs     The input arguments provided by the user.
+     * @param inputs The input arguments provided by the user.
      * @param taskManager The TaskList instance managing tasks.
      */
     public static void execute(String[] inputs, TaskList taskManager) {
@@ -45,7 +42,7 @@ public class EventCommand extends Command {
         }
     }
 
-    protected static void validateEventInput(String[] inputs) {
+    private static void validateEventInput(String[] inputs) {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }

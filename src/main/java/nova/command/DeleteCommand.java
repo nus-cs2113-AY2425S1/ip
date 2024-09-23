@@ -10,23 +10,19 @@ import nova.task.Task;
  * This command allows the user to specify the index of the task to be deleted.
  */
 public class DeleteCommand extends Command {
-
-    /**
-     * The command word for the Delete command.
-     */
     public static final String COMMAND_WORD = "delete";
+    private static int taskIndex;
 
     /**
      * Executes the Delete command by validating the input index,
      * displaying a delete confirmation message, and removing the task from the task manager.
      *
-     * @param inputs     The input arguments provided by the user.
+     * @param inputs The input arguments provided by the user.
      * @param taskManager The TaskList instance managing tasks.
      */
     public static void execute(String[] inputs, TaskList taskManager) {
-        int taskIndex;
         try {
-            taskIndex = validateIndex(inputs);
+            validateIndex(inputs);
         } catch (InvalidInputException e) {
             Ui.displayInvalidInputMessage(e.getMessage());
             return;
@@ -40,13 +36,12 @@ public class DeleteCommand extends Command {
     /**
      * Validates the input index for the task to be deleted.
      * Ensures that the index is a valid number and within the bounds of the current task list.
+     * Update the taskIndex variable
      *
      * @param inputs The input arguments provided by the user.
-     * @return The validated task index.
      * @throws InvalidInputException If the index is invalid or out of bounds.
      */
-    protected static int validateIndex(String[] inputs) throws InvalidInputException {
-        int taskIndex;
+    private static void validateIndex(String[] inputs) throws InvalidInputException {
         try {
             taskIndex = Integer.parseInt(inputs[1]);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
@@ -57,7 +52,5 @@ public class DeleteCommand extends Command {
             throw new InvalidInputException("Invalid task index: " + taskIndex + ". " +
                     "Please provide a number between 1 and " + Task.getNumberOfTasks() + ".");
         }
-
-        return taskIndex;
     }
 }

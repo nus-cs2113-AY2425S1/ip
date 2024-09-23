@@ -16,16 +16,12 @@ public class TodoCommand extends Command {
      * The command word for adding a Todo task.
      */
     public static final String COMMAND_WORD = "todo";
-
-    /**
-     * The usage message for the Todo command.
-     */
     private static final String TODO_USAGE = "Usage: todo <task description>.";
 
     /**
      * Executes the todo command to add a new Todo task.
      *
-     * @param inputs      The user input containing the command and task description.
+     * @param inputs The user input containing the command and task description.
      * @param taskManager The TaskList instance managing tasks.
      */
     public static void execute(String[] inputs, TaskList taskManager) {
@@ -46,7 +42,7 @@ public class TodoCommand extends Command {
      * @param inputs The user input containing the command and task description.
      * @throws InvalidInputException If the input is invalid.
      */
-    protected static void validateTodoInput(String[] inputs) throws InvalidInputException {
+    private static void validateTodoInput(String[] inputs) throws InvalidInputException {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }

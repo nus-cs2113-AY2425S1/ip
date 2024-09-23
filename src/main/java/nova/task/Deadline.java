@@ -1,14 +1,19 @@
 package nova.task;
 
-import nova.Storage;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
 
+    public static final String TYPE = "D";
     LocalDate by;
 
+    /**
+     * Constructs a Deadline task with the description and due date.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The due date for the Deadline task.
+     */
     public Deadline (String description, LocalDate by) {
         super(description);
         this.by = by;
@@ -18,10 +23,11 @@ public class Deadline extends Task{
     /**
      * Constructs a Deadline task with the specified status, description, and due date.
      * The task is marked as done if the status string is "X".
+     * This function is used to load Deadline task from storage
      *
-     * @param isDone     The status of the task ("X" for done, otherwise not done).
+     * @param isDone The status of the task ("X" for done, otherwise not done).
      * @param description The description of the Deadline task.
-     * @param by          The due date for the Deadline task.
+     * @param by The due date for the Deadline task.
      */
     public Deadline(String isDone, String description, String by) {
         super(description);
@@ -51,6 +57,14 @@ public class Deadline extends Task{
         return "D" + DIVIDER + this.getStatusIcon() + DIVIDER + description + DIVIDER + by;
     }
 
+    /**
+     * Checks if the deadline is associated with a given date.
+     * This method compares the task's deadline date to the input date.
+     *
+     * @param date The date to check against.
+     * @return true if the task's deadline matches the input date, false otherwise.
+     */
+    @Override
     public boolean isDate(LocalDate date) {
         if (by.equals(date)) {
             return true;

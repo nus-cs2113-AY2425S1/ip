@@ -133,10 +133,26 @@ public class TaskList {
         return tasks.get(i).getTaskInfo();
     }
 
+    /**
+     * Checks if the task at the specified index is associated with the given date.
+     * This method delegates the date check to the task at the specified index.
+     *
+     * @param i The index of the task in the task list.
+     * @param localDate The date to check against.
+     * @return true if the task at the specified index matches the given date, false otherwise.
+     */
     public boolean isDate(int i, LocalDate localDate) {
         return tasks.get(i).isDate(localDate);
     }
 
+    /**
+     * Checks if the task at the specified index contains the given phrase in its description.
+     * This method delegates the phrase check to the task at the specified index.
+     *
+     * @param i The index of the task in the task list.
+     * @param phrase The phrase to search for in the task's description.
+     * @return true if the task at the specified index contains the given phrase, false otherwise.
+     */
     public boolean doesContain(int i, String phrase) {
         return tasks.get(i).doesContain(phrase);
     }

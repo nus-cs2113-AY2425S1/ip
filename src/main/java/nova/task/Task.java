@@ -84,15 +84,6 @@ public class Task {
     }
 
     /**
-     * Returns the description of the task.
-     *
-     * @return The task description.
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
      * Displays an acknowledgement message using the provided message and the current number of tasks.
      *
      * @param message The message to be displayed.
@@ -120,11 +111,24 @@ public class Task {
         return "";
     }
 
-
+    /**
+     * Checks if the task is associated with a given date.
+     * By default, this method always returns false.
+     * Subclasses (such as Deadline and Event) should override this method to provide specific date-related checks.
+     *
+     * @param date The date to check against.
+     * @return false by default subclasses should override this method to provide actual date matching logic.
+     */
     public boolean isDate(LocalDate date) {
         return false;
     }
 
+    /**
+     * Checks if the task's description contains the specified phrase.
+     *
+     * @param phrase The phrase to search for in the task's description.
+     * @return true if the description contains the phrase, false otherwise.
+     */
     public boolean doesContain(String phrase) {
         return description.contains(phrase);
     }
