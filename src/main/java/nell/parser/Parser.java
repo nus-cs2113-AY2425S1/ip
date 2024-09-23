@@ -50,7 +50,7 @@ public class Parser {
         case MULTI_WORD_LENGTH:
             try {
                 return parseMultiWordCommand(commandWords);
-            } catch (DateTimeParseException e) {
+            } catch (DateTimeParseException exception) {
                 return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
             }
 
@@ -87,56 +87,56 @@ public class Parser {
         case MarkCommand.COMMAND_WORD:
             try {
                 return parseCommandWithIndex(MarkCommand.COMMAND_WORD, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
             }
 
         case UnmarkCommand.COMMAND_WORD:
             try {
                 return parseCommandWithIndex(UnmarkCommand.COMMAND_WORD, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
             }
 
         case ToDoCommand.COMMAND_WORD:
             try {
                 return new ToDoCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.TODO_ERROR_MESSAGE);
             }
 
         case DeadlineCommand.COMMAND_WORD:
             try {
                 return new DeadlineCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.DEADLINE_ERROR_MESSAGE);
             }
 
         case EventCommand.COMMAND_WORD:
             try {
                 return new EventCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
             }
 
         case FindCommand.COMMAND_WORD:
             try {
                 return new FindCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.FIND_ERROR_MESSAGE);
             }
 
         case SearchCommand.COMMAND_WORD:
             try {
                 return new SearchCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
             }
 
         case RemoveCommand.COMMAND_WORD:
             try {
                 return parseCommandWithIndex(RemoveCommand.COMMAND_WORD, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
             }
 
@@ -168,7 +168,7 @@ public class Parser {
             default:
                 return new IncorrectCommand(tasks);
             }
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException exception){
             switch (commandWord) {
             case MarkCommand.COMMAND_WORD:
                 return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);

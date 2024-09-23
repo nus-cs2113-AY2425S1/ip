@@ -27,7 +27,7 @@ public class RemoveCommand extends Command {
     public void execute() {
         try {
             this.tasks.removeTask(this.taskIndex - 1);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException exception) {
             System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }

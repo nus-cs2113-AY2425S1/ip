@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
             this.tasks.getTaskAtIndex(taskIndex - 1).setDone(false);
             System.out.println(Messages.UNMARK_MESSAGE);
             System.out.println(this.tasks.getTaskStringAtIndex(taskIndex - 1));
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException exception) {
             System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }
