@@ -9,6 +9,7 @@ import TheThinker.Tasks.Todo;
 import java.util.Scanner;
 
 public class UserInputParser {
+
     public static String userInput;
     public static final Scanner scanner = new Scanner(System.in);
     public static final int LENGTH_OF_TODO = 4;
@@ -23,6 +24,12 @@ public class UserInputParser {
     public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
     public static final String FIND_FORMAT = "Please follow format : find [keyword]";
 
+    /**
+     * Parse user input based on the format of To-do and use the result to create To-do object
+     *
+     * @return To-do Object
+     * @throws FormattingException if task description is not provided in user input
+     */
     public static Task parseTodo() throws FormattingException {
 
         String taskDescription = userInput.substring(LENGTH_OF_TODO).trim();
@@ -34,6 +41,13 @@ public class UserInputParser {
         return new Todo(taskDescription);
     }
 
+    /**
+     * Parse user input based on the format of Event and use the result to create Event object.
+     *
+     * @return Event Object.
+     * @throws FormattingException If /from , /to , task description , start time and end time
+     * is missing from user input
+     */
     public static Event parseEvent() throws FormattingException{
 
         String remainingTaskDescription = userInput.substring(LENGTH_OF_EVENT).trim();
@@ -71,6 +85,12 @@ public class UserInputParser {
         return new Event(taskDescription , startTime, endTime);
     }
 
+    /**
+     * Parse user input based on the format of Deadline and use the result to create Deadline object.
+     *
+     * @return Deadline Object.
+     * @throws FormattingException If /by , task description , deadline is missing from user input
+     */
     public static Deadline parseDeadline() throws FormattingException{
 
         String remainingTaskDescription = userInput.substring(LENGTH_OF_DEADLINE).trim();
@@ -106,6 +126,13 @@ public class UserInputParser {
         return wordsInUserInput[0];
     }
 
+    /**
+     * Parses the task number after unmark or mark command
+     *
+     * @return Task number
+     * @throws NumberFormatException If task number string provided is not a number.
+     * @throws FormattingException If no task or multiple task number is provided.
+     */
     public static int parseNumberAfterTask() throws NumberFormatException , FormattingException{
         String[] parsedInputs = userInput.split(" ");
 
@@ -121,6 +148,12 @@ public class UserInputParser {
         return Integer.parseInt(numberToMark);
     }
 
+    /**
+     * Parse date after get command
+     *
+     * @return date in dd/MM/yyyy format
+     * @throws FormattingException If date is missing or in the wrong format
+     */
     public static String parseDateAfterGet() throws FormattingException{
         String[] parsedInputs = userInput.split(" ");
         if(parsedInputs.length != 2){
