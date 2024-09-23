@@ -21,8 +21,8 @@ public class StringStorage {
     public static final String  EVENT_START_DATE_DELIMITER = "/from";
     public static final String    EVENT_END_DATE_DELIMITER = "/to";
     // For File Input-Output
-    public static final String NOT_DONE_SYMBOL = " ";
-    public static final String  IS_DONE_SYMBOL = "X";
+    public static final String NOT_DONE_SYMBOL = "X";
+    public static final String  IS_DONE_SYMBOL = "O";
     public static final String     TODO_SYMBOL = "T";
     public static final String DEADLINE_SYMBOL = "D";
     public static final String    EVENT_SYMBOL = "E";
