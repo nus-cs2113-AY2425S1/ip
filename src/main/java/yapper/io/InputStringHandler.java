@@ -12,6 +12,7 @@ public class InputStringHandler {
         // Check if User Input Empty
         try {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
+            ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
             // Handle 1-Argument Instructions: Instruction
             if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                 if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
