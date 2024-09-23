@@ -1,16 +1,16 @@
 package Glendon.task;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String dueTime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueTime) {
         super(description);
-        this.by = by;
+        this.dueTime = dueTime;
     }
 
-    public Deadline(int completed, String description, String by) {
+    public Deadline(int completed, String description, String dueTime) {
         super(description);
-        this.by = by;
+        this.dueTime = dueTime;
         if (completed == 1) {
             super.isCompleted = true;
         }
@@ -18,11 +18,11 @@ public class Deadline extends Task {
 
     @Override
     public String saveToFile() {
-        return "D|" + super.saveToFile() + "|by: " + by;
+        return "D|" + super.saveToFile() + "|dueTime: " + dueTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + "(dueTime: " + dueTime + ")";
     }
 }
