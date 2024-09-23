@@ -7,10 +7,26 @@ import yapper.io.OutputFileHandler;
 import yapper.io.StringStorage;
 import yapper.tasks.TaskHandler;
 
-// Main function for Yapper
+/**
+ * Main class for Yapper.
+ * <p>
+ * The Yapper class implements a simple command-line chatbot.
+ * It interacts with the user through a loop that:
+ * processes user input, handles tasks, and manages program flow.
+ * <p/>
+ */
 public class Yapper {
 
-    // Main ChatBot Loop
+    /**
+     * Contains the main Chatbot Loop
+     *
+     * <p>
+     * Starts the main chatbot loop, allowing the user to interact
+     * with the chatbot until they decide to exit.
+     * <p/>
+     *
+     * @param taskHandler the TaskHandler instance that manages tasks
+     */
     public static void startYappin(TaskHandler taskHandler) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -32,7 +48,18 @@ public class Yapper {
         scanner.close();
     }
 
-    // Program Start/End with Startup/Shutdown Messages respectively
+    /**
+     * The main method that serves as the entry point of the Yapper program.
+     *
+     * <p>
+     * It initializes the TaskHandler.
+     * It displays the startup message if no tasks are present in the file.
+     * It starts the chatbot loop.
+     * It displays a shutdown message when the program ends.
+     * <p/>
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         // Pre-Program Message
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);

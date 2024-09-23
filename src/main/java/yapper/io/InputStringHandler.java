@@ -4,9 +4,23 @@ import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 
-// Input Text Parser for Yapper
+/**
+ * Input String Parser for Yapper.
+ *
+ * This class handles the parsing of user input strings into
+ * structured instructions for task management. It validates
+ * input, checks for required parameters, and splits
+ * arguments as needed.
+ */
 public class InputStringHandler {
 
+    /**
+     * Parses a user input string and returns an Instruction object.
+     *
+     * @param userInputString the input string provided by the user
+     * @return an Instruction object representing the parsed command
+     * @throws YapperException if the input is invalid or any required parameters are missing
+     */
     public static Instruction parseUserInput(String userInputString) throws YapperException {
         // Check if User Input Empty
         try {
@@ -77,6 +91,13 @@ public class InputStringHandler {
     }
 
     // User-Input-related Methods to Split by delimiter into keywords
+
+    /**
+     * Splits the instruction arguments by the deadline keyword delimiter.
+     *
+     * @param instructionArgs the instruction arguments to split
+     * @return an array containing the deadline description and date
+     */
     public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.DEADLINE_END_DATE_DELIMITER, -2);
@@ -84,6 +105,12 @@ public class InputStringHandler {
         String deadlineDate = deadlineArgs[1].trim();
         return new String[] {deadlineDesc, deadlineDate};
     }
+    /**
+     * Splits the instruction arguments by the event keywords.
+     *
+     * @param instructionArgs the instruction arguments to split
+     * @return an array containing the event description, start date, and end date
+     */
     public static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
                 StringStorage.EVENT_START_DATE_DELIMITER, -2);

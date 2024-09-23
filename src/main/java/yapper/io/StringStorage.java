@@ -1,16 +1,45 @@
 package yapper.io;
 
 // TODO: make more conversational
-// Contains strings for the Yapper program
-public class StringStorage {
-    public static final String SAVE_FILE_PATH = "./data/savedata.txt";
 
-    // List Array   is 0-indexed, i.e. 0, 1, ...
-    // List Display is 1-indexed, i.e. 1, 2, ...
-    // User Input Ordinal == Internal Use Ordinal + 1
+/**
+ * Contains characters/strings for the Yapper program
+ *
+ * <p>
+ * The {@code StringStorage} class holds various constants and utility methods
+ * related to string management for user input and output in the application.
+ * <p/>
+ *
+ * <p>
+ * This class includes constants for file paths, instruction prefixes,
+ * symbols for different task types, and various messages for user interaction.
+ * It also provides methods to assist in string manipulation and formatted output.
+ * </p>
+ *
+ * <p>
+ * Constants in this class are organized into several categories: <ul>
+ *   <li><b>File Management:</b> Constants related to file paths and delimiters.</li>
+ *   <li><b>User Instructions:</b> Constants representing prefixes for user commands.</li>
+ *   <li><b>Task Symbols:</b> Symbols used to represent task types and statuses.</li>
+ *   <li><b>Messages:</b> Predefined messages for user interaction.</li>
+ *   <li><b>Error Messages:</b> Messages used to inform users of issues or missing input.</li>
+ * </ul> </p>
+ */
+public class StringStorage {
+    /**
+     * An offset value used to adjust indexing for user input and display.
+     * <p>
+     * The list array is 0-indexed (i.e. 0, 1, ...), but
+     * the list display is 1-indexed (i.e. 1, 2, ...).
+     * Therefore, the user input ordinal is equal to the
+     * internal use ordinal plus this offset value.
+     * </p>
+     */
     public static final int INDEX_OFFSET = 1;
 
-    // For User Input-Output
+    /**
+     * Constants representing prefixes for user commands, for User I/O.
+     */
     public static final String     LIST_INSTRUCTION_PREFIX = "list";
     public static final String     TODO_INSTRUCTION_PREFIX = "todo";
     public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
@@ -22,17 +51,32 @@ public class StringStorage {
     public static final String DEADLINE_END_DATE_DELIMITER = "/by";
     public static final String  EVENT_START_DATE_DELIMITER = "/from";
     public static final String    EVENT_END_DATE_DELIMITER = "/to";
-    // For File Input-Output
+
+    /**
+     * Symbols used to represent task types and statuses, for File I/O.
+     */
     public static final String NOT_DONE_SYMBOL = "X";
     public static final String  IS_DONE_SYMBOL = "O";
     public static final String     TODO_SYMBOL = "T";
     public static final String DEADLINE_SYMBOL = "D";
     public static final String    EVENT_SYMBOL = "E";
+
+    /**
+     * Constants related to file management.
+     */
+    public static final String SAVE_FILE_PATH = "./data/savedata.txt";
     public static final String COMBINE_USING_DELIMITER = "|";
     public static final String   SPLIT_USING_DELIMITER = "\\|";
+    /**
+     * Splits a task string by a specified delimiter.
+     *
+     * @param taskAsString The string representation of the task to be split.
+     * @return An array of strings obtained by splitting the input string.
+     */
     public static String[] splitByDelimiter(String taskAsString) {
         return taskAsString.split(SPLIT_USING_DELIMITER, 3);
     }
+
 
     // Text Delimiter
     public static final String LINE_DIVIDER =
@@ -43,13 +87,20 @@ public class StringStorage {
             "___________________ PROGRAM OUTPUT BELOW ___________________";
     public static final String LINE_DIVIDER_YAPPER =
             "___________________ YAPPING OUTPUT BELOW ___________________";
+    /**
+     * Prints a message with dividers for better visibility.
+     *
+     * @param message The message to be printed.
+     */
     public static void printWithDividers(String message) {
         System.out.println(LINE_DIVIDER_OUTPUT);
         System.out.println(message);
         System.out.println(LINE_DIVIDER_INPUT);
     }
 
-    // Program Strings that are full Messages
+    /**
+     * Predefined messages for user interaction, if nothing goes wrong.
+     */
     public static final String HELP_MESSAGE =
             "To jog your memory, here's what we can discuss: \n"
             // Nullary Argument Commands
@@ -92,7 +143,9 @@ public class StringStorage {
 //            "retrieved successfully!"; // I've got it
 
 
-    // Exception Strings Below:
+    /**
+     * Messages used to inform users of issues or missing input.
+     */
     public static final String EMPTY_INPUT_MESSAGE =
             "Input is missing. \n" +
             LINE_DIVIDER_YAPPER + "\n"+

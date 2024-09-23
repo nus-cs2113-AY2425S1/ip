@@ -9,9 +9,22 @@ import yapper.tasks.Deadline;
 import yapper.tasks.Event;
 import yapper.tasks.Todo;
 
-// Human-Yapper Interface
+/**
+ * Coordinates String Input-Output, Task Management and Exception Handling for Yapper.
+ *
+ * A utility class for handling various types of instructions
+ * (LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK) in the Yapper application.
+ * It processes user input and performs corresponding actions on tasks using a TaskHandler.
+ */
 public class InstructionHandler {
     // UI Operations: Error_Check -> Do -> Print -> Update_File
+
+    /**
+     * Handles the LIST instruction by printing all tasks.
+     *
+     * @param taskHandler      The handler that manages the list of tasks.
+     * @throws YapperException If an error occurs while listing the tasks.
+     */
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {
             // Error_Check
@@ -25,6 +38,14 @@ public class InstructionHandler {
                     + e.getMessage());
         }
     }
+
+    /**
+     * Handles the TODO, DEADLINE, and EVENT instructions by adding a task.
+     *
+     * @param taskHandler      The handler that manages the list of tasks.
+     * @param task             The task to be added.
+     * @throws YapperException If an error occurs while adding the task.
+     */
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) throws YapperException {
         try {
             // No Error_Check yet ?
@@ -40,6 +61,14 @@ public class InstructionHandler {
                     + e.getMessage());
         }
     }
+
+    /**
+     * Handles the DELETE instruction by removing a task.
+     *
+     * @param taskHandler      The handler that manages the list of tasks.
+     * @param taskOrdinal      The ordinal (index) of the task to delete.
+     * @throws YapperException If an error occurs while deleting the task.
+     */
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) throws YapperException {
         // OOB method should indirectly check if list is empty?
         try {
@@ -58,6 +87,15 @@ public class InstructionHandler {
                     + e.getMessage());
         }
     }
+
+    /**
+     * Handles the MARK and UNMARK instructions by updating the status of a task.
+     *
+     * @param taskHandler      The handler that manages the list of tasks.
+     * @param taskOrdinal      The ordinal (index) of the task to mark/unmark.
+     * @param isDone           The new completion status of the task (true for mark, false for unmark).
+     * @throws YapperException If an error occurs while updating the task status.
+     */
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) throws YapperException {
         try {
             // Error Check
@@ -77,7 +115,12 @@ public class InstructionHandler {
         }
     }
 
-    //
+    /**
+     * Parses and handles a user instruction string.
+     *
+     * @param taskHandler     The handler that manages the list of tasks.
+     * @param userInputString The raw user input string representing the instruction.
+     */
     public static void handleInstruction(TaskHandler taskHandler, String userInputString) {
         Instruction instruction = null;
         try {

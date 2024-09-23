@@ -9,9 +9,21 @@ import java.util.Scanner;
 import yapper.exceptions.YapperException;
 import yapper.tasks.Task;
 
-// File Data Saving Operations
+/**
+ * File Data Saving Manager for Yapper.
+ *
+ * This class handles the storage, deletion, and modification of tasks
+ * in a file. It provides methods for adding tasks, removing tasks,
+ * and updating task statuses.
+ */
 public class InputFileHandler {
 
+    /**
+     * Stores an added task to the file.
+     *
+     * @param task             the task to be saved
+     * @throws YapperException if an error occurs during file operations
+     */
     public static void storeAddedTask(Task task) throws YapperException {
         try {
             FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH, true);
@@ -25,6 +37,12 @@ public class InputFileHandler {
         }
     }
 
+    /**
+     * Removes a deleted task from the file.
+     *
+     * @param taskOrdinal      the ordinal of the task to be deleted
+     * @throws YapperException if an error occurs during file operations
+     */
     public static void unstoreDeletedTask(int taskOrdinal) throws YapperException {
         try {
             File file = new File(StringStorage.SAVE_FILE_PATH);
@@ -51,6 +69,13 @@ public class InputFileHandler {
         }
     }
 
+    /**
+     * Amends the status of a task in the file.
+     *
+     * @param task             the task with the updated status
+     * @param taskOrdinal      the ordinal of the task to be amended
+     * @throws YapperException if an error occurs during file operations
+     */
     public static void amendTaskStatus(Task task, int taskOrdinal) throws YapperException {
         try {
             File file = new File(StringStorage.SAVE_FILE_PATH);

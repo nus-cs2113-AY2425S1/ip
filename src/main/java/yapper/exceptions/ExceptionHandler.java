@@ -2,9 +2,25 @@ package yapper.exceptions;
 
 import yapper.io.StringStorage;
 
+/**
+ * The {@code ExceptionHandler} class provides methods for validating user input and
+ * handling exceptions related to task management in the Yapper chatbot application.
+ * <p>
+ * It includes checks for various input scenarios, such as missing arguments and
+ * invalid task types, and throws {@code YapperException} with appropriate messages.
+ * <p/>
+ */
 public class ExceptionHandler {
 
     // User Input Validation Errors
+
+    /**
+     * Checks if the string is empty when reading from user.
+     *
+     * @param userInputString the input string to validate
+     * @param isAboutArgs flag indicating if the check is for arguments
+     * @throws YapperException if the input string is empty
+     */
     public static void checkIfUserInputEmpty(String userInputString, boolean isAboutArgs) throws YapperException {
         // Boolean is to differentiate between exceptions
         if (userInputString.isEmpty() && !isAboutArgs) {
@@ -13,6 +29,12 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.MISSING_ARGUMENTS_MESSAGE);
         }
     }
+    /**
+     * Validates that the string starts with a recognized instruction prefix when reading from user.
+     *
+     * @param userInputString the input string to validate
+     * @throws YapperException if the input string does not start with a valid prefix
+     */
     public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
         if ( !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.TODO_INSTRUCTION_PREFIX) &&
@@ -24,6 +46,12 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
         }
     }
+    /**
+     * Checks if the arguments for the ToDo task are missing.
+     *
+     * @param desc the description of the ToDo task
+     * @throws YapperException if the description is empty
+     */
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
@@ -31,6 +59,13 @@ public class ExceptionHandler {
                     StringStorage.MISSING_DESCRIPTION_MESSAGE);
         }
     }
+    /**
+     * Checks if the arguments for the Deadline task are missing.
+     *
+     * @param desc the description of the Deadline task
+     * @param endDate the end date for the Deadline task
+     * @throws YapperException if any of the parameters are empty
+     */
     public static void checkIfDeadlineArgsMissing(String desc, String endDate) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
@@ -42,6 +77,14 @@ public class ExceptionHandler {
                     StringStorage.MISSING_END_DATE_MESSAGE);
         }
     }
+    /**
+     * Checks if the arguments for the Event task are missing.
+     *
+     * @param desc the description of the Event task
+     * @param startDate the start date for the Event task
+     * @param endDate the end date for the Event task
+     * @throws YapperException if any of the parameters are empty
+     */
     public static void checkIfEventArgsMissing(String desc, String startDate, String endDate) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
@@ -57,7 +100,16 @@ public class ExceptionHandler {
                     StringStorage.MISSING_END_DATE_MESSAGE);
         }
     }
+
+
     // User Input Parsing Exception
+
+    /**
+     * Checks if the Deadline keywords are present in the parsed input when reading from user.
+     *
+     * @param byOrdinal the ordinal position of the keyword, if -1 then not in input
+     * @throws YapperException if the keyword is not found
+     */
     public static void checkIfDeadlineKeywordsPresent(int byOrdinal) throws YapperException {
         if (byOrdinal == -1) {
             throw new YapperException(
@@ -66,6 +118,13 @@ public class ExceptionHandler {
                     StringStorage.DEADLINE_INSTRUCTION_PREFIX);
         }
     }
+    /**
+     * Checks if the Event keywords are present in the parsed input when reading from user.
+     *
+     * @param fromOrdinal the ordinal position of the start date keyword, if -1 then not in input
+     * @param toOrdinal the ordinal position of the end date keyword, if -1 then not in input
+     * @throws YapperException if any keyword is not found
+     */
     public static void checkIfEventKeywordsPresent(int fromOrdinal, int toOrdinal) throws YapperException {
         if (fromOrdinal == -1) {
             throw new YapperException(
@@ -79,7 +138,16 @@ public class ExceptionHandler {
                     StringStorage.EVENT_INSTRUCTION_PREFIX);
         }
     }
+
+
     // File Input Parsing Exceptions
+
+    /**
+     * Validates if the specified task type is valid when reading from file.
+     *
+     * @param taskType the type of the task
+     * @throws YapperException if the task type is invalid
+     */
     public static void checkIfTaskTypeValid(String taskType) throws YapperException {
         if ( !taskType.equals(StringStorage.TODO_SYMBOL) &&
              !taskType.equals(StringStorage.DEADLINE_SYMBOL) &&
@@ -87,23 +155,52 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.INVALID_TASK_TYPE_MESSAGE);
         }
     }
+    /**
+     * Validates if the specified task status is valid when reading from file.
+     *
+     * @param taskStatus the status of the task
+     * @throws YapperException if the task status is invalid
+     */
     public static void checkIfTaskStatusValid(String taskStatus) throws YapperException {
         if (!taskStatus.equals(StringStorage.IS_DONE_SYMBOL) &&
             !taskStatus.equals(StringStorage.NOT_DONE_SYMBOL)) {
             throw new YapperException(StringStorage.INVALID_TASK_STATUS_MESSAGE);
         }
     }
+
+
     // Exceptions for: DELETE, MARK, UNMARK
+
+    /**
+     * Checks if there are tasks in the list before performing DELETE, MARK, or UNMARK operations.
+     *
+     * @param currTaskTotal the total number of tasks currently available
+     * @throws YapperException if the task list is empty
+     */
     public static void checkIfTaskOrdinalIsOutOfRange(int currTaskTotal) throws YapperException {
         if (currTaskTotal == 0) {
             throw new YapperException(StringStorage.LIST_EMPTY_MESSAGE);
         }
     }
+    /**
+     * Validates if the specified task ordinal is within the valid range of tasks.
+     *
+     * @param currTaskTotal the total number of tasks currently available
+     * @param taskOrdinal the ordinal of the task to validate
+     * @throws YapperException if the task ordinal is out of range
+     */
     public static void checkIfTaskOrdinalIsOutOfRange(int currTaskTotal, int taskOrdinal) throws YapperException {
         if (taskOrdinal < 0 || taskOrdinal >= currTaskTotal) {
             throw new YapperException(StringStorage.LIST_OOB_MESSAGE);
         }
     }
+    /**
+     * Checks if the done status needs to be changed based on the old and new status.
+     *
+     * @param oldStatus the current status of the task
+     * @param newStatus the new status to be applied
+     * @throws YapperException if trying to change to the same status
+     */
     public static void checkIfDoneStatusNeedsChanging(boolean oldStatus, boolean newStatus) throws YapperException {
         if (oldStatus && newStatus) {
             throw new YapperException(StringStorage.TASK_ALREADY_DONE_MESSAGE);

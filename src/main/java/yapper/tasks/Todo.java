@@ -2,6 +2,9 @@ package yapper.tasks;
 
 import yapper.io.StringStorage;
 
+/**
+ * Todo is a Task with no dates.
+ */
 public class Todo extends Task {
     // No Additional Attributes
 
@@ -14,13 +17,26 @@ public class Todo extends Task {
     }
     // No Getters and Setters Yet
 
-    // Task Print Operations for Adding/Removing Data
+
+    /**
+     * Converts the todo task to a string format for display,
+     * including the Todo symbol.
+     *
+     * @return a formatted string showing the Todo task's
+     * status and description.
+     */
     @Override
     public String taskToDisplay() {
         return "[" + StringStorage.TODO_SYMBOL +"]"
                 + super.taskToDisplay();
     }
-    // Task Conversion Operations for Saving/Loading Data
+    /**
+     * Converts the todo task to a string format for writing to / reading from a file,
+     * including the Todo symbol.
+     *
+     * @return a formatted string representing the Todo task's
+     * status and description.
+     */
     @Override
     public String taskToString() {
         return StringStorage.TODO_SYMBOL + " "

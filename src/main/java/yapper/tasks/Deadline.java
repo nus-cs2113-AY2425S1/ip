@@ -2,6 +2,9 @@ package yapper.tasks;
 
 import yapper.io.StringStorage;
 
+/**
+ * Deadline is a Task with an end date.
+ */
 public class Deadline extends Task {
     // Additional Attributes
     protected String endDate;
@@ -20,13 +23,26 @@ public class Deadline extends Task {
     }
     // No Getters and Setters Yet
 
-    // Task Print Operations for Adding/Removing Data
+
+   /**
+     * Converts the deadline task to a string format for display,
+     * including the Deadline symbol and the end date.
+     *
+     * @return a formatted string showing the Deadline task's
+    * status, description and end date.
+     */
     @Override
     public String taskToDisplay() {
         return "[" + StringStorage.DEADLINE_SYMBOL + "]"
                 + super.taskToDisplay() + ", by " + endDate;
     }
-    // Task Conversion Operations for Saving/Loading Data
+    /**
+     * Converts the deadline task to a string format for writing to / reading from a file,
+     * including the Deadline symbol and the end date.
+     *
+     * @return a formatted string representing the deadline task's
+     * status, description and end date.
+     */
     @Override
     public String taskToString() {
         return StringStorage.DEADLINE_SYMBOL + " "
