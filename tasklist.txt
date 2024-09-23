@@ -1,2 +1,4 @@
-E|false|concert|3pm|6pm
-D|false|assignment|3 Oct
+D|true|assignment|3 Oct
+E|false|attend tutorial|2pm|5pm
+T|false|make sushi
+T|false|finish up essay
