@@ -29,6 +29,10 @@ public class Messages {
             -> Please input the command as follows:
                   remove <task number>
             """;
+    public static final String SEARCH_ERROR_MESSAGE = """
+            -> Please enter the command as follows:
+                  search <date>
+            """;
     public static final String BYE_MESSAGE = "-> Bye. Hope to see you again soon!";
     public static final String INVALID_COMMAND_MESSAGE = """
             -> Invalid command!
@@ -40,6 +44,7 @@ public class Messages {
                   deadline <description> /by <by-date>
                   event <description> /from <from-date> /to <to-date>
                   remove <number>
+                  search <date>
                   bye
             """;
     public static final String UNMARK_MESSAGE = "-> The following task has been marked not done:";

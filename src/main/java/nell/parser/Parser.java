@@ -8,6 +8,7 @@ import nell.command.IncorrectCommand;
 import nell.command.ListCommand;
 import nell.command.MarkCommand;
 import nell.command.RemoveCommand;
+import nell.command.SearchCommand;
 import nell.command.ToDoCommand;
 import nell.command.UnmarkCommand;
 import nell.common.Messages;
@@ -112,6 +113,15 @@ public class Parser {
                 return new EventCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
+            }
+
+        case "search":
+            try {
+                return new SearchCommand(tasks, commandWords[1]);
+            } catch (IndexOutOfBoundsException e) {
+                return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
             } catch (DateTimeParseException e) {
                 return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
             }
