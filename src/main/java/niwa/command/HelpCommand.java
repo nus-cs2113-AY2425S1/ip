@@ -9,6 +9,7 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String COMMAND_GUIDE = "help: Print this guide.";
     public static final String[] COMMAND_KEYWORDS = {};
+
     protected List<Command> commands;
 
     public void setCommands(List<Command> commands) {
@@ -26,6 +27,7 @@ public class HelpCommand extends Command {
         }
         return true;
     }
+
     /**
      * Print a user guide.
      *
@@ -37,6 +39,7 @@ public class HelpCommand extends Command {
         }
 
         ArrayList<String> messages = new ArrayList<>();
+
         for (Command command : commands) {
             try {
                 String guide = (String) command.getClass().getField("COMMAND_GUIDE").get(null);
@@ -44,7 +47,6 @@ public class HelpCommand extends Command {
             } catch (IllegalAccessException | NoSuchFieldException e) {
                 messages.add("Invalid command: " + e.getMessage());
             }
-
         }
         return new CommandResult(messages);
     }

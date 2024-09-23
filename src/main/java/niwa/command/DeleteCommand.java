@@ -2,14 +2,14 @@ package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
+
 import niwa.messages.NiwaExceptionMessages;
 import niwa.messages.NiwaMesssages;
+
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DeleteCommand extends Command {
 
@@ -39,7 +39,9 @@ public class DeleteCommand extends Command {
         }
 
         String indexString = arguments.get(COMMAND_KEYWORDS[0]);
+
         ArrayList<String> messages = new ArrayList<>();
+
         try {
             // Parse the index from the arguments array (convert to zero-based index).
             int index = Integer.parseInt(indexString) - 1;
@@ -50,6 +52,7 @@ public class DeleteCommand extends Command {
             messages.add("\t" + temp.getFullInfo());
             messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
                     TaskList.getInstance().getTaskListSize()));
+
             messages.add(autoSaveTasks());
 
         } catch (NiwaTaskIndexOutOfBoundException e) {

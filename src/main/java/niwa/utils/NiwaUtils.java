@@ -20,6 +20,8 @@ public class NiwaUtils {
         return matcher.matches();
     }
 
+    private static final DateTimeFormatter DATETIME_READ_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATETIME_PRINT_FORMAT = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd hh.mm a");
     public static LocalDateTime parseDateTime (String datetime) throws NiwaException {
         String[] datetimeParts = datetime.trim().split(" ", 2);
 
@@ -27,10 +29,9 @@ public class NiwaUtils {
             datetime = datetime + " 2359";
         }
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime result;
         try {
-            result = LocalDateTime.parse(datetime, format);
+            result = LocalDateTime.parse(datetime, DATETIME_READ_FORMAT);
         } catch (DateTimeParseException e) {
             throw new NiwaException(NiwaExceptionMessages.MESSAGE_INVALID_DATE_FORMAT);
         }
@@ -39,10 +40,10 @@ public class NiwaUtils {
     }
 
     public static String getDateTimeString (LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd hh.mm a"));
+        return dateTime.format(DATETIME_PRINT_FORMAT);
     }
 
     public static String getDateTimeSaveString (LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return dateTime.format(DATETIME_READ_FORMAT);
     }
 }

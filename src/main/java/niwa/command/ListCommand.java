@@ -2,7 +2,9 @@ package niwa.command;
 
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
+
 import niwa.exception.NiwaInvalidArgumentException;
+
 import niwa.messages.NiwaMesssages;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class ListCommand extends Command {
         }
 
         ArrayList<String> messages = new ArrayList<>();
+
         ArrayList<Task> returnedTasks = TaskList.getInstance().getTaskList();
 
         if (returnedTasks.isEmpty()) {

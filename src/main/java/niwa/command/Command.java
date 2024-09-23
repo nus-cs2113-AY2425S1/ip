@@ -1,9 +1,12 @@
 package niwa.command;
 
 import niwa.Niwa;
+
 import niwa.data.Storage;
 import niwa.data.task.TaskList;
+
 import niwa.exception.NiwaInvalidArgumentException;
+
 import niwa.messages.NiwaMesssages;
 
 import java.io.IOException;
@@ -11,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Command {
-    protected static final String PREFIX = "\t";
     public static final String COMMAND_WORD = "";
     public static final String COMMAND_GUIDE = "";
     public static final String[] COMMAND_KEYWORDS = {};

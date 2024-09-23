@@ -1,11 +1,12 @@
 package niwa.command;
 
 import niwa.exception.NiwaInvalidArgumentException;
-import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.messages.NiwaExceptionMessages;
+
 import niwa.messages.NiwaMesssages;
-import niwa.data.task.TaskList;
 import niwa.messages.NiwaShortMessages;
+
+import niwa.data.task.TaskList;
+
 import niwa.ui.NiwaUI;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ClearCommand extends Command{
             TaskList.getInstance().clearTaskList();
 
             messages.add(NiwaMesssages.MESSAGE_CLEAR_SUCCESS);
+
             messages.add(autoSaveTasks());
         } else {
             messages.add(NiwaMesssages.MESSAGE_CLEAR_CANCEL);

@@ -124,7 +124,7 @@ public class Niwa {
      */
     public CommandResult processCommand(String commandString) {
         Command command;
-        CommandResult result = null;
+        CommandResult result;
         try {
             command = parser.parseCommand(commandString);
             result = command.execute();

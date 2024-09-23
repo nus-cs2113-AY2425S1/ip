@@ -30,9 +30,9 @@ public class EchoCommand extends Command {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
 
-        ArrayList<String> messages = new ArrayList<>();
-
         String inputString = arguments.get(COMMAND_KEYWORDS[0]);
+
+        ArrayList<String> messages = new ArrayList<>();
         messages.add(inputString);
 
         return new CommandResult(messages);

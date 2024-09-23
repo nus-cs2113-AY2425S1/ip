@@ -2,14 +2,14 @@ package niwa.command;
 
 import niwa.exception.NiwaDuplicateTaskException;
 import niwa.exception.NiwaInvalidArgumentException;
+
 import niwa.messages.NiwaMesssages;
+
 import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 import niwa.data.task.ToDo;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TodoCommand extends Command{
     public static final String COMMAND_WORD = "todo";

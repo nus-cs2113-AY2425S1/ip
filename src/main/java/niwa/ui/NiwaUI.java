@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class NiwaUI {
-    private static String PREFIX = "\t";
+    private static final String PREFIX = "\t";
     private static Scanner scanner;
 
     public NiwaUI() {
