@@ -1,5 +1,8 @@
 package codecatalyst;
 
+import codecatalyst.exception.EmptyTaskDescriptionException;
+import codecatalyst.exception.InvalidCommandException;
+import codecatalyst.exception.InvalidTaskNumberException;
 import codecatalyst.task.Deadline;
 import codecatalyst.task.Event;
 import codecatalyst.task.Task;
@@ -17,9 +20,15 @@ import java.io.FileNotFoundException;
 public class CodeCatalyst {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
-    private static final String FILE_PATH = "data\\CodeCatalystData";
+    private static final String FILE_PATH = "data/CodeCatalystData.txt";
+    private static final String TODO_TYPE = "T";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
+    private static final String MARKED_SYMBOL = "1";
+    private static final String UNMARKED_SYMBOL = "0";
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         loadTasksFromFile();
         printGreeting();
@@ -32,36 +41,34 @@ public class CodeCatalyst {
         }
     }
 
-
-    private static void loadTasksFromFile() {
+    private static void loadTasksFromFile() throws IOException {
         File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            System.out.println("          No previous tasks found. Starting afresh.");
-            return;
-        }
+        createDataDirectory(file);
+        createTaskFile(file);
+
         try {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String[] parts = s.nextLine().split(" \\| ");
                 String taskType = parts[0];
-                boolean isDone = parts[1].equals("1");
+                boolean isDone = parts[1].equals(MARKED_SYMBOL);
                 String description = parts[2];
                 switch (taskType) {
-                case "T":
+                case TODO_TYPE:
                     Todo todoTask = new Todo(description);
                     if (isDone) {
                         todoTask.markAsDone();
                     }
                     tasks.add(todoTask);
                     break;
-                case "D":
+                case DEADLINE_TYPE:
                     Deadline deadlineTask = new Deadline(description, parts[3]);
                     if (isDone) {
                         deadlineTask.markAsDone();
                     }
                     tasks.add(deadlineTask);
                     break;
-                case "E":
+                case EVENT_TYPE:
                     String[] timeParts = parts[3].split("-");
                     String startTime = timeParts[0];
                     String endTime = timeParts[1];
@@ -82,10 +89,23 @@ public class CodeCatalyst {
         }
     }
 
+    private static void createDataDirectory(File file) {
+        File directory = file.getParentFile();
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+    }
+
+    private static void createTaskFile(File file) throws IOException {
+        file.createNewFile();
+    }
+
     private static void saveTasksToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
+
         for (Task task : tasks) {
-            String CompletionNumber = task.isDone() ? "1" : "0";
+            String CompletionNumber = task.isDone() ? MARKED_SYMBOL : UNMARKED_SYMBOL;
 
             if (task instanceof Todo){
                 fw.write("T | " + CompletionNumber + " | " + task.getDescription() + "\n");
@@ -138,57 +158,48 @@ public class CodeCatalyst {
                 handleDeleteTask(input);
                 break;
             default:
-                throw new CodeCatalystException("         Invalid input! Please enter a valid command.");
+                throw new InvalidCommandException("         Invalid input! Please enter a valid command.");
             }
-        } catch (CodeCatalystException e) {
+        } catch (InvalidTaskNumberException | InvalidCommandException | EmptyTaskDescriptionException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static void handleDeleteTask(String input) throws CodeCatalystException {
+    private static void handleDeleteTask(String input) throws InvalidTaskNumberException {
         try {
             int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                throw new CodeCatalystException("         Task number is out of bounds!");
+                throw new InvalidTaskNumberException("         Task number is out of bounds!");
             }
             Task removedTask = tasks.remove(taskIndex);
             System.out.println("         Noted. I've removed this task:");
             System.out.println("           " + removedTask);
             System.out.println("         Now you have " + tasks.size() + " tasks in the list.");
         } catch (NumberFormatException e) {
-            throw new CodeCatalystException("         Please enter a valid task number for deletion.");
+            throw new InvalidTaskNumberException("         Please enter a valid task number for deletion.");
         }
-
-        try {
-            saveTasksToFile();
-        } catch (IOException e) {
-            System.out.println("Error deleting tasks to file.");;
-        }
+        saveTaskwithErrorHandling();
     }
 
-    private static void validateTodoInput(String input) throws CodeCatalystException {
+    private static void validateTodoInput(String input) throws EmptyTaskDescriptionException {
         if (input.trim().length() <= 5) {
-            throw new CodeCatalystException("The task description cannot be empty");
+            throw new EmptyTaskDescriptionException("The task description cannot be empty");
         }
     }
 
-    private static void validateDeadlineInput(String input) throws CodeCatalystException {
+    private static void validateDeadlineInput(String input) throws EmptyTaskDescriptionException {
         String[] deadlineParts = input.substring(9).split(" /by ");
         boolean isTaskDescriptionEmpty = deadlineParts[0].trim().isEmpty();
-        boolean isDateDescriptionEmpty = deadlineParts[1].trim().isEmpty();
-        if (deadlineParts.length < 2 || isTaskDescriptionEmpty || isDateDescriptionEmpty) {
-            throw new CodeCatalystException("The task description or due date of Deadline task cannot be empty.");
+        if (deadlineParts.length < 2 || isTaskDescriptionEmpty) {
+            throw new EmptyTaskDescriptionException("The task description or due date of Deadline task cannot be empty.");
         }
     }
 
-    private static void validateEventInput(String input) throws CodeCatalystException {
+    private static void validateEventInput(String input) throws EmptyTaskDescriptionException {
         String[] eventParts = input.substring(6).split(" /from | /to ");
         boolean isTaskDescriptionEmpty = eventParts[0].trim().isEmpty();
-        boolean isStartDateDescriptionEmpty = eventParts[1].trim().isEmpty();
-        boolean isEndDateDescriptionEmpty = eventParts[2].trim().isEmpty();
-        if (eventParts.length < 3 || isTaskDescriptionEmpty
-                || isStartDateDescriptionEmpty || isEndDateDescriptionEmpty) {
-            throw new CodeCatalystException("The task description, start date, or end date cannot be empty.");
+        if (eventParts.length < 3 || isTaskDescriptionEmpty) {
+            throw new EmptyTaskDescriptionException("The task description, start date, or end date cannot be empty.");
         }
     }
 
@@ -205,7 +216,7 @@ public class CodeCatalyst {
             return "todo";
         } else if (input.startsWith("deadline ")) {
             return "deadline";
-        } else if (input.startsWith("event")) {
+        } else if (input.startsWith("event ")) {
             return "event";
         } else if (input.startsWith("delete ")) {
             return "delete";
@@ -242,12 +253,10 @@ public class CodeCatalyst {
             return;  // Invalid task number, already handled in extractTaskNumber.
         }
         changeTaskStatus(taskNumber, isMark);
-        try {
-            saveTasksToFile();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file.");;
-        }
+        saveTaskwithErrorHandling();
     }
+
+
 
     /**
      * Extracts the task number from the input command.
@@ -294,12 +303,7 @@ public class CodeCatalyst {
         System.out.println("         Got it. I've added this task:");
         System.out.println("         " + task);
         System.out.println("         Now you have " + tasks.size() + " tasks in the list.");
-
-        try {
-            saveTasksToFile();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file.");;
-        }
+        saveTaskwithErrorHandling();
     }
 
     private static void addDeadlineTask(String input) {
@@ -310,5 +314,13 @@ public class CodeCatalyst {
     private static void addEventTask(String input) {
         String[] parts = input.substring(6).split(" /from | /to ");
         addTask(new Event(parts[0], parts[1], parts[2]));
+    }
+
+    private static void saveTaskwithErrorHandling() {
+        try {
+            saveTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file.");
+        }
     }
 }
