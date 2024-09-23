@@ -67,12 +67,12 @@ public class InputHandler {
 
     private static void handleEvent(String command) {
         try {
-            if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(start) || hasOnlyWhitespaceChar(end)) {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC, 
                     command.indexOf(" /from"));
             String start = command.substring(command.indexOf("/from") + START_INDEX_OFFSET_START,
                     command.indexOf(" /to"));
             String end = command.substring(command.indexOf("/to") + START_INDEX_OFFSET_END);
+            if (description.isBlank() || start.isBlank() || end.isBlank()) {
                 throw new EmptyFieldException();
             }
             Event newEvent = new Event(description, start, end);
@@ -91,6 +91,7 @@ public class InputHandler {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
                     command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
+            if (description.isBlank() || deadline.isBlank()) {
                 throw new EmptyFieldException();
             }
             Deadline newDeadline = new Deadline(description, deadline);
@@ -106,9 +107,8 @@ public class InputHandler {
 
     private static void handleTodo(String command) {
         try {
-            String description = command.substring(command.indexOf(" ") + 1);
-            if (!command.contains(" ") || hasOnlyWhitespaceChar(description)) {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC);
+            if (!command.contains(" ") || description.isBlank()) {
                 throw new EmptyFieldException();
             }
             Todo newTodo = new Todo(description);
@@ -168,14 +168,5 @@ public class InputHandler {
         } catch (NumberFormatException e) {
             System.out.println("Index to unmark should be a number.");
         }
-    }
-
-    private static boolean hasOnlyWhitespaceChar(String string) {
-        for (int i = 0; i < string.length(); i++) {
-            if (!Character.isWhitespace(string.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 }
