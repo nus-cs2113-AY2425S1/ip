@@ -25,10 +25,10 @@ public class DateCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         System.out.println("Here are the tasks before " + date + ":");
-        Ui.showDivider();
         tasks.stream()
                 .filter(task -> isBefore(task, date))
                 .forEach(System.out::println);
+        Ui.showDivider();
 
         System.out.println("Here are the tasks after " + date + ":");
         tasks.stream()
