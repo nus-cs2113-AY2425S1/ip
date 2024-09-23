@@ -3,14 +3,15 @@ package nell.tasks;
 import java.time.LocalDate;
 
 public class ToDo extends nell.tasks.Task {
+    public static final String TASK_TYPE = "T";
 
     public ToDo(String description) {
-        super(description, "T");
+        super(description, TASK_TYPE);
     }
 
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
-        this.type = "T";
+        this.type = TASK_TYPE;
     }
 
     public String toString() {

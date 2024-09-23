@@ -7,17 +7,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends nell.tasks.Task {
+    public static final String TASK_TYPE = "D";
+
     private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
-        super(description, "D");
+        super(description, TASK_TYPE);
         this.by = by;
     }
 
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
-        this.type = "D";
+        this.type = TASK_TYPE;
     }
 
     public String toString() {
