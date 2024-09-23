@@ -1,6 +1,6 @@
 package tyrone;
 
-import tyrone.command.CommandHandler;
+import tyrone.command.InputHandler;
 import tyrone.savemanager.FileReadWriter;
 
 import java.util.Scanner;
@@ -14,11 +14,11 @@ public class Tyrone {
         System.out.println("Hello! I'm Tyrone.\nWhat can I do for you?");
 
         while (true) {
-            String command = scanner.nextLine();
-            if(CommandHandler.isExitCommand(command)) {
+            String input = scanner.nextLine();
+            if(InputHandler.isExitCommand(input)) {
                 break;
             }
-            CommandHandler.handleCommand(command);
+            InputHandler.handleInput(input);
         }
 
         System.out.println("Bye. Hope to see you again soon!");

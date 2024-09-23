@@ -7,37 +7,54 @@ import tyrone.task.Event;
 import tyrone.task.TaskList;
 import tyrone.task.Todo;
 
-public class CommandHandler {
+public class InputHandler {
 
-    public static boolean isExitCommand (String command) {
-        return command.equals("bye");
+
+    public static boolean isExitCommand (String input) {
+        return input.equals("bye");
     }
 
-    public static void handleCommand(String command) {
-        String[] dissectedCommand = command.split(" ");
-        if (command.equals("list")) {
-            handleList();
-        } else if (dissectedCommand[0].equals("mark")) {
-            handleMark(dissectedCommand);
-        } else if (dissectedCommand[0].equals("unmark")) {
-            handleUnmark(dissectedCommand);
-        } else if (dissectedCommand[0].equals("todo")) {
-            handleTodo(command);
-        } else if (dissectedCommand[0].equals("deadline")) {
-            handleDeadline(command);
-        } else if (dissectedCommand[0].equals("event")) {
-            handleEvent(command);
-        } else if (dissectedCommand[0].equals("delete")) {
-            handleDelete(dissectedCommand);
-        } else {
+    public static void handleInput(String input) {
+        String[] dissectedInput = input.split(" ");
+        String command = dissectedInput[0];
+
+        switch (command) {
+        case "list":
+            handleList(dissectedInput);
+            break;
+        case "mark":
+            handleMark(dissectedInput);
+            break;
+        case "unmark":
+            handleUnmark(dissectedInput);
+            break;
+        case "todo":
+            handleTodo(input);
+            break;
+        case "deadline":
+            handleDeadline(input);
+            break;
+        case "event":
+            handleEvent(input);
+            break;
+        case "delete":
+            handleDelete(dissectedInput);
+            break;
+        default:
             handleUnknown();
+            break;
         }
+
         FileReadWriter.updateSaveFile();
     }
 
-    private static void handleList() {
-        System.out.println("Here are the tasks in your list:");
-        TaskList.printList();
+    private static void handleList(String[] dissectedInput) {
+        if (dissectedInput.length > 1) {
+            System.out.println("Unrecognized command.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            TaskList.printList();
+        }
     }
 
     private static void handleUnknown() {
@@ -50,6 +67,11 @@ public class CommandHandler {
             String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
             String end = command.substring(command.indexOf("/to") + 4);
             if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(start) || hasOnlyWhitespaceChar(end)) {
+            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC, 
+                    command.indexOf(" /from"));
+            String start = command.substring(command.indexOf("/from") + START_INDEX_OFFSET_START,
+                    command.indexOf(" /to"));
+            String end = command.substring(command.indexOf("/to") + START_INDEX_OFFSET_END);
                 throw new EmptyFieldException();
             }
             Event newEvent = new Event(description, start, end);
@@ -68,6 +90,9 @@ public class CommandHandler {
             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + 4);
             if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(deadline)) {
+            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
+                    command.indexOf(" /by"));
+            String deadline = command.substring(command.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
                 throw new EmptyFieldException();
             }
             Deadline newDeadline = new Deadline(description, deadline);
@@ -85,6 +110,7 @@ public class CommandHandler {
         try {
             String description = command.substring(command.indexOf(" ") + 1);
             if (!command.contains(" ") || hasOnlyWhitespaceChar(description)) {
+            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC);
                 throw new EmptyFieldException();
             }
             Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
@@ -95,9 +121,9 @@ public class CommandHandler {
         }
     }
 
-    private static void handleUnmark(String[] dissectedCommand) {
+    private static void handleUnmark(String[] dissectedInput) {
         try {
-            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            int taskId = Integer.parseInt(dissectedInput[1]) - 1;
             if (TaskList.isValidTaskId(taskId)) {
                 TaskList.markTaskAsUndone(taskId);
                 System.out.println("Ok, I've marked this task as not done yet:");
@@ -112,9 +138,9 @@ public class CommandHandler {
         }
     }
 
-    private static void handleMark(String[] dissectedCommand) {
+    private static void handleMark(String[] dissectedInput) {
         try {
-            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            int taskId = Integer.parseInt(dissectedInput[1]) - 1;
             if (TaskList.isValidTaskId(taskId)) {
                 TaskList.markTaskAsDone(taskId);
                 System.out.println("Nice! I've marked this task as done:");
@@ -129,9 +155,9 @@ public class CommandHandler {
         }
     }
 
-    private static void handleDelete (String[] dissectedCommand) {
+    private static void handleDelete (String[] dissectedInput) {
         try {
-            int taskId = Integer.parseInt(dissectedCommand[1]) - 1;
+            int taskId = Integer.parseInt(dissectedInput[1]) - 1;
             if (TaskList.isValidTaskId(taskId)) {
                 System.out.println("Ok, I've removed this task:");
                 System.out.println("  " + TaskList.getSingleTaskDetails(taskId));
