@@ -14,7 +14,9 @@ public class Yapper {
     public static void startYappin(TaskHandler taskHandler) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            System.out.println(StringStorage.LINE_DIVIDER_INPUT);
             String userInputString = scanner.nextLine();
+            System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
             if (userInputString.trim().equals(
                     StringStorage.BYE_INSTRUCTION_PREFIX)) {
                 break;
@@ -33,17 +35,15 @@ public class Yapper {
     // Program Start/End with Startup/Shutdown Messages respectively
     public static void main(String[] args) {
         // Pre-Program Message
-//        TaskHandler taskHandler = new TaskHandler();
+        System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         TaskHandler taskHandler = SaveFileHandler.loadTasks();
         if (taskHandler.getCurrTaskTotal() == 0) {
-            System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
             System.out.println(StringStorage.START_UP_MESSAGE);
             System.out.println(StringStorage.LINE_DIVIDER);
             System.out.println(StringStorage.HELP_MESSAGE);
         } else {
             System.out.println("let us resume where we left off, shall we?");
         }
-        System.out.println(StringStorage.LINE_DIVIDER_INPUT);
 
         // Startup ChatBot Program
         startYappin(taskHandler);
