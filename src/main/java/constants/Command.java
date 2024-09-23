@@ -10,6 +10,7 @@ public class Command {
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
     public static final String SHOW_COMMAND = "show";
+    public static final String FIND_COMMAND = "find";
     public static final int COMMAND_INDEX = 0;
     public static final int TASK_INDEX = 0;
     public static final int TASK_STATUS_INDEX = 1;

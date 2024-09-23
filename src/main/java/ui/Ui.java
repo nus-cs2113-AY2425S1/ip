@@ -90,6 +90,15 @@ public class Ui {
         printLine();
     }
 
+    public void listTasksOfInterest(TaskList tasks) {
+        printLine();
+        System.out.println(TASKS_OF_INTEREST_MESSAGE);
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
+        }
+        printLine();
+    }
+
     public boolean isEventOfInterest(LocalDate dateOfInterest, Task task) {
         return task instanceof Event && (((Event) task).getFrom().equals(dateOfInterest) || ((Event) task).getTo().equals(dateOfInterest));
     }
