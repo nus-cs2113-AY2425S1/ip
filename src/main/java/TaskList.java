@@ -79,8 +79,6 @@ public class TaskList {
         ui.horizontalLine();
     }
 
-
-
     public void deleteTask(int index) {
         ui.horizontalLine();
         Task taskToRemove = tasks.get(index - 1);
@@ -90,5 +88,11 @@ public class TaskList {
         ui.horizontalLine();
     }
 
-
+    public void findAllMatchingTask(String input) {
+        ui.horizontalLine();
+        int indexOfFirstSpace = input.indexOf(" ");
+        String matchingWords = input.substring(indexOfFirstSpace).trim();
+        ui.printAllMatchingTask(matchingWords, currentTaskCount, tasks);
+        ui.horizontalLine();
+    }
 }
