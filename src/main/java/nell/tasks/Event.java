@@ -2,6 +2,7 @@ package nell.tasks;
 
 import nell.common.DateFormats;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,5 +31,26 @@ public class Event extends nell.tasks.Task {
     public String getFileLine() {
         return String.format("%s|%s|%s", super.getFileLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.from),
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.to));
+    }
+
+    /**
+     * Returns true if the given date falls between the from-date and to-date,
+     * returns false otherwise.
+     *
+     * @param date The specified date
+     * @return True if date is between the from-date and to-date, false otherwise
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        LocalDate fromDate = this.from.toLocalDate();
+        LocalDate toDate = this.to.toLocalDate();
+
+        if (date.isBefore(fromDate)) {
+            return false;
+        } else if (date.isAfter(toDate)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
