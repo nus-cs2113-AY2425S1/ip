@@ -93,19 +93,20 @@ public class Niwa {
         ui = new NiwaUI();
 
         parser.registerCommands(new ByeCommand(this));
+        parser.registerCommands(new ListCommand());
+        parser.registerCommands(new ClearCommand());
+
         parser.registerCommands(new EchoCommand());
 
         parser.registerCommands(new DeadlineCommand());
         parser.registerCommands(new TodoCommand());
         parser.registerCommands(new EventCommand());
 
-        parser.registerCommands(new ListCommand());
-
         parser.registerCommands(new DeleteCommand());
-        parser.registerCommands(new ClearCommand());
+        parser.registerCommands(new FindCommand());
+
         parser.registerCommands(new MarkCommand());
         parser.registerCommands(new UnmarkCommand());
-
 
         parser.registerCommands(new SaveCommand());
         parser.registerCommands(new ReadCommand());

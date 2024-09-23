@@ -21,8 +21,11 @@ public class NiwaMesssages {
     public static final String MESSAGE_CLEAR_SUCCESS = "The list is cleared, bae!";
     public static final String MESSAGE_CLEAR_CANCEL = "Okay then, luckily I've asked you!";
 
-    public static final String MESSAGE_LIST_SUCCESS = "Here's your task in the list!";
+    public static final String MESSAGE_LIST_SUCCESS = "Here's your tasks in the list!";
     public static final String MESSAGE_LIST_EMPTY = "You currently have no task in the list, add some bae!";
+
+    public static final String MESSAGE_FIND_SUCCESS = "I've found your tasks!";
+    public static final String MESSAGE_FIND_EMPTY = "No task found, try another keyword?";
 
     public static final String MESSAGE_PARSE_FAILED = "Failed to parse your command: %s";
 
