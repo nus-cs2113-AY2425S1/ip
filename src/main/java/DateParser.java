@@ -12,8 +12,10 @@ public class DateParser {
     public Task parseCommand(String command) {
         try {
             String[] parts = command.split("/by");
-            String description = parts[0].trim().substring(8);  // Extract task description after "deadline "
-            String by = parts[1].trim();  // Extract date and time part
+            // Extract task description after "deadline "
+            String description = parts[0].trim().substring(8);
+            // Extract date and time part
+            String by = parts[1].trim();
 
             // Parse the date-time string into LocalDateTime using the INPUT_FORMAT
             LocalDateTime deadlineDateTime = LocalDateTime.parse(by, INPUT_FORMAT);
@@ -22,7 +24,7 @@ public class DateParser {
             return new Deadline(description, deadlineDateTime);
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date-time. Please use the format: yyyy-MM-dd HHmm");
-            return null;  // Return null or handle the error appropriately
+            return null; 
         }
     }
 }

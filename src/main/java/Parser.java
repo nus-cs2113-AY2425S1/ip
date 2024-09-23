@@ -5,6 +5,7 @@ public class Parser {
     private static final String CMD_DELETE = "delete";
     private static final String CMD_FIND = "find";
 
+    //goes through all the possible commands and calls the appropriate method
     public static void parse(String input, TaskManager taskManager) throws SleepyException {
         if (input.equals(CMD_LIST)) {
             taskManager.listTasks();
