@@ -8,9 +8,20 @@ public class ExceptionHandler {
     public static void checkIfUserInputEmpty(String userInputString, boolean isAboutArgs) throws YapperException {
         // Boolean is to differentiate between exceptions
         if (userInputString.isEmpty() && !isAboutArgs) {
-            throw new YapperException("did you say something?"); // TODO
+            throw new YapperException(StringStorage.EMPTY_INPUT_MESSAGE);
         } else if ( userInputString.isEmpty() ) {
-            throw new YapperException("Absence of Instruction Arguments"); // TODO
+            throw new YapperException(StringStorage.MISSING_ARGUMENTS_MESSAGE);
+        }
+    }
+    public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
+        if ( !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.TODO_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.DEADLINE_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.EVENT_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.DELETE_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.MARK_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.UNMARK_INSTRUCTION_PREFIX) ) {
+            throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
         }
     }
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {
@@ -73,18 +84,13 @@ public class ExceptionHandler {
         if ( !taskType.equals(StringStorage.TODO_SYMBOL) &&
              !taskType.equals(StringStorage.DEADLINE_SYMBOL) &&
              !taskType.equals(StringStorage.EVENT_SYMBOL) ) {
-            throw new YapperException("task type is not any of these: "
-                    + StringStorage.TODO_SYMBOL + ", "
-                    + StringStorage.DEADLINE_SYMBOL + ", "
-                    + StringStorage.EVENT_SYMBOL);
+            throw new YapperException(StringStorage.INVALID_TASK_TYPE_MESSAGE);
         }
     }
     public static void checkIfTaskStatusValid(String taskStatus) throws YapperException {
         if (!taskStatus.equals(StringStorage.IS_DONE_SYMBOL) &&
             !taskStatus.equals(StringStorage.NOT_DONE_SYMBOL)) {
-            throw new YapperException("task completion status is not any of these: "
-                    + StringStorage.IS_DONE_SYMBOL + ", "
-                    + StringStorage.NOT_DONE_SYMBOL);
+            throw new YapperException(StringStorage.INVALID_TASK_STATUS_MESSAGE);
         }
     }
     // Exceptions for: DELETE, MARK, UNMARK
@@ -100,9 +106,9 @@ public class ExceptionHandler {
     }
     public static void checkIfDoneStatusNeedsChanging(boolean oldStatus, boolean newStatus) throws YapperException {
         if (oldStatus && newStatus) {
-            throw new YapperException("this task is already marked as done");
+            throw new YapperException(StringStorage.TASK_ALREADY_DONE_MESSAGE);
         } else if (!oldStatus && !newStatus) {
-            throw new YapperException("this task is already marked as not done");
+            throw new YapperException(StringStorage.TASK_STILL_NOT_DONE_MESSAGE);
         }
     }
 

@@ -38,6 +38,8 @@ public class StringStorage {
             "_____________________ USER INPUT BELOW _____________________";
     public static final String LINE_DIVIDER_OUTPUT =
             "___________________ PROGRAM OUTPUT BELOW ___________________";
+    public static final String LINE_DIVIDER_YAPPER =
+            "___________________ YAPPING OUTPUT BELOW ___________________";
     public static void printWithDividers(String message) {
         System.out.println(LINE_DIVIDER_OUTPUT);
         System.out.println(message);
@@ -49,7 +51,7 @@ public class StringStorage {
             "To jog your memory, here's what we can discuss: \n"
             // Nullary Argument Commands
             + "list" + ", if you forgot what you said. \n"
-            + "bye"  + ", if you want me to stop yappin. "
+            + "bye"  + ", if you want me to stop yappin. \n"
             // Unary Argument Commands
             + "delete [index]" + ", if you don't want something. \n"
             +   "mark [index]" + ", if you're done with something. \n"
@@ -58,7 +60,7 @@ public class StringStorage {
             // Binary Argument Commands
             + "deadline [deadlineDesc] /by [end]" + ", for a task with an end date. \n"
             // Trinary Argument Commands
-            + "event [eventDesc] /from [start] /to [end]" + ", for a task with a start date and an end date. \n";
+            + "event [eventDesc] /from [start] /to [end]" + ", for a task with a start date and an end date. ";
     public static final String START_UP_MESSAGE =
             "Wassup! \n"
             + "Ya ready for me to yap yer ear off? \n"
@@ -86,23 +88,87 @@ public class StringStorage {
     public static final String AFTER_LOADING_STRING =
             "retrieved successfully!"; // I've got it
 
-    // Exception Messages
+
+    // Exception Strings Below:
+    public static final String EMPTY_INPUT_MESSAGE =
+            "Input is missing. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I can say nothing in reply. I just stare at you. \n" +
+            "There is an awkward silence.";
+    public static final String MISSING_ARGUMENTS_MESSAGE =
+            "Argument(s) for instruction are missing. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I need more details to understand what you wanna do. ";
+    public static final String MISSING_PREFIX_MESSAGE =
+            "Input does not start with any of the known prefixes: " +
+            BYE_INSTRUCTION_PREFIX + ", " +
+            LIST_INSTRUCTION_PREFIX + ", " +
+            TODO_INSTRUCTION_PREFIX + ", " +
+            DEADLINE_INSTRUCTION_PREFIX + ", " +
+            EVENT_INSTRUCTION_PREFIX + ", " +
+            DELETE_INSTRUCTION_PREFIX + ", " +
+            MARK_INSTRUCTION_PREFIX + ", " +
+            UNMARK_INSTRUCTION_PREFIX + ", \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "Explain in a way I can understand. ";
+    // tba TODO ARGS MISSING
+    // tba DEADLINE ARGS MISSING
+    // tba EVENT ARGS MISSING
+    // tba DEADLINE KEYWORDS MISSING
+    // tba EVENT KEYWORDS MISSING
     public static final String MISSING_DESCRIPTION_MESSAGE =
-            "task description not given";
+            "Task description not given. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "You haven't told me what this is for. ";
     public static final String MISSING_START_DATE_MESSAGE =
-            "start date not given";
+            "Start date is not given. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "You haven't told me when this starts. ";
     public static final String MISSING_END_DATE_MESSAGE =
-            "end date not given";
+            "End date is not given. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "You haven't told me when this ends. ";
+
+    //
+    public static final String INVALID_TASK_TYPE_MESSAGE =
+            "Task type abbreviation is not any of these: "
+            + TODO_SYMBOL + ", "
+            + DEADLINE_SYMBOL + ", "
+            + EVENT_SYMBOL + "\n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I don't remember if what kind of task this is.";
+    public static final String INVALID_TASK_STATUS_MESSAGE =
+            "Task completion status abbreviation is not any of these: "
+            + IS_DONE_SYMBOL + ", "
+            + NOT_DONE_SYMBOL + "\n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I don't remember if this task was done or not.";
+    public static final String LIST_EMPTY_MESSAGE =
+            "List is empty. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "You have nothing to remember at the moment. ";
+    public static final String LIST_OOB_MESSAGE =
+            "Given list ordinal is invalid. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I don't what you're referring to. Come again? ";
+    public static final String TASK_ALREADY_DONE_MESSAGE =
+            "Task is already marked as done. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I know you've already done this. No need to tell me again. ";
+    public static final String TASK_STILL_NOT_DONE_MESSAGE =
+            "Task is already marked as not done. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "I know you still haven't done this. I won't forget. ";
+
     public static final String INCOMPLETE_INSTRUCTION_MESSAGE =
             "Sorry, you cut off there. Continue what you were saying? ";
     public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
+            "Instruction is not recognised. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
             "I dunno whatcha just said. Repeat it for me will ya? ";
-    public static final String LIST_EMPTY_MESSAGE =
-            "list is empty. ";
-//    public static final String LIST_FULL_MESSAGE =
-//            "Sorry, I ain't remembering more than this. ";
-    public static final String LIST_OOB_MESSAGE =
-            "given list ordinal is invalid. ";
     public static final String SAVING_ERROR_MESSAGE = "error in saving data";
     public static final String LOADING_ERROR_MESSAGE = "error in retrieving data";
+
+//    public static final String MESSAGE =
+//            "";
 }
