@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Date {
+public interface Date {
 
-    public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    public static DateTimeFormatter resultDateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy , h a");
-    public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    DateTimeFormatter resultDateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy , h a");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private static LocalDateTime parseIntoDateTimeObject(String date){
         return LocalDateTime.parse(date, dateTimeFormatter);
@@ -21,7 +21,15 @@ public class Date {
         return dateObject.format(resultDateTimeFormatter); // -> Oct 15 2019
     }
 
-    public static String convertDateFormat(String date) {
+    /**
+     * Converts date from format of dd/MM/yyyy HHmm to dd MMMM yyyy , h a.
+     * If date is not of dd/MM/yyyy HHmm format, the original string is returned.
+     *
+     * @param date deadline of task extracted from user input
+     * @return date of string type with format e.g. 15 October 2019 , 6 pm.
+     *
+     */
+    static String convertDateFormat(String date) {
         String[] dateParameters = date.split("/");
         if(dateParameters.length != 3 || !isDateTimeFormat(date)) {
             return date;
@@ -50,7 +58,15 @@ public class Date {
         return dayInt;
     }
 
-    public static boolean isMatchingDate(String specifiedDate , String taskDate) {
+    /**
+     * Returns boolean if day , month and year of both parameters are same , ignoring time.
+     *
+     * @param specifiedDate date in format of dd/MM/yyyy.
+     * @param taskDate date in format of dd MMMM yyyy , h a.
+     * @return boolean
+     *
+     */
+    private static boolean isMatchingDate(String specifiedDate , String taskDate) {
         LocalDate parsedDate = LocalDate.parse(specifiedDate, dateFormatter);
         LocalDateTime parsedDateTime = LocalDateTime.parse(taskDate, resultDateTimeFormatter);
         return parsedDate.getMonthValue() == parsedDateTime.getMonthValue() &&
@@ -58,14 +74,22 @@ public class Date {
                 parsedDate.getYear() == parsedDateTime.getYear();
     }
 
-    public static boolean isMatchingDateByType(Task task , String specifiedDate){
+    /**
+     * Returns true if day , month and year matches according to deadlines by task type.
+     * If task type is not event or deadline, return false.
+     *
+     * @param task Object of type task and subclasses.
+     * @param specifiedDate date in format of dd/MM/yyyy.
+     * @return boolean
+     */
+    static boolean isMatchingDateByType(Task task , String specifiedDate){
         if((task.getTaskType() == 'D' || task.getTaskType() == 'E') && isResultDateTimeFormat(task.getTaskDate())){
             return isMatchingDate(specifiedDate , task.getTaskDate());
         }
         return false;
     }
 
-    public static boolean isDateOnlyFormat(String dateStr){
+    static boolean isDateOnlyFormat(String dateStr){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try {
@@ -76,7 +100,7 @@ public class Date {
         }
     }
 
-    public static boolean isDateTimeFormat(String dateStr){
+    static boolean isDateTimeFormat(String dateStr){
 
         try {
             LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
@@ -86,7 +110,7 @@ public class Date {
         }
     }
 
-    public static boolean isResultDateTimeFormat(String dateStr){
+    static boolean isResultDateTimeFormat(String dateStr){
 
         try {
             LocalDate date = LocalDate.parse(dateStr, resultDateTimeFormatter);

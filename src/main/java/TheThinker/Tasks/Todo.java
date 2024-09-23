@@ -1,5 +1,9 @@
 package TheThinker.Tasks;
 
+/**
+ * Represents a to-do type task. A to-do object contains
+ * task type , task description.
+ */
 public class Todo extends Task{
 
     public Todo(String taskDescription){

@@ -1,7 +1,6 @@
 package TheThinker.Tasks;
 
 import TheThinker.Parser.Date;
-
 import java.util.ArrayList;
 
 public class TaskList {

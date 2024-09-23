@@ -6,9 +6,18 @@ import TheThinker.Parser.UserInputParser;
 import TheThinker.Tasks.TaskList;
 import java.io.IOException;
 
-public class CommandLine {
+/**
+ * CommandLine handles all the commandLine related method
+ */
+public interface CommandLine {
 
-    public static void pollForUserInputTillBye(NewFile data) {
+    /**
+     * Checks for user input and do corresponding command
+     * and write task to file till bye command.
+     *
+     * @param data File created to accept task input
+     */
+    static void pollForUserInputTillBye(NewFile data) {
         String userInput;
         do{
             userInput = getUserInputAndDoTask();
@@ -20,6 +29,11 @@ public class CommandLine {
         }while(!userInput.equals("bye"));
     }
 
+    /**
+     * Checks for user input and do corresponding command and write task to file.
+     *
+     * @return the original trimmed user input
+     */
     private static String getUserInputAndDoTask() {
         String userInput;
         userInput = UserInputParser.getUserInput();
@@ -28,6 +42,11 @@ public class CommandLine {
         return userInput;
     }
 
+    /**
+     * Do corresponding actions depending on the command by the user.
+     *
+     * @param userAction the first word of the user input.
+     */
     private static void doTaskAccordingToUserAction(String userAction){
         UiControl.printSeparation();
         try {
