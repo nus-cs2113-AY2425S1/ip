@@ -1,6 +1,6 @@
 package nell.parser;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.command.Command;
 import nell.command.DeadlineCommand;
 import nell.command.EventCommand;

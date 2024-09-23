@@ -1,6 +1,6 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 
 /**
  * Represents an executable find command

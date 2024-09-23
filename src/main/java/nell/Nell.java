@@ -1,5 +1,6 @@
 package nell;
 
+import nell.list.*;
 import nell.parser.Parser;
 import nell.storage.Storage;
 import nell.ui.Ui;

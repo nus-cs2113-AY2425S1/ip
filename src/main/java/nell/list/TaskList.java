@@ -1,4 +1,4 @@
-package nell;
+package nell.list;
 
 import nell.common.Messages;
 import nell.tasks.Task;

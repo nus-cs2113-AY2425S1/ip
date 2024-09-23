@@ -1,6 +1,6 @@
 package nell.storage;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.Messages;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
