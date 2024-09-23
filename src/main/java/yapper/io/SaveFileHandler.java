@@ -112,8 +112,8 @@ public class SaveFileHandler {
                 System.out.println("total invalid tasks found: " + invalidTaskCount); // ?
             } else {
                 System.out.println("no invalid tasks detected in file");
-                System.out.println(StringStorage.LINE_DIVIDER);
             }
+            System.out.println(StringStorage.LINE_DIVIDER);
         } catch (FileNotFoundException e) {
 //            System.out.println(StringStorage.LOADING_ERROR_MESSAGE);
         }
