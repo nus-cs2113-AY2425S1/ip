@@ -10,7 +10,7 @@ public class FileHandler {
 
 
     public FileHandler() {
-        this.f = new File("./src/main/java/FenixStorage");
+        this.f = new File("data/FenixStorage.txt");
         this.path = this.f.getAbsolutePath();
     }
 
@@ -24,9 +24,10 @@ public class FileHandler {
         return fileContent.toString();
     }
 
-    public void writeToFile(String textToAdd) throws IOException {
+    public void writeToFile(String textToWrite) throws IOException {
+        ensureFileExists();
         FileWriter fw = new FileWriter(this.path);
-        fw.write(textToAdd);
+        fw.write(textToWrite);
         fw.close();
     }
 
@@ -34,5 +35,13 @@ public class FileHandler {
         FileWriter fw = new FileWriter(this.path, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
+    }
+
+    // Method to ensure the file and parent directory exist
+    private void ensureFileExists() throws IOException {
+        if (!f.exists()) {
+            f.getParentFile().mkdirs();  // Create the parent directory if it doesn't exist
+            f.createNewFile();           // Create the file if it doesn't exist
+        }
     }
 }
