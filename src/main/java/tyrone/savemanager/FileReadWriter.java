@@ -25,6 +25,8 @@ public class FileReadWriter {
 
     public static final int INPUT_START_INDEX = 2;
 
+    public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
+
     public static void createSaveFile() {
         File dir = new File(SAVE_FILE_DIR);
         dir.mkdir();
@@ -95,12 +97,8 @@ public class FileReadWriter {
                 newEvent.markAsDone();
             }
             TaskList.addTask(newEvent);
-            System.out.println("added: " + newEvent.getNameWithStatus());
-        } catch (EmptyFieldException e) {
-            System.out.println("Description/Start time/End time cannot be empty.");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please input Event tasks using the following format:\n" +
-                    "event <description> /from <start> /to <end>");
+        } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
+            System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 
@@ -117,12 +115,8 @@ public class FileReadWriter {
                 newDeadline.markAsDone();
             }
             TaskList.addTask(newDeadline);
-            System.out.println("added: " + newDeadline.getNameWithStatus());
-        } catch (EmptyFieldException e) {
-            System.out.println("Description/Deadline cannot be empty.");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please input Deadline tasks using the following format:\n" +
-                    "deadline <description> /by <deadline>");
+        } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
+            System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 
@@ -137,9 +131,8 @@ public class FileReadWriter {
                 newTodo.markAsDone();
             }
             TaskList.addTask(newTodo);
-            System.out.println("added: " + newTodo.getNameWithStatus());
         } catch (EmptyFieldException e) {
-            System.out.println("Description cannot be empty.");
+            System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 }
