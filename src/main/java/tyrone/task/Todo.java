@@ -10,4 +10,9 @@ public class Todo extends Task {
     public String getNameWithStatus() {
         return "[T][" + this.getStatusIcon() + "] " + this.getDescription();
     }
+
+    @Override
+    public String getSaveRecord() {
+        return (isDone ? "1" : "0") + " todo " + description;
+    }
 }

@@ -15,4 +15,9 @@ public class Event extends Task {
         return "[E][" + this.getStatusIcon() + "] " + this.getDescription()
                 + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String getSaveRecord() {
+        return (isDone ? "1" : "0") + " event " + description + " /from " + start + " /to " + end;
+    }
 }

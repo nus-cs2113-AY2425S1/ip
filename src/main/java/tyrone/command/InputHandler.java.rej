@@ -1,0 +1,11 @@
+diff a/src/main/java/tyrone/command/InputHandler.java b/src/main/java/tyrone/command/InputHandler.java	(rejected hunks)
+@@ -90,6 +90,9 @@
+             String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
+             String deadline = command.substring(command.indexOf("/by") + 4);
+             if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(deadline)) {
++            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
++                    command.indexOf(" /by"));
++            String deadline = command.substring(command.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
+                 throw new EmptyFieldException();
+             }
+             Deadline newDeadline = new Deadline(description, deadline);

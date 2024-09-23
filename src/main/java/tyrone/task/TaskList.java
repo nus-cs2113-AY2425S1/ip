@@ -2,7 +2,7 @@ package tyrone.task;
 
 import java.util.ArrayList;
 
-public class TaskList {
+public abstract class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void addTask(Task task) {
@@ -29,10 +29,14 @@ public class TaskList {
         return tasks.get(taskId).getNameWithStatus();
     }
 
+    public static String getSingleTaskSaveRecord (int taskId) {
+        return tasks.get(taskId).getSaveRecord();
+    }
+
     public static String getAllTaskDetails () {
         String details = "";
         for (int i = 0; i < tasks.size(); i++) {
-            details += getSingleTaskDetails(i);
+            details += getSingleTaskSaveRecord(i);
             details += System.lineSeparator();
         }
         return details;

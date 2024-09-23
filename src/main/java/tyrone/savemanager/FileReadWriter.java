@@ -1,5 +1,6 @@
 package tyrone.savemanager;
 
+import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.Deadline;
 import tyrone.task.Event;
 import tyrone.task.TaskList;
@@ -13,8 +14,16 @@ import java.util.Scanner;
 
 public class FileReadWriter {
 
-    private static String SAVE_FILE_NAME = "./data/Tyrone.txt";
-    private static String SAVE_FILE_DIR = "./data";
+
+    public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
+    public static final int START_INDEX_OFFSET_START = 6;
+    public static final int START_INDEX_OFFSET_END = 4;
+    public static final int START_INDEX_OFFSET_DEADLINE = 4;
+
+    private static final String SAVE_FILE_NAME = "./data/Tyrone.txt";
+    private static final String SAVE_FILE_DIR = "./data";
+
+    public static final int INPUT_START_INDEX = 2;
 
     public static void createSaveFile() {
         File dir = new File(SAVE_FILE_DIR);
@@ -55,46 +64,82 @@ public class FileReadWriter {
     }
 
     private static void parseLine(String line) {
-        switch (line.charAt(1)) {
-        case 'T':
-            parseTodo(line);
+        boolean isDone = (line.charAt(0) == '1');
+        String input = line.substring(INPUT_START_INDEX);
+        String command = input.substring(0, input.indexOf(" "));
+        switch (command) {
+        case "todo":
+            parseTodo(input, isDone);
             break;
-        case 'D':
-            parseDeadline(line);
+        case "deadline":
+            parseDeadline(input, isDone);
             break;
-        case 'E':
-            parseEvent(line);
+        case "event":
+            parseEvent(input, isDone);
             break;
         }
     }
 
-    private static void parseTodo(String line) {
-        String description = line.substring(line.indexOf("] ") + 2);
-        Todo newTodo = new Todo(description);
-        if (line.charAt(4) == 'X') {
-            newTodo.markAsDone();
+    private static void parseEvent(String input, boolean isDone) {
+        try {
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
+                    input.indexOf(" /from"));
+            String start = input.substring(input.indexOf("/from") + START_INDEX_OFFSET_START,
+                    input.indexOf(" /to"));
+            String end = input.substring(input.indexOf("/to") + START_INDEX_OFFSET_END);
+            if (description.isBlank() || start.isBlank() || end.isBlank()) {
+                throw new EmptyFieldException();
+            }
+            Event newEvent = new Event(description, start, end);
+            if (isDone) {
+                newEvent.markAsDone();
+            }
+            TaskList.addTask(newEvent);
+            System.out.println("added: " + newEvent.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description/Start time/End time cannot be empty.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please input Event tasks using the following format:\n" +
+                    "event <description> /from <start> /to <end>");
         }
-        TaskList.addTask(newTodo);
     }
 
-    private static void parseDeadline(String line) {
-        String description = line.substring(line.indexOf("] ") + 2, line.indexOf(" (by:"));
-        String deadline = line.substring(line.indexOf(" (by:") + 6, line.indexOf(")"));
-        Deadline newDeadline = new Deadline(description, deadline);
-        if (line.charAt(4) == 'X') {
-            newDeadline.markAsDone();
+    private static void parseDeadline(String input, boolean isDone) {
+        try {
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
+                    input.indexOf(" /by"));
+            String deadline = input.substring(input.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
+            if (description.isBlank() || deadline.isBlank()) {
+                throw new EmptyFieldException();
+            }
+            Deadline newDeadline = new Deadline(description, deadline);
+            if (isDone) {
+                newDeadline.markAsDone();
+            }
+            TaskList.addTask(newDeadline);
+            System.out.println("added: " + newDeadline.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description/Deadline cannot be empty.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please input Deadline tasks using the following format:\n" +
+                    "deadline <description> /by <deadline>");
         }
-        TaskList.addTask(newDeadline);
     }
 
-    private static void parseEvent(String line) {
-        String description = line.substring(line.indexOf("] ") + 2, line.indexOf(" (from:"));
-        String start = line.substring(line.indexOf(" (from:") + 8, line.indexOf(" to: "));
-        String end = line.substring(line.indexOf(" to:") + 5, line.indexOf(")"));
-        Event newEvent = new Event(description, start, end);
-        if (line.charAt(4) == 'X') {
-            newEvent.markAsDone();
+    private static void parseTodo(String input, boolean isDone) {
+        try {
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION);
+            if (!input.contains(" ") || description.isBlank()) {
+                throw new EmptyFieldException();
+            }
+            Todo newTodo = new Todo(description);
+            if (isDone) {
+                newTodo.markAsDone();
+            }
+            TaskList.addTask(newTodo);
+            System.out.println("added: " + newTodo.getNameWithStatus());
+        } catch (EmptyFieldException e) {
+            System.out.println("Description cannot be empty.");
         }
-        TaskList.addTask(newEvent);
     }
 }

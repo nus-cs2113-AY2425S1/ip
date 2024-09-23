@@ -1,6 +1,6 @@
 package tyrone.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -28,4 +28,6 @@ public class Task {
     public String getNameWithStatus() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
+
+    public abstract String getSaveRecord();
 }

@@ -12,4 +12,9 @@ public class Deadline extends Task{
     public String getNameWithStatus(){
         return "[D][" + this.getStatusIcon() + "] " + this.getDescription() + " (by: " + deadline + ")";
     }
+
+    @Override
+    public String getSaveRecord() {
+        return (isDone ? "1" : "0") + " deadline " + description + " /by " + deadline;
+    }
 }
