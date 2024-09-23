@@ -2,46 +2,58 @@ package yapper.tasks;
 
 import yapper.io.StringStorage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     // Additional Attributes
-    protected String startDate;
-    protected String endDate;
+    protected String startDateString;
+    protected String endDateString;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
 
     // Constructor
-    public Event(String taskDesc, String startDate, String endDate) {
+    public Event(String taskDesc, String startDateString, String endDateString) {
         super(taskDesc);
-        initializeStartDateTime(startDate);
-        initializeEndDateTime(endDate);
+        initializeStartDateTime(startDateString);
+        initializeEndDateTime(endDateString);
     }
 
-    public Event(String taskDesc, boolean isDone, String startDate, String endDate) {
+    public Event(String taskDesc, boolean isDone, String startDateString, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
-        initializeStartDateTime(startDate);
-        initializeEndDateTime(endDate);
+        initializeStartDateTime(startDateString);
+        initializeEndDateTime(endDateString);
     }
 
-    private void initializeStartDateTime(String startDateTime) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHHmm");
+    private void initializeStartDateTime(String startDateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.startDateTime = LocalDateTime.parse(startDateTime, inputFormatter);
+            this.startDateTime = LocalDateTime.parse(startDateString, inputFormatter);
         } catch (DateTimeParseException e) {
-            this.startDate = startDateTime;
+            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                this.startDate = LocalDate.parse(startDateString, inputFormatter);
+            } catch (DateTimeParseException ex) {
+                this.startDateString = startDateString;
+            }
         }
     }
-
-    private void initializeEndDateTime(String endDateTime) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHHmm");
+    private void initializeEndDateTime(String endDateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.endDateTime = LocalDateTime.parse(endDateTime, inputFormatter);
+            this.endDateTime = LocalDateTime.parse(endDateString, inputFormatter);
         } catch (DateTimeParseException e) {
-            this.endDate = endDateTime;
+            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                this.endDate = LocalDate.parse(endDateString, inputFormatter);
+            } catch (DateTimeParseException ex) {
+                this.endDateString = endDateString;
+            }
         }
     }
 
@@ -49,7 +61,7 @@ public class Event extends Task {
     @Override
     public String taskToDisplay() {
         return "[" + StringStorage.EVENT_SYMBOL + "] "
-                + super.taskToDisplay() + ", from " + startDate + " to " + endDate;
+                + super.taskToDisplay() + ", from " + startDateString + " to " + endDateString;
     }
 
     // Task Conversion Operations for Saving/Loading Data
@@ -59,9 +71,9 @@ public class Event extends Task {
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + startDate + " "
+                + startDateString + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + endDate;
+                + endDateString;
     }
 
 }

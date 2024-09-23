@@ -2,33 +2,40 @@ package yapper.tasks;
 
 import yapper.io.StringStorage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     // Additional Attributes
-    protected String endDate;
+    protected String endDateString;
+    protected LocalDate endDate;
     protected LocalDateTime endDateTime;
 
     // Constructors
-    public Deadline(String taskDesc, String endDate) {
+    public Deadline(String taskDesc, String endDateString) {
         super(taskDesc);
-        initializeEndDateTime(endDate);
+        initializeEndDateTime(endDateString);
     }
 
-    public Deadline(String taskDesc, boolean isDone, String endDate) {
+    public Deadline(String taskDesc, boolean isDone, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
-        initializeEndDateTime(endDate);
+        initializeEndDateTime(endDateString);
     }
 
-    private void initializeEndDateTime(String endDateTime) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHHmm");
+    private void initializeEndDateTime(String endDateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.endDateTime = LocalDateTime.parse(endDateTime, inputFormatter);
+            this.endDateTime = LocalDateTime.parse(endDateString, inputFormatter);
         } catch (DateTimeParseException e) {
-            this.endDate = endDateTime;
+            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                this.endDate = LocalDate.parse(endDateString, inputFormatter);
+            } catch (DateTimeParseException ex) {
+                this.endDateString = endDateString;
+            }
         }
     }
 
@@ -36,7 +43,7 @@ public class Deadline extends Task {
     @Override
     public String taskToDisplay() {
         return "[" + StringStorage.DEADLINE_SYMBOL + "] "
-                + super.taskToDisplay() + ", by " + endDate;
+                + super.taskToDisplay() + ", by " + endDateString;
     }
 
     // Task Conversion Operations for Saving/Loading Data
@@ -46,6 +53,6 @@ public class Deadline extends Task {
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + endDate;
+                + endDateString;
     }
 }
