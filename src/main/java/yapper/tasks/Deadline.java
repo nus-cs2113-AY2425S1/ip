@@ -1,5 +1,6 @@
 package yapper.tasks;
 
+import yapper.io.DateAndTimeHandler;
 import yapper.io.StringStorage;
 
 import java.time.LocalDate;
@@ -26,33 +27,47 @@ public class Deadline extends Task {
     }
 
     private void initializeEndDateTime(String endDateString) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.endDateTime = LocalDateTime.parse(endDateString, inputFormatter);
+            this.endDateTime = LocalDateTime.parse(endDateString,
+                    DateTimeFormatter.ofPattern(
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+            this.endDateString = "";
         } catch (DateTimeParseException e) {
-            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
-                this.endDate = LocalDate.parse(endDateString, inputFormatter);
+                this.endDate = LocalDate.parse(endDateString,
+                        DateTimeFormatter.ofPattern(
+                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                this.endDateString = "";
             } catch (DateTimeParseException ex) {
                 this.endDateString = endDateString;
             }
         }
     }
 
+
     // Task Print Operations for Adding/Removing Data
     @Override
     public String taskToDisplay() {
-        return "[" + StringStorage.DEADLINE_SYMBOL + "] "
-                + super.taskToDisplay() + ", by " + endDateString;
-    }
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
 
+        return "[" + StringStorage.DEADLINE_SYMBOL + "] "
+                + super.taskToDisplay() + ", by " + endDateAsString;
+    }
     // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
+
         return StringStorage.DEADLINE_SYMBOL + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + endDateString;
+                + endDateAsString;
     }
 }

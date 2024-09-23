@@ -1,5 +1,6 @@
 package yapper.tasks;
 
+import yapper.io.DateAndTimeHandler;
 import yapper.io.StringStorage;
 
 import java.time.LocalDate;
@@ -31,26 +32,34 @@ public class Event extends Task {
     }
 
     private void initializeStartDateTime(String startDateString) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.startDateTime = LocalDateTime.parse(startDateString, inputFormatter);
+            this.startDateTime = LocalDateTime.parse(startDateString,
+                    DateTimeFormatter.ofPattern(
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+            this.startDateString = "";
         } catch (DateTimeParseException e) {
-            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
-                this.startDate = LocalDate.parse(startDateString, inputFormatter);
+                this.startDate = LocalDate.parse(startDateString,
+                        DateTimeFormatter.ofPattern(
+                            DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                this.startDateString = "";
             } catch (DateTimeParseException ex) {
                 this.startDateString = startDateString;
             }
         }
     }
     private void initializeEndDateTime(String endDateString) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            this.endDateTime = LocalDateTime.parse(endDateString, inputFormatter);
+            this.endDateTime = LocalDateTime.parse(endDateString,
+                    DateTimeFormatter.ofPattern(
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+            this.endDateString = "";
         } catch (DateTimeParseException e) {
-            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.endDateString = "";
             try {
-                this.endDate = LocalDate.parse(endDateString, inputFormatter);
+                this.endDate = LocalDate.parse(endDateString,
+                        DateTimeFormatter.ofPattern(
+                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
             } catch (DateTimeParseException ex) {
                 this.endDateString = endDateString;
             }
@@ -60,20 +69,38 @@ public class Event extends Task {
     // Task Print Operations for Adding/Removing Data
     @Override
     public String taskToDisplay() {
+        String startDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
+
         return "[" + StringStorage.EVENT_SYMBOL + "] "
-                + super.taskToDisplay() + ", from " + startDateString + " to " + endDateString;
+                + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
 
     // Task Conversion Operations for Saving/Loading Data
     @Override
     public String taskToString() {
+        String startDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
+
         return StringStorage.EVENT_SYMBOL + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + startDateString + " "
+                + startDateAsString + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + endDateString;
+                + endDateAsString;
     }
 
 }
