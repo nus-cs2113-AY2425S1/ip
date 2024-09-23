@@ -9,6 +9,10 @@ import tyrone.task.Todo;
 
 public class InputHandler {
 
+    public static final int START_INDEX_OFFSET_DESC = 1;
+    public static final int START_INDEX_OFFSET_START = 6;
+    public static final int START_INDEX_OFFSET_END = 4;
+    public static final int START_INDEX_OFFSET_DEADLINE = 4;
 
     public static boolean isExitCommand (String input) {
         return input.equals("bye");
@@ -63,9 +67,6 @@ public class InputHandler {
 
     private static void handleEvent(String command) {
         try {
-            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /from"));
-            String start = command.substring(command.indexOf("/from") + 6, command.indexOf(" /to"));
-            String end = command.substring(command.indexOf("/to") + 4);
             if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(start) || hasOnlyWhitespaceChar(end)) {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC, 
                     command.indexOf(" /from"));
@@ -87,9 +88,6 @@ public class InputHandler {
 
     private static void handleDeadline(String command) {
         try {
-            String description = command.substring(command.indexOf(" ") + 1, command.indexOf(" /by"));
-            String deadline = command.substring(command.indexOf("/by") + 4);
-            if (hasOnlyWhitespaceChar(description) || hasOnlyWhitespaceChar(deadline)) {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
                     command.indexOf(" /by"));
             String deadline = command.substring(command.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
@@ -113,7 +111,7 @@ public class InputHandler {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC);
                 throw new EmptyFieldException();
             }
-            Todo newTodo = new Todo(command.substring(command.indexOf(" ") + 1));
+            Todo newTodo = new Todo(description);
             TaskList.addTask(newTodo);
             System.out.println("added: " + newTodo.getNameWithStatus());
         } catch (EmptyFieldException e) {
