@@ -4,7 +4,6 @@
 Dobby is a desktop chatbot that stores and manages your list of activities, optimised for use via a Command Line Interface (CLI). 
 If you wish to immerse into the magical world of wizards and elves, look no further and start chatting with Dobby, your loyal follower!
 
-
 # Features 
 ### Adding Todos
 
@@ -144,6 +143,11 @@ Expected Outcome:
     Dobby says master has 2 remaining tasks!
   ____________________________________________________________
 ```
+
+### Saving tasks
+
+All task list data are saved in the hard disk automatically after any command that modifies the task list. 
+There is no need to save manually. 
 
 ### Exit Program
 
