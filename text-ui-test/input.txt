@@ -2,11 +2,13 @@ borrow book
 list
 todo borrow book
 list
-deadline read book /by Monday 2359
+deadline read book /by Moday 2359
 list
+deadline read book /by 12/12/2024
 mark 1
 event return book /from Tuesday 1200 /to Tuesday 1300
 list
+event return book /from 13/12/2024 /to /14/12/2024
 mark 2
 list
 unmark 1
@@ -23,12 +25,16 @@ list
 mark 500
 list
 deadline submit form \by Wednesday 2359
-deadline submit form /by Thursday 2359
+deadline submit form /by 25/12/2024
 list
-event formal dinner /f Monday 1800 \to Monday 2200
-event formal dinner /from Monday 1800 /to Monday 2200
+event formal dinner /f 30/12/2024 \to 31/12/2024
+event formal dinner /from 30/12/2024 /to 31/12/2024
 list
 mark 4
 mark 5
 list
+show 30/12/2024
+show 31/12/2024
+show 01/01/2024
+find book
 bye
