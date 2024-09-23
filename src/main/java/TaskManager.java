@@ -36,6 +36,7 @@ public class TaskManager {
         }
     }
 
+    //checks though the Event task input and throws exception if there are any errors
     private void addEvent(String input) throws SleepyException {
         //splitting and checking if there are at least 2 parts (description and event time)
         String[] parts = input.substring(5).split(" /from ");
@@ -60,6 +61,7 @@ public class TaskManager {
         addTaskToList(task);
     }
 
+    //checks though the Deadline task input and throws exception if there are any errors
     private void addDeadline(String input) throws SleepyException {
         String[] parts = input.substring(8).split(" /by ");
 
@@ -93,6 +95,7 @@ public class TaskManager {
         }
     }
 
+    //checks though the Todo task input and throws exception if there are any errors
     private void addTodo(String input) throws SleepyException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
