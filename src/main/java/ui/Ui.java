@@ -21,18 +21,40 @@ import static constants.Message.SAYONARA_MESSAGE;
 import static constants.Message.TASKS_OF_INTEREST_MESSAGE;
 import static constants.Message.UNMARKED_MESSAGE;
 
+/**
+ * This class is responsible for handling the user interface of Bento.
+ * It includes methods for displaying messages to the user and getting user input.
+ */
 public class Ui {
+
+    /** Scanner for reading user input. */
     private Scanner inputScanner;
+
+    /**
+     * Constructor for Ui.
+     * Initializes the input scanner to read user input.
+     */
     public Ui() {
         inputScanner = new Scanner(System.in);
     }
+
+    /**
+     * Prints the Bento logo.
+     */
     public void printLogo() {
         System.out.print(LOGO);
     }
+
+    /**
+     * Prints a line divider for visual clarity.
+     */
     public void printLine() {
         System.out.println(LINE_MESSAGE);
     }
 
+    /**
+     * Displays the greeting message and Bento logo to the user.
+     */
     public void sayKonichiwa() {
         printLine();
         printLogo();
@@ -40,28 +62,47 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Displays the farewell message to the user.
+     */
     public void saySayonara() {
         printLine();
         System.out.println(SAYONARA_MESSAGE);
         printLine();
     }
 
+    /**
+     * Retrieves input from the user.
+     * @return The user's input as a string.
+     */
     public String getUserInput() {
         return inputScanner.nextLine();
     }
 
+    /**
+     * Displays a message indicating a task has been added, along with the current task count.
+     * @param task The task that was added.
+     * @param tasks The list of tasks to display the current task count.
+     */
     public void printAddTaskSuccessMessage(String task, TaskList tasks) {
         printLine();
         System.out.printf("%s\n\t\t%s\n%s", ADD_TASK_SUCCESS_MESSAGE, task, getTaskCountMessage(tasks));
         printLine();
     }
 
+    /**
+     * Displays a message indicating the task list was saved successfully.
+     */
     public void printSaveTaskListSuccessMessage() {
         printLine();
         System.out.println(SAVE_TASK_LIST_SUCCESS_MESSAGE);
         printLine();
     }
 
+    /**
+     * Displays the list of tasks in the task list.
+     * @param tasks The task list to display.
+     */
     public void listTasks(TaskList tasks) {
         printLine();
         System.out.println(EXISTING_TASKS_MESSAGE);
@@ -71,6 +112,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Displays tasks of interest (Deadlines or Events) that occur on a specific date.
+     * @param dateOfInterest The date to filter tasks by.
+     * @param tasks The task list to search through.
+     */
     public void listTasksOfInterest(LocalDate dateOfInterest, TaskList tasks) {
         printLine();
         int currentTask = 0;
@@ -90,6 +136,10 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Displays all tasks of interest in a given task list.
+     * @param tasks The task list to display.
+     */
     public void listTasksOfInterest(TaskList tasks) {
         printLine();
         System.out.println(TASKS_OF_INTEREST_MESSAGE);
@@ -99,24 +149,53 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Checks if a task is an event that occurs on the specified date.
+     * @param dateOfInterest The date to check.
+     * @param task The task to check.
+     * @return True if the task is an event on the specified date, false otherwise.
+     */
     public boolean isEventOfInterest(LocalDate dateOfInterest, Task task) {
-        return task instanceof Event && (((Event) task).getFrom().equals(dateOfInterest) || ((Event) task).getTo().equals(dateOfInterest));
+        return task instanceof Event && (((Event) task).getFrom().equals(dateOfInterest) ||
+                ((Event) task).getTo().equals(dateOfInterest));
     }
 
+    /**
+     * Checks if a task is a deadline that is due on the specified date.
+     * @param dateOfInterest The date to check.
+     * @param task The task to check.
+     * @return True if the task is a deadline on the specified date, false otherwise.
+     */
     public boolean isDeadlineOfInterest(LocalDate dateOfInterest, Task task) {
         return task instanceof Deadline && ((Deadline) task).getBy().equals(dateOfInterest);
     }
 
+    /**
+     * Displays a message indicating a task has been unmarked as not done.
+     * @param tasks The task list that contains the task.
+     * @param index The index of the task to display.
+     */
     public void printUnmarked(TaskList tasks, int index) {
         System.out.println(UNMARKED_MESSAGE);
         System.out.printf("\t\t%s\n", tasks.retrieveTask(index));
     }
 
+    /**
+     * Displays a message indicating a task has been marked as done.
+     * @param tasks The task list that contains the task.
+     * @param index The index of the task to display.
+     */
     public void printMarked(TaskList tasks, int index) {
         System.out.println(MARKED_MESSAGE);
         System.out.printf("\t\t%s\n", tasks.retrieveTask(index));
     }
 
+    /**
+     * Displays an update message depending on whether a task is marked as done or unmarked as not done.
+     * @param tasks The task list that contains the task.
+     * @param isDone True if the task is done, false otherwise.
+     * @param index The index of the task.
+     */
     public void printMarkUpdate(TaskList tasks, boolean isDone, int index) {
         printLine();
         if (isDone) {
@@ -127,16 +206,30 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Displays a message indicating a task has been deleted, along with the current task count.
+     * @param task The task that was deleted.
+     * @param tasks The task list to display the current task count.
+     */
     public void printDeleteTaskSuccessMessage(Task task, TaskList tasks) {
         printLine();
         System.out.printf("%s\n\t\t%s\n%s", DELETE_TASK_SUCCESS_MESSAGE, task, getTaskCountMessage(tasks));
         printLine();
     }
 
+    /**
+     * Retrieves the number of tasks currently in the task list as a message.
+     * @param tasks The task list to get the task count.
+     * @return A string message showing the current task count.
+     */
     public String getTaskCountMessage(TaskList tasks) {
         return String.format("\tYou currently have %d tasks! Way to go, you busy bee!\n", tasks.getTaskCount());
     }
 
+    /**
+     * Displays a given error message.
+     * @param errorMessage The error message to display.
+     */
     public void displayErrorMessage(String errorMessage) {
         System.out.print(errorMessage);
     }

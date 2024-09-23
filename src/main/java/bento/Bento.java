@@ -7,13 +7,22 @@ import tasks.TaskList;
 import ui.Parser;
 import ui.Ui;
 
+/**
+ * The Bento class represents the main application for chatbot.
+ * It handles user interactions, processes commands, and manages the
+ * lifecycle of the application.
+ */
 public class Bento {
-    private Ui ui;
-    private Parser parser;
-    private TaskList tasks;
-    private Storage storage;
+    private final Ui ui;
+    private final Parser parser;
+    private final TaskList tasks;
+    private final Storage storage;
     private boolean isExit = false;
 
+    /**
+     * Constructs a Bento instance and initializes the user interface,
+     * parser, task list, and storage.
+     */
     public Bento() {
         this.ui = new Ui();
         this.parser = new Parser();
@@ -21,7 +30,11 @@ public class Bento {
         this.storage = new Storage();
     }
 
-
+    /**
+     * Runs the main loop of Bento. It greets the user,
+     * loads existing tasks, and continuously processes user commands
+     * until the bye command is given.
+     */
     public void run() {
         ui.sayKonichiwa();
         try {
@@ -30,6 +43,7 @@ public class Bento {
             ui.displayErrorMessage(e.getMessage());
         }
 
+        // Main application loop
         while (!isExit) {
             try {
                 String userInput = ui.getUserInput();

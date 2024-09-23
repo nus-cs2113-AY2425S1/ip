@@ -22,10 +22,25 @@ import static constants.Regex.TASK_DONE_INDICATOR;
 import static constants.Regex.TASK_STATUS_DELIMITER;
 import static constants.Regex.TASK_UNDONE_INDICATOR;
 
+/**
+ * This class handles loading and saving of tasks to and from the save file.
+ */
 public class Storage {
+
+    /** Path to save file */
     public static final String FILE_PATH = "./data/save.txt";
+
+    /** Directory where data is saved */
     public static final Path DATA_DIRECTORY = Paths.get("./data");
 
+    /**
+     * Loads tasks from the saved file into the provided TaskList.
+     *
+     * @param tasks  The TaskList where tasks are loaded into.
+     * @param ui     The Ui instance to handle user interface display.
+     * @param parser The Parser instance to interpret the commands.
+     * @throws LoadFileErrorException if the file cannot be found or an error occurs during loading.
+     */
     public void loadTaskList(TaskList tasks, Ui ui, Parser parser) throws LoadFileErrorException {
         try {
             File saveFile = new File(FILE_PATH);
@@ -41,11 +56,20 @@ public class Storage {
                 currentTask++;
             }
             ui.listTasks(tasks);
-        } catch (IndexOutOfBoundsException | FileNotFoundException | BentoException e) {
+        } catch (IndexOutOfBoundsException |
+                 FileNotFoundException | BentoException e) {
             throw new LoadFileErrorException();
         }
     }
 
+    /**
+     * Saves tasks from the provided TaskList into the save file, without printing success message.
+     *
+     * @param tasks  The TaskList containing tasks to be saved.
+     * @param ui     The Ui instance to handle user interface display.
+     * @param parser The Parser instance to interpret the commands.
+     * @throws SaveFileErrorException if the file cannot be written or an error occurs during saving.
+     */
     public void saveTaskListQuiet(TaskList tasks, Ui ui, Parser parser) throws SaveFileErrorException {
         try {
             // Create data directory if it does not exist
@@ -64,6 +88,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the provided TaskList into the save file and prints a success message.
+     *
+     * @param tasks  The TaskList containing tasks to be saved.
+     * @param ui     The Ui instance to handle user interface display.
+     * @param parser The Parser instance to interpret the commands.
+     * @throws SaveFileErrorException if the file cannot be written or an error occurs during saving.
+     */
     public void saveTaskList(TaskList tasks, Ui ui, Parser parser) throws SaveFileErrorException {
         try {
             // Create data directory if it does not exist
@@ -82,6 +114,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the task's status (done/undone) to the file.
+     *
+     * @param task       The task whose status is to be written.
+     * @param saveWriter The FileWriter to write the status to.
+     * @throws IOException if writing to the file fails.
+     */
     public void writeTaskStatus(Task task, FileWriter saveWriter) throws IOException {
         if (task.isDone()) {
             saveWriter.write(TASK_DONE_INDICATOR);
@@ -89,6 +128,4 @@ public class Storage {
             saveWriter.write(TASK_UNDONE_INDICATOR);
         }
     }
-
-
 }
