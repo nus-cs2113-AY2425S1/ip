@@ -64,7 +64,9 @@ public class Storage {
                 case 'E' -> Event.parseTask(line);
                 default -> null;
             };
-            allTasks.add(temp);
+            if(temp!=null) {
+                allTasks.add(temp);
+            }
         }
         return allTasks;
     }

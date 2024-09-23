@@ -5,6 +5,7 @@ import niwa.data.task.Task;
 import niwa.data.task.TaskList;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.messages.NiwaMesssages;
+import niwa.utils.NiwaUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,16 +23,6 @@ public class SaveCommand extends Command{
     public static final String[] COMMAND_KEYWORDS = {""};
 
     public static final String PATH_FORMAT = "^(?:[a-zA-Z]:[\\\\/]|[\\\\/]|\\.\\/)?([\\w.-]+[\\\\/])*[\\w.-]+\\.txt$";
-
-    public boolean isCorrectPath(String path) {
-        // Compile the regex pattern for matching the command format
-        Pattern pattern = Pattern.compile(PATH_FORMAT);
-
-        // Create a matcher for the input command string
-        Matcher matcher = pattern.matcher(path);
-
-        return matcher.matches();
-    }
 
     public boolean isValidArguments() {
         if (arguments.size() != COMMAND_KEYWORDS.length) {
@@ -51,7 +42,7 @@ public class SaveCommand extends Command{
         }
         String dataPath = arguments.get(COMMAND_KEYWORDS[0]);
 
-        if (!isCorrectPath(dataPath)) {
+        if (!NiwaUtils.isMatch(dataPath, PATH_FORMAT)) {
             throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
 
