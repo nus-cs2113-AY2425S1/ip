@@ -18,10 +18,14 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
-    public static String extractDescription(String input) {
+    public static String extractDescription(String input) throws EmptyTaskException {
         String fullDescription = extractDescription(input, "event");
-        int indexOfDateSignaller = fullDescription.indexOf("/from");
-        return fullDescription.substring(0, indexOfDateSignaller);
+        if(fullDescription.length() > 0) {
+            int indexOfDateSignaller = fullDescription.indexOf("/from");
+            return fullDescription.substring(0, indexOfDateSignaller);
+        } else {
+            throw new EmptyTaskException();
+        }
     }
 
     public static Optional<String> extractStartDate(String input){

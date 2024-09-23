@@ -18,10 +18,14 @@ public class Deadline extends Task {
         this.deadlineDate = deadlineDate;
     }
 
-    public static String extractDescription(String input) {
+    public static String extractDescription(String input) throws EmptyTaskException {
         String fullDescription = extractDescription(input, "deadline");
-        int indexOfDateSignaler = fullDescription.indexOf("/by");
-        return fullDescription.substring(0, indexOfDateSignaler);
+        if (fullDescription.length() > 0) {
+            int indexOfDateSignaler = fullDescription.indexOf("/by");
+            return fullDescription.substring(0, indexOfDateSignaler);
+        } else {
+            throw new EmptyTaskException();
+        }
     }
 
     public static Optional<String> extractDeadlineDate(String input) {
