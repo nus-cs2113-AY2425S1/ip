@@ -18,4 +18,7 @@ public class Regex {
 
     public static final String TASK_DONE_INDICATOR = "1";
     public static final String TASK_UNDONE_INDICATOR = "0";
+
+    public static final String DISPLAY_DATE_FORMAT = "dd MMM yyyy";
+    public static final String INPUT_DATE_FORMAT = "dd/MM/yyyy";
 }

@@ -16,4 +16,6 @@ public class Message {
     public static final String EXISTING_TASKS_MESSAGE = "\tHere is the list of your existing tasks!";
     public static final String UNMARKED_MESSAGE = "\tMaybe you're not quite ready for the task just yet. No worries, I'll be here to make sure you clear it.";
     public static final String MARKED_MESSAGE = "\tYou've crushed this task! I've gone ahead and marked it as done for you.";
+    public static final String TASKS_OF_INTEREST_MESSAGE = "\tHere are your tasks of interest!";
+    public static final String NO_TASK_OF_INTEREST_MESSAGE = "\tI can't seem to find any tasks that match your date of interest!";
 }

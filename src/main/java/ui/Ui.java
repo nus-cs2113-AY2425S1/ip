@@ -1,8 +1,11 @@
 package ui;
 
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import static constants.Message.ADD_TASK_SUCCESS_MESSAGE;
@@ -12,8 +15,10 @@ import static constants.Message.GREETING_MESSAGE;
 import static constants.Message.LINE_MESSAGE;
 import static constants.Message.LOGO;
 import static constants.Message.MARKED_MESSAGE;
+import static constants.Message.NO_TASK_OF_INTEREST_MESSAGE;
 import static constants.Message.SAVE_TASK_LIST_SUCCESS_MESSAGE;
 import static constants.Message.SAYONARA_MESSAGE;
+import static constants.Message.TASKS_OF_INTEREST_MESSAGE;
 import static constants.Message.UNMARKED_MESSAGE;
 
 public class Ui {
@@ -64,6 +69,33 @@ public class Ui {
             System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
         }
         printLine();
+    }
+
+    public void listTasksOfInterest(LocalDate dateOfInterest, TaskList tasks) {
+        printLine();
+        int currentTask = 0;
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            Task task = tasks.retrieveTask(i);
+            if (isDeadlineOfInterest(dateOfInterest, task) || isEventOfInterest(dateOfInterest, task)) {
+                if (currentTask == 0) {
+                    System.out.println(TASKS_OF_INTEREST_MESSAGE);
+                }
+                System.out.printf("\t%d. %s\n", currentTask + 1, task);
+                currentTask++;
+            }
+        }
+        if (currentTask == 0) {
+            System.out.println(NO_TASK_OF_INTEREST_MESSAGE);
+        }
+        printLine();
+    }
+
+    public boolean isEventOfInterest(LocalDate dateOfInterest, Task task) {
+        return task instanceof Event && (((Event) task).getFrom().equals(dateOfInterest) || ((Event) task).getTo().equals(dateOfInterest));
+    }
+
+    public boolean isDeadlineOfInterest(LocalDate dateOfInterest, Task task) {
+        return task instanceof Deadline && ((Deadline) task).getBy().equals(dateOfInterest);
     }
 
     public void printUnmarked(TaskList tasks, int index) {
