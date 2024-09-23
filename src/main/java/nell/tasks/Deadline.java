@@ -2,6 +2,7 @@ package nell.tasks;
 
 import nell.common.DateFormats;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,5 +26,17 @@ public class Deadline extends nell.tasks.Task {
 
     public String getFileLine() {
         return String.format("%s|%s", super.getFileLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.by));
+    }
+
+    /**
+     * Returns true if the by-date is the same as the given date, returns false otherwise.
+     *
+     * @param date
+     * @return
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        LocalDate byDate = by.toLocalDate();
+        return date.equals(byDate);
     }
 }
