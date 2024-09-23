@@ -17,6 +17,11 @@ public class MarkCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Toggle the isDone of a task
+     * @param tasks Task list that the task is stored in
+     * @param storage File to save and load the task list
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws IrisException {
         Task taskToChange = Parser.getTaskNum(tasks, description);

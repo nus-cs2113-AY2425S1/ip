@@ -12,6 +12,11 @@ public class DeleteCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Delete a task from the task list
+     * @param tasks Task list to delete the targeted task from
+     * @param storage File to save and load the task list
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws IrisException {
         Task taskToDelete = Parser.getTaskNum(tasks, description);

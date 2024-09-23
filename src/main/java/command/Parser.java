@@ -14,7 +14,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws IrisException {
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0].toLowerCase();
-        String description;
+        String description;     
 
         switch (command) {
         case "":

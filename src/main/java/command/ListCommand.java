@@ -8,6 +8,11 @@ public class ListCommand extends Command {
     private static final String EMPTY_LIST_MESSAGE = "No tasks added, add more now!";
     private static final String NONEMPTY_LIST_MESSAGE = "Here are the tasks in your list:";
 
+    /**
+     * List out all task in the task list
+     * @param tasks Task list that stores all the tasks
+     * @param storage File to save and load the task list
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {

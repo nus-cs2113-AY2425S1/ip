@@ -22,6 +22,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Deserialize the texts in a file at filePath to a task list
+     * @return the deserialize task list
+     * @throws IrisException Error with file format
+     */
     public TaskList load() throws IrisException {
         TaskList tasks;
         try {
@@ -36,6 +41,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Serialise the task list into text in a file at filePath
+     * @param tasks Task list to serialise
+     */
     public void save(TaskList tasks) {
         try {
             FileOutputStream fos = new FileOutputStream(filePath);

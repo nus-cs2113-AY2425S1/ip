@@ -12,6 +12,10 @@ public class Task implements Serializable {
 		return textParts[0] + ": " + textParts[1];
     }
 
+    /**
+     * Separates description from the dates in details and initialise accordingly
+     * @param details is the user input without command
+     */
     public Task(String details) {
         this.isDone = false;
 		String[] textParts = details.split("/");
@@ -29,15 +33,26 @@ public class Task implements Serializable {
         this.date = date.concat(")");
     }
 
+    /**
+     * Getter for task status
+     * @return a string that represents whether the task is done or not
+     */
     public String getStatus() {
         return (isDone ? "[X] " : "[ ] ");
     }
 
+    /**
+     * @return a string representation of task
+     */
     @Override
     public String toString() {
         return getStatus() + description + date;
     }
 
+    /**
+     * Setter for isDone
+     * @param status is the current task status
+     */
     public void mark(boolean status) {
         isDone = status;
     }
