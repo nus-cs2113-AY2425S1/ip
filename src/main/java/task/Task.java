@@ -1,32 +1,39 @@
 package task;
 
+import exceptions.IrisException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Task implements Serializable {
+    private static final String INVALID_DATE_FORMAT = "Invalid Date Format: Use YYYY-MM-DD format";
+
     public String description;
     protected boolean isDone;
-    protected String date;
+    public LocalDate dueDate;
+    protected String timePreposition;
 
-    private static String formatDate(String date) {
-		String[] textParts = date.split(" ", 2);
-		return textParts[0] + ": " + textParts[1];
-    }
-
-    public Task(String details) {
+    public Task(String details) throws IrisException {
         this.isDone = false;
-		String[] textParts = details.split("/");
-		this.description = textParts[0];
 
-		int numOfParts = textParts.length;
-        if (numOfParts == 1) {
-            this.date = "";
+		String[] descriptionAndTime = details.split("/", 2);
+		this.description = descriptionAndTime[0];
+
+        if (descriptionAndTime.length == 1) {
             return;
         }
-        String date = "(";
-        for (int i = 1; i < numOfParts; i++) {
-            date = date.concat(formatDate(textParts[i]));
+        String[] prepositionAndDate = descriptionAndTime[1].split(" ", 2);
+        this.timePreposition = prepositionAndDate[0];
+
+        if (prepositionAndDate.length == 1) {
+            return;
         }
-        this.date = date.concat(")");
+        String dateString = prepositionAndDate[1];
+        try {
+            this.dueDate = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new IrisException(INVALID_DATE_FORMAT);
+        }
     }
 
     public String getStatus() {
@@ -35,7 +42,11 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return getStatus() + description + date;
+        String taskRepresentation = getStatus() + description;
+        if (timePreposition != null && dueDate != null) {
+            taskRepresentation += "(" + timePreposition + ": " + dueDate + ")";
+        }
+        return taskRepresentation;
     }
 
     public void mark(boolean status) {
