@@ -2,24 +2,27 @@ package TheThinker.Ui;
 
 import TheThinker.Command.TheThinker;
 
-public class UiControl {
+/**
+ * Interface controls all the Ui methods
+ */
+public interface UiControl {
 
-    public static void printGreeting() {
+    static void printGreeting() {
         UiControl.printSeparation();
         System.out.println("Hello! I'm " + TheThinker.NAME);
         System.out.println("What can I do for you?");
         UiControl.printSeparation();
     }
 
-    public static void printBye() {
+    static void printBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void printSeparation() {
+    static void printSeparation() {
         System.out.println("_".repeat(60));
     }
 
-    public static void printHelp(){
+    static void printHelp(){
         System.out.println("Formats for the commands are : ");
         System.out.println("mark : mark [number]");
         System.out.println("unmark : unmark [number]");
@@ -31,7 +34,7 @@ public class UiControl {
         System.out.println("find : find [keyword]");
     }
 
-    public static void printCommands(){
+    static void printCommands(){
         System.out.println("Command entered is not valid. Available commands are");
         String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "get" , "find", "help (get format)"};
         for(String command : commands){
@@ -39,7 +42,7 @@ public class UiControl {
         }
     }
 
-    public static void printLoadingText(){
+    static void printLoadingText(){
         System.out.println("Loading file now........");
     }
 }
