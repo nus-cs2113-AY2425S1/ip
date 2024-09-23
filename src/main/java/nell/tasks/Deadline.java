@@ -31,8 +31,8 @@ public class Deadline extends nell.tasks.Task {
     /**
      * Returns true if the by-date is the same as the given date, returns false otherwise.
      *
-     * @param date
-     * @return
+     * @param date The specified date
+     * @return True if the by-date is the same as the given date, false otherwise
      */
     @Override
     public boolean isOnDate(LocalDate date) {
