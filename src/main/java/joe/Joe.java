@@ -120,7 +120,7 @@ public class Joe {
 
     public static void createNewTask(String commandToken, String input) throws EmptyTaskException {
         String itemDescription;
-        Optional<Task> newItem;
+        Optional<Task> newItem = Optional.empty();
         switch (commandToken) {
         case "todo":
             itemDescription = Todo.extractDescription(input);
@@ -131,22 +131,30 @@ public class Joe {
             }
             break;
         case "deadline":
-            itemDescription = Deadline.extractDescription(input);
-            if (itemDescription.length() > 0) {
-                String deadlineDate = Deadline.extractDeadlineDate(input).orElse("NA");
-                newItem = Optional.of(new Deadline(itemDescription, deadlineDate));
-            } else {
-                throw new EmptyTaskException();
+            try {
+                itemDescription = Deadline.extractDescription(input);
+                if (itemDescription.length() > 0) {
+                    String deadlineDate = Deadline.extractDeadlineDate(input).orElse("NA");
+                    newItem = Optional.of(new Deadline(itemDescription, deadlineDate));
+                } else {
+                    throw new EmptyTaskException();
+                }
+            } catch (StringIndexOutOfBoundsException s) {
+                System.out.println("Please use /by to specify the deadline");
             }
             break;
         case "event":
-            itemDescription = Event.extractDescription(input);
-            if (itemDescription.length() > 0) {
-                String endDate = Event.extractEndDate(input).orElse("NA");
-                String startDate = Event.extractStartDate(input).orElse("NA");
-                newItem = Optional.of(new Event(itemDescription, startDate, endDate));
-            } else {
-                throw new EmptyTaskException();
+            try {
+                itemDescription = Event.extractDescription(input);
+                if (itemDescription.length() > 0) {
+                    String endDate = Event.extractEndDate(input).orElse("NA");
+                    String startDate = Event.extractStartDate(input).orElse("NA");
+                    newItem = Optional.of(new Event(itemDescription, startDate, endDate));
+                } else {
+                    throw new EmptyTaskException();
+                }
+            } catch (IndexOutOfBoundsException i) {
+                System.out.println("Please use /from and /to to specify the event timeline");
             }
             break;
         default:
@@ -169,10 +177,14 @@ public class Joe {
 
     public static void  printList() {
         int counter = 0;
-        for (Task task : toDoItemArrayList) {
-            counter += 1;
-            System.out.println(INTENDATION + counter
-                    + ": " + task.toString());
+        if (toDoItemArrayList.size() > 0) {
+            for (Task task : toDoItemArrayList) {
+                counter += 1;
+                System.out.println(INTENDATION + counter
+                        + ": " + task.toString());
+            }
+        } else {
+            System.out.println("Task list is empty!");
         }
     }
 

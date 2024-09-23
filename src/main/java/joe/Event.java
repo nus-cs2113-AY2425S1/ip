@@ -21,18 +21,14 @@ public class Event extends Task{
     public static String extractDescription(String input) {
         String fullDescription = extractDescription(input, "event");
         int indexOfDateSignaller = fullDescription.indexOf("/from");
-        if (indexOfDateSignaller > 0) {
-            return fullDescription.substring(0, indexOfDateSignaller);
-        } else {
-            return fullDescription;
-        }
+        return fullDescription.substring(0, indexOfDateSignaller);
     }
 
     public static Optional<String> extractStartDate(String input){
         int indexOfStartSignaller = input.indexOf("/from") + 5;
         int indexOfEndSignaller = input.indexOf("/to");
-        if (indexOfEndSignaller > 0 && indexOfStartSignaller > 0) {
-            String startDate = input.substring(indexOfStartSignaller, indexOfEndSignaller).strip();
+        String startDate = input.substring(indexOfStartSignaller, indexOfEndSignaller).strip();
+        if (startDate.length() > 0) {
             return Optional.of(startDate);
         } else {
             return Optional.empty();
@@ -41,8 +37,8 @@ public class Event extends Task{
 
     public static Optional<String> extractEndDate(String input){
         int indexOfEndSignaller = input.indexOf("/to") + 3;
-        if (indexOfEndSignaller > 0) {
-            String endDate = input.substring(indexOfEndSignaller, input.length()).strip();
+        String endDate = input.substring(indexOfEndSignaller, input.length()).strip();
+        if (endDate.strip().length() > 0) {
             return Optional.of(endDate);
         } else {
             return Optional.empty();

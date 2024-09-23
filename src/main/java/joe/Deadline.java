@@ -26,11 +26,11 @@ public class Deadline extends Task {
 
     public static Optional<String> extractDeadlineDate(String input) {
         int indexDateSignaler = input.indexOf("/by") + 3;
-        if (indexDateSignaler > 0) {
-            String deadlineDate = input.substring(indexDateSignaler, input.length()).strip();
+        String deadlineDate = input.substring(indexDateSignaler, input.length()).strip();
+        if (deadlineDate.length() > 0) {
             return Optional.of(deadlineDate);
         } else {
-            return Optional.empty(); //Use optional to be stable if no date is passed in
+            return Optional.empty();
         }
     }
 
