@@ -1,6 +1,8 @@
 package nell.tasks;
 
-public class Task {
+import java.time.LocalDate;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
@@ -61,4 +63,6 @@ public class Task {
     public String getFileLine() {
         return String.format("%s|%s|%s", this.type, this.getStatusIcon(), this.description);
     }
+
+    public abstract boolean isOnDate(LocalDate date);
 }
