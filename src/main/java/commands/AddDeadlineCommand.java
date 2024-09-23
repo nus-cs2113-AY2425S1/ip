@@ -50,7 +50,8 @@ public class AddDeadlineCommand extends Command {
      * @throws InvalidDateFormatException If the date format is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDeadlineException, SaveFileErrorException, InvalidDateFormatException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDeadlineException,
+            SaveFileErrorException, InvalidDateFormatException {
         userInput = parser.removeDeadlinePrefix(userInput);
         int indexOfByPrefix = userInput.indexOf(BY_PREFIX);
 
