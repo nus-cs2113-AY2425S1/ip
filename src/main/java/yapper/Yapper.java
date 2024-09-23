@@ -3,7 +3,7 @@ package yapper;
 import java.util.Scanner;
 
 import yapper.instructions.InstructionHandler;
-import yapper.io.SaveFileHandler;
+import yapper.io.OutputFileHandler;
 import yapper.io.StringStorage;
 import yapper.tasks.TaskHandler;
 
@@ -36,7 +36,7 @@ public class Yapper {
     public static void main(String[] args) {
         // Pre-Program Message
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
-        TaskHandler taskHandler = SaveFileHandler.loadTasks();
+        TaskHandler taskHandler = OutputFileHandler.loadTasks();
         if (taskHandler.getCurrTaskTotal() == 0) {
             System.out.println(StringStorage.START_UP_MESSAGE);
             System.out.println(StringStorage.LINE_DIVIDER);

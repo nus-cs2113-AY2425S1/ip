@@ -4,7 +4,6 @@ import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 
-// TODO finish and clean up input validation code
 // Input Text Parser for Yapper
 public class InputStringHandler {
 
@@ -70,11 +69,10 @@ public class InputStringHandler {
                         StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
             }
         } catch (YapperException e) {
-            throw new YapperException(
-                    "failed to recognize instruction because: " + e.getMessage());
+            throw new YapperException(e.getMessage());
         } catch (NumberFormatException e) {
             throw new YapperException(
-                    "failed to recognize instruction because: " + e.getMessage());
+                    "NumberFormatException has occurred: \n" + e.getMessage());
         }
     }
 

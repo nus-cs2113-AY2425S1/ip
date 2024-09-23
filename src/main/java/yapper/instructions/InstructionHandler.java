@@ -2,10 +2,7 @@ package yapper.instructions;
 
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.io.InputStringHandler;
-import yapper.io.OutputStringHandler;
-import yapper.io.StringStorage;
-import yapper.io.SaveFileHandler;
+import yapper.io.*;
 import yapper.tasks.TaskHandler;
 import yapper.tasks.Task;
 import yapper.tasks.Deadline;
@@ -36,7 +33,7 @@ public class InstructionHandler {
             // Print
             OutputStringHandler.printAddedTask(task, taskHandler.getCurrTaskTotal());
             // Update_File
-            SaveFileHandler.storeAddedTask(task);
+            InputFileHandler.storeAddedTask(task);
         } catch (YapperException e) {
             throw new YapperException(
                     "YapperException has occurred when trying to add a task. \n"
@@ -54,7 +51,7 @@ public class InstructionHandler {
             // Print
             OutputStringHandler.printDeletedTask(task, taskHandler.getCurrTaskTotal());
             // Update_File
-            SaveFileHandler.unstoreDeletedTask(taskOrdinal);
+            InputFileHandler.unstoreDeletedTask(taskOrdinal);
         } catch (YapperException e) {
             throw new YapperException(
                     "YapperException has occurred when trying to delete a task. \n"
@@ -72,7 +69,7 @@ public class InstructionHandler {
             // Print
             OutputStringHandler.printTaskStatus(task, isDone);
             // Update_File
-            SaveFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
+            InputFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
         } catch (YapperException e) {
             throw new YapperException(
                     "YapperException has occurred when trying to mark/unmark a task. \n"

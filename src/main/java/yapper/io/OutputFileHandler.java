@@ -1,96 +1,30 @@
 package yapper.io;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.tasks.*; // need all classes in tasks folder
 
-public class SaveFileHandler {
-    public static final String SAVE_FILE_PATH = "./data/savedata.txt";
+// File Data Retrieval Operations
+public class OutputFileHandler {
 
-    // File Data Saving Operations
-    public static void storeAddedTask(Task task) throws YapperException {
-        try {
-            FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH, true);
-            fileWriter.write(task.taskToString() + "\n");
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new YapperException(
-                    StringStorage.SAVING_ERROR_MESSAGE +
-                    "error occurred when saving task to file: "
-                    + e.getMessage()); // ?
-        }
-    }
-    public static void unstoreDeletedTask(int taskOrdinal) throws YapperException {
-        try {
-            File file = new File(SAVE_FILE_PATH);
-            // Convert Entire File to Array for easier search of taskLine
-            Scanner scanner = new Scanner(file);
-            ArrayList<String> taskLines = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                taskLines.add(scanner.nextLine());
-            }
-            scanner.close();
-            // Remove Task at Ordinal
-            taskLines.remove(taskOrdinal);
-            // Rewrite File without Deleted Task
-            FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH);
-            for (String taskLine : taskLines) {
-                fileWriter.write(taskLine + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new YapperException(
-                    StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when deleting task from file: "
-                    + e.getMessage());
-        }
-    }
-    public static void amendTaskStatus(Task task, int taskOrdinal) throws YapperException {
-        try {
-            File file = new File(SAVE_FILE_PATH);
-            // Convert Entire File to Array for easier search of taskLine
-            Scanner scanner = new Scanner(file);
-            ArrayList<String> taskLines = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                taskLines.add(scanner.nextLine());
-            }
-            scanner.close();
-            // Update Task at Ordinal
-            taskLines.set(taskOrdinal, task.taskToString());
-            // Rewrite File without Deleted Task
-            FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH);
-            for (String taskLine : taskLines) {
-                fileWriter.write(taskLine + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new YapperException(
-                    StringStorage.SAVING_ERROR_MESSAGE +
-                    "error occurred when amending task status in file: "
-                    + e.getMessage());
-        }
-    }
-
-    // File Data Retrieval Operations
     public static TaskHandler loadTasks() {
         TaskHandler taskHandler = new TaskHandler();
         File file = null;
         try {
-            file = new File(SAVE_FILE_PATH);
+            file = new File(StringStorage.SAVE_FILE_PATH);
             if (!file.exists()) {
                 System.out.println("File not found. Starting with an empty task list.");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            return taskHandler;
         } catch (IOException e) {
-            System.out.println(" ");
+            System.out.println("IOException: " + e.getMessage());
         }
 
         int invalidTaskCount = 0;
@@ -119,7 +53,7 @@ public class SaveFileHandler {
             }
             System.out.println(StringStorage.LINE_DIVIDER);
         } catch (FileNotFoundException e) {
-//            System.out.println(StringStorage.LOADING_ERROR_MESSAGE);
+            System.out.println("FileNotFoundException: " + e.getMessage());
         }
         return taskHandler;
     }

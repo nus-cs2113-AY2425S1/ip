@@ -3,6 +3,8 @@ package yapper.io;
 // TODO: make more conversational
 // Contains strings for the Yapper program
 public class StringStorage {
+    public static final String SAVE_FILE_PATH = "./data/savedata.txt";
+
     // List Array   is 0-indexed, i.e. 0, 1, ...
     // List Display is 1-indexed, i.e. 1, 2, ...
     // User Input Ordinal == Internal Use Ordinal + 1
