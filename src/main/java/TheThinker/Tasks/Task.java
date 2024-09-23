@@ -1,5 +1,9 @@
 package TheThinker.Tasks;
 
+/**
+ * Represents an event type task. A Task object contains
+ * task type , task description.
+ */
 public class Task {
     public String taskDescription;
     public boolean isMarkedAsDone;
