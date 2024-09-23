@@ -56,7 +56,7 @@ public class NewFile {
      * If task type is not T or D or E , the task will be ignored.
      *
      * @param parameters A string array containing parameters to initialise different task.
-     *                   Todo : [task type , task description].
+     *                   Task : [task type , task description].
      *                   Deadline : [task type , task description , deadline].
      *                   Event : [task type , task description , start time , end time].
      */
