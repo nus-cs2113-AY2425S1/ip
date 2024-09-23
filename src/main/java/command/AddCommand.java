@@ -23,7 +23,7 @@ public class AddCommand extends Command {
      * @param storage File to save and load the task list
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) throws IrisException {
         Task newTask;
         switch (command) {
         case "todo":
