@@ -1,5 +1,10 @@
 package niwa.data.task;
 
+import niwa.exception.NiwaException;
+import niwa.exception.NiwaInvalidArgumentException;
+import niwa.utils.NiwaUtils;
+
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Deadline extends Task {
     /** niwa.data.task.Deadline information **/
-    protected String byDay; // The due date of the deadline task
+    protected LocalDateTime byDay; // The due date of the deadline task
 
     /**
      * Constructs a deadline with the specified description and due date.
@@ -18,10 +23,11 @@ public class Deadline extends Task {
      * @param description The description of the deadline task
      * @param byDay The due date for the deadline task
      */
-    public Deadline(String description, String byDay) {
+    public Deadline(String description, String byDay) throws NiwaException {
         super(description);  // Initialize the description in the superclass (niwa.data.task.Task)
-        this.byDay = byDay;  // Set the due date for the deadline task
+        this.byDay = NiwaUtils.parseDateTime(byDay);  // Set the due date for the deadline task
     }
+
 
     /**
      * Returns the type of the task.
@@ -45,13 +51,8 @@ public class Deadline extends Task {
 
 
     // Getter for the due date of the deadline task
-    public String getByDay() {
+    public LocalDateTime getByDay() {
         return byDay;
-    }
-
-    // Setter for the due date of the deadline task
-    public void setByDay(String byDay) {
-        this.byDay = byDay;
     }
 
     /**
@@ -63,7 +64,8 @@ public class Deadline extends Task {
     @Override
     public String getFullInfo() {
         return String.format("[%s][%s] %s (by: %s)",
-                getShortType(), getStatusIcon(), getDescription(), getByDay());
+                getShortType(), getStatusIcon(), getDescription(),
+                NiwaUtils.getDateTimeString(getByDay()));
     }
 
     /**
@@ -75,7 +77,8 @@ public class Deadline extends Task {
     @Override
     public String getFileOutput() {
         return String.format("%s | %s | %s | %s",
-                getShortType(), getStatusNumber(), getDescription(), getByDay());
+                getShortType(), getStatusNumber(), getDescription(),
+                NiwaUtils.getDateTimeSaveString(getByDay()));
     }
 
     public static Task parseTask(String inputString) {
@@ -92,8 +95,15 @@ public class Deadline extends Task {
             String segment1 = matcher.group(1).trim(); // isDone
             String segment2 = matcher.group(2).trim(); // Description
             String segment3 = matcher.group(3).trim(); // By day
+
             // Return the segments as an array
-            Deadline temp = new Deadline(segment2, segment3);
+            Deadline temp = null;
+            try {
+                temp = new Deadline(segment2, segment3);
+            } catch (NiwaException e) {
+                return null;
+            }
+
             if (segment1.equals("1")) {
                 temp.markAsDone();
             }

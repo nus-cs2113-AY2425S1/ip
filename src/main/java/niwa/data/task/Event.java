@@ -1,5 +1,11 @@
 package niwa.data.task;
 
+import niwa.exception.NiwaException;
+import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaExceptionMessages;
+import niwa.utils.NiwaUtils;
+
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,8 +15,8 @@ import java.util.regex.Pattern;
  */
 public class Event extends Task {
     /** niwa.data.task.Event information **/
-    protected String fromDay; // The start day of the event
-    protected String toDay;   // The end day of the event
+    protected LocalDateTime fromDay; // The start day of the event
+    protected LocalDateTime toDay;   // The end day of the event
 
     /**
      * Constructs an event with the specified description, start day, and end day.
@@ -20,10 +26,15 @@ public class Event extends Task {
      * @param fromDay The day when the event starts
      * @param toDay The day when the event ends
      */
-    public Event(String description, String fromDay, String toDay) {
+    public Event(String description, String fromDay, String toDay) throws NiwaException {
         super(description);  // Initialize the description in the superclass (niwa.data.task.Task)
-        this.fromDay = fromDay; // Set the start day of the event
-        this.toDay = toDay;     // Set the end day of the event
+        this.fromDay = NiwaUtils.parseDateTime(fromDay); // Set the start day of the event
+        this.toDay = NiwaUtils.parseDateTime(toDay);     // Set the end day of the event
+
+        if (this.fromDay.isAfter(this.toDay)) {
+            String message = String.format(NiwaExceptionMessages.MESSAGE_INVALID_DATE_PERIOD, fromDay, toDay);
+            throw new NiwaException(message);
+        }
     }
 
     /**
@@ -47,23 +58,13 @@ public class Event extends Task {
     }
 
     // Getter for the start day of the event
-    public String getFromDay() {
+    public LocalDateTime getFromDay() {
         return fromDay;
     }
 
-    // Setter for the start day of the event
-    public void setFromDay(String fromDay) {
-        this.fromDay = fromDay;
-    }
-
     // Getter for the end day of the event
-    public String getToDay() {
+    public LocalDateTime getToDay() {
         return toDay;
-    }
-
-    // Setter for the end day of the event
-    public void setToDay(String toDay) {
-        this.toDay = toDay;
     }
 
     /**
@@ -75,7 +76,9 @@ public class Event extends Task {
     @Override
     public String getFullInfo() {
         return String.format("[%s][%s] %s (from: %s to: %s)",
-                getShortType(), getStatusIcon(), getDescription(), getFromDay(), getToDay());
+                getShortType(), getStatusIcon(), getDescription(),
+                NiwaUtils.getDateTimeString(getFromDay()),
+                NiwaUtils.getDateTimeString(getToDay()));
     }
 
     /**
@@ -86,12 +89,14 @@ public class Event extends Task {
      */
     @Override
     public String getFileOutput() {
-        return String.format("%s | %s | %s | %s - %s",
-                getShortType(), getStatusNumber(), getDescription(), getFromDay(), getToDay());
+        return String.format("%s | %s | %s | %s -> %s",
+                getShortType(), getStatusNumber(), getDescription(),
+                NiwaUtils.getDateTimeSaveString(getFromDay()),
+                NiwaUtils.getDateTimeSaveString(getToDay()));
     }
 
     public static Task parseTask(String inputString) {
-        String format = "^E \\| (\\d+) \\| (.+?) \\| (.+?) - (.+?)$";
+        String format = "^E \\| (\\d+) \\| (.+?) \\| (.+?) -> (.+?)$";
         // Compile the regex pattern for matching the command format
         Pattern pattern = Pattern.compile(format);
 
@@ -106,7 +111,12 @@ public class Event extends Task {
             String segment3 = matcher.group(3).trim(); // From day
             String segment4 = matcher.group(4).trim(); // To day
             // Return the segments as an array
-            Event temp = new Event(segment2, segment3, segment4);
+            Event temp = null;
+            try {
+                temp = new Event(segment2, segment3, segment4);
+            } catch (NiwaException e) {
+                return null;
+            }
             if (segment1.equals("1")) {
                 temp.markAsDone();
             }

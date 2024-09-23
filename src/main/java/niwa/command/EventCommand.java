@@ -1,6 +1,7 @@
 package niwa.command;
 
 import niwa.exception.NiwaDuplicateTaskException;
+import niwa.exception.NiwaException;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.messages.NiwaMesssages;
 import niwa.data.task.Event;
@@ -14,7 +15,8 @@ import java.util.regex.Pattern;
 public class EventCommand extends Command{
 
     public static final String COMMAND_WORD = "event";
-    public static final String COMMAND_GUIDE = "event [task description] /from [time] /to [time]: "
+    public static final String COMMAND_GUIDE = "event [task description] " +
+            "/from [yyyy-mm-dd] (optional)[HHmm] /to [yyyy-mm-dd] (optional)[HHmm]: "
             + "Add a new event to our list.";
     public static final String[] COMMAND_KEYWORDS = {"", "/from", "/to"};
 
@@ -56,7 +58,7 @@ public class EventCommand extends Command{
 
             messages.add(autoSaveTasks());
 
-        } catch (NiwaDuplicateTaskException e) {
+        } catch (NiwaDuplicateTaskException | NiwaException e) {
             messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));
         }
 

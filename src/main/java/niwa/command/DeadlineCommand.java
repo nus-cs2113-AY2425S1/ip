@@ -1,6 +1,7 @@
 package niwa.command;
 
 import niwa.exception.NiwaDuplicateTaskException;
+import niwa.exception.NiwaException;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
 import niwa.messages.NiwaExceptionMessages;
@@ -15,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class DeadlineCommand extends Command{
     public static final String COMMAND_WORD = "deadline";
-    public static final String COMMAND_GUIDE = "deadline [task description] /by [time]: "
+    public static final String COMMAND_GUIDE = "deadline [task description] /by [yyyy-mm-dd] (optional)[HHmm]: "
             + "Add a new deadline to our list.";
     public static final String[] COMMAND_KEYWORDS = {"", "/by"};
 
@@ -56,7 +57,7 @@ public class DeadlineCommand extends Command{
 
             messages.add(autoSaveTasks());
 
-        } catch (NiwaDuplicateTaskException e) {
+        } catch (NiwaDuplicateTaskException | NiwaException e) {
             messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));
         }
 

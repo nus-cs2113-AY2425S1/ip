@@ -7,4 +7,7 @@ public class NiwaExceptionMessages {
     public static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index is out of bound!";
     public static final String MESSAGE_DUPLICATE_TASK = "The given task exists in the current list.";
     public static final String MESSAGE_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
+
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
+    public static final String MESSAGE_INVALID_DATE_PERIOD = "%s -> %s is an invalid time period!";
 }
