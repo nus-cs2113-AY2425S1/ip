@@ -8,24 +8,22 @@ import yapper.tasks.Task;
 public class OutputStringHandler {
     // For Instruction: List
     public static void printTasks(List<Task> tasks, int taskCount) {
-        System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
         for (int i = 0; i < taskCount; i++) {
-            System.out.print( (i + 1) + "." ); // task list is displayed 1-indexed
-            System.out.println( tasks.get(i).taskToDisplay() );
+            System.out.print((i + 1) + "."); // task list is displayed 1-indexed
+            System.out.println(tasks.get(i).taskToDisplay());
         }
-        System.out.println(StringStorage.LINE_DIVIDER_INPUT);
     }
     // For Instruction: Todo Deadline Event
     public static void printAddedTask(Task task, int taskCount) {
-        StringStorage.printWithDividers(
+        System.out.println(
                 StringStorage.TASK_ADDED_STRING + "\n"
                 + "  " + task.taskToDisplay() + "\n" // spacing is to be consistent with ordinal
                 + StringStorage.LIST_SIZE_STRING + taskCount);
     }
     // For Instruction: Delete
     public static void printDeletedTask(Task task, int taskCount) {
-        StringStorage.printWithDividers(
+        System.out.println(
                 StringStorage.TASK_DELETED_STRING + "\n"
                 + "  " + task.taskToDisplay() + "\n"
                 + StringStorage.LIST_SIZE_STRING + taskCount);
