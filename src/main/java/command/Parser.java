@@ -31,6 +31,8 @@ public class Parser {
         }
 
         switch (command) {
+        case "date":
+            return new DateCommand(description);
         case "delete":
             return new DeleteCommand(description);
         case "mark", "unmark":
