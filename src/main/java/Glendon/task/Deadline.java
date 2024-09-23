@@ -1,4 +1,5 @@
 package Glendon.task;
+import java.time.LocalDate;
 
 public class Deadline extends Task {
     protected String dueTime;
@@ -18,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveToFile() {
-        return "D|" + super.saveToFile() + "|dueTime: " + dueTime;
+        return "D|" + super.saveToFile() + "|" + dueTime;
     }
 
     @Override

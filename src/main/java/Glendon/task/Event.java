@@ -21,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public String saveToFile() {
-        return "E|" + super.saveToFile() + "|from: " + start + "|to: " + end;
+        return "E|" + super.saveToFile() + "|" + start + "|" + end;
     }
 
     @Override
