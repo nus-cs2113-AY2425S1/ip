@@ -1,4 +1,4 @@
-public class Deadline extends Todo{
+public class Deadline extends Todo {
 
     protected String from;
 

@@ -1,7 +1,8 @@
-1. [E][ ] project meeting (by: Aug 6th to: 4pm)
-2. [T][ ] join sports club
-3. [T][ ] borrow book
-4. [T][ ] jwndjnjfce
-5. [T][ ] jndcjendcjenjcnejcnejcn
-6. [T][X] jnsdjns
-7. [T][ ] jsdjnsdj
+1. [T][ ] join sports club
+2. [T][ ] borrow book
+3. [T][ ] jwndjnjfce
+4. [T][ ] jnsdjns
+5. [T][ ] jsdjnsdj
+6. [T][ ] sdnjsdn
+7. [T][ ] test
+8. [T][ ] redundant

@@ -1,4 +1,4 @@
-public class Todo extends Task{
+public class Todo extends Task {
     protected char type;
 
     public Todo(String description) {
