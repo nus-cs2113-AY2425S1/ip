@@ -69,4 +69,5 @@ public class Messages {
                   yyyy-MM-dd HHmm
             """;
     public static final String TASKS_ON_DATE_MESSAGE = "-> The tasks on this date are as follows:";
+    public static final String MATCHING_TASKS_MESSAGE = "-> The matching tasks are as follows:";
 }

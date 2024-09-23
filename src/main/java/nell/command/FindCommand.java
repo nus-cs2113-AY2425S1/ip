@@ -1,5 +1,6 @@
 package nell.command;
 
+import nell.common.*;
 import nell.list.TaskList;
 
 /**
@@ -25,7 +26,7 @@ public class FindCommand extends Command {
      * Executes command - gets a list of tasks that contain keyword
      */
     public void execute() {
-        System.out.println("-> The matching tasks are as follows:");
+        System.out.println(Messages.MATCHING_TASKS_MESSAGE);
         System.out.println(tasks.getMatchingTaskList(keyword));
     }
 }
