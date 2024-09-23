@@ -5,6 +5,7 @@ import nell.tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -76,5 +77,24 @@ public class TaskList {
         }
 
         return matchingTaskList;
+    }
+
+    /**
+     * Returns a list of tasks that occur on a specified date
+     *
+     * @param date The specified date
+     * @return A list of tasks that occur on date
+     */
+    public String getTasksOnDate(LocalDate date) {
+        String matchingTasksList = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.isOnDate(date)) {
+                matchingTasksList += getTaskStringAtIndex(i);
+                matchingTasksList += System.lineSeparator();
+            }
+        }
+
+        return matchingTasksList;
     }
 }

@@ -9,9 +9,12 @@ import nell.command.FindCommand;
 import nell.command.ListCommand;
 import nell.command.MarkCommand;
 import nell.command.RemoveCommand;
+import nell.command.SearchCommand;
 import nell.command.ToDoCommand;
 import nell.command.UnmarkCommand;
 import nell.common.Messages;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Handles the parsing and execution of commands entered by the user into the UI
@@ -45,7 +48,11 @@ public class Parser {
             return parseSingleWordCommand(command);
 
         case MULTI_WORD_LENGTH:
-            return parseMultiWordCommand(commandWords);
+            try {
+                return parseMultiWordCommand(commandWords);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
+            }
 
         default:
             return new IncorrectCommand(tasks);
@@ -73,8 +80,9 @@ public class Parser {
      *
      * @param commandWords The command words of the multi-word command
      * @return Command object based upon multi-word command
+     * @throws DateTimeParseException If dates cannot be parsed for commands that take in dates
      */
-    private Command parseMultiWordCommand(String[] commandWords) {
+    private Command parseMultiWordCommand(String[] commandWords) throws DateTimeParseException {
         switch (commandWords[0]) {
         case "mark":
             try {
@@ -116,6 +124,13 @@ public class Parser {
                 return new FindCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException e) {
                 return new IncorrectCommand(tasks, Messages.FIND_ERROR_MESSAGE);
+            }
+
+        case "search":
+            try {
+                return new SearchCommand(tasks, commandWords[1]);
+            } catch (IndexOutOfBoundsException e) {
+                return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
             }
 
         case "remove":

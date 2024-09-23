@@ -1,6 +1,8 @@
 package nell.tasks;
 
-public class Task {
+import java.time.LocalDate;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
@@ -72,4 +74,6 @@ public class Task {
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
     }
+
+    public abstract boolean isOnDate(LocalDate date);
 }
