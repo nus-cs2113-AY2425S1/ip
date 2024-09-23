@@ -80,15 +80,15 @@ public class InputStringHandler {
     // Methods to Split By Keywords
     public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
-                StringStorage.DEADLINE_END_DATE_DELIMITER);
+                StringStorage.DEADLINE_END_DATE_DELIMITER, -2);
         String deadlineDesc = deadlineArgs[0].trim();
         String deadlineDate = deadlineArgs[1].trim();
         return new String[] {deadlineDesc, deadlineDate};
     }
     public static String[] splitStringByEventKeywords(String instructionArgs) {
-        String[] eventArgs = instructionArgs.split(StringStorage.EVENT_START_DATE_DELIMITER);
+        String[] eventArgs = instructionArgs.split(StringStorage.EVENT_START_DATE_DELIMITER, -2);
         String eventDesc = eventArgs[0].trim();
-        String[] dates = eventArgs[1].split(StringStorage.EVENT_END_DATE_DELIMITER);
+        String[] dates = eventArgs[1].split(StringStorage.EVENT_END_DATE_DELIMITER, -2);
         String startDate = dates[0].trim();
         String endDate = dates[1].trim();
         return new String[] {eventDesc, startDate, endDate};
