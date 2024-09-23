@@ -58,4 +58,5 @@ public class Messages {
                Please key in dates and times in this format:
                   yyyy-MM-dd HHmm
             """;
+    public static final String TASKS_ON_DATE_MESSAGE = "-> The tasks on this date are as follows:";
 }
