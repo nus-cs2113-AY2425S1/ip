@@ -12,16 +12,14 @@ import yapper.exceptions.YapperException;
 import yapper.tasks.*; // need all classes in tasks folder
 
 public class SaveFileHandler {
-    public static final String SAVE_FILE_PATH = "./data/duke.txt";
+    public static final String SAVE_FILE_PATH = "./data/savedata.txt";
 
     // File Data Saving Operations
     public static void storeAddedTask(Task task) throws YapperException {
         try {
-            System.out.println(StringStorage.BEFORE_SAVING_STRING + SAVE_FILE_PATH);
             FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH, true);
             fileWriter.write(task.taskToString() + "\n");
             fileWriter.close();
-            System.out.println(StringStorage.AFTER_SAVING_STRING);
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE +
@@ -40,7 +38,7 @@ public class SaveFileHandler {
             }
             scanner.close();
             // Remove Task at Ordinal
-            taskLines.remove(taskOrdinal - StringStorage.INDEX_OFFSET);
+            taskLines.remove(taskOrdinal);
             // Rewrite File without Deleted Task
             FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH);
             for (String taskLine : taskLines) {
@@ -65,7 +63,7 @@ public class SaveFileHandler {
             }
             scanner.close();
             // Update Task at Ordinal
-            taskLines.set(taskOrdinal - StringStorage.INDEX_OFFSET, task.taskToString());
+            taskLines.set(taskOrdinal, task.taskToString());
             // Rewrite File without Deleted Task
             FileWriter fileWriter = new FileWriter(SAVE_FILE_PATH);
             for (String taskLine : taskLines) {
@@ -83,9 +81,19 @@ public class SaveFileHandler {
     // File Data Retrieval Operations
     public static TaskHandler loadTasks() {
         TaskHandler taskHandler = new TaskHandler();
-        File file = new File(SAVE_FILE_PATH);
+        File file = null;
+        try {
+            file = new File(SAVE_FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("File not found. Starting with an empty task list.");
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println(" ");
+        }
+
         int invalidTaskCount = 0;
-        System.out.println(StringStorage.BEFORE_LOADING_STRING + SAVE_FILE_PATH);
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -99,18 +107,16 @@ public class SaveFileHandler {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(StringStorage.LOADING_ERROR_MESSAGE);
-            System.out.println("File not found. Starting with an empty task list."); // ?
-        }
 
-        if (invalidTaskCount > 0) {
-            System.out.println("total invalid tasks found: " + invalidTaskCount); // ?
-        } else {
-            System.out.println("no invalid tasks detected in file");;
+            if (invalidTaskCount > 0) {
+                System.out.println("total invalid tasks found: " + invalidTaskCount); // ?
+            } else {
+                System.out.println("no invalid tasks detected in file");
+                System.out.println(StringStorage.LINE_DIVIDER);
+            }
+        } catch (FileNotFoundException e) {
+//            System.out.println(StringStorage.LOADING_ERROR_MESSAGE);
         }
-        System.out.println(StringStorage.AFTER_LOADING_STRING);
-        System.out.println(StringStorage.LINE_DIVIDER);
         return taskHandler;
     }
     private static Task loadTask(String taskData) throws YapperException {
@@ -138,11 +144,12 @@ public class SaveFileHandler {
                     ExceptionHandler.checkIfEventArgsMissing(
                             taskDesc.trim(), taskParts[3].trim(), taskParts[4].trim() );
                     return new Event(taskDesc, isDone, taskParts[3], taskParts[4]);
+                default:
+                    throw new YapperException("loadTask method reached default switch-case");
             }
         } catch (YapperException e) {
             throw new YapperException(taskData + " because " + e.getMessage()); // ?
         }
-        return null; // what to do with return statement?
     }
 
 }
