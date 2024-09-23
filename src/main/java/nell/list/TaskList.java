@@ -71,7 +71,7 @@ public class TaskList {
         String matchingTaskList = "";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).containsKeyword(keyword)) {
-                matchingTaskList += String.format("   %d. %s", i, tasks.get(i));
+                matchingTaskList += getTaskStringAtIndex(i);
                 matchingTaskList += System.lineSeparator();
             }
         }
