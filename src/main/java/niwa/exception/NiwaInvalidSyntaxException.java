@@ -1,9 +1,11 @@
 package niwa.exception;
 
+import niwa.messages.NiwaExceptionMessages;
+
 public class NiwaInvalidSyntaxException extends NiwaException{
 
     public NiwaInvalidSyntaxException() {
-        super("Your syntax is invalid, type 'help' to check for our syntax list!");
+        super(NiwaExceptionMessages.MESSAGE_INVALID_SYNTAX);
     }
 
 }

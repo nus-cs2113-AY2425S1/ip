@@ -1,11 +1,20 @@
 package niwa;
 
 import niwa.command.*;
+import niwa.data.Storage;
+import niwa.data.task.TaskList;
+import niwa.exception.NiwaException;
 import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.task.Task;
+import niwa.data.task.Task;
+import niwa.messages.NiwaMesssages;
+import niwa.parser.CommandParser;
+import niwa.ui.NiwaUI;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,46 +27,24 @@ public class Niwa {
 
     // Static variables to hold the chatbot's name and logo
     static final String NAME = "Niwa";
-    static final String LOGO = "\t _   _\n"
+    static final String LOGO = " _   _\n"
             + "\t| \\ | | (_)  _       _  ___\n"
             + "\t|  \\| | | | | | __  // //| |\n"
             + "\t| |\\  | | | | |/  |// //_| |\n"
             + "\t|_| \\_|_|_| |__/|__/ //  |_|";
 
-    // Static variables to format messages
-    private static final String PREFIX = "\t";
-    private static final String SEPARATOR = PREFIX + "---------------------------------------------";
-
-    private static final String HI_MESSAGE = PREFIX + "Hello sweeties! I'm %s!\n"
-            + PREFIX + "What can I do for you? Let's chat <3\n"
-            + PREFIX + "---> Type 'help' to see the guide.\n\n";
-
-    // Static variables for error messages
-    private static final String ERR_INDEX_NUMBER_FORMAT = "Task's index must be a number!";
     private static final String HOME = System.getProperty("user.home");
 
     // inserts correct file path separator on *nix and Windows
     // works on *nix
     // works on Windows
-    private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "Niwa", "data", "NiwaTaskList.txt");
+    private static final Path PATH = Paths.get(HOME, "Niwa", "data", "NiwaTaskList.txt");
 
     /** Variable to check if the chatbot is running */
     private boolean isRunning;
 
-    /** List to store tasks */
-    private List<Task> tasks = new ArrayList<>();
-
-    /** Map command with its word **/
-    private Map<String, Command> commands = new HashMap<>();
-
-    /**
-     * Getter for the chatbot's name.
-     *
-     * @return The name of the chatbot.
-     */
-    public static String getName() {
-        return NAME;
-    }
+    private CommandParser parser;
+    private NiwaUI ui;
 
     /**
      * Getter for the chatbot's file path.
@@ -68,64 +55,65 @@ public class Niwa {
         return PATH.toString();
     }
 
-    /**
-     * Getter for the chatbot's logo.
-     *
-     * @return The logo of the chatbot.
-     */
-    public static String getLogo() {
-        return LOGO;
-    }
-
-    /**
-     * Getter for the isRunning flag.
-     *
-     * @return True if the chatbot is running, false otherwise.
-     */
-    public boolean getRunning() {
-        return isRunning;
-    }
-
     public void setRunning(boolean running) {
         isRunning = running;
     }
 
+    /** Runs the program until termination.  */
+    public void run() {
+        start();
+        runCommandLoop();
+    }
+
+    public void start() {
+        ui.printMessages(LOGO,
+                String.format(NiwaMesssages.HI_MESSAGE, NAME),
+                NiwaMesssages.HI_MESSAGE_1,
+                NiwaMesssages.HI_MESSAGE_2,
+                NiwaMesssages.MESSAGE_READ_DEFAULT);
+
+        CommandResult readResult = processCommand(ReadCommand.COMMAND_WORD + " " + getOutputFilePath());
+        ui.showCommandResult(readResult);
+    }
+
+    private void runCommandLoop() {
+        while (isRunning) {
+            String commandString = ui.getUserCommand();
+            CommandResult result = processCommand(commandString);
+            ui.showCommandResult(result);
+        }
+    }
     /**
      * Constructor initializes the chatbot and displays a greeting and user guide.
      */
     public Niwa() {
         isRunning = true;
-        printGreet(NAME, LOGO);
 
-        registerCommands(new ByeCommand(this));
-        registerCommands(new EchoCommand());
+        parser = new CommandParser();
+        ui = new NiwaUI();
 
-        registerCommands(new DeadlineCommand(tasks));
-        registerCommands(new TodoCommand(tasks));
-        registerCommands(new EventCommand(tasks));
+        parser.registerCommands(new ByeCommand(this));
+        parser.registerCommands(new EchoCommand());
 
-        registerCommands(new ListCommand(tasks));
+        parser.registerCommands(new DeadlineCommand());
+        parser.registerCommands(new TodoCommand());
+        parser.registerCommands(new EventCommand());
 
-        registerCommands(new DeleteCommand(tasks));
-        registerCommands(new ClearCommand(tasks));
-        registerCommands(new MarkCommand(tasks));
-        registerCommands(new UnmarkCommand(tasks));
+        parser.registerCommands(new ListCommand());
 
-        registerCommands(new SaveCommand(tasks));
+        parser.registerCommands(new DeleteCommand());
+        parser.registerCommands(new ClearCommand());
+        parser.registerCommands(new MarkCommand());
+        parser.registerCommands(new UnmarkCommand());
 
-        ReadCommand readCommand = new ReadCommand(tasks);
-        registerCommands(readCommand);
+
+        parser.registerCommands(new SaveCommand());
+        parser.registerCommands(new ReadCommand());
 
         HelpCommand helpCommand = new HelpCommand();
-        registerCommands(helpCommand);
-        helpCommand.setCommands(new ArrayList<>(commands.values()));
+        parser.registerCommands(helpCommand);
 
-        System.out.println(PREFIX + "---> Reading from default data file...");
-        processCommand(readCommand.getWord() + " " + PATH.toString());
-    }
-
-    public void registerCommands(Command command) {
-        commands.put(command.getWord(), command);
+        helpCommand.setCommands(new ArrayList<Command>(parser.getCommands().values()));
     }
 
     /**
@@ -133,39 +121,15 @@ public class Niwa {
      *
      * @param commandString The user command to process.
      */
-    public void processCommand(String commandString) {
-        System.out.println(SEPARATOR);
-        String[] commandParts = commandString.split(" ", 2);
-
+    public CommandResult processCommand(String commandString) {
+        Command command;
+        CommandResult result = null;
         try {
-            Command command = commands.get(commandParts[0]);
-            if (command != null) {
-                if (commandParts.length == 2) { command.execute(commandParts[1]); }
-                else { command.execute(""); }
-            }
-            else {
-                throw new NiwaInvalidSyntaxException();
-            }
-        } catch (NiwaInvalidSyntaxException | NiwaInvalidArgumentException
-                 | NiwaTaskIndexOutOfBoundException e) {
-            System.out.println(PREFIX + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println(PREFIX + ERR_INDEX_NUMBER_FORMAT);
-        } finally {
-            System.out.println(SEPARATOR);
+            command = parser.parseCommand(commandString);
+            result = command.execute();
+        } catch (NiwaException e) {
+            result = new CommandResult(e.getMessage());
         }
-
-    }
-
-    /**
-     * Prints a greeting message when the chatbot starts.
-     *
-     * @param name The name of the chatbot.
-     * @param logo The logo of the chatbot.
-     */
-    public void printGreet(String name, String logo) {
-        System.out.println(logo);
-        System.out.println(SEPARATOR);
-        System.out.printf(HI_MESSAGE, name);
+        return result;
     }
 }

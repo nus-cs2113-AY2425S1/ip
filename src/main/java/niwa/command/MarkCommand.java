@@ -1,59 +1,65 @@
 package niwa.command;
 
+import niwa.exception.NiwaInvalidArgumentException;
 import niwa.exception.NiwaTaskIndexOutOfBoundException;
-import niwa.task.Task;
+import niwa.messages.NiwaExceptionMessages;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
+import niwa.messages.NiwaMesssages;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarkCommand extends TaskCommand {
+public class MarkCommand extends Command {
 
-    public MarkCommand(List<Task> tasks) {
-        super(tasks);
-        setFormat("^\\d+$");
-        setWord("mark");
-        setGuide("mark [task index]: Mark the task at the given index as done.");
-    }
+    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_GUIDE = "mark [task index]: Mark the task at the given index as done.";
+    public static final String[] COMMAND_KEYWORDS = {""};
 
-    @Override
-    public String[] parseArguments(String command) {
-        // Compile the regex pattern for matching the command format
-        Pattern pattern = Pattern.compile(argumentFormat);
-
-        // Create a matcher for the input command string
-        Matcher matcher = pattern.matcher(command);
-
-        // Check if the command string matches the expected pattern
-        if (matcher.matches()) {
-            // Return the segments as an array
-            return command.split(" ");
-        } else {
-            // Return null if the command does not match the expected format
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Marks a task as done.
      *
-     * @param indexString The index of the task to mark.
      */
     @Override
-    public void execute(String indexString) throws NumberFormatException, NiwaTaskIndexOutOfBoundException {
-        super.execute(indexString);
-        int index = Integer.parseInt(arguments[0]) - 1; // Convert to zero-based index
-        if (index < 0 || index >= TaskCommand.tasks.size()) {
-            throw new NiwaTaskIndexOutOfBoundException(TaskCommand.tasks.size());
+    public CommandResult execute() throws NiwaInvalidArgumentException {
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
 
-        Task temp = TaskCommand.tasks.get(index);
-        temp.markAsDone();
+        String indexString = arguments.get(COMMAND_KEYWORDS[0]);
+        ArrayList<String> messages = new ArrayList<>();
 
-        String message  = "OK, I've marked this task as done:%n"
-                + PREFIX + "%s%n";
-        System.out.printf(PREFIX + message, temp.getFullInfo());
+        try {
+            // Parse the index from the arguments array (convert to zero-based index).
+            int index = Integer.parseInt(indexString) - 1;
 
-        super.saveTasks();
+            Task temp = TaskList.getInstance().findTask(index);
+            temp.markAsDone();
+
+            messages.add(String.format(NiwaMesssages.MESSAGE_MARK_SUCCESS, temp.getType()));
+            messages.add("\t" + temp.getFullInfo());
+
+            messages.add(autoSaveTasks());
+
+        } catch (NiwaTaskIndexOutOfBoundException e) {
+            messages.add(String.format(NiwaMesssages.MESSAGE_MARK_FAILED, e.getMessage()));
+        } catch (NumberFormatException e) {
+            messages.add(String.format(NiwaMesssages.MESSAGE_MARK_FAILED,
+                    NiwaExceptionMessages.MESSAGE_INDEX_NUMBER_FORMAT));
+        }
+
+        return new CommandResult(messages);
     }
 }

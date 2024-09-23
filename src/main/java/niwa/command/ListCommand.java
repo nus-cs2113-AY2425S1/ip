@@ -1,38 +1,47 @@
 package niwa.command;
 
-import niwa.task.Task;
+import niwa.data.task.Task;
+import niwa.data.task.TaskList;
+import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ListCommand extends TaskCommand {
-    public ListCommand(List<Task> tasks) {
-        super(tasks);
-        setFormat("");
-        setWord("list");
-        setGuide("list: List all current tasks.");
-    }
+public class ListCommand extends Command {
+    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_GUIDE = "list: List all current tasks.";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    @Override
-    public String[] parseArguments(String command) {
-        if (!command.isEmpty()) {
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
-        return new String[0];
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Lists all tasks in the task list.
      *
-     * @param rawArgumentString should be null.
      */
     @Override
-    public void execute(String rawArgumentString) {
-        super.execute(rawArgumentString);
-        System.out.println(PREFIX + "Here are the tasks in your list:");
-        int index = 1;
-
-        for (Task task : TaskCommand.tasks) {
-            System.out.printf(PREFIX + "%d. %s%n", index++, task.getFullInfo());
+    public CommandResult execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
         }
+
+        ArrayList<String> messages = new ArrayList<>();
+        ArrayList<Task> returnedTasks = TaskList.getInstance().getTaskList();
+
+        if (returnedTasks.isEmpty()) {
+            messages.add(NiwaMesssages.MESSAGE_LIST_EMPTY);
+        }
+        else {
+            messages.add(NiwaMesssages.MESSAGE_LIST_SUCCESS);
+        }
+        return new CommandResult(messages, returnedTasks);
     }
 }

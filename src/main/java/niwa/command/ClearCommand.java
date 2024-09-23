@@ -1,42 +1,59 @@
 package niwa.command;
 
-import niwa.task.Task;
+import niwa.exception.NiwaInvalidArgumentException;
+import niwa.exception.NiwaTaskIndexOutOfBoundException;
+import niwa.messages.NiwaExceptionMessages;
+import niwa.messages.NiwaMesssages;
+import niwa.data.task.TaskList;
+import niwa.messages.NiwaShortMessages;
+import niwa.ui.NiwaUI;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ClearCommand extends TaskCommand{
-    public ClearCommand(List<Task> tasks) {
-        super(tasks);
-        setFormat("");
-        setWord("clear");
-        setGuide("clear: Clear all tasks in the list.");
-    }
+public class ClearCommand extends Command{
+    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_GUIDE = "clear: Clear all tasks in the list.";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    @Override
-    public String[] parseArguments(String command) {
-        if (!command.isEmpty()) {
-            return null;
+    public boolean isValidArguments() {
+        if (arguments.size() != COMMAND_KEYWORDS.length) {
+            return false;
         }
-        return new String[0];
+        for (String keyword: COMMAND_KEYWORDS) {
+            if (!arguments.containsKey(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
-
     /**
      * Clear all tasks in the list
      *
-     * @param rawArgumentString should be null.
      */
     @Override
-    public void execute(String rawArgumentString) {
-        super.execute(rawArgumentString);
-        tasks.clear();
+    public CommandResult execute() throws NiwaInvalidArgumentException{
+        if (!isValidArguments()) {
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+        }
+        ArrayList<String> messages = new ArrayList<>();
 
-        // Prepare the message to confirm deletion.
-        String message = "OK, I've clear your task list.%n"
-                + PREFIX + "You currently have %d tasks in the list.%n";;
+        NiwaUI ui = new NiwaUI();
+        ui.printMiddleMessage(NiwaMesssages.MESSAGE_CLEAR_ASK);
 
-        // Print out a confirmation message with task details and remaining task count.
-        System.out.printf(PREFIX + message, tasks.size());
+        String response = ui.getUserCommand().toUpperCase().trim();
 
-        super.saveTasks();
+        if (response.equals(NiwaShortMessages.YES_MESSAGE)) {
+            TaskList.getInstance().clearTaskList();
+
+            messages.add(NiwaMesssages.MESSAGE_CLEAR_SUCCESS);
+            messages.add(autoSaveTasks());
+        } else {
+            messages.add(NiwaMesssages.MESSAGE_CLEAR_CANCEL);
+        }
+
+        messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
+                TaskList.getInstance().getTaskListSize()));
+
+        return new CommandResult(messages);
     }
 }

@@ -1,44 +1,39 @@
 package niwa.command;
 
+import niwa.Niwa;
+import niwa.data.Storage;
+import niwa.data.task.TaskList;
 import niwa.exception.NiwaInvalidArgumentException;
+import niwa.messages.NiwaMesssages;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Command {
     protected static final String PREFIX = "\t";
-    protected String argumentFormat;
-    protected String word;
-    protected String guide;
-    protected String[] arguments;
+    public static final String COMMAND_WORD = "";
+    public static final String COMMAND_GUIDE = "";
+    public static final String[] COMMAND_KEYWORDS = {};
 
-    public abstract String[] parseArguments(String command);
+    protected Map<String, String> arguments = new HashMap<>();
 
-    public void execute(String rawArgumentString) throws NiwaInvalidArgumentException {
-        setArguments(parseArguments(rawArgumentString));
-        if (arguments == null) {
-            throw new NiwaInvalidArgumentException(guide);
-        }
-    }
 
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public String getGuide() {
-        return guide;
-    }
-
-    public void setGuide(String guide) {
-        this.guide = guide;
-    }
-
-    public void setFormat(String format) {
-        this.argumentFormat = format;
-    }
-
-    public void setArguments(String[] arguments) {
+    public abstract CommandResult execute() throws NiwaInvalidArgumentException;
+    public void setArguments(Map<String, String> arguments) {
         this.arguments = arguments;
+    }
+
+    public static String autoSaveTasks() {
+        Storage storage = new Storage(Niwa.getOutputFilePath());
+
+        String message;
+        try {
+            storage.writeTaskList(TaskList.getInstance().getTaskList());
+            message = String.format(NiwaMesssages.MESSAGE_SAVE_COMPLETE, Niwa.getOutputFilePath());
+        } catch (IOException e) {
+            message = String.format(NiwaMesssages.MESSAGE_SAVE_FAILED, e.getMessage());
+        }
+        return message;
     }
 }

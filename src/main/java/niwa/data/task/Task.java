@@ -1,4 +1,4 @@
-package niwa.task;
+package niwa.data.task;
 
 /**
  * Represents a task with a description and a completion status.
@@ -121,4 +121,11 @@ public abstract class Task {
     public static Task parseTask(String inputString){
         return null;
     }
+
+    /**
+     * Returns true if both tasks have the same identity fields.
+     *
+     * @param inputTask The task to compare.
+     */
+    public abstract boolean isSameTask(Task inputTask);
 }
