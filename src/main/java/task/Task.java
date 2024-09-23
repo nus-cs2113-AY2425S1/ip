@@ -1,7 +1,6 @@
 package task;
 
 import exceptions.IrisException;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -9,7 +8,7 @@ import java.time.format.DateTimeParseException;
 public class Task implements Serializable {
     private static final String INVALID_DATE_FORMAT = "Invalid Date Format: Use YYYY-MM-DD format";
 
-    protected String description;
+    public String description;
     protected boolean isDone;
     public LocalDate dueDate;
     protected String timePreposition;
