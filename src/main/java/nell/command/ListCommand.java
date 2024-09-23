@@ -6,14 +6,16 @@ import nell.common.Messages;
 /**
  * Represents an executable "list" command
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
+    public static final String COMMAND_WORD = "list";
+
     /**
      * Constructs a new ListCommand object given a task list
      *
      * @param tasks The given task list
      */
     public ListCommand(TaskList tasks) {
-        super("list", tasks);
+        super(tasks);
     }
 
     /**

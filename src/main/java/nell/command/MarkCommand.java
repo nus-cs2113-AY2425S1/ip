@@ -6,7 +6,9 @@ import nell.common.Messages;
 /**
  * Represents an executable mark command
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
+    public static final String COMMAND_WORD = "mark";
+
     /**
      * Constructs a MarkCommand object with a specified task list and task index
      *
@@ -14,7 +16,7 @@ public class MarkCommand extends Command{
      * @param taskIndex The specified task index
      */
     public MarkCommand(TaskList tasks, int taskIndex){
-        super("mark", tasks, taskIndex);
+        super(tasks, taskIndex);
     }
 
     /**

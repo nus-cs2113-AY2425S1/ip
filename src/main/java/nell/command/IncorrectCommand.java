@@ -6,7 +6,7 @@ import nell.common.Messages;
 /**
  * Represents an incorrect command
  */
-public class IncorrectCommand extends Command{
+public class IncorrectCommand extends Command {
     private final String message;
 
     /**
@@ -15,7 +15,7 @@ public class IncorrectCommand extends Command{
      * @param tasks The specified task list
      */
     public IncorrectCommand(TaskList tasks) {
-        super("incorrect", tasks);
+        super(tasks);
         this.message = Messages.INVALID_COMMAND_MESSAGE;
     }
 

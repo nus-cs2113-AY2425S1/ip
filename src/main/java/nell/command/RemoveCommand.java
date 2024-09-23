@@ -6,7 +6,9 @@ import nell.common.Messages;
 /**
  * Represents an executable remove command
  */
-public class RemoveCommand extends Command{
+public class RemoveCommand extends Command {
+    public static final String COMMAND_WORD = "remove";
+
     /**
      * Constructs a new RemoveCommand object with a specified task list and index
      *
@@ -14,7 +16,7 @@ public class RemoveCommand extends Command{
      * @param taskIndex The specified task index
      */
     public RemoveCommand(TaskList tasks, int taskIndex) {
-        super("remove", tasks, taskIndex);
+        super(tasks, taskIndex);
     }
 
     /**

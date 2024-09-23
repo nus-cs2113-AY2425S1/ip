@@ -6,6 +6,8 @@ import nell.list.TaskList;
  * Represents an executable find command
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_WORD = "find";
+
     private final String keyword;
 
     /**
@@ -15,7 +17,7 @@ public class FindCommand extends Command {
      * @param keyword The specified keyword
      */
     public FindCommand(TaskList tasks, String keyword) {
-        super("find", tasks);
+        super(tasks);
         this.keyword = keyword;
     }
 

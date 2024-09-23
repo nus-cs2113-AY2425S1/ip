@@ -6,7 +6,9 @@ import nell.common.Messages;
 /**
  * Represents an executable unmark command
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
+    public static final String COMMAND_WORD = "unmark";
+
     /**
      * Constructs a UnmarkCommand object with a specified task list and task index
      *
@@ -14,7 +16,7 @@ public class UnmarkCommand extends Command{
      * @param taskIndex The specified task index
      */
     public UnmarkCommand(TaskList tasks, int taskIndex){
-        super("unmark", tasks, taskIndex);
+        super(tasks, taskIndex);
     }
 
     /**
