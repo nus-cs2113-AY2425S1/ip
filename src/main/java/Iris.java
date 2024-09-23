@@ -6,20 +6,25 @@ import command.Parser;
 import command.Command;
 
 /**
+ * The Iris class is the main entry point for the Iris program.
+ * It manages tasks by reading user commands and saving them to a file
+ * before closing the application.
+ *
  * @author Tan Ping Hui
  */
 
 public class Iris {
-    private static final String STORAGE_FILE_PATH = "C:\\Users\\pingh\\OneDrive\\Desktop\\ip\\src\\main\\java\\data\\iris.txt";
+    private static final String STORAGE_FILE_PATH = "./iris.txt";
 
     private static Storage storage;
     private TaskList tasks;
     private static Ui ui;
 
     /**
-     * Instantiate Ui to start Scanner
-     * Load TaskList from a text file at filePath
-     * @param filePath is the text file path to load and save the task list
+     * Constructs an Iris object to handle task management.
+     * Initializes the user interface (Ui) and loads the task list from the storage file.
+     *
+     * @param filePath The path to the text file where tasks are stored.
      */
     public Iris(String filePath) {
         ui = new Ui();
@@ -33,6 +38,10 @@ public class Iris {
         }
     }
 
+    /**
+     * Starts the main event loop for the Iris program.
+     * Continuously reads user commands, executes them, and determines whether to exit.
+     */
     private void run() {
         Ui.showWelcomeMessage();
         boolean isExit = false;
@@ -52,8 +61,10 @@ public class Iris {
     }
 
     /**
-     * Main loop to run program
-     * @param args is not utilised in this version
+     * The main method that serves as the entry point to the Iris program.
+     * It initializes the Iris object and starts the main event loop.
+     *
+     * @param args Command-line arguments (not used in this version).
      */
     public static void main(String[] args) {
         new Iris(STORAGE_FILE_PATH).run();

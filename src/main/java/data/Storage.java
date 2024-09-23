@@ -10,22 +10,40 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * The Storage class is responsible for saving and loading the task list
+ * from a file. It handles the serialization and deserialization of
+ * TaskList objects, enabling persistent storage of tasks.
+ *
+ * This class provides methods to load tasks from a file and save them back
+ * to the file for future use.
+ *
+ * @author Tan Ping Hui
+ */
 public class Storage {
     private static final String LOAD_SUCCESS_MESSAGE = "Loaded task list successfully!";
-    private static final String LOAD_ERROR_MESSAGE = "Failed to load task list, initialising with an empty list.";
+    private static final String LOAD_ERROR_MESSAGE = "Failed to load task list, initializing with an empty list.";
     private static final String SAVE_SUCCESS_MESSAGE = "Saved task list successfully!";
     private static final String SAVE_ERROR_MESSAGE = "Failed to save task list.";
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object that manages the saving and loading of tasks
+     * from the specified file path.
+     *
+     * @param filePath The path to the file where tasks are saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Deserialize the texts in a file at filePath to a task list
-     * @return the deserialize task list
-     * @throws IrisException Error with file format
+     * Loads the task list by deserializing the data from a file at the given file path.
+     * If the file is not found or cannot be read, an {@link IrisException} is thrown.
+     *
+     * @return The loaded task list.
+     * @throws IrisException If the task list cannot be loaded due to I/O errors or file corruption.
      */
     public TaskList load() throws IrisException {
         TaskList tasks;
@@ -42,8 +60,10 @@ public class Storage {
     }
 
     /**
-     * Serialise the task list into text in a file at filePath
-     * @param tasks Task list to serialise
+     * Saves the current task list by serializing it to a file at the given file path.
+     * If an I/O error occurs, an error message is displayed to the user.
+     *
+     * @param tasks The task list to be saved.
      */
     public void save(TaskList tasks) {
         try {
