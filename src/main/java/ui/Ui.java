@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String DIVIDER = "---------------------------------------------";
-    private static final String WELCOME_MESSAGE = "Hello! I'm Iris!\nWelcome Back!";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Iris!\nTell me your needs!";
     private static final String END_CHAT_MESSAGE = "Bye! Hope to see you again soon!";
 
     private final Scanner scanner;

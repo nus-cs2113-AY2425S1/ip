@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
  * @author Tan Ping Hui
  */
 public class Task implements Serializable {
-    private static final String INVALID_DATE_FORMAT = "Invalid Date Format: Use YYYY-MM-DD format";
+    private static final String INVALID_DATE_FORMAT = "Invalid Date Format (Use YYYY-MM-DD)";
 
     public String description;
     protected boolean isDone;

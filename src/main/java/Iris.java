@@ -17,7 +17,7 @@ public class Iris {
     private static final String STORAGE_FILE_PATH = "./iris.txt";
 
     private static Storage storage;
-    private TaskList tasks;
+    private final TaskList tasks;
     private static Ui ui;
 
     /**
@@ -29,13 +29,7 @@ public class Iris {
     public Iris(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (IrisException e) {
-            Ui.showErrorMessage(e.getMessage());
-            Ui.showDivider();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList(storage.load());
     }
 
     /**

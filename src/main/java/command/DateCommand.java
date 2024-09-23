@@ -18,9 +18,9 @@ import java.time.format.DateTimeParseException;
  * @author Tan Ping Hui
  */
 public class DateCommand extends Command {
-    private static final String INVALID_DATE_FORMAT = "Invalid Date Format: Use YYYY-MM-DD format";
+    private static final String INVALID_DATE_FORMAT = "Invalid Date Format (Use YYYY-MM-DD)";
 
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Constructs a DateCommand object and parses the given date string.

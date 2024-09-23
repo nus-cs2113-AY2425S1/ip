@@ -16,5 +16,5 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/Iris.java` file, right-click it, and choose `Run Iris.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello! I'm Iris!
-   Welcome Back!
+   Tell me your needs!
    ```

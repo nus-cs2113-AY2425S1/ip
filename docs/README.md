@@ -77,7 +77,7 @@ Here are the tasks in your list:
 ```
 
 ### 5. Finding a task: `find`
-To find tasks with descriptions that contain a certain keyword
+To find tasks with description that contain a certain keyword
 
 Format: `find KEYWORD`
 

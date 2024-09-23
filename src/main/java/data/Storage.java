@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
  * The Storage class is responsible for saving and loading the task list
  * from a file. It handles the serialization and deserialization of
  * TaskList objects, enabling persistent storage of tasks.
- *
+ * <p>
  * This class provides methods to load tasks from a file and save them back
  * to the file for future use.
  *
@@ -43,18 +43,18 @@ public class Storage {
      * If the file is not found or cannot be read, an {@link IrisException} is thrown.
      *
      * @return The loaded task list.
-     * @throws IrisException If the task list cannot be loaded due to I/O errors or file corruption.
      */
-    public TaskList load() throws IrisException {
+    public TaskList load() {
         TaskList tasks;
         try {
             FileInputStream fis = new FileInputStream(filePath);
             ObjectInputStream ois = new ObjectInputStream(fis);
             tasks = (TaskList) ois.readObject();
             System.out.println(LOAD_SUCCESS_MESSAGE);
+            Ui.showDivider();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(LOAD_ERROR_MESSAGE);
-            throw new IrisException(e.getMessage());
+            tasks = new TaskList();
         }
         return tasks;
     }
