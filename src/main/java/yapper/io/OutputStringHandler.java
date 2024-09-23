@@ -33,7 +33,7 @@ public class OutputStringHandler {
     // For Instruction: Mark, Unmark
     public static void printTaskStatus(Task task, boolean isDone) {
         String status = (isDone ? "done" : "undone");
-        StringStorage.printWithDividers(
-                "This task is now " + status + ": \n" + "  " + task.taskToString());
+        System.out.println(
+                "This task is now " + status + ": \n" + "  " + task.taskToDisplay());
     }
 }
