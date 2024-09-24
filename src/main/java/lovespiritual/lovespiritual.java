@@ -117,10 +117,7 @@ public class lovespiritual {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = extractTasks(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
+                tasks.add(extractTasks(line));
             }
             reader.close();
         } catch (Exception e) {
