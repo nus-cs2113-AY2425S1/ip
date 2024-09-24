@@ -142,7 +142,7 @@ public class ChatParser {
             } catch (StringIndexOutOfBoundsException s) {
                 UI.printReply("Please use /by to specify the deadline's date", "Retry: ");
             } catch (DateTimeParseException d) {
-                UI.printReply("Please use a valid date in the yyyy-mm-dd format", "Retry: ");
+                UI.printReply("Use a valid date time specifier (see: https://kennethsty.github.io/ip/)", "Retry: ");
             }
             break;
         case "event":
