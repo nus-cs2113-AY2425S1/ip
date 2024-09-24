@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 /**
  * Represents the command line bot that helps stores your tasks.
  * Functionalities include adding, deleting, finding and marking tasks as well as categorise them into todo, deadline

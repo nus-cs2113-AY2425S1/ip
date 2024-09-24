@@ -12,7 +12,7 @@ public class Parser {
      *
      * @param tasklist {@code TaskList} member which keeps track of number of task and stores all the tasks
      * @param index Index of the task in the list of tasks to check
-     * @throws LeginIndexOutOfBoundsException
+     * @throws LeginIndexOutOfBoundsException If index is out of range of task list array
      */
     private void checkIndexValidity(TaskList tasklist, int index) throws LeginIndexOutOfBoundsException {
         if (index > tasklist.getTaskCount()) {
@@ -41,7 +41,6 @@ public class Parser {
      * @param words Array of words from the user input
      * @param input User input into command line
      * @return {@code true} if the user command is bye
-     * @throws LeginInvalidCommandException when {@code command} does not match any {@code TaskList} operations
      */
     private boolean selectCommand(TaskList taskList, String command, String[] words, String input) {
         int indexOfTaskToMark;
