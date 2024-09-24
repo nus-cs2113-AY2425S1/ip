@@ -26,7 +26,7 @@ public class IncorrectCommand extends Command {
      * @param message The specified message
      */
     public IncorrectCommand(TaskList tasks, String message) {
-        super("incorrect", tasks);
+        super(tasks);
         this.message = message;
     }
 
