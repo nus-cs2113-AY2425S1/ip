@@ -5,6 +5,8 @@ import exception.LeginInvalidCommandException;
  * Pulls command from user input and calling {@code TaskList} methods to execute them
  */
 public class Parser {
+    private final int COMMAND_INDEX = 0;
+    private final int INDEX_TO_MARK = 1;
     private Ui ui = new Ui();
 
     /**
@@ -29,7 +31,7 @@ public class Parser {
      */
     public boolean parseInput(TaskList taskList, String input) {
         String[] wordsOfInput = input.split(" ");
-        String command = wordsOfInput[0];
+        String command = wordsOfInput[COMMAND_INDEX];
         return selectCommand(taskList, command, wordsOfInput, input);
     }
 
@@ -52,12 +54,12 @@ public class Parser {
                 taskList.list();
                 break;
             case "mark":
-                indexOfTaskToMark = Integer.parseInt(words[1]);
+                indexOfTaskToMark = Integer.parseInt(words[INDEX_TO_MARK]);
                 checkIndexValidity(taskList, indexOfTaskToMark);
                 taskList.markTask(indexOfTaskToMark);
                 break;
             case "unmark":
-                indexOfTaskToMark = Integer.parseInt(words[1]);
+                indexOfTaskToMark = Integer.parseInt(words[INDEX_TO_MARK]);
                 checkIndexValidity(taskList, indexOfTaskToMark);
                 taskList.unmarkTask(indexOfTaskToMark);
                 break;

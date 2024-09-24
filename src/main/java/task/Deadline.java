@@ -6,12 +6,20 @@ import exception.LeginMissingParamsException;
  * Stores the information of a Deadline task
  */
 public class Deadline extends Task{
+    private static final int INCREMENT_TO_DESCRIPTION_START = 1;
+    private static final int DECREMENT_TO_DESCRIPTION_END = 1;
+    private static final int INDEX_IF_NO_DESCRIPTION = 9;
+    private static final int INDEX_IF_MISSING_WORD_BY = -1;
+    private static final int SIZE_OF_WORD_BY = 3;
+    private static final int SIZE_OF_WORD_BY_AND_SPACE = 4;
+    private static final int INCREMENT_TO_BY_START = 4;
     protected String by;
 
     private static String getDeadlineDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         validityCheck(input);
-        return input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1);
+        return input.substring(input.indexOf(" ") + INCREMENT_TO_DESCRIPTION_START,
+                input.indexOf("/by") - DECREMENT_TO_DESCRIPTION_END);
     }
 
     /**
@@ -25,17 +33,18 @@ public class Deadline extends Task{
     private static void validityCheck(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfBy = input.indexOf("/by");
-        if (indexOfBy == 9) {
+        if (indexOfBy == INDEX_IF_NO_DESCRIPTION) {
             throw new LeginEmptyTaskException();
         }
-        if (indexOfBy == -1 || input.length() == indexOfBy + 3 || input.length() == indexOfBy + 4) {
+        if (indexOfBy == INDEX_IF_MISSING_WORD_BY || input.length() == indexOfBy + SIZE_OF_WORD_BY
+                || input.length() == indexOfBy + SIZE_OF_WORD_BY_AND_SPACE) {
             throw new LeginMissingParamsException();
         }
     }
 
     public Deadline(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
         super(getDeadlineDescription(input));
-        int startingIndexOfDueDate = input.indexOf("/by") + 4;
+        int startingIndexOfDueDate = input.indexOf("/by") + INCREMENT_TO_BY_START;
         this.by = input.substring(startingIndexOfDueDate);
     }
 

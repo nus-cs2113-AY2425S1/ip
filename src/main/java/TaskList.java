@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Keeps track of the number of task the user has and stores all task information in an array of {@code Task}
  */
 public class TaskList {
+    private final int DECREMENT_FOR_ZERO_INDEX = 1;
     private ArrayList<Task> tasks;
     private int currentTaskCount;
     private Ui ui = new Ui();
@@ -95,7 +96,7 @@ public class TaskList {
      */
     public void markTask(int index) {
         ui.horizontalLine();
-        Task taskToMark = tasks.get(index - 1);
+        Task taskToMark = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
         taskToMark.markTask();
         ui.printMarkTaskMessage(taskToMark);
         ui.horizontalLine();
@@ -109,7 +110,7 @@ public class TaskList {
      */
     public void unmarkTask(int index) {
         ui.horizontalLine();
-        Task taskToUnmark = tasks.get(index - 1);
+        Task taskToUnmark = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
         taskToUnmark.unmarkTask();
         ui.printUnmarkTaskMessage(taskToUnmark);
         ui.horizontalLine();
@@ -123,8 +124,8 @@ public class TaskList {
      */
     public void deleteTask(int index) {
         ui.horizontalLine();
-        Task taskToRemove = tasks.get(index - 1);
-        tasks.remove(index - 1);
+        Task taskToRemove = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
+        tasks.remove(index - DECREMENT_FOR_ZERO_INDEX);
         currentTaskCount--;
         ui.printDeleteTaskMessage(taskToRemove, currentTaskCount);
         ui.horizontalLine();

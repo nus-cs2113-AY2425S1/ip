@@ -16,6 +16,10 @@ import java.util.Scanner;
  * the bot
  */
 public class Storage {
+    private final int TASK_DESCRIPTION_INDEX = 2;
+    private final int BY_INDEX = 3;
+    private final int FROM_INDEX = 3;
+    private final int TO_INDEX = 4;
     private Ui ui = new Ui();
     private final String FILE_PATH = "./tasklist.txt";
     private ArrayList<Task> importedTaskListFromStorage = new ArrayList<>();
@@ -46,13 +50,14 @@ public class Storage {
         String taskType = words[0];
         switch(taskType) {
         case "T":
-            importedTaskListFromStorage.add(new Todo(words[2], true));
+            importedTaskListFromStorage.add(new Todo(words[TASK_DESCRIPTION_INDEX], true));
             break;
         case "D":
-            importedTaskListFromStorage.add(new Deadline(words[2], words[3]));
+            importedTaskListFromStorage.add(new Deadline(words[TASK_DESCRIPTION_INDEX], words[BY_INDEX]));
             break;
         case "E":
-            importedTaskListFromStorage.add(new Event(words[2], words[3], words[4]));
+            importedTaskListFromStorage.add(new Event(words[TASK_DESCRIPTION_INDEX], words[FROM_INDEX],
+                    words[TO_INDEX]));
             break;
         }
         if (words[1].equals("true")) {

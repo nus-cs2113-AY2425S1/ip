@@ -5,8 +5,9 @@ import exception.LeginEmptyTaskException;
  * Stores information on a Todo task
  */
 public class Todo extends Task{
+    private static final int INCREMENT_TO_START_INDEX = 1;
     /**
-     * Retrieves the task decription fo the Todo task
+     * Retrieves the task description fo the Todo task
      *
      * @param input User input in command line
      * @param isFromLoadFile Set to {@code true} when {@code input} information comes from storage text file
@@ -16,7 +17,7 @@ public class Todo extends Task{
         if (isFromLoadFile) {
             return input;
         }
-        return input.substring(input.indexOf(" ") + 1);
+        return input.substring(input.indexOf(" ") + INCREMENT_TO_START_INDEX);
     }
 
     /**

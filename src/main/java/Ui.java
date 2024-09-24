@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Ui {
 
+    private final int INCREMENT_ZERO_INDEX = 1;
+
     public void horizontalLine() {
         System.out.println("______________________" +
                 "______________________________________");
@@ -38,7 +40,7 @@ public class Ui {
      */
     public void printTaskList(int taskCount, ArrayList<Task> tasks) {
         for (int i = 0; i < taskCount; i++) {
-            System.out.print(i + 1 + ". ");
+            System.out.print((i + INCREMENT_ZERO_INDEX) + ". ");
             System.out.println(tasks.get(i));
         }
     }

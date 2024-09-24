@@ -6,13 +6,22 @@ import exception.LeginMissingParamsException;
  * Stores information on an Event task
  */
 public class Event extends Task{
+    private static final int INCREMENT_TO_DESCRIPTION_START = 1;
+    private static final int DECREMENT_TO_DESCRIPTION_END = -1;
+    private static final int INDEX_IF_MISSING_DESCRIPTION = 6;
+    private static final int INDEX_IF_MISSING_PARAMS_WORD = -1;
+    private static final int INCREMENT_FROM_START_OF_FROM = 5;
+    private static final int INCREMENT_FROM_START_OF_FROM_WITH_SPACE= 6;
+    private static final int DECREMENT_FROM_START_OF_TO = -1;
+    private static final int INCREMENT_FROM_START_OF_TO = 4;
     protected String eventStart;
     protected String eventEnd;
 
     private static String getEventDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         validityCheck(input);
-        return input.substring(input.indexOf(" ") + 1, input.indexOf("/from") - 1);
+        return input.substring(input.indexOf(" ") + INCREMENT_TO_DESCRIPTION_START,
+                input.indexOf("/from") + DECREMENT_TO_DESCRIPTION_END);
     }
 
     /**
@@ -28,19 +37,21 @@ public class Event extends Task{
             LeginEmptyTaskException {
         int indexOfFrom = input.indexOf("from");
         int indexOfTo = input.indexOf("to");
-        if (indexOfFrom == 6) {
+        if (indexOfFrom == INDEX_IF_MISSING_DESCRIPTION) {
             throw new LeginEmptyTaskException();
         }
-        if (indexOfFrom == -1 || indexOfTo == -1 || indexOfFrom + 5 == indexOfTo || indexOfFrom + 6 == indexOfTo) {
+        if (indexOfFrom == INDEX_IF_MISSING_PARAMS_WORD || indexOfTo == INDEX_IF_MISSING_PARAMS_WORD
+                || indexOfFrom + INCREMENT_FROM_START_OF_FROM == indexOfTo
+                || indexOfFrom + INCREMENT_FROM_START_OF_FROM_WITH_SPACE == indexOfTo) {
             throw new LeginMissingParamsException();
         }
     }
 
     public Event(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
         super(getEventDescription(input));
-        int startingIndexOfEventStart = input.indexOf("/from") + 6;
-        int endingIndexOfEventStart = input.indexOf("/to") - 1;
-        int startingIndexOfEventEnd = endingIndexOfEventStart + 5;
+        int startingIndexOfEventStart = input.indexOf("/from") + INCREMENT_FROM_START_OF_FROM;
+        int endingIndexOfEventStart = input.indexOf("/to") + DECREMENT_FROM_START_OF_TO;
+        int startingIndexOfEventEnd = input.indexOf("/to") + INCREMENT_FROM_START_OF_TO;
         String eventStart = input.substring(startingIndexOfEventStart, endingIndexOfEventStart);
         String eventEnd = input.substring(startingIndexOfEventEnd);
         this.eventStart = eventStart;
