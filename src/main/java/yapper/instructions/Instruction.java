@@ -3,9 +3,9 @@ package yapper.instructions;
 // Handles the various input instructions for Yapper
 public class Instruction {
     public enum InstructionType {
-        LIST,
+        LIST, FIND,
         TODO, DEADLINE, EVENT,
-        DELETE, MARK, UNMARK
+        DELETE, MARK, UNMARK,
     }
     private InstructionType instructionType;
     private String[] taskDates; // Non-Desc
@@ -17,7 +17,7 @@ public class Instruction {
         this.instructionType = type; // LIST
     }
     public Instruction(InstructionType type, String taskDesc) {
-        this.instructionType = type; // TODO
+        this.instructionType = type; // TODO, FIND
         this.instructionDesc = taskDesc;
     }
     public Instruction(InstructionType type, String taskDesc, String endDate) {

@@ -21,10 +21,10 @@ public class TaskHandler {
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
-    public Task getTask(int taskOrdinal) {
+    public Task getTaskAtOrdinal(int taskOrdinal) {
         return tasks.get(taskOrdinal);
     }
-    public int getTaskOrdinal(Task task) {
+    public int getOrdinalOf(Task task) {
         return tasks.indexOf(task);
     }
 
