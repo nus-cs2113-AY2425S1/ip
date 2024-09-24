@@ -1,5 +1,6 @@
 package Glendon;
 
+import Glendon.GlendonException;
 import Glendon.task.Deadline;
 import Glendon.task.Event;
 import Glendon.task.Task;
@@ -46,24 +47,34 @@ public class TaskList {
     }
 
     public void addEvent(String response) throws StringIndexOutOfBoundsException,ArrayIndexOutOfBoundsException {
-        String[] answers = response.split("/");
+        String[] answers = response.split("/from ");
         String taskInfo = answers[0].substring(6);
-        String startDate = answers[1].substring(5);
-        String endDate = answers[2].substring(3);
+        String[] dates = answers[1].split("to ");
+        String startDate = dates[0];
+        String endDate = dates[1];
+        if (taskInfo.length() == 0) {
+            throw new GlendonException();
+        }
         taskList.add(new Event(taskInfo, startDate, endDate));
         taskCounter++;
     }
 
-    public void addDeadline(String response) throws StringIndexOutOfBoundsException,ArrayIndexOutOfBoundsException {
-        String[] answers = response.split("/");
+    public void addDeadline(String response) throws GlendonException {
+        String[] answers = response.split("/by ");
         String taskInfo = answers[0].substring(9);
-        String taskDeadline = answers[1].substring(3);
+        if (taskInfo.length() == 0) {
+            throw new GlendonException();
+        }
+        String taskDeadline = answers[1];
         taskList.add(new Deadline(taskInfo, taskDeadline));
         taskCounter++;
     }
 
     public void addTodo(String response) throws StringIndexOutOfBoundsException {
         String taskInfo = response.substring(5);
+        if (taskInfo.length() == 0) {
+            throw new GlendonException();
+        }
         taskList.add(new Todo(taskInfo));
         taskCounter++;
     }

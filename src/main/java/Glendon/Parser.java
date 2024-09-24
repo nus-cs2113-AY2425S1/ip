@@ -78,6 +78,8 @@ public class Parser {
                 ui.showAddedTask(tasks);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.showTaskInfoError();
+            } catch (GlendonException e) {
+                ui.showTaskInfoError();
             }
             break;
         case DEADLINE:
@@ -87,7 +89,9 @@ public class Parser {
             } catch (StringIndexOutOfBoundsException e) {
                 ui.showTaskInfoError();
             } catch (ArrayIndexOutOfBoundsException e) {
-              ui.showDateError();
+                ui.showDateError();
+            } catch (GlendonException e) {
+                ui.showTaskInfoError();
             }
             break;
         case EVENT:
@@ -98,6 +102,8 @@ public class Parser {
                 ui.showTaskInfoError();
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.showDateError();
+            } catch (GlendonException e) {
+                ui.showTaskInfoError();
             }
             break;
         case DELETE:
