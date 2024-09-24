@@ -14,7 +14,10 @@ public class InstructionHandler {
     // UI Operations: Error_Check -> Do -> Print -> Update_File
 
     public static void handleFindInstruction(TaskHandler taskHandler, String query) {
+        // No Error_Check yet ?
+        // Do & Print
         OutputStringHandler.printTasksMatchQuery(taskHandler, query);
+        // No Update_File needed
     }
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {

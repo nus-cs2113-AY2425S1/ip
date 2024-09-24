@@ -32,8 +32,7 @@ public class OutputStringHandler {
 
         if (totalMatching > 0) {
             System.out.println(
-                    "I can recall " + totalMatching + " tasks that may be relevant. " +
-                    "Is any of them what you were looking for? ");
+                    totalMatching + StringStorage.RELEVANT_TASKS_FOUND_STRING);
         } else {
             System.out.println(StringStorage.RELEVANT_TASKS_NOT_FOUND_STRING);
         }

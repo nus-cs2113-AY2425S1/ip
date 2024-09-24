@@ -75,8 +75,14 @@ public class StringStorage {
 
     // Program Strings that are part of a Message
     public static final String LIST_RELEVANT_TASKS_STRING =
-            "Hmm, let me think. ";
+            "Hmmm, let me think. What tasks could you be referring to? ";
+    public static final String RELEVANT_TASKS_FOUND_STRING =
+            " task(s) contains your query string." +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "Is any of them what you were looking for? ";
     public static final String RELEVANT_TASKS_NOT_FOUND_STRING =
+            "No tasks found that contains your query string. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
             "Sorry, I don't think I can recall any. ";
     public static final String LIST_ALL_TASKS_STRING =
             "You don't remember your tasks? Lemme refresh your memory: ";
