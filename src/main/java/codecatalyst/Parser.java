@@ -8,7 +8,7 @@ public class Parser {
     private static int DEADLINE_LENGTH = 9;
     private static int EVENT_LENGTH = 6;
     private static int MARK_LENGTH = 5;
-    private static int UNMARK_LENGTH = 8;
+    private static int UNMARK_LENGTH = 7;
     private static int DELETE_LENGTH = 7;
 
     public static Command parse(String fullCommand) throws Exception {
@@ -26,7 +26,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(fullCommand.substring(UNMARK_LENGTH));
         case "delete":
-            return new deleteCommand(fullCommand.substring(DELETE_LENGTH));
+            return new DeleteCommand(fullCommand.substring(DELETE_LENGTH));
         case "bye":
             return new ExitCommand();
         case "list":
