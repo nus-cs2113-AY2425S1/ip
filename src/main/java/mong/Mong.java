@@ -7,6 +7,7 @@ import mong.task.Event;
 import mong.task.Task;
 import mong.task.TaskType;
 import mong.task.Todo;
+import mong.ui.Ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,16 +16,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+
 public class Mong {
-    public static final String FILE_PATH = "src/main/java/mong/data/mong.txt";
+    public static final String FILE_PATH = "./src/main/java/mong/data/mong.txt";
     public static ArrayList<Task> list = new ArrayList<>();
-    public static final int LENGTH_DEADLINE = 8;
-    public static final int LENGTH_BY = 3;
-    public static final int LENGTH_TODO = 4;
-    public static final int LENGTH_EVENT = 5;
-    public static final int LENGTH_FROM = 4;
-    public static final int LENGTH_TO = 3;
-    public static final String HORIZONTAL_LINE = "--------------------------------------------------";
+    private static Ui ui;
 
     /**
      * Writes new content to txt file.
@@ -126,37 +122,17 @@ public class Mong {
     }
 
     /**
-     * Prints a horizontal line with width of 50 characters.
-     */
-    public static void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
      * Prints the indexed list.
      * If the task format is incorrect, error is handled.
      */
     private static void handleListCommand(String input) {
         try {
-            printIndexedList(input);
+            ui.printIndexedList(input);
         } catch (IllegalTaskFormatException e) {
             System.out.println("Oi oi MONG! Task format is incorrect...");
         }
     }
 
-    /**
-     * Prints out an indexed list of commands given to Mong starting from 1.
-     */
-    
-    public static void printIndexedList(String input) throws IllegalTaskFormatException {
-        if (!input.contentEquals("list")) {
-            throw new IllegalTaskFormatException("Task format is incorrect!");
-        }
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
-        }
-        System.out.println("MONG my god! You have " + list.size() + " task(s) in the list!");
-    }
 
     /**
      * Add a Task of type Deadline from txt file.
@@ -176,15 +152,14 @@ public class Mong {
      * A deadline consists of the task description and deadline in String format.
      */
     public static void addDeadline(String input) {
-        int endOfCommand = input.indexOf("deadline") + LENGTH_DEADLINE;
-        int endOfBy = input.lastIndexOf("/by") + LENGTH_BY;
+        int endOfCommand = input.indexOf("deadline") + ui.LENGTH_DEADLINE;
+        int endOfBy = input.lastIndexOf("/by") + ui.LENGTH_BY;
         int startOfBy = input.indexOf("/by");
         try {
             String description = input.substring(endOfCommand + 1, startOfBy);
             String deadline = input.substring(endOfBy + 1);
             list.add(new Deadline(description, deadline));
-            System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list.get(list.size() - 1));
+            ui.printItemAddedMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! No description or deadline?@#!");
         }
@@ -208,12 +183,11 @@ public class Mong {
      * A todo consists of the task description only.
      */
     public static void addTodo(String input) {
-        int endOfCommand = input.indexOf("todo") + LENGTH_TODO;
+        int endOfCommand = input.indexOf("todo") + ui.LENGTH_TODO;
         try {
             String description = input.substring(endOfCommand + 1);
             list.add(new Todo(description));
-            System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list.get(list.size() - 1));
+            ui.printItemAddedMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! No description?@#!");
         }
@@ -237,18 +211,17 @@ public class Mong {
      * An event consists of the task description and from/to period in String format.
      */
     public static void addEvent(String input) {
-        int endOfCommand = input.indexOf("event") + LENGTH_EVENT;
-        int endOfFrom = input.lastIndexOf("/from") + LENGTH_FROM;
+        int endOfCommand = input.indexOf("event") + ui.LENGTH_EVENT;
+        int endOfFrom = input.lastIndexOf("/from") + ui.LENGTH_FROM;
         int startOfFrom = input.indexOf("/from");
-        int endOfTo = input.lastIndexOf("/to") + LENGTH_TO;
+        int endOfTo = input.lastIndexOf("/to") + ui.LENGTH_TO;
         int startOfTo = input.indexOf("/to");
         try {
             String description = input.substring(endOfCommand + 1, startOfFrom - 1);
             String from = input.substring(endOfFrom + 2, startOfTo - 1);
             String to = input.substring(endOfTo + 1);
             list.add(new Event(description, from, to));
-            System.out.println("Mong-ed! This item has been added: ");
-            System.out.println(list.get(list.size() - 1));
+            ui.printItemAddedMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Oi oi MONG! Missing description, /from or /to commands...");
         }
@@ -265,7 +238,7 @@ public class Mong {
             }
             Task deletedTask = list.get(indexValue);
             list.remove(indexValue);
-            System.out.println("Mong-?!@# This item has been removed: ");
+            ui.printItemDeletedMessage();
             System.out.println(deletedTask);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
@@ -304,6 +277,7 @@ public class Mong {
         }
         while (command != TaskType.BYE) {
             printHorizontalLine();
+            ui.printHorizontalLine();
             switch(command) {
             case LIST:
                 // print items in an indexed list
@@ -332,8 +306,8 @@ public class Mong {
                 break;
             }
             saveToFile();
-            printHorizontalLine();
-            input = in.nextLine();
+            ui.printHorizontalLine();
+            input = ui.getUserInput();
             try {
                 command = decipherTaskType(input.split(" ")[0]);
             } catch (IllegalTaskTypeException e) {
@@ -344,6 +318,7 @@ public class Mong {
 
     public static void main(String[] args) throws IOException {
         File directory = new File("/mong/data/");
+        ui = new Ui();
         File file = new File(FILE_PATH);
         if (!directory.exists()) {
             directory.mkdir();
@@ -357,24 +332,8 @@ public class Mong {
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
         }
-        String logo = "\n" +
-                "\n" +
-                "___  ___                  _ \n" +
-                "|  \\/  |                 | |\n" +
-                "| .  . | ___  _ __   __ _| |\n" +
-                "| |\\/| |/ _ \\| '_ \\ / _` | |\n" +
-                "| |  | | (_) | | | | (_| |_|\n" +
-                "\\_|  |_/\\___/|_| |_|\\__, (_)\n" +
-                "                     __/ |  \n" +
-                "                    |___/   \n" +
-                "\n";
-        printHorizontalLine();
-        System.out.println("Hello, I am\n" + logo);
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
+        ui.showWelcomeMessage();
         addByTask();
-        printHorizontalLine();
-        System.out.println("Mong-mong... See you again next time!");
-        printHorizontalLine();
+        ui.showExitMessage();
     }
 }
