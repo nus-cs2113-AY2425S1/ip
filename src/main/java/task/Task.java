@@ -3,6 +3,9 @@ package task;
 import others.TaskOperations;
 
 public abstract class Task implements TaskOperations {
+    public static final String TODO = "T";
+    public static final String DEADLINE = "D";
+    public static final String EVENT = "E";
     protected String description;
     protected boolean isDone;
     protected String taskType;
@@ -50,16 +53,16 @@ public abstract class Task implements TaskOperations {
         Task task = null;
 
         switch (parts[0]) {
-        case "T":
+        case TODO:
             task = new ToDo(parts[2]);
             break;
-        case "D":
+        case DEADLINE:
             String[] deadlineParts = parts[2].split(" \\(by: ");
             String taskName = deadlineParts[0].trim();
             String dueDate = deadlineParts[1].replace(")", "").trim();
             task = new Deadline(taskName, dueDate);
             break;
-        case "E":
+        case EVENT:
             String[] eventParts = parts[2].split(" \\(from: | to: ");
             String eventName = eventParts[0].trim();
             String fromDate = eventParts[1].replace(")", "").trim();
