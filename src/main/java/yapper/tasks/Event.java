@@ -87,7 +87,7 @@ public class Event extends Task {
                 DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
                 DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
 
-        return "[" + StringStorage.EVENT_SYMBOL + "] "
+        return "[" + StringStorage.EVENT_SYMBOL + "]"
                 + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
 
