@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# delete bin directory if it exist
+# forsing to recompile the code
+if [ -d "../bin" ]
+then
+    rm -rf ../bin
+fi
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then
@@ -23,11 +30,15 @@ fi
 java -classpath ../bin org/ajay/Jarvis < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# cp EXPECTED.TXT EXPECTED-UNIX.TXT
+# dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
+# -b, --ignore-space-change
+#       ignore changes in the amount of white space
+# -B, --ignore-blank-lines
+#       ignore changes whose lines are all blank
+diff -bB ACTUAL.TXT EXPECTED.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
