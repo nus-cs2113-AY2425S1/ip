@@ -53,6 +53,11 @@ public abstract class Task {
         isDone = done;
     }
 
+    /**
+     * Returns a formatted string of the task, for printing in task lists
+     *
+     * @return A formatted string
+     */
     @Override
     public String toString() {
         return String.format("[%S][%s] %s", this.type, this.getStatusIcon(), this.description);
@@ -78,5 +83,12 @@ public abstract class Task {
         return this.description.contains(keyword);
     }
 
+    /**
+     * Returns true if a task occurs on a specified date.
+     * Returns false otherwise
+     *
+     * @param date The specified date
+     * @return True if the task occurs on date, false otherwise
+     */
     public abstract boolean isOnDate(LocalDate date);
 }
