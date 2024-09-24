@@ -1,6 +1,6 @@
-# Joe project template
+# Joe Todo CLI Application
 
-This is a project template for a greenfield Java project. It's named after my brother _Joe_. Given below are instructions on how to use it.
+This project implements a basic CLI-based to-do application. It's named after my brother _Joe_. I've included instructions on how to use it below.
 
 ## Setting up in Intellij
 
