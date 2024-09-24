@@ -99,7 +99,14 @@ public class StringStorage {
     }
 
     /**
-     * Predefined messages for user interaction, if nothing goes wrong.
+     * Messages that occur when no instruction can be executed.
+     *
+     * <p>
+     * They come either when user cannot input instructions,
+     * or are meant to be exhaustive.
+     * Hence they can afford to be more wordy.
+     * </p>
+     *
      */
     public static final String HELP_MESSAGE =
             "To jog your memory, here's what we can discuss: \n"
@@ -126,7 +133,17 @@ public class StringStorage {
             + "Call for me whenever ya feel like listening again. \n"
             + "Cya! ";
 
-    // Program Strings that are part of a Message
+
+    /**
+     * Messages that occur when instructions are being executed.
+     *
+     * <p>
+     * They are a small component of the program output,
+     * coming before, after or between printing of tasks.
+     * Hence they are less wordy.
+     * </p>
+     *
+     */
     public static final String LIST_RELEVANT_TASKS_STRING =
             "Hmmm, let me think. What tasks could you be referring to? ";
     public static final String RELEVANT_TASKS_FOUND_STRING =
@@ -161,13 +178,20 @@ public class StringStorage {
 
 
     /**
-     * Messages used to inform users of issues or missing input.
+     * Messages that may occur when exceptions are detected during user input parsing.
+     *
+     * <p>
+     * Only one will occur for any single line the user inputs,
+     * so no likelihood of flooding the user with messages.
+     * Hence they can afford to be more wordy.
+     * </p>
+     *
      */
     public static final String EMPTY_INPUT_MESSAGE =
             "Input is missing. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "I can say nothing in reply. I just stare at you. \n" +
-            "There is an awkward silence.";
+            "There is an awkward silence between us.";
     public static final String MISSING_ARGUMENTS_MESSAGE =
             "Argument(s) for instruction are missing. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
@@ -190,30 +214,21 @@ public class StringStorage {
             "Query string not given. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "What should I be finding? ";
+    public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
+            "Instruction is not recognised. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "Sorry, I didn't catch what you just said. Repeat it for me will ya? ";
 
-    public static final String MISSING_DESCRIPTION_MESSAGE =
-            "task description not given. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "You haven't told me what this is for. ";
-    public static final String MISSING_START_DATE_MESSAGE =
-            "Start date is not given. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "You haven't told me when this starts. ";
-    public static final String MISSING_END_DATE_MESSAGE =
-            "End date is not given. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "You haven't told me when this ends. ";
-
-    //
-    public static final String INVALID_TASK_TYPE_MESSAGE =
-            "Task type abbreviation is not any of these: "
-            + TODO_SYMBOL + ", "
-            + DEADLINE_SYMBOL + ", "
-            + EVENT_SYMBOL; // "I don't remember if what kind of task this is.";
-    public static final String INVALID_TASK_STATUS_MESSAGE =
-            "Task completion status abbreviation is not any of these: "
-            + IS_DONE_SYMBOL + ", "
-            + NOT_DONE_SYMBOL; // "I don't remember if this task was done or not.";
+    /**
+     * Messages that may occur when exceptions are detected after user input parsing.
+     *
+     * <p>
+     * Only one will occur for any single line the user inputs,
+     * so no likelihood of flooding the user with messages.
+     * Hence they can afford to be more wordy.
+     * </p>
+     *
+     */
     public static final String LIST_EMPTY_MESSAGE =
             "List is empty. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
@@ -231,10 +246,35 @@ public class StringStorage {
             LINE_DIVIDER_YAPPER + "\n"+
             "I know you still haven't done this. I won't forget. ";
 
-    public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
-            "Instruction is not recognised. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I dunno whatcha just said. Repeat it for me will ya? ";
-    public static final String SAVING_ERROR_MESSAGE = "error in saving data";
+
+    /**
+     * Messages that may occur when exceptions are detected during file input parsing.
+     *
+     * <p>
+     * Each will be printed per exception detected,
+     * so groups of them may flood the user with messages.
+     * Hence they are less wordy.
+     * </p>
+     *
+     */
+    public static final String MISSING_DESCRIPTION_MESSAGE =
+            "task description not given. "; // "You haven't told me what this is for. ";
+    public static final String MISSING_START_DATE_MESSAGE =
+            "Start date is not given. "; // "You haven't told me when this starts. ";
+    public static final String MISSING_END_DATE_MESSAGE =
+            "End date is not given. "; // "You haven't told me when this ends. ";
+    public static final String INVALID_TASK_TYPE_MESSAGE =
+            "Task type abbreviation is not any of these: "
+            + TODO_SYMBOL + ", "
+            + DEADLINE_SYMBOL + ", "
+            + EVENT_SYMBOL; // "I don't remember if what kind of task this is.";
+    public static final String INVALID_TASK_STATUS_MESSAGE =
+            "Task completion status abbreviation is not any of these: "
+            + IS_DONE_SYMBOL + ", "
+            + NOT_DONE_SYMBOL; // "I don't remember if this task was done or not.";
+
+
+    public static final String SAVING_ERROR_MESSAGE = // unused ?
+            "error in saving data";
 
 }

@@ -35,6 +35,15 @@ public class TaskHandler {
     public int getCurrTaskTotal() {
         return tasks.size();
     }
+
+    /**
+     * Returns true if list contains no elements, and false otherwise
+     *
+     * @return true if list contains no elements, and false otherwise
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
     /**
      * Retrieves a task based on its ordinal index.
      *
