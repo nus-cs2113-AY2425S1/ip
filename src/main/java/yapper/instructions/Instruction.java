@@ -12,9 +12,11 @@ public class Instruction {
 
     /**
      * Enumeration of the types of instructions supported by Yapper.
+     *
      * <p>
      * Currently includes:
-     * <li> LIST: Show all tasks. <li/>
+     * <li> FIND: Show tasks that contains the query. <li/>
+     * LIST: Show all tasks. <li/>
      * TODO: Add a ToDo task. <li/>
      * DEADLINE: Add a Deadline task. <li/>
      * EVENT: Add an Event task. <li/>
@@ -22,11 +24,12 @@ public class Instruction {
      * MARK: Mark a task as complete. <li/>
      * UNMARK: Unmark a task as incomplete.
      * <p/>
+     *
      */
     public enum InstructionType {
-        LIST,
+        LIST, FIND,
         TODO, DEADLINE, EVENT,
-        DELETE, MARK, UNMARK
+        DELETE, MARK, UNMARK,
     }
 
     /**
@@ -62,7 +65,7 @@ public class Instruction {
         this.instructionType = type; // LIST
     }
     public Instruction(InstructionType type, String taskDesc) {
-        this.instructionType = type; // TODO
+        this.instructionType = type; // TODO, FIND
         this.instructionDesc = taskDesc;
     }
     public Instruction(InstructionType type, String taskDesc, String endDate) {

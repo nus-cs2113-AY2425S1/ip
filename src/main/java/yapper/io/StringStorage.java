@@ -28,18 +28,20 @@ package yapper.io;
 public class StringStorage {
     /**
      * An offset value used to adjust indexing for user input and display.
+     *
      * <p>
      * The list array is 0-indexed (i.e. 0, 1, ...), but
      * the list display is 1-indexed (i.e. 1, 2, ...).
-     * Therefore, the user input ordinal is equal to the
-     * internal use ordinal plus this offset value.
+     * Thus, the user input ordinal = internal use ordinal + this offset value.
      * </p>
+     *
      */
     public static final int INDEX_OFFSET = 1;
 
     /**
      * Constants representing prefixes for user commands, for User I/O.
      */
+    public static final String     FIND_INSTRUCTION_PREFIX = "find";
     public static final String     LIST_INSTRUCTION_PREFIX = "list";
     public static final String     TODO_INSTRUCTION_PREFIX = "todo";
     public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
@@ -78,7 +80,9 @@ public class StringStorage {
     }
 
 
-    // Text Delimiter
+    /**
+     * Divides text printed to output, to distinguish between different sets of messages
+     */
     public static final String LINE_DIVIDER =
             "____________________________________________________________";
     public static final String LINE_DIVIDER_INPUT =
@@ -110,6 +114,7 @@ public class StringStorage {
             + "delete [index]" + ", if you don't want something. \n"
             +   "mark [index]" + ", if you're done with something. \n"
             + "unmark [index]" + ", if you're not done with something. \n"
+            + "find [keyword]" + ", if you're looking for something. \n"
             + "todo [todoDesc]" + ", to for a task with no dates. \n"
             // Binary Argument Commands
             + "deadline [deadlineDesc] /by [end]" + ", for a task with an end date. \n"
@@ -125,14 +130,36 @@ public class StringStorage {
             + "Cya! ";
 
     // Program Strings that are part of a Message
-    public static final String LIST_ALL_TASKS_STRING =
-            "You don't remember your tasks? Lemme refresh your memory: ";
-    public static final String TASK_ADDED_STRING =
-            "Now, ya gotta do this too: ";
-    public static final String TASK_DELETED_STRING =
-            "Now, ya dun hafta do dis anymore: ";
+    public static final String LIST_RELEVANT_TASKS_STRING =
+            "Hmmm, let me think. What tasks could you be referring to? ";
+    public static final String RELEVANT_TASKS_FOUND_STRING =
+            " task(s) found contains your query string. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "Is any of them what you were looking for? ";
+    public static final String RELEVANT_TASKS_NOT_FOUND_STRING =
+            "No tasks found that contains your query string. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "Sorry, I don't recall anything that is related to that. ";
+    public static final String LIST_BEFORE_STRING =
+            "You're forgetting already? Lemme refresh your memory: ";
+    public static final String LIST_AFTER_STRING =
+            "That should be all of them. Did I forget any? ";
+    public static final String ADD_BEFORE_STRING =
+            "Now, I gotta remember this too: ";
+    public static final String ADD_AFTER_STRING =
+            "Don't worry, I've already memorized all about it! ";
+    public static final String DELETE_BEFORE_STRING =
+            "Now I don't need to remember this one anymore: ";
+    public static final String DELETE_AFTER_STRING =
+            "Don't worry, I've already forgotten about it! ";
     public static final String LIST_SIZE_STRING =
-            "Your list is now THIS BIG: ";
+            "If I counted correctly, you have a task total of ";
+    public static final String TASK_COMPLETION_STATUS_CHANGED_STRING =
+            "I know, you told me that this task is ";
+    public static final String TASK_IS_DONE_STRING =
+            "Keep it up! You'll be done with it eventually! ";
+    public static final String TASK_IS_NOT_DONE_STRING =
+            "Keep going, you'll get it done eventually! ";
 //    public static final String BEFORE_SAVING_STRING =
 //            "saving data to: "; // ok, just give me a while to recall
 //    public static final String AFTER_SAVING_STRING =
@@ -158,6 +185,7 @@ public class StringStorage {
     public static final String MISSING_PREFIX_MESSAGE =
             "Input does not start with any of the known prefixes: " +
             BYE_INSTRUCTION_PREFIX + ", " +
+            FIND_INSTRUCTION_PREFIX + ", " +
             LIST_INSTRUCTION_PREFIX + ", " +
             TODO_INSTRUCTION_PREFIX + ", " +
             DEADLINE_INSTRUCTION_PREFIX + ", " +
@@ -167,13 +195,17 @@ public class StringStorage {
             UNMARK_INSTRUCTION_PREFIX + ", \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "Explain in a way I can understand. ";
+    public static final String MISSING_QUERY_STRING_MESSAGE =
+            "Query string not given. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "What should I be finding? ";
     // tba TODO ARGS MISSING
     // tba DEADLINE ARGS MISSING
     // tba EVENT ARGS MISSING
     // tba DEADLINE KEYWORDS MISSING
     // tba EVENT KEYWORDS MISSING
     public static final String MISSING_DESCRIPTION_MESSAGE =
-            "Task description not given. \n" +
+            "task description not given. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "You haven't told me what this is for. ";
     public static final String MISSING_START_DATE_MESSAGE =

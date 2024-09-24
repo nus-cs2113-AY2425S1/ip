@@ -5,10 +5,14 @@ import yapper.io.StringStorage;
 /**
  * The {@code ExceptionHandler} class provides methods for validating user input and
  * handling exceptions related to task management in the Yapper chatbot application.
+ *
  * <p>
- * It includes checks for various input scenarios, such as missing arguments and
- * invalid task types, and throws {@code YapperException} with appropriate messages.
+ * It throws {@code YapperException} with appropriate messages if any checks below fail:
+ * <li> empty or unknown instructions <li/>
+ * missing arguments and keywords <li/>
+ * invalid task types and statuses <li/>
  * <p/>
+ *
  */
 public class ExceptionHandler {
 
@@ -36,7 +40,8 @@ public class ExceptionHandler {
      * @throws YapperException if the input string does not start with a valid prefix
      */
     public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
-        if ( !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
+        if ( !userInputString.startsWith(StringStorage.FIND_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.TODO_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.DEADLINE_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.EVENT_INSTRUCTION_PREFIX) &&
@@ -46,10 +51,23 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
         }
     }
+
     /**
-     * Checks if the arguments for the ToDo task are missing.
+     * Checks if the string argument for the Find instruction is missing.
      *
-     * @param desc the description of the ToDo task
+     * @param query the keyword to be matched in task descriptions
+     * @throws YapperException if the query is empty
+     */
+    public static void checkIfFindArgsMissing(String query) throws YapperException {
+        if (query.isEmpty()) {
+            throw new YapperException(
+                    StringStorage.MISSING_QUERY_STRING_MESSAGE);
+        }
+    }
+    /**
+     * Checks if the argument for the Todo task is missing.
+     *
+     * @param desc the description of the Todo task
      * @throws YapperException if the description is empty
      */
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {

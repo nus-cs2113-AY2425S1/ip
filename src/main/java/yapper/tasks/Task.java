@@ -17,9 +17,10 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the specified description and sets
-     * its completion status to false (not done).
-     * Used when reading from user input.
+     * Constructs a Task with the specified description and
+     * initializes its completion status to false (not done).
+     *
+     * <p> Used when reading from user input. </p>
      *
      * @param taskDesc the description of the task
      */
@@ -29,7 +30,8 @@ public class Task {
     }
     /**
      * Constructs a Task with the specified description and completion status.
-     * Used when reading from file.
+     *
+     * <p> Used when reading from file. </p>
      *
      * @param taskDesc the description of the task
      * @param isDone the completion status of the task

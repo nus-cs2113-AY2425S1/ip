@@ -9,9 +9,25 @@ public class Todo extends Task {
     // No Additional Attributes
 
     // Constructors
+    /**
+     * Constructs a Todo task with the specified description and
+     * initializes its completion status to false (not done).
+     *
+     * <p> Used when reading from user input. </p>
+     *
+     * @param taskDesc the description of the todo task
+     */
     public Todo(String taskDesc) {
         super(taskDesc);
     }
+    /**
+     * Constructs a Todo task with the specified description and completion status.
+     *
+     * <p> Used when reading from file. </p>
+     *
+     * @param taskDesc the description of the todo task
+     * @param isDone the completion status of the todo task
+     */
     public Todo(String taskDesc, boolean isDone) {
         super(taskDesc, isDone);
     }

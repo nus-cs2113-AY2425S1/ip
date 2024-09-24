@@ -26,6 +26,7 @@ public class InputStringHandler {
         try {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
+
             // Handle 1-Argument Instructions: Instruction
             if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                 if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
@@ -41,6 +42,13 @@ public class InputStringHandler {
             ExceptionHandler.checkIfUserInputEmpty(instructionArgs, true);
 
             switch (instructionType) {
+            case StringStorage.FIND_INSTRUCTION_PREFIX:
+                // no keywords here to validate
+                ExceptionHandler.checkIfFindArgsMissing(
+                        instructionArgs.trim() );
+                // no need to split arg
+                return new Instruction(Instruction.InstructionType.FIND,
+                        instructionArgs.trim());
             case StringStorage.TODO_INSTRUCTION_PREFIX:
                 // no keywords here to validate
                 ExceptionHandler.checkIfTodoArgsMissing(

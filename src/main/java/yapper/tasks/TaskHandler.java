@@ -44,14 +44,19 @@ public class TaskHandler {
      * @param taskOrdinal the index of the task to retrieve
      * @return the Task at the specified index
      */
-    public Task getTask(int taskOrdinal) {
+    public Task getTaskAtOrdinal(int taskOrdinal) {
         return tasks.get(taskOrdinal);
     }
-    public int getTaskOrdinal(Task task) {
+
+    /**
+     * Retrieves an ordinal of a Task.
+     *
+     * @param task the task at the ordinal to retrieve
+     * @return the index of the specified task
+     */
+    public int getOrdinalOf(Task task) {
         return tasks.indexOf(task);
     }
-
-
 
     // Create, Update, Delete Operations
 

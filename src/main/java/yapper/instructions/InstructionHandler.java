@@ -10,14 +10,30 @@ import yapper.tasks.Event;
 import yapper.tasks.Todo;
 
 /**
- * Coordinates String Input-Output, Task Management and Exception Handling for Yapper.
+ * Coordinates string input-output, task management and exception handling for Yapper.
  *
+ * <p>
  * A utility class for handling various types of instructions
- * (LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK) in the Yapper application.
+ * (FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK) in the Yapper application.
  * It processes user input and performs corresponding actions on tasks using a TaskHandler.
+ * <p/>
+ *
  */
 public class InstructionHandler {
     // UI Operations: Error_Check -> Do -> Print -> Update_File
+
+    /**
+     * Handles the FIND instruction by printing matching tasks.
+     *
+     * @param taskHandler The handler that manages the list of tasks.
+     * @param query       The string that is to be found in task descriptions.
+     */
+    public static void handleFindInstruction(TaskHandler taskHandler, String query) {
+        // No Error_Check yet ?
+        // Do & Print
+        OutputStringHandler.printSelectedTasks(taskHandler, query);
+        // No Update_File needed
+    }
 
     /**
      * Handles the LIST instruction by printing all tasks.
@@ -25,12 +41,13 @@ public class InstructionHandler {
      * @param taskHandler      The handler that manages the list of tasks.
      * @throws YapperException If an error occurs while listing the tasks.
      */
+
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {
             // Error_Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal());
             // Do & Print
-            OutputStringHandler.printTasks(taskHandler.getAllTasks(), taskHandler.getCurrTaskTotal());
+            OutputStringHandler.printAllTasks(taskHandler);
             // No Update_File needed
         } catch (YapperException e) {
             throw new YapperException(
@@ -75,7 +92,7 @@ public class InstructionHandler {
             // No Error_Check yet
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
             // Do
-            Task task = taskHandler.getTask(taskOrdinal);
+            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
             // Print
             OutputStringHandler.printDeletedTask(task, taskHandler.getCurrTaskTotal());
@@ -100,7 +117,7 @@ public class InstructionHandler {
         try {
             // Error Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-            Task task = taskHandler.getTask(taskOrdinal); // need for methods later
+            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal); // need for methods later
             ExceptionHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
             // Do
             taskHandler.updateTaskStatus(task, isDone);
@@ -116,7 +133,7 @@ public class InstructionHandler {
     }
 
     /**
-     * Parses and handles a user instruction string.
+     * Parses and performs the appropriate executions, after being given a user instruction string.
      *
      * @param taskHandler     The handler that manages the list of tasks.
      * @param userInputString The raw user input string representing the instruction.
@@ -138,6 +155,10 @@ public class InstructionHandler {
             switch (instructionType) {
             case LIST:
                 handleListInstruction(taskHandler);
+                break;
+            case FIND:
+                String query = instruction.getInstructionDesc(); // TODO
+                handleFindInstruction(taskHandler, query);
                 break;
             case TODO:
                 String todoDesc = instruction.getInstructionDesc();
