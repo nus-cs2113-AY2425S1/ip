@@ -25,7 +25,8 @@ public class OutputStringHandler {
         int totalMatching = 0;
         for (Task task : tasks) {
             if ( task.getDesc().contains(query) ) {
-                displayTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
+                int ordinal = taskHandler.getOrdinalOf(task);
+                System.out.println( displayTaskWithOrdinal(task, ordinal);
                 totalMatching++;
             }
         }
@@ -41,9 +42,10 @@ public class OutputStringHandler {
     public static void printAllTasks(TaskHandler taskHandler) {
         System.out.println(StringStorage.LIST_BEFORE_STRING);
 
-        List<Task> tasks = taskHandler.getAllTasks();
-        for (Task task : tasks) {
-            displayTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
+        int taskTotal = taskHandler.getCurrTaskTotal();
+        for (int ordinal = 0; ordinal < taskTotal; ordinal++) {
+            Task task = taskHandler.getTaskAtOrdinal(ordinal);
+            System.out.println( displayTaskWithOrdinal(task, ordinal);
         }
 
         System.out.println(StringStorage.LIST_AFTER_STRING);

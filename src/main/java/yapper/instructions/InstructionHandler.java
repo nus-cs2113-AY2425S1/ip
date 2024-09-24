@@ -53,7 +53,7 @@ public class InstructionHandler {
             // No Error_Check yet
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
             // Do
-            Task task = taskHandler.getTask(taskOrdinal);
+            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
             // Print
             OutputStringHandler.printDeletedTask(task, taskHandler.getCurrTaskTotal());
@@ -69,7 +69,7 @@ public class InstructionHandler {
         try {
             // Error Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-            Task task = taskHandler.getTask(taskOrdinal); // need for methods later
+            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal); // need for methods later
             ExceptionHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
             // Do
             taskHandler.updateTaskStatus(task, isDone);
