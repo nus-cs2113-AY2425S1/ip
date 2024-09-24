@@ -74,6 +74,10 @@ public class StringStorage {
             + "Cya! ";
 
     // Program Strings that are part of a Message
+    public static final String LIST_RELEVANT_TASKS_STRING =
+            "Hmm, let me think. ";
+    public static final String RELEVANT_TASKS_NOT_FOUND_STRING =
+            "Sorry, I don't think I can recall any. ";
     public static final String LIST_ALL_TASKS_STRING =
             "You don't remember your tasks? Lemme refresh your memory: ";
     public static final String TASK_ADDED_STRING =

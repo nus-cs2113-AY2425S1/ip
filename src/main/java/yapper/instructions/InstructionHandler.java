@@ -12,12 +12,16 @@ import yapper.tasks.Todo;
 // Human-Yapper Interface
 public class InstructionHandler {
     // UI Operations: Error_Check -> Do -> Print -> Update_File
+
+    public static void handleFindInstruction(TaskHandler taskHandler, String query) {
+        OutputStringHandler.printTasksMatchQuery(taskHandler, query);
+    }
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {
             // Error_Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal());
             // Do & Print
-            OutputStringHandler.printTasks(taskHandler.getAllTasks(), taskHandler.getCurrTaskTotal());
+            OutputStringHandler.printAllTasks(taskHandler);
             // No Update_File needed
         } catch (YapperException e) {
             throw new YapperException(
@@ -95,6 +99,10 @@ public class InstructionHandler {
             switch (instructionType) {
             case LIST:
                 handleListInstruction(taskHandler);
+                break;
+            case FIND:
+                String query = instruction.getInstructionDesc(); // TODO
+                handleFindInstruction(taskHandler, query);
                 break;
             case TODO:
                 String todoDesc = instruction.getInstructionDesc();
