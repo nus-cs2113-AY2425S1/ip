@@ -9,11 +9,13 @@ import yapper.tasks.TaskHandler;
 
 /**
  * Main class for Yapper.
+ *
  * <p>
  * The Yapper class implements a simple command-line chatbot.
  * It interacts with the user through a loop that:
  * processes user input, handles tasks, and manages program flow.
  * <p/>
+ *
  */
 public class Yapper {
 
@@ -64,7 +66,7 @@ public class Yapper {
         // Pre-Program Message
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         TaskHandler taskHandler = OutputFileHandler.loadTasks();
-        if (taskHandler.getCurrTaskTotal() == 0) {
+        if ( taskHandler.isEmpty() ) {
             System.out.println(StringStorage.START_UP_MESSAGE);
             System.out.println(StringStorage.LINE_DIVIDER);
             System.out.println(StringStorage.HELP_MESSAGE);

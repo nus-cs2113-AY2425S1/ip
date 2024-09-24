@@ -41,7 +41,6 @@ public class OutputFileHandler {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            return taskHandler;
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
@@ -91,14 +90,14 @@ public class OutputFileHandler {
                 throw new YapperException("invalid task format, missing fields");
             }
             // Check Task Type, indirectly checks if missing
-            String taskType = taskParts[0];
+            String taskType = taskParts[0].trim();
             ExceptionHandler.checkIfTaskTypeValid(taskType);
             // Check Task Status, indirectly checks if missing
-            String taskStatus = taskParts[1];
+            String taskStatus = taskParts[1].trim();
             ExceptionHandler.checkIfTaskStatusValid(taskStatus);
             boolean isDone = taskStatus.equals(StringStorage.IS_DONE_SYMBOL);
             // Check Desc and other Arguments, indirectly checks if missing
-            String remainingParts = taskParts[2];
+            String remainingParts = taskParts[2].trim();
             switch (taskType) {
                 case StringStorage.TODO_SYMBOL:
                     // no need to split
@@ -145,12 +144,10 @@ public class OutputFileHandler {
      */
     public static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
-                StringStorage.SPLIT_USING_DELIMITER, -2);
+                StringStorage.SPLIT_USING_DELIMITER, -3);
         String eventDesc = eventArgs[0].trim();
-        String[] dates = eventArgs[1].split(
-                StringStorage.SPLIT_USING_DELIMITER, -2);
-        String startDate = dates[0].trim();
-        String endDate = dates[1].trim();
+        String startDate = eventArgs[1].trim();
+        String endDate = eventArgs[2].trim();
         return new String[] {eventDesc, startDate, endDate};
     }
 
