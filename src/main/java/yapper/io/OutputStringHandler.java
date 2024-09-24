@@ -9,11 +9,11 @@ import yapper.tasks.TaskHandler;
 public class OutputStringHandler {
 
     // Used in Add (Todo, Deadline, Event), Delete, Mark, Unmark
-    private static String printTaskWithoutOrdinal(Task task) {
+    private static String displayTaskWithoutOrdinal(Task task) {
         return "  " + task.taskToDisplay(); // spacing is to be consistent with ordinal
     }
     // Used in Find and List
-    private static String printTaskWithOrdinal(Task task, int taskOrdinal) {
+    private static String displayTaskWithOrdinal(Task task, int taskOrdinal) {
         return (taskOrdinal + StringStorage.INDEX_OFFSET) + "." + task.taskToDisplay();
     }
 
@@ -25,7 +25,7 @@ public class OutputStringHandler {
         int totalMatching = 0;
         for (Task task : tasks) {
             if ( task.getDesc().contains(query) ) {
-                printTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
+                displayTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
                 totalMatching++;
             }
         }
@@ -43,7 +43,7 @@ public class OutputStringHandler {
 
         List<Task> tasks = taskHandler.getAllTasks();
         for (Task task : tasks) {
-            printTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
+            displayTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
         }
 
         System.out.println(StringStorage.LIST_AFTER_STRING);
@@ -53,7 +53,7 @@ public class OutputStringHandler {
     public static void printAddedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.ADD_BEFORE_STRING);
 
-        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println( displayTaskWithoutOrdinal(task) );
         System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
 
         System.out.println(StringStorage.ADD_AFTER_STRING);
@@ -62,7 +62,7 @@ public class OutputStringHandler {
     public static void printDeletedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.DELETE_BEFORE_STRING);
 
-        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println( displayTaskWithoutOrdinal(task) );
         System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
 
         System.out.println(StringStorage.DELETE_AFTER_STRING);
@@ -71,7 +71,7 @@ public class OutputStringHandler {
     public static void printTaskStatus(Task task, boolean isDone) {
         System.out.println(StringStorage.TASK_COMPLETION_STATUS_CHANGED_STRING +
                 (isDone ? "done" : "not done") );
-        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println( displayTaskWithoutOrdinal(task) );
         System.out.println( isDone ?
                 StringStorage.TASK_IS_DONE_STRING : StringStorage.TASK_IS_NOT_DONE_STRING);
     }
