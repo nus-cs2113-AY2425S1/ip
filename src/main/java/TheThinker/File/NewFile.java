@@ -9,13 +9,9 @@ import TheThinker.Ui.UiControl;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-import java.util.Objects;
 import java.util.Scanner;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.net.URISyntaxException;
+
 
 public class NewFile {
 
