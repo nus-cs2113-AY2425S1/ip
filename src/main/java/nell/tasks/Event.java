@@ -1,28 +1,59 @@
 package nell.tasks;
 
-public class Event extends nell.tasks.Task {
-    private final String from;
-    private final String to;
+import nell.common.DateFormats;
 
-    public Event(String description, String from, String to) {
-        super(description, "E");
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends Task {
+    public static final String TASK_TYPE = "E";
+
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description, TASK_TYPE);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, boolean isDone, String from, String to) {
+
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
-        this.type = "E";
+        this.type = TASK_TYPE;
     }
 
     public String toString() {
         return String.format("%s (from: %s to: %s)", super.toString(),
-                this.from, this.to);
+                DateFormats.OUTPUT_DATE_FORMAT.format(this.from), DateFormats.OUTPUT_DATE_FORMAT.format(this.to));
     }
 
     public String getFileLine() {
-        return String.format("%s|%s|%s", super.getFileLine(), this.from, this.to);
+        return String.format("%s|%s|%s", super.getFileLine(), DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.from),
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.to));
+    }
+
+    /**
+     * Returns true if the given date falls between the from-date and to-date,
+     * returns false otherwise.
+     *
+     * @param date The specified date
+     * @return True if date is between the from-date and to-date, false otherwise
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        LocalDate fromDate = this.from.toLocalDate();
+        LocalDate toDate = this.to.toLocalDate();
+
+        if (date.isBefore(fromDate)) {
+            return false;
+        } else if (date.isAfter(toDate)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

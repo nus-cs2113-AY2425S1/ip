@@ -1,16 +1,22 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
+import nell.common.DateFormats;
 import nell.common.Messages;
 import nell.tasks.Event;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an executable event command
  */
 public class EventCommand extends Command{
+    public static final String COMMAND_WORD = "event";
+
     private final String description;
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs a new EventCommand object with specified task list and command body
@@ -19,8 +25,8 @@ public class EventCommand extends Command{
      * @param detail The task description and its start and end details
      * @throws IndexOutOfBoundsException If detail cannot be split into 2 words
      */
-    public EventCommand(TaskList tasks, String detail) throws IndexOutOfBoundsException {
-        super("event", tasks);
+    public EventCommand(TaskList tasks, String detail) throws IndexOutOfBoundsException, DateTimeParseException {
+        super(tasks);
         String[] details = detail.split("/from|/to", 3);
 
         if (details.length < 3) {
@@ -28,8 +34,8 @@ public class EventCommand extends Command{
         }
 
         this.description = details[0].trim();
-        this.from = details[1].trim();
-        this.to = details[2].trim();
+        this.from = LocalDateTime.parse(details[1].trim(), DateFormats.INPUT_DATE_FORMAT);
+        this.to = LocalDateTime.parse(details[2].trim(), DateFormats.INPUT_DATE_FORMAT);
     }
 
     /**

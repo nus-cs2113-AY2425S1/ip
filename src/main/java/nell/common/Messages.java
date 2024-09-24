@@ -29,6 +29,14 @@ public class Messages {
             -> Please input the command as follows:
                   remove <task number>
             """;
+    public static final String FIND_ERROR_MESSAGE = """
+            -> Please input the command as follows:
+                  find <keyword>
+            """;
+    public static final String SEARCH_ERROR_MESSAGE = """
+            -> Please enter the command as follows:
+                  search <date>
+            """;
     public static final String BYE_MESSAGE = "-> Bye. Hope to see you again soon!";
     public static final String INVALID_COMMAND_MESSAGE = """
             -> Invalid command!
@@ -40,6 +48,8 @@ public class Messages {
                   deadline <description> /by <by-date>
                   event <description> /from <from-date> /to <to-date>
                   remove <number>
+                  find <keyword>
+                  search <date>
                   bye
             """;
     public static final String UNMARK_MESSAGE = "-> The following task has been marked not done:";
@@ -53,4 +63,11 @@ public class Messages {
     public static final String TASK_ADD_MESSAGE = "-> The task has been added to the list:";
     public static final String NEW_TASK_COUNT_MESSAGE = "   The list now has %d tasks";
     public static final String TASK_REMOVE_MESSAGE = "-> The following task has been removed from the list:";
+    public static final String INVALID_DATE_TIME_MESSAGE = """
+            -> Invalid date and time!
+               Please key in dates and times in this format:
+                  yyyy-MM-dd HHmm
+            """;
+    public static final String TASKS_ON_DATE_MESSAGE = "-> The tasks on this date are as follows:";
+    public static final String MATCHING_TASKS_MESSAGE = "-> The matching tasks are as follows:";
 }

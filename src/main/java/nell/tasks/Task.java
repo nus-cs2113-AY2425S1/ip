@@ -1,9 +1,11 @@
 package nell.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task in the task list.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
@@ -64,4 +66,17 @@ public class Task {
     public String getFileLine() {
         return String.format("%s|%s|%s", this.type, this.getStatusIcon(), this.description);
     }
+
+    /**
+     * Returns true if the task description contains a specified keyword.
+     * Returns false otherwise
+     *
+     * @param keyword The keyword
+     * @return whether the keyword is present in the task description
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    public abstract boolean isOnDate(LocalDate date);
 }

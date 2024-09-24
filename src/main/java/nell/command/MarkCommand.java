@@ -1,12 +1,14 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.Messages;
 
 /**
  * Represents an executable mark command
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
+    public static final String COMMAND_WORD = "mark";
+
     /**
      * Constructs a MarkCommand object with a specified task list and task index
      *
@@ -14,7 +16,7 @@ public class MarkCommand extends Command{
      * @param taskIndex The specified task index
      */
     public MarkCommand(TaskList tasks, int taskIndex){
-        super("mark", tasks, taskIndex);
+        super(tasks, taskIndex);
     }
 
     /**
@@ -26,7 +28,7 @@ public class MarkCommand extends Command{
             this.tasks.getTaskAtIndex(taskIndex - 1).setDone(true);
             System.out.println(Messages.MARK_MESSAGE);
             System.out.println(this.tasks.getTaskStringAtIndex(taskIndex - 1));
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException exception) {
             System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }
