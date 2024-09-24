@@ -17,7 +17,7 @@ public class Ui {
         horizontalLine();
     }
 
-    public void bye() throws IOException {
+    public void bye() {
         horizontalLine();
         System.out.println("Bye " +
                 Character.toString(0x1F44B) +
@@ -31,6 +31,12 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Iterates through the entire task list in the bot and prints them out in sequence of oldest to newest
+     *
+     * @param taskCount Total task count
+     * @param tasks Array of all the {@code Task}
+     */
     public void printTaskList(int taskCount, ArrayList<Task> tasks) {
         for (int i = 0; i < taskCount; i++) {
             System.out.print(i + 1 + ". ");
@@ -38,6 +44,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Iterates through the entire task list in the bot and prints out all the tasks that has description that matches
+     * {@code matchingWords} params in sequence of oldest to newest.
+     *
+     * @param matchingWords Words to be matched
+     * @param taskCount Total task count
+     * @param tasks Array of all the {@code Task}
+     */
     public void printAllMatchingTask(String matchingWords, int taskCount, ArrayList<Task> tasks) {
         int indexToPrint = 1;
         for (int i = 0; i < taskCount; i++) {
@@ -66,12 +80,12 @@ public class Ui {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public void printMarkTaskMessage(int index, Task taskToMark) {
+    public void printMarkTaskMessage(Task taskToMark) {
         System.out.println("Good Job Buddy! I've marked this task as done:");
         System.out.println(taskToMark);
     }
 
-    public void printUnmarkTaskMessage(int index, Task taskToUnmark) {
+    public void printUnmarkTaskMessage(Task taskToUnmark) {
         System.out.println("Alright! I've marked this task as not done yet:");
         System.out.println(taskToUnmark);
     }
