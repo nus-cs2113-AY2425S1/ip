@@ -3,6 +3,7 @@
 Nell is a chatbot that allows users to manage tasks through a command-line interface. 
 
 ## Quick start
+
 1. Ensure that you have Java 17 or above installed on your computer.
 2. Download the latest `.jar` file from here.
 3. Copy the file into the folder 
@@ -17,6 +18,16 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
    ```
 
 ## Features
+
+> ### Notes on commands
+> 
+> * Words in `UPPERCASE` represent parameters that are to be entered by the user.  
+> e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter, like in `todo buy bread`.
+> * For commands that do not take in parameters (like `list` and `bye`), additional parameters
+> entered will be ignored by the program.  
+> e.g. the program will interpret `list 1-10` as `list`.
+> 
+
 ### Adding `ToDo` tasks: `add`
 Adds a `ToDo` task to the task list. 
 
