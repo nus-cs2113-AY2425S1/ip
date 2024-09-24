@@ -4,7 +4,7 @@ import jeremy.exception.InvalidStorageException;
 import jeremy.task.Todo;
 import jeremy.task.Deadline;
 import jeremy.task.Event;
-import jeremy.util.PrintUtils;
+import jeremy.util.Ui;
 import jeremy.util.TaskList;
 
 import java.io.File;
@@ -18,7 +18,9 @@ public class Storage {
     private static final String FILE_NAME = "Jeremy.txt";
     private static final String SEPARATOR = " \\| ";
 
-    public static void createTask(String[] parts, TaskList taskList) {
+    Storage() {}
+
+    public void createTask(String[] parts, TaskList taskList) {
         try {
             String command = parts[0];
             boolean isNotDone = parts[1].equals("0");
@@ -45,7 +47,7 @@ public class Storage {
         } catch (Exception ignored) {} // ignore lines with incorrect format
     }
 
-    public static TaskList readData() throws FileNotFoundException {
+    public TaskList load() throws FileNotFoundException {
         File dir = new File(PATH);
         if (!dir.exists()) {
             dir.mkdir();
@@ -74,7 +76,7 @@ public class Storage {
         return taskList;
     }
 
-    public static void saveData(TaskList tasks) {
+    public void save (TaskList tasks) {
         File file = new File(PATH + FILE_NAME);
 
         try (FileWriter fw = new FileWriter(file)) {
@@ -82,7 +84,8 @@ public class Storage {
                 fw.write(tasks.getTask(i).toStorageString() + System.lineSeparator());
             }
         } catch (IOException e) {
-            PrintUtils.println("Unable to save data: " + e.getMessage());
+            Ui ui = new Ui();
+            ui.println("Unable to save data: " + e.getMessage());
         }
     }
 }
