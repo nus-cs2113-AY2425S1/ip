@@ -192,9 +192,9 @@ public class InstructionHandler {
                         instruction.getTaskOrdinal() - StringStorage.INDEX_OFFSET,
                         false);
                 break;
-//            case HELP:
-//                System.out.println(StringStorage.HELP_MESSAGE);
-//                break;
+            case HELP:
+                System.out.println(StringStorage.HELP_MESSAGE);
+                break;
             }
             // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
         } catch (YapperException e) {

@@ -27,13 +27,19 @@ public class InputStringHandler {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
 
-            // Handle 1-Argument Instructions: Instruction
+            // Handle 1-Argument Instructions:
             if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                 if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                     throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
+            } else if ( userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX) ) {
+                if ( !userInputString.trim().equals(StringStorage.HELP_INSTRUCTION_PREFIX) ) {
+                    throw new YapperException(StringStorage.HELP_INSTRUCTION_PREFIX
+                            + " does not need other parameters");
+                }
+                return new Instruction(Instruction.InstructionType.HELP);
             }
             String[] instructionParts = userInputString.split(" ", 2);
             String instructionType = instructionParts[0];

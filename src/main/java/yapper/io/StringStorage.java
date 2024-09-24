@@ -41,6 +41,7 @@ public class StringStorage {
     /**
      * Constants representing prefixes for user commands, for User I/O.
      */
+    public static final String     HELP_INSTRUCTION_PREFIX = "help";
     public static final String     FIND_INSTRUCTION_PREFIX = "find";
     public static final String     LIST_INSTRUCTION_PREFIX = "list";
     public static final String     TODO_INSTRUCTION_PREFIX = "todo";
@@ -109,6 +110,7 @@ public class StringStorage {
             "To jog your memory, here's what we can discuss: \n"
             // Nullary Argument Commands
             + "list" + ", if you forgot what you said. \n"
+            + "help" + ", if you forgot what kinda stuff we can yap about. \n"
             + "bye"  + ", if you want me to stop yappin. \n"
             // Unary Argument Commands
             + "delete [index]" + ", if you don't want something. \n"
@@ -184,6 +186,7 @@ public class StringStorage {
             "I need more details to understand what you wanna do. ";
     public static final String MISSING_PREFIX_MESSAGE =
             "Input does not start with any of the known prefixes: " +
+            HELP_INSTRUCTION_PREFIX + ", " +
             BYE_INSTRUCTION_PREFIX + ", " +
             FIND_INSTRUCTION_PREFIX + ", " +
             LIST_INSTRUCTION_PREFIX + ", " +

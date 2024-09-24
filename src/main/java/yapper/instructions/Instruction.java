@@ -3,8 +3,8 @@ package yapper.instructions;
 /**
  * Represents an Instruction in Yapper.
  * <p>
- * Currently consists of 7 instruction types:
- * LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK
+ * Currently consists of 9 instruction types:
+ * HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK
  * <p/>
  *
  */
@@ -15,7 +15,8 @@ public class Instruction {
      *
      * <p>
      * Currently includes:
-     * <li> FIND: Show tasks that contains the query. <li/>
+     * <li> HELP: Prints a help message. <li/>
+     * FIND: Show tasks that contains the query. <li/>
      * LIST: Show all tasks. <li/>
      * TODO: Add a ToDo task. <li/>
      * DEADLINE: Add a Deadline task. <li/>
@@ -27,7 +28,7 @@ public class Instruction {
      *
      */
     public enum InstructionType {
-        LIST, FIND,
+        HELP, LIST, FIND,
         TODO, DEADLINE, EVENT,
         DELETE, MARK, UNMARK,
     }
@@ -62,7 +63,7 @@ public class Instruction {
 
     // Constructors
     public Instruction(InstructionType type) {
-        this.instructionType = type; // LIST
+        this.instructionType = type; // LIST, HELP
     }
     public Instruction(InstructionType type, String taskDesc) {
         this.instructionType = type; // TODO, FIND
