@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import static november.strings.Strings.DEADLINE_COMMAND;
 import static november.strings.Strings.DELETE_COMMAND;
 import static november.strings.Strings.EVENT_COMMAND;
+import static november.strings.Strings.FIND_COMMAND;
 import static november.strings.Strings.LIST_COMMAND;
 import static november.strings.Strings.MARK_COMMAND;
 import static november.strings.Strings.TODO_COMMAND;
@@ -15,6 +16,7 @@ import static november.tasklist.TaskList.addNewDeadline;
 import static november.tasklist.TaskList.addNewEvent;
 import static november.tasklist.TaskList.addNewTodo;
 import static november.tasklist.TaskList.deleteTask;
+import static november.tasklist.TaskList.findTask;
 import static november.tasklist.TaskList.markTask;
 import static november.tasklist.TaskList.unmarkTask;
 import static november.ui.Ui.printTaskList;
@@ -52,6 +54,9 @@ public class Parser {
             case EVENT_COMMAND:
                 addNewEvent(description, taskList); // Add a new EVENT task
                 break;
+            case FIND_COMMAND:
+                findTask(description, taskList);
+                break;
             case DELETE_COMMAND:
                 deleteTask(sentence, taskList); // Delete a task
                 break;
@@ -59,5 +64,6 @@ public class Parser {
                 printUnrecognizedInputMessage(); // Response to unrecognized inputs
                 break;
         }
+
     }
 }
