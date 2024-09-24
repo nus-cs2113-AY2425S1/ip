@@ -61,7 +61,6 @@ public class Ui {
         System.out.println("         Now you have " + size + " tasks in the list.");
     }
 
-
     public void printTaskList(ArrayList<Task> tasks) {
         System.out.println("         Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -69,6 +68,16 @@ public class Ui {
         }
     }
 
+    public void printMatchingTasks(ArrayList<Task> tasks, String keyword) {
+        System.out.println("         Tasks that match the keyword \"" + keyword + "\" is shown in the following list.");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("         " + (i + 1) + ". " + tasks.get(i));
+        }
+    }
+
+    public void printNoMatchingTask() {
+        System.out.println("         No task found matching the keyword.");
+    }
 
 
 }
