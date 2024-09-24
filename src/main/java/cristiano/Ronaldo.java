@@ -67,11 +67,12 @@ public class Ronaldo {
                     Invalid format! Please enter either of these commands in this format without '<>':\s
                     <bye>\s
                     <list>\s
-                    <mark> <goal number>\s
-                    <unmark> <goal number>\s
-                    <event> <description> /from <time> /to <time>\s
-                    <todo> <description>\s
-                    <deadline> <description> /by <time>\s
+                    <delete> <Goal Number>\s
+                    <mark> <Goal Number>\s
+                    <unmark> <Goal Number>\s
+                    <event> <Description> /from <Time> /to <Time>\s
+                    <todo> <Description>\s
+                    <deadline> <Description> /by <Time>\s
                     """);
             break;
         case "Empty":

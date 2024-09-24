@@ -39,32 +39,32 @@ public class Main {
             String[] input = words.split(" ", 2);
             String command = input[0];
             switch (command) {
-                case "bye":
-                    ronaldoInstance.exit();
-                    in.close();
-                    return;
-                case "mark":
-                case "unmark":
-                    ronaldoInstance.handleGoal(input);
-                    break;
-                case "list":
-                    ronaldoInstance.showListOfGoals();
-                    break;
-                case "event":
-                    ronaldoInstance.addEvent(input[1]);
-                    break;
-                case "todo":
-                    ronaldoInstance.addTodo(input[1]);
-                    break;
-                case "deadline":
-                    ronaldoInstance.addDeadline(input[1]);
-                    break;
-                case "delete":
-                    ronaldoInstance.delete(input[1]);
-                    break;
-                default:
-                    ronaldoInstance.reject("Format");
-                    break;
+            case "bye":
+                ronaldoInstance.exit();
+                in.close();
+                return;
+            case "mark":
+            case "unmark":
+                ronaldoInstance.handleGoal(input);
+                break;
+            case "list":
+                ronaldoInstance.showListOfGoals();
+                break;
+            case "event":
+                ronaldoInstance.addEvent(input[1]);
+                break;
+            case "todo":
+                ronaldoInstance.addTodo(input[1]);
+                break;
+            case "deadline":
+                ronaldoInstance.addDeadline(input[1]);
+                break;
+            case "delete":
+                ronaldoInstance.delete(input[1]);
+                break;
+            default:
+                ronaldoInstance.reject("Format");
+                break;
             }
         }
     }
