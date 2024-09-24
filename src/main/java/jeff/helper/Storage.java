@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The <code>Storage</code> class is responsible for loading and saving tasks
+ * to and from a specified text file. It handles the parsing of task data
+ * and ensures that tasks are correctly formatted before they are added
+ * to the task list.
+ */
 public class Storage {
 
     private String filePath;
@@ -25,11 +31,22 @@ public class Storage {
     private static final int FILE_TASK_FIELD1_INDEX = 3;
     private static final int FILE_TASK_FIELD2_INDEX = 4;
 
+    /**
+     * Constructs a <code>Storage</code> object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
-    //Adds todo from txt file to taskList
+    /**
+     * Processes a Todo task from the given details.
+            *
+            * @param taskDetails An array containing the details of the Todo task.
+            * @return A <code>Todo</code> object representing the task.
+            * @throws InvalidFormatException If the task details are invalid.
+     */
     private Task processFileTodo(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == TODO_FILE_FIELD_LENGTH) {
             return new Todo(taskDetails[FILE_TASK_DESC_INDEX]);
@@ -38,7 +55,13 @@ public class Storage {
         }
     }
 
-    //Adds Deadline from txt file to taskList
+    /**
+     * Processes a Deadline task from the given details.
+     *
+     * @param taskDetails An array containing the details of the Deadline task.
+     * @return A <code>Deadline</code> object representing the task.
+     * @throws InvalidFormatException If the task details are invalid.
+     */
     private Task processFileDeadline(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == DEADLINE_FILE_FIELD_LENGTH) {
              return new Deadline(taskDetails[FILE_TASK_DESC_INDEX], taskDetails[FILE_TASK_FIELD1_INDEX]);
@@ -47,7 +70,13 @@ public class Storage {
         }
     }
 
-    //Adds Event from txt file to taskList
+    /**
+     * Processes an Event task from the given details.
+     *
+     * @param taskDetails An array containing the details of the Event task.
+     * @return An <code>Event</code> object representing the task.
+     * @throws InvalidFormatException If the task details are invalid.
+     */
     private Task processFileEvent(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == EVENT_FILE_FIELD_LENGTH) {
             return new Event(taskDetails[FILE_TASK_DESC_INDEX], taskDetails[FILE_TASK_FIELD1_INDEX],
@@ -57,7 +86,13 @@ public class Storage {
         }
     }
 
-    //Processes the different task types from txt file
+    /**
+     * Processes different task types based on the provided details.
+     *
+     * @param taskDetails An array containing the details of the task.
+     * @return A <code>Task</code> object representing the task.
+     * @throws InvalidFormatException If the task type is unknown or invalid.
+     */
     private Task processFileTaskTypes(String[] taskDetails) throws InvalidFormatException {
         String taskType = taskDetails[FILE_TASK_TASK_INDEX];
 
@@ -73,7 +108,14 @@ public class Storage {
         }
     }
 
-    //Splits taskLine into the various fields
+    /**
+     * Splits a task line into its various fields and validates them.
+     * They are valid if they are not empty.
+     *
+     * @param taskLine The line representing a task in the text file.
+     * @return An array of strings containing the task details.
+     * @throws InvalidFormatException If any field is empty or the format is invalid.
+     */
     private String[] getFileTaskDetails(String taskLine) throws InvalidFormatException {
         String[] taskDetails = taskLine.split("\\|");
 
@@ -87,7 +129,13 @@ public class Storage {
         return taskDetails;
     }
 
-    //Adds the task into the taskList if valid
+    /**
+     * Processes a task line and adds the task to the provided task list if valid.
+     *
+     * @param taskLine The line representing a task in the text file.
+     * @param taskList The list to which the task will be added.
+     * @throws InvalidFormatException If the task format is invalid.
+     */
     private void processFileTasks(String taskLine, ArrayList<Task> taskList) throws InvalidFormatException {
         try {
             //Splits the taskDetails and ensures the fields are not empty
@@ -106,12 +154,21 @@ public class Storage {
         }
     }
 
-    //Creates txt task file if it doesn't exist, do nothing if it does
+    /**
+     * Creates the task file if it does not exist.
+     *
+     * @param taskFile The file to be created.
+     * @throws IOException If an I/O error occurs while creating the file.
+     */
     private void createTaskFile(File taskFile) throws IOException {
         taskFile.createNewFile();
     }
 
-    //Creates 'data' directory in the root address if it doesn't exist, do nothing if it does
+    /**
+     * Creates the data directory if it does not exist.
+     *
+     * @param taskFile The file for which the directory will be created.
+     */
     private void createDataDirectory(File taskFile) {
         File directory = taskFile.getParentFile();
         //Check if directory exists
@@ -120,7 +177,13 @@ public class Storage {
         }
     }
 
-    //Load the tasks from the txt file into list here
+    /**
+     * Loads tasks from the specified text file into a list.
+     *
+     * @return An <code>ArrayList</code> of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws InvalidFormatException If the file format is invalid.
+     */
     public ArrayList<Task> loadTaskList() throws IOException, InvalidFormatException {
         File taskFile = new File(this.filePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -139,7 +202,13 @@ public class Storage {
         return taskList;
     }
 
-    //Rewrites taskList to hard drive, runs every time a task is added, or marked/unmarked
+    /**
+     * Writes the current task list to the specified file.
+     * This method is called every time a task is added, deleted, marked or unmarked.
+     *
+     * @param tasks The task list to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void writeFileTask(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         StringBuilder fileContents = new StringBuilder();
