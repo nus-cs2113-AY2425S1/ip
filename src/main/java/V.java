@@ -24,9 +24,13 @@ public class V {
     }
 
     public static void main(String[] args) {
+        
+        Storage storage = new Storage();
+        storage.loadSave(SAVE_FILE_PATH);
+        TaskList taskList = new TaskList(storage);
 
         boolean isOnline = true;
-        TaskList taskList = new TaskList();
+        
         String description;
         String line;
         String[] lineArr;
@@ -34,7 +38,6 @@ public class V {
         Scanner input = new Scanner(System.in);
 
         greet();
-        taskList.loadSave(SAVE_FILE_PATH);
         
         while (isOnline) {
             try {
@@ -44,7 +47,8 @@ public class V {
                 case "bye":
                     input.close();
                     isOnline = false;
-                    taskList.saveTasks(SAVE_FILE_PATH);
+                    storage.createSave(taskList, SAVE_FILE_PATH);
+                    // taskList.saveTasks(SAVE_FILE_PATH);
                     break;
                 case "list":
                     taskList.displayList();

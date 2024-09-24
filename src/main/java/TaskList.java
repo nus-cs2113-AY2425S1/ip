@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class TaskList {
-    private ArrayList<Task> list;
+    private ArrayList<Task> list = new ArrayList<Task>();
     private final String LINE_SEPERATOR = "____________________________________________________________";
 
     // Print 2 line seperators between a block of text for cleaner CLI
@@ -76,17 +76,66 @@ public class TaskList {
         printBlock(String.format("Got it. Task added\n %s", event));
     }
 
-    public void loadSave(String saveFilePath) {
-        try {
-            File saveFile = new File(saveFilePath);
-            Scanner fileScanner = new Scanner(saveFile);
-            if (!fileScanner.hasNext()) {
-                fileScanner.close();
-                return;
-            }
-            while (fileScanner.hasNext()) {
-                String line = fileScanner.nextLine();
-                String[] lineArr = line.trim().split(" ");
+    // public void loadSave(String saveFilePath) {
+    //     try {
+    //         File saveFile = new File(saveFilePath);
+    //         Scanner fileScanner = new Scanner(saveFile);
+    //         if (!fileScanner.hasNext()) {
+    //             fileScanner.close();
+    //             return;
+    //         }
+    //         while (fileScanner.hasNext()) {
+    //             String line = fileScanner.nextLine();
+    //             String[] lineArr = line.trim().split(" ");
+    //             String description;
+    //             switch (lineArr[0].toLowerCase()) {
+    //             case "mark":
+    //                 int position = Integer.parseInt(lineArr[1]);
+    //                 markTask(position);
+    //                 break;
+    //             case "todo":
+    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+    //                 addToDo(description);
+    //                 break;
+    //             case "deadline":
+    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+    //                 addDeadline(description);
+    //                 break;
+    //             case "event":
+    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+    //                 addEvent(description);
+    //                 break;
+    //             default:
+    //                 System.out.println("An error occured while loading the save file");
+    //                 break;
+    //             }
+    //         }
+    //         fileScanner.close();
+    //         printBlock("Here are your list of tasks");
+    //         displayList();
+    //     } catch (FileNotFoundException error) {
+    //         try {
+    //             Files.createFile(Paths.get(saveFilePath));
+    //         } catch (IOException e) {
+    //             System.out.println(e);
+    //         }
+    //     } catch (NumberFormatException error) {
+    //         printBlock("You need to input a valid integer for the task that you want to mark as done");
+    //     } catch (InvalidDeadlineException error) {
+    //         printBlock("You did not enter a valid deadline." + 
+    //                 " Remember to add a \"/by\" before a valid deadline.");
+    //     }
+    // }
+
+    public ArrayList<Task> getList() {
+        return this.list;
+    }
+
+    public TaskList(Storage storage) {
+        ArrayList<String> commandArray = storage.getCommandArray();
+        commandArray.forEach((command) -> {
+            try {
+                String[] lineArr = command.trim().split(" ");
                 String description;
                 switch (lineArr[0].toLowerCase()) {
                 case "mark":
@@ -109,56 +158,12 @@ public class TaskList {
                     System.out.println("An error occured while loading the save file");
                     break;
                 }
+            } catch (InvalidDeadlineException error) {
+                System.out.println(error);
             }
-            fileScanner.close();
-            printBlock("Here are your list of tasks");
-            displayList();
-        } catch (FileNotFoundException error) {
-            try {
-                Files.createFile(Paths.get(saveFilePath));
-            } catch (IOException e) {
-                System.out.println(e);
-            }
-        } catch (NumberFormatException error) {
-            printBlock("You need to input a valid integer for the task that you want to mark as done");
-        } catch (InvalidDeadlineException error) {
-            printBlock("You did not enter a valid deadline." + 
-                    " Remember to add a \"/by\" before a valid deadline.");
-        }
-    }
-
-    public void saveTasks(String saveFilePath) {
-        try {
-            File saveFile = new File(saveFilePath);
-            FileWriter clearSaveFile = new FileWriter(saveFile);
-            clearSaveFile.write("");
-            clearSaveFile.close();
-            FileWriter saveFileWriter = new FileWriter(saveFile, true);
-            for (Task task: this.list) {
-                switch(task.getType()) {
-                case "T":
-                    saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
-                    break;
-                case "D":
-                    saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
-                    break;
-                case "E":
-                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /to " + task.getTo() + System.lineSeparator());
-                    break;
-                default:
-                    break;
-                }
-                if (task.getStatus().equals("X")) {
-                    saveFileWriter.write("mark " + (this.list.indexOf(task) + 1) + System.lineSeparator());
-                }
-            }
-            saveFileWriter.close();
-        } catch (IOException error) {
-            System.out.println(error);
-        }
+        });
     }
 
     public TaskList() {
-        this.list = new ArrayList<>();
     }
 }
