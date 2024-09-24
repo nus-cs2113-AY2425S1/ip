@@ -13,6 +13,11 @@ import jeff.task.Todo;
 
 import java.io.IOException;
 
+
+/**
+ * Represents a Command to add tasks to the task list.
+ * The <code>AddCommand</code> adds "todo", "deadline", or "event" tasks to the task list based on user input.
+ */
 public class AddCommand extends Command {
 
     private static final int TODO_LENGTH = 4;
@@ -22,12 +27,27 @@ public class AddCommand extends Command {
     private static final int SLASH_FROM_LENGTH = 5;
     private static final int SLASH_TO_LENGTH = 3;
 
+    /**
+     * Constructs an AddCommand with the specified params.
+     *
+     * @param firstWord The first word of the command (e.g., "todo", "deadline", "event").
+     * @param line The full line of user input.
+     */
     public AddCommand(String firstWord, String line) {
         super(firstWord, line);
     }
 
-    //Returns the description of a task
-    public static String processTaskDescription(String line , int start, int end){
+    /**
+     * Extracts and returns the description of a task from the user input.
+     * If the start index is greater than the end index, sets the end index to the length of the line.
+     * Returns an empty String if no valid description is in the input.
+     *
+     * @param line The full line of user input.
+     * @param start The starting index of the description.
+     * @param end The ending index of the description.
+     * @return The processed task description.
+     */
+    private String processTaskDescription(String line , int start, int end){
         //If the task fields are empty, set the end number to the length of the line
         if(start > end){
             end = line.length();
@@ -36,8 +56,17 @@ public class AddCommand extends Command {
         return line.substring(start, end).trim();
     }
 
-    //Returns the field of the task, returns an empty string otherwise
-    public static String processTaskField(String line, int fieldIndex, int start, int end){
+    /**
+     * Extracts and returns a task field from the user input.
+     * Returns an empty string if the field is invalid.
+     *
+     * @param line The full line of user input.
+     * @param fieldIndex The starting index of the field delimiter. It is -1 if it does not exist.
+     * @param start The starting index of the field.
+     * @param end The ending index of the field.
+     * @return The processed task field or an empty string if invalid.
+     */
+    private String processTaskField(String line, int fieldIndex, int start, int end){
         if(fieldIndex == -1){
             return "";
         }
@@ -52,8 +81,14 @@ public class AddCommand extends Command {
         return field;
     }
 
-    //Instantiates Todo object
-    public static Todo processTodo(String line) throws TaskDescriptionException {
+    /**
+     * Creates a Todo object from the user input.
+     *
+     * @param line The full line of user input.
+     * @return A Todo object with the provided description.
+     * @throws TaskDescriptionException If the description is empty.
+     */
+    private Todo processTodo(String line) throws TaskDescriptionException {
         String description = processTaskDescription(line, TODO_LENGTH, line.length());
         if(description.isEmpty()) {
             throw new TaskDescriptionException("todo");
@@ -61,8 +96,15 @@ public class AddCommand extends Command {
         return new Todo(description);
     }
 
-    //Instantiates Deadline object
-    public static Deadline processDeadline(String line) throws TaskDescriptionException,
+    /**
+     * Creates a Deadline object from the user input.
+     *
+     * @param line The full line of user input.
+     * @return A Deadline object with the provided description and "by" field.
+     * @throws TaskDescriptionException If the description is empty.
+     * @throws TaskFieldException If the "by" field is empty or missing.
+     */
+    private Deadline processDeadline(String line) throws TaskDescriptionException,
             TaskFieldException, InvalidFormatException {
         int byIndex = line.indexOf("/by");
         String description = processTaskDescription(line, DEADLINE_LENGTH, byIndex);
@@ -76,8 +118,14 @@ public class AddCommand extends Command {
         return new Deadline(description, by);
     }
 
-    //Creates the Exception message for Event fields (if any)
-    public static String eventExceptionMessage(boolean from, boolean to){
+    /**
+     * Constructs an exception message indicating missing fields for an event.
+     *
+     * @param from Indicates whether the "from" field is missing.
+     * @param to Indicates whether the "to" field is missing.
+     * @return A message indicating which fields are missing.
+     */
+    private String eventExceptionMessage(boolean from, boolean to){
         StringBuilder errMsg = new StringBuilder();
         if (from) {
             errMsg.append("'from'");
@@ -93,8 +141,15 @@ public class AddCommand extends Command {
         return errMsg.toString();
     }
 
-    //Instantiates Event object
-    public static Event processEvent(String line) throws TaskDescriptionException,
+    /**
+     * Creates an Event object from the user input.
+     *
+     * @param line The full line of user input.
+     * @return An Event object with the provided description, "from", and "to" fields.
+     * @throws TaskDescriptionException If the description is empty.
+     * @throws TaskFieldException If the "from" or "to" fields are empty or missing.
+     */
+    private Event processEvent(String line) throws TaskDescriptionException,
             TaskFieldException, InvalidFormatException {
         int fromIndex = line.indexOf("/from");
         int toIndex = line.lastIndexOf("/to");
@@ -111,6 +166,15 @@ public class AddCommand extends Command {
         return new Event(description, from, to);
     }
 
+    /**
+     * Executes the AddCommand, which processes the user input and adds a new task to the task list.
+     * Saves the task to storage and provides feedback to the user via the UI.
+     *
+     * @param tasks The TaskList to add the task to.
+     * @param ui The Ui for user interaction.
+     * @param storage The Storage object to handle saving tasks.
+     * @throws IOException If an I/O error occurs when saving the task.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task;
