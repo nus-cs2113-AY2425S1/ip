@@ -49,7 +49,6 @@ public class Yapper {
         startYappin(taskHandler);
 
         // Post-Program Message
-        System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
         System.out.println(StringStorage.LINE_DIVIDER);
     }
