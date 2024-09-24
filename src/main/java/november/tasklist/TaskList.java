@@ -14,12 +14,12 @@ import static november.ui.Ui.endSegment;
 import static november.ui.Ui.printTaskCount;
 import static november.storage.Storage.updateSaveFile;
 
-import static november.strings.Strings.ADD_TASK_MESSAGE;
-import static november.strings.Strings.DELETE_TASK_MESSAGE;
-import static november.strings.Strings.INDEX_OUT_OF_BOUNDS_MESSAGE;
-import static november.strings.Strings.MARK_TASK_MESSAGE;
-import static november.strings.Strings.NONNUMERICAL_INDEX_MESSAGE;
-import static november.strings.Strings.UNMARK_TASK_MESSAGE;
+import static november.messages.Messages.ADD_TASK_MESSAGE;
+import static november.messages.Messages.DELETE_TASK_MESSAGE;
+import static november.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
+import static november.messages.Messages.MARK_TASK_MESSAGE;
+import static november.messages.Messages.NONNUMERICAL_INDEX_MESSAGE;
+import static november.messages.Messages.UNMARK_TASK_MESSAGE;
 
 public class TaskList {
     /**

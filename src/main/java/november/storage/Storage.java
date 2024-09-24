@@ -18,9 +18,9 @@ import java.util.Scanner;
 
 import static november.tasklist.TaskList.markTask;
 
-import static november.strings.Strings.DEADLINE_COMMAND;
-import static november.strings.Strings.EVENT_COMMAND;
-import static november.strings.Strings.TODO_COMMAND;
+import static november.messages.Messages.DEADLINE_COMMAND;
+import static november.messages.Messages.EVENT_COMMAND;
+import static november.messages.Messages.TODO_COMMAND;
 
 public class Storage {
 

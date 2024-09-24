@@ -10,7 +10,7 @@ import static november.ui.Ui.printGreeting;
 import static november.storage.Storage.initialiseSaveFile;
 import static november.storage.Storage.loadSaveFile;
 import static november.ui.Ui.printExitMessage;
-import static november.strings.Strings.EXIT_COMMAND;
+import static november.messages.Messages.EXIT_COMMAND;
 
 public class November {
 
