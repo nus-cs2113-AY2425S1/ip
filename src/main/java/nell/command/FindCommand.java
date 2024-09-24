@@ -19,7 +19,9 @@ public class FindCommand extends Command {
      */
     public FindCommand(TaskList tasks, String keyword) {
         super(tasks);
-        this.keyword = keyword;
+
+        String trimmedKeyword = keyword.split(" ")[0].trim(); // Takes first word in input, discards the rest
+        this.keyword = trimmedKeyword;
     }
 
     /**
