@@ -1,10 +1,5 @@
-@ECHO OFF
-
-REM create bin directory if it doesn't exist
-if not exist ..\out mkdir ..\bin
-
-REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+REM compile the code into the class-files folder
+javac  -cp ..\..\..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
