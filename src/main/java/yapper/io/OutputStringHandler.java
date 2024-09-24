@@ -39,32 +39,40 @@ public class OutputStringHandler {
     }
     // For Instruction: List
     public static void printAllTasks(TaskHandler taskHandler) {
-        System.out.println(StringStorage.LIST_ALL_TASKS_STRING);
+        System.out.println(StringStorage.LIST_BEFORE_STRING);
 
         List<Task> tasks = taskHandler.getAllTasks();
         for (Task task : tasks) {
             printTaskWithOrdinal( task, taskHandler.getTaskOrdinal(task) );
         }
+
+        System.out.println(StringStorage.LIST_AFTER_STRING);
     }
 
     // For Instruction: Todo Deadline Event
     public static void printAddedTask(Task task, int taskTotal) {
-        System.out.println(
-                StringStorage.TASK_ADDED_STRING + "\n"
-                + printTaskWithoutOrdinal(task) + "\n"
-                + StringStorage.LIST_SIZE_STRING + taskTotal);
+        System.out.println(StringStorage.ADD_BEFORE_STRING);
+
+        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
+
+        System.out.println(StringStorage.ADD_AFTER_STRING);
     }
     // For Instruction: Delete
     public static void printDeletedTask(Task task, int taskTotal) {
-        System.out.println(
-                StringStorage.TASK_DELETED_STRING + "\n"
-                + printTaskWithoutOrdinal(task) + "\n"
-                + StringStorage.LIST_SIZE_STRING + taskTotal);
+        System.out.println(StringStorage.DELETE_BEFORE_STRING);
+
+        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
+
+        System.out.println(StringStorage.DELETE_AFTER_STRING);
     }
     // For Instruction: Mark, Unmark
     public static void printTaskStatus(Task task, boolean isDone) {
-        String status = (isDone ? "done" : "undone");
-        System.out.println(
-                "This task is now " + status + ": \n" + printTaskWithoutOrdinal(task) );
+        System.out.println(StringStorage.TASK_COMPLETION_STATUS_CHANGED_STRING +
+                (isDone ? "done" : "not done") );
+        System.out.println( printTaskWithoutOrdinal(task) );
+        System.out.println( isDone ?
+                StringStorage.TASK_IS_DONE_STRING : StringStorage.TASK_IS_NOT_DONE_STRING);
     }
 }

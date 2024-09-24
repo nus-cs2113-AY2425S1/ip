@@ -84,14 +84,26 @@ public class StringStorage {
             "No tasks found that contains your query string. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "Sorry, I don't think I can recall any. ";
-    public static final String LIST_ALL_TASKS_STRING =
+    public static final String LIST_BEFORE_STRING =
             "You don't remember your tasks? Lemme refresh your memory: ";
-    public static final String TASK_ADDED_STRING =
+    public static final String LIST_AFTER_STRING =
+            "That should be all of them. Did I forget any? ";
+    public static final String ADD_BEFORE_STRING =
             "Now, ya gotta do this too: ";
-    public static final String TASK_DELETED_STRING =
+    public static final String ADD_AFTER_STRING =
+            "Good luck! ";
+    public static final String DELETE_BEFORE_STRING =
             "Now, ya dun hafta do dis anymore: ";
+    public static final String DELETE_AFTER_STRING =
+            "Onto the next one! ";
     public static final String LIST_SIZE_STRING =
             "Your list is now THIS BIG: ";
+    public static final String TASK_COMPLETION_STATUS_CHANGED_STRING =
+            "The task below is now marked as ";
+    public static final String TASK_IS_DONE_STRING =
+            "Congrats on completion! ";
+    public static final String TASK_IS_NOT_DONE_STRING =
+            "Get to work! ";
 //    public static final String BEFORE_SAVING_STRING =
 //            "saving data to: "; // ok, just give me a while to recall
 //    public static final String AFTER_SAVING_STRING =
