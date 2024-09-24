@@ -80,7 +80,14 @@ public abstract class Task {
      * @return whether the keyword is present in the task description
      */
     public boolean containsKeyword(String keyword) {
-        return this.description.contains(keyword);
+        String[] descriptionWords = this.description.split(" ");
+        for (String word : descriptionWords) {
+            if (keyword.equalsIgnoreCase(word)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**
