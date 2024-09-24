@@ -28,10 +28,6 @@ public class ToDo extends Task {
         this.type = TASK_TYPE;
     }
 
-    public String toString() {
-        return super.toString();
-    }
-
     /**
      * Returns true if the given task occurs on a given date.
      * Always returns false as ToDo tasks are undated.
