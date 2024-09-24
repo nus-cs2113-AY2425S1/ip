@@ -7,14 +7,8 @@ package yapper.io;
  *
  * <p>
  * The {@code StringStorage} class holds various constants and utility methods
- * related to string management for user input and output in the application.
+ * related to string management for user input and output.
  * <p/>
- *
- * <p>
- * This class includes constants for file paths, instruction prefixes,
- * symbols for different task types, and various messages for user interaction.
- * It also provides methods to assist in string manipulation and formatted output.
- * </p>
  *
  * <p>
  * Constants in this class are organized into several categories: <ul>
@@ -22,8 +16,9 @@ package yapper.io;
  *   <li><b>User Instructions:</b> Constants representing prefixes for user commands.</li>
  *   <li><b>Task Symbols:</b> Symbols used to represent task types and statuses.</li>
  *   <li><b>Messages:</b> Predefined messages for user interaction.</li>
- *   <li><b>Error Messages:</b> Messages used to inform users of issues or missing input.</li>
+ *   <li><b>Exception Messages:</b> Messages used to inform users of issues or missing input.</li>
  * </ul> </p>
+ *
  */
 public class StringStorage {
     /**
@@ -251,14 +246,14 @@ public class StringStorage {
             LINE_DIVIDER_YAPPER + "\n"+
             "I know you still haven't done this. I won't forget. ";
 
-    public static final String INCOMPLETE_INSTRUCTION_MESSAGE =
-            "Sorry, you cut off there. Continue what you were saying? ";
+//    public static final String INCOMPLETE_INSTRUCTION_MESSAGE =
+//            "Sorry, you cut off there. Continue what you were saying? ";
     public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
             "Instruction is not recognised. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "I dunno whatcha just said. Repeat it for me will ya? ";
     public static final String SAVING_ERROR_MESSAGE = "error in saving data";
-    public static final String LOADING_ERROR_MESSAGE = "error in retrieving data";
+//    public static final String LOADING_ERROR_MESSAGE = "error in retrieving data";
 
 //    public static final String MESSAGE =
 //            "";
