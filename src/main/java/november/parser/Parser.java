@@ -4,13 +4,13 @@ import november.tasks.Task;
 
 import java.util.ArrayList;
 
-import static november.messages.Messages.DEADLINE_COMMAND;
-import static november.messages.Messages.DELETE_COMMAND;
-import static november.messages.Messages.EVENT_COMMAND;
-import static november.messages.Messages.LIST_COMMAND;
-import static november.messages.Messages.MARK_COMMAND;
-import static november.messages.Messages.TODO_COMMAND;
-import static november.messages.Messages.UNMARK_COMMAND;
+import static november.strings.Strings.DEADLINE_COMMAND;
+import static november.strings.Strings.DELETE_COMMAND;
+import static november.strings.Strings.EVENT_COMMAND;
+import static november.strings.Strings.LIST_COMMAND;
+import static november.strings.Strings.MARK_COMMAND;
+import static november.strings.Strings.TODO_COMMAND;
+import static november.strings.Strings.UNMARK_COMMAND;
 import static november.tasklist.TaskList.addNewDeadline;
 import static november.tasklist.TaskList.addNewEvent;
 import static november.tasklist.TaskList.addNewTodo;
@@ -59,6 +59,5 @@ public class Parser {
                 printUnrecognizedInputMessage(); // Response to unrecognized inputs
                 break;
         }
-
     }
 }

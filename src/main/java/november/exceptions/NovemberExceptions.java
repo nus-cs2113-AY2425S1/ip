@@ -5,9 +5,9 @@ import november.tasks.Event;
 import november.tasks.Todo;
 
 public class NovemberExceptions extends Exception{
-    private static final String DEADLINE_DUE_DATE = "/by";
-    private static final String EVENT_START = "/from";
-    private static final String EVENT_END = "/to";
+    private static final String DEADLINE_DUE_DATE = "/by ";
+    private static final String EVENT_START = "/from" ;
+    private static final String EVENT_END = "/to" ;
 
     private static final int DEADLINE_DUE_DATE_LENGTH = DEADLINE_DUE_DATE.length();
     private static final int EVENT_START_LENGTH = EVENT_START.length();
@@ -18,7 +18,7 @@ public class NovemberExceptions extends Exception{
         if (description.isBlank()) {
             throw new IllegalArgumentException("Please provide a task description.");
         }
-        return new Todo(description);
+        return new Todo(description.trim());
     }
 
     public static Deadline validDeadline(String description) {
@@ -47,7 +47,7 @@ public class NovemberExceptions extends Exception{
         if (by.isBlank()) {
             throw new IllegalArgumentException("Please provide a date after the due date marker.");
         }
-        return new Deadline(deadlineDescription, by);
+        return new Deadline(deadlineDescription.trim(), by.trim());
     }
 
     public static Event validEvent(String description) {
@@ -96,6 +96,6 @@ public class NovemberExceptions extends Exception{
             throw new IllegalArgumentException("Please provide an end date after the event end marker.");
         }
 
-        return new Event(eventDescription, startDate, endDate);
+        return new Event(eventDescription.trim(), startDate.trim(), endDate.trim());
     }
 }
