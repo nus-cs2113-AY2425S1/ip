@@ -16,7 +16,7 @@ public class InstructionHandler {
     public static void handleFindInstruction(TaskHandler taskHandler, String query) {
         // No Error_Check yet ?
         // Do & Print
-        OutputStringHandler.printTasksMatchQuery(taskHandler, query);
+        OutputStringHandler.printSelectedTasks(taskHandler, query);
         // No Update_File needed
     }
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {

@@ -78,33 +78,33 @@ public class StringStorage {
     public static final String LIST_RELEVANT_TASKS_STRING =
             "Hmmm, let me think. What tasks could you be referring to? ";
     public static final String RELEVANT_TASKS_FOUND_STRING =
-            " task(s) contains your query string. \n" +
+            " task(s) found contains your query string. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "Is any of them what you were looking for? ";
     public static final String RELEVANT_TASKS_NOT_FOUND_STRING =
             "No tasks found that contains your query string. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
-            "Sorry, I don't think I can recall any. ";
+            "Sorry, I don't recall anything that is related to that. ";
     public static final String LIST_BEFORE_STRING =
-            "You don't remember your tasks? Lemme refresh your memory: ";
+            "You're forgetting already? Lemme refresh your memory: ";
     public static final String LIST_AFTER_STRING =
             "That should be all of them. Did I forget any? ";
     public static final String ADD_BEFORE_STRING =
-            "Now, ya gotta do this too: ";
+            "Now, I gotta remember this too: ";
     public static final String ADD_AFTER_STRING =
-            "Good luck! ";
+            "Don't worry, I've already memorized all about it! ";
     public static final String DELETE_BEFORE_STRING =
-            "Now, ya dun hafta do dis anymore: ";
+            "Now I don't need to remember this one anymore: ";
     public static final String DELETE_AFTER_STRING =
-            "Onto the next one! ";
+            "Don't worry, I've already forgotten about it! ";
     public static final String LIST_SIZE_STRING =
-            "Your list is now THIS BIG: ";
+            "If I counted correctly, you have a task total of ";
     public static final String TASK_COMPLETION_STATUS_CHANGED_STRING =
-            "The task below is now marked as ";
+            "I know, you told me that this task is ";
     public static final String TASK_IS_DONE_STRING =
-            "Congrats on completion! ";
+            "Keep it up! You'll be done with it eventually! ";
     public static final String TASK_IS_NOT_DONE_STRING =
-            "Get to work! ";
+            "Keep going, you'll get it done eventually! ";
 //    public static final String BEFORE_SAVING_STRING =
 //            "saving data to: "; // ok, just give me a while to recall
 //    public static final String AFTER_SAVING_STRING =
