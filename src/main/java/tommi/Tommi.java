@@ -1,10 +1,11 @@
 package tommi;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Tommi {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         printIntroMessage();
@@ -20,18 +21,24 @@ public class Tommi {
         }
     }
 
-    private static void printIntroMessage() {
-        String intro = """
+    private static void printIntroMessage() throws FileNotFoundException {
+        String introFirst = """
                  ______                  \s
                 /_  __/__  __ _  __ _  (_)
                  / / / _ \\/  ' \\/  ' \\/ /\s
                 /_/  \\___/_/_/_/_/_/_/_/ \s
                 ____________________________________________________________
                 Hello! I'm Tommi!
-                What can I do for you?
+                Here's your current task list:
+                """;
+        System.out.println(introFirst);
+        TaskData.loadTaskData();
+        String introSecond = """
+                ____________________________________________________________
+                How can I help you?
                 ____________________________________________________________
                 """;
-        System.out.println(intro);
+        System.out.println(introSecond);
     }
 
     private static void printExitMessage() {

@@ -1,5 +1,7 @@
 package tommi;
 
+import java.io.IOException;
+
 public class InputHandler {
 
     public static void processInputCases(String input) {
@@ -16,18 +18,22 @@ public class InputHandler {
             case "mark":
                 taskIndex = Integer.parseInt(words[1]) - 1;
                 TaskList.markTask(taskIndex);
+                trySaveTaskData();
                 break;
             case "unmark":
                 taskIndex = Integer.parseInt(words[1]) - 1;
                 TaskList.unmarkTask(taskIndex);
+                trySaveTaskData();
                 break;
             case "delete":
                 taskIndex = Integer.parseInt(words[1]) - 1;
                 TaskList.deleteTask(taskIndex);
+                trySaveTaskData();
                 break;
             case "todo":
                 if (words.length > 1 && !words[1].isEmpty()) {
                     TaskList.addTask(new ToDo(false, input.substring(5)));
+                    trySaveTaskData();
                 } else {
                     throw new IllegalArgumentException(
                             "____________________________________________________________\n" +
@@ -39,14 +45,14 @@ public class InputHandler {
             case "deadline":
                 String[] deadlineParts = input.substring(9).split("/by", 2);
                 TaskList.addTask(new Deadline(false, deadlineParts[0], deadlineParts[1]));
+                trySaveTaskData();
                 break;
             case "event":
                 String[] eventParts = input.split("/from", 2);
-
-                // Split the remaining part by /to
                 String[] timeParts = eventParts[1].split("/to", 2);
 
-                TaskList.addTask(new Event(false, eventParts[0], timeParts[0], timeParts[1]));
+                TaskList.addTask(new Event(false, eventParts[0].substring(6), timeParts[0], timeParts[1]));
+                trySaveTaskData();
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -57,6 +63,14 @@ public class InputHandler {
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private static void trySaveTaskData() {
+        try {
+            TaskData.saveTaskData(TaskList.getTaskList());
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
