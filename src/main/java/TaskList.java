@@ -29,11 +29,13 @@ public class TaskList {
         System.out.println(LINE_SEPERATOR);
     }
 
-    public void markTask(int position) {
+    public void markTask(int position, boolean isFromSaveFile) {
         Task task = this.list.get(position - 1);
         task.setDone();
         this.list.set(position - 1, task);
-        displayList();
+        if (!isFromSaveFile) {
+            displayList();
+        }
     }
 
     public void deleteTask(int position) {
@@ -43,13 +45,15 @@ public class TaskList {
                 "\nNow you have " + this.list.size() + " left");
     }
 
-    public void addToDo(String description) {
+    public void addToDo(String description, boolean isFromSaveFile) {
         ToDo toDo = new ToDo(description);
         this.list.add(toDo);
-        printBlock(String.format("Got it. Task added\n %s", toDo));
+        if (!isFromSaveFile) {
+            printBlock(String.format("Got it. Task added\n %s", toDo));
+        }
     }
 
-    public void addDeadline(String description) throws InvalidDeadlineException{
+    public void addDeadline(String description, boolean isFromSaveFile) throws InvalidDeadlineException{
         String[] descriptionAndDeadline = description.split("/by");
         if (descriptionAndDeadline.length != 2) {
             throw new InvalidDeadlineException();
@@ -60,10 +64,12 @@ public class TaskList {
         Deadline deadline = new Deadline(descriptionText, by);
         this.list.add(deadline);
 
-        printBlock(String.format("Got it. Task added\n %s", deadline));
+        if (!isFromSaveFile) {
+            printBlock(String.format("Got it. Task added\n %s", deadline));
+        }
     }
 
-    public void addEvent(String description) {
+    public void addEvent(String description, boolean isFromSaveFile) {
         String[] descriptionAndEventTimeline = description.split("/from");
         String descriptionText = descriptionAndEventTimeline[0].trim();
         String[] eventTimeline = descriptionAndEventTimeline[1].split("/to");
@@ -73,59 +79,10 @@ public class TaskList {
         Event event = new Event(descriptionText, from, to);
         this.list.add(event);
 
-        printBlock(String.format("Got it. Task added\n %s", event));
+        if (!isFromSaveFile) {
+            printBlock(String.format("Got it. Task added\n %s", event));
+        }
     }
-
-    // public void loadSave(String saveFilePath) {
-    //     try {
-    //         File saveFile = new File(saveFilePath);
-    //         Scanner fileScanner = new Scanner(saveFile);
-    //         if (!fileScanner.hasNext()) {
-    //             fileScanner.close();
-    //             return;
-    //         }
-    //         while (fileScanner.hasNext()) {
-    //             String line = fileScanner.nextLine();
-    //             String[] lineArr = line.trim().split(" ");
-    //             String description;
-    //             switch (lineArr[0].toLowerCase()) {
-    //             case "mark":
-    //                 int position = Integer.parseInt(lineArr[1]);
-    //                 markTask(position);
-    //                 break;
-    //             case "todo":
-    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-    //                 addToDo(description);
-    //                 break;
-    //             case "deadline":
-    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-    //                 addDeadline(description);
-    //                 break;
-    //             case "event":
-    //                 description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-    //                 addEvent(description);
-    //                 break;
-    //             default:
-    //                 System.out.println("An error occured while loading the save file");
-    //                 break;
-    //             }
-    //         }
-    //         fileScanner.close();
-    //         printBlock("Here are your list of tasks");
-    //         displayList();
-    //     } catch (FileNotFoundException error) {
-    //         try {
-    //             Files.createFile(Paths.get(saveFilePath));
-    //         } catch (IOException e) {
-    //             System.out.println(e);
-    //         }
-    //     } catch (NumberFormatException error) {
-    //         printBlock("You need to input a valid integer for the task that you want to mark as done");
-    //     } catch (InvalidDeadlineException error) {
-    //         printBlock("You did not enter a valid deadline." + 
-    //                 " Remember to add a \"/by\" before a valid deadline.");
-    //     }
-    // }
 
     public ArrayList<Task> getList() {
         return this.list;
@@ -140,19 +97,19 @@ public class TaskList {
                 switch (lineArr[0].toLowerCase()) {
                 case "mark":
                     int position = Integer.parseInt(lineArr[1]);
-                    markTask(position);
+                    markTask(position, true);
                     break;
                 case "todo":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addToDo(description);
+                    addToDo(description, true);
                     break;
                 case "deadline":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addDeadline(description);
+                    addDeadline(description, true);
                     break;
                 case "event":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addEvent(description);
+                    addEvent(description, true);
                     break;
                 default:
                     System.out.println("An error occured while loading the save file");

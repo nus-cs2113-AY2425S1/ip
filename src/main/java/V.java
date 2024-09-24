@@ -55,7 +55,7 @@ public class V {
                     break;
                 case "mark":
                     position = Integer.parseInt(lineArr[1]);
-                    taskList.markTask(position);
+                    taskList.markTask(position, false);
                     break;
                 case "delete":
                     position = Integer.parseInt(lineArr[1]);
@@ -63,15 +63,15 @@ public class V {
                     break;
                 case "todo":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addToDo(description);
+                    taskList.addToDo(description, false);
                     break;
                 case "deadline":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addDeadline(description);
+                    taskList.addDeadline(description, false);
                     break;
                 case "event":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addEvent(description);
+                    taskList.addEvent(description, false);
                     break;
                 default:
                     System.out.println("Try again");
