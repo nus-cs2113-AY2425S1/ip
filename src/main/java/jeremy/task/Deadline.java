@@ -3,8 +3,6 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
-import java.util.Objects;
-
 public class Deadline extends Task {
     protected final String by;
 

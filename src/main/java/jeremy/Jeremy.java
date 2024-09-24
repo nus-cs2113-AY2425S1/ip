@@ -1,8 +1,9 @@
 package jeremy;
 
-import jeremy.exception.JeremyException;
-
 import jeremy.command.Command;
+
+import jeremy.exception.JeremyException;
+import java.io.FileNotFoundException;
 
 import jeremy.task.Deadline;
 import jeremy.task.Event;
@@ -12,7 +13,6 @@ import jeremy.util.Storage;
 import jeremy.util.Ui;
 import jeremy.util.TaskList;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Jeremy {
@@ -65,6 +65,11 @@ public class Jeremy {
                     break;
                 case EVENT:
                     tasks.addTask(new Event(argument));
+                    break;
+                default:
+                    // Below shouldn't ever run, since there's error
+                    // handling for command type inside the enum
+                    ui.println("How did you get here?");
                     break;
                 }
             } catch (JeremyException e) {
