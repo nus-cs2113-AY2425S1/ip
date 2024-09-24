@@ -1,30 +1,69 @@
-# Duke User Guide
+# CodyChen User Guide
 
-// Update the title above to match the actual product name
+This bot allows you to input tasks, mark tasks as done, delete tasks and search tasks.
 
-// Product screenshot goes here
+## Input Tasks
+**Tasks include Todo, Deadlines and Events**
+### Todos
+* Todos includes tasks which does not have a deadline. To input a Todo, use the following syntax
+* An error will be printed if the syntax is invalid
+```
+todo {taskName}
+```
+### Deadlines
+* Deadlines includes tasks which has a deadline. To input a Deadline, use the following syntax
+* An error will be printed if the syntax is invalid 
+```
+deadline {taskName} /by {deadline}
+```
+### Events
+* Events includes tasks which has a start date and a deadline. To input an Event, use the following syntax
+* An error will be printed if the syntax is invalid
+```
+event {taskName} /from {startDate} /to {deadline}
+```
 
-// Product intro goes here
+## Mark or Unmark Tasks
+** Marks or unmarks a task as complete instead of deleting them **
+* To mark an item, specify the index number of the item.
+* An error will be printed if the syntax is invalid
+* You can only mark an item if it exists. 
+* To view the item list, refer to (##list-items)
 
-## Adding deadlines
+### Mark
+```
+mark {indexNmber}
+```
 
-// Describe the action and its outcome.
+### Mark
+```
+unmark {indexNmber}
+```
 
-// Give examples of usage
+## List Items
+**Lists the current items in your list**
+* To list, just enter the keyword list. 
+```
+list
+```
 
-Example: `keyword (optional arguments)`
+## Delete Tasks
+** Deletes tasks in the list according to its index number **
+* If the item number is not found, an error will be returned
+```
+delete {indexNumber}
+```
 
-// A description of the expected outcome goes here
+## Find Tasks
+** Returns all the items in the list according to a keyword **
 
 ```
-expected output
+find {keyword}
 ```
 
-## Feature ABC
+# Possible Errors
+## List is empty
+* Add some items in the list to continue
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+## List is corrupted
+* Delete all existing items in the list to continue
