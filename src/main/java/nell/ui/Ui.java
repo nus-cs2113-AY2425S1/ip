@@ -45,13 +45,11 @@ public class Ui {
      * Gets commands from user, then parses and executes commands received
      */
     public void getCommands() {
-        // Initialises scanner to take in user input
         Scanner input = new Scanner(System.in);
 
         boolean isGettingCommands = true;
 
         while (isGettingCommands) {
-            // Get user command and respond accordingly
             String rawCommand = input.nextLine();
             if (rawCommand.equals(BYE_COMMAND)) {
                 isGettingCommands = false;
