@@ -1,16 +1,17 @@
 package Glendon;
 
-import Glendon.GlendonException;
 import Glendon.task.Deadline;
 import Glendon.task.Event;
 import Glendon.task.Task;
 import Glendon.task.Todo;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import static Glendon.Glendon.filePath;
 
 public class TaskList {
     public static ArrayList<Task> taskList;
     public static int taskCounter = 0;
+    public static UI ui = new UI();
 
     TaskList() {
         this.taskList = new ArrayList<>();
@@ -42,20 +43,24 @@ public class TaskList {
 
     public void deleteTask(String response) throws IndexOutOfBoundsException {
         int taskNumber = Integer.parseInt(response.split(" ")[1]);
-        Task removedTask = taskList.get(taskNumber - 1);
         taskList.remove(taskNumber - 1);
     }
 
     public void addEvent(String response) throws StringIndexOutOfBoundsException,ArrayIndexOutOfBoundsException {
         String[] answers = response.split("/from ");
         String taskInfo = answers[0].substring(6);
-        String[] dates = answers[1].split("to ");
-        String startDate = dates[0];
-        String endDate = dates[1];
+        String[] dates = answers[1].split("/to ");
+        String startDateTime = dates[0];
+        String endDateTime = dates[1];
         if (taskInfo.length() == 0) {
             throw new GlendonException();
         }
-        taskList.add(new Event(taskInfo, startDate, endDate));
+    //    boolean numericalStartDateTime = checkDateFormat(startDateTime);
+    //    boolean numericalEndDateTime = checkDateFormat(endDateTime);
+    //    if (numericalStartDateTime && numericalEndDateTime) {
+
+    //    }
+        taskList.add(new Event(taskInfo, startDateTime, endDateTime));
         taskCounter++;
     }
 
@@ -90,4 +95,34 @@ public class TaskList {
         int taskIndex = Integer.parseInt(responsesArray[1]) - 1; //getting the index of Task to be deleted
         taskList.get(taskIndex).setCompleted(true);
     }
+
+    public void findTask(String wantedTask) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : taskList) {
+            String taskName = task.taskName;
+            if (taskName.contains(wantedTask)) {
+                tasks.add(task);
+            }
+        }
+        if (tasks.size() == 0) {
+            ui.noSuchTask();
+        } else {
+            ui.tasksFound(tasks);
+        }
+    }
+
+    /* public boolean checkDateFormat(String dateTime) {
+        if (dateTime.contains("/") || dateTime.contains("-")) {
+            return true;
+        }
+        return false;
+    }
+    */
+    /*public LocalDateTime formattedDateTime(String dateTime) {
+        String[] dateTimeInput = dateTime.split(" ");
+        if (dateTimeInput.length == 2 && dateTimeInput[0].contains("-")) {
+
+       }
+        return null;
+    } */
 }
