@@ -8,12 +8,12 @@ import java.util.stream.IntStream;
 
 /**
  * Facilitates storing/reading the tasks specified by the user in/from a
- * tasks.txt file in the user's home directory
+ * tasks.txt file in the user's current working directory
  */
 public class Storage {
 
-    private static final String userHome = System.getProperty("user.home");
-    private static final String FILE_PATH = userHome + "/tasks.txt";
+    private static final String userDir = System.getProperty("user.dir");
+    private static final String FILE_PATH = userDir + "/tasks.txt";
     private final TaskList taskList;
     private final File file;
 
