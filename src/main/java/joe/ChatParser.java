@@ -77,6 +77,17 @@ public class ChatParser {
                 UI.printReply("No todo with this number exists.", "Retry: ");
             }
             break;
+        case "find":
+            if (tokens.length > 1 && tokens.length < 3) {
+                Optional<TaskList> filteredTasks = this.toDoItemArrayList.findTasksByKeyword(tokens[1]);
+                filteredTasks.ifPresentOrElse(
+                    taskList -> UI.printList(taskList),
+                    () -> UI.printReply("No task exists with this keyword", "")
+                );
+            } else {
+                UI.printReply("Sorry you can (and need) to search for one keyword at a time", "Retry: ");
+            }
+            break;
         default:
             try {
                 this.createNewTask(commandToken, input);
