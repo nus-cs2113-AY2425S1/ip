@@ -30,7 +30,7 @@ public class ChatParser {
         Scanner in = new Scanner(System.in);
         String input = "";
         while (!input.equals("bye")) {
-            input = in.nextLine();
+            input = in.nextLine().strip();
             switch (input) {
             case "bye":
                 break;

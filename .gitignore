@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+#The task list file
+tasks.txt
+
 #Jar Files
 *.jar
 
