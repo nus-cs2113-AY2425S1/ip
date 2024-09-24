@@ -36,8 +36,20 @@ public class Mong {
     }
 
     /**
+     * Saves new content to file.
+     */
+    private static void saveToFile() {
+        try {
+            writeToFile(parseListToTxt());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
      * Formats latest list to txt file format.
      */
+
     public static String parseListToTxt() {
         StringBuilder textToAdd = new StringBuilder();
         for (Task task : list) {
@@ -305,6 +317,7 @@ public class Mong {
                 System.out.println("MooONG?! That's not a valid command...");
                 break;
             }
+            saveToFile();
             printHorizontalLine();
             input = in.nextLine();
             try {
@@ -316,7 +329,7 @@ public class Mong {
     }
 
     public static void main(String[] args) throws IOException {
-        File directory = new File("src/main/java/mong/data/");
+        File directory = new File("/mong/data/");
         File file = new File(FILE_PATH);
         if (!directory.exists()) {
             directory.mkdir();
@@ -349,10 +362,5 @@ public class Mong {
         printHorizontalLine();
         System.out.println("Mong-mong... See you again next time!");
         printHorizontalLine();
-        try {
-            writeToFile(parseListToTxt());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
     }
 }
