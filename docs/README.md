@@ -52,11 +52,13 @@ Yapper supports 10 different command types:
 9. Mark 
 10. Unmark
 
+> [!NOTE]
+> I have formatted the instructions on how to use each command, as such:
 
-### Legend
+### Format
 
-To perform this command,
-use the command_keyword, followed by additional arguments
+To perform a command,
+use the command_keyword, followed by additional arguments if any
 e.g. `shown here is how to format input`.
 ```
 shown here is a sample program output
@@ -65,7 +67,8 @@ The command_keyword is always in lowercase.
 
 Arguments, if any, are compulsory if indicated.
 
-Extraneous parameters for commands that do not take in parameters (such as list, help, bye) will not be ignored.
+> [!CAUTION]
+> Extraneous parameters for commands that do not take in parameters (such as list, help, bye) will not be ignored.
 Yapper will not understand.
 
 
@@ -199,7 +202,6 @@ If there are additional parameters, they must be included and must be in the sam
 |   find   | Lists all tasks in the list whose description contains the query | find [query]                         | find CS2113                                |
 |   bye    | Exits the program with a goodbye message                         | bye                                  | bye                                        |
 desc, date, query are strings.
-
 ordinal is an integer.
 
 ---
