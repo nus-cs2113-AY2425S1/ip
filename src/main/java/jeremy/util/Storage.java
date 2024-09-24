@@ -80,7 +80,7 @@ public class Storage {
         return taskList;
     }
 
-    public void save (TaskList tasks) {
+    public void save(TaskList tasks) {
         File file = new File(PATH + FILE_NAME);
 
         try (FileWriter fw = new FileWriter(file)) {

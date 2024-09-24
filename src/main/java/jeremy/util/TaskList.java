@@ -37,12 +37,16 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
-        ui.lineBreak();
         tasks.add(task);
-        ui.println("Got it. I've added this task:");
-        ui.println(task.toString());
-        ui.println("Now you have " + tasks.size() + " tasks in the list.");
-        ui.lineBreak();
+
+        // Doesn't print if task is being loaded
+        if (!task.isDone()) {
+            ui.lineBreak();
+            ui.println("Got it. I've added this task:");
+            ui.println(task.toString());
+            ui.println("Now you have " + tasks.size() + " tasks in the list.");
+            ui.lineBreak();
+        }
     }
 
     public void deleteTask(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
