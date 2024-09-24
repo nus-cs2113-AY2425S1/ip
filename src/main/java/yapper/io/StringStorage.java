@@ -11,6 +11,7 @@ public class StringStorage {
     public static final int INDEX_OFFSET = 1;
 
     // For User Input-Output
+    public static final String     FIND_INSTRUCTION_PREFIX = "find";
     public static final String     LIST_INSTRUCTION_PREFIX = "list";
     public static final String     TODO_INSTRUCTION_PREFIX = "todo";
     public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
@@ -127,6 +128,7 @@ public class StringStorage {
     public static final String MISSING_PREFIX_MESSAGE =
             "Input does not start with any of the known prefixes: " +
             BYE_INSTRUCTION_PREFIX + ", " +
+            FIND_INSTRUCTION_PREFIX + ", " +
             LIST_INSTRUCTION_PREFIX + ", " +
             TODO_INSTRUCTION_PREFIX + ", " +
             DEADLINE_INSTRUCTION_PREFIX + ", " +
@@ -136,13 +138,17 @@ public class StringStorage {
             UNMARK_INSTRUCTION_PREFIX + ", \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "Explain in a way I can understand. ";
+    public static final String MISSING_QUERY_STRING_MESSAGE =
+            "Query string not given. \n" +
+            LINE_DIVIDER_YAPPER + "\n"+
+            "What should I be finding? ";
     // tba TODO ARGS MISSING
     // tba DEADLINE ARGS MISSING
     // tba EVENT ARGS MISSING
     // tba DEADLINE KEYWORDS MISSING
     // tba EVENT KEYWORDS MISSING
     public static final String MISSING_DESCRIPTION_MESSAGE =
-            "Task description not given. \n" +
+            "task description not given. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "You haven't told me what this is for. ";
     public static final String MISSING_START_DATE_MESSAGE =

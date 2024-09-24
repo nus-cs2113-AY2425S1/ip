@@ -17,7 +17,7 @@ public class Instruction {
         this.instructionType = type; // LIST
     }
     public Instruction(InstructionType type, String taskDesc) {
-        this.instructionType = type; // TODO
+        this.instructionType = type; // TODO, FIND
         this.instructionDesc = taskDesc;
     }
     public Instruction(InstructionType type, String taskDesc, String endDate) {
