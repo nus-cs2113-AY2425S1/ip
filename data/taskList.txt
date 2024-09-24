@@ -1,5 +1,1 @@
-T | 1 | ewfkm
-T | 0 | efk
-E | 1 | hihi | sunday | monday
-E | 0 | efk efk efk | sunday | monday
-D | 0 | efk | sunday
+D | 0 | wefjn | 1990-08-09
