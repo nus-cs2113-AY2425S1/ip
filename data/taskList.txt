@@ -1,2 +1,3 @@
-T | 1 | wejkf
-D | 0 | wgkjn | sunday
+T | 1 | ewfkm
+T | 0 | efk
+E | 1 | hihi | sunday | monday
