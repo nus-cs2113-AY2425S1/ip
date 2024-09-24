@@ -11,6 +11,11 @@ import java.io.IOException;
 public class AddEventCommand extends Command {
     private String input;
 
+    /**
+     * Constructs an {@code AddEventCommand} with the specified user input.
+     *
+     * @param input The input string containing the task description, start, and end times.
+     */
     public AddEventCommand(String input) {
         this.input = input;
     }

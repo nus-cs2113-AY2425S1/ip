@@ -4,6 +4,10 @@ import codecatalyst.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Manages the list of tasks.
+ * This class handles the addition, deletion, and updating of tasks in the task list.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

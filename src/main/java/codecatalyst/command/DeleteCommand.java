@@ -8,6 +8,13 @@ import codecatalyst.task.Task;
 
 public class DeleteCommand extends Command {
     private int taskIndex;
+
+    /**
+     * Constructs a {@code DeleteCommand} with the specified task index.
+     *
+     * @param input The input string containing the task index.
+     * @throws InvalidTaskNumberException If the input is not a valid number.
+     */
     public DeleteCommand(String input) throws InvalidTaskNumberException {
         try {
             this.taskIndex = Integer.parseInt(input.trim()) - 1;
