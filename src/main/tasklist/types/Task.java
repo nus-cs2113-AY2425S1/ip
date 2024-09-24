@@ -1,4 +1,5 @@
-package tasks;
+package tasklist.types;
+
 public class Task {
     private String description;
     private boolean isDone;
