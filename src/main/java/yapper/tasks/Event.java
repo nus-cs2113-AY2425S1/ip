@@ -1,12 +1,12 @@
 package yapper.tasks;
 
-import yapper.io.DateAndTimeHandler;
-import yapper.io.StringStorage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import yapper.io.DateAndTimeHandler;
+import yapper.io.StringStorage;
 
 /**
  * Event is a Task with both a start date and end date.
@@ -26,7 +26,6 @@ public class Event extends Task {
         initializeStartDateTime(startDateString);
         initializeEndDateTime(endDateString);
     }
-
     public Event(String taskDesc, boolean isDone, String startDateString, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;

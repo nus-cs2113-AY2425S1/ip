@@ -1,7 +1,5 @@
 package yapper.instructions;
 
-// Handles the various input instructions for Yapper
-
 /**
  * Represents an Instruction in Yapper.
  * <p>
@@ -16,13 +14,13 @@ public class Instruction {
      * Enumeration of the types of instructions supported by Yapper.
      * <p>
      * Currently includes:
-     * - LIST: Show all tasks.
-     * - TODO: Add a ToDo task.
-     * - DEADLINE: Add a Deadline task.
-     * - EVENT: Add an Event task.
-     * - DELETE: Remove a task.
-     * - MARK: Mark a task as complete.
-     * - UNMARK: Unmark a task as incomplete.
+     * <li> LIST: Show all tasks. <li/>
+     * TODO: Add a ToDo task. <li/>
+     * DEADLINE: Add a Deadline task. <li/>
+     * EVENT: Add an Event task. <li/>
+     * DELETE: Remove a task. <li/>
+     * MARK: Mark a task as complete. <li/>
+     * UNMARK: Unmark a task as incomplete.
      * <p/>
      */
     public enum InstructionType {

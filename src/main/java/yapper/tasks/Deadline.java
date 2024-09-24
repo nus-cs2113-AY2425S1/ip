@@ -1,12 +1,13 @@
 package yapper.tasks;
 
-import yapper.io.StringStorage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import yapper.io.DateAndTimeHandler;
+
+import yapper.io.StringStorage;
+
 /**
  * Deadline is a Task with an end date.
  */
@@ -21,7 +22,6 @@ public class Deadline extends Task {
         super(taskDesc);
         initializeEndDateTime(endDateString);
     }
-
     public Deadline(String taskDesc, boolean isDone, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
