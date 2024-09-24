@@ -1,3 +1,7 @@
+package CodyChen;
+
+import CodyChen.Command.*;
+
 /**
  * The CodyChen class is the main application that manages the task list.
  * It initializes the user interface, storage, and task list, and runs

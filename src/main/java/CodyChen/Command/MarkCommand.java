@@ -1,3 +1,6 @@
+package CodyChen.Command;
+import CodyChen.*;
+
 public class MarkCommand extends Command {
     private int index;
 

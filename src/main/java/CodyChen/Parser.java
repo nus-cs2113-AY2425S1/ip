@@ -1,3 +1,7 @@
+package CodyChen;
+
+import CodyChen.Command.*;
+
 /**
  * The Parser class is responsible for interpreting user input
  * commands and creating the corresponding Command objects.

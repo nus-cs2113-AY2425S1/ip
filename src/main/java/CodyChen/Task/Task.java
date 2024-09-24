@@ -1,3 +1,5 @@
+package CodyChen.Task;
+
 /**
  * The Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or not done, retrieve its description,

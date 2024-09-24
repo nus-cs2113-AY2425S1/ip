@@ -1,3 +1,8 @@
+package CodyChen.Command;
+
+import CodyChen.Task.*;
+import CodyChen.*;
+
 /**
  * The AddCommand class represents a command to add a todo task to a task list.
  * It processes user input to extract the task name and executes the command
