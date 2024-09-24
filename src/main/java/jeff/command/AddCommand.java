@@ -1,5 +1,6 @@
 package jeff.command;
 
+import jeff.exception.InvalidFormatException;
 import jeff.exception.TaskDescriptionException;
 import jeff.exception.TaskFieldException;
 import jeff.helper.Storage;
@@ -62,7 +63,7 @@ public class AddCommand extends Command {
 
     //Instantiates Deadline object
     public static Deadline processDeadline(String line) throws TaskDescriptionException,
-            TaskFieldException {
+            TaskFieldException, InvalidFormatException {
         int byIndex = line.indexOf("/by");
         String description = processTaskDescription(line, DEADLINE_LENGTH, byIndex);
         if(description.isEmpty()) {
@@ -94,7 +95,7 @@ public class AddCommand extends Command {
 
     //Instantiates Event object
     public static Event processEvent(String line) throws TaskDescriptionException,
-            TaskFieldException{
+            TaskFieldException, InvalidFormatException {
         int fromIndex = line.indexOf("/from");
         int toIndex = line.lastIndexOf("/to");
         String description = processTaskDescription(line, EVENT_LENGTH, fromIndex - 1);
@@ -144,6 +145,8 @@ public class AddCommand extends Command {
         } catch (TaskFieldException errorMessage) {
             System.out.print("walao eh... your task is missing " + errorMessage.getMessage()
                     + " " + "field(s) la..." + " follow the format can anot");
+        } catch (InvalidFormatException errorMessage){
+            System.out.print(errorMessage.getMessage());
         }
     }
 }

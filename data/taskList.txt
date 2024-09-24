@@ -1,3 +1,1 @@
-T | 1 | ewfkm
-T | 0 | efk
-E | 1 | hihi | sunday | monday
+D | 0 | wefjn | 1990-08-09
