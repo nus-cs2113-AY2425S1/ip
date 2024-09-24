@@ -43,8 +43,8 @@ Format: `deadline DESCRIPTION /by BY-DATE`
 * The value at `BY-DATE` has to be entered in the format `yyyy-MM-dd HHmm`.
 
 Examples
-* `deadline collect laundry /by 2024-10-01 1200` adds a `Deadline` task with description `collect laundry`
-and by-date `2024-10-01 1200`.
+* `deadline collect laundry /by 2024-10-01 1200` adds a `Deadline` task with description `collect laundry` and  
+by-date `2024-10-01 1200`.
 
 ### Adding `Event` tasks: `event`
 Adds an `Event` task to the task list.
@@ -53,8 +53,8 @@ Format: `event DESCRIPTION /from FROM-DATE /to TO-DATE`
 * The values at `FROM-DATE` and `TO-DATE` have to be entered in the format `yyyy-MM-dd HHmm`.
 
 Examples
-* `event do laundry /from 2024-10-01 0600 /to 2024-10-01 0800` adds an `Event` task with description
-`do laundry`, from-date `2024-10-01 0600` and to-date `2024-10-01 0800`.
+* `event do laundry /from 2024-10-01 0600 /to 2024-10-01 0800` adds an `Event` task with description `do laundry`,  
+from-date `2024-10-01 0600` and to-date `2024-10-01 0800`.
 
 ### Listing all tasks: `list`
 Shows a list of all tasks in the task list.
@@ -107,9 +107,9 @@ Format: `mark INDEX`
 * Marks the task at `INDEX` as done. The value of `INDEX` is the same as the one shown in the task list.
 * The value of `INDEX` must be a positive integer (1, 2, 3,...).
 * If the value of `INDEX` is not within the task list, the program prints the following message:
-  ```
-  -> Invalid task!
-  ```
+```
+-> Invalid task!
+```
   
 Example
 * `mark 2` marks the task at index 2 in the task list as done.
