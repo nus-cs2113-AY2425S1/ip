@@ -10,6 +10,7 @@ public class Parser {
     private static int MARK_LENGTH = 5;
     private static int UNMARK_LENGTH = 7;
     private static int DELETE_LENGTH = 7;
+    private static int FIND_LENGTH = 5;
 
     public static Command parse(String fullCommand) throws Exception {
         String commandWord = getCommand(fullCommand);
@@ -31,6 +32,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindCommand(fullCommand.substring(FIND_LENGTH));
         default:
             throw new InvalidCommandException("Invalid Command");
         }
@@ -51,9 +54,11 @@ public class Parser {
             return "deadline";
         } else if (fullCommand.startsWith("event ")) {
             return "event";
-        } else if (fullCommand.startsWith("delete")) {
+        } else if (fullCommand.startsWith("delete ")) {
             return "delete";
-        } else {
+        } else if (fullCommand.startsWith("find ")) {
+            return "find";
+        }else {
             return "invalid command";
         }
     }
