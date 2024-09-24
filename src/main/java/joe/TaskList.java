@@ -1,6 +1,8 @@
 package joe;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.List;
 
 public class TaskList {
 
@@ -8,6 +10,10 @@ public class TaskList {
 
     public TaskList() {
         this.toDoItemArrayList = new ArrayList<Task>();
+    }
+
+    public TaskList(ArrayList<Task> toDoItemArrayList) {
+        this.toDoItemArrayList = toDoItemArrayList;
     }
 
     public void addToList(Task task) {
@@ -41,5 +47,18 @@ public class TaskList {
 
     public String toTaskString(int toDoNumber) {
         return this.toDoItemArrayList.get(toDoNumber - 1).toString();
+    }
+
+    public Optional<TaskList> findTasksByKeyword(String keyword) {
+        List<Task> filteredList = this.toDoItemArrayList.stream()
+            .filter(task -> task.toString().contains(keyword))
+            .toList();
+        ArrayList<Task> filteredArrayList = new ArrayList<>();
+        filteredArrayList.addAll(filteredList);
+        if (filteredArrayList.size() > 0) {
+            return Optional.of(new TaskList(filteredArrayList));
+        } else {
+            return Optional.empty();
+        }
     }
 }

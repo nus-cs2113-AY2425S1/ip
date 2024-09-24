@@ -44,7 +44,7 @@ public class UI {
                         + ": " + toDoItemArrayList.toTaskString(i));
             }
         } else {
-            System.out.println("Task list is empty!");
+            System.out.println("This task list is empty!");
         }
     }
 }
