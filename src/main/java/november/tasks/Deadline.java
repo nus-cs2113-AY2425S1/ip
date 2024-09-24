@@ -1,10 +1,13 @@
 package november.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline task, which is a task that must be completed by a specific date and time.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a new Deadline task with the given description and deadline.
@@ -14,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by);
     }
 
     /**
@@ -22,8 +25,10 @@ public class Deadline extends Task {
      */
     @Override
     public void printTask() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yy");
+        String formattedByDateTime = by.format(formatter);
         System.out.print("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
-        System.out.println(" (by: " + by + ")");
+        System.out.println(" (by: " + formattedByDateTime + ")");
     }
 
     /**

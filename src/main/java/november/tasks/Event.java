@@ -1,11 +1,14 @@
 package november.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task, which is a task that occurs within a specific time frame.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     /**
      * Constructs a new Event task with the given description, start time, and end time.
@@ -16,8 +19,8 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start);
+        this.end = LocalDateTime.parse(end);
     }
 
     /**
@@ -25,8 +28,11 @@ public class Event extends Task {
      */
     @Override
     public void printTask() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yy");
+        String formattedStartDateTime = start.format(formatter);
+        String formattedEndDateTime = start.format(formatter);
         System.out.print("[" + getTaskIcon() + "][" + getStatusIcon() + "] " + getDescription());
-        System.out.println(" (from:" + start + " to:" + end + ")");
+        System.out.println(" (from: " + formattedStartDateTime + " to: " + formattedEndDateTime + ")");
     }
 
     /**
