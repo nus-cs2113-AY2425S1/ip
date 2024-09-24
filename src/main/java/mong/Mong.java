@@ -106,7 +106,6 @@ public class Mong {
     /**
      * Marks completed item in index as incompleted.
      */
-    
     public static void unmark(String input) {
         // the itemIndex is -1 than the input from the user
         int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -121,11 +120,24 @@ public class Mong {
             System.out.println("Mong?!@ Item not in list.");
         }
     }
+
     /**
      * Prints a horizontal line with width of 50 characters.
      */
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Prints the indexed list.
+     * If the task format is incorrect, error is handled.
+     */
+    private static void handleListCommand(String input) {
+        try {
+            printIndexedList(input);
+        } catch (IllegalTaskFormatException e) {
+            System.out.println("Oi oi MONG! Task format is incorrect...");
+        }
     }
 
     /**
@@ -289,11 +301,7 @@ public class Mong {
             switch(command) {
             case LIST:
                 // print items in an indexed list
-                try {
-                    printIndexedList(input);
-                } catch (IllegalTaskFormatException e) {
-                    System.out.println("Oi oi MONG! Task format is incorrect...");
-                }
+                handleListCommand(input);
                 break;
             case MARK:
                 mark(input);
