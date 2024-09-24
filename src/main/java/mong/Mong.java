@@ -7,6 +7,7 @@ import mong.task.Event;
 import mong.task.Task;
 import mong.task.TaskType;
 import mong.task.Todo;
+import mong.ui.Parser;
 import mong.ui.Ui;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,35 +37,9 @@ public class Mong {
      */
     private static void saveToFile() {
         try {
-            writeToFile(parseListToTxt());
+            writeToFile(Parser.parseListToTxt());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Formats latest list to txt file format.
-     */
-
-    public static String parseListToTxt() {
-        StringBuilder textToAdd = new StringBuilder();
-        for (Task task : list) {
-            textToAdd.append(task.toFileFormat()).append(System.lineSeparator());
-        }
-        return textToAdd.toString();
-    }
-
-    /**
-     * Adds tasks line by line from txt file.
-     */
-    public static void loadLineContents(String line) {
-        String[] lineData = line.split(" \\| ");
-        if (lineData[0].contentEquals("T")) {
-            addTodo(lineData[1], lineData[2]);
-        } else if (lineData[0].contentEquals("D")) {
-            addDeadline(lineData[1], lineData[2], lineData[3]);
-        } else if (lineData[0].contentEquals("E")) {
-            addEvent(lineData[1], lineData[2], lineData[3], lineData[4]);
         }
     }
 
@@ -76,14 +51,13 @@ public class Mong {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            loadLineContents(line);
+            Parser.parseLineContents(line);
         }
     }
 
     /**
      * Marks item in index as completed.
      */
-
     public static void mark(String input) {
         try {
             // the itemIndex is -1 than the input from the user
@@ -248,17 +222,6 @@ public class Mong {
     }
 
     /**
-     * Returns the TaskType enum value of the first word in the input.
-     */
-    public static TaskType decipherTaskType(String command) throws IllegalTaskTypeException {
-        try {
-            return TaskType.fromCommand(command);
-        } catch (IllegalTaskTypeException e) {
-            throw new IllegalTaskTypeException(e.getMessage());
-        }
-    }
-
-    /**
      * Adds the command sent by the user into a list.
      * If the command "list" is sent, the list of previous commands will be printed.
      * If the command's first word is "mark", it will set the isCompleted variable of the Task to true.
@@ -266,17 +229,14 @@ public class Mong {
      * If the command "bye" is sent, the program will exit.
      */
     public static void addByTask() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
+        String input = ui.getUserInput();
         TaskType command;
         try {
-            command = decipherTaskType(input.split(" ")[0]);
+            command = Parser.decipherTaskType(input.split(" ")[0]);
         } catch (IllegalTaskTypeException e) {
             command = TaskType.INVALID;
         }
         while (command != TaskType.BYE) {
-            printHorizontalLine();
             ui.printHorizontalLine();
             switch(command) {
             case LIST:
@@ -309,7 +269,7 @@ public class Mong {
             ui.printHorizontalLine();
             input = ui.getUserInput();
             try {
-                command = decipherTaskType(input.split(" ")[0]);
+                command = Parser.decipherTaskType(input.split(" ")[0]);
             } catch (IllegalTaskTypeException e) {
                 command = TaskType.INVALID;
             }
