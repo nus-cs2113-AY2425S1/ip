@@ -64,5 +64,16 @@ public abstract class Task {
         return String.format("%s|%s|%s", this.type, this.getStatusIcon(), this.description);
     }
 
+    /**
+     * Returns true if the task description contains a specified keyword.
+     * Returns false otherwise
+     *
+     * @param keyword The keyword
+     * @return whether the keyword is present in the task description
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public abstract boolean isOnDate(LocalDate date);
 }

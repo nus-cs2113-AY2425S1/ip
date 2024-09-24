@@ -1,6 +1,6 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.DateFormats;
 import nell.common.Messages;
 import nell.tasks.Deadline;
@@ -12,6 +12,8 @@ import java.time.format.DateTimeParseException;
  * Represents an executable deadline command
  */
 public class DeadlineCommand extends Command{
+    public static final String COMMAND_WORD = "deadline";
+
     private final String description;
     private final LocalDateTime by;
 
@@ -23,7 +25,7 @@ public class DeadlineCommand extends Command{
      * @throws IndexOutOfBoundsException If detail cannot be split into 2 words
      */
     public DeadlineCommand(TaskList tasks, String detail) throws IndexOutOfBoundsException, DateTimeParseException {
-        super("deadline", tasks);
+        super(tasks);
         String[] details = detail.split("/by", 2);
 
         if (details.length < 2) {

@@ -11,6 +11,8 @@ import java.util.Scanner;
  * Represents an object that takes user input and prints messages in Nell.
  */
 public class Ui {
+    private static final String BYE_COMMAND = "bye";
+
     private final Parser parser;
     private final Storage dataStorage;
 
@@ -51,12 +53,11 @@ public class Ui {
         while (isGettingCommands) {
             // Get user command and respond accordingly
             String rawCommand = input.nextLine();
-            if (rawCommand.equals("bye")) {
+            if (rawCommand.equals(BYE_COMMAND)) {
                 isGettingCommands = false;
             } else {
                 Command parsedCommand = parser.parseCommand(rawCommand);
                 parsedCommand.execute();
-
             }
             dataStorage.saveToFile();
         }

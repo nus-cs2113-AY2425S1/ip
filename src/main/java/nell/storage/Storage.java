@@ -1,6 +1,6 @@
 package nell.storage;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.Messages;
 import nell.tasks.Deadline;
 import nell.tasks.Event;
@@ -41,7 +41,7 @@ public class Storage {
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             System.out.println(Messages.FILE_CREATE_ERROR_MESSAGE);
         }
     }
@@ -59,18 +59,18 @@ public class Storage {
         boolean taskIsDone = taskParameters[1].equals("X");
 
         switch (taskType) {
-        case "T":
+        case ToDo.TASK_TYPE:
             ToDo toDoToAdd = new ToDo(taskDescription, taskIsDone);
             tasks.loadTask(toDoToAdd);
             break;
 
-        case "D":
+        case Deadline.TASK_TYPE:
             LocalDateTime deadlineBy = LocalDateTime.parse(taskParameters[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             Deadline deadlineToAdd = new Deadline(taskDescription, taskIsDone, deadlineBy);
             tasks.loadTask(deadlineToAdd);
             break;
 
-        case "E":
+        case Event.TASK_TYPE:
             LocalDateTime eventFrom = LocalDateTime.parse(taskParameters[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             LocalDateTime eventTo = LocalDateTime.parse(taskParameters[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             Event eventToAdd = new Event(taskDescription, taskIsDone, eventFrom, eventTo);
@@ -92,7 +92,7 @@ public class Storage {
                 String fileTask = fileScanner.nextLine();
                 loadTask(fileTask);
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException exception) {
             System.out.println(Messages.FILE_READ_ERROR_MESSAGE);
         }
     }
@@ -103,7 +103,7 @@ public class Storage {
     public void saveToFile() {
         try {
             this.tasks.writeListToFile(this.dataFile.getPath());
-        } catch (IOException e) {
+        } catch (IOException exception) {
             System.out.println(Messages.FILE_SAVE_ERROR_MESSAGE);
         }
     }

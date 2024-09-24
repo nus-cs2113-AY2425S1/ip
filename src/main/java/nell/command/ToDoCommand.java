@@ -1,12 +1,14 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.tasks.ToDo;
 
 /**
  * Represents an executable "todo" command
  */
 public class ToDoCommand extends Command{
+    public static final String COMMAND_WORD = "todo";
+
     private final String description;
 
     /**
@@ -16,7 +18,7 @@ public class ToDoCommand extends Command{
      * @param description The specified task description
      */
     public ToDoCommand(TaskList tasks, String description) {
-        super("todo", tasks);
+        super(tasks);
         this.description = description.trim();
     }
 

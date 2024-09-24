@@ -6,21 +6,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends nell.tasks.Task {
+public class Event extends Task {
+    public static final String TASK_TYPE = "E";
+
     private final LocalDateTime from;
     private final LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description, "E");
+        super(description, TASK_TYPE);
         this.from = from;
         this.to = to;
     }
+
 
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
-        this.type = "E";
+        this.type = TASK_TYPE;
     }
 
     public String toString() {

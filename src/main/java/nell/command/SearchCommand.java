@@ -1,6 +1,6 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.DateFormats;
 import nell.common.Messages;
 
@@ -10,7 +10,9 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents an executable search command
  */
-public class SearchCommand extends Command{
+public class SearchCommand extends Command {
+    public static final String COMMAND_WORD = "search";
+
     private final LocalDate date;
 
     /**
@@ -21,7 +23,7 @@ public class SearchCommand extends Command{
      * @throws DateTimeParseException If the inputted date string cannot be parsed
      */
     public SearchCommand(TaskList tasks, String date) throws DateTimeParseException {
-        super("search", tasks);
+        super(tasks);
         this.date = LocalDate.parse(date, DateFormats.SEARCH_DATE_FORMAT);
     }
 

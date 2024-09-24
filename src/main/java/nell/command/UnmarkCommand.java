@@ -1,12 +1,14 @@
 package nell.command;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.common.Messages;
 
 /**
  * Represents an executable unmark command
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
+    public static final String COMMAND_WORD = "unmark";
+
     /**
      * Constructs a UnmarkCommand object with a specified task list and task index
      *
@@ -14,7 +16,7 @@ public class UnmarkCommand extends Command{
      * @param taskIndex The specified task index
      */
     public UnmarkCommand(TaskList tasks, int taskIndex){
-        super("unmark", tasks, taskIndex);
+        super(tasks, taskIndex);
     }
 
     /**
@@ -26,7 +28,7 @@ public class UnmarkCommand extends Command{
             this.tasks.getTaskAtIndex(taskIndex - 1).setDone(false);
             System.out.println(Messages.UNMARK_MESSAGE);
             System.out.println(this.tasks.getTaskStringAtIndex(taskIndex - 1));
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException exception) {
             System.out.println(Messages.INVALID_TASK_MESSAGE);
         }
     }

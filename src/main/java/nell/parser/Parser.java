@@ -1,10 +1,11 @@
 package nell.parser;
 
-import nell.TaskList;
+import nell.list.TaskList;
 import nell.command.Command;
 import nell.command.DeadlineCommand;
 import nell.command.EventCommand;
 import nell.command.IncorrectCommand;
+import nell.command.FindCommand;
 import nell.command.ListCommand;
 import nell.command.MarkCommand;
 import nell.command.RemoveCommand;
@@ -49,7 +50,7 @@ public class Parser {
         case MULTI_WORD_LENGTH:
             try {
                 return parseMultiWordCommand(commandWords);
-            } catch (DateTimeParseException e) {
+            } catch (DateTimeParseException exception) {
                 return new IncorrectCommand(tasks, Messages.INVALID_DATE_TIME_MESSAGE);
             }
 
@@ -66,7 +67,7 @@ public class Parser {
      * @return Command object based upon single-word command
      */
     private Command parseSingleWordCommand(String command) {
-        if (command.equals("list")) {
+        if (command.equals(ListCommand.COMMAND_WORD)) {
             return new ListCommand(tasks);
         } else {
             return new IncorrectCommand(tasks);
@@ -83,52 +84,59 @@ public class Parser {
      */
     private Command parseMultiWordCommand(String[] commandWords) throws DateTimeParseException {
         switch (commandWords[0]) {
-        case "mark":
+        case MarkCommand.COMMAND_WORD:
             try {
-                return parseCommandWithIndex("mark", commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+                return parseCommandWithIndex(MarkCommand.COMMAND_WORD, commandWords[1]);
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
             }
 
-        case "unmark":
+        case UnmarkCommand.COMMAND_WORD:
             try {
-                return parseCommandWithIndex("unmark", commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+                return parseCommandWithIndex(UnmarkCommand.COMMAND_WORD, commandWords[1]);
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
             }
 
-        case "todo":
+        case ToDoCommand.COMMAND_WORD:
             try {
                 return new ToDoCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.TODO_ERROR_MESSAGE);
             }
 
-        case "deadline":
+        case DeadlineCommand.COMMAND_WORD:
             try {
                 return new DeadlineCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.DEADLINE_ERROR_MESSAGE);
             }
 
-        case "event":
+        case EventCommand.COMMAND_WORD:
             try {
                 return new EventCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
             }
 
-        case "search":
+        case FindCommand.COMMAND_WORD:
+            try {
+                return new FindCommand(tasks, commandWords[1]);
+            } catch (IndexOutOfBoundsException exception) {
+                return new IncorrectCommand(tasks, Messages.FIND_ERROR_MESSAGE);
+            }
+
+        case SearchCommand.COMMAND_WORD:
             try {
                 return new SearchCommand(tasks, commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
             }
 
-        case "remove":
+        case RemoveCommand.COMMAND_WORD:
             try {
-                return parseCommandWithIndex("remove", commandWords[1]);
-            } catch (IndexOutOfBoundsException e) {
+                return parseCommandWithIndex(RemoveCommand.COMMAND_WORD, commandWords[1]);
+            } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
             }
 
@@ -148,27 +156,27 @@ public class Parser {
         try {
             int taskIndex = Integer.parseInt(index);
             switch (commandWord) {
-            case "mark":
+            case MarkCommand.COMMAND_WORD:
                 return new MarkCommand(tasks, taskIndex);
 
-            case "unmark":
+            case UnmarkCommand.COMMAND_WORD:
                 return new UnmarkCommand(tasks, taskIndex);
 
-            case "remove":
+            case RemoveCommand.COMMAND_WORD:
                 return new RemoveCommand(tasks, taskIndex);
 
             default:
                 return new IncorrectCommand(tasks);
             }
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException exception){
             switch (commandWord) {
-            case "mark":
+            case MarkCommand.COMMAND_WORD:
                 return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
 
-            case "unmark":
+            case UnmarkCommand.COMMAND_WORD:
                 return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
 
-            case "remove":
+            case RemoveCommand.COMMAND_WORD:
                 return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
 
             default:
