@@ -1,13 +1,19 @@
 package jeff.task;
 
+import jeff.exception.InvalidFormatException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents an event task in the task management system.
  * The <code>Event</code> class extends the <code>Task</code> class to provide
  * specific functionalities related to event tasks, including the start and end times.
  */
 public class Event extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -16,10 +22,22 @@ public class Event extends Task{
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws InvalidFormatException {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException("Event date inputs are not formatted correctly...");
+        }
+    }
+
+    public String fileDate(LocalDate field) {
+        return field.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public String userDate(LocalDate field) {
+        return field.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**
@@ -31,7 +49,7 @@ public class Event extends Task{
      */
     @Override
     public String fileContent() {
-        return "E" + super.fileContent() + " | " + from + " | " + to;
+        return "E" + super.fileContent() + " | " + fileDate(from) + " | " + fileDate(to);
     }
 
     /**
@@ -43,6 +61,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + userDate(from) + " to: " + userDate(to) + ")";
     }
 }
