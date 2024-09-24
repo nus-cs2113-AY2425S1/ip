@@ -80,6 +80,10 @@ public class TaskList {
         try {
             File saveFile = new File(saveFilePath);
             Scanner fileScanner = new Scanner(saveFile);
+            if (!fileScanner.hasNext()) {
+                fileScanner.close();
+                return;
+            }
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
                 String[] lineArr = line.trim().split(" ");
