@@ -1,8 +1,8 @@
-package command;
+package TaskList;
 
-import task.TaskList;
-import task.ToDo;
-import exception.EchoException;
+import Task.TaskList;
+import Task.ToDo;
+import Exception.EchoException;
 
 public class ToDoCommand extends Command {
     private static final int TODO_WORD_LENGTH = 4;

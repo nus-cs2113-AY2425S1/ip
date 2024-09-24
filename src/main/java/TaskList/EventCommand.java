@@ -1,8 +1,8 @@
-package command;
+package TaskList;
 
-import task.TaskList;
-import task.Event;
-import exception.EchoException;
+import Task.TaskList;
+import Task.Event;
+import Exception.EchoException;
 
 public class EventCommand extends Command {
     private static final int EVENT_WORD_LENGTH = 6;

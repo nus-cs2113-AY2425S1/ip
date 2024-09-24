@@ -1,8 +1,8 @@
-package command;
+package TaskList;
 
-import task.TaskList;
-import task.Deadline;
-import exception.EchoException;
+import Task.TaskList;
+import Task.Deadline;
+import Exception.EchoException;
 
 public class DeadlineCommand extends Command {
     private static final int DEADLINE_WORD_LENGTH = 9;

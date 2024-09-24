@@ -1,4 +1,4 @@
-package task;
+package Task;
 
 public class Deadline extends Task {
 

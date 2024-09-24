@@ -1,36 +1,31 @@
-import command.*;
-import task.*;
+package UI;
+
+import TaskList.*;
+import Task.*;
 import java.util.Scanner;
 
 public class Echo {
     private static final String SEPARATOR = "_".repeat(30);
 
     public static void runEcho() {
-        // Utilize Scanner object to allow user input
         Scanner scanner = new Scanner(System.in);
 
         TaskList taskList = new TaskList();
 
-        // Define the greeting message and the chatbot name as variables
         String chatbotName = "Echo";
         String greetingMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?\n";
 
-        // Define the exit message as a variable
         String exitMessage = "Bye. Hope to see you again soon!";
 
-        // Print the greeting message from Echo
         printGreeting(greetingMessage);
 
         String userInput;
         do {
-            // Read user input
             userInput = scanner.nextLine();
 
-            // Handles different user inputs for list, bye, mark, and unmark
             processUserInput(userInput, taskList);
         } while (!userInput.equalsIgnoreCase("bye"));
 
-        // Print the exit message from Echo
         taskList.saveTasks();
         printExitMessage(exitMessage);
     }

@@ -1,4 +1,4 @@
-package exception;
+package Exception;
 
 public class EchoException {
     private EchoException() {}

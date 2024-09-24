@@ -1,6 +1,6 @@
-package command;
+package TaskList;
 
-import task.TaskList;
+import Task.TaskList;
 
 public class ListCommand extends Command {
     @Override

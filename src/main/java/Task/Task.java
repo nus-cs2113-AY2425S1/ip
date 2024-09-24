@@ -1,6 +1,6 @@
-package task;
+package Task;
 
-import others.TaskOperations;
+import Others.TaskOperations;
 
 public abstract class Task implements TaskOperations {
     public static final String TODO = "T";
