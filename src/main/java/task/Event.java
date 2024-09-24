@@ -2,6 +2,9 @@ package task;
 import exception.LeginEmptyTaskException;
 import exception.LeginMissingParamsException;
 
+/**
+ * Stores information on an Event task
+ */
 public class Event extends Task{
     protected String eventStart;
     protected String eventEnd;
@@ -12,6 +15,15 @@ public class Event extends Task{
         return input.substring(input.indexOf(" ") + 1, input.indexOf("/from") - 1);
     }
 
+    /**
+     * Checks if the user input is valid with a description and duration of event <br>
+     * If user fails to input /from and /to before the stated duration a {@code LeginMissingParamsException} will be
+     * thrown
+     *
+     * @param input User input in command line
+     * @throws LeginMissingParamsException If missing duration of event
+     * @throws LeginEmptyTaskException If no event task description
+     */
     private static void validityCheck(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfFrom = input.indexOf("from");
@@ -41,11 +53,21 @@ public class Event extends Task{
         this.eventEnd = eventEnd;
     }
 
+    /**
+     * Formats the Event information to be stored into the storage text file
+     *
+     * @return Formatted data
+     */
     @Override
     public String getWriteInfo() {
         return "E|" + isDone + "|" + task + "|" + eventStart + "|" + eventEnd;
     }
 
+    /**
+     * Formats the Event information to be printed out in the command line
+     *
+     * @return Formatted data
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + eventStart + " to: " + eventEnd + ")";

@@ -2,6 +2,9 @@ package task;
 import exception.LeginEmptyTaskException;
 import exception.LeginMissingParamsException;
 
+/**
+ * Stores the information of a Deadline task
+ */
 public class Deadline extends Task{
     protected String by;
 
@@ -11,6 +14,14 @@ public class Deadline extends Task{
         return input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1);
     }
 
+    /**
+     * Checks if the user input is valid with a description and a due date <br>
+     * If user fails to input /by before the due date a {@code LeginMissingParamsException} will be thrown
+     *
+     * @param input User input in command line
+     * @throws LeginMissingParamsException If missing due date
+     * @throws LeginEmptyTaskException If no deadline task description
+     */
     private static void validityCheck(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfBy = input.indexOf("/by");
@@ -33,11 +44,21 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    /**
+     * Formats the Deadline information to be stored into the storage text file
+     *
+     * @return Formatted data
+     */
     @Override
     public String getWriteInfo() {
         return "D|" + isDone + "|" + task + "|" + by;
     }
 
+    /**
+     * Formats the Deadline information to be printed out in the command line
+     *
+     * @return Formatted data
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

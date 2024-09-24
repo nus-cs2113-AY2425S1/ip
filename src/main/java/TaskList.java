@@ -6,6 +6,9 @@ import task.Task;
 import task.Todo;
 import java.util.ArrayList;
 
+/**
+ * Keeps track of the number of task the user has and stores all task information in an array of {@code Task}
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private int currentTaskCount;
@@ -24,6 +27,9 @@ public class TaskList {
         return currentTaskCount;
     }
 
+    /**
+     * Prints out all the currently stored {@code Task} that the user has in the order of oldest to newest
+     */
     public void list() {
         ui.horizontalLine();
         if (currentTaskCount == 0) {
@@ -33,6 +39,12 @@ public class TaskList {
         ui.horizontalLine();
     }
 
+    /**
+     * Adds a {@code Todo} to the current array of {@code Task} stored in private member {@code tasks} <br>
+     * Prints out the confirmation of addition of a {@code Todo} task
+     *
+     * @param input User input in command line
+     */
     public void addTodo(String input) {
         try {
             tasks.add(new Todo(input, false));
@@ -43,6 +55,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a {@code Deadline} to the current array of {@code Task} stored in private member {@code tasks} <br>
+     * Prints out the confirmation of addition of a {@code Deadline} task
+     *
+     * @param input User input in command line
+     */
     public void addDeadline(String input) {
         try {
             tasks.add(new Deadline(input));
@@ -53,6 +71,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a {@code Event} to the current array of {@code Task} stored in private member {@code tasks} <br>
+     * Prints out the confirmation of addition of a {@code Event} task
+     *
+     * @param input User input in command line
+     */
     public void addEvent(String input) {
         try {
             tasks.add(new Event(input));
@@ -63,22 +87,40 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for the task at index {@code index} in the {@code tasks} Array and change the task to done<br>
+     * Prints a confirmation statement on the task that has been changed to done
+     *
+     * @param index Index of task in {@code tasks} Array to mark
+     */
     public void markTask(int index) {
         ui.horizontalLine();
         Task taskToMark = tasks.get(index - 1);
         taskToMark.markTask();
-        ui.printMarkTaskMessage(index, taskToMark);
+        ui.printMarkTaskMessage(taskToMark);
         ui.horizontalLine();
     }
 
+    /**
+     * Searches for the task at index {@code index} in the {@code tasks} Array and change the task to undone<br>
+     * Prints a confirmation statement on the task that has been changed to undone
+     *
+     * @param index Index of task in {@code tasks} Array to unmark
+     */
     public void unmarkTask(int index) {
         ui.horizontalLine();
         Task taskToUnmark = tasks.get(index - 1);
         taskToUnmark.unmarkTask();
-        ui.printUnmarkTaskMessage(index, taskToUnmark);
+        ui.printUnmarkTaskMessage(taskToUnmark);
         ui.horizontalLine();
     }
 
+    /**
+     * Deletes a task from the task list at the index {@code index} <br>
+     * Prints a confirmation of the task that the task has been deleted
+     *
+     * @param index Index of task in the {@code tasks} array
+     */
     public void deleteTask(int index) {
         ui.horizontalLine();
         Task taskToRemove = tasks.get(index - 1);
@@ -88,6 +130,12 @@ public class TaskList {
         ui.horizontalLine();
     }
 
+    /**
+     * Retrieves the words that the user want to find in the task list and removes whitespace from the ends of the input
+     * <br> Calls {@code printAllMatchingTask} from the {@code Ui} class to print all matching tasks
+     *
+     * @param input User input in the command line
+     */
     public void findAllMatchingTask(String input) {
         ui.horizontalLine();
         int indexOfFirstSpace = input.indexOf(" ");

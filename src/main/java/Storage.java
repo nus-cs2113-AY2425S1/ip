@@ -10,12 +10,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Imports and exports information between the bot and the storage text file. Imports the information from where the
+ * last left off when Legin starts and exports the most updated information to the text file when the user terminates
+ * the bot
+ */
 public class Storage {
     private Ui ui = new Ui();
     private final String FILE_PATH = "./tasklist.txt";
     private ArrayList<Task> importedTaskListFromStorage = new ArrayList<>();
     private int taskCountFromStorage = 0;
     private TaskList importedTaskList;
+
+    /**
+     * Retrieves data from storage text file and converts the data to an array of {@code Task} in
+     * {@code importedTaskListFromStorage} <br>
+     * Instantiates a new {@code TaskList} member with the imported data for the bot to retrieve
+     */
     public Storage() {
         importTextFileData();
         importedTaskList = new TaskList(importedTaskListFromStorage, taskCountFromStorage);
@@ -25,7 +36,13 @@ public class Storage {
         return importedTaskList;
     }
 
-    public void addTextDataToArray(String[] words) throws LeginEmptyTaskException {
+    /**
+     * Adds the type of {@code Task} into the array of task {@code importedTaskListFromStorage}
+     *
+     * @param words Processed data
+     * @throws LeginEmptyTaskException If the task has no description
+     */
+    private void addTextDataToArray(String[] words) throws LeginEmptyTaskException {
         String taskType = words[0];
         switch(taskType) {
         case "T":
@@ -44,7 +61,10 @@ public class Storage {
         taskCountFromStorage++;
     }
 
-    public void importTextFileData() {
+    /**
+     * Retrieves raw data from storage text file and calls {@code addTextDataToArray} with the processed data
+     */
+    private void importTextFileData() {
         try {
             if (!new File(FILE_PATH).exists()) {
                 new File(FILE_PATH).createNewFile();
@@ -61,7 +81,12 @@ public class Storage {
         }
     }
 
-    public void updateTextFile(TaskList taskList) throws IOException {
+    /**
+     * Updates the storage text file with the current information when user terminates the bot
+     *
+     * @param taskList
+     */
+    public void updateTextFile(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         int taskCount = taskList.getTaskCount();
         try {
