@@ -91,6 +91,7 @@ public class Parser {
             } catch (Exception e){
                 System.out.println("The selected item is not found");
             }
+            break;
         }
         return null;
     }

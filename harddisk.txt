@@ -1,13 +1,6 @@
-1. [T][ ] join sports club
-2. [T][ ] borrow book
-3. [T][ ] jwndjnjfce
-4. [T][ ] jnsdjns
-5. [T][ ] jsdjnsdj
-6. [T][ ] sdnjsdn
-7. [T][ ] test
-8. [T][ ] redundant
-9. [T][ ] jnjdf
-10. [E][ ] return book (by: 2019-10-15  to: 2019-10-16)
-11. [E][ ] return book (by: 2019-10-15  to: 2019-10-16)
-12. [E][ ] return book (by: 2019-10-15  to: 2019-10-16)
-13. [E][ ] return book (by: 2019-10-15  to: 2019-10-16)
+1. [T][X] read book
+2. [E][ ] project meeting (by: Aug 6th to: 4pm)
+3. [T][X] join sports club
+4. [T][ ] borrow book
+5. [D][ ] return book (by: Sunday)
+6. [E][ ] project meeting (by: Mon 2pm to: 4pm)

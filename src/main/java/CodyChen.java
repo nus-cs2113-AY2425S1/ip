@@ -32,19 +32,19 @@ public class CodyChen {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        while (true) {
             String fullCommand = ui.readCommand();
+            if (fullCommand.contains("bye")) {
+                break;
+            }
             Command c = Parser.parse(fullCommand);
             try{
                 c.execute(tasks, ui, storage);
             } catch (NullPointerException e){
                 System.out.println("Please re-enter a value ");
             }
-            if (fullCommand.contains("exit")) {
-                isExit = true;
-            }
         }
+        ui.showEnd();
     }
     /**
      * The entry point of the application.
