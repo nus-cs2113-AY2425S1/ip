@@ -30,6 +30,7 @@ public class SearchCommand extends Command {
     /**
      * Executes command - prints a list of tasks that occur on the specified date
      */
+    @Override
     public void execute() {
         String matchingTasksList = tasks.getTasksOnDate(this.date);
         System.out.println(Messages.TASKS_ON_DATE_MESSAGE);

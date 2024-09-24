@@ -33,6 +33,7 @@ public class IncorrectCommand extends Command {
     /**
      * Executes command - prints message to user
      */
+    @Override
     public void execute() {
         System.out.print(message);
     }

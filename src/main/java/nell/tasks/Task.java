@@ -2,6 +2,9 @@ package nell.tasks;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task in the task list.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -50,13 +53,18 @@ public abstract class Task {
         isDone = done;
     }
 
+    /**
+     * Returns a formatted string of the task, for printing in task lists
+     *
+     * @return A formatted string
+     */
     @Override
     public String toString() {
         return String.format("[%S][%s] %s", this.type, this.getStatusIcon(), this.description);
     }
 
     /**
-     * Formats a string for writing into a .txt file
+     * Returns a formatted string, for writing into a file
      *
      * @return the formatted string for writing to the file
      */
@@ -75,5 +83,12 @@ public abstract class Task {
         return this.description.contains(keyword);
     }
 
+    /**
+     * Returns true if a task occurs on a specified date.
+     * Returns false otherwise
+     *
+     * @param date The specified date
+     * @return True if the task occurs on date, false otherwise
+     */
     public abstract boolean isOnDate(LocalDate date);
 }
