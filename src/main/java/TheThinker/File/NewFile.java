@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 
-
 public class NewFile {
 
     public File file;
