@@ -1,19 +1,19 @@
 package joe;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
-import java.time.LocalDate;
 
+/**
+ * Extends Tasks with an additional specification of when the Task is to be done.
+ * Encapsulates methods for parsing and modifying Deadline objects.
+ */
 public class Deadline extends Task {
 
-    // attributes
     private LocalDateTime deadlineDate;
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
 
-    //behaviour
     public Deadline(String itemDescription, LocalDateTime deadlineDate) {
         super(itemDescription);
         this.deadlineDate = deadlineDate;
@@ -24,7 +24,14 @@ public class Deadline extends Task {
         this.deadlineDate = deadlineDate;
     }
 
+    /**
+     * Extracts the Deadline's description from the user input
+     * @param input the full user input string
+     * @return the Deadline's description
+     * @throws EmptyTaskException
+     */
     public static String extractDescription(String input) throws EmptyTaskException {
+
         String fullDescription = extractDescription(input, "deadline");
         if (fullDescription.length() > 0) {
             int indexOfDateSignaler = fullDescription.indexOf("/by");
@@ -32,8 +39,15 @@ public class Deadline extends Task {
         } else {
             throw new EmptyTaskException();
         }
+
     }
 
+    /**
+     * Extracts the deadlineDate (due date) of the user input
+     * @param input the full user input string
+     * @return Optional<LocalDateTime></LocalDateTime> the parsed deadlineDate as specified in the user input
+     * @throws DateTimeParseException if the provided user input cannot be parsed into a LocalDateTime object
+     */
     public static Optional<LocalDateTime> extractDeadlineDate(String input) throws DateTimeParseException {
 
         Optional<LocalDateTime> deadlineDate;
@@ -43,9 +57,9 @@ public class Deadline extends Task {
         if (deadlineString.length() > 0) {
             String[] dateSpecifiers = deadlineString.split(" ");
             if (dateSpecifiers.length > 1) {
-                deadlineDate = TimeParser.extractDateWithTime(dateSpecifiers);
+                deadlineDate = TimeParser.extractDateTimeFromDouble(dateSpecifiers);
             } else {
-                deadlineDate = TimeParser.extractDateWithoutTime(deadlineString);
+                deadlineDate = TimeParser.extractDateTimeFromSingle(deadlineString);
             }
             return deadlineDate;
         } else {
@@ -53,15 +67,20 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Parses strings specifying a Deadline into Deadline objects
+     * @param line the String that is to be parsed into a Deadline object
+     * @return Deadline the parsed Deadline object
+     */
     public static Deadline readInDeadline(String line) {
         String itemDescription;
         String deadlineString;
         boolean isToDo;
 
         if (line.contains("[not done]")) {
-            isToDo = false;
-        } else {
             isToDo = true;
+        } else {
+            isToDo = false;
         }
 
         int startDescriptionIndex = line.indexOf("done]") + "done]".length();

@@ -1,5 +1,9 @@
 package joe;
 
+/**
+ * Super class of the Todo, Event and Deadline class
+ * Encapsulates basic construction, parsing and modification methods for all Task objects.
+ */
 public class Task {
     private static final String[] TASK_TYPES = {"todo", "deadline", "event"};
     private String itemDescription;
@@ -19,12 +23,12 @@ public class Task {
         return this.itemDescription;
     }
 
-    public boolean isToDo() {
-        return this.isToDo;
-    }
-
     public void setToDo(boolean isTodo) {
         this.isToDo = isTodo;
+    }
+
+    public boolean isToDo() {
+        return this.isToDo;
     }
 
     public static String extractDescription(String input, String itemType) {
@@ -35,7 +39,7 @@ public class Task {
     @Override
     public String toString() {
         String checkBox;
-        if (this.isToDo()) {
+        if (this.isToDo) {
             checkBox = " [" + "not done" + "]";
             } else {
             checkBox = " [" + "done" + "]";

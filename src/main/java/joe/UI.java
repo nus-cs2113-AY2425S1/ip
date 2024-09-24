@@ -2,6 +2,9 @@ package joe;
 
 import java.util.Arrays;
 
+/**
+ * UI class encapsulating the essential methods and constants that design the user interface
+ */
 public class UI {
 
     private static final String SEPARATOR = "_________________________________________________";
@@ -37,11 +40,15 @@ public class UI {
         System.out.println(INTENDATION + SEPARATOR);
     }
 
-    public static void  printList(TaskList toDoItemArrayList) {
-        if (toDoItemArrayList.size() > 0) {
-            for (int i = 1; i <= toDoItemArrayList.size(); i++) {
+    /**
+     * Takes in a toDoItemArrayList and prints the description of each contained Task object
+     * @param taskList the TaskList whose Task's descriptions is printed out
+     */
+    public static void  printList(TaskList taskList) {
+        if (taskList.size() > 0) {
+            for (int i = 1; i <= taskList.size(); i++) {
                 System.out.println(INTENDATION + i
-                        + ": " + toDoItemArrayList.toTaskString(i));
+                        + ": " + taskList.toTaskString(i));
             }
         } else {
             System.out.println("This task list is empty!");

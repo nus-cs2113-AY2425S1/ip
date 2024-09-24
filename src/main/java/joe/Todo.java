@@ -1,5 +1,8 @@
 package joe;
 
+/**
+ * Subclass of Task. Representing Tasks of type Todo.
+ */
 public class Todo extends Task{
     public Todo(String itemDescription) {
         super(itemDescription);
@@ -18,9 +21,9 @@ public class Todo extends Task{
         String itemDescription;
 
         if (line.contains("[not done]")) {
-            isToDo = false;
-        } else {
             isToDo = true;
+        } else {
+            isToDo = false;
         }
 
         int startDescriptionIndex = line.indexOf("done]") + "done]".length();

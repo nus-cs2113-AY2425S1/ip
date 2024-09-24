@@ -7,16 +7,25 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Parses text for commands to initiate further methods on its TaskList object
+ * Includes two types of parsing:
+ * A) Parsing of user input from the command-line
+ * B) Parsing stored Task descriptions of a txt file back into Task and TaskList objects
+ */
 public class ChatParser {
 
     private TaskList toDoItemArrayList;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
 
     public ChatParser(TaskList toDoItemArrayList) {
         this.toDoItemArrayList = toDoItemArrayList;
     }
 
-
+    /**
+     * Starts the parser for parsing user command line input and orchestrates high-level
+     * method calls that are initiated by user input of one keyword only
+     */
     public void start() {
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -43,6 +52,10 @@ public class ChatParser {
     }
 
 
+    /**
+     * Parses multi-keyword user input and orchestrates the corresponding method calls accordingly.
+     * @param input the user input from the command line
+     */
     public void chatAboutTasks(String input) {
         String[] tokens = input.split(" ");
         String commandToken = tokens[0];
@@ -98,6 +111,13 @@ public class ChatParser {
         }
     }
 
+    /**
+     * Creates new Task objects based on the detected commandToken.
+     * @param commandToken a token from the parsed user input that indicates what type of Task is to be created
+     *                     i.e. Todo, Event, Deadline
+     * @param input the full user input string
+     * @throws EmptyTaskException raised if the user input contains no task description
+     */
     public void createNewTask(String commandToken, String input) throws EmptyTaskException {
         String itemDescription;
         Optional<Task> newItem = Optional.empty();
