@@ -4,7 +4,7 @@
 November is a task management CLI tool designed to help users organize their tasks into three categories: **Todos**, **Deadlines**, and **Events**. This guide walks you through the features of November and how to interact with it.
 
 ## Quick Start
-1. Ensure Java 11 or above is installed.
+1. Ensure Java 17 is installed.
 2. Download the latest version of November.
 3. Launch November by running `java -jar November.jar`.
 4. Start entering your tasks!
