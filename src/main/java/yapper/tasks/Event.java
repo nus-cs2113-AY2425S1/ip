@@ -1,30 +1,73 @@
 package yapper.tasks;
 
+import yapper.io.DateAndTimeHandler;
 import yapper.io.StringStorage;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Event is a Task with both a start date and end date.
  */
 public class Event extends Task {
     // Additional Attributes
-    protected String startDate;
-    protected String endDate;
+    protected String startDateString;
+    protected String endDateString;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
 
     // Constructor
-    public Event(String taskDesc,
-                 String startDate, String endDate) {
+    public Event(String taskDesc, String startDateString, String endDateString) {
         super(taskDesc);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        initializeStartDateTime(startDateString);
+        initializeEndDateTime(endDateString);
     }
-    public Event(String taskDesc, boolean isDone,
-                 String startDate, String endDate) {
+
+    public Event(String taskDesc, boolean isDone, String startDateString, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        initializeStartDateTime(startDateString);
+        initializeEndDateTime(endDateString);
     }
-    // No Getters and Setters Yet
+
+    private void initializeStartDateTime(String startDateString) {
+        try {
+            this.startDateTime = LocalDateTime.parse(startDateString,
+                    DateTimeFormatter.ofPattern(
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+            this.startDateString = "";
+        } catch (DateTimeParseException e) {
+            try {
+                this.startDate = LocalDate.parse(startDateString,
+                        DateTimeFormatter.ofPattern(
+                            DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                this.startDateString = "";
+            } catch (DateTimeParseException ex) {
+                this.startDateString = startDateString;
+            }
+        }
+    }
+    private void initializeEndDateTime(String endDateString) {
+        try {
+            this.endDateTime = LocalDateTime.parse(endDateString,
+                    DateTimeFormatter.ofPattern(
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+            this.endDateString = "";
+        } catch (DateTimeParseException e) {
+            this.endDateString = "";
+            try {
+                this.endDate = LocalDate.parse(endDateString,
+                        DateTimeFormatter.ofPattern(
+                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+            } catch (DateTimeParseException ex) {
+                this.endDateString = endDateString;
+            }
+        }
+    }
 
 
    /**
@@ -36,9 +79,20 @@ public class Event extends Task {
      */
     @Override
     public String taskToDisplay() {
-        return "[" + StringStorage.EVENT_SYMBOL + "]"
-                + super.taskToDisplay() + ", from " + startDate + " to " + endDate;
+        String startDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
+
+        return "[" + StringStorage.EVENT_SYMBOL + "] "
+                + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
+
+    // Task Conversion Operations for Saving/Loading Data
     /**
      * Converts the event task to a string format for writing to / reading from a file,
      * including the Event symbol, start date and an end date.
@@ -48,12 +102,22 @@ public class Event extends Task {
      */
     @Override
     public String taskToString() {
+        String startDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
+        String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
+                endDateString, endDate, endDateTime,
+                DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
+                DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
+
         return StringStorage.EVENT_SYMBOL + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + startDate + " "
+                + startDateAsString + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
-                + endDate;
+                + endDateAsString;
     }
+
 }
