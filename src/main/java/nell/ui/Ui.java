@@ -34,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Greet the user upon program startup
+     * Greets the user upon program startup
      */
     public void greetUser() {
         System.out.println(Messages.HELLO_MESSAGE);
@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Get commands from user and execute commands received
+     * Gets commands from user, then parses and executes commands received
      */
     public void getCommands() {
         // Initialises scanner to take in user input
