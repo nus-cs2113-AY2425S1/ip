@@ -1,12 +1,5 @@
 import java.util.Scanner;
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class V {
 
@@ -29,150 +22,11 @@ public class V {
         System.out.print(LOGO);
         printBlock("Hi I'm V\nWhat can I do for you?");
     }
-    
-    public static void loadSave(ArrayList<Task> listOfTasks, String saveFilePath) {
-        if (Files.exists(Paths.get(saveFilePath))) {
-            try {
-                File saveFile = new File(saveFilePath);
-                Scanner fileScanner = new Scanner(saveFile);
-                while (fileScanner.hasNext()) {
-                    String line = fileScanner.nextLine();
-                    String[] lineArr = line.trim().split(" ");
-                    String description;
-                    switch (lineArr[0].toLowerCase()) {
-                    case "mark":
-                        int position = Integer.parseInt(lineArr[1]);
-                        markTask(listOfTasks, position);
-                        break;
-                    case "todo":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addToDo(listOfTasks, description);
-                        break;
-                    case "deadline":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addDeadline(listOfTasks, description);
-                        break;
-                    case "event":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addEvent(listOfTasks, description);
-                        break;
-                    default:
-                        System.out.println("An error occured while loading the save file");
-                        break;
-                    }
-                }
-                fileScanner.close();
-                printBlock("Here are your list of tasks");
-                displayList(listOfTasks);
-            } catch (FileNotFoundException error) {
-                System.out.println();
-            } catch (NumberFormatException error) {
-                printBlock("You need to input a valid integer for the task that you want to mark as done");
-            } catch (InvalidDeadlineException error) {
-                printBlock("You did not enter a valid deadline." + 
-                        " Remember to add a \"/by\" before a valid deadline.");
-            }
-        } else {
-            try {
-                Files.createFile(Paths.get(saveFilePath));
-            } catch (IOException error) {
-                System.out.println(error);
-            }
-        }
-    }
-
-    public static void saveTasks(ArrayList<Task> listOfTasks, String saveFilePath) {
-        try {
-            File saveFile = new File(saveFilePath);
-            FileWriter clearSaveFile = new FileWriter(saveFile);
-            clearSaveFile.write("");
-            clearSaveFile.close();
-            FileWriter saveFileWriter = new FileWriter(saveFile, true);
-            for (Task task: listOfTasks) {
-                switch(task.getType()) {
-                case "T":
-                    saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
-                    break;
-                case "D":
-                    saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
-                    break;
-                case "E":
-                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /to " + task.getTo() + System.lineSeparator());
-                    break;
-                default:
-                    break;
-                }
-                if (task.getStatus().equals("X")) {
-                    saveFileWriter.write("mark " + (listOfTasks.indexOf(task) + 1) + System.lineSeparator());
-                }
-            }
-            saveFileWriter.close();
-        } catch (IOException error) {
-            System.out.println(error);
-        }
-    }
-
-    public static void displayList(ArrayList<Task> listOfTasks) {
-        int count = 1;
-        System.out.println(LINE_SEPERATOR);
-        for (Task task: listOfTasks) {
-            System.out.println(count + "." + task);
-            count++;
-        }
-        System.out.println(LINE_SEPERATOR);
-    }
-
-    public static void markTask(ArrayList<Task> listOfTasks, int position) {
-        Task task = listOfTasks.get(position - 1);
-        task.setDone();
-        listOfTasks.set(position - 1, task);
-        displayList(listOfTasks);
-    }
-
-    public static void deleteTask(ArrayList<Task> listOfTasks, int position) {
-        Task task = listOfTasks.get(position - 1);
-        listOfTasks.remove(position - 1);
-        printBlock("Got it. The task below was removed:\n    " + task +
-                "\nNow you have " + listOfTasks.size() + " left");
-    }
-
-    public static void addToDo(ArrayList<Task> listOfTasks, String description) {
-        ToDo toDo = new ToDo(description);
-        listOfTasks.add(toDo);
-        printBlock(String.format("Got it. Task added\n %s", toDo));
-    }
-
-    public static void addDeadline(ArrayList<Task> listOfTasks, String description) throws InvalidDeadlineException{
-        String[] descriptionAndDeadline = description.split("/by");
-        if (descriptionAndDeadline.length != 2) {
-            throw new InvalidDeadlineException();
-        }
-        String descriptionText = descriptionAndDeadline[0].trim();
-        String by = descriptionAndDeadline[1].trim();
-
-        Deadline deadline = new Deadline(descriptionText, by);
-        listOfTasks.add(deadline);
-
-        printBlock(String.format("Got it. Task added\n %s", deadline));
-    }
-
-    public static void addEvent(ArrayList<Task> listOfTasks, String description) {
-        String[] descriptionAndEventTimeline = description.split("/from");
-        String descriptionText = descriptionAndEventTimeline[0].trim();
-        String[] eventTimeline = descriptionAndEventTimeline[1].split("/to");
-        String from = eventTimeline[0].trim();
-        String to = eventTimeline[1].trim();
-        
-        Event event = new Event(descriptionText, from, to);
-        listOfTasks.add(event);
-
-        printBlock(String.format("Got it. Task added\n %s", event));
-    }
 
     public static void main(String[] args) {
 
         boolean isOnline = true;
-        ArrayList<Task> listOfTasks = new ArrayList<>();
+        TaskList taskList = new TaskList();
         String description;
         String line;
         String[] lineArr;
@@ -180,7 +34,7 @@ public class V {
         Scanner input = new Scanner(System.in);
 
         greet();
-        Storage.loadSave(listOfTasks, SAVE_FILE_PATH);
+        taskList.loadSave(SAVE_FILE_PATH);
         
         while (isOnline) {
             try {
@@ -190,30 +44,30 @@ public class V {
                 case "bye":
                     input.close();
                     isOnline = false;
-                    saveTasks(listOfTasks, SAVE_FILE_PATH);
+                    taskList.saveTasks(SAVE_FILE_PATH);
                     break;
                 case "list":
-                    displayList(listOfTasks);
+                    taskList.displayList();
                     break;
                 case "mark":
                     position = Integer.parseInt(lineArr[1]);
-                    markTask(listOfTasks, position);
+                    taskList.markTask(position);
                     break;
                 case "delete":
                     position = Integer.parseInt(lineArr[1]);
-                    deleteTask(listOfTasks, position);
+                    taskList.deleteTask(position);
                     break;
                 case "todo":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addToDo(listOfTasks, description);
+                    taskList.addToDo(description);
                     break;
                 case "deadline":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addDeadline(listOfTasks, description);
+                    taskList.addDeadline(description);
                     break;
                 case "event":
                     description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addEvent(listOfTasks, description);
+                    taskList.addEvent(description);
                     break;
                 default:
                     System.out.println("Try again");
