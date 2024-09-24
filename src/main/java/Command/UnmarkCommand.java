@@ -1,15 +1,15 @@
-package TaskList;
+package Command;
 
-import Task.TaskList;
+import TaskList.TaskList;
 import Exception.EchoException;
 
-public class MarkCommand extends Command {
-    private static final int MARK_WORD_LENGTH = 5;
+public class UnmarkCommand extends Command {
+    private static final int UNMARK_WORD_LENGTH = 7;
 
     @Override
     public void execute(TaskList taskList, String userInput) {
         try {
-            int taskNumber = Integer.parseInt(userInput.substring(MARK_WORD_LENGTH).trim());
+            int taskNumber = Integer.parseInt(userInput.substring(UNMARK_WORD_LENGTH).trim());
             if (taskNumber < 1 || taskNumber > taskList.getTaskNumber()) {
                 System.out.println(SEPARATOR);
                 System.out.println(EchoException.taskNumberOutOfRange());
@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
                 return;
             }
             System.out.println(SEPARATOR);
-            System.out.println(taskList.markTaskAsDone(taskNumber));
+            System.out.println(taskList.markTaskAsNotDone(taskNumber));
             System.out.println(SEPARATOR);
         } catch (NumberFormatException e) {
             System.out.println(SEPARATOR);

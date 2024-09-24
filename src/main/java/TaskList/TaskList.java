@@ -1,6 +1,7 @@
-package Task;
+package TaskList;
 
 import Storage.Storage;
+import Task.Task;
 
 import java.util.ArrayList;
 
@@ -8,7 +9,6 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
-    // Using ArrayList instead of Array
     public TaskList(){
         tasks = new ArrayList<>();
         storage = new Storage();

@@ -1,6 +1,6 @@
-package TaskList;
+package Command;
 
-import Task.TaskList;
+import TaskList.TaskList;
 import Task.Event;
 import Exception.EchoException;
 

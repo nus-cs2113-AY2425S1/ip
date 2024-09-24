@@ -10,7 +10,6 @@ public abstract class Task implements TaskOperations {
     protected boolean isDone;
     protected String taskType;
 
-    // Constructor for Task
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -1,5 +1,5 @@
 import Parser.Parser;
-import Task.TaskList;
+import TaskList.TaskList;
 import UI.EchoUI;
 
 public class Echo {
@@ -9,7 +9,7 @@ public class Echo {
 
     private static void runEcho() {
         Parser parser = new Parser();
-        Task.TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList();
         EchoUI echoUI = new EchoUI();
 
         echoUI.displayGreeting();

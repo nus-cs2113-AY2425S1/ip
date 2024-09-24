@@ -1,6 +1,6 @@
-package TaskList;
+package Command;
 
-import Task.TaskList;
+import TaskList.TaskList;
 
 public abstract class Command {
     protected static final String SEPARATOR = "_".repeat(30);

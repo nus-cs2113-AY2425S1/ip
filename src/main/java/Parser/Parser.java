@@ -1,13 +1,13 @@
 package Parser;
 
-import Task.TaskList;
-import TaskList.ListCommand;
-import TaskList.MarkCommand;
-import TaskList.UnmarkCommand;
-import TaskList.ToDoCommand;
-import TaskList.DeadlineCommand;
-import TaskList.EventCommand;
-import TaskList.DeleteCommand;
+import TaskList.TaskList;
+import Command.ListCommand;
+import Command.MarkCommand;
+import Command.UnmarkCommand;
+import Command.ToDoCommand;
+import Command.DeadlineCommand;
+import Command.EventCommand;
+import Command.DeleteCommand;
 
 import java.util.Scanner;
 
