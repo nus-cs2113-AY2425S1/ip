@@ -68,6 +68,11 @@ public class Messages {
                Please key in dates and times in this format:
                   yyyy-MM-dd HHmm
             """;
+    public static final String INVALID_DATE_MESSAGE = """
+            -> Invalid date!
+               Please key in dates in this format:
+                  yyyy-MM-dd
+            """;
     public static final String TASKS_ON_DATE_MESSAGE = "-> The tasks on this date are as follows:";
     public static final String MATCHING_TASKS_MESSAGE = "-> The matching tasks are as follows:";
 }

@@ -131,6 +131,8 @@ public class Parser {
                 return new SearchCommand(tasks, commandWords[1]);
             } catch (IndexOutOfBoundsException exception) {
                 return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
+            } catch (DateTimeParseException exception) {
+                return new IncorrectCommand(tasks, Messages.INVALID_DATE_MESSAGE);
             }
 
         case RemoveCommand.COMMAND_WORD:
