@@ -2,7 +2,7 @@ package nell.tasks;
 
 import java.time.LocalDate;
 
-public class ToDo extends nell.tasks.Task {
+public class ToDo extends Task {
     public static final String TASK_TYPE = "T";
 
     public ToDo(String description) {

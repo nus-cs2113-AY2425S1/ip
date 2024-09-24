@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends nell.tasks.Task {
+public class Deadline extends Task {
     public static final String TASK_TYPE = "D";
 
     private final LocalDateTime by;

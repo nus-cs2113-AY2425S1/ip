@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends nell.tasks.Task {
+public class Event extends Task {
     public static final String TASK_TYPE = "E";
 
     private final LocalDateTime from;
