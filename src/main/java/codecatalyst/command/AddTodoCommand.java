@@ -11,6 +11,11 @@ import java.io.IOException;
 public class AddTodoCommand extends Command {
     private String description;
 
+    /**
+     * Constructs an {@code AddTodoCommand} with the specified task description.
+     *
+     * @param description The description of the todo task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

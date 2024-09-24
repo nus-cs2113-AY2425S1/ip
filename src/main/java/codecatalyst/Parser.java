@@ -3,7 +3,12 @@ package codecatalyst;
 import codecatalyst.command.*;
 import codecatalyst.exception.InvalidCommandException;
 
+/**
+ * Parses user input and returns the appropriate command object.
+ * This class determines which command the user wants to execute based on the input.
+ */
 public class Parser {
+    // Constants to define the length of various commands.
     private static int TODO_LENGTH = 5;
     private static int DEADLINE_LENGTH = 9;
     private static int EVENT_LENGTH = 6;
@@ -12,6 +17,13 @@ public class Parser {
     private static int DELETE_LENGTH = 7;
     private static int FIND_LENGTH = 5;
 
+    /**
+     * Parses the full user input and returns the corresponding {@code Command} object.
+     *
+     * @param fullCommand The full input string provided by the user.
+     * @return The command to be executed, based on the user input.
+     * @throws Exception If the input does not match any valid command.
+     */
     public static Command parse(String fullCommand) throws Exception {
         String commandWord = getCommand(fullCommand);
 
@@ -39,6 +51,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the command keyword from the full input string.
+     *
+     * @param fullCommand The full input string provided by the user.
+     * @return The command keyword (e.g., "todo", "mark", "delete").
+     */
     private static String getCommand(String fullCommand) {
         if (fullCommand.equals("bye")){
             return "bye";

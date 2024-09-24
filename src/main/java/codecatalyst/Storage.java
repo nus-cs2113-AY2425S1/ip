@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * This class is responsible for reading tasks from storage (a file) and saving tasks back to the file.
+ */
 public class Storage {
+    // Constants for task types and symbols used in file storage.
     private static final String TODO_TYPE = "T";
     private static final String DEADLINE_TYPE = "D";
     private static final String EVENT_TYPE = "E";
@@ -22,10 +27,22 @@ public class Storage {
     
     private String filePath;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file into an {@code ArrayList}.
+     * If the file or directory does not exist, they are created.
+     *
+     * @return An {@code ArrayList} containing the loaded tasks.
+     * @throws IOException If an error occurs during file operations.
+     */
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -36,7 +53,12 @@ public class Storage {
         processEveryLineInFile(s, tasks);
         return tasks;
     }
-    
+
+    /**
+     * Creates the data directory if it does not already exist.
+     *
+     * @param file The file whose parent directory is checked or created.
+     */
     public void createDataDirectory(File file) {
         File directory = file.getParentFile();
         if (!directory.exists()) {
@@ -44,10 +66,22 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the task file if it does not already exist.
+     *
+     * @param file The file to be created.
+     * @throws IOException If an error occurs during file creation.
+     */
     public void createTaskFile(File file) throws IOException{
         file.createNewFile();
     }
-    
+
+    /**
+     * Processes each line in the file to extract and add tasks to the task list.
+     *
+     * @param s The scanner object reading the file.
+     * @param tasks The list of tasks to which the extracted tasks are added.
+     */
     private static void processEveryLineInFile(Scanner s, ArrayList<Task> tasks) {
         while (s.hasNext()) {
             String[] parts = s.nextLine().split(" \\| ");
@@ -71,7 +105,16 @@ public class Storage {
         }
     }
 
-    private static void ConvertLineToEventTask(ArrayList<Task> tasks, String[] parts, String description, boolean isDone) {
+    /**
+     * Converts a line in the file to an {@code Event} task and adds it to the task list.
+     *
+     * @param tasks The task list to which the {@code Event} task is added.
+     * @param parts The parts of the task line, including start and end times.
+     * @param description The description of the task.
+     * @param isDone Whether the task is marked as done.
+     */
+    private static void ConvertLineToEventTask(ArrayList<Task> tasks, String[] parts, String description,
+                                               boolean isDone) {
         String[] timeParts = parts[3].split("-");
         String startTime = timeParts[0];
         String endTime = timeParts[1];
@@ -83,7 +126,16 @@ public class Storage {
         tasks.add(eventTask);
     }
 
-    private static void ConvertLineToDeadlineTask(ArrayList<Task> tasks, String description, String[] parts, boolean isDone) {
+    /**
+     * Converts a line in the file to a {@code Deadline} task and adds it to the task list.
+     *
+     * @param tasks The task list to which the {@code Deadline} task is added.
+     * @param description The description of the task.
+     * @param parts The parts of the task line, including the due date.
+     * @param isDone Whether the task is marked as done.
+     */
+    private static void ConvertLineToDeadlineTask(ArrayList<Task> tasks, String description, String[] parts,
+                                                  boolean isDone) {
         Deadline deadlineTask = new Deadline(description, parts[3]);
         if (isDone) {
             deadlineTask.markAsDone();
@@ -91,6 +143,13 @@ public class Storage {
         tasks.add(deadlineTask);
     }
 
+    /**
+     * Converts a line in the file to a {@code Todo} task and adds it to the task list.
+     *
+     * @param tasks The task list to which the {@code Todo} task is added.
+     * @param description The description of the task.
+     * @param isDone Whether the task is marked as done.
+     */
     private static void ConvertLineToTodoTask(ArrayList<Task> tasks, String description, boolean isDone) {
         Todo todoTask = new Todo(description);
         if (isDone) {
@@ -99,7 +158,13 @@ public class Storage {
         tasks.add(todoTask);
     }
 
-
+    /**
+     * Saves the task list to the file.
+     * Each task is saved in a specific format based on its type (Todo, Deadline, Event).
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If an error occurs during file writing.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 

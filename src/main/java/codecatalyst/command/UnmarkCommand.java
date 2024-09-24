@@ -10,6 +10,12 @@ import java.io.IOException;
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructs an {@code UnmarkCommand} with the specified task index.
+     *
+     * @param input The input string containing the task index.
+     * @throws InvalidTaskNumberException If the input is not a valid number.
+     */
     public UnmarkCommand(String input) throws InvalidTaskNumberException {
         try {
             this.taskIndex = Integer.parseInt(input.trim()) - 1;
