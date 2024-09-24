@@ -14,7 +14,8 @@ public class ExceptionHandler {
         }
     }
     public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
-        if ( !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
+        if ( !userInputString.startsWith(StringStorage.FIND_INSTRUCTION_PREFIX) &&
+             !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.TODO_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.DEADLINE_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.EVENT_INSTRUCTION_PREFIX) &&
@@ -22,6 +23,12 @@ public class ExceptionHandler {
              !userInputString.startsWith(StringStorage.MARK_INSTRUCTION_PREFIX) &&
              !userInputString.startsWith(StringStorage.UNMARK_INSTRUCTION_PREFIX) ) {
             throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
+        }
+    }
+    public static void checkIfFindArgsMissing(String query) throws YapperException {
+        if (query.isEmpty()) {
+            throw new YapperException(
+                    StringStorage.MISSING_QUERY_STRING_MESSAGE);
         }
     }
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {
