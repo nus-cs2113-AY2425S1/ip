@@ -26,9 +26,9 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
 > * For commands that do not take in parameters (like `list` and `bye`), additional parameters
 > entered will be ignored by the program.  
 > e.g. the program will interpret `list 1-10` as `list`.
-> 
 
 ### Adding `ToDo` tasks: `add`
+
 Adds a `ToDo` task to the task list. 
 
 Format: `todo DESCRIPTION`
@@ -37,6 +37,7 @@ Examples
 * `todo buy bread` adds a `ToDo` task with description `buy bread`.
 
 ### Adding `Deadline` tasks: `deadline`
+
 Adds a `Deadline` task to the task list.
 
 Format: `deadline DESCRIPTION /by BY-DATE`
@@ -47,6 +48,7 @@ Examples
 by-date `2024-10-01 1200`.
 
 ### Adding `Event` tasks: `event`
+
 Adds an `Event` task to the task list.
 
 Format: `event DESCRIPTION /from FROM-DATE /to TO-DATE`
@@ -57,14 +59,22 @@ Examples
 from-date `2024-10-01 0600` and to-date `2024-10-01 0800`.
 
 ### Listing all tasks: `list`
+
 Shows a list of all tasks in the task list.
+
+
+```
+-> The tasks listed are as follows:
+   1. [T][ ] buy bread
+   2. [D][ ] eat bread (by: 30/09/2024 13:30)
+```
 
 Format: `list`
 
 ### Finding tasks by keyword: `find`
-Finds all tasks in the task list that contains a specified keyword.
 
-The program then shows a list of those tasks, as follows:
+Finds all tasks in the task list that contains a specified keyword, and shows a list of those tasks.
+
 ```
 -> The matching tasks are as follows:
    1. [T][ ] buy bread
@@ -83,30 +93,33 @@ Note
 * The indexes of the tasks in the shown list correspond to their indexes in the complete task list.
 
 ### Searching for tasks by date: `search`
+
 Shows a list of all tasks that occur on a particular date.
+
+```
+-> The tasks on this date are as follows:
+   2. [D][ ] eat bread (by: 30/09/2024 13:30)
+   3. [E][ ] freeze bread (from: 28/09/2024 06:00 to: 20/10/2024 18:00)
+```
 
 Format: `search DATE`
 * The value of `DATE` has to be entered in the format `yyyy-mm-dd`.
-* If `DATE` is not entered in the correct format, the program prints the following message:
-  ```
-  -> Invalid date!
-   Please key in dates in this format:
-      yyyy-MM-dd
-  ```
 
 Examples
-* `search 2024-10-01` shows a list of tasks that occur on `2024-10-01`
+* `search 2024-09-30` shows a list of tasks that occur on `2024-09-30`
 
 Note
 * The indexes of the tasks in the shown list correspond to their indexes in the complete task list.
 
 ### Marking a task as done: `mark`
+
 Marks an existing task as done.
 
 Format: `mark INDEX`
 * Marks the task at `INDEX` as done. The value of `INDEX` is the same as the one shown in the task list.
 * The value of `INDEX` must be a positive integer (1, 2, 3,...).
 * If the value of `INDEX` is not within the task list, the program prints the following message:
+
 ```
 -> Invalid task!
 ```
@@ -115,41 +128,57 @@ Example
 * `mark 2` marks the task at index 2 in the task list as done.
 
 ### Marking a task as not done: `unmark`
+
 Marks an existing task as not done.
 
 Format: `unmark INDEX`
 * Marks the task at `INDEX` as not done. The value of `INDEX` is the same as the one shown in the task list.
 * The value of `INDEX` must be a positive integer (1, 2, 3,...).
 * If the value of `INDEX` is not within the task list, the program prints the following message:
-  ```
-  -> Invalid task!
-  ```
+
+```
+-> Invalid task!
+```
   
 Example
 * `unmark 1` marks the task at index 1 in the task list as not done.
 
 ### Removing a task: `remove`
+
 Removes a task from the list.
 
 Format: `remove INDEX`
 * Removes the task at `INDEX` from the task list. The value of `INDEX` is the same as the one shown in the task list.
 * The value of `INDEX` must be a positive integer (1, 2, 3,...).
 * If the value of `INDEX` is not within the task list, the program prints the following message:
-    ```
-  -> Invalid task!
-  ```
+
+```
+-> Invalid task!
+```
   
 Example
 * `remove 1` removes the task at index 1 from the task list.
 
 ### Exiting the program: `bye`
+
 Exits the program.
 Upon exiting, the program shows the following message:
+
 ```
 -> Bye. Hope to see you again soon!
 ```
 
 Format: `bye`
+
+### Saving of task data
+
+The program saves the data in the task list to the hard disk after every command. There is no need to save manually.  
+The task list data is saved in the file `[JAR file location]/data/data.txt`.
+
+### Loading of task data
+
+When the program is initialised, it loads the data from the saved file into the task list. If the saved file does not  
+exist, the program creates an empty file and its directory at the file path.
 
 ## Command summary
 
