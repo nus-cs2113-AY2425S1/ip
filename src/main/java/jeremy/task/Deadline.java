@@ -3,6 +3,8 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
+import java.util.Objects;
+
 public class Deadline extends Task {
     protected final String by;
 
@@ -10,16 +12,22 @@ public class Deadline extends Task {
         super(input.split("/", 2)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Description cannot be empty");
+            throw new EmptyArgumentException("Deadline description cannot be empty");
         }
 
         String[] parts = input.split("/", 2);
 
-        if (parts.length != 2) {
-            throw new InvalidCommandFormatException("Deadline dates should come after \"/by \"");
+        if (parts.length != 2 || parts[1].isBlank()) {
+            throw new InvalidCommandFormatException("Invalid command format, " +
+                    "Deadline dates should come after \"/by \"");
         }
 
-        this.by = parts[1].trim().substring(3); // ignore "by "
+        String datePart = parts[1].trim();
+        if (!datePart.startsWith("by ")) {
+            throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
+        }
+
+        this.by = datePart.substring(3); // ignore "by "
         this.icon = "D";
     }
 
@@ -27,17 +35,22 @@ public class Deadline extends Task {
         super(input.split("/", 2)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Description cannot be empty");
+            throw new EmptyArgumentException("Deadline description cannot be empty");
         }
 
         String[] parts = input.split("/", 2);
 
-        if (parts.length != 2) {
-            throw new InvalidCommandFormatException("Deadline dates should come after \"/by \"");
+        if (parts.length != 2 || parts[1].isBlank()) {
+            throw new InvalidCommandFormatException("Invalid command format, " +
+                    "Deadline dates should come after \"/by \"");
         }
 
+        String datePart = parts[1].trim();
+        if (!datePart.startsWith("by ")) {
+            throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
+        }
         this.isDone = isDone;
-        this.by = parts[1].trim().substring(3); // ignore "by "
+        this.by = datePart.substring(3); // ignore "by "
         this.icon = "D";
     }
 

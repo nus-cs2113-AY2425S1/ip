@@ -1,6 +1,6 @@
 package jeremy.util;
 
-public class PrintUtils {
+public class Ui {
     private static final String LINE_BREAK = "_".repeat(40);
 
     private static final String NAME = "Jeremy";
@@ -28,36 +28,36 @@ public class PrintUtils {
                                                    \s
             """;
 
-    public static void print(String string) {
+    public void print(String string) {
         System.out.print(string);
     }
 
-    public static void println(String string) {
+    public void println(String string) {
         print(string);
         newline();
     }
 
-    public static void newline() {
+    public void newline() {
         print("\n");
     }
 
-    public static void lineBreak() {
+    public void lineBreak() {
         println(LINE_BREAK);
     }
 
-    public static void logo() {
+    public void logo() {
         print(LOGO);
         lineBreak();
     }
 
-    public static void greeting() {
+    public void greeting() {
         lineBreak();
         println("Hello! I'm " + NAME + ".");
         println("What can I do for you?");
         lineBreak();
     }
 
-    public static void bye() {
+    public void bye() {
         lineBreak();
         println("Bye. Hope to see you again soon!");
         lineBreak();

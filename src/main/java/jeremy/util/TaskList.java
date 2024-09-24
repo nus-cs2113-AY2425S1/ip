@@ -8,9 +8,16 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
+    private final Ui ui;
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
+        this.ui = new Ui();
+    }
+
+    public TaskList(TaskList taskList) {
+        this.tasks = taskList.tasks;
+        this.ui = new Ui();
     }
 
     public int getSize() {
@@ -22,20 +29,20 @@ public class TaskList {
     }
 
     public void printList() {
-        PrintUtils.lineBreak();
+        ui.lineBreak();
         for (Task task : tasks) {
-            PrintUtils.println((tasks.indexOf(task) + 1) + ". " + task.toString());
+            ui.println((tasks.indexOf(task) + 1) + ". " + task.toString());
         }
-        PrintUtils.lineBreak();
+        ui.lineBreak();
     }
 
     public void addTask(Task task) {
-        PrintUtils.lineBreak();
+        ui.lineBreak();
         tasks.add(task);
-        PrintUtils.println("Got it. I've added this task:");
-        PrintUtils.println(task.toString());
-        PrintUtils.println("Now you have " + tasks.size() + " tasks in the list.");
-        PrintUtils.lineBreak();
+        ui.println("Got it. I've added this task:");
+        ui.println(task.toString());
+        ui.println("Now you have " + tasks.size() + " tasks in the list.");
+        ui.lineBreak();
     }
 
     public void deleteTask(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
@@ -51,12 +58,12 @@ public class TaskList {
                     + "Try a number between 1 and " + tasks.size() + ".");
         }
 
-        PrintUtils.lineBreak();
+        ui.lineBreak();
         tasks.remove(task);
-        PrintUtils.println("Ok, deleted this task:");
-        PrintUtils.println(task.toString());
-        PrintUtils.println("Now you have " + tasks.size() + " tasks in the list.");
-        PrintUtils.lineBreak();
+        ui.println("Ok, deleted this task:");
+        ui.println(task.toString());
+        ui.println("Now you have " + tasks.size() + " tasks in the list.");
+        ui.lineBreak();
     }
 
     public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
@@ -90,15 +97,15 @@ public class TaskList {
         try {
             if (isDone) {
                 tasks.get(taskNumber - 1).markDone();
-                PrintUtils.lineBreak();
-                PrintUtils.println("Nice! I've marked this task as done:");
+                ui.lineBreak();
+                ui.println("Nice! I've marked this task as done:");
             } else {
                 tasks.get(taskNumber - 1).markNotDone();
-                PrintUtils.lineBreak();
-                PrintUtils.println("I've unmarked this task:");
+                ui.lineBreak();
+                ui.println("I've unmarked this task:");
             }
-            PrintUtils.println(tasks.get(taskNumber - 1).toString());
-            PrintUtils.lineBreak();
+            ui.println(tasks.get(taskNumber - 1).toString());
+            ui.lineBreak();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
                     + "Try a number between 1 and " + tasks.size() + ".");

@@ -1,11 +1,9 @@
-package jeremy;
+package jeremy.util;
 
 import jeremy.exception.InvalidStorageException;
 import jeremy.task.Todo;
 import jeremy.task.Deadline;
 import jeremy.task.Event;
-import jeremy.util.Ui;
-import jeremy.util.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +16,7 @@ public class Storage {
     private static final String FILE_NAME = "Jeremy.txt";
     private static final String SEPARATOR = " \\| ";
 
-    Storage() {}
+    public Storage() {}
 
     public void createTask(String[] parts, TaskList taskList) {
         try {

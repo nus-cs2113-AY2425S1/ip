@@ -1,29 +1,39 @@
 package jeremy;
 
+import jeremy.exception.JeremyException;
+
 import jeremy.command.Command;
-import jeremy.exception.*;
+
 import jeremy.task.Deadline;
 import jeremy.task.Event;
 import jeremy.task.Todo;
-import jeremy.util.PrintUtils;
+
+import jeremy.util.Storage;
+import jeremy.util.Ui;
 import jeremy.util.TaskList;
-import jeremy.Storage;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Jeremy {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList taskList;
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
+
+    public Jeremy() {
+        ui = new Ui();
+        storage = new Storage();
         try {
-            taskList = Storage.readData();
+            tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            PrintUtils.println("Storage file couldn't be created");
-            return;
+            ui.println("Storage file couldn't be created");
         }
-        PrintUtils.greeting();
-        PrintUtils.logo();
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        ui.greeting();
+        ui.logo();
 
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
@@ -36,54 +46,41 @@ public class Jeremy {
 
                 switch (command) {
                 case LIST:
-                    taskList.printList();
+                    tasks.printList();
                     break;
                 case MARK:
-                    taskList.markTaskAsDone(argument);
+                    tasks.markTaskAsDone(argument);
                     break;
                 case UNMARK:
-                    taskList.markTaskAsNotDone(argument);
+                    tasks.markTaskAsNotDone(argument);
                     break;
                 case DELETE:
-                    taskList.deleteTask(argument);
+                    tasks.deleteTask(argument);
                     break;
                 case TODO:
-                    taskList.addTask(new Todo(argument));
+                    tasks.addTask(new Todo(argument));
                     break;
                 case DEADLINE:
-                    taskList.addTask(new Deadline(argument));
+                    tasks.addTask(new Deadline(argument));
                     break;
                 case EVENT:
-                    taskList.addTask(new Event(argument));
+                    tasks.addTask(new Event(argument));
                     break;
                 }
-            } catch (IllegalCommandException e) {
-                PrintUtils.lineBreak();
-                PrintUtils.println("Lol, " + commandStr + " is not a valid command.");
-                PrintUtils.lineBreak();
-            } catch (EmptyArgumentException e) {
-                PrintUtils.lineBreak();
-                PrintUtils.println("Tasks must have a description");
-                PrintUtils.lineBreak();
-            } catch (InvalidCommandFormatException e) {
-                PrintUtils.lineBreak();
-                PrintUtils.print("Invalid command format, ");
-                PrintUtils.println(e.getMessage());
-                PrintUtils.lineBreak();
-            } catch (InvalidTaskNumberException e) {
-                PrintUtils.lineBreak();
-                PrintUtils.println("Wow, " + e.getMessage() + " is not even a number.");
-                PrintUtils.lineBreak();
-            } catch (TaskNotFoundException e) {
-                PrintUtils.lineBreak();
-                PrintUtils.println(e.getMessage());
-                PrintUtils.lineBreak();
+            } catch (JeremyException e) {
+                ui.lineBreak();
+                ui.println(e.getMessage());
+                ui.lineBreak();
             }
 
             userInput = scanner.nextLine();
         }
 
-        Storage.saveData(taskList);
-        PrintUtils.bye();
+        storage.save(tasks);
+        ui.bye();
+    }
+
+    public static void main(String[] args) {
+        new Jeremy().run();
     }
 }

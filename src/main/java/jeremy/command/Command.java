@@ -15,7 +15,7 @@ public enum Command {
         try {
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalCommandException("Unrecognised command");
+            throw new IllegalCommandException(command);
         }
     }
 }

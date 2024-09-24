@@ -11,17 +11,24 @@ public class Event extends Task {
         super(input.split("/", 3)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Description cannot be empty");
+            throw new EmptyArgumentException("Event description cannot be empty");
         }
 
         String[] parts = input.split("/", 3);
 
-        if (parts.length != 3) {
-            throw new InvalidCommandFormatException("Event dates should come after \"/from \" and \"/to \"");
+        if (parts.length != 3 || parts[1].isBlank() || parts[2].isBlank()) {
+            throw new InvalidCommandFormatException("Invalid command format, " +
+                    "Event dates should come after \"/from \" and \"/to \"");
         }
 
-        this.from = parts[1].trim().substring(5); // ignore "from "
-        this.to = parts[2].trim().substring(3);   // ignore "to "
+        String dateFrom = parts[1].trim();
+        String dateTo = parts[2].trim();
+        if (!dateFrom.startsWith("from ") || !dateTo.startsWith("to ")) {
+            throw new InvalidCommandFormatException("Event dates should start with \"from \" or \"to \"");
+        }
+
+        this.from = dateFrom.substring(5); // ignore "from "
+        this.to = dateTo.substring(3);   // ignore "to "
         this.icon = "E";
     }
 
@@ -29,13 +36,14 @@ public class Event extends Task {
         super(input.split("/", 3)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Description cannot be empty");
+            throw new EmptyArgumentException("Event description cannot be empty");
         }
 
         String[] parts = input.split("/", 3);
 
         if (parts.length != 3) {
-            throw new InvalidCommandFormatException("Event dates should come after \"/from \" and \"/to \"");
+            throw new InvalidCommandFormatException("Invalid command format, " +
+                    "Event dates should come after \"/from \" and \"/to \"");
         }
 
         this.isDone = isDone;
