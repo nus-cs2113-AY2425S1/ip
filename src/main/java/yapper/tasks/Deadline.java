@@ -1,13 +1,16 @@
 package yapper.tasks;
 
-import yapper.io.DateAndTimeHandler;
-import yapper.io.StringStorage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import yapper.io.DateAndTimeHandler;
 
+import yapper.io.StringStorage;
+
+/**
+ * Deadline is a Task with an end date.
+ */
 public class Deadline extends Task {
     // Additional Attributes
     protected String endDateString;
@@ -19,7 +22,6 @@ public class Deadline extends Task {
         super(taskDesc);
         initializeEndDateTime(endDateString);
     }
-
     public Deadline(String taskDesc, boolean isDone, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
@@ -45,7 +47,14 @@ public class Deadline extends Task {
     }
 
 
-    // Task Print Operations for Adding/Removing Data
+
+   /**
+     * Converts the deadline task to a string format for display,
+     * including the Deadline symbol and the end date.
+     *
+     * @return a formatted string showing the Deadline task's
+    * status, description and end date.
+     */
     @Override
     public String taskToDisplay() {
         String endDateAsString = DateAndTimeHandler.getDateTimeFromString(
@@ -56,7 +65,13 @@ public class Deadline extends Task {
         return "[" + StringStorage.DEADLINE_SYMBOL + "] "
                 + super.taskToDisplay() + ", by " + endDateAsString;
     }
-    // Task Conversion Operations for Saving/Loading Data
+    /**
+     * Converts the deadline task to a string format for writing to / reading from a file,
+     * including the Deadline symbol and the end date.
+     *
+     * @return a formatted string representing the deadline task's
+     * status, description and end date.
+     */
     @Override
     public String taskToString() {
         String endDateAsString = DateAndTimeHandler.getDateTimeFromString(

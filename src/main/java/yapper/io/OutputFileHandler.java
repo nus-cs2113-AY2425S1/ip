@@ -9,9 +9,25 @@ import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
 import yapper.tasks.*; // need all classes in tasks folder
 
-// File Data Retrieval Operations
+/**
+ * File Data Retrieval Manager for Yapper.
+ *
+ * This class is responsible for loading tasks from a file and creating
+ * corresponding Task objects. It provides methods for reading tasks
+ * from a specified file, handling invalid tasks, and returning a
+ * TaskHandler containing all valid tasks.
+ */
 public class OutputFileHandler {
 
+    /**
+     * Retrieves tasks from file
+     *
+     * Loads tasks from the file and returns a TaskHandler containing
+     * the tasks. If the file does not exist, an empty task list is
+     * initialized.
+     *
+     * @return a TaskHandler with loaded tasks
+     */
     public static TaskHandler loadTasks() {
         TaskHandler taskHandler = new TaskHandler();
         File file = null;
@@ -57,6 +73,14 @@ public class OutputFileHandler {
         }
         return taskHandler;
     }
+
+    /**
+     * Loads a task from the provided task data string.
+     *
+     * @param taskData the string representing the task data
+     * @return a Task object created from the task data
+     * @throws YapperException if the task data is invalid
+     */
     private static Task loadTask(String taskData) throws YapperException {
         try {
             String[] taskParts = StringStorage.splitByDelimiter(taskData);
@@ -97,6 +121,12 @@ public class OutputFileHandler {
     }
 
     // User-Input-related Methods to Split by delimiter into keywords
+    /**
+     * Splits the given instruction arguments by the deadline keyword delimiter.
+     *
+     * @param instructionArgs the instruction arguments to split
+     * @return an array containing the description and deadline date
+     */
     public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -2);
@@ -104,6 +134,12 @@ public class OutputFileHandler {
         String deadlineDate = deadlineArgs[1].trim();
         return new String[] {deadlineDesc, deadlineDate};
     }
+    /**
+     * Splits the given instruction arguments by the event keywords delimiter.
+     *
+     * @param instructionArgs the instruction arguments to split
+     * @return an array containing the event description, start date, and end date
+     */
     public static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -2);

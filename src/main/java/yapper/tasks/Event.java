@@ -1,13 +1,16 @@
 package yapper.tasks;
 
-import yapper.io.DateAndTimeHandler;
-import yapper.io.StringStorage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import yapper.io.DateAndTimeHandler;
+import yapper.io.StringStorage;
+
+/**
+ * Event is a Task with both a start date and end date.
+ */
 public class Event extends Task {
     // Additional Attributes
     protected String startDateString;
@@ -23,7 +26,6 @@ public class Event extends Task {
         initializeStartDateTime(startDateString);
         initializeEndDateTime(endDateString);
     }
-
     public Event(String taskDesc, boolean isDone, String startDateString, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
@@ -66,7 +68,14 @@ public class Event extends Task {
         }
     }
 
-    // Task Print Operations for Adding/Removing Data
+
+   /**
+     * Converts the event task to a string format for display,
+     * including the Event symbol, start date and an end date.
+     *
+     * @return a formatted string showing the Deadline task's
+     * status, description, start date and end date.
+     */
     @Override
     public String taskToDisplay() {
         String startDateAsString = DateAndTimeHandler.getDateTimeFromString(
@@ -83,6 +92,13 @@ public class Event extends Task {
     }
 
     // Task Conversion Operations for Saving/Loading Data
+    /**
+     * Converts the event task to a string format for writing to / reading from a file,
+     * including the Event symbol, start date and an end date.
+     *
+     * @return a formatted string representing the deadline task's
+     * status, description, start date and end date.
+     */
     @Override
     public String taskToString() {
         String startDateAsString = DateAndTimeHandler.getDateTimeFromString(

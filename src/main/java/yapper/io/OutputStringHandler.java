@@ -5,7 +5,13 @@ import java.util.List;
 import yapper.tasks.Task;
 import yapper.tasks.TaskHandler;
 
-// Output Text Formatter for Yapper
+/**
+ * Output String Formatter for Yapper.
+ *
+ * This class handles the formatting and displaying of output messages
+ * related to task management, including listing tasks, adding tasks,
+ * deleting tasks, and updating task statuses.
+ */
 public class OutputStringHandler {
 
     // Used in Add (Todo, Deadline, Event), Delete, Mark, Unmark
@@ -38,7 +44,11 @@ public class OutputStringHandler {
             System.out.println(StringStorage.RELEVANT_TASKS_NOT_FOUND_STRING);
         }
     }
-    // For Instruction: List
+        /**
+     * Prints a message listing all tasks in the list.
+     *
+     * @param taskHandler the list of tasks to display and its associated functions
+     */
     public static void printAllTasks(TaskHandler taskHandler) {
         System.out.println(StringStorage.LIST_BEFORE_STRING);
 
@@ -51,7 +61,12 @@ public class OutputStringHandler {
         System.out.println(StringStorage.LIST_AFTER_STRING);
     }
 
-    // For Instruction: Todo Deadline Event
+    /**
+     * Prints a message indicating a task has been added.
+     *
+     * @param task      the task that has been added
+     * @param taskTotal the current count of tasks in the list
+     */
     public static void printAddedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.ADD_BEFORE_STRING);
 
@@ -60,7 +75,13 @@ public class OutputStringHandler {
 
         System.out.println(StringStorage.ADD_AFTER_STRING);
     }
-    // For Instruction: Delete
+
+    /**
+     * Prints a message indicating a task has been deleted.
+     *
+     * @param task      the task that has been deleted
+     * @param taskTotal the current count of tasks in the list
+     */
     public static void printDeletedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.DELETE_BEFORE_STRING);
 
@@ -69,7 +90,13 @@ public class OutputStringHandler {
 
         System.out.println(StringStorage.DELETE_AFTER_STRING);
     }
-    // For Instruction: Mark, Unmark
+
+    /**
+     * Prints the status of a task after it has been marked or unmarked.
+     *
+     * @param task   the task whose status has changed
+     * @param isDone true if the task is marked as done, false if undone
+     */
     public static void printTaskStatus(Task task, boolean isDone) {
         System.out.println(StringStorage.TASK_COMPLETION_STATUS_CHANGED_STRING +
                 (isDone ? "done" : "not done") );
