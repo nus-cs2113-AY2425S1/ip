@@ -1,30 +1,25 @@
 package medea.command;
 
-public enum Command {
-    LIST("list"),
-    MARK("mark"),
-    UNMARK("unmark"),
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event"),
-    DELETE("delete");
+import medea.Storage;
+import medea.TaskList;
+import medea.Ui;
 
-    private String command;
+public abstract class Command {
+    private int taskIndex = -1;
 
-    Command(String command) {
-        this.command = command;
+    public Command(){}
+
+    public Command(int taskIndex){
+        this.taskIndex = taskIndex;
     }
 
-    public String getCommand() {
-        return command;
+    public int getTaskIndex() {
+        return taskIndex;
     }
 
-    public static Command parseString(String command) {
-        for (Command c : Command.values()) {
-            if (c.getCommand().equals(command)) {
-                return c;
-            }
-        }
-        return null;
+    public boolean isExit(){
+        return false;
     }
+
+    public void execute(TaskList tasks, Ui ui, Storage storage){};
 }

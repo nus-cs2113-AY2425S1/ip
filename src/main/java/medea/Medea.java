@@ -1,45 +1,49 @@
 package medea;
-import medea.command.CommandHandler;
-import java.util.Scanner;
+import medea.command.Command;
+import medea.exceptions.MedeaException;
 
 public class Medea {
+    private final static String DEFAULT_FILE_PATH = "./data/medea.txt";
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+    private Parser parser;
+
+    public Medea(String filePath){
+        ui = new Ui();
+        storage = new Storage(filePath);
+        parser = new Parser();
+        try {
+            tasks = new TaskList(storage.loadTasks());
+        } catch (MedeaException e) {
+            ui.showError(e);
+            tasks = new TaskList();
+        }
+    }
 
     public static void main(String[] args) {
-        greet();
+        new Medea(DEFAULT_FILE_PATH).run();
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        CommandHandler commandHandler = new CommandHandler();
-        commandHandler.loadTasks();
+    public void run(){
+        ui.showWelcome();
+        handleCommands();
+        ui.showFarewell();
+        storage.saveTasks(tasks.toCSVString());
+    }
 
-        String input = scanner.nextLine();
-
-        while(!input.equals("bye")){
-            commandHandler.handleInput(input);
-            input = scanner.nextLine();
+    private void handleCommands(){
+        while (true) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = parser.parse(fullCommand);
+                if (c.isExit()) return;
+                ui.showLine();
+                c.execute(tasks, ui, storage);
+            } catch (MedeaException e) {
+                ui.showError(e);
+            }
+            ui.showLine();
         }
-
-        commandHandler.saveTasks();
-        sayGoodbye();
     }
-
-    private static void greet(){
-        System.out.println("Hello! I'm...");
-        System.out.println("""
-         __       __  ________  _______   ________   ______ \s
-        /  \\     /  |/        |/       \\ /        | /      \\\s
-        $$  \\   /$$ |$$$$$$$$/ $$$$$$$  |$$$$$$$$/ /$$$$$$  |
-        $$$  \\ /$$$ |$$ |__    $$ |  $$ |$$ |__    $$ |__$$ |
-        $$$$  /$$$$ |$$    |   $$ |  $$ |$$    |   $$    $$ |
-        $$ $$ $$/$$ |$$$$$/    $$ |  $$ |$$$$$/    $$$$$$$$ |
-        $$ |$$$/ $$ |$$ |_____ $$ |__$$ |$$ |_____ $$ |  $$ |
-        $$ | $/  $$ |$$       |$$    $$/ $$       |$$ |  $$ |
-        $$/      $$/ $$$$$$$$/ $$$$$$$/  $$$$$$$$/ $$/   $$/\s
-        """);
-        System.out.println("What can I do for you?");
-    }
-
-    private static void sayGoodbye(){
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
 }
