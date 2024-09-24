@@ -29,6 +29,88 @@ public class V {
         System.out.print(LOGO);
         printBlock("Hi I'm V\nWhat can I do for you?");
     }
+    
+    public static void loadSave(ArrayList<Task> listOfTasks, String saveFilePath) {
+        if (Files.exists(Paths.get(saveFilePath))) {
+            try {
+                File saveFile = new File(saveFilePath);
+                Scanner fileScanner = new Scanner(saveFile);
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    String[] lineArr = line.trim().split(" ");
+                    String description;
+                    switch (lineArr[0].toLowerCase()) {
+                    case "mark":
+                        int position = Integer.parseInt(lineArr[1]);
+                        markTask(listOfTasks, position);
+                        break;
+                    case "todo":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addToDo(listOfTasks, description);
+                        break;
+                    case "deadline":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addDeadline(listOfTasks, description);
+                        break;
+                    case "event":
+                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
+                        addEvent(listOfTasks, description);
+                        break;
+                    default:
+                        System.out.println("An error occured while loading the save file");
+                        break;
+                    }
+                }
+                fileScanner.close();
+                printBlock("Here are your list of tasks");
+                displayList(listOfTasks);
+            } catch (FileNotFoundException error) {
+                System.out.println();
+            } catch (NumberFormatException error) {
+                printBlock("You need to input a valid integer for the task that you want to mark as done");
+            } catch (InvalidDeadlineException error) {
+                printBlock("You did not enter a valid deadline." + 
+                        " Remember to add a \"/by\" before a valid deadline.");
+            }
+        } else {
+            try {
+                Files.createFile(Paths.get(saveFilePath));
+            } catch (IOException error) {
+                System.out.println(error);
+            }
+        }
+    }
+
+    public static void saveTasks(ArrayList<Task> listOfTasks, String saveFilePath) {
+        try {
+            File saveFile = new File(saveFilePath);
+            FileWriter clearSaveFile = new FileWriter(saveFile);
+            clearSaveFile.write("");
+            clearSaveFile.close();
+            FileWriter saveFileWriter = new FileWriter(saveFile, true);
+            for (Task task: listOfTasks) {
+                switch(task.getType()) {
+                case "T":
+                    saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
+                    break;
+                case "D":
+                    saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
+                    break;
+                case "E":
+                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /to " + task.getTo() + System.lineSeparator());
+                    break;
+                default:
+                    break;
+                }
+                if (task.getStatus().equals("X")) {
+                    saveFileWriter.write("mark " + (listOfTasks.indexOf(task) + 1) + System.lineSeparator());
+                }
+            }
+            saveFileWriter.close();
+        } catch (IOException error) {
+            System.out.println(error);
+        }
+    }
 
     public static void displayList(ArrayList<Task> listOfTasks) {
         int count = 1;
@@ -87,88 +169,6 @@ public class V {
         printBlock(String.format("Got it. Task added\n %s", event));
     }
 
-    public static void loadSave(ArrayList<Task> listOfTasks) {
-        if (Files.exists(Paths.get(SAVE_FILE_PATH))) {
-            try {
-                File saveFile = new File(SAVE_FILE_PATH);
-                Scanner fileScanner = new Scanner(saveFile);
-                while (fileScanner.hasNext()) {
-                    String line = fileScanner.nextLine();
-                    String[] lineArr = line.trim().split(" ");
-                    String description;
-                    switch (lineArr[0].toLowerCase()) {
-                    case "mark":
-                        int position = Integer.parseInt(lineArr[1]);
-                        markTask(listOfTasks, position);
-                        break;
-                    case "todo":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addToDo(listOfTasks, description);
-                        break;
-                    case "deadline":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addDeadline(listOfTasks, description);
-                        break;
-                    case "event":
-                        description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                        addEvent(listOfTasks, description);
-                        break;
-                    default:
-                        System.out.println("An error occured while loading the save file");
-                        break;
-                    }
-                }
-                fileScanner.close();
-                printBlock("Here are your list of tasks");
-                displayList(listOfTasks);
-            } catch (FileNotFoundException error) {
-                System.out.println();
-            } catch (NumberFormatException error) {
-                printBlock("You need to input a valid integer for the task that you want to mark as done");
-            } catch (InvalidDeadlineException error) {
-                printBlock("You did not enter a valid deadline." + 
-                        " Remember to add a \"/by\" before a valid deadline.");
-            }
-        } else {
-            try {
-                Files.createFile(Paths.get(SAVE_FILE_PATH));
-            } catch (IOException error) {
-                System.out.println(error);
-            }
-        }
-    }
-
-    public static void saveTasks(ArrayList<Task> listOfTasks) {
-        try {
-            File saveFile = new File(SAVE_FILE_PATH);
-            FileWriter clearSaveFile = new FileWriter(saveFile);
-            clearSaveFile.write("");
-            clearSaveFile.close();
-            FileWriter saveFileWriter = new FileWriter(saveFile, true);
-            for (Task task: listOfTasks) {
-                switch(task.getType()) {
-                case "T":
-                    saveFileWriter.write("todo " + task.getDescription() + System.lineSeparator());
-                    break;
-                case "D":
-                    saveFileWriter.write("deadline " + task.getDescription() + " /by " + task.getBy() + System.lineSeparator());
-                    break;
-                case "E":
-                    saveFileWriter.write("event " + task.getDescription() + " /from " + task.getFrom() + " /to " + task.getTo() + System.lineSeparator());
-                    break;
-                default:
-                    break;
-                }
-                if (task.getStatus().equals("X")) {
-                    saveFileWriter.write("mark " + (listOfTasks.indexOf(task) + 1) + System.lineSeparator());
-                }
-            }
-            saveFileWriter.close();
-        } catch (IOException error) {
-            System.out.println(error);
-        }
-    }
-
     public static void main(String[] args) {
 
         boolean isOnline = true;
@@ -180,7 +180,7 @@ public class V {
         Scanner input = new Scanner(System.in);
 
         greet();
-        loadSave(listOfTasks);
+        Storage.loadSave(listOfTasks, SAVE_FILE_PATH);
         
         while (isOnline) {
             try {
@@ -190,7 +190,7 @@ public class V {
                 case "bye":
                     input.close();
                     isOnline = false;
-                    saveTasks(listOfTasks);
+                    saveTasks(listOfTasks, SAVE_FILE_PATH);
                     break;
                 case "list":
                     displayList(listOfTasks);
