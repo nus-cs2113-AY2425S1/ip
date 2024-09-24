@@ -1,6 +1,6 @@
-package november.messages;
+package november.strings;
 
-public class Messages {
+public class Strings {
     public static final String SEPARATOR = "____________________________________________________________"; // Separator line to demarcate output messages
 
     public static final String TODO_COMMAND = "todo"; // Command to add a TODO task

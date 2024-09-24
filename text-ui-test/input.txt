@@ -1,11 +1,13 @@
-todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
-todo join sports club
+todo Task1
+deadline Task2 /by 2024-11-01T23:59:59
+event Task3 /from 2024-11-02T14:00:00 /to 2024-11-02T16:00:00
 mark 1
+todo Task4
 mark 4
-todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+unmark 4
+list
+deadline Task5 /by 2024-12-01T23:59:59
+event Task6 /from 2024-12-25T00:00:00 /to 2024-12-25T23:59:59
+list
 bye
