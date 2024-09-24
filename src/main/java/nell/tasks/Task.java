@@ -64,7 +64,7 @@ public abstract class Task {
     }
 
     /**
-     * Formats a string for writing into a .txt file
+     * Returns a formatted string, for writing into a file
      *
      * @return the formatted string for writing to the file
      */
