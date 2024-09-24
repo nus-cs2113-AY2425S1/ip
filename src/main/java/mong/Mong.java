@@ -89,17 +89,19 @@ public class Mong {
      */
 
     public static void mark(String input) {
-        // the itemIndex is -1 than the input from the user
-        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (itemIndex < 0 || itemIndex >= list.size()) {
-            throw new NullPointerException();
-        }
         try {
+            // the itemIndex is -1 than the input from the user
+            int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (itemIndex < 0 || itemIndex >= list.size()) {
+                throw new NullPointerException();
+            }
             list.get(itemIndex).setCompleted(true);
             System.out.println("Mong >_<!!I have marked it as completed:");
             System.out.println(list.get(itemIndex));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Mong?!@ That's no-no number.");
         }
     }
 
@@ -107,17 +109,19 @@ public class Mong {
      * Marks completed item in index as incompleted.
      */
     public static void unmark(String input) {
-        // the itemIndex is -1 than the input from the user
-        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (itemIndex < 0 || itemIndex >= list.size()) {
-            throw new NullPointerException();
-        }
         try {
+            // the itemIndex is -1 than the input from the user
+            int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (itemIndex < 0 || itemIndex >= list.size()) {
+                throw new NullPointerException();
+            }
             list.get(itemIndex).setCompleted(false);
             System.out.println("Mong-mong :<! The task has been unmarked:");
             System.out.println(list.get(itemIndex));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Mong?!@ That's no-no number.");
         }
     }
 
@@ -254,17 +258,19 @@ public class Mong {
      * Delete a Task of any valid type.
      */
     public static void deleteTask(String input) {
-        int indexValue = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (indexValue < 0 || indexValue >= list.size()) {
-            throw new NullPointerException();
-        }
         try {
+            int indexValue = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (indexValue < 0 || indexValue >= list.size()) {
+                throw new NullPointerException();
+            }
             Task deletedTask = list.get(indexValue);
             list.remove(indexValue);
             System.out.println("Mong-?!@# This item has been removed: ");
             System.out.println(deletedTask);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Mong?!@ Item not in list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Mong?!@ That's no-no number.");
         }
     }
 
