@@ -142,14 +142,14 @@ Format: `remove INDEX`
 Example
 * `remove 1` removes the task at index 1 from the task list.
 
-### Exiting the program: `exit`
+### Exiting the program: `bye`
 Exits the program.
 Upon exiting, the program shows the following message:
 ```
 -> Bye. Hope to see you again soon!
 ```
 
-Format: `exit`
+Format: `bye`
 
 ## Command summary
 
