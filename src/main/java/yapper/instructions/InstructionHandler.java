@@ -41,7 +41,6 @@ public class InstructionHandler {
      * @param taskHandler      The handler that manages the list of tasks.
      * @throws YapperException If an error occurs while listing the tasks.
      */
-
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {
             // Error_Check
@@ -149,7 +148,7 @@ public class InstructionHandler {
                     + e.getMessage());
             return;
         }
-        // TO DECIDE: try-catch to extend to the whole method?
+        // There are 2 try-catch to separate the exception messages for parsing and executing
         try {
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
@@ -157,7 +156,7 @@ public class InstructionHandler {
                 handleListInstruction(taskHandler);
                 break;
             case FIND:
-                String query = instruction.getInstructionDesc(); // TODO
+                String query = instruction.getInstructionDesc();
                 handleFindInstruction(taskHandler, query);
                 break;
             case TODO:

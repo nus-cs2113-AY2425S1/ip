@@ -8,22 +8,47 @@ import yapper.tasks.TaskHandler;
 /**
  * Output String Formatter for Yapper.
  *
+ * <p>
  * This class handles the formatting and displaying of output messages
  * related to task management, including listing tasks, adding tasks,
  * deleting tasks, and updating task statuses.
+ * </p>
+ *
  */
 public class OutputStringHandler {
 
-    // Used in Add (Todo, Deadline, Event), Delete, Mark, Unmark
+
+    /**
+     * Formats a task for display without an ordinal number.
+     * Used for displaying a task when the task's ordinal position is not needed like in Add (Todo, Deadline, Event), Delete, Mark, Unmark
+     *
+     * @param task the task to display
+     * @return the formatted string representation of the task
+     */
     private static String displayTaskWithoutOrdinal(Task task) {
         return "  " + task.taskToDisplay(); // spacing is to be consistent with ordinal
     }
-    // Used in Find and List
+    /**
+     * Formats a task for display with an ordinal number.
+     * Used for listing tasks with their ordinal positions, like in Find or List.
+     *
+     * @param task the task to display
+     * @param taskOrdinal the ordinal number of the task
+     * @return the formatted string representation of the task with its ordinal number
+     */
     private static String displayTaskWithOrdinal(Task task, int taskOrdinal) {
         return (taskOrdinal + StringStorage.INDEX_OFFSET) + "." + task.taskToDisplay();
     }
 
-    // For Instruction: Find
+
+
+    /**
+     * Prints the list of tasks that match the query string.
+     * Used in the "find" instruction to filter and display tasks by description.
+     *
+     * @param taskHandler the handler managing the task list
+     * @param query the string to search for in task descriptions
+     */
     public static void printSelectedTasks(TaskHandler taskHandler, String query) {
         System.out.println(StringStorage.LIST_RELEVANT_TASKS_STRING);
 
@@ -44,10 +69,11 @@ public class OutputStringHandler {
             System.out.println(StringStorage.RELEVANT_TASKS_NOT_FOUND_STRING);
         }
     }
-        /**
+    /**
      * Prints a message listing all tasks in the list.
+     * Used to display the current list of tasks in order.
      *
-     * @param taskHandler the list of tasks to display and its associated functions
+     * @param taskHandler the handler managing the task list
      */
     public static void printAllTasks(TaskHandler taskHandler) {
         System.out.println(StringStorage.LIST_BEFORE_STRING);
@@ -63,6 +89,7 @@ public class OutputStringHandler {
 
     /**
      * Prints a message indicating a task has been added.
+     * Displays the task details and the updated total number of tasks.
      *
      * @param task      the task that has been added
      * @param taskTotal the current count of tasks in the list
@@ -78,6 +105,7 @@ public class OutputStringHandler {
 
     /**
      * Prints a message indicating a task has been deleted.
+     * Displays the task details and the updated total number of tasks.
      *
      * @param task      the task that has been deleted
      * @param taskTotal the current count of tasks in the list
@@ -93,6 +121,7 @@ public class OutputStringHandler {
 
     /**
      * Prints the status of a task after it has been marked or unmarked.
+     * Displays whether the task is marked as "done" or "not done"
      *
      * @param task   the task whose status has changed
      * @param isDone true if the task is marked as done, false if undone

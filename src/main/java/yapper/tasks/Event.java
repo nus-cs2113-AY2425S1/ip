@@ -13,26 +13,76 @@ import yapper.io.StringStorage;
  */
 public class Event extends Task {
     // Additional Attributes
+
+    /**
+     * The string representation of the start date, used if the start date
+     * cannot be parsed into a valid {@code LocalDateTime} or {@code LocalDate}.
+     */
     protected String startDateString;
+    /**
+     * The string representation of the end date, used if the end date
+     * cannot be parsed into a valid {@code LocalDateTime} or {@code LocalDate}.
+     */
     protected String endDateString;
+    /**
+     * The start date of the event as a {@code LocalDate}, if no time is specified.
+     */
     protected LocalDate startDate;
+    /**
+     * The end date of the event as a {@code LocalDate}, if no time is specified.
+     */
     protected LocalDate endDate;
+    /**
+     * The start date and time of the event as a {@code LocalDateTime}, if both
+     * date and time are provided.
+     */
     protected LocalDateTime startDateTime;
+    /**
+     * The end date and time of the event as a {@code LocalDateTime}, if both
+     * date and time are provided.
+     */
     protected LocalDateTime endDateTime;
 
-    // Constructor
+
+
+    // Constructors
+
+    /**
+     * Creates an event task with the given description, start date, and end date.
+     * The dates can either be in date-only or date-time format.
+     *
+     * @param taskDesc         the description of the event
+     * @param startDateString   the start date of the event as a string
+     * @param endDateString     the end date of the event as a string
+     */
     public Event(String taskDesc, String startDateString, String endDateString) {
         super(taskDesc);
         initializeStartDateTime(startDateString);
         initializeEndDateTime(endDateString);
     }
+    /**
+     * Creates an event task with the given description, completion status, start date, and end date.
+     * The dates can either be in date-only or date-time format.
+     *
+     * @param taskDesc         the description of the event
+     * @param isDone           whether the event is marked as done
+     * @param startDateString   the start date of the event as a string
+     * @param endDateString     the end date of the event as a string
+     */
     public Event(String taskDesc, boolean isDone, String startDateString, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
         initializeStartDateTime(startDateString);
         initializeEndDateTime(endDateString);
     }
-
+    /**
+     * Initializes the start date and time of the event by parsing the given
+     * string. If the string cannot be parsed into a {@code LocalDateTime},
+     * it will attempt to parse it as a {@code LocalDate}. If both attempts fail,
+     * the string will be stored as-is.
+     *
+     * @param startDateString the start date string to be parsed
+     */
     private void initializeStartDateTime(String startDateString) {
         try {
             this.startDateTime = LocalDateTime.parse(startDateString,
@@ -50,6 +100,14 @@ public class Event extends Task {
             }
         }
     }
+    /**
+     * Initializes the end date and time of the event by parsing the given
+     * string. If the string cannot be parsed into a {@code LocalDateTime},
+     * it will attempt to parse it as a {@code LocalDate}. If both attempts fail,
+     * the string will be stored as-is.
+     *
+     * @param endDateString the end date string to be parsed
+     */
     private void initializeEndDateTime(String endDateString) {
         try {
             this.endDateTime = LocalDateTime.parse(endDateString,

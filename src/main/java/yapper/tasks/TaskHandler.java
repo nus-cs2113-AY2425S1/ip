@@ -35,9 +35,6 @@ public class TaskHandler {
     public int getCurrTaskTotal() {
         return tasks.size();
     }
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
     /**
      * Retrieves a task based on its ordinal index.
      *

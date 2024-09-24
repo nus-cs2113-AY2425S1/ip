@@ -228,9 +228,4 @@ public class ExceptionHandler {
         }
     }
 
-//    public static void template() { // TODO rename
-//        if () { // TODO condition
-//            throw new YapperException("tba"); // TODO message
-//        }
-//    }
 }

@@ -157,14 +157,7 @@ public class StringStorage {
             "Keep it up! You'll be done with it eventually! ";
     public static final String TASK_IS_NOT_DONE_STRING =
             "Keep going, you'll get it done eventually! ";
-//    public static final String BEFORE_SAVING_STRING =
-//            "saving data to: "; // ok, just give me a while to recall
-//    public static final String AFTER_SAVING_STRING =
-//            "saved successfully!"; // Ok, I think I remember it all
-//    public static final String BEFORE_LOADING_STRING =
-//            "retrieving data from: "; // hold on, let me remember
-//    public static final String AFTER_LOADING_STRING =
-//            "retrieved successfully!"; // I've got it
+
 
 
     /**
@@ -197,11 +190,7 @@ public class StringStorage {
             "Query string not given. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "What should I be finding? ";
-    // tba TODO ARGS MISSING
-    // tba DEADLINE ARGS MISSING
-    // tba EVENT ARGS MISSING
-    // tba DEADLINE KEYWORDS MISSING
-    // tba EVENT KEYWORDS MISSING
+
     public static final String MISSING_DESCRIPTION_MESSAGE =
             "task description not given. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
@@ -220,15 +209,11 @@ public class StringStorage {
             "Task type abbreviation is not any of these: "
             + TODO_SYMBOL + ", "
             + DEADLINE_SYMBOL + ", "
-            + EVENT_SYMBOL; // + "\n" +
-//            LINE_DIVIDER_YAPPER + "\n"+
-//            "I don't remember if what kind of task this is.";
+            + EVENT_SYMBOL; // "I don't remember if what kind of task this is.";
     public static final String INVALID_TASK_STATUS_MESSAGE =
             "Task completion status abbreviation is not any of these: "
             + IS_DONE_SYMBOL + ", "
-            + NOT_DONE_SYMBOL; // + "\n" +
-//            LINE_DIVIDER_YAPPER + "\n"+
-//            "I don't remember if this task was done or not.";
+            + NOT_DONE_SYMBOL; // "I don't remember if this task was done or not.";
     public static final String LIST_EMPTY_MESSAGE =
             "List is empty. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
@@ -246,15 +231,10 @@ public class StringStorage {
             LINE_DIVIDER_YAPPER + "\n"+
             "I know you still haven't done this. I won't forget. ";
 
-//    public static final String INCOMPLETE_INSTRUCTION_MESSAGE =
-//            "Sorry, you cut off there. Continue what you were saying? ";
     public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
             "Instruction is not recognised. \n" +
             LINE_DIVIDER_YAPPER + "\n"+
             "I dunno whatcha just said. Repeat it for me will ya? ";
     public static final String SAVING_ERROR_MESSAGE = "error in saving data";
-//    public static final String LOADING_ERROR_MESSAGE = "error in retrieving data";
 
-//    public static final String MESSAGE =
-//            "";
 }

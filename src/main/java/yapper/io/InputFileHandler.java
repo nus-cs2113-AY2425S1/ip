@@ -12,9 +12,12 @@ import yapper.tasks.Task;
 /**
  * File Data Saving Manager for Yapper.
  *
+ * <p>
  * This class handles the storage, deletion, and modification of tasks
  * in a file. It provides methods for adding tasks, removing tasks,
  * and updating task statuses.
+ * </p>
+ *
  */
 public class InputFileHandler {
 

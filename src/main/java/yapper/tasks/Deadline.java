@@ -13,21 +13,54 @@ import yapper.io.StringStorage;
  */
 public class Deadline extends Task {
     // Additional Attributes
+
+    /**
+     * The string representation of the end date input.
+     */
     protected String endDateString;
+    /**
+     * The parsed end date as a LocalDate.
+     */
     protected LocalDate endDate;
+    /**
+     * The parsed end date and time as a LocalDateTime.
+     */
     protected LocalDateTime endDateTime;
 
+
     // Constructors
+
+    /**
+     * Creates a new Deadline task with the given description and end date.
+     *
+     * @param taskDesc        The description of the task.
+     * @param endDateString   The string representation of the task's end date.
+     */
     public Deadline(String taskDesc, String endDateString) {
         super(taskDesc);
         initializeEndDateTime(endDateString);
     }
+    /**
+     * Creates a new Deadline task with the given description, completion status,
+     * and end date.
+     *
+     * @param taskDesc        The description of the task.
+     * @param isDone          The completion status of the task.
+     * @param endDateString   The string representation of the task's end date.
+     */
     public Deadline(String taskDesc, boolean isDone, String endDateString) {
         super(taskDesc);
         this.isDone = isDone;
         initializeEndDateTime(endDateString);
     }
-
+    /**
+     * Initializes the end date and time of the deadline by parsing the given
+     * string. If the string cannot be parsed into a {@code LocalDateTime},
+     * it will attempt to parse it as a {@code LocalDate}. If both attempts fail,
+     * the string will be stored as-is.
+     *
+     * @param endDateString the end date string to be parsed
+     */
     private void initializeEndDateTime(String endDateString) {
         try {
             this.endDateTime = LocalDateTime.parse(endDateString,
@@ -48,12 +81,12 @@ public class Deadline extends Task {
 
 
 
-   /**
+    /**
      * Converts the deadline task to a string format for display,
      * including the Deadline symbol and the end date.
      *
      * @return a formatted string showing the Deadline task's
-    * status, description and end date.
+     * status, description and end date.
      */
     @Override
     public String taskToDisplay() {

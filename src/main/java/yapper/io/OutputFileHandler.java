@@ -12,10 +12,13 @@ import yapper.tasks.*; // need all classes in tasks folder
 /**
  * File Data Retrieval Manager for Yapper.
  *
+ * <p>
  * This class is responsible for loading tasks from a file and creating
  * corresponding Task objects. It provides methods for reading tasks
  * from a specified file, handling invalid tasks, and returning a
  * TaskHandler containing all valid tasks.
+ * </p>
+ *
  */
 public class OutputFileHandler {
 

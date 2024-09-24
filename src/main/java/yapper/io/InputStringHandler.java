@@ -7,10 +7,13 @@ import yapper.instructions.Instruction;
 /**
  * Input String Parser for Yapper.
  *
+ * <p>
  * This class handles the parsing of user input strings into
  * structured instructions for task management. It validates
  * input, checks for required parameters, and splits
  * arguments as needed.
+ * </p>
+ *
  */
 public class InputStringHandler {
 
@@ -22,12 +25,11 @@ public class InputStringHandler {
      * @throws YapperException if the input is invalid or any required parameters are missing
      */
     public static Instruction parseUserInput(String userInputString) throws YapperException {
-        // Check if User Input Empty
         try {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
 
-            // Handle 1-Argument Instructions:
+            // Handle 1-Argument Instructions: LIST, HELP
             if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                 if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
                     throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
@@ -103,6 +105,7 @@ public class InputStringHandler {
                     "NumberFormatException has occurred: \n" + e.getMessage());
         }
     }
+
 
     // User-Input-related Methods to Split by delimiter into keywords
 
