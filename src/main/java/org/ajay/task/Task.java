@@ -1,9 +1,7 @@
 package org.ajay.task;
 
-import java.util.ArrayList;
 import org.ajay.exceptions.EmptyArgumentException;
 import org.ajay.exceptions.Error;
-import org.ajay.exceptions.IllegalArgumentException;
 
 public abstract class Task {
     public final static String MARK_COMMAND_STRING = "mark";
@@ -89,21 +87,6 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as done.
-     *
-     * @param taskList   list of tasks
-     * @param taskNumber number of the task to be marked as done
-     */
-    public static void markAsDone(Task[] taskList, int taskNumber) {
-        taskList[taskNumber - 1].markAsDone(); // Mark the task as done
-    }
-
-    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) {
-        // taskList[taskNumber - 1].markAsDone(); // Mark the task as done
-        taskList.get(taskNumber - 1).markAsDone();
-    }
-
-    /**
      * Marks the task as not done.
      */
     public void markAsUndone() {
@@ -112,32 +95,7 @@ public abstract class Task {
         System.out.println("OK, I've marked this task as not done yet: \n  " + this.toString());
     }
 
-    /**
-     * Marks the task as not done.
-     *
-     * @param taskList   list of tasks
-     * @param taskNumber number of the task to be marked as not done
-     */
-    public static void markAsUndone(Task[] taskList, int taskNumber) {
-        taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
-    }
 
-    public static void markAsUndone(ArrayList<Task> taskList, int taskNumber) {
-        // taskList[taskNumber - 1].markAsUndone(); // Mark the task as not done
-        taskList.get(taskNumber - 1).markAsUndone();
-    }
-
-    public static void deleteTask(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
-
-        if (taskNumber > numberOfTasks) {
-            throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
-        }
-
-        System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
-        taskList.remove(taskNumber - 1);
-        numberOfTasks--;
-        printNumberOfTasks();
-    }
 
     /**
      * Returns the number of tasks in the list.
@@ -146,6 +104,10 @@ public abstract class Task {
      */
     public static int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    public static int setNumberOfTasks(int num) {
+        return numberOfTasks = num;
     }
 
     /**
@@ -167,32 +129,7 @@ public abstract class Task {
 
     public abstract String saveTaskString();
 
-    // public abstract String loadTaskString();
 
-    /**
-     * Prints all the tasks in the list.
-     *
-     * @param taskList list of tasks
-     */
-    public static void printAllTasks(Task[] taskList) {
-        if (getNumberOfTasks() == 0) {
-            System.out.println("The list is empty.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.println((i + 1) + "." + taskList[i].toString());
-            }
-        }
-    }
 
-    public static void printAllTasks(ArrayList<Task> taskList) {
-        if (getNumberOfTasks() == 0) {
-            System.out.println("The list is empty.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.println((i + 1) + "." + taskList.get(i).toString());
-            }
-        }
-    }
+
 }
