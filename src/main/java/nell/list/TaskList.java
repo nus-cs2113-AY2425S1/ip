@@ -8,17 +8,33 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of Tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty task list
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Returns the number of tasks in the task list
+     *
+     * @return The number of tasks in the task list
+     */
     public int getTaskCount() {
         return this.tasks.size();
     }
 
+    /**
+     * Adds a task to the task list
+     *
+     * @param taskToAdd The task to be added to the task list
+     */
     public void addTask(Task taskToAdd) {
         System.out.println(Messages.TASK_ADD_MESSAGE);
         tasks.add(taskToAdd);
@@ -26,6 +42,13 @@ public class TaskList {
         System.out.println(String.format(Messages.NEW_TASK_COUNT_MESSAGE, this.tasks.size()));
     }
 
+    /**
+     * Returns the task at a specified index in the task list
+     *
+     * @param index The index of the selected task in the list
+     * @return The task at index
+     * @throws IndexOutOfBoundsException if index is not within the task list
+     */
     public Task getTaskAtIndex(int index) throws IndexOutOfBoundsException {
         return tasks.get(index);
     }
@@ -39,6 +62,12 @@ public class TaskList {
         return String.format("   %d. %s", (index + 1), tasks.get(index));
     }
 
+    /**
+     * Removes a task at the specified index in the task list
+     *
+     * @param index The index of the task to be removed in the list
+     * @throws IndexOutOfBoundsException if the index is outside the task list
+     */
     public void removeTask(int index) throws IndexOutOfBoundsException {
         Task taskToRemove = tasks.get(index);
         System.out.println(Messages.TASK_REMOVE_MESSAGE);
@@ -47,6 +76,12 @@ public class TaskList {
         System.out.println(String.format(Messages.NEW_TASK_COUNT_MESSAGE, this.tasks.size()));
     }
 
+    /**
+     * Writes the tasks in the task list to a file at a specified file path
+     *
+     * @param filePath The file path of the file to be written to
+     * @throws IOException if the specified file cannot be written to or cannot be created
+     */
     public void writeListToFile(String filePath) throws IOException {
         FileWriter writer = new FileWriter(filePath, false);
         for (Task task : tasks) {
@@ -56,6 +91,12 @@ public class TaskList {
         writer.close();
     }
 
+    /**
+     * Loads a specified task to the task list.
+     * For the loading of a saved task list from a file at startup
+     *
+     * @param taskToAdd The task to be loaded
+     */
     public void loadTask(Task taskToAdd) {
         tasks.add(taskToAdd);
     }
