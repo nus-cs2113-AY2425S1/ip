@@ -1,5 +1,6 @@
 package joe;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
@@ -60,5 +61,22 @@ public class TaskList {
         } else {
             return Optional.empty();
         }
+    }
+
+    public TaskList getDueTaskList(LocalDateTime dueDate) {
+        List<Deadline> dueDeadlinesList = this.toDoItemArrayList.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline)task)
+                .filter(task -> task.isDueBy(dueDate))
+                .toList();
+        List<Event> dueEventsList = this.toDoItemArrayList.stream()
+                .filter(task -> task instanceof Event)
+                .map(task -> (Event)task)
+                .filter(task -> task.isDueBy(dueDate))
+                .toList();
+        ArrayList<Task> dueList = new ArrayList<>();
+        dueList.addAll(dueEventsList);
+        dueList.addAll(dueDeadlinesList);
+        return new TaskList(dueList);
     }
 }

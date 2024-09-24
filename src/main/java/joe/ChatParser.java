@@ -1,11 +1,16 @@
 package joe;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class ChatParser {
 
     private TaskList toDoItemArrayList;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
 
     public ChatParser(TaskList toDoItemArrayList) {
         this.toDoItemArrayList = toDoItemArrayList;
@@ -22,6 +27,14 @@ public class ChatParser {
                 break;
             case "list":
                 UI.printList(this.toDoItemArrayList);
+                break;
+            case "today":
+                LocalDateTime today = LocalDate.now().atTime(23, 59);
+                UI.printList(this.toDoItemArrayList.getDueTaskList(today));
+                break;
+            case "tomorrow":
+                LocalDateTime tomorrow = LocalDate.now().plusDays(1).atTime(23, 59);
+                UI.printList(this.toDoItemArrayList.getDueTaskList(tomorrow));
                 break;
             default:
                 chatAboutTasks(input);
@@ -101,28 +114,31 @@ public class ChatParser {
             try {
                 itemDescription = Deadline.extractDescription(input);
                 if(itemDescription.length() > 0) {
-                    String deadlineDate = Deadline.extractDeadlineDate(input).orElse("NA");
+                    LocalDateTime deadlineDate = Deadline.extractDeadlineDate(input).orElse(LocalDateTime.now());
                     newItem = Optional.of(new Deadline(itemDescription, deadlineDate));
                 } else {
                     throw new EmptyTaskException();
                 }
             } catch (StringIndexOutOfBoundsException s) {
-                UI.printReply("Please use /by to specify the deadline's date", "Retry:");
+                UI.printReply("Please use /by to specify the deadline's date", "Retry: ");
+            } catch (DateTimeParseException d) {
+                UI.printReply("Please use a valid date in the yyyy-mm-dd format", "Retry: ");
             }
             break;
         case "event":
             try {
                 itemDescription = Event.extractDescription(input);
                 if (itemDescription.length() > 0) {
-                    String endDate = Event.extractEndDate(input).orElse("NA");
-                    String startDate = Event.extractStartDate(input).orElse("NA");
+                    LocalDateTime endDate = Event.extractEndDate(input).orElse(LocalDateTime.now());
+                    LocalDateTime startDate = Event.extractStartDate(input).orElse(LocalDateTime.now());
                     newItem = Optional.of(new Event(itemDescription, startDate, endDate));
                 } else {
                     throw new EmptyTaskException();
                 }
-
             } catch (IndexOutOfBoundsException i) {
                 UI.printReply("Please use /from and /to to specify the event's timeline", "Retry:");
+            } catch (DateTimeParseException d) {
+                UI.printReply("Please use a valid date in the yyyy-mm-dd format", "Retry: ");
             }
             break;
         default:
