@@ -4,6 +4,8 @@ import commands.Task;
 import commands.Todo;
 import exceptions.IllegalCommandException;
 import exceptions.IllegalEmptyException;
+import exceptions.IllegalKeywordException;
+import exceptions.IllegalTaskException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,6 +20,8 @@ public class Cy {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
     public static final String LIST_TASKS = "Here are the tasks in your list";
+    public static final String CONFIRM_ADD = "Got it. I've added this task:";
+    public static final String CONFIRM_DEADLINE = "Got it. I've added this deadline:";
     public static ArrayList<Task> items = new ArrayList<>();
 
 
@@ -38,39 +42,31 @@ public class Cy {
         printLine();
     }
 
-    public static boolean isMarkError(String[] splitInputs, int count) {
-
+    public static void validateMark(String[] splitInputs, int count) throws IllegalTaskException{
         try {
 
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
             if (index < 0 || index >= count) {
-                System.out.println("Please enter a valid task number from 1 to " + count);
-                return true;
+                throw new IllegalTaskException("Please enter a valid task number from 1 to " + count);
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid number.");
-            return true;
+            throw new IllegalTaskException("Please enter a valid number.");
         }
 
-        return false;
     }
 
-    public static void markItem(String[] splitInputs, int count) {
-        if (isMarkError(splitInputs, count)) {
-            return;
-        }
+    public static void markItem(String[] splitInputs, int count) throws IllegalTaskException {
+        validateMark(splitInputs, count);
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items.get(index).setDone(true);
         markOutput(items.get(index));
     }
 
-    public static void unmarkItem(String[] splitInputs, int count) {
-        if (isMarkError(splitInputs, count)) {
-            return;
-        }
+    public static void unmarkItem(String[] splitInputs, int count) throws IllegalTaskException {
+        validateMark(splitInputs, count);
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items.get(index).setDone(false);
@@ -80,6 +76,7 @@ public class Cy {
     public static void printList(int count) {
         printLine();
         System.out.println(LIST_TASKS);
+
         for (int i = 0; i < count; i++) {
             System.out.println((i + 1) + "." + items.get(i).getStatusIcon() + " " + items.get(i).getDescription());
         }
@@ -89,55 +86,67 @@ public class Cy {
     public static String trimString(String input) throws IllegalEmptyException {
         String output = input.trim();
 
-        String[] outputSplit= output.split(" ",2);
+        // Split the input into two parts: the command and the description
+        String[] outputSubstrings = output.split(" ", 2);
 
-        if (outputSplit.length < 2 || outputSplit[1].isEmpty()) {
-            throw new IllegalEmptyException("Please enter a valid description");
+        // Check if the length is less than 2, meaning no description was provided
+        if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
+            throw new IllegalEmptyException("Please enter a valid description.");
         }
 
-        return outputSplit[1];
+        // Return the trimmed description
+        return outputSubstrings[1].trim();
     }
 
     public static int addTodo(int count, String input) throws IllegalEmptyException{
+        String task = trimString(input);
+        items.add(new Todo(task));
 
-        input = trimString(input);
-        items.add(new Todo(input));
-
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(items.get(count).getStatusIcon() + " " + input);
-        System.out.println("Now you have " + (count + 1) + " tasks in the list");
-        printLine();
+        printTodoMessage(count, task);
 
         return count + 1;
     }
 
-    public static int addDeadline(int count, String input) throws IllegalEmptyException{
+    private static void printTodoMessage(int count, String task) {
+        printLine();
+        System.out.println(CONFIRM_ADD);
+        System.out.println(items.get(count).getStatusIcon() + " " + task);
+        System.out.println("Now you have " + (count + 1) + " tasks in the list");
+        printLine();
+    }
+
+    public static int addDeadline(int count, String input) throws IllegalEmptyException, IllegalKeywordException {
 
         if (!input.contains("by")) {
-            System.out.println("Input must contain 'by' keyword.");
-            return count;
+            throw new IllegalKeywordException("Please enter the by keyword");
         }
 
-        input = trimString(input);
-
-        if (input.isEmpty()) {
-            System.out.println("The description of todo cannot be empty!");
-            throw new IllegalEmptyException();
-        }
-
-        String[] splitInputs = input.split("by", 2);
-        String deadline = splitInputs[0] + "(by:" + splitInputs[1] + ")";
-
+        String description = trimString(input);
+        String deadline = createDeadlineString(description);
         items.add(new Deadline(deadline));
 
+        printDeadlineMessage(count, deadline);
+
+        return count + 1;
+    }
+
+    private static void printDeadlineMessage(int count, String deadline) {
         printLine();
-        System.out.println("Got it. I've added this deadline:");
+        System.out.println(CONFIRM_DEADLINE);
         System.out.println(items.get(count).getStatusIcon() + " " + deadline);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
+    }
 
-        return count + 1;
+    private static String createDeadlineString(String description) throws IllegalEmptyException {
+        String[] descriptionSubstrings = description.split("by", 2);
+        String deadline = descriptionSubstrings[0] + "(by:" + descriptionSubstrings[1] + ")";
+
+        if (descriptionSubstrings[1].isEmpty()) {
+            throw new IllegalEmptyException("The description of todo cannot be empty!");
+        }
+
+        return deadline;
     }
 
     public static int addEvent(int count, String input) throws IllegalEmptyException{
@@ -157,7 +166,7 @@ public class Cy {
         items.add(new Event(event));
 
         printLine();
-        System.out.println("Got it. I've added this deadline:");
+        System.out.println(CONFIRM_DEADLINE);
         System.out.println(items.get(count).getStatusIcon() + " " + event);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printLine();
@@ -183,8 +192,8 @@ public class Cy {
         return count - 1;
     }
 
-    public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
-        welcomeMessage();
+    public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException,IllegalTaskException,IllegalKeywordException {
+        printWelcomeMessage();
 
         int count = 0;
         Scanner scan = new Scanner(System.in);
@@ -197,21 +206,21 @@ public class Cy {
             input = scan.nextLine();
         }
 
-        endingMessage();
+        printEndingMessage();
     }
 
-    private static void endingMessage() {
+    private static void printEndingMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
-    private static void welcomeMessage() {
+    private static void printWelcomeMessage() {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
     }
 
-    private static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException {
+    private static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException,IllegalTaskException,IllegalKeywordException {
         if (command.equalsIgnoreCase("list")) {
             printList(count);
         } else if (command.equals(MARK)) {
@@ -227,8 +236,7 @@ public class Cy {
         } else if (command.equals(DELETE)){
             count = deleteItem(count, splitInputs);
         } else {
-            System.out.println("Please enter a valid command");
-            throw new IllegalCommandException();
+            throw new IllegalCommandException("Please enter a valid command");
         }
         return count;
     }
