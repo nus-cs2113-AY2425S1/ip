@@ -1,23 +1,34 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDate from;
+    protected LocalDate to;
+
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.from = from;
-        this.to = to;
+        try{
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("please input date in valid format yyyy/MM/dd");
+        }
     }
 
 
     public String getFrom() {
-        return from;
+        return from.toString();
     }
 
     public String getTo() {
-        return to;
+        return to.toString();
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedFrom = from.format(formatter);
+        String formattedTo = to.format(formatter);
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }
