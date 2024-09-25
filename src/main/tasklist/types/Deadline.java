@@ -1,21 +1,41 @@
 package tasklist.types;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.temporal.Temporal;
 
-    // Constructor for Deadline
+public class Deadline extends Task {
+    protected Temporal byTemporal;
+    protected String byString;
+
+    // Constructor for when a date is parsed
+    public Deadline(String description, Temporal by) {
+        super(description);
+        this.byTemporal = by;
+    }
+
+    // Constructor for when 'by' is plain string
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.byString = by;
     }
 
     /**
-     * Returns a string representation of the due date.
-     *
-     * @return A string representing the due date.
+     * Returns the 'by' value for a deadline task.
+     * 
+     * If the `byString` is not null, it returns the string. 
+     * If `byString` is null, but `byDate` is set, it returns the date as a string.
+     * If both are null, it throws an IllegalStateException.
+     * 
+     * @return The 'by' value, either as a string or a date.
+     * @throws IllegalStateException if both `byString` and `byDate` are null.
      */
     public String getBy() {
-        return this.by;
+        if (this.byString != null) {
+            return this.byString;
+        } else if (this.byTemporal != null) {
+            return this.byTemporal.toString();
+        } else {
+            throw new IllegalStateException("Both 'byString' and 'byTemporal' are null :(");
+        }
     }
     
     /**
@@ -26,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        // Add [D] tag and print deadline
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " +
+            (byTemporal != null ? byTemporal : byString) + ")";
     }
 }

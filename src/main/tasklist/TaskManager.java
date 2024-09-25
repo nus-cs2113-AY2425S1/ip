@@ -1,5 +1,11 @@
 package tasklist;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 import storage.Storage;
@@ -14,6 +20,12 @@ public class TaskManager {
     public static final String TASK_TYPE_TODO = "T";
     public static final String TASK_TYPE_DEADLINE = "D";
     public static final String TASK_TYPE_EVENT = "E";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = 
+        DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HHmm");
+    public static final DateTimeFormatter DATE_FORMATTER = 
+        DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter TIME_FORMATTER = 
+        DateTimeFormatter.ofPattern("HHmm");
 
     /**
      * Marks a task as completed based on the provided task number.
@@ -91,7 +103,7 @@ public class TaskManager {
                                  (tasks.size() == 1 ? " task!" : " tasks!"));
             }
     
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             UI.printResponse("Error: " + e.getMessage());
         }
     }
@@ -120,54 +132,114 @@ public class TaskManager {
     private static Task createDeadlineTask(String[] words) {
         if (words.length > 1) {
             String[] deadlineParts = words[1].split("/by", 2);
-            if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+            String deadlineDescription = deadlineParts[0].trim();
+            String byPart = deadlineParts.length > 1 ? deadlineParts[1].trim() : null;
+
+            if (byPart != null && !byPart.isEmpty()) {
+                Temporal deadlineDate = tryParseDateTime(byPart);
+
+                if (deadlineDate != null) {
+                    return new Deadline(deadlineDescription, deadlineDate);
+                } else {
+                    return new Deadline(deadlineDescription, byPart); // Store as plain string if not a date
+                }
+            } else {
                 throw new IllegalArgumentException(
-                    "Oops! The deadline format is incorrect or missing :(\n" +
+                    "Oops! The deadline format is incorrect or missing :( \n" + 
                     "Use: deadline <description> /by <date>");
             }
-            String deadlineDescription = deadlineParts[0].trim();
-            String by = deadlineParts[1].trim();
-            return new Deadline(deadlineDescription, by);
         } else {
-            throw new IllegalArgumentException(
-                "Oops! Missing description for 'deadline' :( ");
+            throw new IllegalArgumentException("Oops! Missing description for 'deadline' :( ");
         }
     }
     
     /**
-     * Creates a new Event task.
+     * Creates a new Event task based on the provided input.
      *
-     * @param words The input arguments for the task.
-     * @return A new Event task.
+     * @param words The details of the task, expected to include a description, /from, and /to parts.
+     * @return A new Event task if the input is valid, otherwise throws an exception.
      */
     private static Task createEventTask(String[] words) {
-        if (words.length > 1) {
-            String[] eventParts = words[1].split("/from", 2);
-            String eventDescription = eventParts[0].trim();
-            String from = "";
-            String to = "";
-    
-            if (eventParts.length > 1) {
-                String[] timeParts = eventParts[1].split("/to", 2);
-                from = timeParts[0].trim();
-                if (timeParts.length > 1) {
-                    to = timeParts[1].trim();
-                }
-            }
-    
-            if (eventDescription.isEmpty() || from.isEmpty() || (to.isEmpty() && eventParts.length == 1)) {
-                throw new IllegalArgumentException(
-                    "Oops! The event format is incorrect or missing :( \n" + 
-                    "Use: event <description> /from <start> /to <end>");
-            }
-    
-            return new Event(eventDescription, from, to);
-        } else {
-            throw new IllegalArgumentException(
-                "Oops! Missing description for 'event' :( ");
+        if (words.length < 2) {
+            throw new IllegalArgumentException("Oops! Missing description for 'event' :( ");
         }
+
+        // Split the input to find the /from and /to parts
+        String[] eventParts = words[1].split("/from", 2);
+        if (eventParts.length < 2) {
+            throw new IllegalArgumentException("Oops! 'event' must include '/from' time :(");
+        }
+
+        String eventDescription = eventParts[0].trim();
+        String from = eventParts[1].trim();
+
+        // Split to find the /to part
+        String to = ""; 
+        String[] timeParts = from.split("/to", 2);
+        from = timeParts[0].trim();
+        if (timeParts.length > 1) {
+            to = timeParts[1].trim();
+        }
+
+        // Attempt to parse dates from 'from' and 'to' strings, if provided
+        Temporal fromDateTime = null;
+        Temporal toDateTime = null;
+
+        if (!from.isEmpty()) {
+            try {
+                fromDateTime = tryParseDateTime(from); 
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException(
+                    "Invalid date format for '/from'.\n" + 
+                    "Please use " + DATE_TIME_FORMATTER.toString());
+            }
+        }
+
+        if (!to.isEmpty()) {
+            try {
+                toDateTime = tryParseDateTime(to);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException(
+                    "Invalid date format for '/to' :(\n" + 
+                    "Please use " + DATE_TIME_FORMATTER.toString());
+            }
+        }
+
+        // Create and return the Event task
+        return new Event(eventDescription, fromDateTime, toDateTime);
     }
-    
+
+    /**
+     * Generic method to parse a date or date-time string.
+     * If the input contains only a date, it returns LocalDate.
+     * If the input contains date and time, it returns LocalDateTime.
+     * If the input contains only time, it return LocalTime.
+     * If the input is invalid or empty, it returns null.
+     *
+     * @param input The input string to be parsed.
+     * @return Either a LocalDate, LocalDateTime, LocalTime, or null if input is invalid.
+     */
+    public static Temporal tryParseDateTime(String input) {
+        try {
+            return LocalDateTime.parse(input, DATE_TIME_FORMATTER);  // Try parsing as LocalDateTime
+        } catch (DateTimeParseException e) {
+            // Ignore exception and continue to next check
+        }
+
+        try {
+            return LocalDate.parse(input, DATE_FORMATTER);  // Try parsing as LocalDate
+        } catch (DateTimeParseException e) {
+            // Ignore exception and continue to next check
+        }
+
+        try {
+            return LocalTime.parse(input, TIME_FORMATTER);  // Try parsing as LocalTime
+        } catch (DateTimeParseException e) {
+            // If none succeed, return null
+        }
+
+        return null;
+    }
   
     /**
      * Delete the task at specified index
