@@ -10,7 +10,7 @@ public class Event extends Task{
     private static final int DECREMENT_TO_DESCRIPTION_END = -1;
     private static final int INDEX_IF_MISSING_DESCRIPTION = 6;
     private static final int INDEX_IF_MISSING_PARAMS_WORD = -1;
-    private static final int INCREMENT_FROM_START_OF_FROM = 5;
+    private static final int INCREMENT_FROM_START_OF_FROM = 6;
     private static final int INCREMENT_FROM_START_OF_FROM_WITH_SPACE= 6;
     private static final int DECREMENT_FROM_START_OF_TO = -1;
     private static final int INCREMENT_FROM_START_OF_TO = 4;
