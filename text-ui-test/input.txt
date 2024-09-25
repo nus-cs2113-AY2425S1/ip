@@ -1,5 +1,5 @@
 todo Joe
-deadline quiz /by Monday 9pm
+deadline return book /by 2/12/2019
 list
 event lecture /from 4pm /to 6pm
 mark 1

@@ -1,18 +1,36 @@
 package Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    protected String dueDate;
+    protected LocalDate dueDate;
+    private static final DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d/M/yyyy");
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    //task.Deadline Constructor inherits task.Task
     public Deadline(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate;
+        this.dueDate = parseDate(dueDate);
+    }
+
+    private LocalDate parseDate(String date) {
+        try {
+            return LocalDate.parse(date, formatter1);
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(date, outputFormatter);
+            } catch (DateTimeParseException e2) {
+                return LocalDate.parse(date, formatter2);
+            }
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + dueDate + ")";
+        return super.toString() + " (by: " + dueDate.format(outputFormatter) + ")";
     }
 
     @Override
@@ -28,6 +46,6 @@ public class Deadline extends Task {
         } else {
             status = "0";
         }
-        return "D | " + status + " | " + description + " (by: " + dueDate + ")";
+        return "D | " + status + " | " + description + " (by: " + dueDate.format(outputFormatter) + ")";
     }
 }
