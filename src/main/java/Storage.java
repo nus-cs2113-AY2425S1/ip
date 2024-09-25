@@ -7,11 +7,18 @@ import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
+/**
+ * Represents a storage that loads from a save file all the previous undeleted task from a 
+ * previous run of <code>V</code> and saves all tasks after shutting down <code>V</code>.
+ */
 public class Storage {
     private ArrayList<String> commandArray = new ArrayList<String>();
     private String saveFilePath;
 
+    /**
+     * Clears all data from previous save file to allow overwriting of data.
+     * @param saveFile File object of the save file
+     */
     public void clearPreviousSave(File saveFile) {
         try {
             FileWriter clearSaveFile = new FileWriter(saveFile);
@@ -22,6 +29,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads save file using file path saved in <code>saveFilePath</code> attribute.
+     * Stores all the commands as a String in an array.
+     */
     public void loadSave() {
         try {
             File saveFile = new File(this.saveFilePath);
@@ -40,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks into a text file located in path
+     * stated by attribute <code>saveFilePath</code>.
+     * A new file is created if it a save file does not exist.
+     * @param taskList list of tasks
+     */
     public void createSave(TaskList taskList) {
         try {
             File saveFile = new File(this.saveFilePath);
@@ -72,6 +89,9 @@ public class Storage {
         }
     }
 
+    /**
+     * @return ArrayList of String containing all the commands from save file
+     */
     public ArrayList<String> getCommandArray() {
         return this.commandArray;
     }

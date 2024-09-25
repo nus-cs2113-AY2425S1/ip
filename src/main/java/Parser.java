@@ -1,5 +1,8 @@
 import java.util.Arrays;
 
+/**
+ * Represents a parser that parses user input to to give the correct command.
+ */
 public class Parser {
     private Storage storage;
     private TaskList taskList;
@@ -9,6 +12,13 @@ public class Parser {
     private String description;
     private int position;
     
+    /**
+     * Execute the function depending on the command and then returns the status of V.
+     * Return false if command "bye" was used, else returns true.
+     * @param command command from user
+     * @param isFromSaveFile true if command is read from a save file, else false
+     * @return status of V after a command
+     */
     public boolean parse(String command, boolean isFromSaveFile) {
         try {
             wordArray = command.trim().split(" ");
