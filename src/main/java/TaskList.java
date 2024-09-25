@@ -83,33 +83,6 @@ public class TaskList {
         ArrayList<String> commandArray = storage.getCommandArray();
         commandArray.forEach((command) -> {
             this.parser.parse(command, true);
-            try {
-                String[] lineArr = command.trim().split(" ");
-                String description;
-                switch (lineArr[0].toLowerCase()) {
-                case "mark":
-                    int position = Integer.parseInt(lineArr[1]);
-                    markTask(position, true);
-                    break;
-                case "todo":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addToDo(description, true);
-                    break;
-                case "deadline":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addDeadline(description, true);
-                    break;
-                case "event":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    addEvent(description, true);
-                    break;
-                default:
-                    this.ui.printBlock("An error occured while loading the save file");
-                    break;
-                }
-            } catch (InvalidDeadlineException error) {
-                System.out.println(error);
-            }
         });
     }
 
