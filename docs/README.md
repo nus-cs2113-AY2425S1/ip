@@ -1,4 +1,4 @@
-# Aegis Task Manager & Chatbot User Guide
+# Aegis User Guide
 
 Welcome to Aegis, your Anti-Shadow Suppression Weapon and Task Manager! Aegis helps you manage your daily tasks efficiently while providing a simple, command-based interface. This guide will walk you through how to set up Aegis, use its features, and make the most out of this task manager.
 
