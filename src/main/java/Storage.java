@@ -11,6 +11,16 @@ import java.nio.file.Paths;
 public class Storage {
     private ArrayList<String> commandArray = new ArrayList<String>();
 
+    public void clearPreviousSave(File saveFile) {
+        try {
+            FileWriter clearSaveFile = new FileWriter(saveFile);
+            clearSaveFile.write("");
+            clearSaveFile.close();
+        } catch (IOException error) {
+            System.out.println(error);
+        }
+    }
+
     public void loadSave(String saveFilePath) {
         try {
             File saveFile = new File(saveFilePath);
@@ -32,9 +42,9 @@ public class Storage {
     public void createSave(TaskList taskList, String saveFilePath) {
         try {
             File saveFile = new File(saveFilePath);
-            FileWriter clearSaveFile = new FileWriter(saveFile);
-            clearSaveFile.write("");
-            clearSaveFile.close();
+
+            clearPreviousSave(saveFile);
+
             FileWriter saveFileWriter = new FileWriter(saveFile, true);
             ArrayList<Task> list = taskList.getList();
             for (Task task: list) {
