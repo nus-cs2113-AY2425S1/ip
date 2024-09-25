@@ -7,13 +7,11 @@ import exceptions.IllegalEmptyException;
 import exceptions.IllegalKeywordException;
 import exceptions.IllegalTaskException;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cy {
@@ -59,7 +57,7 @@ public class Cy {
         printLine();
     }
 
-    public static void validateMark(String[] splitInputs, int count) throws IllegalTaskException{
+    public static void validateMark(String[] splitInputs, int count) throws IllegalTaskException {
         try {
 
             int index = Integer.parseInt(splitInputs[1]) - 1;
@@ -79,6 +77,7 @@ public class Cy {
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items.get(index).setDone(true);
+
         markOutput(items.get(index));
     }
 
@@ -115,13 +114,13 @@ public class Cy {
         return outputSubstrings[1].trim();
     }
 
-    public static int addTodo(int count, String input) throws IllegalEmptyException{
+    public static int addTodo(int count, String input) throws IllegalEmptyException {
         String task = trimString(input);
         items.add(new Todo(task));
 
         printTodoMessage(count, task);
 
-        saveNewData(input, TODO);
+        saveNewData(task, TODO);
         return count + 1;
     }
 
@@ -150,7 +149,7 @@ public class Cy {
         System.out.println(deadline);
         printDeadlineMessage(count, deadline);
 
-        saveNewData(input, DEADLINE);
+        saveNewData(deadline, DEADLINE);
         return count + 1;
     }
 
@@ -172,7 +171,7 @@ public class Cy {
         return deadline;
     }
 
-    public static int addEvent(int count, String input) throws IllegalEmptyException, IllegalKeywordException{
+    public static int addEvent(int count, String input) throws IllegalEmptyException, IllegalKeywordException {
 
         input = trimString(input);
 
@@ -184,7 +183,7 @@ public class Cy {
         items.add(new Event(event));
         printEventMessage(count, event);
 
-        saveNewData(input, EVENT);
+        saveNewData(event, EVENT);
         return count + 1;
     }
 
@@ -237,7 +236,7 @@ public class Cy {
         System.out.println("But first, let me load your previous submissions!");
     }
 
-    public static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException,IllegalTaskException,IllegalKeywordException {
+    public static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException, IllegalTaskException, IllegalKeywordException {
         if (command.equalsIgnoreCase("list")) {
             printList(count);
         } else if (command.equals(MARK)) {
@@ -250,7 +249,7 @@ public class Cy {
             count = addDeadline(count, input);
         } else if (command.equals(EVENT)) {
             count = addEvent(count, input);
-        } else if (command.equals(DELETE)){
+        } else if (command.equals(DELETE)) {
             count = deleteItem(count, splitInputs);
         } else {
             throw new IllegalCommandException("Please enter a valid command");
@@ -266,7 +265,7 @@ public class Cy {
         }
     }
 
-    private static void loadExistingData(){
+    private static void loadExistingData() {
         try {
             printFileContents();
         } catch (FileNotFoundException e) {
@@ -274,9 +273,26 @@ public class Cy {
         }
     }
 
+    private static String taskCompletedString(boolean isDone) {
+        if (isDone) {
+            return "1";
+        }
+        return "0";
+    }
+
+    private static String isTaskCompleted(String description) {
+        for (Task item : items) {
+            if (item.getDescription().equals(description)) {
+                return taskCompletedString(item.isDone());
+            }
+        }
+        return "0";
+    }
+
     private static void saveNewData(String input, String taskType) {
 
-        String textToAppend = getString(input, taskType);
+        String taskCompletedString = isTaskCompleted(input);
+        String textToAppend = getString(input, taskType, taskCompletedString);
 
         try {
             appendToFile(textToAppend);
@@ -286,27 +302,27 @@ public class Cy {
     }
 
     private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(System.lineSeparator() + textToAppend);
         fw.close();
     }
 
 
-    private static String getString(String input, String taskType) {
+    private static String getString(String input, String taskType, String taskCompletedString) {
         String textToAppend = "";
         switch (taskType) {
             case TODO:
-                textToAppend = "T | 0 | " + input;
+                textToAppend = "T | " + taskCompletedString + " | " + input;
                 break;
             case DEADLINE:
                 String[] splitDeadlineSubstring = input.split("by");
-                textToAppend = "D | 0 | " + splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
+                textToAppend = "D | " + taskCompletedString + " | " + splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
                 break;
             case EVENT:
                 String[] splitEventSubstring = input.split("from|to");
                 String start = splitEventSubstring[1];
                 String end = splitEventSubstring[2];
-                textToAppend = "E | 0 | " + splitEventSubstring[0] + " | " + start + "-" + end;
+                textToAppend = "E | " + taskCompletedString + " | " + splitEventSubstring[0] + " | " + start + "-" + end;
                 break;
             default:
                 System.out.println(VALID_TASK_TYPE_WARNING);
