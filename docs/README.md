@@ -19,7 +19,7 @@ Legin is a command line chat bot that helps users with their daily tracking of t
    + ```delete 5```: Deletes the 5th task in the task list
    + ```find homework```: Search through the task list and outputs all the task that have 'homework' in their description
    + ```bye```: Terminates Legin
-6. Refer to the [Features](#Features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 ## Features
 
