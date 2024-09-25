@@ -2,13 +2,11 @@ package mong.ui;
 
 import mong.exception.IllegalTaskTypeException;
 import mong.task.Task;
+import mong.task.TaskList;
 import mong.task.TaskType;
 
-import static mong.Mong.addTodo;
-import static mong.Mong.addEvent;
-import static mong.Mong.addDeadline;
 
-import static mong.Mong.list;
+import static mong.task.TaskList.list;
 
 public class Parser {
     /**
@@ -39,11 +37,11 @@ public class Parser {
     public static void parseLineContents(String line) {
         String[] lineData = line.split(" \\| ");
         if (lineData[0].contentEquals("T")) {
-            addTodo(lineData[1], lineData[2]);
+            TaskList.addTodo(lineData[1], lineData[2]);
         } else if (lineData[0].contentEquals("D")) {
-            addDeadline(lineData[1], lineData[2], lineData[3]);
+            TaskList.addDeadline(lineData[1], lineData[2], lineData[3]);
         } else if (lineData[0].contentEquals("E")) {
-            addEvent(lineData[1], lineData[2], lineData[3], lineData[4]);
+            TaskList.addEvent(lineData[1], lineData[2], lineData[3], lineData[4]);
         }
     }
 }

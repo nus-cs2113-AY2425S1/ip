@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static mong.Mong.list;
+import static mong.task.TaskList.list;
 
 public class Ui {
     public static final String HORIZONTAL_LINE = "--------------------------------------------------";
