@@ -10,7 +10,9 @@ public class V {
     private Scanner input;
     private String command;
 
-
+    /**
+     * Startup function for V
+     */
     public void run() {
 
         this.ui.greet();
