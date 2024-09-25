@@ -17,23 +17,28 @@ public class Parser {
 
         switch (commandWord) {
         case "list":
-            return new ListCommand();
+        return new ListCommand();
         case "mark":
-            return new MarkCommand(parseTaskIndex(argument), true);
+        return new MarkCommand(parseTaskIndex(argument), true);
         case "unmark":
-            return new MarkCommand(parseTaskIndex(argument), false);
+        return new MarkCommand(parseTaskIndex(argument), false);
         case "delete":
-            return new DeleteCommand(parseTaskIndex(argument));
+        return new DeleteCommand(parseTaskIndex(argument));
         case "todo":
-            return new AddCommand(parseTodoCommand(argument));
+        return new AddCommand(parseTodoCommand(argument));
         case "deadline":
-            return new AddCommand(parseDeadlineCommand(argument));
+        return new AddCommand(parseDeadlineCommand(argument));
         case "event":
-            return new AddCommand(parseEventCommand(argument));
+        return new AddCommand(parseEventCommand(argument));
+        case "find":
+        if (argument.isEmpty()) {
+            throw new AegisException("The search keyword cannot be empty.");
+        }
+        return new FindCommand(argument);
         case "bye":
-            return new ExitCommand();
+        return new ExitCommand();
         default:
-            throw new AegisException("Your command has not been authorized");
+        throw new AegisException("Your command has not been authorized");
         }
     }
 
