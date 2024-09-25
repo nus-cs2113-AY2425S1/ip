@@ -5,6 +5,10 @@ import aegis.task.Deadline;
 import aegis.task.Event;
 import aegis.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public static Command parse(String input) throws AegisException {
         String[] parts = input.split(" ", 2);
@@ -57,7 +61,8 @@ public class Parser {
         if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
             throw new AegisException("Invalid syntax: you need to include [/by] parameter with description and time");
         }
-        return new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+        Object by = parseDateTimeOrString(deadlineParts[1].trim());
+        return new Deadline(deadlineParts[0].trim(), by);
     }
 
     private static Event parseEventCommand(String argument) throws AegisException {
@@ -65,6 +70,17 @@ public class Parser {
         if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty() || eventParts[2].trim().isEmpty()) {
             throw new AegisException("Invalid syntax: you need to include [/from, /to] parameters with description, start, and end times");
         }
-        return new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+        Object from = parseDateTimeOrString(eventParts[1].trim());
+        Object to = parseDateTimeOrString(eventParts[2].trim());
+        return new Event(eventParts[0].trim(), from, to);
     }
+
+    private static Object parseDateTimeOrString(String dateTimeStr) {
+        try {
+            return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            return dateTimeStr;
+        }
+    }
+
 }

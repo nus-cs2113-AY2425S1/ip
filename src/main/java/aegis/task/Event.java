@@ -1,22 +1,34 @@
 package aegis.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected Object from; 
+    protected Object to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, Object from, Object to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        String fromStr = (from instanceof LocalDateTime) ? 
+                ((LocalDateTime) from).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH)) : from.toString();
+        String toStr = (to instanceof LocalDateTime) ? 
+                ((LocalDateTime) to).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH)) : to.toString();
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + fromStr + " | " + toStr;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + ", to: " + to + ")";
+        String fromStr = (from instanceof LocalDateTime) ? 
+                ((LocalDateTime) from).format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a", Locale.ENGLISH)) : from.toString();
+        String toStr = (to instanceof LocalDateTime) ? 
+                ((LocalDateTime) to).format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a", Locale.ENGLISH)) : to.toString();
+        return "[E]" + super.toString() + " (from: " + fromStr + ", to: " + toStr + ")";
     }
 }
