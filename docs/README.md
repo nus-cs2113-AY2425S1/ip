@@ -32,6 +32,7 @@ Example:
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/777aa717-3c10-4e65-a484-79ec87161220)
 
+
 ### Adding a Deadline task: ```deadline```
 
 Adds a task that has a deadline to the task list.
@@ -40,68 +41,80 @@ Example:
 + ```deadline submit quiz 1 /by 27 October 4pm```
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/ad576583-c6d2-49ab-9cbe-867826817688)
-Note:
-+ Users are to adhere to the space after ```TASK_DESCRIPTION``` and /by to prevent unexpected behavior
+  
+Note: Users are to adhere to the space after ```TASK_DESCRIPTION``` and /by to prevent unexpected behavior
 
 ### Adding a Event task: ```event```
 
-Adds a event that has a duration period into the task list.
-Format: ```event EVENT_DESCRIPTION /from EVENT_START /to EVENT_END```
+Adds a event that has a duration period into the task list. <br />
+Format: ```event EVENT_DESCRIPTION /from EVENT_START /to EVENT_END``` <br />
 Example:
 + ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm``` <br />
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/2ac2d029-b1fe-4083-9835-0e599d41f0e9)
+  
 Note: Users are to adhere to the space after ```EVENT_DESCRIPTION```, /from and /to to prevent unexpected behavior
+
 
 ### Marking a task: ```mark```
 
-Marks a tasks in the task list by its index as done. Index of task can be obtained by using the ```list``` command.
-Format: ```mark INDEX```
+Marks a tasks in the task list by its index as done. Index of task can be obtained by using the ```list``` command. <br />
+Format: ```mark INDEX``` <br />
 Example:
 + ```mark 3```
+
 Note: ```INDEX``` should be displayed in task list when ```list``` is called
+
 
 ### Unmarking a task: ```unmark```
 
-Unmarks a task in the task list by its index as undone. Index of task can be obtained by using the ```list``` command.
-Format: ```unmark INDEX```
+Unmarks a task in the task list by its index as undone. Index of task can be obtained by using the ```list``` command. <br />
+Format: ```unmark INDEX``` <br />
 Example:
 + ```unmark 5```
+
 Note: ```INDEX``` should be displayed in task list when ```list``` is called
+
 
 ### Listing all tasks: ```list```
 
-Lists out all the tasks in the task list.
+Lists out all the tasks in the task list. <br />
 Format: ```list```
+
 
 ### Deleting a task: ```delete```
 
-Deletes a task in the task list by it index. Index of task can be obtained by using the ```list``` command.
-Format: ```delete INDEX```
+Deletes a task in the task list by it index. Index of task can be obtained by using the ```list``` command. <br />
+Format: ```delete INDEX``` <br />
 Note: ```INDEX``` should be displayed in task list when ```list``` is called
+
 
 ### Find task by description: ```find```
 
-Finds all tasks with description that matches the given keyword by user
-Format: ```find KEYWORD [MORE_KEYWORDS]...
+Finds all tasks with description that matches the given keyword by user <br />
+Format: ```find KEYWORD [MORE_KEYWORDS]...``` <br />
 Example: 
 + ```find tutorial``` returns ```tutorial 4```, ```math tutorial```, ```english tutorial 6```
 + ```find jurong west``` returns ```meeting at jurong west```, ```jurong west cafe```
 + ```find real``` returns ```really good cafe```, ```surreal theme park at Hougang```
+
 Note:
 + Keywords used are case sensitive
 + Keywords can be partial words of a full word
 + Keywords should only be used to match task desciption, task type should be ommited
 
+
 ### Terminating Legin: ```bye```
 
-Terminates program.
-Format: ```bye```
+Terminates program. <br />
+Format: ```bye``` <br />
 Note: User should not close the application before using this command to avoid unsaved data from current window
 
+
 ### Saving the data
-Data will be saved in a text file where the ```.jar``` file is stored with file name ```tasklist.txt```
+Data will be saved in a text file where the ```.jar``` file is stored with file name ```tasklist.txt``` <br />
 Data will be saved upon termination of the program with ```bye```
+
 
 ### Editting the data file 
 Data is stored in the form of:
@@ -118,4 +131,16 @@ TASK_TYPE:
 
 IS_TASK_DONE:
 + 'true' - marks task as done
-+ 'false - marks task as undone
++ 'false' - marks task as undone
+
+## Command Summary
+| Action | Format, Examples |
+| --- | --- |
+| Add Todo task | ```todo TASK_DESCRIPTION``` <br /> eg. ```todo Water the plants```|
+| Add Deadline task | ```deadline TASK_DESCRIPTION /by DEADLINE``` <br /> eg. ```deadline submit quiz 1 /by 27 October 4pm```|
+| Add Event task | ```event EVENT_DESCRIPTION /from EVENT_START /to EVENT_END``` <br /> eg. ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm``` |
+| Mark task as done | ```mark INDEX``` <br /> eg. ```mark 3``` |
+| Mark task as undone | ```unmark INDEX``` <br /> eg. ```unmark 5``` |
+| List all tasks | ```list``` |
+| Delete task | ```delete INDEX``` |
+| Find task | ```find KEYWORD [MORE_KEYWORDS]...``` <br /> eg . ```find jurong west``` |
