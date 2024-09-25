@@ -4,6 +4,15 @@
 
 Mong is a virtual assistant inspired by Nyan, a Ragdoll cat. Get ready to be mong-ed!
 
+## Getting started
+Download cs2113-ip.jar from release v0.2. 
+In the terminal, navigate to the folder where the .jar fine is located.
+Run the .jar file from your terminal.
+
+Format: `java -jar cs2113-ip.jar`
+
+Mong is ready for you to use!
+
 ## Adding todos: ```todo```
 
 Add a Task of type Todo.
