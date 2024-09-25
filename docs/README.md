@@ -12,7 +12,7 @@ CheonsaBot is a simple and intuitive task management tool designed to keep track
      ```
      java -version
      ```
-   - If Java 17 is not installed, you can download it from [Oracle's Java download page](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html).
+   - If Java 17 is not installed, you can download it from [Oracle's Java download page](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 
 2. **Running the application:**
    - Once Java 17 is installed, navigate to the folder where `ip.jar` is located and run:
