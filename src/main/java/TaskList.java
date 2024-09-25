@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -70,6 +69,22 @@ public class TaskList {
         if (!isFromSaveFile) {
             this.ui.printBlock(String.format("Got it. Task added\n %s", event));
         }
+    }
+
+    public void find(String description) {
+        int count = 1;
+        
+        this.ui.printLineSeperator();
+        System.out.println("Here are the matching tasks in your list");
+        
+        for (Task task: this.list) {
+            if (task.getDescription().contains(description)) {
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
+
+        this.ui.printLineSeperator();
     }
 
     public ArrayList<Task> getList() {

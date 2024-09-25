@@ -19,6 +19,10 @@ public class Ui {
         printBlock("Hi I'm V\nWhat can I do for you?");
     }
 
+    public void printLineSeperator() {
+        System.out.println(LINE_SEPERATOR);
+    }
+
     public Ui() {
     }
 }

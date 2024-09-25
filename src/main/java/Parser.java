@@ -39,6 +39,10 @@ public class Parser {
                 description = String.join(" ", Arrays.copyOfRange(wordArray, 1, wordArray.length));
                 taskList.addEvent(description, isFromSaveFile);
                 return true;
+            case "find":
+                description = String.join(" ", Arrays.copyOfRange(wordArray, 1, wordArray.length));
+                taskList.find(description);
+                return true;
             default:
                 System.out.println("Try again");
                 return true;
