@@ -1,63 +1,26 @@
 package mong;
 
 import mong.exception.IllegalTaskTypeException;
+import mong.storage.Storage;
 import mong.task.*;
 import mong.ui.Parser;
 import mong.ui.Ui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 
 public class Mong {
-    public static final String FILE_PATH = "./src/main/java/mong/data/mong.txt";
     public static Ui ui;
     public static TaskList taskList;
+    public static Storage storage;
 
     /**
-     * Writes new content to txt file.
+     * Runs the Mong program.
+     * Reads user inputs and performs the respective tasks.
      */
-    private static void writeToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-    /**
-     * Saves new content to file.
-     */
-    private static void saveToFile() {
-        try {
-            writeToFile(Parser.parseListToTxt());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Adds all tasks in txt file.
-     */
-    public static void loadFileContents(String filePath) throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Parser.parseLineContents(line);
-        }
-    }
-
-    /**
-     * Adds the command sent by the user into a list.
-     * If the command "list" is sent, the list of previous commands will be printed.
-     * If the command's first word is "mark", it will set the isCompleted variable of the Task to true.
-     * If the command's first word is "unmark", it will set the isCompleted variable of the Task to false.
-     * If the command "bye" is sent, the program will exit.
-     */
-    public static void addByTask() {
+    public static void run() {
         String input = ui.getUserInput();
         TaskType command;
         try {
@@ -95,6 +58,7 @@ public class Mong {
                 break;
             }
             saveToFile();
+            Storage.saveToFile();
             ui.printHorizontalLine();
             input = ui.getUserInput();
             try {
@@ -108,17 +72,10 @@ public class Mong {
     public static void main(String[] args) throws IOException {
         ui = new Ui();
         taskList = new TaskList();
-        File directory = new File("./src/main/java/mong/data/");
-        File file = new File(FILE_PATH);
-        if (!directory.exists()) {
-            directory.mkdir();
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-        }
+        storage = new Storage();
+        Storage.handleFolderDoesNotExist();
         try {
-            loadFileContents(FILE_PATH);
+            Storage.loadFileContents();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
         }
