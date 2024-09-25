@@ -38,10 +38,8 @@ public class V {
         greet();
         
         while (isOnline) {
-            try {
-                command = input.nextLine();
-                isOnline = parser.parse(command);
-            } 
+            command = input.nextLine();
+            isOnline = parser.parse(command);
             // catch (NumberFormatException error) {
             //     printBlock("You need to input a valid integer for the task that you want to mark as done");
             // } 
