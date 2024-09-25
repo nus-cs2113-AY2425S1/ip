@@ -1,19 +1,19 @@
 package model;
 
 public class Deadline extends Task {
-    protected String by;
+    private String by; // The deadline date
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
-    }
-
-    public String getBy() {
-        return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D][" + (isDone() ? "X" : " ") + "] " + getDescription() + " (by: " + by + ")";
+    }
+
+    public String saveFormat() {
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
     }
 }

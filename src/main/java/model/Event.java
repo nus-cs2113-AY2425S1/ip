@@ -1,25 +1,22 @@
 package model;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String at; // The event date
+    private String from; // Start time
+    private String to; // End time
 
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E][" + (isDone() ? "X" : " ") + "] " + getDescription() + " (from: " + from + " to: " + to + ")";
+    }
+
+    public String saveFormat() {
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " | " + to;
     }
 }
