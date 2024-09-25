@@ -15,6 +15,11 @@ public class Parser {
     public Storage storage;
     public ArrayList<String> commands;
 
+    /**
+     * Creates a Parser for the chatbot for checking of the commands
+     *
+     * @param storage the storage of the saved task from previous usage of the chatbot
+     */
     Parser(Storage storage) {
         this.storage = storage;
         this.commands = new ArrayList<>();
@@ -26,6 +31,13 @@ public class Parser {
         commands.add("delete");
     }
 
+    /**
+     * Checks the commands given by the user and executes them
+     *
+     * @param response the command given by the user
+     * @param ui the user interface to interact with the user
+     * @param tasks the list of tasks that are already present
+     */
     public void inputs(String response, UI ui, TaskList tasks) {
         int taskIndex;
         int taskCounter;
@@ -126,6 +138,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Check if the command, inputted by users, exists
+     *
+     * @param response the input that is given by the user
+     * @throws GlendonException error when no such command exists
+     */
     private void checkResponse(String response) throws GlendonException {
         if(!commands.contains(response)) {
             throw new GlendonException();

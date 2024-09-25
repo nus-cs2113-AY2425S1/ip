@@ -8,6 +8,12 @@ public class Glendon {
     private TaskList tasks;
     private UI ui;
 
+    /**
+     * Construct the chatbot for operation
+     *
+     * @param filePath the designated file path for the saving of the task list after exiting from
+     *                 chatbot
+     */
     public Glendon(String filePath) {
         ui = new UI();
         storage = new Storage(filePath, ui);
@@ -19,6 +25,9 @@ public class Glendon {
         }
     }
 
+    /**
+     * Runs the chatbot
+     */
     public void run() {
         ui.showWelcome();
         while (true) {
@@ -31,8 +40,7 @@ public class Glendon {
             }
         }
     }
-
-
+    
     public static void main(String[] args) {
         new Glendon(filePath).run();
     }

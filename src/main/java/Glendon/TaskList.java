@@ -50,12 +50,12 @@ public class TaskList {
         String[] answers = response.split("/from ");
         String taskInfo = answers[0].substring(6);
         String[] dates = answers[1].split("to ");
-        String startDate = dates[0];
-        String endDate = dates[1];
+        String startDateTime = dates[0];
+        String endDateTime = dates[1];
         if (taskInfo.length() == 0) {
             throw new GlendonException();
         }
-        taskList.add(new Event(taskInfo, startDate, endDate));
+        taskList.add(new Event(taskInfo, startDateTime, endDateTime));
         taskCounter++;
     }
 
