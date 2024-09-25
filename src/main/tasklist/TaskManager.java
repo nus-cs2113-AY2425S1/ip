@@ -263,9 +263,9 @@ public class TaskManager {
             UI.printResponse(result.toString());
     
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            UI.printResponse("Error: Invalid task number! :(" +
+            UI.printResponse("Error: Invalid task number! :( " +
                 (tasks.size() == 1 ? "There is only 1 task on the list!" :
-                    "There are only " + tasks.size() + "tasks on the list!"));
+                    "There are only " + tasks.size() + " tasks on the list!"));
         }
     }
 
