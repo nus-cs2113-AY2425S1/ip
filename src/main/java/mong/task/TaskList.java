@@ -176,18 +176,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches through the list of tasks for tasks with matching keywords.
+     * Tasks with matching keywords are added into a list and displayed to the user.
+     */
     public static void find(String input) {
         ArrayList<Task> foundList = new ArrayList<>();
-        String searchValue = input.split(" ")[1];
+        String searchValue = input.substring(ui.LENGTH_FIND);
         for (Task task : list) {
             if (task.getDescription().contains(searchValue)) {
                 foundList.add(task);
             }
         }
-        System.out.println("MO-ongong! Is this what you were looking for?");
         if (foundList.isEmpty()) {
             System.out.println("Oi oi MONG! No task found!");
         } else {
+            System.out.println("MO-ongong! Is this what you were looking for?");
             for (int i = 0; i < foundList.size(); i++) {
                 System.out.println(i + 1 + ". " + foundList.get(i));
             }

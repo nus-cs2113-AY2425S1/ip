@@ -17,6 +17,7 @@ public class Ui {
     public final int LENGTH_EVENT = 5;
     public final int LENGTH_FROM = 4;
     public final int LENGTH_TO = 3;
+    public final int LENGTH_FIND = 5;
 
     private static final String logo = "\n" +
             "\n" +
