@@ -26,7 +26,7 @@ Legin is a command line chat bot that helps users with their daily tracking of t
 ### Adding a Todo task: ```todo```
 
 Adds a Todo task to the task list.
-Format: ```todo TASK_DESCRIPTION```
+Format: ```todo TASK_DESCRIPTION``` <br />
 Example: 
 + ```todo Water the plants```
   The following would be seen on the terminal if done correctly:
@@ -35,7 +35,7 @@ Example:
 ### Adding a Deadline task: ```deadline```
 
 Adds a task that has a deadline to the task list.
-Format: ```deadline TASK_DESCRIPTION /by DEADLINE
+Format: ```deadline TASK_DESCRIPTION /by DEADLINE``` <br />
 Example:
 + ```deadline submit quiz 1 /by 27 October 4pm```
   The following would be seen on the terminal if done correctly:
@@ -48,7 +48,7 @@ Note:
 Adds a event that has a duration period into the task list.
 Format: ```event EVENT_DESCRIPTION /from EVENT_START /to EVENT_END```
 Example:
-+ ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm```
++ ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm``` <br />
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/2ac2d029-b1fe-4083-9835-0e599d41f0e9)
 Note: Users are to adhere to the space after ```EVENT_DESCRIPTION```, /from and /to to prevent unexpected behavior
