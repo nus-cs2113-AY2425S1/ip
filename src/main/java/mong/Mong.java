@@ -2,7 +2,8 @@ package mong;
 
 import mong.exception.IllegalTaskTypeException;
 import mong.storage.Storage;
-import mong.task.*;
+import mong.task.TaskList;
+import mong.task.TaskType;
 import mong.ui.Parser;
 import mong.ui.Ui;
 
