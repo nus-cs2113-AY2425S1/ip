@@ -1,32 +1,67 @@
 package tasklist.types;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.temporal.Temporal;
 
-    // Constructor for Event
+public class Event extends Task {
+    protected Temporal fromTemporal;
+    protected Temporal toTemporal;
+    protected String fromString;
+    protected String toString;
+
+    // Constructor for Event that accepts strings
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromString = from;
+        this.toString = to;
+    }
+
+    // Constructor for Event that accepts Temporal types
+    public Event(String description, Temporal from, Temporal to) {
+        super(description);
+        this.fromTemporal = from;
+        this.toTemporal = to;
     }
 
     /**
-     * Returns a string representation of the start time.
-     *
-     * @return A string representing the start time.
+     * Returns the 'from' value for a deadline task.
+     * 
+     * If the `fromString` is not null, it returns the string. 
+     * If `fromString` is null but `fromDateTime` is set, returns the date as string.
+     * If both are null, it throws an IllegalStateException.
+     * 
+     * @return The 'from' value, either as a string or a date.
+     * @throws IllegalStateException if `fromString` and `fromDateTime` are null.
      */
     public String getFrom() {
-        return this.from;
+        if (this.fromString != null) {
+            return this.fromString;
+        } else if (this.fromTemporal != null) {
+            return this.fromTemporal.toString();
+        } else {
+            throw new IllegalStateException(
+                "Both 'fromString' and 'fromDateTime' are null :(");
+        }
     }
 
     /**
-     * Returns a string representation of the end time.
-     *
-     * @return A string representing the end time.
+     * Returns the 'to' value for a deadline task.
+     * 
+     * If the `toString` is not null, it returns the string. 
+     * If `toString` is null but `toDateTime` is set, returns the date as string.
+     * If both are null, it throws an IllegalStateException.
+     * 
+     * @return The 'to' value, either as a string or a date.
+     * @throws IllegalStateException if `toString` and `toDateTime` are null.
      */
     public String getTo() {
-        return this.to;
+        if (this.toString != null) {
+            return this.toString;
+        } else if (this.toTemporal != null) {
+            return this.toTemporal.toString();
+        } else {
+            throw new IllegalStateException(
+                "Both 'toString' and 'toDateTime' are null :(");
+        }
     }
 
     /**
@@ -39,6 +74,6 @@ public class Event extends Task {
     public String toString() {
         // Add [E] tag for events
         return "[E]" + super.toString()
-        + " (from: " + from + " to: " + to + ")"; 
+        + " (from: " + getFrom() + " to: " + getTo() + ")"; 
     }
 }
