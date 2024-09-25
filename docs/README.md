@@ -41,7 +41,7 @@ Example:
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/ad576583-c6d2-49ab-9cbe-867826817688)
 Note:
-+ Users are to adhere to the space after TASK_DESCRIPTION and /by to prevent unexpected behavior
++ Users are to adhere to the space after ```TASK_DESCRIPTION``` and /by to prevent unexpected behavior
 
 ### Adding a Event task: ```event```
 
@@ -51,7 +51,7 @@ Example:
 + ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm```
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/2ac2d029-b1fe-4083-9835-0e599d41f0e9)
-Note: Users are to adhere to the space after EVENT_DESCRIPTION, /from and /to to prevent unexpected behavior
+Note: Users are to adhere to the space after ```EVENT_DESCRIPTION```, /from and /to to prevent unexpected behavior
 
 ### Marking a task: ```mark```
 
@@ -59,7 +59,7 @@ Marks a tasks in the task list by its index as done. Index of task can be obtain
 Format: ```mark INDEX```
 Example:
 + ```mark 3```
-Note: INDEX should be displayed in task list when ```list``` is called
+Note: ```INDEX``` should be displayed in task list when ```list``` is called
 
 ### Unmarking a task: ```unmark```
 
@@ -67,7 +67,7 @@ Unmarks a task in the task list by its index as undone. Index of task can be obt
 Format: ```unmark INDEX```
 Example:
 + ```unmark 5```
-Note: INDEX should be displayed in task list when ```list``` is called
+Note: ```INDEX``` should be displayed in task list when ```list``` is called
 
 ### Listing all tasks: ```list```
 
@@ -78,7 +78,7 @@ Format: ```list```
 
 Deletes a task in the task list by it index. Index of task can be obtained by using the ```list``` command.
 Format: ```delete INDEX```
-Note: INDEX should be displayed in task list when ```list``` is called
+Note: ```INDEX``` should be displayed in task list when ```list``` is called
 
 ### Find task by description: ```find```
 
@@ -105,17 +105,17 @@ Data will be saved upon termination of the program with ```bye```
 
 ### Editting the data file 
 Data is stored in the form of:
-'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION' for Todo tasks
-'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|DUEDATE' for Deadline tasks
-'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|TIME_START|TIME_END' for Event tasks
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION' for Todo tasks
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|DUEDATE' for Deadline tasks
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|TIME_START|TIME_END' for Event tasks
 Each line stores data for only one task
 
 The following are some fixed parameters: 
 TASK_TYPE:
-'T' - Todo task
-'D' - Deadline task
-'E' - Event task
++ 'T' - Todo task
++ 'D' - Deadline task
++ 'E' - Event task
 
 IS_TASK_DONE:
-'true' - marks task as done
-'false - marks task as undone
++ 'true' - marks task as done
++ 'false - marks task as undone
