@@ -25,6 +25,11 @@ public class Cy {
     public static final String CONFIRM_EVENT = "Got it. I've added this event:";
     public static final String CONFIRM_MARK = "Nice! I've marked this task as done:";
     public static final String CONFIRM_UNMARK = "OK, I've marked this task as not done yet:";
+    public static final String VALID_NUMBER_WARNING = "Please enter a valid number.";
+    public static final String VALID_INDEX_WARNING = "Please enter a valid task number from 1 to ";
+    public static final String VALID_DESCRIPTION_WARNING = "Please enter a valid description.";
+    public static final String VALID_DEADLINE_KEYWORD_WARNING = "Please enter the by keyword";
+    public static final String VALID_EVENT_KEYWORD_WARNING = "Input must contain both 'from' and 'to' keywords.";
 
 
     public static ArrayList<Task> items = new ArrayList<>();
@@ -52,11 +57,11 @@ public class Cy {
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
             if (index < 0 || index >= count) {
-                throw new IllegalTaskException("Please enter a valid task number from 1 to " + count);
+                throw new IllegalTaskException(VALID_INDEX_WARNING + count);
             }
 
         } catch (NumberFormatException e) {
-            throw new IllegalTaskException("Please enter a valid number.");
+            throw new IllegalTaskException(VALID_NUMBER_WARNING);
         }
 
     }
@@ -95,7 +100,7 @@ public class Cy {
 
         // Check if the length is less than 2, meaning no description was provided
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
-            throw new IllegalEmptyException("Please enter a valid description.");
+            throw new IllegalEmptyException(VALID_DESCRIPTION_WARNING);
         }
 
         // Return the trimmed description
@@ -126,7 +131,7 @@ public class Cy {
     public static int addDeadline(int count, String input) throws IllegalEmptyException, IllegalKeywordException {
 
         if (!input.contains("by")) {
-            throw new IllegalKeywordException("Please enter the by keyword");
+            throw new IllegalKeywordException(VALID_DEADLINE_KEYWORD_WARNING);
         }
 
         String description = trimString(input);
@@ -150,7 +155,7 @@ public class Cy {
         String deadline = descriptionSubstrings[0] + "(by:" + descriptionSubstrings[1] + ")";
 
         if (descriptionSubstrings[1].isEmpty()) {
-            throw new IllegalEmptyException("The description of todo cannot be empty!");
+            throw new IllegalEmptyException(VALID_DESCRIPTION_WARNING);
         }
 
         return deadline;
@@ -161,7 +166,7 @@ public class Cy {
         input = trimString(input);
 
         if (!input.contains("from") || !input.contains("to")) {
-            throw new IllegalKeywordException("Input must contain both 'from' and 'to' keywords.");
+            throw new IllegalKeywordException(VALID_EVENT_KEYWORD_WARNING);
         }
 
         String event = createEventString(input);
@@ -187,13 +192,12 @@ public class Cy {
         return event;
     }
 
-    public static int deleteItem(int count, String[] splitInputs){
+    public static int deleteItem(int count, String[] splitInputs) throws IllegalTaskException {
 
         int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
 
         if (deleteIndex < 0 || deleteIndex >= items.size()) {
-            System.out.println("Invalid task number. Please try again.");
-            return count;
+            throw new IllegalTaskException(VALID_INDEX_WARNING + count);
         }
 
         Task deleteItem = items.get(deleteIndex);
@@ -251,7 +255,7 @@ public class Cy {
         while (!input.equalsIgnoreCase("bye")) {
             String[] splitInputs = input.split(" ");
             String command = splitInputs[0].toLowerCase();
-            count = Cy.handleCommand(input, count, command, splitInputs);
+            count = handleCommand(input, count, command, splitInputs);
             input = scan.nextLine();
         }
 
