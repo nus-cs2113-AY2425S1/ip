@@ -175,4 +175,22 @@ public class TaskList {
             System.out.println("Oi oi MONG! Missing description, /from or /to commands...");
         }
     }
+
+    public static void find(String input) {
+        ArrayList<Task> foundList = new ArrayList<>();
+        String searchValue = input.split(" ")[1];
+        for (Task task : list) {
+            if (task.getDescription().contains(searchValue)) {
+                foundList.add(task);
+            }
+        }
+        System.out.println("MO-ongong! Is this what you were looking for?");
+        if (foundList.isEmpty()) {
+            System.out.println("Oi oi MONG! No task found!");
+        } else {
+            for (int i = 0; i < foundList.size(); i++) {
+                System.out.println(i + 1 + ". " + foundList.get(i));
+            }
+        }
+    }
 }

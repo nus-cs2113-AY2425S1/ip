@@ -55,6 +55,9 @@ public class Parser {
         case DELETE:
             TaskList.deleteTask(input);
             break;
+        case FIND:
+            TaskList.find(input);
+            break;
         default:
             System.out.println("MooONG?! That's not a valid command...");
             break;

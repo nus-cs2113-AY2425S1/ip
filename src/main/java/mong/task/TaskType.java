@@ -5,7 +5,7 @@ import mong.exception.IllegalTaskTypeException;
 public enum TaskType {
     LIST("list"), MARK("mark"), UNMARK("unmark"), EVENT("event"),
     TODO("todo"), DEADLINE("deadline"), BYE("bye"), DELETE ("delete"),
-    INVALID("invalid");
+    FIND("find"), INVALID("invalid");
     private final String command;
 
     TaskType(String command) {
