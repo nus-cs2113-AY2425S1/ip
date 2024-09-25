@@ -24,21 +24,14 @@ public abstract class Task implements TaskOperations {
         return taskType;
     }
 
-    // Method to mark as undone
     public void setAsUndone() {
         this.isDone = false;
     }
 
-    // Method to mark as done
     public void setAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Converts the task to a string format for display.
-     *
-     * @return string representation of the task.
-     */
     @Override
     public String toString() {
         return "[" + getTaskMarker() + "] " + "[" + getMarker() + "] " + description;
