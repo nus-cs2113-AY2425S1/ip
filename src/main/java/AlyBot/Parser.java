@@ -1,5 +1,14 @@
 package AlyBot;
 
+import Commands.AddCommand;
+import Commands.Command;
+import Commands.DeleteCommand;
+import Commands.HelpCommand;
+import Commands.ListCommand;
+import Commands.ExitCommand;
+import Commands.EchoCommand;
+import Commands.MarkCommand;
+
 import java.util.InputMismatchException;
 
 public class Parser {

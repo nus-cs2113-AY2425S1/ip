@@ -1,4 +1,9 @@
-package AlyBot;
+package Commands;
+
+import AlyBot.AlyException;
+import AlyBot.Storage;
+import AlyBot.TaskList;
+import AlyBot.Ui;
 
 public abstract class Command {
 

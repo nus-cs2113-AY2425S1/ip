@@ -1,22 +1,18 @@
 package Task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
-    private static int taskCounter = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCounter++;
     }
+
+    public abstract String toFile(String taskDescription, char status);
 
     public String getDescription() {
         return description;
-    }
-
-    public static int getTaskCounter() {
-        return taskCounter;
     }
 
     public String getStatusIcon() {

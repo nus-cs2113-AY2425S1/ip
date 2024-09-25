@@ -75,17 +75,9 @@ public class Storage {
                     char type = toSave.charAt(1);
                     switch (type) {
                     case 'T':
-                        int endIndex = 6;
-                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(endIndex);
-                        break;
                     case 'D':
-                        int byIndex = toSave.indexOf("(by: ");
-                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(6, byIndex-1) + "|" + toSave.substring(byIndex+5,toSave.length()-1);
-                        break;
                     case 'E':
-                        int fromIndex = toSave.indexOf("(from: ");
-                        int toIndex = toSave.indexOf("to: ");
-                        toSave = toSave.charAt(1) + "|" + status + "|" + toSave.substring(6,fromIndex-1) + "|" + toSave.substring(fromIndex+7,toIndex) + "|" + toSave.substring(toIndex+4,toSave.length()-1);
+                        toSave = task.toFile(toSave, status);
                         break;
                     default:
                         throw new IllegalArgumentException();
