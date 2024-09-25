@@ -19,14 +19,14 @@ public class DeleteCommand extends Command {
         try {
             this.taskIndex = Integer.parseInt(input.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidTaskNumberException("Please enter a valid task number for deletion.");
+            throw new InvalidTaskNumberException("Input is not a valid task number.", input);
         }
     }
 
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
         if (taskIndex < 0 || taskIndex >= tasklist.getSize()) {
-            throw new InvalidTaskNumberException("         Task number is out of bounds!");
+            throw new InvalidTaskNumberException("Task number is out of bounds!", taskIndex);
         }
 
         Task removedTask = tasklist.removeTask(taskIndex);

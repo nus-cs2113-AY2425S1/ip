@@ -3,10 +3,8 @@ package codecatalyst.command;
 import codecatalyst.Storage;
 import codecatalyst.TaskList;
 import codecatalyst.Ui;
-import codecatalyst.exception.EmptyTaskDescriptionException;
+import codecatalyst.exception.EmptyTaskDetailException;
 import codecatalyst.task.Todo;
-
-import java.io.IOException;
 
 public class AddTodoCommand extends Command {
     private String description;
@@ -24,7 +22,7 @@ public class AddTodoCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
         if (description.trim().isEmpty()) {
-            throw new EmptyTaskDescriptionException("Todo task description cannot be empty.");
+            throw new EmptyTaskDetailException("Todo task description cannot be empty.");
         }
         Todo todo = new Todo(description);
         tasklist.addTask(todo);
