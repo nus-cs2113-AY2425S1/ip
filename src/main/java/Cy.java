@@ -10,11 +10,19 @@ import java.util.Scanner;
 
 public class Cy {
 
-    public static final int MAX_LIST = 100;
+    public static final String HORIZONTAL_LINE = "______________________________________";
+    public static final String MARK = "mark";
+    public static final String UNMARK = "unmark";
+    public static final String TODO = "todo";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String DELETE = "delete";
+    public static final String LIST_TASKS = "Here are the tasks in your list";
     public static ArrayList<Task> items = new ArrayList<>();
 
+
     public static void printLine() {
-        System.out.println("______________________________________");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void markOutput(Task task) {
@@ -31,7 +39,9 @@ public class Cy {
     }
 
     public static boolean isMarkError(String[] splitInputs, int count) {
+
         try {
+
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
             if (index < 0 || index >= count) {
@@ -47,44 +57,33 @@ public class Cy {
         return false;
     }
 
-    public static void markItem(String[] splitInputs, Task[] items, int count) {
+    public static void markItem(String[] splitInputs, int count) {
         if (isMarkError(splitInputs, count)) {
             return;
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items[index].setDone(true);
-        markOutput(items[index]);
+        items.get(index).setDone(true);
+        markOutput(items.get(index));
     }
 
-    public static void unmarkItem(String[] splitInputs, Task[] items, int count) {
+    public static void unmarkItem(String[] splitInputs, int count) {
         if (isMarkError(splitInputs, count)) {
             return;
         }
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
-        items[index].setDone(false);
-        markOutput(items[index]);
+        items.get(index).setDone(false);
+        markOutput(items.get(index));
     }
 
-    public static void printList(Task[] items, int count) {
+    public static void printList(int count) {
         printLine();
-        System.out.println("Here are the tasks in your list");
+        System.out.println(LIST_TASKS);
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + items[i].getStatusIcon() + " " + items[i].getDescription());
+            System.out.println((i + 1) + "." + items.get(i).getStatusIcon() + " " + items.get(i).getDescription());
         }
         printLine();
-    }
-
-    public static int addItem(Task[] items, int count, String input) {
-        items[count] = new Task(input);
-        count++;
-
-        printLine();
-        System.out.println("added: " + input);
-        printLine();
-
-        return count;
     }
 
     public static String trimString(String input) throws IllegalEmptyException {
@@ -93,8 +92,7 @@ public class Cy {
         String[] outputSplit= output.split(" ",2);
 
         if (outputSplit.length < 2 || outputSplit[1].isEmpty()) {
-            System.out.println("Please enter a valid description");
-            throw new IllegalEmptyException();
+            throw new IllegalEmptyException("Please enter a valid description");
         }
 
         return outputSplit[1];
@@ -186,42 +184,52 @@ public class Cy {
     }
 
     public static void main(String[] args) throws IllegalCommandException,IllegalEmptyException {
-        System.out.println("Hello, I'm Cy");
-        System.out.println("What can I do for you?");
+        welcomeMessage();
 
-        Task[] items = new Task[MAX_LIST];
         int count = 0;
-
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
 
         while (!input.equalsIgnoreCase("bye")) {
-
             String[] splitInputs = input.split(" ");
-
-            if (input.equalsIgnoreCase("list")) {
-                printList(items, count);
-            } else if (splitInputs[0].equalsIgnoreCase("mark")) {
-                markItem(splitInputs, items, count);
-            } else if (splitInputs[0].equalsIgnoreCase("unmark")) {
-                unmarkItem(splitInputs, items, count);
-            } else if (splitInputs[0].equalsIgnoreCase("todo")) {
-                count = addTodo(count, input);
-            } else if (splitInputs[0].equalsIgnoreCase("deadline")) {
-                count = addDeadline(count, input);
-            } else if (splitInputs[0].equalsIgnoreCase("event")) {
-                count = addEvent(count, input);
-            } else if (splitInputs[0].equalsIgnoreCase("delete")){
-                count = deleteItem(count, splitInputs);
-            } else {
-                System.out.println("Please enter a valid command");
-                throw new IllegalCommandException();
-            }
+            String command = splitInputs[0].toLowerCase();
+            count = handleCommand(input, count, command, splitInputs);
             input = scan.nextLine();
         }
 
+        endingMessage();
+    }
+
+    private static void endingMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
+    }
+
+    private static void welcomeMessage() {
+        System.out.println("Hello, I'm Cy");
+        System.out.println("What can I do for you?");
+    }
+
+    private static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException {
+        if (command.equalsIgnoreCase("list")) {
+            printList(count);
+        } else if (command.equals(MARK)) {
+            markItem(splitInputs, count);
+        } else if (command.equals(UNMARK)) {
+            unmarkItem(splitInputs, count);
+        } else if (command.equals(TODO)) {
+            count = addTodo(count, input);
+        } else if (command.equals(DEADLINE)) {
+            count = addDeadline(count, input);
+        } else if (command.equals(EVENT)) {
+            count = addEvent(count, input);
+        } else if (command.equals(DELETE)){
+            count = deleteItem(count, splitInputs);
+        } else {
+            System.out.println("Please enter a valid command");
+            throw new IllegalCommandException();
+        }
+        return count;
     }
 }
