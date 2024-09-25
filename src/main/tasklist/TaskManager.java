@@ -79,8 +79,9 @@ public class TaskManager {
                     break;
                 default:
                     throw new IllegalArgumentException(
-                        "Oh no! Unknown task type: " + command + 
-                        " :(\nTry commands todo, deadline, or event with the correct format!");
+                        "Oh no! Unknown command: " + command + 
+                        " :(\nTry commands todo, deadline, or event to create tasks,\n" + 
+                        "or mark, unmark, delete and find to manage your list :>");
             }
     
             if (task != null) {
