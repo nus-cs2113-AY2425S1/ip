@@ -2,6 +2,22 @@
 
 Nell is a chatbot that allows users to manage tasks through a command-line interface. 
 
+* [Quick start](#quick-start)
+* [Features](#features)
+  * [Adding `ToDo` tasks](#adding-todo-tasks-todo)
+  * [Adding `Deadline` tasks](#adding-deadline-tasks-deadline)
+  * [Adding `Event` tasks](#adding-event-tasks-event)
+  * [Listing all tasks](#listing-all-tasks-list)
+  * [Finding tasks by keyword](#finding-tasks-by-keyword-find)
+  * [Searching for tasks by date](#searching-for-tasks-by-date-search)
+  * [Marking a task as done](#marking-a-task-as-done-mark)
+  * [Marking a task as not done](#marking-a-task-as-not-done-unmark)
+  * [Removing a task](#removing-a-task-remove)
+  * [Exiting the program](#exiting-the-program-bye)
+  * [Saving of task data](#saving-of-task-data)
+  * [Loading of task data](#loading-of-task-data)
+* [Command summary](#command-summary)
+
 ## Quick start
 
 1. Ensure that you have Java 17 or above installed on your computer.
