@@ -43,7 +43,7 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
 > entered will be ignored by the program.  
 > e.g. the program will interpret `list 1-10` as `list`.
 
-### Adding `ToDo` tasks: `add`
+### Adding `ToDo` tasks: `todo`
 
 Adds a `ToDo` task to the task list. 
 
