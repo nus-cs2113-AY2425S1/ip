@@ -21,7 +21,7 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
 ## Quick start
 
 1. Ensure that you have Java 17 or above installed on your computer.
-2. Download the latest `.jar` file from here.
+2. Download the latest `.jar` file from [here](https://github.com/jemehgoh/ip/releases).
 3. Copy the file into the folder 
 4. Open a new terminal in the folder you copied the `.jar` file into, and enter the following command:
    ```
