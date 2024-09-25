@@ -1,4 +1,4 @@
-package appal;
+package appal.parser;
 
 public class Parser {
     // Integer constants to access string inputs
