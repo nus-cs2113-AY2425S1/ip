@@ -27,7 +27,6 @@ public class Task {
                 throw new DukeException("This task is already marked as done");//throw exception if the task is marked
             }
             isDone = true;
-            System.out.println(this.toString());
         } catch (DukeException e) {
             e.displayMessage();
         }
@@ -39,7 +38,6 @@ public class Task {
                 throw new DukeException("This task is already marked as undone");//throw exception if the task is unmark
             }
             isDone = false;
-            System.out.println(this.toString());
         } catch (DukeException e) {
             e.displayMessage();
         }

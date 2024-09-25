@@ -7,16 +7,16 @@ import java.util.Scanner;
 public class Storage {
     private static String folderPath = "./data";
     private static String filePath = folderPath+ "/duke.txt";
-    private TaskList taskList;
+    private static TaskList taskListInstance;
 
 
     public Storage(TaskList taskList) {
-        this.taskList = taskList;
+        this.taskListInstance = taskList;
     }
 
 
 
-    public static void loadFileData() throws DukeException, IOException {
+    public void loadFileData() throws DukeException, IOException {
 
         File folder = new File(folderPath);
         if (!folder.exists()) {
@@ -40,23 +40,20 @@ public class Storage {
         switch (inputComponent[0]) {
             case "T" -> {
                 TaskList.add(new ToDo(inputComponent[1]));
-                taskCount++;
                 if (inputComponent[2].equals("1")) {
-                    TaskList.get(taskCount - 1).markAsDone();
+                    taskListInstance.getTask(TaskList.getTaskCount()-1).markAsDone();
                 }
             }
             case "D" -> {
                 TaskList.add(new Deadline(inputComponent[1], inputComponent[2]));
-                taskCount++;
                 if (inputComponent[3].equals("1")) {
-                    taskList.get(taskCount - 1).markAsDone();
+                    taskListInstance.getTask(TaskList.getTaskCount()-1).markAsDone();
                 }
             }
             case "E" -> {
                 TaskList.add(new Event(inputComponent[1], inputComponent[2], inputComponent[3]));
-                taskCount++;
                 if (inputComponent[4].equals("1")) {
-                    taskList.get(taskCount - 1).markAsDone();
+                    taskListInstance.getTask(TaskList.getTaskCount()-1).markAsDone();
                 }
             }
         }
@@ -94,10 +91,10 @@ public class Storage {
     }
 
     //update file data after every command for level-7
-    public static void updateFileData() throws DukeException, IOException {
+    public void updateFileData() throws DukeException, IOException {
         try (FileWriter writer = new FileWriter(filePath, false)) {
-            for(int i = 0; i < taskCount; i++) {
-                writer.write(addLineData(TaskList.get(i)) + System.lineSeparator());
+            for(int i = 0; i < TaskList.getTaskCount(); i++) {
+                writer.write(addLineData(taskListInstance.getTask(i)) + System.lineSeparator());
             }
         } catch (IOException e) {
             throw new DukeException("cannot write to file");
