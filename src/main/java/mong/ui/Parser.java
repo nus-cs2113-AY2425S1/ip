@@ -1,12 +1,8 @@
 package mong.ui;
 
 import mong.exception.IllegalTaskTypeException;
-import mong.task.Task;
 import mong.task.TaskList;
 import mong.task.TaskType;
-
-
-import static mong.task.TaskList.list;
 
 public class Parser {
     /**
@@ -20,16 +16,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Formats latest list to txt file format.
-     */
-    public static String parseListToTxt() {
-        StringBuilder textToAdd = new StringBuilder();
-        for (Task task : list) {
-            textToAdd.append(task.toFileFormat()).append(System.lineSeparator());
-        }
-        return textToAdd.toString();
-    }
 
     /**
      * Adds tasks line by line from txt file.
@@ -44,4 +30,35 @@ public class Parser {
             TaskList.addEvent(lineData[1], lineData[2], lineData[3], lineData[4]);
         }
     }
+
+    public static void runCommand(TaskType command, String input) {
+        switch(command) {
+        case LIST:
+            // print items in an indexed list
+            TaskList.handleListCommand(input);
+            break;
+        case MARK:
+            TaskList.mark(input);
+            break;
+        case UNMARK:
+            TaskList.unmark(input);
+            break;
+        case DEADLINE:
+            TaskList.addDeadline(input);
+            break;
+        case TODO:
+            TaskList.addTodo(input);
+            break;
+        case EVENT:
+            TaskList.addEvent(input);
+            break;
+        case DELETE:
+            TaskList.deleteTask(input);
+            break;
+        default:
+            System.out.println("MooONG?! That's not a valid command...");
+            break;
+        }
+    }
 }
+
