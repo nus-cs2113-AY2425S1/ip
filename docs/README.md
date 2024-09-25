@@ -1,6 +1,6 @@
 # Yapper User Guide
 
-**Yapper** is a CLI-based ChatBot that 
+**Yapper** is a CLI-based (Command Line Interface) ChatBot that 
 helps you manage tasks such as ToDos, Deadlines and Events, 
 all while "yapping" at you.
 
