@@ -48,23 +48,35 @@ CheonsaBot is a simple and intuitive task management tool designed to keep track
 
 ### **Examples**
 
-- **ToDo**: 
+- **ToDo**:
+```
 todo Buy groceries
+```
 
-- **Deadline**: 
+- **Deadline**:
+```
 deadline Submit assignment /by 25/09/2024
+```
 
-- **Event**: 
+- **Event**:
+```
 event Team meeting /from 25/09/2024T14:00 /to 25/09/2024T16:00
+```
 
-- **Delete Task**: 
+- **Delete Task**:
+```
 delete 2
+```
 
-- **Find Task**: 
+- **Find Task**:
+```
 find groceries
+```
 
-- **Exit**: 
+- **Exit**:
+```
 bye
+```
 
 ---
 
