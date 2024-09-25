@@ -17,7 +17,7 @@ Welcome to Aegis, your Anti-Shadow Suppression Weapon and Task Manager! Aegis he
 - [FAQs](#faqs)
 
 ## Introduction
-Aegis is a command-line based task manager that helps you keep track of your to-dos, deadlines, and events. With Aegis, you can quickly add tasks, mark them as done, find specific tasks using keywords, and delete tasks when they are no longer needed.
+**Aegis** is a command-line based task manager that helps you keep track of your to-dos, deadlines, and events. With Aegis, you can quickly add tasks, mark them as done, find specific tasks using keywords, and delete tasks when they are no longer needed.
 
 ## Setting Up Aegis
 To get started with Aegis, follow these steps:
@@ -33,16 +33,16 @@ To get started with Aegis, follow these steps:
 You can add different types of tasks: ToDos, Deadlines, and Events.
 
 - **ToDo**: A basic task without a time constraint.
-- Command: `todo <description>`
-- Example: `todo Read a book`
+   - Command: `todo <description>`
+   - Example: `todo Read a book`
 
 - **Deadline**: A task that needs to be completed by a certain time.
-- Command: `deadline <description> /by <date and time>`
-- Example: `deadline Submit report /by 2024-09-30 1800`
+   - Command: `deadline <description> /by <date and time>`
+   - Example: `deadline Submit report /by 2024-09-30 1800`
 
 - **Event**: A task that occurs at a specific time frame.
-- Command: `event <description> /from <start time> /to <end time>`
-- Example: `event Project meeting /from 2024-09-28 1000 /to 2024-09-28 1200`
+   - Command: `event <description> /from <start time> /to <end time>`
+   - Example: `event Project meeting /from 2024-09-28 1000 /to 2024-09-28 1200`
 
 ### Listing All Tasks
 Displays all the tasks in your task list.
