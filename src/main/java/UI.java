@@ -49,5 +49,12 @@ public class UI {
         System.out.println(taskListInstance.getTask(index).toString());
     }
 
+    public void displayTaskForFind(int taskIndex, int displayIndex) {
+        System.out.print( displayIndex + ". ");
+        System.out.println(taskListInstance.getTask(taskIndex).toString());
+    }
 
+    public void displayMessageForFind() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }

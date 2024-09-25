@@ -92,6 +92,9 @@ public class Parser {
                 case "delete":
                     taskListInstance.deleteTask(Integer.parseInt(inputComponent[1]));
                     break;
+                case "find":
+                    taskListInstance.findTaskKeyword(inputComponent);
+                    break;
                 default:
                         checkGeneralInput(); //check for invalid command
 

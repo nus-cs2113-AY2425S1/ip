@@ -168,4 +168,27 @@ public class TaskList {
     public Task getTask(int index) {
         return taskList.get(index);
     }
+
+    public void findTaskKeyword(String[] inputComponent) throws DukeException {
+        String keyword = "";
+        for (int i = 1; i < inputComponent.length; i++) {
+            keyword += inputComponent[i];
+            if(i != inputComponent.length-1) {
+                keyword += " ";
+            }
+        }
+        int count = 0;
+        uiInstance.displayMessageForFind();
+        for(int i = 0; i < taskCount; i++) {
+            if(taskList.get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                count++;
+                uiInstance.displayTaskForFind(i,count);
+            }
+        }
+        if(count == 0) {
+            uiInstance.displayMessage("No tasks found matching the keyword");
+        }
+    }
+
+
 }
