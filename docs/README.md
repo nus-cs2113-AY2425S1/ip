@@ -82,17 +82,18 @@ Exits the Aegis application.
 - **Example**: `bye`
 
 ## Command Summary
-| Command                     | Description                              |
-|-----------------------------|------------------------------------------|
-| `todo <description>`        | Adds a ToDo task.                       |
-| `deadline <description> /by <date and time>` | Adds a Deadline task.                |
-| `event <description> /from <start time> /to <end time>` | Adds an Event task.                  |
-| `list`                      | Lists all tasks.                        |
-| `mark <task number>`        | Marks a task as done.                   |
-| `unmark <task number>`      | Marks a task as not done.               |
-| `delete <task number>`      | Deletes a task.                         |
-| `find <keyword>`            | Finds tasks containing the keyword.     |
-| `bye`                       | Exits the application.                  |
+| Command                                       | Description                            |
+|-----------------------------------------------|----------------------------------------|
+| `todo <description>`                          | Adds a ToDo task.                      |
+| `deadline <description> /by <date and time>`  | Adds a Deadline task.                  |
+| `event <description> /from <start> /to <end>` | Adds an Event task.                    |
+| `list`                                        | Lists all tasks.                       |
+| `mark <task number>`                          | Marks a task as done.                  |
+| `unmark <task number>`                        | Marks a task as not done.              |
+| `delete <task number>`                        | Deletes a task.                        |
+| `find <keyword>`                              | Finds tasks containing the keyword.    |
+| `bye`                                         | Exits the application.                 |
+
 
 ## FAQs
 
