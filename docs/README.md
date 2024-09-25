@@ -82,6 +82,7 @@ Exits the Aegis application.
 - **Example**: `bye`
 
 ## Command Summary
+
 | Command                                       | Description                            |
 |-----------------------------------------------|----------------------------------------|
 | `todo <description>`                          | Adds a ToDo task.                      |
