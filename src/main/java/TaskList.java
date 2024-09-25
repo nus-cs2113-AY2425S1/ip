@@ -2,15 +2,10 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<Task>();
+    private ArrayList<Task> list;
+    private Ui ui;
+    private Parser parser;
     private final String LINE_SEPERATOR = "____________________________________________________________";
-
-    // Print 2 line seperators between a block of text for cleaner CLI
-    public void printBlock(String text) {
-        System.out.println(LINE_SEPERATOR);
-        System.out.println(text);
-        System.out.println(LINE_SEPERATOR);
-    }
 
     public void displayList() {
         int count = 1;
@@ -34,7 +29,7 @@ public class TaskList {
     public void deleteTask(int position) {
         Task task = this.list.get(position - 1);
         this.list.remove(position - 1);
-        printBlock("Got it. The task below was removed:\n    " + task +
+        this.ui.printBlock("Got it. The task below was removed:\n" + task +
                 "\nNow you have " + this.list.size() + " left");
     }
 
@@ -42,7 +37,7 @@ public class TaskList {
         ToDo toDo = new ToDo(description);
         this.list.add(toDo);
         if (!isFromSaveFile) {
-            printBlock(String.format("Got it. Task added\n %s", toDo));
+            this.ui.printBlock(String.format("Got it. Task added\n %s", toDo));
         }
     }
 
@@ -58,7 +53,7 @@ public class TaskList {
         this.list.add(deadline);
 
         if (!isFromSaveFile) {
-            printBlock(String.format("Got it. Task added\n %s", deadline));
+            this.ui.printBlock(String.format("Got it. Task added\n %s", deadline));
         }
     }
 
@@ -73,7 +68,7 @@ public class TaskList {
         this.list.add(event);
 
         if (!isFromSaveFile) {
-            printBlock(String.format("Got it. Task added\n %s", event));
+            this.ui.printBlock(String.format("Got it. Task added\n %s", event));
         }
     }
 
@@ -82,8 +77,12 @@ public class TaskList {
     }
 
     public TaskList(Storage storage) {
+        this.list = new ArrayList<Task>();
+        this.ui = new Ui();
+        this.parser = new Parser(storage, this);
         ArrayList<String> commandArray = storage.getCommandArray();
         commandArray.forEach((command) -> {
+            this.parser.parse(command, true);
             try {
                 String[] lineArr = command.trim().split(" ");
                 String description;
@@ -105,7 +104,7 @@ public class TaskList {
                     addEvent(description, true);
                     break;
                 default:
-                    System.out.println("An error occured while loading the save file");
+                    this.ui.printBlock("An error occured while loading the save file");
                     break;
                 }
             } catch (InvalidDeadlineException error) {
