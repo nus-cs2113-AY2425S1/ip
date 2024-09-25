@@ -60,7 +60,7 @@ deadline Submit assignment /by 25/09/2024
 
 - **Event**:
 ```
-event Team meeting /from 25/09/2024T14:00 /to 25/09/2024T16:00
+event Team meeting /from 25/09/2024 1400 /to 25/09/2024 1600
 ```
 
 - **Delete Task**:
@@ -86,7 +86,7 @@ bye
 - Make sure the program has write permissions to the folder where `ip.jar` is located. The tasks are stored in `tasklist.txt` in the same folder.
 
 - **Q: Why is the date format not being recognized?**
-- Ensure the date is in the format `dd/MM/yyyy`, and if specifying time, include the time in `HH:mm` format, like `25/09/2024T18:00`.
+- Ensure the date is in the format `dd/MM/yyyy`, and if specifying time, include the time in `HH:mm` format, like `25/09/2024 1800`.
 
 - **Q: What if I make a mistake while adding a task?**
 - You can always delete a task by its number using the `delete` command or unmark it if marked by mistake.
