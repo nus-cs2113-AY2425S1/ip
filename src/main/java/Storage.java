@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 public class Storage {
     private ArrayList<String> commandArray = new ArrayList<String>();
+    private String saveFilePath;
 
     public void clearPreviousSave(File saveFile) {
         try {
@@ -21,9 +22,9 @@ public class Storage {
         }
     }
 
-    public void loadSave(String saveFilePath) {
+    public void loadSave() {
         try {
-            File saveFile = new File(saveFilePath);
+            File saveFile = new File(this.saveFilePath);
             Scanner fileScanner = new Scanner(saveFile);
             while (fileScanner.hasNext()) {
                 String command = fileScanner.nextLine();
@@ -32,16 +33,16 @@ public class Storage {
             fileScanner.close();
         } catch (FileNotFoundException fileExceptionError) {
             try {
-                Files.createFile(Paths.get(saveFilePath));
+                Files.createFile(Paths.get(this.saveFilePath));
             } catch (IOException ioExceptionError) {
                 System.out.println(ioExceptionError);
             }
         }
     }
 
-    public void createSave(TaskList taskList, String saveFilePath) {
+    public void createSave(TaskList taskList) {
         try {
-            File saveFile = new File(saveFilePath);
+            File saveFile = new File(this.saveFilePath);
             FileWriter saveFileWriter = new FileWriter(saveFile, true);
 
             clearPreviousSave(saveFile);
@@ -73,6 +74,10 @@ public class Storage {
 
     public ArrayList<String> getCommandArray() {
         return this.commandArray;
+    }
+
+    public Storage(String saveFilePath) {
+        this.saveFilePath = saveFilePath;
     }
 
     public Storage() {

@@ -25,64 +25,30 @@ public class V {
 
     public static void main(String[] args) {
         
-        Storage storage = new Storage();
-        storage.loadSave(SAVE_FILE_PATH);
+        Storage storage = new Storage(SAVE_FILE_PATH);
+        storage.loadSave();
         TaskList taskList = new TaskList(storage);
+        Parser parser = new Parser(storage, taskList);
 
         boolean isOnline = true;
-        
-        String description;
-        String line;
-        String[] lineArr;
-        int position;
+
         Scanner input = new Scanner(System.in);
+        String command;
 
         greet();
         
         while (isOnline) {
             try {
-                line = input.nextLine();
-                lineArr = line.trim().split(" ");
-                switch (lineArr[0].toLowerCase()) {
-                case "bye":
-                    input.close();
-                    isOnline = false;
-                    storage.createSave(taskList, SAVE_FILE_PATH);
-                    // taskList.saveTasks(SAVE_FILE_PATH);
-                    break;
-                case "list":
-                    taskList.displayList();
-                    break;
-                case "mark":
-                    position = Integer.parseInt(lineArr[1]);
-                    taskList.markTask(position, false);
-                    break;
-                case "delete":
-                    position = Integer.parseInt(lineArr[1]);
-                    taskList.deleteTask(position);
-                    break;
-                case "todo":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addToDo(description, false);
-                    break;
-                case "deadline":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addDeadline(description, false);
-                    break;
-                case "event":
-                    description = String.join(" ", Arrays.copyOfRange(lineArr, 1, lineArr.length));
-                    taskList.addEvent(description, false);
-                    break;
-                default:
-                    System.out.println("Try again");
-                    break;
-                }
-            } catch (NumberFormatException error) {
-                printBlock("You need to input a valid integer for the task that you want to mark as done");
-            } catch (InvalidDeadlineException error) {
-                printBlock("You did not enter a valid deadline." + 
-                        " Remember to add a \"/by\" before a valid deadline.");
-            }
+                command = input.nextLine();
+                isOnline = parser.parse(command);
+            } 
+            // catch (NumberFormatException error) {
+            //     printBlock("You need to input a valid integer for the task that you want to mark as done");
+            // } 
+            // catch (InvalidDeadlineException error) {
+            //     printBlock("You did not enter a valid deadline." + 
+            //             " Remember to add a \"/by\" before a valid deadline.");
+            // }
         }
         printBlock("See Ya");
     }
