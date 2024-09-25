@@ -72,7 +72,7 @@ public abstract class Command {
      * @throws SaveFileErrorException If an error occurs while saving the task list.
      */
     public void saveTask(Storage storage, TaskList tasks, Ui ui) throws SaveFileErrorException {
-        storage.saveTaskListQuiet(tasks, ui, parser);
+        storage.saveTaskList(tasks, ui, parser, true);
     }
 
     /**
@@ -84,7 +84,7 @@ public abstract class Command {
      * @throws SaveFileErrorException If an error occurs while saving the task list.
      */
     public void saveTaskList(Storage storage, TaskList tasks, Ui ui) throws SaveFileErrorException {
-        storage.saveTaskList(tasks, ui, parser);
+        storage.saveTaskList(tasks, ui, parser, false);
     }
 
     /**

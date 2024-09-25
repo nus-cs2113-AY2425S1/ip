@@ -63,14 +63,16 @@ public class Storage {
     }
 
     /**
-     * Saves tasks from the provided TaskList into the save file, without printing success message.
+     * Saves tasks from the provided TaskList into the save file.
+     * If {@code isQuiet} is false, a success message is printed after saving.
      *
-     * @param tasks  The TaskList containing tasks to be saved.
-     * @param ui     The Ui instance to handle user interface display.
-     * @param parser The Parser instance to interpret the commands.
+     * @param tasks   The TaskList containing tasks to be saved.
+     * @param ui      The Ui instance to handle user interface display.
+     * @param parser  The Parser instance to interpret the commands.
+     * @param isQuiet If true, the method suppresses the success message; otherwise, it prints the message.
      * @throws SaveFileErrorException if the file cannot be written or an error occurs during saving.
      */
-    public void saveTaskListQuiet(TaskList tasks, Ui ui, Parser parser) throws SaveFileErrorException {
+    public void saveTaskList(TaskList tasks, Ui ui, Parser parser, boolean isQuiet) throws SaveFileErrorException {
         try {
             // Create data directory if it does not exist
             Files.createDirectories(DATA_DIRECTORY);
@@ -82,33 +84,11 @@ public class Storage {
                 saveWriter.write(System.lineSeparator());
             }
             saveWriter.close();
-            // ui.printSaveTaskListSuccessMessage();
-        } catch (IOException e) {
-            throw new SaveFileErrorException();
-        }
-    }
 
-    /**
-     * Saves tasks from the provided TaskList into the save file and prints a success message.
-     *
-     * @param tasks  The TaskList containing tasks to be saved.
-     * @param ui     The Ui instance to handle user interface display.
-     * @param parser The Parser instance to interpret the commands.
-     * @throws SaveFileErrorException if the file cannot be written or an error occurs during saving.
-     */
-    public void saveTaskList(TaskList tasks, Ui ui, Parser parser) throws SaveFileErrorException {
-        try {
-            // Create data directory if it does not exist
-            Files.createDirectories(DATA_DIRECTORY);
-            FileWriter saveWriter = new FileWriter(FILE_PATH);
-            for (Task task : tasks.getTasks()) {
-                saveWriter.write(task.getTaskAsCommand());
-                saveWriter.write(TASK_STATUS_DELIMITER);
-                writeTaskStatus(task, saveWriter);
-                saveWriter.write(System.lineSeparator());
+            // Print success message if isQuiet is false
+            if (!isQuiet) {
+                ui.printSaveTaskListSuccessMessage();
             }
-            saveWriter.close();
-            ui.printSaveTaskListSuccessMessage();
         } catch (IOException e) {
             throw new SaveFileErrorException();
         }

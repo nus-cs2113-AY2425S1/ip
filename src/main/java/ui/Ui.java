@@ -15,6 +15,7 @@ import static constants.Message.GREETING_MESSAGE;
 import static constants.Message.LINE_MESSAGE;
 import static constants.Message.LOGO;
 import static constants.Message.MARKED_MESSAGE;
+import static constants.Message.NO_PENDING_TASKS_MESSAGE;
 import static constants.Message.NO_TASK_OF_INTEREST_MESSAGE;
 import static constants.Message.SAVE_TASK_LIST_SUCCESS_MESSAGE;
 import static constants.Message.SAYONARA_MESSAGE;
@@ -104,10 +105,15 @@ public class Ui {
      * @param tasks The task list to display.
      */
     public void listTasks(TaskList tasks) {
+        if (tasks.getTaskCount() == 0) {
+            printAllDoneMessage();
+            return;
+        }
+
         printLine();
         System.out.println(EXISTING_TASKS_MESSAGE);
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
+            System.out.printf("\t%d. %s\n", i + 1, tasks.getTask(i));
         }
         printLine();
     }
@@ -121,7 +127,7 @@ public class Ui {
         printLine();
         int currentTask = 0;
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            Task task = tasks.retrieveTask(i);
+            Task task = tasks.getTask(i);
             if (isDeadlineOfInterest(dateOfInterest, task) || isEventOfInterest(dateOfInterest, task)) {
                 if (currentTask == 0) {
                     System.out.println(TASKS_OF_INTEREST_MESSAGE);
@@ -144,7 +150,7 @@ public class Ui {
         printLine();
         System.out.println(TASKS_OF_INTEREST_MESSAGE);
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.retrieveTask(i));
+            System.out.printf("\t%d. %s\n", i + 1, tasks.getTask(i));
         }
         printLine();
     }
@@ -177,7 +183,7 @@ public class Ui {
      */
     public void printUnmarked(TaskList tasks, int index) {
         System.out.println(UNMARKED_MESSAGE);
-        System.out.printf("\t\t%s\n", tasks.retrieveTask(index));
+        System.out.printf("\t\t%s\n", tasks.getTask(index));
     }
 
     /**
@@ -187,7 +193,7 @@ public class Ui {
      */
     public void printMarked(TaskList tasks, int index) {
         System.out.println(MARKED_MESSAGE);
-        System.out.printf("\t\t%s\n", tasks.retrieveTask(index));
+        System.out.printf("\t\t%s\n", tasks.getTask(index));
     }
 
     /**
@@ -232,5 +238,11 @@ public class Ui {
      */
     public void displayErrorMessage(String errorMessage) {
         System.out.print(errorMessage);
+    }
+
+    public void printAllDoneMessage() {
+        printLine();
+        System.out.println(NO_PENDING_TASKS_MESSAGE);
+        printLine();
     }
 }

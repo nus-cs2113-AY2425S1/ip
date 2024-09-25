@@ -61,11 +61,9 @@ public abstract class Task {
      * @return The done marker as a string.
      */
     public String getDoneMarker() {
-        if (isDone) {
-            return "[x]";
-        }
+        // Recommended by TA to use a ternary operator
 
-        return "[ ]";
+        return (isDone) ? "[x]" : "[ ]";
     }
 
     /**

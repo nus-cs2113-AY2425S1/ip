@@ -48,6 +48,9 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(taskIndex) - 1;
             tasks.updateTask(toMark, index);
             ui.printMarkUpdate(tasks, toMark, index);
+            if (tasks.allDone()) {
+                ui.printAllDoneMessage();
+            }
             saveTask(storage, tasks, ui);
         } catch (NumberFormatException e) {
             throw new InvalidIndexException();

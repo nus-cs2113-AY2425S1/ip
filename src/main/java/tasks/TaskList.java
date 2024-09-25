@@ -22,7 +22,7 @@ public class TaskList {
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
-    public Task retrieveTask(int index) {
+    public Task getTask(int index) {
         return tasks.get(index);
     }
 
@@ -51,7 +51,7 @@ public class TaskList {
      * @param index  The index of the task to update.
      */
     public void updateTask(boolean isDone, int index) {
-        retrieveTask(index).setDone(isDone);
+        getTask(index).setDone(isDone);
     }
 
     /**
@@ -70,5 +70,20 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Checks if all tasks in the TaskList are marked as done.
+     *
+     * @return true if all tasks are done, false otherwise.
+     */
+    public boolean allDone() {
+        for (Task task : tasks) {
+            if (!task.isDone()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

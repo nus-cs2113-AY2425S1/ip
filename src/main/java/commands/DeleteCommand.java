@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         try {
             userInput = parser.removeDeletePrefix(userInput);
             int index = Integer.parseInt(userInput) - 1;
-            Task task = tasks.retrieveTask(index);
+            Task task = tasks.getTask(index);
             tasks.deleteTask(index);
             saveTask(storage, tasks, ui);
             ui.printDeleteTaskSuccessMessage(task, tasks);

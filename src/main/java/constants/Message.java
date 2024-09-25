@@ -52,4 +52,7 @@ public class Message {
     /** Message displayed when no tasks match the date of interest. */
     public static final String NO_TASK_OF_INTEREST_MESSAGE = "\tI can't seem to find any tasks that " +
             "match your date of interest!";
+
+    /** Message displayed when task list is empty or if all tasks are complete. */
+    public static final String NO_PENDING_TASKS_MESSAGE = "\tSugoi! You're all caught up it seems! Go enjoy your freedom~";
 }
