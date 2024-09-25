@@ -1,2 +1,2 @@
-T | 1 | gym
+E | 1 | gym | 3pm | 9pm
 T | 0 | work
