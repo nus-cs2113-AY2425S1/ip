@@ -26,6 +26,9 @@ public class Parser {
         case "delete":
             TaskManager.deleteTask(argument);
             break;
+        case "find":
+            TaskManager.findTask(argument);
+            break;
         case "list":
             TaskManager.printTaskList();
             break;

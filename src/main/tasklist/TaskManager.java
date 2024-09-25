@@ -289,4 +289,42 @@ public class TaskManager {
         }
         UI.printResponse(result.toString());;
     }
+
+    /**
+     * Searches for tasks that match the given search term and prints the results.
+     *
+     * @param arguments The search term used to find matching tasks.
+     */
+    public static void findTask(String arguments) {
+        if (arguments == null || arguments.trim().isEmpty()) {
+            UI.printResponse("Please provide a search term.");
+            return;
+        }
+
+        StringBuilder result = new StringBuilder("Found these tasks! :>\n");
+        String[] words = arguments.split(" ");
+        boolean found = false;
+        
+        for (int i = 0; i < tasks.size(); i++) {
+            for (String word : words) {
+                word = word.trim();
+                if (tasks.get(i).toString().toLowerCase().contains(word.toLowerCase())) {
+                    result.append(found ? "\n" : "").append((i + 1) + ". ")
+                            .append(tasks.get(i));  // Add matching task to the result
+                    found = true;
+                    break; // Found a match, exit loop to look for other matches
+                }
+            }
+            
+        }
+
+        if (!found) {
+            UI.printResponse("No tasks found matching: " + 
+                String.join(" ", words).trim() + " :<");
+            return;
+        }
+        
+    
+        UI.printResponse(result.toString());
+    }
 }
