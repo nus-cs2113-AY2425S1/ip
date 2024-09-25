@@ -10,6 +10,12 @@ import exceptions.IllegalTaskException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Cy {
 
     public static final String HORIZONTAL_LINE = "______________________________________";
@@ -30,6 +36,8 @@ public class Cy {
     public static final String VALID_DESCRIPTION_WARNING = "Please enter a valid description.";
     public static final String VALID_DEADLINE_KEYWORD_WARNING = "Please enter the by keyword";
     public static final String VALID_EVENT_KEYWORD_WARNING = "Input must contain both 'from' and 'to' keywords.";
+    public static final String FILE_PATH = "src/main/java/data/cy.txt";
+    public static final String VALID_TASK_TYPE_WARNING = "Please enter a valid task type.";
 
 
     public static ArrayList<Task> items = new ArrayList<>();
@@ -113,6 +121,7 @@ public class Cy {
 
         printTodoMessage(count, task);
 
+        saveNewData(input, TODO);
         return count + 1;
     }
 
@@ -138,8 +147,10 @@ public class Cy {
         String deadline = createDeadlineString(description);
         items.add(new Deadline(deadline));
 
+        System.out.println(deadline);
         printDeadlineMessage(count, deadline);
 
+        saveNewData(input, DEADLINE);
         return count + 1;
     }
 
@@ -171,9 +182,9 @@ public class Cy {
 
         String event = createEventString(input);
         items.add(new Event(event));
-
         printEventMessage(count, event);
 
+        saveNewData(input, EVENT);
         return count + 1;
     }
 
@@ -189,6 +200,7 @@ public class Cy {
         String start = splitInputs[1];
         String end = splitInputs[2];
         String event = splitInputs[0] + "(from:" + start + "to:" + end + ")";
+
         return event;
     }
 
@@ -222,6 +234,7 @@ public class Cy {
     public static void printWelcomeMessage() {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
+        System.out.println("But first, let me load your previous submissions!");
     }
 
     public static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException,IllegalTaskException,IllegalKeywordException {
@@ -245,8 +258,67 @@ public class Cy {
         return count;
     }
 
+    private static void printFileContents() throws FileNotFoundException {
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void loadExistingData(){
+        try {
+            printFileContents();
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry, file is not found");
+        }
+    }
+
+    private static void saveNewData(String input, String taskType) {
+
+        String textToAppend = getString(input, taskType);
+
+        try {
+            appendToFile(textToAppend);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
+        fw.write(System.lineSeparator() + textToAppend);
+        fw.close();
+    }
+
+
+    private static String getString(String input, String taskType) {
+        String textToAppend = "";
+        switch (taskType) {
+            case TODO:
+                textToAppend = "T | 0 | " + input;
+                break;
+            case DEADLINE:
+                String[] splitDeadlineSubstring = input.split("by");
+                textToAppend = "D | 0 | " + splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
+                break;
+            case EVENT:
+                String[] splitEventSubstring = input.split("from|to");
+                String start = splitEventSubstring[1];
+                String end = splitEventSubstring[2];
+                textToAppend = "E | 0 | " + splitEventSubstring[0] + " | " + start + "-" + end;
+                break;
+            default:
+                System.out.println(VALID_TASK_TYPE_WARNING);
+        }
+        return textToAppend;
+    }
+
+
     public static void main(String[] args) throws IllegalCommandException, IllegalEmptyException, IllegalTaskException, IllegalKeywordException {
         printWelcomeMessage();
+
+        loadExistingData();
 
         int count = 0;
         Scanner scan = new Scanner(System.in);
@@ -259,6 +331,6 @@ public class Cy {
             input = scan.nextLine();
         }
 
-        printWelcomeMessage();
+        printEndingMessage();
     }
 }
