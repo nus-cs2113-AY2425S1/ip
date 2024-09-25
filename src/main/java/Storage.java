@@ -42,10 +42,10 @@ public class Storage {
     public void createSave(TaskList taskList, String saveFilePath) {
         try {
             File saveFile = new File(saveFilePath);
+            FileWriter saveFileWriter = new FileWriter(saveFile, true);
 
             clearPreviousSave(saveFile);
-
-            FileWriter saveFileWriter = new FileWriter(saveFile, true);
+            
             ArrayList<Task> list = taskList.getList();
             for (Task task: list) {
                 switch(task.getType()) {
