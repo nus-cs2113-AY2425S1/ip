@@ -9,7 +9,8 @@ public enum Command {
     DELETE,
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT,
+    BYE;
 
     public static Command fromString(String command) throws IllegalCommandException {
         try {
@@ -30,5 +31,9 @@ public enum Command {
         default:
             throw new IllegalCommandException("Corrupted storage :(");
         }
+    }
+
+    public boolean isExit() {
+        return this == BYE;
     }
 }

@@ -9,11 +9,10 @@ import jeremy.task.Deadline;
 import jeremy.task.Event;
 import jeremy.task.Todo;
 
+import jeremy.util.Parser;
 import jeremy.util.Storage;
 import jeremy.util.Ui;
 import jeremy.util.TaskList;
-
-import java.util.Scanner;
 
 public class Jeremy {
     private final Storage storage;
@@ -31,18 +30,16 @@ public class Jeremy {
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
         ui.greeting();
         ui.logo();
+        boolean isExit = false;
 
-        String userInput = scanner.nextLine();
-        while (!userInput.equals("bye")) {
-            String[] parts = userInput.split(" ", 2);
-            String commandStr = parts[0];
-            String argument = parts.length > 1 ? parts[1] : "";
+        while (!isExit) {
+            String userInput = ui.readCommand();
 
             try {
-                Command command = Command.fromString(commandStr);
+                Command command = Parser.command(userInput);
+                String argument = Parser.argument(userInput);
 
                 switch (command) {
                 case LIST:
@@ -72,13 +69,13 @@ public class Jeremy {
                     ui.println("How did you get here?");
                     break;
                 }
+
+                isExit = command.isExit();
             } catch (JeremyException e) {
                 ui.lineBreak();
                 ui.println(e.getMessage());
                 ui.lineBreak();
             }
-
-            userInput = scanner.nextLine();
         }
 
         storage.save(tasks);

@@ -1,10 +1,10 @@
 package jeremy.util;
 
+import java.util.Scanner;
+
 public class Ui {
     private static final String LINE_BREAK = "_".repeat(40);
-
     private static final String NAME = "Jeremy";
-
     private static final String LOGO = """
                                                    \s
                             .-++++++-.             \s
@@ -27,6 +27,16 @@ public class Ui {
                         ....------------...        \s
                                                    \s
             """;
+
+    private final Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        return this.scanner.nextLine();
+    }
 
     public void print(String string) {
         System.out.print(string);
