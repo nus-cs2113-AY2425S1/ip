@@ -7,7 +7,7 @@ import appal.task.TaskList;
 import appal.ui.Ui;
 
 import static appal.common.Messages.BYE_MESSAGE;
-import static appal.common.utils.COMMAND_BYE;
+import static appal.common.Utils.COMMAND_BYE;
 
 public class ByeCommand extends Command {
     public ByeCommand() {

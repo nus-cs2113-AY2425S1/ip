@@ -3,7 +3,7 @@ package appal.common;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class utils {
+public class Utils {
     // Constants for commands
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
@@ -20,6 +20,14 @@ public class utils {
     public static final int BY_INDEX = 2;
     public static final int FROM_INDEX = 2;
     public static final int TO_INDEX = 3;
+    public static final int MAX_ARGS = 4;
+
+    // Integer constants to access string inputs
+    public static final int TASK_DETAILS_START_INDEX = COMMAND_INDEX + 1;
+
+    // String constants
+    public static final String SPACE = " ";
+    public static final String SLASH = "/";
 
     // Constants for file reading
     public static final String FILE_PATH = "./data/saved_tasks.txt";

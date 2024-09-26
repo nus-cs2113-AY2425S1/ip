@@ -1,6 +1,5 @@
 package appal.commands;
 
-import appal.Appal;
 import appal.exception.AppalException;
 import appal.exception.InvalidTaskIndexException;
 import appal.storage.Storage;
@@ -10,7 +9,7 @@ import appal.ui.Ui;
 
 import static appal.common.Messages.TASK_DONE_MESSAGE;
 import static appal.common.Messages.UNMARK_TASK_MESSAGE;
-import static appal.common.utils.*;
+import static appal.common.Utils.*;
 
 public class MarkTaskCommand extends Command {
     private String[] inputDetails;

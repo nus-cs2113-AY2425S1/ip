@@ -1,9 +1,10 @@
 package appal;
 
 import appal.commands.Command;
-import appal.exception.*;
+import appal.exception.AppalException;
+import appal.exception.NoSavedTasksException;
 import appal.parser.Parser;
-import appal.task.*;
+import appal.task.TaskList;
 import appal.ui.Ui;
 import appal.storage.*;
 
@@ -35,7 +36,6 @@ public class Appal {
                 String[] inputDetails = parser.extractInputDetails(line);
                 Command c = parser.extractCommand(inputDetails, true);
                 c.execute(taskList, ui, storage);
-                //handleInput(inputDetails, true);
                 isExit = c.isExit();
             } catch (AppalException e) {
                 ui.printMessage(e.getMessage());

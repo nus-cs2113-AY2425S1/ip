@@ -8,8 +8,8 @@ import appal.task.TaskList;
 import appal.ui.Ui;
 
 import static appal.common.Messages.DELETE_TASK_MESSAGE;
-import static appal.common.utils.COMMAND_MARK;
-import static appal.common.utils.TASK_INDEX;
+import static appal.common.Utils.COMMAND_MARK;
+import static appal.common.Utils.TASK_INDEX;
 
 public class DeleteCommand extends Command {
     private String[] inputDetails;

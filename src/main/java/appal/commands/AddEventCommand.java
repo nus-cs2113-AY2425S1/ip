@@ -8,7 +8,10 @@ import appal.task.Event;
 import appal.task.TaskList;
 import appal.ui.Ui;
 
-import static appal.common.utils.*;
+import static appal.common.Utils.COMMAND_EVENT;
+import static appal.common.Utils.TASK_INDEX;
+import static appal.common.Utils.FROM_INDEX;
+import static appal.common.Utils.TO_INDEX;
 
 public class AddEventCommand extends Command {
     private String[] inputDetails;

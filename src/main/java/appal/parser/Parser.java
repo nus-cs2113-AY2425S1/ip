@@ -3,28 +3,21 @@ package appal.parser;
 import appal.commands.*;
 import appal.exception.AppalException;
 
+import static appal.common.Utils.COMMAND_BYE;
+import static appal.common.Utils.COMMAND_LIST;
+import static appal.common.Utils.COMMAND_TODO;
+import static appal.common.Utils.COMMAND_DEADLINE;
+import static appal.common.Utils.COMMAND_EVENT;
+import static appal.common.Utils.COMMAND_MARK;
+import static appal.common.Utils.COMMAND_UNMARK;
+import static appal.common.Utils.COMMAND_DELETE;
+import static appal.common.Utils.COMMAND_INDEX;
+import static appal.common.Utils.TASK_DETAILS_START_INDEX;
+import static appal.common.Utils.MAX_ARGS;
+import static appal.common.Utils.SPACE;
+import static appal.common.Utils.SLASH;
+
 public class Parser {
-    // Constants for commands
-    public static final String COMMAND_BYE = "bye";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_TODO = "todo";
-    public static final String COMMAND_DEADLINE = "deadline";
-    public static final String COMMAND_EVENT = "event";
-    public static final String COMMAND_MARK = "mark";
-    public static final String COMMAND_UNMARK = "unmark";
-    public static final String COMMAND_DELETE = "delete";
-    public static final int COMMAND_INDEX = 0;
-
-    // Integer constants to access string inputs
-    public static final int TASK_DETAILS_START_INDEX = COMMAND_INDEX + 1;
-
-    // Defines the max inputs needed for a new task
-    public static final int MAX_ARGS = 4;
-
-    // String constants
-    public static final String SPACE = " ";
-    public static final String SLASH = "/";
-
     public Command extractCommand(String[] inputDetails, boolean fromUserInput) throws AppalException {
         String commandType = inputDetails[COMMAND_INDEX];
         switch (commandType) {

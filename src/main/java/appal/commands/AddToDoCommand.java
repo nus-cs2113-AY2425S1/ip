@@ -7,8 +7,8 @@ import appal.task.TaskList;
 import appal.task.ToDo;
 import appal.ui.Ui;
 
-import static appal.common.utils.COMMAND_TODO;
-import static appal.common.utils.TASK_INDEX;
+import static appal.common.Utils.COMMAND_TODO;
+import static appal.common.Utils.TASK_INDEX;
 
 public class AddToDoCommand extends Command {
     private String[] inputDetails;

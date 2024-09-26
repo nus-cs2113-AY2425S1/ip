@@ -4,7 +4,7 @@ import appal.storage.Storage;
 import appal.task.TaskList;
 import appal.ui.Ui;
 
-import static appal.common.utils.COMMAND_LIST;
+import static appal.common.Utils.COMMAND_LIST;
 
 public class ListCommand extends Command {
     public ListCommand() {

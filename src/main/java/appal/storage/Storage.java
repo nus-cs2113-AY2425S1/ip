@@ -14,24 +14,18 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import static appal.common.Messages.LOAD_SAVED_TASKS_MESSAGE;
+import static appal.common.Utils.COMMA_SEPARATOR;
+import static appal.common.Utils.FILE_DIRECTORY;
+import static appal.common.Utils.FILE_PATH;
+import static appal.common.Utils.LINE_BREAK;
+import static appal.common.Utils.TASK_MARKED_VALUE;
+import static appal.common.Utils.TASK_INDEX;
 
 public class Storage {
-    // Integer constants for specific type of tasks
-    public static final int TASK_INDEX = 1;
-
-    // Constants for file reading
-    public static final String FILE_PATH = "./data/saved_tasks.txt";
-    public static final Path FILE_DIRECTORY = Paths.get("./data");
-    public static final String COMMA_SEPARATOR = ", ";
-    public static final String LINE_BREAK = "\n";
-    public static final String TASK_MARKED_VALUE = "1";
-
     private Parser parser;
 
     public Storage() {
