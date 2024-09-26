@@ -30,16 +30,6 @@ public class Ran {
     private static final String LINE = "\t____________________________________________________________";
     private static String filePath = "./data/ran.txt";
 
-    public static void printAddedTask() { 
-        System.out.println(LINE);
-        System.out.println("\tUnderstood, I have noted down the following task:");
-        System.out.println("\t " +  list.get(listCount - 1));
-        // Conditional operator to pluralize "task" when listCount above 1
-        System.out.println("\tYou currently have " + listCount + 
-                (listCount <= 1 ? " task" : " tasks") + " in your list.");
-        System.out.println(LINE);
-    }
-
     public static void addToDataFile(String input) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(input + System.lineSeparator());
@@ -118,18 +108,15 @@ public class Ran {
         }
         addToDataFile(list.get(listCount).dataFileInput());
         listCount++;
-        printAddedTask();
+        String addedTask = list.get(listCount - 1).toString(); 
+        Ui.printAddedTask(addedTask, listCount);
     }
 
     public static void showList() throws EmptyListException {
         if (listCount == 0) {
             throw new EmptyListException();
         }
-        System.out.println(LINE);
-        for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i));
-        }
-        System.out.println(LINE);
+        Ui.printList(list, listCount);
     }
 
     public static void markTask(String taskNum) throws OutOfListBoundsException, IOException {
@@ -141,10 +128,8 @@ public class Ran {
         list.get(taskNumber).setAsDone();
         String newLine = list.get(taskNumber).dataFileInput();
         modifyDataFile(oldLine, newLine);
-        System.out.println(LINE);
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + list.get(taskNumber));
-        System.out.println(LINE);
+        String markedTask = list.get(taskNumber).toString();
+        Ui.printMarkedTask(markedTask);
     }
 
     public static void unmarkTask(String taskNum) throws OutOfListBoundsException, IOException {
@@ -155,11 +140,9 @@ public class Ran {
         String oldLine = list.get(taskNumber).dataFileInput();
         list.get(taskNumber).setAsUndone();
         String newLine = list.get(taskNumber).dataFileInput();
-        System.out.println(LINE);
         modifyDataFile(oldLine, newLine);
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + list.get(taskNumber));
-        System.out.println(LINE);
+        String unmarkedTask = list.get(taskNumber).toString();
+        Ui.printUnmarkedTask(unmarkedTask);
     }
     
     public static void deleteTask(String taskNum) throws OutOfListBoundsException, IOException {
@@ -167,15 +150,11 @@ public class Ran {
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
-        System.out.println(LINE);
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t  " + list.get(taskNumber));
+        String deletedTask = list.get(taskNumber).toString();
         deleteFromDataFile(list.get(taskNumber).dataFileInput());
         list.remove(taskNumber);
         listCount--;
-        System.out.println("\tYou currently have " + listCount + 
-                (listCount <= 1 ? " task" : " tasks") + " in your list.");
-        System.out.println(LINE);
+        Ui.printDeletedTask(deletedTask, listCount);
     }
 
     // Read user input for command, throw exception for invalid commands
