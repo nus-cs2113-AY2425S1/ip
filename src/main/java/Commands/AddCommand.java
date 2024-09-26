@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             switch (firstWord) {
             case "todo":
@@ -73,6 +73,10 @@ public class AddCommand extends Command {
             throw new AlyException("Missing details lah, try again!");
         }
 
+        if (!isValidDateFormat(taskBy)) {
+            throw new AlyException("Wrong date format lah! Use 'yyyy-mm-dd HHmm' for crying out loud!");
+        }
+
         taskList.addTask(new Deadline(taskDeadline, taskBy));
         ui.addMessage(taskDeadline);
         ui.showTaskSize(taskList.getSize());
@@ -95,6 +99,10 @@ public class AddCommand extends Command {
 
         if (taskEvent.isEmpty() || taskFrom.isEmpty() || taskTo.isEmpty()) {
             throw new AlyException("Missing details lah, try again!");
+        }
+
+        if (!isValidDateFormat(taskFrom) | !isValidDateFormat(taskTo)) {
+            throw new AlyException("Wrong date format lah! Use 'yyyy-mm-dd HHmm' for crying out loud!");
         }
 
         taskList.addTask(new Event(taskEvent, taskFrom, taskTo));

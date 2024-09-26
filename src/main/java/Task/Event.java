@@ -1,14 +1,28 @@
 package Task;
 
+import AlyBot.AlyException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+    protected String formattedStartTime;
+    protected String formattedEndTime;
 
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws AlyException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            formattedStartTime = this.startTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+            formattedEndTime = this.endTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new AlyException("Invalid Date lah bro, can use your brain anot?!");
+        }
     }
 
     @Override
@@ -22,6 +36,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
     }
 }

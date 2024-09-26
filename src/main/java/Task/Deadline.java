@@ -1,12 +1,24 @@
 package Task;
 
+import AlyBot.AlyException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task{
 
-    protected String dueTime;
+    protected LocalDateTime dueTime;
+    protected String formattedDueTime;
 
-    public Deadline(String description, String dueTime) {
+    public Deadline(String description, String dueTime) throws AlyException {
         super(description);
-        this.dueTime = dueTime;
+        try {
+            this.dueTime = LocalDateTime.parse(dueTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            formattedDueTime = this.dueTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new AlyException("Invalid Date lah bro, can use your brain anot?!");
+        }
     }
 
     @Override
@@ -17,6 +29,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueTime + ")";
+        return "[D]" + super.toString() + " (by: " + this.formattedDueTime + ")";
     }
 }
