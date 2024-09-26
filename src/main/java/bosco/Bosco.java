@@ -2,6 +2,7 @@ package bosco;
 
 import bosco.ui.Ui;
 
+import bosco.task.TaskList;
 import bosco.task.Task;
 import bosco.task.Todo;
 import bosco.task.Deadline;
@@ -18,7 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Bosco {
     private static final String FILE_PATH = "./data/bosco.txt";
@@ -34,9 +34,8 @@ public class Bosco {
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
 
-    private static final ArrayList<Task> tasksList = new ArrayList<>();
-
     private static Ui ui;
+    private static TaskList tasks;
 
     private static void loadFileContents(String filePath) throws IOException {
         Path inputPath = createFilePathIfNotExists(filePath);
@@ -66,20 +65,20 @@ public class Bosco {
         String description = stringParts[2];
         switch(taskType) {
         case "T":
-            tasksList.add(new Todo(description, isDone));
+            tasks.addTask(new Todo(description, isDone));
             break;
         case "D":
-            tasksList.add(new Deadline(description, isDone, stringParts[3]));
+            tasks.addTask(new Deadline(description, isDone, stringParts[3]));
             break;
         case "E":
-            tasksList.add(new Event(description, isDone, stringParts[3], stringParts[4]));
+            tasks.addTask(new Event(description, isDone, stringParts[3], stringParts[4]));
             break;
         }
     }
 
     private static void writeToFile(String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        for (Task task: tasksList) {
+        for (Task task: tasks.getAllTasks()) {
             fw.write(getFileInputForTask(task) + System.lineSeparator());
         }
         fw.close();
@@ -138,17 +137,17 @@ public class Bosco {
     }
 
     private static String getTaskCountMessage() {
-        return String.format("Now you have %1$d tasks in the list.", tasksList.size());
+        return String.format("Now you have %1$d tasks in the list.", tasks.getSize());
     }
 
     private static void executeListTasks() {
-        if (tasksList.isEmpty()) {
+        if (tasks.getSize() == 0) {
             ui.printMessages("No tasks in list. You're all caught up!");
             return;
         }
         System.out.println(DIVIDER);
-        for (int i = 0; i < tasksList.size(); i++) {
-            System.out.println(INDENT_START + (i + 1) + "." + tasksList.get(i));
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println(INDENT_START + (i + 1) + "." + tasks.getTaskAtIndex(i));
         }
         System.out.println(DIVIDER);
     }
@@ -167,16 +166,16 @@ public class Bosco {
 
     private static void executeDeleteTask(String commandArgs) {
         Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
-        tasksList.remove(selectedTask);
+        tasks.removeTask(selectedTask);
         ui.printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
     }
 
     private static Task getSelectedTaskFromCommandArgs(String commandArgs) {
         int taskNumber = Integer.parseInt(commandArgs);
-        if (taskNumber < 1 || taskNumber > tasksList.size()) {
+        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
             throw new IndexOutOfBoundsException();
         }
-        return tasksList.get(taskNumber - 1);
+        return tasks.getTaskAtIndex(taskNumber - 1);
     }
 
     private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
@@ -226,7 +225,7 @@ public class Bosco {
     }
 
     private static void addToTasksList(Task newTask) {
-        tasksList.add(newTask);
+        tasks.addTask(newTask);
         ui.printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
     }
 
@@ -242,6 +241,7 @@ public class Bosco {
 
     public static void main(String[] args) {
         ui = new Ui();
+        tasks = new TaskList();
         try {
             loadFileContents(FILE_PATH);
         } catch (IOException e) {
@@ -257,7 +257,7 @@ public class Bosco {
             } catch (NumberFormatException e) {
                 ui.printMessages("Error: invalid index input. Please provide a number!");
             } catch (IndexOutOfBoundsException e) {
-                ui.printMessages("Error: input out of bounds. List has " + tasksList.size() + " tasks.");
+                ui.printMessages("Error: input out of bounds. List has " + tasks.getSize() + " tasks.");
             } catch (EmptyDescriptionException e) {
                 ui.printMessages("Error: task description is empty. Please provide a description!");
             } catch (MissingPrefixException e) {
