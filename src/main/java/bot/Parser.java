@@ -3,7 +3,17 @@ package bot;
 import bot.command.*;
 import bot.TobyBotException;
 
+/**
+ * Parses user input and returns the appropriate command.
+ */
 public class Parser {
+    /**
+     * Parses the user's input command and creates a corresponding Command object.
+     *
+     * @param fullCommand The full command input by the user.
+     * @return A Command object that represents the user's command.
+     * @throws TobyBotException If the command is invalid or unrecognized.
+     */
     public static Command parse(String fullCommand) throws TobyBotException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
