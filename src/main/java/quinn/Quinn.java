@@ -1,6 +1,8 @@
 package quinn;
 
 import quinn.command.Command;
+import quinn.command.CommandType;
+import quinn.command.FindCommand;
 import quinn.exception.QuinnException;
 import quinn.parser.Parser;
 import quinn.task.TaskList;
@@ -19,12 +21,30 @@ public class Quinn {
         ui = new Ui();
         parser = new Parser();
 
+        Command command = null;
+
         try {
             storage = new Storage(folderName, fileName);
             taskList = storage.loadTasksFromFile();
         } catch (QuinnException | IOException e) {
             ui.displayError(e.getMessage());
             taskList = new TaskList();
+        }
+    }
+
+    public void checkAndDisplayFilteredTasks(Command command) {
+        if (taskList.hasFilter()) {
+            String filteredTasksMessage;
+
+            if (taskList.getFilterCommandType() == CommandType.FIND && !(command instanceof FindCommand)) {
+                filteredTasksMessage = ui.tasksWithKeywordMessage(taskList, taskList.getFilterInfo());
+            } else {
+                filteredTasksMessage = "";
+            }
+
+            if (!filteredTasksMessage.isEmpty()) {
+                ui.displayFilteredTasks(filteredTasksMessage);
+            }
         }
     }
 
@@ -36,15 +56,18 @@ public class Quinn {
         ui.displayWelcome();
         boolean isExit = false;
 
+        Command command = null;
+
         while (!isExit) {
             try {
                 String commandLine = ui.readCommand();
-                Command command = parser.parse(commandLine);
+                command = parser.parse(commandLine);
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit();
             } catch (QuinnException | IOException e) {
                 ui.displayError(e.getMessage());
             } finally {
+                checkAndDisplayFilteredTasks(command);
                 ui.displayLine();
             }
         }

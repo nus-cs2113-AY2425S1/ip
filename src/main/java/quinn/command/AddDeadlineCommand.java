@@ -22,6 +22,10 @@ public class AddDeadlineCommand extends AddCommand {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         Task newDeadlineTask = taskList.addDeadlineTask(super.getTaskDescription(), taskDueDateTime);
 
+        // Reset the List of filteredTasks when AddCommand is executed
+        // This will clear the List of filteredTasks
+        taskList.resetFilteredTasks();
+
         String response = ui.taskAddedMessage(newDeadlineTask)
                 + System.lineSeparator() + ui.numOfTasksInListMessage(taskList);
         ui.displayResponse(response);

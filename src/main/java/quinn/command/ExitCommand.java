@@ -15,6 +15,10 @@ public class ExitCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Reset the List of filteredTasks when ExitCommand is executed
+        // This will clear the List of filteredTasks
+        taskList.resetFilteredTasks();
+
         ui.displayExit();
     }
 }
