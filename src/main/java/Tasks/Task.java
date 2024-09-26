@@ -1,4 +1,6 @@
- public class Task {
+package Tasks;
+
+public class Task {
      protected String description;
      protected boolean isDone;
 
