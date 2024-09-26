@@ -1,6 +1,6 @@
 package chattycharlie.task;
 
-import chattycharlie.CommandType;
+import chattycharlie.commands.CommandType;
 
 //Events
 public class Event extends Task {

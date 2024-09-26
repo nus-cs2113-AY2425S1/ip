@@ -1,6 +1,6 @@
 package chattycharlie.task;
 
-import chattycharlie.CommandType;
+import chattycharlie.commands.CommandType;
 
 //todo class
 public class Todo extends Task {

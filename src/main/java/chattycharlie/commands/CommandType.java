@@ -1,4 +1,4 @@
-package chattycharlie;
+package chattycharlie.commands;
 
 public enum CommandType {
     TODO,

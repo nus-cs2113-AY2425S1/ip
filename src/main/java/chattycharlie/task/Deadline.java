@@ -1,6 +1,6 @@
 package chattycharlie.task;
 
-import chattycharlie.CommandType;
+import chattycharlie.commands.CommandType;
 
 //Deadline Class
 public class Deadline extends Task {

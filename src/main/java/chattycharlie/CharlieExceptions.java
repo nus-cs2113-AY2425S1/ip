@@ -1,5 +1,7 @@
 package chattycharlie;
 
+import chattycharlie.commands.CommandType;
+
 public class CharlieExceptions extends Exception{
     public CharlieExceptions(String message){
         super(message);
@@ -22,7 +24,7 @@ public class CharlieExceptions extends Exception{
         return new CharlieExceptions("You forgot to specify which task.");
     }
 
-    public static CharlieExceptions deleteIndexOutOfBound() {
-        return new CharlieExceptions("Did you make a typo, that task does not exist!");
+    public static CharlieExceptions cannotIdentifyCommandType() {
+        return new CharlieExceptions("Cannot identify command type.");
     }
 }

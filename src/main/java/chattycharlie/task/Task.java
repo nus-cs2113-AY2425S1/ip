@@ -1,6 +1,6 @@
 package chattycharlie.task;
 
-import chattycharlie.CommandType;
+import chattycharlie.commands.CommandType;
 
 //TASK CLASS
 public abstract class Task {

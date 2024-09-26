@@ -1,4 +1,4 @@
-package chattycharlie;
+package chattycharlie.userinteractions;
 
 public class StringDesign {
     //this class is for all my Strings and designs
