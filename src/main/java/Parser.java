@@ -50,6 +50,10 @@ public class Parser {
                 {
                     deleteTask(input);
                 }
+                else if (input.startsWith("find"))
+                {
+                    findTasks(input);
+                }
                 else
                 {
                     addGenericTask(input);
@@ -122,5 +126,11 @@ public class Parser {
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask, tasks.getSize());
         storage.saveTasks(tasks);
+    }
+
+    private void findTasks(String input) {
+        String keyword = input.substring(5);
+        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 }
