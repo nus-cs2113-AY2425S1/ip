@@ -75,7 +75,6 @@ public class Yappatron {
             fileManager.writeFile();
         }catch (IOException e){
             System.out.println("Error occured while writing!");
-            e.printStackTrace();
         }
 
         System.out.println("Bye. Hope to see you again soon!");

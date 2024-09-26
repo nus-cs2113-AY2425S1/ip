@@ -25,8 +25,6 @@
          if (isDone()){
              return "[X] " + getDescription();
          }
-         else{
-             return "[] " + getDescription();
-         }
+         return "[] " + getDescription();
      }
  }
