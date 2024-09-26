@@ -1,3 +1,9 @@
+#.vscode Folder
+/.vscode
+
+# Class files
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -14,4 +20,7 @@ src/main/resources/docs/
 bin/
 
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+V.txt
+*.jar
+src/main/java/META-INF/
+# text-ui-test/EXPECTED-UNIX.TXT
