@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.Ui;
+
 import ran.task.Deadline;
 import ran.task.Event;
 import ran.task.Task;
@@ -27,30 +29,6 @@ public class Ran {
     private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "\t____________________________________________________________";
     private static String filePath = "./data/ran.txt";
-
-    public static void greet() {
-        System.out.println(LINE);
-        String logo = "\t     ___           ___           ___\n"
-                + "\t    /\\  \\         /\\  \\         /\\__\\\n"
-                + "\t   /::\\  \\       /::\\  \\       /::|  |\n"
-                + "\t  /:/\\:\\  \\     /:/\\:\\  \\     /:|:|  |\n"
-                + "\t /::\\~\\:\\  \\   /::\\~\\:\\  \\   /:/|:|  |__\n"
-                + "\t/:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\\n"
-                + "\t\\/_|::\\/:/  / \\/__\\:\\/:/  / \\/__|:|/:/  /\n"
-                + "\t   |:|::/  /       \\::/  /      |:/:/  /\n"
-                + "\t   |:|\\/__/        /:/  /       |::/  /\n"
-                + "\t   |:|  |         /:/  /        /:/  /\n"
-                + "\t    \\|__|         \\/__/         \\/__/\n";
-        System.out.println(logo + "\tHello, I'm Ran.");
-        System.out.println("\tHow may I assist you?");
-        System.out.println(LINE);
-    }
-
-    public static void bidFarewell() {
-        System.out.println(LINE);
-        System.out.println("\tFarewell. May we meet again!");
-        System.out.println(LINE);
-    }
 
     public static void printAddedTask() { 
         System.out.println(LINE);
@@ -330,7 +308,7 @@ public class Ran {
     }
 
     public static void main(String[] args) {
-        greet();
+        Ui.greet();
         
         // Check for data file, create directory and data file if necessary
         try {
@@ -358,6 +336,6 @@ public class Ran {
             processInput(input);
         }
 
-        bidFarewell();
+        Ui.bidFarewell();
     }
 }
