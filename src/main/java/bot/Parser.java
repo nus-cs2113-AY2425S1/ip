@@ -1,6 +1,7 @@
 package bot;
 
 import bot.command.*;
+import bot.TobyBotException;
 
 public class Parser {
     public static Command parse(String fullCommand) throws TobyBotException {
@@ -24,6 +25,8 @@ public class Parser {
                 return new AddCommand("event", parts[1]);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(parts[1]));
+            case "find":
+                return new FindCommand(parts[1]);
             default:
                 throw new TobyBotException("Unknown command");
         }
