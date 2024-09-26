@@ -45,6 +45,17 @@ public class TaskList {
         return new ArrayList<>(tasks);  // Returns a copy of the tasks list
     }
 
+    // Returns a ArrayList base on tasks with matching keyword
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
 
 
 }

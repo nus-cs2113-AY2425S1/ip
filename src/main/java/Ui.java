@@ -39,7 +39,7 @@ public class Ui {
         showLine();
         System.out.println("Here is your list of nonsense, now get out of my swamp:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.getTask(i));  // Utilizes Task's toString() method
+            System.out.println("     " + (i + 1) + "." + tasks.getTask(i));  // Uses Task's toString() method
         }
         showLine();
     }
@@ -65,8 +65,23 @@ public class Ui {
         showLine();
     }
 
-    public void showError(String message) {
-        System.out.println(message);
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty())
+        {
+            showLine();
+            System.out.println("No such tasks in my swamp!");
+            showLine();
+        }
+        else
+        {
+            showLine();
+            System.out.println("Here's what i dug out from my swamp.");
+            for (int i = 0; i < tasks.size(); i++)
+            {
+                System.out.println("     " + (i + 1) + "." + tasks.get(i));
+            }
+            showLine();
+        }
     }
 
     public void showFormatError() {
