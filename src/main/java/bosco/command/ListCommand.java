@@ -1,7 +1,6 @@
 package bosco.command;
 
-import static bosco.ui.Ui.DIVIDER;
-import static bosco.ui.Ui.INDENT_START;
+import bosco.ui.Ui;
 
 public class ListCommand extends Command {
     @Override
@@ -10,10 +9,10 @@ public class ListCommand extends Command {
             ui.printMessages("No tasks in list. You're all caught up!");
             return;
         }
-        System.out.println(DIVIDER);
+        System.out.println(Ui.DIVIDER);
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println(INDENT_START + (i + 1) + "." + tasks.getTaskAtIndex(i));
+            System.out.println(Ui.INDENT_START + (i + 1) + "." + tasks.getTaskAtIndex(i));
         }
-        System.out.println(DIVIDER);
+        System.out.println(Ui.DIVIDER);
     }
 }
