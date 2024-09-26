@@ -52,6 +52,12 @@ public class Ui {
         System.out.println("\t" + "('-')? " + message);
     }
 
+    public void displayFilteredTasks(String message) {
+        displayLine();
+        System.out.println("[FILTERED TASKS]" + System.lineSeparator());
+        System.out.println(message);
+    }
+
     public void displayLine() {
         String horizontalLine = "____________________________________________________________";
         System.out.println(horizontalLine);
@@ -87,6 +93,19 @@ public class Ui {
         return "\t" + "Here"
                 + (taskList.getNumOfTasks() > 1 ? " are the tasks  " : " is the task ")
                 + "in your list:"
+                + System.lineSeparator()
+                + "\t" + "[Legend: T = todo, D = deadline, E = event]"
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + taskList;
+    }
+
+    public String tasksWithKeywordMessage(TaskList taskList, String keyword) {
+        return "\t" + "Here"
+                + (taskList.getNumOfFilteredTasks() > 1 ? " are the matching tasks " : " is the matching task ")
+                + "in your list:"
+                + System.lineSeparator()
+                + "\t" + "[Keyword Search: " + keyword + "]"
                 + System.lineSeparator()
                 + "\t" + "[Legend: T = todo, D = deadline, E = event]"
                 + System.lineSeparator()

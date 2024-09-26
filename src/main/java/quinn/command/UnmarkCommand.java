@@ -22,13 +22,27 @@ public class UnmarkCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws QuinnException, IOException {
+        Task taskNotDone = !taskList.hasFilter()
+                ? markTaskNotDoneBasedOnAllTasks(taskList)
+                : markTaskNotDoneBasedOnFilteredTasks(taskList);
+
+        String response = ui.taskNotDoneMessage(taskNotDone);
+        ui.displayResponse(response);
+
+        storage.saveTasksToFile(taskList);
+    }
+
+    public Task markTaskNotDoneBasedOnAllTasks(TaskList taskList) throws QuinnException {
         if (taskNum > 0 && taskNum <= taskList.getNumOfTasks()) {
-            Task taskNotDone = taskList.markNotDone(taskNum);
+            return taskList.markNotDone(taskNum);
+        } else {
+            throw new QuinnException("Task not found. Please try again!");
+        }
+    }
 
-            String response = ui.taskNotDoneMessage(taskNotDone);
-            ui.displayResponse(response);
-
-            storage.saveTasksToFile(taskList);
+    public Task markTaskNotDoneBasedOnFilteredTasks(TaskList taskList) throws QuinnException {
+        if (taskNum > 0 && taskNum <= taskList.getNumOfFilteredTasks()) {
+            return taskList.markNotDone(taskNum);
         } else {
             throw new QuinnException("Task not found. Please try again!");
         }

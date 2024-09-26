@@ -7,6 +7,7 @@ import quinn.command.Command;
 import quinn.command.CommandType;
 import quinn.command.DeleteCommand;
 import quinn.command.ExitCommand;
+import quinn.command.FindCommand;
 import quinn.command.ListCommand;
 import quinn.command.MarkCommand;
 import quinn.command.UnmarkCommand;
@@ -61,6 +62,7 @@ public class Parser {
         int taskNum;
         String taskDescription;
         String taskInfo;
+        String keyword;
 
         // Enhanced 'switch' (https://dev.to/nikhilxd/exploring-enhanced-switch-in-java-44fh)
         command = switch (commandType) {
@@ -89,6 +91,10 @@ public class Parser {
             case EVENT -> {
                 taskInfo = processTaskInfoFromEventCommand(commandInfo);
                 yield new AddEventCommand(taskInfo);
+            }
+            case FIND -> {
+                keyword = getKeywordFromFindCommand(commandInfo);
+                yield new FindCommand(keyword);
             }
         };
 
@@ -219,6 +225,14 @@ public class Parser {
             }
 
             return commandInfo;
+        }
+    }
+
+    private String getKeywordFromFindCommand(String commandInfo) throws QuinnException {
+        if (isCommandInfoPresent(commandInfo)) {
+            return commandInfo;
+        } else {
+            throw new QuinnException("Please enter the keyword to search for matching tasks!");
         }
     }
 }

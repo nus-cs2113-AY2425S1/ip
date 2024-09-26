@@ -22,15 +22,35 @@ public class DeleteCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws QuinnException, IOException {
+        Task taskDeleted = !taskList.hasFilter()
+                ? deleteTaskBasedOnAllTasks(taskList)
+                : deleteTaskBasedOnFilteredTasks(taskList);
+
+        if (taskList.getNumOfFilteredTasks() == 0) {
+            // Reset the List of filteredTasks when the List is empty
+            // This will clear the List of filteredTasks
+            taskList.resetFilteredTasks();
+        }
+
+        String response = ui.taskDeletedMessage(taskDeleted)
+                + System.lineSeparator()
+                + ui.numOfTasksInListMessage(taskList);
+        ui.displayResponse(response);
+
+        storage.saveTasksToFile(taskList);
+    }
+
+    public Task deleteTaskBasedOnAllTasks(TaskList taskList) throws QuinnException {
         if (taskNum > 0 && taskNum <= taskList.getNumOfTasks()) {
-            Task taskDeleted = taskList.deleteTask(taskNum);
+            return taskList.deleteTask(taskNum);
+        } else {
+            throw new QuinnException("Task not found. Please try again!");
+        }
+    }
 
-            String response = ui.taskDeletedMessage(taskDeleted)
-                    + System.lineSeparator()
-                    + ui.numOfTasksInListMessage(taskList);
-            ui.displayResponse(response);
-
-            storage.saveTasksToFile(taskList);
+    public Task deleteTaskBasedOnFilteredTasks(TaskList taskList) throws QuinnException {
+        if (taskNum > 0 && taskNum <= taskList.getNumOfFilteredTasks()) {
+            return taskList.deleteTask(taskNum);
         } else {
             throw new QuinnException("Task not found. Please try again!");
         }

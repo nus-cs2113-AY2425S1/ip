@@ -32,6 +32,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean hasKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return "[" + type.getAbbreviation() + "] " + getStatusIcon() + " " + description;

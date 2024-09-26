@@ -17,6 +17,10 @@ public class ListCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws QuinnException {
         if (taskList.getNumOfTasks() != 0) {
+            // Reset the List of filteredTasks when ListCommand is executed
+            // This will clear the List of filteredTasks
+            taskList.resetFilteredTasks();
+
             String response = ui.tasksInListMessage(taskList);
             ui.displayResponse(response);
         } else {
