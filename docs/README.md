@@ -1,7 +1,9 @@
 # V User Guide
 
 V is an application for managing a task list. It is optimized for use via a Command Line Interface (CLI).
+
 V can add 3 different types of tasks i.e a to-do, a deadline or an event
+
 A to-do only has a task description. A deadline has a description and a set deadline. An event has a description, a starting time and an ending time
 
 
@@ -9,15 +11,17 @@ A to-do only has a task description. A deadline has a description and a set dead
 
 1. Ensure you have Java 17 or above installed in your Computer.
 2. Download the latest .jar file from [here](insert link later).
-3. Open a command terminal and use the java -jar `PATH_TO_JAR_FILE` command to run the application.
+3. Open a command terminal and use the `java -jar PATH_TO_JAR_FILE` command to run the application.
 4. Refer to features below for list of commands
 
 
 ## Notes About Command Format
 
 - Words in `SCREAMING_SNAKE_CASE` are parameters that needs to be inputted by the user
-eg. in `todo DESCRIPTION`, DESCRIPTION is a parameter
+
+eg. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter
 - Parameters must be in order
+
 eg. The input from the user must be `event DESCRIPTION /from DATE /to DATE` and **NOT** `event DESCRIPTION /to DATE /from DATE`
 
 
@@ -53,8 +57,8 @@ Format: `deadline DESCRIPTION /by TIME`
 -  The parameter `TIME` is stored as a String, any date and timeformat can be used 
 
 Examples: 
-- `deadline assignment /by 23/5`
 - `deadline report /by 12th November`
+- `deadline assignment /by 23/5`
 
 Expected Output:
 
