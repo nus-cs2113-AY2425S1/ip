@@ -1,13 +1,7 @@
 package Parser;
 
+import Command.*;
 import TaskList.TaskList;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ToDoCommand;
-import Command.DeadlineCommand;
-import Command.EventCommand;
-import Command.DeleteCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,6 +46,8 @@ public class Parser {
             new EventCommand().execute(taskList, userInput);
         } else if (userInput.startsWith("delete")) {
             new DeleteCommand().execute(taskList, userInput);
+        } else if (userInput.startsWith("find")) {
+            new FindCommand().execute(taskList, userInput);
         } else {
             System.out.println(SEPARATOR);
             System.out.println("Invalid input, please try again.");
