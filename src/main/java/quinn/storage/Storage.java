@@ -15,14 +15,35 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Storage class manages the persistence of task data to and from a file.
+ * It handles the initialization of the storage directory and file, as well as
+ * reading from and writing to the storage file.
+ */
 public class Storage {
+    /** The File object representing the data storage file. */
     private final File dataFile;
 
+    /**
+     * Constructs a new Storage object with the specified folder and file name.
+     *
+     * @param folderName the name of the folder to store the data file
+     * @param fileName the name of the data file
+     * @throws QuinnException if unable to initialize the directory
+     * @throws IOException if unable to initialize the file
+     */
     public Storage(String folderName, String fileName) throws QuinnException, IOException {
         File directory = initialiseDirectory(folderName);
         dataFile = initialiseFile(directory, fileName);
     }
 
+    /**
+     * Initializes the directory for data storage.
+     *
+     * @param folderName the name of the folder to be initialized
+     * @return the File object representing the initialized directory
+     * @throws QuinnException if unable to initialize the directory
+     */
     private File initialiseDirectory(String folderName) throws QuinnException {
         File directory = new File(folderName);
         boolean hasDirectory = directory.exists();
@@ -53,6 +74,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the data file and returns them as a TaskList.
+     *
+     * @return a TaskList containing all tasks loaded from the file
+     * @throws QuinnException if an invalid task type is encountered
+     * @throws IOException if an I/O error occurs while reading the file
+     */
     public TaskList loadTasksFromFile() throws QuinnException, IOException {
         TaskList taskList = new TaskList();
 
@@ -91,6 +119,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the given TaskList to the data file.
+     *
+     * @param taskList the TaskList to be saved to the file
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     public void saveTasksToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(dataFile,false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

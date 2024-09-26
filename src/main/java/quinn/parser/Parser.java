@@ -13,7 +13,24 @@ import quinn.command.MarkCommand;
 import quinn.command.UnmarkCommand;
 import quinn.exception.QuinnException;
 
+
+/**
+ * The Parser class is responsible for interpreting user input and converting it into
+ * appropriate Command objects in the Quinn task management application.
+ *
+ * This class handles the parsing of various command types, including task creation,
+ * listing, marking, unmarking, deletion, and searching. It validates user input and
+ * throws QuinnExceptions for invalid or incomplete commands.
+ *
+ */
 public class Parser {
+    /**
+     * Parses a command line input and returns the corresponding Command object.
+     *
+     * @param commandLine the full command line input from the user
+     * @return a Command object representing the parsed command
+     * @throws QuinnException if the command is invalid or incomplete
+     */
     public Command parse(String commandLine) throws QuinnException {
         String[] commandLineParts = commandLine.split("\\s+", 2);
 
@@ -28,6 +45,12 @@ public class Parser {
         return initialiseCommand(commandType, commandInfo);
     }
 
+    /**
+     * Validates the command type against known command types.
+     *
+     * @param commandType the command type string to validate
+     * @return the corresponding CommandType enum value, or null if invalid
+     */
     private CommandType validateCommand(String commandType) {
         for (CommandType c : CommandType.values()) {
             if (c.getLabel().equals(commandType)) {
@@ -38,6 +61,14 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Extracts command information from the command line parts.
+     *
+     * @param commandLineParts the split parts of the command line
+     * @param commandType the type of the command
+     * @return the command information string
+     * @throws QuinnException if the command format is invalid
+     */
     private String getCommandInfo(String[] commandLineParts, CommandType commandType) throws QuinnException {
         String commandInfo;
 
@@ -57,6 +88,14 @@ public class Parser {
         return commandInfo;
     }
 
+    /**
+     * Initializes and returns the appropriate Command object based on the command type and information.
+     *
+     * @param commandType the type of the command
+     * @param commandInfo additional information for the command
+     * @return the initialized Command object
+     * @throws QuinnException if there's an error in command initialization
+     */
     private Command initialiseCommand(CommandType commandType, String commandInfo) throws QuinnException {
         Command command;
         int taskNum;
@@ -101,10 +140,23 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Checks if the command information is present and non-empty.
+     *
+     * @param commandInfo the command information string to check
+     * @return true if command information is present, false otherwise
+     */
     private boolean isCommandInfoPresent(String commandInfo) {
         return !commandInfo.trim().isEmpty();
     }
 
+    /**
+     * Extracts the task number from a mark command.
+     *
+     * @param commandInfo the command information string
+     * @return the task number to be marked
+     * @throws QuinnException if the task number is invalid or missing
+     */
     private int getTaskNumFromMarkCommand(String commandInfo) throws QuinnException {
         if (isCommandInfoPresent(commandInfo)) {
             try {
@@ -117,6 +169,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task number from an unmark command.
+     *
+     * @param commandInfo the command information string
+     * @return the task number to be unmarked
+     * @throws QuinnException if the task number is invalid or missing
+     */
     private int getTaskNumFromUnmarkCommand(String commandInfo) throws QuinnException {
         if (isCommandInfoPresent(commandInfo)) {
             try {
@@ -129,6 +188,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task number from a delete command.
+     *
+     * @param commandInfo the command information string
+     * @return the task number to be deleted
+     * @throws QuinnException if the task number is invalid or missing
+     */
     private int getTaskNumFromDeleteCommand(String commandInfo) throws QuinnException {
         if (isCommandInfoPresent(commandInfo)) {
             try {
@@ -141,6 +207,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task description from a todo command.
+     *
+     * @param commandInfo the command information string
+     * @return the task description
+     * @throws QuinnException if the description is empty
+     */
     private String getTaskDescriptionFromToDoCommand(String commandInfo) throws QuinnException {
         if (isCommandInfoPresent(commandInfo)) {
             return commandInfo;
@@ -149,6 +222,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes and validates the information for a deadline command.
+     *
+     * @param commandInfo the command information string
+     * @return the processed deadline task information
+     * @throws QuinnException if the deadline information is invalid or incomplete
+     */
     private String processTaskInfoFromDeadlineCommand(String commandInfo) throws QuinnException {
         if (!isCommandInfoPresent(commandInfo)) {
             throw new QuinnException("INCOMPLETE COMMAND"
@@ -188,6 +268,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes and validates the information for an event command.
+     *
+     * @param commandInfo the command information string
+     * @return the processed event task information
+     * @throws QuinnException if the event information is invalid or incomplete
+     */
     private String processTaskInfoFromEventCommand(String commandInfo) throws QuinnException {
         if (!isCommandInfoPresent(commandInfo)) {
             throw new QuinnException("INCOMPLETE COMMAND"
@@ -228,6 +315,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the keyword from a find command.
+     *
+     * @param commandInfo the command information string
+     * @return the search keyword
+     * @throws QuinnException if the keyword is missing
+     */
     private String getKeywordFromFindCommand(String commandInfo) throws QuinnException {
         if (isCommandInfoPresent(commandInfo)) {
             return commandInfo;

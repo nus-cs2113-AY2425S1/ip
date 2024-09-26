@@ -8,9 +8,17 @@ import quinn.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand implements Command {
     private final int taskNum;
 
+    /**
+     * Constructs a DeleteCommand with the specified task number.
+     *
+     * @param taskNum the number of the task to be deleted
+     */
     public DeleteCommand(int taskNum) {
         this.taskNum = taskNum;
     }
@@ -40,6 +48,13 @@ public class DeleteCommand implements Command {
         storage.saveTasksToFile(taskList);
     }
 
+    /**
+     * Deletes a task based on all tasks in the list.
+     *
+     * @param taskList the list of all tasks
+     * @return the deleted task
+     * @throws QuinnException if the task number is invalid
+     */
     public Task deleteTaskBasedOnAllTasks(TaskList taskList) throws QuinnException {
         if (taskNum > 0 && taskNum <= taskList.getNumOfTasks()) {
             return taskList.deleteTask(taskNum);
@@ -48,6 +63,13 @@ public class DeleteCommand implements Command {
         }
     }
 
+    /**
+     * Deletes a task based on filtered tasks in the list.
+     *
+     * @param taskList the list of filtered tasks
+     * @return the deleted task
+     * @throws QuinnException if the task number is invalid
+     */
     public Task deleteTaskBasedOnFilteredTasks(TaskList taskList) throws QuinnException {
         if (taskNum > 0 && taskNum <= taskList.getNumOfFilteredTasks()) {
             return taskList.deleteTask(taskNum);
