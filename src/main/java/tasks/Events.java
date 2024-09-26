@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.Task;
-
 public class Events extends Task {
     protected String from;
     public Events (String description, String from){

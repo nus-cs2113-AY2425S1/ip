@@ -6,4 +6,10 @@ public class CustomExceptions {
             super(message);
         }
     }
+
+    public static class InvalidTaskIndexException extends Exception {
+        public InvalidTaskIndexException(String message) {
+            super(message);
+        }
+    }
 }
