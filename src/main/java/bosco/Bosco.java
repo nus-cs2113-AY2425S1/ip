@@ -1,9 +1,12 @@
 package bosco;
 
+import bosco.ui.Ui;
+
 import bosco.task.Task;
 import bosco.task.Todo;
 import bosco.task.Deadline;
 import bosco.task.Event;
+
 import bosco.exception.IllegalCommandException;
 import bosco.exception.EmptyDescriptionException;
 import bosco.exception.MissingPrefixException;
@@ -31,9 +34,9 @@ public class Bosco {
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
 
-    private static final Scanner CLI_SCANNER = new Scanner(System.in);
-
     private static final ArrayList<Task> tasksList = new ArrayList<>();
+
+    private static Ui ui;
 
     private static void loadFileContents(String filePath) throws IOException {
         Path inputPath = createFilePathIfNotExists(filePath);
@@ -94,31 +97,6 @@ public class Bosco {
         }
     }
 
-    private static void printWelcomeMessage() {
-        printMessages("Hello! I'm Bosco APD.", "What can I do for you?");
-    }
-
-    private static void printExitMessage() {
-        printMessages("Bye! Hope to see you again soon!");
-    }
-
-    private static void printMessages(String... messages) {
-        System.out.println(DIVIDER);
-        for (String message : messages) {
-            System.out.println(INDENT_START + message);
-        }
-        System.out.println(DIVIDER);
-    }
-
-    private static String getUserInput() {
-        String userInputString = CLI_SCANNER.nextLine();
-        // Ignore blank lines
-        while (userInputString.trim().isEmpty()) {
-            userInputString = CLI_SCANNER.nextLine();
-        }
-        return userInputString;
-    }
-
     private static void executeCommand(String userInputString)
             throws IllegalCommandException, EmptyDescriptionException, MissingPrefixException {
         String[] commandTypeAndArgs = splitCommandTypeAndArgs(userInputString);
@@ -165,7 +143,7 @@ public class Bosco {
 
     private static void executeListTasks() {
         if (tasksList.isEmpty()) {
-            printMessages("No tasks in list. You're all caught up!");
+            ui.printMessages("No tasks in list. You're all caught up!");
             return;
         }
         System.out.println(DIVIDER);
@@ -178,19 +156,19 @@ public class Bosco {
     private static void executeMarkTask(String commandArgs) {
         Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
         selectedTask.markAsDone();
-        printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
+        ui.printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
     }
 
     private static void executeUnmarkTask(String commandArgs) {
         Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
         selectedTask.markAsNotDone();
-        printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
+        ui.printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
     }
 
     private static void executeDeleteTask(String commandArgs) {
         Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
         tasksList.remove(selectedTask);
-        printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
+        ui.printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
     }
 
     private static Task getSelectedTaskFromCommandArgs(String commandArgs) {
@@ -249,7 +227,7 @@ public class Bosco {
 
     private static void addToTasksList(Task newTask) {
         tasksList.add(newTask);
-        printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
+        ui.printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
     }
 
     private static void executeExitProgram() {
@@ -258,31 +236,32 @@ public class Bosco {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        printExitMessage();
+        ui.printExitMessage();
         System.exit(0);
     }
 
     public static void main(String[] args) {
+        ui = new Ui();
         try {
             loadFileContents(FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        printWelcomeMessage();
+        ui.printWelcomeMessage();
         while (true) {
-            String userInputString = getUserInput();
+            String userInputString = ui.getUserInput();
             try {
                 executeCommand(userInputString);
             } catch (IllegalCommandException e) {
-                printMessages("Error: invalid command. Please try again!");
+                ui.printMessages("Error: invalid command. Please try again!");
             } catch (NumberFormatException e) {
-                printMessages("Error: invalid index input. Please provide a number!");
+                ui.printMessages("Error: invalid index input. Please provide a number!");
             } catch (IndexOutOfBoundsException e) {
-                printMessages("Error: input out of bounds. List has " + tasksList.size() + " tasks.");
+                ui.printMessages("Error: input out of bounds. List has " + tasksList.size() + " tasks.");
             } catch (EmptyDescriptionException e) {
-                printMessages("Error: task description is empty. Please provide a description!");
+                ui.printMessages("Error: task description is empty. Please provide a description!");
             } catch (MissingPrefixException e) {
-                printMessages("Error: missing " + e.missingPrefix + " prefix.");
+                ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
             }
 
             try {
