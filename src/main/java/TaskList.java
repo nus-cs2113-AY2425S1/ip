@@ -92,10 +92,18 @@ public class TaskList {
      * @param description Description of the event with the starting time and ending time
      * @param isFromSaveFile Boolean value on whether the function was called while loading the save file
      */
-    public void addEvent(String description, boolean isFromSaveFile) {
+    public void addEvent(String description, boolean isFromSaveFile) throws InvalidEventException{
         String[] descriptionAndEventTimeline = description.split("/from");
+        if (descriptionAndEventTimeline.length != 2) {
+            throw new InvalidEventException();
+        }
+
         String descriptionText = descriptionAndEventTimeline[0].trim();
         String[] eventTimeline = descriptionAndEventTimeline[1].split("/to");
+        if (eventTimeline.length != 2) {
+            throw new InvalidEventException();
+        }
+        
         String from = eventTimeline[0].trim();
         String to = eventTimeline[1].trim();
         
