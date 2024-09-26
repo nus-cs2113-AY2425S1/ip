@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AirBorder {
+    // Hardcoded file path to save and load tasks
+    private static final String FILE_PATH = "C:\\Users\\anony\\OneDrive\\Documents\\GitHub\\ip\\src\\main\\java\\airborder.txt";
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
-        String filePath = args.length > 0 ? args[0] : "./data/airborder.txt"; // Command-line argument for file path
-        loadTasks(filePath);  // Load tasks from file at startup
+        loadTasks();  // Load tasks from file at startup
         Scanner inputScanner = new Scanner(System.in);
-
         printWelcomeMessage();
 
         while (true) {
@@ -17,7 +17,7 @@ public class AirBorder {
 
             if (userCommand.equalsIgnoreCase("bye")) {
                 printExitMessage();
-                saveTasks(filePath);  // Save tasks before exiting
+                saveTasks();  // Save tasks before exiting
                 break;
             }
 
@@ -27,22 +27,22 @@ public class AirBorder {
                         printTaskList();
                         break;
                     case "todo":
-                        addToDoTask(userCommand.substring(5).trim(), filePath);
+                        addToDoTask(userCommand.substring(5).trim());
                         break;
                     case "deadline":
-                        addDeadlineTask(userCommand, filePath);
+                        addDeadlineTask(userCommand);
                         break;
                     case "event":
-                        addEventTask(userCommand, filePath);
+                        addEventTask(userCommand);
                         break;
                     case "delete":
-                        deleteTask(userCommand, filePath);
+                        deleteTask(userCommand);
                         break;
                     case "mark":
-                        markTaskAsDone(userCommand, filePath);
+                        markTaskAsDone(userCommand);
                         break;
                     case "unmark":
-                        unmarkTask(userCommand, filePath);
+                        unmarkTask(userCommand);
                         break;
                     default:
                         throw new InvalidCommandException();
@@ -55,83 +55,31 @@ public class AirBorder {
         inputScanner.close();
     }
 
-    // Task management methods with added file path parameter
-    private static void addToDoTask(String description, String filePath) throws AirBorderException {
-        if (description.isEmpty()) {
-            throw new AirBorderException("Insufficient Documentation: Task description cannot be empty. Please provide a valid task.");
-        }
-        Task newTask = new ToDo(description);
-        taskList.add(newTask);
-        printTaskAddedMessage(newTask);
-        saveTasks(filePath);  // Save tasks after adding
-    }
-
-    private static void addDeadlineTask(String userCommand, String filePath) throws AirBorderException {
-        String[] taskDetails = userCommand.substring(9).split(" /by ");
-        if (taskDetails.length < 2 || taskDetails[0].trim().isEmpty()) {
-            throw new AirBorderException("Insufficient Documentation: Invalid deadline format. Use: deadline <description> /by <date>");
-        }
-        Task newTask = new Deadline(taskDetails[0].trim(), taskDetails[1].trim());
-        taskList.add(newTask);
-        printTaskAddedMessage(newTask);
-        saveTasks(filePath);  // Save tasks after adding
-    }
-
-    private static void addEventTask(String userCommand, String filePath) throws AirBorderException {
-        String[] taskDetails = userCommand.substring(6).split(" /from | /to ");
-        if (taskDetails.length < 3 || taskDetails[0].trim().isEmpty()) {
-            throw new AirBorderException("Minimum Passport Validity Condition Not Met for Destination: Invalid event format. Use: event <description> /from <start> /to <end>");
-        }
-        Task newTask = new Event(taskDetails[0].trim(), taskDetails[1].trim(), taskDetails[2].trim());
-        taskList.add(newTask);
-        printTaskAddedMessage(newTask);
-        saveTasks(filePath);  // Save tasks after adding
-    }
-
-    private static void deleteTask(String userCommand, String filePath) throws AirBorderException {
-        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
-        if (isValidTaskIndex(taskIndex)) {
-            Task removedTask = taskList.remove(taskIndex);
-            printTaskDeletedMessage(removedTask);
-            saveTasks(filePath);  // Save tasks after deleting
+    private static String getCommandType(String userCommand) {
+        if (userCommand.startsWith("todo ")) {
+            return "todo";
+        } else if (userCommand.startsWith("deadline ")) {
+            return "deadline";
+        } else if (userCommand.startsWith("event ")) {
+            return "event";
+        } else if (userCommand.startsWith("delete ")) {
+            return "delete";
+        } else if (userCommand.equalsIgnoreCase("list")) {
+            return "list";
+        } else if (userCommand.startsWith("mark ")) {
+            return "mark";
+        } else if (userCommand.startsWith("unmark ")) {
+            return "unmark";
         } else {
-            throw new AirBorderException("Check-In Refused: Invalid task number.");
+            return "unknown";
         }
     }
 
-    private static void markTaskAsDone(String userCommand, String filePath) throws AirBorderException {
-        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
-        if (isValidTaskIndex(taskIndex)) {
-            taskList.get(taskIndex).markAsDone();
-            printTaskDoneMessage(taskList.get(taskIndex));
-            saveTasks(filePath);  // Save tasks after marking
-        } else {
-            throw new AirBorderException("Check-In Refused: Invalid task number.");
-        }
-    }
-
-    private static void unmarkTask(String userCommand, String filePath) throws AirBorderException {
-        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
-        if (isValidTaskIndex(taskIndex)) {
-            taskList.get(taskIndex).markAsNotDone();
-            printTaskUndoneMessage(taskList.get(taskIndex));
-            saveTasks(filePath);  // Save tasks after unmarking
-        } else {
-            throw new AirBorderException("Check-In Refused: Invalid task number.");
-        }
-    }
-
-    // Check if the task index is valid
-    private static boolean isValidTaskIndex(int taskIndex) {
-        return taskIndex >= 0 && taskIndex < taskList.size();
-    }
-
-    // Save tasks to file
-    private static void saveTasks(String filePath) {
+    // Save tasks to the hardcoded file path
+    private static void saveTasks() {
         try {
-            File file = new File(filePath);
-            // Ensure the directory exists
-            file.getParentFile().mkdirs();
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs(); // Ensure the directory exists
             FileWriter writer = new FileWriter(file);
             for (Task task : taskList) {
                 writer.write(formatTaskForSave(task) + System.lineSeparator());
@@ -142,12 +90,12 @@ public class AirBorder {
         }
     }
 
-    // Load tasks from file
-    private static void loadTasks(String filePath) {
+    // Load tasks from the hardcoded file path
+    private static void loadTasks() {
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
-                return; // No file to load from
+                return;  // File does not exist, no tasks to load
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -161,7 +109,7 @@ public class AirBorder {
         }
     }
 
-    // Helper to format tasks for saving
+    // Helper method to format tasks for saving to file
     private static String formatTaskForSave(Task task) {
         if (task instanceof ToDo) {
             return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
@@ -175,7 +123,7 @@ public class AirBorder {
         return "";
     }
 
-    // Helper to parse tasks from file
+    // Helper method to parse tasks from file
     private static Task parseTaskFromFile(String line) {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
@@ -202,5 +150,62 @@ public class AirBorder {
         }
     }
 
-    // Other helper methods (printTaskAddedMessage, printTaskDeletedMessage, etc.) remain unchanged
+    // Other methods for task operations like addToDoTask(), addDeadlineTask(), etc. remain the same
+    private static void printWelcomeMessage() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Welcome aboard AirBorder.");
+        System.out.println(" Ready to assist you with your tasks!");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printExitMessage() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Thank you for flying with AirBorder!");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskList() {
+        System.out.println("____________________________________________________________");
+        if (taskList.isEmpty()) {
+            System.out.println(" No tasks in your list.");
+        } else {
+            System.out.println(" Here are your tasks:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println(" " + (i + 1) + ". " + taskList.get(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printErrorMessage(String message) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" ERROR: " + message);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskAddedMessage(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Task added: " + task);
+        System.out.println(" Now you have " + taskList.size() + " tasks.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskDeletedMessage(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Task deleted: " + task);
+        System.out.println(" Now you have " + taskList.size() + " tasks.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskDoneMessage(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Task completed: " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskUndoneMessage(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Task marked as incomplete: " + task);
+        System.out.println("____________________________________________________________");
+    }
 }
