@@ -118,9 +118,9 @@ Data will be saved upon termination of the program with ```bye```
 
 ### Editting the data file 
 Data is stored in the form of:
-+ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION' for Todo tasks
-+ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|DUEDATE' for Deadline tasks
-+ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|TIME_START|TIME_END' for Event tasks
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION' for Todo tasks <br />
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|DUEDATE' for Deadline tasks <br />
++ 'TASK_TYPE|IS_TASK_DONE|TASK_DESCRIPTION|TIME_START|TIME_END' for Event tasks <br />
 Each line stores data for only one task
 
 The following are some fixed parameters: 
