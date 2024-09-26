@@ -1,6 +1,5 @@
 package tyrone;
 
-import tyrone.command.Parser;
 import java.util.Scanner;
 
 public class Ui {
