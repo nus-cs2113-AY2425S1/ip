@@ -63,7 +63,7 @@ public class Ui {
                 "3. unmark <task number>" + NEW_LINE +
                 "4. todo <task description>" + NEW_LINE +
                 "5. deadline <task description> /by <due date>" + NEW_LINE +
-                "6. event <task description> /from <start time> /to <end time>");
+                "6. event <task description> /from <start date> /to <end date>");
     }
 
     /**

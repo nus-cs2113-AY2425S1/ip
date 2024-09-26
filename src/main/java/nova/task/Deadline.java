@@ -3,6 +3,10 @@ package nova.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task that extends the base Task class.
+ * A Deadline task has a description, a completion status, and a due date.
+ */
 public class Deadline extends Task{
 
     public static final String TYPE = "D";

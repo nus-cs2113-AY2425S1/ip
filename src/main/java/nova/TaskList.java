@@ -23,7 +23,7 @@ public class TaskList {
     /**
      * The list of tasks stored in the system.
      */
-    static ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     /**
      * Constructs a new {@code TaskList} with an empty list of tasks.

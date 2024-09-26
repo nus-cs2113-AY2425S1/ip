@@ -4,6 +4,10 @@ package nova.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task that extends the base Task class.
+ * An Event task has a description, a completion status, and start and end times.
+ */
 public class Event extends Task {
 
     public static final String TYPE = "E";
