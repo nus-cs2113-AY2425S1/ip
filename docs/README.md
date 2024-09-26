@@ -54,7 +54,7 @@ Adds a task with a deadline to the list
 
 Format: `deadline DESCRIPTION /by TIME`
 
--  The parameter `TIME` is stored as a String, any date and timeformat can be used 
+-  The parameter `TIME` is stored as a String, any date and time format can be used 
 
 Examples: 
 - `deadline report /by 12th November`
@@ -78,7 +78,7 @@ ____________________________________________________________
 
 ## Adding Events: `event`
 
-Adds an event with a starting time and ending time to the list
+Adds an event with a start and end time to the list
 
 Format: `event DESCRIPTION /from STARTING_TIME /to ENDING_TIME`
 
@@ -136,7 +136,7 @@ Deletes a task from the list
 
 Format: `delete POSITION`
 
-- `POSITION` must be a positive number more than 0 that is of type `int`, else an exception is thrown
+- `POSITION` must be a positive integer, else an exception is thrown
 - Value of `POSITION` must not be more than the number of tasks in the list, else an exception is thrown
 
 Examples:
@@ -227,3 +227,5 @@ will be used in the future
 All tasks are saved in the file `V.txt` and is stored in the same directory as the JAR file
 
 Users are free to edit the save file directly
+
+##
