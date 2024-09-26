@@ -10,7 +10,7 @@ A to-do only has a task description. A deadline has a description and a set dead
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest .jar file from [here](insert link later).
+2. Download the latest .jar file from [here](https://github.com/KHsienKit/ip/releases/tag/A-Release).
 3. Open a command terminal and use the `java -jar PATH_TO_JAR_FILE` command to run the application.
 4. Refer to features below for list of commands
 
