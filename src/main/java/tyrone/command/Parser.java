@@ -11,6 +11,7 @@ import tyrone.task.Todo;
 public class Parser {
 
     public static final int START_INDEX_OFFSET_DESC = 1;
+    public static final int START_INDEX_OFFSET_KEYWORD = 1;
     public static final int START_INDEX_OFFSET_START = 6;
     public static final int START_INDEX_OFFSET_END = 4;
     public static final int START_INDEX_OFFSET_DEADLINE = 4;
@@ -44,6 +45,9 @@ public class Parser {
             break;
         case "delete":
             handleDelete(dissectedInput);
+            break;
+        case "find":
+            handleFind(input);
             break;
         default:
             handleUnknown();
@@ -169,5 +173,11 @@ public class Parser {
         } catch (NumberFormatException e) {
             Ui.println("Index to unmark should be a number.");
         }
+    }
+
+    private static void handleFind(String input){
+        String keyword = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_KEYWORD);
+        Ui.println("Here are the matching tasks in your list:");
+        Ui.println(TaskList.listTasksWithKeyword(keyword));
     }
 }

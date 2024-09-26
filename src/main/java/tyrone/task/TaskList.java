@@ -45,9 +45,21 @@ public abstract class TaskList {
     public static String getAllTaskDetails() {
         String details = "";
         for (int i = 0; i < tasks.size(); i++) {
-            details += getSingleTaskDetails(i);
+            details += (i+1) + ". " + getSingleTaskDetails(i);
             details += System.lineSeparator();
         }
         return details;
+    }
+
+    public static String listTasksWithKeyword (String keyword) {
+        String tasksWithKeyword = "";
+        int countTasksWithKeyword = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                tasksWithKeyword += (++countTasksWithKeyword) + ". " + getSingleTaskDetails(i);
+                tasksWithKeyword += System.lineSeparator();
+            }
+        }
+        return tasksWithKeyword;
     }
 }
