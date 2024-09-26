@@ -224,6 +224,6 @@ will be used in the future
 
 ## Editing the data
 
-All tasks are saved in the file `V.txt` and is stored in the same directory as the JAR file
+All tasks are saved in the file `V.txt` and is stored in the current directory
 
 Users are free to edit the save file directly
