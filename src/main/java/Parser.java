@@ -50,7 +50,7 @@ public class Parser {
                 taskList.addEvent(description, isFromSaveFile);
                 return true;
             case "find":
-                description = String.join(" ", Arrays.copyOfRange(wordArray, 1, wordArray.length));
+                description = String.join(" ", Arrays.copyOfRange(wordArray, 1, wordArray.length)).toLowerCase();
                 taskList.find(description);
                 return true;
             default:

@@ -119,7 +119,7 @@ public class TaskList {
         System.out.println("Here are the matching tasks in your list");
         
         for (Task task: this.list) {
-            if (task.getDescription().contains(query)) {
+            if (task.getDescription().toLowerCase().contains(query)) {
                 System.out.println(count + "." + task);
                 count++;
             }
