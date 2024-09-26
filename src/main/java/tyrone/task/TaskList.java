@@ -33,7 +33,7 @@ public abstract class TaskList {
         return tasks.get(taskId).getSaveRecord();
     }
 
-    public static String getAllTaskDetails () {
+    public static String getAllTaskSaveRecords() {
         String details = "";
         for (int i = 0; i < tasks.size(); i++) {
             details += getSingleTaskSaveRecord(i);
@@ -42,9 +42,12 @@ public abstract class TaskList {
         return details;
     }
 
-    public static void printList() {
+    public static String getAllTaskDetails() {
+        String details = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + ". " + tasks.get(i).getNameWithStatus());
+            details += getSingleTaskDetails(i);
+            details += System.lineSeparator();
         }
+        return details;
     }
 }

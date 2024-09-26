@@ -1,7 +1,7 @@
 package tyrone.command;
 
-import tyrone.savemanager.FileReadWriter;
 import tyrone.command.exceptions.EmptyFieldException;
+import tyrone.savemanager.Storage;
 import tyrone.task.Deadline;
 import tyrone.task.Event;
 import tyrone.task.TaskList;
@@ -49,7 +49,7 @@ public class InputHandler {
             break;
         }
 
-        FileReadWriter.updateSaveFile();
+        Storage.updateSaveFile();
     }
 
     private static void handleList(String[] dissectedInput) {

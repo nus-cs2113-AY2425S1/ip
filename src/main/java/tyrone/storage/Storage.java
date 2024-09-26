@@ -12,8 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileReadWriter {
-
+public class Storage {
 
     public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
     public static final int START_INDEX_OFFSET_START = 6;
@@ -26,44 +25,6 @@ public class FileReadWriter {
     public static final int INPUT_START_INDEX = 2;
 
     public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
-
-    public static void createSaveFile() {
-        File dir = new File(SAVE_FILE_DIR);
-        dir.mkdir();
-        try {
-            File f = new File(SAVE_FILE_NAME);
-            f.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Error creating file: " + SAVE_FILE_NAME);
-        }
-    }
-
-    private static void writeToFile(String fileName, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(fileName);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-    public static void updateSaveFile() {
-        try {
-            writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskDetails());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    public static void initTaskListFromSaveFile() {
-        try {
-            File saveFile = new File(SAVE_FILE_NAME);
-            Scanner s = new Scanner(saveFile);
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                parseLine(line);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-        }
-    }
 
     private static void parseLine(String line) {
         boolean isDone = (line.charAt(0) == '1');
@@ -133,6 +94,44 @@ public class FileReadWriter {
             TaskList.addTask(newTodo);
         } catch (EmptyFieldException e) {
             System.out.println(PARSE_LINE_ERROR_MESSAGE);
+        }
+    }
+
+    public static void initTaskListFromSaveFile() {
+        try {
+            File saveFile = new File(SAVE_FILE_NAME);
+            Scanner s = new Scanner(saveFile);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                parseLine(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+    }
+
+    public static void createSaveFile() {
+        File dir = new File(SAVE_FILE_DIR);
+        dir.mkdir();
+        try {
+            File f = new File(SAVE_FILE_NAME);
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + SAVE_FILE_NAME);
+        }
+    }
+
+    private static void writeToFile(String fileName, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(fileName);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void updateSaveFile() {
+        try {
+            writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskDetails());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 }
