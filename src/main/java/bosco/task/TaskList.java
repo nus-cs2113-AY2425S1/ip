@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> getAllTasks() {
-        return new ArrayList<Task>(tasksList);
+        return new ArrayList<>(tasksList);
     }
 
     public int getSize() {

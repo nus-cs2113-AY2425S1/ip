@@ -5,13 +5,17 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String DIVIDER =
+    public static final String DIVIDER =
             "\t________________________________________________________________________________";
-    private static final String INDENT_START = "\t ";
-    private static final String INDENT_EXTRA = "  ";
-    private static final String MESSAGE_WELCOME = "Hello! I'm Bosco APD."
+    public static final String INDENT_START = "\t ";
+    public static final String INDENT_EXTRA = "  ";
+    public static final String MESSAGE_WELCOME = "Hello! I'm Bosco APD."
             + System.lineSeparator() + INDENT_START + "What can I do for you?";
-    private static final String MESSAGE_EXIT = "Bye! Hope to see you again soon!";
+    public static final String MESSAGE_EXIT = "Bye! Hope to see you again soon!";
+    public static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
+    public static final String MESSAGE_MARK_UNDONE = "OK, I've marked this task as not done yet:";
+    public static final String MESSAGE_ADDED_TASK = "Got it. I've added this task:";
+    public static final String MESSAGE_DELETED_TASK = "Noted. I've removed this task:";
 
     private final Scanner in;
     private final PrintStream out;
@@ -39,6 +43,10 @@ public class Ui {
 
     public void printExitMessage() {
         printMessages(MESSAGE_EXIT);
+    }
+
+    public String getTaskCountMessage(int count) {
+        return String.format("Now you have %1$d tasks in the list.", count);
     }
 
     public String getUserInput() {

@@ -1,6 +1,10 @@
 package bosco;
 
+import bosco.command.ExitCommand;
 import bosco.ui.Ui;
+import bosco.parser.Parser;
+
+import bosco.command.Command;
 
 import bosco.task.TaskList;
 import bosco.task.Task;
@@ -22,20 +26,52 @@ import java.util.Scanner;
 
 public class Bosco {
     private static final String FILE_PATH = "./data/bosco.txt";
-    private static final String DIVIDER =
-            "\t________________________________________________________________________________";
-    private static final String INDENT_START = "\t ";
-    private static final String INDENT_EXTRA = "  ";
-    private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
-    private static final String MESSAGE_MARK_UNDONE = "OK, I've marked this task as not done yet:";
-    private static final String MESSAGE_ADDED_TASK = "Got it. I've added this task:";
-    private static final String MESSAGE_DELETED_TASK = "Noted. I've removed this task:";
-    private static final String DEADLINE_PREFIX_BY = "/by";
-    private static final String EVENT_PREFIX_FROM = "/from";
-    private static final String EVENT_PREFIX_TO = "/to";
 
     private static Ui ui;
     private static TaskList tasks;
+    private static Parser parser;
+
+    public static void main(String[] args) {
+        ui = new Ui();
+        tasks = new TaskList();
+        parser = new Parser();
+
+        try {
+            loadFileContents(FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ui.printWelcomeMessage();
+
+        boolean isExit = false;
+
+        while (!isExit) {
+            try {
+                String userInputString = ui.getUserInput();
+                Command command = parser.parseCommand(userInputString);
+                command.setData(tasks, ui);
+                command.execute();
+                isExit = ExitCommand.isExit(command);
+            } catch (IllegalCommandException e) {
+                ui.printMessages("Error: invalid command. Please try again!");
+            } catch (NumberFormatException e) {
+                ui.printMessages("Error: invalid index input. Please provide a number!");
+            } catch (IndexOutOfBoundsException e) {
+                ui.printMessages("Error: input out of bounds. List has " + tasks.getSize() + " tasks.");
+            } catch (EmptyDescriptionException e) {
+                ui.printMessages("Error: task description is empty. Please provide a description!");
+            } catch (MissingPrefixException e) {
+                ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
+            }
+
+            try {
+                writeToFile(FILE_PATH);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        executeExitProgram();
+    }
 
     private static void loadFileContents(String filePath) throws IOException {
         Path inputPath = createFilePathIfNotExists(filePath);
@@ -96,179 +132,8 @@ public class Bosco {
         }
     }
 
-    private static void executeCommand(String userInputString)
-            throws IllegalCommandException, EmptyDescriptionException, MissingPrefixException {
-        String[] commandTypeAndArgs = splitCommandTypeAndArgs(userInputString);
-        String commandType = commandTypeAndArgs[0];
-        String commandArgs = commandTypeAndArgs[1];
-        switch (commandType) {
-        case "list":
-            executeListTasks();
-            break;
-        case "mark":
-            executeMarkTask(commandArgs);
-            break;
-        case "unmark":
-            executeUnmarkTask(commandArgs);
-            break;
-        case "delete":
-            executeDeleteTask(commandArgs);
-            break;
-        case "todo":
-            executeAddTodo(commandArgs);
-            break;
-        case "deadline":
-            executeAddDeadline(commandArgs);
-            break;
-        case "event":
-            executeAddEvent(commandArgs);
-            break;
-        case "bye":
-        case "exit":
-            executeExitProgram();
-        default:
-            throw new IllegalCommandException();
-        }
-    }
-
-    private static String[] splitCommandTypeAndArgs(String userInputString) {
-        String[] stringParts = userInputString.split("\\s+", 2);
-        return stringParts.length == 2 ? stringParts : new String[] {stringParts[0], ""};
-    }
-
-    private static String getTaskCountMessage() {
-        return String.format("Now you have %1$d tasks in the list.", tasks.getSize());
-    }
-
-    private static void executeListTasks() {
-        if (tasks.getSize() == 0) {
-            ui.printMessages("No tasks in list. You're all caught up!");
-            return;
-        }
-        System.out.println(DIVIDER);
-        for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println(INDENT_START + (i + 1) + "." + tasks.getTaskAtIndex(i));
-        }
-        System.out.println(DIVIDER);
-    }
-
-    private static void executeMarkTask(String commandArgs) {
-        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
-        selectedTask.markAsDone();
-        ui.printMessages(MESSAGE_MARK_DONE, INDENT_EXTRA + selectedTask);
-    }
-
-    private static void executeUnmarkTask(String commandArgs) {
-        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
-        selectedTask.markAsNotDone();
-        ui.printMessages(MESSAGE_MARK_UNDONE, INDENT_EXTRA + selectedTask);
-    }
-
-    private static void executeDeleteTask(String commandArgs) {
-        Task selectedTask = getSelectedTaskFromCommandArgs(commandArgs);
-        tasks.removeTask(selectedTask);
-        ui.printMessages(MESSAGE_DELETED_TASK, INDENT_EXTRA + selectedTask, getTaskCountMessage());
-    }
-
-    private static Task getSelectedTaskFromCommandArgs(String commandArgs) {
-        int taskNumber = Integer.parseInt(commandArgs);
-        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return tasks.getTaskAtIndex(taskNumber - 1);
-    }
-
-    private static void executeAddTodo(String commandArgs) throws EmptyDescriptionException {
-        String description = commandArgs.strip();
-        if (description.isEmpty()) {
-            throw new EmptyDescriptionException();
-        }
-        addToTasksList(new Todo(description, false));
-    }
-
-    private static void executeAddDeadline(String commandArgs)
-            throws EmptyDescriptionException, MissingPrefixException {
-        int indexOfByPrefix = commandArgs.indexOf(DEADLINE_PREFIX_BY);
-        if (indexOfByPrefix == -1) {
-            throw new MissingPrefixException(DEADLINE_PREFIX_BY);
-        }
-        String description = commandArgs.substring(0, indexOfByPrefix).strip();
-        if (description.isEmpty()) {
-            throw new EmptyDescriptionException();
-        }
-        String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
-        addToTasksList(new Deadline(description, false, by));
-    }
-
-    private static void executeAddEvent(String commandArgs)
-            throws EmptyDescriptionException, MissingPrefixException {
-        int indexOfFromPrefix = commandArgs.indexOf(EVENT_PREFIX_FROM);
-        if (indexOfFromPrefix == -1) {
-            throw new MissingPrefixException(EVENT_PREFIX_FROM);
-        }
-        int indexOfToPrefix = commandArgs.indexOf(EVENT_PREFIX_TO);
-        if (indexOfToPrefix == -1) {
-            throw new MissingPrefixException(EVENT_PREFIX_TO);
-        }
-        String description = commandArgs.substring(0, indexOfFromPrefix).strip();
-        if (description.isEmpty()) {
-            throw new EmptyDescriptionException();
-        }
-        String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
-                EVENT_PREFIX_FROM).strip();
-        String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
-        addToTasksList(new Event(description, false, from, to));
-    }
-
-    private static String removePrefix(String inputStr, String prefix) {
-        return inputStr.replace(prefix, "");
-    }
-
-    private static void addToTasksList(Task newTask) {
-        tasks.addTask(newTask);
-        ui.printMessages(MESSAGE_ADDED_TASK, INDENT_EXTRA + newTask, getTaskCountMessage());
-    }
-
     private static void executeExitProgram() {
-        try {
-            writeToFile(FILE_PATH);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         ui.printExitMessage();
         System.exit(0);
-    }
-
-    public static void main(String[] args) {
-        ui = new Ui();
-        tasks = new TaskList();
-        try {
-            loadFileContents(FILE_PATH);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ui.printWelcomeMessage();
-        while (true) {
-            String userInputString = ui.getUserInput();
-            try {
-                executeCommand(userInputString);
-            } catch (IllegalCommandException e) {
-                ui.printMessages("Error: invalid command. Please try again!");
-            } catch (NumberFormatException e) {
-                ui.printMessages("Error: invalid index input. Please provide a number!");
-            } catch (IndexOutOfBoundsException e) {
-                ui.printMessages("Error: input out of bounds. List has " + tasks.getSize() + " tasks.");
-            } catch (EmptyDescriptionException e) {
-                ui.printMessages("Error: task description is empty. Please provide a description!");
-            } catch (MissingPrefixException e) {
-                ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
-            }
-
-            try {
-                writeToFile(FILE_PATH);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
