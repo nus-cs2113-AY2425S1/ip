@@ -2,3 +2,4 @@ T | 0 | homework
 E | 1 | cooking camp | mon | thur this week
 D | 0 | buy present | 3 Feb
 E | 1 | badminton training camp | 12 Feb | 18 Feb in Japan
+T | 0 | scholarship application
