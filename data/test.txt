@@ -1,7 +1,4 @@
 T | 1 | Joe
 E | 0 | lecture (from: 4pm to: 6pm)
 D | 0 | return book (by: Dec 02 2019)
-T | 1 | booking books
-T | 0 | job books
-T | 0 | cook books
-T | 1 | cooking cooks
+
