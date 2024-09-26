@@ -17,26 +17,43 @@ import java.io.IOException;
 public class Bosco {
     private static final String FILE_PATH = "./data/bosco.txt";
 
-    private static Ui ui;
-    private static TaskList tasks;
-    private static Parser parser;
-    private static Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+    private Parser parser;
+    private Storage storage;
 
-    public static void main(String[] args) {
+    public Bosco(String filePath) {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(FILE_PATH);
+    }
 
+    public static void main(String[] args) {
+        new Bosco(FILE_PATH).run();
+    }
+
+    public void run() {
+        startProgram();
+        runCommandLoopUntilExit();
+        exitProgram();
+    }
+
+    private void startProgram() {
         try {
             tasks = new TaskList(storage.loadFileContents());
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         ui.printWelcomeMessage();
+    }
 
+    private void exitProgram() {
+        ui.printExitMessage();
+        System.exit(0);
+    }
+
+    private void runCommandLoopUntilExit() {
         boolean isExit = false;
-
         while (!isExit) {
             try {
                 String userInputString = ui.getUserInput();
@@ -62,11 +79,5 @@ public class Bosco {
                 e.printStackTrace();
             }
         }
-        executeExitProgram();
-    }
-
-    private static void executeExitProgram() {
-        ui.printExitMessage();
-        System.exit(0);
     }
 }
