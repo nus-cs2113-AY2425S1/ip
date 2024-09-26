@@ -38,7 +38,7 @@ public class King {
     }
 
 
-    private static void toChat() throws KingException {
+    private static void toChat() throws KingException, IOException {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine().trim();
@@ -50,6 +50,10 @@ public class King {
             }
 
             if (userInput.equals("bye")) {
+                toExit();
+                return;
+            } else if (userInput.toLowerCase().startsWith("delete/exit")) {
+                deleteSavedTasks();
                 toExit();
                 return;
             } else if (userInput.equalsIgnoreCase("list")) {
@@ -143,6 +147,9 @@ public class King {
 
         try {
             String taskContent = taskSpecifics[1];
+            for (int i = 2; i < taskSpecifics.length; i++) {
+                taskContent += " " + taskSpecifics[i];
+            }
             Task t = new Todo(taskContent);
             tasks.add(t);
             tasksCount += 1;
@@ -277,7 +284,8 @@ public class King {
         } else if (!((userInput.startsWith("todo")) || userInput.startsWith("deadline")
                      || userInput.startsWith("event") || userInput.startsWith("list")
                      || userInput.startsWith("mark") || userInput.startsWith("unmark")
-                     || userInput.startsWith("bye") || userInput.startsWith("delete"))) {
+                     || userInput.startsWith("bye") || userInput.startsWith("delete")
+                     || userInput.startsWith("delete/exit"))) {
             throw new KingException("Please first tell me what type of task you are doing:)\n");
         }
     }
@@ -293,6 +301,10 @@ public class King {
         } catch (IndexOutOfBoundsException e) {
             throw new KingException("The task you want to delete does not exist!\n");
         }
+    }
+
+    private static void deleteSavedTasks() throws KingException, IOException {
+        FileAccess.deleteFile();
     }
 
 

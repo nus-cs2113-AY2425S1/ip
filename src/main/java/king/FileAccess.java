@@ -1,11 +1,9 @@
 package king;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,17 +13,28 @@ import static king.King.tasksCount;
 
 public class FileAccess {
     private final static String defaultFilePath = "out/production/ip/king/Tasks.txt";
-    private final static String backupFilePath = "src/Tasks_backup.txt";
+    private final static String backupFilePath = "resources/Tasks_backup.txt";
 
     protected static boolean checkFile() {
         File f = new File(defaultFilePath);
-//        f.getAbsolutePath();
-//        f.isDirectory();
         return f.exists();
     }
 
     protected static void createNewFile() throws IOException {
-        Files.copy(Paths.get(backupFilePath), Paths.get(defaultFilePath));
+        try {
+            Files.copy(Paths.get(backupFilePath), Paths.get(defaultFilePath));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            InputStream backupFileStream = FileAccess.class.getClassLoader().getResourceAsStream("Tasks_backup.txt");
+            File targetFile = new File(defaultFilePath);
+            targetFile.getParentFile().mkdirs();
+            FileOutputStream out = new FileOutputStream(targetFile);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = backupFileStream.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
     }
 
     protected static void deleteFile() throws IOException, KingException {
@@ -41,9 +50,9 @@ public class FileAccess {
             createNewFile();
         }
 
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
 
-            ArrayList<Task> tasks = new ArrayList<>();
             File f = new File(defaultFilePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             String[] taskDetails;
