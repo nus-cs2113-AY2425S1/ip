@@ -1,4 +1,4 @@
-package tyrone.savemanager;
+package tyrone.storage;
 
 import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.Deadline;
@@ -129,7 +129,7 @@ public class Storage {
 
     public static void updateSaveFile() {
         try {
-            writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskDetails());
+            writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskSaveRecords());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
