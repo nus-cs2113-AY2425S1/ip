@@ -30,6 +30,6 @@ public class FindCommand extends Command {
     @Override
     public void execute() {
         System.out.println(Messages.MATCHING_TASKS_MESSAGE);
-        System.out.println(tasks.getMatchingTaskList(keyword));
+        System.out.print(tasks.getMatchingTaskList(keyword));
     }
 }

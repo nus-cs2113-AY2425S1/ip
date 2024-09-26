@@ -34,6 +34,6 @@ public class SearchCommand extends Command {
     public void execute() {
         String matchingTasksList = tasks.getTasksOnDate(this.date);
         System.out.println(Messages.TASKS_ON_DATE_MESSAGE);
-        System.out.println(matchingTasksList);
+        System.out.print(matchingTasksList);
     }
 }
