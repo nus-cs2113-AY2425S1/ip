@@ -103,9 +103,10 @@ public class TaskList {
 
     public String findTasksByKeyword(String keywordInUserInput){
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        String convertLowerCase = keywordInUserInput.toLowerCase();
 
         for (Task task : tasks) {
-            if (task.getDescription().contains(keywordInUserInput)) {
+            if (task.getDescription().toLowerCase().contains(convertLowerCase)) {
                 tasksWithKeyword.add(task);
             }
         }
