@@ -58,19 +58,16 @@ public class Parser {
                 return true;
             }
         } catch (NumberFormatException error) {
-            this.ui.printBlock("You need to input a valid integer for the task that you want to mark as done");
+            this.ui.printNumberFormatExceptionErrorMessage();;
             return true;
         } catch (InvalidDeadlineException error) {
-            this.ui.printBlock("You did not enter a valid deadline." + 
-                    " Remember to add a \"/by\" before a valid deadline.");
+            this.ui.printInvalidDeadlineExceptionErrorMessage();
             return true;
         } catch (InvalidEventException error) {
-            this.ui.printBlock("You did not enter a valid event." + 
-                    " Remember to add a \"from\" before the start time " +
-                    " and a \"to\" before the end time");
+            this.ui.printInvalidEventExceptionErrorMessage();
             return true;
         } catch (IndexOutOfBoundsException error) {
-            this.ui.printBlock("The position you inputted is out of bounds of the list");
+            this.ui.printIndexOutOfBoundsErrorMessage();
             return true;
         }
     }

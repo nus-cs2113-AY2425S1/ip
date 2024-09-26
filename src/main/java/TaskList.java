@@ -91,6 +91,8 @@ public class TaskList {
      * be no output on the terminal, else print to output stating that <code>Event</code> was added.
      * @param description Description of the event with the starting time and ending time
      * @param isFromSaveFile Boolean value on whether the function was called while loading the save file
+     * @throws InvalidEventException If "/from" or "/to" was not in the input or no start and end time was inputted
+     * respectively
      */
     public void addEvent(String description, boolean isFromSaveFile) throws InvalidEventException{
         String[] descriptionAndEventTimeline = description.split("/from");
@@ -103,7 +105,7 @@ public class TaskList {
         if (eventTimeline.length != 2) {
             throw new InvalidEventException();
         }
-        
+
         String from = eventTimeline[0].trim();
         String to = eventTimeline[1].trim();
         

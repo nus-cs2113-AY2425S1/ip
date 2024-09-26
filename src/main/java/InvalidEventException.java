@@ -4,5 +4,5 @@
  * or nothing was inputted after the "/from" or "/by".
  */
 public class InvalidEventException extends Exception{
-    
+    // no other code needed
 }
