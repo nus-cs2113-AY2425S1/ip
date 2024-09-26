@@ -15,6 +15,7 @@ public class Parser {
     public static final int START_INDEX_OFFSET_START = 6;
     public static final int START_INDEX_OFFSET_END = 4;
     public static final int START_INDEX_OFFSET_DEADLINE = 4;
+    public static final String TWO_SPACE_INDENT = "  ";
 
     public static boolean isExitCommand (String input) {
         return input.equals("bye");
@@ -130,7 +131,7 @@ public class Parser {
             if (TaskList.isValidTaskId(taskId)) {
                 TaskList.markTaskAsUndone(taskId);
                 Ui.println("Ok, I've marked this task as not done yet:");
-                Ui.println("  " + TaskList.getSingleTaskDetails(taskId));
+                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
             } else {
                 Ui.println("Invalid task ID.");
             }
@@ -147,7 +148,7 @@ public class Parser {
             if (TaskList.isValidTaskId(taskId)) {
                 TaskList.markTaskAsDone(taskId);
                 Ui.println("Nice! I've marked this task as done:");
-                Ui.println("  " + TaskList.getSingleTaskDetails(taskId));
+                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
             } else {
                 Ui.println("Invalid task ID.");
             }
@@ -163,7 +164,7 @@ public class Parser {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
             if (TaskList.isValidTaskId(taskId)) {
                 Ui.println("Ok, I've removed this task:");
-                Ui.println("  " + TaskList.getSingleTaskDetails(taskId));
+                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
                 TaskList.deleteTask(taskId);
             } else {
                 Ui.println("Invalid task ID.");
