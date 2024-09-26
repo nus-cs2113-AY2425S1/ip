@@ -8,15 +8,22 @@ list
 mark 1
 list
 deadline submit assignment
-deadline submit assignment /by 3/9/2024 2359
+deadline submit assignment /by 3/9/2024 11:59 PM
+deadline submit assignment /by 2024-09-03 2359
 list
 unmark 1
 mark 2
 list
-event CS2113 tP project meeting /from 2/9/2024 2000 /to 2/9/2024 2100
+event CS2113 tP project meeting /from 2024-09-02 2000 /to 2024-09-02 2100
 list
 unmark 2
+find CS2113
 mark 3
+list
+search 2024-09-03
+remove 1
+list
+remove 2
 list
 remove 1
 list
