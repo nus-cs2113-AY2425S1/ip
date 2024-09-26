@@ -16,6 +16,10 @@ public abstract class Task implements TaskOperations {
         this.taskType = "";
     }
 
+    public String getDescription(){
+        return description;
+    }
+
     public String getMarker() {
         return isDone ? "X" : " ";
     }
