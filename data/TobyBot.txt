@@ -1,3 +1,4 @@
-T | 0 | pay money
-E | 1 | sports day | July 4 | Oct 12
-D | 0 | flight to SG | 13 Sep 2024, 9:00am
+T | 0 | homework
+D | 0 | cooking foed | 23 Dec
+T | 1 | homework 3 
+E | 1 | cooking camp | mon | thur this week
