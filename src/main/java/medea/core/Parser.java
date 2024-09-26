@@ -1,4 +1,4 @@
-package medea;
+package medea.core;
 
 import medea.command.*;
 import medea.command.createTask.DeadlineCommand;
@@ -24,6 +24,7 @@ public class Parser {
             case TodoCommand.COMMAND_WORD ->  createTodoCommand(argumentString);
             case DeadlineCommand.COMMAND_WORD -> createDeadlineCommand(argumentString);
             case EventCommand.COMMAND_WORD -> createEventCommand(argumentString);
+            case FindCommand.COMMAND_WORD -> createFindCommand(argumentString);
             default -> createInvalidCommand();
         };
     }
@@ -65,6 +66,10 @@ public class Parser {
 
     private Command createTodoCommand(String description){
         return new TodoCommand(description);
+    }
+
+    private Command createFindCommand(String filterWord){
+        return new FindCommand(filterWord);
     }
 
     private Command createDeadlineCommand(String argumentString){

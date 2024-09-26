@@ -1,4 +1,4 @@
-package medea;
+package medea.core;
 import medea.exceptions.MedeaException;
 import medea.task.*;
 
@@ -28,12 +28,34 @@ public class TaskList {
         }
 
         StringBuilder output = new StringBuilder();
+
         for (int index = 0; index < listSize; index++){
-            Task currentTask = tasks.get(index);
-            boolean isLastIndex = index == listSize - 1;
-            String currentTaskString = String.format("%d. %s" + (isLastIndex ? "":"%n"), index + 1, currentTask);
-            output.append(currentTaskString);
+            Task task = tasks.get(index);
+
+            if (index != 0) output.append("\n");
+            output.append(String.format("%d. %s", index + 1, task));
         }
+        return output.toString();
+    }
+
+    public String toFilteredString(String filter){
+        int itemCount = 0;
+
+        StringBuilder output = new StringBuilder();
+        for (Task task : tasks){
+            String taskString = task.toString().toLowerCase();
+            String filterString = filter.toLowerCase();
+            boolean isMatch = taskString.contains(filterString);
+            if (!isMatch) continue;
+
+            if (itemCount != 0) output.append("\n");
+            output.append(String.format("%d. %s", ++itemCount, task));
+        }
+
+        if (itemCount == 0){
+            return "No matching items currently in your task list.\n";
+        }
+
         return output.toString();
     }
 
@@ -88,7 +110,7 @@ public class TaskList {
 
     public String updateTaskDoneStatus(int index, boolean isDone){
         if (index < 0 || index > this.getSize()){
-            throw new MedeaException(isDone ? "Mark" : "Unmark" + " Task failed.Index out of range.");
+            throw new MedeaException(isDone ? "Mark" : "Unmark" + " Task failed. Index out of range.");
         }
 
         Task selectedTask = tasks.get(index);
@@ -98,7 +120,7 @@ public class TaskList {
 
     public String deleteTask(int index){
         if (index < 0 || index > this.getSize()){
-            throw new MedeaException("Delete Task failed.Index out of range.");
+            throw new MedeaException("Delete Task failed. Index out of range.");
         }
 
         Task selectedTask = tasks.get(index);

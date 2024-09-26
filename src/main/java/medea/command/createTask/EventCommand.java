@@ -1,9 +1,9 @@
 package medea.command.createTask;
 
-import medea.TaskList;
+import medea.core.TaskList;
 
 
-public class EventCommand extends CreateCommand {
+public class EventCommand extends TaskCommand {
     public static final String COMMAND_WORD = "event";
     private String description;
     private String from;

@@ -1,5 +1,9 @@
 package medea;
 import medea.command.Command;
+import medea.core.Parser;
+import medea.core.Storage;
+import medea.core.TaskList;
+import medea.core.Ui;
 import medea.exceptions.MedeaException;
 
 public class Medea {
