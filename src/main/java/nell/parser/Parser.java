@@ -61,15 +61,42 @@ public class Parser {
 
     /**
      * Returns a Command object based upon the specified single-word command
+     * If the command is a multi-word command, returns the appropriate error message
      * If the command is invalid, returns an incorrect command
      *
      * @param command The command word of the single-word command
      * @return Command object based upon single-word command
      */
     private Command parseSingleWordCommand(String command) {
-        if (command.equals(ListCommand.COMMAND_WORD)) {
+        switch (command) {
+        case ListCommand.COMMAND_WORD:
             return new ListCommand(tasks);
-        } else {
+
+        case MarkCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.MARK_ERROR_MESSAGE);
+
+        case UnmarkCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.UNMARK_ERROR_MESSAGE);
+
+        case ToDoCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.TODO_ERROR_MESSAGE);
+
+        case DeadlineCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.DEADLINE_ERROR_MESSAGE);
+
+        case EventCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.EVENT_ERROR_MESSAGE);
+
+        case FindCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.FIND_ERROR_MESSAGE);
+
+        case SearchCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.SEARCH_ERROR_MESSAGE);
+
+        case RemoveCommand.COMMAND_WORD:
+            return new IncorrectCommand(tasks, Messages.REMOVE_ERROR_MESSAGE);
+
+        default:
             return new IncorrectCommand(tasks);
         }
     }
