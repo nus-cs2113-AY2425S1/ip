@@ -177,8 +177,15 @@ public class Parser {
     }
 
     private static void handleFind(String input){
-        String keyword = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_KEYWORD);
-        Ui.println("Here are the matching tasks in your list:");
-        Ui.println(TaskList.listTasksWithKeyword(keyword));
+        try {
+            String keyword = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_KEYWORD);
+            if (!input.contains(" ") || keyword.isBlank()) {
+                throw new EmptyFieldException();
+            }
+            Ui.println("Here are the matching tasks in your list:");
+            Ui.println(TaskList.listTasksWithKeyword(keyword));
+        } catch (EmptyFieldException e) {
+            Ui.println("Please enter a keyword to search for.");
+        }
     }
 }
