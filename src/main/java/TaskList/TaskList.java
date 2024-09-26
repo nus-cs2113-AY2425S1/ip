@@ -3,6 +3,7 @@ package TaskList;
 import Storage.Storage;
 import Task.Task;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -99,5 +100,26 @@ public class TaskList {
         if (loadedTasks != null) {
             tasks.addAll(loadedTasks);
         }
+    }
+
+    public String findTasksByKeyword(String keywordInUserInput){
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keywordInUserInput)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+
+        if (tasksWithKeyword.isEmpty()) {
+            return "No such things in your list of tasks.";
+        }
+
+        String result = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < tasksWithKeyword.size(); i++) {
+            result += (i + 1) + ". " + tasksWithKeyword.get(i) + "\n";
+        }
+
+        return result;
     }
 }
