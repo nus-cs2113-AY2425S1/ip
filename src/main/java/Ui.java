@@ -6,25 +6,25 @@ public class Ui {
 
     private final int INCREMENT_ZERO_INDEX = 1;
 
-    public void horizontalLine() {
+    public void printHorizontalLine() {
         System.out.println("______________________" +
                 "______________________________________");
     }
 
     public void greet() {
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Hello! I'm Legin, your best online companion!");
         System.out.println("What can I do for you today my friend :D");
-        horizontalLine();
+        printHorizontalLine();
     }
 
-    public void bye() {
-        horizontalLine();
+    public void exiting() {
+        printHorizontalLine();
         System.out.println("Bye " +
                 Character.toString(0x1F44B) +
                 ". Hope to see you again really soon! " +
                 Character.toString(0x1F608));
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public String readInput() {
@@ -68,11 +68,11 @@ public class Ui {
     }
 
     public void printAddedTaskMessage(ArrayList<Task> tasks, int taskCount) {
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(taskCount));
         System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public void printDeleteTaskMessage(Task toRemove, int taskCount) {
@@ -93,6 +93,6 @@ public class Ui {
 
     public void printExceptionMessage(Exception e) {
         System.out.println("Exception Occurred: " + e);
-        horizontalLine();
+        printHorizontalLine();
     }
 }

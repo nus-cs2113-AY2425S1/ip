@@ -13,11 +13,11 @@ public class Deadline extends Task{
     private static final int SIZE_OF_WORD_BY = 3;
     private static final int SIZE_OF_WORD_BY_AND_SPACE = 4;
     private static final int INCREMENT_TO_BY_START = 4;
-    protected String by;
+    protected String duedate;
 
     private static String getDeadlineDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
-        validityCheck(input);
+        checkValidity(input);
         return input.substring(input.indexOf(" ") + INCREMENT_TO_DESCRIPTION_START,
                 input.indexOf("/by") - DECREMENT_TO_DESCRIPTION_END);
     }
@@ -30,7 +30,7 @@ public class Deadline extends Task{
      * @throws LeginMissingParamsException If missing due date
      * @throws LeginEmptyTaskException If no deadline task description
      */
-    private static void validityCheck(String input) throws LeginMissingParamsException,
+    private static void checkValidity(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfBy = input.indexOf("/by");
         if (indexOfBy == INDEX_IF_NO_DESCRIPTION) {
@@ -45,12 +45,12 @@ public class Deadline extends Task{
     public Deadline(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
         super(getDeadlineDescription(input));
         int startingIndexOfDueDate = input.indexOf("/by") + INCREMENT_TO_BY_START;
-        this.by = input.substring(startingIndexOfDueDate);
+        this.duedate = input.substring(startingIndexOfDueDate);
     }
 
-    public Deadline(String description, String by) throws LeginEmptyTaskException {
+    public Deadline(String description, String duedate) throws LeginEmptyTaskException {
         super(description);
-        this.by = by;
+        this.duedate = duedate;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Deadline extends Task{
      */
     @Override
     public String getWriteInfo() {
-        return "D|" + isDone + "|" + task + "|" + by;
+        return "D|" + isDone + "|" + task + "|" + duedate;
     }
 
     /**
@@ -70,6 +70,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + duedate + ")";
     }
 }

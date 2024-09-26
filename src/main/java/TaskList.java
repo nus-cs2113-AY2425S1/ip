@@ -31,13 +31,13 @@ public class TaskList {
     /**
      * Prints out all the currently stored {@code Task} that the user has in the order of oldest to newest
      */
-    public void list() {
-        ui.horizontalLine();
+    public void listAllTask() {
+        ui.printHorizontalLine();
         if (currentTaskCount == 0) {
             System.out.println("You have no tasks right now YIPPEE!");
         }
         ui.printTaskList(currentTaskCount, tasks);
-        ui.horizontalLine();
+        ui.printHorizontalLine();
     }
 
     /**
@@ -95,11 +95,11 @@ public class TaskList {
      * @param index Index of task in {@code tasks} Array to mark
      */
     public void markTask(int index) {
-        ui.horizontalLine();
+        ui.printHorizontalLine();
         Task taskToMark = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
         taskToMark.markTask();
         ui.printMarkTaskMessage(taskToMark);
-        ui.horizontalLine();
+        ui.printHorizontalLine();
     }
 
     /**
@@ -109,11 +109,11 @@ public class TaskList {
      * @param index Index of task in {@code tasks} Array to unmark
      */
     public void unmarkTask(int index) {
-        ui.horizontalLine();
+        ui.printHorizontalLine();
         Task taskToUnmark = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
         taskToUnmark.unmarkTask();
         ui.printUnmarkTaskMessage(taskToUnmark);
-        ui.horizontalLine();
+        ui.printHorizontalLine();
     }
 
     /**
@@ -123,12 +123,12 @@ public class TaskList {
      * @param index Index of task in the {@code tasks} array
      */
     public void deleteTask(int index) {
-        ui.horizontalLine();
+        ui.printHorizontalLine();
         Task taskToRemove = tasks.get(index - DECREMENT_FOR_ZERO_INDEX);
         tasks.remove(index - DECREMENT_FOR_ZERO_INDEX);
         currentTaskCount--;
         ui.printDeleteTaskMessage(taskToRemove, currentTaskCount);
-        ui.horizontalLine();
+        ui.printHorizontalLine();
     }
 
     /**
@@ -138,10 +138,10 @@ public class TaskList {
      * @param input User input in the command line
      */
     public void findAllMatchingTask(String input) {
-        ui.horizontalLine();
+        ui.printHorizontalLine();
         int indexOfFirstSpace = input.indexOf(" ");
         String matchingWords = input.substring(indexOfFirstSpace).trim();
         ui.printAllMatchingTask(matchingWords, currentTaskCount, tasks);
-        ui.horizontalLine();
+        ui.printHorizontalLine();
     }
 }

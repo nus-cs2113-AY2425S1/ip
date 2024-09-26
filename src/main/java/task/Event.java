@@ -19,7 +19,7 @@ public class Event extends Task{
 
     private static String getEventDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
-        validityCheck(input);
+        checkValidity(input);
         return input.substring(input.indexOf(" ") + INCREMENT_TO_DESCRIPTION_START,
                 input.indexOf("/from") + DECREMENT_TO_DESCRIPTION_END);
     }
@@ -33,7 +33,7 @@ public class Event extends Task{
      * @throws LeginMissingParamsException If missing duration of event
      * @throws LeginEmptyTaskException If no event task description
      */
-    private static void validityCheck(String input) throws LeginMissingParamsException,
+    private static void checkValidity(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfFrom = input.indexOf("from");
         int indexOfTo = input.indexOf("to");

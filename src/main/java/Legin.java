@@ -26,14 +26,14 @@ public class Legin {
      *
      */
     private void runBot() {
-        boolean saidBye = false;
+        boolean hasSaidBye = false;
         ui.greet();
-        while (!saidBye) {
+        while (!hasSaidBye) {
             String input = ui.readInput();
-            saidBye = parser.parseInput(taskList, input);
+            hasSaidBye = parser.parseInput(taskList, input);
         }
         storage.updateTextFile(taskList);
-        ui.bye();
+        ui.exiting();
     }
 
     public static void main(String[] args) {

@@ -51,7 +51,7 @@ public class Parser {
             case "bye":
                 return true;
             case "list":
-                taskList.list();
+                taskList.listAllTask();
                 break;
             case "mark":
                 indexOfTaskToMark = Integer.parseInt(words[INDEX_TO_MARK]);

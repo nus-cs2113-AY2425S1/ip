@@ -1,4 +1,7 @@
-D|true|assignment|3 Oct
+D|false|assignment|3 Oct
 E|false|attend tutorial|2pm|5pm
 T|false|make sushi
 T|false|finish up essay
+T|false|make bed
+D|false|feed cat|8 Dec
+E|false|concert|1pm|3pm
