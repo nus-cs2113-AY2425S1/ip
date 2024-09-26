@@ -3,3 +3,5 @@ E | 1 | ls | /from | /to
 T | 1 | pig 
 D | 0 | ksfjosi   |||| gjso | nigga
   | 0 | gind g
+  | 0 | hi
+D | 0 | fetus | 1
