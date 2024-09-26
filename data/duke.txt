@@ -1,6 +1,7 @@
-  | 1 | hi
-T | 0 | gay
-D | 0 | sex | 7
-  | 1 | lsit
-E | 0 | orgy | monday | fridat
-T | 0 | 
+E | 1 | gay sex | 1 o clock | 5 o clcok 
+E | 0 | /gay sex | 1 | /
+E | 1 | ls | /from | /to
+  | 0 | delet 1
+T | 1 | pig 
+D | 0 | necrophilia | 2
+D | 0 | ksfjosi   |||| gjso | nigga

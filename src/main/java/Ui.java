@@ -35,11 +35,11 @@ public class Ui {
         showLine();
     }
 
-    public void showTaskList(ArrayList<Task> tasks) {
+    public void showTaskList(TaskList tasks) {
         showLine();
         System.out.println("Here is your list of nonsense, now get out of my swamp:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.get(i));  // Utilizes Task's toString() method
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.getTask(i));  // Utilizes Task's toString() method
         }
         showLine();
     }

@@ -13,7 +13,7 @@ public class Storage {
     }
 
     // Method to load tasks from the file
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() throws FileNotFoundException{
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -62,14 +62,14 @@ public class Storage {
     }
 
     // Method to save tasks to the file
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(TaskList tasks) throws IOException {
         File file = new File(filePath);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
         }
 
         FileWriter fw = new FileWriter(file);
-        for (Task task : tasks) {
+        for (Task task : tasks.getAllTasks()) {
             fw.write(task.toSaveFormat() + "\n");
         }
         fw.close();

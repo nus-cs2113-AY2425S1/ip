@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Parser {
     public Ui ui;
     public Storage storage;
-    public ArrayList<Task> tasks;
+    public TaskList tasks;
 
-    public Parser(Ui ui, Storage storage, ArrayList<Task> tasks) {
+    public Parser(Ui ui, Storage storage, TaskList tasks) {
         this.ui = ui;
         this.storage = storage;
         this.tasks = tasks;
@@ -73,32 +73,32 @@ public class Parser {
     }
 
     private void markTask(String input) throws IOException {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        tasks.get(taskNumber).markAsDone();
-        ui.showTaskMarked(tasks.get(taskNumber));
+        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; // Get task number from the input
+        tasks.getTask(taskNumber).markAsDone();
+        ui.showTaskMarked(tasks.getTask(taskNumber));
         storage.saveTasks(tasks);
     }
 
     private void unmarkTask(String input) throws IOException {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        tasks.get(taskNumber).markAsNotDone();
-        ui.showTaskUnmarked(tasks.get(taskNumber));
+        tasks.getTask(taskNumber).markAsNotDone();
+        ui.showTaskUnmarked(tasks.getTask(taskNumber));
         storage.saveTasks(tasks);
     }
 
     private void addTodoTask(String input) throws IOException {
         String description = input.substring(5);
         Todo newTodo = new Todo(description);
-        tasks.add(newTodo);
-        ui.showTaskAdded(newTodo, tasks.size());
+        tasks.addTask(newTodo);
+        ui.showTaskAdded(newTodo, tasks.getSize());
         storage.saveTasks(tasks);
     }
 
     private void addDeadlineTask(String input) throws IOException {
         String[] parts = input.substring(9).split(" /by ");
         Deadline newDeadline = new Deadline(parts[0], parts[1]);
-        tasks.add(newDeadline);
-        ui.showTaskAdded(newDeadline, tasks.size());
+        tasks.addTask(newDeadline);
+        ui.showTaskAdded(newDeadline, tasks.getSize());
         storage.saveTasks(tasks);
     }
 
@@ -106,23 +106,23 @@ public class Parser {
         String[] description = input.substring(6).split(" /from ");
         String[] time = description[1].split(" /to ");
         Event newEvent = new Event(description[0], time[0], time[1]);
-        tasks.add(newEvent);
-        ui.showTaskAdded(newEvent, tasks.size());
+        tasks.addTask(newEvent);
+        ui.showTaskAdded(newEvent, tasks.getSize());
         storage.saveTasks(tasks);
     }
 
     private void deleteTask(String input) throws IOException {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task taskToRemove = tasks.get(taskNumber);
+        Task taskToRemove = tasks.getTask(taskNumber);
         ui.showTaskDeleted(taskToRemove);
-        tasks.remove(taskNumber);
+        tasks.deleteTask(taskNumber);
         storage.saveTasks(tasks);
     }
 
     private void addGenericTask(String input) throws IOException {
         Task newTask = new Task(input);
-        tasks.add(newTask);
-        ui.showTaskAdded(newTask, tasks.size());
+        tasks.addTask(newTask);
+        ui.showTaskAdded(newTask, tasks.getSize());
         storage.saveTasks(tasks);
     }
 }

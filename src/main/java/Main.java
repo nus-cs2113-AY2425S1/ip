@@ -1,24 +1,26 @@
 import java.util.ArrayList;
-import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) {
 
-        Ui ui = new Ui();
+        Ui ui = new Ui(); //Create instance of UI to handle user interaction
         ui.showWelcome();
-        ArrayList<Task> tasks = new ArrayList<>(); //Array of "task" object to store the tasks
 
-        Storage storage = new Storage("data/duke.txt");
+        TaskList taskList;
+        Storage storage = new Storage("data/duke.txt"); // Create a Storage instance, specifying the file path
         //load tasks from file at the start
         try {
-            tasks = storage.loadTasks();
-        } catch (FileNotFoundException e) {
+            ArrayList<Task> loadedTasks = storage.loadTasks();
+            taskList = new TaskList(loadedTasks);
+        }
+        catch (FileNotFoundException e) {
             ui.showLoadingError();
+            taskList = new TaskList(); //initialise empty list if file is not found
         }
 
-        Parser parser = new Parser(ui, storage, tasks);
-        parser.run();
+        Parser parser = new Parser(ui, storage, taskList); // Create a parser instance, passing in the UI, Storage and task list
+        parser.run(); // Start processing commands
 
     }
 }
