@@ -3,7 +3,7 @@ package Command;
 import TaskList.TaskList;
 
 public class FindCommand extends Command{
-    private static final int FIND_WORD_LENGTH = 7;
+    private static final int FIND_WORD_LENGTH = 5;
 
     @Override
     public void execute(TaskList taskList, String userInput) {
