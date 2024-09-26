@@ -1,4 +1,4 @@
 T | 0 | homework
-D | 0 | cooking foed | 23 Dec
-T | 1 | homework 3 
 E | 1 | cooking camp | mon | thur this week
+D | 0 | buy present | 3 Feb
+E | 1 | badminton training camp | 12 Feb | 18 Feb in Japan

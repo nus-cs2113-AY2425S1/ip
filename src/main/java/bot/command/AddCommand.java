@@ -1,6 +1,13 @@
-package bot;
+package bot.command;
 
-import task.*;
+import bot.Storage;
+import bot.TobyBotException;
+import bot.Ui;
+import task.Task;
+import task.Deadline;
+import task.Event;
+import task.Todo;
+import task.TaskList;
 
 import java.io.IOException;
 

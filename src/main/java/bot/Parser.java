@@ -1,5 +1,7 @@
 package bot;
 
+import bot.command.*;
+
 public class Parser {
     public static Command parse(String fullCommand) throws TobyBotException {
         String[] parts = fullCommand.split(" ", 2);

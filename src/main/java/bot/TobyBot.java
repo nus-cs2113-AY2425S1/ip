@@ -1,5 +1,6 @@
 package bot;
 
+import bot.command.Command;
 import task.TaskList;
 
 import java.io.IOException;

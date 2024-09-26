@@ -1,5 +1,8 @@
-package bot;
+package bot.command;
 
+import bot.Storage;
+import bot.TobyBotException;
+import bot.Ui;
 import task.TaskList;
 
 public class DeleteCommand extends Command {

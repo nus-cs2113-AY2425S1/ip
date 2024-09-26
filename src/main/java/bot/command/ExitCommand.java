@@ -1,5 +1,7 @@
-package bot;
+package bot.command;
 
+import bot.Storage;
+import bot.Ui;
 import task.TaskList;
 
 public class ExitCommand extends Command {
