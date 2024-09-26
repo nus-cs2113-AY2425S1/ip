@@ -1,8 +1,8 @@
 package quinn.ui;
 
 import quinn.task.Task;
+import quinn.task.TaskList;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -77,30 +77,20 @@ public class Ui {
                 + System.lineSeparator() + "\t\t" + task;
     }
 
-    public String numOfTasksInListMessage(List<Task> tasks) {
-        return "\t" + "Now you have " + tasks.size()
-                + (tasks.size() > 1 ? " tasks" : " task")
+    public String numOfTasksInListMessage(TaskList taskList) {
+        return "\t" + "Now you have " + taskList.getNumOfTasks()
+                + (taskList.getNumOfTasks() > 1 ? " tasks" : " task")
                 + " in the list.";
     }
 
-    public String tasksInListMessage(List<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("\t")
-                .append(tasks.size() > 1 ? "Here are the tasks in your list:" : "Here is the task in your list:")
-                .append(System.lineSeparator())
-                .append("\t")
-                .append("[Legend: T = todo, D = deadline, E = event]")
-                .append(System.lineSeparator());
-
-        for (int i = 0; i < tasks.size(); i++) {
-            if (i != 0) {
-                sb.append(System.lineSeparator());
-            }
-
-            sb.append("\t").append(i + 1).append(". ").append(tasks.get(i));
-        }
-
-        return sb.toString();
+    public String tasksInListMessage(TaskList taskList) {
+        return "\t" + "Here"
+                + (taskList.getNumOfTasks() > 1 ? " are the tasks  " : " is the task ")
+                + "in your list:"
+                + System.lineSeparator()
+                + "\t" + "[Legend: T = todo, D = deadline, E = event]"
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + taskList;
     }
 }

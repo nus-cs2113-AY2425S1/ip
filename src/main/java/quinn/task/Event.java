@@ -1,25 +1,25 @@
 package quinn.task;
 
 public class Event extends Task {
-    private final String fromDateTimeInput;
-    private final String toDateTimeInput;
+    private final String startDateTime;
+    private final String endDateTime;
 
-    public Event(String description, String fromDateTimeInput, String toDateTimeInput) {
-        this(description, fromDateTimeInput, toDateTimeInput, false);
+    public Event(String description, String startDateTime, String endDateTime) {
+        this(description, startDateTime, endDateTime, false);
     }
 
-    public Event(String description, String fromDateTimeInput, String toDateTimeInput, boolean isDone) {
+    public Event(String description, String startDateTime, String endDateTime, boolean isDone) {
         super(TaskType.EVENT, description, isDone);
-        this.fromDateTimeInput = fromDateTimeInput;
-        this.toDateTimeInput = toDateTimeInput;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + fromDateTimeInput + " to: " + toDateTimeInput + ")";
+        return super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
     }
 
     public String saveFormat() {
-        return super.saveFormat() + " | " + fromDateTimeInput + " | " + toDateTimeInput;
+        return super.saveFormat() + " | " + startDateTime + " | " + endDateTime;
     }
 }

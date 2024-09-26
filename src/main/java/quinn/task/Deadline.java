@@ -1,23 +1,23 @@
 package quinn.task;
 
 public class Deadline extends Task {
-    private final String byDateTimeInput;
+    private final String dueDateTime;
 
-    public Deadline(String description, String byDateTimeInput) {
-        this(description, byDateTimeInput, false);
+    public Deadline(String description, String dueDateTime) {
+        this(description, dueDateTime, false);
     }
 
-    public Deadline(String description, String byDateTimeInput, boolean isDone) {
+    public Deadline(String description, String dueDateTime, boolean isDone) {
         super(TaskType.DEADLINE, description, isDone);
-        this.byDateTimeInput = byDateTimeInput;
+        this.dueDateTime = dueDateTime;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + byDateTimeInput + ")";
+        return super.toString() + " (by: " + dueDateTime + ")";
     }
 
     public String saveFormat() {
-        return super.saveFormat() + " | " + byDateTimeInput;
+        return super.saveFormat() + " | " + dueDateTime;
     }
 }
