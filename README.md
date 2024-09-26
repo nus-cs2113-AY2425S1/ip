@@ -40,7 +40,7 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
 > * Words in `UPPERCASE` represent parameters that are to be entered by the user.  
 > e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter, like in `todo buy bread`.
 > * Command words are **case-sensitive**.   
-> e.g the command will interpret `LIST` as an invalid command, even though `list` is valid.
+> e.g. the program will interpret `LIST` as an invalid command, even though `list` is valid.
 > * For commands that do not take in parameters (like `list` and `bye`), additional parameters
 > entered will be ignored by the program.  
 > e.g. the program will interpret `list 1-10` as `list`.
