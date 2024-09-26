@@ -4,7 +4,13 @@ import quinn.storage.Storage;
 import quinn.task.TaskList;
 import quinn.ui.Ui;
 
+/**
+ * Represents a command to exit the task management system.
+ */
 public class ExitCommand implements Command {
+    /**
+     * Constructs an ExitCommand.
+     */
     public ExitCommand() {
     }
 

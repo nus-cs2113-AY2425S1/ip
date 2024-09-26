@@ -5,7 +5,13 @@ import quinn.storage.Storage;
 import quinn.task.TaskList;
 import quinn.ui.Ui;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand implements Command {
+    /**
+     * Constructs a ListCommand.
+     */
     public ListCommand() {
     }
 

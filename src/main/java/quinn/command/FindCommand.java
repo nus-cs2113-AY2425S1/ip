@@ -5,9 +5,17 @@ import quinn.storage.Storage;
 import quinn.task.TaskList;
 import quinn.ui.Ui;
 
+/**
+ * Represents a command to find tasks based on a keyword.
+ */
 public class FindCommand implements Command {
     private final String keyword;
 
+    /**
+     * Constructs a FindCommand with the specified keyword.
+     *
+     * @param keyword the keyword to search for in tasks
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
