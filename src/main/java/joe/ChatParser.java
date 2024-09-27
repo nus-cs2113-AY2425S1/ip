@@ -166,8 +166,8 @@ public class ChatParser {
 
         newItem.ifPresentOrElse(
                 task -> this.toDoItemArrayList.addToList(task),
-                () -> UI.printMultiLine(new String[]{"Remember available commands for creating tasks are: " +
-                        "todo, event or deadline for creating tasks", "General commands: list, bye, unmark and mark. "})
+                () -> UI.printMultiLine(new String[]{"Remember, available commands for creating tasks are: " +
+                        "todo, event or deadline", "General commands: list, bye, unmark and mark. "})
         );
     }
 }
