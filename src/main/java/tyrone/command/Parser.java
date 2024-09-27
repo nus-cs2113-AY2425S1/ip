@@ -98,15 +98,15 @@ public class Parser {
     /**
      * Handles "event" command when input by user
      *
-     * @param command User input to chatbot.
+     * @param input User input to chatbot.
      */
-    private static void handleEvent(String command) {
+    private static void handleEvent(String input) {
         try {
-            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC, 
-                    command.indexOf(" /from"));
-            String start = command.substring(command.indexOf("/from") + START_INDEX_OFFSET_START,
-                    command.indexOf(" /to"));
-            String end = command.substring(command.indexOf("/to") + START_INDEX_OFFSET_END);
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
+                    input.indexOf(" /from"));
+            String start = input.substring(input.indexOf("/from") + START_INDEX_OFFSET_START,
+                    input.indexOf(" /to"));
+            String end = input.substring(input.indexOf("/to") + START_INDEX_OFFSET_END);
             if (description.isBlank() || start.isBlank() || end.isBlank()) {
                 throw new EmptyFieldException();
             }
@@ -124,13 +124,13 @@ public class Parser {
     /**
      * Handles "deadline" command when input by user
      *
-     * @param command User input to chatbot.
+     * @param input User input to chatbot.
      */
-    private static void handleDeadline(String command) {
+    private static void handleDeadline(String input) {
         try {
-            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
-                    command.indexOf(" /by"));
-            String deadline = command.substring(command.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
+                    input.indexOf(" /by"));
+            String deadline = input.substring(input.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
             if (description.isBlank() || deadline.isBlank()) {
                 throw new EmptyFieldException();
             }
@@ -148,12 +148,12 @@ public class Parser {
     /**
      * Handles "todo" command when input by user
      *
-     * @param command User input to chatbot.
+     * @param input User input to chatbot.
      */
-    private static void handleTodo(String command) {
+    private static void handleTodo(String input) {
         try {
-            String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC);
-            if (!command.contains(" ") || description.isBlank()) {
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC);
+            if (!input.contains(" ") || description.isBlank()) {
                 throw new EmptyFieldException();
             }
             Todo newTodo = new Todo(description);
