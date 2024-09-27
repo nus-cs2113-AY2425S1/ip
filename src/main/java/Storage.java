@@ -3,11 +3,13 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Storage {
     //define filepath
     private static final String FILE_PATH = "./data/quag.txt";
-
     public static void saveToFile() {
         try {
             File dir = new File("./data");
@@ -52,14 +54,19 @@ public class Storage {
                         TaskList.tasks.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(data[2], data[3]);
+                        LocalDateTime deadlineTime = LocalDateTime.parse(data[3]);
+                        Deadline deadline = new Deadline(data[2], deadlineTime);
                         if (data[1].equals("1")) {
                             deadline.markAsDone();
                         }
                         TaskList.tasks.add(deadline);
                         break;
                     case "E":
-                        Event event = new Event(data[2],data[3],data[4]);
+                        String startTimeString = data[3];
+                        String endTimeString = data[4];
+                        LocalDateTime startTime = LocalDateTime.parse(startTimeString);
+                        LocalDateTime endTime = LocalDateTime.parse(endTimeString);
+                        Event event = new Event(data[2],startTime,endTime);
                         if (data[1].equals("1")) {
                             event.markAsDone();
                         }

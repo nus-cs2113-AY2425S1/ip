@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 public class Parser {
     public static boolean parse(String userInput) {
         UI ui = new UI();
@@ -47,23 +52,29 @@ public class Parser {
                 break;
 
             case "deadline":
-                //description is from parts[1] until / is detected
-                //deadline is after /
+                try {
+                    //description is from parts[1] until / is detected
+                    //deadline is after /
 
-                // int to denote length and position of "/by" separator
-                int byLength = 4;
-                int byIndex = userInput.indexOf("/by");
+                    // int to denote length and position of "/by" separator
+                    int byLength = 4;
+                    int byIndex = userInput.indexOf("/by");
 
-                //find position of /by separator
-                if (byIndex != -1) {
-                    //extract the description and deadline
-                    description = userInput.substring("deadline".length(), byIndex).trim();
-                    // Skip over "/by "
-                    String by = userInput.substring(byIndex + byLength).trim();
-                    TaskList.addDeadlineToList(description, by);
-                } else {
-                    ui.invalidFormat();
-                }
+                    //find position of /by separator
+                    if (byIndex != -1) {
+                        //extract the description and deadline
+                        description = userInput.substring("deadline".length(), byIndex).trim();
+                        // Skip over "/by "
+                        String by = userInput.substring(byIndex + byLength).trim();
+                        // Parse the date and time
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime deadlineTime = LocalDateTime.parse(by, formatter);
+
+                        TaskList.addDeadlineToList(description, deadlineTime);
+                    }
+                } catch (DateTimeParseException e) {
+                        ui.invalidFormat();
+                    }
                 break;
 
             case "event":
@@ -80,9 +91,12 @@ public class Parser {
                 if (fromIndex != -1 && toIndex != -1 && toIndex > fromIndex) {
                     // extract description, from and to
                     description = userInput.substring("event".length(), fromIndex).trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                     String from = userInput.substring(fromIndex + fromLength, toIndex).trim();
                     String to = userInput.substring(toIndex + toLength).trim();
-                    TaskList.addEventToList(description, from, to);
+                    LocalDateTime fromTime = LocalDateTime.parse(from, formatter);
+                    LocalDateTime toTime = LocalDateTime.parse(to, formatter);
+                    TaskList.addEventToList(description, fromTime, toTime);
                 }  else {
                     ui.invalidFormat();
                 }

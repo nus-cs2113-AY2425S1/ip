@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
 public class TaskList {
+
     
     public static UI ui = new UI();
     public static ArrayList<Task> tasks = new ArrayList<>();
@@ -24,14 +26,14 @@ public class TaskList {
     }
 
     // Adding Deadline task
-    public static void addDeadlineToList(String description, String by) {
+    public static void addDeadlineToList(String description, LocalDateTime by) {
         Deadline deadline = new Deadline(description, by);
         addTaskToList(deadline); // Reuse the helper method
         Storage.saveToFile();
     }
 
     // Adding Event task
-    public static void addEventToList(String description, String from, String to) {
+    public static void addEventToList(String description, LocalDateTime from, LocalDateTime to) {
         Event event = new Event(description, from, to);
         addTaskToList(event); // Reuse the helper method
         Storage.saveToFile();
