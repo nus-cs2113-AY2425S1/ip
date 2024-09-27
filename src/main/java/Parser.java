@@ -3,6 +3,12 @@ import java.util.HashMap;
 public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
     public static final String ARGUMENT_MAIN = "main";
+
+    /**
+     * Parses the given user input into command arguments
+     * @param line Line that a user inputs
+     * @return HashMap of Arguments, mapping the argument to its value given
+     */
     public static HashMap<String, String> parseCommandToArguments(String line) {
         HashMap<String, String> argumentsList = new HashMap<>();
         String[] lineArgs = line.split(" ");

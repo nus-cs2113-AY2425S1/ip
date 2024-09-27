@@ -11,10 +11,19 @@ import java.util.Scanner;
 public class Storage {
     public String filePath;
 
+    /**
+     * Creates the Storage Object. Sets the file path to load from and save to
+     * @param filePath File Path to load from and save to
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves data from a task list into a file
+     * @param taskList Task List to save into a file
+     * @throws CuboydException If there are any issues saving
+     */
     public void save(TaskList taskList) throws CuboydException {
         FileWriter fw = null;
         try {
@@ -51,9 +60,15 @@ public class Storage {
         }
     }
 
-    private void loadFromScanner(Scanner s, TaskList taskList) throws Exception {
-        while (s.hasNext()) {
-            String line = s.nextLine();
+    /**
+     * Loads data from a scanner into a task list
+     * @param scanner Scanner to load data from
+     * @param taskList Task List to load the save data into
+     * @throws CuboydException If there are any issues on loading
+     */
+    private void loadFromScanner(Scanner scanner, TaskList taskList) throws Exception {
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
             String[] list = line.split("\\|");
             Task currentTask = null;
             switch (list[0]){
@@ -83,6 +98,12 @@ public class Storage {
             taskList.addTask(currentTask);
         }
     }
+
+    /**
+     * Loads the file into a task list
+     * @param taskList Task List to load the save data into
+     * @throws CuboydException If there are any issues on loading
+     */
     public void load(TaskList taskList) throws CuboydException {
         File f = new File(filePath);
         Scanner s = null; // create a Scanner using the File as the source
