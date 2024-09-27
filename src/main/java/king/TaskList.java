@@ -121,7 +121,8 @@ public class TaskList {
 
             taskContent = String.join(" ", Arrays.copyOfRange(taskSpecifics, 1, separationIndex));
 
-            taskEndTime = taskSpecifics[separationIndex + 1];
+            taskEndTime = String.join(" "
+                    , Arrays.copyOfRange(taskSpecifics, separationIndex + 1, taskSpecifics.length)).trim();
 
             try {
                 if (taskEndTime.length() == 10) {
