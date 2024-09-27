@@ -19,6 +19,13 @@ public class Constants {
     public Constants() {
     }
 
+    public static void intro(){
+        System.out.println(LINE);
+        System.out.println("    Hello from\n" + Constants.logo + "\n");
+        System.out.println("    What can I do for you cuh?\n");
+        System.out.println(LINE);
+    }
+
     public static void goodbye() {
         System.out.println(LINE);
         System.out.println("    see you brother");
@@ -88,46 +95,5 @@ public class Constants {
             System.out.println(LINE);
         }
     }
-    // Save tasks
-    public static void saveTasks() {
-        try {
-            // Check if ./data directory exists, if not, create it
-            File directory = new File("./data");
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
 
-            // Create or open Tasks.txt file
-            FileWriter writer = new FileWriter("./data/Tasks.txt");
-
-            // Write all tasks to the file
-            for (int i = 0; i < toDoList.size(); i++) {
-                Task task = toDoList.get(i);
-                String taskType = task instanceof Deadline ? "D" : (task instanceof Event ? "E" : "T");
-                String statusIcon = task.getStatusIcon();
-                String taskDescription = task.getDescription();
-
-                // Write task details based on its type
-                if (task instanceof Deadline) {
-                    String doBy = ((Deadline) task).getDoBy();
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + " | by: " + doBy + "\n");
-                } else if (task instanceof Event) {
-                    String timing = ((Event) task).getTiming();
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + " | " + timing + "\n");
-                } else {
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + "\n");
-                }
-            }
-
-            writer.close();
-            System.out.println(LINE);
-            System.out.println("    Tasks have been saved to ./data/Tasks.txt");
-            System.out.println(LINE);
-
-        } catch (IOException e) {
-            System.out.println(LINE);
-            System.out.println("    An error occurred while saving tasks.");
-            System.out.println(LINE);
-        }
-    }
 }

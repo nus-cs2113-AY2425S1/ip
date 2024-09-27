@@ -1,90 +1,46 @@
 import java.util.Scanner;
 
 import tyrone.constants.Constants;
-import tyrone.exceptions.MissingTimeInfoException;
-import tyrone.exceptions.TyroneException;
-import tyrone.exceptions.WrongDeadlineFormatException;
-import tyrone.exceptions.WrongEventFormatException;
-import tyrone.task.Deadline;
-import tyrone.task.Event;
-import tyrone.task.Task;
-import tyrone.task.ToDo;
+import tyrone.exceptions.*;
+import tyrone.parser.Parser;
+import tyrone.storage.Storage;
+import tyrone.task.*;
+import tyrone.tasklist.TaskList;
+import tyrone.ui.Ui;
 
 public class Tyrone {
-    public static void getUserInput(String userInput) throws TyroneException {
-        if (userInput.startsWith("mark ")) {
-            int index = Integer.parseInt(userInput.substring(5)) - 1;
-            if (index >= 0 && index < Constants.toDoList.size()) {
-                Constants.markAsDone(index);
-            } else {
-                System.out.println(Constants.LINE);
-                System.out.println("    Invalid task number bro.");
-                System.out.println(Constants.LINE);
-            }
-        } else if (userInput.startsWith("unmark ")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-            if (index >= 0 && index < Constants.toDoList.size()) {
-                Constants.unmarkAsUndone(index);
-            } else {
-                System.out.println(Constants.LINE);
-                System.out.println("    Invalid task number bro.");
-                System.out.println(Constants.LINE);
-            }
-        } else if (userInput.startsWith("todo ")) {
-            ToDo.createToDo(userInput);
-        } else if (userInput.startsWith("deadline ")) {
-            try{
-                Deadline.createDeadline(userInput);
-            }catch (WrongDeadlineFormatException e){
-                System.out.println(Constants.LINE);
-                System.out.println("    WRONG WAY CUH!! Use:  the format: deadline <description> /by <due by>");
-                System.out.println(Constants.LINE);
-            } catch (MissingTimeInfoException e) {
-                Constants.missingTimeInfo();
-            }
-        }
-        else if (userInput.startsWith("delete ")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-            Constants.deleteTask(index);
-        } 
-        else if (userInput.startsWith("event ")) {
-            try{
-                Event.createEvent(userInput);
-            } catch (WrongEventFormatException e){
-            System.out.println(Constants.LINE);
-            System.out.println("    WRONG WAY CUH!! Use: event <description> /from <start_time> /to <end_time>");
-            System.out.println(Constants.LINE);
-            } catch (MissingTimeInfoException e) {
-                Constants.missingTimeInfo();
-            }
-        } else if (userInput.equals("list")) {
-            Constants.getList();
-        } else if (userInput.equals("save")) {
-            Constants.saveTasks(); // Call save function
-        } else {
-            System.out.println(Constants.LINE);
-            System.out.println("    Invalid command my brother.");
-            System.out.println(Constants.LINE);
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+
+    public Tyrone(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.loadTasks());  // Now loadTasks() returns a list of tasks
+        } catch (Exception e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
-    public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            System.out.println(Constants.LINE);
-            System.out.println("    Hello from\n" + Constants.logo + "\n");
-            System.out.println("    What can I do for you cuh?\n");
-            System.out.println(Constants.LINE);
-            String input = in.nextLine();
-            while (!input.equals("bye")) {
-                try {
-                    getUserInput(input); 
-                } catch (TyroneException e) {
-                    // General exception handling for TyroneException
-                    System.out.println("An error occurred: " + e.getMessage());
-                }
-                input = in.nextLine();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                isExit = Parser.handleUserInput(fullCommand, tasks);
+            } catch (TyroneException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
         }
-        Constants.goodbye();
+        ui.showGoodbye();
+    }
+
+    public static void main(String[] args) {
+        new Tyrone("data/tasks.txt").run();
     }
 }
