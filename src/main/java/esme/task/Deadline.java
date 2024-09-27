@@ -36,7 +36,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the Deadline task, which is in the format of
-     * "[D][] <description> (by: <deadline>)".
+     * "[D][] {description} (by: {deadline})".
      *
      * @return A string representation of the Deadline task.
      */

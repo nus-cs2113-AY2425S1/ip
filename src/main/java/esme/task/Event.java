@@ -72,7 +72,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the event task, which is in the format of
-     * "[E][] <description> (from: <start date>, to: <end date>)".
+     * [E][] [description] (from: [start date], to: [end date]).
      *
      * @return A string representation of the event task.
      */

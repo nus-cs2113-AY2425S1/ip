@@ -44,9 +44,10 @@ public class TaskList {
     /**
      * Converts a given task into its input format for saving to a file.
      * The format is as follows:
-     * For Todo tasks: "todo <description> /c <completed>"
-     * For Event tasks: "event <description> /from <from> /to <to> /c <completed>"
-     * For Deadline tasks: "deadline <description> /by <by> /c <completed>"
+     * Todo tasks: "todo {@literal <description>} /c {@literal <completed>}"
+     * Event tasks: "event {@literal <description>} /from {@literal <from>} /to {@literal <to>}
+     * /c {@literal <completed>}"
+     * Deadline tasks: "deadline {@literal <description>} /by {@literal <by>} /c {@literal <completed>}"
      *
      * @param task The task to be converted
      * @return The task in its input format
@@ -56,12 +57,10 @@ public class TaskList {
         if (task instanceof Todo) {
             formattedTask = "todo " + ((Todo) task).getDescription() + " /c "
                     + ((Todo) task).hasCompleted();
-        }
-        else if (task instanceof Event) {
+        } else if (task instanceof Event) {
             formattedTask = "event " + ((Event) task).getDescription() + " /from " + ((Event) task).getFrom()
                     + " /to " + ((Event) task).getTo() + " /c " + ((Event) task).hasCompleted();
-        }
-        else if (task instanceof Deadline) {
+        } else if (task instanceof Deadline) {
             formattedTask = "deadline " + ((Deadline) task).getDescription() + " /by "
                     + ((Deadline) task).getBy() + " /c " + ((Deadline) task).hasCompleted();
         }
@@ -82,11 +81,8 @@ public class TaskList {
     }
 
     /**
-     * Prints out the task list. The output will be in the format:
-     * By the light of the moon, these are the tasks that guide your path:
-     * <index>. [X] <task name>
-     * <index>. [ ] <task name>
-     * ...
+     * Prints out the task list.
+     * This method displays the tasks in the task list, indicating their completion status.
      */
     public void printTaskList() {
         System.out.println("\tBy the light of the moon, these are the tasks that guide your path:");
@@ -95,6 +91,7 @@ public class TaskList {
             System.out.println("\t" + (i + 1) + "." + task);
         }
     }
+
 
     /**
      * Deletes a task from the task list
@@ -215,8 +212,7 @@ public class TaskList {
             if (chore.getLocalDate().getMonth() == month && chore.getLocalDate().getYear() == year) {
                 list.add(task);
             }
-        }
-        else if (task instanceof Event event) {
+        } else if (task instanceof Event event) {
             if (event.getLocalDateFrom().getYear() != year && event.getLocalDateTo().getYear() != year) {
                 return;
             }

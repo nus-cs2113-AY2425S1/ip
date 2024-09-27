@@ -12,27 +12,29 @@ import java.util.ArrayList;
  * It also contains methods for validating user input and handling exceptions.
  */
 public class Ui {
-    private TaskList taskList;
     private static final int SEPARATOR_LENGTH = 120;
     private static final String SEPARATOR = "-".repeat(SEPARATOR_LENGTH);
-    private static final String helpMessage = "Available commands:\n" +
-            "\t- bye: Exit the application.\n" +
-            "\t- todo [description]: Add a new todo task.\n" +
-            "\t- deadline [description] /by [YYYY-MM-DD]: Add a new task with a deadline.\n" +
-            "\t- event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]: Add a new event.\n" +
-            "\t- mark [task number]: Mark a task as completed.\n" +
-            "\t- unmark [task number]: Unmark a completed task.\n" +
-            "\t- delete [task number]: Delete a task.\n" +
-            "\t- list: List all tasks.\n" +
-            "\t- task in [YYYY-MM-DD]: List all task in the same year and month.\n" +
-            "\t- find [keyword]: Find a task by keyword.\n" +
-            "\t- help: Show this help message.";
-    private static final String esmeLogo = " _____                    \n" +
-            "| ____|___ _ __ ___   ___ \n" +
-            "|  _| / __| '_ ` _ \\ / _ \\ \n" +
-            "| |___\\__ \\ | | | | |  __/ \n" +
-            "|_____|___/_| |_| |_|\\___| ";
+    private static final String HELP_MESSAGE = """
+            Available commands:
+            \t- bye: Exit the application.
+            \t- todo [description]: Add a new todo task.
+            \t- deadline [description] /by [YYYY-MM-DD]: Add a new task with a deadline.
+            \t- event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]: Add a new event.
+            \t- mark [task number]: Mark a task as completed.
+            \t- unmark [task number]: Unmark a completed task.
+            \t- delete [task number]: Delete a task.
+            \t- list: List all tasks.
+            \t- task in [YYYY-MM-DD]: List all task in the same year and month.
+            \t- find [keyword]: Find a task by keyword.
+            \t- help: Show this help message.""";
+    private static final String esmeLogo = """
+             _____                   \s
+            | ____|___ _ __ ___   ___\s
+            |  _| / __| '_ ` _ \\ / _ \\\s
+            | |___\\__ \\ | | | | |  __/\s
+            |_____|___/_| |_| |_|\\___|\s""";
 
+    private TaskList taskList;
     public Ui() {
         taskList = new TaskList();
     }
@@ -66,7 +68,8 @@ public class Ui {
      * If the command is "delete", it deletes the task at the given index.
      * If the command is not valid, it throws an EsmeException.
      * If the index is not valid, it throws an EsmeException.
-     * If the task is successfully deleted, it prints a message to the user and calls callToWork() to print the number of tasks left.
+     * If the task is successfully deleted, it prints a message to the user
+     * and calls callToWork() to print the number of tasks left.
      * If an exception is thrown, it prints an error message to the user and returns without calling callToWork().
      *
      * @param words The words array containing the command and index.
@@ -98,11 +101,8 @@ public class Ui {
     }
 
     /**
-     * Returns an ArrayList containing all the tasks in the format:
-     * By the light of the moon, these are the tasks that guide your path:
-     * <index>. [X] <task name>
-     * <index>. [ ] <task name>
-     * ...
+     * Returns an ArrayList containing all the tasks.
+     * This method retrieves the tasks from the task list, formatted to indicate their completion status.
      *
      * @return An ArrayList containing the formatted tasks.
      */
@@ -266,18 +266,13 @@ public class Ui {
     }
 
     /**
-     * Prints out the task list in the format specified by the task list.
-     * The list is formatted as follows:
-     * By the light of the moon, these are the tasks that guide your path:
-     * <index>. [X] <task name>
-     * <index>. [ ] <task name>
-     * ...
+     * Prints out the task list.
+     * This method displays the tasks in the task list, indicating their completion status.
      */
     public void printTaskList() {
         taskList.printTaskList();
         displayLine(true);
     }
-
 
     /**
      * Prints a line separator with or without indentation.
@@ -324,6 +319,7 @@ public class Ui {
             for (Task task : list) {
                 System.out.println("\t" + task);
             }
+            System.out.println("\tType 'list' to see the index to delete, mark, unmark task!");
             displayLine(true);
         } catch (EsmeException e) {
             displayLine(true);
@@ -394,10 +390,10 @@ public class Ui {
     }
 
     /**
-     * Prints an error message to the user when the program cannot detect the "tasklist.txt" file in the root directory or
-     * create the file.
-     * The message explains the option the user has when the error occurs, which is to ensure the file "tasklist.txt" is in
-     * the root directory.
+     * Prints an error message to the user when the program cannot detect the "tasklist.txt" file in the root directory
+     * or create the file.
+     * The message explains the option the user has when the error occurs, which is to ensure the file "tasklist.txt"
+     * is in the root directory.
      */
     public void printCreateFileError() {
         displayLine(false);
@@ -414,7 +410,7 @@ public class Ui {
     public void printHelpMessage() {
         displayLine(true);
 
-        System.out.println("\t" + helpMessage);
+        System.out.println("\t" + HELP_MESSAGE);
         displayLine(true);
     }
 }

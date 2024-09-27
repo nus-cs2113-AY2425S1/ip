@@ -17,8 +17,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string representation of the Todo task, which is in the format of
-     * "[T][] <description>".
+     * Returns a string representation of the Todo task.
+     * The format is: "[T][] {description}".
      *
      * @return A string representation of the Todo task.
      */

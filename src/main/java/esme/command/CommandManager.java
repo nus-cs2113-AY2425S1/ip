@@ -66,20 +66,6 @@ public class CommandManager {
     }
 
     /**
-     * Handles a user command. If the command is invalid, it will print an error message.
-     *
-     * @param line The user input to be processed.
-     * @return True if the command has been executed successfully, false otherwise.
-     */
-    public boolean handleCommand(String line) {
-        if (line.isEmpty()) {
-            ui.promptEmptyInput();
-            return false;
-        }
-        return this.handleCommand(line,false);
-    }
-
-    /**
      * Saves the task list to the storage file.
      *
      * @throws IOException If the storage file cannot be written to.
@@ -113,6 +99,20 @@ public class CommandManager {
         if (isTaskCompleted) {
             ui.markTaskInList(ui.getNumberOfTasks());
         }
+    }
+
+    /**
+     * Handles a user command. If the command is invalid, it will print an error message.
+     *
+     * @param line The user input to be processed.
+     * @return True if the command has been executed successfully, false otherwise.
+     */
+    public boolean handleCommand(String line) {
+        if (line.isEmpty()) {
+            ui.promptEmptyInput();
+            return false;
+        }
+        return this.handleCommand(line,false);
     }
 
     /**
