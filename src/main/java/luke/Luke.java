@@ -42,54 +42,54 @@ public class Luke {
         System.exit(0);
     }
 
-    private void sendMessage(String userInput) {
-        String[] inputArr = userInput.split(" ");
-        String command = inputArr[0];
-
-        if (command.equalsIgnoreCase("bye")) {
-            exitBot();
-        } else if (command.equalsIgnoreCase("list")) {
-            taskList.list();
-        } else if (command.equalsIgnoreCase("mark")) {
-            try {
-                taskList.mark(inputArr);
-            } catch (LukeException e) {
-                ui.printReply(e.getMessage());
-            }
-        } else if (command.equalsIgnoreCase("unmark")) {
-            try {
-                taskList.unmark(inputArr);
-            } catch (LukeException e) {
-                ui.printReply(e.getMessage());
-            }
-        } else if (command.equalsIgnoreCase("todo")){
-            try {
-                taskList.addToDo(inputArr);
-            } catch (InsufficientArguments e) {
-                ui.printReply(e.getMessage());
-            }
-        } else if (command.equalsIgnoreCase("deadline")){
-            try {
-                taskList.addDeadline(inputArr);
-            } catch (InsufficientArguments e) {
-                ui.printReply(e.getMessage());
-            }
-        } else if (command.equalsIgnoreCase("event")) {
-            try {
-                taskList.addEvent(inputArr);
-            } catch (InsufficientArguments e) {
-                ui.printReply(e.getMessage());
-            }
-        } else if (command.equalsIgnoreCase("delete")) {
-            try {
-                taskList.deleteTask(inputArr);
-            } catch (InsufficientArguments | IncorrectInput e) {
-                ui.printReply(e.getMessage());
-            }
-        } else {
-            throw new InvalidCommand("Invalid command");
-        }
-    }
+//    private void sendMessage(String userInput) {
+//        String[] inputArr = userInput.split(" ");
+//        String command = inputArr[0];
+//
+//        if (command.equalsIgnoreCase("bye")) {
+//            exitBot();
+//        } else if (command.equalsIgnoreCase("list")) {
+//            taskList.list();
+//        } else if (command.equalsIgnoreCase("mark")) {
+//            try {
+//                taskList.mark(inputArr);
+//            } catch (LukeException e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else if (command.equalsIgnoreCase("unmark")) {
+//            try {
+//                taskList.unmark(inputArr);
+//            } catch (LukeException e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else if (command.equalsIgnoreCase("todo")){
+//            try {
+//                taskList.addToDo(inputArr);
+//            } catch (InsufficientArguments e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else if (command.equalsIgnoreCase("deadline")){
+//            try {
+//                taskList.addDeadline(inputArr);
+//            } catch (InsufficientArguments e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else if (command.equalsIgnoreCase("event")) {
+//            try {
+//                taskList.addEvent(inputArr);
+//            } catch (InsufficientArguments e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else if (command.equalsIgnoreCase("delete")) {
+//            try {
+//                taskList.deleteTask(inputArr);
+//            } catch (InsufficientArguments | IncorrectInput e) {
+//                ui.printReply(e.getMessage());
+//            }
+//        } else {
+//            throw new InvalidCommand("Invalid command");
+//        }
+//    }
 
 
 
@@ -102,14 +102,20 @@ public class Luke {
 
         Scanner in = new Scanner(System.in);
         String line;
+        boolean isExit = false;
 
-        while (true) {
+        while (!isExit) {
             line = in.nextLine();
+            String[] inputArr = line.split(" ");
             try {
-                sendMessage(line);
+                Command c = Parser.parseCommand(inputArr);
+                c.execute(taskList, ui, inputArr);
+                isExit = c.isExit;
             } catch (InvalidCommand e) {
                 ui.printReply("Sorry, I don't understand you :(");
             }
         }
+
+        exitBot();
     }
 }
