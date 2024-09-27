@@ -35,7 +35,7 @@ public class AddCommand extends Command {
                     break;
                 case DEADLINE:
                     int indexOfBy = userInput.indexOf("/by");
-                    if (taskName.isEmpty()) { //list or mark/task empty
+                    if (taskName.isEmpty()) {
                         throw new IncompleteCommandException(commandPrefix);
                     } else if (indexOfBy == -1) {  // cannot find "/by"
                         throw new InvalidTaskContentException("You should declare '/by' for deadline");
@@ -47,7 +47,7 @@ public class AddCommand extends Command {
                 case EVENT:
                     int indexOfFrom = userInput.indexOf("/from");
                     int indexOfTo = userInput.indexOf("/to");
-                    if (taskName.isEmpty()) { //list or mark/task empty
+                    if (taskName.isEmpty()) {
                         throw new IncompleteCommandException(commandPrefix);
                     } else if (indexOfFrom == -1 || indexOfTo == -1) {
                         throw new InvalidTaskContentException("You should declare '/from' and '/to' for event");
