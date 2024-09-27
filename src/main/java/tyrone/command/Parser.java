@@ -8,8 +8,12 @@ import tyrone.task.Event;
 import tyrone.task.TaskList;
 import tyrone.task.Todo;
 
+/**
+ * Class to parse user inputs to chatbot through Ui
+ */
 public class Parser {
 
+    // Constants for handleInput function
     public static final int START_INDEX_OFFSET_DESC = 1;
     public static final int START_INDEX_OFFSET_KEYWORD = 1;
     public static final int START_INDEX_OFFSET_START = 6;
@@ -17,10 +21,21 @@ public class Parser {
     public static final int START_INDEX_OFFSET_DEADLINE = 4;
     public static final String TWO_SPACE_INDENT = "  ";
 
+    /**
+     * Returns true if user inputs exit command, false otherwise.
+     *
+     * @param input User input to chatbot.
+     * @return True if user inputs exit command, false otherwise.
+     */
     public static boolean isExitCommand (String input) {
         return input.equals("bye");
     }
 
+    /**
+     * Handles user input according to input type.
+     *
+     * @param input User input to chatbot.
+     */
     public static void handleInput(String input) {
         String[] dissectedInput = input.split(" ");
         String command = dissectedInput[0];
@@ -58,6 +73,11 @@ public class Parser {
         Storage.updateSaveFile();
     }
 
+    /**
+     * Handles "list" command when input by user.
+     *
+     * @param dissectedInput User input split by ' ' character.
+     */
     private static void handleList(String[] dissectedInput) {
         if (dissectedInput.length > 1) {
             Ui.println("Unrecognized command.");
@@ -67,10 +87,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles user inputs which do not fall under the
+     * chatbot's recognized types.
+     */
     private static void handleUnknown() {
         Ui.println("Unrecognized command.");
     }
 
+    /**
+     * Handles "event" command when input by user
+     *
+     * @param command User input to chatbot.
+     */
     private static void handleEvent(String command) {
         try {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC, 
@@ -92,6 +121,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "deadline" command when input by user
+     *
+     * @param command User input to chatbot.
+     */
     private static void handleDeadline(String command) {
         try {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC,
@@ -111,6 +145,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "todo" command when input by user
+     *
+     * @param command User input to chatbot.
+     */
     private static void handleTodo(String command) {
         try {
             String description = command.substring(command.indexOf(" ") + START_INDEX_OFFSET_DESC);
@@ -125,6 +164,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "unmark" command when input by user.
+     *
+     * @param dissectedInput User input split by ' ' character.
+     */
     private static void handleUnmark(String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
@@ -142,6 +186,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "mark" command when input by user.
+     *
+     * @param dissectedInput User input split by ' ' character.
+     */
     private static void handleMark(String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
@@ -159,6 +208,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "delete" command when input by user.
+     *
+     * @param dissectedInput User input split by ' ' character.
+     */
     private static void handleDelete (String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
