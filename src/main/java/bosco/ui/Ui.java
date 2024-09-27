@@ -12,6 +12,8 @@ public class Ui {
     public static final String MESSAGE_WELCOME = "Hello! I'm Bosco APD."
             + System.lineSeparator() + INDENT_START + "What can I do for you?";
     public static final String MESSAGE_EXIT = "Bye! Hope to see you again soon!";
+    public static final String MESSAGE_LIST = "Here are the tasks in your list:";
+    public static final String MESSAGE_EMPTY_LIST = "No tasks in list. You're all caught up!";
     public static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
     public static final String MESSAGE_MARK_UNDONE = "OK, I've marked this task as not done yet:";
     public static final String MESSAGE_ADDED_TASK = "Got it. I've added this task:";
