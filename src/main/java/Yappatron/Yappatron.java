@@ -54,6 +54,9 @@ public class Yappatron {
             case "unmark":
                 taskManager.unmark(input);
                 break;
+            case "find":
+                taskManager.findTask(input);
+                break;
             case "bye":
                 exitStatus = 1;
                 break;
