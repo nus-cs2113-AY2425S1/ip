@@ -52,7 +52,11 @@ public class Ui {
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "list":
             System.out.println("Here are the tasks in your list:");
-            System.out.print(taskList.listTasks());
+            System.out.print(taskList.listAllTasks());
+            break;
+        case "find":
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.print(taskList.listFoundTasks(argumentsList.get(Parser.ARGUMENT_MAIN)));
             break;
         case "todo":
             addTaskWithUI(taskList.addTodo(argumentsList.get(Parser.ARGUMENT_MAIN)));
