@@ -1,16 +1,23 @@
-drink tea
-deadline homework /by friday midnight
-event bday party /from tmr morning /to tmr 10pm
-eat cake
-deadline stp uploading /by next tuesday
-basketball training
-list
-mark 5
-mark 1
-mark 3
-mark 2
-list
+todo
+todo drink tea
+unmark
 unmark 1
+mark 1
+deadline /by 2024-12-31 1200
+deadline homework /by
+deadline homework /by 2024-12-31 1200
+mark 2
+unmark 1
+list
+event /from 2024-12-31 1200 /to 2025-12-31 1200
+event party /from /to 2025-12-31 1200
+event party /from 2024-12-31 1200 /to
+event party /from 2024-12-31 1200 /to 2025-12-31 1200
+mark 15
+mark 3
+todo read
 unmark 3
+mark 4
+deadline exam /by 2024-10-31 1000
 list
 bye
