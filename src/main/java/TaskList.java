@@ -3,19 +3,43 @@ import java.util.HashMap;
 
 public class TaskList {
     public ArrayList<Task> tasks;
+
+    /**
+     * Initialises the task list
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    /**
+     * Returns size of the task list
+     * @return Size of the task list
+     */
     public int size(){
         return this.tasks.size();
     }
+
+    /**
+     * Clear all tasks in list
+     */
     public void clear(){
         this.tasks.clear();
     }
+
+    /**
+     * Gets a task from a task list, given an index
+     * @param index Index of task in the list
+     * @return Task at given list index
+     */
     public Task getTask(int index){
         return this.tasks.get(index);
     }
     // Listing /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Returns a String that lists tasks in the given task list
+     * @param tasks ArrayList of Tasks
+     * @return List of Tasks as a String
+     */
     public static String listTasks(ArrayList<Task> tasks){
         String output = "";
         for (int currentItemIndex = 0; currentItemIndex < tasks.size(); currentItemIndex++){
@@ -23,20 +47,46 @@ public class TaskList {
         }
         return output;
     }
+
+    /**
+     * Returns a String that lists all tasks in the task list
+     * @return List of Tasks as a String
+     */
     public String listAllTasks(){
         return listTasks(this.tasks);
     }
+
     // Add Task ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Adds task to the task list
+     * @param task Task to Add
+     * @return Task that was added
+     */
     public Task addTask(Task task) {
         this.tasks.add(task);
         return task;
     }
+
+    /**
+     * Adds todo to the task list
+     * @param description Description of todo
+     * @return todo that was Added
+     * @throws CuboydException If any parameter was not provided
+     */
     public Task addTodo(String description) throws CuboydException {
         if (description == null){
             throw new CuboydException("No description was given! Please run the command again with `todo <description>`!");
         }
         return this.addTask(new ToDo(description));
     }
+
+    /**
+     * Adds deadline to the task list
+     * @param description Description of deadline
+     * @param by End date of deadline
+     * @return deadline that was Added
+     * @throws CuboydException If any parameter was not provided
+     */
     public Task addDeadline(String description, String by) throws CuboydException {
         String commandFormatPlea = " Please run the command again with `deadline <description> /by <by date>`!";
         if (description == null){
@@ -47,6 +97,15 @@ public class TaskList {
         }
         return this.addTask(new Deadline(description, by));
     }
+
+    /**
+     * Adds event to the task list
+     * @param description Description of event
+     * @param from Start date of event
+     * @param to End date of event
+     * @return event that was Added
+     * @throws CuboydException If any parameter was not provided
+     */
     public Task addEvent(String description, String from, String to) throws CuboydException {
         String commandFormatPlea = " Please run the command again with " +
                 "`event <description> /from <from date> /to <to date>`!";
@@ -62,6 +121,12 @@ public class TaskList {
         return this.addTask(new Event(description, from, to));
     }
     // Menu Options - Find ///////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Return ArrayList of Tasks with the keyword
+     * @param keyword Keyword
+     * @return ArrayList of Tasks with the keyword
+     * @throws CuboydException
+     */
     public ArrayList<Task> findTasks(String keyword) throws CuboydException {
         if (keyword == null) {
             throw new CuboydException("No keyword given! Please run the command again with `find <keyword>`!");
@@ -74,10 +139,24 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Returns a String that lists tasks with the keyword in the task list
+     * @param keyword Keyword
+     * @return List of Tasks in the keyword as a String
+     */
     public String listFoundTasks(String keyword) throws CuboydException{
         return listTasks(this.findTasks(keyword));
     }
+
     // Menu Options - Mark /////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Converts a String to an Integer. Meant to convert a command argument into an integer
+     * representing the task index.
+     * @param taskIndexStr String storing the task index
+     * @return Integer representing the Task Index
+     * @throws CuboydException If given string is not a valid integer
+     */
     private int convertStringToUnvalidatedTaskIndex(String taskIndexStr) throws CuboydException {
         String commandFormatPlea = " Please run the command again with `<command> <task index>`!";
         if (taskIndexStr == null){
@@ -91,6 +170,12 @@ public class TaskList {
         }
         // throw new Exception("INVALID STATE - CHECK WITH AUTHOR OF CODE!!!");
     }
+
+    /**
+     * Checks if the taskIndex given is in range of all the tasks currently in the list.
+     * @param taskIndex List Index of the task
+     * @throws CuboydException If <code>taskIndex</code> is invalid
+     */
     private void checkTaskIndexInRange(int taskIndex) throws CuboydException {
         String commandFormatPlea = " Please run the command again with `<command> <task index>`!";
         if (taskIndex < 0 || taskIndex >= this.tasks.size()){
@@ -98,31 +183,73 @@ public class TaskList {
                     " tasks." + commandFormatPlea);
         }
     }
+
+    /**
+     * Marks a task in the task list
+     * @param taskIndex List Index of the task to mark
+     * @return Task that was marked
+     * @throws CuboydException If <code>taskIndex</code> is invalid
+     */
     public Task markTask(int taskIndex) throws CuboydException {
         checkTaskIndexInRange(taskIndex);
         Task currentTask = tasks.get(taskIndex);
         currentTask.markAsDone();
         return currentTask;
     }
+
+    /**
+     * Unmarks a task in the task list
+     * @param taskIndex List Index of the task to unmark
+     * @return Task that was marked
+     * @throws CuboydException If <code>taskIndex</code> is invalid
+     */
     public Task unmarkTask(int taskIndex) throws CuboydException {
         checkTaskIndexInRange(taskIndex);
         Task currentTask = tasks.get(taskIndex);
         currentTask.markAsUndone();
         return currentTask;
     }
+
+    /**
+     * Marks a task in the task list
+     * @param taskIndexStr List Index of the task to mark as a String
+     * @return Task that was marked
+     * @throws CuboydException If <code>taskIndexStr</code> is invalid
+     */
     public Task markTask(String taskIndexStr) throws CuboydException {
         return markTask(convertStringToUnvalidatedTaskIndex(taskIndexStr));
     }
+
+    /**
+     * Unmarks a task in the task list
+     * @param taskIndexStr List Index of the task to unmark as a String
+     * @return Task that was unmarked
+     * @throws CuboydException If <code>taskIndexStr</code> is invalid
+     */
     public Task unmarkTask(String taskIndexStr) throws CuboydException {
         return unmarkTask(convertStringToUnvalidatedTaskIndex(taskIndexStr));
     }
+
     // Menu Options - Delete ///////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Deletes a task in the task list
+     * @param taskIndex List Index of the task to unmark
+     * @return Task that was deleted
+     * @throws CuboydException If <code>taskIndex</code> is invalid
+     */
     public Task deleteTask(int taskIndex) throws CuboydException {
         checkTaskIndexInRange(taskIndex);
         Task currentTask = this.tasks.get(taskIndex);
         this.tasks.remove(taskIndex);
         return currentTask;
     }
+
+    /**
+     * Deletes a task in the task list
+     * @param taskIndexStr List Index of the task to unmark as a String
+     * @return Task that was deleted
+     * @throws CuboydException If <code>taskIndexStr</code> is invalid
+     */
     public Task deleteTask(String taskIndexStr) throws CuboydException {
         return deleteTask(convertStringToUnvalidatedTaskIndex(taskIndexStr));
     }

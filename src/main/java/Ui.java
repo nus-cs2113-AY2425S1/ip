@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Ui {
     public TaskList taskList;
     public Storage storage;
+
+    /**
+     * Creates the UI Object and loads the save data
+     */
     public Ui(){
         taskList = new TaskList();
         storage = new Storage("./savedata.txt");
@@ -16,18 +20,33 @@ public class Ui {
     }
 
     // Helpers /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Displays task that was added and new task list size.
+     * @param task Task to Add
+     */
     public void addTaskWithUI(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
         System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
     }
+
     // Intro Text //////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Displays an Introductory message to the user
+     */
     public static void displayIntroText(){
         String name = "Cuboyd";
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
     }
+
     // Command Parsing /////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Matches the argument list to a related command and runs said command
+     * @param argumentsList List of arguments
+     * @return Whether to continue running the program
+     * @throws CuboydException If command fails to run
+     */
     public boolean commandMatching(HashMap<String, String> argumentsList) throws CuboydException {
         Task currentTask;
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
@@ -91,6 +110,10 @@ public class Ui {
         }
         return true;
     }
+
+    /**
+     * Runs a loop where the user can enter commands, until they exit
+     */
     public void commandEntryLoop(){
         // Command Entry
         String line;
@@ -108,7 +131,11 @@ public class Ui {
             }
         }
     }
+
     // Run /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Runs the entire program
+     */
     public void run(){
         displayIntroText();
         commandEntryLoop();
