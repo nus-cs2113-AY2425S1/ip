@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class CommandParser{
+public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
     public static final String ARGUMENT_MAIN = "main";
     public static HashMap<String, String> parseCommandToArguments(String line) {
@@ -9,13 +9,13 @@ public class CommandParser{
 
         // Command
         if (lineArgs.length <= 0) {
-            argumentsList.put(CommandParser.ARGUMENT_COMMAND,"");
+            argumentsList.put(Parser.ARGUMENT_COMMAND,"");
             return argumentsList;
         }
-        argumentsList.put(CommandParser.ARGUMENT_COMMAND,lineArgs[0]);
+        argumentsList.put(Parser.ARGUMENT_COMMAND,lineArgs[0]);
 
         // Arguments
-        String currArgumentName = CommandParser.ARGUMENT_MAIN;
+        String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();
 
         for (int i=1; i<lineArgs.length; i++) {
