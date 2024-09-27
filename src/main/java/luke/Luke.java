@@ -19,19 +19,8 @@ import java.util.Scanner;
 
 public class Luke {
 
-    private static final String LOGO =
-            "                              \n" +
-            ",--.           ,--.           \n" +
-            "|  |   ,--.,--.|  |,-. ,---.  \n" +
-            "|  |   |  ||  ||     /| .-. : \n" +
-            "|  '--.'  ''  '|  \\  \\\\   --. \n" +
-            "`-----' `----' `--'`--'`----' \n" +
-            "                              ";
+    private Ui ui;
 
-    private static final String HORIZONTAL_LINE =
-            "____________________________________________________________";
-
-    public static final int MAX_TASK_COUNT = 100;
     private static final int TASK_TYPE_INDEX = 0;
     private static final int ISDONE_INDEX = 1;
     private static final int DESCRIPTION_INDEX = 2;
@@ -39,30 +28,22 @@ public class Luke {
     private static final int FROM_INDEX = 3;
     private static final int TO_INDEX = 4;
     private static ArrayList<Task> tasks = new ArrayList<>();
-//    private static Task[] tasks = new Task[MAX_TASK_COUNT];
-//    private static int size = 0;
 
-    private static void printReply(String reply) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(reply);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private static void printDivider() {
-        System.out.println(HORIZONTAL_LINE);
+    public Luke() {
+        ui = new Ui();
     }
 
     private static String numberOfTasksMessage() {
         return String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() > 1 ? "tasks" : "task");
     }
 
-    private static void list() {
-        printDivider();
+    private void list() {
+        ui.printDivider();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. ", i + 1);
             System.out.println(tasks.get(i).toString());
         }
-        printDivider();
+        ui.printDivider();
     }
 
     private static void saveAllTasks() throws IOException {
@@ -76,7 +57,7 @@ public class Luke {
         fw.close();
     }
 
-    private static void executeCommand(CommandType commandType, String[] inputArr) {
+    private void executeCommand(CommandType commandType, String[] inputArr) {
         int idx = -1;
         int fromIdx = -1;
         int toIdx = -1;
@@ -87,11 +68,11 @@ public class Luke {
         String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
         switch (commandType) {
         case BYE:
-            printReply("Bye. Hope to see you again soon!");
+            ui.printReply("Bye. Hope to see you again soon!");
             try {
                 saveAllTasks();
             } catch (IOException e) {
-                printReply(String.format("Error occurred while saving data: %s", e.getMessage()));
+                ui.printReply(String.format("Error occurred while saving data: %s", e.getMessage()));
             }
             System.exit(0);
         case LIST:
@@ -109,7 +90,7 @@ public class Luke {
                 throw new IncorrectInput("Invalid index");
             }
             tasks.get(idx).setAsDone();
-            printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
+            ui.printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
             break;
         case UNMARK:
             try {
@@ -123,7 +104,7 @@ public class Luke {
                 throw new IncorrectInput("Invalid index");
             }
             tasks.get(idx).setAsUndone();
-            printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
+            ui.printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
             break;
         case TODO:
             if (args.length == 0) {
@@ -131,7 +112,7 @@ public class Luke {
             }
             description = String.join(" ", args);
             tasks.add(new ToDo(description));
-            printReply(String.format("Task added: %s\n  %s",
+            ui.printReply(String.format("Task added: %s\n  %s",
                     tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
         case DEADLINE:
@@ -146,7 +127,7 @@ public class Luke {
             description = String.join(" ", Arrays.copyOf(args, idx));
             deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
             tasks.add(new Deadline(description, deadlineStr));
-            printReply(String.format("Added deadline: %s\n  %s",
+            ui.printReply(String.format("Added deadline: %s\n  %s",
                     tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
 
@@ -168,7 +149,7 @@ public class Luke {
             fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
             toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
             tasks.add(new Event(description, fromStr, toStr));
-            printReply(String.format("Added event: %s\n %s",
+            ui.printReply(String.format("Added event: %s\n %s",
                     tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
             break;
         case DELETE:
@@ -185,7 +166,7 @@ public class Luke {
             }
             Task taskToDelete = tasks.get(idx);
             tasks.remove(taskToDelete);
-            printReply(String.format("Removed task:\n  %s\nNow you have %d %s in the list.",
+            ui.printReply(String.format("Removed task:\n  %s\nNow you have %d %s in the list.",
                     taskToDelete.toString(), tasks.size(), tasks.size() > 1 ? "tasks" : "task"));
             break;
         default:
@@ -193,7 +174,7 @@ public class Luke {
         }
     }
 
-    private static void sendMessage(String userInput) {
+    private void sendMessage(String userInput) {
         String[] inputArr = userInput.split(" ");
         String command = inputArr[0];
 
@@ -205,58 +186,59 @@ public class Luke {
             try {
                 executeCommand(CommandType.MARK, inputArr);
             } catch (LukeException e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("unmark")) {
             try {
                 executeCommand(CommandType.UNMARK, inputArr);
             } catch (LukeException e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("todo")){
             try {
                 executeCommand(CommandType.TODO, inputArr);
             } catch (InsufficientArguments e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("deadline")){
             try {
                 executeCommand(CommandType.DEADLINE, inputArr);
             } catch (InsufficientArguments e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("event")) {
             try {
                 executeCommand(CommandType.EVENT, inputArr);
             } catch (InsufficientArguments e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else if (command.equalsIgnoreCase("delete")) {
             try {
                 executeCommand(CommandType.DELETE, inputArr);
             } catch (InsufficientArguments | IncorrectInput e) {
-                printReply(e.getMessage());
+                ui.printReply(e.getMessage());
             }
         } else {
             throw new InvalidCommand("Invalid command");
         }
     }
 
-    private static void printGreeting() {
-        printDivider();
-        System.out.println(LOGO);
-        System.out.println("Hi im Luke!\nWhat can I do for you? :)");
-        printDivider();
-    }
-
     private static void loadSingleTask(String taskStr) {
         String[] taskStrArr = taskStr.split("\\|");
         switch (taskStrArr[TASK_TYPE_INDEX]) {
-        case "T" -> tasks.add(new ToDo(taskStrArr[DESCRIPTION_INDEX], taskStrArr[ISDONE_INDEX].equals("1")));
-        case "D" -> tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], taskStrArr[BY_INDEX],
-                taskStrArr[ISDONE_INDEX].equals("1")));
-        case "E" -> tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], taskStrArr[FROM_INDEX], taskStrArr[TO_INDEX],
-                taskStrArr[ISDONE_INDEX].equals("1")));
+        case "T":
+            tasks.add(new ToDo(taskStrArr[DESCRIPTION_INDEX], taskStrArr[ISDONE_INDEX].equals("1")));
+            break;
+        case "D":
+            tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], taskStrArr[BY_INDEX],
+                    taskStrArr[ISDONE_INDEX].equals("1")));
+            break;
+        case "E":
+            tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], taskStrArr[FROM_INDEX], taskStrArr[TO_INDEX],
+                    taskStrArr[ISDONE_INDEX].equals("1")));
+            break;
+        default:
+            break;
         }
     }
 
@@ -276,15 +258,18 @@ public class Luke {
             loadSingleTask(line);
         }
     }
-
     public static void main(String[] args) {
-        printGreeting();
+        new Luke().run();
+    }
+
+    public void run() {
+        ui.printGreeting();
         try {
             loadSavedTasks();
         } catch (FileNotFoundException e) {
             // Do nothing
         } catch (IOException e) {
-            printReply(String.format("Error: %s", e.getMessage()));
+            ui.printReply(String.format("Error: %s", e.getMessage()));
         }
         Scanner in = new Scanner(System.in);
         String line;
@@ -294,7 +279,7 @@ public class Luke {
             try {
                 sendMessage(line);
             } catch (InvalidCommand e) {
-                printReply("Sorry, I don't understand you :(");
+                ui.printReply("Sorry, I don't understand you :(");
             }
         }
     }
