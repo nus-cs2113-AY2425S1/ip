@@ -127,6 +127,7 @@ public class Parser {
             Event newEvent = new Event(description, start, end);
             taskList.addTask(newEvent);
             Ui.println("added: " + newEvent.getNameWithStatus());
+            Ui.println("Now you have " + taskList.getNumOfTasks() + " task(s) in the list.");
         } catch (EmptyFieldException e) {
             Ui.println("Description/Start time/End time cannot be empty.");
         } catch (StringIndexOutOfBoundsException e) {
@@ -151,6 +152,7 @@ public class Parser {
             Deadline newDeadline = new Deadline(description, deadline);
             taskList.addTask(newDeadline);
             Ui.println("added: " + newDeadline.getNameWithStatus());
+            Ui.println("Now you have " + taskList.getNumOfTasks() + " task(s) in the list.");
         } catch (EmptyFieldException e) {
             Ui.println("Description/Deadline cannot be empty.");
         } catch (StringIndexOutOfBoundsException e) {
@@ -173,6 +175,7 @@ public class Parser {
             Todo newTodo = new Todo(description);
             taskList.addTask(newTodo);
             Ui.println("added: " + newTodo.getNameWithStatus());
+            Ui.println("Now you have " + taskList.getNumOfTasks() + " task(s) in the list.");
         } catch (EmptyFieldException e) {
             Ui.println("Description cannot be empty.");
         }
@@ -234,6 +237,7 @@ public class Parser {
                 Ui.println("Ok, I've removed this task:");
                 Ui.println(TWO_SPACE_INDENT + taskList.getSingleTaskDetails(taskId));
                 taskList.deleteTask(taskId);
+                Ui.println("Now you have " + taskList.getNumOfTasks() + " task(s) in the list.");
             } else {
                 Ui.println("Invalid task ID.");
             }
