@@ -1,6 +1,8 @@
 package doug.Commands;
 
+import doug.Storage;
 import doug.TaskList;
+import doug.UI;
 import doug.tasks.Todo;
 
 /**
@@ -9,14 +11,21 @@ import doug.tasks.Todo;
  */
 public class AddToDoCommand extends Command {
 
+    private static String todoName;
+
+    public AddToDoCommand(String todoName) {
+        AddToDoCommand.todoName = todoName;
+    }
+
     /**
      * Creates a new Todo object and adds it to the existing TaskList
      *
      * @param tasks The object containing the ArrayList of tasks
-     * @param todoName Name of the new todo task to be added
+     * @param ui The UI object
+     * @param storage The Storage object
      */
-    public static void newToDo(TaskList tasks, String todoName) {
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         Todo todoTask = new Todo(todoName);
-        addNewTask(tasks, todoTask);
+        addNewTask(tasks, todoTask, ui, storage);
     }
 }

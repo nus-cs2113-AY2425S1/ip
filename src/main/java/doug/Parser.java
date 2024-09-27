@@ -18,29 +18,30 @@ public class Parser {
      * @return True if user has sent "bye" command, and False otherwise
      * @throws DougException If the user input does not start with an existing command
      */
-    public static boolean extractCommandType(TaskList tasks, String command) throws DougException {
+    public static Command extractCommandType(TaskList tasks, String command) throws DougException {
+        Command c = new Command();
         if (command.equals("bye")) {
-            return true;
+            c.setBye();
         } else if (command.equals("list")){
-            ListCommand.listTasks(tasks);
+            c = new ListCommand();
         } else if (command.startsWith("mark")) {
-            parseMark(tasks, command);
+            c = parseMark(tasks, command);
         } else if (command.startsWith("unmark")) {
-            parseUnmark(tasks, command);
+            c = parseUnmark(tasks, command);
         } else if (command.startsWith("todo")) {
-            parseToDo(tasks, command);
+            c = parseToDo(tasks, command);
         } else if (command.startsWith("deadline")) {
-            parseDeadline(tasks, command);
+            c = parseDeadline(tasks, command);
         } else if (command.startsWith("event")) {
-            parseEvent(tasks, command);
+            c = parseEvent(tasks, command);
         } else if (command.startsWith("delete")) {
-            parseDelete(tasks, command);
+            c = parseDelete(tasks, command);
         } else if (command.startsWith("find")) {
-            parseFind(tasks, command);
+            c = parseFind(tasks, command);
         } else {
             throw new DougException(DASHED_LINE + "Something seems off partner...\n" + DASHED_LINE);
         }
-        return false;
+        return c;
     }
 
     /**
@@ -51,13 +52,12 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the name of the task
      */
-    public static void parseToDo(TaskList tasks, String command) throws DougException{
+    public static Command parseToDo(TaskList tasks, String command) throws DougException{
         String todoName = command.replace("todo", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
         }
-
-        AddToDoCommand.newToDo(tasks, todoName);
+        return new AddToDoCommand(todoName);
     }
 
     /**
@@ -68,7 +68,7 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the name or deadline time/date of the task
      */
-    public static void parseDeadline(TaskList tasks, String command) throws DougException{
+    public static Command parseDeadline(TaskList tasks, String command) throws DougException{
         command = command.replace("deadline", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do here pal...\n" + DASHED_LINE);
@@ -88,8 +88,7 @@ public class Parser {
         if (deadlineBy.isEmpty()) {
             throw new DougException(DASHED_LINE + "Forgot to mention when it's due by, huh bud?\n" + DASHED_LINE);
         }
-
-        AddDeadlineCommand.newDeadline(tasks, deadlineName, deadlineBy);
+        return new AddDeadlineCommand(deadlineName, deadlineBy);
     }
 
     /**
@@ -100,7 +99,7 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the name or start/end time/date of the task
      */
-    public static void parseEvent(TaskList tasks, String command) throws DougException {
+    public static Command parseEvent(TaskList tasks, String command) throws DougException {
         command = command.replace("event", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do here pal...\n" + DASHED_LINE);
@@ -134,7 +133,7 @@ public class Parser {
                     + " ends, huh bud?\n" + DASHED_LINE);
         }
 
-        AddEventCommand.newEvent(tasks, eventName, eventFrom, eventTo);
+        return new AddEventCommand(eventName, eventFrom, eventTo);
     }
 
     /**
@@ -145,10 +144,10 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the index of the task to delete
      */
-    public static void parseDelete(TaskList tasks, String command) throws DougException {
+    public static Command parseDelete(TaskList tasks, String command) throws DougException {
         if (tasks.getCount() <= 0) {
             System.out.println(DASHED_LINE + "Your list is empty pal, ain't nothing to rid off.\n" + DASHED_LINE);
-            return;
+            return new Command();
         }
 
         command = command.replace("delete", "").trim();
@@ -161,15 +160,16 @@ public class Parser {
             listIndex = Integer.parseInt(command);
         } catch (NumberFormatException e) {
             System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
-            return;
+            return new Command();
         }
 
         try {
             tasks.checkOutOfBounds(listIndex);
-            DeleteCommand.deleteTask(tasks, listIndex);
+            return new DeleteCommand(listIndex);
         } catch (DougException e) {
             System.out.println(e.getMessage());
         }
+        return new Command();
     }
 
     /**
@@ -180,7 +180,7 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the index of the task to mark
      */
-    public static void parseMark(TaskList tasks, String command) throws DougException {
+    public static Command parseMark(TaskList tasks, String command) throws DougException {
         command = command.replace("mark", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
@@ -191,15 +191,16 @@ public class Parser {
             listIndex = Integer.parseInt(command);
         } catch (NumberFormatException e) {
             System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
-            return;
+            return new Command();
         }
 
         try {
             tasks.checkOutOfBounds(listIndex);
-            MarkCommand.markTask(tasks, listIndex);
+            return new MarkCommand(listIndex);
         } catch (DougException e) {
             System.out.println(e.getMessage());
         }
+        return new Command();
     }
 
     /**
@@ -210,7 +211,7 @@ public class Parser {
      * @param command The full line of input from the user
      * @throws DougException If the user input is missing the index of the task to unmark
      */
-    public static void parseUnmark(TaskList tasks, String command) throws DougException {
+    public static Command parseUnmark(TaskList tasks, String command) throws DougException {
         command = command.replace("unmark", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you wanna do pal...\n" + DASHED_LINE);
@@ -221,22 +222,24 @@ public class Parser {
             listIndex = Integer.parseInt(command);
         } catch (NumberFormatException e) {
             System.out.print(DASHED_LINE + "You're missing the index number pal...\n" + DASHED_LINE);
-            return;
+            return new Command();
         }
 
         try {
             tasks.checkOutOfBounds(listIndex);
-            UnMarkCommand.unmarkTask(tasks, listIndex);
+            return new UnMarkCommand(listIndex);
         } catch (DougException e) {
             System.out.println(e.getMessage());
         }
+        return new Command();
     }
 
-    public static void parseFind(TaskList tasks, String command) throws DougException {
+    public static Command parseFind(TaskList tasks, String command) throws DougException {
         command = command.replace("find", "").trim();
         if (command.isEmpty()) {
             throw new DougException(DASHED_LINE + "It ain't clear to me what you want to find pal...\n" + DASHED_LINE);
         }
-        FindCommand.findTask(tasks, command);
+
+        return new FindCommand(command);
     }
 }

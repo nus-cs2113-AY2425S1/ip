@@ -1,5 +1,7 @@
 package doug;
 
+import java.util.Scanner;
+
 /**
  * Class that deals with showing certain UI elements to the user
  */
@@ -57,10 +59,25 @@ public class UI {
             + "Hope to see you around these parts again soon!\n"
             + DASHED_LINE;
 
+    private Scanner input;
+
+    public UI() {
+        input = new Scanner(System.in);
+    }
+
+    /**
+     * Reads in user input from the CLI
+     *
+     * @return full line from CLI as a String
+     */
+    public String readCommand() {
+        return input.nextLine().trim();
+    }
+
     /**
      * Prints the Doug Dimmadome ASCII art to the CLI
      */
-    public static void printLogo() {
+    public void printLogo() {
         for (int i = 0; i < hatHeight; i++) {
             System.out.println(hat);
         }
@@ -70,21 +87,21 @@ public class UI {
     /**
      * Prints the message to new users to the CLI
      */
-    public static void sayNewUserWelcome() {
+    public void sayNewUserWelcome() {
         System.out.println(newWelcomeMessage);
     }
 
     /**
      * Prints the message to existing users to the CLI
      */
-    public static void sayExistingUserWelcome() {
+    public void sayExistingUserWelcome() {
         System.out.println(existingWelcomeMessage);
     }
 
     /**
      * Prints the closing message to the CLI
      */
-    public static void sayGoodbye() {
+    public void sayGoodbye() {
         System.out.println(goodbyeMessage);
     }
 }

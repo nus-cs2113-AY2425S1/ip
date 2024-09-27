@@ -1,6 +1,8 @@
 package doug.Commands;
 
+import doug.Storage;
 import doug.TaskList;
+import doug.UI;
 import doug.tasks.Deadline;
 
 /**
@@ -9,15 +11,23 @@ import doug.tasks.Deadline;
  */
 public class AddDeadlineCommand extends Command {
 
+    private static String deadlineName;
+    private static String deadlineBy;
+
+    public AddDeadlineCommand(String deadlineName, String deadlineBy) {
+        AddDeadlineCommand.deadlineName = deadlineName;
+        AddDeadlineCommand.deadlineBy = deadlineBy;
+    }
+
     /**
      * Creates a new Deadline object and adds it to the existing TaskList
      *
      * @param tasks The object containing the ArrayList of tasks
-     * @param deadlineName Name of the new deadline task to be added
-     * @param deadlineBy Deadline of the new deadline task to be added
+     * @param ui The UI object
+     * @param storage The Storage object
      */
-    public static void newDeadline(TaskList tasks, String deadlineName, String deadlineBy) {
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         Deadline deadlineTask = new Deadline(deadlineName, deadlineBy);
-        addNewTask(tasks, deadlineTask);
+        addNewTask(tasks, deadlineTask, ui, storage);
     }
 }

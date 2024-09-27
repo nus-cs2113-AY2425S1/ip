@@ -1,9 +1,18 @@
 # Doug User Guide
 
-// Product screenshot goes here
+![Screenshot of the Welcome Message when Doug is launched](/Doug_Welcome_Screen.png)
 
-### Product Intro
-Doug is a chatbot.
+### Who is Doug?
+**Doug Dimmadome** is your friendly Texan chatbot, here to make your life easy with that typical Southern hospitality.
+His main goal is to help you take note down and access your important tasks.
+
+# How To Launch and Use Doug
+1. Ensure that you have Java 17 installed
+   - Doug will not launch with any other version of Java
+2. Open a command terminal
+3. Navigate to the directory where 2113IP.jar is located at using the `cd` command
+4. Type in `java -jar 2113IP.jar` to launch Doug 
+5. If successful, you should see the welcome message as shown above
 
 
 ## Adding Todos
@@ -133,3 +142,27 @@ Expected Output:
 ```
 EXPECTED OUTPUT IS
 ```
+
+## Closing the Chatbot
+
+Format: `bye`
+
+Ends the program
+
+Expected Output:
+```
+EXPECTED OUTPUT IS
+```
+
+## Saving your List of Tasks
+
+Your list of tasks is saved automatically every time you add, modify or delete a task
+
+The save data is written to a .txt file located at `[JAR file location]/data/tasks.txt`
+
+## Editing Save File
+
+Users are welcome to edit the save file if they wish to do so
+
+However, if the tasks are modified to a different format than what is accepted by the system,
+then the modified tasks may be incorrectly registered by Doug

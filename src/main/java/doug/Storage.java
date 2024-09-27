@@ -16,20 +16,28 @@ import java.util.Scanner;
  */
 public class Storage {
 
+    private String filePath;
+    private UI ui;
+
+    public Storage(String filePath, UI ui) {
+        this.filePath = filePath;
+        this.ui = ui;
+    }
+
     /**
      * Re-writes the save file by adding all existing tasks to it
      *
      * @param tasks The object containing the ArrayList of tasks
      * @throws IOException If the save file cannot be opened or written to properly
      */
-    public static void saveTasks(TaskList tasks) throws IOException {
+    public void saveTasks(TaskList tasks) throws IOException {
         File dir = new File("./data");
         // If directory does not yet exist, create it
         if (!dir.isDirectory()) {
             dir.mkdir();
         }
 
-        FileWriter writer = new FileWriter("./data/tasks.txt");
+        FileWriter writer = new FileWriter(filePath);
         for (int i = 0; i < tasks.getCount(); i++) {
             writer.write(tasks.getTask(i).saveString() + System.lineSeparator());
         }
@@ -42,8 +50,8 @@ public class Storage {
      * @param tasks The object containing the ArrayList of tasks
      * @throws FileNotFoundException If save file cannot be found
      */
-    public static void loadTasks(TaskList tasks) throws FileNotFoundException {
-        File tasksFile = new File("./data/tasks.txt"); 	// create a File for the given file path
+    public void loadTasks(TaskList tasks, UI ui, Storage storage) throws FileNotFoundException {
+        File tasksFile = new File(filePath); 	// create a File for the given file path
         Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File as the source
         boolean isEmpty = true;
         while (reader.hasNext()) {
@@ -57,11 +65,12 @@ public class Storage {
                 loadEvent(tasks, line);
             }
         }
-        UI.sayExistingUserWelcome();
+        ui.sayExistingUserWelcome();
         if (isEmpty) {
             return;
         }
-        ListCommand.listTasks(tasks);
+        ListCommand c = new ListCommand();
+        c.execute(tasks, ui, storage);
     }
 
     /**

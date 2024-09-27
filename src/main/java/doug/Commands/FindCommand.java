@@ -1,6 +1,9 @@
 package doug.Commands;
 
+import doug.Storage;
 import doug.TaskList;
+import doug.UI;
+
 import static doug.UI.DASHED_LINE;
 
 /**
@@ -9,13 +12,20 @@ import static doug.UI.DASHED_LINE;
  */
 public class FindCommand extends Command {
 
+    private static String keyword;
+
+    public FindCommand(String keyword) {
+        FindCommand.keyword = keyword;
+    }
+
     /**
      * Checks all tasks in current ArrayList to see if they contain the keyword
      *
      * @param tasks The object containing the ArrayList of tasks
-     * @param keyword The word/phrase to find within existing tasks
+     * @param ui The UI object
+     * @param storage The Storage object
      */
-    public static void findTask(TaskList tasks, String keyword) {
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         boolean found = false;
         System.out.println(DASHED_LINE);
         for (int i = 0; i < tasks.getCount(); i++) {

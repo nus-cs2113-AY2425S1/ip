@@ -1,6 +1,8 @@
 package doug.Commands;
 
+import doug.Storage;
 import doug.TaskList;
+import doug.UI;
 import doug.tasks.Event;
 
 /**
@@ -9,16 +11,25 @@ import doug.tasks.Event;
  */
 public class AddEventCommand extends Command {
 
+    private static String eventName;
+    private static String eventFrom;
+    private static String eventBy;
+
+    public AddEventCommand(String eventName, String eventFrom, String eventBy) {
+        AddEventCommand.eventName = eventName;
+        AddEventCommand.eventFrom = eventFrom;
+        AddEventCommand.eventBy = eventBy;
+    }
+
     /**
      * Creates a new Event object and adds it to the existing TaskList
      *
      * @param tasks The object containing the ArrayList of tasks
-     * @param eventName Name of the new event task to be added
-     * @param eventFrom Start date/time of the new event task to be added
-     * @param eventBy End date/time of the new event task to be added
+     * @param ui The UI object
+     * @param storage The Storage object
      */
-    public static void newEvent(TaskList tasks, String eventName, String eventFrom, String eventBy) {
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         Event eventTask = new Event(eventName, eventFrom, eventBy);
-        addNewTask(tasks, eventTask);
+        addNewTask(tasks, eventTask, ui, storage);
     }
 }
