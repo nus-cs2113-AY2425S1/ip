@@ -23,7 +23,7 @@ public class Parser {
     private static final int SINGLE_WORD_LENGTH = 1;
     private static final int MULTI_WORD_LENGTH = 2;
 
-    private final TaskList tasks;
+    private TaskList tasks;
 
     /**
      * Constructs a parser object with a given task list

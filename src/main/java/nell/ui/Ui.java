@@ -13,8 +13,8 @@ import java.util.Scanner;
 public class Ui {
     private static final String BYE_COMMAND = "bye";
 
-    private final Parser parser;
-    private final Storage dataStorage;
+    private Parser parser;
+    private Storage dataStorage;
 
     /**
      * Constructs a new Ui object with a given parser

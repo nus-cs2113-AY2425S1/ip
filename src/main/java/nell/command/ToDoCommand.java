@@ -9,7 +9,7 @@ import nell.tasks.ToDo;
 public class ToDoCommand extends Command{
     public static final String COMMAND_WORD = "todo";
 
-    private final String description;
+    private String description;
 
     /**
      * Constructs a new ToDoCommand object with a specified task list and description

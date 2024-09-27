@@ -9,7 +9,7 @@ import nell.list.TaskList;
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
-    private final String keyword;
+    private String keyword;
 
     /**
      * Constructs a new FindCommand object, with the specified task list and keyword

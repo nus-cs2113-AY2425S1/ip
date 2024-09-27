@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     public static final String TASK_TYPE = "D";
 
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline with the given description and by-date

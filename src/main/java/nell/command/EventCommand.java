@@ -14,9 +14,9 @@ import java.time.format.DateTimeParseException;
 public class EventCommand extends Command{
     public static final String COMMAND_WORD = "event";
 
-    private final String description;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private String description;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs a new EventCommand object with specified task list and command body

@@ -14,8 +14,8 @@ import java.time.format.DateTimeParseException;
 public class DeadlineCommand extends Command{
     public static final String COMMAND_WORD = "deadline";
 
-    private final String description;
-    private final LocalDateTime by;
+    private String description;
+    private LocalDateTime by;
 
     /**
      * Constructs a new DeadlineCommand object with specified task list and command body
