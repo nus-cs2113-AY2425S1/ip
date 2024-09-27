@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class UI {
 
-    private static final String SEPARATOR = "_________________________________________________";
+    private static final String SEPARATOR = "_________________________________________________________________________";
     private static final String INTENDATION = "      ";
     private static final String LOGO = "    (_)           \n"
             + INTENDATION + "     _  ___   ___ \n"
@@ -18,6 +18,7 @@ public class UI {
             + INTENDATION + "  |__/            \n";
 
     public static void printReply(String input, String actionPerformed) {
+        System.out.println("");
         System.out.println(INTENDATION + actionPerformed + input);
         System.out.println(INTENDATION + SEPARATOR);
     }
@@ -25,6 +26,7 @@ public class UI {
     public static void printMultiLine(String[] inputs) {
         Arrays.stream(inputs)
             .forEachOrdered(input -> System.out.println(INTENDATION + input));
+        System.out.println(INTENDATION + SEPARATOR);
     }
 
     public static void printGreeting() {
@@ -51,7 +53,7 @@ public class UI {
                         + ": " + taskList.toTaskString(i));
             }
         } else {
-            System.out.println("This task list is empty!");
+            printReply("This task list is empty!", "");
         }
     }
 }

@@ -84,7 +84,7 @@ public class ChatParser {
                 int toDoNumber = Integer.parseInt(tokens[1].strip());
                 this.toDoItemArrayList.deleteFromList(toDoNumber);
             } catch (NumberFormatException e) {
-                UI.printReply("Invalid input: Second token is not a number.", "Retry: ");
+                UI.printReply("Second token is not a number.", "Retry: ");
             } catch (IndexOutOfBoundsException e) {
                 UI.printReply("No todo with this number exists.", "Retry: ");
             }
@@ -141,7 +141,7 @@ public class ChatParser {
             } catch (StringIndexOutOfBoundsException s) {
                 UI.printReply("Please use /by to specify the deadline's date", "Retry: ");
             } catch (DateTimeParseException d) {
-                UI.printReply("Use a valid date time specifier (see: https://kennethsty.github.io/ip/)", "Retry: ");
+                UI.printReply("Use a valid date time specifier.", "Retry: ");
             }
             break;
         case "event":
@@ -155,9 +155,9 @@ public class ChatParser {
                     throw new EmptyTaskException();
                 }
             } catch (IndexOutOfBoundsException i) {
-                UI.printReply("Please use /from and /to to specify the event's timeline", "Retry:");
+                UI.printReply("use /from and /to to specify the event's timeline", "Retry:");
             } catch (DateTimeParseException d) {
-                UI.printReply("Please use a valid date in the yyyy-mm-dd format", "Retry: ");
+                UI.printReply("use valid date time specifier", "Retry: ");
             }
             break;
         default:
@@ -166,8 +166,10 @@ public class ChatParser {
 
         newItem.ifPresentOrElse(
                 task -> this.toDoItemArrayList.addToList(task),
-                () -> UI.printMultiLine(new String[]{"Remember, available commands for creating tasks are: " +
-                        "todo, event or deadline", "General commands: list, bye, unmark and mark. "})
+                () -> UI.printMultiLine(
+                        new String[]{"Invalid command: Follow this guide ",
+                            "https://kennethsty.github.io/ip/"})
+
         );
     }
 }
