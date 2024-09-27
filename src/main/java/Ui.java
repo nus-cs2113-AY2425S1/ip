@@ -102,8 +102,6 @@ public class Ui {
                     "  - mark\n" +
                     "  - unmark\n" +
                     "  - delete\n" +
-                    "  - load\n" +
-                    "  - save\n" +
                     "  - bye"
             );
             break;
