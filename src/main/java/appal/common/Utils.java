@@ -13,6 +13,7 @@ public class Utils {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     public static final int COMMAND_INDEX = 0;
 
     // Integer constants for specific type of tasks

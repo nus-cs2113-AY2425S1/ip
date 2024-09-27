@@ -20,4 +20,7 @@ public class Messages {
     public static final String BYE_MESSAGE = "See ya! An Appal a day, keeps the boredom away!";
     public static final String LOAD_SAVED_TASKS_MESSAGE = "I've helped you load your previously saved tasks! " +
             "Type 'list' to check them out!";
+    public static final String NO_SEARCH_RESULTS_MESSAGE = "No tasks match your search, pal!" +
+            "\nMaybe you've finished the task you're searching for, or it hasn't been added!";
+    public static final String SEARCH_RESULTS_MESSAGE = "These tasks match your search, pal!";
 }

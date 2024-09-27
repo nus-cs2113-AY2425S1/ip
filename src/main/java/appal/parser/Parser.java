@@ -11,7 +11,9 @@ import static appal.common.Utils.COMMAND_EVENT;
 import static appal.common.Utils.COMMAND_MARK;
 import static appal.common.Utils.COMMAND_UNMARK;
 import static appal.common.Utils.COMMAND_DELETE;
+import static appal.common.Utils.COMMAND_FIND;
 import static appal.common.Utils.COMMAND_INDEX;
+import static appal.common.Utils.TASK_INDEX;
 import static appal.common.Utils.TASK_DETAILS_START_INDEX;
 import static appal.common.Utils.MAX_ARGS;
 import static appal.common.Utils.SPACE;
@@ -37,6 +39,8 @@ public class Parser {
             return new AddEventCommand(inputDetails, fromUserInput);
         case COMMAND_DELETE:
             return new DeleteCommand(inputDetails);
+        case COMMAND_FIND:
+            return new FindCommand(inputDetails[TASK_INDEX]);
         default:
             throw new AppalException();
         }
