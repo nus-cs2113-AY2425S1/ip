@@ -80,7 +80,7 @@ public class Parser {
         if (input.trim().length() == "deadline".length()){
             throw new EmptyTaskEntry();
         }
-        if (!input.contains("by")){
+        if (!input.contains("by ")){
             throw new StringIndexOutOfBoundsException();
         }
 
@@ -100,7 +100,7 @@ public class Parser {
         final int STRLENGTH_EVENT = 6;
 
         int indexFrom = input.indexOf("from");
-        int indexTo = input.indexOf("to");
+        int indexTo = input.indexOf("to ");
 
         if (input.trim().length() == "event".length()){
             throw new EmptyTaskEntry();
@@ -124,5 +124,10 @@ public class Parser {
         int indexToDelete = Integer.parseInt(splitInput[1]) - 1;
 
         return indexToDelete;
+    }
+
+    public static String parseForFind(String input){
+        String[] splitInput = input.split(" ", 2);
+        return splitInput[1];
     }
 }

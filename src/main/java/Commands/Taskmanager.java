@@ -93,4 +93,15 @@ public class Taskmanager {
             System.out.println("Task number does not exist!");
         }
     }
+
+    public void findTask(String input){
+        String stringToFind = Parser.parseForFind(input);
+        int index = 0;
+        for (Task t : taskArray){
+            if (t.getDescription().contains(stringToFind)){
+                System.out.println(++index + ". " + t);
+            }
+        }
+    }
+
 }
