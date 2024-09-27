@@ -230,6 +230,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles "find" command when input by user.
+     *
+     * @param input User input to chatbot.
+     */
     private static void handleFind(String input){
         try {
             String keyword = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_KEYWORD);
