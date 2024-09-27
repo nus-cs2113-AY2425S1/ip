@@ -1,4 +1,2 @@
-1, todo, read book
-0, deadline, book report, 15th Sept
-1, event, code meet, 2pm, 4pm
-0, todo, read another book
+0, todo, finish code
+0, deadline, homework, 2024-10-12
