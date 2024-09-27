@@ -26,6 +26,8 @@ public class Parser {
             return new DeleteExitCommand();
         } else if (parsedInput.startsWith("delete")) {
             return new DeleteCommand(parseTaskIndex(userInput));
+        } else if (parsedInput.startsWith("find")) {
+            return new FindCommand(userInput);
         } else {
             throw new KingException("Unknown command. Please try again.\n");
         }
