@@ -21,6 +21,41 @@ public class TaskList {
         }
     }
 
+    public void findTask(String text) {
+        String[] inputWords = text.trim().split("\\s+", 2);
+
+        if (inputWords.length < 2 || inputWords[1].isBlank()) {
+            System.out.println(LINE + "You must provide a valid search term...\n" + LINE);
+            return;
+        }
+
+        String searchTerm = inputWords[1].trim();
+
+        ArrayList<Task> targetTasks = new ArrayList<>();
+        boolean isMatching = false;
+
+        for (Task t : tasks) {
+            String description = t.description;
+            if (description.contains(searchTerm)) {
+                targetTasks.add(t);
+                isMatching = true;
+            }
+        }
+
+        if (isMatching) {
+            System.out.println(LINE + "Here are the matching tasks in your list:");
+
+            for (int i = 0; i < targetTasks.size(); i++) {
+                int indexNum = i + 1;
+                System.out.println(indexNum + ". " + targetTasks.get(i));
+            }
+            System.out.println(LINE);
+
+        } else {
+            System.out.println(LINE + "There is no matching task in your list :(\n" + LINE);
+        }
+    }
+
     public void addToDoTask(String text) {
         String[] taskSpecifics = text.trim().split("\\s+");
 
