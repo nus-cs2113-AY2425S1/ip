@@ -1,4 +1,4 @@
-package cristiano;
+package cristiano.goals;
 
 public class Event extends Goal {
     protected String from;

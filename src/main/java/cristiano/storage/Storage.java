@@ -1,4 +1,6 @@
-package cristiano;
+package cristiano.storage;
+
+import cristiano.goals.Goal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The class that holds the storage to a data file and its file path
+ * The class contains methods to help save, as well as load goals.
+ */
 public class Storage {
     private final String filePath;
 
@@ -16,7 +22,8 @@ public class Storage {
     }
 
     /**
-     * Saves the list of tasks (goals) to a file.
+     * Saves the list of current goals to a file.
+     * This method is to be called everytime an addition or deletion of goal is made.
      */
     public void saveGoals(List<Goal> goals) throws IOException {
         File file = new File(filePath);
@@ -40,7 +47,10 @@ public class Storage {
     }
 
     /**
-     * Loads tasks (goals) from a file.
+     * Loads goals from a file into a list.
+     * Unknown goal types will not be added into the list.
+     *
+     * @return The list of saved goals
      */
     public List<Goal> loadGoals() throws FileNotFoundException {
         File file = new File(filePath);
@@ -50,7 +60,10 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                goals.add(Goal.fromFileFormat(line));
+                Goal goal = Goal.fromFileFormat(line);
+                if (goal != null) {
+                    goals.add(goal);
+                }
             }
             scanner.close();
         }

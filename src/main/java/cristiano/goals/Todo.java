@@ -1,4 +1,4 @@
-package cristiano;
+package cristiano.goals;
 
 public class Todo extends Goal {
     public Todo(String description) {

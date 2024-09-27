@@ -1,4 +1,4 @@
-package cristiano;
+package cristiano.goals;
 
 public class Deadline extends Goal {
     protected String by;
