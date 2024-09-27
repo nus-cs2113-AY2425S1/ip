@@ -13,7 +13,6 @@ import filemanager.FileManager;
 
 public class Storage {
 
-
     private ArrayList<Task> taskList;
     FileManager fileManager;
 
