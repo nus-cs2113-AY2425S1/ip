@@ -10,6 +10,7 @@ import bosco.command.ExitCommand;
 
 import bosco.exception.IllegalCommandException;
 import bosco.exception.EmptyDescriptionException;
+import bosco.exception.EmptyKeywordException;
 import bosco.exception.MissingPrefixException;
 
 import java.io.IOException;
@@ -69,6 +70,8 @@ public class Bosco {
                 ui.printMessages("Error: input out of bounds. List has " + tasks.getSize() + " tasks.");
             } catch (EmptyDescriptionException e) {
                 ui.printMessages("Error: task description is empty. Please provide a description!");
+            } catch (EmptyKeywordException e) {
+                ui.printMessages("Error: keyword is empty. Please provide a keyword!");
             } catch (MissingPrefixException e) {
                 ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
             }
