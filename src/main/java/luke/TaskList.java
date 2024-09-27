@@ -21,6 +21,7 @@ public class TaskList {
 
     public TaskList(ArrayList<String> saveStrings) {
         ui = new Ui();
+        if (saveStrings == null) return;
         for (String line : saveStrings) {
             loadSingleTask(line);
         }

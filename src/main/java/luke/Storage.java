@@ -27,8 +27,12 @@ public class Storage {
     }
 
     private void loadSavedTasks() throws IOException {
-        Files.createDirectories(filepath.getParent());
-        Files.createFile(filepath);
+        if (!Files.exists(filepath.getParent())) {
+            Files.createDirectories(filepath.getParent());
+        }
+        if (!Files.exists(filepath)) {
+            Files.createFile(filepath);
+        }
         saveStrings = (ArrayList<String>) Files.readAllLines(filepath);
     }
 

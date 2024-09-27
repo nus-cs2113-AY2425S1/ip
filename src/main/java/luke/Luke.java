@@ -9,11 +9,8 @@ import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
