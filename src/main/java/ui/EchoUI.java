@@ -1,7 +1,7 @@
-package UI;
+package ui;
 
-import Parser.Parser;
-import TaskList.TaskList;
+import parser.Parser;
+import tasklist.TaskList;
 
 public class EchoUI {
     private static final String SEPARATOR = "_".repeat(30);

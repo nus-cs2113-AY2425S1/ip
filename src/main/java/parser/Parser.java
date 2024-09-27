@@ -1,14 +1,14 @@
-package Parser;
+package parser;
 
-import TaskList.TaskList;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ToDoCommand;
-import Command.DeadlineCommand;
-import Command.EventCommand;
-import Command.DeleteCommand;
-import Command.FindCommand;
+import tasklist.TaskList;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.ToDoCommand;
+import command.DeadlineCommand;
+import command.EventCommand;
+import command.DeleteCommand;
+import command.FindCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,7 +1,7 @@
-package Command;
+package command;
 
-import TaskList.TaskList;
-import Exception.EchoException;
+import tasklist.TaskList;
+import exception.EchoException;
 
 public class UnmarkCommand extends Command {
     private static final int UNMARK_WORD_LENGTH = 7;

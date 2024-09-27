@@ -1,4 +1,4 @@
-package Others;
+package others;
 
 public interface TaskOperations {
     void setAsDone();

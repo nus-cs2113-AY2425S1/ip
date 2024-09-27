@@ -4,12 +4,12 @@ What can I do for you?
 
 ______________________________
 ______________________________
-Got it. I've added this Task:
+Got it. I've added this task:
 [T][ ] Joe
 Now you have 1 tasks in the list.
 ______________________________
 ______________________________
-Got it. I've added this Task:
+Got it. I've added this task:
 [D][ ] quiz (by: Monday 9pm)
 Now you have 2 tasks in the list.
 ______________________________
@@ -20,12 +20,12 @@ Here are the tasks in your list:
 
 ______________________________
 ______________________________
-Got it. I've added this Task:
+Got it. I've added this task:
 [E][ ] lecture (from: 4pm to: 6pm)
 Now you have 3 tasks in the list.
 ______________________________
 ______________________________
-Nice! I've marked this Task as done:
+Nice! I've marked this task as done:
 [T][X] Joe
 ______________________________
 ______________________________

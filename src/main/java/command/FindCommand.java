@@ -1,6 +1,6 @@
-package Command;
+package command;
 
-import TaskList.TaskList;
+import tasklist.TaskList;
 
 public class FindCommand extends Command {
     private static final int FIND_WORD_LENGTH = 5;

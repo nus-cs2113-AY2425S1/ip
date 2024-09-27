@@ -1,6 +1,6 @@
-package Storage;
+package storage;
 
-import Task.Task;
+import task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;

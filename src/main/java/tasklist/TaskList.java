@@ -1,7 +1,7 @@
-package TaskList;
+package tasklist;
 
-import Storage.Storage;
-import Task.Task;
+import storage.Storage;
+import task.Task;
 
 import java.util.ArrayList;
 

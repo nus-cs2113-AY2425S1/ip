@@ -1,6 +1,6 @@
-import Parser.Parser;
-import TaskList.TaskList;
-import UI.EchoUI;
+import parser.Parser;
+import tasklist.TaskList;
+import ui.EchoUI;
 
 public class Echo {
     public static void main(String[] args) {

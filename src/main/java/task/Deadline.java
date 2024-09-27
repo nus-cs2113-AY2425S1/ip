@@ -1,9 +1,9 @@
-package Task;
+package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import Parser.Parser;
+
+import parser.Parser;
 
 public class Deadline extends Task {
     private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
