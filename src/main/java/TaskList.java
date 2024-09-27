@@ -16,12 +16,15 @@ public class TaskList {
         return this.tasks.get(index);
     }
     // Listing /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public String listTasks(){
+    public static String listTasks(ArrayList<Task> tasks){
         String output = "";
-        for (int currentItemIndex = 0; currentItemIndex < this.tasks.size(); currentItemIndex++){
-            output += String.valueOf(currentItemIndex+1) + "." + this.tasks.get(currentItemIndex) + "\n";
+        for (int currentItemIndex = 0; currentItemIndex < tasks.size(); currentItemIndex++){
+            output += String.valueOf(currentItemIndex+1) + "." + tasks.get(currentItemIndex) + "\n";
         }
         return output;
+    }
+    public String listAllTasks(){
+        return listTasks(this.tasks);
     }
     // Add Task ////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Task addTask(Task task) {
@@ -57,6 +60,22 @@ public class TaskList {
             throw new CuboydException("/to not given!" + commandFormatPlea);
         }
         return this.addTask(new Event(description, from, to));
+    }
+    // Menu Options - Find ///////////////////////////////////////////////////////////////////////////////////////////
+    public ArrayList<Task> findTasks(String keyword) throws CuboydException {
+        if (keyword == null) {
+            throw new CuboydException("No keyword given! Please run the command again with `find <keyword>`!");
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++){
+            if (this.tasks.get(i).getDescription().contains(keyword)){
+                matchingTasks.add(this.tasks.get(i));
+            }
+        }
+        return matchingTasks;
+    }
+    public String listFoundTasks(String keyword) throws CuboydException{
+        return listTasks(this.findTasks(keyword));
     }
     // Menu Options - Mark /////////////////////////////////////////////////////////////////////////////////////////////
     private int convertStringToUnvalidatedTaskIndex(String taskIndexStr) throws CuboydException {
