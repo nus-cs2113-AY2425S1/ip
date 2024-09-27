@@ -1,8 +1,8 @@
-package luke;
+package luke.commands;
 
+import luke.TaskList;
+import luke.Ui;
 import luke.exceptions.InsufficientArguments;
-
-import java.util.ArrayList;
 
 public class AddTodoCommand extends Command{
 

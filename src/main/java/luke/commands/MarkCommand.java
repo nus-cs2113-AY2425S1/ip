@@ -1,8 +1,8 @@
-package luke;
+package luke.commands;
 
+import luke.TaskList;
+import luke.Ui;
 import luke.exceptions.LukeException;
-
-import java.util.ArrayList;
 
 public class MarkCommand extends Command{
     public static final String COMMAND_WORD = "mark";

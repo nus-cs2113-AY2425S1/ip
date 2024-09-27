@@ -1,5 +1,7 @@
-package luke;
+package luke.commands;
 
+import luke.TaskList;
+import luke.Ui;
 import luke.exceptions.IncorrectInput;
 import luke.exceptions.InsufficientArguments;
 

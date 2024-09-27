@@ -1,5 +1,6 @@
 package luke;
 
+import luke.commands.*;
 import luke.exceptions.InvalidCommand;
 
 public class Parser {

@@ -1,6 +1,7 @@
-package luke;
+package luke.commands;
 
-import java.util.ArrayList;
+import luke.TaskList;
+import luke.Ui;
 
 public class ByeCommand extends Command{
 

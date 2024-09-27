@@ -1,9 +1,10 @@
-package luke;
+package luke.commands;
 
-import java.util.ArrayList;
+import luke.TaskList;
+import luke.Ui;
 
 public abstract class Command {
-    boolean isExit;
+    public boolean isExit;
 
     public Command() {
 
