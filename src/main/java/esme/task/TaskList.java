@@ -115,8 +115,11 @@ public class TaskList {
      * @param input The description of the new Todo task
      * @return The description of the new Todo task
      */
-    public String addTodoTask(String input) {
+    public String addTodoTask(String input) throws EsmeException {
         String[] parts = input.split(" ", 2);
+        if (parts.length != 2) {
+            throw new EsmeException("Error: The todo format is incorrect. Use 'todo <task>'");
+        }
         tasks.add(new Todo(parts[1]));
         return parts[1];
     }
