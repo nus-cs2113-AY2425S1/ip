@@ -5,6 +5,8 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Parser {
@@ -21,10 +23,13 @@ public class Parser {
 
     public static void parseDeadlineFromFile(String line, ArrayList<Task> taskArray) {
         int indexOfBy = line.indexOf("(by:");
-        String activity = line.substring(line.lastIndexOf("]")+2, indexOfBy-1);
-        String by = line.substring(indexOfBy + 4, line.length()-1);
+        String activity = line.substring(line.lastIndexOf("]")+2, indexOfBy-1).trim();
+        String by = line.substring(indexOfBy + 4, line.length()-1).trim();
 
-        Deadline deadline = new Deadline(activity.trim(), by.trim());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy H:mm");
+        LocalDateTime deadlineBy = LocalDateTime.parse(by, formatter);
+
+        Deadline deadline = new Deadline(activity, deadlineBy);
 
         taskArray.add(deadline);
 

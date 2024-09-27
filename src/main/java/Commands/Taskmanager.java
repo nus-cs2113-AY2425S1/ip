@@ -5,6 +5,11 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Taskmanager {
@@ -57,12 +62,27 @@ public class Taskmanager {
     public void addDeadline(String input){
         try {
             String[] deadlineInfo = Parser.parseForAddDeadline(input);
-            taskArray.add(new Deadline(deadlineInfo[0], deadlineInfo[1]));
+            String deadlineBy = deadlineInfo[1];
+
+            String[] splitDeadlineBy = deadlineBy.split(" ");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate deadlineDate = LocalDate.parse(splitDeadlineBy[0], formatter);
+
+            String deadlineTimeString = splitDeadlineBy[1];
+            int hour = Integer.parseInt(deadlineTimeString.substring(0,2));
+            int min = Integer.parseInt(deadlineTimeString.substring(2));
+            LocalTime deadlineTime = LocalTime.of(hour, min);
+
+            LocalDateTime deadlineOfTask = LocalDateTime.of(deadlineDate, deadlineTime);
+            taskArray.add(new Deadline(deadlineInfo[0], deadlineOfTask));
+
             System.out.println("added: " + input);
         }catch (StringIndexOutOfBoundsException e){
             System.out.println("Please key in valid deadline, include 'by' in string.");
         }catch (EmptyTaskEntry e){
             System.out.println(e.getMessage());
+        }catch (DateTimeParseException e){
+            System.out.println("Key in valid deadline using format dd/MM/yyyy Hmm");
         }
     }
 
