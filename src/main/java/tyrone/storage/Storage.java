@@ -12,20 +12,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class to handle reading data from and writing data to save file
+ */
 public class Storage {
 
+    //Constants used by methods to parse inputs
     public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
     public static final int START_INDEX_OFFSET_START = 6;
     public static final int START_INDEX_OFFSET_END = 4;
     public static final int START_INDEX_OFFSET_DEADLINE = 4;
+    public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
+    public static final int INPUT_START_INDEX = 2;
 
+    //Constants to store save file name and directory
     private static final String SAVE_FILE_NAME = "./data/Tyrone.txt";
     private static final String SAVE_FILE_DIR = "./data";
 
-    public static final int INPUT_START_INDEX = 2;
-
-    public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
-
+    /**
+     * Parses a single line of text in chatbot save file to add corresponding Task to task list.
+     *
+     * @param line Line of text in chatbot save file representing a previously saved task.
+     */
     private static void parseLine(String line) {
         boolean isDone = (line.charAt(0) == '1');
         String input = line.substring(INPUT_START_INDEX);
@@ -43,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Add an Event Task to task list according to details in save file.
+     *
+     * @param input Line of text from chatbot save file containing task description, start and end.
+     * @param isDone Whether task has been marked as done or not.
+     */
     private static void parseEvent(String input, boolean isDone) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
@@ -63,6 +77,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Add a Deadline Task to task list according to details in save file.
+     *
+     * @param input Line of text from chatbot save file containing task description and deadline.
+     * @param isDone Whether task has been marked as done or not.
+     */
     private static void parseDeadline(String input, boolean isDone) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
@@ -81,6 +101,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Add a Todo Task to task list according to details in save file.
+     *
+     * @param input Line of text from chatbot save file containing task description.
+     * @param isDone Whether task has been marked as done or not.
+     */
     private static void parseTodo(String input, boolean isDone) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION);
@@ -97,6 +123,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Populates task list according to records saved in chatbot save file.
+     */
     public static void initTaskListFromSaveFile() {
         try {
             File saveFile = new File(SAVE_FILE_NAME);
@@ -110,6 +139,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new .txt save file in a new directory named 'data' in current directory.
+     * If 'data' directory or save file already exists, does not overwrite existing file/directory.
+     */
     public static void createSaveFile() {
         File dir = new File(SAVE_FILE_DIR);
         dir.mkdir();
@@ -121,12 +154,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a String of text to a file.
+     *
+     * @param fileName Name of file to write to.
+     * @param textToAdd String of text to write to file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private static void writeToFile(String fileName, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(fileName);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Updates chatbot save file with records of all tasks in task list.
+     * Prints error message upon encountering IOException.
+     */
     public static void updateSaveFile() {
         try {
             writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskSaveRecords());
