@@ -19,6 +19,15 @@ public class TaskList {
     }
 
     /**
+     * Returns current number of tasks in task list.
+     *
+     * @return Number of tasks in task list.
+     */
+    public int getNumOfTasks() {
+        return tasks.size();
+    }
+
+    /**
      * Checks if the given task ID is valid.
      * Task ID is invalid if it is not a positive number or exceeds current number of tasks.
      *
