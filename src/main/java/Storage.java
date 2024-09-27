@@ -20,6 +20,48 @@ public class Storage {
     }
 
     /**
+     * Writes a task to a file using FileWriter
+     * @param fw FileWriter
+     * @throws IOException If there are issues writing to the file
+     */
+    private void writeTaskToFileWriter(Task task, FileWriter fw) throws IOException {
+        if (task instanceof ToDo todo) {
+            fw.write(String.format(
+                    "T|%s|%s\n",
+                    todo.getStatusIcon(),
+                    Base64.getEncoder().encodeToString(todo.getDescription().getBytes(StandardCharsets.UTF_8))
+            ));
+        } else if (task instanceof Deadline deadline) {
+            fw.write(String.format(
+                    "D|%s|%s|%s\n",
+                    deadline.getStatusIcon(),
+                    Base64.getEncoder().encodeToString(
+                            deadline.getDescription().getBytes(StandardCharsets.UTF_8)),
+                    Base64.getEncoder().encodeToString(deadline.by.getBytes(StandardCharsets.UTF_8))
+            ));
+        } else if (task instanceof Event event) {
+            fw.write(String.format(
+                    "E|%s|%s|%s|%s\n",
+                    event.getStatusIcon(),
+                    Base64.getEncoder().encodeToString(event.getDescription().getBytes(StandardCharsets.UTF_8)),
+                    Base64.getEncoder().encodeToString(event.from.getBytes(StandardCharsets.UTF_8)),
+                    Base64.getEncoder().encodeToString(event.to.getBytes(StandardCharsets.UTF_8))
+            ));
+        }
+    }
+
+    /**
+     * Writes a list of tasks to a file using FileWriter
+     * @param fw FileWriter
+     * @throws IOException If there are issues writing to the file
+     */
+    private void writeTaskListToFileWriter(TaskList taskList, FileWriter fw) throws IOException {
+        for (int i = 0; i < taskList.size(); i++) {
+            writeTaskToFileWriter(taskList.getTask(i), fw);
+        }
+    }
+
+    /**
      * Saves data from a task list into a file
      * @param taskList Task List to save into a file
      * @throws CuboydException If there are any issues saving
@@ -28,36 +70,46 @@ public class Storage {
         FileWriter fw = null;
         try {
             fw = new FileWriter(filePath);
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.getTask(i) instanceof ToDo todo) {
-                    fw.write(String.format(
-                            "T|%s|%s\n",
-                            todo.getStatusIcon(),
-                            Base64.getEncoder().encodeToString(todo.getDescription().getBytes(StandardCharsets.UTF_8))
-                    ));
-                } else if (taskList.getTask(i) instanceof Deadline deadline) {
-                    fw.write(String.format(
-                            "D|%s|%s|%s\n",
-                            deadline.getStatusIcon(),
-                            Base64.getEncoder().encodeToString(
-                                    deadline.getDescription().getBytes(StandardCharsets.UTF_8)),
-                            Base64.getEncoder().encodeToString(deadline.by.getBytes(StandardCharsets.UTF_8))
-                    ));
-                } else if (taskList.getTask(i) instanceof Event event) {
-                    fw.write(String.format(
-                            "E|%s|%s|%s|%s\n",
-                            event.getStatusIcon(),
-                            Base64.getEncoder().encodeToString(event.getDescription().getBytes(StandardCharsets.UTF_8)),
-                            Base64.getEncoder().encodeToString(event.from.getBytes(StandardCharsets.UTF_8)),
-                            Base64.getEncoder().encodeToString(event.to.getBytes(StandardCharsets.UTF_8))
-                    ));
-                }
-            }
+            writeTaskListToFileWriter(taskList, fw);
             fw.close();
         } catch (IOException e) {
-            throw new CuboydException(String.format("Having issues saving to %s! Check your file permissions!\n", filePath));
-            //System.out.println(e.getMessage());
+            throw new CuboydException(String.format(
+                    "Having issues saving to %s! Check your file permissions!\n", filePath));
         }
+    }
+
+    /**
+     * Returns the task represented by a given line (from the save file)
+     * @param line Line
+     * @return Task parsed from the line
+     */
+    private Task parseLineAsTask(String line) {
+        String[] list = line.split("\\|");
+        Task currentTask = null;
+        switch (list[0]){
+        case "T":
+            currentTask = new ToDo(
+                    new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8)
+            );
+            break;
+        case "D":
+            currentTask = new Deadline(
+                    new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8),
+                    new String(Base64.getDecoder().decode(list[3]), StandardCharsets.UTF_8)
+            );
+            break;
+        case "E":
+            currentTask = new Event(
+                    new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8),
+                    new String(Base64.getDecoder().decode(list[3]), StandardCharsets.UTF_8),
+                    new String(Base64.getDecoder().decode(list[4]), StandardCharsets.UTF_8)
+            );
+            break;
+        }
+        if (currentTask != null && Objects.equals(list[1], "X")) {
+            currentTask.markAsDone();
+        }
+        return currentTask;
     }
 
     /**
@@ -69,32 +121,8 @@ public class Storage {
     private void loadFromScanner(Scanner scanner, TaskList taskList) throws Exception {
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] list = line.split("\\|");
-            Task currentTask = null;
-            switch (list[0]){
-            case "T":
-                currentTask = new ToDo(
-                        new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8)
-                );
-                break;
-            case "D":
-                currentTask = new Deadline(
-                        new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8),
-                        new String(Base64.getDecoder().decode(list[3]), StandardCharsets.UTF_8)
-                );
-                break;
-            case "E":
-                currentTask = new Event(
-                        new String(Base64.getDecoder().decode(list[2]), StandardCharsets.UTF_8),
-                        new String(Base64.getDecoder().decode(list[3]), StandardCharsets.UTF_8),
-                        new String(Base64.getDecoder().decode(list[4]), StandardCharsets.UTF_8)
-                );
-                break;
-            }
+            Task currentTask = parseLineAsTask(line);
             if (currentTask == null){ throw new Exception(); }
-            if (Objects.equals(list[1], "X")) {
-                currentTask.markAsDone();
-            }
             taskList.addTask(currentTask);
         }
     }
@@ -110,14 +138,16 @@ public class Storage {
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e) {
-            throw new CuboydException(String.format("Having issues reading from %s! Check your file permissions!\n", filePath));
+            throw new CuboydException(String.format(
+                    "Having issues reading from %s! Check your file permissions!\n", filePath));
         }
 
         taskList.clear();
         try {
             loadFromScanner(s, taskList);
         } catch (Exception e) {
-            throw new CuboydException(String.format("Error when reading from %s! Savefile might be corrupted!\n", filePath));
+            throw new CuboydException(String.format(
+                    "Error when reading from %s! Savefile might be corrupted!\n", filePath));
             //e.printStackTrace();
         }
     }
