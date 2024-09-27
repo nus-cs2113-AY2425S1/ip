@@ -1,11 +1,14 @@
 package luke;
 
+import luke.exceptions.IncorrectInput;
+import luke.exceptions.InsufficientArguments;
 import luke.tasks.Deadline;
 import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TaskList {
     // Constants
@@ -61,4 +64,116 @@ public class TaskList {
         }
         ui.printDivider();
     }
+
+    public void mark(String[] inputArr) {
+        int idx;
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        try {
+            idx = Integer.parseInt(args[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new IncorrectInput("Please input an integer");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InsufficientArguments("Input index of task to mark.");
+        }
+        if (idx < 0 || idx >= getSize()) {
+            throw new IncorrectInput("Invalid index");
+        }
+        tasks.get(idx).setAsDone();
+        ui.printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
+    }
+
+    public void unmark(String[] inputArr) {
+        int idx;
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        try {
+            idx = Integer.parseInt(args[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new IncorrectInput("Please input an integer");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InsufficientArguments("Input index of task to mark.");
+        }
+        if (idx < 0 || idx >= getSize()) {
+            throw new IncorrectInput("Invalid index");
+        }
+        tasks.get(idx).setAsUndone();
+        ui.printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
+    }
+
+    public void addToDo(String[] inputArr) {
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        if (args.length == 0) {
+            throw new InsufficientArguments("todo command needs at least 1 argument.");
+        }
+        String description = String.join(" ", args);
+        tasks.add(new ToDo(description));
+        ui.printReply(String.format("Task added: %s\n  %s",
+                tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
+    }
+
+    public void addDeadline(String[] inputArr) {
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        int idx = -1;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].startsWith("/by")) {
+                idx = i;
+            }
+        }
+        if (idx == -1) {
+            throw new InsufficientArguments("Deadline needs to be specified");
+        }
+        String description = String.join(" ", Arrays.copyOf(args, idx));
+        String deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
+        tasks.add(new Deadline(description, deadlineStr));
+        ui.printReply(String.format("Added deadline: %s\n  %s",
+                tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
+    }
+
+    public void addEvent(String[] inputArr) {
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        int fromIdx = -1;
+        int toIdx = -1;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].startsWith("/from")) {
+                fromIdx = i;
+            } else if (args[i].startsWith("/to")) {
+                toIdx = i;
+            }
+        }
+        if (fromIdx == -1) {
+            throw new InsufficientArguments("From when???");
+        }
+        if (toIdx == -1) {
+            throw new InsufficientArguments("To when???");
+        }
+        String description = String.join(" ", Arrays.copyOf(args, fromIdx));
+        String fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
+        String toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
+        tasks.add(new Event(description, fromStr, toStr));
+        ui.printReply(String.format("Added event: %s\n %s",
+                tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
+
+    }
+
+    public void deleteTask(String[] inputArr) {
+        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        int idx;
+        if (args.length == 0) {
+            throw new InsufficientArguments("Delete command needs an index");
+        }
+        try {
+            idx = Integer.parseInt(args[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new IncorrectInput("Please input an integer");
+        }
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new IncorrectInput("Invalid index");
+        }
+        Task taskToDelete = tasks.get(idx);
+        tasks.remove(taskToDelete);
+        ui.printReply(String.format("Removed task:\n  %s\nNow you have %d %s in the list.",
+                taskToDelete.toString(), getSize(), getSize() > 1 ? "tasks" : "task"));
+    }
+
+
+
 }
