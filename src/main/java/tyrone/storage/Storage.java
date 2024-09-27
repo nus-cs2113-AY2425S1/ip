@@ -1,5 +1,6 @@
 package tyrone.storage;
 
+import tyrone.Ui;
 import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.*;
 
@@ -70,7 +71,7 @@ public class Storage {
             }
             taskList.addTask(newEvent);
         } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
-            System.out.println(PARSE_LINE_ERROR_MESSAGE);
+            Ui.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 
@@ -94,7 +95,7 @@ public class Storage {
             }
             taskList.addTask(newDeadline);
         } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
-            System.out.println(PARSE_LINE_ERROR_MESSAGE);
+            Ui.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 
@@ -116,7 +117,7 @@ public class Storage {
             }
             taskList.addTask(newTodo);
         } catch (EmptyFieldException e) {
-            System.out.println(PARSE_LINE_ERROR_MESSAGE);
+            Ui.println(PARSE_LINE_ERROR_MESSAGE);
         }
     }
 
@@ -132,7 +133,7 @@ public class Storage {
                 parseLine(line, taskList);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            Ui.println("File not found.");
         }
     }
 
@@ -147,7 +148,7 @@ public class Storage {
             File f = new File(SAVE_FILE_NAME);
             f.createNewFile();
         } catch (IOException e) {
-            System.out.println("Error creating file: " + SAVE_FILE_NAME);
+            Ui.println("Error creating file: " + SAVE_FILE_NAME);
         }
     }
 
@@ -172,7 +173,7 @@ public class Storage {
         try {
             writeToFile(SAVE_FILE_NAME, taskList.getAllTaskSaveRecords());
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            Ui.println("Something went wrong: " + e.getMessage());
         }
     }
 }
