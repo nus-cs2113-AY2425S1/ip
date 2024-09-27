@@ -18,6 +18,7 @@ public class ChatParser {
     private TaskList toDoItemArrayList;
 
     public ChatParser(TaskList toDoItemArrayList) {
+
         this.toDoItemArrayList = toDoItemArrayList;
     }
 

@@ -14,10 +14,12 @@ public class TaskList {
     private ArrayList<Task> toDoItemArrayList;
 
     public TaskList() {
+
         this.toDoItemArrayList = new ArrayList<Task>();
     }
 
     public TaskList(ArrayList<Task> toDoItemArrayList) {
+
         this.toDoItemArrayList = toDoItemArrayList;
     }
 
@@ -36,6 +38,7 @@ public class TaskList {
      * @param task the task to add to the list
      */
     public void loadToList(Task task) {
+
         this.toDoItemArrayList.add(task);
     }
 
@@ -72,6 +75,7 @@ public class TaskList {
     }
 
     public String toTaskString(int toDoNumber) {
+
         return this.toDoItemArrayList.get(toDoNumber - 1).toString();
     }
 
