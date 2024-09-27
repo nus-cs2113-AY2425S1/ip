@@ -2,8 +2,14 @@ package tyrone;
 
 import tyrone.command.Parser;
 import tyrone.storage.Storage;
+import tyrone.task.TaskList;
 
 public class Tyrone {
+
+    private Ui ui;
+    private Storage storage;
+    private TaskList taskList;
+    private Parser parser;
 
     /**
      * Main loop of the chatbot.
@@ -11,14 +17,26 @@ public class Tyrone {
      * until chatbot receives exit command, upon which loop
      * terminates.
      */
-    private static void runUntilExitCommand() {
+    private void run() {
+        storage.createSaveFile();
+        storage.initTaskListFromSaveFile(taskList);
+
+        ui.printIntroMessage();
         while (true) {
-            String input = Ui.receiveInput();
-            if (Parser.isExitCommand(input)) {
+            String input = ui.receiveInput();
+            if (parser.isExitCommand(input)) {
                 break;
             }
-            Parser.handleInput(input);
+            parser.handleInput(input);
         }
+        ui.printExitMessage();
+    }
+
+    public Tyrone() {
+        ui = new Ui();
+        taskList = new TaskList();
+        storage = new Storage();
+        parser = new Parser(taskList, storage);
     }
 
     /**
@@ -27,11 +45,6 @@ public class Tyrone {
      * @param args
      */
     public static void main(String[] args) {
-        Storage.createSaveFile();
-        Storage.initTaskListFromSaveFile();
-
-        Ui.printIntroMessage();
-        runUntilExitCommand();
-        Ui.printExitMessage();
+        new Tyrone().run();
     }
 }

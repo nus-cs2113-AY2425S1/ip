@@ -1,5 +1,7 @@
 package tyrone;
 
+import tyrone.command.Parser;
+
 import java.util.Scanner;
 
 /**
@@ -22,7 +24,7 @@ public class Ui {
      * Prints chatbot introduction message.
      * Called when chatbot is started up.
      */
-    public static void printIntroMessage() {
+    public void printIntroMessage() {
         System.out.println("Hello! I'm Tyrone.\nWhat can I do for you?");
     }
 
@@ -30,7 +32,7 @@ public class Ui {
      * Prints chatbot exit message.
      * Called just before exiting chatbot.
      */
-    public static void printExitMessage() {
+    public void printExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -39,7 +41,7 @@ public class Ui {
      *
      * @return Single line of user input.
      */
-    public static String receiveInput() {
+    public String receiveInput() {
         return scanner.nextLine();
     }
 

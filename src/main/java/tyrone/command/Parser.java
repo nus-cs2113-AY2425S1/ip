@@ -13,6 +13,9 @@ import tyrone.task.Todo;
  */
 public class Parser {
 
+    private TaskList taskList;
+    private Storage storage;
+
     // Constants for handleInput function
     public static final int START_INDEX_OFFSET_DESC = 1;
     public static final int START_INDEX_OFFSET_KEYWORD = 1;
@@ -22,12 +25,23 @@ public class Parser {
     public static final String TWO_SPACE_INDENT = "  ";
 
     /**
+     * Constructor for Parser class.
+     *
+     * @param taskList
+     * @param storage
+     */
+    public Parser(TaskList taskList, Storage storage) {
+        this.taskList = taskList;
+        this.storage = storage;
+    }
+
+    /**
      * Returns true if user inputs exit command, false otherwise.
      *
      * @param input User input to chatbot.
      * @return True if user inputs exit command, false otherwise.
      */
-    public static boolean isExitCommand (String input) {
+    public boolean isExitCommand (String input) {
         return input.equals("bye");
     }
 
@@ -36,7 +50,7 @@ public class Parser {
      *
      * @param input User input to chatbot.
      */
-    public static void handleInput(String input) {
+    public void handleInput(String input) {
         String[] dissectedInput = input.split(" ");
         String command = dissectedInput[0];
 
@@ -70,7 +84,7 @@ public class Parser {
             break;
         }
 
-        Storage.updateSaveFile();
+        storage.updateSaveFile(taskList);
     }
 
     /**
@@ -78,12 +92,12 @@ public class Parser {
      *
      * @param dissectedInput User input split by ' ' character.
      */
-    private static void handleList(String[] dissectedInput) {
+    private void handleList(String[] dissectedInput) {
         if (dissectedInput.length > 1) {
             Ui.println("Unrecognized command.");
         } else {
             Ui.println("Here are the tasks in your list:");
-            Ui.println(TaskList.getAllTaskDetails());
+            Ui.println(taskList.getAllTaskDetails());
         }
     }
 
@@ -91,7 +105,7 @@ public class Parser {
      * Handles user inputs which do not fall under the
      * chatbot's recognized types.
      */
-    private static void handleUnknown() {
+    private void handleUnknown() {
         Ui.println("Unrecognized command.");
     }
 
@@ -100,7 +114,7 @@ public class Parser {
      *
      * @param input User input to chatbot.
      */
-    private static void handleEvent(String input) {
+    private void handleEvent(String input) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
                     input.indexOf(" /from"));
@@ -111,7 +125,7 @@ public class Parser {
                 throw new EmptyFieldException();
             }
             Event newEvent = new Event(description, start, end);
-            TaskList.addTask(newEvent);
+            taskList.addTask(newEvent);
             Ui.println("added: " + newEvent.getNameWithStatus());
         } catch (EmptyFieldException e) {
             Ui.println("Description/Start time/End time cannot be empty.");
@@ -126,7 +140,7 @@ public class Parser {
      *
      * @param input User input to chatbot.
      */
-    private static void handleDeadline(String input) {
+    private void handleDeadline(String input) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
                     input.indexOf(" /by"));
@@ -135,7 +149,7 @@ public class Parser {
                 throw new EmptyFieldException();
             }
             Deadline newDeadline = new Deadline(description, deadline);
-            TaskList.addTask(newDeadline);
+            taskList.addTask(newDeadline);
             Ui.println("added: " + newDeadline.getNameWithStatus());
         } catch (EmptyFieldException e) {
             Ui.println("Description/Deadline cannot be empty.");
@@ -150,14 +164,14 @@ public class Parser {
      *
      * @param input User input to chatbot.
      */
-    private static void handleTodo(String input) {
+    private void handleTodo(String input) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC);
             if (!input.contains(" ") || description.isBlank()) {
                 throw new EmptyFieldException();
             }
             Todo newTodo = new Todo(description);
-            TaskList.addTask(newTodo);
+            taskList.addTask(newTodo);
             Ui.println("added: " + newTodo.getNameWithStatus());
         } catch (EmptyFieldException e) {
             Ui.println("Description cannot be empty.");
@@ -169,13 +183,13 @@ public class Parser {
      *
      * @param dissectedInput User input split by ' ' character.
      */
-    private static void handleUnmark(String[] dissectedInput) {
+    private void handleUnmark(String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
-            if (TaskList.isValidTaskId(taskId)) {
-                TaskList.markTaskAsUndone(taskId);
+            if (taskList.isValidTaskId(taskId)) {
+                taskList.markTaskAsUndone(taskId);
                 Ui.println("Ok, I've marked this task as not done yet:");
-                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
+                Ui.println(TWO_SPACE_INDENT + taskList.getSingleTaskDetails(taskId));
             } else {
                 Ui.println("Invalid task ID.");
             }
@@ -191,13 +205,13 @@ public class Parser {
      *
      * @param dissectedInput User input split by ' ' character.
      */
-    private static void handleMark(String[] dissectedInput) {
+    private void handleMark(String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
-            if (TaskList.isValidTaskId(taskId)) {
-                TaskList.markTaskAsDone(taskId);
+            if (taskList.isValidTaskId(taskId)) {
+                taskList.markTaskAsDone(taskId);
                 Ui.println("Nice! I've marked this task as done:");
-                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
+                Ui.println(TWO_SPACE_INDENT + taskList.getSingleTaskDetails(taskId));
             } else {
                 Ui.println("Invalid task ID.");
             }
@@ -213,13 +227,13 @@ public class Parser {
      *
      * @param dissectedInput User input split by ' ' character.
      */
-    private static void handleDelete (String[] dissectedInput) {
+    private void handleDelete (String[] dissectedInput) {
         try {
             int taskId = Integer.parseInt(dissectedInput[1]) - 1;
-            if (TaskList.isValidTaskId(taskId)) {
+            if (taskList.isValidTaskId(taskId)) {
                 Ui.println("Ok, I've removed this task:");
-                Ui.println(TWO_SPACE_INDENT + TaskList.getSingleTaskDetails(taskId));
-                TaskList.deleteTask(taskId);
+                Ui.println(TWO_SPACE_INDENT + taskList.getSingleTaskDetails(taskId));
+                taskList.deleteTask(taskId);
             } else {
                 Ui.println("Invalid task ID.");
             }
@@ -235,14 +249,14 @@ public class Parser {
      *
      * @param input User input to chatbot.
      */
-    private static void handleFind(String input){
+    private void handleFind(String input){
         try {
             String keyword = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_KEYWORD);
             if (!input.contains(" ") || keyword.isBlank()) {
                 throw new EmptyFieldException();
             }
             Ui.println("Here are the matching tasks in your list:");
-            Ui.println(TaskList.listTasksWithKeyword(keyword));
+            Ui.println(taskList.listTasksWithKeyword(keyword));
         } catch (EmptyFieldException e) {
             Ui.println("Please enter a keyword to search for.");
         }

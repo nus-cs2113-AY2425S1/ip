@@ -1,10 +1,7 @@
 package tyrone.storage;
 
 import tyrone.command.exceptions.EmptyFieldException;
-import tyrone.task.Deadline;
-import tyrone.task.Event;
-import tyrone.task.TaskList;
-import tyrone.task.Todo;
+import tyrone.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,19 +31,19 @@ public class Storage {
      *
      * @param line Line of text in chatbot save file representing a previously saved task.
      */
-    private static void parseLine(String line) {
+    private void parseLine(String line, TaskList taskList) {
         boolean isDone = (line.charAt(0) == '1');
         String input = line.substring(INPUT_START_INDEX);
         String command = input.substring(0, input.indexOf(" "));
         switch (command) {
         case "todo":
-            parseTodo(input, isDone);
+            parseTodo(input, isDone, taskList);
             break;
         case "deadline":
-            parseDeadline(input, isDone);
+            parseDeadline(input, isDone, taskList);
             break;
         case "event":
-            parseEvent(input, isDone);
+            parseEvent(input, isDone, taskList);
             break;
         }
     }
@@ -57,7 +54,7 @@ public class Storage {
      * @param input Line of text from chatbot save file containing task description, start and end.
      * @param isDone Whether task has been marked as done or not.
      */
-    private static void parseEvent(String input, boolean isDone) {
+    private void parseEvent(String input, boolean isDone, TaskList taskList) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
                     input.indexOf(" /from"));
@@ -71,7 +68,7 @@ public class Storage {
             if (isDone) {
                 newEvent.markAsDone();
             }
-            TaskList.addTask(newEvent);
+            taskList.addTask(newEvent);
         } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
             System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
@@ -83,7 +80,7 @@ public class Storage {
      * @param input Line of text from chatbot save file containing task description and deadline.
      * @param isDone Whether task has been marked as done or not.
      */
-    private static void parseDeadline(String input, boolean isDone) {
+    private void parseDeadline(String input, boolean isDone, TaskList taskList) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
                     input.indexOf(" /by"));
@@ -95,7 +92,7 @@ public class Storage {
             if (isDone) {
                 newDeadline.markAsDone();
             }
-            TaskList.addTask(newDeadline);
+            taskList.addTask(newDeadline);
         } catch (EmptyFieldException | StringIndexOutOfBoundsException e) {
             System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
@@ -107,7 +104,7 @@ public class Storage {
      * @param input Line of text from chatbot save file containing task description.
      * @param isDone Whether task has been marked as done or not.
      */
-    private static void parseTodo(String input, boolean isDone) {
+    private void parseTodo(String input, boolean isDone, TaskList taskList) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION);
             if (!input.contains(" ") || description.isBlank()) {
@@ -117,7 +114,7 @@ public class Storage {
             if (isDone) {
                 newTodo.markAsDone();
             }
-            TaskList.addTask(newTodo);
+            taskList.addTask(newTodo);
         } catch (EmptyFieldException e) {
             System.out.println(PARSE_LINE_ERROR_MESSAGE);
         }
@@ -126,13 +123,13 @@ public class Storage {
     /**
      * Populates task list according to records saved in chatbot save file.
      */
-    public static void initTaskListFromSaveFile() {
+    public void initTaskListFromSaveFile(TaskList taskList) {
         try {
             File saveFile = new File(SAVE_FILE_NAME);
             Scanner s = new Scanner(saveFile);
             while (s.hasNext()) {
                 String line = s.nextLine();
-                parseLine(line);
+                parseLine(line, taskList);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
@@ -143,7 +140,7 @@ public class Storage {
      * Creates a new .txt save file in a new directory named 'data' in current directory.
      * If 'data' directory or save file already exists, does not overwrite existing file/directory.
      */
-    public static void createSaveFile() {
+    public void createSaveFile() {
         File dir = new File(SAVE_FILE_DIR);
         dir.mkdir();
         try {
@@ -161,7 +158,7 @@ public class Storage {
      * @param textToAdd String of text to write to file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    private static void writeToFile(String fileName, String textToAdd) throws IOException {
+    private void writeToFile(String fileName, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(fileName);
         fw.write(textToAdd);
         fw.close();
@@ -171,9 +168,9 @@ public class Storage {
      * Updates chatbot save file with records of all tasks in task list.
      * Prints error message upon encountering IOException.
      */
-    public static void updateSaveFile() {
+    public void updateSaveFile(TaskList taskList) {
         try {
-            writeToFile(SAVE_FILE_NAME, TaskList.getAllTaskSaveRecords());
+            writeToFile(SAVE_FILE_NAME, taskList.getAllTaskSaveRecords());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
