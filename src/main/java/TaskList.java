@@ -35,18 +35,23 @@ public class TaskList {
         return this.tasks.get(index);
     }
     // Listing /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static String listTasks(ArrayList<Task> tasks){
     /**
-     * Returns a String that lists all tasks in the task list
+     * Returns a String that lists tasks in the given task list
+     * @param tasks ArrayList of Tasks
      * @return List of Tasks as a String
      */
-    public String listTasks(){
+    public static String listTasks(ArrayList<Task> tasks){
         String output = "";
         for (int currentItemIndex = 0; currentItemIndex < tasks.size(); currentItemIndex++){
             output += String.valueOf(currentItemIndex+1) + "." + tasks.get(currentItemIndex) + "\n";
         }
         return output;
     }
+
+    /**
+     * Returns a String that lists all tasks in the task list
+     * @return List of Tasks as a String
+     */
     public String listAllTasks(){
         return listTasks(this.tasks);
     }
@@ -116,6 +121,12 @@ public class TaskList {
         return this.addTask(new Event(description, from, to));
     }
     // Menu Options - Find ///////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Return ArrayList of Tasks with the keyword
+     * @param keyword Keyword
+     * @return ArrayList of Tasks with the keyword
+     * @throws CuboydException
+     */
     public ArrayList<Task> findTasks(String keyword) throws CuboydException {
         if (keyword == null) {
             throw new CuboydException("No keyword given! Please run the command again with `find <keyword>`!");
@@ -128,6 +139,12 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Returns a String that lists tasks with the keyword in the task list
+     * @param keyword Keyword
+     * @return List of Tasks in the keyword as a String
+     */
     public String listFoundTasks(String keyword) throws CuboydException{
         return listTasks(this.findTasks(keyword));
     }
