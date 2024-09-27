@@ -40,57 +40,6 @@ public class Luke {
         System.exit(0);
     }
 
-//    private void sendMessage(String userInput) {
-//        String[] inputArr = userInput.split(" ");
-//        String command = inputArr[0];
-//
-//        if (command.equalsIgnoreCase("bye")) {
-//            exitBot();
-//        } else if (command.equalsIgnoreCase("list")) {
-//            taskList.list();
-//        } else if (command.equalsIgnoreCase("mark")) {
-//            try {
-//                taskList.mark(inputArr);
-//            } catch (LukeException e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else if (command.equalsIgnoreCase("unmark")) {
-//            try {
-//                taskList.unmark(inputArr);
-//            } catch (LukeException e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else if (command.equalsIgnoreCase("todo")){
-//            try {
-//                taskList.addToDo(inputArr);
-//            } catch (InsufficientArguments e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else if (command.equalsIgnoreCase("deadline")){
-//            try {
-//                taskList.addDeadline(inputArr);
-//            } catch (InsufficientArguments e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else if (command.equalsIgnoreCase("event")) {
-//            try {
-//                taskList.addEvent(inputArr);
-//            } catch (InsufficientArguments e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else if (command.equalsIgnoreCase("delete")) {
-//            try {
-//                taskList.deleteTask(inputArr);
-//            } catch (InsufficientArguments | IncorrectInput e) {
-//                ui.printReply(e.getMessage());
-//            }
-//        } else {
-//            throw new InvalidCommand("Invalid command");
-//        }
-//    }
-
-
-
     public static void main(String[] args) {
         new Luke().run();
     }
@@ -113,7 +62,6 @@ public class Luke {
                 ui.printReply("Sorry, I don't understand you :(");
             }
         }
-
         exitBot();
     }
 }
