@@ -1,14 +1,18 @@
 package king;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
     protected final String taskStartTime = "NIL";
     protected String taskEndTime;
     protected final String TASKTYPEICON = "[D]";
+    private LocalDateTime deadlineDateTime;
 
-    public Deadline(String description, String taskEndTime) {
+    public Deadline(String description, LocalDateTime deadlineDateTime) {
         super(description);
-        this.taskEndTime = taskEndTime;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
     @Override
@@ -16,8 +20,13 @@ public class Deadline extends Task {
         return TASKTYPEICON + getStatusIcon() + description + " (by: " + taskEndTime + ")";
     }
 
+    public LocalDateTime getDeadlineDateTime() {
+        return deadlineDateTime;
+    }
+
     @Override
     public String toString() {
-        return getTaskDescription();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a MMM dd yyyy");
+        return "[D]" + getStatusIcon() + description + " (by: " + deadlineDateTime.format(formatter) + ")";
     }
 }

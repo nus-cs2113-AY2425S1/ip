@@ -33,4 +33,8 @@ public class Task {
     public String toString() {
         return getTaskDescription();
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
