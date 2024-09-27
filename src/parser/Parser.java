@@ -26,6 +26,8 @@ public class Parser {
                 return new AddCommand(userInput);
             case DELETE:
                 return new DeleteCommand(userInput);
+            case FIND:
+                return new FindCommand(userInput);
             default:
                 throw new IllegalCommandException(ILLEGAL_COMMAND_MESSAGE + "\n" + SEPARATOR);
         }

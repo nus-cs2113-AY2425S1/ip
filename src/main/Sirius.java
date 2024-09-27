@@ -23,6 +23,7 @@ public class Sirius {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
 
     // some regexes
     public static final String SPACE = " ";
@@ -41,12 +42,15 @@ public class Sirius {
     public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:";
     public static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:";
     public static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:";
+    public static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:";
+    public static final String NOT_FIND_TASK_MESSAGE = "No tasks found with the keyword: ";
 
     public static final String INDEX_BOUND_ERROR_MESSAGE = "The task index is out of bound! Please enter a valid task index.";
     public static final String INDEX_FORMAT_ERROR_MESSAGE = "The task index must be a number! Please enter a valid index number!";
     public static final String LOADING_ERROR_MESSAGE ="Oh, Task file not found. Start with a new task list!";
     public static final String SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks.";
     public static final String ILLEGAL_COMMAND_MESSAGE = "I don't understand it. Please enter an illegal command!";
+
 
     public Sirius(String filePath) {
         ui = new Ui();

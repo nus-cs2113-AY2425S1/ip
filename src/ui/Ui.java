@@ -2,6 +2,8 @@ package ui;
 
 import exception.IncompleteCommandException;
 import tasklist.TaskList;
+
+import java.util.Arrays;
 import java.util.Scanner;
 import static main.Sirius.*;
 
@@ -85,6 +87,27 @@ public class Ui {
         }
         System.out.println(SEPARATOR);
     }
+    public void showTaskFound(TaskList tasks, String keyWord) {
+        boolean found = false;  // 用于标记是否找到了匹配项
+        System.out.println(SEPARATOR);
+        for (int i = 0; i < tasks.getList().size(); i++) {
+            String taskName = tasks.getList().get(i).getTaskName();
+            String[] components = taskName.split(SPACE);
+
+            if (Arrays.asList(components).contains(keyWord)) {
+                if (!found) {
+                    System.out.println(FIND_TASK_MESSAGE);  // Only the 1st find will print message
+                    found = true;
+                }
+                System.out.println(i + 1 + ". " + tasks.getList().get(i).toString());
+            }
+        }
+        if (!found) {
+            System.out.println(NOT_FIND_TASK_MESSAGE + keyWord);  // 如果没有找到匹配项，可以打印一个提示消息
+        }
+        System.out.println(SEPARATOR);
+    }
+
 
     public String readCommand(){
         return scanner.nextLine();
