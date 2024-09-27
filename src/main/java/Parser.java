@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -114,7 +115,17 @@ public class Parser {
                     ui.noNumberEntered();
                 }
                 break;
+            case "due":
+                try {
+                    String dateString = parts[1].trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    LocalDate dueDate = LocalDate.parse(dateString, formatter);
 
+                    TaskList.printTasksOnDate(dueDate);
+                } catch (DateTimeParseException e) {
+                    ui.invalidFormat();
+                }
+                break;
             default:
                 ui.showCommandList();
                 break;

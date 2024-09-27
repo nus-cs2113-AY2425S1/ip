@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -101,6 +102,22 @@ public class TaskList {
         System.out.println("You have " + tasks.size() + " quaggin tasks to do! get to work!");
         ui.showLine();
         Storage.saveToFile();
+    }
+
+    public static void printTasksOnDate( LocalDate dueDate) {
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.by.toLocalDate().equals(dueDate)) {
+                    System.out.println("  " + task);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.from.toLocalDate().equals(dueDate)) {
+                    System.out.println("  " + task);
+                }
+            }
+        }
     }
 }
 

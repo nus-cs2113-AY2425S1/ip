@@ -34,7 +34,10 @@ public class UI {
     }
 
     public void invalidFormat() {
+
         System.out.println("That's not a valid quaggin format!!");
+        showLine();
+        showCommandList();
     }
 
     public void alreadyMarked() {
@@ -52,9 +55,10 @@ public class UI {
         System.out.println("mark <index>: marks task corresponding to index");
         System.out.println("unmark <index>: unmarks task corresponding to index");
         System.out.println("todo <description>: adds task type todo to list");
-        System.out.println("deadline <description> /by <date>: adds task type deadline to list");
-        System.out.println("event <description> /from <date> /to <date>: adds task type event to list");
+        System.out.println("deadline <description> /by <dd/mm/yyyy hhmm>: adds task type deadline to list");
+        System.out.println("event <description> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>: adds task type event to list");
         System.out.println("delete <index>: delete task corresponding to index");
+        System.out.println("due <dd/mm/yyyy>: deletes task type description to list");
         System.out.println("quag: exit program");
         showLine();
     }
