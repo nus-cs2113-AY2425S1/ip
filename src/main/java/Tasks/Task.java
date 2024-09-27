@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a task that the user wishes to jot down.
+ */
 public class Task {
      protected String description;
      protected boolean isDone;

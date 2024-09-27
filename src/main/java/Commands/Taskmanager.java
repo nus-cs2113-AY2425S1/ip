@@ -12,12 +12,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Responsible for holding the ArrayList of Task objects and executing the appropriate commands based on the user
+ * input. Methods here make use of methods from Parser class to parse user input first before executing command.
+ */
 public class Taskmanager {
 
     private ArrayList<Task> taskArray;
 
     public Taskmanager(){
-        taskArray = new ArrayList<Task>();
+        taskArray = new ArrayList<>();
     }
 
     public Taskmanager(ArrayList<Task> taskArray){
@@ -28,16 +32,27 @@ public class Taskmanager {
         return taskArray;
     }
 
+    /**
+     * Marks the task as done.
+     * @param input String of input from user.
+     */
     public void mark(String input){
         int index = Parser.parseForMarkAndUnmarkCommand(input);
         taskArray.get(index).markAsDone();
     }
 
+    /**
+     * Unmarks the task as done.
+     * @param input String of input from user
+     */
     public void unmark(String input){
         int index = Parser.parseForMarkAndUnmarkCommand(input);
         taskArray.get(index).markAsUndone();
     }
 
+    /**
+     * Lists the Task objects in the taskArray ArrayList.
+     */
     public void list(){
         int i=0;
         System.out.println("Here are the tasks in your list:");
@@ -48,7 +63,11 @@ public class Taskmanager {
         }
     }
 
-    public void addTodo(String input) throws EmptyTaskEntry {
+    /**
+     * Add a Todo task into the taskArray ArrayList
+     * @param input String of input from user.
+     */
+    public void addTodo(String input) {
         try {
             String activityName = Parser.parseForAddTodo(input);
             taskArray.add(new Todo(activityName));
@@ -59,6 +78,11 @@ public class Taskmanager {
         }
     }
 
+    /**
+     * Adds a Deadline task into the taskArray ArrayList.
+     * Processes deadline by user and stores the deadline as a LocalDateTime object.
+     * @param input String of input from user.
+     */
     public void addDeadline(String input){
         try {
             String[] deadlineInfo = Parser.parseForAddDeadline(input);
@@ -86,6 +110,10 @@ public class Taskmanager {
         }
     }
 
+    /**
+     * Adds an Event task into the taskArray ArrayList.
+     * @param input String of input from user.
+     */
     public void addEvent(String input) {
         try {
             String[] eventInfo = Parser.parseForAddEvent(input);
@@ -99,6 +127,10 @@ public class Taskmanager {
         }
     }
 
+    /**
+     * Deletes task specified by user from the taskArray ArrayList
+     * @param input String of input from user.
+     */
     public void deleteTask(String input){
         try{
             int indexToDelete = Parser.parseForDelete(input);
@@ -114,6 +146,10 @@ public class Taskmanager {
         }
     }
 
+    /**
+     * Filters the taskArray ArrayList using the keyword(s) provided by the user
+     * @param input String of input from user
+     */
     public void findTask(String input){
         String stringToFind = Parser.parseForFind(input);
         int index = 0;

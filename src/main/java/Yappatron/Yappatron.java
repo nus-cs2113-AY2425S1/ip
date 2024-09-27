@@ -8,6 +8,10 @@ import Tasks.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Main class of program, execution starting here.
+ */
 public class Yappatron {
     private Ui ui;
     private FileManager fileManager;
@@ -25,6 +29,10 @@ public class Yappatron {
         }
     }
 
+    /**
+     * Runs the program until user inputs bye, executing commands by parsing user input into the Parser class to
+     * determine which command to execute in Taskmanager.
+     */
     public void run(){
         int exitStatus = 0;
         String input;

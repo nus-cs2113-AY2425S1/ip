@@ -3,6 +3,9 @@ package Tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline that the user wishes to jot down.
+ */
 public class Deadline extends Task {
     private LocalDateTime deadline;
 

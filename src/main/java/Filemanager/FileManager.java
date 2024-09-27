@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Creates the txt file for data storage. The class also reads and writes from/to the txt file before and after
+ * each program execution, to save the input data for the next run.
+ */
 public class FileManager {
     public static final String FILE_NAME = "./data/yappatron.txt";
     private File f;
@@ -17,6 +21,9 @@ public class FileManager {
         f = new File(FILE_NAME);
     }
 
+    /**
+     * Creates the txt file if it does not already exist
+     */
     public void createFile(){
         try {
 
@@ -33,7 +40,11 @@ public class FileManager {
         }
     }
 
-
+    /**
+     * Processes the txt file to create Task objects that correspond to the entries in the file.
+     * @return ArrayList of Task objects
+     * @throws FileNotFoundException if file does not exist
+     */
     public ArrayList<Task> loadFile() throws FileNotFoundException {
         ArrayList<Task> taskArray = new ArrayList<>();
         Scanner s = new Scanner(f);
@@ -52,6 +63,11 @@ public class FileManager {
         return taskArray;
     }
 
+    /**
+     * Writes to file before program ends.
+     * @param taskArray ArrayList of Task objects to be written to file
+     * @throws IOException on input error
+     */
     public void writeFile(ArrayList<Task> taskArray) throws IOException{
 
         FileWriter fileWriter = new FileWriter(FILE_NAME);
