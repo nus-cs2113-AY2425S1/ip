@@ -2,6 +2,10 @@ package king;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 public class TaskList {
 
@@ -62,6 +66,7 @@ public class TaskList {
         String taskEndTime = "";
         boolean existBy = false;
 
+        LocalDateTime deadlineTime;
         try {
             for (int i = 0; i < taskSpecifics.length; i++) {
                 if (taskSpecifics[i].equals("/by")) {
@@ -79,32 +84,19 @@ public class TaskList {
                 throw new KingException("You must provide a task description before '/by'. Please try again:)\n");
             }
 
-            for (int i = 1; i < separationIndex; i++) {
-                taskContent += taskSpecifics[i];
-                if (i < separationIndex - 1) {
-                    taskContent += " ";
+            taskContent = String.join(" ", Arrays.copyOfRange(taskSpecifics, 1, separationIndex));
+
+            taskEndTime = taskSpecifics[separationIndex + 1];
+
+            try {
+                if (taskEndTime.length() == 10) {
+                    taskEndTime += " 2359";
                 }
-            }
 
-            taskContent = taskContent.trim();
-            if (taskContent.isEmpty()) {
-                throw new KingException("You must provide a valid task description before '/by'. Please try again:)\n");
-            }
-
-            if (separationIndex == taskSpecifics.length - 1) {
-                throw new KingException("You must provide a deadline after '/by'. Please try again:)\n");
-            }
-
-            for (int i = separationIndex + 1; i < taskSpecifics.length; i++) {
-                taskEndTime += taskSpecifics[i];
-                if (i < taskSpecifics.length - 1) {
-                    taskEndTime += " ";
-                }
-            }
-
-            taskEndTime = taskEndTime.trim();
-            if (taskEndTime.isEmpty()) {
-                throw new KingException("You must provide a valid deadline after '/by'. Please try again:)\n");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                deadlineTime = LocalDateTime.parse(taskEndTime, formatter);
+            } catch (DateTimeParseException e) {
+                throw new KingException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm' or 'yyyy-MM-dd'.\n");
             }
 
         } catch (KingException e) {
@@ -112,7 +104,7 @@ public class TaskList {
             return;
         }
 
-        Task t = new Deadline(taskContent, taskEndTime);
+        Task t = new Deadline(taskContent, deadlineTime);
         tasks.add(t);
         tasksCount += 1;
         printAddedTaskDescription(t);
@@ -129,6 +121,9 @@ public class TaskList {
         String taskEndTime = "";
         boolean existFrom = false;
         boolean existTo = false;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         try {
             for (int i = 0; i < taskSpecifics.length; i++) {
@@ -149,33 +144,41 @@ public class TaskList {
                 throw new KingException("You must provide a task description before '/from'. Please try again:)\n");
             }
 
-            for (int i = 1; i < separationIndexFirst; i++) {
-                taskContent += taskSpecifics[i];
-                if (i < separationIndexFirst - 1) {
-                    taskContent += " ";
-                }
-            }
+            taskContent = String.join(" ", Arrays.copyOfRange(taskSpecifics
+                    , 1, separationIndexFirst)).trim();
 
-            for (int i = separationIndexFirst + 1; i < separationIndexSecond; i++) {
-                taskStartTime += taskSpecifics[i];
-                if (i < separationIndexSecond - 1) {
-                    taskStartTime += " ";
-                }
-            }
-            taskStartTime = taskStartTime.trim();
+            taskStartTime = String.join(" ", Arrays.copyOfRange(taskSpecifics
+                    , separationIndexFirst + 1, separationIndexSecond)).trim();
             if (taskStartTime.isEmpty()) {
                 throw new KingException("You must provide a valid start time after '/from'. Please try again:)\n");
             }
 
-            for (int i = separationIndexSecond + 1; i < taskSpecifics.length; i++) {
-                taskEndTime += taskSpecifics[i];
-                if (i < taskSpecifics.length - 1) {
-                    taskEndTime += " ";
+            try {
+                if (taskStartTime.length() == 10) {
+                    taskStartTime += " 2359";
                 }
+                startTime = LocalDateTime.parse(taskStartTime, formatter);
+            } catch (DateTimeParseException e) {
+                throw new KingException("Invalid start time format. Please use 'yyyy-MM-dd HHmm'.\n");
             }
-            taskEndTime = taskEndTime.trim();
+
+
+            taskEndTime = String.join(" ", Arrays.copyOfRange(taskSpecifics, separationIndexSecond + 1, taskSpecifics.length)).trim();
             if (taskEndTime.isEmpty()) {
                 throw new KingException("You must provide a valid end time after '/to'. Please try again:)\n");
+            }
+
+            try {
+                if (taskEndTime.length() == 10) {
+                    taskEndTime += " 2359";
+                }
+                endTime = LocalDateTime.parse(taskEndTime, formatter);
+            } catch (DateTimeParseException e) {
+                throw new KingException("Invalid end time format. Please use 'yyyy-MM-dd HHmm'.\n");
+            }
+
+            if (endTime.isBefore(startTime)) {
+                throw new KingException("The end time must be after the start time. Please check your inputs.\n");
             }
 
         } catch (KingException e) {
@@ -183,7 +186,7 @@ public class TaskList {
             return;
         }
 
-        Task t = new Event(taskContent, taskStartTime, taskEndTime);
+        Task t = new Event(taskContent, startTime, endTime);
         tasks.add(t);
         tasksCount += 1;
         printAddedTaskDescription(t);
@@ -210,7 +213,7 @@ public class TaskList {
             tasks.get(index).markAsDone();
             System.out.println(LINE +
                                "Nice! I've marked this task as done:\n   " +
-                               tasks.get(index).getTaskDescription() + "\n" + LINE);
+                               tasks.get(index) + "\n" + LINE);
 
             Storage.updateFile();
         } catch (IndexOutOfBoundsException e) {
@@ -223,7 +226,7 @@ public class TaskList {
             tasks.get(index).markAsUndone();
             System.out.println(LINE
                                + "OK, I've marked this task as not done yet:\n   "
-                               + tasks.get(index).getTaskDescription() + "\n"
+                               + tasks.get(index) + "\n"
                                + LINE);
 
             Storage.updateFile();
@@ -235,7 +238,7 @@ public class TaskList {
     private void printAddedTaskDescription(Task t) {
         System.out.println(LINE +
                            "Got it. I've added this task:\n   " +
-                           t.getTaskDescription() +
+                           t +
                            "\nNow you have " + tasksCount + " tasks in the list.\n" + LINE);
     }
 

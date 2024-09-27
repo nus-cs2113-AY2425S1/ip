@@ -3,12 +3,14 @@ package king;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private final static String defaultFilePath = "out/production/ip/king/Tasks.txt";
-    private final static String backupFilePath = "resources/Tasks_backup.txt";
+    private final static String backupFilePath = "src/main/resources/Tasks_backup.txt";
 
     protected static boolean checkFile() {
         File f = new File(defaultFilePath);
@@ -51,6 +53,8 @@ public class Storage {
 
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(defaultFilePath);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
         try (Scanner s = new Scanner(f)) {
             String[] taskDetails;
 
@@ -59,23 +63,33 @@ public class Storage {
                 taskDetails = task.split("\\|");
 
                 if (taskDetails[0].equals("[T]")) {
-                    Todo t = new Todo(taskDetails[2]);
-                    t.isDone = taskDetails[1].equals("true");
+                    Todo t = new Todo(taskDetails[2].trim());
+                    t.isDone = taskDetails[1].trim().equals("true");
                     tasks.add(t);
+
                 } else if (taskDetails[0].equals("[D]")) {
-                    Deadline d = new Deadline(taskDetails[2], taskDetails[4]);
-                    d.isDone = taskDetails[1].equals("true");
+                    String description = taskDetails[2].trim();
+                    String deadlineStr = taskDetails[3].trim();
+                    LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr, formatter);
+                    Deadline d = new Deadline(description, deadlineDateTime);
+                    d.isDone = taskDetails[1].trim().equals("true");
                     tasks.add(d);
+
                 } else if (taskDetails[0].equals("[E]")) {
-                    Event e = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    e.isDone = taskDetails[1].equals("true");
+                    String description = taskDetails[2].trim();
+                    String startTimeStr = taskDetails[3].trim();
+                    String endTimeStr = taskDetails[4].trim();
+                    LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+                    LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
+                    Event e = new Event(description, startTime, endTime);
+                    e.isDone = taskDetails[1].trim().equals("true");
                     tasks.add(e);
                 }
             }
         } catch (Exception e) {
             deleteFile();
             createNewFile();
-            throw new KingException("The saved file is corrupted! Clearing the file now...");
+            throw new KingException(" The saved file was corrupted!\n");
         }
         return tasks;
     }
@@ -91,18 +105,19 @@ public class Storage {
                                  + todoTask.description + "\n");
                     } else if (task instanceof Deadline) {
                         Deadline deadlineTask = (Deadline) task;
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                         fw.write(deadlineTask.TASKTYPEICON + "|"
                                  + deadlineTask.isDone + "|"
-                                 + deadlineTask.description + "|"
-                                 + deadlineTask.taskStartTime + "|"
-                                 + deadlineTask.taskEndTime + "\n");
+                                 + deadlineTask.getDescription() + "|"
+                                 + deadlineTask.getDeadlineDateTime().format(formatter) + "\n");
                     } else if (task instanceof Event) {
                         Event eventTask = (Event) task;
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                         fw.write(eventTask.TASKTYPEICON + "|"
                                  + eventTask.isDone + "|"
-                                 + eventTask.description + "|"
-                                 + eventTask.taskStartTime + "|"
-                                 + eventTask.taskEndTime + "\n");
+                                 + eventTask.getDescription() + "|"
+                                 + eventTask.getStartTime().format(formatter) + "|"
+                                 + eventTask.getEndTime().format(formatter) + "\n");
                     }
                 }
             }

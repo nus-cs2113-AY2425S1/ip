@@ -1,16 +1,20 @@
 package king;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
     protected String taskStartTime;
     protected String taskEndTime;
     protected final String TASKTYPEICON = "[E]";
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-
-    public Event(String description, String taskStartTime, String taskEndTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.taskStartTime = taskStartTime;
-        this.taskEndTime = taskEndTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     protected String getTaskDescription() {
@@ -19,6 +23,15 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return getTaskDescription();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a MMM dd yyyy");
+        return "[E]" + getStatusIcon() + description + " (from: " + startTime.format(formatter) + " to: " + endTime.format(formatter) + ")";
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 }

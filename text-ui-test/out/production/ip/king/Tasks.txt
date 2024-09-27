@@ -1,0 +1,5 @@
+[T]|false|buy groceries
+[T]|false|buy groceries
+[T]|false|buy groceries
+[T]|false|buy groceries
+[T]|false|buy groceries

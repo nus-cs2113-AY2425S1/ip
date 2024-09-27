@@ -13,14 +13,14 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../out/production/ip ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../out/production/ip ../src/main/java/king/*.java ../src/main/java/king/command/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../out/production/ip King < input.txt > ACTUAL.TXT
+java -classpath ../out/production/ip king.King < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
