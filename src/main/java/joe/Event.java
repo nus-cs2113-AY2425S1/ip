@@ -9,10 +9,10 @@ import java.util.Optional;
  * Encapsulates methods to parse and operate on Event objects
  */
 public class Event extends Task{
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
-
 
     public Event(String itemDescription, LocalDateTime startDate, LocalDateTime endDate) {
         super(itemDescription);
@@ -132,7 +132,7 @@ public class Event extends Task{
         String checkBox;
         if (this.isToDo()) {
             checkBox = " [" + "not done" + "]";
-            } else {
+        } else {
             checkBox = " [" + "done" + "]";
         }
 

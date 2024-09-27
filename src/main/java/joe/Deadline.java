@@ -11,8 +11,8 @@ import java.util.Optional;
  */
 public class Deadline extends Task {
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
     private LocalDateTime deadlineDate;
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
 
     public Deadline(String itemDescription, LocalDateTime deadlineDate) {
         super(itemDescription);
@@ -101,7 +101,7 @@ public class Deadline extends Task {
         String checkBox;
         if (this.isToDo()) {
             checkBox = " [" + "not done" + "]";
-            } else {
+        } else {
             checkBox = " [" + "done" + "]";
         }
         return "[D]" + checkBox + " " +

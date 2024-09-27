@@ -41,7 +41,7 @@ public class Task {
         String checkBox;
         if (this.isToDo) {
             checkBox = " [" + "not done" + "]";
-            } else {
+        } else {
             checkBox = " [" + "done" + "]";
         }
 

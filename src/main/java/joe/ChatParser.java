@@ -2,7 +2,6 @@ package joe;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
@@ -167,8 +166,8 @@ public class ChatParser {
 
         newItem.ifPresentOrElse(
                 task -> this.toDoItemArrayList.addToList(task),
-                () -> UI.printMultiLine(new String[]{"Remember available commands for creating tasks are: todo, event or deadline for creating tasks",
-                        "General commands: list, bye, unmark and mark. "})
+                () -> UI.printMultiLine(new String[]{"Remember available commands for creating tasks are: " +
+                        "todo, event or deadline for creating tasks", "General commands: list, bye, unmark and mark. "})
         );
     }
 }
