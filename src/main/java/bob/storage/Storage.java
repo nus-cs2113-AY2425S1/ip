@@ -4,6 +4,7 @@ import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
+import bob.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,10 +25,15 @@ public class Storage {
     private static final String TASK_TODO = "T";
     private static final String TASK_DEADLINE = "D";
     private static final String TASK_EVENT = "E";
+    private static final String FOLDER = "folder";
+    private static final String FILE = "file";
+
     private final String filePath;
+    private final Ui ui;
 
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath).toString();
+        this.ui = new Ui();
     }
 
     public ArrayList<Task> load() {
@@ -48,11 +54,11 @@ public class Storage {
                         tasks.add(task);
                     }
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Error parsing line " + lineNumber + ": " + e.getMessage());
+                    this.ui.printErrorParsingLineMessage(lineNumber, e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
+            this.ui.printFileNotFound(e.getMessage());
         }
         return tasks;
     }
@@ -60,20 +66,20 @@ public class Storage {
     private void createDirectoryIfNotExists(File file) {
         File parentDirectory = file.getParentFile();
         if (parentDirectory != null && !parentDirectory.exists()) {
-            System.out.println("Folder has not existed yet, creating a new folder.");
+            this.ui.printCreationMessage(FOLDER, true);
             if (!parentDirectory.mkdirs()) {
-                System.out.println("Folder failed to be created.");
+                this.ui.printCreationMessage(FOLDER,false);
             }
         }
     }
 
     private void createFileIfNotExists(File file) {
         if (!file.exists()) {
-            System.out.println("File has not existed yet, creating a new file.");
+            this.ui.printCreationMessage(FILE, true);
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                this.ui.printCreationMessage(FILE, false);
             }
         }
     }
@@ -134,7 +140,7 @@ public class Storage {
                 writer.write(taskToString(task) + System.lineSeparator());
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the tasks: " + e.getMessage());
+            this.ui.printErrorSavingTasks(e.getMessage());
         }
     }
 
@@ -142,7 +148,7 @@ public class Storage {
         try (FileWriter writer = new FileWriter(filePath, true)) {
             writer.write(taskToString(task) + System.lineSeparator());
         } catch (IOException e) {
-            System.out.println("An error occurred while appending the task: " + e.getMessage());
+            this.ui.printErrorAppendingTask(e.getMessage());
         }
     }
 
@@ -158,10 +164,10 @@ public class Storage {
         sb.append(" | ").append(task.getStatusIcon().equals("X") ? "1" : "0");
         sb.append(" | ").append(task.getDescription());
         if (task instanceof Deadline) {
-            sb.append(" | ").append(((Deadline) task).getBy());
+            sb.append(" | ").append(((Deadline) task).getDeadline());
         } else if (task instanceof Event) {
-            sb.append(" | ").append(((Event) task).getFrom());
-            sb.append("-").append(((Event) task).getTo());
+            sb.append(" | ").append(((Event) task).getEventStartTime());
+            sb.append("-").append(((Event) task).getEventEndTime());
         }
         return sb.toString();
     }

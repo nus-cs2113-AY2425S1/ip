@@ -1,25 +1,25 @@
 package bob.task;
 
 public class Event extends Task {
-    private String from;
-    private String to;
+    private String startOfEvent;
+    private String endOfEvent;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startOfEvent = startTime;
+        this.endOfEvent= endTime;
     }
 
-    public String getFrom() {
-        return this.from;
+    public String getEventStartTime() {
+        return this.startOfEvent;
     }
 
-    public String getTo() {
-        return this.to;
+    public String getEventEndTime() {
+        return this.endOfEvent;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.startOfEvent + " to: " + this.endOfEvent + ")";
     }
 }

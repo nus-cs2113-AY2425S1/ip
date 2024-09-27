@@ -1,18 +1,18 @@
 package bob.task;
 
 public class Deadline extends Task {
-    private String by;
+    private String byDeadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadline) {
         super(description);
-        this.by = by;
+        this.byDeadline = deadline;
     }
 
-    public String getBy() {
-        return this.by;
+    public String getDeadline() {
+        return this.byDeadline;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDeadline + ")";
     }
 }

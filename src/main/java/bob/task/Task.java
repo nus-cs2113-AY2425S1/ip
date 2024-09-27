@@ -1,7 +1,7 @@
 package bob.task;
 
 public class Task {
-    protected String description;
+    protected final String description;
     protected boolean isDone;
 
     public Task(String description) {
@@ -11,10 +11,6 @@ public class Task {
 
     public String getDescription() {
         return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getStatusIcon() {
