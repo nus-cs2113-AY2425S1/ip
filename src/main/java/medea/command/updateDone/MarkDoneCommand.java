@@ -19,6 +19,11 @@ public class MarkDoneCommand extends UpdateDoneCommand {
         super(index);
     }
 
+    /**
+     * Indicates that the command is an Unmark command.
+     *
+     * @return false to indicate task is no longer completed
+     */
     @Override
     protected boolean isDone(){
         return true;
