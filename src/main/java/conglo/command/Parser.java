@@ -14,6 +14,8 @@ import conglo.task.Todo;
 import conglo.task.TaskList;
 import conglo.ui.Ui;
 
+import java.util.ArrayList;
+
 public class Parser {
     private static boolean isDelete = false;
     private static Ui ui = new Ui();
@@ -38,7 +40,7 @@ public class Parser {
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
 
-    public static void listTasks() {
+    public static void listTasks(TaskList taskList) {
         ui.displayTaskList();
     }
 
@@ -120,7 +122,13 @@ public class Parser {
             if (words.length > 1) {
                 throw new InvalidFormat("list");
             }
-            listTasks();
+            listTasks(taskList);
+            break;
+        case "find":
+            if (words.length == 1 || words[1].isEmpty()) {
+                throw new MissingDescription("find");
+            }
+            ui.displayFoundTasks(words[1]);
             break;
         case "unmark":
         case "mark":
