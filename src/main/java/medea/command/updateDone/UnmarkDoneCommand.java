@@ -16,6 +16,11 @@ public class UnmarkDoneCommand extends UpdateDoneCommand {
      * @param index the index of the task to unmark
      */
     public UnmarkDoneCommand(int index) {
-        super(index, false);
+        super(index);
     }
+
+    @Override
+    protected boolean isDone(){
+        return false;
+    };
 }

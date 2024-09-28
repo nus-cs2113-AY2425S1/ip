@@ -11,11 +11,16 @@ public class MarkDoneCommand extends UpdateDoneCommand {
     public static final String COMMAND_WORD = "mark";
 
     /**
-     * Constructs a MarkDoneCommand with the specified task index.
+     * Constructs an MarkDoneCommand with the specified task index.
      *
-     * @param index the index of the task to mark as done
+     * @param index the index of the task to update
      */
     public MarkDoneCommand(int index) {
-        super(index, true);
+        super(index);
     }
+
+    @Override
+    protected boolean isDone(){
+        return true;
+    };
 }

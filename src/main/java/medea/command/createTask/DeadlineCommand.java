@@ -36,7 +36,7 @@ public class DeadlineCommand extends TaskCommand {
      * @return a confirmation message indicating the task has been added
      */
     @Override
-    public String addTask(TaskList tasks) {
+    protected String addTask(TaskList tasks) {
         return tasks.addDeadline(description, by);
     }
 }

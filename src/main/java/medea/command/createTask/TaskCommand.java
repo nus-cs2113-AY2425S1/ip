@@ -18,7 +18,7 @@ public abstract class TaskCommand extends Command {
      * @param tasks the TaskList to which the task will be added
      * @return a string representation of the created task
      */
-    public abstract String addTask(TaskList tasks);
+    protected abstract String addTask(TaskList tasks);
 
     /**
      * Executes the task creation command, adding the task to the TaskList,

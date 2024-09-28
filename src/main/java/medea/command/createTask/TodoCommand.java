@@ -30,7 +30,7 @@ public class TodoCommand extends TaskCommand {
      * @return a string representation of the created to-do task
      */
     @Override
-    public String addTask(TaskList tasks) {
+    protected String addTask(TaskList tasks) {
         return tasks.addTodo(description);
     }
 }
