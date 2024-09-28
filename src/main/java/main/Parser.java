@@ -1,6 +1,9 @@
+package main;
+
 import exception.EmptyDateFieldException;
 import exception.EmptyDescriptionException;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Parser {
@@ -117,12 +120,13 @@ public class Parser {
         }
     }
 
-    public static String extractDeadlineDate(String line) {
-        String deadlineDate;
+    public static LocalDateTime extractDeadlineDate(String line) {
+        LocalDateTime deadlineDate;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
-        deadlineDate = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
+        String deadlineDateString = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
 
-        dateFieldNotEmpty(deadlineDate);
+        dateFieldNotEmpty(deadlineDateString);
+        deadlineDate = TaskList.convertDeadlineDateAsLocalDateTime(deadlineDateString);
 
         return deadlineDate;
     }
