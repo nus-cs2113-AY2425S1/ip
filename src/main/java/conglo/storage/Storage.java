@@ -1,9 +1,10 @@
 package conglo.storage;
 
 import conglo.task.Task;
+import conglo.task.TaskList;
+import conglo.task.Todo;
 import conglo.task.Deadline;
 import conglo.task.Event;
-import conglo.task.Todo;
 import conglo.exception.StorageInvalidFormat;
 
 import java.io.BufferedWriter;
@@ -74,9 +75,9 @@ public class Storage {
         return tasks;
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void saveTasks(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : tasks) {
+            for (Task task : taskList.getTaskList()) {
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }

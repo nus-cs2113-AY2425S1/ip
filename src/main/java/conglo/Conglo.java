@@ -30,7 +30,7 @@ public class Conglo {
 
     public void run() {
         ui.greetUser();
-        String input = "";
+        String input;
         boolean isQuit = false;
 
         while (!isQuit) {
@@ -40,7 +40,7 @@ public class Conglo {
                 ui.sayGoodbye();
             }
             try {
-                Parser.processCommand(input);
+                Parser.processCommand(taskList, input);
             } catch (CongloException e) {
                 System.out.println(e.getMessage());
             }

@@ -14,19 +14,16 @@ import conglo.task.Todo;
 import conglo.task.TaskList;
 import conglo.ui.Ui;
 
-import java.util.ArrayList;
-
 public class Parser {
     private static boolean isDelete = false;
     private static Ui ui = new Ui();
 
-    private static void saveTasks(ArrayList<Task> taskList) {
+    private static void saveTasks(TaskList taskList) {
         Storage.saveTasks(taskList);
     }
 
-    public static void echoTask(Task task) {
-        ArrayList<Task> taskList = TaskList.getTaskList();
-        int size = taskList.size();
+    public static void echoTask(TaskList taskList, Task task) {
+        int size = taskList.getSize();
         if (isDelete) {
             ui.displayRemoved();
             size--;
@@ -41,15 +38,11 @@ public class Parser {
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
 
-    /**
-     * Lists all the tasks currently in the task list.
-     */
     public static void listTasks() {
         ui.displayTaskList();
     }
 
-    public static void markTask(String[] words) throws InvalidTaskNumber {
-        ArrayList<Task> taskList = TaskList.getTaskList();
+    public static void markTask(TaskList taskList, String[] words) throws InvalidTaskNumber {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(words[1].substring(0, 1)) - 1;
@@ -62,49 +55,45 @@ public class Parser {
             throw new InvalidTaskNumber();
         }
         if (words[0].equals("mark")) {
-            taskList.get(taskNumber).markAsDone();
+            taskList.getTask(taskNumber).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
         } else {
-            taskList.get(taskNumber).markAsNotDone();
+            taskList.getTask(taskNumber).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(taskList.get(taskNumber).toFileFormat());
+        System.out.println(taskList.getTask(taskNumber).toFileFormat());
     }
 
-    public static void addTodo(String sentence) {
-        ArrayList<Task> taskList = TaskList.getTaskList();
+    public static void addTodo(TaskList taskList, String sentence) {
         Todo todo = new Todo(sentence);
-        taskList.add(todo);
-        echoTask(todo);
+        taskList.addTask(todo);
+        echoTask(taskList, todo);
         saveTasks(taskList);
     }
 
-    public static void addDeadline(String sentence) throws InvalidFormat {
-        ArrayList<Task> taskList = TaskList.getTaskList();
+    public static void addDeadline(TaskList taskList, String sentence) throws InvalidFormat {
         if (!sentence.contains(" /by ")) {
             throw new InvalidFormat("deadline");
         }
         String[] words = sentence.split(" /by ");
         Deadline deadline = new Deadline(words[0], words[1]);
-        taskList.add(deadline);
-        echoTask(deadline);
+        taskList.addTask(deadline);
+        echoTask(taskList, deadline);
         saveTasks(taskList);
     }
 
-    public static void addEvent(String sentence) throws InvalidFormat {
-        ArrayList<Task> taskList = TaskList.getTaskList();
+    public static void addEvent(TaskList taskList, String sentence) throws InvalidFormat {
         if (!sentence.contains(" /from ") || !sentence.contains(" /to ")) {
             throw new InvalidFormat("event");
         }
         String[] words = sentence.split(" /from | /to ");
         Event event = new Event(words[0], words[1], words[2]);
-        taskList.add(event);
-        echoTask(event);
+        taskList.addTask(event);
+        echoTask(taskList, event);
         saveTasks(taskList);
     }
 
-    public static void deleteTask(String word) throws InvalidTaskNumber {
-        ArrayList<Task> taskList = TaskList.getTaskList();
+    public static void deleteTask(TaskList taskList, String word) throws InvalidTaskNumber {
         int index;
         try {
             index = Integer.parseInt(word) - 1;
@@ -116,13 +105,13 @@ public class Parser {
             throw new InvalidTaskNumber();
         }
         isDelete = true;
-        echoTask(taskList.get(index));
-        taskList.remove(index);
+        echoTask(taskList, taskList.getTask(index));
+        taskList.removeTask(index);
         isDelete = false;
         saveTasks(taskList);
     }
 
-    public static void processCommand(String command) throws CongloException {
+    public static void processCommand(TaskList taskList, String command) throws CongloException {
         String[] words = command.split(" ", 2);
         switch(words[0]) {
         case "bye":
@@ -138,31 +127,31 @@ public class Parser {
             if (words.length == 1 || words[1].isEmpty()) {
                 throw new MissingTaskNumber(words[0]);
             }
-            markTask(words);
+            markTask(taskList, words);
             break;
         case "delete":
             if (words.length == 1 || words[1].isEmpty()) {
                 throw new MissingTaskNumber(words[0]);
             }
-            deleteTask(words[1]);
+            deleteTask(taskList, words[1]);
             break;
         case "todo":
             if (words.length == 1 || words[1].isEmpty()) {
                 throw new MissingDescription("Todo");
             }
-            addTodo(words[1]);
+            addTodo(taskList, words[1]);
             break;
         case "deadline":
             if (words.length == 1 || words[1].isEmpty()) {
                 throw new MissingDescription("deadline");
             }
-            addDeadline(words[1]);
+            addDeadline(taskList, words[1]);
             break;
         case "event":
             if (words.length == 1 || words[1].isEmpty()) {
                 throw new MissingDescription("event");
             }
-            addEvent(words[1]);
+            addEvent(taskList, words[1]);
             break;
         default:
             throw new UnknownCommand();

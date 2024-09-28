@@ -1,6 +1,5 @@
 package conglo.task;
 
-import conglo.exception.InvalidTaskNumber;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -27,10 +26,7 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public void deleteTask(int index) throws InvalidTaskNumber {
-        if(index<0 || index>=taskList.size()) {
-            throw new InvalidTaskNumber();
-        }
+    public void removeTask(int index) {
         taskList.remove(index);
     }
 
@@ -42,7 +38,7 @@ public class TaskList {
         return taskList.size();
     }
 
-    public static ArrayList<Task> getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
