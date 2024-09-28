@@ -13,9 +13,18 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents a storage object that manages
+ * loading and saving tasks in a data file.
+ */
 public class Storage {
     private final Path path;
 
+    /**
+     * Constructs this class.
+     *
+     * @param filePath File path of data file storing tasks.
+     */
     public Storage(String filePath) {
         path = Paths.get(filePath);
         try {
@@ -28,6 +37,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the data file, converts each entry to the specified
+     * <code>Todo</code>, <code>Deadline</code> or <code>Event</code> object,
+     * and returns all the tasks in a list.
+     *
+     * @return <code>ArrayList</code> of all the tasks from the data file.
+     * @throws IOException If the I/O operation fails.
+     */
     public ArrayList<Task> loadFileContents() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner fileScanner = new Scanner(path);
@@ -37,6 +54,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts each task in the input list into the appropriate format,
+     * and writes all entries to the data file.
+     *
+     * @param tasks <code>ArrayList</code> of all the tasks in the task list.
+     * @throws IOException If the I/O operation fails.
+     */
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(path.toFile());
         for (Task task: tasks) {
