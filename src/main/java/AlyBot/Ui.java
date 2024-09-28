@@ -40,8 +40,9 @@ public class Ui {
                 + "3. 'todo/deadline/event' to add that type of task\n"
                 + "4. 'mark/unmark' with a number to toggle that task's status\n"
                 + "5. 'delete' with a number to delete that task\n"
-                + "6. 'help' to see the command list\n"
-                + "7. 'exit' to exit");
+                + "6. 'filter' with a date to see all tasks scheduled on that date\n"
+                + "7. 'help' to see the command list\n"
+                + "8. 'exit' to exit");
     }
 
     public void showLoadingError() {
@@ -72,9 +73,9 @@ public class Ui {
             throw new AlyException("I am not sure what happened lmao", e);
         }
         if (count == 1) {
-            System.out.println("No tasks yet...");
+            System.out.println("No tasks means can lepak!");
         } else {
-            System.out.println("Long siah... Shag bro, better faster do!");
+            System.out.println("Wah shag, good luck with your tasks bro!");
         }
     }
 

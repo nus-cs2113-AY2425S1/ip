@@ -8,21 +8,29 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
-    protected String formattedStartTime;
-    protected String formattedEndTime;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+    protected String formattedStartDateTime;
+    protected String formattedEndDateTime;
 
     public Event(String description, String startTime, String endTime) throws AlyException {
         super(description);
         try {
-            this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            formattedStartTime = this.startTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
-            formattedEndTime = this.endTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+            this.startDateTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.endDateTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            formattedStartDateTime = this.startDateTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+            formattedEndDateTime = this.endDateTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
         } catch (DateTimeParseException e) {
             throw new AlyException("Invalid Date lah bro, can use your brain anot?!");
         }
+    }
+
+    public String getFormattedStartDateTime() {
+        return formattedStartDateTime;
+    }
+
+    public String getFormattedEndDateTime() {
+        return formattedEndDateTime;
     }
 
     @Override
@@ -36,6 +44,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+        return "[E]" + super.toString() + " (from: " + formattedStartDateTime + " to: " + formattedEndDateTime + ")";
     }
 }

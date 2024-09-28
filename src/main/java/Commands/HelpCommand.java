@@ -12,7 +12,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlyException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         ui.help();
     }
 }
