@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Overrides the default execute method to delete the specified task.
+     * Prints message indicating the task is deleted.
      */
     @Override
     public void execute() {
