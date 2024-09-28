@@ -9,13 +9,32 @@ import java.io.PrintStream;
  * display messages, and show welcome or farewell messages.
  */
 public class Ui {
-    /** The length of the lines used for visual separation. */
-    private final int LINE_LENGTH = 50;
+    private static final String ERROR_HEADER = "Error: ";
+
+    private static final String LINE_CHAR = "=";
+    private static final int LINE_LENGTH = 50;
+
+    private static final String GREETING = "Hello! I'm...";
+    private static final String LOGO ="""
+         __       __  ________  _______   ________   ______ \s
+        /  \\     /  |/        |/       \\ /        | /      \\\s
+        $$  \\   /$$ |$$$$$$$$/ $$$$$$$  |$$$$$$$$/ /$$$$$$  |
+        $$$  \\ /$$$ |$$ |__    $$ |  $$ |$$ |__    $$ |__$$ |
+        $$$$  /$$$$ |$$    |   $$ |  $$ |$$    |   $$    $$ |
+        $$ $$ $$/$$ |$$$$$/    $$ |  $$ |$$$$$/    $$$$$$$$ |
+        $$ |$$$/ $$ |$$ |_____ $$ |__$$ |$$ |_____ $$ |  $$ |
+        $$ | $/  $$ |$$       |$$    $$/ $$       |$$ |  $$ |
+        $$/      $$/ $$$$$$$$/ $$$$$$$/  $$$$$$$$/ $$/   $$/\s
+        """;
+    private static final String PROMPT = "What can I do for you?";
+
+    private static final String FAREWELL ="Bye. Hope to see you again soon!";
+
     private Scanner in;
     private PrintStream out;
 
     /**
-     * Constructs a Ui object, initializing the input and output streams.
+     * Constructs an Ui object, initializing the input and output streams.
      */
     public Ui() {
         in = new Scanner(System.in);
@@ -35,7 +54,7 @@ public class Ui {
      * Displays a line for visual separation in the output.
      */
     public void showLine() {
-        out.println("=".repeat(LINE_LENGTH));
+        out.println(LINE_CHAR.repeat(LINE_LENGTH));
     }
 
     /**
@@ -44,7 +63,7 @@ public class Ui {
      * @param e the exception to be displayed
      */
     public void showError(Exception e) {
-        out.println("Error: " + e.getMessage());
+        out.println(ERROR_HEADER + e.getMessage());
     }
 
     /**
@@ -60,25 +79,15 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        out.println("Hello! I'm...");
-        out.println("""
-                 __       __  ________  _______   ________   ______ \s
-                /  \\     /  |/        |/       \\ /        | /      \\\s
-                $$  \\   /$$ |$$$$$$$$/ $$$$$$$  |$$$$$$$$/ /$$$$$$  |
-                $$$  \\ /$$$ |$$ |__    $$ |  $$ |$$ |__    $$ |__$$ |
-                $$$$  /$$$$ |$$    |   $$ |  $$ |$$    |   $$    $$ |
-                $$ $$ $$/$$ |$$$$$/    $$ |  $$ |$$$$$/    $$$$$$$$ |
-                $$ |$$$/ $$ |$$ |_____ $$ |__$$ |$$ |_____ $$ |  $$ |
-                $$ | $/  $$ |$$       |$$    $$/ $$       |$$ |  $$ |
-                $$/      $$/ $$$$$$$$/ $$$$$$$/  $$$$$$$$/ $$/   $$/\s
-                """);
-        out.println("What can I do for you?");
+        out.println(GREETING);
+        out.println(LOGO);
+        out.println(PROMPT);
     }
 
     /**
      * Displays a farewell message to the user.
      */
     public void showFarewell() {
-        out.println("Bye. Hope to see you again soon!");
+        out.println(FAREWELL);
     }
 }

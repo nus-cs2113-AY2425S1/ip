@@ -110,7 +110,9 @@ public class Storage {
      */
     public void createFileIfNotExists() throws IOException {
         File file = new File(path);
-        if (file.exists()) return;
+        if (file.exists()){
+            return;
+        }
 
         boolean isMakeFileSuccessful = file.createNewFile();
         if (!isMakeFileSuccessful) {

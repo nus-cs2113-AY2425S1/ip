@@ -1,4 +1,4 @@
-package medea.command.createTask;
+package medea.command.create.task;
 
 import medea.core.Storage;
 import medea.core.TaskList;
@@ -33,7 +33,8 @@ public abstract class TaskCommand extends Command {
         String createdTask = addTask(tasks);
         int taskSize = tasks.getSize();
 
-        String message = String.format("Noted. I've added this task:%n  %s%nNow you have %d tasks in the list.", createdTask, taskSize);
+        String message = String.format("Noted. I've added this task:%n  %s%n" +
+                                       "Now you have %d tasks in the list.", createdTask, taskSize);
         ui.showMsg(message);
     }
 }

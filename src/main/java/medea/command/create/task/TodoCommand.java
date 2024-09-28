@@ -1,4 +1,4 @@
-package medea.command.createTask;
+package medea.command.create.task;
 
 import medea.core.TaskList;
 

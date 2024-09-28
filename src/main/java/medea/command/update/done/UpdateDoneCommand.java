@@ -1,4 +1,4 @@
-package medea.command.updateDone;
+package medea.command.update.done;
 
 import medea.core.Storage;
 import medea.core.TaskList;

@@ -76,7 +76,9 @@ public class Medea {
             try {
                 String userCommand = userInterface.readCommand();
                 Command command = commandParser.parse(userCommand);
-                if (command.isExit()) return;
+                if (command.isExit()) {
+                    return;
+                }
                 executeCommand(command);
             } catch (MedeaException exception) {
                 handleError(exception);

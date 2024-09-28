@@ -9,12 +9,11 @@ import medea.core.Ui;
  * This command allows the user to search for tasks based on a keyword or phrase.
  */
 public class FindCommand extends Command {
+    /** The command word for the find command. */
+    public static final String COMMAND_WORD = "find";
 
     /** The filter keyword used to search for tasks. */
     private String filter;
-
-    /** The command word for the find command. */
-    public static final String COMMAND_WORD = "find";
 
     /**
      * Constructs a FindCommand with the specified filter.

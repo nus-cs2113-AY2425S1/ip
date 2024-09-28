@@ -1,4 +1,4 @@
-package medea.command.updateDone;
+package medea.command.update.done;
 
 /**
  * Represents a command to unmark a task as done.

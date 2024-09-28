@@ -1,11 +1,16 @@
 package medea.core;
 
-import medea.command.*;
-import medea.command.createTask.DeadlineCommand;
-import medea.command.createTask.EventCommand;
-import medea.command.createTask.TodoCommand;
-import medea.command.updateDone.MarkDoneCommand;
-import medea.command.updateDone.UnmarkDoneCommand;
+import medea.command.DeleteCommand;
+import medea.command.InvalidCommand;
+import medea.command.ExitCommand;
+import medea.command.ListCommand;
+import medea.command.FindCommand;
+import medea.command.Command;
+import medea.command.create.task.DeadlineCommand;
+import medea.command.create.task.EventCommand;
+import medea.command.create.task.TodoCommand;
+import medea.command.update.done.MarkDoneCommand;
+import medea.command.update.done.UnmarkDoneCommand;
 import medea.exceptions.MedeaException;
 
 /**
@@ -25,27 +30,18 @@ public class Parser {
         String commandString = inputArguments[0];
         String argumentString = inputArguments.length > 1 ? inputArguments[1] : "";
 
+
         switch (commandString) {
-            case ListCommand.COMMAND_WORD:
-                return createListCommand();
-            case ExitCommand.COMMAND_WORD:
-                return createExitCommand();
-            case DeleteCommand.COMMAND_WORD:
-                return createDeleteCommand(argumentString);
-            case MarkDoneCommand.COMMAND_WORD:
-                return createMarkCommand(argumentString);
-            case UnmarkDoneCommand.COMMAND_WORD:
-                return createUnmarkCommand(argumentString);
-            case TodoCommand.COMMAND_WORD :
-                return createTodoCommand(argumentString);
-            case DeadlineCommand.COMMAND_WORD:
-                return createDeadlineCommand(argumentString);
-            case EventCommand.COMMAND_WORD:
-                return createEventCommand(argumentString);
-            case FindCommand.COMMAND_WORD:
-                return createFindCommand(argumentString);
-            default:
-                return createInvalidCommand();
+        case ListCommand.COMMAND_WORD: return createListCommand();
+        case ExitCommand.COMMAND_WORD: return createExitCommand();
+        case DeleteCommand.COMMAND_WORD: return createDeleteCommand(argumentString);
+        case MarkDoneCommand.COMMAND_WORD: return createMarkCommand(argumentString);
+        case UnmarkDoneCommand.COMMAND_WORD: return createUnmarkCommand(argumentString);
+        case TodoCommand.COMMAND_WORD: return createTodoCommand(argumentString);
+        case DeadlineCommand.COMMAND_WORD: return createDeadlineCommand(argumentString);
+        case EventCommand.COMMAND_WORD: return createEventCommand(argumentString);
+        case FindCommand.COMMAND_WORD: return createFindCommand(argumentString);
+        default: return createInvalidCommand();
         }
     }
 
@@ -148,7 +144,8 @@ public class Parser {
     }
 
     /**
-     * Parses the argument string to extract the task description and deadline, then creates a {@code DeadlineCommand} object.
+     * Parses the argument string to extract the task description and deadline,
+     * Then creates a {@code DeadlineCommand} object.
      *
      * @param argumentString the argument string containing the task description and deadline
      * @return the {@code DeadlineCommand} object
@@ -157,7 +154,8 @@ public class Parser {
     private Command createDeadlineCommand(String argumentString) {
         String[] arguments = parseArguments(argumentString, " /by ");
         if (arguments.length != 2) {
-            throw new MedeaException("Invalid deadline command. Please provide a task description and a deadline using '/by'.");
+            throw new MedeaException("Invalid deadline command. " +
+                                     "Please provide a task description and a deadline using '/by'.");
         }
 
         String description = arguments[0];
@@ -167,7 +165,8 @@ public class Parser {
     }
 
     /**
-     * Parses the argument string to extract the task description, start time, and end time, then creates an {@code EventCommand} object.
+     * Parses the argument string to extract the task description, start time, and end time
+     * Then creates an {@code EventCommand} object.
      *
      * @param argumentString the argument string containing the task description, start time, and end time
      * @return the {@code EventCommand} object
@@ -177,7 +176,8 @@ public class Parser {
         String[] arguments = parseArguments(argumentString, " /from ", " /to ");
 
         if (arguments.length != 3) {
-            throw new MedeaException("Invalid event command. Please provide a task, start time, and end time using '/from' and '/to'.");
+            throw new MedeaException("Invalid event command. " +
+                                     "Please provide a task, start time, and end time using '/from' and '/to'.");
         }
 
         String description = arguments[0];

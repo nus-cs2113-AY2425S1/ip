@@ -1,7 +1,10 @@
 package medea.core;
 
 import medea.exceptions.MedeaException;
-import medea.task.*;
+import medea.task.Task;
+import medea.task.Todo;
+import medea.task.Deadline;
+import medea.task.Event;
 
 import java.util.ArrayList;
 
@@ -58,7 +61,10 @@ public class TaskList {
         for (int index = 0; index < listSize; index++) {
             Task task = tasks.get(index);
 
-            if (index != 0) output.append("\n");
+            if (index != 0){
+                output.append("\n");
+            }
+
             output.append(String.format("%d. %s", index + 1, task));
         }
         return output.toString();
@@ -78,9 +84,13 @@ public class TaskList {
             String taskString = task.toString().toLowerCase();
             String filterString = filter.toLowerCase();
             boolean isMatch = taskString.contains(filterString);
-            if (!isMatch) continue;
+            if (!isMatch) {
+                continue;
+            }
 
-            if (itemCount != 0) output.append("\n");
+            if (itemCount != 0){
+                output.append("\n");
+            }
             output.append(String.format("%d. %s", ++itemCount, task));
         }
 
@@ -100,7 +110,9 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         for (int index = 0; index < getSize(); index++) {
             Task currentTask = tasks.get(index);
-            if (index != 0) output.append(System.lineSeparator());
+            if (index != 0){
+                output.append(System.lineSeparator());
+            }
             output.append(currentTask.toCSV());
         }
         return output.toString();
@@ -118,17 +130,13 @@ public class TaskList {
             String[] taskArguments = taskString.split(",");
             String taskType = taskArguments[0];
             switch (taskType) {
-                case "T":
-                    addTodo(taskArguments[1]);
-                    break;
-                case "D":
-                    addDeadline(taskArguments[1], taskArguments[2]);
-                    break;
-                case "E":
-                    addEvent(taskArguments[1], taskArguments[2], taskArguments[3]);
-                    break;
-                default:
-                    throw new MedeaException("Corrupted task data.");
+            case "T": addTodo(taskArguments[1]);
+                break;
+            case "D": addDeadline(taskArguments[1], taskArguments[2]);
+                break;
+            case "E": addEvent(taskArguments[1], taskArguments[2], taskArguments[3]);
+                break;
+            default: throw new MedeaException("Corrupted task data.");
             }
         }
     }
