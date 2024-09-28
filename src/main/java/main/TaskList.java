@@ -1,3 +1,5 @@
+package main;
+
 import exception.EmptyDateFieldException;
 import exception.EmptyDescriptionException;
 import task.Deadline;
@@ -5,7 +7,10 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.time.DateTimeException;
 
 public class TaskList {
 
@@ -40,7 +45,7 @@ public class TaskList {
     public static void addDeadline(ArrayList<Task> itemArrayList, String line) {
         try {
             String deadlineDescription = Parser.extractDeadlineDescription(line);
-            String deadlineDate = Parser.extractDeadlineDate(line);
+            LocalDateTime deadlineDate = Parser.extractDeadlineDate(line);
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
             itemArrayList.add(newDeadline);
             Ui.printAddedMessage(itemArrayList, newDeadline);
@@ -49,6 +54,8 @@ public class TaskList {
             Ui.printTaskDescriptionEmptyMessage();
         } catch (EmptyDateFieldException e) {
             System.out.println("\tError: Date field(s) cannot be empty");
+        } catch (DateTimeException e) {
+            System.out.println("\tInvalid date format: yyyy-mm-dd HH:mm");
         }
     }
 
@@ -62,5 +69,23 @@ public class TaskList {
 
     public static void deleteListItem(ArrayList<Task> itemArrayList, int itemNum) {
         itemArrayList.remove(itemNum - 1);
+    }
+
+    public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(deadlineDate, inputFormatter);
+    }
+
+
+    public static LocalDateTime getDeadlineDateAsLocalDateTimeFromFile(String deadlineDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return LocalDateTime.parse(deadlineDate, inputFormatter);
+    }
+
+    public static String convertDeadlineDateAsString(LocalDateTime dateTime) {
+        DateTimeFormatter outputformatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        String formattedDateTime = dateTime.format(outputformatter); // "1986-04-08 12:30"
+
+        return formattedDateTime;
     }
 }
