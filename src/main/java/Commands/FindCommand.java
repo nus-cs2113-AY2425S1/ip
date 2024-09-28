@@ -43,6 +43,9 @@ public class FindCommand extends Command {
                 this.taskList.addTask(task);
             }
         }
+        if (this.taskList.getSize() == 0) {
+            throw new AlyException("There is nothing to find!");
+        }
         ui.showList(this.taskList);
     }
 }
