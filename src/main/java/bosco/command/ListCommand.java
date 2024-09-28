@@ -8,7 +8,7 @@ import bosco.ui.Ui;
 public class ListCommand extends Command {
     /**
      * Overrides the default execute method to format and print all tasks in the task list.
-     * If task list is empty, print message indicating it is empty.
+     * If task list is empty, it prints message indicating it is empty.
      */
     @Override
     public void execute() {
