@@ -8,14 +8,14 @@ import AlyBot.Ui;
 public abstract class Command {
 
     protected boolean isExit = false;
-    protected String instructions;
+    protected String instruction;
 
     public Command() {
-        this.instructions = "";
+        this.instruction = "";
     }
 
     public Command(String instruction) {
-        this.instructions = instruction;
+        this.instruction = instruction;
     }
 
     public abstract void execute (TaskList tasks, Ui ui, Storage storage) throws AlyException;

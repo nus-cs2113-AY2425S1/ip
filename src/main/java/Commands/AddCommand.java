@@ -12,8 +12,8 @@ public class AddCommand extends Command {
 
     private final String firstWord;
 
-    public AddCommand(String firstWord, String instructions) {
-        super(instructions);
+    public AddCommand(String firstWord, String instruction) {
+        super(instruction);
         this.firstWord = firstWord;
     }
 
@@ -22,15 +22,15 @@ public class AddCommand extends Command {
         try {
             switch (firstWord) {
             case "todo":
-                addTodo(taskList, ui, instructions);
+                addTodo(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             case "deadline":
-                addDeadline(taskList, ui, instructions);
+                addDeadline(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             case "event":
-                addEvent(taskList, ui, instructions);
+                addEvent(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             default:
@@ -41,28 +41,28 @@ public class AddCommand extends Command {
         }
     }
 
-    private void addTodo(TaskList taskList, Ui ui, String instructions) throws AlyException {
+    private void addTodo(TaskList taskList, Ui ui, String instruction) throws AlyException {
         if (taskList == null) {
             throw new AlyException("Task list doesn't exist lah...");
         }
 
-        if (instructions.isEmpty()) {
+        if (instruction.isEmpty()) {
             throw new AlyException("No details bruh... What you expect me to do??");
         }
 
-        taskList.addTask(new Todo(instructions.trim()));
-        ui.addMessage(instructions);
+        taskList.addTask(new Todo(instruction.trim()));
+        ui.addMessage(instruction);
         ui.showTaskSize(taskList.getSize());
     }
 
-    private void addDeadline(TaskList taskList, Ui ui, String instructions) throws AlyException {
-        String[] taskParts = instructions.split("\\bby\\b");
+    private void addDeadline(TaskList taskList, Ui ui, String instruction) throws AlyException {
+        String[] taskParts = instruction.split("\\bby\\b");
 
         if (taskList == null) {
             throw new AlyException("Task list doesn't exist lah...");
         }
 
-        if (instructions.isEmpty() || taskParts.length != 2) {
+        if (instruction.isEmpty() || taskParts.length != 2) {
             throw new AlyException("Wrong format bruh... What you expect me to do??");
         }
 
@@ -78,10 +78,10 @@ public class AddCommand extends Command {
         ui.showTaskSize(taskList.getSize());
     }
 
-    private void addEvent(TaskList taskList, Ui ui, String instructions) throws AlyException {
-        String[] taskParts = instructions.split("\\bfrom\\b|\\bto\\b");
+    private void addEvent(TaskList taskList, Ui ui, String instruction) throws AlyException {
+        String[] taskParts = instruction.split("\\bfrom\\b|\\bto\\b");
 
-        if (instructions.isEmpty() || taskParts.length != 3) {
+        if (instruction.isEmpty() || taskParts.length != 3) {
             throw new AlyException("Wrong format bruh... What you expect me to do??");
         }
 
