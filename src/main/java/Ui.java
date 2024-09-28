@@ -61,6 +61,11 @@ public class Ui {
         System.out.println("\t  " + itemArrayList.get(itemNum - 1));
     }
 
+    public static void printTaskUnmarkedMessage(ArrayList<Task> itemArrayList, int itemNum) {
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t  " + itemArrayList.get(itemNum - 1));
+    }
+
     public static void printInputIndexOutOfRangeMessage() {
         System.out.println("\tInput index number out of range.");
     }

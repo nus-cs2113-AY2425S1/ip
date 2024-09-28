@@ -220,10 +220,6 @@ public class List {
         }
     }
 
-    private void printTaskUnmarkedMessage(int itemNum) {
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  " + itemArrayList.get(itemNum - 1));
-    }
 
     public void markListItemAsDone(int itemNum) {
         itemArrayList.get(itemNum - 1).markAsDone();
