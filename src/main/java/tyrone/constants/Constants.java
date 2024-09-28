@@ -35,13 +35,6 @@ public class Constants {
         System.out.println(Constants.LINE);
     }
 
-    public static void intro(){
-        System.out.println(LINE);
-        System.out.println("    Hello from\n" + Constants.logo + "\n");
-        System.out.println("    What can I do for you cuh?\n");
-        System.out.println(LINE);
-    }
-
     public static void goodbye() {
         System.out.println(LINE);
         System.out.println("    see you brother");
@@ -111,4 +104,45 @@ public class Constants {
             System.out.println(LINE);
         }
     }
+
+    public static void findTasks(String userInput) {
+        // Extract the search string (substring after "find ")
+        String searchString = userInput.substring(5).trim().toLowerCase(); // Convert to lowercase for case-insensitive search
+    
+        // Check if the search string is empty
+        if (searchString.isEmpty()) {
+            System.out.println("    Please specify a keyword to search.");
+            return;
+        }
+    
+        // Create a list to store matching tasks
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+    
+        // Iterate over the to-do list and find matching tasks
+        for (Task task : Constants.toDoList) {
+            if (task.getDescription().toLowerCase().contains(searchString)) { // Case-insensitive match
+                matchingTasks.add(task);
+            }
+        }
+    
+        // Print the results in the same format as getList()
+        System.out.println(Constants.LINE);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("    No matching tasks found for: " + searchString);
+        } else {
+            System.out.println("    Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task task = matchingTasks.get(i);
+                String statusIcon = task.getStatusIcon();
+                if (task instanceof Deadline) {
+                    System.out.println("    " + (i + 1) + ". [D][" + statusIcon + "] " + task.getDescription() + " (by: " + ((Deadline) task).getDoBy() + ")");
+                } else if (task instanceof Event) {
+                    System.out.println("    " + (i + 1) + ". [E][" + statusIcon + "] " + task.getDescription() + " (" + ((Event) task).getTiming() + ")");
+                } else {
+                    System.out.println("    " + (i + 1) + ". [T][" + statusIcon + "] " + task.getDescription());
+                }
+            }
+        }
+        System.out.println(Constants.LINE);
+    }    
 }
