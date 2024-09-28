@@ -1,11 +1,5 @@
-import java.io.File;
 import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import task.Todo; // Import the Todo class
-import task.Deadline; // Import the Deadline class
-import task.Event; // Import the Event class
 
 public class Mel {
 
