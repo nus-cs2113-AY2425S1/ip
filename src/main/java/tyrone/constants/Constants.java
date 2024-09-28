@@ -35,6 +35,13 @@ public class Constants {
         System.out.println(Constants.LINE);
     }
 
+    public static void intro(){
+        System.out.println(LINE);
+        System.out.println("    Hello from\n" + Constants.logo + "\n");
+        System.out.println("    What can I do for you cuh?\n");
+        System.out.println(LINE);
+    }
+
     public static void goodbye() {
         System.out.println(LINE);
         System.out.println("    see you brother");
