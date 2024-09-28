@@ -14,6 +14,10 @@ import bosco.exception.MissingPrefixException;
 
 import java.io.IOException;
 
+/**
+ * The Bosco program implements a chatbot application that
+ * interacts with the user and stores tasks.
+ */
 public class Bosco {
     private static final String FILE_PATH = "./data/bosco.txt";
 
@@ -22,17 +26,25 @@ public class Bosco {
     private Parser parser;
     private Storage storage;
 
+    /**
+     * Constructs this class.
+     *
+     * @param filePath File path of data file storing tasks.
+     */
     public Bosco(String filePath) {
         ui = new Ui();
         parser = new Parser();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
     }
 
+    /**
+     * Represents the entry point of this program.
+     */
     public static void main(String[] args) {
         new Bosco(FILE_PATH).run();
     }
 
-    public void run() {
+    private void run() {
         startProgram();
         runCommandLoopUntilExit();
         exitProgram();
