@@ -1,5 +1,7 @@
 package tyrone.constants;
 
+import java.util.List;
+import java.util.Comparator;
 import java.util.ArrayList;
 import tyrone.task.Deadline;
 import tyrone.task.Event;
@@ -12,28 +14,10 @@ import java.util.Scanner;
 
 
 public class Constants {
-
-    private Scanner scanner;
-
-    public Constants() {
-        scanner = new Scanner(System.in);
-    }
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
     public static final String LINE = "    ___________________________________";
     public static String logo = " _____                           \n|_   _|   _ _ __ ___  _ __   ___ \n  | || | | | '__/ _ \\| '_ \\ / _ \\\n  | || |_| | | | (_) | | | |  __/\n  |_| \\__, |_|  \\___/|_| |_|\\___|\n      |___/                      ";
 
     public static ArrayList<Task> toDoList = new ArrayList<>();
-
-    public static void intro() {
-        System.out.println(Constants.LINE);
-        System.out.println("    Hello from\n" + Constants.logo + "\n");
-        System.out.println("    What can I do for you cuh?\n");
-        System.out.println(Constants.LINE);
-    }
 
     public static void intro(){
         System.out.println(LINE);
@@ -110,5 +94,28 @@ public class Constants {
             System.out.println("    Invalid task number bro.");
             System.out.println(LINE);
         }
+    }
+
+    public static void getPriorityList(){
+        List<Deadline> deadlineList = new ArrayList<>();
+
+    // Filter out deadlines from the to-do list
+        for (Task task : Constants.toDoList) {
+            if (task instanceof Deadline) {
+                deadlineList.add((Deadline) task);
+            }
+        }
+
+    // Sort the deadlines by due date
+        deadlineList.sort(Comparator.comparing(Deadline::getDueDateTime));
+
+    // Print the sorted deadlines
+        System.out.println(Constants.LINE);
+        System.out.println("    Here are your deadlines in order of priority:");
+        for (int i = 0; i < deadlineList.size(); i++) {
+            Deadline d = deadlineList.get(i);
+            System.out.println("    " + (i + 1) + ". [D][ ] " + d.getDescription() + " (by: " + d.getDoBy() + ")");
+        }
+        System.out.println(Constants.LINE);
     }
 }

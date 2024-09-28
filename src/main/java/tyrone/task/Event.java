@@ -44,7 +44,7 @@ public class Event extends Task {
         System.out.println(Constants.LINE);
         System.out.println("    Got it. I've added this task cuh:");
         System.out.println("      [E][ ] " + eventTask.getDescription() + " (" + eventTask.getTiming() + ")");
-        System.out.println("    Now you have " + Task.listCount + " tasks in the list.");
+        System.out.println("    Now you have " + Constants.toDoList.size() + " tasks in the list.");
         System.out.println(Constants.LINE);
     }
     

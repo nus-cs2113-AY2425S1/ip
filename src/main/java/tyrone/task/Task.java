@@ -1,9 +1,11 @@
 package tyrone.task;
 
+import tyrone.constants.Constants;
+
 public class Task {
     protected String description;
     protected boolean isDone;
-    public static int listCount = 0;
+    public static int listCount = Constants.toDoList.size();
 
     public Task(String description) {
         this.description = description;
