@@ -26,4 +26,7 @@ delete 7
 delete
 delete 2
 list
+find
+find bruh
+find book
 bye

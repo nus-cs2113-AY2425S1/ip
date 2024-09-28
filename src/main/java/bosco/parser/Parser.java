@@ -2,6 +2,7 @@ package bosco.parser;
 
 import bosco.command.Command;
 import bosco.command.ListCommand;
+import bosco.command.FindCommand;
 import bosco.command.MarkCommand;
 import bosco.command.UnmarkCommand;
 import bosco.command.DeleteCommand;
@@ -11,6 +12,7 @@ import bosco.command.AddEventCommand;
 import bosco.command.ExitCommand;
 
 import bosco.exception.EmptyDescriptionException;
+import bosco.exception.EmptyKeywordException;
 import bosco.exception.IllegalCommandException;
 import bosco.exception.MissingPrefixException;
 
@@ -20,13 +22,16 @@ public class Parser {
     private static final String EVENT_PREFIX_TO = "/to";
 
     public Command parseCommand(String userInputString)
-            throws IllegalCommandException, EmptyDescriptionException, MissingPrefixException {
+            throws IllegalCommandException, MissingPrefixException,
+            EmptyDescriptionException, EmptyKeywordException {
         String[] commandTypeAndArgs = splitCommandTypeAndArgs(userInputString);
         String commandType = commandTypeAndArgs[0];
         String commandArgs = commandTypeAndArgs[1];
         switch (commandType) {
         case "list":
             return new ListCommand();
+        case "find":
+            return prepareFind(commandArgs);
         case "mark":
             return prepareMark(commandArgs);
         case "unmark":
@@ -56,13 +61,21 @@ public class Parser {
         return inputStr.replace(prefix, "");
     }
 
-    private Command prepareMark(String CommandArgs) {
-        int targetNumber = Integer.parseInt(CommandArgs);
+    private Command prepareFind(String commandArgs) throws EmptyKeywordException {
+        String keyword = commandArgs.strip();
+        if (keyword.isEmpty()) {
+            throw new EmptyKeywordException();
+        }
+        return new FindCommand(keyword);
+    }
+
+    private Command prepareMark(String commandArgs) {
+        int targetNumber = Integer.parseInt(commandArgs);
         return new MarkCommand(targetNumber);
     }
 
-    private Command prepareUnmark(String CommandArgs) {
-        int targetNumber = Integer.parseInt(CommandArgs);
+    private Command prepareUnmark(String commandArgs) {
+        int targetNumber = Integer.parseInt(commandArgs);
         return new UnmarkCommand(targetNumber);
     }
 
