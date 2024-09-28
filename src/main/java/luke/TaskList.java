@@ -68,7 +68,7 @@ public class TaskList {
         ui.printDivider();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. ", i + 1);
-            System.out.println(tasks.get(i).toString());
+            System.out.println(tasks.get(i));
         }
         ui.printDivider();
     }
@@ -191,6 +191,14 @@ public class TaskList {
     public void findTask(String[] inputs) {
         String[] args = getArgs(inputs);
         // Iterate through tasks, display tasks that match query
+        ui.printDivider();
         String query = args[0];
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.getDescription().contains(query)) {
+                System.out.printf("%d. %s\n", i + 1, t);
+            }
+        }
+        ui.printDivider();
     }
 }

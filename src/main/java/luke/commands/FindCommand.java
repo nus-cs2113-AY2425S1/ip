@@ -8,6 +8,6 @@ public class FindCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, String[] inputs) {
-
+        taskList.findTask(inputs);
     }
 }
