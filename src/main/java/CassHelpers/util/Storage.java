@@ -1,6 +1,7 @@
 package CassHelpers.util;
 
 import CassHelpers.exceptions.CassandraException;
+import CassHelpers.exceptions.InvalidDateFormatException;
 import CassHelpers.types.Deadline;
 import CassHelpers.types.Event;
 import CassHelpers.types.Task;
@@ -11,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static CassHelpers.util.Parser.parseStringToLocalDateTime;
 
 public class Storage {
     public static final String TODO = "T";
@@ -86,7 +89,7 @@ public class Storage {
         return taskList;
     }
 
-    private Task taskFormatter(String line) {
+    private Task taskFormatter(String line) throws InvalidDateFormatException {
         String[] lineParser = line.split(",");
         Task task = new Task("dummy");
         switch (lineParser[0]){
@@ -95,11 +98,11 @@ public class Storage {
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
             case DEADLINE:
-                task = new Deadline(lineParser[2],lineParser[3]);
+                task = new Deadline(lineParser[2],parseStringToLocalDateTime(lineParser[3]));
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
             case EVENT:
-                task=new Event(lineParser[2],lineParser[3],lineParser[4]);
+                task=new Event(lineParser[2],parseStringToLocalDateTime(lineParser[3]),parseStringToLocalDateTime(lineParser[4]));
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
             default:

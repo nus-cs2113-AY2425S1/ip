@@ -1,15 +1,9 @@
 import CassHelpers.commands.Command;
 import CassHelpers.exceptions.*;
-import CassHelpers.types.Task;
 import CassHelpers.util.Parser;
 import CassHelpers.util.Storage;
 import CassHelpers.util.TaskList;
 import CassHelpers.util.UI;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import static CassHelpers.util.UI.*;
 
 public class Cassandra {
 
@@ -33,7 +27,7 @@ public class Cassandra {
         ui.displayIntroduction();
         while(tasks.getRunningState()) {
             String userInput = Parser.getUserInput();
-            String commandArgs[] = Parser.getCommandArgsFromUserInput(userInput);
+            String[] commandArgs = Parser.getCommandArgsFromUserInput(userInput);
             ui.drawLine();
             try {
                 Command c = Parser.parse(userInput, commandArgs, ui, tasks);
@@ -41,7 +35,7 @@ public class Cassandra {
             }catch (TaskNotFoundException | NoTaskIndexFoundException | TaskAlreadyMarkedException |
                     NoCommandException | TaskAlreadyUnmarkedException | InvalidEventFormatException |
                     InvalidDeadlineFormatException | InvalidCommandException |
-                    NoTaskContainsMatchingPromptException e) {
+                    NoTaskContainsMatchingPromptException | InvalidDateFormatException e) {
                 ui.showError(e);
             }
             ui.drawLine();
