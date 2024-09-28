@@ -1,10 +1,16 @@
 package tasks;
 
-public class Deadline extends Task{
-    private String deadline;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String contents, String deadline) {
-        super(contents);
+public class Deadline extends Task{
+    private LocalDateTime deadline;
+    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+
+    public Deadline(String task, LocalDateTime deadline) {
+        super(task);
         this.deadline = deadline;
     }
 
@@ -15,10 +21,10 @@ public class Deadline extends Task{
 
     @Override
     public String fileFormat(){
-        return ("D | " + (getIsDone() ? "+" : "-") + " | " + getTask() + " | by " + deadline);
+        return ("D | " + (getIsDone() ? "+" : "-") + " | " + getTask() + " | by " + deadline.format(fileFormatter));
     }
 
     public String getDeadline(){
-        return deadline;
+        return this.deadline.format(stringFormatter);
     }
 }

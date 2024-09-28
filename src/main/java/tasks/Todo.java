@@ -2,8 +2,8 @@ package tasks;
 
 public class Todo extends Task{
 
-    public Todo(String contents) {
-        super(contents);
+    public Todo(String task) {
+        super(task);
     }
 
     @Override
