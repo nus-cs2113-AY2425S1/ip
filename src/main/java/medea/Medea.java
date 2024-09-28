@@ -1,4 +1,5 @@
 package medea;
+
 import medea.command.Command;
 import medea.core.Parser;
 import medea.core.Storage;
@@ -7,21 +8,25 @@ import medea.core.Ui;
 import medea.exceptions.MedeaException;
 
 public class Medea {
-    private final static String DEFAULT_FILE_PATH = "./data/medea.txt";
-    private Ui ui;
-    private Storage storage;
-    private TaskList tasks;
-    private Parser parser;
+    private static final String DEFAULT_FILE_PATH = "./data/medea.txt";
+    private final Ui userInterface;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Parser commandParser;
 
-    public Medea(String filePath){
-        ui = new Ui();
+    public Medea(String filePath) {
+        userInterface = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
+        commandParser = new Parser();
+        taskList = loadTasks();
+    }
+
+    private TaskList loadTasks() {
         try {
-            tasks = new TaskList(storage.loadTasks());
+            return new TaskList(storage.loadTasks());
         } catch (MedeaException e) {
-            ui.showError(e);
-            tasks = new TaskList();
+            handleError(e);
+            return new TaskList(); // Return an empty TaskList if loading fails
         }
     }
 
@@ -29,25 +34,40 @@ public class Medea {
         new Medea(DEFAULT_FILE_PATH).run();
     }
 
-    public void run(){
-        ui.showWelcome();
-        handleCommands();
-        ui.showFarewell();
-        storage.saveTasks(tasks.toCSVString());
+    public void run() {
+        userInterface.showWelcome();
+        handleUserCommands();
+        userInterface.showFarewell();
+        saveTasks();
     }
 
-    private void handleCommands(){
+    private void handleUserCommands() {
         while (true) {
             try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                if (c.isExit()) return;
-                ui.showLine();
-                c.execute(tasks, ui, storage);
-            } catch (MedeaException e) {
-                ui.showError(e);
+                String userCommand = userInterface.readCommand();
+                Command command = commandParser.parse(userCommand);
+                if (command.isExit()) return;
+                executeCommand(command);
+            } catch (MedeaException exception) {
+                handleError(exception);
             }
-            ui.showLine();
         }
+    }
+
+    private void executeCommand(Command command) {
+        wrapWithLine(() -> command.execute(taskList, userInterface, storage));
+    }
+
+    private void handleError(MedeaException exception) {
+        wrapWithLine(() -> userInterface.showError(exception));
+    }
+
+    private void wrapWithLine(Runnable action) {
+        userInterface.showLine();
+        action.run();
+        userInterface.showLine();
+    }
+    private void saveTasks() {
+        storage.saveTasks(taskList.toCSVString());
     }
 }
