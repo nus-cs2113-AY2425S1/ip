@@ -19,8 +19,12 @@ public class TaskList {
     private static final int FROM_INDEX = 3;
     private static final int TO_INDEX = 4;
 
-    public ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     Ui ui;
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
     private static String[] getArgs(String[] inputs) {
         String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);

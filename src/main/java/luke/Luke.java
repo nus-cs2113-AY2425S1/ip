@@ -24,7 +24,7 @@ public class Luke {
     }
 
     private void saveAllTasks() throws IOException {
-        storage.saveAllTasks(taskList.tasks);
+        storage.saveAllTasks(taskList.getTasks());
     }
 
     private void exitBot() {
