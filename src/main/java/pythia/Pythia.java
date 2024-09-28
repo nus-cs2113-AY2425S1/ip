@@ -1,12 +1,14 @@
 package pythia;
 
-import pythia.io.Parser;
-import pythia.io.IO;
+import pythia.utility.Parser;
+import pythia.utility.IO;
 import pythia.task.Task;
 import pythia.task.ToDo;
 import pythia.task.Deadline;
 import pythia.task.Event;
 import pythia.exceptions.PythiaException;
+import pythia.utility.TaskList;
+
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -24,21 +26,12 @@ public class Pythia {
             "       |___/                   ";
 
     private static boolean isByeSaid = false;
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
-    private static int remainingTasks = 0;
-
-    public static int getNumberOfRemainingTasks() {
-        return remainingTasks;
-    }
+    private static TaskList taskList = new TaskList();
 
     public static void greet() {
         String helloMsg =   "Welcome, seeker. I am " + botName + ".\n" +
                             "What brings you here?";
         IO.printResponse(helloMsg);
-    }
-
-    public static void echo(String text) {
-        IO.printResponse(text);
     }
 
     public static void sayBye() {
@@ -53,53 +46,47 @@ public class Pythia {
 
     public static void addTask(String taskName) {
         taskList.add(new Task(taskName));
-        remainingTasks++;
         IO.printAddedTask("added: " + taskName);
         saveTasksToTxt();
     }
 
     public static void addToDo(String todoName) {
         taskList.add(new ToDo(todoName));
-        remainingTasks++;
         IO.printAddedTask("added: " + todoName);
         saveTasksToTxt();
     }
 
     public static void addDeadline(String deadlineName, String dueDate) {
         taskList.add(new Deadline(deadlineName, dueDate));
-        remainingTasks++;
         IO.printAddedTask("added: " + deadlineName);
         saveTasksToTxt();
     }
 
     public static void addEvent(String eventName, String startDate, String endDate) {
         taskList.add(new Event(eventName, startDate, endDate));
-        remainingTasks++;
         IO.printAddedTask("added: " + eventName);
         saveTasksToTxt();
     }
 
     public static void markTask(Integer taskNumber) {
-        if (taskNumber <= taskList.size()) {
-            taskList.get(taskNumber - 1).markAsDone();
+        try {
+            taskList.markAsDone(taskNumber - 1);
             String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
             IO.printResponse(msg);
             saveTasksToTxt();
-        } else {
+        } catch (IndexOutOfBoundsException e) {
             IO.printResponse("There is no such task :(");
         }
-        remainingTasks--;
     }
 
     public static void deleteTask(Integer taskNumber) {
-        if (taskNumber <= taskList.size()) {
+        try {
             String msg = "Nice! I've deleted this task:\n\t" + taskList.get(taskNumber - 1).toString();
             taskList.remove(taskNumber - 1);
             IO.printResponse(msg);
-        } else {
+        } catch (IndexOutOfBoundsException e){
             IO.printResponse("There is no such task :(");
         }
-        remainingTasks--;
     }
 
     public static void saveTasksToTxt() {
@@ -112,7 +99,6 @@ public class Pythia {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
-
 
     public static void main(String[] args) {
         IO.init();

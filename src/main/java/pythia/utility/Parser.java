@@ -1,4 +1,4 @@
-package pythia.io;
+package pythia.utility;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -13,9 +13,7 @@ public class Parser {
     private String parsingErrorMessage = "Parsing of add command unsuccessful.";
 
 
-    public Parser() {
-
-    }
+    public Parser() {}
 
     private String parseCommandType(String rawText) {
         int spaceIndex = rawText.indexOf(' ');

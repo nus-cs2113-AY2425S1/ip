@@ -1,4 +1,4 @@
-package pythia.io;
+package pythia.utility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,15 +27,15 @@ public class IO {
         printResponse(text.toLowerCase());
     }
 
-    public static void printTaskList(ArrayList<Task> taskList) {
+    public static void printTaskList(TaskList taskList) {
+        int remainingTasks = taskList.getNumberOfTasks();
         StringBuilder taskListString = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < remainingTasks; i++) {
             taskListString.append(i + 1).append(". ");
             taskListString.append(taskList.get(i).toString());
             taskListString.append("\n");
         }
 
-        int remainingTasks = Pythia.getNumberOfRemainingTasks();
         taskListString.append("Now you have ").append(remainingTasks);
         if (remainingTasks == 1) {
             taskListString.append(" pythia.task in the list.");
