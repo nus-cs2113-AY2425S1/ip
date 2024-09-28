@@ -11,24 +11,26 @@ import tyrone.task.Event;
 import tyrone.task.ToDo;
 
 public class Parser {
+    /**
+     * Main Logic for the Tyrone ChatBot
+     * Each command has its own if else block
+     * @param userInput
+     * @throws TyroneException
+     */
     public static void getUserInput(String userInput) throws TyroneException {
         if (userInput.startsWith("mark ")) {
             int index = Integer.parseInt(userInput.substring(5)) - 1;
             if (index >= 0 && index < Constants.toDoList.size()) {
                 Constants.markAsDone(index);
             } else {
-                System.out.println(Constants.LINE);
-                System.out.println("    Invalid task number bro.");
-                System.out.println(Constants.LINE);
+                Constants.invalidTask();
             }
         } else if (userInput.startsWith("unmark ")) {
             int index = Integer.parseInt(userInput.substring(7)) - 1;
             if (index >= 0 && index < Constants.toDoList.size()) {
                 Constants.unmarkAsUndone(index);
             } else {
-                System.out.println(Constants.LINE);
-                System.out.println("    Invalid task number bro.");
-                System.out.println(Constants.LINE);
+                Constants.invalidTask();
             }
         } else if (userInput.startsWith("todo ")) {
             ToDo.createToDo(userInput);
@@ -58,13 +60,15 @@ public class Parser {
                 Constants.missingTimeInfo();
             }
         } else if (userInput.equals("list")) {
-            Constants.getList();
+            Constants.getList(Constants.toDoList);
         } else if (userInput.equals("priority list")) {
             Constants.getPriorityList();
+        } else if (userInput.startsWith("help")){
+            Constants.help();
+        } else if (userInput.equals("clear")){
+            Constants.clearTasks();
         } else {
-            System.out.println(Constants.LINE);
-            System.out.println("    Invalid command my brother.");
-            System.out.println(Constants.LINE);
+            Constants.invalidCommand();
         }
         Storage.saveTasks();// Call save function
     }

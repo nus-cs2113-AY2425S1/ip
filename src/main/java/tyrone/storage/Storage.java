@@ -16,8 +16,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Storage has two main functions,
+ * storing Tasks in the .txt file and
+ * reading the Tasks in the .txt file when it is first booted up
+ */
 
 public class Storage {
+    /**
+     * Every task is saved after every action taken in Parser
+     */
     public static void saveTasks() {
         try {
             // Check if ./data directory exists, if not, create it
@@ -56,7 +64,9 @@ public class Storage {
         }
     }
 
-    //loading task
+    /** 
+     * This function reads the tasks in data/Task.txt and then inputs them into the ArrayList of Tasks
+     */
     public static ArrayList<Task> loadTasks() {
   
         ArrayList<Task> tasks = new ArrayList<>();
@@ -72,25 +82,33 @@ public class Storage {
             String[] parts = line.split("\\|");
 
             if (parts.length >= 4) {
-                String taskType = parts[1].trim();  // Task type, T (ToDo), D (Deadline), or E (Event)
-                boolean isDone = parts[2].trim().equals("X");  // Marked as done if 'X', otherwise not done
-                String description = parts[3].trim();  // Task description
+                 // Task type, T (ToDo), D (Deadline), or E (Event)
+                String taskType = parts[1].trim(); 
+
+                // Marked as done if 'X', otherwise not done
+                boolean isDone = parts[2].trim().equals("X");  
+
+                // Task description
+                String description = parts[3].trim(); 
 
                 // Handle different task types
                 if (taskType.equals("T")) {
                     ToDo todo = new ToDo(description);
                     todo.setDone(isDone);
+
+                    // Create new Todo Task
                     tasks.add(todo);
                 } else if (taskType.equals("D") && parts.length == 5) {
-                    String by = parts[4].trim();  // Deadline date or time
+                    String by = parts[4].trim();
+                    // Remove "by:" prefix
                     if (by.startsWith("by:")) {
-                        by = by.replace("by:", "").trim();  // Remove "by:" prefix
+                        by = by.replace("by:", "").trim();  
                     }
 
                     try {
                         // Parse the deadline date and time
                         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMM uuuu h:mma");
-                        LocalDateTime dueDateTime = LocalDateTime.parse(by, inputFormatter);  // Convert to LocalDateTime
+                        LocalDateTime dueDateTime = LocalDateTime.parse(by, inputFormatter);  
 
                         // Create the Deadline object using LocalDateTime
                         Deadline deadline = new Deadline(description, dueDateTime);
@@ -100,17 +118,19 @@ public class Storage {
                         System.out.println("    Invalid date format for deadline: " + by);
                     }
                 } else if (taskType.equals("E") && parts.length == 5) {
-                    String timing = parts[4].trim();  // Event timing
-                    Event event = new Event(description, timing);  // Event constructor expected to accept a String for timing
+                    String timing = parts[4].trim(); 
+
+                    // Create new Event Task
+                    Event event = new Event(description, timing); 
                     event.setDone(isDone);
                     tasks.add(event);
                 }
             }
         }
-        scanner.close();  // Close scanner after reading
+        scanner.close(); 
         } catch (FileNotFoundException e) {
             System.out.println("    Tasks.txt file not found.");
         }
-        return tasks;  // Return the list of tasks
+        return tasks; 
     }    
 }
