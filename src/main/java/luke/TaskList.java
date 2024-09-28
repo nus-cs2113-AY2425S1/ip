@@ -65,9 +65,9 @@ public class TaskList {
         ui.printDivider();
     }
 
-    public void mark(String[] inputArr) {
+    public void mark(String[] inputs) {
         int idx;
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
@@ -82,9 +82,9 @@ public class TaskList {
         ui.printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
     }
 
-    public void unmark(String[] inputArr) {
+    public void unmark(String[] inputs) {
         int idx;
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
@@ -99,8 +99,8 @@ public class TaskList {
         ui.printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
     }
 
-    public void addToDo(String[] inputArr) {
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+    public void addToDo(String[] inputs) {
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         if (args.length == 0) {
             throw new InsufficientArguments("todo command needs at least 1 argument.");
         }
@@ -110,8 +110,8 @@ public class TaskList {
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
     }
 
-    public void addDeadline(String[] inputArr) {
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+    public void addDeadline(String[] inputs) {
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int idx = -1;
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("/by")) {
@@ -128,8 +128,8 @@ public class TaskList {
                 tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
     }
 
-    public void addEvent(String[] inputArr) {
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+    public void addEvent(String[] inputs) {
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int fromIdx = -1;
         int toIdx = -1;
         for (int i = 0; i < args.length; i++) {
@@ -154,8 +154,8 @@ public class TaskList {
 
     }
 
-    public void deleteTask(String[] inputArr) {
-        String[] args = Arrays.copyOfRange(inputArr, 1, inputArr.length);
+    public void deleteTask(String[] inputs) {
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int idx;
         if (args.length == 0) {
             throw new InsufficientArguments("Delete command needs an index");

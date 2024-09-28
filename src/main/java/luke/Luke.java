@@ -53,10 +53,10 @@ public class Luke {
 
         while (!isExit) {
             line = in.nextLine();
-            String[] inputArr = line.split(" ");
+            String[] inputs = line.split(" ");
             try {
-                Command c = Parser.parseCommand(inputArr);
-                c.execute(taskList, ui, inputArr);
+                Command c = Parser.parseCommand(inputs);
+                c.execute(taskList, ui, inputs);
                 isExit = c.isExit;
             } catch (InvalidCommand e) {
                 ui.printReply("Sorry, I don't understand you :(");

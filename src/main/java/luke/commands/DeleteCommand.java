@@ -10,9 +10,9 @@ public class DeleteCommand extends Command{
     public static final String COMMAND_WORD = "delete";
 
     @Override
-    public void execute(TaskList taskList, Ui ui, String[] inputArr) {
+    public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
-            taskList.deleteTask(inputArr);
+            taskList.deleteTask(inputs);
         } catch (InsufficientArguments | IncorrectInput e) {
             ui.printReply(e.getMessage());
         }

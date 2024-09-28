@@ -10,5 +10,5 @@ public abstract class Command {
 
     }
 
-    public abstract void execute(TaskList taskList, Ui ui, String[] inputArr);
+    public abstract void execute(TaskList taskList, Ui ui, String[] inputs);
 }

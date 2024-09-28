@@ -9,9 +9,9 @@ public class AddEventCommand extends Command{
     public static final String COMMAND_WORD = "event";
 
     @Override
-    public void execute(TaskList taskList, Ui ui, String[] inputArr) {
+    public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
-            taskList.addEvent(inputArr);
+            taskList.addEvent(inputs);
         } catch (InsufficientArguments e) {
             ui.printReply(e.getMessage());
         }

@@ -5,9 +5,9 @@ import luke.exceptions.InvalidCommand;
 
 public class Parser {
 
-    public static Command parseCommand(String[] inputArr) {
+    public static Command parseCommand(String[] inputs) {
 
-        String command = inputArr[0].toLowerCase();
+        String command = inputs[0].toLowerCase();
 
         switch (command) {
         case ByeCommand.COMMAND_WORD:
