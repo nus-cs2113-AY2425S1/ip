@@ -1,12 +1,17 @@
 package tasks;
 
-public class Event extends Task{
-    private String start;
-    private String end;
-    //private String isDone;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String contents, String start, String end) {
-        super(contents);
+public class Event extends Task{
+    private LocalDateTime start;
+    private LocalDateTime end;
+    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+
+    public Event(String task, LocalDateTime start, LocalDateTime end) {
+        super(task);
         this.start = start;
         this.end = end;
     }
@@ -18,15 +23,15 @@ public class Event extends Task{
 
     @Override
     public String fileFormat(){
-        return ("E | " + (getIsDone() ? "+" : "-") + " | " + getTask() + " | from " + start + " to " + end);
+        return ("E | " + (getIsDone() ? "+" : "-") + " | " + getTask() + " | from " + start.format(fileFormatter) + " to " + end.format(fileFormatter));
     }
 
     public String getStart(){
-        return this.start;
+        return start.format(stringFormatter);
     }
 
     public String getEnd(){
-        return this.end;
+        return end.format(stringFormatter);
     }
 
 }
