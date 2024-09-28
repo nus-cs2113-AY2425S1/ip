@@ -1,42 +1,41 @@
 public class CommandHandler {
 
-    public static void handleCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    public static void handleCommand(String[] command, TaskList tasks) throws KaiException {
         switch (command[0]) {
             case "todo":
-                handleTodoCommand(command, tasks, ui);
+                handleTodoCommand(command, tasks);
                 break;
             case "deadline":
-                handleDeadlineCommand(command, tasks, ui);
+                handleDeadlineCommand(command, tasks);
                 break;
             case "event":
-                handleEventCommand(command, tasks, ui);
+                handleEventCommand(command, tasks);
                 break;
             case "delete":
-                handleDeleteCommand(command, tasks, ui);
+                handleDeleteCommand(command, tasks);
                 break;
             case "mark":
-                handleMarkCommand(command, tasks, ui);
+                handleMarkCommand(command, tasks);
                 break;
             case "unmark":
-                handleUnmarkCommand(command, tasks, ui);
+                handleUnmarkCommand(command, tasks);
 
             default:
                 throw new KaiException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void handleTodoCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleTodoCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of a todo cannot be empty.");
         }
         tasks.addTask(new Todo(command[1].trim()));
-        ui.showLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
         System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
-    private static void handleDeadlineCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleDeadlineCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of a deadline cannot be empty.");
         }
@@ -45,13 +44,12 @@ public class CommandHandler {
             throw new KaiException("The deadline needs a description and a '/by' date.");
         }
         tasks.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
-        ui.showLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
         System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
-    private static void handleEventCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleEventCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of an event cannot be empty.");
         }
@@ -61,13 +59,12 @@ public class CommandHandler {
         }
         String[] timeParts = parts[1].split(" /to ");
         tasks.addTask(new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
-        ui.showLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
         System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
-    private static void handleDeleteCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleDeleteCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
                 throw new KaiException("You must specify a task number to delete.");
@@ -77,7 +74,6 @@ public class CommandHandler {
                 throw new KaiException("Invalid task number. Please provide a valid task number.");
             }
             Task removedTask = tasks.removeTask(taskNumber);
-            ui.showLine();
             System.out.println(" Noted. I've removed this task:");
             System.out.println("   " + removedTask);
             System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
@@ -86,7 +82,7 @@ public class CommandHandler {
         }
     }
 
-    private static void handleMarkCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleMarkCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
                 throw new KaiException("You must specify a task number to mark.");
@@ -96,7 +92,6 @@ public class CommandHandler {
                 throw new KaiException("Task number is out of range.");
             }
             tasks.markTaskAsDone(taskNumber);
-            ui.showLine();
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + tasks.getTask(taskNumber));
         } catch (NumberFormatException e) {
@@ -104,7 +99,7 @@ public class CommandHandler {
         }
     }
 
-    private static void handleUnmarkCommand(String[] command, TaskList tasks, Ui ui) throws KaiException {
+    private static void handleUnmarkCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
                 throw new KaiException("You must specify a task number to unmark.");
@@ -114,7 +109,6 @@ public class CommandHandler {
                 throw new KaiException("Task number is out of range.");
             }
             tasks.markTaskAsNotDone(taskNumber);
-            ui.showLine();
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks.getTask(taskNumber));
         } catch (NumberFormatException e) {

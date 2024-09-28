@@ -36,7 +36,7 @@ public class KaiWen {
                         tasks.printTasks();
                         break;
                     default:
-                        CommandHandler.handleCommand(command, tasks, ui);
+                        CommandHandler.handleCommand(command, tasks);
                         break;
                 }
 
