@@ -8,7 +8,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 if exist data del data
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\luke\*.java ..\src\main\java\luke\exceptions\*.java ..\src\main\java\luke\tasks\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\luke\*.java ..\src\main\java\luke\exceptions\*.java ..\src\main\java\luke\tasks\*.java ..\src\main\java\luke\commands\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
