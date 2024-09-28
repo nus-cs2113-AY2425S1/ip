@@ -1,4 +1,4 @@
-package medea;
+package medea.core;
 
 import medea.exceptions.MedeaException;
 

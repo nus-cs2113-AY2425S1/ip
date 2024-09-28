@@ -1,8 +1,8 @@
 package medea.command.updateDone;
 
-import medea.Storage;
-import medea.TaskList;
-import medea.Ui;
+import medea.core.Storage;
+import medea.core.TaskList;
+import medea.core.Ui;
 import medea.command.Command;
 
 public class UpdateDoneCommand extends Command {

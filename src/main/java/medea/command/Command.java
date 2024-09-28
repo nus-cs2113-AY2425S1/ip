@@ -1,8 +1,8 @@
 package medea.command;
 
-import medea.Storage;
-import medea.TaskList;
-import medea.Ui;
+import medea.core.Storage;
+import medea.core.TaskList;
+import medea.core.Ui;
 
 public abstract class Command {
     private int taskIndex = -1;
@@ -21,5 +21,5 @@ public abstract class Command {
         return false;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage){};
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 }

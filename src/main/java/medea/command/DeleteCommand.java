@@ -1,8 +1,8 @@
 package medea.command;
 
-import medea.Storage;
-import medea.TaskList;
-import medea.Ui;
+import medea.core.Storage;
+import medea.core.TaskList;
+import medea.core.Ui;
 
 public class DeleteCommand extends Command{
     public static final String COMMAND_WORD = "delete";

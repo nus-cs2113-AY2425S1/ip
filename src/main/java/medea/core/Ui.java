@@ -1,4 +1,4 @@
-package medea;
+package medea.core;
 import java.util.Scanner;
 import java.io.PrintStream;
 

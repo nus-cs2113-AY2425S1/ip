@@ -1,11 +1,11 @@
 package medea.command.createTask;
 
-import medea.Storage;
-import medea.TaskList;
-import medea.Ui;
+import medea.core.Storage;
+import medea.core.TaskList;
+import medea.core.Ui;
 import medea.command.Command;
 
-public abstract class CreateCommand extends Command {
+public abstract class TaskCommand extends Command {
 
     public abstract String addTask(TaskList tasks);
 
