@@ -2,8 +2,8 @@ package luke.commands;
 
 import luke.TaskList;
 import luke.Ui;
-import luke.exceptions.IncorrectInput;
-import luke.exceptions.InsufficientArguments;
+import luke.exceptions.IncorrectInputException;
+import luke.exceptions.InsufficientArgumentsException;
 
 public class DeleteCommand extends Command{
 
@@ -13,7 +13,7 @@ public class DeleteCommand extends Command{
     public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
             taskList.deleteTask(inputs);
-        } catch (InsufficientArguments | IncorrectInput e) {
+        } catch (InsufficientArgumentsException | IncorrectInputException e) {
             ui.printReply(e.getMessage());
         }
     }

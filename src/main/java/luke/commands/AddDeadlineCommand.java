@@ -2,7 +2,7 @@ package luke.commands;
 
 import luke.TaskList;
 import luke.Ui;
-import luke.exceptions.InsufficientArguments;
+import luke.exceptions.InsufficientArgumentsException;
 
 public class AddDeadlineCommand extends Command{
     public static final String COMMAND_WORD = "deadline";
@@ -10,7 +10,7 @@ public class AddDeadlineCommand extends Command{
     public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
             taskList.addDeadline(inputs);
-        } catch (InsufficientArguments e) {
+        } catch (InsufficientArgumentsException e) {
             ui.printReply(e.getMessage());
         }
     }

@@ -1,7 +1,7 @@
 package luke;
 
 import luke.commands.*;
-import luke.exceptions.InvalidCommand;
+import luke.exceptions.InvalidCommandException;
 
 public class Parser {
 
@@ -27,7 +27,7 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand();
         default:
-            throw new InvalidCommand("Invalid command");
+            throw new InvalidCommandException("Invalid command");
         }
 
     }

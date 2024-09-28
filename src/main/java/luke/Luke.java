@@ -1,7 +1,7 @@
 package luke;
 
 import luke.commands.Command;
-import luke.exceptions.InvalidCommand;
+import luke.exceptions.InvalidCommandException;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Luke {
 
+    public static final String SAVE_PATH = "data/tasks.txt";
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
@@ -17,7 +18,7 @@ public class Luke {
         ui = new Ui();
 
         // Get data from save file and save into ArrayList<String>
-        storage = new Storage(Paths.get("data/tasks.txt"));
+        storage = new Storage(Paths.get(SAVE_PATH));
         // Load data into taskList
         taskList = new TaskList(storage.saveStrings);
     }
@@ -54,7 +55,7 @@ public class Luke {
                 Command c = Parser.parseCommand(inputs);
                 c.execute(taskList, ui, inputs);
                 isExit = c.isExit;
-            } catch (InvalidCommand e) {
+            } catch (InvalidCommandException e) {
                 ui.printReply("Sorry, I don't understand you :(");
             }
         }

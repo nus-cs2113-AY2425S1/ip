@@ -1,7 +1,7 @@
 package luke;
 
-import luke.exceptions.IncorrectInput;
-import luke.exceptions.InsufficientArguments;
+import luke.exceptions.IncorrectInputException;
+import luke.exceptions.InsufficientArgumentsException;
 import luke.tasks.Deadline;
 import luke.tasks.Event;
 import luke.tasks.Task;
@@ -71,12 +71,12 @@ public class TaskList {
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
-            throw new IncorrectInput("Please input an integer");
+            throw new IncorrectInputException("Please input an integer");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InsufficientArguments("Input index of task to mark.");
+            throw new InsufficientArgumentsException("Input index of task to mark.");
         }
         if (idx < 0 || idx >= getSize()) {
-            throw new IncorrectInput("Invalid index");
+            throw new IncorrectInputException("Invalid index");
         }
         tasks.get(idx).setAsDone();
         ui.printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
@@ -88,12 +88,12 @@ public class TaskList {
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
-            throw new IncorrectInput("Please input an integer");
+            throw new IncorrectInputException("Please input an integer");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InsufficientArguments("Input index of task to mark.");
+            throw new InsufficientArgumentsException("Input index of task to mark.");
         }
         if (idx < 0 || idx >= getSize()) {
-            throw new IncorrectInput("Invalid index");
+            throw new IncorrectInputException("Invalid index");
         }
         tasks.get(idx).setAsUndone();
         ui.printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
@@ -102,7 +102,7 @@ public class TaskList {
     public void addToDo(String[] inputs) {
         String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         if (args.length == 0) {
-            throw new InsufficientArguments("todo command needs at least 1 argument.");
+            throw new InsufficientArgumentsException("todo command needs at least 1 argument.");
         }
         String description = String.join(" ", args);
         tasks.add(new ToDo(description));
@@ -119,7 +119,7 @@ public class TaskList {
             }
         }
         if (idx == -1) {
-            throw new InsufficientArguments("Deadline needs to be specified");
+            throw new InsufficientArgumentsException("Deadline needs to be specified");
         }
         String description = String.join(" ", Arrays.copyOf(args, idx));
         String deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
@@ -140,10 +140,10 @@ public class TaskList {
             }
         }
         if (fromIdx == -1) {
-            throw new InsufficientArguments("From when???");
+            throw new InsufficientArgumentsException("From when???");
         }
         if (toIdx == -1) {
-            throw new InsufficientArguments("To when???");
+            throw new InsufficientArgumentsException("To when???");
         }
         String description = String.join(" ", Arrays.copyOf(args, fromIdx));
         String fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
@@ -158,15 +158,15 @@ public class TaskList {
         String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int idx;
         if (args.length == 0) {
-            throw new InsufficientArguments("Delete command needs an index");
+            throw new InsufficientArgumentsException("Delete command needs an index");
         }
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
-            throw new IncorrectInput("Please input an integer");
+            throw new IncorrectInputException("Please input an integer");
         }
         if (idx < 0 || idx >= tasks.size()) {
-            throw new IncorrectInput("Invalid index");
+            throw new IncorrectInputException("Invalid index");
         }
         Task taskToDelete = tasks.get(idx);
         tasks.remove(taskToDelete);
