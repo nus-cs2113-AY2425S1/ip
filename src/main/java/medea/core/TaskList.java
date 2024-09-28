@@ -53,7 +53,7 @@ public class TaskList {
         int listSize = getSize();
 
         if (listSize == 0) {
-            return "No items currently in your task list.\n";
+            return "No items currently in your task list.";
         }
 
         StringBuilder output = new StringBuilder();
@@ -95,7 +95,7 @@ public class TaskList {
         }
 
         if (itemCount == 0) {
-            return "No matching items currently in your task list.\n";
+            return "No matching items currently in your task list.";
         }
 
         return output.toString();
@@ -124,20 +124,26 @@ public class TaskList {
      * @param csvString a string representation of tasks in CSV format
      * @throws MedeaException if the task data is corrupted
      */
-    public void loadTasks(String csvString) {
-        String[] taskStrings = csvString.split("\n");
-        for (String taskString : taskStrings) {
-            String[] taskArguments = taskString.split(",");
-            String taskType = taskArguments[0];
-            switch (taskType) {
-            case "T": addTodo(taskArguments[1]);
-                break;
-            case "D": addDeadline(taskArguments[1], taskArguments[2]);
-                break;
-            case "E": addEvent(taskArguments[1], taskArguments[2], taskArguments[3]);
-                break;
-            default: throw new MedeaException("Corrupted task data.");
+    public void loadTasks(String csvString) throws MedeaException {
+        try{
+            String[] taskStrings = csvString.split("\n");
+            for (String taskString : taskStrings) {
+                String[] taskArguments = taskString.split(",");
+                String taskType = taskArguments[0];
+                switch (taskType) {
+                case "T": addTodo(taskArguments[1]);
+                    break;
+                case "D": addDeadline(taskArguments[1], taskArguments[2]);
+                    break;
+                case "E": addEvent(taskArguments[1], taskArguments[2], taskArguments[3]);
+                    break;
+                default: throw new MedeaException("Task data is corrupted.");
+                }
             }
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new MedeaException("Task data has corrupted or missing fields. " + e.getMessage());
+        } catch (Exception e) {
+            throw new MedeaException("An unexpected error occurred while loading tasks. " + e.getMessage());
         }
     }
 

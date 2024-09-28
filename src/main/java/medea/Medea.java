@@ -41,8 +41,11 @@ public class Medea {
     private TaskList loadTasks() {
         try {
             return new TaskList(storage.loadTasks());
-        } catch (MedeaException e) {
-            handleError(e);
+        } catch (MedeaException exception) {
+            wrapWithLine(() -> {
+                userInterface.showError(exception);
+                userInterface.showMsg("Not to worry! Generating new data file...");
+            });
             return new TaskList(); // Return an empty TaskList if loading fails
         }
     }
@@ -79,29 +82,11 @@ public class Medea {
                 if (command.isExit()) {
                     return;
                 }
-                executeCommand(command);
+                wrapWithLine(() -> command.execute(taskList, userInterface, storage));
             } catch (MedeaException exception) {
-                handleError(exception);
+                wrapWithLine(() -> userInterface.showError(exception));
             }
         }
-    }
-
-    /**
-     * Executes the given command within line separators for better readability.
-     *
-     * @param command the command to execute
-     */
-    private void executeCommand(Command command) {
-        wrapWithLine(() -> command.execute(taskList, userInterface, storage));
-    }
-
-    /**
-     * Handles exceptions by wrapping error display in line separators.
-     *
-     * @param exception the exception to handle
-     */
-    private void handleError(MedeaException exception) {
-        wrapWithLine(() -> userInterface.showError(exception));
     }
 
     /**
