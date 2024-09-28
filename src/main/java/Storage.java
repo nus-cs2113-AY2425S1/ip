@@ -39,13 +39,14 @@ public class Storage {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return tasks; // Return empty list if file doesn't exist
+                return tasks;
             }
 
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = br.readLine()) != null) {
-                Task task = parseTaskFromString(line);
+                String trimmedLine = line.trim();
+                Task task = parseTaskFromString(trimmedLine);
                 if (task != null) {
                     tasks.add(task);
                 }
@@ -61,17 +62,17 @@ public class Storage {
         line = line.trim();
 
         if (line.startsWith("[T]")) {
-            return new Todo(line.substring(6));
+            return new Todo(line.substring(6).trim());
         } else if (line.startsWith("[D]")) {
             String[] parts = line.split("\\(by: ");
-            String description = parts[0].substring(6);
+            String description = parts[0].substring(6).trim();
             String by = parts[1].replace(")", "");
             return new Deadline(description, by);
         } else if (line.startsWith("[E]")) {
             String[] parts = line.split("\\(from: | to: |\\)");
-            String description = parts[0].substring(6);
-            String from = parts[1];
-            String to = parts[2];
+            String description = parts[0].substring(6).trim();
+            String from = parts[1].trim();
+            String to = parts[2].trim();
             return new Event(description, from, to);
         }
         return null;
