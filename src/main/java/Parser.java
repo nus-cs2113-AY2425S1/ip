@@ -3,6 +3,10 @@ import exception.EmptyDescriptionException;
 
 import java.util.Scanner;
 
+/**
+ * The Parser class is responsible for interpreting user inputs and extracting the relevant information
+ * to perform the appropriate actions on the task list.
+ */
 public class Parser {
     private static final int MARK_WORD_LEN = 4;
     private static final int UNMARK_WORD_LEN = 6;
@@ -12,6 +16,12 @@ public class Parser {
     public static final String EVENT_FROM_KEYWORD = "/from";
     public static final String EVENT_TO_KEYWORD = "/to";
 
+    /**
+     * Continuously reads user input and interprets the commands to modify the task list.
+     * @param in Scanner to read user input.
+     * @param listFilePath Path to the file where the list is stored.
+     * @param userList The current task list.
+     */
     public static void getUserInput(Scanner in, String listFilePath, List userList) {
         String line;
         while (true) {
@@ -50,6 +60,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Reads a line of input from the user and prints a horizontal line after the input.
+     * @param in Scanner to read user input.
+     * @return The user input line as a string.
+     */
     private static String getLine(Scanner in) {
         String line;
         System.out.print(System.lineSeparator());
@@ -58,40 +73,86 @@ public class Parser {
         return line;
     }
 
+    /**
+     * Checks if the input command is to list all tasks.
+     * @param line The input string.
+     * @return True if the command is "list", false otherwise.
+     */
     private static boolean isList(String line) {
         return line.equals("list");
     }
 
+    /**
+     * Checks if the input command is to exit the program.
+     * @param line The input string.
+     * @return True if the command is "bye", false otherwise.
+     */
     private static boolean isBye(String line) {
         return line.equals("bye");
     }
 
+    /**
+     * Checks if the input command is to mark a task as done.
+     * @param line The input string.
+     * @return True if the command starts with "mark", false otherwise.
+     */
     private static boolean isMark(String line) {
         return line.length() >= (MARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 4).equals("mark");
     }
 
+    /**
+     * Checks if the input command is to unmark a task (mark it as not done).
+     * @param line The input string.
+     * @return True if the command starts with "unmark", false otherwise.
+     */
     private static boolean isUnmark(String line) {
         return line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark");
     }
 
+    /**
+     * Checks if the input command is to delete a task.
+     * @param line The input string.
+     * @return True if the command starts with "delete", false otherwise.
+     */
     private static boolean isDelete(String line) {
         return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
     }
 
+    /**
+     * Checks if the input string is a valid event format.
+     * @param line The input string.
+     * @return True if the command contains an event with the proper format.
+     */
     public static boolean isValidEvent(String line) {
         return line.startsWith("event") &&
                 line.contains(EVENT_FROM_KEYWORD) &&
                 line.contains(EVENT_TO_KEYWORD);
     }
 
+    /**
+     * Checks if the input string is a valid deadline format.
+     * @param line The input string.
+     * @return True if the command contains a deadline with the "/by" keyword.
+     */
     public static boolean isValidDeadline(String line) {
         return line.startsWith("deadline") && line.contains(DEADLINE_BY_KEYWORD);
     }
 
+    /**
+     * Checks if the input string is a valid todo task.
+     * @param line The input string.
+     * @return True if the command starts with "todo".
+     */
     public static boolean isTodo(String line) {
         return line.startsWith("todo");
     }
 
+    /**
+     * Extracts the description from a todo command.
+     * @param line The input string.
+     * @return The description of the todo task.
+     * @throws EmptyDescriptionException if the description is empty.
+     */
     public static String extractTodoDescription(String line) throws EmptyDescriptionException {
         String todoDescription;
         todoDescription = line.replaceFirst("todo", "").trim();
@@ -101,6 +162,12 @@ public class Parser {
         return todoDescription;
     }
 
+    /**
+     * Extracts the description from a deadline command.
+     * @param line The input string.
+     * @return The description of the deadline task.
+     * @throws EmptyDescriptionException if the description is empty.
+     */
     public static String extractDeadlineDescription(String line) throws EmptyDescriptionException {
         String deadlineDescription;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
@@ -111,12 +178,23 @@ public class Parser {
         return deadlineDescription;
     }
 
+    /**
+     * Checks if a task description is not empty.
+     * @param taskDescription The task description to be checked.
+     * @throws EmptyDescriptionException if the description is empty.
+     */
     private static void taskDescriptionNotEmpty(String taskDescription) throws EmptyDescriptionException {
         if (taskDescription.isEmpty()) {
             throw new EmptyDescriptionException();
         }
     }
 
+    /**
+     * Extracts the date from a deadline command.
+     * @param line The input string.
+     * @return The date of the deadline.
+     * @throws EmptyDateFieldException if the date field is empty.
+     */
     public static String extractDeadlineDate(String line) {
         String deadlineDate;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
@@ -127,12 +205,23 @@ public class Parser {
         return deadlineDate;
     }
 
+    /**
+     * Checks if a date field is not empty.
+     * @param dateField The date field to be checked.
+     * @throws EmptyDateFieldException if the date field is empty.
+     */
     private static void dateFieldNotEmpty(String dateField) throws EmptyDateFieldException {
         if (dateField.isEmpty()) {
             throw new EmptyDateFieldException();
         }
     }
 
+    /**
+     * Extracts the description from an event command.
+     * @param line The input string.
+     * @return The description of the event.
+     * @throws EmptyDescriptionException if the description is empty.
+     */
     public static String extractEventDescription(String line) throws EmptyDescriptionException {
         String eventDescription;
         final int indexOfStartDatePrefix = line.indexOf("/from");
@@ -148,6 +237,12 @@ public class Parser {
         return eventDescription;
     }
 
+    /**
+     * Extracts the end date from an event command.
+     * @param line The input string.
+     * @return The end date of the event.
+     * @throws EmptyDateFieldException if the date field is empty.
+     */
     public static String extractEventEndDate(String line) {
         String eventEndDate;
         final int indexOfStartDatePrefix = line.indexOf("/from");
@@ -164,6 +259,12 @@ public class Parser {
     }
 
     public static String extractEventStartDate(String line) {
+    /**
+     * Extracts the start date from an event command.
+     * @param line The input string.
+     * @return The start date of the event.
+     * @throws EmptyDateFieldException if the date field is empty.
+     */
         String eventStartDate;
         final int indexOfStartDatePrefix = line.indexOf("/from");
         final int indexOfEndDatePrefix = line.indexOf("/to");
