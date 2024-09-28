@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Storage {
@@ -55,8 +58,7 @@ public class Storage {
 
     //loading task
     public static ArrayList<Task> loadTasks() {
-        System.out.println("loading list");
-    
+  
         ArrayList<Task> tasks = new ArrayList<>();
     
         try {
@@ -81,9 +83,22 @@ public class Storage {
                     tasks.add(todo);
                 } else if (taskType.equals("D") && parts.length == 5) {
                     String by = parts[4].trim();  // Deadline date or time
-                    Deadline deadline = new Deadline(description, by);  // Deadline constructor expected to accept a String for date
-                    deadline.setDone(isDone);
-                    tasks.add(deadline);
+                    if (by.startsWith("by:")) {
+                        by = by.replace("by:", "").trim();  // Remove "by:" prefix
+                    }
+
+                    try {
+                        // Parse the deadline date and time
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMM uuuu h:mma");
+                        LocalDateTime dueDateTime = LocalDateTime.parse(by, inputFormatter);  // Convert to LocalDateTime
+
+                        // Create the Deadline object using LocalDateTime
+                        Deadline deadline = new Deadline(description, dueDateTime);
+                        deadline.setDone(isDone);
+                        tasks.add(deadline);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("    Invalid date format for deadline: " + by);
+                    }
                 } else if (taskType.equals("E") && parts.length == 5) {
                     String timing = parts[4].trim();  // Event timing
                     Event event = new Event(description, timing);  // Event constructor expected to accept a String for timing
