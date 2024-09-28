@@ -25,13 +25,15 @@ import java.util.ArrayList;
 public class Ran {
     private static boolean isTerminated = false; 
     private static int listCount = 0;
-    private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "\t____________________________________________________________";
     private static String directory = "./data";
+    
     private static Storage storage; 
+    private static Ui ui;
+    private static TaskList tasks;
 
     // Process task based on its type into relevant fields to be added
-    public static void processTask(String input, TaskType type, TaskList tasks) throws MissingArgumentException, 
+    public static void processTask(String input, TaskType type) throws MissingArgumentException, 
            IOException {
         String description = input;
         switch (type) {
@@ -76,18 +78,18 @@ public class Ran {
         int taskCount = tasks.getTaskCount();
         Task addedTask = tasks.getTask(taskCount - 1); 
         storage.addToDataFile(addedTask.dataFileInput());
-        Ui.printAddedTask(addedTask.toString(), taskCount);
+        ui.printAddedTask(addedTask.toString(), taskCount);
     }
 
-    public static void showList(TaskList tasks) throws EmptyListException {
+    public static void showList() throws EmptyListException {
         int taskCount = tasks.getTaskCount(); 
         if (taskCount == 0) {
             throw new EmptyListException();
         }
-        Ui.printList(tasks.getAllTasks(), taskCount);
+        ui.printList(tasks.getAllTasks(), taskCount);
     }
 
-    public static void markTask(String taskNum, TaskList tasks) throws OutOfListBoundsException, IOException {
+    public static void markTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
@@ -98,10 +100,10 @@ public class Ran {
         String newLine = targetTask.dataFileInput();
         storage.modifyDataFile(oldLine, newLine);
         String markedTask = targetTask.toString();
-        Ui.printMarkedTask(markedTask);
+        ui.printMarkedTask(markedTask);
     }
 
-    public static void unmarkTask(String taskNum, TaskList tasks) throws OutOfListBoundsException, IOException {
+    public static void unmarkTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
@@ -112,60 +114,60 @@ public class Ran {
         String newLine = targetTask.dataFileInput();
         storage.modifyDataFile(oldLine, newLine);
         String unmarkedTask = targetTask.toString();
-        Ui.printUnmarkedTask(unmarkedTask);
+        ui.printUnmarkedTask(unmarkedTask);
     }
     
-    public static void deleteTask(String taskNum, TaskList tasks) throws OutOfListBoundsException, IOException {
+    public static void deleteTask(String taskNum) throws OutOfListBoundsException, IOException {
         int taskNumber = Integer.parseInt(taskNum) - 1;
         if (taskNumber >= listCount || taskNumber < 0) {
             throw new OutOfListBoundsException();
         }
         Task deletedTask = tasks.removeTask(taskNumber);
         storage.deleteFromDataFile(deletedTask.dataFileInput());
-        Ui.printDeletedTask(deletedTask.toString(), tasks.getTaskCount());
+        ui.printDeletedTask(deletedTask.toString(), tasks.getTaskCount());
     }
 
     // Read user input for command, throw exception for invalid commands
-    public static void executeCommand(String input, String[] instruction, TaskList tasks) 
+    public static void executeCommand(String input, String[] instruction) 
             throws MissingCommandException, MissingDescriptionException, EmptyListException,
             OutOfListBoundsException, MissingArgumentException, IOException {
         if (input.equals("bye")) {
             isTerminated = true;
         } else if (input.equals("list")) {
-            showList(tasks);
+            showList();
         } else if (instruction[0].equals("todo")) {
             if (instruction.length > 1) {
-                processTask(input, TaskType.TODO, tasks);
+                processTask(input, TaskType.TODO);
             } else {
                 throw new MissingDescriptionException(TaskType.TODO);
             }
         } else if (instruction[0].equals("deadline")) {
             if (instruction.length > 1) {
-                processTask(input, TaskType.DEADLINE, tasks);
+                processTask(input, TaskType.DEADLINE);
             } else {
                 throw new MissingDescriptionException(TaskType.DEADLINE);
             }
         } else if (instruction[0].equals("event")) {
             if (instruction.length > 1) {
-                processTask(input, TaskType.EVENT, tasks);
+                processTask(input, TaskType.EVENT);
             } else {
                 throw new MissingDescriptionException(TaskType.EVENT);
             }
         } else if (instruction[0].equals("mark")) {
             try {
-                markTask(instruction[1], tasks);
+                markTask(instruction[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException(CommandType.MARK);
             }
         } else if (instruction[0].equals("unmark")) {
             try {
-                unmarkTask(instruction[1], tasks);
+                unmarkTask(instruction[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException(CommandType.UNMARK);
             }
         } else if (instruction[0].equals("delete")) {
             try {
-                deleteTask(instruction[1], tasks);
+                deleteTask(instruction[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException(CommandType.DELETE);
             }
@@ -175,10 +177,10 @@ public class Ran {
     }
 
     // Method chooses appropriate response for user input based on set pattern
-    public static void processInput(String input, TaskList tasks) {
+    public static void processInput(String input) {
         String[] instruction = input.split(" ");
         try {
-            executeCommand(input, instruction, tasks);
+            executeCommand(input, instruction);
         } catch (MissingCommandException e) {
             System.out.println(LINE);
             System.out.println("\tHmmmm, it appears that you didn't give an appropriate command.");
@@ -217,8 +219,9 @@ public class Ran {
     }
 
     public static void main(String[] args) {
-        TaskList tasks = new TaskList();
-        Ui.greet();
+        tasks = new TaskList();
+        ui = new Ui();
+        ui.greet();
 
         try {
             storage = new Storage(directory);
@@ -241,9 +244,9 @@ public class Ran {
         // Process user input line by line until terminating command is given
         while(!isTerminated) {
             input = in.nextLine();
-            processInput(input, tasks);
+            processInput(input);
         }
 
-        Ui.bidFarewell();
+        ui.bidFarewell();
     }
 }

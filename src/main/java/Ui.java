@@ -7,9 +7,9 @@ import ran.task.TaskType;
 import java.util.ArrayList;
 
 public class Ui {
-    private static final String LINE = "\t____________________________________________________________";
+    private final String LINE = "\t____________________________________________________________";
     
-    public static void greet() {
+    public void greet() {
         System.out.println(LINE);
         String logo = "\t     ___           ___           ___\n"
                 + "\t    /\\  \\         /\\  \\         /\\__\\\n"
@@ -27,13 +27,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public static void bidFarewell() {
+    public void bidFarewell() {
         System.out.println(LINE);
         System.out.println("\tFarewell. May we meet again!");
         System.out.println(LINE);
     }
 
-    public static void printAddedTask(String addedTask, int listCount) { 
+    public void printAddedTask(String addedTask, int listCount) { 
         System.out.println(LINE);
         System.out.println("\tUnderstood, I have noted down the following task:");
         System.out.println("\t " +  addedTask);
@@ -43,21 +43,21 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public static void printMarkedTask(String markedTask) {
+    public void printMarkedTask(String markedTask) {
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + markedTask);
         System.out.println(LINE);
     }
     
-    public static void printUnmarkedTask(String unmarkedTask) {
+    public void printUnmarkedTask(String unmarkedTask) {
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + unmarkedTask);
         System.out.println(LINE);
     }
 
-    public static void printDeletedTask(String deletedTask, int listCount) {
+    public void printDeletedTask(String deletedTask, int listCount) {
         System.out.println(LINE);
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + deletedTask);
@@ -66,7 +66,7 @@ public class Ui {
         System.out.println(LINE);
     }
     
-    public static void printList(ArrayList<Task> list, int listCount) {
+    public void printList(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
