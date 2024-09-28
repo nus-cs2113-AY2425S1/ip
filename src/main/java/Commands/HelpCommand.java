@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
     /**
      * Executes the help command by displaying help information through the UI.
      *
-     * @param tasks Unused parameter.
+     * @param taskList Unused parameter.
      * @param ui The user interface for displaying help.
      * @param storage Unused parameter.
      * @throws AlyException If any error occurs during execution.

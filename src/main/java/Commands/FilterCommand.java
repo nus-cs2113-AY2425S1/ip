@@ -12,15 +12,32 @@ import Task.Event;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to filter tasks by a specific date.
+ */
 public class FilterCommand extends Command {
 
     private TaskList taskList;
 
+    /**
+     * Constructs a FilterCommand with the specified instruction.
+     *
+     * @param instruction The date instruction to filter tasks by.
+     */
     public FilterCommand(String instruction) {
         super(instruction);
         this.taskList = new TaskList();
     }
 
+    /**
+     * Executes the filter command by filtering tasks in the given task list
+     * based on the specified date.
+     *
+     * @param taskList The list of tasks to filter.
+     * @param ui The user interface to display results.
+     * @param storage The storage to manage task data.
+     * @throws AlyException If the date format is invalid or an error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         if (!isValidDateFormat(instruction)) {
@@ -46,5 +63,4 @@ public class FilterCommand extends Command {
         }
         ui.showList(this.taskList);
     }
-
 }

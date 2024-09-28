@@ -61,6 +61,12 @@ public abstract class Command {
         return isExit;
     }
 
+    /**
+     * Checks if the given date string is in a valid format (yyyy-MM-dd).
+     *
+     * @param date The date string to validate.
+     * @return True if the date is in the valid format; false otherwise.
+     */
     public boolean isValidDateFormat(String date) {
         try {
             LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -70,6 +76,12 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Checks if the given date and time string is in a valid format (yyyy-MM-dd HHmm).
+     *
+     * @param date The date and time string to validate.
+     * @return True if the date and time are in the valid format; false otherwise.
+     */
     public boolean isValidDateTimeFormat(String date) {
         try {
             LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

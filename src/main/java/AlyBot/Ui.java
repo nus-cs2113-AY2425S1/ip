@@ -62,8 +62,9 @@ public class Ui {
                 + "4. 'mark/unmark' with a number to toggle that task's status\n"
                 + "5. 'delete' with a number to delete that task\n"
                 + "6. 'filter' with a date to see all tasks scheduled on that date\n"
-                + "7. 'help' to see the command list\n"
-                + "8. 'exit' to exit");
+                + "7. 'find' with a description to see all tasks containing that description\n"
+                + "8. 'help' to see the command list\n"
+                + "9. 'exit' to exit");
     }
 
     /**

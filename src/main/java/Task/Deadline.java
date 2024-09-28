@@ -30,6 +30,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the formatted due date and time of the task.
+     *
+     * @return A string representing the formatted due date and time.
+     */
     public String getFormattedDueDateTime() {
         return formattedDueDateTime;
     }

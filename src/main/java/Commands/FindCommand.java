@@ -7,15 +7,32 @@ import AlyBot.Ui;
 
 import Task.Task;
 
+/**
+ * Represents a command to find tasks that match a given description.
+ */
 public class FindCommand extends Command {
 
     private TaskList taskList;
 
+    /**
+     * Constructs a FindCommand with the specified instruction.
+     *
+     * @param instruction The description to search for in tasks.
+     */
     public FindCommand(String instruction) {
         super(instruction);
         this.taskList = new TaskList();
     }
 
+    /**
+     * Executes the find command by searching through the given task list
+     * for tasks containing the specified description.
+     *
+     * @param taskList The list of tasks to search through.
+     * @param ui The user interface to display results.
+     * @param storage The storage to manage task data.
+     * @throws AlyException If an error occurs during execution.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         for (Task task : taskList.getList()) {
@@ -25,5 +42,4 @@ public class FindCommand extends Command {
         }
         ui.showList(this.taskList);
     }
-
 }

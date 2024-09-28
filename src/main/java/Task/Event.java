@@ -35,10 +35,20 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the formatted start date and time of the event.
+     *
+     * @return A string representing the formatted start date and time.
+     */
     public String getFormattedStartDateTime() {
         return formattedStartDateTime;
     }
 
+    /**
+     * Returns the formatted end date and time of the event.
+     *
+     * @return A string representing the formatted end date and time.
+     */
     public String getFormattedEndDateTime() {
         return formattedEndDateTime;
     }
