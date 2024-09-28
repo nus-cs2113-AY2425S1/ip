@@ -6,6 +6,9 @@ import ui.Ui;
 
 import static main.Sirius.*;
 
+/**
+ * The ListCommand class handles the "mark" and "unmark" command, which marks a task in the list as done or unmarks it.
+ */
 public class MarkCommand extends Command {
     private final String userInput;
     private final boolean isMarked;
@@ -14,6 +17,9 @@ public class MarkCommand extends Command {
         this.isMarked = isMarked;
     }
 
+    /**
+     * Executes the mark or unmark command by marking/unmarking the task as complete/incomplete.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IncompleteCommandException {
         String[] slashCommand = userInput.split(SLASH);

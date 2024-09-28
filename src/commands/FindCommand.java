@@ -7,6 +7,9 @@ import ui.Ui;
 
 import static main.Sirius.*;
 
+/**
+ * The FindCommand class allows the user to search for tasks in the TaskList that contain a keyword.
+ */
 public class FindCommand extends Command {
     private final String userInput;
 
@@ -14,6 +17,10 @@ public class FindCommand extends Command {
         this.userInput = userInput;
     }
 
+    /**
+     * Executes the find command, which searches for tasks that contain the specified keyword.
+     * It first parses the user input to extract the keyword, then uses the UI to display the matching tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IncompleteCommandException {
         String[] slashCommand = userInput.split(SLASH);

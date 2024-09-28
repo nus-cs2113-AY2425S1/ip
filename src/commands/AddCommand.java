@@ -8,7 +8,10 @@ import task.*;
 
 import static main.Sirius.*;
 
-
+/**
+ * AddCommand is responsible for adding a new task (Todo, Deadline, or Event) based on user input.
+ * It processes the input and adds the appropriate task to the task list.
+ */
 public class AddCommand extends Command {
     private final String userInput;
 
@@ -16,6 +19,11 @@ public class AddCommand extends Command {
         this.userInput = userInput;
     }
 
+    /**
+     * Executes the AddCommand by parsing the user input and adding the corresponding task to the TaskList.
+     * It supports three types of tasks: Todo, Deadline, and Event.
+     *
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IncompleteCommandException, InvalidTaskContentException {
         String[] slashCommand = userInput.split(SLASH);

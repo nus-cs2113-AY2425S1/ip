@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * The Task class represents a general task with a name and completion status.
+ * It is designed to be extended by specific task types (e.g., Todo, Deadline, Event).
+ */
 public abstract class Task{
     private String taskName;
     private boolean isMarked;
@@ -26,6 +30,12 @@ public abstract class Task{
         this.isMarked = isMarked;
     }
 
+    /**
+     * Returns a string representation of the task, indicating whether it is completed or not, followed by the task name.
+     *
+     * @return A string that shows the task's completion status and name.
+     */
+    @Override
     public String toString(){
         if (isMarked){
             return "[X] " + taskName;

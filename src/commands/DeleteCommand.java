@@ -7,6 +7,9 @@ import ui.Ui;
 
 import static main.Sirius.*;
 
+/**
+ * The DeleteCommand class handles the deletion of a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private final String userInput;
 
@@ -14,6 +17,11 @@ public class DeleteCommand extends Command {
         this.userInput = userInput;
     }
 
+    /**
+     * Executes the delete command, which removes a task from the task list.
+     * It first parses the user input to get the task number, deletes the task from the list,
+     * and then updates the storage and UI.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IncompleteCommandException {
         String[] slashCommand = userInput.split(SLASH);
@@ -29,8 +37,7 @@ public class DeleteCommand extends Command {
             if (taskNumber > tasks.getListSize()) {
                 throw new IndexOutOfBoundsException();
             }
-            // 自然报错outOfBound和numberFormat?
-            ui.showTaskDeleted(tasks, tasks.getListSize(), taskNumber);
+            ui.showTaskDeleted(tasks, taskNumber);
             tasks.deleteTask(taskNumber);
             ui.showCurrentSizeOfList(tasks);
         } catch (IndexOutOfBoundsException e) {

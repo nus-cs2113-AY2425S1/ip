@@ -14,7 +14,7 @@ public class Sirius {
     private final Ui ui;
     private TaskList tasks;
 
-    // some commands
+    // Command keywords used for parsing user input
     public static final String BYE = "bye";
     public static final String LIST = "list";
     public static final String MARK = "mark";
@@ -25,14 +25,14 @@ public class Sirius {
     public static final String DELETE = "delete";
     public static final String FIND = "find";
 
-    // some regexes
+    // Messages shown to the user for different operations
     public static final String SPACE = " ";
     public static final String EMPTY = "";
     public static final String SLASH = "/";
     public static final String STATUS_DELIMINATOR = "\\|";
     public static final String SEPARATOR = "-----------------------------";
 
-    // some messages
+    // Error messages for some exceptions
     public static final String CREATE_DIRECTORY_MESSAGE = "Create a new directory named 'data'!";
     public static final String CREATE_FILE_MESSAGE = "Create a new file named 'Sirius.txt' to store the list!";
     public static final String WELCOME_MESSAGE = "Hello! I'm Sirius, your chatting robot!\nWhat can I do for you?";
@@ -51,7 +51,13 @@ public class Sirius {
     public static final String SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks.";
     public static final String ILLEGAL_COMMAND_MESSAGE = "I don't understand it. Please enter an illegal command!";
 
-
+    /**
+     * Constructs a Sirius object with the specified file path.
+     * Initializes the UI, Storage, and TaskList components.
+     * If the task file is not found, it creates a new TaskList.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Sirius(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -64,6 +70,10 @@ public class Sirius {
         }
     }
 
+    /**
+     * Runs the main logic of the Sirius chatbot.
+     * Continuously reads and executes user commands until getting an exit command.
+     */
     public void run() {
         ui.sayHello();
         boolean isExit = false;
@@ -81,6 +91,10 @@ public class Sirius {
         }
     }
 
+    /**
+     * The main entry point of the Sirius application.
+     * Initializes the Sirius object and starts the application.
+     */
     public static void main(String[] args) {
         new Sirius("data/Sirius.txt").run();
     }
