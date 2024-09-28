@@ -18,10 +18,10 @@ public class MarkCommand extends Command {
      * Constructs a MarkCommand with the type (mark/unmark) and instructions.
      *
      * @param firstWord The type of action (mark or unmark).
-     * @param instructions The task number to mark/unmark.
+     * @param instruction The task number to mark/unmark.
      */
-    public MarkCommand(String firstWord, String instructions) {
-        super(instructions);
+    public MarkCommand(String firstWord, String instruction) {
+        super(instruction);
         this.firstWord = firstWord;
     }
 
@@ -36,13 +36,13 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {
-            String[] splitInput = instructions.split(" ");
+            String[] splitInput = instruction.split(" ");
 
             if (splitInput.length != 1) {
                 throw new InputMismatchException();
             }
 
-            int indexNumToToggle = Integer.parseInt(instructions);
+            int indexNumToToggle = Integer.parseInt(instruction);
             markAsDone(taskList, ui, indexNumToToggle - 1);
             storage.write(taskList);
 

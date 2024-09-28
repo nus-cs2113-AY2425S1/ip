@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class Aly {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
     private static final Path SAVE_FILE = Paths.get("data", "taskdata.txt");
 
@@ -27,10 +27,11 @@ public class Aly {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (AlyException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            ui.printLine();
+            taskList = new TaskList();
         }
     }
 
@@ -56,7 +57,7 @@ public class Aly {
                 String fullCommand = ui.readCommand();
                 ui.printLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(taskList, ui, storage);
                 isExit = c.hasExited();
             } catch (AlyException e) {
                 ui.showError(e.getMessage());

@@ -26,7 +26,7 @@ public class HelpCommand extends Command {
      * @throws AlyException If any error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlyException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         ui.help();
     }
 }

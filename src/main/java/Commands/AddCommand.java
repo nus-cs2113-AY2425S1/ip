@@ -19,10 +19,10 @@ public class AddCommand extends Command {
      * Constructs an AddCommand with the type of task and the instructions to add.
      *
      * @param firstWord The type of task (e.g., todo, deadline, event).
-     * @param instructions The details for the task.
+     * @param instruction The details for the task.
      */
-    public AddCommand(String firstWord, String instructions) {
-        super(instructions);
+    public AddCommand(String firstWord, String instruction) {
+        super(instruction);
         this.firstWord = firstWord;
     }
 
@@ -35,19 +35,19 @@ public class AddCommand extends Command {
      * @throws AlyException If an invalid task type or error occurs during task creation.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             switch (firstWord) {
             case "todo":
-                addTodo(taskList, ui, instructions);
+                addTodo(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             case "deadline":
-                addDeadline(taskList, ui, instructions);
+                addDeadline(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             case "event":
-                addEvent(taskList, ui, instructions);
+                addEvent(taskList, ui, instruction);
                 storage.write(taskList);
                 break;
             default:
@@ -63,20 +63,20 @@ public class AddCommand extends Command {
      *
      * @param taskList The task list to add the Todo task to.
      * @param ui The user interface for output messages.
-     * @param instructions The details of the Todo task.
+     * @param instruction The details of the Todo task.
      * @throws AlyException If the task list is null or the instructions are empty.
      */
-    private void addTodo(TaskList taskList, Ui ui, String instructions) throws AlyException {
+    private void addTodo(TaskList taskList, Ui ui, String instruction) throws AlyException {
         if (taskList == null) {
             throw new AlyException("Task list doesn't exist lah...");
         }
 
-        if (instructions.isEmpty()) {
+        if (instruction.isEmpty()) {
             throw new AlyException("No details bruh... What you expect me to do??");
         }
 
-        taskList.addTask(new Todo(instructions.trim()));
-        ui.addMessage(instructions);
+        taskList.addTask(new Todo(instruction.trim()));
+        ui.addMessage(instruction);
         ui.showTaskSize(taskList.getSize());
     }
 
@@ -85,17 +85,17 @@ public class AddCommand extends Command {
      *
      * @param taskList The task list to add the Deadline task to.
      * @param ui The user interface for output messages.
-     * @param instructions The details of the Deadline task.
+     * @param instruction The details of the Deadline task.
      * @throws AlyException If the instructions are in the wrong format or missing details.
      */
-    private void addDeadline(TaskList taskList, Ui ui, String instructions) throws AlyException {
-        String[] taskParts = instructions.split("\\bby\\b");
+    private void addDeadline(TaskList taskList, Ui ui, String instruction) throws AlyException {
+        String[] taskParts = instruction.split("\\bby\\b");
 
         if (taskList == null) {
             throw new AlyException("Task list doesn't exist lah...");
         }
 
-        if (instructions.isEmpty() || taskParts.length != 2) {
+        if (instruction.isEmpty() || taskParts.length != 2) {
             throw new AlyException("Wrong format bruh... What you expect me to do??");
         }
 
@@ -104,6 +104,10 @@ public class AddCommand extends Command {
 
         if (taskDeadline.isEmpty() || taskBy.isEmpty()) {
             throw new AlyException("Missing details lah, try again!");
+        }
+
+        if (!isValidDateTimeFormat(taskBy)) {
+            throw new AlyException("Wrong date format lah! Use 'yyyy-mm-dd HHmm' for crying out loud!");
         }
 
         taskList.addTask(new Deadline(taskDeadline, taskBy));
@@ -116,13 +120,13 @@ public class AddCommand extends Command {
      *
      * @param taskList The task list to add the Event task to.
      * @param ui The user interface for output messages.
-     * @param instructions The details of the Event task.
+     * @param instruction The details of the Event task.
      * @throws AlyException If the instructions are in the wrong format or missing details.
      */
-    private void addEvent(TaskList taskList, Ui ui, String instructions) throws AlyException {
-        String[] taskParts = instructions.split("\\bfrom\\b|\\bto\\b");
+    private void addEvent(TaskList taskList, Ui ui, String instruction) throws AlyException {
+        String[] taskParts = instruction.split("\\bfrom\\b|\\bto\\b");
 
-        if (instructions.isEmpty() || taskParts.length != 3) {
+        if (instruction.isEmpty() || taskParts.length != 3) {
             throw new AlyException("Wrong format bruh... What you expect me to do??");
         }
 
@@ -136,6 +140,10 @@ public class AddCommand extends Command {
 
         if (taskEvent.isEmpty() || taskFrom.isEmpty() || taskTo.isEmpty()) {
             throw new AlyException("Missing details lah, try again!");
+        }
+
+        if (!isValidDateTimeFormat(taskFrom) | !isValidDateTimeFormat(taskTo)) {
+            throw new AlyException("Wrong date format lah! Use 'yyyy-mm-dd HHmm' for crying out loud!");
         }
 
         taskList.addTask(new Event(taskEvent, taskFrom, taskTo));

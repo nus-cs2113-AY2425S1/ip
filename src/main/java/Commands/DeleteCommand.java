@@ -15,10 +15,10 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand with the specified instructions.
      *
-     * @param instructions The task number to delete.
+     * @param instruction The task number to delete.
      */
-    public DeleteCommand(String instructions) {
-        super(instructions);
+    public DeleteCommand(String instruction) {
+        super(instruction);
     }
 
     /**
@@ -32,13 +32,13 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {
-            String[] splitInput = instructions.split(" ");
+            String[] splitInput = instruction.split(" ");
 
             if (splitInput.length != 1) {
                 throw new InputMismatchException();
             }
 
-            int indexNumToDelete = Integer.parseInt(instructions);
+            int indexNumToDelete = Integer.parseInt(instruction);
             ui.showDelete(taskList, indexNumToDelete-1);
             taskList.removeTask(indexNumToDelete-1);
             ui.showTaskSize(taskList.getSize());

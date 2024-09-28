@@ -1,6 +1,15 @@
 package AlyBot;
 
-import Commands.*;
+import Commands.AddCommand;
+import Commands.Command;
+import Commands.DeleteCommand;
+import Commands.HelpCommand;
+import Commands.ListCommand;
+import Commands.ExitCommand;
+import Commands.EchoCommand;
+import Commands.MarkCommand;
+import Commands.FilterCommand;
+
 import java.util.InputMismatchException;
 
 /**
@@ -46,6 +55,9 @@ public class Parser {
                 break;
             case "delete":
                 commandToExecute = new DeleteCommand(instruction.trim());
+                break;
+            case "filter":
+                commandToExecute = new FilterCommand(instruction.trim());
                 break;
             default:
                 throw new InputMismatchException();

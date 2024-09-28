@@ -13,10 +13,10 @@ public class EchoCommand extends Command {
     /**
      * Constructs an EchoCommand with the specified instructions to echo.
      *
-     * @param instructions The message to echo.
+     * @param instruction The message to echo.
      */
-    public EchoCommand(String instructions) {
-        super(instructions);
+    public EchoCommand(String instruction) {
+        super(instruction);
     }
 
     /**
@@ -30,7 +30,7 @@ public class EchoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {
-            System.out.println(instructions);
+            System.out.println(instruction);
         } catch (Exception e) {
             throw new AlyException("I honestly don't know what happened... Try again bah", e);
         }
