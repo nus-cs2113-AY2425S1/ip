@@ -6,6 +6,7 @@ import tasks.Todo;
 import tasks.Event;
 import exceptions.InvalidCommandException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import filemanager.FileManager;
@@ -20,6 +21,10 @@ public class Storage {
         taskList = new ArrayList<Task>();
         fileManager = new FileManager("C:\\Users\\ASUS\\Documents\\NUS\\Yr 2 Sem 1\\CS2113\\ip\\.\\data\\tasks.txt");
         taskList = fileManager.loadTasks();
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public void saveTasks() {

@@ -25,6 +25,8 @@ public class Parser {
             return new AddEventCommand(userInput);
         } else if (userInput.toLowerCase().startsWith("clear")) {
             return new ClearCommand();
+        } else if (userInput.toLowerCase().startsWith("find")) {
+            return new FindCommand(userInput);
         } else {
             throw new InvalidCommandException("Unknown command: " + userInput);
         }
