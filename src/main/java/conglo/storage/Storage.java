@@ -1,28 +1,30 @@
 package conglo.storage;
 
-import conglo.task.*;
+import conglo.task.Task;
+import conglo.task.TaskList;
+import conglo.task.Deadline;
+import conglo.task.Event;
+import conglo.task.Todo;
+import conglo.exception.StorageInvalidFormat;
+
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskStorage {
+public class Storage {
 
-    private static final String FILE_PATH = "./data/conglo.txt";
-    private static final String DIRECTORY_PATH = "./data";
+    private static String filePath;
 
-    public static ArrayList<Task> loadTasks() {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> loadTasks() throws StorageInvalidFormat, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Path directoryPath = Paths.get(DIRECTORY_PATH);
-            if (!Files.exists(directoryPath)) {
-                Files.createDirectories(directoryPath);
-            }
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             if (!file.exists()) {
-                file.createNewFile();
+                throw new FileNotFoundException(filePath);
             }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
@@ -30,12 +32,11 @@ public class TaskStorage {
                 String[] parts = line.split(" \\| ");
 
                 if (parts.length < 3) {
-                    System.out.println("Invalid task format: " + line);
-                    continue;
+                    throw new StorageInvalidFormat(line);
                 }
 
                 String type = parts[0];
-                boolean isDone = parts[1].equals("✓");
+                boolean isDone = parts[1].equals("1");
                 String description = parts[2];
 
                 Task task = null;
@@ -45,15 +46,13 @@ public class TaskStorage {
                     break;
                 case "D":
                     if (parts.length < 4) {
-                        System.out.println("Invalid deadline format: " + line);
-                        continue;
+                        throw new StorageInvalidFormat(line);
                     }
                     task = new Deadline(description, parts[3].substring(3));
                     break;
                 case "E":
                     if (parts.length < 4) {
-                        System.out.println("Invalid event format: " + line);
-                        continue;
+                        throw new StorageInvalidFormat(line);
                     }
                     String[] details = parts[3].split(" to ");
                     details[0] = details[0].substring(5);
@@ -73,7 +72,7 @@ public class TaskStorage {
     }
 
     public static void saveTasks(ArrayList<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toFileFormat());
                 writer.newLine();
