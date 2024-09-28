@@ -1,13 +1,16 @@
 package conglo.storage;
 
 import conglo.task.Task;
-import conglo.task.TaskList;
 import conglo.task.Deadline;
 import conglo.task.Event;
 import conglo.task.Todo;
 import conglo.exception.StorageInvalidFormat;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +19,7 @@ public class Storage {
     private static String filePath;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
+        Storage.filePath = filePath;
     }
 
     public ArrayList<Task> loadTasks() throws StorageInvalidFormat, FileNotFoundException {
