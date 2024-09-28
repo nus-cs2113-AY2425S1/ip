@@ -29,7 +29,7 @@ public class Event extends Task{
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", this.isDone ? "X" : " ", this.description, from, to);
     }
-    public String toString2() {
+    public String toSaveString() {
         return String.format("E|%d|%s|%s|%s", isDone ? 1 : 0, description, from, to);
     }
 }

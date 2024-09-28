@@ -45,7 +45,7 @@ public class Task {
     public String getTo() {
         return "";
     }
-    public String toString2() {
+    public String toSaveString() {
         return "";
     }
 }

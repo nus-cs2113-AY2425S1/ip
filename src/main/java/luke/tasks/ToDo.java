@@ -16,7 +16,7 @@ public class ToDo extends Task {
     public String toString() {
         return String.format("[T][%s] %s", this.isDone ? "X" : " ", this.description);
     }
-    public String toString2() {
+    public String toSaveString() {
         return String.format("T|%d|%s", isDone ? 1 : 0, description);
     }
 }

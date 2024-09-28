@@ -23,7 +23,7 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D][%s] %s (by: %s)", this.isDone ? "X" : " ", this.description, by);
     }
-    public String toString2() {
+    public String toSaveString() {
         return String.format("D|%d|%s|%s", isDone ? 1 : 0, description, by);
     }
 }

@@ -40,7 +40,7 @@ public class Storage {
         FileWriter fw = new FileWriter("data/tasks.txt");
         String line;
         for (Task t : tasks) {
-            line = t.toString2();
+            line = t.toSaveString();
             fw.write(line);
             fw.write(System.lineSeparator());
         }
