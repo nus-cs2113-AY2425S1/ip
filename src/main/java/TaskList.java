@@ -119,5 +119,13 @@ public class TaskList {
             }
         }
     }
+
+    public static void printTaskWithKeyword(String keyword) {
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println("  " + task);
+            }
+        }
+    }
 }
 

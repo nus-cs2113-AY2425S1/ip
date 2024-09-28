@@ -59,6 +59,7 @@ public class UI {
         System.out.println("event <description> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>: adds task type event to list");
         System.out.println("delete <index>: delete task corresponding to index");
         System.out.println("due <dd/mm/yyyy>: deletes task type description to list");
+        System.out.println("find <keyword>: finds all tasks with keyword in description");
         System.out.println("quag: exit program");
         showLine();
     }

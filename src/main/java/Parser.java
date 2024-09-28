@@ -126,6 +126,14 @@ public class Parser {
                     ui.invalidFormat();
                 }
                 break;
+            case "find":
+                if (parts.length >= 2) {
+                    String keyword = parts[1].trim();
+                    TaskList.printTaskWithKeyword(keyword);
+                } else {
+                    ui.invalidFormat();
+                }
+                break;
             default:
                 ui.showCommandList();
                 break;
