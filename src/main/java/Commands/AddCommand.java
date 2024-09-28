@@ -8,15 +8,32 @@ import Task.Deadline;
 import Task.Event;
 import Task.Todo;
 
+/**
+ * Represents a command to add tasks (Todo, Deadline, Event) to the task list.
+ */
 public class AddCommand extends Command {
 
     private final String firstWord;
 
+    /**
+     * Constructs an AddCommand with the type of task and the instructions to add.
+     *
+     * @param firstWord The type of task (e.g., todo, deadline, event).
+     * @param instruction The details for the task.
+     */
     public AddCommand(String firstWord, String instruction) {
         super(instruction);
         this.firstWord = firstWord;
     }
 
+    /**
+     * Executes the add command by adding the appropriate task to the task list.
+     *
+     * @param taskList The task list to add the task to.
+     * @param ui The user interface for output messages.
+     * @param storage The storage system to save the updated task list.
+     * @throws AlyException If an invalid task type or error occurs during task creation.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {
@@ -41,6 +58,14 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a Todo task to the task list.
+     *
+     * @param taskList The task list to add the Todo task to.
+     * @param ui The user interface for output messages.
+     * @param instruction The details of the Todo task.
+     * @throws AlyException If the task list is null or the instructions are empty.
+     */
     private void addTodo(TaskList taskList, Ui ui, String instruction) throws AlyException {
         if (taskList == null) {
             throw new AlyException("Task list doesn't exist lah...");
@@ -55,6 +80,14 @@ public class AddCommand extends Command {
         ui.showTaskSize(taskList.getSize());
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     *
+     * @param taskList The task list to add the Deadline task to.
+     * @param ui The user interface for output messages.
+     * @param instruction The details of the Deadline task.
+     * @throws AlyException If the instructions are in the wrong format or missing details.
+     */
     private void addDeadline(TaskList taskList, Ui ui, String instruction) throws AlyException {
         String[] taskParts = instruction.split("\\bby\\b");
 
@@ -78,6 +111,14 @@ public class AddCommand extends Command {
         ui.showTaskSize(taskList.getSize());
     }
 
+    /**
+     * Adds an Event task to the task list.
+     *
+     * @param taskList The task list to add the Event task to.
+     * @param ui The user interface for output messages.
+     * @param instruction The details of the Event task.
+     * @throws AlyException If the instructions are in the wrong format or missing details.
+     */
     private void addEvent(TaskList taskList, Ui ui, String instruction) throws AlyException {
         String[] taskParts = instruction.split("\\bfrom\\b|\\bto\\b");
 

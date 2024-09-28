@@ -6,13 +6,23 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Represents the main class for the AlyBot application.
+ * This class manages the interaction between the user, task list, and storage.
+ */
 public class Aly {
 
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private static final Path SAVE_FILE = Paths.get("data","taskdata.txt");
+    private static final Path SAVE_FILE = Paths.get("data", "taskdata.txt");
 
+    /**
+     * Constructs an Aly instance using a specified file path.
+     * Initializes the UI, storage, and loads existing tasks if available.
+     *
+     * @param filePath The path to the storage file for saving tasks.
+     */
     public Aly(Path filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +34,10 @@ public class Aly {
         }
     }
 
+    /**
+     * Starts the AlyBot application, handling user commands and executing tasks
+     * until the exit command is issued.
+     */
     public void run() {
         ui.showWelcome();
         try {
@@ -52,6 +66,11 @@ public class Aly {
         }
     }
 
+    /**
+     * The entry point for the AlyBot application.
+     *
+     * @param args Command line arguments (unused).
+     */
     public static void main(String[] args) {
         new Aly(SAVE_FILE).run();
     }

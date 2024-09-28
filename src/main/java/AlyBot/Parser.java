@@ -1,11 +1,29 @@
 package AlyBot;
 
-import Commands.*;
+import Commands.AddCommand;
+import Commands.Command;
+import Commands.DeleteCommand;
+import Commands.HelpCommand;
+import Commands.ListCommand;
+import Commands.ExitCommand;
+import Commands.EchoCommand;
+import Commands.MarkCommand;
+import Commands.FindCommand;
 
 import java.util.InputMismatchException;
 
+/**
+ * The Parser class interprets user commands and converts them into executable Command objects.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input command and returns the corresponding Command object.
+     *
+     * @param fullCommand The user's input command as a string.
+     * @return The Command object that corresponds to the input.
+     * @throws AlyException If the command is invalid or an error occurs during parsing.
+     */
     public static Command parse(String fullCommand) throws AlyException {
         Command commandToExecute;
         try {
