@@ -59,6 +59,8 @@ public class Parser {
             }
         } else if (userInput.equals("list")) {
             Constants.getList();
+        } else if (userInput.equals("priority list")) {
+            Constants.getPriorityList();
         } else {
             System.out.println(Constants.LINE);
             System.out.println("    Invalid command my brother.");
