@@ -71,7 +71,7 @@ public class Ui {
      * Displays an error message when loading fails.
      */
     public void showLoadingError() {
-        System.out.println("Oops! Something went wrong...");
+        System.out.println("No data to be found bro...");
     }
 
     /**
