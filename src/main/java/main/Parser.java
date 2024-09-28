@@ -44,6 +44,9 @@ public class Parser {
                 Ui.printHorizontalLine();
                 Storage.saveListToFile(listFilePath, userList);
 
+            } else if (isFind(line)) {
+                userList.findItem(line);
+                Ui.printHorizontalLine();
             } else {
                 userList.addItem(line);
                 Ui.printHorizontalLine();
@@ -69,30 +72,34 @@ public class Parser {
         return line.equals("bye");
     }
 
-    private static boolean isMark(String line) {
-        return line.length() >= (MARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 4).equals("mark");
+    public static boolean isMark(String line) {
+        return line.startsWith("mark ");
     }
 
-    private static boolean isUnmark(String line) {
-        return line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark");
+    public static boolean isUnmark(String line) {
+        return line.startsWith("unmark ");
     }
 
-    private static boolean isDelete(String line) {
-        return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
+    public static boolean isDelete(String line) {
+        return line.startsWith("delete ");
+    }
+
+    public static boolean isFind(String line) {
+        return line.startsWith("find ");
     }
 
     public static boolean isValidEvent(String line) {
-        return line.startsWith("event") &&
+        return line.startsWith("event ") &&
                 line.contains(EVENT_FROM_KEYWORD) &&
                 line.contains(EVENT_TO_KEYWORD);
     }
 
     public static boolean isValidDeadline(String line) {
-        return line.startsWith("deadline") && line.contains(DEADLINE_BY_KEYWORD);
+        return line.startsWith("deadline ") && line.contains(DEADLINE_BY_KEYWORD);
     }
 
     public static boolean isTodo(String line) {
-        return line.startsWith("todo");
+        return line.startsWith("todo ");
     }
 
     public static String extractTodoDescription(String line) throws EmptyDescriptionException {
@@ -102,6 +109,15 @@ public class Parser {
         taskDescriptionNotEmpty(todoDescription);
 
         return todoDescription;
+    }
+
+    public static String extractFindDescription(String line) throws EmptyDescriptionException {
+        String findDescription;
+        findDescription = line.replaceFirst("find", "").trim();
+
+        taskDescriptionNotEmpty(findDescription);
+
+        return findDescription;
     }
 
     public static String extractDeadlineDescription(String line) throws EmptyDescriptionException {

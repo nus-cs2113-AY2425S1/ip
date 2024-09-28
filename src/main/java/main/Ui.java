@@ -48,6 +48,10 @@ public class Ui {
         System.out.println("\tError: The task description cannot be empty.");
     }
 
+    public static void printFindDescriptionEmptyMessage() {
+        System.out.println("\tError: The find description cannot be empty.");
+    }
+
     public static void printAddedMessage(ArrayList<Task> itemArrayList, Task task) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
