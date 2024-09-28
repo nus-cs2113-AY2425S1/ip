@@ -4,32 +4,31 @@
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-		[T][ ] borrow book
+		[T][ ] Wong Weng Hong: Answer CS2113 tutorial questions
 	Now you have 1 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-		[D][ ] return book (by: Sunday)
+		[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
+	Here are the tasks in your list:
+	0. [T][ ] Wong Weng Hong: Answer CS2113 tutorial questions
+	1. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+	____________________________________________________________
+	____________________________________________________________
 	Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] CS2113 lecture (from: Friday 4 to: 6pm)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Nice! I've marked this task as done:
-	[D][X] return book (by: Sunday)
+	[T][X] Wong Weng Hong: Answer CS2113 tutorial questions
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[E][X] project meeting (from: Mon 2pm to: 4pm)
+	Here are the tasks in your list:
+	0. [T][X] Wong Weng Hong: Answer CS2113 tutorial questions
+	1. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+	2. [E][ ] CS2113 lecture (from: Friday 4 to: 6pm)
 	____________________________________________________________
-	____________________________________________________________
-	Nice! I've marked this task as not done yet:
-	[D][ ] return book (by: Sunday)
-	____________________________________________________________
-	____________________________________________________________
-	Bye. Hope to see you again soon!
-	____________________________________________________________
-
