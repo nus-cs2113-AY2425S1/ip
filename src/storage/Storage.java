@@ -13,14 +13,27 @@ import static main.Sirius.CREATE_DIRECTORY_MESSAGE;
 import static main.Sirius.CREATE_FILE_MESSAGE;
 import static main.Sirius.STATUS_DELIMINATOR;
 
-
+/**
+ * The Storage class manages reading and writing task data from and to a file in the local file system.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath Path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the specified file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public ArrayList<Task> loadTaskList() throws FileNotFoundException{
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);
@@ -37,6 +50,13 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the given task list to the specified file.
+     * If the directory or file does not exist, it creates them.
+     *
+     * @param list The list of tasks to be saved.
+     * @param ui The UI object for printing messages to the user.
+     */
     public void saveTaskList(ArrayList<Task> list, Ui ui) {
         try {
             File directory = new File("./data");
@@ -61,6 +81,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a line from the file format to a Task object.
+     *
+     * @param line A string in the file format representing a task.
+     * @return The corresponding Task object.
+     */
     private Task fromFileFormat(String line) {
         String[] splitLine = line.split(STATUS_DELIMINATOR);
         String type = splitLine[0].trim();
