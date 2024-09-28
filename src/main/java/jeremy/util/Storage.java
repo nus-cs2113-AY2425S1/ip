@@ -1,6 +1,6 @@
 package jeremy.util;
 
-import jeremy.command.Command;
+import jeremy.command.CommandType;
 import jeremy.exception.InvalidStorageException;
 import jeremy.task.Todo;
 import jeremy.task.Deadline;
@@ -17,8 +17,6 @@ public class Storage {
     private static final String FILE_NAME = "Jeremy.txt";
     private static final String SEPARATOR = " \\| ";
 
-    public Storage() {}
-
     public void createTask(String[] parts, TaskList taskList) {
         try {
             String commandStr = parts[0];
@@ -29,7 +27,7 @@ public class Storage {
                 throw new InvalidStorageException("Corrupted storage :(");
             }
 
-            Command command = Command.fromIcon(commandStr);
+            CommandType command = Parser.fromIcon(commandStr);
 
             switch (command) {
             case TODO:
@@ -48,6 +46,7 @@ public class Storage {
             }
         } catch (Exception ignored) {
             // ignore lines with incorrect format, but continue execution of program
+            System.out.println("error " + ignored);
         }
     }
 

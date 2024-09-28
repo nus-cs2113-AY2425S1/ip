@@ -5,10 +5,6 @@ import jeremy.command.Command;
 import jeremy.exception.JeremyException;
 import java.io.FileNotFoundException;
 
-import jeremy.task.Deadline;
-import jeremy.task.Event;
-import jeremy.task.Todo;
-
 import jeremy.util.Parser;
 import jeremy.util.Storage;
 import jeremy.util.Ui;
@@ -35,41 +31,10 @@ public class Jeremy {
         boolean isExit = false;
 
         while (!isExit) {
-            String userInput = ui.readCommand();
-
             try {
-                Command command = Parser.command(userInput);
-                String argument = Parser.argument(userInput);
-
-                switch (command) {
-                case LIST:
-                    tasks.printList();
-                    break;
-                case MARK:
-                    tasks.markTaskAsDone(argument);
-                    break;
-                case UNMARK:
-                    tasks.markTaskAsNotDone(argument);
-                    break;
-                case DELETE:
-                    tasks.deleteTask(argument);
-                    break;
-                case TODO:
-                    tasks.addTask(new Todo(argument));
-                    break;
-                case DEADLINE:
-                    tasks.addTask(new Deadline(argument));
-                    break;
-                case EVENT:
-                    tasks.addTask(new Event(argument));
-                    break;
-                default:
-                    // Below shouldn't ever run, since there's error
-                    // handling for command type inside the enum
-                    ui.println("How did you get here?");
-                    break;
-                }
-
+                String userInput = ui.readCommand();
+                Command command = Parser.parse(userInput);
+                command.execute(this.tasks, this.ui, this.storage);
                 isExit = command.isExit();
             } catch (JeremyException e) {
                 ui.lineBreak();

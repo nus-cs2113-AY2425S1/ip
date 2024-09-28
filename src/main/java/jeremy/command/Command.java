@@ -1,39 +1,29 @@
 package jeremy.command;
 
-import jeremy.exception.IllegalCommandException;
+import jeremy.exception.*;
+import jeremy.util.Storage;
+import jeremy.util.TaskList;
+import jeremy.util.Ui;
 
-public enum Command {
-    LIST,
-    MARK,
-    UNMARK,
-    DELETE,
-    TODO,
-    DEADLINE,
-    EVENT,
-    BYE;
-
-    public static Command fromString(String command) throws IllegalCommandException {
-        try {
-            return Command.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalCommandException(command);
-        }
-    }
-
-    public static Command fromIcon(String icon) throws IllegalCommandException {
-        switch (icon) {
-        case "T":
-            return TODO;
-        case "D":
-            return DEADLINE;
-        case "E":
-            return EVENT;
-        default:
-            throw new IllegalCommandException("Corrupted storage :(");
-        }
-    }
+public abstract class Command {
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage)
+            throws TaskNotFoundException, InvalidTaskNumberException,
+                    EmptyArgumentException, InvalidCommandFormatException;
 
     public boolean isExit() {
-        return this == BYE;
+        return false;
     }
+
+//    public static Command fromIcon(String icon) throws IllegalCommandException {
+//        switch (icon) {
+//        case "T":
+//            return TODO;
+//        case "D":
+//            return DEADLINE;
+//        case "E":
+//            return EVENT;
+//        default:
+//            throw new IllegalCommandException("Corrupted storage :(");
+//        }
+//    }
 }
