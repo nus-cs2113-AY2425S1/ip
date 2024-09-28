@@ -25,18 +25,28 @@ public class Parser {
         String commandString = inputArguments[0];
         String argumentString = inputArguments.length > 1 ? inputArguments[1] : "";
 
-        return switch (commandString) {
-            case ListCommand.COMMAND_WORD -> createListCommand();
-            case ExitCommand.COMMAND_WORD -> createExitCommand();
-            case DeleteCommand.COMMAND_WORD -> createDeleteCommand(argumentString);
-            case MarkDoneCommand.COMMAND_WORD -> createMarkCommand(argumentString);
-            case UnmarkDoneCommand.COMMAND_WORD -> createUnmarkCommand(argumentString);
-            case TodoCommand.COMMAND_WORD -> createTodoCommand(argumentString);
-            case DeadlineCommand.COMMAND_WORD -> createDeadlineCommand(argumentString);
-            case EventCommand.COMMAND_WORD -> createEventCommand(argumentString);
-            case FindCommand.COMMAND_WORD -> createFindCommand(argumentString);
-            default -> createInvalidCommand();
-        };
+        switch (commandString) {
+            case ListCommand.COMMAND_WORD:
+                return createListCommand();
+            case ExitCommand.COMMAND_WORD:
+                return createExitCommand();
+            case DeleteCommand.COMMAND_WORD:
+                return createDeleteCommand(argumentString);
+            case MarkDoneCommand.COMMAND_WORD:
+                return createMarkCommand(argumentString);
+            case UnmarkDoneCommand.COMMAND_WORD:
+                return createUnmarkCommand(argumentString);
+            case TodoCommand.COMMAND_WORD :
+                return createTodoCommand(argumentString);
+            case DeadlineCommand.COMMAND_WORD:
+                return createDeadlineCommand(argumentString);
+            case EventCommand.COMMAND_WORD:
+                return createEventCommand(argumentString);
+            case FindCommand.COMMAND_WORD:
+                return createFindCommand(argumentString);
+            default:
+                return createInvalidCommand();
+        }
     }
 
     /**
