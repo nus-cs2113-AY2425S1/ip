@@ -76,7 +76,6 @@ public class TaskList {
             return LocalDateTime.parse(deadlineDate, inputFormatter);
     }
 
-
     public static LocalDateTime getDeadlineDateAsLocalDateTimeFromFile(String deadlineDate) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return LocalDateTime.parse(deadlineDate, inputFormatter);

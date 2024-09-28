@@ -103,7 +103,13 @@
 	________________________________________
 
 	________________________________________
-	Error: The task description cannot be empty.
+	Invalid command format:
+		todo <task name>
+		deadline <deadline name> /by <deadline>
+		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
 	________________________________________
 
 	________________________________________
