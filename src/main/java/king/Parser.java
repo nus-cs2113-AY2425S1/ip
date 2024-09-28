@@ -2,9 +2,20 @@ package king;
 
 import king.command.*;
 
+/**
+ * The parser class is responsible for parsing the user input and
+ * returning the appropriate command based on the parsed input.
+ */
 public class Parser {
 
-    public static Command parse(String userInput) throws KingException {
+    /**
+     * Parses the user input string and returns the command.
+     *
+     * @param userInput The input string provided by the user.
+     * @return The corresponding Command object based on the user input.
+     * @throws KingException If the command is not recognized or the input format is invalid.
+     */
+    protected static Command parse(String userInput) throws KingException {
         String parsedInput = userInput.trim().toLowerCase();
         userInput = userInput.trim();
 
@@ -33,6 +44,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts and parses the task index from the user's input.
+     * This method is used for commands that require a task number, such as 'mark', 'unmark', or 'delete'.
+     *
+     * @param text The input string containing the command and task number.
+     * @return The zero-based index of the task extracted from the input.
+     * @throws KingException If the task number is missing or cannot be parsed.
+     */
     protected static int parseTaskIndex(String text) throws KingException {
         int taskIndex;
         try {

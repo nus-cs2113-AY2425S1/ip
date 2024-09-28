@@ -8,22 +8,36 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of tasks for King.
+ * Manages reading, writing, and deleting tasks from the storage file.
+ */
 public class Storage {
-    private final static String defaultFilePath = "out/production/ip/king/Tasks.txt";
-    private final static String backupFilePath = "src/main/resources/Tasks_backup.txt";
+    private final static String DEFAULTFILEPATH = "out/production/ip/king/Tasks.txt";
+    private final static String BACKUPFILEPATH = "src/main/resources/Tasks_backup.txt";
 
+    /**
+     * Checks if the storage file exists at the default file path.
+     *
+     * @return true if the file exists, false otherwise.
+     */
     protected static boolean checkFile() {
-        File f = new File(defaultFilePath);
+        File f = new File(DEFAULTFILEPATH);
         return f.exists();
     }
 
+    /**
+     * Creates a new file by copying from a backup file. If the backup file is not found,
+     * load the file from the resources and create a new file at the default path.
+     *
+     * @throws IOException If an I/O error occurs during file creation.
+     */
     protected static void createNewFile() throws IOException {
         try {
-            Files.copy(Paths.get(backupFilePath), Paths.get(defaultFilePath));
+            Files.copy(Paths.get(BACKUPFILEPATH), Paths.get(DEFAULTFILEPATH));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             InputStream backupFileStream = Storage.class.getClassLoader().getResourceAsStream("Tasks_backup.txt");
-            File targetFile = new File(defaultFilePath);
+            File targetFile = new File(DEFAULTFILEPATH);
             targetFile.getParentFile().mkdirs();
             try (FileOutputStream out = new FileOutputStream(targetFile)) {
                 byte[] buffer = new byte[1024];
@@ -35,9 +49,14 @@ public class Storage {
         }
     }
 
-    public static void deleteFile() throws IOException, KingException {
+    /**
+     * Deletes the storage file if it exists. If the file does not exist, it throws an exception.
+     *
+     * @throws KingException If no file exists to delete.
+     */
+    public static void deleteFile() throws KingException {
         try {
-            Files.deleteIfExists(Paths.get(defaultFilePath));
+            Files.deleteIfExists(Paths.get(DEFAULTFILEPATH));
             System.out.println("\n____________________________________________________________\n" +
                                " Saved file has been deleted!");
         } catch (IOException e) {
@@ -46,13 +65,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file and loads them into a list of tasks.
+     * If the file is not found or is corrupted, it attempts to create a new file.
+     *
+     * @return An ArrayList<Task> of tasks loaded from the file.
+     * @throws IOException   If an I/O error occurs during file reading.
+     * @throws KingException If the file is corrupted or the data is invalid.
+     */
     protected static ArrayList<Task> readFile() throws IOException, KingException {
         if (!checkFile()) {
             createNewFile();
         }
 
         ArrayList<Task> tasks = new ArrayList<>();
-        File f = new File(defaultFilePath);
+        File f = new File(DEFAULTFILEPATH);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         try (Scanner s = new Scanner(f)) {
@@ -94,9 +121,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates the storage file with the current task list. Writes each task's details to the file.
+     */
     protected static void updateFile() {
         try {
-            try (FileWriter fw = new FileWriter(defaultFilePath, false)) {
+            try (FileWriter fw = new FileWriter(DEFAULTFILEPATH, false)) {
                 for (Task task : TaskList.getTasks()) {
                     if (task instanceof Todo) {
                         Todo todoTask = (Todo) task;
