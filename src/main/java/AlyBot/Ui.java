@@ -68,13 +68,6 @@ public class Ui {
     }
 
     /**
-     * Displays an error message when loading fails.
-     */
-    public void showLoadingError() {
-        System.out.println("No data to be found bro...");
-    }
-
-    /**
      * Displays a specified error message to the user.
      *
      * @param message The error message to display.

@@ -135,9 +135,9 @@ public class Storage {
         System.out.println("Searching for " + saveFile + "...");
         try {
             if (file.createNewFile()) {
-                System.out.println("Cannot findTask file so I help you create already! File name: " + saveFile);
+                System.out.println("Cannot find task data file so I help you create bro! File name: " + saveFile);
             } else {
-                System.out.println("File already exists, I will edit that!");
+                System.out.println("Loaded task data from " + saveFile + "!");
             }
         } catch (IOException e) {
             throw new AlyException("Error! File sucks because: " + e.getMessage());
@@ -154,6 +154,7 @@ public class Storage {
         if (directory != null && !Files.exists(directory)) {
             try {
                 Files.createDirectories(directory);
+                System.out.println("Cannot find directory so I help you create first!");
             } catch (IOException e) {
                 throw new AlyException("Error creating directory: " + e.getMessage());
             }
