@@ -12,6 +12,7 @@ public class AddDeadlineCommand implements Command {
     private final List<Task> taskList;
     private final Storage storage;
     private final String input;
+    private final int byIndexOffset = 4;
 
     public AddDeadlineCommand(TaskList tasks, String input) {
         this.taskList = tasks.getTaskList();
@@ -21,7 +22,6 @@ public class AddDeadlineCommand implements Command {
 
     @Override
     public void execute() throws InvalidDeadlineFormatException {
-        int byIndexOffset = 4;
         int byIndex = input.indexOf("/by");
 
         if (byIndex < 0) {

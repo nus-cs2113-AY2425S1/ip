@@ -58,7 +58,11 @@ public class UI {
         System.out.println("   unmark <task_index>");
         System.out.println("   Example: unmark 2");
 
-        System.out.println("\n7. Exit the App:");
+        System.out.println("\n7. Find Tasks with similar Descriptions :");
+        System.out.println("   find <prompt>");
+        System.out.println("   Example: find book");
+
+        System.out.println("\n8. Exit the App:");
         System.out.println("   bye");
         System.out.println("   Exits the application.");
 

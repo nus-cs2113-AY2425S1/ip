@@ -12,6 +12,8 @@ public class AddEventCommand implements Command {
     private final ArrayList<Task> taskList;
     private final Storage storage;
     private final String input;
+    private final int fromIndexOffset = 6;
+    private final int toIndexOffset = 4;
 
     public AddEventCommand(TaskList tasks, String input) {
         this.taskList = tasks.getTaskList();
@@ -21,9 +23,6 @@ public class AddEventCommand implements Command {
 
     @Override
     public void execute() throws InvalidEventFormatException {
-        int fromIndexOffset = 6;
-        int toIndexOffset = 4;
-
         int fromIndex = input.indexOf("/from") + fromIndexOffset;
         int toIndex = input.indexOf("/to");
 

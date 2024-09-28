@@ -32,6 +32,7 @@ public class Parser {
             case "todo" -> new AddTodoCommand(tasks, input);
             case "deadline" -> new AddDeadlineCommand(tasks, input);
             case "event" -> new AddEventCommand(tasks, input);
+            case "find" -> new FindCommand(tasks,input);
             case "help" -> new HelpCommand(ui);
             default -> throw new InvalidCommandException("Sorry, unknown command.");
         };

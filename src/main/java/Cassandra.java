@@ -40,7 +40,8 @@ public class Cassandra {
                 c.execute();
             }catch (TaskNotFoundException | NoTaskIndexFoundException | TaskAlreadyMarkedException |
                     NoCommandException | TaskAlreadyUnmarkedException | InvalidEventFormatException |
-                    InvalidDeadlineFormatException | InvalidCommandException e) {
+                    InvalidDeadlineFormatException | InvalidCommandException |
+                    NoTaskContainsMatchingPromptException e) {
                 ui.showError(e);
             }
             ui.drawLine();

@@ -11,7 +11,7 @@ public class AddTodoCommand implements Command {
     private final ArrayList<Task> taskList;
     private final Storage storage;
     private final String input;
-
+    private final int todoOffset = 4;
     public AddTodoCommand(TaskList tasks, String input) {
         this.taskList = tasks.getTaskList();
         this.storage = tasks.getStorage();
@@ -20,7 +20,6 @@ public class AddTodoCommand implements Command {
 
     @Override
     public void execute() {
-        int todoOffset = 4;
         String taskName = input.substring(todoOffset).trim();
         Todo newTodo = new Todo(taskName);
         taskList.add(newTodo);
