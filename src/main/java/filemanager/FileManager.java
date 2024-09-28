@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,10 +60,17 @@ public class FileManager {
     }
 
     public Task parseTask(String line) {
+        if (line.trim().isEmpty()) {
+            System.out.println("Empty line found, skipping...");
+            return null;
+        }
+
         String[] parts = line.split(" \\| ");
 
         String taskType = parts[0];
         boolean isCompleted = parts[1].equals("+");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         switch (taskType) {
             case "T":
@@ -82,7 +91,8 @@ public class FileManager {
                     return null;  // Skip invalid tasks
                 }
                 String deadlineTaskName = parts[2];
-                String deadline = parts[3].replace("by ", "");
+                String deadlineString = parts[3].replace("by ", "");
+                LocalDateTime deadline = LocalDateTime.parse(deadlineString, formatter);
                 Task deadlineTask = new Deadline(deadlineTaskName, deadline);
                 if (isCompleted) {
                     deadlineTask.setStatus();
@@ -100,8 +110,10 @@ public class FileManager {
                     System.out.println("Invalid Event task time format: " + line);
                     return null;
                 }
-                String start = eventTimes[0];
-                String end = eventTimes[1];
+                String startString = eventTimes[0];
+                String endString = eventTimes[1];
+                LocalDateTime start = LocalDateTime.parse(startString, formatter);
+                LocalDateTime end = LocalDateTime.parse(endString, formatter);
                 Task eventTask = new Event(eventTaskName, start, end);
                 if (isCompleted) {
                     eventTask.setStatus();

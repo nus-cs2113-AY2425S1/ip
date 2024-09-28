@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDate;
+
 public class Task {
     private String task;
     private boolean isDone;
@@ -12,8 +14,8 @@ public class Task {
         return isDone;
     }
 
-    public Task(String contents) {
-        this.task = contents;
+    public Task(String task) {
+        this.task = task;
         this.isDone = false;
     }
 
