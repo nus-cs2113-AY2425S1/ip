@@ -41,6 +41,9 @@ public class Parser {
                 Ui.printHorizontalLine();
                 Storage.saveListToFile(listFilePath, userList);
 
+            } else if (isFind(line)) {
+                userList.findItem(line);
+                Ui.printHorizontalLine();
             } else {
                 userList.addItem(line);
                 Ui.printHorizontalLine();
@@ -76,6 +79,8 @@ public class Parser {
 
     private static boolean isDelete(String line) {
         return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
+    public static boolean isFind(String line) {
+        return line.startsWith("find ");
     }
 
     public static boolean isValidEvent(String line) {
@@ -99,6 +104,15 @@ public class Parser {
         taskDescriptionNotEmpty(todoDescription);
 
         return todoDescription;
+    }
+
+    public static String extractFindDescription(String line) throws EmptyDescriptionException {
+        String findDescription;
+        findDescription = line.replaceFirst("find", "").trim();
+
+        taskDescriptionNotEmpty(findDescription);
+
+        return findDescription;
     }
 
     public static String extractDeadlineDescription(String line) throws EmptyDescriptionException {

@@ -99,4 +99,31 @@ public class List {
         }
         return outputString;
     }
+
+    public void findItem(String line) {
+        try {
+            String findDescription = Parser.extractFindDescription(line);
+            ArrayList<Task> matchedArrayList = new ArrayList<>(itemArrayList); // Safe copy of the original list
+
+            int i = 0;
+            while (i < matchedArrayList.size()) {
+                Task t = matchedArrayList.get(i);
+
+                if (!t.getDescription().contains(findDescription)) {
+                    matchedArrayList.remove(t);
+                } else {
+                    i += 1;
+                }
+            }
+
+            System.out.println("\tHere are the matching tasks in your list:");
+            int j = 0;
+            for (Task a: matchedArrayList) {
+                System.out.println("\t" + (j + 1) + "." + a);
+                j += 1;
+            }
+        } catch (EmptyDescriptionException e) {
+            Ui.printFindDescriptionEmptyMessage();
+        }
+    }
 }
