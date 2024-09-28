@@ -8,15 +8,31 @@ import tyrone.task.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 public class Constants {
+
+    private Scanner scanner;
+
+    public Constants() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
     public static final String LINE = "    ___________________________________";
     public static String logo = " _____                           \n|_   _|   _ _ __ ___  _ __   ___ \n  | || | | | '__/ _ \\| '_ \\ / _ \\\n  | || |_| | | | (_) | | | |  __/\n  |_| \\__, |_|  \\___/|_| |_|\\___|\n      |___/                      ";
 
     public static ArrayList<Task> toDoList = new ArrayList<>();
 
-    public Constants() {
+    public static void intro() {
+        System.out.println(Constants.LINE);
+        System.out.println("    Hello from\n" + Constants.logo + "\n");
+        System.out.println("    What can I do for you cuh?\n");
+        System.out.println(Constants.LINE);
     }
 
     public static void goodbye() {
@@ -85,48 +101,6 @@ public class Constants {
         } else {
             System.out.println(LINE);
             System.out.println("    Invalid task number bro.");
-            System.out.println(LINE);
-        }
-    }
-    // Save tasks
-    public static void saveTasks() {
-        try {
-            // Check if ./data directory exists, if not, create it
-            File directory = new File("./data");
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
-            // Create or open Tasks.txt file
-            FileWriter writer = new FileWriter("./data/Tasks.txt");
-
-            // Write all tasks to the file
-            for (int i = 0; i < toDoList.size(); i++) {
-                Task task = toDoList.get(i);
-                String taskType = task instanceof Deadline ? "D" : (task instanceof Event ? "E" : "T");
-                String statusIcon = task.getStatusIcon();
-                String taskDescription = task.getDescription();
-
-                // Write task details based on its type
-                if (task instanceof Deadline) {
-                    String doBy = ((Deadline) task).getDoBy();
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + " | by: " + doBy + "\n");
-                } else if (task instanceof Event) {
-                    String timing = ((Event) task).getTiming();
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + " | " + timing + "\n");
-                } else {
-                    writer.write("| " + taskType + " | " + statusIcon + " | " + taskDescription + "\n");
-                }
-            }
-
-            writer.close();
-            System.out.println(LINE);
-            System.out.println("    Tasks have been saved to ./data/Tasks.txt");
-            System.out.println(LINE);
-
-        } catch (IOException e) {
-            System.out.println(LINE);
-            System.out.println("    An error occurred while saving tasks.");
             System.out.println(LINE);
         }
     }
