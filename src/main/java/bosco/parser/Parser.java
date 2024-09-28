@@ -19,11 +19,24 @@ import bosco.exception.MissingPrefixException;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a parser object that parses the user inputs
+ * from the command line, and returns the command to be executed.
+ */
 public class Parser {
     private static final String DEADLINE_PREFIX_BY = "/by";
     private static final String EVENT_PREFIX_FROM = "/from";
     private static final String EVENT_PREFIX_TO = "/to";
 
+    /**
+     * Parses the user's raw command line input and returns the command to be executed.
+     *
+     * @param userInputString Raw input string from the command line.
+     * @return <code>Command</code> object to be executed.
+     * @throws IllegalCommandException If command from user is not valid.
+     * @throws EmptyDescriptionException If user does not provide a description for the task.
+     * @throws MissingPrefixException If user does not provide the required "by", "from" or "to" prefix.
+     */
     public Command parseCommand(String userInputString)
             throws EmptyDescriptionException, EmptyKeywordException,
             IllegalCommandException, IllegalDateTimeException, MissingPrefixException {
