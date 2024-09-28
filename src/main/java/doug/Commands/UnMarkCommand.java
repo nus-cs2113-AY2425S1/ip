@@ -4,8 +4,6 @@ import doug.Storage;
 import doug.TaskList;
 import doug.UI;
 
-import static doug.UI.DASHED_LINE;
-
 import java.io.IOException;
 
 /**
@@ -14,7 +12,7 @@ import java.io.IOException;
  */
 public class UnMarkCommand extends Command {
 
-    private static int taskIndex;
+    private static int taskIndex; // Index of the task to be unmarked
 
     public UnMarkCommand(int taskIndex) {
         UnMarkCommand.taskIndex = taskIndex;
@@ -27,6 +25,7 @@ public class UnMarkCommand extends Command {
      * @param ui The UI object
      * @param storage The Storage object
      */
+    @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         tasks.getTask(taskIndex - 1).markAsNotDone();
         try {
@@ -35,7 +34,7 @@ public class UnMarkCommand extends Command {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as not done");
-        System.out.print(tasks.getTask(taskIndex - 1).toString() + "\n" + DASHED_LINE);
+        System.out.println(ui.getDashedLine() + "Sure thing partner, I'll mark it as not done");
+        System.out.print(tasks.getTask(taskIndex - 1).toString() + "\n" + ui.getDashedLine());
     }
 }

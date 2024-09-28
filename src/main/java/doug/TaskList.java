@@ -2,9 +2,8 @@ package doug;
 
 import doug.Main.DougException;
 import doug.tasks.Task;
-import java.util.ArrayList;
 
-import static doug.UI.DASHED_LINE;
+import java.util.ArrayList;
 
 /**
  * Represents the ArrayList containing all the added Tasks
@@ -13,16 +12,18 @@ import static doug.UI.DASHED_LINE;
 public class TaskList {
     private ArrayList<Task> tasks;
     private static int counter;
+    private static UI ui;
 
     public TaskList() {
         counter = 0;
         tasks = new ArrayList<>();
+        ui = new UI();
     }
 
     /**
      * Adds a new task to the ArrayList
      *
-     * @param task New task to be added
+     * @param task New task object to be added
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -42,7 +43,7 @@ public class TaskList {
      * Returns a specific task based on it's index in the ArrayList
      *
      * @param id Index of the task to be returned
-     * @return The task specified by the input index
+     * @return The task object specified by the input index
      */
     public  Task getTask(int id) {
         return tasks.get(id);
@@ -75,7 +76,9 @@ public class TaskList {
      */
     public void checkOutOfBounds(int listIndex) throws DougException {
         if (listIndex > counter || listIndex <= 0) {
-            throw new DougException(DASHED_LINE + "No can do bud, your input is invalid!\n" + DASHED_LINE);
+            throw new DougException(ui.getDashedLine()
+                    + "No can do bud, your input is invalid!\n"
+                    + ui.getDashedLine());
         }
     }
 }

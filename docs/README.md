@@ -4,7 +4,7 @@
 
 ### Who is Doug?
 **Doug Dimmadome** is your friendly Texan chatbot, here to make your life easy with that typical Southern hospitality.
-His main goal is to help you take note down and access your important tasks.
+His main goal is to help you note down and access your important tasks.
 
 # How To Launch and Use Doug
 1. Ensure that you have Java 17 installed
@@ -14,6 +14,28 @@ His main goal is to help you take note down and access your important tasks.
 4. Type in `java -jar 2113IP.jar` to launch Doug 
 5. If successful, you should see the welcome message as shown above
 
+
+# Features
+
+### Input Formatting Guide
+- White spaces at the very front and end of the input are safely ignored
+- White spaces between different parameters are safely ignored
+  - e.g. deadline $~~~~$ homework $~~~~~~~~~~~$ /by $~~~~~~~~~~~$ tomorrow
+- White spaces within format identifiers (e.g. /from, /by, etc.) will lead to input being rejected
+  - e.g. **ev$~~$ent** CCA Meeting **/fr$~~$om** morning /to tonight
+- Date and time inputs must match exactly the formats outlined later, and no whitespaces within them are allowed
+
+### Interpreting Output Format
+Tasks are shown to the user in the following format
+`[Z][X] description [time/date]`
+- In the first box, the letter represents the task type
+  - T = **todo** task
+  - D = **deadline** task
+  - E = **event** task
+
+- In the second box, the letter represents whether the task is marked as done or not done
+  - X = task is marked as **done**. 
+  - (blank) = task is marked as **not done**.
 
 ## Adding Todos
 
@@ -27,7 +49,10 @@ Example: `todo collect laundry`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+I've added: [T][ ] collect laundry for you.
+Your list is now 1 tasks long partner
+_____________________________________________________________________________________________________
 ```
 
 
@@ -41,13 +66,16 @@ Creates a new deadline task
   - In text form (e.g. tomorrow)
   - In date form yyyy-MM-dd (e.g. 2001-11-09)
   - In date and time form yyyy-MM-dd hhmm (e.g. 2020-03-14 1759) 
-    - Note: There must be only ONE white space between the date and time
+    - Note: There **must** be only **ONE** white space between the date and time
 
 Example: `deadline ip submission /by tomorrow`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+I've added: [D][ ] ip submission (by: tomorrow) for you.
+Your list is now 2 tasks long partner
+_____________________________________________________________________________________________________
 ```
 
 ## Adding Events
@@ -66,7 +94,10 @@ Example: `event football game /from 2018-05-21 1930 /to 2018-05-21 2100`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+I've added: [E][ ] football game (from: May 21 2018, 07.30pm to: May 21 2018, 09.00pm) for you.
+Your list is now 3 tasks long partner
+_____________________________________________________________________________________________________
 ```
 
 
@@ -75,14 +106,25 @@ EXPECTED OUTPUT IS
 Format: `list`
 
 Lists out all the tasks, in order of insertion
+- When accessing specific tasks (for marking, unmarking or deletion), use the index number shown by this command
 
 Example: `list`
 
-Expected Output:
+Expected Output (When list is not empty):
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+Here, let me lay out your tasks for you.
+1.[T][ ] collect laundry
+2.[D][ ] ip submission (by: tomorrow)
+3.[E][ ] football game (from: May 21 2018, 07.30pm to: May 21 2018, 09.00pm)
+_____________________________________________________________________________________________________
 ```
-
+Expected Output (When list is empty):
+```
+_____________________________________________________________________________________________________
+Got nothing on your roster bud.
+_____________________________________________________________________________________________________
+```
 
 ## Marking Tasks
 
@@ -95,7 +137,10 @@ Example: `mark 1`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+Sure thing partner, I'll mark it as done
+[T][X] collect laundry
+_____________________________________________________________________________________________________
 ```
 
 
@@ -106,11 +151,14 @@ Format: `unmark INDEX`
 Marks the task as not done
 - Index must match that of the listed indexes
 
-Example: `unmark 2`
+Example: `unmark 1`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+Sure thing partner, I'll mark it as not done
+[T][ ] collect laundry
+_____________________________________________________________________________________________________
 ```
 
 
@@ -125,7 +173,10 @@ Example: `delete 3`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+I've deleted: [E][ ] football game (from: May 21 2018, 07.30pm to: May 21 2018, 09.00pm) for you.
+Your list is now 2 tasks long partner
+_____________________________________________________________________________________________________
 ```
 
 
@@ -136,11 +187,17 @@ Format: `find KEYWORDS`
 Looks through all the task to find matching task descriptions as the keywords
 - Keywords can be as many words or numbers or both
 
-Example: `find homework`
+Example: `find IP task`
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+
+[T][ ] IP task 1
+[T][ ] IP task 2
+[T][ ] IP task 3
+Here, found these tasks for ya!
+_____________________________________________________________________________________________________
 ```
 
 ## Closing the Chatbot
@@ -151,7 +208,10 @@ Ends the program
 
 Expected Output:
 ```
-EXPECTED OUTPUT IS
+_____________________________________________________________________________________________________
+It's been a pleasure partner.
+Hope to see you around these parts again soon!
+_____________________________________________________________________________________________________
 ```
 
 ## Saving your List of Tasks
@@ -165,4 +225,4 @@ The save data is written to a .txt file located at `[JAR file location]/data/tas
 Users are welcome to edit the save file if they wish to do so
 
 However, if the tasks are modified to a different format than what is accepted by the system,
-then the modified tasks may be incorrectly registered by Doug
+then the modified tasks may be incorrectly registered by Doug. Take caution when doing so.

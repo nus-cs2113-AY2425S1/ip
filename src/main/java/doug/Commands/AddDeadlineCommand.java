@@ -26,6 +26,7 @@ public class AddDeadlineCommand extends Command {
      * @param ui The UI object
      * @param storage The Storage object
      */
+    @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         Deadline deadlineTask = new Deadline(deadlineName, deadlineBy);
         addNewTask(tasks, deadlineTask, ui, storage);

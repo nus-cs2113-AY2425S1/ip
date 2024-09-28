@@ -28,6 +28,7 @@ public class AddEventCommand extends Command {
      * @param ui The UI object
      * @param storage The Storage object
      */
+    @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         Event eventTask = new Event(eventName, eventFrom, eventBy);
         addNewTask(tasks, eventTask, ui, storage);

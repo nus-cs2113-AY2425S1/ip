@@ -12,16 +12,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Class that deals with saving and loading tasks from the local .txt file
+ * Class that deals with saving and loading tasks from the local .txt save file
  */
 public class Storage {
 
-    private String filePath;
-    private UI ui;
+    private String filePath; // File path of the .txt save file
 
-    public Storage(String filePath, UI ui) {
+    public Storage(String filePath) {
         this.filePath = filePath;
-        this.ui = ui;
     }
 
     /**
@@ -48,11 +46,13 @@ public class Storage {
      * Reads the save file line by line and adds the saved tasks to the TaskList tasks object
      *
      * @param tasks The object containing the ArrayList of tasks
+     * @param ui The UI object
+     * @param storage The Storage object
      * @throws FileNotFoundException If save file cannot be found
      */
     public void loadTasks(TaskList tasks, UI ui, Storage storage) throws FileNotFoundException {
-        File tasksFile = new File(filePath); 	// create a File for the given file path
-        Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File as the source
+        File tasksFile = new File(filePath); 	// create a File object for the given file path
+        Scanner reader = new Scanner(tasksFile); 	// create a Scanner using the File object as the source
         boolean isEmpty = true;
         while (reader.hasNext()) {
             String line = reader.nextLine();
@@ -70,7 +70,7 @@ public class Storage {
             return;
         }
         ListCommand c = new ListCommand();
-        c.execute(tasks, ui, storage);
+        c.execute(tasks, ui, storage); // List and print out all the tasks found in the save file
     }
 
     /**
@@ -160,4 +160,3 @@ public class Storage {
     }
 
 }
-

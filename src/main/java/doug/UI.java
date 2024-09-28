@@ -6,7 +6,8 @@ import java.util.Scanner;
  * Class that deals with showing certain UI elements to the user
  */
 public class UI {
-    public static final String DASHED_LINE = "__________________________________________________________\n";
+    public static final String DASHED_LINE
+            = "_____________________________________________________________________________________________________\n";
     private static final String hat = "                                    %,                         ,#.\n";
     private static final int hatHeight = 50;
     private static final String face = """
@@ -58,6 +59,14 @@ public class UI {
             + "It's been a pleasure partner.\n"
             + "Hope to see you around these parts again soon!\n"
             + DASHED_LINE;
+    private static final String confusedMessage
+            = DASHED_LINE
+            + "It ain't clear to me what you wanna do pal...\n"
+            + DASHED_LINE;
+    private static final String missingIndexMessage
+            = DASHED_LINE
+            + "You're missing the index number pal...\n"
+            + DASHED_LINE;
 
     private Scanner input;
 
@@ -75,6 +84,40 @@ public class UI {
     }
 
     /**
+     * Returns the dashed line as a string
+     *
+     * @return dashed line string
+     */
+    public String getDashedLine() {
+        return DASHED_LINE;
+    }
+
+    /**
+     * Prints the dashed line to CLI
+     */
+    public void printDashedLine() {
+        System.out.println(DASHED_LINE);
+    }
+
+    /**
+     * Get the confused message string
+     *
+     * @return confused message string
+     */
+    public String getConfusedMessage() {
+        return confusedMessage;
+    }
+
+    /**
+     * Get the missing index message string
+     *
+     * @return missing index message string
+     */
+    public String getMissingIndexMessage() {
+        return missingIndexMessage;
+    }
+
+    /**
      * Prints the Doug Dimmadome ASCII art to the CLI
      */
     public void printLogo() {
@@ -85,14 +128,14 @@ public class UI {
     }
 
     /**
-     * Prints the message to new users to the CLI
+     * Prints the welcome message to new users to the CLI
      */
     public void sayNewUserWelcome() {
         System.out.println(newWelcomeMessage);
     }
 
     /**
-     * Prints the message to existing users to the CLI
+     * Prints the welcome message to existing users to the CLI
      */
     public void sayExistingUserWelcome() {
         System.out.println(existingWelcomeMessage);

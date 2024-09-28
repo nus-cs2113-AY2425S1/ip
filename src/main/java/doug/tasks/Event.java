@@ -10,13 +10,21 @@ import java.time.format.DateTimeParseException;
  * Inherits from Task class
  */
 public class Event extends Task{
-    protected String from;
-    protected String to;
-    protected LocalDateTime fromDateAndTime;
-    protected LocalDate fromDate;
-    protected LocalDateTime toDateAndTime;
-    protected LocalDate toDate;
+    protected String from; // used if start date and time were not provided for the task
+    protected String to; // used if end date and time were not provided for the task
+    protected LocalDateTime fromDateAndTime; // used if task's start was given both a date and time
+    protected LocalDate fromDate; // used if task was only given a start date
+    protected LocalDateTime toDateAndTime; // used if task's end was given both a date and time
+    protected LocalDate toDate; // used if task was only given an end date
 
+    /**
+     * Constructor to create a new Event task
+     * Checks if there is a Date and/or Time attached to the start and end inputs, and formats it properly
+     *
+     * @param description String representing the description of the task
+     * @param from String representing the start period of the task
+     * @param to String representing the end period of the task
+     */
     public Event(String description, String from, String to){
         super(description);
 

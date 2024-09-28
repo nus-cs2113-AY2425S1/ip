@@ -4,7 +4,6 @@ import doug.Storage;
 import doug.TaskList;
 import doug.UI;
 import doug.tasks.Task;
-import static doug.UI.DASHED_LINE;
 
 import java.io.IOException;
 
@@ -26,15 +25,22 @@ public class Command {
         return isBye;
     }
 
+    /**
+     * Overloaded method that executes the specific action of each inherited Command class
+     *
+     * @param tasks The object containing the ArrayList of tasks
+     * @param ui The UI object
+     * @param storage The Storage object
+     */
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        return;
+
     }
 
     /**
      * Adds the newly created task to the existing TaskList object holding the ArrayList of tasks
      *
      * @param tasks The object containing the ArrayList of tasks
-     * @param newTask The newly created task (Todo, Deadline or Event)
+     * @param newTask The newly created task object (Todo, Deadline or Event)
      */
     public static void addNewTask(TaskList tasks, Task newTask, UI ui, Storage storage) {
         tasks.addTask(newTask);
@@ -45,8 +51,8 @@ public class Command {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(DASHED_LINE + "I've added: " + newTask + " for you.");
-        System.out.println("Your list is now " + tasks.getCount() + " tasks long partner\n" + DASHED_LINE);
+        System.out.println(ui.getDashedLine() + "I've added: " + newTask + " for you.");
+        System.out.println("Your list is now " + tasks.getCount() + " tasks long partner\n" + ui.getDashedLine());
     }
 
 }

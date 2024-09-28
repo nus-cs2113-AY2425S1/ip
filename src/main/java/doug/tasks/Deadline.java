@@ -10,10 +10,17 @@ import java.time.format.DateTimeParseException;
  * Inherits from Task class
  */
 public class Deadline extends Task {
-    protected String by;
-    protected LocalDateTime dateAndTime;
-    protected LocalDate date;
+    protected String by; // used if date and time were not provided for the task
+    protected LocalDateTime dateAndTime; // used if task was given both a date and time
+    protected LocalDate date; // used if task was only given a date
 
+    /**
+     * Constructor to create a new Deadline task
+     * Checks if there is a Date and/or Time attached to the deadline, and formats it properly
+     *
+     * @param description String representing the description of the task
+     * @param by String representing deadline of the task
+     */
     public Deadline(String description, String by){
         super(description);
 

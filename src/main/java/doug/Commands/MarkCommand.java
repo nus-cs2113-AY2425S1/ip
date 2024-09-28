@@ -4,8 +4,6 @@ import doug.Storage;
 import doug.TaskList;
 import doug.UI;
 
-import static doug.UI.DASHED_LINE;
-
 import java.io.IOException;
 
 /**
@@ -14,7 +12,7 @@ import java.io.IOException;
  */
 public class MarkCommand extends Command {
 
-    private static int taskIndex;
+    private static int taskIndex; // Index of the task to be marked
 
     public MarkCommand(int taskIndex) {
         MarkCommand.taskIndex = taskIndex;
@@ -27,6 +25,7 @@ public class MarkCommand extends Command {
      * @param ui The UI object
      * @param storage The Storage object
      */
+    @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         tasks.getTask(taskIndex - 1).markAsDone();
         try {
@@ -35,7 +34,7 @@ public class MarkCommand extends Command {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(DASHED_LINE + "Sure thing partner, I'll mark it as done");
-        System.out.print(tasks.getTask(taskIndex - 1).toString() + "\n" + DASHED_LINE);
+        System.out.println(ui.getDashedLine() + "Sure thing partner, I'll mark it as done");
+        System.out.print(tasks.getTask(taskIndex - 1).toString() + "\n" + ui.getDashedLine());
     }
 }
