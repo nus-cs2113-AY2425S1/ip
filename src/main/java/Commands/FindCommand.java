@@ -35,6 +35,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
+        if (instruction.isEmpty()) {
+            throw new AlyException("How to find anything without details bro...");
+        }
         for (Task task : taskList.getList()) {
             if (task.getDescription().toLowerCase().contains(instruction.trim().toLowerCase())) {
                 this.taskList.addTask(task);
