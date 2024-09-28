@@ -12,13 +12,29 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading and saving task data to and from a file.
+ */
 public class Storage {
+
+    /**
+     * Writes the given text to a specified file.
+     * @param filePath The path of the file to write to.
+     * @param textToAdd The text to add to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Sets up the file by creating a new file if it does not exist.
+     * Also creates the parent directory if it doesn't exist.
+     * @param filePath The path of the file to set up.
+     * @throws IOException If an I/O error occurs while setting up the file.
+     */
     public static void writerSetUp(String filePath) throws IOException {
         File listFile = new File(filePath);
         if (!listFile.exists()) {
@@ -30,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from a file and adds it to the provided user list.
+     * @param filePath The path of the file to load data from.
+     * @param userList The list where the tasks will be added.
+     */
     public static void loadDataFromFile(String filePath, List userList) {
         File file = new File(filePath);
         try {
@@ -44,12 +65,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the file and adds the corresponding task to the user list.
+     * @param line The line to parse.
+     * @param userList The list where the task will be added.
+     */
     private static void parseAndAddItem(String line, List userList) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0]; // T, D, E
         boolean isDone = parts[1].equals("X");
         String taskDescription = parts[2];
-
 
         switch (taskType) {
         case "T":
@@ -89,6 +114,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list to the specified file.
+     * @param listFilePath The path of the file to save the list to.
+     * @param userList The list containing tasks to save.
+     */
     public static void saveListToFile(String listFilePath, List userList) {
         try {
             writeToFile(listFilePath, userList.getFormattedTasks()); // getFormattedTasks returns a formatted String
