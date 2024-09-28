@@ -3,20 +3,49 @@ package king;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles user interaction for King.
+ */
 public class Ui {
 
     private final static String LINE = "____________________________________________________________\n";
 
-    public static String getUserInput() {
+    /**
+     * Prompts the user for input and returns the trimmed input.
+     *
+     * @return The trimmed input.
+     */
+    protected static String getUserInput() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine().trim();
+        String input = scanner.nextLine();
+
+        if (input.trim().isEmpty()) {
+            System.out.print("Command cannot be empty. Please try again.\n" + LINE);
+            return getUserInput();
+        } else {
+            return input.trim();
+        }
     }
 
-    public static void showError(String message) {
+    /**
+     * Displays an error message.
+     *
+     * @param message The error message to be displayed.
+     */
+    protected static void showError(String message) {
         System.out.println(LINE + message + LINE);
     }
 
-    public static void toGreet(TaskList taskList) throws KingException, IOException {
+    /**
+     * Greets the user and loads tasks.
+     * If tasks exist in storage, they are loaded and displayed to the user.
+     * Otherwise, the program starts with no tasks.
+     *
+     * @param taskList The task list to load tasks into, if applicable.
+     * @throws KingException If there is an issue with loading tasks.
+     * @throws IOException   If an I/O error occurs while accessing the storage file.
+     */
+    protected static void toGreet(TaskList taskList) throws KingException, IOException {
         String logo =
                 "| |/ /|_ _|| \\| | / _` |\n" +
                 "| ' <  | | | .` || (_| |\n" +
@@ -39,6 +68,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an exit message.
+     */
     public static void toExit() {
         System.out.println(LINE + " Bye. Hope to see you again soon!\n" + LINE);
     }

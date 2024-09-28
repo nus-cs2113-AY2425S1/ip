@@ -7,17 +7,30 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Manages the list of tasks for King.
+ * Handles operations such as adding, removing, marking tasks as done, and searching tasks.
+ */
 public class TaskList {
 
-    protected static ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
     private int tasksCount;
     private final static String LINE = "____________________________________________________________\n";
 
-    public TaskList() {
+    /**
+     * Constructs a new TaskList Object with an empty list of tasks.
+     */
+    protected TaskList() {
         this.tasks = new ArrayList<>();
         this.tasksCount = 0;
     }
 
+    /**
+     * Loads tasks from storage and initializing the task list.
+     *
+     * @throws KingException If there is an issue with loading tasks from storage.
+     * @throws IOException   If an I/O error occurs during file operations.
+     */
     public void loadTasks() throws KingException, IOException {
         if (Storage.checkFile()) {
             tasks = Storage.readFile();
@@ -25,41 +38,12 @@ public class TaskList {
         }
     }
 
-    public void findTask(String text) {
-        String[] inputWords = text.trim().split("\\s+", 2);
-
-        if (inputWords.length < 2 || inputWords[1].isBlank()) {
-            System.out.println(LINE + "You must provide a valid search term...\n" + LINE);
-            return;
-        }
-
-        String searchTerm = inputWords[1].trim();
-
-        ArrayList<Task> targetTasks = new ArrayList<>();
-        boolean isMatching = false;
-
-        for (Task t : tasks) {
-            String description = t.description;
-            if (description.contains(searchTerm)) {
-                targetTasks.add(t);
-                isMatching = true;
-            }
-        }
-
-        if (isMatching) {
-            System.out.println(LINE + "Here are the matching tasks in your list:");
-
-            for (int i = 0; i < targetTasks.size(); i++) {
-                int indexNum = i + 1;
-                System.out.println(indexNum + ". " + targetTasks.get(i));
-            }
-            System.out.println(LINE);
-
-        } else {
-            System.out.println(LINE + "There is no matching task in your list :(\n" + LINE);
-        }
-    }
-
+    /**
+     * Adds a new todo task to the task list.
+     * If the input is invalid, an error message is displayed.
+     *
+     * @param text The input string containing the to-do task description.
+     */
     public void addToDoTask(String text) {
         String[] taskSpecifics = text.trim().split("\\s+");
 
@@ -93,7 +77,12 @@ public class TaskList {
         Storage.updateFile();
     }
 
-
+    /**
+     * Adds a new deadline task to the task list with the specified deadline.
+     *
+     * @param text The input string containing the deadline task description and due date.
+     * @throws KingException If the task format or date/time is invalid.
+     */
     public void addDeadlineTask(String text) throws KingException {
         String[] taskSpecifics = text.split(" ");
         int separationIndex = 0;
@@ -148,6 +137,12 @@ public class TaskList {
         Storage.updateFile();
     }
 
+    /**
+     * Adds a new event task to the task list with the specified start and end times.
+     *
+     * @param text The input string containing the event task description and time range.
+     * @throws KingException If the task format or date/time is invalid.
+     */
     public void addEventTask(String text) throws KingException {
         String[] taskSpecifics = text.split(" ");
         int separationIndexFirst = 0;
@@ -230,6 +225,12 @@ public class TaskList {
         Storage.updateFile();
     }
 
+    /**
+     * Deletes a task from the task list using its index.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws KingException If the task index is invalid or out of bounds.
+     */
     public void deleteTask(int index) throws KingException {
         try {
             Task removedTask = tasks.remove(index);
@@ -244,6 +245,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done by its index.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws KingException If the task index is invalid or out of bounds.
+     */
     public void markTaskDone(int index) throws KingException {
         try {
             tasks.get(index).markAsDone();
@@ -257,6 +264,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone by its index.
+     *
+     * @param index The index of the task to be marked as undone.
+     * @throws KingException If the task index is invalid or out of bounds.
+     */
     public void markTaskUndone(int index) throws KingException {
         try {
             tasks.get(index).markAsUndone();
@@ -271,13 +284,49 @@ public class TaskList {
         }
     }
 
-    private void printAddedTaskDescription(Task t) {
-        System.out.println(LINE +
-                           "Got it. I've added this task:\n   " +
-                           t +
-                           "\nNow you have " + tasksCount + " tasks in the list.\n" + LINE);
+    /**
+     * Finds tasks that contain a specified text in their description.
+     *
+     * @param text The input string containing the text.
+     */
+    public void findTask(String text) {
+        String[] inputWords = text.trim().split("\\s+", 2);
+
+        if (inputWords.length < 2 || inputWords[1].trim().isEmpty()) {
+            System.out.println(LINE + "You must provide a valid search term...\n" + LINE);
+            return;
+        }
+
+        String searchTerm = inputWords[1].trim();
+
+        ArrayList<Task> targetTasks = new ArrayList<>();
+        boolean isMatching = false;
+
+        for (Task t : tasks) {
+            String description = t.description;
+            if (description.contains(searchTerm)) {
+                targetTasks.add(t);
+                isMatching = true;
+            }
+        }
+
+        if (isMatching) {
+            System.out.println(LINE + "Here are the matching tasks in your list:");
+
+            for (int i = 0; i < targetTasks.size(); i++) {
+                int indexNum = i + 1;
+                System.out.println(indexNum + ". " + targetTasks.get(i));
+            }
+            System.out.println(LINE);
+
+        } else {
+            System.out.println(LINE + "There is no matching task in your list :(\n" + LINE);
+        }
     }
 
+    /**
+     * Prints the entire list of tasks.
+     */
     public void printList() {
         if (tasksCount == 0) {
             System.out.println(LINE +
@@ -296,7 +345,22 @@ public class TaskList {
         System.out.println(LINE);
     }
 
-    public static ArrayList<Task> getTasks() {
+    /**
+     * Prints a message confirming that a task has been added to the list.
+     *
+     * @param t The task that was added to the list.
+     */
+    private void printAddedTaskDescription(Task t) {
+        System.out.println(LINE +
+                           "Got it. I've added this task:\n   " +
+                           t +
+                           "\nNow you have " + tasksCount + " tasks in the list.\n" + LINE);
+    }
+
+    /**
+     * Returns the list of tasks.
+     */
+    protected static ArrayList<Task> getTasks() {
         return tasks;
     }
 }
