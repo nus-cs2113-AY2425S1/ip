@@ -3,6 +3,8 @@ package bosco.command;
 import bosco.task.Event;
 import bosco.ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents the command to add a new Event.
  */
@@ -16,7 +18,7 @@ public class AddEventCommand extends Command {
      * @param from Start time of the new Event.
      * @param to End time of the new Event.
      */
-    public AddEventCommand(String description, String from, String to) {
+    public AddEventCommand(String description, LocalDateTime from, LocalDateTime to) {
         this.newEvent = new Event(description, false, from, to);
     }
 

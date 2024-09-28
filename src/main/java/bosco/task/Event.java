@@ -1,13 +1,17 @@
 package bosco.task;
 
+import bosco.parser.DateTimeParser;
+
+import java.time.LocalDateTime;
+
 /**
  * Represents an Event, a subclass of Task.
  * An <code>Event</code> object also contains
  * a start time and end time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Class constructor.
@@ -17,7 +21,7 @@ public class Event extends Task {
      * @param from Start time of this Event.
      * @param to End time of this Event.
      */
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -29,7 +33,7 @@ public class Event extends Task {
      * @return String of the start time.
      */
     public String getFrom() {
-        return from;
+        return DateTimeParser.formatDateTime(from);
     }
 
     /**
@@ -38,7 +42,7 @@ public class Event extends Task {
      * @return String of the end time.
      */
     public String getTo() {
-        return to;
+        return DateTimeParser.formatDateTime(to);
     }
 
     /**
@@ -50,6 +54,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 }

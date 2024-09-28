@@ -1,5 +1,6 @@
 package bosco.storage;
 
+import bosco.parser.DateTimeParser;
 import bosco.task.Task;
 import bosco.task.Todo;
 import bosco.task.Deadline;
@@ -78,9 +79,10 @@ public class Storage {
         case "T":
             return new Todo(description, isDone);
         case "D":
-            return new Deadline(description, isDone, stringParts[3]);
+            return new Deadline(description, isDone, DateTimeParser.parseDateTime(stringParts[3]));
         case "E":
-            return new Event(description, isDone, stringParts[3], stringParts[4]);
+            return new Event(description, isDone, DateTimeParser.parseDateTime(stringParts[3]),
+                    DateTimeParser.parseDateTime(stringParts[4]));
         default:
             throw new RuntimeException();
         }

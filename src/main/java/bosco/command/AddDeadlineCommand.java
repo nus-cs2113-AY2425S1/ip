@@ -3,6 +3,8 @@ package bosco.command;
 import bosco.task.Deadline;
 import bosco.ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents the command to add a new Deadline.
  */
@@ -15,7 +17,7 @@ public class AddDeadlineCommand extends Command {
      * @param description Description of the new Deadline.
      * @param by Due time of the new Deadline.
      */
-    public AddDeadlineCommand(String description, String by) {
+    public AddDeadlineCommand(String description, LocalDateTime by) {
         this.newDeadline = new Deadline(description, false, by);
     }
 
