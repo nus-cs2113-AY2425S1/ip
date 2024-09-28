@@ -14,7 +14,10 @@ import bosco.command.ExitCommand;
 import bosco.exception.EmptyDescriptionException;
 import bosco.exception.EmptyKeywordException;
 import bosco.exception.IllegalCommandException;
+import bosco.exception.IllegalDateTimeException;
 import bosco.exception.MissingPrefixException;
+
+import java.time.LocalDateTime;
 
 public class Parser {
     private static final String DEADLINE_PREFIX_BY = "/by";
@@ -22,8 +25,8 @@ public class Parser {
     private static final String EVENT_PREFIX_TO = "/to";
 
     public Command parseCommand(String userInputString)
-            throws IllegalCommandException, MissingPrefixException,
-            EmptyDescriptionException, EmptyKeywordException {
+            throws EmptyDescriptionException, EmptyKeywordException,
+            IllegalCommandException, IllegalDateTimeException, MissingPrefixException {
         String[] commandTypeAndArgs = splitCommandTypeAndArgs(userInputString);
         String commandType = commandTypeAndArgs[0];
         String commandArgs = commandTypeAndArgs[1];
@@ -93,7 +96,7 @@ public class Parser {
     }
 
     private Command prepareAddDeadline(String commandArgs)
-            throws MissingPrefixException, EmptyDescriptionException {
+            throws MissingPrefixException, EmptyDescriptionException, IllegalDateTimeException {
         int indexOfByPrefix = commandArgs.indexOf(DEADLINE_PREFIX_BY);
         if (indexOfByPrefix == -1) {
             throw new MissingPrefixException(DEADLINE_PREFIX_BY);
@@ -103,11 +106,16 @@ public class Parser {
             throw new EmptyDescriptionException();
         }
         String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
-        return new AddDeadlineCommand(description, by);
+        try {
+            LocalDateTime byDateTime = DateTimeParser.parseDateTime(by);
+            return new AddDeadlineCommand(description, byDateTime);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalDateTimeException();
+        }
     }
 
     private Command prepareAddEvent(String commandArgs)
-            throws MissingPrefixException, EmptyDescriptionException {
+            throws MissingPrefixException, EmptyDescriptionException, IllegalDateTimeException {
         int indexOfFromPrefix = commandArgs.indexOf(EVENT_PREFIX_FROM);
         if (indexOfFromPrefix == -1) {
             throw new MissingPrefixException(EVENT_PREFIX_FROM);
@@ -123,6 +131,12 @@ public class Parser {
         String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
                 EVENT_PREFIX_FROM).strip();
         String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
-        return new AddEventCommand(description, from, to);
+        try {
+            LocalDateTime fromDateTime = DateTimeParser.parseDateTime(from);
+            LocalDateTime toDateTime = DateTimeParser.parseDateTime(to);
+            return new AddEventCommand(description, fromDateTime, toDateTime);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalDateTimeException();
+        }
     }
 }

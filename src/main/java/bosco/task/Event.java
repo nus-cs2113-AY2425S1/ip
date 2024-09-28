@@ -1,25 +1,29 @@
 package bosco.task;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import bosco.parser.DateTimeParser;
 
-    public Event(String description, boolean isDone, String from, String to) {
+import java.time.LocalDateTime;
+
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
     }
 
     public String getFrom() {
-        return from;
+        return DateTimeParser.formatDateTime(from);
     }
 
     public String getTo() {
-        return to;
+        return DateTimeParser.formatDateTime(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 }
