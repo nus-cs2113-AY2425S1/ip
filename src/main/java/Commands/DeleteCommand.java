@@ -7,12 +7,28 @@ import AlyBot.Ui;
 
 import java.util.InputMismatchException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
 
+    /**
+     * Constructs a DeleteCommand with the specified instructions.
+     *
+     * @param instructions The task number to delete.
+     */
     public DeleteCommand(String instructions) {
         super(instructions);
     }
 
+    /**
+     * Executes the delete command by removing a task from the task list.
+     *
+     * @param taskList The task list to remove the task from.
+     * @param ui The user interface for output messages.
+     * @param storage The storage system to save the updated task list.
+     * @throws AlyException If the task number is invalid or an error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {

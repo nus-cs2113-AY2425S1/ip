@@ -7,15 +7,32 @@ import AlyBot.Ui;
 
 import java.util.InputMismatchException;
 
+/**
+ * Represents a command to mark or unmark tasks in the task list.
+ */
 public class MarkCommand extends Command {
 
     private final String firstWord;
 
+    /**
+     * Constructs a MarkCommand with the type (mark/unmark) and instructions.
+     *
+     * @param firstWord The type of action (mark or unmark).
+     * @param instructions The task number to mark/unmark.
+     */
     public MarkCommand(String firstWord, String instructions) {
         super(instructions);
         this.firstWord = firstWord;
     }
 
+    /**
+     * Executes the mark/unmark command by toggling the task's status.
+     *
+     * @param taskList The task list containing the task to toggle.
+     * @param ui The user interface for displaying status changes.
+     * @param storage The storage system to save the updated task list.
+     * @throws AlyException If an invalid task number or error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlyException {
         try {
@@ -36,6 +53,14 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Marks or unmarks a task based on the action specified.
+     *
+     * @param taskList The task list containing the task.
+     * @param ui The user interface for displaying status changes.
+     * @param indexNumToToggle The index of the task to toggle.
+     * @throws AlyException If the task number is out of bounds or an error occurs.
+     */
     private void markAsDone(TaskList taskList, Ui ui, int indexNumToToggle) throws AlyException {
         try {
             if (firstWord.equals("mark")) {
