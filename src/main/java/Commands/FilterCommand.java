@@ -61,6 +61,9 @@ public class FilterCommand extends Command {
                 }
             }
         }
+        if (this.taskList.getSize() == 0) {
+            throw new AlyException("There are no tasks scheduled on this date!");
+        }
         ui.showList(this.taskList);
     }
 }
