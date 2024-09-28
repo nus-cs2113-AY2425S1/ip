@@ -3,6 +3,7 @@ package main.java;
 import main.java.Ui;
 import main.java.Parser;
 import main.java.TaskList;
+import main.java.Storage;
 
 import ran.task.Deadline;
 import ran.task.Event;
@@ -17,11 +18,8 @@ import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
 import ran.exception.RanException;
 import java.util.Scanner;
-import java.io.File;
-import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Ran {
@@ -29,41 +27,8 @@ public class Ran {
     private static int listCount = 0;
     private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "\t____________________________________________________________";
-    private static String filePath = "./data/ran.txt";
-
-    public static void addToDataFile(String input) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(input + System.lineSeparator());
-        fw.close();
-    }
-
-    public static void modifyDataFile(String oldLine, String newLine) throws IOException {
-        Scanner sc = new Scanner(new File(filePath));
-        StringBuffer buffer = new StringBuffer();
-        while (sc.hasNext()) {
-            buffer.append(sc.nextLine() + System.lineSeparator());
-        }
-        String dataFileContent = buffer.toString();
-        sc.close();
-        dataFileContent = dataFileContent.replaceAll(oldLine, newLine);
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(dataFileContent);
-        fw.close();
-    }
-    
-    public static void deleteFromDataFile(String line) throws IOException {
-        Scanner sc = new Scanner(new File(filePath));
-        StringBuffer buffer = new StringBuffer();
-        while (sc.hasNext()) {
-            buffer.append(sc.nextLine() + System.lineSeparator());
-        }
-        String dataFileContent = buffer.toString();
-        sc.close();
-        dataFileContent = dataFileContent.replaceAll(line + System.lineSeparator() , "");
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(dataFileContent);
-        fw.close();
-    }
+    private static String directory = "./data";
+    private static Storage storage; 
 
     // Process task based on its type into relevant fields to be added
     public static void processTask(String input, TaskType type, TaskList tasks) throws MissingArgumentException, 
@@ -110,7 +75,7 @@ public class Ran {
         }
         int taskCount = tasks.getTaskCount();
         Task addedTask = tasks.getTask(taskCount - 1); 
-        addToDataFile(addedTask.dataFileInput());
+        storage.addToDataFile(addedTask.dataFileInput());
         Ui.printAddedTask(addedTask.toString(), taskCount);
     }
 
@@ -131,7 +96,7 @@ public class Ran {
         String oldLine = targetTask.dataFileInput();
         targetTask.setAsDone();
         String newLine = targetTask.dataFileInput();
-        modifyDataFile(oldLine, newLine);
+        storage.modifyDataFile(oldLine, newLine);
         String markedTask = targetTask.toString();
         Ui.printMarkedTask(markedTask);
     }
@@ -145,7 +110,7 @@ public class Ran {
         String oldLine = targetTask.dataFileInput();
         targetTask.setAsUndone();
         String newLine = targetTask.dataFileInput();
-        modifyDataFile(oldLine, newLine);
+        storage.modifyDataFile(oldLine, newLine);
         String unmarkedTask = targetTask.toString();
         Ui.printUnmarkedTask(unmarkedTask);
     }
@@ -156,7 +121,7 @@ public class Ran {
             throw new OutOfListBoundsException();
         }
         Task deletedTask = tasks.removeTask(taskNumber);
-        deleteFromDataFile(deletedTask.dataFileInput());
+        storage.deleteFromDataFile(deletedTask.dataFileInput());
         Ui.printDeletedTask(deletedTask.toString(), tasks.getTaskCount());
     }
 
@@ -251,59 +216,22 @@ public class Ran {
         }
     }
 
-    public static void loadFile() throws IOException {
-        // Check for existence of directory
-        String directory = "./data";
-        File dir = new File(directory);
-        // If directory does not yet exist, create it
-        if (!dir.isDirectory()) {
-            dir.mkdir();
-        }
-        // Check for existence of data file
-        File f = new File(filePath);
-        // If file does not yet exist, create it
-        if (!f.exists()) {
-            f.createNewFile();
-        }
-    }
-    
-    public static void loadTask(String task, TaskList tasks) {
-        String[] taskInstruction = task.split(", ");
-        boolean isDone = taskInstruction[1].equals("1");
-        if (taskInstruction[0].equals("T")) {
-            tasks.addTask(new Todo(isDone, taskInstruction[2]));
-        } else if (taskInstruction[0].equals("D")) {
-            tasks.addTask(new Deadline(isDone, taskInstruction[2], taskInstruction[3]));
-        } else if (taskInstruction[0].equals("E")) {
-            tasks.addTask(new Event(isDone, taskInstruction[2], taskInstruction[3], taskInstruction[4]));
-        }
-    }
-
-    public static void loadData(File f, TaskList tasks) throws FileNotFoundException {
-        Scanner s = new Scanner(f);
-        while(s.hasNext()) {
-            loadTask(s.nextLine(), tasks);
-        }
-    }
-
     public static void main(String[] args) {
         TaskList tasks = new TaskList();
         Ui.greet();
 
-        // Check for data file, create directory and data file if necessary
         try {
-            loadFile();
+            storage = new Storage(directory);
         } catch (IOException e) {
             System.out.println("Unfortunately I, Ran, have ran into an issue accessing your data files.");
+            return;
         } 
         
-        File f = new File (filePath);
-
-        // Load data from data file
         try {
-            loadData(f, tasks);
+            storage.loadTasks(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("That is strange, I swear I thought your data file exists...");
+            return;
         }
 
         // Take in user input from the terminal
