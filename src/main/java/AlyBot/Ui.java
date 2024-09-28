@@ -4,14 +4,24 @@ import Task.Task;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class manages user interactions in the AlyBot application.
+ * This includes displaying messages, reading user commands, and showing task lists.
+ */
 public class Ui {
     private Scanner in = new Scanner(System.in);
     private final String LINE_SEPARATOR = "=".repeat(112);
 
+    /**
+     * Prints a line separator to the console.
+     */
     public void printLine() {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a welcome message along with the AlyBot logo.
+     */
     public void showWelcome() {
         String LOGO = "    _      _     _   _\n"
                 + "   / \\    | |   \\ \\ / /\n"
@@ -22,17 +32,28 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Reads a command input from the user.
+     *
+     * @return The trimmed command input as a string.
+     */
     public String readCommand() {
         String input = in.nextLine();
         return input.trim();
     }
 
+    /**
+     * Displays the starting message prompting the user for input.
+     */
     public void startingMessage() {
         System.out.println("I'm hungry, what do you want?");
         printLine();
         help();
     }
 
+    /**
+     * Displays a list of possible commands to the user.
+     */
     public void help() {
         System.out.println("Possible commands: \n"
                 + "1. 'echo' followed by input to receive echo\n"
@@ -45,22 +66,46 @@ public class Ui {
                 + "8. 'exit' to exit");
     }
 
+    /**
+     * Displays an error message when loading fails.
+     */
     public void showLoadingError() {
         System.out.println("Oops! Something went wrong...");
     }
 
-    public void showError (String message) {
+    /**
+     * Displays a specified error message to the user.
+     *
+     * @param message The error message to display.
+     */
+    public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays a message indicating that a task has been added.
+     *
+     * @param instructions The task description that has been added.
+     */
     public void addMessage(String instructions) {
         System.out.println("Added this task: " + instructions.trim());
     }
 
+    /**
+     * Displays the current number of tasks in the task list.
+     *
+     * @param taskSize The number of tasks in the list.
+     */
     public void showTaskSize(int taskSize) {
         System.out.println("You have " + taskSize + " tasks in your list now.");
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param taskList The TaskList object containing the tasks to display.
+     * @throws AlyException If an error occurs while displaying the task list.
+     */
     public void showList(TaskList taskList) throws AlyException {
         int count = 1;
         System.out.println("Your task list:");
@@ -79,17 +124,31 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message indicating the status change of a task.
+     *
+     * @param taskList The TaskList object containing the tasks.
+     * @param indexNumToToggle The index of the task that has changed status.
+     * @param firstWord The command word ("mark" or "unmark").
+     * @throws AlyException If an error occurs while showing the status change.
+     */
     public void showStatusChange(TaskList taskList, int indexNumToToggle, String firstWord) throws AlyException {
         if (firstWord.equals("mark")) {
-            System.out.println("\"" + taskList.find(indexNumToToggle).getDescription() + "\" marked as done!");
+            System.out.println("\"" + taskList.findTask(indexNumToToggle).getDescription() + "\" marked as done!");
         } else if (firstWord.equals("unmark")) {
-            System.out.println("\"" + taskList.find(indexNumToToggle).getDescription() + "\" marked as undone!");
+            System.out.println("\"" + taskList.findTask(indexNumToToggle).getDescription() + "\" marked as undone!");
         } else {
             throw new AlyException("Something went wrong!");
         }
     }
 
+    /**
+     * Displays a message indicating that a task has been deleted.
+     *
+     * @param taskList The TaskList object containing the tasks.
+     * @param indexNumToDelete The index of the task that has been deleted.
+     */
     public void showDelete(TaskList taskList, int indexNumToDelete) {
-        System.out.println("Deleted this task: " + taskList.find(indexNumToDelete).getDescription());
+        System.out.println("Deleted this task: " + taskList.findTask(indexNumToDelete).getDescription());
     }
 }

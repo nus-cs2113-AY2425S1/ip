@@ -16,14 +16,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles reading and writing tasks to the file system.
+ */
 public class Storage {
 
     private final Path saveFile;
 
+    /**
+     * Constructs a Storage object with a specified file path.
+     *
+     * @param saveFile The path to the file for saving and loading tasks.
+     */
     public Storage(Path saveFile) {
         this.saveFile = saveFile;
     }
 
+    /**
+     * Loads the task list from the save file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws AlyException If an error occurs during file reading.
+     */
     public ArrayList<Task> load() throws AlyException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -33,7 +47,6 @@ public class Storage {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-
                 String[] taskDetails = line.split("\\|");
 
                 switch (taskDetails[0]) {
@@ -69,6 +82,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Writes the current task list to the save file.
+     *
+     * @param taskList The list of tasks to save.
+     * @throws AlyException If an error occurs during file writing.
+     */
     public void write(TaskList taskList) throws AlyException {
         try {
             FileWriter fileWriter = new FileWriter(saveFile.toString());
@@ -106,11 +125,17 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new save file if it does not already exist.
+     *
+     * @param file The file to create.
+     * @throws AlyException If an error occurs during file creation.
+     */
     public void createFile(File file) throws AlyException {
         System.out.println("Searching for " + saveFile + "...");
         try {
             if (file.createNewFile()) {
-                System.out.println("Cannot find file so I help you create already! File name: " + saveFile);
+                System.out.println("Cannot findTask file so I help you create already! File name: " + saveFile);
             } else {
                 System.out.println("File already exists, I will edit that!");
             }
@@ -119,18 +144,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the directory for the save file if it does not already exist.
+     *
+     * @throws AlyException If an error occurs during directory creation.
+     */
     public void createDirectory() throws AlyException {
-        Path directory = saveFile.getParent(); // Get the parent directory
-        System.out.println("Searching for directory: " + directory);
+        Path directory = saveFile.getParent();
         if (directory != null && !Files.exists(directory)) {
             try {
                 Files.createDirectories(directory);
             } catch (IOException e) {
-                throw new AlyException("Idk why cannot make directory siah: " + e.getMessage());
+                throw new AlyException("Error creating directory: " + e.getMessage());
             }
-            System.out.println("Directory didn't exist but I made it for u liao! You're welcome!");
-        } else {
-            System.out.println("Directory already exists, I will check in there!");
         }
     }
 }
