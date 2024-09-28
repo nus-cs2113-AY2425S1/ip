@@ -101,4 +101,3 @@ Task data is saved as a CSV file at the designated file path. Advanced users can
 | **Delete Task**       | Deletes a task using its index.                                   | `delete INDEX`                      | `delete 2`                       |
 | **Find Task**         | Displays tasks matching a keyword.                                | `find KEYWORD`                      | `find homework`                  |
 | **Exit**              | Exits the application.                                            | `bye`                               | `bye`                            |
-| **Save Data**         | Saves tasks automatically when the app is exited.                 | No manual action required.          | -                                |

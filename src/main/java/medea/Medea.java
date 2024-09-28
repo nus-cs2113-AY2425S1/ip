@@ -74,8 +74,8 @@ public class Medea {
     private void handleUserCommands() {
         while (true) {
             try {
-                String userCommand = userInterface.readCommand();
-                Command command = commandParser.parse(userCommand);
+                String fullCommand = userInterface.readCommand();
+                Command command = commandParser.parse(fullCommand);
                 if (command.isExit()) {
                     return;
                 }
