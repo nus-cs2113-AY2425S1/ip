@@ -1,6 +1,6 @@
 # Doug User Guide
 
-![Screenshot of the Welcome Message when Doug is launched](..%2FDoug_Welcome_Screen.png)
+![Doug_Welcome_Screen.png](https://github.com/KSanjith/ip/blob/master/Doug_Welcome_Screen.png?raw=true)
 
 ### Who is Doug?
 **Doug Dimmadome** is your friendly Texan chatbot, here to make your life easy with that typical Southern hospitality.
