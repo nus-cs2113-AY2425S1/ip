@@ -1,8 +1,6 @@
 # Doug User Guide
 
-![Screenshot of the Welcome Message when Doug is launched](/Doug_Welcome_Screen.png)
-
-![ssss](https://github.com/KSanjith/ip/blob/bdfbd3c9b621bed93cb63624ad681dc868c1d2d1/Doug_Welcome_Screen.png)
+![Screenshot of the Welcome Message when Doug is launched](..%2FDoug_Welcome_Screen.png)
 
 ### Who is Doug?
 **Doug Dimmadome** is your friendly Texan chatbot, here to make your life easy with that typical Southern hospitality.
@@ -22,7 +20,7 @@ His main goal is to help you note down and access your important tasks.
 ### Input Formatting Guide
 - White spaces at the very front and end of the input are safely ignored
 - White spaces between different parameters are safely ignored
-  - e.g. deadline &nbsp;&nbsp;&nbsp; homework &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /by &nbsp;&nbsp;&nbsp;&nbsp tomorrow
+  - e.g. deadline &nbsp;&nbsp;&nbsp; homework &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /by &nbsp;&nbsp;&nbsp;&nbsp; tomorrow
 - White spaces within format identifiers (e.g. /from, /by, etc.) will lead to input being rejected
   - e.g. **ev&nbsp;&nbsp;ent** CCA Meeting **/fr&nbsp;&nbsp;om** morning /to tonight
 - Date and time inputs must match exactly the formats outlined later, and no whitespaces within them are allowed
