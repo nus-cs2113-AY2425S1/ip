@@ -22,6 +22,14 @@ public class TaskList {
     public ArrayList<Task> tasks = new ArrayList<>();
     Ui ui;
 
+    private static String[] getArgs(String[] inputs) {
+        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
+        if (args.length == 0) {
+            throw new InsufficientArgumentsException("Missing argument");
+        }
+        return args;
+    }
+
     public TaskList(ArrayList<String> saveStrings) {
         ui = new Ui();
         if (saveStrings == null) return;
@@ -67,13 +75,16 @@ public class TaskList {
 
     public void mark(String[] inputs) {
         int idx;
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
+        String[] args;
+        try {
+            args = getArgs(inputs);
+        } catch (InsufficientArgumentsException e) {
+            throw new InsufficientArgumentsException("Please provide an index");
+        }
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
             throw new IncorrectInputException("Please input an integer");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InsufficientArgumentsException("Input index of task to mark.");
         }
         if (idx < 0 || idx >= getSize()) {
             throw new IncorrectInputException("Invalid index");
@@ -84,13 +95,16 @@ public class TaskList {
 
     public void unmark(String[] inputs) {
         int idx;
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
+        String[] args;
+        try {
+            args = getArgs(inputs);
+        } catch (InsufficientArgumentsException e) {
+            throw new InsufficientArgumentsException("Please provide an index");
+        }
         try {
             idx = Integer.parseInt(args[0]) - 1;
         } catch (NumberFormatException e) {
             throw new IncorrectInputException("Please input an integer");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InsufficientArgumentsException("Input index of task to mark.");
         }
         if (idx < 0 || idx >= getSize()) {
             throw new IncorrectInputException("Invalid index");
@@ -100,10 +114,7 @@ public class TaskList {
     }
 
     public void addToDo(String[] inputs) {
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
-        if (args.length == 0) {
-            throw new InsufficientArgumentsException("todo command needs at least 1 argument.");
-        }
+        String[] args = getArgs(inputs);
         String description = String.join(" ", args);
         tasks.add(new ToDo(description));
         ui.printReply(String.format("Task added: %s\n  %s",
@@ -111,7 +122,7 @@ public class TaskList {
     }
 
     public void addDeadline(String[] inputs) {
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
+        String[] args = getArgs(inputs);
         int idx = -1;
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("/by")) {
@@ -129,7 +140,7 @@ public class TaskList {
     }
 
     public void addEvent(String[] inputs) {
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
+        String[] args = getArgs(inputs);
         int fromIdx = -1;
         int toIdx = -1;
         for (int i = 0; i < args.length; i++) {
@@ -154,10 +165,13 @@ public class TaskList {
 
     }
 
+
     public void deleteTask(String[] inputs) {
-        String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int idx;
-        if (args.length == 0) {
+        String[] args;
+        try {
+            args = getArgs(inputs);
+        } catch (InsufficientArgumentsException e) {
             throw new InsufficientArgumentsException("Delete command needs an index");
         }
         try {
@@ -174,6 +188,9 @@ public class TaskList {
                 taskToDelete.toString(), getSize(), getSize() > 1 ? "tasks" : "task"));
     }
 
-
-
+    public void findTask(String[] inputs) {
+        String[] args = getArgs(inputs);
+        // Iterate through tasks, display tasks that match query
+        String query = args[0];
+    }
 }

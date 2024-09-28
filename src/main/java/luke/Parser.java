@@ -26,6 +26,8 @@ public class Parser {
             return new AddEventCommand();
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand();
         default:
             throw new InvalidCommandException("Invalid command");
         }
