@@ -3,8 +3,17 @@ package luke;
 import luke.commands.*;
 import luke.exceptions.InvalidCommandException;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param inputs String array of user input, split with " " as delimiter
+     * @return Command object of command to execute
+     */
     public static Command parseCommand(String[] inputs) {
 
         String command = inputs[0].toLowerCase();
