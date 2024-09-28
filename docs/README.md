@@ -2,7 +2,7 @@
 
 Medea is a desktop app for managing tasks, optimized for use via a CLI.
 
-- [QuickStart](#QuickStart)
+- [Quickstart](#QuickStart)
 - [Features](#Features)
     - [Listing Tasks](#listing-tasks-list)
     - [Adding a Todo](#adding-a-todo-todo)
@@ -32,8 +32,8 @@ Medea is a desktop app for managing tasks, optimized for use via a CLI.
     e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 > - **Parameters must be input in the specified order.**  
     e.g. if the command specifies `/from START /to END`, `/to END /from START` will cause data inaccuracy.
-> - **Extraneous parameters** for commands that do not take in parameters (such as help, list, exit, and clear) will be ignored.  
-    e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+> - **Extraneous parameters** for commands that do not take in parameters will be ignored.  
+    e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 ### Listing Tasks: `list`
 Displays all the tasks currently in the list of tasks.   
