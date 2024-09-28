@@ -5,16 +5,37 @@ import nell.parser.Parser;
 import nell.storage.Storage;
 import nell.ui.Ui;
 
+/**
+ * Represents the main program for Nell
+ */
 public class Nell {
-    private static TaskList tasks = new TaskList();
-    private static Storage dataStorage = new Storage("./data/data.txt", tasks);
-    private static Parser parser = new Parser(tasks);
-    private static Ui ui = new Ui(parser, dataStorage);
+    private TaskList tasks;
+    private Storage dataStorage;
+    private Parser parser;
+    private Ui ui;
 
-    public static void main(String[] args) {
+    /**
+     * Constructs a new Nell object
+     */
+    public Nell() {
+       this.tasks = new TaskList();
+       this.dataStorage = new Storage("./data/data.txt", tasks);
+       this.parser = new Parser(tasks);
+       this.ui = new Ui(parser, dataStorage);
+    }
+
+    /**
+     * Runs the Nell program
+     */
+    public void run() {
         dataStorage.loadFromFile();
         ui.greetUser();
         ui.getCommands();
         ui.sayBye();
+    }
+
+    public static void main(String[] args) {
+        Nell nell = new Nell();
+        nell.run();
     }
 }
