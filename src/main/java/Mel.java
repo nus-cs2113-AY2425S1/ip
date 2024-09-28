@@ -9,7 +9,6 @@ import task.Event; // Import the Event class
 
 public class Mel {
 
-    public static final String DRAW_HORIZONTAL_LINE = "\t________________________________________";
     public static final int MARK_WORD_LEN = 4;
     public static final int UNMARK_WORD_LEN = 6;
     public static final int INPUT_SPACE_BUFFER = 2;
@@ -23,7 +22,7 @@ public class Mel {
     }
 
     public static void main(String[] args) throws IOException {
-        printIntroMessage();
+        Ui.printIntroMessage();
         
         // Set up scanner for user input
         Scanner in = new Scanner(System.in);
@@ -120,40 +119,36 @@ public class Mel {
             line = getLine(in);
 
             if (isBye(line)) {
-                printByeMessage();
-                printHorizontalLine();
+                Ui.printByeMessage();
+                Ui.printHorizontalLine();
                 break;
 
             } else if (isList(line)) {
                 userList.printList();
-                printHorizontalLine();
+                Ui.printHorizontalLine();
 
             } else if (isMark(line)) {
                 userList.markItem(line);
-                printHorizontalLine();
+                Ui.printHorizontalLine();
                 saveListToFile(userList);
 
             } else if (isUnmark(line)) {
                 userList.unmarkItem(line);
-                printHorizontalLine();
+                Ui.printHorizontalLine();
                 saveListToFile(userList);
 
             } else if (isDelete(line)) {
                 userList.deleteItem(line);
-                printHorizontalLine();
+                Ui.printHorizontalLine();
                 saveListToFile(userList);
 
             } else {
                 userList.addItem(line);
-                printHorizontalLine();
+                Ui.printHorizontalLine();
                 saveListToFile(userList);
 
             }
         }
-    }
-
-    private static void printByeMessage() {
-        System.out.println("\tBye. Hope to see you again soon!");
     }
 
     private static boolean isList(String line) {
@@ -176,29 +171,12 @@ public class Mel {
         return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
     }
 
-    private static void printHorizontalLine() {
-        System.out.println(DRAW_HORIZONTAL_LINE);
-    }
-
     private static String getLine(Scanner in) {
         String line;
         System.out.print(System.lineSeparator());
         line = in.nextLine();
-        printHorizontalLine();
+        Ui.printHorizontalLine();
         return line;
     }
 
-    private static void printIntroMessage() {
-        printHorizontalLine();
-        System.out.println("\tHello! I'm");
-        System.out.println("\t.___  ___.  _______  __      \n" +
-                "\t|   \\/   | |   ____||  |     \n" +
-                "\t|  \\  /  | |  |__   |  |     \n" +
-                "\t|  |\\/|  | |   __|  |  |     \n" +
-                "\t|  |  |  | |  |____ |  `----.\n" +
-                "\t|__|  |__| |_______||_______|\n" +
-                "\t                             ");
-        System.out.println("\tWhat can I do for you?");
-        printHorizontalLine();
-    }
 }
