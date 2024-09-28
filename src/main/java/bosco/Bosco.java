@@ -8,8 +8,9 @@ import bosco.storage.Storage;
 import bosco.command.Command;
 import bosco.command.ExitCommand;
 
-import bosco.exception.IllegalCommandException;
 import bosco.exception.EmptyDescriptionException;
+import bosco.exception.IllegalCommandException;
+import bosco.exception.IllegalDateTimeException;
 import bosco.exception.MissingPrefixException;
 
 import java.io.IOException;
@@ -17,15 +18,15 @@ import java.io.IOException;
 public class Bosco {
     private static final String FILE_PATH = "./data/bosco.txt";
 
-    private Ui ui;
+    private final Ui ui;
+    private final Parser parser;
+    private final Storage storage;
     private TaskList tasks;
-    private Parser parser;
-    private Storage storage;
 
     public Bosco(String filePath) {
         ui = new Ui();
         parser = new Parser();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
     }
 
     public static void main(String[] args) {
@@ -71,6 +72,8 @@ public class Bosco {
                 ui.printMessages("Error: task description is empty. Please provide a description!");
             } catch (MissingPrefixException e) {
                 ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
+            } catch (IllegalDateTimeException e) {
+                ui.printMessages("Error: invalid datetime format.");
             }
 
             try {
