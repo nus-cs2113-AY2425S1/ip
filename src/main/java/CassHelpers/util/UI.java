@@ -1,26 +1,27 @@
 package CassHelpers.util;
 
-public class Messages {
+public class UI {
 
     protected final static int SEPARATOR_LENGTH = 75;
 
-    public static void drawLine(){
+    public void drawLine(){
         for(int i=0;i<SEPARATOR_LENGTH;i+=1){
             System.out.print("-");
         }
         System.out.println();
     }
 
-    public static void displayIntroductionArt() {
+    public void displayIntroductionArt() {
         System.out.println("   ___                                               _                   ");
         System.out.println("  / __|   __ _     ___     ___    __ _    _ _     __| |     _ _   __ _   ");
         System.out.println(" | (__   / _` |   (_-<    (_-<   / _` |  | ' \\   / _` |    | '_| / _` |  ");
-        System.out.println("  \\___|  \\__,_|   /__/_   /__/_  \\__,_|  |_||_|  \\__,_|   _|_|_  \\__,_|  ");
-        System.out.println("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
+        System.out.println("  \\___|  \\__,_|   /__/_   /__/_  \\__,_|  |_||_|  \\__,_| "+"  _|_|_  \\__,_|  ");
+        System.out.println("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|"+
+                "_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
         System.out.println("`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
     }
 
-    public static void displayIntroduction(){
+    public void displayIntroduction(){
         drawLine();
         displayIntroductionArt();
         drawLine();
@@ -29,7 +30,7 @@ public class Messages {
         drawLine();
     }
 
-    public static void displayHelpInstructions() {
+    public void displayHelpInstructions() {
         System.out.println("Welcome to Cassandra - Your Task Manager App!");
         System.out.println("Here are the commands you can use:");
 
@@ -63,5 +64,9 @@ public class Messages {
 
         System.out.println("\nNote:");
         System.out.println(" - Task indices start from 1.");
+    }
+
+    public void showError(Exception e){
+        System.out.println(e.getMessage());
     }
 }

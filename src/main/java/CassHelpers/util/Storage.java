@@ -1,5 +1,6 @@
 package CassHelpers.util;
 
+import CassHelpers.exceptions.CassandraException;
 import CassHelpers.types.Deadline;
 import CassHelpers.types.Event;
 import CassHelpers.types.Task;
@@ -11,10 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileUtil {
+public class Storage {
+    public static final String TODO = "T";
+    public static final String DEADLINE = "D";
+    public static final String EVENT = "E";
     private final File dir;
     private final File file;
-    public FileUtil(String directoryPath,String fileName) {
+    public Storage(String directoryPath, String fileName) {
         this.dir = new File(directoryPath);
         createDir();
         this.file = new File(dir, fileName);
@@ -68,7 +72,7 @@ public class FileUtil {
         }
     }
 
-    public ArrayList<Task> readTaskFromFile(){
+    public ArrayList<Task> readTaskFromFile() throws CassandraException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
         Scanner scanner = new Scanner(this.file);
@@ -77,7 +81,7 @@ public class FileUtil {
                 taskList.add(task);
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while reading from the file.");
+            throw new CassandraException("An error occurred while reading from the file.");
         }
         return taskList;
     }
@@ -86,15 +90,15 @@ public class FileUtil {
         String[] lineParser = line.split(",");
         Task task = new Task("dummy");
         switch (lineParser[0]){
-            case "T":
+            case TODO:
                 task = new Todo(lineParser[2]);
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
-            case "D":
+            case DEADLINE:
                 task = new Deadline(lineParser[2],lineParser[3]);
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
-            case "E":
+            case EVENT:
                 task=new Event(lineParser[2],lineParser[3],lineParser[4]);
                 task.setCompleted(lineParser[1].equals("1"));
                 break;
