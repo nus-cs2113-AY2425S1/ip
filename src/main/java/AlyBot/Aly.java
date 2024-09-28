@@ -30,6 +30,7 @@ public class Aly {
             taskList = new TaskList(storage.load());
         } catch (AlyException e) {
             ui.showLoadingError();
+            ui.printLine();
             taskList = new TaskList();
         }
     }

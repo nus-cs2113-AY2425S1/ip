@@ -1,11 +1,18 @@
 package Task;
 
+import AlyBot.AlyException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a Deadline task, which is a task with a specified due date or time.
  */
 public class Deadline extends Task {
 
-    protected String dueTime;
+    protected LocalDateTime dueDateTime;
+    protected String formattedDueDateTime;
 
     /**
      * Constructs a Deadline task with the specified description and due time.
@@ -13,9 +20,18 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param dueTime The time or date the task is due.
      */
-    public Deadline(String description, String dueTime) {
+    public Deadline(String description, String dueTime) throws AlyException {
         super(description);
-        this.dueTime = dueTime;
+        try {
+            this.dueDateTime = LocalDateTime.parse(dueTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            formattedDueDateTime = this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new AlyException("Invalid Date lah bro, can use your brain anot?!");
+        }
+    }
+
+    public String getFormattedDueDateTime() {
+        return formattedDueDateTime;
     }
 
     /**
@@ -38,6 +54,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueTime + ")";
+        return "[D]" + super.toString() + " (by: " + this.formattedDueDateTime + ")";
     }
 }

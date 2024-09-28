@@ -9,6 +9,7 @@ import Commands.ExitCommand;
 import Commands.EchoCommand;
 import Commands.MarkCommand;
 import Commands.FindCommand;
+import Commands.FilterCommand;
 
 import java.util.InputMismatchException;
 
@@ -55,6 +56,9 @@ public class Parser {
                 break;
             case "delete":
                 commandToExecute = new DeleteCommand(instruction.trim());
+                break;
+            case "filter":
+                commandToExecute = new FilterCommand(instruction.trim());
                 break;
             case "find":
                 commandToExecute = new FindCommand(instruction.trim());

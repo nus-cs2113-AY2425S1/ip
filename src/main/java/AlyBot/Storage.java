@@ -1,8 +1,18 @@
 package AlyBot;
 
-import Task.*;
-import java.io.*;
-import java.nio.file.*;
+import Task.Deadline;
+import Task.Event;
+import Task.Task;
+import Task.Todo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,11 +55,17 @@ public class Storage {
                     taskList.get(index).setDone(taskDetails[1].trim().equals("1"));
                     break;
                 case "D":
-                    taskList.add(new Deadline(taskDetails[2].trim(), taskDetails[3].trim()));
+                    LocalDateTime dueBy = LocalDateTime.parse(taskDetails[3].trim(), DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+                    String formattedDueBy = dueBy.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    taskList.add(new Deadline(taskDetails[2].trim(), formattedDueBy));
                     taskList.get(index).setDone(taskDetails[1].trim().equals("1"));
                     break;
                 case "E":
-                    taskList.add(new Event(taskDetails[2].trim(), taskDetails[3].trim(), taskDetails[4].trim()));
+                    LocalDateTime fromDate = LocalDateTime.parse(taskDetails[3].trim(), DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+                    LocalDateTime toDate =  LocalDateTime.parse(taskDetails[4].trim(), DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"));
+                    String formattedFromDate = fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    String formattedToDate = toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    taskList.add(new Event(taskDetails[2].trim(), formattedFromDate, formattedToDate));
                     taskList.get(index).setDone(taskDetails[1].trim().equals("1"));
                     break;
                 default:
