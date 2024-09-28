@@ -1,3 +1,5 @@
+package main;
+
 import task.Task;
 
 import java.util.ArrayList;
@@ -65,6 +67,10 @@ public class Ui {
      */
     public static void printTaskDescriptionEmptyMessage() {
         System.out.println("\tError: The task description cannot be empty.");
+    }
+    
+    public static void printFindDescriptionEmptyMessage() {
+        System.out.println("\tError: The find description cannot be empty.");
     }
 
     /**

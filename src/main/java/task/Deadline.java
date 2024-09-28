@@ -1,11 +1,15 @@
 package task;
 
+
+import java.time.LocalDateTime;
+import main.TaskList;
+
 /**
  * Represents a deadline task with a description and a due date.
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a Deadline with the specified description and due date.
@@ -13,7 +17,7 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -26,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + by + ")");
+        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + TaskList.convertDeadlineDateAsString(by) + ")");
     }
 
     /**
@@ -36,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String formattedTask() {
-        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + by);
+        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + TaskList.convertDeadlineDateAsString(by));
     }
 
 }

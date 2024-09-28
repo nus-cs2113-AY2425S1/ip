@@ -1,3 +1,5 @@
+package main;
+
 import task.Deadline;
 import task.Event;
 import task.Todo;
@@ -6,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -82,12 +86,16 @@ public class Storage {
             break;
 
         case "D":
-            String deadlineDate = parts[3]; // Ignore remaining parts
-            Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
-            if (isDone) {
-                deadlineTask.markAsDone();
+            try {
+                LocalDateTime deadlineDate = TaskList.getDeadlineDateAsLocalDateTimeFromFile(parts[3]); // Ignore remaining parts
+                Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
+                if (isDone) {
+                    deadlineTask.markAsDone();
+                }
+                userList.itemArrayList.add(deadlineTask);
+            } catch (DateTimeException e) {
+                System.out.println("\tInvalid date format: yyyy-mm-dd HH:mm");
             }
-            userList.itemArrayList.add(deadlineTask);
             break;
 
         case "E":
@@ -101,7 +109,7 @@ public class Storage {
             break;
 
         default:
-            System.out.println("Invalid task type in file: " + taskType);
+            System.out.println("\tInvalid task type in file: " + taskType);
             break;
         }
     }
@@ -115,7 +123,7 @@ public class Storage {
         try {
             writeToFile(listFilePath, userList.getFormattedTasks()); // getFormattedTasks returns a formatted String
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the list.");
+            System.out.println("\tAn error occurred while saving the list.");
         }
     }
 }

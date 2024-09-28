@@ -1,6 +1,9 @@
+package main;
+
 import exception.EmptyDateFieldException;
 import exception.EmptyDescriptionException;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -51,6 +54,9 @@ public class Parser {
                 Ui.printHorizontalLine();
                 Storage.saveListToFile(listFilePath, userList);
 
+            } else if (isFind(line)) {
+                userList.findItem(line);
+                Ui.printHorizontalLine();
             } else {
                 userList.addItem(line);
                 Ui.printHorizontalLine();
@@ -96,8 +102,8 @@ public class Parser {
      * @param line The input string.
      * @return True if the command starts with "mark", false otherwise.
      */
-    private static boolean isMark(String line) {
-        return line.length() >= (MARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 4).equals("mark");
+    public static boolean isMark(String line) {
+        return line.startsWith("mark ");
     }
 
     /**
@@ -105,8 +111,8 @@ public class Parser {
      * @param line The input string.
      * @return True if the command starts with "unmark", false otherwise.
      */
-    private static boolean isUnmark(String line) {
-        return line.length() >= (UNMARK_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("unmark");
+    public static boolean isUnmark(String line) {
+        return line.startsWith("unmark ");
     }
 
     /**
@@ -114,8 +120,12 @@ public class Parser {
      * @param line The input string.
      * @return True if the command starts with "delete", false otherwise.
      */
-    private static boolean isDelete(String line) {
-        return line.length() >= (DELETE_WORD_LEN + INPUT_SPACE_BUFFER) && line.substring(0, 6).equals("delete");
+    public static boolean isDelete(String line) {
+        return line.startsWith("delete ");
+    }
+
+    public static boolean isFind(String line) {
+        return line.startsWith("find ");
     }
 
     /**
@@ -124,7 +134,7 @@ public class Parser {
      * @return True if the command contains an event with the proper format.
      */
     public static boolean isValidEvent(String line) {
-        return line.startsWith("event") &&
+        return line.startsWith("event ") &&
                 line.contains(EVENT_FROM_KEYWORD) &&
                 line.contains(EVENT_TO_KEYWORD);
     }
@@ -135,7 +145,7 @@ public class Parser {
      * @return True if the command contains a deadline with the "/by" keyword.
      */
     public static boolean isValidDeadline(String line) {
-        return line.startsWith("deadline") && line.contains(DEADLINE_BY_KEYWORD);
+        return line.startsWith("deadline ") && line.contains(DEADLINE_BY_KEYWORD);
     }
 
     /**
@@ -144,7 +154,7 @@ public class Parser {
      * @return True if the command starts with "todo".
      */
     public static boolean isTodo(String line) {
-        return line.startsWith("todo");
+        return line.startsWith("todo ");
     }
 
     /**
@@ -160,6 +170,15 @@ public class Parser {
         taskDescriptionNotEmpty(todoDescription);
 
         return todoDescription;
+    }
+
+    public static String extractFindDescription(String line) throws EmptyDescriptionException {
+        String findDescription;
+        findDescription = line.replaceFirst("find", "").trim();
+
+        taskDescriptionNotEmpty(findDescription);
+
+        return findDescription;
     }
 
     /**
@@ -195,12 +214,13 @@ public class Parser {
      * @return The date of the deadline.
      * @throws EmptyDateFieldException if the date field is empty.
      */
-    public static String extractDeadlineDate(String line) {
-        String deadlineDate;
+    public static LocalDateTime extractDeadlineDate(String line) {
+        LocalDateTime deadlineDate;
         final int indexOfDeadlinePrefix = line.indexOf("/by");
-        deadlineDate = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
+        String deadlineDateString = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
 
-        dateFieldNotEmpty(deadlineDate);
+        dateFieldNotEmpty(deadlineDateString);
+        deadlineDate = TaskList.convertDeadlineDateAsLocalDateTime(deadlineDateString);
 
         return deadlineDate;
     }
@@ -258,13 +278,13 @@ public class Parser {
         return eventEndDate;
     }
 
-    public static String extractEventStartDate(String line) {
     /**
      * Extracts the start date from an event command.
      * @param line The input string.
      * @return The start date of the event.
      * @throws EmptyDateFieldException if the date field is empty.
      */
+    public static String extractEventStartDate(String line) {
         String eventStartDate;
         final int indexOfStartDatePrefix = line.indexOf("/from");
         final int indexOfEndDatePrefix = line.indexOf("/to");
