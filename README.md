@@ -26,7 +26,7 @@ AlyBot is a task management application that allows users to create, manage, and
 3. Copy the file into any folder
 4. Open a new terminal in the folder you copied the .jar file into, and enter the following command:
 
-         `java -jar nell.jar`
+         `java -jar Aly.jar`
 5. Upon running the command, the following messages should be printed in your terminal:
 ```
 Hello, my name is
