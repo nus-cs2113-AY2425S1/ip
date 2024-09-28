@@ -22,10 +22,6 @@ public class Luke {
         taskList = new TaskList(storage.saveStrings);
     }
 
-    private String numberOfTasksMessage() {
-        return taskList.numberOfTasksMessage();
-    }
-
     private void saveAllTasks() throws IOException {
         storage.saveAllTasks(taskList.tasks);
     }
