@@ -12,7 +12,7 @@ public abstract class Command {
     protected int targetNumber = -1;
 
     /**
-     * Constructs this class.
+     * Class constructor.
      */
     public Command() {
     }

@@ -21,7 +21,7 @@ public class Ui {
     private final Scanner in;
 
     /**
-     * Constructs this class.
+     * Class constructor.
      */
     public Ui() {
         this.in = new Scanner(System.in);

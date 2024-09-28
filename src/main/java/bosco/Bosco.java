@@ -27,7 +27,7 @@ public class Bosco {
     private Storage storage;
 
     /**
-     * Constructs this class.
+     * Class constructor.
      *
      * @param filePath File path of data file storing tasks.
      */

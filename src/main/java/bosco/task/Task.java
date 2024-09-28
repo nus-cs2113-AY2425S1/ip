@@ -10,7 +10,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructs this class.
+     * Class constructor,
      *
      * @param description Description of this task.
      * @param isDone Whether this task is done.

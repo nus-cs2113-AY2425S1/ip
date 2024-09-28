@@ -9,14 +9,14 @@ public class TaskList {
     private final ArrayList<Task> tasksList;
 
     /**
-     * Constructs this class with an empty list.
+     * Class constructor.
      */
     public TaskList() {
         tasksList = new ArrayList<>();
     }
 
     /**
-     * Constructs this class with a list of existing tasks.
+     * Class constructor specifying the list of tasks to use.
      *
      * @param tasks <code>ArrayList</code> of existing tasks.
      */

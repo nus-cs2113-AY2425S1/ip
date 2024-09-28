@@ -5,7 +5,7 @@ package bosco.task;
  */
 public class Todo extends Task {
     /**
-     * Constructs this class.
+     * Class constructor.
      *
      * @param description Description of this Todo.
      * @param isDone Whether this Todo is done.

@@ -8,7 +8,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructs this class.
+     * Class constructor.
      *
      * @param description Description of this Deadline.
      * @param isDone Whether this Deadline is done.

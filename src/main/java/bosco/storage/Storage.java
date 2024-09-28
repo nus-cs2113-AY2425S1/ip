@@ -21,7 +21,7 @@ public class Storage {
     private final Path path;
 
     /**
-     * Constructs this class.
+     * Class constructor.
      *
      * @param filePath File path of data file storing tasks.
      */
