@@ -27,6 +27,19 @@ public class Storage {
     }
 
     /**
+     * Checks if the storage file is empty.
+     *
+     * @return true if the file is empty, false otherwise.
+     */
+    protected static boolean isEmptyFile() {
+        File f = new File(DEFAULTFILEPATH);
+        if (f.length() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Creates a new file by copying from a backup file. If the backup file is not found,
      * load the file from the resources and create a new file at the default path.
      *

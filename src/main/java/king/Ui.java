@@ -47,23 +47,35 @@ public class Ui {
      */
     protected static void toGreet(TaskList taskList) throws KingException, IOException {
         String logo =
-                "| |/ /|_ _|| \\| | / _` |\n" +
-                "| ' <  | | | .` || (_| |\n" +
-                "|_|\\_\\|___||_|\\_| \\__,_|\n";
+                "                                                           \n" +
+                "8 8888     ,88'  8 8888 b.             8     ,o888888o.    \n" +
+                "8 8888    ,88'   8 8888 888o.          8    8888     `88.  \n" +
+                "8 8888   ,88'    8 8888 Y88888o.       8 ,8 8888       `8. \n" +
+                "8 8888  ,88'     8 8888 .`Y888888o.    8 88 8888           \n" +
+                "8 8888 ,88'      8 8888 8o. `Y888888o. 8 88 8888           \n" +
+                "8 8888 88'       8 8888 8`Y8o. `Y88888o8 88 8888           \n" +
+                "8 888888<        8 8888 8   `Y8o. `Y8888 88 8888   8888888 \n" +
+                "8 8888 `Y8.      8 8888 8      `Y8o. `Y8 `8 8888       .8' \n" +
+                "8 8888   `Y8.    8 8888 8         `Y8o.`    8888     ,88'  \n" +
+                "8 8888     `Y8.  8 8888 8            `Yo     `8888888P'    ";
 
-        System.out.println("\nHello from\n" + logo);
+        System.out.println("Hello from\n" + logo);
 
-        if (Storage.checkFile()) {
+        if (Storage.checkFile() && Storage.isEmptyFile()) {
+            taskList.loadTasks();
+            System.out.println(" \n\nHello! I'm King" + "\n" +
+                               " What can I do for you?\n" + LINE);
+        } else if (Storage.checkFile()) {
             try {
                 taskList.loadTasks();
-                System.out.println("Welcome back! You have tasks saved previously.");
+                System.out.println("\n\nWelcome back! You have tasks saved previously.");
                 taskList.printList();
             } catch (KingException e) {
                 System.out.println(e.getMessage() + LINE);
             }
         } else {
             Storage.readFile();
-            System.out.println(" Hello! I'm King" + "\n" +
+            System.out.println(" \n\nHello! I'm King" + "\n" +
                                " What can I do for you?\n" + LINE);
         }
     }
