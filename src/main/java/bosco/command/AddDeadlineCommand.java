@@ -3,10 +3,12 @@ package bosco.command;
 import bosco.task.Deadline;
 import bosco.ui.Ui;
 
+import java.time.LocalDateTime;
+
 public class AddDeadlineCommand extends Command {
     private final Deadline newDeadline;
 
-    public AddDeadlineCommand(String description, String by) {
+    public AddDeadlineCommand(String description, LocalDateTime by) {
         this.newDeadline = new Deadline(description, false, by);
     }
 
