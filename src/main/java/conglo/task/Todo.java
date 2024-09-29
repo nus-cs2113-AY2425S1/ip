@@ -1,13 +1,12 @@
 package conglo.task;
 
 /**
- * Represents a to-do task with a description.
+ * Represents a To-do task with a description.
  */
 public class Todo extends Task {
 
     /**
      * Constructs a To-do task with the specified description.
-     * The task is initially marked as not done.
      *
      * @param description The description of the to-do task.
      */

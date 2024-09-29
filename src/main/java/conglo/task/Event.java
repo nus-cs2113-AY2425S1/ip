@@ -29,6 +29,11 @@ public class Event extends Task {
         return end;
     }
 
+    @Override
+    protected String getTaskType() {
+        return "E";
+    }
+
     /**
      * Returns a string representation of the Event task.
      * The format includes a label for events, the task's completion status,
@@ -36,11 +41,6 @@ public class Event extends Task {
      *
      * @return A string representation of the Event task.
      */
-    @Override
-    protected String getTaskType() {
-        return "E";
-    }
-
     protected String getFormattedDetails() {
         return "from " + start + " to " + end;
     }
