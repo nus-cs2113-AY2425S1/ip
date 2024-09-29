@@ -16,6 +16,14 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Ran is a chatbot, roughly based of the persona of Ran Yakumo from the series Touhou Project.
+ * Ran is able to help the user maintain a list of tasks, using various commands.
+ *
+ * @author 3CCLY
+ * @version 0.1.1
+ * @since 2024-08-23
+ */
 public class Ran {
     private Storage storage; 
     private Ui ui;
