@@ -34,6 +34,13 @@ public class TaskList {
         return args;
     }
 
+    /**
+     * Constructor for the TaskList class.
+     * Initializes the TaskList and loads saved tasks into an ArrayList.
+     * If the saved data is null, no tasks will be loaded.
+     *
+     * @param saveStrings ArrayList of strings representing saved tasks.
+     */
     public TaskList(ArrayList<String> saveStrings) {
         ui = new Ui();
         if (saveStrings == null) return;
@@ -41,6 +48,7 @@ public class TaskList {
             loadSingleTask(line);
         }
     }
+
     private void loadSingleTask(String taskStr) {
         String[] taskStrArr = taskStr.split("\\|");
         switch (taskStrArr[TASK_TYPE_INDEX]) {
@@ -60,14 +68,26 @@ public class TaskList {
         }
     }
 
+    /**
+     * Generates a message indicating the number of tasks currently in the user's list.
+     * @return A formatted string displaying the total number of tasks in the user's list.
+     */
     public String numberOfTasksMessage() {
         return String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() > 1 ? "tasks" : "task");
     }
 
+    /**
+     * Returns the total number of tasks in the user's list.
+     * @return The number of tasks currently in the list.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Displays all tasks in the user's list.
+     * Each task is printed with its index.
+     */
     public void list() {
         ui.printDivider();
         for (int i = 0; i < tasks.size(); i++) {
@@ -77,6 +97,10 @@ public class TaskList {
         ui.printDivider();
     }
 
+    /**
+     * Marks task specified in the user input as done.
+     * @param inputs User input as an array of strings.
+     */
     public void mark(String[] inputs) {
         int idx;
         String[] args;
@@ -97,6 +121,10 @@ public class TaskList {
         ui.printReply(String.format("Marked:\n  %s", tasks.get(idx).toString()));
     }
 
+    /**
+     * Marks task specified in the user input as undone.
+     * @param inputs User input as an array of strings.
+     */
     public void unmark(String[] inputs) {
         int idx;
         String[] args;
@@ -117,6 +145,10 @@ public class TaskList {
         ui.printReply(String.format("Unmarked:\n  %s", tasks.get(idx).toString()));
     }
 
+    /**
+     * Adds a ToDo task as specified by the user input.
+     * @param inputs User input as an array of strings.
+     */
     public void addToDo(String[] inputs) {
         String[] args = getArgs(inputs);
         String description = String.join(" ", args);
@@ -125,6 +157,10 @@ public class TaskList {
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
     }
 
+    /**
+     * Adds a Deadline task as specified by the user input.
+     * @param inputs User input as an array of strings.
+     */
     public void addDeadline(String[] inputs) {
         String[] args = getArgs(inputs);
         int idx = -1;
@@ -143,6 +179,10 @@ public class TaskList {
                 tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
     }
 
+    /**
+     * Adds an Event task as specified by the user input.
+     * @param inputs User input as an array of strings.
+     */
     public void addEvent(String[] inputs) {
         String[] args = getArgs(inputs);
         int fromIdx = -1;
@@ -169,7 +209,10 @@ public class TaskList {
 
     }
 
-
+    /**
+     * Deletes task specified by user input.
+     * @param inputs User input as an array of strings.
+     */
     public void deleteTask(String[] inputs) {
         int idx;
         String[] args;
