@@ -27,8 +27,8 @@ public class Parser {
     /**
      * Constructor for Parser class.
      *
-     * @param taskList
-     * @param storage
+     * @param taskList Class containing list of tasks.
+     * @param storage Class to handle writing data to save file.
      */
     public Parser(TaskList taskList, Storage storage) {
         this.taskList = taskList;
