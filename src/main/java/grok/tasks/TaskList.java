@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a list of tasks. Provides methods to add, remove, and access tasks.
+ * Represents a list of tasks. Provides methods to add, remove, and access tasks,
+ * as well as search for tasks by keyword.
  */
 public class TaskList {
     private final List<Task> tasks;
@@ -70,5 +71,21 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Finds tasks that match the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that contain the keyword in their description.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
