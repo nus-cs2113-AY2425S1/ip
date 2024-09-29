@@ -2,9 +2,6 @@ package aether.parser;
 
 import aether.command.*;
 import aether.DukeException;
-import aether.command.ListCommand;
-import aether.command.MarkCommand;
-
 
 /**
  * Parses user commands and returns the appropriate Command object.
@@ -12,7 +9,7 @@ import aether.command.MarkCommand;
 public class Parser {
 
     public static Command parseCommand(String command) throws DukeException {
-        String[] commandParts = command.split("\\s+", 2);
+        String[] commandParts = command.split("\\s+", 2);  // Split into command and arguments
         String commandName = commandParts[0].toLowerCase();
         String arguments = commandParts.length > 1 ? commandParts[1].trim() : "";
 
@@ -33,6 +30,11 @@ public class Parser {
             return new AddCommand(arguments, TaskType.EVENT);
         case "delete":
             return new DeleteCommand(arguments);
+        case "find":  // Add handling for the find command
+            if (arguments.isEmpty()) {
+                throw new DukeException("Error: The find command requires a keyword.");
+            }
+            return new FindCommand(arguments);  // Create and return a FindCommand
         default:
             throw new DukeException("Error: Invalid command. Please enter a valid command.");
         }
