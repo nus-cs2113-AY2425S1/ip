@@ -1,6 +1,7 @@
 package command;
 
 import exception.EchoException;
+import storage.Storage;
 import tasklist.TaskList;
 
 public class DeleteCommand extends Command {
@@ -19,6 +20,7 @@ public class DeleteCommand extends Command {
             System.out.println(SEPARATOR);
             System.out.println(taskList.deleteTask(taskNumber));
             System.out.println(SEPARATOR);
+            taskList.saveTasks();
         } catch (NumberFormatException e) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.invalidTaskNumberFormat());
