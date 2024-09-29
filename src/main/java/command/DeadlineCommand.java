@@ -8,6 +8,14 @@ public class DeadlineCommand extends Command {
     private static final int DEADLINE_WORD_LENGTH = 8;
     private static final int DEADLINE_DUE_DATE_OFFSET = 5;
 
+    /**
+     * {@inheritDoc}
+     * Adds a new deadline task.
+     * If the input does not contain a valid description or due date, sends an error message.
+     *
+     * @param taskList  The task list containing tasks.
+     * @param userInput The user input containing the command description.
+     */
     @Override
     public void execute(TaskList taskList, String userInput) {
         int byIndex = userInput.indexOf(" /by ");

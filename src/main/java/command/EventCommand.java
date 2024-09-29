@@ -9,6 +9,14 @@ public class EventCommand extends Command {
     private static final int START_WORD_LENGTH = 7;
     private static final int END_WORD_LENGTH = 5;
 
+    /**
+     * {@inheritDoc}
+     * Adds a new event task.
+     * If the input does not contain valid descriptions or time frames, sends an error message.
+     *
+     * @param taskList  The task list containing tasks.
+     * @param userInput The user input containing the command description.
+     */
     @Override
     public void execute(TaskList taskList, String userInput) {
         int startIndex = userInput.indexOf(" /from ");

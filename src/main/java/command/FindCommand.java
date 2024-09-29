@@ -5,6 +5,13 @@ import tasklist.TaskList;
 public class FindCommand extends Command {
     private static final int FIND_WORD_LENGTH = 5;
 
+    /**
+     * {@inheritDoc}
+     * Finds tasks in the task list using the keyword.
+     *
+     * @param taskList  The task list containing tasks.
+     * @param userInput The user input containing the command description.
+     */
     @Override
     public void execute(TaskList taskList, String userInput) {
         String keywordInUserInput = userInput.substring(FIND_WORD_LENGTH).trim();

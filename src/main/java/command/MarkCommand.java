@@ -6,6 +6,14 @@ import exception.EchoException;
 public class MarkCommand extends Command {
     private static final int MARK_WORD_LENGTH = 5;
 
+    /**
+     * {@inheritDoc}
+     * Marks a specified task as done.
+     * Sends an error message if the task number is invalid.
+     *
+     * @param taskList  The task list containing tasks.
+     * @param userInput The user input containing the command description.
+     */
     @Override
     public void execute(TaskList taskList, String userInput) {
         try {

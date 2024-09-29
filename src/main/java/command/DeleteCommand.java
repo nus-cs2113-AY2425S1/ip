@@ -1,12 +1,19 @@
 package command;
 
 import exception.EchoException;
-import storage.Storage;
 import tasklist.TaskList;
 
 public class DeleteCommand extends Command {
     private static final int DELETE_WORD_LENGTH = 7;
 
+    /**
+     * {@inheritDoc}
+     * Deletes a task based on the task number.
+     * Sends an error message if the task number is invalid.
+     *
+     * @param taskList  The task list containing tasks.
+     * @param userInput The user input containing the command description.
+     */
     @Override
     public void execute(TaskList taskList, String userInput) {
         try {
