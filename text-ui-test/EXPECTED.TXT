@@ -3,13 +3,14 @@ Hola! I'm Conglo, the friendly task manager.
 ----------------------------------------------------------
 Here's a quick manual to get you started:
 1. Add a todo: todo [description]
-2. Add a deadline: deadline [description] /by [deadline]
+2. Add a deadline: deadline [description] /by [dd-MM-yyyy HHmm]
 3. Add an event: event [description] /from [start time] /to [end time]
 4. Mark a task as done: mark [task number]
 5. Unmark a task: unmark [task number]
 6. Delete a task: delete [task number]
 7. List all tasks: list
-8. Exit the application: bye
+8. Find matching keyword: find [keyword]
+9. Exit the application: bye
 ----------------------------------------------------------
 The list is empty!
 ----------------------------------------------------------
@@ -18,7 +19,7 @@ All done! Task added to list:
 The list has 1 task now.
 ----------------------------------------------------------
 All done! Task added to list:
- D | 0 | assignment | by Saturday
+ D | 0 | assignment | by 20 Jul 2024 02:15 pm
 The list has 2 tasks now.
 ----------------------------------------------------------
 Nice! I've marked this task as done:
@@ -30,22 +31,37 @@ The list has 3 tasks now.
 ----------------------------------------------------------
 Here are your tasks:
 1. T | 1 | read
-2. D | 0 | assignment | by Saturday
+2. D | 0 | assignment | by 20 Jul 2024 02:15 pm
 3. E | 0 | presentation | from Thurs 10am to 12pm
 ----------------------------------------------------------
 Nice! I've marked this task as done:
-D | 1 | assignment | by Saturday
+D | 1 | assignment | by 20 Jul 2024 02:15 pm
 ----------------------------------------------------------
 OK, I've marked this task as not done yet:
 T | 0 | read
 ----------------------------------------------------------
 Here are your tasks:
 1. T | 0 | read
-2. D | 1 | assignment | by Saturday
+2. D | 1 | assignment | by 20 Jul 2024 02:15 pm
 3. E | 0 | presentation | from Thurs 10am to 12pm
+----------------------------------------------------------
+All done! Task added to list:
+ T | 0 | cs2113 assignment
+The list has 4 tasks now.
+----------------------------------------------------------
+Tasks matched in your list:
+1. D | 1 | assignment | by 20 Jul 2024 02:15 pm
+2. T | 0 | cs2113 assignment
+----------------------------------------------------------
+Tasks matched in your list:
+1. E | 0 | presentation | from Thurs 10am to 12pm
 ----------------------------------------------------------
 Okie! Task is removed from list:
  T | 0 | read
+The list has 3 tasks now.
+----------------------------------------------------------
+Okie! Task is removed from list:
+ T | 0 | cs2113 assignment
 The list has 2 tasks now.
 ----------------------------------------------------------
 Okie! Task is removed from list:
@@ -53,7 +69,7 @@ Okie! Task is removed from list:
 The list has 1 task now.
 ----------------------------------------------------------
 Okie! Task is removed from list:
- D | 1 | assignment | by Saturday
+ D | 1 | assignment | by 20 Jul 2024 02:15 pm
 The list has 0 task now.
 ----------------------------------------------------------
 The list is empty!
