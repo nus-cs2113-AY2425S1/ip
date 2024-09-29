@@ -5,7 +5,7 @@ import task.Deadline;
 import exception.EchoException;
 
 public class DeadlineCommand extends Command {
-    private static final int DEADLINE_WORD_LENGTH = 9;
+    private static final int DEADLINE_WORD_LENGTH = 8;
     private static final int DEADLINE_DUE_DATE_OFFSET = 5;
 
     @Override
