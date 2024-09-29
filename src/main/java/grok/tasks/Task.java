@@ -25,7 +25,6 @@ public class Task {
         this.isDone = false;
     }
 
-    // Method to format how the task should be saved in the file
     public String toSaveFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
