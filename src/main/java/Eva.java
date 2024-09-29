@@ -4,17 +4,16 @@ public class Eva {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
     private final static TaskManager taskManager = new TaskManager();
+    private final static Ui ui = new Ui();
 
     public static void main(String[] args) {
 
-        printWelcome();
+        ui.showWelcomeMessage();
 
         String line;
-        Scanner in = new Scanner(System.in);
 
         while(true) {
-
-            line = in.nextLine();
+            line = ui.readCommand();
 
             try {
                 switch (getCommand(line)) {
@@ -28,7 +27,7 @@ public class Eva {
                     taskManager.unmarkTask(line);
                     break;
                 case "bye":
-                    sayBye();
+                    ui.showGoodbyeMessage();
                     return;
                 case "todo":
                     taskManager.printTodo(line);
@@ -44,8 +43,7 @@ public class Eva {
                     break;
                 }
             } catch (EvaException e) {
-                System.out.println(e.getMessage());
-                System.out.println(HORIZONTAL_LINE);
+                ui.showErrorMessage(e.getMessage());
             }
         }
     }
@@ -71,17 +69,5 @@ public class Eva {
         } else {
             throw new EvaException("Sorry!! I don't understand what does " + line + " means!");
         }
-    }
-
-    public static void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    public static void printWelcome() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Eva!");
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
     }
 }
