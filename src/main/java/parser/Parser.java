@@ -1,5 +1,6 @@
 package parser;
 
+import exception.EchoException;
 import tasklist.TaskList;
 import command.ListCommand;
 import command.MarkCommand;
@@ -22,6 +23,15 @@ public class Parser {
     private static final String SEPARATOR = "_".repeat(30);
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Converts the date from a string.
+     * Accepts 3 kinds of formats (yyyy-MM-dd, d/M/yyyy, and MMM dd yyyy).
+     * Returns the parsed date.
+     *
+     * @param date The date in string format to be parsed.
+     * @return The parsed LocalDate object.
+     * @throws DateTimeParseException if the date cannot be parsed.
+     */
     public static LocalDate parseDate(String date) {
         try {
             return LocalDate.parse(date, formatter1);
@@ -33,11 +43,22 @@ public class Parser {
             }
         }
     }
-
+    /**
+     * Reads the user input from CLI.
+     *
+     * @return A string of the user input.
+     */
     public String getUserInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Processes and executes the user input.
+     * If the input does not match any command, an error message is displayed.
+     *
+     * @param userInput The string from the user.
+     * @param taskList The TaskList object to pass in the list of tasks.
+     */
     public void processUserInput(String userInput, TaskList taskList) {
         if (userInput.startsWith("list")) {
             new ListCommand().execute(taskList, userInput);
@@ -57,7 +78,7 @@ public class Parser {
             new FindCommand().execute(taskList, userInput);
         } else {
             System.out.println(SEPARATOR);
-            System.out.println("Invalid input, please try again.");
+            System.out.println(EchoException.unknownCommand());
             System.out.println(SEPARATOR);
         }
     }

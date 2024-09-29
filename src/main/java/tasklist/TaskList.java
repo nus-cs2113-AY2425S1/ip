@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Storage of new task in the task list.
+     * Stores new task in the task list.
      *
      * @param task Name of the task is added.
      */
@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     /**
-     * Delete task from ArrayList
+     * Deletes task from ArrayList.
      *
      * @param index The task number to be deleted.
      * @return A confirmation message.
@@ -90,10 +90,17 @@ public class TaskList {
                 "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Saves the ArrayList of tasks.
+     */
     public void saveTasks() {
         storage.saveTasks(tasks);
     }
 
+    /**
+     * Loads ArrayList of tasks.
+     * If saved tasks is found in .txt file, they will be loaded.
+     */
     public void loadTasks() {
         ArrayList<Task> loadedTasks = storage.loadTasks();
         if (loadedTasks != null) {
@@ -101,6 +108,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Filters tasks based on a given keyword.
+     *
+     * @param keywordInUserInput The keyword user keyed in and will be used to search.
+     * @return A string containing all matching tasks.
+     */
     public String findTasksByKeyword(String keywordInUserInput){
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         String convertLowerCase = keywordInUserInput.toLowerCase();
