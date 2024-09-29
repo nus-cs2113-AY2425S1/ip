@@ -1,7 +1,7 @@
 package aether.ui;
 
 /**
- * Display class to handle all user interface outputs.
+ * Handles the display logic for the task manager.
  */
 public class Display {
     public static void showStartScreen() {

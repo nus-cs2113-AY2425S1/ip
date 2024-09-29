@@ -1,5 +1,8 @@
 package aether.task;
 
+/**
+ * Todo class representing a simple task with only a description.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -7,12 +10,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-
-    @Override
     public String toDataString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + getStatus() + " | " + description;
     }
 }

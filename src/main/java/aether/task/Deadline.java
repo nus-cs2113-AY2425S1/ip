@@ -1,5 +1,8 @@
 package aether.task;
 
+/**
+ * Deadline class representing a task with a due date.
+ */
 public class Deadline extends Task {
     protected String by;
 
@@ -9,12 +12,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+    public String toDataString() {
+        return "D | " + getStatus() + " | " + description + " | " + by;
     }
 
     @Override
-    public String toDataString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
