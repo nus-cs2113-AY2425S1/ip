@@ -24,7 +24,7 @@ public class Parser {
      * @return Command Object for subsequent execution
      * @throws EllioExceptions.UnknownCommandException
      */
-    public static Command parse(String inputCommand) throws EllioExceptions.UnknownCommandException {
+    public static Command parse(String inputCommand) throws EllioExceptions {
         String[] inputs = inputCommand.split(" ",2);
         switch (inputs[0].toLowerCase()){
         case COMMAND_LIST:

@@ -42,4 +42,20 @@ public class EllioExceptions extends Exception{
             super("Unable to load file");
         }
     }
+
+    public static class EmptyListException extends EllioExceptions{
+        public EmptyListException (){
+            super(BotText.LINE_BORDER +
+                    BotText.MESSAGE_EMPTY_LIST +
+                    BotText.LINE_BORDER);
+        }
+    }
+
+    public static class OutOfIndexException extends EllioExceptions{
+        public OutOfIndexException (int index){
+            super(BotText.LINE_BORDER +
+                    BotText.MESSAGE_INVALID_TEXT + index + ".\n" +
+                    BotText.LINE_BORDER);
+        }
+    }
 }

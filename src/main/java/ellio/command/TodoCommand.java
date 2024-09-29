@@ -14,7 +14,7 @@ public class TodoCommand extends Command{
     }
 
     /**
-     * Adds a ToDo type Task into the list
+     * Adds a Todo type Task into the list
      * @param tasks Input by user
      * @param ui Ui interface reference
      * @param storage Reference for Storage functions

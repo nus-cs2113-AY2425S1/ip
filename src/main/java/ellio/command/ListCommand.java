@@ -1,6 +1,7 @@
 package ellio.command;
 
 import ellio.BotText;
+import ellio.EllioExceptions;
 import ellio.storage.Storage;
 import ellio.task.Task;
 import ellio.task.TaskList;
@@ -19,12 +20,12 @@ public class ListCommand extends Command {
      * @param ui Ui interface reference
      * @param storage Storage object reference
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage)throws EllioExceptions{
 
         int numberOfTasks = tasks.getNumberTask();
 
         if (numberOfTasks < 1){
-            throw new IndexOutOfBoundsException();
+            throw new EllioExceptions.EmptyListException();
         }
         ui.showList();
         for (int i = 0; i < numberOfTasks; i++){
