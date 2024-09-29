@@ -19,10 +19,22 @@ public class Storage {
 
     private static String filePath;
 
+    /**
+     * Initializes the storage with the specified file path.
+     *
+     * @param filePath The path of the file to load and save tasks.
+     */
     public Storage(String filePath) {
         Storage.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as an ArrayList.
+     *
+     * @return an ArrayList of tasks loaded from the file.
+     * @throws StorageInvalidFormat If the file format is invalid.
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
     public ArrayList<Task> loadTasks() throws StorageInvalidFormat, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -75,6 +87,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param taskList The TaskList object containing the tasks to be saved.
+     */
     public static void saveTasks(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.getTaskList()) {

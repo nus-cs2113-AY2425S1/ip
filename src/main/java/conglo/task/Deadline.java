@@ -23,6 +23,11 @@ public class Deadline extends Task {
         return "D";
     }
 
+    /**
+     * Returns a formatted string of the details for this task.
+     *
+     * @return A string representing the deadline for the task.
+     */
     protected String getFormattedDetails() {
         return "by " + by;
     }

@@ -14,6 +14,9 @@ import conglo.task.Todo;
 import conglo.task.TaskList;
 import conglo.ui.Ui;
 
+/**
+ * Handles parsing and processing of user commands for task management.
+ */
 public class Parser {
     private static boolean isDelete = false;
     private static Ui ui = new Ui();
@@ -22,6 +25,12 @@ public class Parser {
         Storage.saveTasks(taskList);
     }
 
+    /**
+     * Displays a message about the added or removed task and the current number of tasks.
+     *
+     * @param taskList The list of tasks.
+     * @param task The task that was added or removed.
+     */
     public static void echoTask(TaskList taskList, Task task) {
         int size = taskList.getSize();
         if (isDelete) {
@@ -38,10 +47,20 @@ public class Parser {
         System.out.println("The list has " + size + taskSuffix + " now.");
     }
 
+    /**
+     * Displays the current list of tasks.
+     */
     public static void listTasks() {
         ui.displayTaskList();
     }
 
+    /**
+     * Marks a task as done or not done based on user input.
+     *
+     * @param taskList The list of tasks.
+     * @param words The command and task number input by the user.
+     * @throws InvalidTaskNumber If the task number is invalid.
+     */
     public static void markTask(TaskList taskList, String[] words) throws InvalidTaskNumber {
         int taskNumber;
         try {
@@ -51,7 +70,7 @@ public class Parser {
             return;
         }
 
-        if (taskNumber >= taskList.size() || taskNumber < 0) {
+        if (taskNumber >= taskList.getSize() || taskNumber < 0) {
             throw new InvalidTaskNumber();
         }
         if (words[0].equals("mark")) {
@@ -64,6 +83,12 @@ public class Parser {
         System.out.println(taskList.getTask(taskNumber).toFileFormat());
     }
 
+    /**
+     * Adds a new To-do task to the task list.
+     *
+     * @param taskList The list of tasks.
+     * @param sentence The description of the To-do task.
+     */
     public static void addTodo(TaskList taskList, String sentence) {
         Todo todo = new Todo(sentence);
         taskList.addTask(todo);
@@ -71,6 +96,13 @@ public class Parser {
         saveTasks(taskList);
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     *
+     * @param taskList The list of tasks.
+     * @param sentence The description and due date of the Deadline task.
+     * @throws InvalidFormat If the format of the deadline is incorrect.
+     */
     public static void addDeadline(TaskList taskList, String sentence) throws InvalidFormat {
         if (!sentence.contains(" /by ")) {
             throw new InvalidFormat("deadline");
@@ -82,6 +114,13 @@ public class Parser {
         saveTasks(taskList);
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     *
+     * @param taskList The list of tasks.
+     * @param sentence The description, start, and end time of the Event task.
+     * @throws InvalidFormat If the format of the event is incorrect.
+     */
     public static void addEvent(TaskList taskList, String sentence) throws InvalidFormat {
         if (!sentence.contains(" /from ") || !sentence.contains(" /to ")) {
             throw new InvalidFormat("event");
@@ -93,6 +132,13 @@ public class Parser {
         saveTasks(taskList);
     }
 
+    /**
+     * Deletes a task from the task list based on user input.
+     *
+     * @param taskList The list of tasks.
+     * @param word The task number to delete.
+     * @throws InvalidTaskNumber If the task number is invalid.
+     */
     public static void deleteTask(TaskList taskList, String word) throws InvalidTaskNumber {
         int index;
         try {
@@ -101,7 +147,7 @@ public class Parser {
             System.out.println("Invalid format! Please provide a task number >.<");
             return;
         }
-        if (index >= taskList.size() || index < 0) {
+        if (index >= taskList.getSize() || index < 0) {
             throw new InvalidTaskNumber();
         }
         isDelete = true;
@@ -111,6 +157,13 @@ public class Parser {
         saveTasks(taskList);
     }
 
+    /**
+     * Processes the user command and calls the appropriate methods to handle the command.
+     *
+     * @param taskList The list of tasks.
+     * @param command The user command input.
+     * @throws CongloException If an error occurs while processing the command.
+     */
     public static void processCommand(TaskList taskList, String command) throws CongloException {
         String[] words = command.split(" ", 2);
         switch(words[0]) {
