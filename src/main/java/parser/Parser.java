@@ -1,35 +1,35 @@
 package parser;
 
-import task.Task;
+import commands.*;
 
 import java.util.Objects;
 
 public class Parser {
 
 
-    public Task parseCommand(String userInput) {
+    public Command parseCommand(String userInput) {
         // checks what kind of command was received by XiaoMe
 
-        if (Objects.equals(line, "bye")) {
-            return XiaoMe.Type.BYE;
-        } else if (Objects.equals(line, "list")) {
-            return XiaoMe.Type.LIST;
+        if (Objects.equals(userInput, "bye")) {
+            return new ByeCommand();
+        } else if (Objects.equals(userInput, "list")) {
+            return new ListCommand();
         }
 
-        String[] words = line.trim().split(" ");
+        String[] words = userInput.trim().split(" ");
         String first = words[0];
 
         if (Objects.equals(first, "todo")) {
-            return XiaoMe.Type.TODO;
+            return new ToDoCommand(userInput);
         } else if (Objects.equals(first, "deadline")) {
-            return XiaoMe.Type.DEADLINE;
+            return new DeadlineCommand(userInput);
         } else if (Objects.equals(first, "event")) {
-            return XiaoMe.Type.EVENT;
+            return new EventCommand(userInput);
         } else if (Objects.equals(first, "mark") || Objects.equals(first, "unmark")) {
-            return XiaoMe.Type.MARK;
+            return new MarkCommand(userInput);
         }
 
-        throw new XiaoMeException();
+        throw new IllegalArgumentException();
     }
 
 }
