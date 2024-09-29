@@ -1,5 +1,7 @@
 package pythia.task;
 
+import pythia.utility.WriteVisitor;
+
 public class Task implements Savable {
     private String name;
     private boolean isDone;
@@ -7,6 +9,11 @@ public class Task implements Savable {
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+    }
+
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -35,7 +42,7 @@ public class Task implements Savable {
     }
 
     @Override
-    public String toTxt() {
-        return (isDone ? "1" : "0") + " | " + name;
+    public String accept(WriteVisitor visitor) {
+        return visitor.visitTask(this);
     }
 }

@@ -1,5 +1,7 @@
 package pythia.task;
 
+import pythia.utility.WriteVisitor;
+
 public interface Savable {
-    public String toTxt();
+    public String accept(WriteVisitor visitor);
 }

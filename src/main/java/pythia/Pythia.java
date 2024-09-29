@@ -7,16 +7,11 @@ import pythia.task.ToDo;
 import pythia.task.Deadline;
 import pythia.task.Event;
 import pythia.exceptions.PythiaException;
+import pythia.utility.Storage;
 import pythia.utility.TaskList;
-
-import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Pythia {
     private static String botName = "Pythia";
-    private static String dataPath = "data/pythia.txt";
     private static String logo =
             "____        _   _     _       \n" +
             "|  _ \\ _   _| |_| |__ (_) __ _ \n" +
@@ -26,7 +21,13 @@ public class Pythia {
             "       |___/                   ";
 
     private static boolean isByeSaid = false;
-    private static TaskList taskList = new TaskList();
+    private static TaskList taskList;
+    private static Storage storage;
+
+    public Pythia(String filePath) {
+        storage = new Storage(filePath);
+        taskList = storage.load();
+    }
 
     public static void greet() {
         String helloMsg =   "Welcome, seeker. I am " + botName + ".\n" +
@@ -47,25 +48,25 @@ public class Pythia {
     public static void addTask(String taskName) {
         taskList.add(new Task(taskName));
         IO.printAddedTask("added: " + taskName);
-        saveTasksToTxt();
+        storage.save(taskList);
+    }
+
+    public static void addTask(Task task) {
+        taskList.add(task);
+        IO.printAddedTask("added: " + task.getName());
+        storage.save(taskList);
     }
 
     public static void addToDo(String todoName) {
-        taskList.add(new ToDo(todoName));
-        IO.printAddedTask("added: " + todoName);
-        saveTasksToTxt();
+        addTask(new ToDo(todoName));
     }
 
     public static void addDeadline(String deadlineName, String dueDate) {
-        taskList.add(new Deadline(deadlineName, dueDate));
-        IO.printAddedTask("added: " + deadlineName);
-        saveTasksToTxt();
+        addTask(new Deadline(deadlineName, dueDate));
     }
 
     public static void addEvent(String eventName, String startDate, String endDate) {
-        taskList.add(new Event(eventName, startDate, endDate));
-        IO.printAddedTask("added: " + eventName);
-        saveTasksToTxt();
+        addTask(new Event(eventName, startDate, endDate));
     }
 
     public static void markTask(Integer taskNumber) {
@@ -73,7 +74,7 @@ public class Pythia {
             taskList.markAsDone(taskNumber - 1);
             String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
             IO.printResponse(msg);
-            saveTasksToTxt();
+            storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             IO.printResponse("There is no such task :(");
         }
@@ -89,18 +90,7 @@ public class Pythia {
         }
     }
 
-    public static void saveTasksToTxt() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath, false))) {
-            for (Task task : taskList) {
-                writer.write(task.toTxt());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
+    private static void run() {
         IO.init();
         greet();
         Parser parser = new Parser();
@@ -114,5 +104,9 @@ public class Pythia {
                 IO.printResponse(e.getUserMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Pythia("data/pythia.txt").run();
     }
 }

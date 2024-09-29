@@ -12,7 +12,6 @@ public class Parser {
     private ArrayList<String> argumentList = null;
     private String parsingErrorMessage = "Parsing of add command unsuccessful.";
 
-
     public Parser() {}
 
     private String parseCommandType(String rawText) {
