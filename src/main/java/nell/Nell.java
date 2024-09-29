@@ -9,10 +9,10 @@ import nell.ui.Ui;
  * Represents the main program for Nell
  */
 public class Nell {
-    private TaskList tasks;
-    private Storage dataStorage;
-    private Parser parser;
-    private Ui ui;
+    private final TaskList tasks;
+    private final Storage dataStorage;
+    private final Parser parser;
+    private final Ui ui;
 
     /**
      * Constructs a new Nell object

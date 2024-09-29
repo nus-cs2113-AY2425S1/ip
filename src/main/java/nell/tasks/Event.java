@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     public static final String TASK_TYPE = "E";
 
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs an Event with a given description, from-date, and to-date

@@ -7,7 +7,7 @@ import nell.common.Messages;
  * Represents an incorrect command
  */
 public class IncorrectCommand extends Command {
-    private String message;
+    private final String message;
 
     /**
      * Constructs a new IncorrectCommand object with a specified task list
