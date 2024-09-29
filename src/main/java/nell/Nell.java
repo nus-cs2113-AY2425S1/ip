@@ -1,6 +1,6 @@
 package nell;
 
-import nell.list.*;
+import nell.list.TaskList;
 import nell.parser.Parser;
 import nell.storage.Storage;
 import nell.ui.Ui;
@@ -18,10 +18,10 @@ public class Nell {
      * Constructs a new Nell object
      */
     public Nell() {
-       this.tasks = new TaskList();
-       this.dataStorage = new Storage("./data/data.txt", tasks);
-       this.parser = new Parser(tasks);
-       this.ui = new Ui(parser, dataStorage);
+        this.tasks = new TaskList();
+        this.dataStorage = new Storage("./data/data.txt", tasks);
+        this.parser = new Parser(tasks);
+        this.ui = new Ui(parser, dataStorage);
     }
 
     /**
