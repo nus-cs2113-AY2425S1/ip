@@ -1,9 +1,5 @@
 package main.java;
 
-import main.java.Ui;
-import main.java.TaskList;
-import main.java.Storage;
-
 import ran.command.Command;
 import ran.command.CommandType;
 import ran.command.AddDeadlineCommand;
@@ -16,14 +12,11 @@ import ran.command.ShowListCommand;
 import ran.command.TerminateCommand;
 
 import ran.exception.MissingArgumentException;
-import ran.exception.MissingCommandException;
-import ran.exception.MissingDescriptionException;
+import ran.exception.InvalidCommandException;
 import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
-import ran.exception.RanException;
 
 public class Parser {
-
     public static String getCommandArg(String input) {
         String[] splitInput = input.split("\\s+", 2);
         if (splitInput.length == 2) {
@@ -59,7 +52,7 @@ public class Parser {
         }
     }
 
-    public static Command parse(String input) throws MissingCommandException {
+    public static Command parse(String input) throws InvalidCommandException {
         String commandArg = getCommandArg(input);
         CommandType commandType = getCommandType(input);
         switch (commandType) {
@@ -82,7 +75,7 @@ public class Parser {
         case UNDEFINED:
             // Fall-through
         default:
-            throw new MissingCommandException();
+            throw new InvalidCommandException();
         }
     }
 }

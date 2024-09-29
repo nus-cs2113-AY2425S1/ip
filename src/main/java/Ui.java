@@ -73,4 +73,12 @@ public class Ui {
         }
         System.out.println(LINE);
     }
+
+    public void printMessage(String[] input) {
+        System.out.println(LINE);
+        for (String line: input) {
+            System.out.println("\t" + line);
+        }
+        System.out.println(LINE);
+    }
 }
