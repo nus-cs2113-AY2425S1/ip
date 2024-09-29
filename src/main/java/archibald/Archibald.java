@@ -11,6 +11,7 @@ import java.util.List;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -141,7 +142,7 @@ class Parser {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_BYE = "bye";
-    private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_HAPPENING = "happening";
     private static final int COMMAND_PARTS = 2;
 
     public Command parseCommand(String userInput) throws ArchibaldException {
@@ -159,8 +160,8 @@ class Parser {
             return new DeleteCommand(parts[1]);
         case COMMAND_BYE:
             return new ExitCommand();
-        case COMMAND_FIND:
-            return new FindCommand(parts[1]);
+        case COMMAND_HAPPENING:
+            return new HappeningCommand(parts[1]);
         default:
             return new AddCommand(userInput);
         }
@@ -204,18 +205,18 @@ class TaskList {
         return tasks.isEmpty();
     }
 
-    public List<Task> findTasksOnDate(LocalDateTime date) {
+    public List<Task> findTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getBy().toLocalDate().equals(date.toLocalDate())) {
+                if (deadline.getBy().toLocalDate().equals(date)) {
                     tasksOnDate.add(task);
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getFrom().toLocalDate().equals(date.toLocalDate()) ||
-                    event.getTo().toLocalDate().equals(date.toLocalDate())) {
+                if (event.getFrom().toLocalDate().equals(date) ||
+                    event.getTo().toLocalDate().equals(date)) {
                     tasksOnDate.add(task);
                 }
             }
@@ -383,18 +384,18 @@ class ExitCommand extends Command {
     }
 }
 
-class FindCommand extends Command {
-    private static final DateTimeFormatter FIND_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+class HappeningCommand extends Command {
+    private static final DateTimeFormatter HAPPENING_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String dateString;
 
-    public FindCommand(String dateString) {
+    public HappeningCommand(String dateString) {
         this.dateString = dateString;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException {
         try {
-            LocalDateTime date = LocalDateTime.parse(dateString, FIND_DATE_FORMAT);
+            LocalDate date = LocalDate.parse(dateString, HAPPENING_DATE_FORMAT);
             List<Task> tasksOnDate = tasks.findTasksOnDate(date);
             if (tasksOnDate.isEmpty()) {
                 ui.printArchibaldResponse("No tasks found on " + dateString);
