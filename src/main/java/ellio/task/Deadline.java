@@ -9,8 +9,8 @@ public class Deadline extends Task{
         this.deadlineDate = deadlineDate;
     }
 
-    public String getTask(){
-        return "[D]" + super.getTask() + " (" + deadlineDate + ")";
+    public String getTaskInfo(){
+        return "[D]" + super.getTaskInfo() + " (" + deadlineDate + ")";
     }
 
     public String getSaveFileTask(){

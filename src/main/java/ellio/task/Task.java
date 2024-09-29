@@ -30,7 +30,7 @@ public class Task {
         return description;
     }
 
-    public String getTask(){
+    public String getTaskInfo(){
         return "[" + getStatusIcon() + "] " + description;
     }
 
@@ -44,5 +44,4 @@ public class Task {
         }
         return "| " + markState + " | " + description;
     }
-    //...
 }

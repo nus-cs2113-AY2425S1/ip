@@ -11,8 +11,8 @@ public class Event extends Task{
         this.eventEndTime = eventEndTime;
     }
 
-    public String getTask(){
-        return "[E]" + super.getTask() + " (" + eventStartTime + " " +eventEndTime + ")";
+    public String getTaskInfo(){
+        return "[E]" + super.getTaskInfo() + " (" + eventStartTime + " " +eventEndTime + ")";
     }
 
     public String getSaveFileTask(){

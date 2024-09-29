@@ -6,8 +6,8 @@ public class Todo extends Task{
         super(description, isDone);
     }
 
-    public String getTask(){
-        return "[T]" + super.getTask();
+    public String getTaskInfo(){
+        return "[T]" + super.getTaskInfo();
     }
 
     public String getSaveFileTask(){

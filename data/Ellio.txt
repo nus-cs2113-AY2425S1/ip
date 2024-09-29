@@ -1,4 +1,7 @@
- e | 1 | project meeting | from: Aug 6th | to: later
- t | 0 | readbook
- d | 1 | return book | by: June 6th
+ d | 0 | return book | by: June 6th
  d | 0 | CS2113 IP | by: Friday
+ e | 1 | IE test | from: 4pm | to: 6pm
+ t | 1 | new task
+ d | 0 | new deadline | by: today
+ e | 1 | new event | from: now | to: later
+ t | 0 | another new task
