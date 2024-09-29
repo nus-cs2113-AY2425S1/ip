@@ -55,6 +55,18 @@ public class Ui {
         }
     }
 
+    public void displayFoundTasks(String keyword) {
+        ArrayList<Task> matchingTasks = TaskList.findTasks(keyword);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No task matches the keyword :(");
+        } else {
+            System.out.println("Tasks matched in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i).toFileFormat());
+            }
+        }
+    }
+
     public void displayLoadingError() {
         printText("Oops! There was an error loading your tasks. Please try again.");
     }

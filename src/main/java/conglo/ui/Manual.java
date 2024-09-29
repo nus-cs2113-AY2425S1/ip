@@ -15,7 +15,8 @@ public class Manual {
                  "5. Unmark a task: unmark [task number]",
                  "6. Delete a task: delete [task number]",
                  "7. List all tasks: list",
-                 "8. Exit the application: bye"
+                 "8. Find matching keyword: find [keyword]",
+                 "9. Exit the application: bye"
          };
 
          for (String line : manual) {
