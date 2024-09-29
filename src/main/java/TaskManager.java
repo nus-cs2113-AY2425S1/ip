@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
+    private final static Ui ui = new Ui();
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
     private static final String FILE_PATH = "data/eva.txt";
 
@@ -17,11 +18,7 @@ public class TaskManager {
     }
 
     public void printTaskList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < count; i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
-        }
-        System.out.println(HORIZONTAL_LINE);
+        ui.printTaskList(tasks);
     }
 
     public void markTask(String line) throws EvaException {
@@ -35,10 +32,10 @@ public class TaskManager {
 
         tasks.get(taskNumber).setMarkAsDone();
 
-        System.out.println("Great! This task is marked as done: ");
-        System.out.println(tasks.get(taskNumber).toString());
-        System.out.println("Well done! ;)");
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage("Great! This task is marked as done: ");
+        ui.showMessage(tasks.get(taskNumber).toString());
+        ui.showMessage("Well done! ;)");
+        ui.showMessage(HORIZONTAL_LINE);
 
         saveTasks();
     }
@@ -54,9 +51,9 @@ public class TaskManager {
 
         tasks.get(taskNumber).setMarkAsNotDone();
 
-        System.out.println("Ok, This task is marked as not done yet: ");
-        System.out.println(tasks.get(taskNumber).toString());
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage("Ok, This task is marked as not done yet: ");
+        ui.showMessage(tasks.get(taskNumber).toString());
+        ui.showMessage(HORIZONTAL_LINE);
 
         saveTasks();
     }
@@ -74,10 +71,10 @@ public class TaskManager {
         tasks.remove(taskNumber);
         count = count - 1;
 
-        System.out.println("Okay. I have deleted task " + (taskNumber + 1) + ".");
-        System.out.println(temp);
+        ui.showMessage("Okay. I have deleted task " + (taskNumber + 1) + ".");
+        ui.showMessage(temp);
         printNumTasks(count - 1);
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage(HORIZONTAL_LINE);
 
         saveTasks();
     }
@@ -98,10 +95,10 @@ public class TaskManager {
 
         tasks.add(new Todo(todoDesc));
 
-        System.out.println("Okay, I've added this todo: ");
-        System.out.println(tasks.get(count).toString());
+        ui.showMessage("Okay, I've added this todo: ");
+        ui.showMessage(tasks.get(count).toString());
         printNumTasks(count);
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage(HORIZONTAL_LINE);
 
         count++;
 
@@ -128,10 +125,10 @@ public class TaskManager {
 
         tasks.add(new Deadline(description, by));
 
-        System.out.println("Okay, I've added this deadline: ");
-        System.out.println(tasks.get(count).toString());
+        ui.showMessage("Okay, I've added this deadline: ");
+        ui.showMessage(tasks.get(count).toString());
         printNumTasks(count);
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage(HORIZONTAL_LINE);
 
         count++;
 
@@ -159,10 +156,10 @@ public class TaskManager {
 
         tasks.add(new Event(eventDesc, from, to));
 
-        System.out.println("Okay, I've added this event: ");
-        System.out.println(tasks.get(count).toString());
+        ui.showMessage("Okay, I've added this event: ");
+        ui.showMessage(tasks.get(count).toString());
         printNumTasks(count);
-        System.out.println(HORIZONTAL_LINE);
+        ui.showMessage(HORIZONTAL_LINE);
 
         count++;
 
@@ -170,7 +167,7 @@ public class TaskManager {
     }
 
     public void printNumTasks(int count) {
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+        ui.showMessage("Now you have " + (count + 1) + " tasks in the list.");
     }
 
     private void saveTasks() {
