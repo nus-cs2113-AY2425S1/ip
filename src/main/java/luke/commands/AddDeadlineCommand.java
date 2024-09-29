@@ -10,7 +10,7 @@ public class AddDeadlineCommand extends Command{
     public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
             taskList.addDeadline(inputs);
-        } catch (InsufficientArgumentsException e) {
+        } catch (Exception e) {
             ui.printReply(e.getMessage());
         }
     }

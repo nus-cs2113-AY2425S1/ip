@@ -1,13 +1,16 @@
 package luke.tasks;
 
-public class Deadline extends Task{
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by, boolean isDone) {
+public class Deadline extends Task{
+    protected LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -15,15 +18,19 @@ public class Deadline extends Task{
         super();
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", this.isDone ? "X" : " ", this.description, by);
+        DateTimeFormatter toStringFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        String byString = by.format(toStringFormatter);
+        return String.format("[D][%s] %s (by: %s)", this.isDone ? "X" : " ", this.description, byString);
     }
     public String toSaveString() {
-        return String.format("D|%d|%s|%s", isDone ? 1 : 0, description, by);
+        DateTimeFormatter toStringFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String byString = by.format(toStringFormatter);
+        return String.format("D|%d|%s|%s", isDone ? 1 : 0, description, byString);
     }
 }

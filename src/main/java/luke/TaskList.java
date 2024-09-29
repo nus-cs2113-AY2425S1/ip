@@ -2,11 +2,15 @@ package luke;
 
 import luke.exceptions.IncorrectInputException;
 import luke.exceptions.InsufficientArgumentsException;
+import luke.exceptions.LukeException;
 import luke.tasks.Deadline;
 import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,7 +40,7 @@ public class TaskList {
             tasks.add(new ToDo(taskStrArr[DESCRIPTION_INDEX], taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         case "D":
-            tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], taskStrArr[BY_INDEX],
+            tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], toLocalDateTime(taskStrArr[BY_INDEX]),
                 taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         case "E":
@@ -110,6 +114,17 @@ public class TaskList {
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
     }
 
+    private LocalDateTime toLocalDateTime(String datetime) {
+        DateTimeFormatter fromString = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime localDateTimeObj;
+        try {
+            localDateTimeObj = LocalDateTime.parse(datetime, fromString);
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Incorrect format. Correct format: yyyy-MM-dd HHmm");
+        }
+        return localDateTimeObj;
+    }
+
     public void addDeadline(String[] inputs) {
         String[] args = Arrays.copyOfRange(inputs, 1, inputs.length);
         int idx = -1;
@@ -123,7 +138,9 @@ public class TaskList {
         }
         String description = String.join(" ", Arrays.copyOf(args, idx));
         String deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
-        tasks.add(new Deadline(description, deadlineStr));
+        // Create LocalDateTime obj based on deadlineStr
+        LocalDateTime due = toLocalDateTime(deadlineStr);
+        tasks.add(new Deadline(description, due));
         ui.printReply(String.format("Added deadline: %s\n  %s",
                 tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
     }
