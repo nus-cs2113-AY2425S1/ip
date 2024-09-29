@@ -16,33 +16,70 @@ public abstract class Task implements TaskOperations {
         this.taskType = "";
     }
 
+    /**
+     * Gets the task description.
+     *
+     * @return The description of the task.
+     */
     public String getDescription(){
         return description;
     }
 
+    /**
+     * Returns a marker about if the task is done or not.
+     *
+     * @return "X" if the task is done.
+     */
     public String getMarker() {
         return isDone ? "X" : " ";
     }
 
+    /**
+     * Gets the task type marker.
+     *
+     * @return The type marker for the task.
+     */
     public String getTaskMarker() {
         return taskType;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void setAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void setAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Returns the task and the status.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getTaskMarker() + "] " + "[" + getMarker() + "] " + description;
     }
 
+    /**
+     * Converts the task for saving to a file.
+     *
+     * @return A string representation of the task in file format.
+     */
     public abstract String toFileFormat();
 
+    /**
+     * Obtains the various tasks commands from the file.
+     *
+     * @param fileString The tasklist of tasks from a file.
+     * @return A Task object created from the file string.
+     */
     public static Task getFileFormat(String fileString) {
         String[] parts = fileString.split(" \\| ");
         boolean isDone = parts[1].equals("1");

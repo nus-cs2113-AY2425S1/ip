@@ -6,11 +6,21 @@ public class ToDo extends Task{
         super(description);
     }
 
+    /**
+     * Retrieves the task type marker for ToDo tasks.
+     *
+     * @return The type marker for ToDo tasks.
+     */
     @Override
     public String getTaskMarker() {
         return "T";
     }
 
+    /**
+     * Converts the ToDo task for saving to a file.
+     *
+     * @return A string representation of the ToDo task in file format.
+     */
     @Override
     public String toFileFormat() {
         String status;
