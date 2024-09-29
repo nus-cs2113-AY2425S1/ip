@@ -5,7 +5,7 @@ package appal;
  */
 public class Main {
     /**
-     * Creates an instance of the chatbot Appal then runs it
+     * Creates an instance of the chatbot Appal then runs it.
      *
      * @param args command line arguments
      */
