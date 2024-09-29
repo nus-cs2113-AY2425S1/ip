@@ -15,6 +15,7 @@ public class Parser {
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Checks for the first word in the command, and checks against the command library
@@ -30,6 +31,8 @@ public class Parser {
             return new ListCommand(inputCommand);
         case COMMAND_BYE:
             return new ExitCommand(inputCommand);
+        case COMMAND_FIND:
+            return new FindCommand(inputCommand);
         case COMMAND_TODO:
             return new TodoCommand(inputCommand);
         case COMMAND_DEADLINE:
