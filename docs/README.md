@@ -28,6 +28,7 @@ AlyBot is a task management application that allows users to create, manage, and
 
          java -jar Aly.jar
 5. Upon running the command, the following messages should be printed in your terminal:
+   
 ```
 Hello, my name is
 _      _     _   _
