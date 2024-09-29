@@ -12,6 +12,13 @@ import java.util.Scanner;
 public class Storage {
     private static final String FILE_PATH = "./data/test.txt";
 
+    /**
+     * Saves list of task into .txt file.
+     * If directory and file do not exist, they will be created.
+     * All the tasks are written in a specific format based on 'toFileFormat' method called.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             File f = new File(FILE_PATH);
@@ -31,6 +38,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads list of tasks from a .txt file.
+     * Converts each task into a Task object using `getFileFormat` method.
+     * If the file does not exist, nothing will be loaded.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         File file = new File(FILE_PATH);
         ArrayList<Task> tasks = new ArrayList<>();
