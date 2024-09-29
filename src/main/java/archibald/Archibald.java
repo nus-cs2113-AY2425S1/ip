@@ -8,8 +8,14 @@ import archibald.task.Event;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -143,6 +149,7 @@ class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_HAPPENING = "happening";
+    private static final String COMMAND_FIND = "find";
     private static final int COMMAND_PARTS = 2;
 
     public Command parseCommand(String userInput) throws ArchibaldException {
@@ -162,6 +169,8 @@ class Parser {
             return new ExitCommand();
         case COMMAND_HAPPENING:
             return new HappeningCommand(parts[1]);
+        case COMMAND_FIND:
+            return new FindCommand(parts[1]);
         default:
             return new AddCommand(userInput);
         }
@@ -222,6 +231,16 @@ class TaskList {
             }
         }
         return tasksOnDate;
+    }
+
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
 
@@ -408,6 +427,28 @@ class HappeningCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             throw new ArchibaldException("Invalid date format. Please use yyyy-MM-dd");
+        }
+    }
+}
+
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException {
+        List<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
+        if (matchingTasks.isEmpty()) {
+            ui.printArchibaldResponse("No tasks found containing '" + keyword + "'");
+        } else {
+            StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+            }
+            ui.printArchibaldResponse(response.toString().trim());
         }
     }
 }

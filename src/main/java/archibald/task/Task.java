@@ -1,4 +1,5 @@
 package archibald.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -20,12 +21,15 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    //general abstract method that going to be overridden by subclasses
     public String toSaveFormat() {
         return isDone + "|" + description;
     }
