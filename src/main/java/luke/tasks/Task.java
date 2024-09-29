@@ -1,5 +1,7 @@
 package luke.tasks;
 
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -36,15 +38,6 @@ public class Task {
     }
 
     // Methods for inheritance
-    public String getBy() {
-        return "";
-    }
-    public String getFrom() {
-        return "";
-    }
-    public String getTo() {
-        return "";
-    }
     public String toSaveString() {
         return "";
     }

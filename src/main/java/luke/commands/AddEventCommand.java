@@ -2,7 +2,7 @@ package luke.commands;
 
 import luke.TaskList;
 import luke.Ui;
-import luke.exceptions.InsufficientArgumentsException;
+import luke.exceptions.LukeException;
 
 /**
  * Adds an event.
@@ -21,7 +21,7 @@ public class AddEventCommand extends Command{
     public void execute(TaskList taskList, Ui ui, String[] inputs) {
         try {
             taskList.addEvent(inputs);
-        } catch (InsufficientArgumentsException e) {
+        } catch (LukeException e) {
             ui.printReply(e.getMessage());
         }
 

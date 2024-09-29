@@ -2,11 +2,15 @@ package luke;
 
 import luke.exceptions.IncorrectInputException;
 import luke.exceptions.InsufficientArgumentsException;
+import luke.exceptions.LukeException;
 import luke.tasks.Deadline;
 import luke.tasks.Event;
 import luke.tasks.Task;
 import luke.tasks.ToDo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,11 +60,12 @@ public class TaskList {
             tasks.add(new ToDo(taskStrArr[DESCRIPTION_INDEX], taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         case "D":
-            tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], taskStrArr[BY_INDEX],
+            tasks.add(new Deadline(taskStrArr[DESCRIPTION_INDEX], toLocalDateTime(taskStrArr[BY_INDEX]),
                 taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         case "E":
-            tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], taskStrArr[FROM_INDEX], taskStrArr[TO_INDEX],
+            tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], toLocalDateTime(taskStrArr[FROM_INDEX]),
+                    toLocalDateTime(taskStrArr[TO_INDEX]),
                 taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         default:
@@ -157,6 +162,17 @@ public class TaskList {
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
     }
 
+    private LocalDateTime toLocalDateTime(String datetime) {
+        DateTimeFormatter fromString = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime localDateTimeObj;
+        try {
+            localDateTimeObj = LocalDateTime.parse(datetime, fromString);
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Incorrect format. Correct format: yyyy-MM-dd HHmm");
+        }
+        return localDateTimeObj;
+    }
+
     /**
      * Adds a Deadline task as specified by the user input.
      * @param inputs User input as an array of strings.
@@ -174,7 +190,8 @@ public class TaskList {
         }
         String description = String.join(" ", Arrays.copyOf(args, idx));
         String deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
-        tasks.add(new Deadline(description, deadlineStr));
+        // Create LocalDateTime obj based on deadlineStr
+        tasks.add(new Deadline(description, toLocalDateTime(deadlineStr)));
         ui.printReply(String.format("Added deadline: %s\n  %s",
                 tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
     }
@@ -203,7 +220,7 @@ public class TaskList {
         String description = String.join(" ", Arrays.copyOf(args, fromIdx));
         String fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
         String toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
-        tasks.add(new Event(description, fromStr, toStr));
+        tasks.add(new Event(description, toLocalDateTime(fromStr), toLocalDateTime(toStr)));
         ui.printReply(String.format("Added event: %s\n %s",
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
 
