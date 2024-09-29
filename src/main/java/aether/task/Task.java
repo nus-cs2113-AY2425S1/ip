@@ -16,8 +16,18 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns "✓" if the task is done, otherwise returns " ".
+     */
     public String getStatus() {
-        return (isDone ? "1" : "0"); // 1 means done, 0 means not done
+        return (isDone ? "✓" : " ");
+    }
+
+    /**
+     * Returns "1" if the task is done, otherwise "0" for storage purposes.
+     */
+    public String getStatusForStorage() {
+        return (isDone ? "1" : "0");
     }
 
     @Override
@@ -25,8 +35,16 @@ public abstract class Task {
         return "[" + getStatus() + "] " + description;
     }
 
+    /**
+     * Converts the task to a savable string format.
+     */
     public abstract String toDataString();
 
+    /**
+     * Converts a stored string back to a Task object.
+     * @param data The stored string representation of the task.
+     * @return The Task object.
+     */
     public static Task fromStorage(String data) {
         // Logic to parse the task from a stored string representation
         String[] parts = data.split(" \\| ");

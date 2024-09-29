@@ -42,9 +42,10 @@ public class Aether {
             String commandInput = Ui.getInput();
             Ui.printSeparator();
             try {
+                // Ensure that the command is parsed and executed only once
                 Command command = Parser.parseCommand(commandInput);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
+                command.execute(taskList, ui, storage);  // Only execute the command once
+                isExit = command.isExit();  // Check if this is an exit command
             } catch (DukeException e) {
                 Ui.response(e.getMessage());
             }

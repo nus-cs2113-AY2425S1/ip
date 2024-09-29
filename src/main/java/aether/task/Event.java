@@ -15,7 +15,7 @@ public class Event extends Task {
 
     @Override
     public String toDataString() {
-        return "E | " + getStatus() + " | " + description + " | " + from + " | " + to;
+        return "E | " + getStatusForStorage() + " | " + description + " | " + from + " | " + to;
     }
 
     @Override

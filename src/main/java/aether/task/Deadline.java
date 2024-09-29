@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     @Override
     public String toDataString() {
-        return "D | " + getStatus() + " | " + description + " | " + by;
+        return "D | " + getStatusForStorage() + " | " + description + " | " + by;
     }
 
     @Override
