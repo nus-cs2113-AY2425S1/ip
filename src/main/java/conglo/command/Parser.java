@@ -187,6 +187,12 @@ public class Parser {
             }
             listTasks();
             break;
+        case "find":
+            if (words.length == 1 || words[1].isEmpty()) {
+                throw new MissingDescription("find");
+            }
+            ui.displayFoundTasks(words[1]);
+            break;
         case "unmark":
         case "mark":
             if (words.length == 1 || words[1].isEmpty()) {

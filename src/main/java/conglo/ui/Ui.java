@@ -1,6 +1,9 @@
 package conglo.ui;
 
+import conglo.task.Task;
 import conglo.task.TaskList;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -79,6 +82,23 @@ public class Ui {
         } else {
             printText("Here are your tasks:");
             TaskList.listTasks();
+        }
+    }
+
+    /**
+     * Displays tasks with matching keyword that user provided.
+     *
+     * @param keyword Used to match words in descriptions.
+     */
+    public void displayFoundTasks(String keyword) {
+        ArrayList<Task> matchingTasks = TaskList.findTasks(keyword);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No task matches the keyword :(");
+        } else {
+            System.out.println("Tasks matched in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i).toFileFormat());
+            }
         }
     }
 

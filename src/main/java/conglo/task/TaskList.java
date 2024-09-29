@@ -82,4 +82,14 @@ public class TaskList {
             System.out.println((i + 1) + ". " + taskList.get(i).toFileFormat());
         }
     }
+
+    public static ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }
