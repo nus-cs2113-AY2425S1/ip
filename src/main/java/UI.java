@@ -1,9 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * The UI class handles all input and output operations.
+ * It provides methods to read commands from the user, display lines,
+ * welcome and exit messages, error messages, and a list of available commands.
+ */
 public class UI {
 
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Reads and returns the next line of input from the user.
+     *
+     * @return The user's input as a String.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }

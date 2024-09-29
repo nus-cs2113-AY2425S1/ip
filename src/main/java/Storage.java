@@ -7,9 +7,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the saving and loading of tasks from a file.
+ * The tasks are saved in a specified format and can be restored upon loading from the file.
+ */
 public class Storage {
     //define filepath
     private static final String FILE_PATH = "./data/quag.txt";
+
+    /**
+     * Saves all the tasks in the TaskList to a file.
+     * Tasks are stored in a specific format, depending on their type (Todo, Deadline, Event).
+     */
     public static void saveToFile() {
         try {
             File dir = new File("./data");
@@ -34,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into the TaskList.
+     * The method parses each line to recreate the appropriate Task (Todo, Deadline, or Event)
+     * and adds it to the TaskList.
+     */
     public static void loadFromFile() {
         try {
             File file = new File(FILE_PATH);
