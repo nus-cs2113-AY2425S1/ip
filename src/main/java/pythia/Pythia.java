@@ -1,7 +1,7 @@
 package pythia;
 
 import pythia.utility.Parser;
-import pythia.utility.IO;
+import pythia.utility.Ui;
 import pythia.task.Task;
 import pythia.task.ToDo;
 import pythia.task.Deadline;
@@ -20,40 +20,43 @@ public class Pythia {
             "|_|    \\__, |\\__|_| |_|_|\\__,_|\n" +
             "       |___/                   ";
 
-    private static boolean isByeSaid = false;
+    private static boolean isByeSaid;
     private static TaskList taskList;
     private static Storage storage;
+    private static Ui ui;
 
     public Pythia(String filePath) {
+        isByeSaid = false;
         storage = new Storage(filePath);
         taskList = storage.load();
+        ui = new Ui();
     }
 
     public static void greet() {
         String helloMsg =   "Welcome, seeker. I am " + botName + ".\n" +
                             "What brings you here?";
-        IO.printResponse(helloMsg);
+        ui.printResponse(helloMsg);
     }
 
     public static void sayBye() {
         String byeMsg = "Your path is set. Until we meet again.";
-        IO.printResponse(byeMsg);
+        ui.printResponse(byeMsg);
         isByeSaid = true;
     }
 
     public static void listTasks() {
-        IO.printTaskList(taskList);
+        ui.printTaskList(taskList);
     }
 
     public static void addTask(String taskName) {
         taskList.add(new Task(taskName));
-        IO.printAddedTask("added: " + taskName);
+        ui.printAddedTask("added: " + taskName);
         storage.save(taskList);
     }
 
     public static void addTask(Task task) {
         taskList.add(task);
-        IO.printAddedTask("added: " + task.getName());
+        ui.printAddedTask("added: " + task.getName());
         storage.save(taskList);
     }
 
@@ -73,10 +76,10 @@ public class Pythia {
         try {
             taskList.markAsDone(taskNumber - 1);
             String msg = "Nice! I've marked this task as done:\n\t" + taskList.get(taskNumber - 1).toString();
-            IO.printResponse(msg);
+            ui.printResponse(msg);
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
-            IO.printResponse("There is no such task :(");
+            ui.printResponse("There is no such task :(");
         }
     }
 
@@ -84,24 +87,24 @@ public class Pythia {
         try {
             String msg = "Nice! I've deleted this task:\n\t" + taskList.get(taskNumber - 1).toString();
             taskList.remove(taskNumber - 1);
-            IO.printResponse(msg);
+            ui.printResponse(msg);
         } catch (IndexOutOfBoundsException e){
-            IO.printResponse("There is no such task :(");
+            ui.printResponse("There is no such task :(");
         }
     }
 
     private static void run() {
-        IO.init();
+        ui.init();
         greet();
         Parser parser = new Parser();
 
         while (!isByeSaid) {
             try {
-                String request = IO.getRequest();
+                String request = ui.getRequest();
                 parser.parse(request);
                 parser.execute();
             } catch (PythiaException e) {
-                IO.printResponse(e.getUserMessage());
+                ui.printResponse(e.getUserMessage());
             }
         }
     }
