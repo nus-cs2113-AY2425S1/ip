@@ -14,7 +14,8 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private Path filepath;
+
+    private final Path FILEPATH;
     public ArrayList<String> saveStrings;
     private Ui ui;
 
@@ -24,7 +25,7 @@ public class Storage {
      */
     public Storage(Path filepath) {
         ui = new Ui();
-        this.filepath = filepath;
+        this.FILEPATH = filepath;
         try {
             loadSavedTasks();
         } catch (IOException e) {
@@ -37,13 +38,13 @@ public class Storage {
      * @throws IOException if there were errors.
      */
     private void loadSavedTasks() throws IOException {
-        if (!Files.exists(filepath.getParent())) {
-            Files.createDirectories(filepath.getParent());
+        if (!Files.exists(FILEPATH.getParent())) {
+            Files.createDirectories(FILEPATH.getParent());
         }
-        if (!Files.exists(filepath)) {
-            Files.createFile(filepath);
+        if (!Files.exists(FILEPATH)) {
+            Files.createFile(FILEPATH);
         }
-        saveStrings = (ArrayList<String>) Files.readAllLines(filepath);
+        saveStrings = (ArrayList<String>) Files.readAllLines(FILEPATH);
     }
 
     /**
