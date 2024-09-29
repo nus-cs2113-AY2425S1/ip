@@ -25,7 +25,10 @@ public abstract class Task {
      * @return A status icon ("1" if done, otherwise "0").
      */
     public String getStatusIcon() {
-        return (isDone ? "1" : "0");
+        if (isDone) {
+            return "1";
+        }
+        return "0";
     }
 
     /**

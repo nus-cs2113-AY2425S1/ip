@@ -1,5 +1,9 @@
 package conglo.task;
 
+import conglo.command.DateParser;
+
+import java.time.LocalDateTime;
+
 /**
  * Represents a deadline task with a description and a deadline date.
  */
@@ -7,12 +11,6 @@ public class Deadline extends Task {
 
     protected String by;
 
-    /**
-     * Constructs a Deadline task with the specified description and deadline.
-     *
-     * @param description The description of the task.
-     * @param by The deadline date for the task.
-     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;

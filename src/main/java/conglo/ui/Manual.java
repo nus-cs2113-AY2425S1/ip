@@ -9,7 +9,7 @@ public class Manual {
          String[] manual = {
                  "Here's a quick manual to get you started:",
                  "1. Add a todo: todo [description]",
-                 "2. Add a deadline: deadline [description] /by [deadline]",
+                 "2. Add a deadline: deadline [description] /by [dd-MM-yyyy HHmm]",
                  "3. Add an event: event [description] /from [start time] /to [end time]",
                  "4. Mark a task as done: mark [task number]",
                  "5. Unmark a task: unmark [task number]",
