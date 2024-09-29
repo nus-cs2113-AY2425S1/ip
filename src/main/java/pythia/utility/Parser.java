@@ -12,7 +12,8 @@ public class Parser {
     private ArrayList<String> argumentList = null;
     private String parsingErrorMessage = "Parsing of add command unsuccessful.";
 
-    public Parser() {}
+    public Parser() {
+    }
 
     private String parseCommandType(String rawText) {
         int spaceIndex = rawText.indexOf(' ');
@@ -26,115 +27,83 @@ public class Parser {
         return firstPart;
     }
 
-    private void parseBye(String rawText) {}
+    private void parseBye(String rawText) {
+    }
 
-    private void parseList(String rawText) {}
+    private void parseList(String rawText) {
+    }
 
     private void parseAdd(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("add\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "add\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 1;
 
-        String what = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "I am not sure what to add.");
         }
-
-        argumentList.clear();
-        Collections.addAll(argumentList, what);
     }
 
     private void parseMark(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("mark\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "mark\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 1 && argumentList.get(0).matches("\\d+");
 
-        String what = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "Please specify what should I mark as done.");
         }
-
-        argumentList.clear();
-        Collections.addAll(argumentList, what);
     }
 
     private void parseToDo(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("todo\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "todo\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 1;
 
-        String what = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "Todo should have a description.");
         }
-
-        argumentList.clear();
-        Collections.addAll(argumentList, what);
     }
 
     private void parseDeadline(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("deadline\\s(.+)\\s/by\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "deadline\\s(.+)\\s/by\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 2;
 
-        String what = "";
-        String byWhen = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-            byWhen = matcher.group(2);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "Deadline should have description and a date.");
         }
-
-        argumentList.clear();
-        Collections.addAll(argumentList, what, byWhen);
     }
 
     private void parseEvent(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("event\\s(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "event\\s(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 3;
 
-        String what = "";
-        String fromWhen = "";
-        String toWhen = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-            fromWhen = matcher.group(2);
-            toWhen = matcher.group(3);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "Event should have description and from and to dates.");
         }
-
-        argumentList.clear();
-        Collections.addAll(argumentList, what, fromWhen, toWhen);
     }
 
     public void parseDelete(String rawText) throws PythiaException {
-        Pattern pattern = Pattern.compile("delete\\s(.+)");
-        Matcher matcher = pattern.matcher(rawText);
+        argumentList = tokenize(rawText, "delete\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 1 && argumentList.get(0).matches("\\d+");
 
-        String what = "";
-
-        if (matcher.find()) {
-            what = matcher.group(1);
-        } else {
+        if (!isCorrectFormat) {
             throw new PythiaException(parsingErrorMessage, "Please specify what should I delete.");
         }
+    }
 
-        argumentList.clear();
-        Collections.addAll(argumentList, what);
+    private ArrayList<String> tokenize(String rawText, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(rawText);
+
+        ArrayList<String> tokens = new ArrayList<>();
+
+        if (matcher.find()) {
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                tokens.add(matcher.group(i));  // Get specific captured groups
+            }
+        }
+
+        return tokens;
     }
 
     public void parse(String rawText) throws PythiaException {
         commandType = parseCommandType(rawText);
-        argumentList = new ArrayList<>();
 
         switch (commandType) {
             case "bye" -> parseBye(rawText);
