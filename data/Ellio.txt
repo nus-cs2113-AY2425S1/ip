@@ -1,7 +1,7 @@
- d | 0 | return book | by: June 6th
- d | 0 | CS2113 IP | by: Friday
+ d | 0 | return book | by: 06/06/2024
+ d | 0 | CS2113 IP | by: 27/09/2024
  e | 1 | IE test | from: 4pm | to: 6pm
  t | 1 | new task
- d | 0 | new deadline | by: today
+ d | 0 | new deadline | by: 30/09/2024
  e | 1 | new event | from: now | to: later
  t | 0 | another new task
