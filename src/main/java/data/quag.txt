@@ -1,2 +1,5 @@
 D | 0 | gym | 2024-09-09T16:30
-D | 0 | submission | 2024-09-10T16:30
+T | 0 | gym tonight
+T | 0 | buy groceries
+D | 0 | Complete assignment | 2024-09-25T18:00
+E | 0 | Meeting with team | 2024-09-25T14:00 | 2024-09-25T15:00

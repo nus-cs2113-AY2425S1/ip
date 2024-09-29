@@ -1,15 +1,25 @@
 import java.util.Scanner;
 
+/**
+ * The UI class handles all input and output operations.
+ * It provides methods to read commands from the user, display lines,
+ * welcome and exit messages, error messages, and a list of available commands.
+ */
 public class UI {
 
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Reads and returns the next line of input from the user.
+     *
+     * @return The user's input as a String.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
     public void showLine() {
-        System.out.println("_______________________________________");
+        System.out.println("_____________________________________________________________________________________________________________________");
     }
 
     public void showWelcome() {
@@ -59,6 +69,7 @@ public class UI {
         System.out.println("event <description> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>: adds task type event to list");
         System.out.println("delete <index>: delete task corresponding to index");
         System.out.println("due <dd/mm/yyyy>: deletes task type description to list");
+        System.out.println("find <keyword>: finds all tasks with keyword in description");
         System.out.println("quag: exit program");
         showLine();
     }

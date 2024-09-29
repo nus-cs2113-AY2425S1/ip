@@ -2,13 +2,20 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+/**
+ * The TaskList class manages a list of tasks and provides methods
+ * to manipulate and display the tasks.
+ */
 public class TaskList {
 
     
     public static UI ui = new UI();
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Adds a new task to the task list and displays the updated list count.
+     * @param task the task to be added
+     */
     public static void addTaskToList(Task task) {
         tasks.add(task);
         ui.showLine();
@@ -18,28 +25,43 @@ public class TaskList {
         ui.showLine();
     }
 
-    // Adding Todo task
+    /**
+     * Adds a new Todo task to the task list and saves the list.
+     * @param description the description of the Todo task
+     */
     public static void addTodoToList(String description) {
         Todo todo = new Todo(description);
-        addTaskToList(todo); // Reuse the helper method
-        //save list after adding
+        addTaskToList(todo);
         Storage.saveToFile();
     }
 
-    // Adding Deadline task
+    /**
+     * Adds a new Deadline task to the task list and saves the list.
+     * @param description the description of the Deadline task
+     * @param by the due date and time of the Deadline task
+     */
     public static void addDeadlineToList(String description, LocalDateTime by) {
         Deadline deadline = new Deadline(description, by);
-        addTaskToList(deadline); // Reuse the helper method
+        addTaskToList(deadline);
         Storage.saveToFile();
     }
 
-    // Adding Event task
+    /**
+     * Adds a new Event task to the task list and saves the list.
+     * @param description the description of the Event task
+     * @param from the start date and time of the Event
+     * @param to the end date and time of the Event
+     */
     public static void addEventToList(String description, LocalDateTime from, LocalDateTime to) {
         Event event = new Event(description, from, to);
-        addTaskToList(event); // Reuse the helper method
+        addTaskToList(event);
         Storage.saveToFile();
     }
 
+    /**
+     * Displays all tasks in the task list.
+     * If the list is empty, it prints a message.
+     */
     public static void displayList() {
         if (!tasks.isEmpty()) {
             ui.showLine();
@@ -52,6 +74,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done based on the task index and saves the task list.
+     * If task is already marked, it prints a message
+     * @param index the index of the task in the list (1-based)
+     */
     public static void markAsDone(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
@@ -73,6 +100,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not done based on the task index and saves the task list.
+     * If task has not been done yet, it prints a message.
+     * @param index the index of the task in the list (1-based)
+     */
     public static void markAsNotDone(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
@@ -94,6 +126,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on the task index and saves the task list.
+     * @param taskIndex the index of the task to delete (1-based)
+     */
     public static void deleteTask(int taskIndex) {
         ui.showLine();
         System.out.println("quag! deleted this task :");
@@ -104,6 +140,10 @@ public class TaskList {
         Storage.saveToFile();
     }
 
+    /**
+     * Prints all tasks that have deadlines or events occurring on a specific date.
+     * @param dueDate the date for which tasks are to be printed
+     */
     public static void printTasksOnDate( LocalDate dueDate) {
         for (Task task : tasks) {
             if (task instanceof Deadline) {
@@ -116,6 +156,18 @@ public class TaskList {
                 if (event.from.toLocalDate().equals(dueDate)) {
                     System.out.println("  " + task);
                 }
+            }
+        }
+    }
+
+    /**
+     * Prints all tasks that contain a specific keyword in their description.
+     * @param keyword the keyword to search for in task descriptions
+     */
+    public static void printTaskWithKeyword(String keyword) {
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println("  " + task);
             }
         }
     }
