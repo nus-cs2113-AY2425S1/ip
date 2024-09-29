@@ -18,7 +18,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/luke/*.java ../src/main/java/luke/exceptions/*.java ../src/main/java/luke/tasks/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/luke/*.java ../src/main/java/luke/exceptions/*.java ../src/main/java/luke/tasks/*.java ../src/main/java/luke/commands/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

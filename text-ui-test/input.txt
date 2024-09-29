@@ -1,16 +1,20 @@
-todo buy apples
-deadline tutorial /by Tuesday
-event lecture /from 1pm /to 2pm
+list
+todo cs1231 tut
+deadline cs2113 ip /by friday
+list
+deadline cs2113 weekly quiz /by tuesday
 list
 mark 1
-list
-mark 3
-unmark 1
-list
-mark 2
-deadline eat
-todo
+event cs1231 lecture /from 12pm /to 1pm
+todo watch cg2271 lecture video
+find cs1231
+delete 1
+find cs1231
+find
+delete
 mark
-mark a
-event lecture /from 1pm
+unmark
+mark 10
+mark 2
+list
 bye
