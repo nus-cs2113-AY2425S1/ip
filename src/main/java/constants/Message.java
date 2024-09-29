@@ -54,5 +54,6 @@ public class Message {
             "match your date of interest!";
 
     /** Message displayed when task list is empty or if all tasks are complete. */
-    public static final String NO_PENDING_TASKS_MESSAGE = "\tSugoi! You're all caught up it seems! Go enjoy your freedom~";
+    public static final String NO_PENDING_TASKS_MESSAGE = "\tSugoi! You're all caught up it seems! " +
+            "Go enjoy your freedom~";
 }
