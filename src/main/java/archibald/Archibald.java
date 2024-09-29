@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Archibald {
     private static Ui ui;
@@ -71,6 +74,7 @@ class Ui {
 
 class Storage {
     private String filePath;
+    private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -97,10 +101,13 @@ class Storage {
                     task = new Todo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3]);
+                    LocalDateTime deadlineDate = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+                    task = new Deadline(parts[2], deadlineDate);
                     break;
                 case "E":
-                    task = new Event(parts[2], parts[3], parts[4]);
+                    LocalDateTime eventStartDate = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+                    LocalDateTime eventEndDate = LocalDateTime.parse(parts[4], FILE_DATE_FORMAT);
+                    task = new Event(parts[2], eventStartDate, eventEndDate);
                     break;
                 default:
                     continue;
@@ -134,6 +141,7 @@ class Parser {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_FIND = "find";
     private static final int COMMAND_PARTS = 2;
 
     public Command parseCommand(String userInput) throws ArchibaldException {
@@ -151,6 +159,8 @@ class Parser {
             return new DeleteCommand(parts[1]);
         case COMMAND_BYE:
             return new ExitCommand();
+        case COMMAND_FIND:
+            return new FindCommand(parts[1]);
         default:
             return new AddCommand(userInput);
         }
@@ -193,6 +203,25 @@ class TaskList {
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
+
+    public List<Task> findTasksOnDate(LocalDateTime date) {
+        List<Task> tasksOnDate = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(date.toLocalDate())) {
+                    tasksOnDate.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getFrom().toLocalDate().equals(date.toLocalDate()) ||
+                    event.getTo().toLocalDate().equals(date.toLocalDate())) {
+                    tasksOnDate.add(task);
+                }
+            }
+        }
+        return tasksOnDate;
+    }
 }
 
 abstract class Command {
@@ -206,6 +235,7 @@ class AddCommand extends Command {
     private static final String DEADLINE_SEPARATOR = "/by";
     private static final String EVENT_FROM_SEPARATOR = "/from";
     private static final String EVENT_TO_SEPARATOR = "/to";
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private String fullCommand;
 
@@ -237,16 +267,27 @@ class AddCommand extends Command {
         case DEADLINE_TYPE:
             String[] deadlineParts = parts[1].split(" " + DEADLINE_SEPARATOR + " ", 2);
             if (deadlineParts.length < 2) {
-                throw new ArchibaldException("Deadline must include '" + DEADLINE_SEPARATOR + "' followed by a date.");
+                throw new ArchibaldException("Deadline must include '" + DEADLINE_SEPARATOR + "' followed by a date and time.");
             }
-            return new Deadline(deadlineParts[0], deadlineParts[1]);
+            try {
+                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineParts[1], INPUT_DATE_FORMAT);
+                return new Deadline(deadlineParts[0], deadlineDate);
+            } catch (DateTimeParseException e) {
+                throw new ArchibaldException("Invalid date format. Please use yyyy-MM-dd HHmm");
+            }
         case EVENT_TYPE:
             String[] eventParts = parts[1].split(" " + EVENT_FROM_SEPARATOR + " | " + EVENT_TO_SEPARATOR + " ");
             if (eventParts.length < 3) {
                 throw new ArchibaldException("Event must include '" + EVENT_FROM_SEPARATOR + "' and '"
-                        + EVENT_TO_SEPARATOR + "' followed by dates.");
+                        + EVENT_TO_SEPARATOR + "' followed by dates and times.");
             }
-            return new Event(eventParts[0], eventParts[1], eventParts[2]);
+            try {
+                LocalDateTime eventStartDate = LocalDateTime.parse(eventParts[1], INPUT_DATE_FORMAT);
+                LocalDateTime eventEndDate = LocalDateTime.parse(eventParts[2], INPUT_DATE_FORMAT);
+                return new Event(eventParts[0], eventStartDate, eventEndDate);
+            } catch (DateTimeParseException e) {
+                throw new ArchibaldException("Invalid date format. Please use yyyy-MM-dd HHmm");
+            }
         default:
             throw new ArchibaldException("In spite of my knowledge... I don't know what that means >:(");
         }
@@ -339,6 +380,34 @@ class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException {
         ui.printArchibaldResponse("I bid thee farewell! May our paths cross again!");
         storage.save(tasks);
+    }
+}
+
+class FindCommand extends Command {
+    private static final DateTimeFormatter FIND_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private String dateString;
+
+    public FindCommand(String dateString) {
+        this.dateString = dateString;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException {
+        try {
+            LocalDateTime date = LocalDateTime.parse(dateString, FIND_DATE_FORMAT);
+            List<Task> tasksOnDate = tasks.findTasksOnDate(date);
+            if (tasksOnDate.isEmpty()) {
+                ui.printArchibaldResponse("No tasks found on " + dateString);
+            } else {
+                StringBuilder response = new StringBuilder("Tasks on " + dateString + ":\n");
+                for (int i = 0; i < tasksOnDate.size(); i++) {
+                    response.append(i + 1).append(". ").append(tasksOnDate.get(i)).append("\n");
+                }
+                ui.printArchibaldResponse(response.toString().trim());
+            }
+        } catch (DateTimeParseException e) {
+            throw new ArchibaldException("Invalid date format. Please use yyyy-MM-dd");
+        }
     }
 }
 
