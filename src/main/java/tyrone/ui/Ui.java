@@ -1,6 +1,4 @@
-package tyrone;
-
-import tyrone.command.Parser;
+package tyrone.ui;
 
 import java.util.Scanner;
 

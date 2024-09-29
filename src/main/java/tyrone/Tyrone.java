@@ -3,6 +3,7 @@ package tyrone;
 import tyrone.command.Parser;
 import tyrone.storage.Storage;
 import tyrone.task.TaskList;
+import tyrone.ui.Ui;
 
 public class Tyrone {
 

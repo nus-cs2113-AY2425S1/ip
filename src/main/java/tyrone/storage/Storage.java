@@ -1,6 +1,6 @@
 package tyrone.storage;
 
-import tyrone.Ui;
+import tyrone.ui.Ui;
 import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.*;
 
