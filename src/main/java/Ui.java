@@ -8,20 +8,20 @@ import java.util.ArrayList;
 
 public class Ui {
     private final String LINE = "\t____________________________________________________________";
-    
+    private final String logo = "\t     ___           ___           ___" + System.lineSeparator()
+            + "\t    /\\  \\         /\\  \\         /\\__\\" + System.lineSeparator()
+            + "\t   /::\\  \\       /::\\  \\       /::|  |" + System.lineSeparator()
+            + "\t  /:/\\:\\  \\     /:/\\:\\  \\     /:|:|  |" + System.lineSeparator()
+            + "\t /::\\~\\:\\  \\   /::\\~\\:\\  \\   /:/|:|  |__" + System.lineSeparator()
+            + "\t/:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\" + System.lineSeparator()
+            + "\t\\/_|::\\/:/  / \\/__\\:\\/:/  / \\/__|:|/:/  /" + System.lineSeparator()
+            + "\t   |:|::/  /       \\::/  /      |:/:/  /" + System.lineSeparator()
+            + "\t   |:|\\/__/        /:/  /       |::/  /" + System.lineSeparator()
+            + "\t   |:|  |         /:/  /        /:/  /" + System.lineSeparator()
+            + "\t    \\|__|         \\/__/         \\/__/" + System.lineSeparator();
+
     public void greet() {
         System.out.println(LINE);
-        String logo = "\t     ___           ___           ___\n"
-                + "\t    /\\  \\         /\\  \\         /\\__\\\n"
-                + "\t   /::\\  \\       /::\\  \\       /::|  |\n"
-                + "\t  /:/\\:\\  \\     /:/\\:\\  \\     /:|:|  |\n"
-                + "\t /::\\~\\:\\  \\   /::\\~\\:\\  \\   /:/|:|  |__\n"
-                + "\t/:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\\n"
-                + "\t\\/_|::\\/:/  / \\/__\\:\\/:/  / \\/__|:|/:/  /\n"
-                + "\t   |:|::/  /       \\::/  /      |:/:/  /\n"
-                + "\t   |:|\\/__/        /:/  /       |::/  /\n"
-                + "\t   |:|  |         /:/  /        /:/  /\n"
-                + "\t    \\|__|         \\/__/         \\/__/\n";
         System.out.println(logo + "\tHello, I'm Ran.");
         System.out.println("\tHow may I assist you?");
         System.out.println(LINE);
@@ -49,7 +49,7 @@ public class Ui {
         System.out.println("\t  " + markedTask);
         System.out.println(LINE);
     }
-    
+
     public void printUnmarkedTask(String unmarkedTask) {
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
@@ -65,7 +65,7 @@ public class Ui {
                 (listCount <= 1 ? " task" : " tasks") + " in your list.");
         System.out.println(LINE);
     }
-    
+
     public void printList(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {

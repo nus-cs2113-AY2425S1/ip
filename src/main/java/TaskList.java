@@ -1,6 +1,7 @@
 package main.java;
 
 import ran.task.Task;
+import ran.exception.OutOfListBoundsException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -20,11 +21,19 @@ public class TaskList {
         return tasks;
     }
     
-    public Task getTask(int index) {
+    public void checkIndexOutOfBounds(int index) throws OutOfListBoundsException {
+        if (index >= taskCount || index < 0) {
+            throw new OutOfListBoundsException();
+        }
+    }
+
+    public Task getTask(int index) throws OutOfListBoundsException {
+        checkIndexOutOfBounds(index);
         return tasks.get(index);
     }
 
-    public Task removeTask(int index) {
+    public Task removeTask(int index) throws OutOfListBoundsException {
+        checkIndexOutOfBounds(index);
         Task deletedTask = tasks.get(index);
         tasks.remove(index);
         taskCount--;

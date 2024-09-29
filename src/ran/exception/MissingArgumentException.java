@@ -1,5 +1,7 @@
 package ran.exception;
 
+import ran.command.CommandType;
+
 public class MissingArgumentException extends RanException {
     private CommandType type;
 
