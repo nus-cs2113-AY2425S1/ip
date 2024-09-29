@@ -44,7 +44,8 @@ public class TaskList {
                 taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         case "E":
-            tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], taskStrArr[FROM_INDEX], taskStrArr[TO_INDEX],
+            tasks.add(new Event(taskStrArr[DESCRIPTION_INDEX], toLocalDateTime(taskStrArr[FROM_INDEX]),
+                    toLocalDateTime(taskStrArr[TO_INDEX]),
                 taskStrArr[ISDONE_INDEX].equals("1")));
             break;
         default:
@@ -139,8 +140,7 @@ public class TaskList {
         String description = String.join(" ", Arrays.copyOf(args, idx));
         String deadlineStr = String.join(" ", Arrays.copyOfRange(args, idx + 1, args.length));
         // Create LocalDateTime obj based on deadlineStr
-        LocalDateTime due = toLocalDateTime(deadlineStr);
-        tasks.add(new Deadline(description, due));
+        tasks.add(new Deadline(description, toLocalDateTime(deadlineStr)));
         ui.printReply(String.format("Added deadline: %s\n  %s",
                 tasks.get(tasks.size() - 1).toString(), numberOfTasksMessage()));
     }
@@ -165,7 +165,7 @@ public class TaskList {
         String description = String.join(" ", Arrays.copyOf(args, fromIdx));
         String fromStr = String.join(" ", Arrays.copyOfRange(args, fromIdx + 1, toIdx));
         String toStr = String.join(" ", Arrays.copyOfRange(args, toIdx + 1, args.length));
-        tasks.add(new Event(description, fromStr, toStr));
+        tasks.add(new Event(description, toLocalDateTime(fromStr), toLocalDateTime(toStr)));
         ui.printReply(String.format("Added event: %s\n %s",
                 tasks.get(getSize() - 1).toString(), numberOfTasksMessage()));
 

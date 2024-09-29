@@ -38,15 +38,6 @@ public class Task {
     }
 
     // Methods for inheritance
-    public LocalDateTime getBy() {
-        return null;
-    }
-    public String getFrom() {
-        return "";
-    }
-    public String getTo() {
-        return "";
-    }
     public String toSaveString() {
         return "";
     }

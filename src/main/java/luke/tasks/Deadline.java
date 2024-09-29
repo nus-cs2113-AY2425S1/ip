@@ -18,9 +18,6 @@ public class Deadline extends Task{
         super();
     }
 
-    public LocalDateTime getBy() {
-        return by;
-    }
 
     @Override
     public String toString() {
