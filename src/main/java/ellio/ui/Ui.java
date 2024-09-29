@@ -27,6 +27,10 @@ public class Ui {
         System.out.println(BotText.LINE_BORDER);
     }
 
+    public void showLineWithoutNewline(){
+        System.out.print(BotText.LINE_BORDER);
+    }
+
     public void showList(){
         System.out.print(BotText.LINE_BORDER + BotText.MESSAGE_LIST);
     }
@@ -42,5 +46,12 @@ public class Ui {
                 BotText.LINE_BORDER);
     }
 
+    public void showFailedSearch(){
+        System.out.println("I have failed to find a match, Please try with a different keyword.");
+    }
+
+    public void showMatch(){
+        System.out.print("Here are the matching tasks in your list:\n");
+    }
 
 }
