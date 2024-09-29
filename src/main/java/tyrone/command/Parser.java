@@ -17,7 +17,7 @@ public class Parser {
     private Storage storage;
 
     // Constants for handleInput function
-    public static final int START_INDEX_OFFSET_DESC = 1;
+    public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
     public static final int START_INDEX_OFFSET_KEYWORD = 1;
     public static final int START_INDEX_OFFSET_START = 6;
     public static final int START_INDEX_OFFSET_END = 4;
@@ -116,7 +116,7 @@ public class Parser {
      */
     private void handleEvent(String input) {
         try {
-            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
                     input.indexOf(" /from"));
             String start = input.substring(input.indexOf("/from") + START_INDEX_OFFSET_START,
                     input.indexOf(" /to"));
@@ -143,7 +143,7 @@ public class Parser {
      */
     private void handleDeadline(String input) {
         try {
-            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC,
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
                     input.indexOf(" /by"));
             String deadline = input.substring(input.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
             if (description.isBlank() || deadline.isBlank()) {
@@ -168,7 +168,7 @@ public class Parser {
      */
     private void handleTodo(String input) {
         try {
-            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESC);
+            String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION);
             if (!input.contains(" ") || description.isBlank()) {
                 throw new EmptyFieldException();
             }
