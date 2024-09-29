@@ -21,12 +21,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Main class for the Archibald task management application.
+ */
 public class Archibald {
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasks;
     private static Parser parser;
 
+    /**
+     * The main method that runs the Archibald application.
+     * 
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         ui = new Ui();
         storage = new Storage("./data/archibald.txt");
@@ -53,6 +61,9 @@ public class Archibald {
         scanner.close();
     }
 
+    /**
+     * Loads tasks from storage.
+     */
     private static void loadTasks() {
         try {
             tasks = storage.load();
@@ -63,15 +74,31 @@ public class Archibald {
     }
 }
 
+/**
+ * Handles user interface operations for the Archibald application.
+ */
 class Ui {
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         printArchibaldResponse("Hello, I am known as Archibald,\nhow may I be of assistance!");
     }
 
+    /**
+     * Displays an error message to the user.
+     * 
+     * @param message The error message to display
+     */
     public void showError(String message) {
         printArchibaldResponse("Error: " + message);
     }
 
+    /**
+     * Prints a response from Archibald with formatting.
+     * 
+     * @param message The message to print
+     */
     public void printArchibaldResponse(String message) {
         System.out.println("____________________________________________________________");
         System.out.println(message);
@@ -79,14 +106,28 @@ class Ui {
     }
 }
 
+/**
+ * Handles storage operations for the Archibald application.
+ */
 class Storage {
     private String filePath;
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a Storage object with the specifed file path.
+     * 
+     * @param filePath The path to the storage file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * 
+     * @return A TaskList containing the loaded tasks
+     * @throws ArchibaldException If there's an error loading the tasks
+     */
     public TaskList load() throws ArchibaldException {
         TaskList loadedTasks = new TaskList();
         try {
@@ -131,6 +172,12 @@ class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the given tasks to the storage file.
+     * 
+     * @param tasks The TaskList to save
+     * @throws ArchibaldException If there's an error saving the tasks
+     */
     public void save(TaskList tasks) throws ArchibaldException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks.getTasks()) {
@@ -142,6 +189,9 @@ class Storage {
     }
 }
 
+/**
+ * Parses user input into commands for the Archibald application.
+ */
 class Parser {
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
@@ -152,6 +202,13 @@ class Parser {
     private static final String COMMAND_FIND = "find";
     private static final int COMMAND_PARTS = 2;
 
+    /**
+     * Parses the user input into a Command object.
+     * 
+     * @param userInput The user's input string
+     * @return A Command object based on the user's input
+     * @throws ArchibaldException If the input cannot be parsed into a valid command
+     */
     public Command parseCommand(String userInput) throws ArchibaldException {
         String[] parts = userInput.split(" ", COMMAND_PARTS);
         String commandType = parts[0].toLowerCase();
@@ -177,17 +234,34 @@ class Parser {
     }
 }
 
+/**
+ * Represents a list of tasks in the Archibald application.
+ */
 class TaskList {
     private List<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the list.
+     * 
+     * @param task The task to add
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task from the list at the specified index.
+     * 
+     * @param index The index of the task to delete
+     * @throws ArchibaldException If the index is invalid
+     */
     public void deleteTask(int index) throws ArchibaldException {
         if (index < 0 || index >= tasks.size()) {
             throw new ArchibaldException("Invalid task number.");
@@ -195,6 +269,13 @@ class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Gets a task from the list at the specified index.
+     * 
+     * @param index The index of the task to get
+     * @return The task at the specified index
+     * @throws ArchibaldException If the index is invalid
+     */
     public Task getTask(int index) throws ArchibaldException {
         if (index < 0 || index >= tasks.size()) {
             throw new ArchibaldException("Invalid task number.");
@@ -202,18 +283,39 @@ class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Gets a copy of the list of tasks.
+     * 
+     * @return A new ArrayList containing all tasks
+     */
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     * 
+     * @return The number of tasks
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Checks if the task list is empty.
+     * 
+     * @return true if the list is empty, false otherwise
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Finds tasks that occur on a specific date.
+     * 
+     * @param date The date to search for
+     * @return A list of tasks occurring on the specified date
+     */
     public List<Task> findTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
@@ -233,6 +335,12 @@ class TaskList {
         return tasksOnDate;
     }
 
+    /**
+     * Finds tasks that contain a specific keyword in their description.
+     * 
+     * @param keyword The keyword to search for
+     * @return A list of tasks containing the keyword
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -244,10 +352,24 @@ class TaskList {
     }
 }
 
+/**
+ * Abstract base class for all commands in the Archibald application.
+ */
 abstract class Command {
+    /**
+     * Executes the command.
+     * 
+     * @param tasks The TaskList to operate on
+     * @param ui The Ui to use for output
+     * @param storage The Storage to use for saving tasks
+     * @throws ArchibaldException If there's an error executing the command
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException;
 }
 
+/**
+ * Command for adding a new task to the list.
+ */
 class AddCommand extends Command {
     private static final String TODO_TYPE = "todo";
     private static final String DEADLINE_TYPE = "deadline";
@@ -259,6 +381,11 @@ class AddCommand extends Command {
 
     private String fullCommand;
 
+    /**
+     * Constructs an AddCommand with the given full command string.
+     * 
+     * @param fullCommand The full command string for adding a task
+     */
     public AddCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
@@ -272,6 +399,13 @@ class AddCommand extends Command {
         storage.save(tasks);
     }
 
+    /**
+     * Creates a new Task object based on the input string.
+     * 
+     * @param input The input string describing the task
+     * @return A new Task object
+     * @throws ArchibaldException If the input is invalid or cannot be parsed
+     */
     private Task createTask(String input) throws ArchibaldException {
         String[] parts = input.split(" ", 2);
         String type = parts[0].toLowerCase();
@@ -314,6 +448,9 @@ class AddCommand extends Command {
     }
 }
 
+/**
+ * Command for listing all tasks.
+ */
 class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -330,9 +467,17 @@ class ListCommand extends Command {
     }
 }
 
+/**
+ * Command for marking a task as done.
+ */
 class MarkCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Constructs a MarkCommand for the specified task number.
+     * 
+     * @param taskNumber The number of the task to mark as done
+     */
     public MarkCommand(String taskNumber) {
         this.taskNumber = taskNumber;
     }
@@ -351,9 +496,17 @@ class MarkCommand extends Command {
     }
 }
 
+/**
+ * Command for unmarking a task (marking it as not done).
+ */
 class UnmarkCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Constructs an UnmarkCommand for the specified task number.
+     * 
+     * @param taskNumber The number of the task to unmark
+     */
     public UnmarkCommand(String taskNumber) {
         this.taskNumber = taskNumber;
     }
@@ -372,9 +525,17 @@ class UnmarkCommand extends Command {
     }
 }
 
+/**
+ * Command for deleting a task from the list.
+ */
 class DeleteCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Constructs a DeleteCommand for the specified task number.
+     * 
+     * @param taskNumber The number of the task to delete
+     */
     public DeleteCommand(String taskNumber) {
         this.taskNumber = taskNumber;
     }
@@ -395,6 +556,9 @@ class DeleteCommand extends Command {
     }
 }
 
+/**
+ * Command for exiting the application.
+ */
 class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ArchibaldException {
@@ -403,10 +567,18 @@ class ExitCommand extends Command {
     }
 }
 
+/**
+ * Command for finding tasks happening on a specific date.
+ */
 class HappeningCommand extends Command {
     private static final DateTimeFormatter HAPPENING_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String dateString;
 
+    /**
+     * Constructs a HappeningCommand for the specifid date.
+     * 
+     * @param dateString The date to search for tasks
+     */
     public HappeningCommand(String dateString) {
         this.dateString = dateString;
     }
@@ -431,9 +603,17 @@ class HappeningCommand extends Command {
     }
 }
 
+/**
+ * Command for finding tasks containing a specific keyword.
+ */
 class FindCommand extends Command {
     private String keyword;
 
+    /**
+     * Constructs a FindCommand for the specified keyword.
+     * 
+     * @param keyword The keyword to search for in tasks
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
@@ -453,7 +633,15 @@ class FindCommand extends Command {
     }
 }
 
+/**
+ * Custom exception class for Archibald-specific errors.
+ */
 class ArchibaldException extends Exception {
+    /**
+     * Constructs an ArchibaldException with the specifed error message
+     * 
+     * @param message The error message
+     */
     public ArchibaldException(String message) {
         super(message);
     }

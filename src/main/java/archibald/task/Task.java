@@ -1,5 +1,9 @@
 package archibald.task;
 
+/**
+ * Represents a task in the Archibald application.
+ * This class serves as the base class for all types of tasks.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +13,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     * 
+     * @return "X" if the task is done, " " otherwise
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
