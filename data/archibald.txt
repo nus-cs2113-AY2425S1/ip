@@ -1,3 +1,0 @@
-T | 0 | asdsadsadasdasddsad
-T | 0 | asdsadsad
-D | 0 | asdsad | asdsad
