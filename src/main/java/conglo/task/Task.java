@@ -18,22 +18,19 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**
-     * Returns a status icon representing the task's completion status.
-     * "X" indicates that the task is done; a space indicates it is not done.
-     *
-     * @return A status icon ("1" if done, otherwise "0").
-     */
-    public String getStatusIcon() {
-        return (isDone ? "1" : "0");
-    }
-
     public void markAsDone() {
         isDone = true;
     }
 
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public String getStatusIcon() {
+        if (isDone) {
+            return "1";
+        }
+        return "0";
     }
 
     public String getDescription() {

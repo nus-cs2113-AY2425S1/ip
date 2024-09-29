@@ -14,6 +14,9 @@ import conglo.task.Todo;
 import conglo.task.TaskList;
 import conglo.ui.Ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private static boolean isDelete = false;
     private static Ui ui = new Ui();
@@ -62,6 +65,7 @@ public class Parser {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println(taskList.getTask(taskNumber).toFileFormat());
+        saveTasks(taskList);
     }
 
     public static void addTodo(TaskList taskList, String sentence) {
@@ -76,7 +80,15 @@ public class Parser {
             throw new InvalidFormat("deadline");
         }
         String[] words = sentence.split(" /by ");
-        Deadline deadline = new Deadline(words[0], words[1]);
+        LocalDateTime dueDate;
+        try {
+            dueDate = DateParser.parseDateTime(words[1]);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use the format 'dd-MM-yyyy HHmm'.");
+            return;
+        }
+        String dateTime = DateParser.formatDateTime(dueDate);
+        Deadline deadline = new Deadline(words[0], dateTime);
         taskList.addTask(deadline);
         echoTask(taskList, deadline);
         saveTasks(taskList);
