@@ -52,15 +52,13 @@ public class Parser {
             try {
                 if (by.matches("\\d{1,2}-\\d{1,2}-\\d{4} \\d{4}")) {
                     // If user provided date and time
-                    System.out.println("I entered the first one");
                     return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
                 } else if (by.matches("\\d{1,2}-\\d{1,2}-\\d{4}")) {
                     // If user provided only date
-                    System.out.println("I entered the second one");
                     LocalDate parsedDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                     return LocalDateTime.of(parsedDate, LocalTime.of(0, 0));  // Default time 12:00 AM
                 } else {
-                    throw new InvalidDateFormatException("Sorry, the date format is incorrect. Use dd-MM-yyyy or dd-MM-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>.");
+                    throw new InvalidDateFormatException("Sorry, the date format is incorrect. Use dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>.");
                 }
             } catch (DateTimeParseException e) {
                 throw new InvalidDateFormatException("Sorry, the date format is incorrect. Use dd-MM-yyyy or dd-MM-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>.");
