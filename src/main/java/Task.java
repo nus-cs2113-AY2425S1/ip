@@ -1,8 +1,12 @@
+import exception.InvalidCreateDeadlineException;
+import exception.InvalidCreateEventException;
+import exception.InvalidCreateTaskException;
+import exception.InvalidCreateToDoException;
+
 public class Task {
     protected String description;
     protected boolean isDone;
     protected static int tasksCount = 0;
-
 
     public Task(String description) {
         this.description = description;
@@ -24,6 +28,12 @@ public class Task {
         }
     }
 
+    public static void deleteTask(int taskIndex) {
+        Aerus.tasks.get(taskIndex).printDelete();
+        Aerus.tasks.remove(taskIndex);
+        tasksCount--;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -34,6 +44,20 @@ public class Task {
 
     public void printUnmark() {
         UI.printContent("I have unmarked this task:\n\t" + this.toString());
+    }
+
+    public void printDelete() {
+        UI.printContent("You have deleted this task:\n\t" + this.toString());
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+        this.printMark();
+    }
+
+    public void markAsUndone() {
+        this.isDone = false;
+        this.printUnmark();
     }
 
     @Override

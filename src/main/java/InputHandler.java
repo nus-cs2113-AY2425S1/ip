@@ -1,3 +1,6 @@
+import exception.InvalidCreateTaskException;
+import exception.InvalidMarkException;
+
 import static java.lang.Integer.parseInt;
 
 public class InputHandler {
@@ -17,49 +20,52 @@ public class InputHandler {
 
             System.out.println(UI.DIVIDER_LINE);
             for (int i = 1; i <= Task.tasksCount; i++) {
-                System.out.println(i + ". " + Aerus.tasks[i - 1].toString());
+                System.out.println(i + ". " + Aerus.tasks.get(i - 1).toString());
             }
             System.out.println(UI.DIVIDER_LINE);
             return 1;
+        }
 
+        // Case: Mark & Unmark
+        String[] userInputSplit = userInput.split(" ");
 
-        default:
-            // Case: Mark & Unmark
-            String[] userInputSplit = userInput.split(" ");
-
-            // Test if the input is formatted like a mark/unmark command
-            if (isMarkCommandType(userInput)) {
-                int taskNumber = parseInt(userInputSplit[1]) - 1;
-                if (taskNumber > Task.tasksCount) {
-                    throw new InvalidMarkException();
-                } else if (userInputSplit[0].equals("mark")) {
-                    Aerus.tasks[taskNumber].isDone = true;
-                    Aerus.tasks[taskNumber].printMark();
-                    return 1;
-                } else if (userInputSplit[0].equals("unmark")) {
-                    Aerus.tasks[taskNumber].isDone = false;
-                    Aerus.tasks[taskNumber].printUnmark();
-                    return 1;
-                }
+        // Test if the input is formatted like a mark/unmark command
+        if (isMarkCommandType(userInput)) {
+            int taskIndex = parseInt(userInputSplit[1]) - 1;
+            if (taskIndex >= Task.tasksCount) {
+                throw new InvalidMarkException();
             }
+            String command = userInputSplit[0];
+            Task task = Aerus.tasks.get(taskIndex);
+            switch (command) {
+            case "mark":
+                task.markAsDone();
+                return 1;
+            case "unmark":
+                task.markAsUndone();
+                return 1;
+            case "delete":
+                Task.deleteTask(taskIndex);
+                return 1;
+            }
+        }
 
-            // Case: Add task
-            if (!userInput.isEmpty()) {
-                try {
-                    Task.createNewTask(userInput);
-                    return 1;
-                } catch (InvalidCreateTaskException e) {
-                    System.out.println("Error: Invalid command syntax. Please provide a task type with corresponding parameters.");
-                }
-
+        // Case: Add task
+        if (!userInput.isEmpty()) {
+            try {
+                Task.createNewTask(userInput);
+                return 1;
+            } catch (InvalidCreateTaskException e) {
+                System.out.println("Error: Invalid command syntax. Please provide a task type with corresponding parameters.");
             }
             return 1;
         }
+        return 0;
     }
 
     public static boolean isMarkCommandType(String input) {
         String[] inputSplit = input.split(" ");
-        return inputSplit.length == 2 && inputSplit[1].matches("\\d+(\\.\\d+)?") &&
-                parseInt(inputSplit[1]) <= Task.tasksCount;
+        return inputSplit.length == 2 && inputSplit[0].matches("mark|unmark|delete")
+                && inputSplit[1].matches("\\d+(\\.\\d+)?");
     }
 }

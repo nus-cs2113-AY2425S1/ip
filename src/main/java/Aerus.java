@@ -1,10 +1,13 @@
+import exception.InvalidMarkException;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
 public class Aerus {
 
-    protected static Task[] tasks = new Task[100];
+    protected static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
 

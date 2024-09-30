@@ -1,3 +1,5 @@
+import exception.InvalidCreateDeadlineException;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -14,8 +16,8 @@ public class Deadline extends Task {
         String[] deadlineInfo = userInput.split("/by");
 
         if (deadlineInfo.length == 2) {
-            Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-            Aerus.tasks[Task.tasksCount-1] = deadline;
+            Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1].strip());
+            Aerus.tasks.add(deadline);
             UI.printContent("Added Deadline: " + deadline.toString());
         } else {
             throw new InvalidCreateDeadlineException();
