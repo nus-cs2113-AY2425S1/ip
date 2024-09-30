@@ -24,20 +24,21 @@ public class TaskList {
      * The event contains a description, start date, and end date.
      *
      * @param itemArrayList The list of tasks to add the event to.
-     * @param line The user input containing the event description, start date, and end date.
+     * @param ui
+     * @param line          The user input containing the event description, start date, and end date.
      * @throws EmptyDescriptionException If the event description is missing.
-     * @throws EmptyDateFieldException If the event start or end date is missing.
+     * @throws EmptyDateFieldException   If the event start or end date is missing.
      */
-    public static void addEvent(ArrayList<Task> itemArrayList, String line) {
+    public static void addEvent(ArrayList<Task> itemArrayList, Ui ui, String line) {
         try {
             String eventDescription = Parser.extractEventDescription(line);
             String eventStartDate = Parser.extractEventStartDate(line);
             String eventEndDate = Parser.extractEventEndDate(line);
             Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
             itemArrayList.add(newEvent);
-            Ui.printAddedMessage(itemArrayList, newEvent);
+            ui.printAddedMessage(itemArrayList, newEvent);
         } catch (EmptyDescriptionException e) {
-            Ui.printTaskDescriptionEmptyMessage();
+            ui.printTaskDescriptionEmptyMessage();
         } catch (EmptyDateFieldException e) {
             System.out.println("\tError: Date field(s) cannot be empty");
         }
@@ -48,17 +49,18 @@ public class TaskList {
      * The todo contains only a description.
      *
      * @param itemArrayList The list of tasks to add the todo to.
-     * @param line The user input containing the todo description.
+     * @param ui
+     * @param line          The user input containing the todo description.
      * @throws EmptyDescriptionException If the todo description is missing.
      */
-    public static void addTodo(ArrayList<Task> itemArrayList, String line) {
+    public static void addTodo(ArrayList<Task> itemArrayList, Ui ui, String line) {
         try {
             String todoDescription = Parser.extractTodoDescription(line);
             Todo newTodo = new Todo(todoDescription);
             itemArrayList.add(newTodo);
-            Ui.printAddedMessage(itemArrayList, newTodo);
+            ui.printAddedMessage(itemArrayList, newTodo);
         } catch (EmptyDescriptionException e) {
-            Ui.printTaskDescriptionEmptyMessage();
+            ui.printTaskDescriptionEmptyMessage();
         }
     }
 
@@ -67,19 +69,20 @@ public class TaskList {
      * The deadline contains a description and a due date.
      *
      * @param itemArrayList The list of tasks to add the deadline to.
-     * @param line The user input containing the deadline description and date.
+     * @param ui
+     * @param line          The user input containing the deadline description and date.
      * @throws EmptyDescriptionException If the deadline description is missing.
-     * @throws EmptyDateFieldException If the deadline date is missing.
+     * @throws EmptyDateFieldException   If the deadline date is missing.
      */
-    public static void addDeadline(ArrayList<Task> itemArrayList, String line) {
+    public static void addDeadline(ArrayList<Task> itemArrayList, Ui ui, String line) {
         try {
             String deadlineDescription = Parser.extractDeadlineDescription(line);
             LocalDateTime deadlineDate = Parser.extractDeadlineDate(line);
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
             itemArrayList.add(newDeadline);
-            Ui.printAddedMessage(itemArrayList, newDeadline);
+            ui.printAddedMessage(itemArrayList, newDeadline);
         } catch (EmptyDescriptionException e) {
-            Ui.printTaskDescriptionEmptyMessage();
+            ui.printTaskDescriptionEmptyMessage();
         } catch (EmptyDateFieldException e) {
             System.out.println("\tError: Date field(s) cannot be empty");
         } catch (DateTimeException e) {

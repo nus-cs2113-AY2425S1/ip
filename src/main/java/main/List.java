@@ -13,15 +13,18 @@ import java.util.Arrays;
 public class List {
 
     private int numItems;
+    private Ui ui;
     private Task[] itemList = new Task[0];
     ArrayList<Task> itemArrayList = new ArrayList<>(Arrays.asList(itemList));
 
     /**
      * Constructs an empty task list with no items.
      */
-    public List() {
+    public List(Ui ui) {
         this.numItems = 0;
+        this.ui = ui;
     }
+
 
     /**
      * Returns the number of tasks in the list.
@@ -41,13 +44,13 @@ public class List {
      */
     public void addItem(String line) {
         if (Parser.isValidEvent(line)) {
-            TaskList.addEvent(itemArrayList, line);
+            TaskList.addEvent(itemArrayList, ui, line);
         } else if (Parser.isValidDeadline(line)) {
-            TaskList.addDeadline(itemArrayList, line);
+            TaskList.addDeadline(itemArrayList, ui, line);
         } else if (Parser.isTodo(line)) {
-            TaskList.addTodo(itemArrayList, line);
+            TaskList.addTodo(itemArrayList, ui, line);
         } else {
-            Ui.printInvalidTaskMessage();
+            ui.printInvalidTaskMessage();
         }
     }
 
@@ -62,15 +65,15 @@ public class List {
             int itemNum = Integer.parseInt(line.substring(5));
 
             if (itemNum > this.getNumItems() || itemNum <= 0) {
-                Ui.printInputIndexOutOfRangeMessage();
+                ui.printInputIndexOutOfRangeMessage();
             } else {
                 TaskList.markListItemAsDone(itemArrayList, itemNum);
-                Ui.printTaskMarkedMessage(itemArrayList, itemNum);
+                ui.printTaskMarkedMessage(itemArrayList, itemNum);
             }
         } catch (NumberFormatException e) {
-            Ui.printInputIndexNotAnIntegerMessage();
+            ui.printInputIndexNotAnIntegerMessage();
         } catch (Exception e) {
-            Ui.printUnknownErrorMessage();
+            ui.printUnknownErrorMessage();
         }
     }
 
@@ -85,15 +88,15 @@ public class List {
             int itemNum = Integer.parseInt(line.substring(7));
 
             if (itemNum > this.getNumItems() || itemNum <= 0) {
-                Ui.printInputIndexOutOfRangeMessage();
+                ui.printInputIndexOutOfRangeMessage();
             } else {
                 TaskList.markListItemAsUnDone(itemArrayList, itemNum);
-                Ui.printTaskUnmarkedMessage(itemArrayList, itemNum);
+                ui.printTaskUnmarkedMessage(itemArrayList, itemNum);
             }
         } catch (NumberFormatException e) {
-            Ui.printInputIndexNotAnIntegerMessage();
+            ui.printInputIndexNotAnIntegerMessage();
         } catch (Exception e) {
-            Ui.printUnknownErrorMessage();
+            ui.printUnknownErrorMessage();
         }
     }
 
@@ -108,16 +111,16 @@ public class List {
             int itemNum = Integer.parseInt(line.substring(7));
 
             if (itemNum > this.getNumItems() || itemNum <= 0) {
-                Ui.printInputIndexOutOfRangeMessage();
+                ui.printInputIndexOutOfRangeMessage();
             } else {
                 Task deletedTask = itemArrayList.get(itemNum - 1);
                 TaskList.deleteListItem(itemArrayList, itemNum);
-                Ui.printTaskDeletedMessage(itemArrayList, deletedTask);
+                ui.printTaskDeletedMessage(itemArrayList, deletedTask);
             }
         } catch (NumberFormatException e) {
-            Ui.printInputIndexNotAnIntegerMessage();
+            ui.printInputIndexNotAnIntegerMessage();
         } catch (Exception e) {
-            Ui.printUnknownErrorMessage();
+            ui.printUnknownErrorMessage();
         }
     }
 
@@ -170,7 +173,7 @@ public class List {
                 j += 1;
             }
         } catch (EmptyDescriptionException e) {
-            Ui.printFindDescriptionEmptyMessage();
+            ui.printFindDescriptionEmptyMessage();
         }
     }
 }

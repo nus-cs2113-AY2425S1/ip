@@ -15,7 +15,7 @@ public class Mel {
     private Ui ui;
 
     public Mel(String filePath) {
-//        ui = new Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
 //        try {
 //            tasks = new TaskList(storage.load());
@@ -26,11 +26,11 @@ public class Mel {
     }
 
     public void run() {
-        Ui.printIntroMessage();
+        ui.printIntroMessage();
 
         // Set up scanner for user input
         Scanner in = new Scanner(System.in);
-        List userList = new List();
+        List userList = new List(ui);
 
         try {
             storage.writerSetUp();
@@ -39,7 +39,8 @@ public class Mel {
             System.out.println("An error occurred when setting up writer.");
         }
 
-        Parser.getUserInput(in, storage, userList);
+        Parser.getUserInput(in, storage, ui, userList);
+
     }
 
     public static void main(String[] args) throws IOException {
