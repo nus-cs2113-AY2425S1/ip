@@ -54,7 +54,7 @@ public class Storage {
      * Loads task data from a file and adds it to the provided user list.
      * @param userList The list where the tasks will be added.
      */
-    public void loadDataFromFile(List userList) {
+    public void loadDataFromFile(TaskList userList) {
         File file = new File(filePath);
         try {
             Scanner scanner = new Scanner(file);
@@ -73,7 +73,7 @@ public class Storage {
      * @param line The line to parse.
      * @param userList The list where the task will be added.
      */
-    private static void parseAndAddItem(String line, List userList) {
+    private static void parseAndAddItem(String line, TaskList userList) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0]; // T, D, E
         boolean isDone = parts[1].equals("X");
@@ -90,7 +90,7 @@ public class Storage {
 
         case "D":
             try {
-                LocalDateTime deadlineDate = TaskList.getDeadlineDateAsLocalDateTimeFromFile(parts[3]); // Ignore remaining parts
+                LocalDateTime deadlineDate = List.getDeadlineDateAsLocalDateTimeFromFile(parts[3]); // Ignore remaining parts
                 Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
                 if (isDone) {
                     deadlineTask.markAsDone();
@@ -121,7 +121,7 @@ public class Storage {
      * Saves the current task list to the specified file.
      * @param userList The list containing tasks to save.
      */
-    public void saveListToFile(List userList) {
+    public void saveListToFile(TaskList userList) {
         try {
             writeToFile(userList.getFormattedTasks()); // getFormattedTasks returns a formatted String
         } catch (IOException e) {

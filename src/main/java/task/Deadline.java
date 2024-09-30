@@ -2,7 +2,7 @@ package task;
 
 
 import java.time.LocalDateTime;
-import main.TaskList;
+import main.List;
 
 /**
  * Represents a deadline task with a description and a due date.
@@ -30,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + TaskList.convertDeadlineDateAsString(by) + ")");
+        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + List.convertDeadlineDateAsString(by) + ")");
     }
 
     /**
@@ -40,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String formattedTask() {
-        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + TaskList.convertDeadlineDateAsString(by));
+        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + List.convertDeadlineDateAsString(by));
     }
 
 }
