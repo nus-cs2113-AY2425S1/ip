@@ -1,179 +1,140 @@
 package main;
 
+import exception.EmptyDateFieldException;
 import exception.EmptyDescriptionException;
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.DateTimeException;
 
 /**
- * Manages the list of tasks. Provides functionality to add, mark, unmark, delete,
- * and print tasks. Also provides formatted task output.
+ * Manages the list of tasks. This class provides functionality to
+ * add tasks (events, todos, deadlines) and mark or delete tasks
+ * in the task list.
  */
 public class List {
 
-    private int numItems;
-    private Ui ui;
-    private Task[] itemList = new Task[0];
-    ArrayList<Task> itemArrayList = new ArrayList<>(Arrays.asList(itemList));
-
     /**
-     * Constructs an empty task list with no items.
-     */
-    public List(Ui ui) {
-        this.numItems = 0;
-        this.ui = ui;
-    }
-
-
-    /**
-     * Returns the number of tasks in the list.
+     * Adds an event task to the provided task list.
+     * The event contains a description, start date, and end date.
      *
-     * @return The number of tasks in the list.
+     * @param itemArrayList The list of tasks to add the event to.
+     * @param ui
+     * @param line          The user input containing the event description, start date, and end date.
+     * @throws EmptyDescriptionException If the event description is missing.
+     * @throws EmptyDateFieldException   If the event start or end date is missing.
      */
-    public int getNumItems() {
-        return itemArrayList.size();
-    }
-
-    /**
-     * Adds a new task to the list based on the user input.
-     * It checks whether the task is an event, deadline, or todo,
-     * and adds it accordingly. If the task is invalid, an error message is printed.
-     *
-     * @param line The user input containing task information.
-     */
-    public void addItem(String line) {
-        if (Parser.isValidEvent(line)) {
-            TaskList.addEvent(itemArrayList, ui, line);
-        } else if (Parser.isValidDeadline(line)) {
-            TaskList.addDeadline(itemArrayList, ui, line);
-        } else if (Parser.isTodo(line)) {
-            TaskList.addTodo(itemArrayList, ui, line);
-        } else {
-            ui.printInvalidTaskMessage();
-        }
-    }
-
-    /**
-     * Marks a task in the list as done based on the user input.
-     * If the task number is invalid or out of range, an error message is printed.
-     *
-     * @param line The user input containing the task number to mark.
-     */
-    public void markItem(String line) {
+    public static void addEvent(ArrayList<Task> itemArrayList, Ui ui, String line) {
         try {
-            int itemNum = Integer.parseInt(line.substring(5));
-
-            if (itemNum > this.getNumItems() || itemNum <= 0) {
-                ui.printInputIndexOutOfRangeMessage();
-            } else {
-                TaskList.markListItemAsDone(itemArrayList, itemNum);
-                ui.printTaskMarkedMessage(itemArrayList, itemNum);
-            }
-        } catch (NumberFormatException e) {
-            ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
-        }
-    }
-
-    /**
-     * Unmarks a task in the list as not done based on the user input.
-     * If the task number is invalid or out of range, an error message is printed.
-     *
-     * @param line The user input containing the task number to unmark.
-     */
-    public void unmarkItem(String line) {
-        try {
-            int itemNum = Integer.parseInt(line.substring(7));
-
-            if (itemNum > this.getNumItems() || itemNum <= 0) {
-                ui.printInputIndexOutOfRangeMessage();
-            } else {
-                TaskList.markListItemAsUnDone(itemArrayList, itemNum);
-                ui.printTaskUnmarkedMessage(itemArrayList, itemNum);
-            }
-        } catch (NumberFormatException e) {
-            ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
-        }
-    }
-
-    /**
-     * Deletes a task from the list based on the user input.
-     * If the task number is invalid or out of range, an error message is printed.
-     *
-     * @param line The user input containing the task number to delete.
-     */
-    public void deleteItem(String line) {
-        try {
-            int itemNum = Integer.parseInt(line.substring(7));
-
-            if (itemNum > this.getNumItems() || itemNum <= 0) {
-                ui.printInputIndexOutOfRangeMessage();
-            } else {
-                Task deletedTask = itemArrayList.get(itemNum - 1);
-                TaskList.deleteListItem(itemArrayList, itemNum);
-                ui.printTaskDeletedMessage(itemArrayList, deletedTask);
-            }
-        } catch (NumberFormatException e) {
-            ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
-        }
-    }
-
-    /**
-     * Prints the current list of tasks to the console.
-     */
-    public void printList() {
-        System.out.println("\tHere are the tasks in your list:");
-        int i = 0;
-        for (Task a: itemArrayList) {
-            System.out.println("\t" + (i + 1) + "." + a);
-            i += 1;
-        }
-    }
-
-    /**
-     * Returns the formatted string representation of all tasks in the list.
-     * Each task is formatted based on its type and details.
-     *
-     * @return A string representing the formatted tasks.
-     */
-    public String getFormattedTasks() {
-        String outputString = "";
-        for (Task a: itemArrayList) {
-            outputString += a.formattedTask() + System.lineSeparator();
-        }
-        return outputString;
-    }
-
-    public void findItem(String line) {
-        try {
-            String findDescription = Parser.extractFindDescription(line);
-            ArrayList<Task> matchedArrayList = new ArrayList<>(itemArrayList); // Safe copy of the original list
-
-            int i = 0;
-            while (i < matchedArrayList.size()) {
-                Task t = matchedArrayList.get(i);
-
-                if (!t.getDescription().contains(findDescription)) {
-                    matchedArrayList.remove(t);
-                } else {
-                    i += 1;
-                }
-            }
-
-            System.out.println("\tHere are the matching tasks in your list:");
-            int j = 0;
-            for (Task a: matchedArrayList) {
-                System.out.println("\t" + (j + 1) + "." + a);
-                j += 1;
-            }
+            String eventDescription = Parser.extractEventDescription(line);
+            String eventStartDate = Parser.extractEventStartDate(line);
+            String eventEndDate = Parser.extractEventEndDate(line);
+            Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
+            itemArrayList.add(newEvent);
+            ui.printAddedMessage(itemArrayList, newEvent);
         } catch (EmptyDescriptionException e) {
-            ui.printFindDescriptionEmptyMessage();
+            ui.printTaskDescriptionEmptyMessage();
+        } catch (EmptyDateFieldException e) {
+            System.out.println("\tError: Date field(s) cannot be empty");
         }
+    }
+
+    /**
+     * Adds a todo task to the provided task list.
+     * The todo contains only a description.
+     *
+     * @param itemArrayList The list of tasks to add the todo to.
+     * @param ui
+     * @param line          The user input containing the todo description.
+     * @throws EmptyDescriptionException If the todo description is missing.
+     */
+    public static void addTodo(ArrayList<Task> itemArrayList, Ui ui, String line) {
+        try {
+            String todoDescription = Parser.extractTodoDescription(line);
+            Todo newTodo = new Todo(todoDescription);
+            itemArrayList.add(newTodo);
+            ui.printAddedMessage(itemArrayList, newTodo);
+        } catch (EmptyDescriptionException e) {
+            ui.printTaskDescriptionEmptyMessage();
+        }
+    }
+
+    /**
+     * Adds a deadline task to the provided task list.
+     * The deadline contains a description and a due date.
+     *
+     * @param itemArrayList The list of tasks to add the deadline to.
+     * @param ui
+     * @param line          The user input containing the deadline description and date.
+     * @throws EmptyDescriptionException If the deadline description is missing.
+     * @throws EmptyDateFieldException   If the deadline date is missing.
+     */
+    public static void addDeadline(ArrayList<Task> itemArrayList, Ui ui, String line) {
+        try {
+            String deadlineDescription = Parser.extractDeadlineDescription(line);
+            LocalDateTime deadlineDate = Parser.extractDeadlineDate(line);
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+            itemArrayList.add(newDeadline);
+            ui.printAddedMessage(itemArrayList, newDeadline);
+        } catch (EmptyDescriptionException e) {
+            ui.printTaskDescriptionEmptyMessage();
+        } catch (EmptyDateFieldException e) {
+            System.out.println("\tError: Date field(s) cannot be empty");
+        } catch (DateTimeException e) {
+            System.out.println("\tInvalid date format: yyyy-mm-dd HH:mm");
+        }
+    }
+
+    /**
+     * Marks a task in the task list as done.
+     *
+     * @param itemArrayList The list of tasks.
+     * @param itemNum The task number to be marked as done.
+     */
+    public static void markListItemAsDone(ArrayList<Task> itemArrayList, int itemNum) {
+        itemArrayList.get(itemNum - 1).markAsDone();
+    }
+
+    /**
+     * Marks a task in the task list as not done.
+     *
+     * @param itemArrayList The list of tasks.
+     * @param itemNum The task number to be marked as not done.
+     */
+    public static void markListItemAsUnDone(ArrayList<Task> itemArrayList, int itemNum) {
+        itemArrayList.get(itemNum - 1).markAsUnDone();
+    }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param itemArrayList The list of tasks.
+     * @param itemNum The task number to be deleted.
+     */
+    public static void deleteListItem(ArrayList<Task> itemArrayList, int itemNum) {
+        itemArrayList.remove(itemNum - 1);
+    }
+
+    public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(deadlineDate, inputFormatter);
+    }
+
+    public static LocalDateTime getDeadlineDateAsLocalDateTimeFromFile(String deadlineDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return LocalDateTime.parse(deadlineDate, inputFormatter);
+    }
+
+    public static String convertDeadlineDateAsString(LocalDateTime dateTime) {
+        DateTimeFormatter outputformatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        String formattedDateTime = dateTime.format(outputformatter); // "1986-04-08 12:30"
+
+        return formattedDateTime;
     }
 }
+

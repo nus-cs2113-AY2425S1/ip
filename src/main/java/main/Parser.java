@@ -27,7 +27,7 @@ public class Parser {
      * @param ui
      * @param userList     The current task list.
      */
-    public static void getUserInput(Scanner in, Storage storage, Ui ui, List userList) {
+    public static void getUserInput(Scanner in, Storage storage, Ui ui, TaskList userList) {
         String line;
         while (true) {
             line = getLine(ui, in);
@@ -223,7 +223,7 @@ public class Parser {
         String deadlineDateString = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
 
         dateFieldNotEmpty(deadlineDateString);
-        deadlineDate = TaskList.convertDeadlineDateAsLocalDateTime(deadlineDateString);
+        deadlineDate = List.convertDeadlineDateAsLocalDateTime(deadlineDateString);
 
         return deadlineDate;
     }
