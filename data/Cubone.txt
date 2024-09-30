@@ -2,3 +2,4 @@
    [ ] | bbbb
 [D][X] | cccc (by: dasfadsf)
 [E][X] | ddddd (from: asdfkljakldf to: asfkljalksdf)
+[E][ ] | tsou teng yuan attend CS2113 lecture (from: Friday 20 Sep 4pm to: 6pm)

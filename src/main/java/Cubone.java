@@ -11,14 +11,6 @@ import Tasks.Todo;
 import utils.*;
 
 public class Cubone {
-    static final String LOGO =   
-            "   ______      __                       \n"+
-            "  / ____/_  __/ /_  ____  ____  ___     \n"+
-            " / /   / / / / __ \\/ __ \\/ __ \\/ _ \\\n"+
-            "/ /___/ /_/ / /_/ / /_/ / / / /  __/    \n"+
-            "\\____/\\__,_/_.___/\\____/_/ /_/\\___/ \n";
-    static final String CHAT_PREFIX = "\n(Cubone) ";
-    static final String CHAT_BAR = "---------------------------------";
     
     // dictionary to store command usages
     // static final Dictionary<String, String> COMMAND_USAGES = new Hashtable<String, String>();
@@ -48,26 +40,6 @@ public class Cubone {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    /**
-     * Prints a welcome message from Cubone.
-     * The welcome message includes the Cubone logo and a chat bar.
-     */
-    public static void sayWelcomeMsg() {
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm Cubone");
-        if (LogFileRead) {
-            System.out.println("I have read " + inputed_tasks.size() + " tasks from the Log file");
-        }
-        System.out.println("What can I do for you?");
-        System.out.println(CHAT_BAR);
-    }
-    
-    /**
-     * Prints a farewell message.
-     */
-    public static void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -193,8 +165,11 @@ public class Cubone {
         }
     }
 
+    private Ui ui;
     public static void main(String[] args) {
-        sayWelcomeMsg();
+        Cubone cuboneInstance = new Cubone();
+        cuboneInstance.ui = new Ui();
+        cuboneInstance.ui.showWelcomeMsg(LogFileRead, inputed_tasks);
 
         // loop for user input
         boolean isWorking = true;
@@ -203,11 +178,11 @@ public class Cubone {
             // String input = sc.nextLine();
             String fullCommand = sc.nextLine();
             String[] command = fullCommand.split(" ", 2);
-            System.out.println(CHAT_BAR + CHAT_PREFIX);
+            cuboneInstance.ui.showLine(true);
             switch (command[0]) {
             case "bye":
                 // exit loop
-                sayBye();
+                cuboneInstance.ui.showBye();
                 isWorking = false;
                 break;
             case "help":
@@ -311,7 +286,7 @@ public class Cubone {
                 System.out.println("☹ Oh No! Can't resove this command: " + command[0]);
                 break;
             }
-            System.out.println(CHAT_BAR);
+            cuboneInstance.ui.showLine();
             // log the tasks to the file
             LogFile.updateLogFile(inputed_tasks);
         }
