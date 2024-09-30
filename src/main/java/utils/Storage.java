@@ -7,10 +7,20 @@ import Tasks.Task;
 import Tasks.Deadline;
 import Tasks.Event;
 
-
+/**
+ * The Storage class provides methods to read and write tasks to a log file.
+ * The log file is stored in the data directory and is named Cubone.txt.
+ * The log file is read and written in the format specified in the user guide.
+ */
 public class Storage {
     public static final String LOG_FILE_NAME = "./data/Cubone.txt";
 
+    /**
+     * Retrieves the log file. If the log file does not exist, it creates the file
+     * and its parent directories if necessary.
+     *
+     * @return The log file.
+     */
     public static File getLogFile() {
         File file = new File(LOG_FILE_NAME);
         // check if the file exists
@@ -29,6 +39,13 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Updates the log file with the given list of tasks.
+     *
+     * @param inputed_tasks An ArrayList of Task objects to be written to the log file.
+     *                      Each task will be written on a new line.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void updateLogFile(ArrayList<Task> inputed_tasks) {
         try {
             // run through the list of tasks and write them to the file
@@ -43,6 +60,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the log file and parses the tasks stored in it.
+     * The log file is expected to contain tasks in a specific format.
+     * Each line in the log file represents a task and is split into task details.
+     * The task details are parsed based on the type of task (Todo, Deadline, Event, or generic Task).
+     * 
+     * @return An ArrayList of Task objects parsed from the log file.
+     *         If an error occurs while reading the file, an empty ArrayList is returned.
+     */
     public static ArrayList<Task> readLogFile() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
