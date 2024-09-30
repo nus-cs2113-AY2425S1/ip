@@ -13,17 +13,24 @@ and save the contents where appropriate.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Allow users to key in task description along with the due date
+(due date is accepted only in 3 formats: 
+yyyy-MM-dd, d/M/yyyy, and MMM dd yyyy)
 
-// Give examples of usage
+Example: `deadline return book /by 2/12/2019` or `deadline return book /by Dec 12 2019`
+or `deadline return book /by 2019-12-02`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Example of expected output:
 ```
-expected output
+______________________________
+deadline return book /by Dec 12 2019
+______________________________
+Got it. I've added this task:
+[D] [ ] return book (by: Dec 12 2019)
+Now you have 7 tasks in the list.
+______________________________
 ```
+
 ## Adding todo
 
 // Describe the action and its outcome.
