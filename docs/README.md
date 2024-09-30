@@ -1,6 +1,6 @@
 # Ran User Guide
 
-![Welcome screen of Ran greeting the user when Ran chatbot is started up](../Ran-Welcome-Screen.png)
+![Welcome screen of Ran greeting the user when Ran chatbot is started up](/../Ran-Welcome-Screen.png)
 
 ### Ran? Ran Yakumo? From Touhou Project?
 Yes!
@@ -21,15 +21,111 @@ Harness a small percentage of Ran's intellect to help you manage your day-to-day
 
 ## Add a Todo Task: `todo`
 
+Add a Todo task to the list of tasks.
+
+Format: `todo [DESCRIPTION]`
+
+Example: `todo Water the plants`
+
+Expected Output:
+
+```
+    ____________________________________________________________
+    Understood, I have noted down the following task:
+     [T][ ] Water the plants
+    You currently have 1 task in your list.
+    ____________________________________________________________
+```
+
 ## Add a Deadline Task: `deadline`
+
+Add a Deadline task to the list of tasks.
+
+Format: `Deadline [DESCRIPTION] /by [DEADLINE]`
+
+Example: `Deadline Math homework /by Friday`
+
+Expected Output:
+
+```
+    ____________________________________________________________
+    Understood, I have noted down the following task:
+     [D][ ] Math homework (by: Friday)
+    You currently have 3 tasks in your list.
+    ____________________________________________________________
+```
 
 ## Add an Event Task: `event`
 
+Add an Event task to the list of tasks.
+
+Format: `event [DESCRIPTION] /from [START-TIME] /to [END-TIME]`
+
+Example: `event Music festival /from 29/5/2024 /to 5/5/2024`
+
+Expected Output:
+
+```
+    ____________________________________________________________
+    Understood, I have noted down the following task:
+     [E][ ] Music festival (from: 29/5/2024 to: 5/5/2024)
+    You currently have 6 tasks in your list.
+    ____________________________________________________________
+```
+
 ## Show list of all tasks: `list`
+
+List out all of the tasks currently in the list.
+
+Format: `list`
+
+Possible Output:
+
+```
+    ____________________________________________________________
+    1.[T][ ] Water the plants
+    2.[T][ ] Play guitar
+    3.[D][ ] Math homework (by: Friday)
+    4.[D][ ] Physics homework (by: Thursday)
+    5.[T][ ] Feed cat
+    6.[E][ ] Music festival (from: 29/5/2024 to: 5/5/2024)
+    7.[D][ ] Chemistry homework (by: Friday)
+    ____________________________________________________________
+```
 
 ## Mark task as done: `mark`
 
+Mark the task as done from the list of tasks at a specified index.
+
+Format: `mark [INDEX]`
+
+Example: `mark 5`
+
+Possible Output:
+
+```
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+      [T][X] Feed cat
+    ____________________________________________________________
+```
+
 ## Unmark task (set as not done): `unmark`
+
+Unmark the task (set as not done) from the list of tasks at a specified index.
+
+Format: `unmark [INDEX]`
+
+Example: `unmark 5`
+
+Possible Output:
+
+```
+    ____________________________________________________________
+    OK, I've marked this task as not done yet:
+      [T][ ] Feed cat
+    ____________________________________________________________
+```
 
 ## Delete task from list: `delete`
 
@@ -45,7 +141,7 @@ Possible Output:
     ____________________________________________________________
     Noted. I've removed this task:
       [T][ ] Play guitar
-    You currently have 3 tasks in your list.
+    You currently have 6 tasks in your list.
     ____________________________________________________________
 ```
 
@@ -81,17 +177,10 @@ Expected Output:
     ____________________________________________________________
 ```
 
-## Adding deadlines
+## Saving list of tasks
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-// Feature details
+Ran automatically saves all your tasks in a text file.
+In the directory that Ran chatbot is started up, a `data` directory is created,
+with a `ran.txt` text file within to backup your entire list of tasks.
+If such a text file in the correct directory already exists,
+then Ran will read from it and load all the saved tasks.
