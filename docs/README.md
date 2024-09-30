@@ -33,9 +33,53 @@ Harness a small percentage of Ran's intellect to help you manage your day-to-day
 
 ## Delete task from list: `delete`
 
+Delete the task from the list of tasks at a specified index.
+
+Format: `delete [INDEX]`
+
+Example: `delete 2`
+
+Possible Output:
+
+```
+    ____________________________________________________________
+    Noted. I've removed this task:
+      [T][ ] Play guitar
+    You currently have 3 tasks in your list.
+    ____________________________________________________________
+```
+
 ## Find task: `find`
 
+Find tasks from the entire list of tasks that contain a keyword/phrase.
+
+Format: `find [KEYWORD/PHRASE]`
+
+Example: `find homework`
+
+Possible Output:
+
+```
+    ____________________________________________________________
+    1.[D][ ] Math homework (by: Friday)
+    2.[D][ ] Physics homework (by: Thursday)
+    3.[D][ ] Chemistry homework (by: Friday)
+    ____________________________________________________________
+```
+
 ## Terminate chatbot: `bye`
+
+Terminate the Ran chatbot.
+
+Format: `bye`
+
+Expected Output:
+
+```
+    ____________________________________________________________
+    Farewell. May we meet again!
+    ____________________________________________________________
+```
 
 ## Adding deadlines
 

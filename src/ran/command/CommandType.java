@@ -45,6 +45,11 @@ public enum CommandType {
     DELETE,
 
     /**
+     * Find tasks with keyword command
+     */
+    FIND,
+
+    /**
      * Catch-all for all invalid commands
      */
     UNDEFINED
