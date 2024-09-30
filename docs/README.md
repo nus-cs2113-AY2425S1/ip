@@ -1,6 +1,4 @@
 # TobyBot User Guide
-//test 
-![TobyBot Logo](./Users/85260/OneDrive - National University of Singapore/Documents/Year 3/exchange in NUS fall/cs2113 software engineering and oop/working progress of ip/week 7/the image of the TobyBot.png)
 
 Welcome to the **TobyBot** User Guide! TobyBot is a task management chatbot designed to help you manage your to-do list, deadlines, and events efficiently. Below is a guide to help you use all the important features of TobyBot.
 
