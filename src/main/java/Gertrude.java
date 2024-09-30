@@ -222,6 +222,16 @@ public class Gertrude {
         }
         boolean runLoop = true;
         while (runLoop) {
+
+            // Save every loop
+            try {
+                saveFile(tasks);
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found. Couldn't save.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
             String lineInput;
             Scanner in = new Scanner(System.in);
             lineInput = in.nextLine();
@@ -244,13 +254,6 @@ public class Gertrude {
                 case "bye":
                     printGoodbyeMessage();
                     runLoop = false;
-                    try {
-                        saveFile(tasks);
-                    } catch (FileNotFoundException e) {
-                        System.out.println("File not found. Couldn't save.");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                     break;
                 case "list":
                     printList(tasks);
