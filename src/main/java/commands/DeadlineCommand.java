@@ -7,14 +7,32 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that adds a new deadline task to the task list.
+ * The deadline task includes a description and a due date.
+ */
 public class DeadlineCommand extends Command {
     String userInput;
 
+    /**
+     * Constructs a DeadlineCommand with the user input specifying the deadline task details.
+     *
+     * @param userInput the user input in the format 'deadline <description> /by <due_date>'
+     */
     public DeadlineCommand(String userInput) {
         this.userInput = userInput;
         this.isExit = false;
     }
 
+    /**
+     * Executes the command to create a new Deadline task.
+     *
+     * The expected format for user input is 'deadline <description> /by <due_date>'.
+     *
+     * @param tasks the list of tasks where the new deadline task will be added
+     * @return a success message with details of the newly added task
+     * @throws XiaoMeException if the user input format is invalid
+     */
     @Override
     public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         try {
