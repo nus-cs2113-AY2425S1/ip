@@ -13,6 +13,7 @@ import Commands.EventCommand;
 import Commands.MarkCommand;
 import Commands.UnmarkCommand;
 import Commands.DeleteCommand;
+import Commands.FindCommand;
 
 import static Ui.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -53,6 +54,8 @@ public class Parser {
             return new ListCommand();
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(arguments);
         default:
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
