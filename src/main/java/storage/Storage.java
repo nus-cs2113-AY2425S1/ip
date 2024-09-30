@@ -13,10 +13,19 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for saving and loading tasks from a file.
+ */
 public class Storage {
 
     static final String FILE_PATH = "./tasks.txt";
 
+    /**
+     * Saves the given list of tasks to the specified file.
+     *
+     * @param tasks the list of tasks to save
+     * @throws XiaoMeException if an error occurs while saving the file
+     */
     public static void saveFile(ArrayList<Task> tasks) throws XiaoMeException {
         try {
             File f = new File(FILE_PATH);
@@ -48,6 +57,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the specified file and returns them as an ArrayList.
+     * If the file does not exist, a new file is created.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     * @throws XiaoMeException if an error occurs while reading the file
+     */
     public ArrayList<Task> readFile() throws XiaoMeException {
         ArrayList<Task> tasks = new ArrayList<>();
 

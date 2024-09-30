@@ -1,13 +1,23 @@
 package parser;
 
 import commands.*;
-import exceptions.XiaoMeException;
 
 import java.util.Objects;
 
+/**
+ * The Parser class is responsible for interpreting user input
+ * and creating corresponding command objects.
+ */
 public class Parser {
 
-
+    /**
+     * Parses the user input and returns the appropriate Command object.
+     *
+     * If the command is unrecognized, an InvalidCommand object is returned.
+     *
+     * @param userInput the input string from the user
+     * @return the corresponding Command object based on user input
+     */
     public static Command parseCommand(String userInput) {
         // checks what kind of command was received by XiaoMe
 

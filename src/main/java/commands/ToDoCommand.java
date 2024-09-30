@@ -7,15 +7,33 @@ import task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that adds a new Todo task to the list.
+ */
 public class ToDoCommand extends Command {
 
     String userInput;
 
+    /**
+     * Constructs a ToDoCommand instance with the specified user input.
+     *
+     * @param userInput the user input for creating a Todo task
+     */
     public ToDoCommand(String userInput) {
         this.userInput = userInput;
         this.isExit = false;
     }
 
+    /**
+     * Executes the command to add a new Todo task to the list.
+     *
+     * The expected format for user input is
+     * 'todo <task>'.
+     *
+     * @param tasks the list of tasks to which the Todo will be added
+     * @return a success message with details of the added task
+     * @throws XiaoMeException if the user input format is invalid or the task description is empty
+     */
     @Override
     public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         try {
