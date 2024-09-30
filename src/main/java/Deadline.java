@@ -15,7 +15,7 @@ public class Deadline extends Task {
 
         if (deadlineInfo.length == 2) {
             Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-            Aerus.tasks[Task.tasksCount-1] = deadline;
+            Aerus.tasks.add(deadline);
             UI.printContent("Added Deadline: " + deadline.toString());
         } else {
             throw new InvalidCreateDeadlineException();
@@ -40,5 +40,10 @@ public class Deadline extends Task {
             output += " (by: " + by + ")";
         }
         return output;
+    }
+
+    @Override
+    public String toSaveString() {
+        return "D" + this.getStatusIcon() + "//" + this.description + "//" + this.by;
     }
 }

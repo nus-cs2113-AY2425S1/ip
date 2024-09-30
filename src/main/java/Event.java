@@ -16,7 +16,7 @@ public class Event extends Task {
         String[] eventInfo = userInput.split("/from|/to");
         if (eventInfo.length == 3) {
             Event event = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
-            Aerus.tasks[Task.tasksCount-1] = event;
+            Aerus.tasks.add(event);
             UI.printContent("Added Event: " + event.toString());
         } else {
             throw new InvalidCreateEventException();
@@ -36,5 +36,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toSaveString() {
+        return "E" + this.getStatusIcon() + "//" + this.description + "//" + this.from + "//" + this.to;
     }
 }

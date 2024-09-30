@@ -10,14 +10,14 @@ public class InputHandler {
 
         // Case: See list
         case "list":
-            if (Task.tasksCount == 0) {
+            if (Aerus.tasks.isEmpty()) {
                 UI.printContent("You don't have any tasks!");
                 return 1;
             }
 
             System.out.println(UI.DIVIDER_LINE);
-            for (int i = 1; i <= Task.tasksCount; i++) {
-                System.out.println(i + ". " + Aerus.tasks[i - 1].toString());
+            for (int i = 1; i <= Aerus.tasks.size(); i++) {
+                System.out.println(i + ". " + Aerus.tasks.get(i - 1).toString());
             }
             System.out.println(UI.DIVIDER_LINE);
             return 1;
@@ -30,15 +30,15 @@ public class InputHandler {
             // Test if the input is formatted like a mark/unmark command
             if (isMarkCommandType(userInput)) {
                 int taskNumber = parseInt(userInputSplit[1]) - 1;
-                if (taskNumber > Task.tasksCount) {
+                if (taskNumber > Aerus.tasks.size()) {
                     throw new InvalidMarkException();
                 } else if (userInputSplit[0].equals("mark")) {
-                    Aerus.tasks[taskNumber].isDone = true;
-                    Aerus.tasks[taskNumber].printMark();
+                    Aerus.tasks.get(taskNumber).isDone = true;
+                    Aerus.tasks.get(taskNumber).printMark();
                     return 1;
                 } else if (userInputSplit[0].equals("unmark")) {
-                    Aerus.tasks[taskNumber].isDone = false;
-                    Aerus.tasks[taskNumber].printUnmark();
+                    Aerus.tasks.get(taskNumber).isDone = false;
+                    Aerus.tasks.get(taskNumber).printUnmark();
                     return 1;
                 }
             }
@@ -60,6 +60,6 @@ public class InputHandler {
     public static boolean isMarkCommandType(String input) {
         String[] inputSplit = input.split(" ");
         return inputSplit.length == 2 && inputSplit[1].matches("\\d+(\\.\\d+)?") &&
-                parseInt(inputSplit[1]) <= Task.tasksCount;
+                parseInt(inputSplit[1]) <= Aerus.tasks.size();
     }
 }
