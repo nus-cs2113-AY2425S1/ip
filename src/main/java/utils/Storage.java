@@ -8,7 +8,7 @@ import Tasks.Deadline;
 import Tasks.Event;
 
 
-public class LogFile {
+public class Storage {
     public static final String LOG_FILE_NAME = "./data/Cubone.txt";
 
     public static File getLogFile() {
@@ -101,6 +101,7 @@ public class LogFile {
                         break;
                 }
             }
+            System.out.println("Successfully read the log file." + tasks.size() + " tasks read.");
             scanner.close();
         } catch (Exception e) {
             e.printStackTrace();
