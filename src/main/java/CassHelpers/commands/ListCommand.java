@@ -5,13 +5,25 @@ import CassHelpers.util.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Command class responsible for listing all the tasks in the task list.
+ * It prints out all the tasks currently in the task list.
+ */
 public class ListCommand implements Command {
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructs a new ListCommand.
+     *
+     * @param tasks The TaskList object containing tasks to be listed.
+     */
     public ListCommand(TaskList tasks) {
         this.taskList = tasks.getTaskList();
     }
 
+    /**
+     * Executes the command by listing all tasks in the task list.
+     */
     @Override
     public void execute() {
         if (taskList.isEmpty()) {
