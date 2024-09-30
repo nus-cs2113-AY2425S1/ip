@@ -1,13 +1,14 @@
 package parser;
 
 import commands.*;
+import exceptions.XiaoMeException;
 
 import java.util.Objects;
 
 public class Parser {
 
 
-    public Command parseCommand(String userInput) {
+    public static Command parseCommand(String userInput) {
         // checks what kind of command was received by XiaoMe
 
         if (Objects.equals(userInput, "bye")) {
@@ -29,7 +30,7 @@ public class Parser {
             return new MarkCommand(userInput);
         }
 
-        throw new IllegalArgumentException();
+        return new InvalidCommand();
     }
 
 }

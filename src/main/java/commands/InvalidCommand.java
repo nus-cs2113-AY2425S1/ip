@@ -1,14 +1,17 @@
 package commands;
 
+import task.Task;
+
+import java.util.ArrayList;
+
 public class InvalidCommand extends Command {
-    boolean isExit;
 
     public InvalidCommand() {
         this.isExit = false;
     }
 
     @Override
-    public String execute() {
+    public String execute(ArrayList<Task> tasks) {
         return "Invalid command :(";
     }
 }

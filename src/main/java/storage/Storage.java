@@ -15,9 +15,11 @@ import java.util.Scanner;
 
 public class Storage {
 
+    static final String FILE_PATH = "./tasks.txt";
+
     public static void saveFile(ArrayList<Task> tasks) throws XiaoMeException {
         try {
-            File f = new File("./tasks.txt");
+            File f = new File(FILE_PATH);
             if (!f.exists()) {
                 // file does not exist
                 f.createNewFile();
@@ -25,7 +27,7 @@ public class Storage {
 
             // writing to the file
             // opening a file using FileWriter automatically overwrites its preexisting content
-            FileWriter writer = new FileWriter("./tasks.txt");
+            FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     // T|<icon>|<description>
@@ -50,7 +52,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-            File f = new File("./tasks.txt");
+            File f = new File(FILE_PATH);
             if (!f.exists()) {
                 // file does not exist
                 f.createNewFile();

@@ -7,12 +7,17 @@ import java.util.ArrayList;
 
 public class Command {
     protected ArrayList<Task> tasks;
+    boolean isExit;
 
-    public String execute() throws XiaoMeException {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     };
 
-    public void setData(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+//    public static void setData(ArrayList<Task> tasks) {
+//        this.tasks = tasks;
+//    }
+
+    public boolean isExit() {
+        return isExit;
     }
 }

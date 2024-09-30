@@ -15,10 +15,9 @@ public class UI {
 
     public void showWelcome() {
         showLine();
-        System.out.println("""               
+        System.out.println("""
                 \tHello! I'm XiaoMe
-                \tWhat can I do for you?
-                """);
+                \tWhat can I do for you?""");
         showLine();
     }
 

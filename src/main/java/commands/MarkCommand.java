@@ -2,13 +2,14 @@ package commands;
 
 import exceptions.XiaoMeException;
 import storage.Storage;
+import task.Task;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MarkCommand extends Command {
 
     String userInput;
-    boolean isExit;
 
     public MarkCommand(String userInput) {
         this.userInput = userInput;
@@ -16,7 +17,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute() throws XiaoMeException  {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException  {
         try {
             String string;
             // user input is mark/unmark x: mark corresponding task as done or undone
@@ -39,7 +40,7 @@ public class MarkCommand extends Command {
 
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("\tHEY mark/unmark should be followed by a valid integer");
+            throw new XiaoMeException("\tHEY mark/unmark should be followed by a valid integer");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new XiaoMeException("\tInteger provided does not have a corresponding task");
         }

@@ -4,10 +4,11 @@ import exceptions.XiaoMeException;
 import storage.Storage;
 import task.Task;
 
+import java.util.ArrayList;
+
 public class DeleteCommand extends Command {
 
     String userInput;
-    boolean isExit;
 
     public DeleteCommand(String userInput) {
         this.userInput = userInput;
@@ -15,7 +16,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute() throws XiaoMeException {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         try {
             String[] markWords = userInput.split(" ");
             int index = Integer.parseInt(markWords[1]) - 1;
@@ -31,12 +32,10 @@ public class DeleteCommand extends Command {
 
         } catch (NumberFormatException e) {
             throw new XiaoMeException("""
-                    \tHEY delete should be followed by a valid integer
-                    """);
+                    \tHEY delete should be followed by a valid integer""");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new XiaoMeException("""
-                    \tInteger provided does not have a corresponding task
-                    """);
+                    \tInteger provided does not have a corresponding task""");
         }
     }
 }

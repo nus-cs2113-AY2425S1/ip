@@ -3,11 +3,13 @@ package commands;
 import exceptions.XiaoMeException;
 import storage.Storage;
 import task.Event;
+import task.Task;
+
+import java.util.ArrayList;
 
 public class EventCommand extends Command {
 
     String userInput;
-    boolean isExit;
 
     public EventCommand(String userInput) {
         this.userInput = userInput;
@@ -15,7 +17,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public String execute() throws XiaoMeException  {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException  {
         try {
             // user is creating a new event
             String[] eventWords = userInput.split("/");
@@ -32,13 +34,12 @@ public class EventCommand extends Command {
 
             return "\tGot it. I've added this task:\n"
                     + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
-                    + "\tNow you have " + tasks.size() + " tasks in the list.\n";
+                    + "\tNow you have " + tasks.size() + " tasks in the list.";
 
         } catch (Exception e) {
             throw new XiaoMeException("""
                     \tInvalid format to create an event:
-                    \tUse 'event <description> /from <start_time> /to <end_time>'
-                    """);
+                    \tUse 'event <description> /from <start_time> /to <end_time>'""");
         }
     }
 }

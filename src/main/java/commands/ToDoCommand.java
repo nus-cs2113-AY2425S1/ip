@@ -2,12 +2,14 @@ package commands;
 
 import exceptions.XiaoMeException;
 import storage.Storage;
+import task.Task;
 import task.Todo;
+
+import java.util.ArrayList;
 
 public class ToDoCommand extends Command {
 
     String userInput;
-    boolean isExit;
 
     public ToDoCommand(String userInput) {
         this.userInput = userInput;
@@ -15,7 +17,7 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public String execute() throws XiaoMeException {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         try {
             // user is creating a new  Task.Todo
             String string = userInput.replace("todo", "").trim();
@@ -35,8 +37,7 @@ public class ToDoCommand extends Command {
         } catch (Exception e) {
             throw new XiaoMeException("""
                     \tInvalid format to create a todo:
-                    \tUse 'todo <task>'
-                    """);
+                    \tUse 'todo <task>'""");
         }
     }
 

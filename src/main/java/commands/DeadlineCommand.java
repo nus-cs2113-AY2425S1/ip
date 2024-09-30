@@ -3,10 +3,12 @@ package commands;
 import exceptions.XiaoMeException;
 import storage.Storage;
 import task.Deadline;
+import task.Task;
+
+import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     String userInput;
-    boolean isExit;
 
     public DeadlineCommand(String userInput) {
         this.userInput = userInput;
@@ -14,7 +16,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute() throws XiaoMeException {
+    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
         try {
             // user is creating a new deadline
             String[] lineWords = userInput.split("/by");
@@ -33,8 +35,7 @@ public class DeadlineCommand extends Command {
         } catch (Exception e) {
             throw new XiaoMeException("""
                     \tInvalid format to create a deadline:
-                    \tUse 'deadline <description> /by <due_date>'
-                    """);
+                    \tUse 'deadline <description> /by <due_date>'""");
         }
     }
 }
