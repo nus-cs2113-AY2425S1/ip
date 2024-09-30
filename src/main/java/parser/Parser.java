@@ -28,6 +28,8 @@ public class Parser {
             return new EventCommand(userInput);
         } else if (Objects.equals(first, "mark") || Objects.equals(first, "unmark")) {
             return new MarkCommand(userInput);
+        } else if (Objects.equals(first, "find")) {
+            return new FindCommand(userInput);
         }
 
         return new InvalidCommand();
