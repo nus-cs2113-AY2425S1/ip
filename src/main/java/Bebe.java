@@ -16,7 +16,6 @@ public class Bebe {
     }
 
     public void run() {
-        ui.showLogo();
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -35,6 +34,6 @@ public class Bebe {
     }
 
     public static void main(String[] args) {
-        new Bebe("./data/bebe.txt").run();
+        new Bebe("data/tasks.txt").run();
     }
 }

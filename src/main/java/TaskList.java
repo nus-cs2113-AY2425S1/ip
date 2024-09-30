@@ -1,57 +1,52 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
-
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
     public void addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void deleteTask(int index) throws BebeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new BebeException("Invalid task number.");
-        }
-        Task task = tasks.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public void markTask(int index, boolean isDone) throws BebeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new BebeException("Invalid task number.");
-        }
-        Task task = tasks.get(index);
-        if (isDone) {
-            task.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            task.markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-        }
-        System.out.println("  " + task);
-    }
-
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+        try {
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BebeException("Task number is out of range. Cannot delete task.");
         }
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void markTask(int index) throws BebeException {
+        try {
+            Task task = tasks.get(index);
+            task.markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new BebeException("Task number is out of range. Cannot mark task.");
+        }
+    }
+
+    public void unmarkTask(int index) throws BebeException {
+        try {
+            Task task = tasks.get(index);
+            task.markAsNotDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new BebeException("Task number is out of range. Cannot unmark task.");
+        }
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
     }
 }

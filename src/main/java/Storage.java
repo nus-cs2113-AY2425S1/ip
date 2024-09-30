@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
 
@@ -14,8 +16,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws BebeException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public List<Task> load() throws BebeException {
+        List<Task> tasks = new ArrayList<>();
         try {
             if (!Files.exists(Paths.get(filePath))) {
                 return tasks;  // Return empty list if no file exists
@@ -52,7 +54,7 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) throws BebeException {
+    public void save(List<Task> tasks) throws BebeException {
         try {
             File directory = new File("./data");
             if (!directory.exists()) {

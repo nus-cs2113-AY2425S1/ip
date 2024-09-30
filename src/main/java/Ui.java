@@ -5,6 +5,8 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
+        showLogo();
+        showLine();
         System.out.println("Hello! I'm Bebe, your task manager.");
         System.out.println("What can I do for you today?");
     }
@@ -44,13 +46,12 @@ public class Ui {
     }
 
     public void showLogo() {
-        String logo =
-                "  ____    ______   ____    ______  \n" +
+        String logo = " ____    ______   ____    ______  \n" +
                 " |  _ \\  |  ____| |  _ \\  |  ____| \n" +
                 " | |_) | | |__    | |_) | | |__    \n" +
                 " |  _ <  |  __|   |  _ <  |  __|   \n" +
                 " | |_) | | |____  | |_) | | |____  \n" +
-                " |____/  |______| |____/  |______| \n" ;
+                " |____/  |______| |____/  |______| \n";
         System.out.println(logo);
     }
 }
