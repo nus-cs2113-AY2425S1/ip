@@ -19,7 +19,7 @@ public class FindCommand extends Command {
         String input = userInput.replace("find", "").trim();
 
         if (input.isEmpty()) {
-            throw new XiaoMeException("todo");
+            throw new XiaoMeException("\tPlease provide a valid text input after find");
         }
 
         StringBuilder string = new StringBuilder("\tHere are the matching tasks in your list:\n");
@@ -33,11 +33,13 @@ public class FindCommand extends Command {
                     string.append("\n");
                 }
             }
-
-            if (matchCount == 0) {
-                return "\tNo matching tasks found.";
-            }
         }
+
+        if (matchCount == 0) {
+            return "\tText provided does not have a corresponding task";
+        }
+
+        System.out.println(matchCount);
         return string.toString();
     }
 
