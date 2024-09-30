@@ -29,7 +29,6 @@ public class Task {
     public static void deleteTask(int taskIndex) {
         Aerus.tasks.get(taskIndex).printDelete();
         Aerus.tasks.remove(taskIndex);
-        tasksCount--;
     }
 
     public String getStatusIcon() {

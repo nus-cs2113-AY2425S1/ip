@@ -17,7 +17,7 @@ public class Event extends Task {
     public static void createNewEvent(String userInput) throws InvalidCreateEventException {
         String[] eventInfo = userInput.split("/from|/to");
         if (eventInfo.length == 3) {
-            Event event = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
+            Event event = new Event(eventInfo[0], eventInfo[1].strip(), eventInfo[2].strip());
             Aerus.tasks.add(event);
             UI.printContent("Added Event: " + event.toString());
         } else {
