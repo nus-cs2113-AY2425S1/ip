@@ -12,32 +12,49 @@ import java.util.ArrayList;
 
 import static CassHelpers.util.Parser.parseDateTime;
 
+/**
+ * Command class responsible for adding an event task to the task list.
+ * It parses the input string for the event name, start time, and end time,
+ * and creates a new event task that is added to the task list and saved to storage.
+ */
 public class AddEventCommand implements Command {
     private final ArrayList<Task> taskList;
     private final Storage storage;
     private final String input;
-    private final int fromIndexOffset = 6;
-    private final int toIndexOffset = 4;
-    private final int eventIndexOffset = 5;
+    private final int FROM_INDEX_OFFSET = 6;
+    private final int TO_INDEX_OFFSET = 4;
+    private final int EVENT_INDEX_OFFSET = 5;
 
+    /**
+     * Constructs a new AddEventCommand.
+     *
+     * @param tasks The TaskList object where the new event task will be added.
+     * @param input The user input containing the event details.
+     */
     public AddEventCommand(TaskList tasks, String input) {
         this.taskList = tasks.getTaskList();
         this.storage = tasks.getStorage();
         this.input = input;
     }
 
+    /**
+     * Executes the command by parsing the input for an event task and adding it to the task list.
+     *
+     * @throws InvalidEventFormatException If the event format is invalid.
+     * @throws InvalidDateFormatException If the date format is invalid.
+     */
     @Override
     public void execute() throws InvalidEventFormatException, InvalidDateFormatException {
-        int fromIndex = input.indexOf("/from") + fromIndexOffset;
+        int fromIndex = input.indexOf("/from") + FROM_INDEX_OFFSET;
         int toIndex = input.indexOf("/to");
 
-        if (fromIndex < fromIndexOffset || toIndex < 0) {
+        if (fromIndex < FROM_INDEX_OFFSET || toIndex < 0) {
             throw new InvalidEventFormatException("Sorry, event entered has the wrong format");
         }
 
         String from = input.substring(fromIndex, toIndex).trim();
-        String to = input.substring(toIndex + toIndexOffset).trim();
-        String eventTaskName = input.substring(eventIndexOffset, fromIndex - fromIndexOffset).trim();
+        String to = input.substring(toIndex + TO_INDEX_OFFSET).trim();
+        String eventTaskName = input.substring(EVENT_INDEX_OFFSET, fromIndex - FROM_INDEX_OFFSET).trim();
 
         LocalDateTime fromDate = parseDateTime(from);
         LocalDateTime toDate = parseDateTime(to);

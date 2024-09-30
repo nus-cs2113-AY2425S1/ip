@@ -24,7 +24,7 @@ Add a task with a deadline.
 
 ```bash
 deadline <task_description> /by <due_date> 
-(date fmt:  dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>)
+(date fmt:  dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>) (works with HHmm)
 ```
 
 **Example:**
@@ -38,7 +38,7 @@ Add an event task with a start and end time.
 
 ```bash
 event <event_description> /from <start_date> /to <end_date>
-(date fmt:  dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>)
+(date fmt:  dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>) (works with HHmm)
 
 ```
 
