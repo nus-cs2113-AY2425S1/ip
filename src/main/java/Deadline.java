@@ -43,4 +43,9 @@ public class Deadline extends Task {
         }
         return output;
     }
+
+    @Override
+    public String toSaveString() {
+        return "D" + this.getStatusIcon() + "//" + this.description + "//" + this.by;
+    }
 }

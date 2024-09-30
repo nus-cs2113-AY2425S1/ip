@@ -6,12 +6,10 @@ import exception.InvalidCreateToDoException;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int tasksCount = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        tasksCount++;
     }
 
     public static void createNewTask(String userInput) throws InvalidCreateTaskException,
@@ -36,6 +34,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void printMark() {
@@ -63,5 +65,9 @@ public class Task {
     @Override
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
+    }
+
+    public String toSaveString() {
+        return this.getStatusIcon() + "//" + this.description;
     }
 }

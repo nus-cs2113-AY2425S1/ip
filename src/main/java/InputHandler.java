@@ -13,13 +13,13 @@ public class InputHandler {
 
         // Case: See list
         case "list":
-            if (Task.tasksCount == 0) {
+            if (Aerus.tasks.isEmpty()) {
                 UI.printContent("You don't have any tasks!");
                 return 1;
             }
 
             System.out.println(UI.DIVIDER_LINE);
-            for (int i = 1; i <= Task.tasksCount; i++) {
+            for (int i = 1; i <= Aerus.tasks.size(); i++) {
                 System.out.println(i + ". " + Aerus.tasks.get(i - 1).toString());
             }
             System.out.println(UI.DIVIDER_LINE);
@@ -32,7 +32,7 @@ public class InputHandler {
         // Test if the input is formatted like a mark/unmark command
         if (isMarkCommandType(userInput)) {
             int taskIndex = parseInt(userInputSplit[1]) - 1;
-            if (taskIndex >= Task.tasksCount) {
+            if (taskIndex > Aerus.tasks.size()) {
                 throw new InvalidMarkException();
             }
             String command = userInputSplit[0];

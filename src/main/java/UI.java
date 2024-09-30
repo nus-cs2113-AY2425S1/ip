@@ -6,8 +6,6 @@ public class UI {
         System.out.println(DIVIDER_LINE);
     }
 
-
-
     public static void greetUser() {
         printContent("Hello! I'm Aerus!\nWhat can I do for you?");
     }

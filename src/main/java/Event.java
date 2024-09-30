@@ -39,4 +39,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toSaveString() {
+        return "E" + this.getStatusIcon() + "//" + this.description + "//" + this.from + "//" + this.to;
+    }
 }

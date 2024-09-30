@@ -8,9 +8,8 @@ public class ToDo extends Task {
 
     public static void createNewToDo(String userInput) throws InvalidCreateToDoException {
         if (userInput.length() > 0) {
-            ToDo todo = new ToDo(userInput);
-            Aerus.tasks.add(todo);
-            UI.printContent("Added ToDo: " + todo.toString());
+            Aerus.tasks.add(new ToDo(userInput));
+            UI.printContent("Added ToDo: " + userInput);
         } else {
             throw new InvalidCreateToDoException();
         }
@@ -19,6 +18,11 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toSaveString() {
+        return "T" + this.getStatusIcon() + "//" + this.description;
     }
 
     @Override
