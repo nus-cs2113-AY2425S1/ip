@@ -265,11 +265,31 @@ public class Cy {
         }
     }
 
+    public static void createFile(){
+        try {
+            File file = new File(FILE_PATH);
+
+            // Check if the parent directory exists
+            if (!file.getParentFile().exists()) {
+                // Create the directory if it doesn't exist
+                file.getParentFile().mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("File created: " + file.getAbsolutePath());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file: " + e.getMessage());
+        }
+    }
+    //print out existing data from
     private static void loadExistingData() {
         try {
             printFileContents();
         } catch (FileNotFoundException e) {
-            System.out.println("Sorry, file is not found");
+            createFile();
         }
     }
 
