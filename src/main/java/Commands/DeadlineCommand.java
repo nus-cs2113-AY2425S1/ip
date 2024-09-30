@@ -1,7 +1,7 @@
 package Commands;
 
 import Tasks.Deadline;
-import utils.TimeParser;
+import utils.DateTimeParser;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
     private final Deadline toAdd;
 
     public DeadlineCommand(String description, String by) {
-        String formattedTime = TimeParser.parseTime(by);
+        String formattedTime = DateTimeParser.parseDateTime(by);
         this.toAdd = new Deadline(description, formattedTime);
     }
 

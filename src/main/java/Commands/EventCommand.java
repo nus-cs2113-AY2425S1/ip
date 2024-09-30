@@ -1,7 +1,7 @@
 package Commands;
 
 import Tasks.Event;
-import utils.TimeParser;
+import utils.DateTimeParser;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
@@ -17,8 +17,8 @@ public class EventCommand extends Command {
     private final Event toAdd;
 
     public EventCommand(String description, String from, String to) {
-        String formattedFrom = TimeParser.parseTime(from);
-        String formattedTo = TimeParser.parseTime(to);
+        String formattedFrom = DateTimeParser.parseDateTime(from);
+        String formattedTo = DateTimeParser.parseDateTime(to);
         this.toAdd = new Event(description, formattedFrom, formattedTo);
     }
 
