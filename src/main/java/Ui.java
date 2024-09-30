@@ -5,8 +5,8 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Bebe");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! I'm Bebe, your task manager.");
+        System.out.println("What can I do for you today?");
     }
 
     public String readCommand() {
@@ -41,5 +41,16 @@ public class Ui {
         System.out.println("  location                        - Shows the location where the tasks are saved.");
         System.out.println("  help                            - Shows this help message.");
         System.out.println("  bye                             - Exits the chatbot.");
+    }
+
+    public void showLogo() {
+        String logo =
+                "  ____    ______   ____    ______  \n" +
+                " |  _ \\  |  ____| |  _ \\  |  ____| \n" +
+                " | |_) | | |__    | |_) | | |__    \n" +
+                " |  _ <  |  __|   |  _ <  |  __|   \n" +
+                " | |_) | | |____  | |_) | | |____  \n" +
+                " |____/  |______| |____/  |______| \n" ;
+        System.out.println(logo);
     }
 }

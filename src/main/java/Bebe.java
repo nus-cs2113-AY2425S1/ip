@@ -16,6 +16,7 @@ public class Bebe {
     }
 
     public void run() {
+        ui.showLogo();
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
