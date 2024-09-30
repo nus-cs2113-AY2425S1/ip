@@ -43,8 +43,8 @@ public class UI {
         System.out.println("   Example: deadline Submit assignment /by 2024-09-15");
 
         System.out.println("\n3. Add an Event Task:");
-        System.out.println("   event <event_description> /from <start_time> /to <end_time>");
-        System.out.println("   Example: event Team meeting /from 2pm /to 4pm");
+        System.out.println("   event <event_description> /from <start_date> /to <end_date>");
+        System.out.println("   Example: event Team meeting /from 2024-09-15 1400 /to 2024-09-15 1600");
 
         System.out.println("\n4. List All Tasks:");
         System.out.println("   list");
@@ -68,6 +68,8 @@ public class UI {
 
         System.out.println("\nNote:");
         System.out.println(" - Task indices start from 1.");
+        System.out.println(" - Date Format : dd-mm-yyyy or dd-mm-yyyy HHmm format or <day-of-the-week> or next <day-of-the-week>");
+
     }
 
     public void showError(Exception e){
