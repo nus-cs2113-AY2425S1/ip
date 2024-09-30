@@ -21,11 +21,13 @@ public class Parser {
 
     /**
      * Continuously reads user input and interprets the commands to modify the task list.
-     * @param in Scanner to read user input.
+     *
      * @param listFilePath Path to the file where the list is stored.
-     * @param userList The current task list.
+     * @param in           Scanner to read user input.
+     * @param storage
+     * @param userList     The current task list.
      */
-    public static void getUserInput(Scanner in, String listFilePath, List userList) {
+    public static void getUserInput(Scanner in, Storage storage, List userList) {
         String line;
         while (true) {
             line = getLine(in);
@@ -42,17 +44,17 @@ public class Parser {
             } else if (isMark(line)) {
                 userList.markItem(line);
                 Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                storage.saveListToFile(userList);
 
             } else if (isUnmark(line)) {
                 userList.unmarkItem(line);
                 Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                storage.saveListToFile(userList);
 
             } else if (isDelete(line)) {
                 userList.deleteItem(line);
                 Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                storage.saveListToFile(userList);
 
             } else if (isFind(line)) {
                 userList.findItem(line);
@@ -60,7 +62,7 @@ public class Parser {
             } else {
                 userList.addItem(line);
                 Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                storage.saveListToFile(userList);
 
             }
         }

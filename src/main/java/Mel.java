@@ -10,20 +10,39 @@ public class Mel {
 
     private static final String LIST_FILE_PATH = ".\\data\\Mel.txt";
 
-    public static void main(String[] args) throws IOException {
+    private Storage storage;
+//    private TaskList tasks;
+    private Ui ui;
+
+    public Mel(String filePath) {
+//        ui = new Ui();
+        storage = new Storage(filePath);
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+    }
+
+    public void run() {
         Ui.printIntroMessage();
-        
+
         // Set up scanner for user input
         Scanner in = new Scanner(System.in);
         List userList = new List();
 
         try {
-            Storage.writerSetUp(LIST_FILE_PATH);
-            Storage.loadDataFromFile(LIST_FILE_PATH, userList); // Load saved tasks
+            storage.writerSetUp();
+            storage.loadDataFromFile(userList); // Load saved tasks
         } catch (IOException e) {
             System.out.println("An error occurred when setting up writer.");
         }
 
-        Parser.getUserInput(in, LIST_FILE_PATH, userList);
+        Parser.getUserInput(in, storage, userList);
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Mel(LIST_FILE_PATH).run();
     }
 }
