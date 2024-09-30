@@ -1,6 +1,5 @@
 # TobyBot User Guide
 
-// Product screenshot goes here
 ![TobyBot Logo](https://nusu-my.sharepoint.com/:i:/r/personal/e1344677_u_nus_edu/Documents/Documents/Year%203/exchange%20in%20NUS%20fall/cs2113%20software%20engineering%20and%20oop/working%20progress%20of%20ip/week%207/the%20image%20of%20the%20TobyBot.png?csf=1&web=1&e=aWXoSj)
 
 
