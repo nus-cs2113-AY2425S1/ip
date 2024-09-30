@@ -19,6 +19,13 @@ import static Ui.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Parses user input into a command for execution.
+     *
+     * @param userInput The full user input string.
+     * @return The command based on the user input.
+     *         Returns an {@code IncorrectCommand} if the user input does not match the expected format.
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -78,6 +85,12 @@ public class Parser {
         return new TaskCommand(args);
     }
 
+    /**
+     * Prepares a DeadlineCommand by parsing the provided arguments.
+     *
+     * @param args The arguments string containing the task description and deadline, separated by " /by ".
+     * @return A DeadlineCommand object initialized with the parsed task description and deadline.
+     */
     private Command prepareDeadline(String args) {
         String[] deadlineCommand = args.split(" /by ");
         // if (deadlineCommand.length < 2 || deadlineCommand[0].isBlank() || deadlineCommand[1].isBlank()) {
@@ -86,6 +99,15 @@ public class Parser {
         return new DeadlineCommand(deadlineCommand[0], deadlineCommand[1]);
     }
 
+    /**
+     * Prepares an EventCommand by parsing the input arguments.
+     *
+     * The input string should contain the event description followed by the start and end times,
+     * separated by " /from " and " /to " respectively.
+     *
+     * @param args The input string containing the event description and times.
+     * @return An EventCommand object initialized with the parsed event description, start time, and end time.
+     */
     private Command prepareEvent(String args) {
         String[] eventCommand = args.split(" /from ");
         String[] eventCommand2 = eventCommand[1].split(" /to ");

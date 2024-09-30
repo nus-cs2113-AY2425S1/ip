@@ -2,6 +2,18 @@ package Commands;
 
 import Tasks.Task;
 
+/**
+ * Represents a command to add a task to the task list.
+ * The command word for this action is "task".
+ * 
+ * <p>Usage: task &lt;description&gt;</p>
+ * <p>Example: task do assignment week 7</p>
+ * 
+ * <p>Upon execution, this command adds a new task with the specified description to the task list
+ * and returns a success message.</p>
+ * 
+ * <p>If an error occurs during the execution, an error message is returned.</p>
+ */
 public class TaskCommand extends Command {
     public static final String COMMAND_WORD = "task";
 
@@ -18,6 +30,12 @@ public class TaskCommand extends Command {
         this.toAdd = new Task(description);
     }
 
+    /**
+     * Executes the task command by adding a task to the task list.
+     * Prints confirmation messages to the console and returns a CommandResult.
+     * 
+     * @return CommandResult indicating the success or failure of the command execution.
+     */
     @Override
     public CommandResult execute() {
         try {

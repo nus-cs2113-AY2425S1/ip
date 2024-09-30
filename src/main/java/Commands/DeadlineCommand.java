@@ -2,6 +2,41 @@ package Commands;
 
 import Tasks.Deadline;
 
+
+/**
+ * Represents a command to add a deadline task to the task list.
+ * The command word for this action is "deadline".
+ * 
+ * <p>Usage:</p>
+ * <pre>
+ * deadline <description> /by <time>
+ * </pre>
+ * 
+ * <p>Example:</p>
+ * <pre>
+ * deadline do assignment week 7 /by 2021-03-19 23:59
+ * </pre>
+ * 
+ * <p>Upon successful execution, the new deadline task will be added to the task list,
+ * and a success message will be returned.</p>
+ * 
+ * <p>Attributes:</p>
+ * <ul>
+ *   <li>COMMAND_WORD: The command word for adding a deadline.</li>
+ *   <li>MESSAGE_USAGE: The usage message for the deadline command.</li>
+ *   <li>MESSAGE_SUCCESS: The success message template for adding a deadline.</li>
+ * </ul>
+ * 
+ * <p>Constructor:</p>
+ * <ul>
+ *   <li>{@code DeadlineCommand(String description, String by)}: Creates a new DeadlineCommand with the specified description and time.</li>
+ * </ul>
+ * 
+ * <p>Methods:</p>
+ * <ul>
+ *   <li>{@code execute()}: Executes the command to add the deadline task to the task list and returns the result of the execution.</li>
+ * </ul>
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 
@@ -18,6 +53,12 @@ public class DeadlineCommand extends Command {
         this.toAdd = new Deadline(description, by);
     }
 
+    /**
+     * Executes the DeadlineCommand by adding a new task to the tasks list.
+     * Prints a confirmation message and the total number of tasks in the list.
+     * 
+     * @return CommandResult indicating the success or failure of the command execution.
+     */
     @Override
     public CommandResult execute() {
         try {
