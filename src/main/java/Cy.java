@@ -2,10 +2,13 @@ import commands.Deadline;
 import commands.Event;
 import commands.Task;
 import commands.Todo;
+import constants.Warnings;
 import exceptions.IllegalCommandException;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalKeywordException;
 import exceptions.IllegalTaskException;
+import constants.Utils;
+import constants.Statements;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,41 +19,20 @@ import java.util.Scanner;
 
 public class Cy {
 
-    public static final String HORIZONTAL_LINE = "______________________________________";
-    public static final String MARK = "mark";
-    public static final String UNMARK = "unmark";
-    public static final String TODO = "todo";
-    public static final String DEADLINE = "deadline";
-    public static final String EVENT = "event";
-    public static final String DELETE = "delete";
-    public static final String LIST_TASKS = "Here are the tasks in your list";
-    public static final String CONFIRM_ADD = "Got it. I've added this task:";
-    public static final String CONFIRM_DEADLINE = "Got it. I've added this deadline:";
-    public static final String CONFIRM_EVENT = "Got it. I've added this event:";
-    public static final String CONFIRM_MARK = "Nice! I've marked this task as done:";
-    public static final String CONFIRM_UNMARK = "OK, I've marked this task as not done yet:";
-    public static final String VALID_NUMBER_WARNING = "Please enter a valid number.";
-    public static final String VALID_INDEX_WARNING = "Please enter a valid task number from 1 to ";
-    public static final String VALID_DESCRIPTION_WARNING = "Please enter a valid description.";
-    public static final String VALID_DEADLINE_KEYWORD_WARNING = "Please enter the by keyword";
-    public static final String VALID_EVENT_KEYWORD_WARNING = "Input must contain both 'from' and 'to' keywords.";
-    public static final String FILE_PATH = "src/main/java/data/cy.txt";
-    public static final String VALID_TASK_TYPE_WARNING = "Please enter a valid task type.";
-
 
     public static ArrayList<Task> items = new ArrayList<>();
 
     public static void printLine() {
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(Utils.HORIZONTAL_LINE);
     }
 
     public static void markOutput(Task task) {
         printLine();
 
         if (task.isDone()) {
-            System.out.println(CONFIRM_MARK);
+            System.out.println(Statements.CONFIRM_MARK);
         } else {
-            System.out.println(CONFIRM_UNMARK);
+            System.out.println(Statements.CONFIRM_UNMARK);
         }
 
         System.out.println(task.getStatusIcon() + " " + task.getDescription());
@@ -63,11 +45,11 @@ public class Cy {
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
             if (index < 0 || index >= count) {
-                throw new IllegalTaskException(VALID_INDEX_WARNING + count);
+                throw new IllegalTaskException(Warnings.VALID_INDEX_WARNING + count);
             }
 
         } catch (NumberFormatException e) {
-            throw new IllegalTaskException(VALID_NUMBER_WARNING);
+            throw new IllegalTaskException(Warnings.VALID_NUMBER_WARNING + count);
         }
 
     }
@@ -91,7 +73,7 @@ public class Cy {
 
     public static void printList(int count) {
         printLine();
-        System.out.println(LIST_TASKS);
+        System.out.println(Statements.LIST_TASKS);
 
         for (int i = 0; i < count; i++) {
             System.out.println((i + 1) + "." + items.get(i).getStatusIcon() + " " + items.get(i).getDescription());
@@ -107,7 +89,7 @@ public class Cy {
 
         // Check if the length is less than 2, meaning no description was provided
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
-            throw new IllegalEmptyException(VALID_DESCRIPTION_WARNING);
+            throw new IllegalEmptyException(Warnings.VALID_DESCRIPTION_WARNING);
         }
 
         // Return the trimmed description
@@ -120,13 +102,13 @@ public class Cy {
 
         printTodoMessage(count, task);
 
-        saveNewData(task, TODO);
+        saveNewData(task, Utils.TODO);
         return count + 1;
     }
 
     private static void printTodoMessage(int count, String task) {
         printLine();
-        System.out.println(CONFIRM_ADD);
+        System.out.println(Statements.CONFIRM_ADD);
         printListUpdate(count, task);
         printLine();
     }
@@ -139,7 +121,7 @@ public class Cy {
     public static int addDeadline(int count, String input) throws IllegalEmptyException, IllegalKeywordException {
 
         if (!input.contains("by")) {
-            throw new IllegalKeywordException(VALID_DEADLINE_KEYWORD_WARNING);
+            throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
         }
 
         String description = trimString(input);
@@ -149,13 +131,13 @@ public class Cy {
         System.out.println(deadline);
         printDeadlineMessage(count, deadline);
 
-        saveNewData(deadline, DEADLINE);
+        saveNewData(deadline, Utils.DEADLINE);
         return count + 1;
     }
 
     private static void printDeadlineMessage(int count, String deadline) {
         printLine();
-        System.out.println(CONFIRM_DEADLINE);
+        System.out.println(Statements.CONFIRM_DEADLINE);
         printListUpdate(count, deadline);
         printLine();
     }
@@ -165,7 +147,7 @@ public class Cy {
         String deadline = descriptionSubstrings[0] + "(by:" + descriptionSubstrings[1] + ")";
 
         if (descriptionSubstrings[1].isEmpty()) {
-            throw new IllegalEmptyException(VALID_DESCRIPTION_WARNING);
+            throw new IllegalEmptyException(Warnings.VALID_DESCRIPTION_WARNING);
         }
 
         return deadline;
@@ -176,20 +158,20 @@ public class Cy {
         input = trimString(input);
 
         if (!input.contains("from") || !input.contains("to")) {
-            throw new IllegalKeywordException(VALID_EVENT_KEYWORD_WARNING);
+            throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
         }
 
         String event = createEventString(input);
         items.add(new Event(event));
         printEventMessage(count, event);
 
-        saveNewData(event, EVENT);
+        saveNewData(event, Utils.EVENT);
         return count + 1;
     }
 
     private static void printEventMessage(int count, String event) {
         printLine();
-        System.out.println(CONFIRM_EVENT);
+        System.out.println(Statements.CONFIRM_EVENT);
         printListUpdate(count, event);
         printLine();
     }
@@ -208,7 +190,7 @@ public class Cy {
         int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
 
         if (deleteIndex < 0 || deleteIndex >= items.size()) {
-            throw new IllegalTaskException(VALID_INDEX_WARNING + count);
+            throw new IllegalTaskException(Warnings.VALID_INDEX_WARNING + count);
         }
 
         Task deleteItem = items.get(deleteIndex);
@@ -239,17 +221,17 @@ public class Cy {
     public static int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException, IllegalCommandException, IllegalTaskException, IllegalKeywordException {
         if (command.equalsIgnoreCase("list")) {
             printList(count);
-        } else if (command.equals(MARK)) {
+        } else if (command.equals(Utils.MARK)) {
             markItem(splitInputs, count);
-        } else if (command.equals(UNMARK)) {
+        } else if (command.equals(Utils.UNMARK)) {
             unmarkItem(splitInputs, count);
-        } else if (command.equals(TODO)) {
+        } else if (command.equals(Utils.TODO)) {
             count = addTodo(count, input);
-        } else if (command.equals(DEADLINE)) {
+        } else if (command.equals(Utils.DEADLINE)) {
             count = addDeadline(count, input);
-        } else if (command.equals(EVENT)) {
+        } else if (command.equals(Utils.EVENT)) {
             count = addEvent(count, input);
-        } else if (command.equals(DELETE)) {
+        } else if (command.equals(Utils.DELETE)) {
             count = deleteItem(count, splitInputs);
         } else {
             throw new IllegalCommandException("Please enter a valid command");
@@ -258,7 +240,7 @@ public class Cy {
     }
 
     private static void printFileContents() throws FileNotFoundException {
-        File f = new File(FILE_PATH);
+        File f = new File(Utils.FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             System.out.println(s.nextLine());
@@ -267,7 +249,7 @@ public class Cy {
 
     public static void createFile(){
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(Utils.FILE_PATH);
 
             // Check if the parent directory exists
             if (!file.getParentFile().exists()) {
@@ -322,7 +304,7 @@ public class Cy {
     }
 
     private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
+        FileWriter fw = new FileWriter(Utils.FILE_PATH, true);
         fw.write(System.lineSeparator() + textToAppend);
         fw.close();
     }
@@ -331,21 +313,22 @@ public class Cy {
     private static String getString(String input, String taskType, String taskCompletedString) {
         String textToAppend = "";
         switch (taskType) {
-            case TODO:
+
+            case Utils.TODO:
                 textToAppend = "T | " + taskCompletedString + " | " + input;
                 break;
-            case DEADLINE:
+            case Utils.DEADLINE:
                 String[] splitDeadlineSubstring = input.split("by");
-                textToAppend = "D | " + taskCompletedString + " | " + splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
+                textToAppend = "D | " + taskCompletedString +splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
                 break;
-            case EVENT:
+            case Utils.EVENT:
                 String[] splitEventSubstring = input.split("from|to");
                 String start = splitEventSubstring[1];
                 String end = splitEventSubstring[2];
                 textToAppend = "E | " + taskCompletedString + " | " + splitEventSubstring[0] + " | " + start + "-" + end;
                 break;
             default:
-                System.out.println(VALID_TASK_TYPE_WARNING);
+                System.out.println(Warnings.VALID_TASK_TYPE_WARNING);
         }
         return textToAppend;
     }
