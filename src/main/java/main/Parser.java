@@ -21,46 +21,48 @@ public class Parser {
 
     /**
      * Continuously reads user input and interprets the commands to modify the task list.
-     * @param in Scanner to read user input.
-     * @param listFilePath Path to the file where the list is stored.
-     * @param userList The current task list.
+     *
+     * @param in           Scanner to read user input.
+     * @param storage
+     * @param ui
+     * @param userList     The current task list.
      */
-    public static void getUserInput(Scanner in, String listFilePath, List userList) {
+    public static void getUserInput(Scanner in, Storage storage, Ui ui, TaskList userList) {
         String line;
         while (true) {
-            line = getLine(in);
+            line = getLine(ui, in);
 
             if (isBye(line)) {
-                Ui.printByeMessage();
-                Ui.printHorizontalLine();
+                ui.printByeMessage();
+                ui.printHorizontalLine();
                 break;
 
             } else if (isList(line)) {
                 userList.printList();
-                Ui.printHorizontalLine();
+                ui.printHorizontalLine();
 
             } else if (isMark(line)) {
                 userList.markItem(line);
-                Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                ui.printHorizontalLine();
+                storage.saveListToFile(userList);
 
             } else if (isUnmark(line)) {
                 userList.unmarkItem(line);
-                Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                ui.printHorizontalLine();
+                storage.saveListToFile(userList);
 
             } else if (isDelete(line)) {
                 userList.deleteItem(line);
-                Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                ui.printHorizontalLine();
+                storage.saveListToFile(userList);
 
             } else if (isFind(line)) {
                 userList.findItem(line);
-                Ui.printHorizontalLine();
+                ui.printHorizontalLine();
             } else {
                 userList.addItem(line);
-                Ui.printHorizontalLine();
-                Storage.saveListToFile(listFilePath, userList);
+                ui.printHorizontalLine();
+                storage.saveListToFile(userList);
 
             }
         }
@@ -69,13 +71,14 @@ public class Parser {
     /**
      * Reads a line of input from the user and prints a horizontal line after the input.
      * @param in Scanner to read user input.
+     * @param ui
      * @return The user input line as a string.
      */
-    private static String getLine(Scanner in) {
+    private static String getLine(Ui ui, Scanner in) {
         String line;
         System.out.print(System.lineSeparator());
         line = in.nextLine();
-        Ui.printHorizontalLine();
+        ui.printHorizontalLine();
         return line;
     }
 
@@ -220,7 +223,7 @@ public class Parser {
         String deadlineDateString = line.substring(indexOfDeadlinePrefix).replaceFirst("/by", "").trim();
 
         dateFieldNotEmpty(deadlineDateString);
-        deadlineDate = TaskList.convertDeadlineDateAsLocalDateTime(deadlineDateString);
+        deadlineDate = List.convertDeadlineDateAsLocalDateTime(deadlineDateString);
 
         return deadlineDate;
     }

@@ -21,14 +21,14 @@ public class Ui {
     /**
      * Prints a horizontal line for separating sections in the user interface.
      */
-    public static void printHorizontalLine() {
+    public void printHorizontalLine() {
         System.out.println(DRAW_HORIZONTAL_LINE);
     }
 
     /**
      * Prints the introduction message when the program starts, including the bot's name and greeting.
      */
-    public static void printIntroMessage() {
+    public void printIntroMessage() {
         printHorizontalLine();
         System.out.println("\tHello! I'm");
         System.out.println("\t.___  ___.  _______  __      \n" +
@@ -45,7 +45,7 @@ public class Ui {
     /**
      * Prints the goodbye message when the user exits the program.
      */
-    public static void printByeMessage() {
+    public void printByeMessage() {
         System.out.println("\tBye. Hope to see you again soon!");
     }
 
@@ -53,7 +53,7 @@ public class Ui {
      * Prints an error message indicating an invalid task format input from the user,
      * along with the correct formats for each type of task.
      */
-    public static void printInvalidTaskMessage() {
+    public void printInvalidTaskMessage() {
         System.out.println("\tInvalid command format:" + System.lineSeparator() + "\t\t" + INVALID_TODO_INPUT_MESSAGE
                 + System.lineSeparator() + "\t\t" + INVALID_DEADLINE_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
                 + INVALID_EVENT_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
@@ -65,11 +65,11 @@ public class Ui {
     /**
      * Prints an error message when a task description is empty.
      */
-    public static void printTaskDescriptionEmptyMessage() {
+    public void printTaskDescriptionEmptyMessage() {
         System.out.println("\tError: The task description cannot be empty.");
     }
     
-    public static void printFindDescriptionEmptyMessage() {
+    public void printFindDescriptionEmptyMessage() {
         System.out.println("\tError: The find description cannot be empty.");
     }
 
@@ -78,7 +78,7 @@ public class Ui {
      * @param itemArrayList The current list of tasks.
      * @param task The task that was added.
      */
-    public static void printAddedMessage(ArrayList<Task> itemArrayList, Task task) {
+    public void printAddedMessage(ArrayList<Task> itemArrayList, Task task) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + (itemArrayList.size()) + " tasks in the list.");
@@ -87,7 +87,7 @@ public class Ui {
     /**
      * Prints a generic error message for unknown issues.
      */
-    public static void printUnknownErrorMessage() {
+    public void printUnknownErrorMessage() {
         System.out.println("Unknown error experienced.");
     }
 
@@ -96,7 +96,7 @@ public class Ui {
      * @param itemArrayList The current list of tasks.
      * @param itemNum The task index that was marked as done.
      */
-    public static void printTaskMarkedMessage(ArrayList<Task> itemArrayList, int itemNum) {
+    public void printTaskMarkedMessage(ArrayList<Task> itemArrayList, int itemNum) {
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + itemArrayList.get(itemNum - 1));
     }
@@ -106,7 +106,7 @@ public class Ui {
      * @param itemArrayList The current list of tasks.
      * @param itemNum The task index that was unmarked.
      */
-    public static void printTaskUnmarkedMessage(ArrayList<Task> itemArrayList, int itemNum) {
+    public void printTaskUnmarkedMessage(ArrayList<Task> itemArrayList, int itemNum) {
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + itemArrayList.get(itemNum - 1));
     }
@@ -115,14 +115,14 @@ public class Ui {
      * Prints an error message when the user provides an index that is out of range
      * for marking, unmarking, or deleting tasks.
      */
-    public static void printInputIndexOutOfRangeMessage() {
+    public void printInputIndexOutOfRangeMessage() {
         System.out.println("\tInput index number out of range.");
     }
 
     /**
      * Prints an error message when the user provides a non-integer index for task operations.
      */
-    public static void printInputIndexNotAnIntegerMessage() {
+    public void printInputIndexNotAnIntegerMessage() {
         System.out.println("\tInput index was not a integer.");
     }
 
@@ -131,7 +131,7 @@ public class Ui {
      * @param itemArrayList The current list of tasks.
      * @param task The task that was deleted.
      */
-    public static void printTaskDeletedMessage(ArrayList<Task> itemArrayList, Task task) {
+    public void printTaskDeletedMessage(ArrayList<Task> itemArrayList, Task task) {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + itemArrayList.size() + " tasks in the list.");

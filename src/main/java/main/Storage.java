@@ -17,13 +17,18 @@ import java.util.Scanner;
  */
 public class Storage {
 
+    protected String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     /**
      * Writes the given text to a specified file.
-     * @param filePath The path of the file to write to.
      * @param textToAdd The text to add to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    public void writeToFile(String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
@@ -32,10 +37,9 @@ public class Storage {
     /**
      * Sets up the file by creating a new file if it does not exist.
      * Also creates the parent directory if it doesn't exist.
-     * @param filePath The path of the file to set up.
      * @throws IOException If an I/O error occurs while setting up the file.
      */
-    public static void writerSetUp(String filePath) throws IOException {
+    public void writerSetUp() throws IOException {
         File listFile = new File(filePath);
         if (!listFile.exists()) {
             File directory = listFile.getParentFile();
@@ -48,10 +52,9 @@ public class Storage {
 
     /**
      * Loads task data from a file and adds it to the provided user list.
-     * @param filePath The path of the file to load data from.
      * @param userList The list where the tasks will be added.
      */
-    public static void loadDataFromFile(String filePath, List userList) {
+    public void loadDataFromFile(TaskList userList) {
         File file = new File(filePath);
         try {
             Scanner scanner = new Scanner(file);
@@ -70,7 +73,7 @@ public class Storage {
      * @param line The line to parse.
      * @param userList The list where the task will be added.
      */
-    private static void parseAndAddItem(String line, List userList) {
+    private static void parseAndAddItem(String line, TaskList userList) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0]; // T, D, E
         boolean isDone = parts[1].equals("X");
@@ -87,7 +90,7 @@ public class Storage {
 
         case "D":
             try {
-                LocalDateTime deadlineDate = TaskList.getDeadlineDateAsLocalDateTimeFromFile(parts[3]); // Ignore remaining parts
+                LocalDateTime deadlineDate = List.getDeadlineDateAsLocalDateTimeFromFile(parts[3]); // Ignore remaining parts
                 Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
                 if (isDone) {
                     deadlineTask.markAsDone();
@@ -116,12 +119,11 @@ public class Storage {
 
     /**
      * Saves the current task list to the specified file.
-     * @param listFilePath The path of the file to save the list to.
      * @param userList The list containing tasks to save.
      */
-    public static void saveListToFile(String listFilePath, List userList) {
+    public void saveListToFile(TaskList userList) {
         try {
-            writeToFile(listFilePath, userList.getFormattedTasks()); // getFormattedTasks returns a formatted String
+            writeToFile(userList.getFormattedTasks()); // getFormattedTasks returns a formatted String
         } catch (IOException e) {
             System.out.println("\tAn error occurred while saving the list.");
         }
