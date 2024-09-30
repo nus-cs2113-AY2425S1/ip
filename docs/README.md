@@ -18,13 +18,13 @@ Allow users to key in deadline task description along with the due date
 yyyy-MM-dd, d/M/yyyy, and MMM dd yyyy)
 and outputs by adding it into the list
 
-Example: `deadline return book /by 2/12/2019` or `deadline return book /by Dec 12 2019`
+Example: `deadline return book /by 2/12/2019` or `deadline return book /by Dec 02 2019`
 or `deadline return book /by 2019-12-02`
 
 Description of expected output:
 ```
 ______________________________
-deadline return book /by Dec 12 2019
+deadline return book /by 2019-12-02
 ______________________________
 Got it. I've added this task:
 [D] [ ] return book (by: Dec 12 2019)
@@ -51,17 +51,22 @@ ______________________________
 
 ## Adding event
 
-// Describe the action and its outcome.
-
-// Give examples of usage
+Allow users to key in an event task description with the start time and end time
+and outputs by adding it into the list
 
 Example: `event lecture /from 4pm /to 6pm`
 
-// A description of the expected outcome goes here
+Description of expected output:
+```
+______________________________
+event lecture /from 4pm /to 6pm
+______________________________
+Got it. I've added this task:
+[E] [ ] lecture (from: 4pm to: 6pm)
+Now you have 9 tasks in the list.
+______________________________
+```
 
-```
-expected output
-```
 ## Deleting task
 
 // Describe the action and its outcome.
