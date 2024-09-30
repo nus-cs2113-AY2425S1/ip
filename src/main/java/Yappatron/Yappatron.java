@@ -70,7 +70,6 @@ public class Yappatron {
                 break;
             default:
                 ui.invalidCommand();
-                exitStatus = 1;
             }
         }while (exitStatus == 0);
 
