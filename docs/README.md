@@ -1,6 +1,6 @@
 # Ran User Guide
 
-![Welcome screen of Ran greeting the user when Ran chatbot is started up](/../Ran-Welcome-Screen.png)
+![Welcome screen of Ran greeting the user when Ran chatbot is started up](https://github.com/3CCLY/ip/blob/master/Ran-Welcome-Screen.png?raw=true)
 
 ### Ran? Ran Yakumo? From Touhou Project?
 Yes!
