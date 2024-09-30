@@ -16,11 +16,24 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Ran is a chatbot, roughly based of the persona of Ran Yakumo from the series Touhou Project.
+ * Ran is able to help the user maintain a list of tasks, using various commands.
+ *
+ * @author 3CCLY
+ * @version 0.1.1
+ * @since 2024-08-23
+ */
 public class Ran {
     private Storage storage; 
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructor a <code>Ran</code> object
+     *
+     * @param directory Directory pointing to location of the data file used for saving the task list
+     */
     public Ran(String directory) {
         tasks = new TaskList();
         ui = new Ui();
@@ -41,7 +54,13 @@ public class Ran {
             return;
         }
     }
-    
+
+    /**
+     * Construct a string array as the error message to display for a <code>MissingArgumentException</code> 
+     * based on what type of command is throwing that exception.
+     *
+     * @param commandType CommandType (enum type) defining what type of command is throwing the exception
+     */
     public String[] getArgumentErrorMessage(CommandType commandType) {
         switch (commandType) {
         case TODO:
@@ -70,6 +89,9 @@ public class Ran {
         return new String[] {"What? A new kind of error? I must study this."};
     }
 
+    /**
+     * Runs the Ran chatbot until terminating condition is met
+     */
     public void run() {
         ui.greet();
         boolean isTerminated = false;
@@ -107,6 +129,11 @@ public class Ran {
         ui.bidFarewell();
     }
 
+    /**
+     * Creates a <code>Ran</code> chatbot object, sync it with a data file, and run it until termination
+     *
+     * @param args String array holding arguments passed in, unused
+     */
     public static void main(String[] args) {
         new Ran("./data").run();
     }

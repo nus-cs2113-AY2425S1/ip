@@ -11,10 +11,20 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
+/**
+ * A class that handles the creation and modification of a data file.
+ */
 public class Storage {
     private String filePath;
     private File dataFile;
 
+    /**
+     * Constructor for a <code>Storage</code> object.
+     * Check for existing data file, if not create one.
+     *
+     * @param directory Directory to locate the data file
+     * @throws IOException If issue arises from interfacing with file system
+     */
     public Storage(String directory) throws IOException {
         filePath = directory + "/ran.txt";
         // Check for existence of directory and create it if it doesn't exist yet
@@ -29,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Load data from data file into a <code>TaskList</code>.
+     *
+     * @param tasks <code>TaskList</code> to load data into
+     * @throws FileNotFoundException If data file is corrupted or inaccessible
+     */
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
         Scanner sc = new Scanner(dataFile);
         while (sc.hasNext()) {
@@ -44,13 +60,25 @@ public class Storage {
             }
         }
     }
-    
+
+    /**
+     * Add data to data file.
+     *
+     * @param input String to add to the data file
+     * @throws IOException If error arises from interfacing with the data file
+     */
     public void addToDataFile(String input) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(input + System.lineSeparator());
         fw.close();
     }
 
+    /**
+     * Getter for contents of the data file
+     *
+     * @return String representing contents of the data file
+     * @throws FileNotFoundException If data file is inaccesible
+     */
     public String getDataFileContent() throws FileNotFoundException {
         Scanner sc = new Scanner(dataFile);
         StringBuffer buffer = new StringBuffer();
@@ -62,6 +90,13 @@ public class Storage {
         return dataFileContent;
     }
 
+    /**
+     * Function to replace a line in the data file.
+     *
+     * @param oldLine String representing line to be replaced
+     * @param newLine String representing line to replace <code>oldLine</code>
+     * @throws IOException If error arises from interfacing with the data file
+     */
     public void modifyDataFile(String oldLine, String newLine) throws IOException {
         String dataFileContent = getDataFileContent();
         String newDataFileContent = dataFileContent.replaceAll(oldLine, newLine);
@@ -69,7 +104,13 @@ public class Storage {
         fw.write(dataFileContent);
         fw.close();
     }
-    
+
+    /**
+     * Function to delete a line from the data file.
+     *
+     * @param line String representing line to be deleted
+     * @throws IOException If error arises from interfacing with the data file
+     */
     public void deleteFromDataFile(String line) throws IOException {
         String dataFileContent = getDataFileContent();
         String newDataFileContent = dataFileContent.replaceAll(line + System.lineSeparator() , "");

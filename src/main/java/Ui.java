@@ -6,6 +6,9 @@ import ran.task.Task;
 import ran.task.TaskType;
 import java.util.ArrayList;
 
+/**
+ * A class representing the user interface for interacting with the user.
+ */
 public class Ui {
     private final String LINE = "\t____________________________________________________________";
     private final String logo = "\t     ___           ___           ___" + System.lineSeparator()
@@ -20,6 +23,9 @@ public class Ui {
             + "\t   |:|  |         /:/  /        /:/  /" + System.lineSeparator()
             + "\t    \\|__|         \\/__/         \\/__/" + System.lineSeparator();
 
+    /**
+     * Display a greeting message.
+     */
     public void greet() {
         System.out.println(LINE);
         System.out.println(logo + "\tHello, I'm Ran.");
@@ -27,12 +33,21 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a goodbye message.
+     */
     public void bidFarewell() {
         System.out.println(LINE);
         System.out.println("\tFarewell. May we meet again!");
         System.out.println(LINE);
     }
 
+    /**
+     * Display a newly added task.
+     *
+     * @param addedTask Task that has been added
+     * @param listCount Number of tasks currently in the list
+     */
     public void printAddedTask(String addedTask, int listCount) { 
         System.out.println(LINE);
         System.out.println("\tUnderstood, I have noted down the following task:");
@@ -43,6 +58,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a task that has been marked as done.
+     *
+     * @param markedTask Task that has been marked as done
+     */
     public void printMarkedTask(String markedTask) {
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
@@ -50,6 +70,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a task that has been set as not done.
+     *
+     * @param unmarkedTask Task that has been set as not done
+     */
     public void printUnmarkedTask(String unmarkedTask) {
         System.out.println(LINE);
         System.out.println("\tOK, I've marked this task as not done yet:");
@@ -57,6 +82,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a task that been deleted.
+     *
+     * @param deletedTask Task that has been deleted
+     * @param listCount Integer representing number of tasks in the list currently
+     */
     public void printDeletedTask(String deletedTask, int listCount) {
         System.out.println(LINE);
         System.out.println("\tNoted. I've removed this task:");
@@ -66,6 +97,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a list of tasks.
+     *
+     * @param list ArrayList of tasks to be displayed
+     * @param listCount Integer representing total number of tasks in <code>list</code>
+     */
     public void printList(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
         for (int i = 0; i < listCount; i++) {
@@ -74,6 +111,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a specified message.
+     *
+     * @param input String array representing the message, each element representing one line
+     */
     public void printMessage(String[] input) {
         System.out.println(LINE);
         for (String line: input) {

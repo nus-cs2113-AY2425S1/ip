@@ -17,8 +17,11 @@ import ran.exception.InvalidCommandException;
 import ran.exception.EmptyListException;
 import ran.exception.OutOfListBoundsException;
 
+/**
+ * Parser class to interpret user input and pass a command back to Ran chatbot to execute.
+ */
 public class Parser {
-    public static String getCommandArg(String input) {
+    private static String getCommandArg(String input) {
         String[] splitInput = input.split("\\s+", 2);
         if (splitInput.length == 2) {
             return splitInput[1];
@@ -27,7 +30,7 @@ public class Parser {
         }
     }
 
-    public static CommandType getCommandType(String input) {
+    private static CommandType getCommandType(String input) {
         if (input.equals("bye")) {
             return CommandType.TERMINATE;
         } else if (input.equals("list")) {
@@ -55,6 +58,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse function that interprets user input into a command.
+     *
+     * @param input String that user inputted
+     * @return Command corresponding what user inputted
+     * @throws InvalidCommandException If user inputted unrecognisable command
+     */
     public static Command parse(String input) throws InvalidCommandException {
         String commandArg = getCommandArg(input);
         CommandType commandType = getCommandType(input);
