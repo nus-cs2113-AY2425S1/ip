@@ -10,9 +10,15 @@ public class HelpCommand extends Command {
     public CommandResult execute() {
         return new CommandResult(
             "List of commands:\n"
-            + ListCommand.MESSAGE_USAGE
+            + ByeCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
+            + "\n" + ListCommand.MESSAGE_USAGE
             + "\n" + TodoCommand.MESSAGE_USAGE
+            + "\n" + DeadlineCommand.MESSAGE_USAGE
+            + "\n" + EventCommand.MESSAGE_USAGE
+            + "\n" + MarkCommand.MESSAGE_USAGE
+            + "\n" + UnmarkCommand.MESSAGE_USAGE
+            + "\n" + DeleteCommand.MESSAGE_USAGE
         );
     }
 }

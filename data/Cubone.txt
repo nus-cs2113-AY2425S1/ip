@@ -1,9 +1,16 @@
-[T][X] | aaaaa
-   [ ] | bbbb
+[T][ ] | aaaaa
+   [X] | bbbb
 [D][X] | cccc (by: dasfadsf)
 [E][X] | ddddd (from: asdfkljakldf to: asfkljalksdf)
 [E][ ] | tsou teng yuan attend CS2113 lecture (from: Friday 20 Sep 4pm to: 6pm)
-[T][ ] | asfklsjdaflk;
+[T][X] | asfklsjdaflk;
 [T][ ] |  dasfasdf
 [T][ ] |  sdafasdf
 [T][ ] | asfasd
+[T][ ] | asdfasdf
+[T][ ] | dsafasdf
+[T][ ] | asdfadsf
+[D][X] | sadfsdaf (by: adsfsdaf)
+[T][ ] | 1
+[D][ ] | 2 (by: 3)
+[E][ ] | 4 (from: 5 to: 6)

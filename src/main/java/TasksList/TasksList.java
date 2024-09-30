@@ -27,6 +27,10 @@ public class TasksList {
     public void addTask(Task toAdd) {
         theTaskList.add(toAdd);
     }
+
+    public Task removeTask(int index) {
+        return theTaskList.remove(index);
+    }
     
     /**
      * Returns the number of tasks in the tasks list.

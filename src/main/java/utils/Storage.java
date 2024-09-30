@@ -101,7 +101,6 @@ public class Storage {
                         break;
                 }
             }
-            System.out.println("Successfully read the log file." + tasks.size() + " tasks read.");
             scanner.close();
         } catch (Exception e) {
             e.printStackTrace();

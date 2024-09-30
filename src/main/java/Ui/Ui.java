@@ -100,12 +100,6 @@ public class Ui {
         showLine();
     }
 
-    /**
-     * Prints a farewell message.
-     */
-    public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
 
     public void showLine(boolean prefix) {
         if (prefix){
