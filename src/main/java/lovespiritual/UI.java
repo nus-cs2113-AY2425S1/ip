@@ -33,7 +33,7 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
-    public void printError(String message) {
+    public static void printError(String message) {
         System.out.println(SEPARATOR);
         System.out.println(message);
         System.out.println(SEPARATOR);
@@ -44,5 +44,4 @@ public class UI {
         System.out.println("Oh no! (＞﹏＜) Something went a little wrong...");
         System.out.println(SEPARATOR);
     }
-
 }
