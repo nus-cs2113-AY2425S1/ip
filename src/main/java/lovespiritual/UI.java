@@ -39,4 +39,10 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
+    public void printUnexpectedError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Oh no! (＞﹏＜) Something went a little wrong...");
+        System.out.println(SEPARATOR);
+    }
+
 }
