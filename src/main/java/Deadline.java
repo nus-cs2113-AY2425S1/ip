@@ -3,21 +3,25 @@ public class Deadline extends Task {
 
     public Deadline() {
         this.name = "";
-        this.done = " ";
+        this.done = false;
         this.symbol = "D";
         this.dueDate = "";
     }
 
     public Deadline(String name, String dueDate) {
         this.name = name;
-        this.done = " ";
+        this.done = false;
         this.symbol = "D";
         this.dueDate = dueDate;
     }
 
     @Override
     public void printTask() {
-        System.out.print("[" + this.symbol + "] " + "[" + this.done + "] ");
+        String doneSymbol = " ";
+        if(this.done) {
+            doneSymbol = "X";
+        }
+        System.out.print("[" + this.symbol + "] " + "[" + doneSymbol + "] ");
         System.out.println(this.name + " (by: " + this.dueDate + ")");
     }
 

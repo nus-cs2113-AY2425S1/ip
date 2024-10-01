@@ -4,7 +4,7 @@ public class Event extends Task {
 
     public Event() {
         this.name = "";
-        this.done = " ";
+        this.done = false;
         this.symbol = "E";
         this.startDate = "";
         this.endDate = "";
@@ -12,7 +12,7 @@ public class Event extends Task {
 
     public Event(String name, String startDate, String endDate) {
         this.name = name;
-        this.done = " ";
+        this.done = false;
         this.symbol = "E";
         this.startDate = startDate;
         this.endDate = endDate;
@@ -20,7 +20,11 @@ public class Event extends Task {
 
     @Override
     public void printTask() {
-        System.out.print("[" + this.symbol + "] " + "[" + this.done + "] " + this.name);
+        String doneSymbol = " ";
+        if(this.done) {
+            doneSymbol = "X";
+        }
+        System.out.print("[" + this.symbol + "] " + "[" + doneSymbol + "] " + this.name);
         System.out.println(" (from: " + this.startDate + " to: " + this.endDate + ")");
     }
 

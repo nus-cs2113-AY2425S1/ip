@@ -1,33 +1,36 @@
 public class Task {
     protected String name;
-    protected String done;
+    protected boolean done;
     protected String symbol;
 
     public Task() {
         this.name = "";
-        this.done = " ";
+        this.done = false;
         this.symbol = " ";
     }
 
     public Task(String name) {
         this.name = name;
-        this.done = " ";
+        this.done = false;
         this.symbol = " ";
     }
 
     public void printTask() {
-        System.out.println("[" + this.symbol + "] " + "[" + this.done + "] " + this.name);
+        String doneSymbol = " ";
+        if(this.done) {
+            doneSymbol = "X";
+        }
+        System.out.println("[" + this.symbol + "] " + "[" + doneSymbol+ "] " + this.name);
     }
 
-    public void markDone() {
-        this.done = "X";
-        System.out.println("Nice! I've marked this task as done:");
-        printTask();
-    }
-
-    public void markNotDone() {
-        this.done = " ";
-        System.out.println("OK, I've marked this task as not done yet:");
+    public void mark() {
+        if(!this.done) {
+            this.done = true;
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            this.done = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
         printTask();
     }
 
