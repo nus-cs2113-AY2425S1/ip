@@ -68,7 +68,7 @@ public class Parser {
      *
      * @param input User input
      * @return String array, with the command type, task description, and additional information
-     * in position 0, 1 and 2 (to 3) respectively
+     * in position 0, 1 and 2 (to 3) respectively.
      */
     public String[] extractInputDetails(String input) {
         String[] inputDetails = new String[MAX_ARGS];

@@ -16,7 +16,7 @@ public class Deadline extends Task {
      *
      * @param description Description of Deadline Task.
      * @param by Deadline date in yyyy-mm-dd format.
-     * @throws AppalException - if the user inputs an invalid date format for the specified by parameter.
+     * @throws AppalException if the user inputs an invalid date format for the specified by parameter.
      */
     public Deadline(String description, String by) throws AppalException {
         super(description);

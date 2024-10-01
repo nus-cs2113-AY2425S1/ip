@@ -45,7 +45,7 @@ public class Storage {
      * @param taskList Current task list tracked by Appal.
      * @param ui Ui instance for Appal to show messages.
      * @throws FileNotFoundException if saved tasks text file is not found.
-     * @throws AppalException if error occurs while extracting or executing a command from the saved tasks file
+     * @throws AppalException if error occurs while extracting or executing a command from the saved tasks file.
      */
     public void loadFileContents(TaskList taskList, Ui ui) throws FileNotFoundException, AppalException {
         File savedTasks = new File(FILE_PATH); // create a File for the given file path
