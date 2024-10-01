@@ -3,6 +3,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The TaskList class manages a list of tasks. It allows tasks to be added, deleted, marked as done or not done,
+ * and supports operations like loading tasks from a file or saving them to a file.
+ */
 public class TaskList {
     public ArrayList<Task> taskList;
     protected int taskIndex;
@@ -12,6 +16,11 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         System.out.println("--------------------------------------------");
         this.taskList.add(task);
@@ -21,6 +30,11 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task index.
+     */
     public void deleteTask(HashMap<String, String> commandArguments) {
         String argument = commandArguments.get("argument");
         getTaskIndex(argument);
@@ -33,6 +47,9 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Lists all tasks in the task list.
+     */
     public void listTasks() {
         System.out.println("--------------------------------------------");
         System.out.println("Here are your current tasks: ");
@@ -42,6 +59,12 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Adds a new ToDo task to the task list.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task description.
+     * @throws TulipTaskException.InvalidTaskDescriptionException if the task description is invalid.
+     */
     public void addToDo(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskDescriptionException {
         String argument = commandArguments.get("argument");
         if (argument == null) {
@@ -52,6 +75,13 @@ public class TaskList {
         addTask(task);
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task description and deadline.
+     * @throws TulipTaskException.InvalidDeadlineException if the deadline is invalid.
+     * @throws TulipTaskException.InvalidTaskDescriptionException if the task description is invalid.
+     */
     public void addDeadline(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidDeadlineException, TulipTaskException.InvalidTaskDescriptionException {
         String argument = commandArguments.get("argument");
         String by = commandArguments.get("/by");
@@ -68,6 +98,14 @@ public class TaskList {
         addTask(task);
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task description, start time, and end time.
+     * @throws TulipTaskException.InvalidTaskDescriptionException if the task description is invalid.
+     * @throws TulipTaskException.InvalidStartDateException if the start date is invalid.
+     * @throws TulipTaskException.InvalidEndDateException if the end date is invalid.
+     */
     public void addEvent(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskDescriptionException, TulipTaskException.InvalidStartDateException, TulipTaskException.InvalidEndDateException {
         String argument = commandArguments.get("argument");
         String from = commandArguments.get("/from");
@@ -89,6 +127,11 @@ public class TaskList {
         addTask(task);
     }
 
+    /**
+     * Gets the index of a task based on the provided index string.
+     *
+     * @param indexString The string representing the task index.
+     */
     public void getTaskIndex(String indexString) {
         int index = Integer.parseInt(indexString) - 1;
 
@@ -100,6 +143,12 @@ public class TaskList {
         this.taskIndex = index;
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task index.
+     * @throws TulipTaskException.InvalidTaskIndexException if the task index is invalid.
+     */
     public void markTaskAsDone(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskIndexException {
         String argument = commandArguments.get("argument");
         getTaskIndex(argument);
@@ -116,6 +165,12 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the task index.
+     * @throws TulipTaskException.InvalidTaskIndexException if the task index is invalid.
+     */
     public void markTaskAsNotDone(HashMap<String, String> commandArguments) throws TulipTaskException.InvalidTaskIndexException {
         String argument = commandArguments.get("argument");
         getTaskIndex(argument);
@@ -132,12 +187,18 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Saves the tasks to a file.
+     */
     public void saveTaskToFile() {
         System.out.println("--------------------------------------------");
         Storage.saveTasks(this.taskList);
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Loads tasks from a file.
+     */
     public void loadTaskFromFile() {
         List<String> list = Storage.loadTasks();
         for (int i = 0; i < Objects.requireNonNull(list).size(); i++) {
@@ -148,6 +209,11 @@ public class TaskList {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Parses a task from a string.
+     *
+     * @param line The string containing the task information.
+     */
     public void parseTask(String line) {
         String type = line.substring(1, 2);
         boolean completed = line.charAt(4) == 'X';
@@ -190,6 +256,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks that match a given argument.
+     *
+     * @param commandArguments A HashMap containing the command arguments, including the search keyword.
+     */
     public void findTask(HashMap<String, String> commandArguments) {
         String argument = commandArguments.get("argument");
 

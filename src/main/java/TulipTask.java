@@ -1,5 +1,10 @@
 public class TulipTask {
-    public static void main(String[] args) throws TulipTaskException.InvalidTaskDescriptionException, TulipTaskException.InvalidEndDateException, TulipTaskException.InvalidStartDateException, TulipTaskException.InvalidDeadlineException, TulipTaskException.InvalidTaskIndexException {
+
+    /**
+     * Runs the TulipTask program
+     * @param args - Unused
+     */
+    public static void main(String[] args) {
         Ui ui = new Ui();
         ui.run();
     }

@@ -5,10 +5,20 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles saving and loading tasks from a file.
+ * It provides methods to save tasks to a text file and load tasks from it.
+ */
 public class Storage {
     static Path directoryPath = Path.of("./data");
     static Path filePath = directoryPath.resolve("data.txt");
 
+    /**
+     * Saves the provided list of tasks to a file.
+     * If the directory or file does not exist, they are created.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> taskList) {
         try {
             if (!Files.exists(directoryPath)) {
@@ -33,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file into a list of strings.
+     *
+     * @return A list of strings representing the tasks. Returns null if an error occurs or the file does not exist.
+     */
     public static List<String> loadTasks() {
         List<String> taskList;
 
