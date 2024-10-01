@@ -22,7 +22,7 @@ public class lovespiritual {
         TaskList taskList = new TaskList();
         Storage storage = new Storage("./data/lovespiritual.txt");
 
-        loadTasks();
+        storage.loadTasks(tasks);
         ui.printWelcomeScreen();
 
         // loop that keeps recurring when the program is running
@@ -31,29 +31,29 @@ public class lovespiritual {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
-                    saveTasks();
+                    storage.saveTasks(tasks);
                     ui.printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     ui.printList(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, tasks);
-                    saveTasks();
+                    storage.saveTasks(tasks);
                 } else if (input.startsWith("unmark")) {
                     unmarkTask(input, taskCount, tasks);
-                    saveTasks();
+                    storage.saveTasks(tasks);
                 } else if (input.startsWith("todo")) {
                     taskCount = todo(input, tasks);
-                    saveTasks();
+                    storage.saveTasks(tasks);
                 } else if (input.startsWith("deadline")) {
                     taskCount = deadline(input, tasks);
-                    saveTasks();
+                    storage.saveTasks(tasks);
                 } else if (input.startsWith("event")) {
                     taskCount = event(input, tasks);
-                    saveTasks();
+                    storage.saveTasks(tasks);
                 } else if (input.startsWith("delete")) {
-                    deleteTask(input, tasks, taskCount);
-                    saveTasks();
+                    taskList.deleteTask(input, tasks, taskCount);
+                    storage.saveTasks(tasks);
                 }
                 else {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
