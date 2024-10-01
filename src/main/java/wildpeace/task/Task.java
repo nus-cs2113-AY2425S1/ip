@@ -1,4 +1,8 @@
 package wildpeace.task;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 public class Task {
     private String description;
     private String deadline;
@@ -62,6 +66,18 @@ public class Task {
     public String toString() {
         String markStr = (markStatus == MarkStatus.MARKED) ? "[X]" : "[ ]";
         String taskTypeStr = "[" + taskType.toString().charAt(0) + "]";
-        return taskTypeStr + " " + markStr + " " + description + (deadline != null ? " (by: " + deadline + ")" : "");
+        String deadlineStr = "";
+
+        if (deadline != null && !deadline.isEmpty()) {
+            try {
+                LocalDate ddl = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                deadlineStr = " (by: " + ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            } catch (DateTimeParseException e) {
+                deadlineStr = " (invalid deadline format: " + deadline + ")";
+            }
+        }
+
+        return taskTypeStr + " " + markStr + " " + description + deadlineStr;
     }
+
 }
