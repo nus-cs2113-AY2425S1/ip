@@ -10,10 +10,24 @@ public class Parser {
 
     private final TaskList taskList;
 
+    // Parser constructor
     public Parser() {
         taskList = new TaskList();
     }
 
+    /**
+     * Returns the final number of items in the list after executing the command.
+     * The method also handles the command and directs it to the relevant methods.
+     *
+     * @param input A String containing the user input
+     * @param count Current number of items in the list before executing the command
+     * @param command The user input command
+     * @param splitInputs A String[] containing the user input, split by " " delimeter.
+     *
+     * @return the number of items stored in the ArrayList after executing the command
+     *
+     * @throws IllegalCommandException when the user gives an undefined command
+     */
     public int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException,
             IllegalCommandException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
         if (command.equalsIgnoreCase("list")) {
@@ -39,6 +53,14 @@ public class Parser {
         return count;
     }
 
+    /**
+     * Throws an IllegalTaskException when the index is out of range or
+     * when the mark index is not a number
+     *
+     * @param splitInputs A String[] containing the user input, split by " " delimeter.
+     * @param count Number of items in the list
+     * @throws IllegalTaskException if index is out of range or when the index is not a number
+     */
     public static void validateMark(String[] splitInputs, int count) throws IllegalTaskException {
         try {
 
@@ -54,6 +76,15 @@ public class Parser {
 
     }
 
+    /**
+     * Returns cleaned string of the trimmed description.
+     * Commands such as "todo" or "event" are removed.
+     *
+     * @param input A String containing the user input
+     * @return cleaned string of the trimmed description.
+     * @throws IllegalEmptyException when the input only contains the command, but no description
+     * OR when the description string is empty
+     */
     public static String trimString(String input) throws IllegalEmptyException {
         String output = input.trim();
 
