@@ -9,6 +9,8 @@ import Yukee.task.TaskList;
 import Yukee.parser.Parser;
 import Yukee.exception.YukeeException;
 
+import java.util.ArrayList;
+
 public class Yukee {
     private final Storage storage;
     private final TaskList taskList;
@@ -108,6 +110,16 @@ public class Yukee {
                         ui.showDeleteTask(deletedTask, taskList.size());
                         storage.save(taskList.getTasks());
                         break;
+
+                    case "find":
+                        if (parsedCommand.length < 2) {
+                            throw new YukeeException("The find command must be followed by a keyword.");
+                        }
+                        String keyword = parsedCommand[1];
+                        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+                        ui.showFoundTasks(foundTasks);
+                        break;
+
 
                     case "help":
                         ui.showHelp();
