@@ -2,7 +2,12 @@ package Uranus.Utility;
 
 import Uranus.Tasks.Task;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public abstract class FileManagement extends Functions{
@@ -19,7 +24,7 @@ public abstract class FileManagement extends Functions{
                 }
             }
         } catch (IOException e) {
-            print("Error saving tasks: " + e.getMessage());
+            Ui.print("Error saving tasks: " + e.getMessage());
         }
     }
 
@@ -37,8 +42,7 @@ public abstract class FileManagement extends Functions{
                 Functions.processCommand(s.nextLine());
             }
         } catch (FileNotFoundException e) {
-            print("Error loading tasks: " + e.getMessage());
-            print("Backup task.txt file added");
+            Ui.print("Error loading tasks: " + e.getMessage(), "Backup task.txt file added");
         }
 
         System.setOut(out);

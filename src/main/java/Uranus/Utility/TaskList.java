@@ -15,17 +15,17 @@ public class TaskList extends Functions{
         try {
             int index = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
             if (index >= 0 && index < taskList.size()) {
-                print("Got it. I've removed this task:",
+                Ui.print("Got it. I've removed this task:",
                         "  " + taskStatus(index),
                         "Now you have %d task(s) in the list".formatted(taskList.size() - 1));
                 taskList.remove(index);
             } else {
-                print("No such task exists. Please try again.");
+                Ui.print("No such task exists. Please try again.");
             }
         } catch (NumberFormatException e) {
-            print("Invalid task input. Please try again.", "Correct format: delete <int>");
+            Ui.print("Invalid task input. Please try again.", "Correct format: delete <int>");
         } catch (IllegalArgumentException e) {
-            print("Task Number cannot be empty!");
+            Ui.print("Task Number cannot be empty!");
         }
     }
 
@@ -35,18 +35,18 @@ public class TaskList extends Functions{
             if (taskNumIndex >= 0 && taskNumIndex < taskList.size()) {
                 if (input.startsWith("mark")) {
                     taskList.get(taskNumIndex).setDone();
-                    print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
+                    Ui.print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
                 } else {
                     taskList.get(taskNumIndex).setNotDone();
-                    print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
+                    Ui.print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
                 }
             } else {
-                print("No such task exist. Please try again.");
+                Ui.print("No such task exist. Please try again.");
             }
         } catch (NumberFormatException e) {
-            print("Invalid task input. Please try again.", "Correct format: mark <int> / unmark <int>");
+            Ui.print("Invalid task input. Please try again.", "Correct format: mark <int> / unmark <int>");
         } catch (IllegalArgumentException e) {
-            print("Task number cannot be empty!");
+            Ui.print("Task number cannot be empty!");
         }
     }
 
@@ -84,11 +84,11 @@ public class TaskList extends Functions{
             } else{
                 throw new IllegalCommandException();
             }
-            print("Got it. I've added this task:",
+            Ui.print("Got it. I've added this task:",
                     "  " + taskStatus(taskList.size() - 1),
                     "Now you have %d task(s) in the list".formatted(taskList.size()));
         } catch (UranusExceptions e){
-            print(e.getMessage());
+            Ui.print(e.getMessage());
         }
     }
 }
