@@ -11,6 +11,7 @@ public class Parser {
         case "deadline":
         case "event":
         case "delete":
+        case "find":
         case "bye":
             return command;
         default:
@@ -54,6 +55,13 @@ public class Parser {
                         "\nPlease try again!");
             }
             args = new String[]{eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()};
+            break;
+        case "find":
+            String subject = line.replaceFirst("find", "").trim();
+            if (subject.isEmpty()) {
+                throw new EvaException("Oops! The description of a todo cannot be empty. Please provide a task description.");
+            }
+            args = new String[]{subject};
             break;
         default:
             args = new String[]{};
