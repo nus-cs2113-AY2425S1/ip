@@ -28,8 +28,10 @@ public class CommandHandler {
         case "delete":
             taskManager.deleteTask(args[0]);
             break;
+        case "find":
+            taskManager.findTasks(args[0]);
+            break;
         case "bye":
-            // No specific action needed here, handled in Eva
             break;
         default:
             throw new EvaException("Unknown command: " + command);
