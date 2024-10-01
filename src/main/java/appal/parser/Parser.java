@@ -1,6 +1,15 @@
 package appal.parser;
 
-import appal.commands.*;
+import appal.commands.Command;
+import appal.commands.AddDeadlineCommand;
+import appal.commands.AddEventCommand;
+import appal.commands.AddToDoCommand;
+import appal.commands.ByeCommand;
+import appal.commands.CheckDeadlinesCommand;
+import appal.commands.DeleteCommand;
+import appal.commands.FindCommand;
+import appal.commands.ListCommand;
+import appal.commands.MarkTaskCommand;
 import appal.exception.AppalException;
 
 import static appal.common.Utils.COMMAND_BYE;

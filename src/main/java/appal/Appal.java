@@ -6,7 +6,7 @@ import appal.exception.NoSavedTasksException;
 import appal.parser.Parser;
 import appal.task.TaskList;
 import appal.ui.Ui;
-import appal.storage.*;
+import appal.storage.Storage;
 
 /**
  * Appal class contains functions to initialise Appal.
