@@ -1,24 +1,35 @@
-# Duke project template
+# Hsien Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Hsien is a command-line application designed to help you manage your tasks efficiently. You can add, delete, mark, and find tasks with ease.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- **Add tasks**: Create new tasks, including todos, deadlines, and events.
+- **View tasks**: List all your tasks at any time.
+- **Mark and unmark tasks**: Keep track of completed tasks.
+- **Delete tasks**: Remove tasks that are no longer needed.
+- **Search for tasks**: Find specific tasks based on keywords.
+- **Save tasks**: Automatically save tasks to a text file.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Getting Started
+
+### Prerequisites
+
+- JDK 17.
+
+### Download
+
+You can download the latest version of Hsien as a JAR file from the following link:
+
+[Download Hsien JAR](https://github.com/KuanHsienn/ip/releases/download/A-Release/Hsien.jar)
+
+### Running the Application
+
+1. Open your command line interface (CLI).
+2. Navigate to the directory where the JAR file is located.
+3. Run the application using the following command:
+
+   ```bash
+   java -jar hsien.jar
+
+   
