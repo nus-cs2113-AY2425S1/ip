@@ -3,8 +3,8 @@
 ![alt text](images/intro.jpg)
 
 Tyrone the Terrific Task Tracker is a CLI-based desktop app for tracking 
-tasks which helps users remember all the tasks they need to get done. 
-***
+tasks which helps users remember all the tasks they need to get done.
+
 ## Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.
@@ -26,7 +26,7 @@ with description `Assignment 3` and deadline `Monday 2359` to the task tracker.
     * `delete 2`: Deletes the 2nd task listed in the task tracker's record of tasks.
     * `bye`: Exits the app.
 6. Refer to the Features below for details of each command.
-***
+
 ## Features
 ### Listing Tasks: `list`
 
@@ -119,8 +119,6 @@ Format: `bye`
 ### Saving the data
 Tyrone saves data in the hard disk automatically after any command that changes the task list.
 There is no need to save manually.
-
-***
 
 ## Command Summary
 
