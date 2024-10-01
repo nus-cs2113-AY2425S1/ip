@@ -168,7 +168,7 @@ Example:
 
 Example output:
 ```
-  1.  [T][ ] | do the assignment 1
-  2.  [D][X] | assignment 3 (by: 23:00)
-  3.  [E][X] | burn down my assignments
+  1.   [T][ ] | do the assignment 1
+  10.  [D][X] | assignment 3 (by: 23:00)
+  12.  [E][X] | burn down my assignments
 ```
