@@ -12,12 +12,15 @@ public class Parser extends Functions {
     protected static final String TASK_COMMAND = "task";
     protected static final String EVENT_COMMAND = "event";
     protected static final String DEADLINE_COMMAND = "deadline";
+    protected static final String FIND_COMMAND = "find";
 
     protected static void processCommand(String input) {
         if (input.startsWith(MARK_COMMAND) || input.startsWith(UNMARK_COMMAND)) {
             TaskList.handleMarking(input);
         } else if (input.startsWith(DELETE_COMMAND)) {
             TaskList.handleDelete(input);
+        } else if (input.startsWith(FIND_COMMAND)) {
+            TaskList.handleFind(input);
         } else {
             switch (input) {
             case BYE_COMMAND:
@@ -26,7 +29,7 @@ public class Parser extends Functions {
                 // Fallthrough
 
             case LIST_COMMAND:
-                TaskList.listTasks();
+                TaskList.listTasks(taskList);
                 break;
 
             case ECHO_COMMAND:

@@ -45,6 +45,10 @@ public class Task {
         this.description = description.substring(separatorIndex + 1);
     }
 
+    public String getDescription(){
+        return description;
+    }
+
     public String getTaskStatus(){
         return "[" + getTaskTag() + "][" + getStatusIcon() + "] " + description;
     }

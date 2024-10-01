@@ -27,13 +27,13 @@ Now you have 1 task(s) in the list
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task:
-  [D][ ] weekly 2113 quiz (by: Monday 9pm)
+  [D][ ] weekly 2113 quiz  (by: Monday 9pm)
 Now you have 2 task(s) in the list
 _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] Si Thu Lin Aung: Answer CS2113 tutorial questions
-2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
+2. [D][ ] weekly 2113 quiz  (by: Monday 9pm)
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task:
@@ -47,12 +47,12 @@ _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
 1. [T][X] Si Thu Lin Aung: Answer CS2113 tutorial questions
-2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
+2. [D][ ] weekly 2113 quiz  (by: Monday 9pm)
 3. [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
 _________________________________________________________
 _________________________________________________________
 Got it. I've removed this task:
-  [D][ ] weekly 2113 quiz (by: Monday 9pm)
+  [D][ ] weekly 2113 quiz  (by: Monday 9pm)
 Now you have 2 task(s) in the list
 _________________________________________________________
 _________________________________________________________
