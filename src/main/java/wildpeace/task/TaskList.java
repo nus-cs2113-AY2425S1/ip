@@ -10,9 +10,21 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws InvalidInputException {
+        if (isDuplicate(task)) {
+            throw new InvalidInputException("This task already exists in your list: " + task.getDescription());
+        }
         tasks.add(task);
         System.out.println("Added: " + task);
+    }
+
+    private boolean isDuplicate(Task newTask) {
+        for (Task task : tasks) {
+            if (task.getDescription().equalsIgnoreCase(newTask.getDescription())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void deleteTask(int index) throws InvalidInputException {
