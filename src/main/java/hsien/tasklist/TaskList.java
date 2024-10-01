@@ -19,6 +19,19 @@ public class TaskList {
         return tasks;
     }
 
+    public void printList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("List is currently empty. Please add a task!");
+            return;
+        }
+        int counter = 1;
+        System.out.println("Here are the tasks in your list!");
+        for (Task t : tasks) {
+            System.out.printf("%d. %s%n", counter, t.getStatusDescription());
+            counter += 1;
+        }
+    }
+
     public void addTask(String command, String desc) {
         try {
             if (desc.isEmpty()) {
@@ -72,4 +85,26 @@ public class TaskList {
 
         System.out.println(tasks.get(index - 1).getStatusDescription());
     }
+
+    public void findTask(String query) {
+        int counter = 1;
+        boolean foundMatch = false;
+
+        for (Task t : tasks) {
+            if (t.getDescription().contains(query)) {
+                if (!foundMatch) {
+                    System.out.println("These are the matching tasks in your list:");
+                    foundMatch = true;
+                }
+                System.out.printf("%d. %s%n", counter, t.getStatusDescription());
+                counter++;
+            }
+        }
+
+        // No results
+        if (!foundMatch) {
+            System.out.println("No matching tasks found");
+        }
+    }
+
 }
