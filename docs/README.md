@@ -67,7 +67,7 @@ Now you have 9 tasks in the list.
 ______________________________
 ```
 
-## List task
+## Listing task
 
 Allow users to see the information on the tasks that is stored in the task list and
 outputs the task list
@@ -182,7 +182,7 @@ Here are the tasks in your list:
 ______________________________
 ```
 
-## Find task
+## Finding task
 
 Allow users to look for a task based on a given keyword and outputs a list of task 
 which contains the given keyword in their description
@@ -205,7 +205,7 @@ Here are the matching tasks in your list:
 ______________________________
 ```
 
-## Load task
+## Loading task
 
 Allow users to automatically restore tasks which was saved prior to exiting
 the chatbot in a `.txt` file, outputs the stored list of task after
@@ -241,7 +241,7 @@ Here are the tasks in your list:
 ______________________________
 ```
 
-## Save task
+## Saving task
 
 Allow users to automatically save tasks right before exiting the chatbot and
 outputs the stored list of task in a `.txt` file
