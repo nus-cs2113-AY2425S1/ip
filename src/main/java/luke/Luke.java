@@ -49,7 +49,7 @@ public class Luke {
         boolean isExit = false;
 
         while (!isExit) {
-            line = in.nextLine();
+            line = in.nextLine().trim();
             String[] inputs = line.split(" ");
             try {
                 Command c = Parser.parseCommand(inputs);
