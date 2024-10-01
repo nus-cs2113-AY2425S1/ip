@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TaskList {
 
@@ -20,7 +19,7 @@ public class TaskList {
     public void printList() {
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.print(i + ".");
-            taskList.get(i-1).printTask();
+            System.out.println(taskList.get(i-1).toString());
         }
         System.out.println("You have " + taskList.size() + " tasks in the list.");
     }
@@ -43,7 +42,7 @@ public class TaskList {
         try {
             Task taskToRemove = taskList.get(Integer.parseInt(lineInputArr[1]) - 1);
             System.out.println("Ok. I've removed this task: ");
-            taskToRemove.printTask();
+            taskToRemove.toString();
             taskList.remove(Integer.parseInt(lineInputArr[1])-1);
             System.out.println("You now have " + taskList.size() + " tasks in the list.");
         } catch (NumberFormatException e) {
@@ -51,5 +50,26 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("That is not a valid index.");
         }
+    }
+
+    public void findKeyword(String[] lineInputArr) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<Task>();
+        for(int i = 1; i < lineInputArr.length; i++) {
+            for(int j = 0; j < taskList.size(); j++) {
+                if(taskList.get(j).name.contains(lineInputArr[i].toLowerCase())) {
+                    tasksWithKeyword.add(taskList.get(j));
+                }
+            }
+        }
+
+        if(tasksWithKeyword.isEmpty()) {
+            System.out.println("Could not find any matching entries.");
+        } else {
+            System.out.println("Found " + tasksWithKeyword.size() + " matching entries.");
+            for (Task task : tasksWithKeyword) {
+                System.out.println(task.toString());
+            }
+        }
+
     }
 }

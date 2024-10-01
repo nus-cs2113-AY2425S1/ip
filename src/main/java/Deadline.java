@@ -16,13 +16,13 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void printTask() {
+    public String toString() {
         String doneSymbol = " ";
         if(this.done) {
             doneSymbol = "X";
         }
-        System.out.print("[" + this.symbol + "] " + "[" + doneSymbol + "] ");
-        System.out.println(this.name + " (by: " + this.dueDate + ")");
+        return("[" + this.symbol + "] " + "[" + doneSymbol + "] "+
+                this.name + " (by: " + this.dueDate + ")");
     }
 
     @Override

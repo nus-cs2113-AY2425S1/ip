@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class InputParser {
-    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event"};
+    public static final String[] KEYWORDS = {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "find"};
     public static final String[] ONE_WORD_KEYWORDS = {"bye", "list"};
 
     public static int parseMark(String[] lineInputArr, TaskList taskList) {
@@ -56,6 +56,9 @@ public class InputParser {
                 break;
             case "delete":
                 taskList.deleteTask(lineInputArr);
+                break;
+            case "find":
+                taskList.findKeyword(lineInputArr);
                 break;
             default:
                 System.out.println("That is not a valid input.");

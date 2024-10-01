@@ -15,12 +15,13 @@ public class Task {
         this.symbol = " ";
     }
 
-    public void printTask() {
+    @Override
+    public String toString() {
         String doneSymbol = " ";
         if(this.done) {
             doneSymbol = "X";
         }
-        System.out.println("[" + this.symbol + "] " + "[" + doneSymbol+ "] " + this.name);
+        return("[" + this.symbol + "] " + "[" + doneSymbol+ "] " + this.name);
     }
 
     public void mark() {
@@ -31,10 +32,11 @@ public class Task {
             this.done = false;
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        printTask();
+        System.out.println(toString());
     }
 
     public String dataForSave() {
         return "";
     }
+
 }

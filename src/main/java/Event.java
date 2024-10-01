@@ -19,13 +19,13 @@ public class Event extends Task {
     }
 
     @Override
-    public void printTask() {
+    public String toString() {
         String doneSymbol = " ";
         if(this.done) {
             doneSymbol = "X";
         }
-        System.out.print("[" + this.symbol + "] " + "[" + doneSymbol + "] " + this.name);
-        System.out.println(" (from: " + this.startDate + " to: " + this.endDate + ")");
+        return("[" + this.symbol + "] " + "[" + doneSymbol + "] " + this.name+
+                " (from: " + this.startDate + " to: " + this.endDate + ")");
     }
 
     @Override
