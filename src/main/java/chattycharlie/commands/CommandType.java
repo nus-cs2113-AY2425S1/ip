@@ -9,5 +9,6 @@ public enum CommandType {
     BYE,
     LIST,
     DELETE,
-    PRINT
+    PRINT,
+    FIND
 }

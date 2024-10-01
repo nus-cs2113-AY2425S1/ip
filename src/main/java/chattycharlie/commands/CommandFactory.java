@@ -23,6 +23,8 @@ public class CommandFactory {
             return new DeleteCommand(line);
         case PRINT:
             return new PrintCommand(line);
+        case FIND:
+            return new FindCommand(line);
         default:
             throw CharlieExceptions.cannotIdentifyCommandType(); //change this
         }
