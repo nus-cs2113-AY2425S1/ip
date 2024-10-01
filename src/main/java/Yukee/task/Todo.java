@@ -1,7 +1,15 @@
-// Todo.java
 package Yukee.task;
 
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
+
+    /**
+     * Constructs a Todo task with the specified description.
+     *
+     * @param description the description of the todo task
+     */
     public Todo(String description) {
         super(description);
     }

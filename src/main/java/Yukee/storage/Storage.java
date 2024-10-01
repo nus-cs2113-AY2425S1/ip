@@ -9,13 +9,27 @@ import Yukee.exception.YukeeException;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks to a specified file path.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the given file path.
+     *
+     * @param filePath the file path where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws YukeeException if the file cannot be read or the data is invalid
+     */
     public ArrayList<Task> load() throws YukeeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -59,6 +73,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks the list of tasks to save
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);
