@@ -37,7 +37,7 @@ public class Ui {
         printListUpdate(count, event);
         printLine();
     }
-
+    //Print the new task item and the count of task within the list (after adding the item)
     public static void printListUpdate(int count, String task) {
         System.out.println(task);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
@@ -50,6 +50,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print the items in the list when the 'list' function is called
+     *
+     * @param count the number of items in the list
+     * @param tasks the ArrayList containing all the saved tasks
+     */
     public static void printList(int count, TaskList tasks) throws IllegalIndexException{
         printLine();
         System.out.println(Statements.LIST_TASKS);
@@ -71,6 +77,10 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print mark or unmark statement based on the task's isDone() parameter.
+     * Print mark when the task is completed, vice versa.
+     */
     public static void printMarkOutput(Task task) {
         printLine();
 
