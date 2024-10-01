@@ -6,6 +6,7 @@ import apsea.command.Command;
 import apsea.command.AddTodoCommand;
 import apsea.command.AddDeadlineCommand;
 import apsea.command.AddEventCommand;
+import apsea.command.FindCommand;
 import apsea.command.ListCommand;
 import apsea.command.MarkTaskCommand;
 import apsea.command.UnmarkTaskCommand;
@@ -20,6 +21,7 @@ public class Parser {
     private final String MARK = "mark";
     private final String UNMARK = "unmark";
     private final String DELETE = "delete";
+    private final String FIND = "find";
 
     private final String INVALID_COMMAND_MESSAGE = "\tSorry, please try again: \n"
             + "\t - list: to list all tasks \n"
@@ -29,6 +31,7 @@ public class Parser {
             + "\t - mark [task number]: to mark a task\n"
             + "\t - unmark [task number]: to unmark a task\n"
             + "\t - delete [task number]: to delete a task\n"
+            + "\t - find [query]: to find a task\n"
             + "\t - bye: to save and close Apsea";
 
     public Parser() {
@@ -53,6 +56,8 @@ public class Parser {
             return new UnmarkTaskCommand(words);
         case DELETE:
             return new DeleteTaskCommand(words);
+        case FIND:
+            return new FindCommand(fullCommand);
         default:
             throw new ApseaException(INVALID_COMMAND_MESSAGE);
         }

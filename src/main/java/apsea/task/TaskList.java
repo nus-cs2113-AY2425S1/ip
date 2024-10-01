@@ -21,6 +21,10 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public int getTaskIndex(Task task) {
+        return taskList.indexOf(task);
+    }
+
     public void addTask(Task task) {
         taskList.add(task);
     }

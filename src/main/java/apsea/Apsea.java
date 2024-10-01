@@ -41,8 +41,6 @@ public class Apsea {
                 c.runCommand(taskList, ui);
                 isExit = c.getExitStatus();
             } catch (ApseaException e) {
-                //ui.showError();
-                //printError();
                 System.out.println(e.getMessage());
             } finally {
                 ui.printLine();

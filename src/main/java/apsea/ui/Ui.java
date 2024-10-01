@@ -9,8 +9,6 @@ public class Ui {
     private final String SEPARATOR = "\t______________________________________________________________________________";
     private final String HELLO_MESSAGE = "\tHello! I'm Apsea!\n" + "\tWhat can I do for you?";
     public final String BYE_MESSAGE = "\tBye. Hope to see you again soon";
-    public final String ERROR_MESSAGE = "\tSorry please try again: " +
-            "\t\t delete [number]: to delete a task";
 
     public Ui(){
     }
@@ -59,12 +57,12 @@ public class Ui {
         System.out.println("\t" + deletedTask);
     }
 
+    public void printFindMatch(Task task, int taskNumber) {
+        System.out.println("\t" + (taskNumber) + ". " + task);
+    }
+
     public String readCommand() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
-    }
-
-    public void showError() {
-        System.out.println(ERROR_MESSAGE);
     }
 }
