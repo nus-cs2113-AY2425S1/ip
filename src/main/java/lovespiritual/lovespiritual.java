@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
-    public static final int MAX_TASKS = 100;
     public static final String FILE_PATH = "./data/lovespiritual.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
