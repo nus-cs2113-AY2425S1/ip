@@ -1,6 +1,11 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The Ui class handles user interactions by accepting input commands and managing the task list.
+ * It provides methods for loading, saving, and modifying tasks, and facilitates communication between
+ * the user and the task list.
+ */
 public class Ui {
     public TaskList taskList;
 
@@ -14,6 +19,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Matches the user's command with the corresponding task list operation.
+     *
+     * @param command The user's command as a string.
+     * @param commandArguments A HashMap containing command arguments for specific tasks.
+     * @return true if the program should continue accepting input, false if the user entered "bye".
+     */
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
         final String goodByeMessage = "--------------------------------------------\n" +
                 "Bye! Hope to see you again soon :)\n" +
@@ -102,6 +114,10 @@ public class Ui {
                 taskList.loadTaskFromFile();
                 break;
 
+            case "find":
+                taskList.findTask(commandArguments);
+                break;
+
             case "bye":
                 taskList.saveTaskToFile();
                 System.out.println(goodByeMessage);
@@ -114,6 +130,10 @@ public class Ui {
         return true;
     }
 
+    /**
+     * Accepts and processes commands entered by the user in an interactive loop.
+     * The loop continues until the user enters the "bye" command.
+     */
     public void commandEntry() {
         HashMap<String, String> commandArguments;
         String input;
@@ -134,6 +154,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a welcome message to the user when the program starts.
+     */
     public void displayWelcome() {
         String logo = "                                         \n" +
                 "--.--     |    o     --.--          |    \n" +
@@ -151,6 +174,9 @@ public class Ui {
         System.out.println(welcomeMessage);
     }
 
+    /**
+     * Starts the user interface by displaying the welcome message and then accepting commands from the user.
+     */
     public void run() {
         displayWelcome();
         commandEntry();

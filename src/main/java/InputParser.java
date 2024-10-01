@@ -1,9 +1,21 @@
 import java.util.HashMap;
 
+/**
+ * The InputParser class is responsible for parsing user input into commands and arguments.
+ * It takes a raw input string and splits it into meaningful components such as the command and its arguments.
+ */
 public class InputParser {
     public static final String COMMAND = "command";
     public static final String ARGUMENT = "argument";
 
+    /**
+     * Parses the user's input into a command and associated arguments.
+     * The first word in the input is considered the command, and the rest is treated as arguments.
+     * Arguments that start with "/" are treated as named arguments.
+     *
+     * @param input The raw input string from the user.
+     * @return A HashMap containing the parsed command and its arguments.
+     */
     public static HashMap<String, String> parseCommands(String input) {
         HashMap<String, String> commandArguments = new HashMap<>();
         String[] splitInput = input.split(" ");
