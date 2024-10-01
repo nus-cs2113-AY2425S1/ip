@@ -12,8 +12,14 @@ then
     rm ACTUAL.TXT
 fi
 
+# delete the old data folder
+if [ -d "./data" ]
+then
+    rm -rf ./data
+fi
+
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/bob/*.java ../src/main/java/bob/task/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/bob/*.java ../src/main/java/bob/task/*.java ../src/main/java/bob/command/*.java ../src/main/java/bob/storage/*.java ../src/main/java/bob/ui/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

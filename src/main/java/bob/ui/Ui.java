@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class Ui {
 
     public static final String SEPARATOR = "____________________________________________________________";
+    Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showWelcome() {
         String logo = """
@@ -22,7 +27,6 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 

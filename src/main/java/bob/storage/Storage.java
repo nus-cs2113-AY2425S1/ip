@@ -65,7 +65,7 @@ public class Storage {
 
     private void createDirectoryIfNotExists(File file) {
         File parentDirectory = file.getParentFile();
-        if (parentDirectory != null && !parentDirectory.exists()) {
+        if (!parentDirectory.exists()) {
             this.ui.printCreationMessage(FOLDER, true);
             if (!parentDirectory.mkdirs()) {
                 this.ui.printCreationMessage(FOLDER,false);

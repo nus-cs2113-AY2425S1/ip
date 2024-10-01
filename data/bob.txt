@@ -1,4 +1,0 @@
-T | 0 | play
-T | 1 | hw
-D | 1 | project meeting | June 6th
-E | 0 | celebration | Sept 3rd-Sept 5th

@@ -8,3 +8,4 @@ E | 0 | project | 8pm-9pm
 D | 0 | hw | 9pm
 T | 1 | cs2113 iP
 D | 0 | cs2113 iP | Oct 11 2359
+T | 0 | read books

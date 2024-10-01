@@ -6,8 +6,11 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete the old data folder
+if exist .\data rmdir /s /q .\data
+
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\bob\*.java ..\src\main\java\bob\task\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\bob\*.java ..\src\main\java\bob\task\*.java ..\src\main\java\bob\command\*.java ..\src\main\java\bob\storage\*.java ..\src\main\java\bob\ui\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
