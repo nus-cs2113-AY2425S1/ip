@@ -1,10 +1,6 @@
 package akshan.handler;
 
-import akshan.command.CommandType;
-import akshan.command.Command;
-import akshan.command.TaskCommand;
-import akshan.command.MarkUnmarkCommand;
-import akshan.command.DeleteCommand;
+import akshan.command.*;
 import akshan.task.TaskList;
 import java.util.Optional;
 
@@ -47,15 +43,13 @@ public class Parser {
             case DELETE:
                 command = Optional.of(new DeleteCommand(commandType, commandString[1], taskList));
                 break;
+            case DATE:
+                command = Optional.of(new DateCommand(commandType, commandString[1], taskList));
+                break;
             default:
                 throw new IllegalArgumentException("Uh oh, no command found in: " + commandString[0]);
             }
             command.ifPresent(Command::execute);
         }
     }
-
-
-
-
-
 }

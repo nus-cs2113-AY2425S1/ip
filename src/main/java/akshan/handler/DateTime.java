@@ -20,6 +20,23 @@ public class DateTime {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME,
 
         // Custom formats in order of priority
+        DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+        DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+        DateTimeFormatter.ofPattern("MM-dd-yyyy"),
+        DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+        DateTimeFormatter.ofPattern("d-MM-yyyy"),
+        DateTimeFormatter.ofPattern("d/MM/yyyy"),
+
+        DateTimeFormatter.ofPattern("yyyy MMM dd"),
+        DateTimeFormatter.ofPattern("dd MMM yyyy"),
+        DateTimeFormatter.ofPattern("MMM dd yyyy"),
+
+        DateTimeFormatter.ofPattern("yyyy-MMM-dd"),
+        DateTimeFormatter.ofPattern("dd-MMM-yyyy"),
+        DateTimeFormatter.ofPattern("MMM-dd-yyyy"),
+
         DateTimeFormatter.ofPattern("yyyy-MM-dd[ HH:mm]"),
         DateTimeFormatter.ofPattern("yyyy/MM/dd[ HH:mm]"),
         DateTimeFormatter.ofPattern("dd-MM-yyyy[ HH:mm]"),
@@ -37,7 +54,6 @@ public class DateTime {
         DateTimeFormatter.ofPattern("dd-MMM-yyyy[ HH:mm]"),
         DateTimeFormatter.ofPattern("MMM-dd-yyyy[ HH:mm]"),
 
-        // 12-hour formats
         DateTimeFormatter.ofPattern("yyyy-MM-dd[ hh:mma]"),
         DateTimeFormatter.ofPattern("yyyy/MM/dd[ hh:mma]"),
         DateTimeFormatter.ofPattern("dd-MM-yyyy[ hh:mma]"),
@@ -74,11 +90,38 @@ public class DateTime {
                 try {
                     LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
                     tempString = dateTime.format(DATE_TIME_OUTPUT_FORMATTER);
+                    break;
                 } catch (DateTimeParseException e2) {
                     tempString = input;
                 }
             }
         }
         return tempString;
+    }
+
+    /**
+     * Checks if the input string is of a valid date format.
+     *
+     * @param input The input string.
+     * @return The result of the check. True if it is valid date format, else false.
+     */
+    public static boolean isDateTime(String input) {
+        boolean isDateTime = false;
+        for (DateTimeFormatter formatter : INPUT_FORMATTERS) {
+            try {
+                LocalDate date = LocalDate.parse(input, formatter);
+                isDateTime = true;
+                break;
+            } catch (DateTimeParseException e) {
+                try {
+                    LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
+                    isDateTime = true;
+                    break;
+                } catch (DateTimeParseException e2) {
+                    isDateTime = false;
+                }
+            }
+        }
+        return isDateTime;
     }
 }
