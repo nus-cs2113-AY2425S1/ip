@@ -3,11 +3,21 @@ package chattycharlie;
 import chattycharlie.commands.*;
 import chattycharlie.userinteractions. *;
 
+/**
+ * Represents the main chatbot application. A <code>ChattyCharlie</code> object corresponds to
+ * a personal task management assistant capable of adding, listing, and managing user tasks.
+ */
 public class ChattyCharlie {
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Constructs a <code>ChattyCharlie</code> object and initializes its user interface,
+     * storage, and task list. Attempts to load tasks from the specified file path.
+     *
+     * @param filePath The path of the file where tasks are saved and loaded from.
+     */
     public ChattyCharlie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +28,11 @@ public class ChattyCharlie {
             taskList = new TaskList();
         }
     }
+
+    /**
+     * Starts the chatbot and handles the user interactions using a loop until the user decides to exit.
+     * Displays greeting, listens for user inputs, and processes the commands accordingly.
+     */
 
     public void run() { //Echo as a function
         ui.displayGreetings();

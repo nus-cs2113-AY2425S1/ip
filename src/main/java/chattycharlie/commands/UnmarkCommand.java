@@ -14,7 +14,7 @@ public class UnmarkCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.markTask(toUnmarkIndex);
+        taskList.unmarkTask(toUnmarkIndex);
         ui.displayTask(taskList.getTask(toUnmarkIndex));
     }
 }
