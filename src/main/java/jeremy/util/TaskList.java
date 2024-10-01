@@ -5,13 +5,14 @@ import jeremy.exception.TaskNotFoundException;
 import jeremy.task.Task;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The {@code TaskList} class manages a list of tasks and provides various
  * methods to manipulate and interact with the list such as adding, deleting,
  * marking tasks as done or not done, and printing the task list.
  */
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
     private final Ui ui;
 
@@ -32,6 +33,17 @@ public class TaskList {
     public TaskList(TaskList taskList) {
         this.tasks = taskList.tasks;
         this.ui = new Ui();
+    }
+
+    /**
+     * Returns an iterator over the tasks in the TaskList.
+     * This allows for iteration over the tasks using an enhanced for-loop.
+     *
+     * @return an Iterator of Task objects.
+     */
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 
     /**
@@ -59,7 +71,7 @@ public class TaskList {
     public void printList() {
         ui.lineBreak();
         for (Task task : tasks) {
-            ui.println((tasks.indexOf(task) + 1) + ". " + task.toString());
+            ui.println((tasks.indexOf(task) + 1) + "." + task);
         }
         ui.lineBreak();
     }

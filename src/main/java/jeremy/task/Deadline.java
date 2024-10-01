@@ -3,12 +3,16 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task that has a deadline.
  * The task includes a description and a deadline date, which is specified after "/by".
  */
 public class Deadline extends Task {
-    protected final String deadline;
+    protected final LocalDate deadline;
 
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
@@ -36,7 +40,11 @@ public class Deadline extends Task {
             throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
         }
 
-        this.deadline = datePart.substring(3); // ignore "by "
+        try {
+            this.deadline = LocalDate.parse(datePart.substring(3)); // ignore "bye "
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "D";
     }
 
@@ -67,7 +75,11 @@ public class Deadline extends Task {
             throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
         }
         this.isDone = isDone;
-        this.deadline = datePart.substring(3); // ignore "by "
+        try {
+            this.deadline = LocalDate.parse(datePart.substring(3)); // ignore "bye "
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "D";
     }
 
@@ -78,7 +90,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (by: " + deadline + ")";
+        return "[" + icon + "]" + super.toString() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -88,7 +101,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return icon + " | " + (isDone ? 1 : 0) + " | " + description
-                + " | " + deadline;
+        return this.icon + " | " + (this.isDone ? 1 : 0) + " | " + description
+                + " | " + this.deadline;
     }
 }

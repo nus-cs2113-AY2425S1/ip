@@ -20,6 +20,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean contains(String argument) {
+        return this.description.contains(argument);
+    }
+
     /**
      * Returns the status icon representing whether the task is completed.
      *
