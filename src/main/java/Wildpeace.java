@@ -1,5 +1,4 @@
 import initializer.Initializer;
-import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
 
 import java.util.Scanner;
@@ -18,8 +17,8 @@ public class Wildpeace {
         String logo = LOGO;
         System.out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in);
-        LLMChat llmChat = new LLMChat();
-        Initializer.initialise(scanner, llmChat);
+
+        Initializer.initialise(scanner);
     }
 }
 // Dummy Commit to test Merging of different branches, to be deleted

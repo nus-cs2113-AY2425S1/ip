@@ -1,7 +1,6 @@
 package wildpeace.task;
 
 import initializer.Initializer;
-import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.exceptions.InvalidInputException;
 
@@ -60,7 +59,7 @@ public class DataStorage {
             }
         }
 
-        Initializer.initialise(scanner, new LLMChat());
+        Initializer.initialise(scanner);
     }
 
     private static void displayGuide() {

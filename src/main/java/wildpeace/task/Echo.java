@@ -1,7 +1,6 @@
 package wildpeace.task;
 
 import initializer.Initializer;
-import initializer.LLMChat;
 import wildpeace.exceptions.EmptyCommandException;
 
 import java.util.Scanner;
@@ -18,6 +17,6 @@ public class Echo {
             }
             System.out.println(line);
         }
-        Initializer.initialise(scanner, new LLMChat());
+        Initializer.initialise(scanner);
     }
 }
