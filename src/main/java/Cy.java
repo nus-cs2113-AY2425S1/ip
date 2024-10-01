@@ -98,11 +98,12 @@ public class Cy {
 
     public static int addTodo(int count, String input) throws IllegalEmptyException {
         String task = trimString(input);
-        items.add(new Todo(task));
+        Todo todo = new Todo(task);
+        items.add(todo);
 
         printTodoMessage(count, task);
 
-        saveNewData(task, Utils.TODO);
+        saveNewData(todo.createTodoTxt(), Utils.TODO);
         return count + 1;
     }
 
@@ -125,13 +126,16 @@ public class Cy {
         }
 
         String description = trimString(input);
-        String deadline = createDeadlineString(description);
-        items.add(new Deadline(deadline));
+        String[] descriptionSubstrings = description.split("by", 2);
+        String deadlineDescription = descriptionSubstrings[0].trim();
+        String by  = descriptionSubstrings[1].trim();
 
-        System.out.println(deadline);
-        printDeadlineMessage(count, deadline);
+        Deadline deadline = new Deadline(deadlineDescription, by);
+        items.add(deadline);
 
-        saveNewData(deadline, Utils.DEADLINE);
+        printDeadlineMessage(count, deadline.createDeadlineList());
+
+        saveNewData(deadline.createDeadlineTxt(), Utils.DEADLINE);
         return count + 1;
     }
 
@@ -142,16 +146,6 @@ public class Cy {
         printLine();
     }
 
-    private static String createDeadlineString(String description) throws IllegalEmptyException {
-        String[] descriptionSubstrings = description.split("by", 2);
-        String deadline = descriptionSubstrings[0] + "(by:" + descriptionSubstrings[1] + ")";
-
-        if (descriptionSubstrings[1].isEmpty()) {
-            throw new IllegalEmptyException(Warnings.VALID_DESCRIPTION_WARNING);
-        }
-
-        return deadline;
-    }
 
     public static int addEvent(int count, String input) throws IllegalEmptyException, IllegalKeywordException {
 
@@ -161,11 +155,17 @@ public class Cy {
             throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
         }
 
-        String event = createEventString(input);
-        items.add(new Event(event));
-        printEventMessage(count, event);
+        String[] splitInputs = input.split("from|to");
+        String start = splitInputs[1].trim();
+        String end = splitInputs[2].trim();
+        String eventDescription = splitInputs[0].trim();
 
-        saveNewData(event, Utils.EVENT);
+        Event event = new Event(eventDescription,start, end);
+        items.add(event);
+
+        printEventMessage(count, event.createEventList());
+
+        saveNewData(event.createEventTxt(), Utils.EVENT);
         return count + 1;
     }
 
@@ -176,14 +176,6 @@ public class Cy {
         printLine();
     }
 
-    private static String createEventString(String input) {
-        String[] splitInputs = input.split("from|to");
-        String start = splitInputs[1];
-        String end = splitInputs[2];
-        String event = splitInputs[0] + "(from:" + start + "to:" + end + ")";
-
-        return event;
-    }
 
     public static int deleteItem(int count, String[] splitInputs) throws IllegalTaskException {
 
@@ -275,29 +267,10 @@ public class Cy {
         }
     }
 
-    private static String taskCompletedString(boolean isDone) {
-        if (isDone) {
-            return "1";
-        }
-        return "0";
-    }
-
-    private static String isTaskCompleted(String description) {
-        for (Task item : items) {
-            if (item.getDescription().equals(description)) {
-                return taskCompletedString(item.isDone());
-            }
-        }
-        return "0";
-    }
 
     private static void saveNewData(String input, String taskType) {
-
-        String taskCompletedString = isTaskCompleted(input);
-        String textToAppend = getString(input, taskType, taskCompletedString);
-
         try {
-            appendToFile(textToAppend);
+            appendToFile(input);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -307,30 +280,6 @@ public class Cy {
         FileWriter fw = new FileWriter(Utils.FILE_PATH, true);
         fw.write(System.lineSeparator() + textToAppend);
         fw.close();
-    }
-
-
-    private static String getString(String input, String taskType, String taskCompletedString) {
-        String textToAppend = "";
-        switch (taskType) {
-
-            case Utils.TODO:
-                textToAppend = "T | " + taskCompletedString + " | " + input;
-                break;
-            case Utils.DEADLINE:
-                String[] splitDeadlineSubstring = input.split("by");
-                textToAppend = "D | " + taskCompletedString +splitDeadlineSubstring[0] + " | " + splitDeadlineSubstring[1];
-                break;
-            case Utils.EVENT:
-                String[] splitEventSubstring = input.split("from|to");
-                String start = splitEventSubstring[1];
-                String end = splitEventSubstring[2];
-                textToAppend = "E | " + taskCompletedString + " | " + splitEventSubstring[0] + " | " + start + "-" + end;
-                break;
-            default:
-                System.out.println(Warnings.VALID_TASK_TYPE_WARNING);
-        }
-        return textToAppend;
     }
 
 
