@@ -141,6 +141,25 @@ public class TaskManager {
         saveTasks();
     }
 
+    public void findTasks(String subject) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.contains(subject)) {
+                foundTasks.add(task);
+            }
+        }
+
+        if (foundTasks.isEmpty()) {
+            ui.showMessage("No tasks found!");
+        } else {
+            ui.showMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                ui.showMessage((i + 1) + ". " + foundTasks.get(i).toString());
+            }
+        }
+        ui.showMessage(HORIZONTAL_LINE);
+    }
+
     public void printNumTasks(int count) {
         ui.showMessage("Now you have " + (count + 1) + " tasks in the list.");
     }
