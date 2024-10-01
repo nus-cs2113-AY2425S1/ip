@@ -4,8 +4,8 @@ import blossom.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String LOGO =
+    private final String HORIZONTAL_LINE = "____________________________________________________________";
+    private final String LOGO =
             """
                      _______     .---.       ,-----.       .-'''-.    .-'''-.     ,-----.    ,---.    ,---.\s
                     \\  ____  \\   | ,_|     .'  .-,  '.    / _     \\  / _     \\  .'  .-,  '.  |    \\  /    |\s
@@ -43,6 +43,12 @@ public class Ui {
 
     public void printNumberOfTasks(ArrayList<Task> listOfTasks) {
         System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void printGoodbye() {
+        System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
+        System.out.println(HORIZONTAL_LINE);
     }
 
 
