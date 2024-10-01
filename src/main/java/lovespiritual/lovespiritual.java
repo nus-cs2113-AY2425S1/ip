@@ -68,23 +68,6 @@ public class lovespiritual {
         }
     }
 
-    private static void saveTasks() {
-        try {
-            File file = new File(FILE_PATH);
-            file.getParentFile().mkdirs();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-            for (Task task : tasks) {
-                writer.write(savedFormat(task));
-                writer.newLine();
-            }
-            writer.close();
-        } catch (Exception e) {
-            System.out.println(SEPARATOR);
-            System.out.println("Error saving tasks (×_×;): " + e.getMessage());
-            System.out.println(SEPARATOR);
-        }
-    }
-
     private static void loadTasks() {
         try {
             File file = new File(FILE_PATH);
