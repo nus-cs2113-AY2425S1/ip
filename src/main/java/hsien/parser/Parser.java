@@ -41,7 +41,7 @@ public class Parser {
         String tempDesc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length)).trim();
         // Initialise desc for non-tasks commands
         this.desc = tempDesc;
-        this.command = parts[0];
+        this.command = parts[0].toLowerCase();
 
         if (command.equals("deadline")) {
             String byDate;
