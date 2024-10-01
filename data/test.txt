@@ -1,7 +1,3 @@
 T | 1 | Joe
 E | 0 | lecture (from: 4pm to: 6pm)
 D | 0 | return book (by: Dec 02 2019)
-T | 1 | booking books
-D | 0 | d eturn book (by: Dec 02 2019)
-D | 0 | ddeturn book (by: Dec 02 2019)
-D | 0 | return book (by: Dec 02 2019)
