@@ -1,12 +1,25 @@
-// Deadline.java
 package Yukee.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = parseDateTime(by);
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            return null;
+        }
     }
 
     @Override
@@ -14,12 +27,13 @@ public class Deadline extends Task {
         return "D";
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        return "[D]" + super.toString() + " (by: " + (by != null ? by.format(formatter) : "Invalid Date)");
     }
 }

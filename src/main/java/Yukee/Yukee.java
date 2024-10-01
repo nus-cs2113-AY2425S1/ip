@@ -64,7 +64,7 @@ public class Yukee {
                             throw new YukeeException("The description of a deadline must contain '/by'.");
                         }
                         String[] deadlineParts = parsedCommand[1].split(" /by ");
-                        taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1])); // 修改这里，直接使用 Deadline 类
+                        taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
                         ui.showAddTask(taskList.getLastTask(), taskList.size());
                         storage.save(taskList.getTasks());
                         break;
