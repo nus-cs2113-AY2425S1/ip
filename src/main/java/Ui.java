@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     private static final String LINE = "____________________________________________________________\n";
@@ -72,5 +73,14 @@ public class Ui {
         System.out.print("[" + task.getStatusIcon() + "] ");
         System.out.println(task.getDescription());
         showLine();
+    }
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
+    }
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 }
