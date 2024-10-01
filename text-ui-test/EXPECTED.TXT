@@ -39,6 +39,11 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
+Got it. I've added this task:
+[T][ ] be deleted
+Now you have 4 tasks in the list.
+________________________________________
+________________________________________
 Nice! I've marked this task as done:
 [T][X] read book
 ________________________________________
@@ -47,8 +52,24 @@ Nice! I've marked this task as done:
 [D][X] return book (by: Jun 6 2024)
 ________________________________________
 ________________________________________
+1.[T][X] read book
+2.[D][X] return book (by: Jun 6 2024)
+3.[E][ ] project meeting (from: Aug 6 2024 to: Aug 7 2024)
+4.[T][ ] be deleted
+________________________________________
+________________________________________
 I've unmarked this task:
 [D][ ] return book (by: Jun 6 2024)
+________________________________________
+________________________________________
+Ok, deleted this task:
+[T][ ] be deleted
+Now you have 3 tasks in the list.
+________________________________________
+________________________________________
+Here are the matching tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Jun 6 2024)
 ________________________________________
 ________________________________________
 1.[T][X] read book
