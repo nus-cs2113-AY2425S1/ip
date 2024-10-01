@@ -1,4 +1,4 @@
-package akshan.storage;
+package akshan.handler;
 
 import java.io.File;
 import java.util.Scanner;
@@ -14,13 +14,13 @@ import akshan.task.Todo;
 import akshan.task.Deadline;
 import akshan.task.Event;
 
-public class StorageHandler {
+public class Storage {
     private static File storage;
     private static final Path STORAGE_FOLDER_PATH = Paths.get("data");
     private static final Path STORAGE_PATH = STORAGE_FOLDER_PATH.resolve("akshan.txt");
     private static final String SEPARATOR = " <-> ";
 
-    public StorageHandler(TaskList taskList) throws IOException {
+    public Storage(TaskList taskList) throws IOException {
         // Create data folder if it does not exist
         File storageFolder = new File(String.valueOf(STORAGE_FOLDER_PATH));
         if (!storageFolder.exists()) {
