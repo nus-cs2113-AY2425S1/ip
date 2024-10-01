@@ -31,11 +31,12 @@ You can download the latest version of Hsien as a JAR file from the following li
 2. Navigate to the directory where the JAR file is located.
 3. Run the application using the following command:
 
-   ```bash
+   ```
    java -jar Hsien.jar
+   ```
 
 4. This page will be shown if the previous command was run successfully
-   ```bash
+   ```
    --------------------------------------------------
     _   _         _____        _ _   _
    | | | | ##### |_   _|##### |   \ | |
@@ -64,6 +65,8 @@ You can download the latest version of Hsien as a JAR file from the following li
    9. save
    10. bye
    Please enter a command/add task (type 'bye' to exit):
+   ```
+
 
 ## Features
 | Command   | Description                                  |
@@ -138,7 +141,7 @@ Exits the application.
 ## Notes
 1. The commands are case-insensitive  
    e.g. `LiSt` is equivalent to `list`
-2. For commands that do not take in description inputs, these portion of the input will be ignored  
+2. Extraneous parameters for commands that do not take in parameters will be ignored
   e.g. `List me` will only be treated as `list`
 3. Tasks will be saved upon `bye` command but will not be saved if the program is closed arubptly
 4. Please conform to the command syntax for the program to work as expected and have fun using it!
