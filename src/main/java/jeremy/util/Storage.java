@@ -12,11 +12,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class is responsible for handling the loading and saving of tasks
+ * to a file. It ensures that task data is persisted across program sessions.
+ */
 public class Storage {
     private static final String PATH = "./data/";
     private static final String FILE_NAME = "Jeremy.txt";
     private static final String SEPARATOR = " \\| ";
 
+    /**
+     * Creates a task from the given parts of a line read from the storage file.
+     * This method adds the task to the provided {@link TaskList}.
+     *
+     * @param parts    The string array representing different parts of the task (icon, status, description, etc.).
+     * @param taskList The {@link TaskList} to which the created task is added.
+     */
     public void createTask(String[] parts, TaskList taskList) {
         try {
             String commandStr = parts[0];
@@ -50,6 +61,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file, creating a new {@link TaskList} that contains
+     * the tasks from the file. If the file does not exist, a new file and directory are created.
+     *
+     * @return The {@link TaskList} loaded from the storage file.
+     * @throws FileNotFoundException If an error occurs while creating or accessing the file.
+     */
     public TaskList load() throws FileNotFoundException {
         File dir = new File(PATH);
         if (!dir.exists()) {
@@ -79,6 +97,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current state of the task list to the storage file. Each task is saved in a format
+     * suitable for reloading by the {@link #load()} method.
+     *
+     * @param tasks The {@link TaskList} to be saved.
+     */
     public void save(TaskList tasks) {
         File file = new File(PATH + FILE_NAME);
 

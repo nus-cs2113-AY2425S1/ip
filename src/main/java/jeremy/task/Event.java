@@ -3,15 +3,27 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
+/**
+ * Represents an event task with a specified time frame.
+ * The task includes a description, a start time, and an end time,
+ * which are specified after "/from" and "/to", respectively.
+ */
 public class Event extends Task {
-    protected final String from;
-    protected final String to;
+    protected final String startDate;
+    protected final String endDate;
 
+    /**
+     * Constructs a new {@code Event} task with the specified description, start time, and end time.
+     *
+     * @param input The task description followed by the time frame in the format "description /from start /to end".
+     * @throws EmptyArgumentException If the task description is empty or blank.
+     * @throws InvalidCommandFormatException If the command format is invalid (i.e., if the time frame is not properly formatted after "/from" and "/to").
+     */
     public Event(String input) throws EmptyArgumentException, InvalidCommandFormatException {
         super(input.split("/", 3)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Event description cannot be empty");
+            throw new EmptyArgumentException("Event description");
         }
 
         String[] parts = input.split("/", 3);
@@ -27,16 +39,24 @@ public class Event extends Task {
             throw new InvalidCommandFormatException("Event dates should start with \"from \" or \"to \"");
         }
 
-        this.from = dateFrom.substring(5); // ignore "from "
-        this.to = dateTo.substring(3);   // ignore "to "
+        this.startDate = dateFrom.substring(5); // ignore "from "
+        this.endDate = dateTo.substring(3);   // ignore "to "
         this.icon = "E";
     }
 
+    /**
+     * Constructs a new {@code Event} task with the specified description, start time, end time, and completion status.
+     *
+     * @param input The task description followed by the time frame in the format "description /from start /to end".
+     * @param isDone Whether the task is marked as completed.
+     * @throws EmptyArgumentException If the task description is empty or blank.
+     * @throws InvalidCommandFormatException If the command format is invalid (i.e., if the time frame is not properly formatted after "/from" and "/to").
+     */
     public Event(String input, boolean isDone) throws EmptyArgumentException, InvalidCommandFormatException {
         super(input.split("/", 3)[0].trim());
 
         if (input.isBlank()) {
-            throw new EmptyArgumentException("Event description cannot be empty");
+            throw new EmptyArgumentException("Event description");
         }
 
         String[] parts = input.split("/", 3);
@@ -47,19 +67,29 @@ public class Event extends Task {
         }
 
         this.isDone = isDone;
-        this.from = parts[1].trim().substring(5); // ignore "from "
-        this.to = parts[2].trim().substring(3);   // ignore "to "
+        this.startDate = parts[1].trim().substring(5); // ignore "from "
+        this.endDate = parts[2].trim().substring(3);   // ignore "to "
         this.icon = "E";
     }
 
+    /**
+     * Returns a string representation of the event, including its completion status and time frame.
+     *
+     * @return A string in the format "[E][X] description (from: start to: end)".
+     */
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + icon + "]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 
+    /**
+     * Returns a string representation of the event formatted for storage.
+     *
+     * @return A string in the format "E | 0 | description | from | to", where the completion status is 0 or 1.
+     */
     @Override
     public String toStorageString() {
         return icon + " | " + (isDone ? 1 : 0) + " | " + description
-                + " | " + from + " | " + to;
+                + " | " + startDate + " | " + endDate;
     }
 }

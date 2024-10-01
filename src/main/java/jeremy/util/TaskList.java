@@ -6,28 +6,56 @@ import jeremy.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code TaskList} class manages a list of tasks and provides various
+ * methods to manipulate and interact with the list such as adding, deleting,
+ * marking tasks as done or not done, and printing the task list.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
     private final Ui ui;
 
+    /**
+     * Default constructor. Initializes an empty task list and a UI object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
         this.ui = new Ui();
     }
 
+    /**
+     * Copy constructor. Creates a new {@code TaskList} that references the tasks
+     * from the provided {@code TaskList}.
+     *
+     * @param taskList The {@code TaskList} to copy tasks from.
+     */
     public TaskList(TaskList taskList) {
         this.tasks = taskList.tasks;
         this.ui = new Ui();
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Retrieves the task at the specified index in the list.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Prints the current list of tasks using the UI.
+     */
     public void printList() {
         ui.lineBreak();
         for (Task task : tasks) {
@@ -36,6 +64,12 @@ public class TaskList {
         ui.lineBreak();
     }
 
+    /**
+     * Adds a task to the list and prints a confirmation message unless the task
+     * is already marked as done (used for loading from storage).
+     *
+     * @param task The task to be added to the list.
+     */
     public void addTask(Task task) {
         tasks.add(task);
 
@@ -49,6 +83,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task at the specified index, and prints a confirmation message.
+     *
+     * @param argument The task number (as a String) to delete.
+     * @throws InvalidTaskNumberException If the provided task number is not a valid integer.
+     * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
+     */
     public void deleteTask(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
         int index;
         Task task;
@@ -58,8 +99,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException(argument);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskNotFoundException("What. There is no task " + argument + ". "
-                    + "Try a number between 1 and " + tasks.size() + ".");
+            throw new TaskNotFoundException(argument, tasks.size());
         }
 
         ui.lineBreak();
@@ -70,6 +110,13 @@ public class TaskList {
         ui.lineBreak();
     }
 
+    /**
+     * Marks the task at the specified index as done and prints a confirmation message.
+     *
+     * @param argument The task number (as a String) to mark as done.
+     * @throws InvalidTaskNumberException If the provided task number is not a valid integer.
+     * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
+     */
     public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
         try {
             setTaskStatus(argument, true);
@@ -80,6 +127,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the specified index as not done and prints a confirmation message.
+     *
+     * @param argument The task number (as a String) to unmark as done.
+     * @throws InvalidTaskNumberException If the provided task number is not a valid integer.
+     * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
+     */
     public void markTaskAsNotDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
         try {
             setTaskStatus(argument, false);
@@ -90,6 +144,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Changes the status of the task at the specified index to either done or not done.
+     *
+     * @param argument The task number (as a String) to update.
+     * @param isDone   The new status of the task (true for done, false for not done).
+     * @throws InvalidTaskNumberException If the provided task number is not a valid integer.
+     * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
+     */
     private void setTaskStatus(String argument, boolean isDone) throws InvalidTaskNumberException, TaskNotFoundException {
         int taskNumber;
         try {
@@ -111,8 +173,7 @@ public class TaskList {
             ui.println(tasks.get(taskNumber - 1).toString());
             ui.lineBreak();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-            throw new TaskNotFoundException("What. There is no task " + taskNumber + ". "
-                    + "Try a number between 1 and " + tasks.size() + ".");
+            throw new TaskNotFoundException(argument, tasks.size());
         }
     }
 }
