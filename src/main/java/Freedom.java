@@ -191,28 +191,12 @@ public class Freedom {
     }
 
     public static void saveData() {
-        final String DIVIDER = " | ";
-
-        String taskInData;
         Task taskToAdd;
-        String taskType;
-        String status;
 
         try (FileWriter writer = new FileWriter(DATA_FILE_PATH)) {
             for (int i = 0; i < lastIndex; i++) {
                 taskToAdd = tasks.get(i);
-                taskType = taskToAdd.getType();
-                status = taskToAdd.getStatusIcon();
-                taskInData = taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
-
-                if (taskType.equals("D")) {
-                    taskInData += DIVIDER + taskToAdd.getDoneBy();
-                } else if (taskType.equals("E")) {
-                    taskInData += DIVIDER + taskToAdd.getFrom() + DIVIDER + taskToAdd.getTo();
-                }
-
-                taskInData += "\n";
-                writer.write(taskInData);
+                writer.write(taskToAdd.generateStorageLine());
             }
             System.out.println("\tData saved!");
         } catch (IOException e) {

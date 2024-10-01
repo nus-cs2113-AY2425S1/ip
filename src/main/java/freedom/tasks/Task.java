@@ -1,7 +1,6 @@
 package freedom.tasks;
 
 public class Task {
-    protected String type;
     protected String description;
     protected boolean isDone;
     protected static final String LOGO = "\t________________________________________\n";
@@ -43,10 +42,6 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void updateDescription(String newDescription) {
         this.description = newDescription;
     }
@@ -57,6 +52,10 @@ public class Task {
 
     public String printLine() {
         return "[" + getStatusIcon() + "] " + getDescription();
+    }
+
+    public String generateStorageLine() {
+        return getStatusIcon() + " | " + getDescription();
     }
 
     public void printEmptyDescriptionError() {
