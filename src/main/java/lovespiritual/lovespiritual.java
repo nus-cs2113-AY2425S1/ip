@@ -68,26 +68,6 @@ public class lovespiritual {
         }
     }
 
-    private static void loadTasks() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                return;
-            }
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(extractTasks(line));
-            }
-            reader.close();
-        } catch (Exception e) {
-            System.out.println(SEPARATOR);
-            System.out.println("Error loading tasks (•︵•): " + e.getMessage());
-            System.out.println(SEPARATOR);
-        }
-    }
-
-
     private static int event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {

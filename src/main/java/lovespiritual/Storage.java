@@ -28,4 +28,21 @@ public class Storage {
         }
     }
 
+    public void loadTasks(ArrayList<Task> tasks) {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(TaskList.extractTasks(line));
+            }
+            reader.close();
+        } catch (Exception e) {
+            UI.printError("Error loading tasks (×_×;): " + e.getMessage());
+        }
+    }
+
 }
