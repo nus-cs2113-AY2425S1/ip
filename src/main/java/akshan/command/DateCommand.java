@@ -21,7 +21,7 @@ public final class DateCommand extends Command {
     /**
      * Lists all tasks that occur on specified date.
      *
-     * @throws IllegalArgumentException If the command format is invalid or the task number is out of range.
+     * @throws IllegalArgumentException If the date format is invalid.
      */
     @Override
     public void execute() throws IllegalArgumentException {
