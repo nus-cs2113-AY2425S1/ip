@@ -5,13 +5,12 @@ import java.util.Scanner;
 public class Chatbot {
     protected static final Scanner in = new Scanner(System.in);
     private static final String SEPARATOR = "_________________________________________________________";
-    protected static Functions execute = new Functions();
 
     // Constructor for chatbot
     public Chatbot() {
         printWelcomeMessage();
         Functions.printFunctions();
-        execute.manageTasks();
+        TaskList.manageTasks();
     }
 
     // Welcome Screen
