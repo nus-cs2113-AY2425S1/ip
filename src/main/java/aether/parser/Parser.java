@@ -1,13 +1,26 @@
 package aether.parser;
 
-import aether.command.*;
+
 import aether.DukeException;
+import aether.command.*;
 
 /**
- * Parses user commands and returns the appropriate Command object.
+ * Parses user commands and returns the appropriate {@code Command} object.
+ * <p>
+ * This class interprets the user's input string, identifies the command type,
+ * and constructs the corresponding {@code Command} object to execute the desired action.
+ * It handles various commands such as adding, deleting, marking tasks, and more.
+ * </p>
  */
 public class Parser {
 
+    /**
+     * Parses the user's input command and returns the corresponding {@code Command} object.
+     *
+     * @param command The input string entered by the user.
+     * @return The {@code Command} object corresponding to the parsed command.
+     * @throws DukeException If the command is invalid or required arguments are missing.
+     */
     public static Command parseCommand(String command) throws DukeException {
         String[] commandParts = command.split("\\s+", 2);  // Split into command and arguments
         String commandName = commandParts[0].toLowerCase();
