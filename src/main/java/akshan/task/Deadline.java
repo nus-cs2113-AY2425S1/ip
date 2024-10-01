@@ -1,10 +1,12 @@
 package akshan.task;
 
+import akshan.handler.DateTime;
+
 /**
  * Represents a deadline task with a due date.
  */
 public class Deadline extends Task {
-    protected final String by;
+    private final String by;
 
     /**
      * Constructs a Deadline task.
@@ -19,7 +21,7 @@ public class Deadline extends Task {
             throw new IllegalArgumentException("Deadline date cannot be null or empty.");
         }
         this.type = "D";
-        this.by = by;
+        this.by = DateTime.convertToString(by);
     }
 
     /**

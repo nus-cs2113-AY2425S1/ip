@@ -34,5 +34,5 @@ public class Todo extends Task{
     @Override
     public String toStorageString(String separator) {
         return this.type + separator + (super.isDone ? "1" : "0") + separator + this.name;
-    };
+    }
 }
