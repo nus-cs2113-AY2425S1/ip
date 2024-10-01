@@ -57,13 +57,9 @@ public class lovespiritual {
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
             } catch (lovespiritualException e) {
-                System.out.println(SEPARATOR);
                 ui.printError(e.getMessage());
-                System.out.println(SEPARATOR);
             } catch (Exception e) {
-                System.out.println(SEPARATOR);
                 ui.printUnexpectedError();
-                System.out.println(SEPARATOR);
             }
         }
     }
