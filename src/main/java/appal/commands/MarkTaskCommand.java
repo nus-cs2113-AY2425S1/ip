@@ -46,6 +46,7 @@ public class MarkTaskCommand extends Command {
             int taskId = Integer.parseInt(inputDetails[TASK_INDEX]);
             int listIndex = taskId - 1;
             Task taskToMark = taskList.markTask(listIndex, isDone);
+            saveTasks(storage, taskList);
             ui.printSeparator();
             if (isDone) {
                 System.out.println(TASK_DONE_MESSAGE);

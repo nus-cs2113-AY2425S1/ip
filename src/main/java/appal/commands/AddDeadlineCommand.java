@@ -61,6 +61,7 @@ public class AddDeadlineCommand extends Command {
         }
         Deadline newDeadline = new Deadline(inputDetails[TASK_INDEX], inputDetails[BY_INDEX]);
         taskList.addTask(newDeadline);
+        saveTasks(storage, taskList);
         ui.updateUserOnAddedTask(taskList, isFromUser);
     }
 }

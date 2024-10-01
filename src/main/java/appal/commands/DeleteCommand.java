@@ -45,6 +45,7 @@ public class DeleteCommand extends Command {
             ui.printReply(taskList, DELETE_TASK_MESSAGE, indexOfTaskToDelete);
             taskList.removeTask(indexOfTaskToDelete);
             Task.setTotalTasks(Task.getTotalTasks() - 1);
+            saveTasks(storage, taskList);
         } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }

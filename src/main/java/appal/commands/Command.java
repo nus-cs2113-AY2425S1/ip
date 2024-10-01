@@ -1,6 +1,7 @@
 package appal.commands;
 
 import appal.exception.AppalException;
+import appal.exception.SaveTasksErrorException;
 import appal.storage.Storage;
 import appal.task.TaskList;
 import appal.ui.Ui;
@@ -40,6 +41,17 @@ public abstract class Command {
      */
     public void setExit(boolean isExit) {
         this.isExit = isExit;
+    }
+
+    /**
+     * Saves tasks from current task list to a text file.
+     *
+     * @param storage Storage instance for Appal to handle task storage.
+     * @param taskList Current task list tracked by Appal.
+     * @throws SaveTasksErrorException if error occurs while saving tasks.
+     */
+    public void saveTasks(Storage storage, TaskList taskList) throws SaveTasksErrorException {
+        storage.saveTasksToFile(taskList);
     }
 
     /**

@@ -56,6 +56,7 @@ public class AddToDoCommand extends Command {
         checkForTask();
         ToDo newToDo = new ToDo(inputDetails[TASK_INDEX]);
         taskList.addTask(newToDo);
+        saveTasks(storage, taskList);
         ui.updateUserOnAddedTask(taskList, isFromUser);
     }
 }

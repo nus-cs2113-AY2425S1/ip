@@ -63,6 +63,7 @@ public class AddEventCommand extends Command {
         Event newEvent = new
                 Event(inputDetails[TASK_INDEX], inputDetails[FROM_INDEX], inputDetails[TO_INDEX]);
         taskList.addTask(newEvent);
+        saveTasks(storage, taskList);
         ui.updateUserOnAddedTask(taskList, isFromUser);
     }
 }

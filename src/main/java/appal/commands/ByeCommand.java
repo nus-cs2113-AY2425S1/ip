@@ -21,17 +21,6 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Saves tasks from current task list to a text file.
-     *
-     * @param storage Storage instance for Appal to handle task storage.
-     * @param taskList Current task list tracked by Appal.
-     * @throws SaveTasksErrorException if error occurs while saving tasks.
-     */
-    public void saveTasks(Storage storage, TaskList taskList) throws SaveTasksErrorException {
-        storage.saveTasksToFile(taskList);
-    }
-
-    /**
      * Executes the command to exit the Appal application.
      *
      * @param taskList Current task list tracked by Appal.
