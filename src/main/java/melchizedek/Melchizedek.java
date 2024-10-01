@@ -107,6 +107,18 @@ public class Melchizedek {
                 }
                 break;
 
+            case "find":
+                try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
+                    taskList.findKeyword(Arrays.copyOfRange(tokens, 1, tokens.length));
+                } catch (DescriptionNotPresentException e) {
+                    Ui.printUnableToFindWithoutKeyword();
+                    Ui.printFindExample();
+                }
+                break;
+
             default:
                 Ui.printInvalidCommand();
                 break;

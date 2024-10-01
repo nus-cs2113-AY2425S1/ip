@@ -33,6 +33,10 @@ public abstract class Task {
         return " ";
     }
 
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public String taskToFile() {
         if (isDone) {
             return "1 | " + description;
