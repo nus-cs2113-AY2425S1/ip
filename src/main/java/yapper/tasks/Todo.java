@@ -43,7 +43,7 @@ public class Todo extends Task {
      */
     @Override
     public String taskToDisplay() {
-        return "[" + StringStorage.TODO_SYMBOL +"]"
+        return "[" + StringStorage.SYMBOL_TODO +"]"
                 + super.taskToDisplay();
     }
     /**
@@ -55,7 +55,7 @@ public class Todo extends Task {
      */
     @Override
     public String taskToString() {
-        return StringStorage.TODO_SYMBOL + " "
+        return StringStorage.SYMBOL_TODO + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString();
     }

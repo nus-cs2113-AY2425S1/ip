@@ -99,21 +99,21 @@ public class InputFileHandler {
             // Check Task Status, indirectly checks if missing
             String taskStatus = taskParts[1].trim();
             ExceptionHandler.checkIfTaskStatusValid(taskStatus);
-            boolean isDone = taskStatus.equals(StringStorage.IS_DONE_SYMBOL);
+            boolean isDone = taskStatus.equals(StringStorage.SYMBOL_IS_DONE);
             // Check Desc and other Arguments, indirectly checks if missing
             String remainingParts = taskParts[2].trim();
             switch (taskType) {
-            case StringStorage.TODO_SYMBOL:
+            case StringStorage.SYMBOL_TODO:
                 // no need to split
                 ExceptionHandler.checkIfTodoArgsMissing(
                         remainingParts.trim());
                 return new Todo(remainingParts, isDone);
-            case StringStorage.DEADLINE_SYMBOL:
+            case StringStorage.SYMBOL_DEADLINE:
                 String[] deadlineArgs = splitStringByDeadlineKeyword(remainingParts);
                 ExceptionHandler.checkIfDeadlineArgsMissing(
                         deadlineArgs[0], deadlineArgs[1]);
                 return new Deadline(deadlineArgs[0], isDone, deadlineArgs[1]);
-            case StringStorage.EVENT_SYMBOL:
+            case StringStorage.SYMBOL_EVENT:
                 String[] eventArgs = splitStringByEventKeywords(remainingParts);
                 ExceptionHandler.checkIfEventArgsMissing(
                         eventArgs[0], eventArgs[1], eventArgs[2]);

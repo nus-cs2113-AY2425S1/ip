@@ -36,12 +36,12 @@ public class Yapper {
             String userInputString = scanner.nextLine();
             System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
             if (userInputString.trim().equals(
-                    StringStorage.BYE_INSTRUCTION_PREFIX)) {
+                    StringStorage.PREFIX_BYE_INSTRUCTION)) {
                 break;
             } else if (userInputString.trim().startsWith(
-                    StringStorage.BYE_INSTRUCTION_PREFIX)) {
+                    StringStorage.PREFIX_BYE_INSTRUCTION)) {
                 StringStorage.printWithDividers(
-                    StringStorage.BYE_INSTRUCTION_PREFIX
+                    StringStorage.PREFIX_BYE_INSTRUCTION
                     + " does not need other parameters");
                 continue;
             }

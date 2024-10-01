@@ -95,7 +95,7 @@ public class Deadline extends Task {
                 DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
                 DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
 
-        return "[" + StringStorage.DEADLINE_SYMBOL + "]"
+        return "[" + StringStorage.SYMBOL_DEADLINE + "]"
                 + super.taskToDisplay() + ", by " + endDateAsString;
     }
     /**
@@ -112,7 +112,7 @@ public class Deadline extends Task {
                 DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
                 DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
 
-        return StringStorage.DEADLINE_SYMBOL + " "
+        return StringStorage.SYMBOL_DEADLINE + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "

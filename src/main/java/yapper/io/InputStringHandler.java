@@ -30,9 +30,9 @@ public class InputStringHandler {
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
 
             // Handle 1-Argument Instructions: LIST, HELP
-            if (userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX)) {
-                if (!userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX)) {
-                    throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
+            if (userInputString.startsWith(StringStorage.PREFIX_LIST_INSTRUCTION)) {
+                if (!userInputString.trim().equals(StringStorage.PREFIX_LIST_INSTRUCTION)) {
+                    throw new YapperException(StringStorage.PREFIX_LIST_INSTRUCTION
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
@@ -50,46 +50,46 @@ public class InputStringHandler {
             ExceptionHandler.checkIfUserInputEmpty(instructionArgs, true);
 
             switch (instructionType) {
-            case StringStorage.FIND_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_FIND_INSTRUCTION:
                 // no keywords here to validate
                 ExceptionHandler.checkIfFindArgsMissing(
                         instructionArgs.trim());
                 // no need to split arg
                 return new Instruction(Instruction.InstructionType.FIND,
                         instructionArgs.trim());
-            case StringStorage.TODO_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_TODO_INSTRUCTION:
                 // no keywords here to validate
                 ExceptionHandler.checkIfTodoArgsMissing(
                     instructionArgs.trim());
                 // no need to split arg
                 return new Instruction(Instruction.InstructionType.TODO,
                         instructionArgs.trim());
-            case StringStorage.DEADLINE_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_DEADLINE_INSTRUCTION:
                 ExceptionHandler.checkIfDeadlineKeywordsPresent(
-                    instructionArgs.indexOf(StringStorage.DEADLINE_END_DATE_DELIMITER));
+                    instructionArgs.indexOf(StringStorage.DELIMITER_DEADLINE_END_DATE));
                 String[] deadlineArgs = splitStringByDeadlineKeyword(instructionArgs);
                 ExceptionHandler.checkIfDeadlineArgsMissing(
                         deadlineArgs[0], deadlineArgs[1]);
                 return new Instruction(Instruction.InstructionType.DEADLINE,
                         deadlineArgs[0], deadlineArgs[1]);
-            case StringStorage.EVENT_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_EVENT_INSTRUCTION:
                 ExceptionHandler.checkIfEventKeywordsPresent(
-                    instructionArgs.indexOf(StringStorage.EVENT_START_DATE_DELIMITER),
-                    instructionArgs.indexOf(StringStorage.EVENT_END_DATE_DELIMITER));
+                    instructionArgs.indexOf(StringStorage.DELIMITER_EVENT_START_DATE),
+                    instructionArgs.indexOf(StringStorage.DELIMITER_EVENT_END_DATE));
                 String[] eventArgs = splitStringByEventKeywords(instructionArgs);
                 ExceptionHandler.checkIfEventArgsMissing(
                         eventArgs[0], eventArgs[1], eventArgs[2]);
                 return new Instruction(Instruction.InstructionType.EVENT,
                         eventArgs[0], eventArgs[1], eventArgs[2]);
-            case StringStorage.DELETE_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_DELETE_INSTRUCTION:
                 int taskOrdinalToDelete = Integer.parseInt(instructionArgs.trim());
                 return new Instruction(Instruction.InstructionType.DELETE,
                         taskOrdinalToDelete);
-            case StringStorage.MARK_INSTRUCTION_PREFIX:
-            case StringStorage.UNMARK_INSTRUCTION_PREFIX:
+            case StringStorage.PREFIX_MARK_INSTRUCTION:
+            case StringStorage.PREFIX_UNMARK_INSTRUCTION:
                 int taskOrdinal = Integer.parseInt(instructionArgs.trim());
                 Instruction.InstructionType type = instructionType.equals(
-                        StringStorage.MARK_INSTRUCTION_PREFIX)
+                        StringStorage.PREFIX_MARK_INSTRUCTION)
                         ? Instruction.InstructionType.MARK
                         : Instruction.InstructionType.UNMARK;
                 return new Instruction(type, taskOrdinal);
@@ -117,7 +117,7 @@ public class InputStringHandler {
      */
     public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
-                StringStorage.DEADLINE_END_DATE_DELIMITER, -2);
+                StringStorage.DELIMITER_DEADLINE_END_DATE, -2);
         String deadlineDesc = deadlineArgs[0].trim();
         String deadlineDate = deadlineArgs[1].trim();
         return new String[] {deadlineDesc, deadlineDate};
@@ -130,10 +130,10 @@ public class InputStringHandler {
      */
     public static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
-                StringStorage.EVENT_START_DATE_DELIMITER, -2);
+                StringStorage.DELIMITER_EVENT_START_DATE, -2);
         String eventDesc = eventArgs[0].trim();
         String[] dates = eventArgs[1].split(
-                StringStorage.EVENT_END_DATE_DELIMITER, -2);
+                StringStorage.DELIMITER_EVENT_END_DATE, -2);
         String startDate = dates[0].trim();
         String endDate = dates[1].trim();
         return new String[] {eventDesc, startDate, endDate};

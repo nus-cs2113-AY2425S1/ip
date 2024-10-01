@@ -36,28 +36,28 @@ public class StringStorage {
     /**
      * Constants representing prefixes for user commands, for User I/O.
      */
-    public static final String HELP_INSTRUCTION_PREFIX = "help";
-    public static final String FIND_INSTRUCTION_PREFIX = "find";
-    public static final String LIST_INSTRUCTION_PREFIX = "list";
-    public static final String TODO_INSTRUCTION_PREFIX = "todo";
-    public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
-    public static final String EVENT_INSTRUCTION_PREFIX = "event";
-    public static final String DELETE_INSTRUCTION_PREFIX = "delete";
-    public static final String MARK_INSTRUCTION_PREFIX = "mark";
-    public static final String UNMARK_INSTRUCTION_PREFIX = "unmark";
-    public static final String BYE_INSTRUCTION_PREFIX = "bye";
-    public static final String DEADLINE_END_DATE_DELIMITER = "/by";
-    public static final String EVENT_START_DATE_DELIMITER = "/from";
-    public static final String EVENT_END_DATE_DELIMITER = "/to";
+    public static final String PREFIX_HELP_INSTRUCTION = "help";
+    public static final String PREFIX_FIND_INSTRUCTION = "find";
+    public static final String PREFIX_LIST_INSTRUCTION = "list";
+    public static final String PREFIX_TODO_INSTRUCTION = "todo";
+    public static final String PREFIX_DEADLINE_INSTRUCTION = "deadline";
+    public static final String PREFIX_EVENT_INSTRUCTION = "event";
+    public static final String PREFIX_DELETE_INSTRUCTION = "delete";
+    public static final String PREFIX_MARK_INSTRUCTION = "mark";
+    public static final String PREFIX_UNMARK_INSTRUCTION = "unmark";
+    public static final String PREFIX_BYE_INSTRUCTION = "bye";
+    public static final String DELIMITER_DEADLINE_END_DATE = "/by";
+    public static final String DELIMITER_EVENT_START_DATE = "/from";
+    public static final String DELIMITER_EVENT_END_DATE = "/to";
 
     /**
      * Symbols used to represent task types and statuses, for File I/O.
      */
-    public static final String NOT_DONE_SYMBOL = "X";
-    public static final String IS_DONE_SYMBOL = "O";
-    public static final String TODO_SYMBOL = "T";
-    public static final String DEADLINE_SYMBOL = "D";
-    public static final String EVENT_SYMBOL = "E";
+    public static final String SYMBOL_NOT_DONE = "X";
+    public static final String SYMBOL_IS_DONE = "O";
+    public static final String SYMBOL_TODO = "T";
+    public static final String SYMBOL_DEADLINE = "D";
+    public static final String SYMBOL_EVENT = "E";
 
     /**
      * Constants related to file management.
@@ -198,16 +198,16 @@ public class StringStorage {
             + "I need more details to understand what you wanna do. ";
     public static final String MISSING_PREFIX_MESSAGE =
             "Input does not start with any of the known prefixes: "
-            + HELP_INSTRUCTION_PREFIX + ", "
-            + BYE_INSTRUCTION_PREFIX + ", "
-            + FIND_INSTRUCTION_PREFIX + ", "
-            + LIST_INSTRUCTION_PREFIX + ", "
-            + TODO_INSTRUCTION_PREFIX + ", "
-            + DEADLINE_INSTRUCTION_PREFIX + ", "
-            + EVENT_INSTRUCTION_PREFIX + ", "
-            + DELETE_INSTRUCTION_PREFIX + ", "
-            + MARK_INSTRUCTION_PREFIX + ", "
-            + UNMARK_INSTRUCTION_PREFIX + ", \n"
+            + PREFIX_HELP_INSTRUCTION + ", "
+            + PREFIX_BYE_INSTRUCTION + ", "
+            + PREFIX_FIND_INSTRUCTION + ", "
+            + PREFIX_LIST_INSTRUCTION + ", "
+            + PREFIX_TODO_INSTRUCTION + ", "
+            + PREFIX_DEADLINE_INSTRUCTION + ", "
+            + PREFIX_EVENT_INSTRUCTION + ", "
+            + PREFIX_DELETE_INSTRUCTION + ", "
+            + PREFIX_MARK_INSTRUCTION + ", "
+            + PREFIX_UNMARK_INSTRUCTION + ", \n"
             + LINE_DIVIDER_YAPPER + "\n"
             + "Explain in a way I can understand. ";
     public static final String MISSING_QUERY_STRING_MESSAGE =
@@ -265,13 +265,13 @@ public class StringStorage {
             "End date is not given. "; // "You haven't told me when this ends. ";
     public static final String INVALID_TASK_TYPE_MESSAGE =
             "Task type abbreviation is not any of these: "
-            + TODO_SYMBOL + ", "
-            + DEADLINE_SYMBOL + ", "
-            + EVENT_SYMBOL; // "I don't remember if what kind of task this is.";
+            + SYMBOL_TODO + ", "
+            + SYMBOL_DEADLINE + ", "
+            + SYMBOL_EVENT; // "I don't remember if what kind of task this is.";
     public static final String INVALID_TASK_STATUS_MESSAGE =
             "Task completion status abbreviation is not any of these: "
-            + IS_DONE_SYMBOL + ", "
-            + NOT_DONE_SYMBOL; // "I don't remember if this task was done or not.";
+            + SYMBOL_IS_DONE + ", "
+            + SYMBOL_NOT_DONE; // "I don't remember if this task was done or not.";
 
 
     public static final String SAVING_ERROR_MESSAGE = // unused ?

@@ -50,7 +50,7 @@ public class Task {
      * @return a symbol representing the completion status
      */
     public String getDoneStatus() {
-        return isDone ? StringStorage.IS_DONE_SYMBOL : StringStorage.NOT_DONE_SYMBOL;
+        return isDone ? StringStorage.SYMBOL_IS_DONE : StringStorage.SYMBOL_NOT_DONE;
     }
     /**
      * Checks if the task is marked as done.

@@ -41,14 +41,14 @@ public class ExceptionHandler {
      */
     public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
         if (!userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.FIND_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.TODO_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.DEADLINE_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.EVENT_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.DELETE_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.MARK_INSTRUCTION_PREFIX)
-                && !userInputString.startsWith(StringStorage.UNMARK_INSTRUCTION_PREFIX)) {
+                && !userInputString.startsWith(StringStorage.PREFIX_FIND_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_LIST_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_TODO_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_DEADLINE_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_EVENT_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_DELETE_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_MARK_INSTRUCTION)
+                && !userInputString.startsWith(StringStorage.PREFIX_UNMARK_INSTRUCTION)) {
             throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
         }
     }
@@ -74,7 +74,7 @@ public class ExceptionHandler {
     public static void checkIfTodoArgsMissing(String desc) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
-                    StringStorage.TODO_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_TODO_INSTRUCTION + " "
                     + StringStorage.MISSING_DESCRIPTION_MESSAGE);
         }
     }
@@ -88,11 +88,11 @@ public class ExceptionHandler {
     public static void checkIfDeadlineArgsMissing(String desc, String endDate) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
-                    StringStorage.DEADLINE_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_DEADLINE_INSTRUCTION + " "
                     + StringStorage.MISSING_DESCRIPTION_MESSAGE);
         } else if (endDate.isEmpty()) {
             throw new YapperException(
-                    StringStorage.DEADLINE_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_DEADLINE_INSTRUCTION + " "
                     + StringStorage.MISSING_END_DATE_MESSAGE);
         }
     }
@@ -107,15 +107,15 @@ public class ExceptionHandler {
     public static void checkIfEventArgsMissing(String desc, String startDate, String endDate) throws YapperException {
         if (desc.isEmpty()) {
             throw new YapperException(
-                    StringStorage.EVENT_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_EVENT_INSTRUCTION + " "
                             + StringStorage.MISSING_DESCRIPTION_MESSAGE);
         } else if (startDate.isEmpty()) {
             throw new YapperException(
-                    StringStorage.EVENT_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_EVENT_INSTRUCTION + " "
                             + StringStorage.MISSING_START_DATE_MESSAGE);
         } else if (endDate.isEmpty()) {
             throw new YapperException(
-                    StringStorage.EVENT_INSTRUCTION_PREFIX + " "
+                    StringStorage.PREFIX_EVENT_INSTRUCTION + " "
                             + StringStorage.MISSING_END_DATE_MESSAGE);
         }
     }
@@ -132,9 +132,9 @@ public class ExceptionHandler {
     public static void checkIfDeadlineKeywordsPresent(int byOrdinal) throws YapperException {
         if (byOrdinal == -1) {
             throw new YapperException(
-                    StringStorage.DEADLINE_END_DATE_DELIMITER
+                    StringStorage.DELIMITER_DEADLINE_END_DATE
                     + " keyword not found for "
-                    + StringStorage.DEADLINE_INSTRUCTION_PREFIX);
+                    + StringStorage.PREFIX_DEADLINE_INSTRUCTION);
         }
     }
     /**
@@ -147,14 +147,14 @@ public class ExceptionHandler {
     public static void checkIfEventKeywordsPresent(int fromOrdinal, int toOrdinal) throws YapperException {
         if (fromOrdinal == -1) {
             throw new YapperException(
-                    StringStorage.EVENT_START_DATE_DELIMITER
+                    StringStorage.DELIMITER_EVENT_START_DATE
                     + " keyword not found for "
-                            + StringStorage.EVENT_INSTRUCTION_PREFIX);
+                            + StringStorage.PREFIX_EVENT_INSTRUCTION);
         } else if (toOrdinal == -1) {
             throw new YapperException(
-                    StringStorage.EVENT_END_DATE_DELIMITER
+                    StringStorage.DELIMITER_EVENT_END_DATE
                     + " keyword not found for "
-                            + StringStorage.EVENT_INSTRUCTION_PREFIX);
+                            + StringStorage.PREFIX_EVENT_INSTRUCTION);
         }
     }
 
@@ -168,9 +168,9 @@ public class ExceptionHandler {
      * @throws YapperException if the task type is invalid
      */
     public static void checkIfTaskTypeValid(String taskType) throws YapperException {
-        if (!taskType.equals(StringStorage.TODO_SYMBOL)
-                && !taskType.equals(StringStorage.DEADLINE_SYMBOL)
-                && !taskType.equals(StringStorage.EVENT_SYMBOL)) {
+        if (!taskType.equals(StringStorage.SYMBOL_TODO)
+                && !taskType.equals(StringStorage.SYMBOL_DEADLINE)
+                && !taskType.equals(StringStorage.SYMBOL_EVENT)) {
             throw new YapperException(StringStorage.INVALID_TASK_TYPE_MESSAGE);
         }
     }
@@ -181,8 +181,8 @@ public class ExceptionHandler {
      * @throws YapperException if the task status is invalid
      */
     public static void checkIfTaskStatusValid(String taskStatus) throws YapperException {
-        if (!taskStatus.equals(StringStorage.IS_DONE_SYMBOL)
-                && !taskStatus.equals(StringStorage.NOT_DONE_SYMBOL)) {
+        if (!taskStatus.equals(StringStorage.SYMBOL_IS_DONE)
+                && !taskStatus.equals(StringStorage.SYMBOL_NOT_DONE)) {
             throw new YapperException(StringStorage.INVALID_TASK_STATUS_MESSAGE);
         }
     }

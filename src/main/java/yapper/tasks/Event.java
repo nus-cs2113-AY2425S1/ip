@@ -145,7 +145,7 @@ public class Event extends Task {
                 DateAndTimeHandler.DATE_WITHOUT_TIME_TO_DISPLAY,
                 DateAndTimeHandler.DATE_WITH_TIME_TO_DISPLAY);
 
-        return "[" + StringStorage.EVENT_SYMBOL + "]"
+        return "[" + StringStorage.SYMBOL_EVENT + "]"
                 + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
 
@@ -168,7 +168,7 @@ public class Event extends Task {
                 DateAndTimeHandler.DATE_WITHOUT_TIME_TO_STRING,
                 DateAndTimeHandler.DATE_WITH_TIME_TO_STRING);
 
-        return StringStorage.EVENT_SYMBOL + " "
+        return StringStorage.SYMBOL_EVENT + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + super.taskToString() + " "
                 + StringStorage.COMBINE_USING_DELIMITER + " "
