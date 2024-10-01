@@ -207,16 +207,37 @@ ______________________________
 
 ## Load task
 
-// Describe the action and its outcome.
+Allow users to automatically restore tasks which was saved prior to exiting
+the chatbot, outputs the stored list of task after re-entering the chatbot
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+### No input needed
 
 ```
-expected output
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+______________________________
+bye
+______________________________
+Bye. Hope to see you again soon!
+______________________________
+
+Hello! I'm Echo
+What can I do for you?
+
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
 ```
 
 ## Save task
