@@ -1,21 +1,15 @@
 package hsien;
 
-import hsien.task.*;
 import hsien.exception.*;
 import hsien.ui.*;
 import hsien.storage.*;
 import hsien.parser.*;
 import hsien.tasklist.*;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.util.regex.*;
+
+
 
 public class Hsien {
 
@@ -36,7 +30,10 @@ public class Hsien {
             ui.printCommands(validCommands);
             String input = ui.readCommand();
 
-            parser.processCommand(input);
+            if (!parser.processCommand(input)) {
+                ui.printLine();
+                continue;
+            }
 
             try {
                 if (!validCommands.contains(parser.getCommand())) {
@@ -74,9 +71,12 @@ public class Hsien {
             case "find":
                 taskList.findTask(parser.getDesc());
                 break;
+            case "save":
+                storage.writeFile(taskList.getTasks());
+                break;
             default:
                 try {
-                    taskList.addTask(parser.getCommand(), parser.getDesc());
+                    taskList.addTask(parser.getCommand(), parser.getDesc(), parser.getFromDate(), parser.getToDate(), parser.getByDate());
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter in a proper format");
                 }

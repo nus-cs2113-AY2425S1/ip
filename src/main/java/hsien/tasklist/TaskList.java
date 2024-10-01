@@ -1,7 +1,6 @@
 package hsien.tasklist;
 
 import hsien.task.Task;
-import hsien.exception.HsienException;
 import hsien.task.Deadline;
 import hsien.task.Event;
 import hsien.task.Todo;
@@ -32,31 +31,15 @@ public class TaskList {
         }
     }
 
-    public void addTask(String command, String desc) {
-        try {
-            if (desc.isEmpty()) {
-                throw new HsienException();
-            }
-        } catch (HsienException e) {
-            System.out.println("Description cannot be left empty");
-            return;
-        }
-
+    public void addTask(String command, String desc, String fromDate, String toDate, String byDate) {
         Task newTask = null;
-        String tempDesc;
 
         if (command.equals("todo")) {
             newTask = new Todo(desc);
         } else if (command.equals("deadline")) {
-            tempDesc = desc.split("/by")[0].trim();
-            String byDate = desc.split("/by")[1].trim();
-            newTask = new Deadline(tempDesc, byDate);
+            newTask = new Deadline(desc, byDate);
         } else {
-            tempDesc = desc.split("/from")[0].trim();
-            String[] dates = desc.split("/from")[1].split("/to");
-            String fromDate = dates[0].trim();
-            String toDate = dates[1].trim();
-            newTask = new Event(tempDesc, fromDate, toDate);
+            newTask = new Event(desc, fromDate, toDate);
         }
 
         tasks.add(newTask);
