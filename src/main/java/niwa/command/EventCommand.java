@@ -12,51 +12,58 @@ import niwa.data.task.TaskList;
 
 import java.util.ArrayList;
 
-public class EventCommand extends Command{
+/**
+ * The {@code EventCommand} class handles the addition of event tasks.
+ */
+public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
-    public static final String COMMAND_GUIDE = "event [task description] " +
-            "/from [yyyy-mm-dd] (optional)[HHmm] /to [yyyy-mm-dd] (optional)[HHmm]: "
+    public static final String COMMAND_GUIDE = "event [task description] "
+            + "/from [yyyy-mm-dd] (optional)[HHmm] /to [yyyy-mm-dd] (optional)[HHmm]: "
             + "Add a new event to our list.";
     public static final String[] COMMAND_KEYWORDS = {"", "/from", "/to"};
 
-    public boolean isValidArguments() {
-        if (arguments.size() != COMMAND_KEYWORDS.length) {
-            return false;
-        }
-        for (String keyword: COMMAND_KEYWORDS) {
-            if (!arguments.containsKey(keyword)) {
-                return false;
-            }
-        }
-        return true;
-    }
     /**
-     * Adds a new event to the task list.
+     * Checks if the provided arguments are valid.
      *
+     * @return true if valid; false otherwise.
+     */
+    public boolean isValidArguments() {
+        return arguments.size() == COMMAND_KEYWORDS.length &&
+                arguments.containsKey(COMMAND_KEYWORDS[0]) &&
+                arguments.containsKey(COMMAND_KEYWORDS[1]) &&
+                arguments.containsKey(COMMAND_KEYWORDS[2]);
+    }
+
+    /**
+     * Adds a new event task to the task list.
+     *
+     * @return A {@code CommandResult} containing the result of the addition.
+     * @throws NiwaInvalidArgumentException If the arguments are invalid.
      */
     @Override
-    public CommandResult execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException {
         if (!isValidArguments()) {
-            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE); // Invalid arguments
         }
 
-        String description = arguments.get(COMMAND_KEYWORDS[0]);
-        String fromDay = arguments.get(COMMAND_KEYWORDS[1]);
-        String toDay = arguments.get(COMMAND_KEYWORDS[2]);
+        String description = arguments.get(COMMAND_KEYWORDS[0]); // Task description
+        String fromDay = arguments.get(COMMAND_KEYWORDS[1]); // Start date
+        String toDay = arguments.get(COMMAND_KEYWORDS[2]); // End date
 
-        ArrayList<String> messages = new ArrayList<>();
+        ArrayList<String> messages = new ArrayList<>(); // Messages for command execution
 
         try {
-            Task temp = new Event(description, fromDay,toDay);
-            TaskList.getInstance().addTask(temp);
+            Task temp = new Event(description, fromDay, toDay); // Create new event task
+            TaskList.getInstance().addTask(temp); // Add task to list
 
+            // Add success messages
             messages.add(String.format(NiwaMesssages.MESSAGE_ADD_SUCCESS, temp.getType()));
             messages.add("\t" + temp.getFullInfo());
             messages.add(String.format(NiwaMesssages.MESSAGE_LIST_SIZE_INFORM,
-                    TaskList.getInstance().getTaskListSize()));
+                    TaskList.getInstance().getTaskListSize())); // Show remaining tasks
 
-            messages.add(autoSaveTasks());
+            messages.add(autoSaveTasks()); // Auto-save tasks
 
         } catch (NiwaDuplicateTaskException | NiwaException e) {
             messages.add(String.format(NiwaMesssages.MESSAGE_ADD_FAILED, e.getMessage()));

@@ -1,5 +1,9 @@
 package niwa.messages;
 
+/**
+ * The class {@code NiwaMesssages} contains static final strings used throughout the {@code Niwa} chatbot.
+ * These messages provide feedback to the user regarding the result of the commands.
+ */
 public class NiwaMesssages {
     public static final String MESSAGE_SAVE_COMPLETE = "Data saved! Here's the path: %s.";
     public static final String MESSAGE_SAVE_FAILED = "Failed to save your data: %s.";
