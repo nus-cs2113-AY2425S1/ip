@@ -13,4 +13,11 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
+    public static void printWelcomeScreen() {
+        System.out.println(SEPARATOR);
+        System.out.println("Hiya! (✿◠‿◠) I'm lovespiritual, ready to help!");
+        System.out.println("How can I assist? (•‿•) I'm all ears!");
+        System.out.println(SEPARATOR);
+    }
+
 }
