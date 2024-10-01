@@ -5,50 +5,59 @@ import niwa.exception.NiwaInvalidArgumentException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code HelpCommand} class provides a guide to available commands.
+ */
 public class HelpCommand extends Command {
+
     public static final String COMMAND_WORD = "help";
     public static final String COMMAND_GUIDE = "help: Print this guide.";
     public static final String[] COMMAND_KEYWORDS = {};
 
-    protected List<Command> commands;
+    protected List<Command> commands; // List of available commands
 
+    /**
+     * Sets the list of commands for the help guide.
+     *
+     * @param commands List of available commands.
+     */
     public void setCommands(List<Command> commands) {
         this.commands = commands;
     }
 
+    /**
+     * Checks if the provided arguments are valid.
+     *
+     * @return true if valid; false otherwise.
+     */
     public boolean isValidArguments() {
-        if (arguments.size() != COMMAND_KEYWORDS.length) {
-            return false;
-        }
-        for (String keyword: COMMAND_KEYWORDS) {
-            if (!arguments.containsKey(keyword)) {
-                return false;
-            }
-        }
-        return true;
+        return arguments.size() == COMMAND_KEYWORDS.length; // Validate argument count
     }
 
     /**
-     * Print a user guide.
+     * Prints a user guide with available commands.
      *
+     * @return A {@code CommandResult} containing the user guide messages.
+     * @throws NiwaInvalidArgumentException If the arguments are invalid.
      */
     @Override
-    public CommandResult execute() throws NiwaInvalidArgumentException{
+    public CommandResult execute() throws NiwaInvalidArgumentException {
         if (!isValidArguments()) {
-            throw new NiwaInvalidArgumentException(COMMAND_GUIDE);
+            throw new NiwaInvalidArgumentException(COMMAND_GUIDE); // Invalid arguments
         }
 
-        ArrayList<String> messages = new ArrayList<>();
+        ArrayList<String> messages = new ArrayList<>(); // Messages for command execution
 
         for (Command command : commands) {
             try {
+                // Get the command guide message using reflection
                 String guide = (String) command.getClass().getField("COMMAND_GUIDE").get(null);
-                messages.add(guide);
+                messages.add(guide); // Add the guide message to the list
             } catch (IllegalAccessException | NoSuchFieldException e) {
                 messages.add("Invalid command: " + e.getMessage());
             }
         }
+
         return new CommandResult(messages);
     }
-
 }

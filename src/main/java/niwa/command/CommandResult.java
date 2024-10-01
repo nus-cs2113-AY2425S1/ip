@@ -5,39 +5,55 @@ import niwa.data.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Represents the result of a command execution.
+ * The {@code CommandResult} class represents the result of a command execution.
  */
 public class CommandResult {
 
-    /** The feedback message to be shown to the user. Contains a description of the execution result */
+    /** The feedback message to be shown to the user. Contains a description of the execution result. */
     public final List<String> feedbackToUser;
 
-    /** The list of persons that was produced by the command */
+    /** The list of tasks that were produced by the command. */
     private final List<Task> relevantTasks;
 
+    /**
+     * Constructs a CommandResult with feedback to the user.
+     *
+     * @param feedbackToUser The feedback message to show the user.
+     */
     public CommandResult(List<String> feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
-        relevantTasks = null;
-    }
-
-    public CommandResult(String feedback) {
-        feedbackToUser = new ArrayList<>();
-        feedbackToUser.add(feedback);
-        relevantTasks = null;
-    }
-
-    public CommandResult(List<String> feedbackToUser, List<Task> relevantTasks) {
-        this.feedbackToUser = feedbackToUser;
-        this.relevantTasks = relevantTasks;
+        this.relevantTasks = null;
     }
 
     /**
-     * Returns a list of persons that was produced by the command, if any.
+     * Constructs a CommandResult with a single feedback message.
+     *
+     * @param feedback The feedback message to show the user.
+     */
+    public CommandResult(String feedback) {
+        this.feedbackToUser = new ArrayList<>();
+        this.feedbackToUser.add(feedback);
+        this.relevantTasks = null;
+    }
+
+    /**
+     * Constructs a CommandResult with feedback and relevant tasks.
+     *
+     * @param feedbackToUser The feedback message to show the user.
+     * @param relevantTasks The list of tasks that were produced by the command.
+     */
+    public CommandResult(List<String> feedbackToUser, List<Task> relevantTasks) {
+        this.feedbackToUser = feedbackToUser;
+        this.relevantTasks = relevantTasks; // Store relevant tasks
+    }
+
+    /**
+     * Returns a list of tasks that were produced by the command, if any.
+     *
+     * @return A list of relevant tasks.
      */
     public List<Task> getRelevantTasks() {
         return relevantTasks;
     }
-
 }
