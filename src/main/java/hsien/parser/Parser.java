@@ -3,6 +3,7 @@ package hsien.parser;
 import hsien.exception.HsienException;
 import hsien.datetime.DateTime;
 
+
 import java.util.Arrays;
 
 public class Parser {
@@ -12,6 +13,7 @@ public class Parser {
     private String toDate;
     private String byDate;
     DateTime datetime = new DateTime();
+
 
     public Parser() {
         this.desc = "";
@@ -80,6 +82,12 @@ public class Parser {
             }
         }
         return true;
+    }
+
+    public void processCommand(String input) {
+        String[] parts = input.split(" ");
+        this.desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        this.command = parts[0];
     }
 
     public String getDesc() {

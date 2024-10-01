@@ -14,6 +14,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
     DateTime datetime = new DateTime();
 
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -24,6 +25,7 @@ public class TaskList {
 
     public void addTask(String command, String desc, String fromDate, String toDate, String byDate) {
         Task newTask = null;
+
 
         if (command.equals("todo")) {
             newTask = new Todo(desc);

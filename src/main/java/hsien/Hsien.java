@@ -10,7 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
 public class Hsien {
+
+
 
     public static void main(String[] args) {
         // Initialise variables
@@ -19,6 +22,7 @@ public class Hsien {
         Parser parser = new Parser();
         TaskList taskList = new TaskList();
         List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event", "save");
+
         boolean isRunning = true;
 
         ui.welcomeMessage();
