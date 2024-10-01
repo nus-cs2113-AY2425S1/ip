@@ -13,12 +13,9 @@ public class Wildpeace {
             "                     |_|                        ";
 
     public static void main(String[] args) throws EmptyCommandException {
-
-        String logo = LOGO;
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
         Scanner scanner = new Scanner(System.in);
 
         Initializer.initialise(scanner);
     }
 }
-// Dummy Commit to test Merging of different branches, to be deleted

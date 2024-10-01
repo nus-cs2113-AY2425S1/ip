@@ -1,15 +1,16 @@
 package initializer;
+
 import wildpeace.exceptions.EmptyCommandException;
+import wildpeace.task.TaskManager;
 import wildpeace.task.Echo;
 
 import java.util.Scanner;
 
 import static java.lang.System.exit;
-import static wildpeace.task.DataStorage.storeData;
 
 public class Initializer {
     public static void initialise(Scanner scanner) throws EmptyCommandException {
-        System.out.println("What can I do for you, enter '1' for echo, '2' for storing your plan, '0' to exit");
+        System.out.println("What can I do for you? Enter '1' for echo, '2' for storing your plan, '0' to exit.");
         Scanner initialInputScanner = new Scanner(System.in);
         String initialInput = initialInputScanner.nextLine();
         switch (initialInput) {
@@ -19,13 +20,13 @@ public class Initializer {
             Echo.echo(scanner);
             break;
         case "2":
-            storeData(scanner);
+            TaskManager taskManager = new TaskManager();  // Renamed DataStorage to TaskManager
+            taskManager.run();  // Call run method instead of storeData
             break;
-            default:
+        default:
             System.out.println("Invalid input");
             initialise(scanner);
             break;
-
         }
     }
 }
