@@ -19,6 +19,8 @@ public class lovespiritual {
         Scanner in = new Scanner(System.in);
         int taskCount = 0;
         UI ui = new UI();
+        TaskList taskList = new TaskList();
+        Storage storage = new Storage("./data/lovespiritual.txt");
 
         loadTasks();
         ui.printWelcomeScreen();
