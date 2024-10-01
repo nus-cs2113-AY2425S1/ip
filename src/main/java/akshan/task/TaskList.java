@@ -31,7 +31,7 @@ public class TaskList {
         }
         System.out.println("Here are the tasks in your list:");
         IntStream.range(0, list.size())
-                .forEach(x -> System.out.println( (x + 1) + "." + list.get(x)));
+                .forEach(x -> System.out.println( "  " + (x + 1) + "." + list.get(x)));
     }
 
     /**
