@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +44,7 @@ public class Storage {
             for (Task task: tasks) {
                 fw.write(task.getStatusDescription() + "\n");
             }
+            System.out.println("Tasks saved successfully!");
             fw.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
