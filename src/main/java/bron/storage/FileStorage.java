@@ -1,41 +1,41 @@
 package bron.storage;
 
 import bron.task.Task;
-import java.io.*;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class TaskStorage {
+public class FileStorage {
+    private static final String FILE_PATH = "./storage/data.txt";
 
-    private static final String FILE_PATH = "./data/tasks.txt";
-
-    // Saves the tasks to the file
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs(); // Create directories if they don't exist
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Task task : tasks) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
-            }
-        }
+    public FileStorage() {
     }
 
-    // Loads tasks from the file
-    public static ArrayList<Task> loadTasks() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
-
-        if (!file.exists()) {
-            return tasks; // Return an empty list if the file doesn't exist
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromFileFormat(line);
-                tasks.add(task);
+    public void save(ArrayList<Task> tasks) {
+        Path directoryPath = Paths.get("./storage");
+        try {
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);  // Create the storage directory if it doesn't exist
             }
+        } catch (IOException e) {
+            System.out.println("Failed to create directory for saving tasks.");
+            e.printStackTrace();
+            return; // Exit if directory creation fails
         }
-        return tasks;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+
+            for (Task task : tasks) {
+                writer.write(task.toSaveFormat() + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
     }
 }

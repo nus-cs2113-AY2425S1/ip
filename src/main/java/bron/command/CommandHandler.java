@@ -5,14 +5,18 @@ import bron.task.Deadline;
 import bron.task.Event;
 import bron.task.Task;
 import bron.task.ToDo;
+import bron.storage.FileStorage;
 
 import java.util.ArrayList;
 
 public class CommandHandler {
     private ArrayList<Task> tasks;
+    private FileStorage storage;  // Add FileStorage object
 
     public CommandHandler(ArrayList<Task> tasks, int taskCount) {
         this.tasks = tasks;
+        this.storage = new FileStorage();
+
     }
 
     public void handleCommand(Command command, String line) {
@@ -26,21 +30,27 @@ public class CommandHandler {
                 break;
             case MARK:
                 handleMark(parseIndex(line));
+                storage.save(tasks);
                 break;
             case DELETE:
                 deleteTask(parseIndex(line));
+                storage.save(tasks);
                 break;
             case UNMARK:
                 handleUnmark(parseIndex(line));
+                storage.save(tasks);
                 break;
             case TODO:
                 handleTodo(line);
+                storage.save(tasks);
                 break;
             case DEADLINE:
                 handleDeadline(line);
+                storage.save(tasks);
                 break;
             case EVENT:
                 handleEvent(line);
+                storage.save(tasks);
                 break;
             default:
                 throw new InvalidCommandException();
