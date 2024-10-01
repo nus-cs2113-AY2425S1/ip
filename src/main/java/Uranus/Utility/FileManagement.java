@@ -39,7 +39,7 @@ public abstract class FileManagement extends Functions{
 
         try (Scanner s = new Scanner(f)) {
             while (s.hasNext()) {
-                Functions.processCommand(s.nextLine());
+                Parser.processCommand(s.nextLine());
             }
         } catch (FileNotFoundException e) {
             Ui.print("Error loading tasks: " + e.getMessage(), "Backup task.txt file added");

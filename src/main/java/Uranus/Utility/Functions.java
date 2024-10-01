@@ -16,35 +16,8 @@ public abstract class Functions {
         FileManagement.load();
         while (true) {
             String input = in.nextLine();
-            processCommand(input);
+            Parser.processCommand(input);
             FileManagement.saveFile();
-        }
-    }
-
-    protected static void processCommand(String input) {
-        if (input.startsWith("mark") || input.startsWith("unmark")) {
-            TaskList.handleMarking(input);
-        } else if (input.startsWith("delete")) {
-            TaskList.handleDelete(input);
-        } else {
-            switch (input) {
-            case "bye":
-                Ui.printByeMessage();
-                System.exit(0);
-                // Fallthrough
-
-            case "list":
-                TaskList.listTasks();
-                break;
-
-            case "echo":
-                Ui.echo();
-                break;
-
-            default:
-                TaskList.addTask(input);
-                break;
-            }
         }
     }
 }
