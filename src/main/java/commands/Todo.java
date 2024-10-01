@@ -10,11 +10,12 @@ public class Todo extends Task {
         return ("[T]" + super.getStatusIcon());
     }
 
-    public String createTodoList() {
+    @Override
+    public String createTaskList() {
         return (getStatusIcon()+ " " +  description);
     }
 
     public String createTodoTxt() {
-        return ("[T] | " + super.getStatus() + " | " + description);
+        return ("T | " + super.getStatus() + " | " + description);
     }
 }
