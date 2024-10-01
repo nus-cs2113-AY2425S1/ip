@@ -10,6 +10,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean contains(String argument) {
+        return this.description.contains(argument);
+    }
+
     private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

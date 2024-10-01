@@ -5,8 +5,9 @@ import jeremy.exception.TaskNotFoundException;
 import jeremy.task.Task;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
     private final Ui ui;
 
@@ -20,6 +21,11 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
+    }
+
     public int getSize() {
         return this.tasks.size();
     }
@@ -31,7 +37,7 @@ public class TaskList {
     public void printList() {
         ui.lineBreak();
         for (Task task : tasks) {
-            ui.println((tasks.indexOf(task) + 1) + ". " + task.toString());
+            ui.println((tasks.indexOf(task) + 1) + ". " + task);
         }
         ui.lineBreak();
     }
