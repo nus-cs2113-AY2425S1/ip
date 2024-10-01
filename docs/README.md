@@ -38,7 +38,7 @@ You can download the latest version of Hsien as a JAR file from the following li
 4. This page will be shown if the previous command was run successfully
 
 
-   ```
+   ```bash
    --------------------------------------------------
     _   _         _____        _ _   _
    | | | | ##### |_   _|##### |   \ | |
