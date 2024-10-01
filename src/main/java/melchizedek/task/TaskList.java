@@ -50,7 +50,7 @@ public class TaskList {
     }
 
     public void addTodo(String[] tokens) {
-        String description = String.join(" ", tokens);
+        String description = Parser.joinStringArray(tokens, " ");
 
         allTasks.add(new Todo(description));
         int taskCount = getTaskCount();
@@ -131,6 +131,19 @@ public class TaskList {
 
         Ui.printDeletedTask(taskString);
         Ui.printNumberOfTasks(allTasks.size());
+    }
+
+    public void findKeyword(String[] tokens) {
+        String keyword = Parser.joinStringArray(tokens, " ");
+        ArrayList<String> filteredTaskList = new ArrayList<>();
+
+        for (Task task : allTasks) {
+            if (task.containsKeyword(keyword)) {
+                filteredTaskList.add(task.toString());
+            }
+        }
+
+        Ui.printFilteredTaskList(filteredTaskList);
     }
 
     public void loadTodo(String[] tokens) {
