@@ -30,7 +30,10 @@ public class Parser {
             count = taskList.addEvent(count, input);
         } else if (command.equals(Utils.DELETE)) {
             count = taskList.deleteItem(count, splitInputs);
-        } else {
+        } else if (command.equals(Utils.FIND)){
+            taskList.findItem(input);
+        }
+            else {
             throw new IllegalCommandException("Please enter a valid command");
         }
         return count;

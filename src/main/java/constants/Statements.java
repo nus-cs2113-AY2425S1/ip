@@ -7,5 +7,7 @@ public class Statements {
     public static final String CONFIRM_EVENT = "Got it. I've added this event:";
     public static final String CONFIRM_MARK = "Nice! I've marked this task as done:";
     public static final String CONFIRM_UNMARK = "OK, I've marked this task as not done yet:";
+    public static final String LIST_FIND_TASK = "Here are the matching tasks in your list:";
+    public static final String NO_TASK_FOUND = "Oopsies! No tasks found";
 
 }

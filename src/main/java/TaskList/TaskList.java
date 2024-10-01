@@ -4,6 +4,7 @@ import commands.Deadline;
 import commands.Event;
 import commands.Task;
 import commands.Todo;
+import constants.Statements;
 import constants.Warnings;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalIndexException;
@@ -13,9 +14,11 @@ import java.util.ArrayList;
 import Ui.Ui;
 import Storage.Storage;
 import Parser.Parser;
+import java.util.regex.*;
 
 
 public class TaskList {
+
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -51,7 +54,7 @@ public class TaskList {
         Todo todo = new Todo(task);
         tasks.add(todo);
 
-        Ui.printTodoMessage(count, todo.createTodoList());
+        Ui.printTodoMessage(count, todo.createTaskList());
 
         Storage.saveNewData(todo.createTodoTxt());
         return count + 1;
@@ -71,7 +74,7 @@ public class TaskList {
         Deadline deadline = new Deadline(deadlineDescription, by);
         tasks.add(deadline);
 
-        Ui.printDeadlineMessage(count, deadline.createDeadlineList());
+        Ui.printDeadlineMessage(count, deadline.createTaskList());
 
         Storage.saveNewData(deadline.createDeadlineTxt());
         return count + 1;
@@ -93,7 +96,7 @@ public class TaskList {
         Event event = new Event(eventDescription, start, end);
         tasks.add(event);
 
-        Ui.printEventMessage(count, event.createEventList());
+        Ui.printEventMessage(count, event.createTaskList());
 
         Storage.saveNewData(event.createEventTxt());
         return count + 1;
@@ -112,5 +115,29 @@ public class TaskList {
 
         Ui.printDeleteMessage(deleteItem);
         return count - 1;
+    }
+
+    public void findItem(String input){
+        Ui.printLine();
+        System.out.println(Statements.LIST_FIND_TASK);
+
+        String regex = input.split(" ",2)[1].trim();
+
+        Pattern pattern = Pattern.compile(regex);
+        int listCount = 0;
+
+        for (Task task : tasks) {
+            Matcher matcher = pattern.matcher(task.getDescription());
+            if (matcher.find()) {
+                listCount++;
+                System.out.println(listCount + task.createTaskList());
+            }
+        }
+
+        if (listCount == 0){
+            System.out.println(Statements.NO_TASK_FOUND);
+        }
+
+        Ui.printLine();
     }
 }
