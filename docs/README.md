@@ -208,7 +208,8 @@ ______________________________
 ## Load task
 
 Allow users to automatically restore tasks which was saved prior to exiting
-the chatbot, outputs the stored list of task after re-entering the chatbot
+the chatbot in a `.txt` file, outputs the stored list of task after
+re-entering the chatbot
 
 ### No input needed
 
@@ -242,14 +243,26 @@ ______________________________
 
 ## Save task
 
-// Describe the action and its outcome.
+Allow users to automatically save tasks right before exiting the chatbot and
+outputs the stored list of task in a `.txt` file
 
-// Give examples of usage
+### No input needed
 
-Example: `keyword (optional arguments)`
+From CLI:
+```
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
 
-// A description of the expected outcome goes here
+______________________________
 
 ```
-expected output
+
+From `.txt` file:
+```
+T | 1 | Joe
+E | 0 | lecture (from: 4pm to: 6pm)
+D | 0 | return book (by: Dec 02 2019)
 ```
