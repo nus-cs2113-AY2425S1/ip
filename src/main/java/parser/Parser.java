@@ -40,6 +40,8 @@ public class Parser {
             return new MarkCommand(userInput);
         } else if (Objects.equals(first, "find")) {
             return new FindCommand(userInput);
+        } else if (Objects.equals(first, "delete")) {
+            return new DeleteCommand(userInput);
         }
 
         return new InvalidCommand();

@@ -48,7 +48,7 @@ public class DeleteCommand extends Command {
                            + "\t\t" + temp + "\n"
                            + "\tNow you have " + tasks.size() + " tasks in the list.";
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new XiaoMeException("""
                     \tHEY delete should be followed by a valid integer""");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
