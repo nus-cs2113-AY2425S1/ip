@@ -34,19 +34,6 @@ public class Ui {
         printLine();
     }
 
-    public void printList(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            System.out.println("List is currently empty. Please add a task!");
-            return;
-        }
-        int counter = 1;
-        System.out.println("Here are the tasks in your list!");
-        for (Task t : tasks) {
-            System.out.printf("%s. %s%n", counter, t.getStatusDescription());
-            counter += 1;
-        }
-    }
-
     public void printCommands(List<String> validCommands) {
         System.out.println("These are the possible commands:");
         for (int i=1; i<= validCommands.size(); i+=1) {

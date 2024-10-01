@@ -13,16 +13,13 @@ import java.util.List;
 
 public class Hsien {
 
-
-
     public static void main(String[] args) {
         // Initialise variables
         Ui ui = new Ui();
         Storage storage = new Storage("tasks.txt");
         Parser parser = new Parser();
         TaskList taskList = new TaskList();
-        List<String> validCommands = Arrays.asList("bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event", "save");
-
+        List<String> validCommands = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "delete", "find","bye");
         boolean isRunning = true;
 
         ui.welcomeMessage();
@@ -54,7 +51,7 @@ public class Hsien {
                 isRunning = false;
                 break;
             case "list":
-                ui.printList(taskList.getTasks());
+                taskList.printList(taskList.getTasks());
                 break;
             case "mark":
             case "unmark":
@@ -71,6 +68,9 @@ public class Hsien {
                     System.out.println("Invalid number format");
                 }
                 break;
+            case "find":
+                taskList.findTask(parser.getDesc());
+                break;
             case "save":
                 storage.writeFile(taskList.getTasks());
                 break;
@@ -78,7 +78,7 @@ public class Hsien {
                 try {
                     taskList.addTask(parser.getCommand(), parser.getDesc(), parser.getFromDate(), parser.getToDate(), parser.getByDate());
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter in a proper format: " + e.getMessage());
+                    System.out.println("Please enter in a proper format");
                 }
                 break;
             }
