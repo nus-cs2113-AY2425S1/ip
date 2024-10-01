@@ -1,0 +1,2 @@
+T | 0 | sleep
+E | 0 | go to school | monday | tuesday
