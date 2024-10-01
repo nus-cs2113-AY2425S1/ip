@@ -134,12 +134,12 @@ public class TaskList {
 
     public void saveTaskToFile() {
         System.out.println("--------------------------------------------");
-        SaveTaskList.saveTasks(this.taskList);
+        Storage.saveTasks(this.taskList);
         System.out.println("--------------------------------------------");
     }
 
     public void loadTaskFromFile() {
-        List<String> list = SaveTaskList.loadTasks();
+        List<String> list = Storage.loadTasks();
         for (int i = 0; i < Objects.requireNonNull(list).size(); i++) {
             parseTask(list.get(i));
         }
