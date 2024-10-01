@@ -23,4 +23,8 @@ public class Messages {
     public static final String NO_SEARCH_RESULTS_MESSAGE = "No tasks match your search, pal!" +
             "\nMaybe you've finished the task you're searching for, or it hasn't been added!";
     public static final String SEARCH_RESULTS_MESSAGE = "These tasks match your search, pal!";
+    public static final String NO_CHECK_RESULTS_MESSAGE = "No existing deadlines are due before or" +
+            " on your specified date.\nFast game! ;)";
+    public static final String CHECK_RESULTS_MESSAGE = "Here are the existing deadlines due" +
+            " before or on your specified date!";
 }

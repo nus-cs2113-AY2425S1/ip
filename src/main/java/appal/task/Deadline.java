@@ -28,6 +28,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the deadline date in LocalDate format yyyy-mm-dd.
+     *
+     * @return Deadline date in LocalDate type.
+     */
+    public LocalDate getBy() {
+        return by;
+    }
+
+    /**
      * Returns a string of the deadline date in the format MMM d yyyy.
      *
      * @return String representation of the deadline date in the format MMM d yyyy.
