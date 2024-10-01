@@ -3,6 +3,8 @@ package melchizedek;
 import melchizedek.exceptions.DescriptionNotPresentException;
 import melchizedek.exceptions.InvalidTaskNumberException;
 import melchizedek.task.TaskList;
+import melchizedek.Ui;
+import melchizedek.Storage;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -11,55 +13,26 @@ import java.util.Scanner;
 public class Melchizedek {
 
     public static TaskList taskList = new TaskList();
-    public static final String SEPARATOR = "\t____________________________________________________________";
 
-
-    public static void printSeparator() {
-        System.out.println(SEPARATOR);
-    }
-
-    private static void sayHelloToUser() {
-        printSeparator();
-        System.out.println("\tHello! I'm Melchizedek.");
-        System.out.println("\tHow can I be a blessing to you?");
-        printSeparator();
-    }
-
-    private static void sayByeToUser() {
-        System.out.println("\tGoodbye. Hope to see you again soon! May peace be upon you.");
-        printSeparator();
-    }
-
-    private static void listCommands() {
-        System.out.println("\tHere is the list of commands:");
-        System.out.println("\t  to add a todo: todo DESCRIPTION");
-        System.out.println("\t  to add a deadline: deadline DESCRIPTION /by BY");
-        System.out.println("\t  to add an event: event DESCRIPTION /from FROM /to TO");
-        System.out.println("\t  to delete a task: delete TASK_NUMBER");
-        System.out.println("\t  to mark a task as done: mark TASK_NUMBER");
-        System.out.println("\t  to unmark a task as done: unmark TASK_NUMBER");
-        System.out.println("\t  to display all tasks on the list: list");
-        System.out.println("\t  to exit: bye");
-    }
 
     public static void main(String[] args) {
-        sayHelloToUser();
-        FileHandling.loadFile(taskList);
+        melchizedek.Ui.sayHelloToUser();
+        melchizedek.Storage.loadFile(taskList);
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
             String[] tokens = input.split(" ");
 
-            printSeparator();
+            Ui.printSeparator();
 
             switch (tokens[0].toLowerCase()) {
             case "bye":
-                FileHandling.writeToFile(taskList);
-                sayByeToUser();
+                Storage.writeToFile(taskList);
+                Ui.sayByeToUser();
                 return;
 
             case "help":
-                listCommands();
+                Ui.listCommands();
                 break;
 
             case "list":
@@ -144,7 +117,7 @@ public class Melchizedek {
                 break;
             }
 
-            printSeparator();
+            Ui.printSeparator();
         }
     }
 }

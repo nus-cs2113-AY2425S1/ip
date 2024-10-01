@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class FileHandling {
+public class Storage {
 
     public static final String FILE_DIRECTORY = "./data";
     public static final String FILE_PATH = "./data/Melchizedek.txt";
