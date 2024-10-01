@@ -5,9 +5,14 @@ import niwa.exception.NiwaTaskIndexOutOfBoundException;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code TaskList} class represents a list of tasks.
+ * It provides methods to add, delete, find, and manage tasks.
+ * This class follows the Singleton design pattern to ensure only one instance exists throughout the application.
+ */
 public class TaskList {
-    private static TaskList instance;
-    private ArrayList<Task> tasks;
+    private static TaskList instance; // Singleton instance
+    private ArrayList<Task> tasks; // List to hold tasks
 
     // Private constructor to prevent instantiation
     private TaskList() {
@@ -15,13 +20,13 @@ public class TaskList {
     }
 
     /**
-     * Returns the singleton instance of TaskList.
+     * Returns the singleton instance of {@code TaskList}.
      *
-     * @return the TaskList instance
+     * @return The singleton {@code TaskList} instance.
      */
     public static synchronized TaskList getInstance() {
         if (instance == null) {
-            instance = new TaskList();
+            instance = new TaskList(); // Create a new instance if none exists
         }
         return instance;
     }
@@ -29,26 +34,25 @@ public class TaskList {
     /**
      * Returns the list of tasks.
      *
-     * @return the list of tasks
+     * @return The list of tasks.
      */
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
 
     /**
-     * Sets the tasks in the list of tasks.
+     * Sets the tasks in the task list.
      *
-     * @param tasks the input list of tasks
+     * @param tasks The input list of tasks to set.
      */
     public void setTaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-
     /**
      * Returns the size of the list of tasks.
      *
-     * @return the size of the list of tasks
+     * @return The size of the list of tasks as an int.
      */
     public int getTaskListSize() {
         return tasks.size();
@@ -57,9 +61,8 @@ public class TaskList {
     /**
      * Adds a task to the task list.
      *
-     * @param task the task to add
-     * @throws NiwaDuplicateTaskException if the current list
-     *         contains the task
+     * @param task The task to add.
+     * @throws NiwaDuplicateTaskException If the current list contains the task.
      */
     public void addTask(Task task) throws NiwaDuplicateTaskException {
         if (isContainingDuplicate(task)) {
@@ -71,20 +74,18 @@ public class TaskList {
     /**
      * Deletes a task from the task list by index.
      *
-     * @param index the index of the task to delete
-     * @return the deleted task
-     * @throws NiwaTaskIndexOutOfBoundException if the index is
-     *         less than 0 or greater than or equal to the size of the task list
+     * @param index The index of the task to delete.
+     * @return The deleted task.
+     * @throws NiwaTaskIndexOutOfBoundException If the index is out of bound.
      */
     public Task deleteTask(int index) throws NiwaTaskIndexOutOfBoundException {
         Task temp = findTask(index);
         tasks.remove(index);
-        return temp;
+        return temp; // Return the deleted task
     }
 
     /**
      * Clears the content of the task list.
-     *
      */
     public void clearTaskList() {
         tasks.clear();
@@ -93,10 +94,9 @@ public class TaskList {
     /**
      * Finds a task in the task list by index.
      *
-     * @param index the index of the task to find
-     * @return task if found
-     * @throws NiwaTaskIndexOutOfBoundException if the index is
-     *         less than 0 or greater than or equal to the size of the task list
+     * @param index The index of the task to find.
+     * @return The task if found.
+     * @throws NiwaTaskIndexOutOfBoundException If the index is out of bound.
      */
     public Task findTask(int index) throws NiwaTaskIndexOutOfBoundException {
         if (index < 0 || index >= tasks.size()) {
@@ -108,17 +108,15 @@ public class TaskList {
 
     /**
      * Checks for duplicate tasks in the task list.
-     * The {@link Task#isSameTask} method is used for this comparison, which
-     * defines a weaker notion of equality.
+     * The {@link Task#isSameTask} method is used for this comparison,
+     * which defines a weaker notion of equality.
      *
-     * @param task the task to check
+     * @param task The task to check for duplicates.
+     * @return true if a duplicate task exists; false otherwise.
      */
-    public boolean isContainingDuplicate(Task task){
+    public boolean isContainingDuplicate(Task task) {
         return tasks.stream()
-                .filter((t) -> t.getType().equals(task.getType()))
-                .anyMatch(t -> t.isSameTask(task));
+                .filter((t) -> t.getType().equals(task.getType())) // Filter by task type
+                .anyMatch(t -> t.isSameTask(task)); // Check for the same task
     }
-
-
-
 }

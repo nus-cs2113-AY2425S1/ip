@@ -1,7 +1,6 @@
 package niwa.data.task;
 
 import niwa.exception.NiwaException;
-import niwa.exception.NiwaInvalidArgumentException;
 import niwa.utils.NiwaUtils;
 
 import java.time.LocalDateTime;
@@ -9,22 +8,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents a deadline task with a description and a due date.
- * This class extends the niwa.data.task.Task class and specifies the type and short notation for deadline tasks.
+ * The class {@code Deadline} represents a deadline task with a description, a due date and a completion status.
+ * This class extends the {@code Task} class.
  */
 public class Deadline extends Task {
-    /** niwa.data.task.Deadline information **/
-    protected LocalDateTime byDay; // The due date of the deadline task
+    /** The due date of the deadline task **/
+    protected LocalDateTime byDay;
 
     /**
      * Constructs a deadline with the specified description and due date.
-     * The task is marked as undone by default. The type and short notation are set specifically for deadline tasks.
+     * The task is marked as undone by default.
      *
      * @param description The description of the deadline task
      * @param byDay The due date for the deadline task
      */
     public Deadline(String description, String byDay) throws NiwaException {
-        super(description);  // Initialize the description in the superclass (niwa.data.task.Task)
+        super(description);  // Initialize the description in the superclass (Task)
         this.byDay = NiwaUtils.parseDateTime(byDay);  // Set the due date for the deadline task
     }
 
@@ -50,16 +49,18 @@ public class Deadline extends Task {
     }
 
 
-    // Getter for the due date of the deadline task
+    /**
+     * Getter for the due date of the deadline task
+     */
     public LocalDateTime getByDay() {
         return byDay;
     }
 
     /**
-     * Returns a string containing the full information about the deadline in a formatted manner.
-     * The format is: "[shortType][statusIcon] description (by: byDay)".
+     * Returns the full information about the task in a formatted string.
+     * The format: "[shortType][statusIcon] description (by: byDay)".
      *
-     * @return A formatted string containing the deadline's full information
+     * @return A formatted string containing the task's full information.
      */
     @Override
     public String getFullInfo() {
@@ -70,9 +71,9 @@ public class Deadline extends Task {
 
     /**
      * Returns the full information about the task in a formatted string for file output.
-     * The format is: "shortType | isDone | description | [byDay]".
+     * The format: "shortType | isDone | description | byDay".
      *
-     * @return A formatted string containing the task's full information
+     * @return A formatted string containing the task's full information for file output.
      */
     @Override
     public String getFileOutput() {
@@ -81,6 +82,12 @@ public class Deadline extends Task {
                 NiwaUtils.getDateTimeSaveString(getByDay()));
     }
 
+    /**
+     * Parses a task from a formatted string.
+     *
+     * @param inputString The formatted string representing the task.
+     * @return A {@code Deadline} object if parsing is successful; {@code null} otherwise.
+     */
     public static Task parseTask(String inputString) {
         String format = "^D \\| (\\d+) \\| (.+?) \\| (.+?)$";
         // Compile the regex pattern for matching the command format
@@ -96,7 +103,7 @@ public class Deadline extends Task {
             String segment2 = matcher.group(2).trim(); // Description
             String segment3 = matcher.group(3).trim(); // By day
 
-            // Return the segments as an array
+            // Create a new Deadline
             Deadline temp = null;
             try {
                 temp = new Deadline(segment2, segment3);
@@ -104,6 +111,7 @@ public class Deadline extends Task {
                 return null;
             }
 
+            // Mark as done if the first segment = 1 (done)
             if (segment1.equals("1")) {
                 temp.markAsDone();
             }
@@ -118,6 +126,7 @@ public class Deadline extends Task {
      * Returns true if both tasks have the same identity fields.
      *
      * @param inputTask The task to compare.
+     * @return true if both tasks are considered the same; false otherwise.
      */
     @Override
     public boolean isSameTask(Task inputTask) {
