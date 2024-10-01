@@ -33,8 +33,13 @@ public final class DateCommand extends Command {
 
         System.out.println("Got it. Here are the tasks with the matching date:");
         IntStream.range(0, taskList.size())
-                .mapToObj(index -> taskList.getTask(index).toString())
-                .filter(string -> DateTime.convertToString(string).contains(dateTimeString))
-                .forEach(string -> System.out.println("  " + string));
+                .filter(index -> DateTime.convertToString(taskList
+                        .getTask(index)
+                        .toString())
+                        .contains(dateTimeString))
+                .forEach(index -> System.out.println("  " + (index + 1) + "."
+                        + taskList
+                        .getTask(index)
+                        .toString()));
     }
 }
