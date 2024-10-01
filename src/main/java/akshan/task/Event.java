@@ -1,11 +1,13 @@
 package akshan.task;
 
+import akshan.handler.DateTime;
+
 /**
  * Represents an event task with a start and end time.
  */
 public class Event extends Task {
-    protected final String start;
-    protected final String end;
+    private final String start;
+    private final String end;
 
     /**
      * Constructs an Event task.
@@ -24,8 +26,8 @@ public class Event extends Task {
             throw new IllegalArgumentException("Event start and end dates cannot be null or empty.");
         }
         this.type = "E";
-        this.start = start;
-        this.end = end;
+        this.start = DateTime.convertToString(start);
+        this.end = DateTime.convertToString(end);
     }
 
     /**
@@ -48,5 +50,5 @@ public class Event extends Task {
     public String toStorageString(String separator) {
         return this.type + separator + (super.isDone ? "1" : "0") + separator + this.name
                 + separator + this.start + separator + this.end;
-    };
+    }
 }

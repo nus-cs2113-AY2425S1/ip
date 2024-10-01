@@ -54,6 +54,9 @@ public class Storage {
             Scanner sc = new java.util.Scanner(storage);
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
+                if (data.isEmpty()) {
+                    break;
+                }
                 String[] dataStrings = data.split(SEPARATOR);
                 createTask(taskList, dataStrings);
             }
