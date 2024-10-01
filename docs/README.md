@@ -10,7 +10,7 @@ Akshan is a Command Line Interface (CLI) application which helps to keep track o
 
 ## Getting Started
 
-1. Make sure you have Java 11 installed on your computer. Note that it does not work on newer versions of Java.
+1. Make sure you have Java 17 or above installed on your computer.
 2. Download the .jar file from [here](https://github.com/yijiano/ip/releases).
 3. Open a terminal in the directory which you saved the .jar file, then run the following:
 ```
