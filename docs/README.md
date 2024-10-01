@@ -116,7 +116,7 @@ Adds a simple todo task to your list.
 | List Tasks        | `list`                                     | `list`                                  |
 | Mark Task Done    | `mark <task_number>`                       | `mark 2`                                |
 | Unmark Task       | `unmark <task_number>`                     | `unmark 2`                              |
-| Delete Task       | `delete <task_number>`                     | `delete 3`                              |
+| Delete Task       | `delete <task_number>`                     | `delete 2`                              |
 | Find Task         | `find <keyword>`                           | `find book`                             |
 | Help              | `help`                                     | `help`                                  |
 
