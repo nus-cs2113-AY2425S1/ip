@@ -7,11 +7,19 @@ import melchizedek.task.TaskList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
+/**
+ * The main class that handles the user interactions and basic logic for Melchizedek
+ */
 public class Melchizedek {
 
     public static TaskList taskList = new TaskList();
 
+    /**
+     * Main method to start the application. Initialises UI, loads tasks from file,
+     * and starts a loop for user input processing.
+     *
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         Ui.sayHelloToUser();
         Storage.loadFile(taskList);
@@ -104,6 +112,18 @@ public class Melchizedek {
                 } catch (InvalidTaskNumberException e) {
                     Ui.printInvalidTaskNumberException();
                     Ui.printNumberOfTasks(taskList.getTaskCount());
+                }
+                break;
+
+            case "find":
+                try {
+                    if (tokens.length < 2) {
+                        throw new DescriptionNotPresentException();
+                    }
+                    taskList.findKeyword(Arrays.copyOfRange(tokens, 1, tokens.length));
+                } catch (DescriptionNotPresentException e) {
+                    Ui.printUnableToFindWithoutKeyword();
+                    Ui.printFindExample();
                 }
                 break;
 
