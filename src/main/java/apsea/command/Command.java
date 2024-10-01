@@ -11,7 +11,7 @@ public abstract class Command {
 
     }
 
-    public boolean isExit() {
+    public boolean getExitStatus() {
         return isExit;
     }
 

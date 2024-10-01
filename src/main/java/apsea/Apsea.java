@@ -39,7 +39,7 @@ public class Apsea {
                 ui.printLine();
                 Command c = parser.parse(fullCommand);
                 c.runCommand(taskList, ui);
-                isExit = c.isExit();
+                isExit = c.getExitStatus();
             } catch (ApseaException e) {
                 //ui.showError();
                 //printError();
