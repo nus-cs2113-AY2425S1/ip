@@ -189,4 +189,20 @@ public class TaskList {
             }
         }
     }
+
+    public void findTask(HashMap<String, String> commandArguments) {
+        String argument = commandArguments.get("argument");
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Here are the matching tasks in your list: ");
+
+        for (Task task : taskList) {
+            if (task.description.contains(argument)) {
+                System.out.println(task);
+            }
+        }
+
+        System.out.println("--------------------------------------------");
+
+    }
 }

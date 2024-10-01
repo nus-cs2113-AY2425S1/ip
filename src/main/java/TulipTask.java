@@ -116,6 +116,10 @@ public class TulipTask {
                     taskList.loadTaskFromFile();
                     break;
 
+                case "find":
+                    taskList.findTask(commandArguments);
+                    break;
+
                 case "bye":
                     System.out.println(goodByeMessage);
                     return;
