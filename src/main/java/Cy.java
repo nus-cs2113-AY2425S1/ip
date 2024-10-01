@@ -9,6 +9,7 @@ import exceptions.IllegalCommandException;
 
 import java.util.Scanner;
 
+
 public class Cy {
 
     private final Parser parser;
@@ -17,7 +18,12 @@ public class Cy {
         parser = new Parser();
     }
 
-
+    /**
+     * This method runs the application.
+     * It would first load existing data from the txt file.
+     * Next, it would scan and handle commands until the "bye" command is entered,
+     * which would exit this method.
+     */
     public void run() throws IllegalCommandException, IllegalEmptyException,
             IllegalTaskException, IllegalKeywordException, IllegalIndexException {
 
