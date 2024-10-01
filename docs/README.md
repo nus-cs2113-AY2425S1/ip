@@ -32,8 +32,8 @@ Welcome to **Yukee**, your friendly task management chatbot! Yukee is designed t
    java Yukee
 
 ## Features
-**Add a Todo**
 
+### Add a Todo
 Adds a simple todo task to your list.
 - Format: todo <task_description>
 - Example: 
@@ -41,7 +41,7 @@ Adds a simple todo task to your list.
   todo read book
 
 
-**Add a Deadline**
+### Add a Deadline
 
 Adds a task with a deadline.
 - Format: deadline <task_description> /by <d/M/yyyy HHmm>
@@ -49,7 +49,7 @@ Adds a task with a deadline.
     ```sh
   deadline return book /by 2/12/2019 1800
 
-**Add a Event**
+### Add an Event
 
 Adds an event task with a start and end time.
 - Format: event <task_description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
@@ -57,7 +57,7 @@ Adds an event task with a start and end time.
     ```sh
   event project meeting /from 10/12/2019 0900 /to 10/12/2019 1100
 
-**List All Tasks**
+### List All Tasks
 
 Adds a simple todo task to your list.
 - Format: list
@@ -65,7 +65,7 @@ Adds a simple todo task to your list.
     ```sh
   list
   
-**Mark a Task as Done**
+### Mark a Task as Done
 
 - Marks a specific task as done.
 - Format: mark <task_number>
@@ -73,7 +73,7 @@ Adds a simple todo task to your list.
     ```sh
   mark 2
 
-**Unmark a Task**
+### Unmark a Task
 
 - Unmarks a specific task..
 - Format: unmark <task_number>
@@ -82,7 +82,7 @@ Adds a simple todo task to your list.
   unmark 2
 
 
-**Delete a Task**
+### Delete a Task
 
 - Deletes a specific task from the list.
 - Format: delete <task_number>
@@ -90,7 +90,7 @@ Adds a simple todo task to your list.
     ```sh
   delete 2
 
-**Find a Task**
+### Find a Task
 
 - Finds tasks containing a specific keyword.
 - Format: find <keyword>
@@ -98,7 +98,7 @@ Adds a simple todo task to your list.
     ```sh
   find book
   
-*Help*
+### Help
 
 - Displays a list of available commands.
 - Format: help
@@ -106,7 +106,6 @@ Adds a simple todo task to your list.
     ```sh
   help
   
-## Command Summary
 
 ## Command Summary
 | Command           | Format                                      | Example                                 |
