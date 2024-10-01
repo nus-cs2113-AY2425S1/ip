@@ -69,7 +69,8 @@ ______________________________
 
 ## List task
 
-Allow users to see the information on the tasks that is stored in the task list
+Allow users to see the information on the tasks that is stored in the task list and
+outputs the task list
 
 Example: `list`
 
@@ -88,7 +89,7 @@ ______________________________
 ## Deleting task
 
 Allow users to input index of task to be removed from the list and update the
-new total number of task in the list
+new total number of task in the list and outputs the task that is deleted.
 
 Example: `delete 4`
 
@@ -119,8 +120,9 @@ ______________________________
 
 ## Marking task
 
-Allow users to set a task as done by marking the task list with an 'X' and the 
-saved file with a '1'
+Allow users to key in index of the task to be set a task as done 
+by marking the task list with an 'X' and the saved file with a '1' and
+outputs the task that is marked 
 
 Example: `mark 2`
 
@@ -151,8 +153,9 @@ ______________________________
 
 ## Unmarking task
 
-Allow users to reset a task as undone by unmarking the task list with an ' ' and the
-saved file with a '0'
+Allow users to key in index of the task to be reset as undone
+by unmarking the task list with an ' ' and the saved file with a '0' and 
+outputs the task that is unmarked
 
 Example: `unmark 2`
 
@@ -181,16 +184,25 @@ ______________________________
 
 ## Find task
 
-// Describe the action and its outcome.
+Allow users to look for a task based on a given keyword and outputs a list of task 
+which contains the given keyword in their description
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `find book`
 
 ```
-expected output
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
+find book
+______________________________
+Here are the matching tasks in your list:
+1. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
 ```
 
 ## Load task
