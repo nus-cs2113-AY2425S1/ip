@@ -11,4 +11,8 @@ public class Parser {
         String[] arrayCopy = Arrays.copyOfRange(array, from, to);
         return String.join(delimiter, arrayCopy);
     }
+
+    public static String joinStringArray(String[] array, String delimiter) {
+        return String.join(delimiter, array);
+    }
 }

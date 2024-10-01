@@ -2,6 +2,8 @@ package melchizedek;
 
 import melchizedek.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
     public static final String SEPARATOR = "\t____________________________________________________________";
 
@@ -68,13 +70,27 @@ public class Ui {
         System.out.println("\tSure! Here are the tasks on your list:");
 
         for (int i = 0; i < taskCount; i++) {
-            System.out.print("\t" + (i + 1) +".");
+            System.out.print("\t" + (i + 1) + ".");
             System.out.println(taskList.getTaskToString(i));
         }
     }
 
     public static void printTask(String taskString) {
         System.out.println("\t  " + taskString);
+    }
+
+    public static void printFilteredTaskList(ArrayList<String> filteredTaskList) {
+        int taskCount = filteredTaskList.size();
+        if (taskCount == 0) {
+            System.out.println("\tNo matching tasks!");
+            return;
+        }
+
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(filteredTaskList.get(i));
+        }
     }
 
     public static void printNumberOfTasks(int taskCount) {
@@ -120,6 +136,10 @@ public class Ui {
         System.out.println("\tExample: delete 1");
     }
 
+    public static void printFindExample() {
+        System.out.println("\tExample: find notes");
+    }
+
     public static void printTaskHasAlreadyBeenMarked() {
         System.out.println("\tSure! But it was already marked as done?");
     }
@@ -150,5 +170,9 @@ public class Ui {
 
     public static void printUnableToProcessWithoutDescription(String taskType) {
         System.out.println("\tUh oh! I cannot create a " + taskType + " with no description!");
+    }
+
+    public static void printUnableToFindWithoutKeyword() {
+        System.out.println("\tOh no! I cannot search without a keyword!");
     }
 }
