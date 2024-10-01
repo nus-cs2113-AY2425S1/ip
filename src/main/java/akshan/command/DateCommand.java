@@ -31,7 +31,7 @@ public final class DateCommand extends Command {
 
         String dateTimeString = DateTime.convertToString(taskString);
 
-        System.out.println("Got it. Here are the tasks with the matching date:");
+        System.out.println("Got it. Here are the tasks with the matching date " + dateTimeString + ":");
         IntStream.range(0, taskList.size())
                 .filter(index -> DateTime.convertToString(taskList
                         .getTask(index)
