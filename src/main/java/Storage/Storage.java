@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private static void loadExistingData() {
+    public static void loadExistingData() {
         try {
             printFileContents();
         } catch (FileNotFoundException e) {

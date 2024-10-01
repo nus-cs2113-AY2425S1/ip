@@ -9,7 +9,7 @@ import exceptions.IllegalIndexException;
 
 public class Ui {
 
-    public void printWelcomeMessage() {
+    public static void printWelcomeMessage() {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
         System.out.println("But first, let me load your previous submissions!");
