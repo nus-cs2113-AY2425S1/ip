@@ -3,9 +3,13 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    protected final String from;
-    protected final String to;
+    protected final LocalDate from;
+    protected final LocalDate to;
 
     public Event(String input) throws EmptyArgumentException, InvalidCommandFormatException {
         super(input.split("/", 3)[0].trim());
@@ -27,8 +31,14 @@ public class Event extends Task {
             throw new InvalidCommandFormatException("Event dates should start with \"from \" or \"to \"");
         }
 
-        this.from = dateFrom.substring(5); // ignore "from "
-        this.to = dateTo.substring(3);   // ignore "to "
+        String from = parts[1].trim().substring(5); // ignore "from "
+        String to = parts[2].trim().substring(3); // ignore "to "
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "E";
     }
 
@@ -47,14 +57,21 @@ public class Event extends Task {
         }
 
         this.isDone = isDone;
-        this.from = parts[1].trim().substring(5); // ignore "from "
-        this.to = parts[2].trim().substring(3);   // ignore "to "
+        String from = parts[1].trim().substring(5); // ignore "from "
+        String to = parts[2].trim().substring(3); // ignore "to "
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "E";
     }
 
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + icon + "]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
