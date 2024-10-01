@@ -90,6 +90,8 @@ public class Freedom {
             lastIndex++;
 
             System.out.println("\tNow you have " + (lastIndex) + " tasks in the list.\n" + LOGO);
+
+            saveData();
         } catch (InvalidCommand e) {
             System.out.println(LOGO + "\tSorry! I do not understand your command");
             System.out.println(LOGO);
@@ -132,6 +134,8 @@ public class Freedom {
             System.out.println(LOGO + message);
             System.out.println("\t  " + tasks.get(taskIndexInStorage).printLine());
             System.out.println(LOGO);
+
+            saveData();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
             System.out.print("""
@@ -198,7 +202,6 @@ public class Freedom {
                 taskToAdd = tasks.get(i);
                 writer.write(taskToAdd.generateStorageLine());
             }
-            System.out.println("\tData saved!");
         } catch (IOException e) {
             System.out.print(LOGO);
             System.out.println("\tCannot open data file :((");
