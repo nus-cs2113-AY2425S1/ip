@@ -2,6 +2,8 @@ package chattycharlie.task;
 
 import chattycharlie.commands.CommandType;
 
+import java.time.LocalDate;
+
 //TASK CLASS
 public abstract class Task {
     protected String description;
@@ -43,6 +45,10 @@ public abstract class Task {
 
 
     public String toString() {
+        return "[" + getMarkedStatus() + "] " + description;
+    }
+
+    public String toSaveFormat() {
         return "[" + getMarkedStatus() + "] " + description;
     }
 

@@ -21,7 +21,7 @@ public class Ui {
     }
 
     public void displayTaskAdded(Task task) {
-        System.out.println(StringDesign.SPACE + "Added todo: " + task + System.lineSeparator() + StringDesign.LINE);
+        System.out.println(StringDesign.SPACE + "Added task: " + task + System.lineSeparator() + StringDesign.LINE);
     }
 
     public void displayTask(Task task) {
@@ -41,19 +41,23 @@ public class Ui {
     }
 
     public void displayMarkingText(String line, int remainingTask) {
-        System.out.println(StringDesign.SPACE + line + " " + remainingTask + "to go!");
+        System.out.println(StringDesign.SPACE + line  + remainingTask + " to go!");
     }
 
     public void displayDeletedTask(String line, int remainingTask) {
-        System.out.println(StringDesign.SPACE + line + " " + remainingTask + "to go!");
+        System.out.println(StringDesign.SPACE + line + remainingTask + " to go!");
     }
 
     public void displayListHeader(int remainingTask) {
-        System.out.println("ToDo List:");
+        System.out.println("Task List:");
         System.out.println("pending Task: " + remainingTask);
     }
 
     public void displayLine() {
         System.out.println(StringDesign.LINE);
+    }
+
+    public void displayTimeList() {
+        System.out.println("Tasks found:");
     }
 }

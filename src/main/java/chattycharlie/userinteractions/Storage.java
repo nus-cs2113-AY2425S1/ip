@@ -97,7 +97,7 @@ public class Storage {
             for (int i = 0; i < list.getSize(); i++) {
                 Task task = list.getTask(i);
                 if (task != null) {
-                    writer.write(taskToString(task) + "\n");
+                    writer.write(taskToSave(task) + "\n");
                 }
             }
             writer.close();
@@ -107,7 +107,7 @@ public class Storage {
         }
     }
 
-    public String taskToString(Task task) {
-        return task.toString();
+    public String taskToSave(Task task) {
+        return task.toSaveFormat();
     }
 }

@@ -14,7 +14,7 @@ public class MarkCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.unmarkTask(toMarkIndex);
+        taskList.markTask(toMarkIndex);
         ui.displayTask(taskList.getTask(toMarkIndex));
     }
 }

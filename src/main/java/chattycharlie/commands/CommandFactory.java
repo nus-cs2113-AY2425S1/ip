@@ -21,6 +21,8 @@ public class CommandFactory {
             return new ListCommand();
         case DELETE:
             return new DeleteCommand(line);
+        case PRINT:
+            return new PrintCommand(line);
         default:
             throw CharlieExceptions.cannotIdentifyCommandType(); //change this
         }
