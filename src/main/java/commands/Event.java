@@ -15,8 +15,9 @@ public class Event extends Task {
         return "[E]" + super.getStatusIcon();
     }
 
-    public String createEventList() {
-        return  getStatusIcon() +" "+  description + "(from: " + from + " to: " + to + ")";
+    @Override
+    public String createTaskList() {
+        return  getStatusIcon() + " "+  description + "(from: " + from + " to: " + to + ")";
     }
 
     public String createEventTxt() {
