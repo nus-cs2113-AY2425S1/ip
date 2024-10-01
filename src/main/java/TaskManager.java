@@ -144,7 +144,7 @@ public class TaskManager {
     public void findTasks(String subject) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.contains(subject)) {
+            if (task.isContain(subject)) {
                 foundTasks.add(task);
             }
         }

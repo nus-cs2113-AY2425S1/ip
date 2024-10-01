@@ -19,7 +19,7 @@ public class Task {
         isDone = false;
     }
 
-    public boolean contains(String subject) {
+    public boolean isContain(String subject) {
         return description.toLowerCase().contains(subject.toLowerCase());
     }
 
