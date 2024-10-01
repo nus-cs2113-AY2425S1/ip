@@ -36,6 +36,7 @@ public class Hsien {
                 "unmark", "delete", "find", "save", "bye"
         );
 
+
         boolean isRunning = true;
 
         ui.welcomeMessage();
@@ -99,7 +100,7 @@ public class Hsien {
                             parser.getToDate(), parser.getByDate()
                     );
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter in a proper format: " + e.getMessage());
+                    System.out.println("Please enter in a proper format");
                 }
                 break;
             }

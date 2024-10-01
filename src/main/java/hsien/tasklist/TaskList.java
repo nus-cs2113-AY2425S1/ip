@@ -4,10 +4,8 @@ import hsien.task.Task;
 import hsien.task.Deadline;
 import hsien.task.Event;
 import hsien.task.Todo;
-import hsien.datetime.DateTime;
 
 import java.util.ArrayList;
-
 
 /**
  * Represents a list of tasks.
@@ -32,6 +30,7 @@ public class TaskList {
         return tasks;
     }
 
+
     /**
      * Prints the current list of tasks.
      *
@@ -45,7 +44,7 @@ public class TaskList {
         int counter = 1;
         System.out.println("Here are the tasks in your list!");
         for (Task t : tasks) {
-            System.out.printf("%s. %s%n", counter, t.getStatusDescription());
+            System.out.printf("%d. %s%n", counter, t.getStatusDescription());
             counter += 1;
         }
     }
@@ -59,6 +58,7 @@ public class TaskList {
      * @param toDate   the end date of the task (if applicable)
      * @param byDate   the due date of the task (if applicable)
      */
+
     public void addTask(String command, String desc, String fromDate, String toDate, String byDate) {
         Task newTask = null;
 
@@ -113,6 +113,7 @@ public class TaskList {
 
         System.out.println(tasks.get(index - 1).getStatusDescription());
     }
+
 
     /**
      * Finds and prints tasks that contain the specified query in their description.
