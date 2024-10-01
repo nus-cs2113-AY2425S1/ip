@@ -23,11 +23,11 @@ public class Ui extends Functions{
     }
 
     public static void print(String... messages){
-        System.out.println(SEPARATOR);
+        System.out.println(LINE_SEPARATOR);
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println(SEPARATOR);
+        System.out.println(LINE_SEPARATOR);
     }
 
     public static void echo(){
@@ -35,7 +35,7 @@ public class Ui extends Functions{
             System.out.println("Say anything! If you are no longer bored, type exit !");
             String input = in.nextLine();
             if(input.equals("exit")){
-                System.out.println(SEPARATOR);
+                System.out.println(LINE_SEPARATOR);
                 Ui.printFunctions();
                 break;
             }

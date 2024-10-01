@@ -9,13 +9,16 @@ import UranusExceptions.EmptyInputExceptions;
 import UranusExceptions.IllegalCommandException;
 import UranusExceptions.UranusExceptions;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class TaskList extends Functions{
     protected static void handleDelete(String input) {
         try {
             int index = Integer.parseInt(input.substring(input.indexOf(' ') + 1)) - 1;
             if (index >= 0 && index < taskList.size()) {
                 Ui.print("Got it. I've removed this task:",
-                        "  " + taskStatus(index),
+                        "  " + taskStatus(taskList,index),
                         "Now you have %d task(s) in the list".formatted(taskList.size() - 1));
                 taskList.remove(index);
             } else {
@@ -34,10 +37,10 @@ public class TaskList extends Functions{
             if (taskNumIndex >= 0 && taskNumIndex < taskList.size()) {
                 if (input.startsWith("mark")) {
                     taskList.get(taskNumIndex).setDone();
-                    Ui.print("Nice! I've marked this task as done:", taskStatus(taskNumIndex));
+                    Ui.print("Nice! I've marked this task as done:", taskStatus(taskList,taskNumIndex));
                 } else {
                     taskList.get(taskNumIndex).setNotDone();
-                    Ui.print("OK! I've marked this task as not done yet:", taskStatus(taskNumIndex));
+                    Ui.print("OK! I've marked this task as not done yet:", taskStatus(taskList,taskNumIndex));
                 }
             } else {
                 Ui.print("No such task exist. Please try again.");
@@ -49,17 +52,17 @@ public class TaskList extends Functions{
         }
     }
 
-    public static String taskStatus(int index){
+    public static String taskStatus(ArrayList<Task> taskList,int index){
         return taskList.get(index).getTaskStatus();
     }
 
-    protected static void listTasks() {
-        System.out.println(SEPARATOR);
+    protected static void listTasks(ArrayList<Task> taskList) {
+        System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskStatus(i));
+            System.out.println((i + 1) + ". " + taskStatus(taskList,i));
         }
-        System.out.println(SEPARATOR);
+        System.out.println(LINE_SEPARATOR);
     }
 
     protected static void addTask(String input) {
@@ -84,10 +87,33 @@ public class TaskList extends Functions{
                 throw new IllegalCommandException();
             }
             Ui.print("Got it. I've added this task:",
-                    "  " + taskStatus(taskList.size() - 1),
+                    "  " + taskStatus(taskList,taskList.size() - 1),
                     "Now you have %d task(s) in the list".formatted(taskList.size()));
         } catch (UranusExceptions e){
             Ui.print(e.getMessage());
         }
+    }
+
+    protected static void handleFind(String input) {
+        try {
+            if (input.trim().equals(Parser.FIND_COMMAND)){
+                throw new EmptyCommandException();
+            }
+            String[] str = input.split(" ");
+            String taskToFind = str[1];
+            findTasks(taskToFind);
+        } catch (UranusExceptions e) {
+            Ui.print(e.getMessage());
+        }
+    }
+
+    protected static void findTasks(String input){
+        ArrayList<Task> filteredTasks =
+                taskList.stream()
+                        .filter(task -> {
+                            return task.getDescription().toLowerCase().contains(input.toLowerCase());
+                        })
+                        .collect(Collectors.toCollection(ArrayList::new));
+        listTasks(filteredTasks);
     }
 }

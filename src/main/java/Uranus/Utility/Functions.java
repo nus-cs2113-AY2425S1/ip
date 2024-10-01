@@ -7,7 +7,7 @@ import Uranus.Tasks.Task;
 public abstract class Functions {
 
     protected static final Scanner in = new Scanner(System.in);
-    protected static final String SEPARATOR = "_________________________________________________________";
+    protected static final String LINE_SEPARATOR = "_________________________________________________________";
     protected static ArrayList<Task> taskList = new ArrayList<>();
 
     public Functions() {}
