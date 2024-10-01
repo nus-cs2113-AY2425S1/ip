@@ -16,6 +16,8 @@ public class Parser {
                 return new AddEventCommand(input);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(list_input[1]));
+            case "find":
+                return new FindCommand(input);
             case "bye":
                 return new ExitCommand();
             default:

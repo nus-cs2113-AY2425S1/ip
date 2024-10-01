@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class TaskList {
     private Task[] tasks = new Task[100];
     private int lastIndex = 0;
@@ -5,6 +6,16 @@ public class TaskList {
     public void add(Task task) {
         tasks[lastIndex] = task;
         lastIndex++;
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < lastIndex; i++) {
+            if (tasks[i].getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(tasks[i]);
+            }
+        }
+        return foundTasks;
     }
 
     public void delete(int index) {
