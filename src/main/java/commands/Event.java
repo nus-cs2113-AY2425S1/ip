@@ -16,7 +16,7 @@ public class Event extends Task {
     }
 
     public String createEventList() {
-        return description + "(from: " + from + " to: " + to + ")";
+        return  getStatusIcon() +" "+  description + "(from: " + from + " to: " + to + ")";
     }
 
     public String createEventTxt() {

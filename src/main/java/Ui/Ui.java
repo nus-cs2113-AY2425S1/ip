@@ -1,15 +1,15 @@
 package Ui;
 
+import TaskList.TaskList;
 import commands.Task;
 import constants.Statements;
 import constants.Utils;
-
-import java.util.ArrayList;
+import exceptions.IllegalIndexException;
 
 
 public class Ui {
 
-    public static void printWelcomeMessage() {
+    public void printWelcomeMessage() {
         System.out.println("Hello, I'm Cy");
         System.out.println("What can I do for you?");
         System.out.println("But first, let me load your previous submissions!");
@@ -25,32 +25,32 @@ public class Ui {
         printLine();
     }
 
-    private static void printDeleteMessage(Task deleteItem) {
+    public static void printDeleteMessage(Task deleteItem) {
         printLine();
         System.out.println("Got it. I've deleted this task:");
         System.out.println(deleteItem.getStatusIcon() + " " + deleteItem.getDescription());
     }
 
-    private static void printEventMessage(int count, String event) {
+    public static void printEventMessage(int count, String event) {
         printLine();
         System.out.println(Statements.CONFIRM_EVENT);
         printListUpdate(count, event);
         printLine();
     }
 
-    private static void printListUpdate(int count, String task) {
+    public static void printListUpdate(int count, String task) {
         System.out.println(task);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
     }
 
-    private static void printTodoMessage(int count, String task) {
+    public static void printTodoMessage(int count, String task) {
         printLine();
         System.out.println(Statements.CONFIRM_ADD);
         printListUpdate(count, task);
         printLine();
     }
 
-    public static void printList(int count, ArrayList<Task> tasks) {
+    public static void printList(int count, TaskList tasks) throws IllegalIndexException{
         printLine();
         System.out.println(Statements.LIST_TASKS);
 
@@ -58,9 +58,16 @@ public class Ui {
            System.out.println("There are no items in the list");
         } else {
            for (int i = 0; i < count; i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).getStatusIcon() + " " + tasks.get(i).getDescription());
+                System.out.println((i + 1) + "." + tasks.getTask(i).getStatusIcon() + " " + tasks.getTask(i).getDescription());
             }
         }
+        printLine();
+    }
+
+    public static void printDeadlineMessage(int count, String deadline) {
+        printLine();
+        System.out.println(Statements.CONFIRM_DEADLINE);
+        printListUpdate(count, deadline);
         printLine();
     }
 

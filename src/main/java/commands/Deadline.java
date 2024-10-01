@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
 
     public String createDeadlineList() {
-        return (description + "(by:" + by + ")");
+        return (getStatusIcon()+ " " +  description + "(by:" + by + ")");
     }
 
     public String createDeadlineTxt() {

@@ -26,7 +26,7 @@ public class Cy {
         System.out.println(Utils.HORIZONTAL_LINE);
     }
 
-    public static void markOutput(Task task) {
+    public static void printMarkOutput(Task task) {
         printLine();
 
         if (task.isDone()) {
@@ -60,7 +60,7 @@ public class Cy {
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items.get(index).setDone(true);
 
-        markOutput(items.get(index));
+        printMarkOutput(items.get(index));
     }
 
     public static void unmarkItem(String[] splitInputs, int count) throws IllegalTaskException {
@@ -68,7 +68,7 @@ public class Cy {
 
         int index = Integer.parseInt(splitInputs[1]) - 1;
         items.get(index).setDone(false);
-        markOutput(items.get(index));
+        printMarkOutput(items.get(index));
     }
 
     public static void printList(int count) {
@@ -101,7 +101,7 @@ public class Cy {
         Todo todo = new Todo(task);
         items.add(todo);
 
-        printTodoMessage(count, task);
+        printTodoMessage(count, todo.createTodoList());
 
         saveNewData(todo.createTodoTxt(), Utils.TODO);
         return count + 1;
@@ -115,7 +115,7 @@ public class Cy {
     }
 
     private static void printListUpdate(int count, String task) {
-        System.out.println(items.get(count).getStatusIcon() + " " + task);
+        System.out.println(task);
         System.out.println("Now you have " + (count + 1) + " tasks in the list");
     }
 

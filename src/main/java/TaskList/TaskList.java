@@ -1,3 +1,5 @@
+package TaskList;
+
 import commands.Deadline;
 import commands.Event;
 import commands.Task;
@@ -5,11 +7,13 @@ import commands.Todo;
 import constants.Utils;
 import constants.Warnings;
 import exceptions.IllegalEmptyException;
+import exceptions.IllegalIndexException;
 import exceptions.IllegalKeywordException;
 import exceptions.IllegalTaskException;
 import java.util.ArrayList;
 import Ui.*;
 import Storage.*;
+import Parser.*;
 
 
 public class TaskList {
@@ -17,6 +21,13 @@ public class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    public Task getTask(int index) throws IllegalIndexException {
+        if (index < 0 || index >= tasks.size()){
+            throw new IllegalIndexException("Please add a task from 0 to " + tasks.size());
+        }
+        return tasks.get(index);
     }
 
     public void markItem(String[] splitInputs, int count) throws IllegalTaskException {

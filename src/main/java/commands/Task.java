@@ -10,7 +10,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public int getStatus(){
+    public int getStatus() {
         return isDone ? 1 : 0;
     }
 
@@ -22,7 +22,6 @@ public class Task {
         return description;
     }
 
-
     public boolean isDone() {
         return isDone;
     }
@@ -30,4 +29,5 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
 }
