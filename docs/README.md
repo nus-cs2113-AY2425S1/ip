@@ -140,7 +140,8 @@ Exits the application.
    e.g. `LiSt` is equivalent to `list`
 2. For commands that do not take in description inputs, these portion of the input will be ignored  
   e.g. `List me` will only be treated as `list`
-3. Please conform to the command syntax for the program to work as expected and have fun using it!
+3. Tasks will be saved upon `bye` command but will not be saved if the program is closed arubptly
+4. Please conform to the command syntax for the program to work as expected and have fun using it!
 
 ## Contact and Support
 
