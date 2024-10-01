@@ -135,6 +135,13 @@ Saves the current tasks to a file.
 Exits the application.
 - **Example**: `bye`
 
+## Notes
+1. The commands are case-insensitive  
+   e.g. `LiSt` is equivalent to `list`
+2. For commands that do not take in description inputs, these portion of the input will be ignored  
+  e.g. `List me` will only be treated as `list`
+3. Please conform to the command syntax for the program to work as expected and have fun using it!
+
 ## Contact and Support
 
 For any queries, please drop an email to liangkuanhsien@gmail.com
