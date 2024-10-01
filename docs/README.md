@@ -31,44 +31,44 @@ You can download the latest version of Hsien as a JAR file from the following li
 2. Navigate to the directory where the JAR file is located.
 3. Run the application using the following command:
 
-```
-java -jar Hsien.jar
-```
+   ```
+   java -jar Hsien.jar
+   ```
 
 4. This page will be shown if the previous command was run successfully.
 
 
-```
-   --------------------------------------------------
-    _   _         _____        _ _   _
-   | | | | ##### |_   _|##### |   \ | |
-   | |_| |#        | |  #     | |\ \| |
-   |  _  | #####   | |  ##### | | \ \ |
-   | | | |      # _| |_ #     | |  \  |
-   |_| |_| ##### |_____|##### |_|   \_|
-   
-   Hello! I am Hsien, your personal chatbot... Please use me as a task planner
-   
-   --------------------------------------------------
-   
-   File not found
-   
-   --------------------------------------------------
-   
-   These are the possible commands:
-   1. todo
-   2. deadline
-   3. event
-   4. list
-   5. mark
-   6. unmark
-   7. delete
-   8. find
-   9. save
-   10. bye
-   Please enter a command/add task (type 'bye' to exit):
-   
-```
+   ```
+      --------------------------------------------------
+       _   _         _____        _ _   _
+      | | | | ##### |_   _|##### |   \ | |
+      | |_| |#        | |  #     | |\ \| |
+      |  _  | #####   | |  ##### | | \ \ |
+      | | | |      # _| |_ #     | |  \  |
+      |_| |_| ##### |_____|##### |_|   \_|
+      
+      Hello! I am Hsien, your personal chatbot... Please use me as a task planner
+      
+      --------------------------------------------------
+      
+      File not found
+      
+      --------------------------------------------------
+      
+      These are the possible commands:
+      1. todo
+      2. deadline
+      3. event
+      4. list
+      5. mark
+      6. unmark
+      7. delete
+      8. find
+      9. save
+      10. bye
+      Please enter a command/add task (type 'bye' to exit):
+      
+   ```
 
 
 
