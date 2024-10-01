@@ -256,7 +256,7 @@ public class TaskList {
         String[] args = getArgs(inputs);
         // Iterate through tasks, display tasks that match query
         ui.printDivider();
-        String query = args[0];
+        String query = String.join(" ", args);
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             if (t.getDescription().contains(query)) {
