@@ -202,8 +202,7 @@ public class Bean {
 
             tasks.add(new Deadline(description, by));
 
-        } else {
-            // taskType == TaskType.EVENT
+        } else if (taskType == TaskType.EVENT) {
             // Extract description, from and to
             String[] splitDescription = userInput.split("/from");
             // splitDescription: [0] = "event {description} ", [1] = "{from} /to {to}"
@@ -214,6 +213,9 @@ public class Bean {
             String to = splitFromTo[1].trim();
 
             tasks.add(new Event(description, from, to));
+
+        } else {
+            throw new RuntimeException("Something went wrong while adding task");
         }
         appendNextLineToFile(tasks.get(tasks.size() - 1).serialise());
     }
@@ -242,7 +244,7 @@ public class Bean {
                 INDENT + "5. To delete a task from your task list: delete [task number]");
     }
 
-    public static void processUserInput() throws InvalidInputException {
+    public static void processUserInput() {
         String userInput;
         Scanner in = new Scanner(System.in);
 
@@ -314,7 +316,7 @@ public class Bean {
         exit();
     }
 
-    public static void main(String[] args) throws InvalidInputException, IOException {
+    public static void main(String[] args) throws IOException {
         run();
     }
 }
