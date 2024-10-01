@@ -45,12 +45,12 @@ public class Functions {
         System.out.println(SEPARATOR);
     }
 
-    public void taskmaster() {
+    public void manageTasks() {
         FileManagement.load();
         while (true) {
             String input = in.nextLine();
             processCommand(input);
-            FileManagement.save();
+            FileManagement.saveFile();
         }
     }
 

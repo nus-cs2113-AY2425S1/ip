@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public abstract class FileManagement extends Functions{
 
-    public static void save() {
+    public static void saveFile() {
 
         // Checks if the file exist. If not, create new file
         try (FileWriter writer = new FileWriter("tasksBackup.txt")) {

@@ -1,8 +1,10 @@
 package Uranus.Tasks;
 
 public class ToDos extends Task{
+    private static final String TODO_TAG = "T";
+
     public ToDos(String description){
-        super(description, "T");
+        super(description, TODO_TAG);
     }
 
     @Override

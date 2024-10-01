@@ -4,25 +4,28 @@ public class Task {
     protected String description;
     protected String commandInput;
     protected boolean isDone;
-    private String tag;
+    private String taskTag;
+    private static final String COMPLETED_STATUS_ICON = "X";
+    private static final String INCOMPLETE_STATUS_ICON = " ";
+    private static final String NO_TAG = " ";
 
     public Task(String description) {
         this.commandInput = description;
         setDescription(description);
         this.isDone = false;
-        this.tag = " "; // for no-tag
+        this.taskTag = NO_TAG; // for no-tag
     }
 
     // Overloaded function for available tags
-    public Task(String description, String tag) {
+    public Task(String description, String taskTag) {
         this.commandInput = description;
         setDescription(description);
         this.isDone = false;
-        this.tag = tag;
+        this.taskTag = taskTag;
     }
 
     public String getStatusIcon(){
-        return (isDone ? "X" : " ");
+        return (isDone ? COMPLETED_STATUS_ICON : INCOMPLETE_STATUS_ICON);
     }
 
     public void setDone(){
@@ -33,8 +36,8 @@ public class Task {
         isDone = false;
     }
 
-    public String getTag(){
-        return tag;
+    public String getTaskTag(){
+        return taskTag;
     }
 
     public void setDescription(String description) {
@@ -43,7 +46,7 @@ public class Task {
     }
 
     public String getTaskStatus(){
-        return "[" + getTag() + "][" + getStatusIcon() + "] " + description;
+        return "[" + getTaskTag() + "][" + getStatusIcon() + "] " + description;
     }
 
     public String getCommandInput(){
