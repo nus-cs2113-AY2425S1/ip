@@ -18,9 +18,10 @@ public class lovespiritual {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int taskCount = 0;
+        UI ui = new UI();
 
         loadTasks();
-        printWelcomeScreen();
+        ui.printWelcomeScreen();
 
         // loop that keeps recurring when the program is running
         while (true) {
@@ -29,10 +30,10 @@ public class lovespiritual {
             try {
                 if (input.equalsIgnoreCase("bye")) {
                     saveTasks();
-                    printExitScreen();
+                    ui.printExitScreen();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printList(tasks);
+                    ui.printList(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input, taskCount, tasks);
                     saveTasks();
@@ -57,11 +58,11 @@ public class lovespiritual {
                 }
             } catch (lovespiritualException e) {
                 System.out.println(SEPARATOR);
-                System.out.println(e.getMessage());
+                ui.printError(e.getMessage());
                 System.out.println(SEPARATOR);
             } catch (Exception e) {
                 System.out.println(SEPARATOR);
-                System.out.println("Oh no! (＞﹏＜) Something went a little wrong...");
+                ui.printUnexpectedError();
                 System.out.println(SEPARATOR);
             }
         }
