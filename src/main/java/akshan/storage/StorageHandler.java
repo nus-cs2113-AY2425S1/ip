@@ -66,22 +66,30 @@ public class StorageHandler {
     public void createTask(TaskList taskList, String[] data) throws IOException, IndexOutOfBoundsException {
         boolean isDone = data[1].equals("1");
         boolean isNotDone = data[1].equals("0");
+        String taskType = data[0];
 
         // Check for corrupted task state
         if (!isDone && !isNotDone) {
             throw new IOException("Oh nooooo there is corrupted data! Oh no :(");
         }
         try {
-            Task taskToBeAdded = switch (data[0]) {
-                case "T" -> new Todo(data[2]);
-                case "D" -> new Deadline(data[2], data[3]);
-                case "E" -> new Event(data[2], data[3], data[4]);
-                default -> throw new IOException("Invalid task type!! Oh no :(");
-            };
-
-            // Handle task completion status and add to list
+            Task taskToBeAdded;
+            switch (taskType) {
+            case "T":
+                taskToBeAdded =  new Todo(data[2]);
+                break;
+            case "D":
+                taskToBeAdded =  new Deadline(data[2], data[3]);
+                break;
+            case "E":
+                taskToBeAdded =  new Event(data[2], data[3], data[4]);
+                break;
+            default:
+                throw new IOException("Invalid task type!! Oh no :(");
+            }
             taskToBeAdded.setStatusSilent(isDone);
             taskList.addItem(taskToBeAdded);
+
         }
         catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Invalid task input format in data file!!");

@@ -113,7 +113,9 @@ public class Akshan {
             processMarkUnmark(splitInput[0], taskList, false);
             break;
         case TODO:
+            // Fallthrough
         case DEADLINE:
+            // Fallthrough
         case EVENT:
             processTask(commandType, command, taskList);
             break;

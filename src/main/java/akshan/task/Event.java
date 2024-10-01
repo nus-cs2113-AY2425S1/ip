@@ -17,7 +17,10 @@ public class Event extends Task {
      */
     public Event(String name, String start, String end) throws IllegalArgumentException {
         super(name);
-        if (start == null || start.trim().isEmpty() || end == null || end.trim().isEmpty()) {
+        boolean isStartValid = start != null && !start.trim().isEmpty();
+        boolean isEndValid = end != null && !end.trim().isEmpty();
+
+        if (!isStartValid || !isEndValid) {
             throw new IllegalArgumentException("Event start and end dates cannot be null or empty.");
         }
         this.type = "E";
