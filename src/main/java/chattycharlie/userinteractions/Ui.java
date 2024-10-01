@@ -57,7 +57,7 @@ public class Ui {
         System.out.println(StringDesign.LINE);
     }
 
-    public void displayTimeList() {
+    public void displaySearchList() {
         System.out.println("Tasks found:");
     }
 }

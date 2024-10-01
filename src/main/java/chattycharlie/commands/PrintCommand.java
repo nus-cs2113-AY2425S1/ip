@@ -21,7 +21,7 @@ public class PrintCommand implements Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         int count = 1;
-        ui.displayTimeList();
+        ui.displaySearchList();
         for(int i = 0; i < taskList.getSize(); i++ ) {
             Task task = taskList.getTask(i);
             CommandType command = task.getType();
