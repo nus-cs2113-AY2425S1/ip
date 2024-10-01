@@ -19,6 +19,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean contains(String subject) {
+        return description.toLowerCase().contains(subject.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return ("[" + getStatusIcon() + "] " + description);
