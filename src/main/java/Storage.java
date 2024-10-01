@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveTaskList {
+public class Storage {
     static Path directoryPath = Path.of("./data");
     static Path filePath = directoryPath.resolve("data.txt");
 
