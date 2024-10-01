@@ -1,8 +1,8 @@
 package Yukee;
+import java.util.Scanner;
 
 import Yukee.task.Task;
-
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     private final Scanner scanner;
@@ -76,5 +76,16 @@ public class Ui {
         System.out.println("7. 'delete <task_number>' - Delete a task from the list.");
         System.out.println("8. 'help' - Show this help message.");
         System.out.println("9. 'bye' - Exit the program.");
+    }
+
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
     }
 }
