@@ -19,7 +19,7 @@ public class Storage {
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                System.err.println("Error. No directory could be created.");
+                Ui.printDirError();
             }
         }
         try {
@@ -28,7 +28,7 @@ public class Storage {
                 loadDataFromFile(FILE_PATH, taskList);
             }
         } catch (IOException e) {
-            System.err.println("Error. No file could be created or found.");
+            Ui.printFileError();
         }
     }
 
@@ -40,16 +40,16 @@ public class Storage {
             String[] tokens = input.split(" \\| ");
             switch (tokens[0].toUpperCase()) {
             case "T":
-                taskList.loadTodoFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadTodo(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "D":
-                taskList.loadDeadlineFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadDeadline(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             case "E":
-                taskList.loadEventFromFile(Arrays.copyOfRange(tokens, 1, tokens.length));
+                taskList.loadEvent(Arrays.copyOfRange(tokens, 1, tokens.length));
                 break;
             default:
-                System.err.println("Unable to process line.");
+                Ui.printTaskError();
                 break;
             }
         }
@@ -61,7 +61,7 @@ public class Storage {
             fw.write(taskList.taskListToFile());
             fw.close();
         } catch (IOException e) {
-            System.err.println("Error. Cannot write to file.");
+            Ui.printWriteError();
         }
     }
 }

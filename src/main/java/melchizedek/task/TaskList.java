@@ -1,49 +1,25 @@
 package melchizedek.task;
 
+import melchizedek.Parser;
+import melchizedek.Ui;
 import melchizedek.exceptions.InvalidTaskNumberException;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> allTasks;
+    private static final int INVALID_INDEX = -1;
 
     public TaskList() {
         allTasks = new ArrayList<>();
     }
 
-    public static String joinStringArray(String[] array, int from, int to, String delimiter) {
-        String[] arrayCopy = Arrays.copyOfRange(array, from, to);
-        return String.join(delimiter, arrayCopy);
+    public int getTaskCount() {
+        return allTasks.size();
     }
 
-    public void printTaskList() {
-        if (allTasks.isEmpty()) {
-            System.out.println("\tNo tasks added!");
-            return;
-        }
-
-        System.out.println("\tSure! Here are the tasks on your list:");
-
-        for (int i = 0; i < allTasks.size(); i++) {
-            System.out.print("\t" + (i + 1) +".");
-            System.out.println(allTasks.get(i).toString());
-        }
-    }
-
-    public void printAddedTask() {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + allTasks.get(allTasks.size() - 1).toString());
-        printNumberOfTasks();
-    }
-
-    public void printNumberOfTasks() {
-        int taskCount = allTasks.size();
-        if (taskCount != 1) {
-            System.out.println("\tNow you have " + taskCount + " tasks in the list.");
-        } else {
-            System.out.println("\tNow you have " + taskCount + " task in the list.");
-        }
+    public String getTaskToString(int index) {
+        return allTasks.get(index).toString();
     }
 
     public void markTaskAsDone(int id) throws InvalidTaskNumberException {
@@ -52,12 +28,12 @@ public class TaskList {
         }
 
         if (allTasks.get(id - 1).isMarkAsDone()) {
-            System.out.println("\tSure! But it was already marked as done?");
+            Ui.printTaskHasAlreadyBeenMarked();
         } else {
             allTasks.get(id - 1).markTaskAsDone();
-            System.out.println("\tGreat! I've marked this task as done:");
+            Ui.printTaskMarkedAsDone();
         }
-        System.out.println("\t  " + allTasks.get(id - 1).toString());
+        Ui.printTask(getTaskToString(id - 1));
     }
 
     public void unmarkTaskAsDone(int id) throws InvalidTaskNumberException {
@@ -65,23 +41,24 @@ public class TaskList {
             throw new InvalidTaskNumberException();
         }
         if (!allTasks.get(id - 1).isMarkAsDone()) {
-            System.out.println("\tHmmm... it was undone in the first place.");
+            Ui.printTaskHasAlreadyBeenUnmarked();
         } else {
             allTasks.get(id - 1).unmarkTaskAsDone();
-            System.out.println("\tOK, I've marked this task as undone:");
+            Ui.printTaskUnmarkedAsDone();
         }
-        System.out.println("\t  " + allTasks.get(id - 1).toString());
+        Ui.printTask(getTaskToString(id - 1));
     }
 
     public void addTodo(String[] tokens) {
         String description = String.join(" ", tokens);
 
         allTasks.add(new Todo(description));
-        printAddedTask();
+        int taskCount = getTaskCount();
+        Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
 
     public void addDeadline(String[] tokens) {
-        int byIndex = -1;
+        int byIndex = INVALID_INDEX;
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/by")) {
                 byIndex = i;
@@ -92,23 +69,24 @@ public class TaskList {
         String description = null;
         String by = null;
         try {
-            description = joinStringArray(tokens, 0, byIndex, " ");
-            by = joinStringArray(tokens, byIndex + 1, tokens.length, " ");
+            description = Parser.joinStringArray(tokens, 0, byIndex, " ");
+            by = Parser.joinStringArray(tokens, byIndex + 1, tokens.length, " ");
         } catch (IllegalArgumentException e) {
-            if (byIndex == -1) {
-                System.out.println("\tUh oh! I cannot process this task without the key \"/by\"!");
-                System.out.println("\tExample: deadline coding assignment /by 12pm");
+            if (byIndex == INVALID_INDEX) {
+                Ui.printUnableToProcessWithoutKey("\"/by\"");
+                Ui.printDeadlineExample();
                 return;
             }
         }
 
         allTasks.add(new Deadline(description, by));
-        printAddedTask();
+        int taskCount = getTaskCount();
+        Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
 
     public void addEvent(String[] tokens) {
-        int fromIndex = -1;
-        int toIndex = -1;
+        int fromIndex = INVALID_INDEX;
+        int toIndex = INVALID_INDEX;
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/from")) {
                 fromIndex = i;
@@ -122,23 +100,25 @@ public class TaskList {
         String from = null;
         String to = null;
         try {
-            description = joinStringArray(tokens, 0, fromIndex, " ");
-            from = joinStringArray(tokens, fromIndex + 1, toIndex, " ");
-            to = joinStringArray(tokens, toIndex + 1, tokens.length, " ");
+            description = Parser.joinStringArray(tokens, 0, fromIndex, " ");
+            from = Parser.joinStringArray(tokens, fromIndex + 1, toIndex, " ");
+            to = Parser.joinStringArray(tokens, toIndex + 1, tokens.length, " ");
         } catch (IllegalArgumentException e) {
-            if (fromIndex == -1) {
-                System.out.println("\tUh oh! I cannot process this task without the key \"/from\"!");
-            } else if (toIndex == -1) {
-                System.out.println("\tUh oh! I cannot process this task without the key \"/to\"!");
-            } else {
-                System.out.println("\tUh oh! I cannot process this task without the key \"/from\" and \"/to\"!");
+            if (fromIndex == INVALID_INDEX && toIndex == INVALID_INDEX) {
+                Ui.printUnableToProcessWithoutKey("\"/from\" and \"/to\"");
             }
-            System.out.println("\tExample: event coding lecture /from 2pm /to 4pm");
+            else if (fromIndex == INVALID_INDEX) {
+                Ui.printUnableToProcessWithoutKey("\"/from\"");
+            } else if (toIndex == INVALID_INDEX) {
+                Ui.printUnableToProcessWithoutKey("\"/to\"");
+            }
+            Ui.printEventExample();
             return;
         }
 
         allTasks.add(new Event(description, from, to));
-        printAddedTask();
+        int taskCount = getTaskCount();
+        Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
 
     public void deleteTask(int id) throws InvalidTaskNumberException {
@@ -149,25 +129,24 @@ public class TaskList {
         String taskString = allTasks.get(id - 1).toString();
         allTasks.remove(id - 1);
 
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t  " + taskString);
-        printNumberOfTasks();
+        Ui.printDeletedTask(taskString);
+        Ui.printNumberOfTasks(allTasks.size());
     }
 
-    public void loadTodoFromFile(String[] tokens) {
+    public void loadTodo(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
         allTasks.add(new Todo(description, isDone));
     }
 
-    public void loadDeadlineFromFile(String[] tokens) {
+    public void loadDeadline(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
         String by  = tokens[2];
         allTasks.add(new Deadline(description, isDone, by));
     }
 
-    public void loadEventFromFile(String[] tokens) {
+    public void loadEvent(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
         String from  = tokens[2];
