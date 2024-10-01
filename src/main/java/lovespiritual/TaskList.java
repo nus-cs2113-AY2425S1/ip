@@ -47,4 +47,58 @@ public class TaskList {
         }
     }
 
+    public static Task extractTasks(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+
+            if (parts.length < 3) {
+                throw new lovespiritualException("Error reading task from file: Incomplete task data.");
+            }
+
+            String type = parts[0];
+            boolean isMarked = parts[1].equals("1");
+            String description = parts[2];
+            Task task;
+
+            switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw new lovespiritualException("Error reading Deadline from file: Missing 'by' date.");
+                }
+                String by = parts[3];
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    throw new lovespiritualException("Error reading Event from file: Missing 'from' or 'to' time.");
+                }
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+                break;
+            default:
+                throw new lovespiritualException("Error reading task from file: Unknown task type.");
+            }
+
+            if (isMarked) {
+                task.mark();
+            }
+
+            return task;
+        } catch (lovespiritualException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(e.getMessage());
+            System.out.println(SEPARATOR);
+            return null;
+        } catch (Exception e) {
+            System.out.println(SEPARATOR);
+            System.out.println("Error parsing task from file: " + e.getMessage());
+            System.out.println(SEPARATOR);
+            return null;
+        }
+    }
+
 }
