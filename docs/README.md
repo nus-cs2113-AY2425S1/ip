@@ -151,16 +151,32 @@ ______________________________
 
 ## Unmarking task
 
-// Describe the action and its outcome.
+Allow users to reset a task as undone by unmarking the task list with an ' ' and the
+saved file with a '0'
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `unmark 2`
 
 ```
-expected output
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [X] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
+unmark 2
+______________________________
+OK, I've marked this task as not done yet:
+[E] [ ] lecture (from: 4pm to: 6pm)
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
 ```
 
 ## Find task
