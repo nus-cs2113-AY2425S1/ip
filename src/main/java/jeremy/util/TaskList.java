@@ -37,7 +37,7 @@ public class TaskList implements Iterable<Task> {
     public void printList() {
         ui.lineBreak();
         for (Task task : tasks) {
-            ui.println((tasks.indexOf(task) + 1) + ". " + task);
+            ui.println((tasks.indexOf(task) + 1) + "." + task);
         }
         ui.lineBreak();
     }
