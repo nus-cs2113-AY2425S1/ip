@@ -18,6 +18,7 @@ java -jar Akshan.jar
 ```
 
 ## Quick Reference
+
 | Command                                     | Parameters                              |
 | ------------------------------------------- | --------------------------------------- |
 | [`list`](#printing-todo-list-list)          | None                                    |
