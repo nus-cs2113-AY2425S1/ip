@@ -67,7 +67,7 @@ Now you have 9 tasks in the list.
 ______________________________
 ```
 
-## Deleting task
+## List task
 
 // Describe the action and its outcome.
 
@@ -80,6 +80,39 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
+
+## Deleting task
+
+Allow users to input index of task to be removed from the list and update the
+new total number of task in the list
+
+Example: `delete 4`
+
+```
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+4. [T] [X] finding books
+
+______________________________
+delete 4
+______________________________
+Noted. I've removed this task:
+[T] [X] finding books
+Now you have 3 tasks in the list.
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
+```
+
 ## Marking task
 
 // Describe the action and its outcome.
@@ -119,19 +152,7 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
-## List task
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
 ## Load task
 
 // Describe the action and its outcome.
