@@ -46,11 +46,11 @@ public class Storage {
         }
     }
 
-    public static void saveNewData(String input, String taskType) {
+    public static void saveNewData(String input) {
         try {
             appendToFile(input);
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong while saving the data: " + e.getMessage());
         }
     }
 

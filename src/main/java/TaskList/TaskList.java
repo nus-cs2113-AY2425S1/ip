@@ -4,20 +4,19 @@ import commands.Deadline;
 import commands.Event;
 import commands.Task;
 import commands.Todo;
-import constants.Utils;
 import constants.Warnings;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalIndexException;
 import exceptions.IllegalKeywordException;
 import exceptions.IllegalTaskException;
 import java.util.ArrayList;
-import Ui.*;
-import Storage.*;
-import Parser.*;
+import Ui.Ui;
+import Storage.Storage;
+import Parser.Parser;
 
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -54,7 +53,7 @@ public class TaskList {
 
         Ui.printTodoMessage(count, todo.createTodoList());
 
-        Storage.saveNewData(todo.createTodoTxt(), Utils.TODO);
+        Storage.saveNewData(todo.createTodoTxt());
         return count + 1;
     }
 
@@ -74,7 +73,7 @@ public class TaskList {
 
         Ui.printDeadlineMessage(count, deadline.createDeadlineList());
 
-        Storage.saveNewData(deadline.createDeadlineTxt(), Utils.DEADLINE);
+        Storage.saveNewData(deadline.createDeadlineTxt());
         return count + 1;
     }
 
@@ -96,7 +95,7 @@ public class TaskList {
 
         Ui.printEventMessage(count, event.createEventList());
 
-        Storage.saveNewData(event.createEventTxt(), Utils.EVENT);
+        Storage.saveNewData(event.createEventTxt());
         return count + 1;
     }
 

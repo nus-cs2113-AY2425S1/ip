@@ -1,22 +1,20 @@
 import Parser.Parser;
 import Storage.Storage;
-import TaskList.TaskList;
 import Ui.Ui;
-import exceptions.*;
+import exceptions.IllegalIndexException;
+import exceptions.IllegalTaskException;
+import exceptions.IllegalEmptyException;
+import exceptions.IllegalKeywordException;
+import exceptions.IllegalCommandException;
 
 import java.util.Scanner;
 
 public class Cy {
-    private final Storage storage;
-    private final TaskList tasks;
-    private final Ui ui;
+
     private final Parser parser;
 
     public Cy() {
-        ui = new Ui();
         parser = new Parser();
-        storage = new Storage();
-        tasks = new TaskList();
     }
 
 
