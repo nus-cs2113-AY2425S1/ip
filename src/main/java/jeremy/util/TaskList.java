@@ -31,7 +31,7 @@ public class TaskList {
     public void printList() {
         ui.lineBreak();
         for (Task task : tasks) {
-            ui.println((tasks.indexOf(task) + 1) + ". " + task.toString());
+            ui.println((tasks.indexOf(task) + 1) + "." + task.toString());
         }
         ui.lineBreak();
     }

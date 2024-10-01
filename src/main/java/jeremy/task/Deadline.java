@@ -3,8 +3,12 @@ package jeremy.task;
 import jeremy.exception.EmptyArgumentException;
 import jeremy.exception.InvalidCommandFormatException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    protected final String by;
+    protected final LocalDate by;
 
     public Deadline(String input) throws EmptyArgumentException, InvalidCommandFormatException {
         super(input.split("/", 2)[0].trim());
@@ -25,7 +29,11 @@ public class Deadline extends Task {
             throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
         }
 
-        this.by = datePart.substring(3); // ignore "by "
+        try {
+            this.by = LocalDate.parse(datePart.substring(3)); // ignore "bye "
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "D";
     }
 
@@ -48,13 +56,17 @@ public class Deadline extends Task {
             throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
         }
         this.isDone = isDone;
-        this.by = datePart.substring(3); // ignore "by "
+        try {
+            this.by = LocalDate.parse(datePart.substring(3)); // ignore "bye "
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
+        }
         this.icon = "D";
     }
 
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + icon + "]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
