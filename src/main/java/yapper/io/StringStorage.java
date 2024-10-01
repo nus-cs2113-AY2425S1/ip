@@ -36,35 +36,35 @@ public class StringStorage {
     /**
      * Constants representing prefixes for user commands, for User I/O.
      */
-    public static final String     HELP_INSTRUCTION_PREFIX = "help";
-    public static final String     FIND_INSTRUCTION_PREFIX = "find";
-    public static final String     LIST_INSTRUCTION_PREFIX = "list";
-    public static final String     TODO_INSTRUCTION_PREFIX = "todo";
+    public static final String HELP_INSTRUCTION_PREFIX = "help";
+    public static final String FIND_INSTRUCTION_PREFIX = "find";
+    public static final String LIST_INSTRUCTION_PREFIX = "list";
+    public static final String TODO_INSTRUCTION_PREFIX = "todo";
     public static final String DEADLINE_INSTRUCTION_PREFIX = "deadline";
-    public static final String    EVENT_INSTRUCTION_PREFIX = "event";
-    public static final String   DELETE_INSTRUCTION_PREFIX = "delete";
-    public static final String     MARK_INSTRUCTION_PREFIX = "mark";
-    public static final String   UNMARK_INSTRUCTION_PREFIX = "unmark";
-    public static final String      BYE_INSTRUCTION_PREFIX = "bye";
+    public static final String EVENT_INSTRUCTION_PREFIX = "event";
+    public static final String DELETE_INSTRUCTION_PREFIX = "delete";
+    public static final String MARK_INSTRUCTION_PREFIX = "mark";
+    public static final String UNMARK_INSTRUCTION_PREFIX = "unmark";
+    public static final String BYE_INSTRUCTION_PREFIX = "bye";
     public static final String DEADLINE_END_DATE_DELIMITER = "/by";
-    public static final String  EVENT_START_DATE_DELIMITER = "/from";
-    public static final String    EVENT_END_DATE_DELIMITER = "/to";
+    public static final String EVENT_START_DATE_DELIMITER = "/from";
+    public static final String EVENT_END_DATE_DELIMITER = "/to";
 
     /**
      * Symbols used to represent task types and statuses, for File I/O.
      */
     public static final String NOT_DONE_SYMBOL = "X";
-    public static final String  IS_DONE_SYMBOL = "O";
-    public static final String     TODO_SYMBOL = "T";
+    public static final String IS_DONE_SYMBOL = "O";
+    public static final String TODO_SYMBOL = "T";
     public static final String DEADLINE_SYMBOL = "D";
-    public static final String    EVENT_SYMBOL = "E";
+    public static final String EVENT_SYMBOL = "E";
 
     /**
      * Constants related to file management.
      */
     public static final String SAVE_FILE_PATH = "./data/savedata.txt";
     public static final String COMBINE_USING_DELIMITER = "|";
-    public static final String   SPLIT_USING_DELIMITER = "\\|";
+    public static final String SPLIT_USING_DELIMITER = "\\|";
     /**
      * Splits a task string by a specified delimiter.
      *
@@ -113,10 +113,10 @@ public class StringStorage {
             // Nullary Argument Commands
             + "list" + ", if you forgot what you said. \n"
             + "help" + ", if you forgot what kinda stuff we can yap about. \n"
-            + "bye"  + ", if you want me to stop yappin. \n"
+            + "bye" + ", if you want me to stop yappin. \n"
             // Unary Argument Commands
             + "delete [index]" + ", if you don't want something. \n"
-            +   "mark [index]" + ", if you're done with something. \n"
+            + "mark [index]" + ", if you're done with something. \n"
             + "unmark [index]" + ", if you're not done with something. \n"
             + "find [keyword]" + ", if you're looking for something. \n"
             + "todo [todoDesc]" + ", to for a task with no dates. \n"
@@ -147,13 +147,13 @@ public class StringStorage {
     public static final String LIST_RELEVANT_TASKS_STRING =
             "Hmmm, let me think. What tasks could you be referring to? ";
     public static final String RELEVANT_TASKS_FOUND_STRING =
-            " task(s) found contains your query string. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "Is any of them what you were looking for? ";
+            " task(s) found contains your query string. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "Is any of them what you were looking for? ";
     public static final String RELEVANT_TASKS_NOT_FOUND_STRING =
-            "No tasks found that contains your query string. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "Sorry, I don't recall anything that is related to that. ";
+            "No tasks found that contains your query string. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "Sorry, I don't recall anything that is related to that. ";
     public static final String LIST_BEFORE_STRING =
             "You're forgetting already? Lemme refresh your memory: ";
     public static final String LIST_AFTER_STRING =
@@ -188,36 +188,36 @@ public class StringStorage {
      *
      */
     public static final String EMPTY_INPUT_MESSAGE =
-            "Input is missing. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I can say nothing in reply. I just stare at you. \n" +
-            "There is an awkward silence between us.";
+            "Input is missing. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "I can say nothing in reply. I just stare at you. \n"
+            + "There is an awkward silence between us.";
     public static final String MISSING_ARGUMENTS_MESSAGE =
-            "Argument(s) for instruction are missing. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I need more details to understand what you wanna do. ";
+            "Argument(s) for instruction are missing. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "I need more details to understand what you wanna do. ";
     public static final String MISSING_PREFIX_MESSAGE =
-            "Input does not start with any of the known prefixes: " +
-            HELP_INSTRUCTION_PREFIX + ", " +
-            BYE_INSTRUCTION_PREFIX + ", " +
-            FIND_INSTRUCTION_PREFIX + ", " +
-            LIST_INSTRUCTION_PREFIX + ", " +
-            TODO_INSTRUCTION_PREFIX + ", " +
-            DEADLINE_INSTRUCTION_PREFIX + ", " +
-            EVENT_INSTRUCTION_PREFIX + ", " +
-            DELETE_INSTRUCTION_PREFIX + ", " +
-            MARK_INSTRUCTION_PREFIX + ", " +
-            UNMARK_INSTRUCTION_PREFIX + ", \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "Explain in a way I can understand. ";
+            "Input does not start with any of the known prefixes: "
+            + HELP_INSTRUCTION_PREFIX + ", "
+            + BYE_INSTRUCTION_PREFIX + ", "
+            + FIND_INSTRUCTION_PREFIX + ", "
+            + LIST_INSTRUCTION_PREFIX + ", "
+            + TODO_INSTRUCTION_PREFIX + ", "
+            + DEADLINE_INSTRUCTION_PREFIX + ", "
+            + EVENT_INSTRUCTION_PREFIX + ", "
+            + DELETE_INSTRUCTION_PREFIX + ", "
+            + MARK_INSTRUCTION_PREFIX + ", "
+            + UNMARK_INSTRUCTION_PREFIX + ", \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "Explain in a way I can understand. ";
     public static final String MISSING_QUERY_STRING_MESSAGE =
-            "Query string not given. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "What should I be finding? ";
+            "Query string not given. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "What should I be finding? ";
     public static final String UNRECOGNISED_INSTRUCTION_MESSAGE =
-            "Instruction is not recognised. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "Sorry, I didn't catch what you just said. Repeat it for me will ya? ";
+            "Instruction is not recognised. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "Sorry, I didn't catch what you just said. Repeat it for me will ya? ";
 
     /**
      * Messages that may occur when exceptions are detected after user input parsing.
@@ -230,21 +230,21 @@ public class StringStorage {
      *
      */
     public static final String LIST_EMPTY_MESSAGE =
-            "List is empty. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "You have nothing to remember at the moment. ";
+            "List is empty. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "You have nothing to remember at the moment. ";
     public static final String LIST_OOB_MESSAGE =
-            "Given list ordinal is invalid. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I don't what you're referring to. Come again? ";
+            "Given list ordinal is invalid. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "I don't what you're referring to. Come again? ";
     public static final String TASK_ALREADY_DONE_MESSAGE =
-            "Task is already marked as done. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I know you've already done this. No need to tell me again. ";
+            "Task is already marked as done. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "I know you've already done this. No need to tell me again. ";
     public static final String TASK_STILL_NOT_DONE_MESSAGE =
-            "Task is already marked as not done. \n" +
-            LINE_DIVIDER_YAPPER + "\n"+
-            "I know you still haven't done this. I won't forget. ";
+            "Task is already marked as not done. \n"
+            + LINE_DIVIDER_YAPPER + "\n"
+            + "I know you still haven't done this. I won't forget. ";
 
 
     /**

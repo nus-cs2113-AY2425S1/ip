@@ -2,11 +2,14 @@ package yapper.instructions;
 
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.io.*;
-import yapper.tasks.TaskHandler;
-import yapper.tasks.Task;
+import yapper.io.InputStringHandler;
+import yapper.io.OutputFileHandler;
+import yapper.io.OutputStringHandler;
+import yapper.io.StringStorage;
 import yapper.tasks.Deadline;
 import yapper.tasks.Event;
+import yapper.tasks.Task;
+import yapper.tasks.TaskHandler;
 import yapper.tasks.Todo;
 
 /**
@@ -112,7 +115,8 @@ public class InstructionHandler {
      * @param isDone           The new completion status of the task (true for mark, false for unmark).
      * @throws YapperException If an error occurs while updating the task status.
      */
-    public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone) throws YapperException {
+    public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone)
+            throws YapperException {
         try {
             // Error Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
@@ -143,8 +147,8 @@ public class InstructionHandler {
             instruction = InputStringHandler.parseUserInput(userInputString.trim());
         } catch (YapperException e) {
             System.out.println(
-                    "YapperException has occurred when parsing user input. " +
-                    "See info below for more details: \n"
+                    "YapperException has occurred when parsing user input. "
+                    + "See info below for more details: \n"
                     + e.getMessage());
             return;
         }
@@ -194,12 +198,13 @@ public class InstructionHandler {
             case HELP:
                 System.out.println(StringStorage.HELP_MESSAGE);
                 break;
+            default:
             }
             // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
         } catch (YapperException e) {
             System.out.println(
-                    "YapperException has occurred when executing instruction. " +
-                    "See info below for more details: \n"
+                    "YapperException has occurred when executing instruction. "
+                    + "See info below for more details: \n"
                     + e.getMessage());
         }
 

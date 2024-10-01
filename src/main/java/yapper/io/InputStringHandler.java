@@ -30,14 +30,14 @@ public class InputStringHandler {
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
 
             // Handle 1-Argument Instructions: LIST, HELP
-            if ( userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
-                if ( !userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX) ) {
+            if (userInputString.startsWith(StringStorage.LIST_INSTRUCTION_PREFIX)) {
+                if (!userInputString.trim().equals(StringStorage.LIST_INSTRUCTION_PREFIX)) {
                     throw new YapperException(StringStorage.LIST_INSTRUCTION_PREFIX
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
-            } else if ( userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX) ) {
-                if ( !userInputString.trim().equals(StringStorage.HELP_INSTRUCTION_PREFIX) ) {
+            } else if (userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX)) {
+                if (!userInputString.trim().equals(StringStorage.HELP_INSTRUCTION_PREFIX)) {
                     throw new YapperException(StringStorage.HELP_INSTRUCTION_PREFIX
                             + " does not need other parameters");
                 }
@@ -53,17 +53,17 @@ public class InputStringHandler {
             case StringStorage.FIND_INSTRUCTION_PREFIX:
                 // no keywords here to validate
                 ExceptionHandler.checkIfFindArgsMissing(
-                        instructionArgs.trim() );
+                        instructionArgs.trim());
                 // no need to split arg
                 return new Instruction(Instruction.InstructionType.FIND,
                         instructionArgs.trim());
             case StringStorage.TODO_INSTRUCTION_PREFIX:
                 // no keywords here to validate
                 ExceptionHandler.checkIfTodoArgsMissing(
-                    instructionArgs.trim() );
+                    instructionArgs.trim());
                 // no need to split arg
                 return new Instruction(Instruction.InstructionType.TODO,
-                        instructionArgs.trim() );
+                        instructionArgs.trim());
             case StringStorage.DEADLINE_INSTRUCTION_PREFIX:
                 ExceptionHandler.checkIfDeadlineKeywordsPresent(
                     instructionArgs.indexOf(StringStorage.DEADLINE_END_DATE_DELIMITER));
@@ -71,23 +71,23 @@ public class InputStringHandler {
                 ExceptionHandler.checkIfDeadlineArgsMissing(
                         deadlineArgs[0], deadlineArgs[1]);
                 return new Instruction(Instruction.InstructionType.DEADLINE,
-                        deadlineArgs[0], deadlineArgs[1] );
+                        deadlineArgs[0], deadlineArgs[1]);
             case StringStorage.EVENT_INSTRUCTION_PREFIX:
                 ExceptionHandler.checkIfEventKeywordsPresent(
                     instructionArgs.indexOf(StringStorage.EVENT_START_DATE_DELIMITER),
                     instructionArgs.indexOf(StringStorage.EVENT_END_DATE_DELIMITER));
                 String[] eventArgs = splitStringByEventKeywords(instructionArgs);
                 ExceptionHandler.checkIfEventArgsMissing(
-                        eventArgs[0], eventArgs[1], eventArgs[2] );
+                        eventArgs[0], eventArgs[1], eventArgs[2]);
                 return new Instruction(Instruction.InstructionType.EVENT,
-                        eventArgs[0], eventArgs[1], eventArgs[2] );
+                        eventArgs[0], eventArgs[1], eventArgs[2]);
             case StringStorage.DELETE_INSTRUCTION_PREFIX:
-                int taskOrdinalToDelete = Integer.parseInt( instructionArgs.trim() );
+                int taskOrdinalToDelete = Integer.parseInt(instructionArgs.trim());
                 return new Instruction(Instruction.InstructionType.DELETE,
                         taskOrdinalToDelete);
             case StringStorage.MARK_INSTRUCTION_PREFIX:
             case StringStorage.UNMARK_INSTRUCTION_PREFIX:
-                int taskOrdinal = Integer.parseInt( instructionArgs.trim() );
+                int taskOrdinal = Integer.parseInt(instructionArgs.trim());
                 Instruction.InstructionType type = instructionType.equals(
                         StringStorage.MARK_INSTRUCTION_PREFIX)
                         ? Instruction.InstructionType.MARK

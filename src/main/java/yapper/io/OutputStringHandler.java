@@ -20,7 +20,8 @@ public class OutputStringHandler {
 
     /**
      * Formats a task for display without an ordinal number.
-     * Used for displaying a task when the task's ordinal position is not needed like in Add (Todo, Deadline, Event), Delete, Mark, Unmark
+     * Used for displaying a task when the task's ordinal position is not needed
+     * like in Add (Todo, Deadline, Event), Delete, Mark, Unmark
      *
      * @param task the task to display
      * @return the formatted string representation of the task
@@ -55,9 +56,9 @@ public class OutputStringHandler {
         List<Task> tasks = taskHandler.getAllTasks();
         int totalMatching = 0;
         for (Task task : tasks) {
-            if ( task.getDesc().contains(query) ) {
+            if (task.getDesc().contains(query)) {
                 int ordinal = taskHandler.getOrdinalOf(task);
-                System.out.println( displayTaskWithOrdinal(task, ordinal) );
+                System.out.println(displayTaskWithOrdinal(task, ordinal));
                 totalMatching++;
             }
         }
@@ -81,7 +82,7 @@ public class OutputStringHandler {
         int taskTotal = taskHandler.getCurrTaskTotal();
         for (int ordinal = 0; ordinal < taskTotal; ordinal++) {
             Task task = taskHandler.getTaskAtOrdinal(ordinal);
-            System.out.println( displayTaskWithOrdinal(task, ordinal) );
+            System.out.println(displayTaskWithOrdinal(task, ordinal));
         }
 
         System.out.println(StringStorage.LIST_AFTER_STRING);
@@ -97,7 +98,7 @@ public class OutputStringHandler {
     public static void printAddedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.ADD_BEFORE_STRING);
 
-        System.out.println( displayTaskWithoutOrdinal(task) );
+        System.out.println(displayTaskWithoutOrdinal(task));
         System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
 
         System.out.println(StringStorage.ADD_AFTER_STRING);
@@ -113,7 +114,7 @@ public class OutputStringHandler {
     public static void printDeletedTask(Task task, int taskTotal) {
         System.out.println(StringStorage.DELETE_BEFORE_STRING);
 
-        System.out.println( displayTaskWithoutOrdinal(task) );
+        System.out.println(displayTaskWithoutOrdinal(task));
         System.out.println(StringStorage.LIST_SIZE_STRING + taskTotal);
 
         System.out.println(StringStorage.DELETE_AFTER_STRING);
@@ -127,10 +128,10 @@ public class OutputStringHandler {
      * @param isDone true if the task is marked as done, false if undone
      */
     public static void printTaskStatus(Task task, boolean isDone) {
-        System.out.println(StringStorage.TASK_COMPLETION_STATUS_CHANGED_STRING +
-                (isDone ? "done" : "not done") );
-        System.out.println( displayTaskWithoutOrdinal(task) );
-        System.out.println( isDone ?
-                StringStorage.TASK_IS_DONE_STRING : StringStorage.TASK_IS_NOT_DONE_STRING);
+        System.out.println(StringStorage.TASK_COMPLETION_STATUS_CHANGED_STRING
+                + (isDone ? "done" : "not done"));
+        System.out.println(displayTaskWithoutOrdinal(task));
+        System.out.println(isDone
+                ? StringStorage.TASK_IS_DONE_STRING : StringStorage.TASK_IS_NOT_DONE_STRING);
     }
 }

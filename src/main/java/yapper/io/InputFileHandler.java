@@ -1,13 +1,17 @@
 package yapper.io;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.tasks.*; // need all classes in tasks folder
+import yapper.tasks.Deadline;
+import yapper.tasks.Event;
+import yapper.tasks.Task;
+import yapper.tasks.TaskHandler;
+import yapper.tasks.Todo;
 
 /**
  * File Data Retrieval Manager for Yapper.
@@ -99,23 +103,23 @@ public class InputFileHandler {
             // Check Desc and other Arguments, indirectly checks if missing
             String remainingParts = taskParts[2].trim();
             switch (taskType) {
-                case StringStorage.TODO_SYMBOL:
-                    // no need to split
-                    ExceptionHandler.checkIfTodoArgsMissing(
-                            remainingParts.trim() );
-                    return new Todo(remainingParts, isDone);
-                case StringStorage.DEADLINE_SYMBOL:
-                    String[] deadlineArgs = splitStringByDeadlineKeyword(remainingParts);
-                    ExceptionHandler.checkIfDeadlineArgsMissing(
-                            deadlineArgs[0], deadlineArgs[1] );
-                    return new Deadline(deadlineArgs[0], isDone, deadlineArgs[1] );
-                case StringStorage.EVENT_SYMBOL:
-                    String[] eventArgs = splitStringByEventKeywords(remainingParts);
-                    ExceptionHandler.checkIfEventArgsMissing(
-                            eventArgs[0], eventArgs[1], eventArgs[2] );
-                    return new Event(eventArgs[0], isDone, eventArgs[1], eventArgs[2]);
-                default:
-                    throw new YapperException("loadTask method reached default switch-case");
+            case StringStorage.TODO_SYMBOL:
+                // no need to split
+                ExceptionHandler.checkIfTodoArgsMissing(
+                        remainingParts.trim());
+                return new Todo(remainingParts, isDone);
+            case StringStorage.DEADLINE_SYMBOL:
+                String[] deadlineArgs = splitStringByDeadlineKeyword(remainingParts);
+                ExceptionHandler.checkIfDeadlineArgsMissing(
+                        deadlineArgs[0], deadlineArgs[1]);
+                return new Deadline(deadlineArgs[0], isDone, deadlineArgs[1]);
+            case StringStorage.EVENT_SYMBOL:
+                String[] eventArgs = splitStringByEventKeywords(remainingParts);
+                ExceptionHandler.checkIfEventArgsMissing(
+                        eventArgs[0], eventArgs[1], eventArgs[2]);
+                return new Event(eventArgs[0], isDone, eventArgs[1], eventArgs[2]);
+            default:
+                throw new YapperException("loadTask method reached default switch-case");
             }
         } catch (YapperException e) {
             throw new YapperException(taskData + ", because " + e.getMessage()); // ?

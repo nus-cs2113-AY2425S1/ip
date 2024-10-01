@@ -4,6 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A utility class for handling date and time formatting and parsing in Yapper.
+ *
+ * <p>
+ * This class provides predefined format patterns for displaying and storing dates and times,
+ * as well as a method to format dates based on user input or internal representation.
+ * </p>
+ */
 public class DateAndTimeHandler {
     // Date and time format patterns for display purposes.
     public static final String DATE_WITHOUT_TIME_TO_DISPLAY = "MM/dd/yyyy";
@@ -36,13 +44,13 @@ public class DateAndTimeHandler {
             String dateOnly, String dateAndTime) {
 
         String endDateAsString;
-        if ( dateString.isEmpty() ) {
+        if (dateString.isEmpty()) {
             if (dateWithTime == null) {
                 endDateAsString = dateWithoutTime.format(
-                        DateTimeFormatter.ofPattern(dateOnly) );
+                        DateTimeFormatter.ofPattern(dateOnly));
             } else {
                 endDateAsString = dateWithTime.format(
-                        DateTimeFormatter.ofPattern(dateAndTime) );
+                        DateTimeFormatter.ofPattern(dateAndTime));
             }
         } else {
             endDateAsString = dateString;

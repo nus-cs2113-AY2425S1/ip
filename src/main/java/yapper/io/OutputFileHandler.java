@@ -34,8 +34,8 @@ public class OutputFileHandler {
             fileWriter.close();
         } catch (IOException e) {
             throw new YapperException(
-                    StringStorage.SAVING_ERROR_MESSAGE +
-                    "error occurred when saving task to file: "
+                    StringStorage.SAVING_ERROR_MESSAGE
+                    + "error occurred when saving task to file: "
                     + e.getMessage()); // ?
         }
     }
@@ -99,8 +99,8 @@ public class OutputFileHandler {
             fileWriter.close();
         } catch (IOException e) {
             throw new YapperException(
-                    StringStorage.SAVING_ERROR_MESSAGE +
-                    "error occurred when amending task status in file: "
+                    StringStorage.SAVING_ERROR_MESSAGE
+                    + "error occurred when amending task status in file: "
                     + e.getMessage());
         }
     }
