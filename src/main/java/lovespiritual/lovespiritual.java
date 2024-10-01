@@ -338,12 +338,6 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
-    private static void printExitScreen() {
-        System.out.println(SEPARATOR);
-        System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
-        System.out.println(SEPARATOR);
-    }
-
     private static void printWelcomeScreen() {
         System.out.println(SEPARATOR);
         System.out.println("Hiya! (✿◠‿◠) I'm lovespiritual, ready to help!");
