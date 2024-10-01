@@ -20,4 +20,17 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
+    public static void printList(ArrayList <Task> tasks) {
+        System.out.println(SEPARATOR);
+        if (tasks.size() == 0) {
+            System.out.println("There is nothing on your list yet!");
+        } else {
+            System.out.println("Here's your list! (・∀・) Ready to tackle it?");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+        System.out.println(SEPARATOR);
+    }
+
 }
