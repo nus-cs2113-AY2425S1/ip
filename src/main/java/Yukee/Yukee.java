@@ -1,14 +1,12 @@
 package Yukee;
-import Yukee.task.Event;
 import Yukee.task.Todo;
+import Yukee.task.Event;
 import Yukee.task.Task;
-import Yukee.task.Deadline;
 import Yukee.storage.Storage;
-import Yukee.task.Task;
 import Yukee.task.TaskList;
 import Yukee.parser.Parser;
 import Yukee.exception.YukeeException;
-
+import Yukee.task.Deadline;
 import java.util.ArrayList;
 
 /**
@@ -121,6 +119,7 @@ public class Yukee {
                         ArrayList<Task> foundTasks = taskList.findTasks(keyword);
                         ui.showFoundTasks(foundTasks);
                         break;
+
                     case "help":
                         ui.showHelp();
                         break;
