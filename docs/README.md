@@ -69,16 +69,20 @@ ______________________________
 
 ## List task
 
-// Describe the action and its outcome.
+Allow users to see the information on the tasks that is stored in the task list
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `list`
 
 ```
-expected output
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
 ```
 
 ## Deleting task
@@ -126,6 +130,7 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
+
 ## Unmarking task
 
 // Describe the action and its outcome.
@@ -139,6 +144,7 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
+
 ## Find task
 
 // Describe the action and its outcome.
@@ -166,6 +172,7 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
+
 ## Save task
 
 // Describe the action and its outcome.
