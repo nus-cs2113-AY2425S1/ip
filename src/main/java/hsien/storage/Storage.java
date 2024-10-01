@@ -15,21 +15,35 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles the storage and retrieval of tasks from a specified file.
+ */
 public class Storage {
     private final String filepath;
 
+    /**
+     * Handles the storage and retrieval of tasks from a specified file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Reads tasks from the specified file and adds them to the provided list.
+     *
+     * @param tasks the list to which tasks will be added
+     */
     public void readFile(ArrayList<Task> tasks) {
         try {
             File f = new File(filepath);
             Scanner line = new Scanner(f);
+            System.out.println("Adding tasks...");
             while (line.hasNext()) {
                 String[] processedLine = processFileLine(line.nextLine().replace("\n", ""));
                 addTaskFromFile(processedLine[0], processedLine[1], processedLine[2], tasks);
             }
+            System.out.printf("You have [%d] tasks in the list.%n", tasks.size());
+            System.out.println("Finished adding tasks from file");
         } catch (FileNotFoundException e) {
             // Handle the case where the file does not exist
             System.out.println("File not found");
@@ -38,6 +52,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current list of tasks to the specified file.
+     *
+     * @param tasks the list of tasks to be written to the file
+     */
     public void writeFile(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(filepath);
@@ -51,6 +70,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Processes a line from the file and extracts the command, mark status, and description.
+     *
+     * @param input the line to be processed
+     * @return an array containing the command, mark status, and description
+     * @throws HsienException if the input format is invalid
+     */
     public static String[] processFileLine(String input) throws HsienException{
         String[] parts = input.split(" ");
         System.out.println(input);
@@ -68,11 +94,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a task to the list based on the provided command, mark status, and description.
+     *
+     * @param command the command indicating the task type
+     * @param isMark  the mark status of the task
+     * @param desc    the description of the task
+     * @param tasks   the list to which the task will be added
+     */
     public static void addTaskFromFile(String command, String isMark, String desc, ArrayList<Task> tasks) {
         Task newTask = null;
         String tempDesc;
 
-        // Create Task object based on action
+        // Create Task object based on command
         if (command.equals("T")) {
             newTask = new Todo(desc);
         } else if (command.equals("D")) {
@@ -87,14 +121,11 @@ public class Storage {
             newTask = new Event(tempDesc, fromDate, toDate);
         }
 
-        // Mark task
         if (isMark.equals("X")) {
             newTask.mark();
         }
 
         tasks.add(newTask);
-        System.out.println("Added task: " + newTask.getDescription());
-        System.out.printf("Now you have [%d] tasks in the list.%n", tasks.size());
     }
 
 }

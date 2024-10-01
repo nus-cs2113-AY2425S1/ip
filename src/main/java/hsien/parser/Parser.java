@@ -3,9 +3,12 @@ package hsien.parser;
 import hsien.exception.HsienException;
 import hsien.datetime.DateTime;
 
-
 import java.util.Arrays;
 
+/**
+ * Represents a command parser that processes user input and extracts
+ * relevant details such as command type and associated parameters.
+ */
 public class Parser {
     private String desc;
     private String command;
@@ -14,7 +17,10 @@ public class Parser {
     private String byDate;
     DateTime datetime = new DateTime();
 
-
+    /**
+     * Initializes a new instance of the Parser class with empty command
+     * and description fields.
+     */
     public Parser() {
         this.desc = "";
         this.command = "";
@@ -23,6 +29,13 @@ public class Parser {
         this.byDate = "";
     }
 
+    /**
+     * Processes the input command string and extracts the command type,
+     * description and relevant dates if applicable .
+     *
+     * @param input the command input from the user.
+     * @return true if the command is processed successfully, false otherwise.
+     */
     public boolean processCommand(String input) {
         String[] parts = input.split(" ");
         String tempDesc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length)).trim();
@@ -56,7 +69,8 @@ public class Parser {
                 fromDate = dates[0].trim();
                 toDate = dates[1].trim();
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Invalid format for event. Expected format: event <task> /from <start date> /to <end date>");
+                System.out.println("Invalid format for event. Expected format: event <task>" +
+                                   " /from <start date> /to <end date>");
                 return false;
             }
 
@@ -84,28 +98,47 @@ public class Parser {
         return true;
     }
 
-    public void processCommand(String input) {
-        String[] parts = input.split(" ");
-        this.desc = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-        this.command = parts[0];
-    }
-
+    /**
+     * Retrieves the description of the command.
+     *
+     * @return the description associated with the command.
+     */
     public String getDesc() {
         return this.desc;
     }
 
+    /**
+     * Retrieves the description of the command.
+     *
+     * @return the description associated with the command.
+     */
     public String getCommand() {
         return this.command;
     }
 
+    /**
+     * Retrieves the formatted start date for the event.
+     *
+     * @return the formatted start date.
+     */
     public String getFromDate() {
         return this.byDate;
     }
 
+    /**
+     * Retrieves the formatted end date for the event.
+     *
+     * @return the formatted end date.
+     */
     public String getToDate() {
         return this.toDate;
     }
 
+    /**
+     * Retrieves the formatted by date for the deadline.
+     *
+     * @return the formatted by date.
+     */
     public String getByDate() {
         return byDate;
     }
