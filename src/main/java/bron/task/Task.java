@@ -1,6 +1,6 @@
 package bron.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -25,5 +25,8 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
+    public String toSaveFormat() {
+        return String.format(" | %d | %s", isDone ? 1 : 0, description);
+    }
 
 }
