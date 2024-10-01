@@ -29,7 +29,9 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    //Return the Task at the given index from the tasks ArrayList
+    /**
+     * Return the Task at the given index from the tasks ArrayList
+     */
     public Task getTask(int index) throws IllegalIndexException {
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalIndexException("Please enter a valid task number from 0 to " + tasks.size());

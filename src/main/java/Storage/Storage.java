@@ -22,7 +22,9 @@ public class Storage {
         }
     }
 
-    //Print previously stored tasks from the txt file
+    /**
+     * Print previously stored tasks from the txt file
+     */
     private static void printFileContents() throws FileNotFoundException {
         File f = new File(Utils.FILE_PATH);
         Scanner s = new Scanner(f);
@@ -70,7 +72,9 @@ public class Storage {
         }
     }
 
-    //Writes the input from saveNewData() method into the txt file
+    /**
+     * Writes the input from saveNewData() method into the txt file
+     */
     private static void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(Utils.FILE_PATH, true);
         fw.write(System.lineSeparator() + textToAppend);
