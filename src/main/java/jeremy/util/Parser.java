@@ -3,7 +3,20 @@ package jeremy.util;
 import jeremy.command.*;
 import jeremy.exception.IllegalCommandException;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input and
+ * converting it into specific {@link Command} objects. It also helps
+ * in identifying command types based on icons or user inputs.
+ */
 public class Parser {
+    /**
+     * Parses the given user input and returns the corresponding {@link Command}.
+     * The user input is split into a command type and an optional argument.
+     *
+     * @param userInput The input string entered by the user.
+     * @return A {@link Command} object corresponding to the user input.
+     * @throws IllegalCommandException If the input does not match a valid command type.
+     */
     public static Command parse(String userInput) throws IllegalCommandException {
         String[] parts = userInput.split(" ", 2);
         try {
@@ -38,6 +51,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts an icon from storage into the corresponding {@link CommandType}.
+     *
+     * @param icon The icon representing the command type (e.g., "T" for Todo).
+     * @return The {@link CommandType} corresponding to the icon.
+     * @throws IllegalCommandException If storage is not in the correct format.
+     */
     public static CommandType fromIcon(String icon) throws IllegalCommandException {
         switch (icon) {
         case "T":
