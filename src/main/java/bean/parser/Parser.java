@@ -5,27 +5,35 @@ import bean.exceptions.EmptyListException;
 import bean.exceptions.InsufficientSpaceException;
 import bean.exceptions.InvalidInputException;
 import bean.exceptions.TaskNumOutOfBoundsException;
-import bean.storage.Storage;
-import bean.task.Task;
 import bean.tasklist.TaskList;
 import bean.ui.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import static bean.constants.Constants.INDENT;
 import static bean.constants.Constants.MAX_LIST_COUNT;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Parser {
 
-    // Return command (taken as first word) from given user input
+    /**
+     * Extracts the first word from the user input and returns it as the command.
+     *
+     * @param userInput The user's input string.
+     * @return The first word of the input (the command).
+     */
     public static String extractCommand(String userInput) {
         // Take first word of input as command
         return userInput.split(" ")[0];
     }
 
-    // Extract task number as int from user input for mark, unmark and delete commands
+    /**
+     * Extracts the task number as an integer from the user input for commands like mark, unmark, and delete.
+     *
+     * @param userInput The user's input string.
+     * @return The task number (1-based) extracted from the input.
+     * @throws TaskNumOutOfBoundsException if the extracted task number is invalid.
+     */
     public static int obtainTaskNum(String userInput) throws TaskNumOutOfBoundsException {
         // Obtain task number by taking second word of input and trim any spaces, then parse as int
         String[] words = userInput.split(" ");
@@ -36,12 +44,16 @@ public class Parser {
         return taskNum;
     }
 
+    /**
+     * Processes user input in a loop until the user exits.
+     * Handles different commands like "list", "mark", "add", "delete", etc.
+     * Catches and displays appropriate error messages for invalid input, empty list, invalid task number, insufficient space, and I/O exceptions.
+     */
     public static void processUserInput() {
         String userInput;
         Scanner in = new Scanner(System.in);
-        Boolean isExit = false;
 
-        while (!isExit) {
+        while (true) {
             userInput = in.nextLine();
             String userCommand = extractCommand(userInput);
 
@@ -49,7 +61,6 @@ public class Parser {
                 switch (userCommand) {
                 case "bye":
                     // To exit
-                    isExit = true;
                     return;
 
                 case "list":

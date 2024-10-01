@@ -3,7 +3,6 @@ package bean.ui;
 import static bean.constants.Constants.LOGO;
 import static bean.constants.Constants.SEPARATOR_LINE;
 import static bean.constants.Constants.INDENT;
-import static bean.constants.Constants.DELIMITER;
 
 public class Ui {
 
@@ -20,7 +19,7 @@ public class Ui {
     }
 
     /**
-     * Prints logo with exit message
+     * Prints logo with exit message.
      */
     public static void exit() {
         System.out.println(SEPARATOR_LINE +

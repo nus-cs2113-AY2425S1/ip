@@ -19,6 +19,9 @@ public class Storage {
 
     public final String path;
 
+    /**
+     * Creates a Storage object with the default data file path.
+     */
     public Storage() {
         this.path = DATA_FILE_PATH;
     }
@@ -51,11 +54,16 @@ public class Storage {
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            deserialise(line, taskList);
+            deserialise(line);
         }
     }
 
-    // Overwrite contents of bean.txt with updated task info when tasks are updated
+    /**
+     * Overwrites the entire data file with the updated task information.
+     *
+     * @param tasks The updated task list to be saved.
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public static void overwriteDataFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(DATA_FILE_PATH);
         for (Task task : tasks) {
@@ -64,18 +72,29 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Appends a new line containing the serialized task information to the data file.
+     *
+     * @param nextLine The serialized task information to be added.
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public static void appendNextLineToFile(String nextLine) throws IOException {
         FileWriter fw = new FileWriter(DATA_FILE_PATH, true); // create a FileWriter in append mode
         fw.write(nextLine + "\n");
         fw.close();
     }
 
-    public static void deserialise(String toDeserialise, TaskList tasklist) throws IOException {
+    /**
+     * Deserializes a task string from the data file and adds the corresponding Task object to the task list.
+     *
+     * @param toDeserialise The serialized task string to be deserialized.
+     * @throws IOException if an I/O error occurs.
+     * @throws RuntimeException if the serialized data appears corrupted.
+     */
+    public static void deserialise(String toDeserialise) throws IOException {
         if (toDeserialise == null) {
             throw new RuntimeException("Could not load saved data.");
         }
-
-        ArrayList<Task> tasks = tasklist.getTasks();
 
         // 'T||<1/0>||<description>'
         // 'D||<1/0>||<description>||<by>'
