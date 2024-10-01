@@ -1,3 +1,7 @@
 E |   | concert | 2000 | 2300
 T | X | assignment
 D |   | quiz | 2359
+T | X | increments
+D |   | tutorial | 6 oct
+E | X | exam | 1200 | 1400
+T | X | watch movie

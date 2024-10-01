@@ -89,6 +89,8 @@ public class Freedom {
             lastIndex++;
 
             System.out.println("\tNow you have " + (lastIndex) + " tasks in the list.\n" + LOGO);
+
+            saveData();
         } catch (InvalidCommand e) {
             System.out.println(LOGO + "\tSorry! I do not understand your command");
             System.out.println(LOGO);
@@ -142,6 +144,8 @@ public class Freedom {
             System.out.println(LOGO + message);
             System.out.println("\t  " + taskToBeMarked.printLine());
             System.out.println(LOGO);
+
+            saveData();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
             System.out.print("""
@@ -201,30 +205,13 @@ public class Freedom {
     }
 
     public static void saveData() {
-        final String DIVIDER = " | ";
-
-        String taskInData;
         Task taskToAdd;
-        String taskType;
-        String status;
 
         try (FileWriter writer = new FileWriter(DATA_FILE_PATH)) {
             for (int i = 0; i < lastIndex; i++) {
                 taskToAdd = tasks.get(i);
-                taskType = taskToAdd.getType();
-                status = taskToAdd.getStatusIcon();
-                taskInData = taskType + DIVIDER + status + DIVIDER + taskToAdd.getDescription();
-
-                if (taskType.equals("D")) {
-                    taskInData += DIVIDER + taskToAdd.getDoneBy();
-                } else if (taskType.equals("E")) {
-                    taskInData += DIVIDER + taskToAdd.getFrom() + DIVIDER + taskToAdd.getTo();
-                }
-
-                taskInData += "\n";
-                writer.write(taskInData);
+                writer.write(taskToAdd.generateStorageLine());
             }
-            System.out.println("\tData saved!");
         } catch (IOException e) {
             System.out.print(LOGO);
             System.out.println("\tCannot open data file :((");
