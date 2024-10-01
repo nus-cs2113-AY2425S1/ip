@@ -119,16 +119,34 @@ ______________________________
 
 ## Marking task
 
-// Describe the action and its outcome.
+Allow users to set a task as done by marking the task list with an 'X' and the 
+saved file with a '1'
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Example: `mark 2`
 
 // A description of the expected outcome goes here
 
 ```
-expected output
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [ ] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
+mark 2
+______________________________
+Nice! I've marked this task as done:
+[E] [X] lecture (from: 4pm to: 6pm)
+______________________________
+list
+______________________________
+Here are the tasks in your list:
+1. [T] [X] Joe
+2. [E] [X] lecture (from: 4pm to: 6pm)
+3. [D] [ ] return book (by: Dec 02 2019)
+
+______________________________
 ```
 
 ## Unmarking task
