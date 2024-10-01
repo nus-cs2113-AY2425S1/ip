@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class CommandHandler {
 
     public static void handleCommand(String[] command, TaskList tasks) throws KaiException {
@@ -43,25 +47,44 @@ public class CommandHandler {
         if (parts.length < 2) {
             throw new KaiException("The deadline needs a description and a '/by' date.");
         }
-        tasks.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
-        System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+
+        try {
+            String description = parts[0].trim();
+            LocalDate deadlineDate = LocalDate.parse(parts[1].trim()); // Parse the date as yyyy-mm-dd
+
+            tasks.addTask(new Deadline(description, deadlineDate)); // Pass LocalDate to Deadline constructor
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
+            System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new KaiException("The date format is invalid. Please use yyyy-mm-dd.");
+        }
     }
 
     private static void handleEventCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of an event cannot be empty.");
         }
+
         String[] parts = command[1].split(" /from ");
         if (parts.length < 2 || !parts[1].contains(" /to ")) {
             throw new KaiException("The event needs a description, a '/from' time, and a '/to' time.");
         }
-        String[] timeParts = parts[1].split(" /to ");
-        tasks.addTask(new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
-        System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+
+        try {
+            String description = parts[0].trim();
+            String[] timeParts = parts[1].split(" /to ");
+            LocalDate eventDate = LocalDate.parse(timeParts[0].trim().split(" ")[0]);
+            LocalTime fromTime = LocalTime.parse(timeParts[0].trim().split(" ")[1]);
+            LocalTime toTime = LocalTime.parse(timeParts[1].trim());
+
+            tasks.addTask(new Event(description, eventDate, fromTime, toTime));  // Pass LocalDate and LocalTime
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + tasks.getTask(tasks.getSize() - 1));
+            System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new KaiException("The date or time format is invalid. Please use yyyy-mm-dd for dates and HH:mm for times.");
+        }
     }
 
     private static void handleDeleteCommand(String[] command, TaskList tasks) throws KaiException {

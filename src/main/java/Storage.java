@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class Storage {
     private final String filePath;
@@ -38,10 +41,22 @@ public class Storage {
                     task = new Todo(data[2]);
                     break;
                 case "D":
-                    task = new Deadline(data[2], data[3]);
+                    try {
+                        LocalDate deadlineDate = LocalDate.parse(data[3]);
+                        task = new Deadline(data[2], deadlineDate);
+                    } catch (DateTimeParseException e) {
+                        throw new IOException("Invalid date format in deadline task.");
+                    }
                     break;
                 case "E":
-                    task = new Event(data[2], data[3], data[4]);
+                    try {
+                        LocalDate eventDate = LocalDate.parse(data[3]);
+                        LocalTime startTime = LocalTime.parse(data[4]);
+                        LocalTime endTime = LocalTime.parse(data[5]);
+                        task = new Event(data[2], eventDate, startTime, endTime);
+                    } catch (DateTimeParseException e) {
+                        throw new IOException("Invalid date or time format in event task.");
+                    }
                     break;
                 default:
                     throw new IOException("Corrupted data format.");
