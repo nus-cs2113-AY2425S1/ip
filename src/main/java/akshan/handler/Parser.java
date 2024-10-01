@@ -46,6 +46,9 @@ public class Parser {
             case DATE:
                 command = Optional.of(new DateCommand(commandType, commandString[1], taskList));
                 break;
+            case FIND:
+                command = Optional.of(new FindCommand(commandType, commandString[1], taskList));
+                break;
             default:
                 throw new IllegalArgumentException("Uh oh, no command found in: " + commandString[0]);
             }
