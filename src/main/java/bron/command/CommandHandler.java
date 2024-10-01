@@ -88,12 +88,20 @@ public class CommandHandler {
     }
 
     private void handleMark(int index) throws TaskIndexOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new TaskIndexOutOfBoundsException();
+        }
+
         tasks.get(index).markAsDone();
         System.out.println("Good shit kid! I've marked this task as done:");
         System.out.println("  " + tasks.get(index));
     }
 
     private void handleUnmark(int index) throws TaskIndexOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new TaskIndexOutOfBoundsException();
+        }
+
         tasks.get(index).markAsNotDone();
         System.out.println("Get yo shit together son, this task aint done yet:");
         System.out.println("  " + tasks.get(index));

@@ -25,7 +25,6 @@ public class FileStorage {
             return tasks;
         }
 
-        // Read tasks from the file
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -44,6 +43,12 @@ public class FileStorage {
 
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
+
+        if (parts.length < 3) {
+            System.out.println("Error parsing line: " + line);
+            return null;  // Skip this line if it's malformed
+        }
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -59,6 +64,7 @@ public class FileStorage {
             String to = parts[4];
             return new Event(description, from, to, isDone);
         default:
+            System.out.println("Unknown task type: " + type);
             return null;  // Handle unknown task types
         }
     }
