@@ -105,26 +105,6 @@ public class lovespiritual {
     }
 
 
-    private static String savedFormat(Task task) {
-        String taskType = "";
-        String formattedTask = "";
-
-        if (task instanceof Todo) {
-            taskType = "T";
-            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description;
-        } else if (task instanceof Deadline) {
-            taskType = "D";
-            Deadline deadline = (Deadline) task;
-            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description + " | " + deadline.by;
-        } else if (task instanceof Event) {
-            taskType = "E";
-            Event event = (Event) task;
-            formattedTask = taskType + " | " + (task.isMarked ? "1" : "0") + " | " + task.description + " | " + event.from + " | " + event.to;
-        }
-        return formattedTask;
-    }
-
-
     private static int event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
