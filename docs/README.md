@@ -31,11 +31,12 @@ You can download the latest version of Hsien as a JAR file from the following li
 2. Navigate to the directory where the JAR file is located.
 3. Run the application using the following command:
 
-   ```
+   ```bash
    java -jar Hsien.jar
    ```
 
 4. This page will be shown if the previous command was run successfully
+
 
    ```
    --------------------------------------------------
@@ -69,7 +70,9 @@ You can download the latest version of Hsien as a JAR file from the following li
    ```
 
 
+
 ## Features
+
 | Command   | Description                                  |
 |-----------|----------------------------------------------|
 | `todo`    | Adds a new todo task to the task list.      |
@@ -83,7 +86,9 @@ You can download the latest version of Hsien as a JAR file from the following li
 | `save`    | Saves the current tasks to a file.          |
 | `bye`     | Exits the application.                       |
 
+
 ## Command Format
+
 | Command Syntax               | Description                                          |
 |------------------------------|------------------------------------------------------|
 | `todo <description>`         | Adds a new todo task with the specified description. |
@@ -96,6 +101,7 @@ You can download the latest version of Hsien as a JAR file from the following li
 | `find <keyword>`             | Searches for tasks containing the specified keyword.   |
 | `save`                       | Saves the current tasks to a file.                   |
 | `bye`                        | Exits the application.                               |
+
 
 ## Command Usage
 
