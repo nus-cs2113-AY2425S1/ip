@@ -31,14 +31,14 @@ You can download the latest version of Hsien as a JAR file from the following li
 2. Navigate to the directory where the JAR file is located.
 3. Run the application using the following command:
 
-   ```bash
+   ```
    java -jar Hsien.jar
    ```
 
 4. This page will be shown if the previous command was run successfully
 
 
-   ```bash
+   ```
    --------------------------------------------------
     _   _         _____        _ _   _
    | | | | ##### |_   _|##### |   \ | |
@@ -67,6 +67,7 @@ You can download the latest version of Hsien as a JAR file from the following li
    9. save
    10. bye
    Please enter a command/add task (type 'bye' to exit):
+   
    ```
 
 
