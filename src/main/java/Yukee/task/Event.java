@@ -1,5 +1,6 @@
 // Event.java
 package Yukee.task;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -11,8 +12,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    public String getTaskType() {
+        return "E";
     }
 
     public String getFrom() {
@@ -21,5 +22,10 @@ public class Event extends Task {
 
     public String getTo() {
         return this.to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

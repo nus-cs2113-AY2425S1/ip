@@ -14,21 +14,24 @@ public class Task {
         this.isDone = true;
     }
 
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getTaskType() {
+        return " "; // Default task type, should be overridden in subclasses
     }
 
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
-    public boolean isDone() {
-        return isDone;
-    }
 }
-
