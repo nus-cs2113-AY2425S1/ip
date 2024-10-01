@@ -1,10 +1,12 @@
 package melchizedek;
 
+import PACKAGE_NAME.melchizedek.Parser;
 import melchizedek.exceptions.DescriptionNotPresentException;
 import melchizedek.exceptions.InvalidTaskNumberException;
 import melchizedek.task.TaskList;
 import melchizedek.Ui;
 import melchizedek.Storage;
+import melchizedek.Parser;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,14 +16,12 @@ public class Melchizedek {
 
     public static TaskList taskList = new TaskList();
 
-
     public static void main(String[] args) {
-        melchizedek.Ui.sayHelloToUser();
-        melchizedek.Storage.loadFile(taskList);
+        Ui.sayHelloToUser();
+        Storage.loadFile(taskList);
         Scanner in = new Scanner(System.in);
         while (true) {
-            String input = in.nextLine();
-            String[] tokens = input.split(" ");
+            String[] tokens = Parser.parseInput(in.nextLine());
 
             Ui.printSeparator();
 
