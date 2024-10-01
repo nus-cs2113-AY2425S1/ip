@@ -20,6 +20,13 @@ public class Storage {
     private static final Path STORAGE_PATH = STORAGE_FOLDER_PATH.resolve("akshan.txt");
     private static final String SEPARATOR = " <-> ";
 
+    /**
+     * Constructor for Storage.
+     * Searches for a data file, if not it will create one.
+     *
+     * @param taskList The target task list.
+     * @throws IOException If there is no data file found.
+     */
     public Storage(TaskList taskList) throws IOException {
         // Create data folder if it does not exist
         File storageFolder = new File(String.valueOf(STORAGE_FOLDER_PATH));
@@ -49,6 +56,12 @@ public class Storage {
         loadData(taskList);
     }
 
+    /**
+     * Load the tasks saved in the data file and add to the taskList.
+     *
+     * @param taskList The target task list.
+     * @throws IOException If there is no datafile found.
+     */
     public void loadData(TaskList taskList) throws IOException {
         try {
             Scanner sc = new java.util.Scanner(storage);
@@ -66,7 +79,15 @@ public class Storage {
         }
     }
 
-    public void createTask(TaskList taskList, String[] data) throws IOException, IndexOutOfBoundsException {
+    /**
+     * Creates a task upon from input line from data file, add to taskList.
+     *
+     * @param taskList The target task list.
+     * @param data The parts of the string that contain details regarding the task to be added.
+     * @throws IOException If there is corrupted data.
+     * @throws IndexOutOfBoundsException If there is no task input is invalid.
+     */
+    private void createTask(TaskList taskList, String[] data) throws IOException, IndexOutOfBoundsException {
         boolean isDone = data[1].equals("1");
         boolean isNotDone = data[1].equals("0");
         String taskType = data[0];
@@ -99,6 +120,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the full task list onto the data file.
+     *
+     * @param taskList The target task list.
+     * @throws IOException If the data file cannot be found.
+     */
     public void saveData(TaskList taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(String.valueOf(STORAGE_PATH));

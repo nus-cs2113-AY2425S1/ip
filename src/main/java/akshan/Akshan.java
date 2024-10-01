@@ -13,6 +13,11 @@ public final class Akshan {
     private static Storage storageHandler;
 
 
+    /**
+     * Starts Akshan chatbot.
+     *
+     * @throws IOException If data file is unable to be found.
+     */
     public Akshan() throws IOException{
         storageHandler = new Storage(taskList);
     }
