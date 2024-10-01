@@ -20,6 +20,10 @@ public class Deadline extends Task {
         }
     }
 
+    public LocalDate getBy() {
+        return by;
+    }
+
     public String getFormattedDate() {
         return by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

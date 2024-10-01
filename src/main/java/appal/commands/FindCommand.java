@@ -1,6 +1,7 @@
 package appal.commands;
 
 import appal.exception.AppalException;
+import appal.exception.InvalidSearchTargetException;
 import appal.storage.Storage;
 import appal.task.Task;
 import appal.task.TaskList;
@@ -13,9 +14,13 @@ import static appal.common.Utils.COMMAND_FIND;
 public class FindCommand extends Command {
     private String searchTarget;
 
-    public FindCommand(String searchTarget) {
+    public FindCommand(String searchTarget) throws InvalidSearchTargetException {
         super(COMMAND_FIND);
-        this.searchTarget = searchTarget.toLowerCase();
+        try {
+            this.searchTarget = searchTarget.toLowerCase();
+        } catch (NullPointerException e) {
+            throw new InvalidSearchTargetException();
+        }
     }
 
     public boolean containsSearchTarget(Task task) {
