@@ -68,8 +68,12 @@ public class CommandHandler {
     }
 
     private void deleteTask(int index) throws TaskIndexOutOfBoundsException {
-        tasks.remove(index);
+        if (index < 0 || index >= tasks.size()) {
+            throw new TaskIndexOutOfBoundsException();
+        }
+
         System.out.println("You deleted \n" + tasks.get(index));
+        tasks.remove(index);
         System.out.println("You have " + tasks.size() + " task(s)");
     }
 
