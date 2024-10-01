@@ -19,10 +19,10 @@ public class Parser {
      * Returns the final number of items in the list after executing the command.
      * The method also handles the command and directs it to the relevant methods.
      *
-     * @param input A String containing the user input
+     * @param input A String containing the user's input
      * @param count Current number of items in the list before executing the command
      * @param command The user input command
-     * @param splitInputs A String[] containing the user input, split by " " delimeter.
+     * @param splitInputs A String[] containing the user input, split by " " delimiter.
      *
      * @return the number of items stored in the ArrayList after executing the command
      *
@@ -57,7 +57,7 @@ public class Parser {
      * Throws an IllegalTaskException when the index is out of range or
      * when the mark index is not a number
      *
-     * @param splitInputs A String[] containing the user input, split by " " delimeter.
+     * @param splitInputs A String[] containing the user input, split by " " delimiter.
      * @param count Number of items in the list
      * @throws IllegalTaskException if index is out of range or when the index is not a number
      */
