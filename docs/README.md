@@ -22,13 +22,12 @@ A friendly CLI program helping user to manage all tasks todo.
 ---
 ## Features
 
-> [!NOTE]  
-> - Words in `< >` are the parameters to be supplied by the user.
-> e.g. in `mark <index>`, `<index>` is a parameter which user should supply.
-> - Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.
-> - The `<time>` parameters will be formated if possible
-> e.g. `2023/05/13` will be formated as `May 13 2023`
-> - The `<index>` parameter in `mark`, `unmark` and `deleter` should be providedd as an interger and start by 1.
+- Words in `< >` are the parameters to be supplied by the user.
+e.g. in `mark <index>`, `<index>` is a parameter which user should supply.
+- Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.
+- The `<time>` parameters will be formated if possible
+e.g. `2023/05/13` will be formated as `May 13 2023`
+- The `<index>` parameter in `mark`, `unmark` and `deleter` should be providedd as an interger and start by 1.
 
 ### Exiting the program: `bye`
 
@@ -43,19 +42,18 @@ Formate: `help`
 ### Listing all tasks: `list`
 
 Shows a list of all tasks in the TaskList.
-Formate: `list`
 
-> [!NOTE]
-> 
-> - The output will show the index, type, mark status, desctiptions and time (if avaliable) of the tasks.
-> - In the first quotation mark shows the type of the task.
->   - `T` means Todos.
->   - `D` means Deadlines.
->   - `E` means Events.
->   - If non, means it is a simple task without a type.
-> - In the second quotation mark shows the mark status of the task.
->   - `X` means the task was marked as done.
->   - If empty, means the task was marked as undone.
+- The output will show the index, type, mark status, desctiptions and time (if avaliable) of the tasks.
+- In the first quotation mark shows the type of the task.
+  - `T` means Todos.
+  - `D` means Deadlines.
+  - `E` means Events.
+  - If non, means it is a simple task without a type.
+- In the second quotation mark shows the mark status of the task.
+  - `X` means the task was marked as done.
+  - If empty, means the task was marked as undone.
+
+Formate: `list`
 
 Example output:
 ```
@@ -97,7 +95,7 @@ Examples:
 Adds a Deadline to the TaskList.
 Description and time details must be added.
 
-Format: `deadline <description> /by <time>`
+Format: `deadline <description- /by <time>`
 
 Examples:
 
@@ -110,7 +108,7 @@ Examples:
 Adds an Event to the TaskList.
 Description and time (from and to) details must be added.
 
-Format: `event <description> /from <time1> /to <time2>`
+Format: `event <description- /from <time1> /to <time2>`
 
 Example:
 
@@ -120,7 +118,7 @@ Example:
 
 Marks a task as done.
 Index of the task must be provided.
-Do check the list of tasks to get the index.
+Do use the command [`list`](#listing-all-tasks-list) to check the index of task.
 
 Format: `mark <index>`
 
@@ -132,7 +130,7 @@ Example:
 
 Marks a task as undone.
 Index of the task must be provided.
-Do check the list of tasks to get the index.
+Do use the command [`list`](#listing-all-tasks-list) to check the index of task.
 
 Format: `unmark <index>`
 
@@ -144,10 +142,9 @@ Example:
 
 Deletes a task from the list.
 Index of the task must be provided.
-Do check the list of tasks to get the index.
 
-> [!NOTE]
 > After deletion, the index of subsequent tasks will change. Please keep this in mind when executing this command consecutively.
+> Do use the command [`list`](#listing-all-tasks-list) to check the index of task.
 
 Format: `delete <index>`
 
@@ -163,11 +160,11 @@ Keyword must be provided.
 
 Format: `find <keyword>`
 
-> [!NOTE]
-> - The search is case-sensitive. e.g `Job` will not match `job`
-> - The search only perform in `<description>`, not in > `<time>`
->   e.g. keyword `1300` will not match the task `[D][X] | gym (by: 1300-1400)`
-> - The task's index in the TaskList will also be provided to > perform `mark`, `unmark` or `delete`.
+
+- The search is case-sensitive. e.g `Job` will not match `job`
+- The search only perform in `<description>`, not in - `<time>`
+  e.g. keyword `1300` will not match the task `[D][X] | gym (by: 1300-1400)`
+- The task's index in the TaskList will also be provided to - perform `mark`, `unmark` or `delete`.
 
 Example:
 
