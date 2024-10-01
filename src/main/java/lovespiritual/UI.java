@@ -33,4 +33,10 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
+    public void printError(String message) {
+        System.out.println(SEPARATOR);
+        System.out.println(message);
+        System.out.println(SEPARATOR);
+    }
+
 }
