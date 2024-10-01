@@ -25,13 +25,28 @@ import static appal.common.Utils.LINE_BREAK;
 import static appal.common.Utils.TASK_MARKED_VALUE;
 import static appal.common.Utils.TASK_INDEX;
 
+/**
+ * Storage class handles the saving of tasks
+ * and loading of previously saved tasks.
+ */
 public class Storage {
     private Parser parser;
 
+    /**
+     * Class constructor.
+     */
     public Storage() {
         parser = new Parser();
     }
 
+    /**
+     * Loads previously saved tasks from a text file into current task list.
+     *
+     * @param taskList Current task list tracked by Appal.
+     * @param ui Ui instance for Appal to show messages.
+     * @throws FileNotFoundException if saved tasks text file is not found.
+     * @throws AppalException if error occurs while extracting or executing a command from the saved tasks file
+     */
     public void loadFileContents(TaskList taskList, Ui ui) throws FileNotFoundException, AppalException {
         File savedTasks = new File(FILE_PATH); // create a File for the given file path
         Scanner fileReader = new Scanner(savedTasks); // create a Scanner using the File as the source
@@ -49,6 +64,13 @@ public class Storage {
         Task.setTotalTasks(savedTasksCount);
     }
 
+    /**
+     * Initiates the process of loading previously saved tasks into current task list.
+     *
+     * @param taskList Current task list tracked by Appal.
+     * @param ui Ui instance for Appal to show messages.
+     * @throws NoSavedTasksException if saved tasks text file is not found, or error occurs while loading tasks.
+     */
     public void loadExistingTasksData(TaskList taskList, Ui ui) throws NoSavedTasksException {
         try {
             loadFileContents(taskList, ui);
@@ -58,6 +80,12 @@ public class Storage {
         ui.printMessage(LOAD_SAVED_TASKS_MESSAGE);
     }
 
+    /**
+     * Stores tasks from current task list into a saved tasks text file for future use.
+     *
+     * @param taskList Current task list tracked by Appal.
+     * @throws SaveTasksErrorException if error occurs while saving the tasks into the text file.
+     */
     public void saveTasksToFile(TaskList taskList) throws SaveTasksErrorException {
         try {
             Files.createDirectories(FILE_DIRECTORY);

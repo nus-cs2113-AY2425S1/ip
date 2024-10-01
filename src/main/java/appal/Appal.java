@@ -8,14 +8,20 @@ import appal.task.TaskList;
 import appal.ui.Ui;
 import appal.storage.*;
 
+/**
+ * Appal class contains functions to initialise Appal.
+ */
 public class Appal {
-    // Attributes
+    // Attributes of Appal
     private final Ui ui;
     private boolean isExit = false;
     private Parser parser;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Class constructor.
+     */
     public Appal() {
         this.ui = new Ui();
         this.taskList = new TaskList();
@@ -23,6 +29,11 @@ public class Appal {
         this.storage = new Storage();
     }
 
+    /**
+     * Runs the Appal chatbot application.
+     * Starts by welcoming user and loading previously saved tasks (if applicable),
+     * then loops the main program to take in user input until exit flag is set.
+     */
     public void runAppal() {
         ui.welcomeUser();
         try {

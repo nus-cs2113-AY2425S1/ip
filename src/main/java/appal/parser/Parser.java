@@ -20,7 +20,20 @@ import static appal.common.Utils.MAX_ARGS;
 import static appal.common.Utils.SPACE;
 import static appal.common.Utils.SLASH;
 
+/**
+ * Parser class handles the parsing of user input, and based on the input,
+ * creates a Command object that has specific methods to handle the command.
+ */
 public class Parser {
+    /**
+     * Returns a Command object based on the user's input.
+     *
+     * @param inputDetails User's input that has been split into parameters by
+     * {@link #extractInputDetails(String)} (String) extractInputDetails} method.
+     * @param fromUserInput Indicates whether instruction to add task is from the user or from pre-saved tasks.
+     * @return A Command object to handle execution of the command.
+     * @throws AppalException if user inputs an invalid command.
+     */
     public Command extractCommand(String[] inputDetails, boolean fromUserInput) throws AppalException {
         String commandType = inputDetails[COMMAND_INDEX];
         switch (commandType) {
@@ -51,10 +64,10 @@ public class Parser {
 
     /**
      * Returns a String array that splits the user input into three respective parameters:
-     * Command type, task details, and additional information
+     * Command type, task description, and additional information.
      *
      * @param input User input
-     * @return String array, with the command type, task details, and additional information
+     * @return String array, with the command type, task description, and additional information
      * in position 0, 1 and 2 (to 3) respectively
      */
     public String[] extractInputDetails(String input) {
