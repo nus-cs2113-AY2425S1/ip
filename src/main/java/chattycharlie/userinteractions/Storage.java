@@ -13,12 +13,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the storage system for saving and loading tasks.
+ * The <code>Storage</code> class handles reading from and writing to the file specified by the user.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a <code>Storage</code> object with the specified file path.
+     *
+     * @param filePath the path of the file used for saving and loading tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the storage file into a <code>TaskList</code>.
+     *
+     * @return a <code>TaskList</code> containing all tasks read from the storage file.
+     * @throws CharlieExceptions if an error occurs while loading the tasks.
+     */
     public TaskList load() throws CharlieExceptions {
         TaskList list = new TaskList();
         File file = new File(filePath);
@@ -42,6 +58,13 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Parses a string representing a task and returns the corresponding <code>Task</code> object.
+     *
+     * @param taskText the string representing a task.
+     * @return the corresponding <code>Task</code> object, or <code>null</code> if the task cannot be parsed.
+     * @throws IllegalArgumentException if the task type is unknown.
+     */
     public Task parseTask(String taskText) {
         taskText = taskText.trim(); //trim away the formatting
         char taskType = taskText.charAt(1); //get the commandType
@@ -90,14 +113,18 @@ public class Storage {
         return null;
     }
 
-    //to save a file (called before the program ends)
+    /**
+     * Saves all tasks from the <code>TaskList</code> to the storage file.
+     *
+     * @param list the <code>TaskList</code> containing tasks to be saved.
+     */
     public void saveTasks(TaskList list) {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (int i = 0; i < list.getSize(); i++) {
                 Task task = list.getTask(i);
                 if (task != null) {
-                    writer.write(taskToSave(task) + "\n");
+                    writer.write(task.toSaveFormat() + "\n");
                 }
             }
             writer.close();
@@ -107,7 +134,4 @@ public class Storage {
         }
     }
 
-    public String taskToSave(Task task) {
-        return task.toSaveFormat();
-    }
 }

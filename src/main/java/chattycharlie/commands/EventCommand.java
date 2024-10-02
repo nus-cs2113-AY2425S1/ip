@@ -7,11 +7,22 @@ import chattycharlie.userinteractions.Ui;
 import chattycharlie.task.Event;
 import chattycharlie.task.Task;
 
+/**
+ * Represents the command to be executed when the user inputs an event task.
+ * This command creates an event task and adds it to the task list.
+ */
 public class EventCommand implements Command{
     private String description;
     private String from;
     private String to;
 
+    /**
+     * Constructs an <code>EventCommand</code> from the provided user input line.
+     * Parses the input to extract the task description, start time, and end time.
+     *
+     * @param line the input line containing the command and event task details.
+     * @throws CharlieExceptions if the description or event times are missing or incomplete.
+     */
     public EventCommand(String line) throws CharlieExceptions {
         String[] eventParts = line.substring(5).trim().split("from");
 
@@ -37,6 +48,14 @@ public class EventCommand implements Command{
         }
     }
 
+    /**
+     * Executes the <code>EventCommand</code> by adding the event task to the task list,
+     * displaying a confirmation message to the user, and saving the updated task list.
+     *
+     * @param taskList the list of tasks to add the new event task to.
+     * @param ui the user interface to display output to the user.
+     * @param storage the storage system to save the updated task list.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task eventTask = new Event(description, from, to);
