@@ -178,6 +178,13 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Adds a new todo task to the task list.
+     *
+     * @param input User input string for adding a todo.
+     * @param tasks List of tasks to which the new todo will be added.
+     * @throws lovespiritualException If the input is missing the task description.
+     */
     private static void todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
