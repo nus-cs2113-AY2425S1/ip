@@ -3,6 +3,20 @@ package UserInteraction;
 import TaskTypes.*;
 
 public class CreateTask {
+    public static Task addNewTask(String enteredString) throws TaskTypeException, StringIndexOutOfBoundsException, Exception {
+        Task newTask;
+        if (enteredString.startsWith("deadline")) {
+            newTask = createDeadlineTask(enteredString);
+        } else if (enteredString.startsWith("event")) {
+            newTask = createEventTask(enteredString);
+        } else if (enteredString.startsWith("todo")) {
+            newTask = createTodoTask(enteredString);
+        } else {
+            throw new TaskTypeException("No task type stated. Please try again.");
+        }
+
+        return newTask;
+    }
 
     public static Deadline createDeadlineTask(String enteredString) throws StringIndexOutOfBoundsException {
         int lengthOfBy = "by".length();
@@ -34,20 +48,5 @@ public class CreateTask {
         String taskDescription=enteredString.substring(lengthOfTodo);
 
         return new ToDo(taskDescription);
-    }
-
-    public static Task addNewTask(String enteredString) throws TaskTypeException, StringIndexOutOfBoundsException, Exception {
-        Task newTask;
-        if (enteredString.startsWith("deadline")) {
-            newTask = createDeadlineTask(enteredString);
-        } else if (enteredString.startsWith("event")) {
-            newTask = createEventTask(enteredString);
-        } else if (enteredString.startsWith("todo")) {
-            newTask = createTodoTask(enteredString);
-        } else {
-            throw new TaskTypeException("No task type stated. Please try again.");
-        }
-
-            return newTask;
     }
 }
