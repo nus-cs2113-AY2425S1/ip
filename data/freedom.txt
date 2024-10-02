@@ -5,3 +5,4 @@ T |   | test
 D |   | tutorial | 10 Oct 2024 1800
 T | X | shower
 D | X | quiz | 29 Sep 2024 2359
+E |   | concert | 11 Oct 2024 1800 | 11 Oct 2024 2100
