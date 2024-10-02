@@ -163,7 +163,9 @@ public class Crystal {
             File dir = new File("./data");
             if (!dir.exists()) {
                 if (dir.mkdir()) {
-                    System.out.println("Directory for saved data created.");
+                    System.out.println("Directory created successfully.");
+                } else {
+                    System.out.println("Directory creation failed.");
                 }
             }
 
@@ -171,7 +173,9 @@ public class Crystal {
             File file = new File(dir, "Crystal.txt");
             if (!file.exists()) {
                 if (file.createNewFile()) {
-                    System.out.println("Data file is created.");
+                    System.out.println("Data file created successfully.");
+                } else {
+                    System.out.println("Data file creation failed.");
                 }
             }
 
@@ -181,9 +185,9 @@ public class Crystal {
                 fw.write(task.fileFormat() + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             horizontalLine();
-            System.out.print("Data is unable to save.");
+            System.out.print("Error: " + e.getMessage());
             printExceptionMessage(e);
         }
     }
@@ -226,7 +230,7 @@ public class Crystal {
             File file = new File("./data/Crystal.txt");
             Scanner scan = new Scanner(file);
             while (scan.hasNext()) {
-                String[] words = scan.nextLine().split("\\|");
+                String[] words = scan.nextLine().split(" \\| ");
                 addTaskToList(words);
             }
         } catch (FileNotFoundException e) {
