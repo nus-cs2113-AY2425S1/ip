@@ -9,6 +9,10 @@ import lovespiritual.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main class for task manager application.
+ * Handles user input, task management, and file storage.
+ */
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
     private static ArrayList<Task> tasks = new ArrayList<>();
