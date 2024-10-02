@@ -1,19 +1,18 @@
 package storage;
 
-import tasks.Deadlines;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasks.*;
+
+
 public class TaskDecoder {
     private static final String pathName = "./data/Tasks.txt";
     private static final Path path = Path.of("./data");
-    public static ArrayList<Task> readTasks() throws IOException {
+    public static TaskList readTasks() throws IOException {
         File tasks = new File(pathName);
         Scanner input = new Scanner(tasks);
         ArrayList<Task> list = new ArrayList<>();
@@ -31,6 +30,6 @@ public class TaskDecoder {
                         splitInput[3], splitInput[4]));
             }
         }
-        return list;
+        return new TaskList(list);
     }
 }

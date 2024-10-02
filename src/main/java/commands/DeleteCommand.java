@@ -1,15 +1,17 @@
 package commands;
 
-import java.util.ArrayList;
-
 import tasks.Task;
+import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
 public class DeleteCommand extends Command {
     private int index;
+    public DeleteCommand(int index) {
+        this.index = index;
+    }
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui) {
+    public void execute(TaskList taskList, Ui ui) {
         try {
             Task temp = taskList.get(index);
             System.out.print(Skeleton.LINE_BREAK);
@@ -19,12 +21,7 @@ public class DeleteCommand extends Command {
             System.out.print(Skeleton.LINE_BREAK);
             taskList.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
-            System.out.print(Skeleton.LINE_BREAK);
+            ui.printDeleteError();
         }
-    }
-    public DeleteCommand(int index) {
-        this.index = index;
     }
 }

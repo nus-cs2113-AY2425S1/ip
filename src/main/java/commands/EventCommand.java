@@ -1,23 +1,17 @@
 package commands;
 
-import java.util.ArrayList;
-
 import tasks.Event;
-import tasks.Task;
-import ui.Skeleton;
+import tasks.TaskList;
 import ui.Ui;
 
 
 public class EventCommand extends Command {
     private Event event;
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui) {
+    public void execute(TaskList taskList, Ui ui) {
         try {
-            taskList.add(event);
-            System.out.print(Skeleton.LINE_BREAK);
-            System.out.print("added: ");
-            taskList.get(taskList.size() - 1).print();
-            System.out.print(Skeleton.LINE_BREAK);
+            taskList.addTask(event);
+            ui.printAddMessage(taskList.get(taskList.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             ui.invalidTask(event);
         }

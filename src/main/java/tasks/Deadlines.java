@@ -26,6 +26,6 @@ public class Deadlines extends Task {
     }
     @Override
     public String toString() {
-        return String.format("%s | %b | %s | %s)", getTypeMarker(), this.isDone, this.task, this.deadline);
+        return String.format("%s | %b | %s | %s", getTypeMarker(), this.isDone, this.task, this.deadline);
     }
 }

@@ -28,7 +28,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return String.format("%s | %b | %s | %s | %s)", getTypeMarker(), this.isDone,
+        return String.format("%s | %b | %s | %s | %s", getTypeMarker(), this.isDone,
                 this.task, this.from, this.to);
     }
 }

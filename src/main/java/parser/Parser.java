@@ -1,15 +1,11 @@
 package parser;
 
-import tasks.Deadlines;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 import commands.*;
-import java.util.ArrayList;
 
 public class Parser {
 
-    public static Command parse(String input, ArrayList<Task> taskList) {
+    public static Command parse(String input) {
         String[] splitInput = input.split(" ");
         switch (splitInput[0]) {
         case "list":

@@ -8,29 +8,36 @@ import exceptions.IllegalCommandException;
 import parser.Parser;
 import storage.TaskDecoder;
 import storage.TaskEncoder;
+import tasks.TaskList;
 import ui.Ui;
 
 
 public class Nateh {
     private static Ui ui;
-    public static void main(String[] args) {
+    private static TaskList taskList;
+    public Nateh() {
         TaskEncoder.createFile();
-        String input = "";
-        Scanner in = new Scanner(System.in);
-        ArrayList<Task> list;
+        this.ui = new Ui();
         try {
-            list = TaskDecoder.readTasks();
+            taskList = TaskDecoder.readTasks();
         } catch (IOException e) {
-            list = new ArrayList<>();
+            taskList = new TaskList(new ArrayList<>());
         }
+    }
+    public void run() {
+        ui.printWelcomeMessage();
+        String input = "";
         while (!input.equals("bye")) {
             try {
                 input = ui.receiveCommand();
-                Command command = Parser.parse(input, list);
-                command.execute(list, );
+                Command command = Parser.parse(input);
+                command.execute(taskList, ui);
             } catch (IllegalCommandException e) {
-
+                ui.invalidCommand();
             }
         }
+    }
+    public static void main(String[] args) {
+        new Nateh().run();
     }
 }

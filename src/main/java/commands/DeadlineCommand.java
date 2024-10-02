@@ -1,27 +1,21 @@
 package commands;
 
-import java.util.ArrayList;
-
 import tasks.Deadlines;
-import tasks.Task;
-import ui.Skeleton;
+import tasks.TaskList;
 import ui.Ui;
 
 public class DeadlineCommand extends Command {
     private Deadlines deadline;
+    public DeadlineCommand(Deadlines deadline) {
+        this.deadline = deadline;
+    }
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui) {
+    public void execute(TaskList taskList, Ui ui) {
         try {
-            taskList.add(deadline);
-            System.out.print(Skeleton.LINE_BREAK);
-            System.out.print("added: ");
-            taskList.get(taskList.size() - 1).print();
-            System.out.print(Skeleton.LINE_BREAK);
+            taskList.addTask(deadline);
+            ui.printAddMessage(taskList.get(taskList.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
             ui.invalidTask(deadline);
         }
-    }
-    public DeadlineCommand(Deadlines deadline) {
-        this.deadline = deadline;
     }
 }

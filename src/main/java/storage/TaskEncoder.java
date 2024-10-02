@@ -5,10 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import tasks.Task;
+import tasks.TaskList;
 import ui.Skeleton;
 
 
@@ -38,9 +37,9 @@ public class TaskEncoder {
         }
     }
 
-    public static void overrideFile(ArrayList<Task> taskList) throws IOException {
+    public static void overrideFile(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(pathName);
-        for (Task task : taskList) {
+        for (Task task : taskList.getTasks()) {
             writer.write(task.toString() + System.lineSeparator());
         }
         writer.close();
