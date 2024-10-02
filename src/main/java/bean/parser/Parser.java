@@ -14,6 +14,11 @@ import static bean.constants.Constants.MAX_LIST_COUNT;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles user input parsing and command execution.
+ * Extracts commands and task numbers from user input.
+ * Delegates commands to appropriate handlers in the TaskList class.
+ */
 public class Parser {
 
     /**
@@ -108,7 +113,6 @@ public class Parser {
 
                 default:
                     throw new InvalidInputException();
-
                 }
 
             } catch (InvalidInputException e) {

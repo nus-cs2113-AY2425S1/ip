@@ -1,40 +1,35 @@
 package bean;
 
-import bean.exceptions.EmptyListException;
-import bean.exceptions.InsufficientSpaceException;
-import bean.exceptions.InvalidInputException;
-import bean.exceptions.TaskNumOutOfBoundsException;
 import bean.parser.Parser;
 import bean.storage.Storage;
-import bean.task.Deadline;
-import bean.task.Event;
-import bean.task.Task;
-import bean.task.Todo;
 import bean.tasklist.TaskList;
 import bean.ui.Ui;
-import static bean.constants.Constants.DATA_FILE_PATH;
-import static bean.constants.Constants.LOGO;
-import static bean.constants.Constants.SEPARATOR_LINE;
-import static bean.constants.Constants.INDENT;
-import static bean.constants.Constants.DELIMITER;
-import static bean.constants.Constants.MAX_LIST_COUNT;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The main class for the task management application.
+ * Manages the user interface (Ui), storage (Storage), and task list (TaskList) objects.
+ * Handles initialization, data retrieval, and program execution.
+ */
 public class Main {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Enum representing the different types of tasks supported by the application.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
 
-    // Set up data file and retrieve saved data
+    /**
+     * Initializes the application by setting up the data file, retrieving saved data,
+     * and creating instances of Ui, Storage, and TaskList objects.
+     *
+     * @throws IOException if an I/O error occurs while initializing the data file or retrieving saved data.
+     */
     public Main() throws IOException {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -45,6 +40,13 @@ public class Main {
     }
 
 
+    /**
+     * The main entry point for the application.
+     * Creates a new Main object, displays the welcome message, processes user input,
+     * and displays the exit message.
+     *
+     * @throws IOException if an I/O error occurs during program execution.
+     */
     public static void run() throws IOException {
         new Main();
         Ui.greet();

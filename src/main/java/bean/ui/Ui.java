@@ -4,6 +4,10 @@ import static bean.constants.Constants.LOGO;
 import static bean.constants.Constants.SEPARATOR_LINE;
 import static bean.constants.Constants.INDENT;
 
+/**
+ * Represents the user interface for the task management application.
+ * Handles user input, output, and error messages.
+ */
 public class Ui {
 
     /**

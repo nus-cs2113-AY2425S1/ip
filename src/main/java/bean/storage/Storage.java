@@ -15,6 +15,10 @@ import java.util.Scanner;
 import static bean.constants.Constants.DATA_FILE_PATH;
 import static bean.constants.Constants.DELIMITER;
 
+/**
+ * Manages data persistence for the task management application.
+ * Handles reading and writing task data to a file.
+ */
 public class Storage {
 
     public final String path;

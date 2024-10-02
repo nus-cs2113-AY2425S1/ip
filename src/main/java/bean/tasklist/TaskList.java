@@ -16,6 +16,10 @@ import bean.ui.Ui;
 
 import static bean.constants.Constants.*;
 
+/**
+ * Represents the list of tasks managed by the application.
+ * Provides methods for adding, deleting, marking, and retrieving tasks.
+ */
 public class TaskList {
 
     private static ArrayList<Task> tasks;
