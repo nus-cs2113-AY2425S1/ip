@@ -3,6 +3,9 @@ import freedom.user.Parser;
 import freedom.user.Storage;
 import freedom.ui.Ui;
 
+/**
+ * Class for chatbot Freedom.
+ */
 public class Freedom {
     private static final String DATA_FILE_PATH = "./data/freedom.txt";
     private static final String DATA_DIRECTORY_PATH = "./data";
@@ -11,6 +14,10 @@ public class Freedom {
     private static TaskList taskList;
     private static Ui ui;
 
+    /**
+     * Constructor for <code>Freedom</code>.
+     * Instantiates <code>TaskList</code>, <code>Storage</code> and <code>Ui</code> objects for the chatbot.
+     */
     public Freedom() {
         ui = new Ui();
         storage = new Storage(DATA_FILE_PATH, DATA_DIRECTORY_PATH);
@@ -22,6 +29,9 @@ public class Freedom {
         }
     }
 
+    /**
+     * Starts and Runs the chatbot.
+     */
     public void run() {
         String input;
         ui.printStartMessage();
