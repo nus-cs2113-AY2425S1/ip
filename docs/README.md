@@ -1,10 +1,14 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
+# Melchizedek User Guide
 
 // Product screenshot goes here
 
-// Product intro goes here
+Melchizedek is a chatbot that manages your tasks.
+
+## Viewing task list
+
+## Searching for tasks
+
+## Adding todos
 
 ## Adding deadlines
 
@@ -20,11 +24,14 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Adding events
 
-// Feature details
+## Deleting tasks
 
+## Marking tasks
 
-## Feature XYZ
+## Unmarking tasks
+
+## Exiting the chat
 
 // Feature details
