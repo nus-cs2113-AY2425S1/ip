@@ -99,6 +99,14 @@ public class lovespiritual {
         new lovespiritual("data/lovespiritual.txt").run();
     }
 
+    /**
+     * Adds a new event task to the task list.
+     * Ensures that the task description includes both 'from' and 'to' times.
+     *
+     * @param input User input string for adding an event.
+     * @param tasks List of tasks to which the new event will be added.
+     * @throws lovespiritualException If the input is formatted incorrectly or missing required details.
+     */
     private static void event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
