@@ -1,5 +1,2 @@
-T | 0 | borrow book
-D | 1 | return book | Sundayyyyy
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | 4pm
-D | 0 | do homework | no idea :-p
+D | 0 | submit report | 2089-10-11
+D | 0 | submit report | 2023-10-11

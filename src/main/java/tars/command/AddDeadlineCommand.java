@@ -1,25 +1,24 @@
-package Tars.Command;
+package tars.command;
 
-import Tars.TaskList;
-import Tars.Task.Event;
-import Tars.Storage;
-import Tars.UserInterface;
+import tars.userinterface.UserInterface;
+import tars.tasklist.TaskList;
+import tars.task.Deadline;
+import tars.storage.Storage;
+
 import java.io.IOException;
 
-public class AddEventCommand extends Command {
+public class AddDeadlineCommand extends Command {
     private final String description;
-    private final String from;
-    private final String to;
+    private final String by;
 
-    public AddEventCommand(String description, String from, String to) {
+    public AddDeadlineCommand(String description, String by) {
         this.description = description;
-        this.from = from;
-        this.to = to;
+        this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, UserInterface ui, Storage storage) {
-        Event newTask = new Event(description, from, to);
+        Deadline newTask = new Deadline(description, by);
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask, tasks.getTaskCount());
 

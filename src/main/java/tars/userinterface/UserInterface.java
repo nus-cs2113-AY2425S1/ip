@@ -1,6 +1,6 @@
-package Tars;
+package tars.userinterface;
 
-import Tars.Task.Task;
+import tars.task.Task;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class UserInterface {
     // 显示欢迎信息
     public void showWelcomeMessage() {
         printSeparator();
-        System.out.println("    Hello! I'm Tars.Tars.");
+        System.out.println("    Hello! I'm tars.tars.");
         System.out.println("    Ready to conquer the world? Or maybe just help with something smaller? What can I do for you?");
         printSeparator();
     }
@@ -119,9 +119,9 @@ public class UserInterface {
 
 
 
-//package Tars;
+//package tars;
 //
-//import Tars.Task.Task;
+//import tars.Task.Task;
 //
 //import java.util.List;
 //
@@ -131,16 +131,16 @@ public class UserInterface {
 //    }
 //
 //    // Display the tasks or show a message if the task list is empty
-//    public void showTasks(List<Task> taskList) {
+//    public void showTasks(List<Task> TaskList) {
 //        printSeparator();
-//        if (taskList.isEmpty()) {
+//        if (TaskList.isEmpty()) {
 //            // Show message when task list is empty
 //            System.out.println("    Your task list is empty. Looks like you have nothing to do... for now.");
 //        } else {
 //            // Show tasks if the list is not empty
 //            System.out.println("    Here are your tasks. If you're planning world domination, you're off to a slow start: ");
-//            for (int i = 0; i < taskList.size(); i++) {
-//                System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+//            for (int i = 0; i < TaskList.size(); i++) {
+//                System.out.println("    " + (i + 1) + ". " + TaskList.get(i));
 //            }
 //        }
 //        printSeparator();

@@ -1,9 +1,9 @@
-package Tars;
+package tars.storage;
 
-import Tars.Task.Deadline;
-import Tars.Task.Event;
-import Tars.Task.Task;
-import Tars.Task.Todo;
+import tars.task.Deadline;
+import tars.task.Event;
+import tars.task.Task;
+import tars.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -123,11 +123,11 @@ public class Storage {
 
 
 
-//package Tars;
-//import Tars.Task.Deadline;
-//import Tars.Task.Task;
-//import Tars.Task.Todo;
-//import Tars.Task.Event;
+//package tars;
+//import tars.Task.Deadline;
+//import tars.Task.Task;
+//import tars.Task.Todo;
+//import tars.Task.Event;
 //
 //import java.io.File;
 //import java.io.FileWriter;

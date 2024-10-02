@@ -1,8 +1,8 @@
-package Tars.Command;
+package tars.command;
 
-import Tars.TaskList;
-import Tars.Storage;
-import Tars.UserInterface;
+import tars.userinterface.UserInterface;
+import tars.storage.Storage;
+import tars.tasklist.TaskList;
 
 public class ExitCommand extends Command {
     @Override

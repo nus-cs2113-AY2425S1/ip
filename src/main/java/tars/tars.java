@@ -1,27 +1,38 @@
-package Tars;
+package tars;
 
-import Tars.Task.Deadline;
-import Tars.Task.Event;
-import Tars.Task.Task;
-import Tars.Task.Todo;
+import tars.storage.Storage;
+import tars.tarsexception.tarsException;
+import tars.task.Deadline;
+import tars.task.Event;
+import tars.task.Task;
+import tars.task.Todo;
+import tars.userinterface.UserInterface;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Tars {
-    public static void main(String[] args) {
-        String logo = " _____                        \n"
-                + "|_   _|__  _ __ __ _ _ __ ___  \n"
-                + "  | |/ _ \\| '__/ _` | '_ ` _ \\ \n"
-                + "  | | (_) | | | (_| | | | | | |\n"
-                + "  |_|\\___/|_|  \\__,_|_| |_| |_|\n";
+public class tars {
+    private static final String logo =
+            "       [][][][][][][][]       \n"
+                    + "       []   |    |   []        \n"
+                    + "       []   [    ]   []        \n"
+                    + "       []   |____|   []        \n"
+                    + "       [][][][][][][][]        \n"
+                    + "       []   |    |   []        \n"
+                    + "       []   |____|   []        \n"
+                    + "       []   |TARS|   []        \n"
+                    + "       []   |____|   []        \n"
+                    + "       []__  ____  __[]        \n";
 
+    public static void main(String[] args) {
+        System.out.println(logo);
         UserInterface ui = new UserInterface();
 
-        // Initialize storage and load tasks from file
+        // Initialize Storage and load tasks from file
         Storage storage = new Storage("./data/tasks.txt");
         List<Task> taskList = null;
         try {
@@ -33,7 +44,7 @@ public class Tars {
 
         // Opening speech
         ui.printSeparator();
-        System.out.println("    Hello! I'm Tars.Tars.");
+        System.out.println("    Hello! I'm tars.tars.");
         System.out.println("    Ready to conquer the world? Or maybe just help with something smaller? What can I do for you?");
         ui.printSeparator();
 
@@ -66,14 +77,14 @@ public class Tars {
             else if (input.startsWith("todo")) {
                 String taskDescription = input.substring(5).trim();
                 if (taskDescription.isEmpty()) {
-                    throw new TarsException("Oops! Your todo needs a description. Please try again.");
+                    throw new tarsException("Oops! Your todo needs a description. Please try again.");
                 }
                 addTask(taskList, "todo", taskDescription, storage);
             }
             // Handle "deadline" command
             else if (input.startsWith("deadline")) {
                 if (!input.contains("/by")) {
-                    throw new TarsException("A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
+                    throw new tarsException("A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
                 }
                 String deadlineDescription = input.substring(9).trim();
                 addTask(taskList, "deadline", deadlineDescription, storage);
@@ -81,7 +92,7 @@ public class Tars {
             // Handle "event" command
             else if (input.startsWith("event")) {
                 if (!input.contains("/from") || !input.contains("/to")) {
-                    throw new TarsException("An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
+                    throw new tarsException("An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
                 }
                 String eventDescription = input.substring(6).trim();
                 addTask(taskList, "event", eventDescription, storage);
@@ -98,7 +109,6 @@ public class Tars {
             }
             // Handle unrecognized commands with humor
             else {
-                // Array of humorous exception messages
                 String[] unknownCommandMessages = {
                         "Hmm, that doesn't sound like a command I recognize. Maybe try again?",
                         "I think you're speaking a language I don't understand. Try something else!",
@@ -110,9 +120,9 @@ public class Tars {
                 Random rand = new Random();
                 int randomIndex = rand.nextInt(unknownCommandMessages.length);
 
-                throw new TarsException(unknownCommandMessages[randomIndex]);
+                throw new tarsException(unknownCommandMessages[randomIndex]);
             }
-        } catch (TarsException e) {
+        } catch (tarsException e) {
             ui.printSeparator();
             System.out.println(e.getMessage());
             ui.printSeparator();
@@ -120,52 +130,57 @@ public class Tars {
         return false;  // Continue processing user input
     }
 
-    // Add a task to the list based on the task type and save it
     public static void addTask(List<Task> tasks, String taskType, String input, Storage storage) {
         UserInterface ui = new UserInterface();
 
-        // Switch between task types: todo, deadline, event
-        switch (taskType) {
-            case "todo":
-                tasks.add(new Todo(input));
-                break;
-            case "deadline":
-                String[] deadlineParts = input.split("/by");
-                tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
-                break;
-            case "event":
-                String[] eventParts = input.split("/from|/to");
-                tasks.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
-                break;
-            default:
-                break;
-        }
-
-        ui.printSeparator();
-        System.out.println("    Got it. I've added this task: ");
-        System.out.println("    " + tasks.get(tasks.size() - 1));
-        printTaskCount(tasks.size());
-        ui.printSeparator();
-
-        // Save tasks after adding
         try {
+            // Switch between task types: todo, deadline, event
+            switch (taskType) {
+                case "todo":
+                    tasks.add(new Todo(input));
+                    break;
+                case "deadline":
+                    String[] deadlineParts = input.split("/by");
+                    tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));  // 解析日期
+                    break;
+                case "event":
+                    String[] eventParts = input.split("/from|/to");
+                    tasks.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
+                    break;
+                default:
+                    break;
+            }
+
+            ui.printSeparator();
+            System.out.println("    Got it. I've added this task: ");
+            System.out.println("    " + tasks.get(tasks.size() - 1));
+            printTaskCount(tasks.size());
+            ui.printSeparator();
+
+            // Save tasks after adding
             storage.saveTasks(tasks);
-        } catch (IOException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
+        } catch (DateTimeParseException e) {
+            ui.printSeparator();
+            System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+            ui.printSeparator();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            ui.printSeparator();
+            System.out.println("An error occurred while processing your task. Please try again.");
+            ui.printSeparator();
         }
     }
 
     // Mark a task as done and save the updated task list
-    public static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
             if (!input.contains(" ")) {
-                throw new TarsException("Oops! The correct format is 'mark <task number>'.");
+                throw new tarsException("Oops! The correct format is 'mark <task number>'.");
             }
 
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("That task number is out of range.");
+                throw new tarsException("That task number is out of range.");
             }
 
             taskList.get(taskNumber).markAsDone();
@@ -177,21 +192,21 @@ public class Tars {
             // Save tasks after marking
             storage.saveTasks(taskList);
         } catch (NumberFormatException | IOException e) {
-            throw new TarsException("Error: " + e.getMessage());
+            throw new tarsException("Error: " + e.getMessage());
         }
     }
 
     // Unmark a task as not done and save the updated task list
-    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
             if (!input.contains(" ")) {
-                throw new TarsException("Oops! The correct format is 'unmark <task number>'.");
+                throw new tarsException("Oops! The correct format is 'unmark <task number>'.");
             }
 
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("That task number is out of range.");
+                throw new tarsException("That task number is out of range.");
             }
 
             taskList.get(taskNumber).markAsNotDone();
@@ -203,47 +218,39 @@ public class Tars {
             // Save tasks after unmarking
             storage.saveTasks(taskList);
         } catch (NumberFormatException | IOException e) {
-            throw new TarsException("Error: " + e.getMessage());
+            throw new tarsException("Error: " + e.getMessage());
         }
     }
 
     // Function to delete tasks and save the updated task list
-    public static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
-            // Split the input to handle "delete <task number>" or "delete all"
             String[] inputs = input.split(" ");
 
-            // If the input is "delete all"
             if (inputs.length == 2 && inputs[1].equalsIgnoreCase("all")) {
                 if (taskList.isEmpty()) {
-                    throw new TarsException("Your task list is already empty. Nothing to delete!");
+                    throw new tarsException("Your task list is already empty. Nothing to delete!");
                 }
 
-                // Clear the entire task list
                 taskList.clear();
                 ui.printSeparator();
                 System.out.println("All tasks have been successfully deleted.");
                 ui.printSeparator();
 
-                // Save the changes
                 storage.saveTasks(taskList);
                 return;
             }
 
-            // Ensure there are exactly two parts: "delete" and the task number
             if (inputs.length != 2) {
-                throw new TarsException("Oops! The correct format is 'delete <task number>' or 'delete all'. Please try again.");
+                throw new tarsException("Oops! The correct format is 'delete <task number>' or 'delete all'. Please try again.");
             }
 
-            // Extract the task number from the input
             int taskNumber = Integer.parseInt(inputs[1]) - 1;
 
-            // Ensure the task number is within the valid range
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("Oops! That task number is out of range. Please choose a number between 1 and " + taskList.size() + ".");
+                throw new tarsException("Oops! That task number is out of range. Please choose a number between 1 and " + taskList.size() + ".");
             }
 
-            // Remove the task and inform the user
             Task removedTask = taskList.remove(taskNumber);
             ui.printSeparator();
             System.out.println("Noted. I've successfully removed this task: ");
@@ -251,12 +258,11 @@ public class Tars {
             System.out.println("Now you have " + taskList.size() + " tasks left in your list. Keep going!");
             ui.printSeparator();
 
-            // Save tasks after deleting
             storage.saveTasks(taskList);
         } catch (NumberFormatException e) {
-            throw new TarsException("Uh-oh! That doesn't look like a valid number. Please enter 'delete' followed by the task number.");
+            throw new tarsException("Uh-oh! That doesn't look like a valid number. Please enter 'delete' followed by the task number.");
         } catch (IOException e) {
-            throw new TarsException("Error saving tasks: " + e.getMessage());
+            throw new tarsException("Error saving tasks: " + e.getMessage());
         }
     }
 

@@ -1,4 +1,4 @@
-package Tars.Task;
+package tars.task;
 
 public class Todo extends Task {
 
