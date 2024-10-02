@@ -64,6 +64,8 @@ public class lovespiritual {
                     taskList.deleteTask(input, tasks, tasks.size());
                     storage.saveTasks(tasks);
                     break;
+                case "find":
+                    find(input);
                 default:
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
