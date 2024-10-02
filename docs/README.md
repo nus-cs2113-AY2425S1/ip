@@ -1,5 +1,24 @@
 # Niwa User Guide
 // Product screenshot goes here
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+   - [1. Print User Guide](#1-print-user-guide-help)
+   - [2. Echo a String](#2-echo-a-string-echo-string_to_echo)
+   - [3. Add a To-Do](#3-add-a-to-do-todo)
+   - [4. Add a Deadline](#4-add-a-deadline-deadline)
+   - [5. Add an Event](#5-add-an-event-event)
+   - [6. List Tasks](#6-list-tasks-list)
+   - [7. Find Tasks by Keyword](#7-find-tasks-by-keyword-find)
+   - [8. Mark a Task as Done](#8-mark-a-task-as-done-mark)
+   - [9. Unmark a Task](#9-unmark-a-task-unmark)
+   - [10. Delete a Task](#10-delete-a-task-delete)
+   - [11. Clear All Tasks](#11-clear-all-tasks-clear)
+   - [12. Save Task List](#12-save-task-list-save)
+   - [13. Read Tasks from a File](#13-read-tasks-from-a-file-read)
+   - [14. End the Chat](#14-end-the-chat-bye)
+4. [Additional Notes](#additional-notes)
 
 ## Introduction
 Niwa chatbot is your best friend, who will help you managing all your tasks! Given below are instructions on how to talk to me.
