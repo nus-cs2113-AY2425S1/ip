@@ -10,7 +10,7 @@ public class ToDo extends Task {
                 throw new DescriptionEmpty();
             }
         } catch (DescriptionEmpty e) {
-            printEmptyDescriptionError();
+            ui.printEmptyDescriptionError();
             throw new Exception("Description is empty");
         }
     }
@@ -20,8 +20,8 @@ public class ToDo extends Task {
         this.isDone = isDone;
     }
 
-    public String printLine() {
-        return "[T]" + super.printLine();
+    public String generateTaskLine() {
+        return "[T]" + super.generateTaskLine();
     }
 
     public String generateStorageLine() {

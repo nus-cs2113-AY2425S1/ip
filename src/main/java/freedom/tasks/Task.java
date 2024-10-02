@@ -1,6 +1,10 @@
 package freedom.tasks;
 
+import freedom.ui.UiTask;
+
 public class Task {
+    protected static final UiTask ui = new UiTask();
+
     protected String description;
     protected boolean isDone;
     protected static final String LOGO = "\t________________________________________\n";
@@ -17,9 +21,7 @@ public class Task {
             }
             this.isDone = true;
         } catch (Exception e) {
-            System.out.print(LOGO);
-            System.out.println("\tAlready done :) Time for other things");
-            System.out.println(LOGO);
+            ui.printAlreadyDone();
             throw new Exception();
         }
     }
@@ -31,9 +33,7 @@ public class Task {
             }
             this.isDone = false;
         } catch (Exception e) {
-            System.out.print(LOGO);
-            System.out.println("\tYou have not done it yet? >:(");
-            System.out.println(LOGO);
+            ui.printAlreadyUndone();
             throw new Exception();
         }
     }
@@ -50,18 +50,12 @@ public class Task {
         return description;
     }
 
-    public String printLine() {
+    public String generateTaskLine() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
     public String generateStorageLine() {
         return getStatusIcon() + " | " + getDescription();
-    }
-
-    public void printEmptyDescriptionError() {
-        System.out.print(LOGO);
-        System.out.println("\tDescription cannot be empty!!");
-        System.out.println(LOGO);
     }
 
     public String getDoneBy() {

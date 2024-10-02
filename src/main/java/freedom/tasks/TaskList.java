@@ -1,9 +1,11 @@
 package freedom.tasks;
 
+import freedom.ui.UiTaskList;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    public static String LOGO = "\t________________________________________\n";
+    private static final UiTaskList ui = new UiTaskList();
 
     private ArrayList<Task> tasks;
     private int lastIndex;
@@ -38,14 +40,11 @@ public class TaskList {
                 throw new Exception();
             }
 
-            System.out.println(LOGO + "\tGot it. I've added this task: ");
-            System.out.println("\t  " + tasks.get(getLastIndex()).printLine());
-            System.out.println("\tNow you have " + (getLastIndex() + 1) + " tasks in the list.\n" + LOGO);
-
+            ui.printAddedTask(tasks.get(getLastIndex()).generateTaskLine(), getLastIndex() + 1);
             setLastIndex(getLastIndex() + 1);
 
         } catch (Exception e) {
-            System.out.print("");
+            ui.printPlaceholder();
         }
     }
 
@@ -54,7 +53,6 @@ public class TaskList {
         final int TASK_INDEX = 1;
         int listNumber = Integer.parseInt(words[TASK_INDEX]);
         int taskIndexInStorage = listNumber - 1;
-        String message;
         Task taskToBeMarked;
 
         try {
@@ -66,44 +64,36 @@ public class TaskList {
             case "mark":
                 taskToBeMarked.markDone();
                 tasks.set(taskIndexInStorage, taskToBeMarked);
-                message = "\tNice! I've marked this task as done:";
+                ui.printEditedTask(taskToBeMarked.generateTaskLine(), "mark");
                 break;
             case "unmark":
                 taskToBeMarked.markUndone();
                 tasks.set(taskIndexInStorage, taskToBeMarked);
-                message = "\tOk, I've marked this task as not done yet:";
+                ui.printEditedTask(taskToBeMarked.generateTaskLine(), "unmark");
                 break;
             case "delete":
                 tasks.remove(taskIndexInStorage);
-                message = "\tOk! This task has been deleted:";
+                ui.printEditedTask(taskToBeMarked.generateTaskLine(), "delete");
                 setLastIndex(getLastIndex() - 1);
                 break;
             default:
                 throw new Exception();
             }
-            System.out.println(LOGO + message);
-            System.out.println("\t  " + taskToBeMarked.printLine());
-            System.out.println(LOGO);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.print(LOGO);
-            System.out.print("""
-                    \tWe don't have that many tasks??
-                    \tYou can use list to check
-                    """);
-            System.out.println(LOGO);
+            ui.printArrayIndexOutOfBoundsException();
         } catch (Exception e) {
-            System.out.print("");
+            ui.printPlaceholder();
         }
     }
 
     public void printList() {
+        ui.printListHeader();
         int counter = 1;
-        System.out.print(LOGO + "\tHere are the tasks in your list:\n");
         for (int i = 0; i < getLastIndex(); i++) {
-            System.out.println("\t" + counter + "." + tasks.get(i).printLine());
+            System.out.println("\t" + counter + "." + tasks.get(i).generateTaskLine());
             counter++;
         }
-        System.out.println(LOGO);
+        ui.printTailDivider();
     }
 
     public int getLastIndex() {

@@ -25,17 +25,10 @@ public class Event extends Task{
                 throw new TimeEmpty();
             }
         } catch (DescriptionEmpty e) {
-            printEmptyDescriptionError();
+            ui.printEmptyDescriptionError();
             throw new Exception("Description is empty");
         } catch (TimeEmpty | ArrayIndexOutOfBoundsException e) {
-            System.out.print(LOGO);
-            System.out.print("""
-                    \tYou need to set a duration!
-                    \tRemember:
-                    \t  Use /from and /to before the date/time
-                    \t  Include a date/time span
-                    """);
-            System.out.println(LOGO);
+            ui.printNoDuration();
             throw new Exception("No from/to time given");
         }
     }
@@ -63,8 +56,8 @@ public class Event extends Task{
         return to;
     }
 
-    public String printLine() {
-        return "[E]" + super.printLine() + " (from: " + from + " to: " + to + ")";
+    public String generateTaskLine() {
+        return "[E]" + super.generateTaskLine() + " (from: " + from + " to: " + to + ")";
     }
 
     public String generateStorageLine() {

@@ -2,7 +2,12 @@ package freedom.user;
 
 import freedom.exceptions.CannotCreateDirectory;
 import freedom.exceptions.CannotReadFile;
-import freedom.tasks.*;
+import freedom.tasks.Task;
+import freedom.tasks.TaskList;
+import freedom.tasks.ToDo;
+import freedom.tasks.Deadline;
+import freedom.tasks.Event;
+import freedom.ui.UiStorage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static String LOGO = "\t________________________________________\n";
+    private static final UiStorage ui = new UiStorage();
+
     private String filePath;
     private String directoryPath;
 
@@ -55,16 +61,14 @@ public class Storage {
                     throw new CannotReadFile();
                 }
             }
-            System.out.println("\tData Loaded!");
+            ui.printDataLoaded();
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            ui.printUnableToAccess();
         } catch (CannotReadFile e) {
-            System.out.print(LOGO);
-            System.out.println("\tCannot Load Data! File might be corrupted :(");
-            System.out.println(LOGO);
+            ui.printUnableToLoad();
             throw new Exception();
         } catch (Exception e) {
-            System.out.print("");
+            ui.printPlaceholder();
         }
 
         return tasks;
@@ -82,30 +86,25 @@ public class Storage {
                 writer.write(taskToAdd.generateStorageLine());
             }
         } catch (IOException e) {
-            System.out.print(LOGO);
-            System.out.println("\tCannot open data file :((");
-            System.out.println(LOGO);
+            ui.printUnableToAccess();
         }
     }
 
     public void checkData() throws Exception{
         try {
             File directory = new File(getDirectoryPath());
-            if(!directory.exists()) {
-                if(!directory.mkdir()) {
-                    throw new CannotCreateDirectory();
-                }
+            if(!directory.exists() && !directory.mkdir()) {
+                throw new CannotCreateDirectory();
             }
             File dataFile = new File(getFilePath());
             if(dataFile.createNewFile()) {
-                System.out.println("\tData file created!");
+                ui.printDataFileCreated();
             }
         } catch (IOException e) {
-            System.out.print(LOGO);
+            ui.printUnableToCreateFile();
+            throw new Exception();
         } catch (CannotCreateDirectory e) {
-            System.out.print(LOGO);
-            System.out.println("\tCannot create directory :(");
-            System.out.println(LOGO);
+            ui.printUnableToCreateDirectory();
             throw new Exception();
         }
     }
