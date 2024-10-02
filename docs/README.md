@@ -5,21 +5,36 @@
 Niwa chatbot is your best friend, who will help you managing all your tasks! Given below are instructions on how to talk to me.
 Let's chat!
 
+### Quick start
+1. Ensure you have Java 17 or above installed in your Computer.
+2. Download the latest .jar file from here.
+3. Copy the file to the folder you want Niwa to stay in.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the ```java -jar Niwa.jar``` command to meet Niwa!
+   
 ## Features
+> **&#9432;** **NOTES ON THE COMMAND FORMAT:**
+>- Words in UPPER_CASE are the parameters to be supplied by the user.
+>- Parameters can be in any order.
+>- Extraneous parameters for commands that do not take in parameters (such as help, list, bye and clear) will **NOT** be ignored.
+
 Here’s a list of available commands along with their expected outputs:
+
+---
 ### 1. Print user guide: **`help`**
 **Syntax:** **`help`**
 
 **Description:** Displays a shortened user guide.
-  
-### 2. Echo a string: **`echo [string]`**
-**Syntax:** **`echo [string]`**
+
+---
+### 2. Echo a string: **`echo STRING_TO_ECHO`**
+**Syntax:** **`echo STRING_TO_ECHO`**
 
 **Description:** Echo the provided string.
 
 **Example:** 
 - `echo Halo bae <3`
 
+---
 ### 3. Add a to-do: **`todo`**
 **Syntax:** **`todo DESCRIPTION`**
 
@@ -27,31 +42,35 @@ Here’s a list of available commands along with their expected outputs:
 
 **Example:**
 - `todo Buy groceries` will add a new to-do `Buy groceries` to your list.
-  
+
+---
 ### 4. Add a deadline: **`deadline`**
-**Syntax:** **`deadline DESCRIPTION /by yyyy-MM-dd [HHmm]`**
+**Syntax:** **`deadline DESCRIPTION /by YYYY-MM-DD HHMM`**
 
 **Description:** Add a new deadline to your list.
-- If you don't input the **`[HHmm]`** field, Niwa will automatically set the time to *23:59*.
+- If you don't input the **`HHMM`** field, Niwa will automatically set the time to *23:59*.
   
 **Example:** 
 - `deadline Submit assignment /by 2024-10-01 1700` will add a new deadline `Submit assignment` to your list, which dues on `2024-10-01 1700`.
 - `deadline Submit quiz /by 2024-10-01` will add a new deadline `Submit quiz` to your list, which dues on `2024-10-01 2359`.
-  
+
+---
 ### 5. Add an event: **`event`**
-**Syntax:** **`event DESCRIPTION /from yyyy-MM-dd [HHmm] /to yyyy-MM-dd [HHmm]`**
+**Syntax:** **`event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM`**
 
 **Description:** Add a new event to your list.
-- If you don't input the **`[HHmm]`** field, Niwa will automatically set the time to *23:59*.
+- If you don't input the **`HHMM`** field, Niwa will automatically set the time to *23:59*.
 
 **Example:** 
 - `event Groceries day /from 2024-10-01 1300 /to 2024-10-01 1400` will add a new event `Groceries day` from `2024-10-01 1300` to `2024-10-01 1400` to your list.
-  
+
+---
 ### 6. List tasks: **`list`**
 **Syntax:** **`list`**
 
 **Description:** Display all current tasks in the list.
 
+---
 ### 7. Find tasks by Keyword: **`find`**
 **Syntax:** **`find KEYWORD`**
 
@@ -61,6 +80,7 @@ Here’s a list of available commands along with their expected outputs:
 **Example:** 
 - `find groceries` will display a list of tasks that contains the keyword `groceries`.
 
+---
 ### 8. Mark a task as Done: **`mark`**
 **Syntax:** **`mark TASK_INDEX`**
 
@@ -69,6 +89,7 @@ Here’s a list of available commands along with their expected outputs:
 **Example:** 
 - `mark 1` will mark the task at index `1` as done.
 
+---
 ### 9. Unmark a task: **`unmark`**
 **Syntax:** **`unmark TASK_INDEX`**
 
@@ -77,6 +98,7 @@ Here’s a list of available commands along with their expected outputs:
 **Example:** 
 - `unmark 1` will unmark the task at index `1`.
 
+---
 ### 10. Delete a task: **`delete`**
 **Syntax:** **`delete TASK_INDEX`**
 
@@ -85,6 +107,7 @@ Here’s a list of available commands along with their expected outputs:
 **Example:** 
 - `delete 1` will delete the task at index `1`.
 
+---
 ### 11. Clear all tasks: **`clear`**
 **Syntax:** **`clear`**
 
@@ -92,6 +115,7 @@ Here’s a list of available commands along with their expected outputs:
 
 **Tips:** You will be prompted to confirm this action.
 
+---
 ### 12. Save task list: **`save`**
 **Syntax:** **`save FILE_PATH.txt`**
 
@@ -108,6 +132,7 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | START_DATE 
 **Example:** 
 - `save tasks.txt` will save your task list to `tasks.txt`.
 
+---
 ### 13. Read tasks from a file: **`read`**
 **Syntax:** **`read FILE_PATH.txt`**
 
@@ -123,11 +148,12 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | yyyy-MM-dd 
 **Example:** 
 - `read tasks.txt`
 
+---
 ### 14. End the chat: **`bye`**
 **Syntax:** **`bye`**
 
 **Description:** End the chat.
 
-### Additional Notes
+## Additional Notes
 - The task list is automatically saved to a default file path whenever it changes.
 - Niwa will read task information from the default file path when she starts running.
