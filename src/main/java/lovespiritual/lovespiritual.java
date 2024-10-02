@@ -12,12 +12,10 @@ import java.util.Scanner;
 
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
-    public static final String FILE_PATH = "./data/lovespiritual.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int taskCount = 0;
         UI ui = new UI();
         TaskList taskList = new TaskList();
         Storage storage = new Storage("./data/lovespiritual.txt");
