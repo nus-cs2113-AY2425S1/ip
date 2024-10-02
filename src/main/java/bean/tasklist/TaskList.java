@@ -83,9 +83,8 @@ public class TaskList {
      * Adds a new task to the list.
      *
      * @param task The task to add.
-     * @throws IOException if there's an error writing to the data file.
      */
-    public static void addTask(Task task) throws IOException {
+    public static void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -153,6 +152,30 @@ public class TaskList {
         tasks.remove(taskIndex);
 
         Storage.overwriteDataFile(tasks);
+    }
+
+    /**
+     * Finds and prints all tasks in tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @throws EmptyListException if the task list is empty.
+     */
+    public static void getTasksByKeyword(String keyword) throws EmptyListException {
+        if (tasks.isEmpty()) {
+            throw new EmptyListException();
+        }
+
+        System.out.println(SEPARATOR_LINE +
+                INDENT + "Here are the matching tasks in your list: ");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(INDENT + (i + 1) + ". " + task.toString());
+            }
+        }
+
+        System.out.println(SEPARATOR_LINE);
     }
 
     /**
