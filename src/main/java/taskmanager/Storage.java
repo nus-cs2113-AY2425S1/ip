@@ -6,9 +6,7 @@ import tasks.Todo;
 import tasks.Event;
 import exceptions.InvalidCommandException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import filemanager.FileManager;
 
 
@@ -100,7 +98,6 @@ public class Storage {
             System.out.println((index) + "." + task.getStatusIcon() + " " + task);
         }
     }
-
 
     public void storageClear(){
         taskList.clear();

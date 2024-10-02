@@ -3,8 +3,6 @@ package Commands;
 import taskmanager.Storage;
 import tasks.Task;
 
-import java.util.ArrayList;
-
 public class FindCommand extends Command {
 
     private String keyword;
@@ -21,7 +19,7 @@ public class FindCommand extends Command {
         int count = 0;
         for (index = 0; index < storage.getTaskList().size(); index++) {
             Task task = storage.getTaskList().get(index);
-            if (task.getContents().toLowerCase().contains(keyword)) {
+            if (task.getContents().contains(keyword)) {
                 storage.storagePrintTask(index + 1);
                 count++;
             }

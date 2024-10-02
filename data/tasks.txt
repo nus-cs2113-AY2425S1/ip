@@ -1,5 +1,1 @@
-T | - | math homework
-D | + | deadline DAO assignment | by 2359 sunday
-E | - | birthday | from tmrw 9pm to 11pm
-D | - | mkt | by 2359 sunday
-E | - | birthday | from 16/06/2024 18:00 to 16/06/2024 22:00
+D | - | DAO assignment | by 27/08/2024 23:59
