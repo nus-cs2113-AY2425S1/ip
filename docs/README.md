@@ -14,7 +14,7 @@
 java -jar CodyChen.jar
 ```
 
-## Overview of Executables
+## 1.1 Overview of Executables
 ### [List: Shows all tasks](#list)
 ```
 list
@@ -43,7 +43,6 @@ event CS2113 Test /from 2021/12/6 /to /2021/12/7
 mark 1
 ```
 *\[X\] for first task*
-* 
 ### [Unmark: Unmarks any task](#unmark)
 ```
 unmark 1
@@ -60,8 +59,8 @@ bye
 ```
 
 
-## Detailed User Manual
-### Todo
+## 2.1 Detailed User Manual
+### 2.2 Todo
 <a id ="todo"></a>
 Tasks include Todo, Deadlines and Events
 * Todos includes tasks which does not have a deadline. To input a Todo, use the following syntax
@@ -70,7 +69,7 @@ Tasks include Todo, Deadlines and Events
 todo {taskName}
 ```
 
-### Deadlines
+### 2.3 Deadlines
 <a id ="deadline"></a>
 Deadlines includes tasks which has a deadline. To input a Deadline, use the following syntax
 * An error will be printed if the syntax is invalid 
@@ -79,7 +78,7 @@ Deadlines includes tasks which has a deadline. To input a Deadline, use the foll
 deadline {taskName} /by {deadline}
 ```
 
-### Events
+### 2.4 Events
 <a id ="event"></a>
 Events includes tasks which has a start date and a deadline. To input an Event, use the following syntax
 * An error will be printed if the syntax is invalid
@@ -88,7 +87,7 @@ Events includes tasks which has a start date and a deadline. To input an Event, 
 event {taskName} /from {startDate} /to {deadline}
 ```
 
-## Mark Tasks
+### 2.5 Mark Tasks
 <a name ="mark"></a>
 Marks a task as complete
 * To mark an item, specify the index number of the item.
@@ -99,7 +98,7 @@ Marks a task as complete
 mark {indexNmber}
 ```
 
-## Unmark Tasks
+### 2.6 Unmark Tasks
 <a name ="unmark"></a>
 Unmarks a task as incomplete
 * To unmark an item, specify the index number of the item.
@@ -110,7 +109,7 @@ Unmarks a task as incomplete
 unmark {indexNmber}
 ```
 
-## List Items
+### 2.7 List Items
 <a name ="list"></a>
 Lists the current items in your list
 * To list, just enter the keyword list. 
@@ -118,15 +117,15 @@ Lists the current items in your list
 list
 ```
 
-## Find Tasks
+### 2.8 Find Tasks
 <a name ="find"></a>
-Returns all the items in the list according to a keyword
+* Returns all the items in the list according to a keyword
 
 ```
 find {keyword}
 ```
 
-## Delete Tasks
+### 2.9 Delete Tasks
 <a name ="delete"></a>
 Deletes tasks in the list according to its index number
 * If the item number is not found, an error will be returned
@@ -134,7 +133,7 @@ Deletes tasks in the list according to its index number
 delete {indexNumber}
 ```
 
-## Closing the bot
+### 2.10 Closing the bot
 <a name ="bye"></a>
 Ends the bot. Tasks saved will be recovered on next startup
 ```
