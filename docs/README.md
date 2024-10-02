@@ -1,6 +1,6 @@
-# Duke User Guide
+# Ronaldo User Guide
 
-// Update the title above to match the actual product name
+## Welcome to Ronaldo! :soccer:
 
 // Product screenshot goes here
 
