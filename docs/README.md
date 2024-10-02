@@ -135,7 +135,6 @@ IS_TASK_DONE:
 
 ## Command Summary
 |Action|Format, Examples|
-|---|---|
 |Add Todo task|```todo TASK_DESCRIPTION``` <br /> eg. ```todo Water the plants```|
 |Add Deadline task|```deadline TASK_DESCRIPTION /by DEADLINE``` <br /> eg. ```deadline submit quiz 1 /by 27 October 4pm```|
 |Add Event task|```event EVENT_DESCRIPTION /from EVENT_START /to EVENT_END``` <br /> eg. ```event Meet friend at Yishun /from 18 October 9pm /to 18 October 11pm```|
