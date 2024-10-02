@@ -76,10 +76,6 @@ public class Parser {
             new DeleteCommand().execute(taskList, userInput);
         } else if (userInput.startsWith("find")) {
             new FindCommand().execute(taskList, userInput);
-        } else {
-            System.out.println(SEPARATOR);
-            System.out.println(EchoException.unknownCommand());
-            System.out.println(SEPARATOR);
         }
     }
 }
