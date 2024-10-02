@@ -42,14 +42,14 @@ public class Storage {
 
             switch (command) {
             case TODO:
-                taskList.addTask(new Todo(parts[2], isDone));
+                taskList.addTask(new Todo(parts[2]), isDone);
                 break;
             case DEADLINE:
-                taskList.addTask(new Deadline(parts[2] + " /by " + parts[3], isDone));
+                taskList.addTask(new Deadline(parts[2] + " /by " + parts[3]), isDone);
                 break;
             case EVENT:
                 taskList.addTask(new Event(parts[2] + " /from " + parts[3]
-                        + " /to " + parts[4], isDone));
+                                            + " /to " + parts[4]), isDone);
                 break;
             default:
                 // should already be thrown by fromIcon method, but just in case
