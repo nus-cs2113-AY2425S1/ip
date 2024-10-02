@@ -1,5 +1,6 @@
 package cristiano.ui;
 
+import cristiano.exceptions.RonaldoException;
 import cristiano.goals.Deadline;
 import cristiano.goals.Event;
 import cristiano.goals.Goal;
@@ -14,8 +15,6 @@ import java.util.List;
 /**
  * This class is considered as the user interface of the application.
  * which includes the main methods to handle inputs from the user.
- * The methods include special methods such as "boast" and "exclaim"
- * which represents the chatbot's personality.
  * Each task is represented as a goal, which includes a goal number and completion status.
  */
 public class Ronaldo {
@@ -45,6 +44,14 @@ public class Ronaldo {
         } catch (IOException e) {
             System.out.println("Failed to save goals.");
         }
+    }
+
+    public void showIndentation() {
+        System.out.println();
+    }
+
+    public void showError(String message) {
+        System.out.println("Woops! " + message);
     }
 
     public void greet() {
@@ -80,7 +87,7 @@ public class Ronaldo {
      * Provides full list of commands and formats that the chatbot is able to recognise.
      */
     public void help() {
-        System.out.println("""
+        System.out.print("""
                     Please enter either of these commands in this format without '<>':\s
                     <bye>\s
                     <list>\s
@@ -92,37 +99,6 @@ public class Ronaldo {
                     <todo> <Description>\s
                     <deadline> <Description> /by <Time>\s
                     """);
-    }
-
-    public void reject(String words) {
-        switch (words) {
-        case "Format":
-            System.out.println("Invalid format! Please enter 'help' for full list of commands and formats.\n");
-            break;
-        case "Empty":
-            System.out.println("Woops, your input is empty, just like Spurs' trophy cabinet.\n");
-            break;
-        case "Range":
-            System.out.println("Goal number is out of range!\n");
-            break;
-        case "Mark/Unmark":
-            System.out.println("Invalid mark format! Please use: <mark>/<unmark> <Goal number>\n");
-            break;
-        case "Event":
-            System.out.println("Invalid event format! Please use: <event> <Description> /from <Time> /to <Time>\n");
-            break;
-        case "Deadline":
-            System.out.println("Invalid deadline format! Please use: <deadline> <Description> /by <Time>\n");
-            break;
-        case "Todo":
-            System.out.println("Invalid todo format! Please use: <todo> <Description>\n");
-            break;
-        case "Delete":
-            System.out.println("Invalid delete format! Please use: <delete> <Goal number>\n");
-            break;
-        default:
-            break;
-        }
     }
 
     /**
@@ -137,26 +113,28 @@ public class Ronaldo {
      *
      * @param input The goal index to be marked or unmarked;
      */
-    public void handleGoal(String[] input) {
+    public void handleGoal(String[] input) throws RonaldoException {
+        if (input.length <= 1) {
+            throw new RonaldoException("Mark/Unmark");
+        }
         try {
-            if (input.length <= 1) {
-                reject("Mark/Unmark");
-                return;
-            }
             int goalNumber = Integer.parseInt(input[1]) - 1;
             Goal goal = goalList.getGoalNumber(goalNumber);
             String command = input[0];
             if (command.equals("mark")) {
+                System.out.println("SIUUUUUUU! One step closer to achieving your dreams! " +
+                        "Your goal is now completed:\n" + goal.toString());
                 goal.markAsDone();
-                saveGoals();
             } else if (command.equals("unmark")) {
+                System.out.println("Ronaldo is disappointed. Your goal is now incomplete:\n" + goal.toString());
                 goal.markAsUndone();
-                saveGoals();
+
             }
+            saveGoals();
         } catch (NumberFormatException e) {
-            reject("Mark/Unmark");
+            throw new RonaldoException("Mark/Unmark");
         } catch (IndexOutOfBoundsException e) {
-            reject("Range");
+            throw new RonaldoException("Range");
         }
     }
 
@@ -164,10 +142,9 @@ public class Ronaldo {
      * Prints out all the goals added, including its type and completion status.
      * The goal index starts from '1', instead of the common array index, '0'.
      */
-    public void showListOfGoals() {
+    public void showListOfGoals() throws RonaldoException {
         if (goalList.getSize() == 0) {
-            reject("Empty");
-            return;
+            throw new RonaldoException("You have no goals. Time to score!");
         }
         goalList.printGoals();
     }
@@ -178,23 +155,21 @@ public class Ronaldo {
      *
      * @param words contains event to be added.
      */
-    public void addEvent(String words) {
-        String[] input = words.split("event | /from | /to ", 3);
-        try {
-            String description = input[0];
-            String from = input[1];
-            String to  = input[2];
-            if (description.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
-                reject("Event");
-                return;
-            }
-            Event event = new Event(description, from, to);
-            goalList.addGoal(event);
-            System.out.println("GOALLL! Your event has been added: \n" + event + "\n");
-            saveGoals();
-        } catch (IndexOutOfBoundsException e) {
-            reject("Event");
+    public void addEvent(String words) throws RonaldoException {
+        String[] input = words.split("event | /from | /to ", 4);
+        if (input.length != 4) {
+            throw new RonaldoException("Event");
         }
+        String description = input[1];
+        String from = input[2];
+        String to  = input[3];
+        if (description.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
+            throw new RonaldoException("Event");
+        }
+        Event event = new Event(description, from, to);
+        System.out.println("GOALLL! Your event has been added: \n" + event);
+        goalList.addGoal(event);
+        saveGoals();
     }
 
     /**
@@ -203,21 +178,19 @@ public class Ronaldo {
      *
      * @param words contains todo to be added.
      */
-    public void addTodo(String words) {
-        String[] input = words.split("todo", 2);
-        try {
-            String description = input[0];
-            if (description.trim().isEmpty()) {
-                reject("Todo");
-                return;
-            }
-            Todo todo = new Todo(input[0]);
-            goalList.addGoal(todo);
-            System.out.println("GOALLL! Your todo has been added: \n" + todo + "\n");
-            saveGoals();
-        } catch (IndexOutOfBoundsException e) {
-            reject("Todo");
+    public void addTodo(String words) throws RonaldoException {
+        String[] input = words.split("todo ", 2);
+        if (input.length != 2) {
+            throw new RonaldoException("Todo");
         }
+        String description = input[1];
+        if (description.trim().isEmpty()) {
+            throw new RonaldoException("Todo");
+        }
+        Todo todo = new Todo(description);
+        System.out.println("GOALLL! Your todo has been added: \n" + todo);
+        goalList.addGoal(todo);
+        saveGoals();
     }
 
     /**
@@ -226,70 +199,45 @@ public class Ronaldo {
      *
      * @param words contains deadline to be added.
      */
-    public void addDeadline(String words) {
-        String[] input = words.split("deadline | /by", 2);
-        try {
-            String description = input[0];
-            String by = input[1];
-            if (description.trim().isEmpty() || by.trim().isEmpty()) {
-                reject("Deadline");
-                return;
-            }
-            Deadline deadline = new Deadline(description,by);
-            goalList.addGoal(deadline);
-            System.out.println("GOALLL! Your deadline has been added: \n" + deadline + "\n");
-            saveGoals();
-        } catch (IndexOutOfBoundsException e) {
-            reject("Deadline");
+    public void addDeadline(String words) throws RonaldoException{
+        String[] input = words.split("deadline | /by ", 3);
+        if (input.length != 3) {
+            throw new RonaldoException("Deadline");
         }
+        String description = input[1];
+        String by = input[2];
+        if (description.trim().isEmpty() || by.trim().isEmpty()) {
+            throw new RonaldoException("Deadline");
+        }
+        Deadline deadline = new Deadline(description, by);
+        System.out.println("GOALLL! Your deadline has been added: \n" + deadline);
+        goalList.addGoal(deadline);
+        saveGoals();
     }
 
     /**
      * Deletes a goal in the list.
      *
-     * @param words contains goal index of the goal to be deleted.
+     * @param commands contains goal index of the goal to be deleted.
      */
-    public void delete(String words) {
+    public void delete(String commands) throws RonaldoException {
+        String[] input = commands.split("delete", 2);
+        if (input.length != 2) {
+            throw new RonaldoException("Delete");
+        }
         try {
-            String[] input = words.split("delete", 2);
-            int goalNumber = Integer.parseInt(input[1]) - 1;
+            int goalNumber = Integer.parseInt(input[1].trim()) - 1;
             Goal goal = goalList.getGoalNumber(goalNumber);
             System.out.println("VAR disallowed your goal: \n" + goal.toString());
             goalList.deleteGoal(goalNumber);
             saveGoals();
         } catch (NumberFormatException e) {
-            reject("Delete");
+            throw new RonaldoException("Delete");
         } catch (IndexOutOfBoundsException e) {
-            reject("Range");
+            throw new RonaldoException("Range");
         }
     }
 
-    /**
-     * Works hand in hand with GoalList's method findMatchingGoals().
-     * However, keyword cannot be completely empty (I.e, Not even spaces are included for keyword).
-     *
-     * @param words contains keywords that are to be matched.
-     * returns list of matching goals. A prompt will be given if list is empty.
-     */
-    public void find(String words) {
-        String[] input = words.split("find", 2);
-        try {
-            String keyword = input[1];
-        } catch (IndexOutOfBoundsException e) {
-            reject("Empty");
-            return;
-        }
-        String keyword = input[1];
-        List<Goal> matchingGoals = goalList.findMatchingGoals(keyword);
-        if (matchingGoals.isEmpty()) {
-            System.out.println("Woops, no matching goals found.\n");
-        } else {
-            System.out.println("Here are the matching goals found in the list:\n");
-            for (Goal goal : matchingGoals) {
-                System.out.println(goal);
-            }
-            System.out.println("\n");
-        }
-    }
+
 
 }

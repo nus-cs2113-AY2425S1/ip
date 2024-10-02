@@ -34,8 +34,8 @@ public class Storage {
             throw new IOException("Failed to create the directory: " + parentDir);
         }
 
-        // Print the absolute file path for debugging
-        System.out.println("Saving data at: " + file.getAbsolutePath() +"\n");
+        // Prints the absolute file path to confirm saving of goals
+        System.out.println("Saving data at: " + file.getAbsolutePath());
 
 
         // Write each goal to the file

@@ -8,18 +8,18 @@ import java.util.List;
  * This class helps to add, delete, search and return goals.
  */
 public class GoalList {
-    private final List<Goal> goals;
+    private final List<Goal> goalList;
 
     public GoalList() {
-        this.goals = new ArrayList<>();
+        this.goalList = new ArrayList<>();
     }
 
     public int getSize() {
-        return goals.size();
+        return goalList.size();
     }
 
     public void printGoalCount() {
-        if (goals.size() == 1) {
+        if (goalList.size() == 1) {
             System.out.println("Now you have " + getSize() + " goal in the list.\n");
         } else {
             System.out.println("Now you have " + getSize() + " goals in the list.\n");
@@ -27,29 +27,28 @@ public class GoalList {
     }
 
     public void addGoal(Goal goal) {
-        goals.add(goal);
+        goalList.add(goal);
         printGoalCount();
     }
 
     public void deleteGoal(int index) {
-        goals.remove(index);
+        goalList.remove(index);
         printGoalCount();
     }
 
     public Goal getGoalNumber(int index) {
-        return goals.get(index);
+        return goalList.get(index);
     }
 
     public void printGoals() {
         System.out.println("Here are the goals to complete in order for you to reach your dreams:");
-        for (int i = 0; i < goals.size(); i++) {
-            System.out.println((i + 1) + ". " + goals.get(i));
+        for (int i = 0; i < goalList.size(); i++) {
+            System.out.println((i + 1) + ". " + goalList.get(i));
         }
-        System.out.println();
     }
 
     public List<Goal> getAllGoals() {
-        return goals;
+        return goalList;
     }
 
     /**
@@ -61,7 +60,7 @@ public class GoalList {
      */
     public List<Goal> findMatchingGoals(String keyword) {
         List<Goal> matchingGoals = new ArrayList<>();
-        for (Goal goal : goals) {
+        for (Goal goal : goalList) {
             if (goal.description.contains(keyword)) {
                 matchingGoals.add(goal);
             }
