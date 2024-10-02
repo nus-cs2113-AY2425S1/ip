@@ -4,6 +4,9 @@ import freedom.ui.UiTaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Class to store and manage Tasks.
+ */
 public class TaskList {
     private static final UiTaskList ui = new UiTaskList();
 
@@ -17,9 +20,9 @@ public class TaskList {
 
     /**
      * Constructor for <code>TaskList</code>.
-     * Sets the initial list of tasks and number of tasks
+     * Sets the initial list of tasks and number of tasks.
      *
-     * @param tasks ArrayList of tasks
+     * @param tasks ArrayList of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
         setTasks(tasks);
@@ -29,8 +32,8 @@ public class TaskList {
     /**
      * Adds a task of the specified type to the end of the ArrayList.
      *
-     * @param type task type
-     * @param input user input
+     * @param type task type.
+     * @param input user input.
      */
     public void addTask(String type, String input) {
         String description;
@@ -64,7 +67,7 @@ public class TaskList {
      * Marks/ Unmarks/ Deletes tasks from the list.
      * Task is specified by its index in the list.
      *
-     * @param words Array containing specific command and task index
+     * @param words Array containing specific command and task index.
      */
     public void editTask(String[] words) {
         final int COMMAND_INDEX = 0;
@@ -107,7 +110,7 @@ public class TaskList {
     /**
      * Prints the ordered list of tasks.
      *
-     * @param tasks task list
+     * @param tasks task list.
      */
     public void printList(ArrayList<Task> tasks) {
         ui.printListHeader();
