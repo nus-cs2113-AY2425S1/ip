@@ -1,17 +1,17 @@
 package bean.task;
 
+import bean.constants.Constants;
 import bean.exceptions.InsufficientSpaceException;
 
 public class Task {
 
     protected String description;
     protected boolean isDone;
-    private final static int MAX_LIST_COUNT = 100;
 
     // Constant
-    protected final static String SEPARATOR_LINE = "____________________________________________________________________\n";
-    protected final static String INDENT = "  ";
-    private static final String DELIMITER = "//";
+    protected final static String SEPARATOR_LINE = Constants.SEPARATOR_LINE;
+    protected final static String INDENT = Constants.INDENT;
+    protected static final String DELIMITER = Constants.DELIMITER;
 
     // Constructors
     public Task(String description) {
