@@ -2,7 +2,7 @@ package initializer;
 
 import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.task.TaskManager;
-import wildpeace.task.Echo;
+import wildpeace.echo.Echo;
 
 import java.util.Scanner;
 

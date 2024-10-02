@@ -1,4 +1,4 @@
-package wildpeace.task;
+package wildpeace.echo;
 
 import initializer.Initializer;
 import wildpeace.exceptions.EmptyCommandException;

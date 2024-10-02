@@ -2,7 +2,7 @@ package wildpeace.task;
 
 import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.exceptions.InvalidInputException;
-import wildpeace.parser.Parser;
+import wildpeace.task.Parser;
 import wildpeace.Storage.Storage;
 import wildpeace.ui.Ui;
 
