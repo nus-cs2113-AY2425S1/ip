@@ -1,7 +1,7 @@
-E |   | concert | 2000 | 2300
-T | X | assignment
-D |   | quiz | 2359
-T | X | increments
-D |   | tutorial | 6 oct
-E | X | exam | 1200 | 1400
-T | X | watch movie
+T |   | build gundam
+E |   | exam | 1000 | 1200
+D | X | tutorial assignment | 6 oct
+T | X | shoot
+T |   | assignment
+E | X | test | 10/10 | 11/10
+D |   | application | 15/10/2024

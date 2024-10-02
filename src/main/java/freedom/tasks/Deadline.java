@@ -22,17 +22,10 @@ public class Deadline extends Task{
                 throw new TimeEmpty();
             }
         } catch (DescriptionEmpty e) {
-            printEmptyDescriptionError();
+            ui.printEmptyDescriptionError();
             throw new Exception("Description is empty");
         } catch (TimeEmpty | ArrayIndexOutOfBoundsException e) {
-            System.out.print(LOGO);
-            System.out.print("""
-                    \tYou need to set a date/time!
-                    \tRemember:
-                    \t  Use /by before the date/time
-                    \t  Include a date/time
-                    """);
-            System.out.println(LOGO);
+            ui.printNoDeadline();
             throw new Exception("No deadline given");
         }
     }
@@ -51,8 +44,8 @@ public class Deadline extends Task{
         return doneBy;
     }
 
-    public String printLine() {
-        return "[D]" + super.printLine() + " (by: " + doneBy + ")";
+    public String generateTaskLine() {
+        return "[D]" + super.generateTaskLine() + " (by: " + doneBy + ")";
     }
 
     public String generateStorageLine() {
