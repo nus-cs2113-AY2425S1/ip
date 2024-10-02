@@ -13,6 +13,9 @@ import java.util.Scanner;
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList taskList;
+    private UI ui;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
