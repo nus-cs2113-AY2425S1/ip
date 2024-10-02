@@ -1,7 +1,6 @@
 package UserInteraction;
 
 import TaskTypes.*;
-import static UserInteraction.PrintShape.printHorizontalLine;
 
 public class CreateTask {
 

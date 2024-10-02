@@ -1,7 +1,6 @@
 package UserInteraction;
 
 import TaskTypes.Task;
-import UserInteraction.HelperMethods;
 
 import java.util.ArrayList;
 

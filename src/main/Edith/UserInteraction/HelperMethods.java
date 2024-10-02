@@ -37,7 +37,7 @@ public class HelperMethods {
         }
     }
 
-    public static ArrayList<Task> addTaskToList(ArrayList<Task> tasks, String enteredString) {
+    public static void addTaskToList(ArrayList<Task> tasks, String enteredString) {
         try {
             Task newTask = addNewTask(enteredString);
             tasks.add(newTask);
@@ -53,6 +53,5 @@ public class HelperMethods {
         } finally {
             printHorizontalLine();
         }
-        return tasks; // why is the return statement not in the finally block
     }
 }

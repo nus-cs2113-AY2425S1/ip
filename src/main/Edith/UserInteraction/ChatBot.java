@@ -1,8 +1,6 @@
 package UserInteraction;
 
 import TaskTypes.Task;
-import TaskTypes.TaskTypeException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
