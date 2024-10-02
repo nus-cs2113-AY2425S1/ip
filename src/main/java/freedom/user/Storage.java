@@ -27,7 +27,7 @@ public class Storage {
         setDirectoryPath(directoryPath);
     }
 
-    public ArrayList<Task> loadData() throws Exception{
+    public ArrayList<Task> loadData() throws Exception {
         final int COMMAND_INDEX = 0;
         final int STATUS_INDEX = 1;
         final int DESCRIPTION_INDEX = 2;
@@ -45,7 +45,7 @@ public class Storage {
             while (read.hasNextLine()) {
                 String[] words = read.nextLine().split("[|]");
                 isDone = words[STATUS_INDEX].trim().equals("X");
-                switch(words[COMMAND_INDEX].trim()) {
+                switch (words[COMMAND_INDEX].trim()) {
                 case "T":
                     tasks.add(new ToDo(words[DESCRIPTION_INDEX].trim(), isDone));
                     break;
@@ -61,7 +61,6 @@ public class Storage {
                     throw new CannotReadFile();
                 }
             }
-            ui.printDataLoaded();
         } catch (FileNotFoundException e) {
             ui.printUnableToAccess();
         } catch (CannotReadFile e) {

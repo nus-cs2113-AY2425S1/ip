@@ -1,3 +1,7 @@
-T | X | build gundam
+T |   | build gundam
 E |   | exam | 1000 | 1200
-D |   | tutorial assignment | 6 oct
+D | X | tutorial assignment | 6 oct
+T | X | shoot
+T |   | assignment
+E | X | test | 10/10 | 11/10
+D |   | application | 15/10/2024

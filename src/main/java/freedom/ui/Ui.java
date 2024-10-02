@@ -1,7 +1,14 @@
 package freedom.ui;
 
+import java.util.Scanner;
+
 public class Ui {
     private final static String DIVIDER = "\t________________________________________\n";
+    private static Scanner scanner = new Scanner(System.in);
+
+    public String readInput() {
+        return scanner.nextLine();
+    }
 
     public void printStartMessage() {
         printHeadDivider();
