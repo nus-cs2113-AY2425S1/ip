@@ -75,6 +75,10 @@ public class lovespiritual {
         }
     }
 
+    public static void main(String[] args) {
+        new lovespiritual("data/lovespiritual.txt").run();
+    }
+
     private static void event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
