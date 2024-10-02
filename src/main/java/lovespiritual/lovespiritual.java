@@ -89,6 +89,12 @@ public class lovespiritual {
         }
     }
 
+    /**
+     * Start of the running of application.
+     * Starts task manager with the file path for storing tasks.
+     *
+     * @param args Command-line arguments which are not used.
+     */
     public static void main(String[] args) {
         new lovespiritual("data/lovespiritual.txt").run();
     }
