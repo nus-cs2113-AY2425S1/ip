@@ -41,7 +41,10 @@ public class bro {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] parts = line.split("\\|");
+                for (int i = 0; i< parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
                 switch(parts[0]) {
                     case "T":
                         Todo todo = new Todo(parts[2]);
@@ -186,7 +189,20 @@ public class bro {
                 System.out.println("Ok, I've marked this task as not done yet:");
                 System.out.println(storer.get(task_num));
                 saveTasks();
-            }  else {
+            }  else if (line.startsWith("find")) {
+                String keyword = line.substring(5);
+                System.out.println("Here are the matching tasks in your list:");
+
+                int count = 1;
+                for (Task task: storer) {
+                    if (task.getDescription().contains(keyword)) {
+                        System.out.println(count + ". " + task);
+                    }
+
+                    count ++;
+                }
+
+            } else {
                 storer.add(new Task(line));
                 saveTasks();
             }

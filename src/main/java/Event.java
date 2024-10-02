@@ -1,12 +1,16 @@
-public class Event extends Task{
-    protected String from;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    protected String to;
+public class Event extends Task{
+    protected LocalDate from;
+
+    protected LocalDate to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+        this.from = LocalDate.parse(from, formatter);
+        this.to = LocalDate.parse(to, formatter);
     }
 
     @Override
