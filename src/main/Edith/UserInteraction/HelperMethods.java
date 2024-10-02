@@ -1,11 +1,7 @@
 package UserInteraction;
 
 import TaskTypes.Task;
-import TaskTypes.TaskTypeException;
-
 import java.util.ArrayList;
-
-import static UserInteraction.CreateTask.addNewTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
 public class HelperMethods {
@@ -37,21 +33,23 @@ public class HelperMethods {
         }
     }
 
-    public static void addTaskToList(ArrayList<Task> tasks, String enteredString) {
-        try {
-            Task newTask = addNewTask(enteredString);
-            tasks.add(newTask);
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(newTask);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid format for input. Please try again.");
-        } catch (TaskTypeException e) {
-            System.out.println(e); // "No task type stated. Please try again."
-        } catch (Exception e) {
-            System.out.println("Error. Please try again.");
-        } finally {
-            printHorizontalLine();
+    public static Task getTask(ArrayList<Task> tasks, String enteredString) throws NumberFormatException, InvalidTaskNumberException {
+        int taskNumber = getTaskNumber(tasks, enteredString);
+        Task task = tasks.get(taskNumber - 1);
+        return task;
+    }
+
+    public static int getTaskNumber(ArrayList<Task> tasks, String enteredString) throws NumberFormatException, InvalidTaskNumberException {
+        int lengthOfString = enteredString.length();
+        String taskNumberString = enteredString.substring(lengthOfString - 1);
+        int taskNumber = Integer.parseInt(taskNumberString);
+        if (isInvalidTaskNumber(tasks, taskNumber)) { //can add an exception here
+            throw new InvalidTaskNumberException("Invalid task number. Please try again.");
         }
+        return taskNumber;
+    }
+
+    public static void printNumberOfTasks(ArrayList<Task> tasks) {
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }

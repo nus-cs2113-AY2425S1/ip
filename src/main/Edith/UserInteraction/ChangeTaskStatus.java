@@ -1,24 +1,17 @@
 package UserInteraction;
 
 import TaskTypes.Task;
-
 import java.util.ArrayList;
 
+import static UserInteraction.HelperMethods.getTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
 public class ChangeTaskStatus {
 
     public static void changeTaskStatus(ArrayList<Task> tasks, String enteredString) {
-        int lengthOfString = enteredString.length();
+
         try {
-            String taskNumberString = enteredString.substring(lengthOfString - 1);
-            int taskNumber = Integer.parseInt(taskNumberString);
-
-            if (HelperMethods.isInvalidTaskNumber(tasks, taskNumber)) { //can add an exception here
-                throw new InvalidTaskNumberException("Invalid task number. Please try again.");
-            }
-
-            Task currentTask = tasks.get(taskNumber - 1);
+            Task currentTask = getTask(tasks, enteredString);
             if (enteredString.contains("unmark")) {
                 unmarkTask(currentTask);
             } else if (enteredString.contains("mark")) {

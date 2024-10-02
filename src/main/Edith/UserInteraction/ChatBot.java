@@ -4,6 +4,7 @@ import TaskTypes.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
+import static UserInteraction.DeleteTask.deleteTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
 public class ChatBot {
@@ -32,8 +33,10 @@ public class ChatBot {
                 HelperMethods.listTasks(tasks);
             } else if (enteredString.contains("mark")) {
                 changeTaskStatus(tasks, enteredString);
+            } else if (enteredString.contains("delete")) {
+                deleteTask(tasks, enteredString);
             } else {
-                HelperMethods.addTaskToList(tasks, enteredString);
+                AddTaskToList.addTaskToList(tasks, enteredString);
             }
         } while (true);
     }
