@@ -1,2 +1,5 @@
-
-D | 0 |  quiz | tom
+E | 0 |  |  - orrow to dayafter
+E | 0 |  class | tom  - 5pm
+E | 0 |  class |  -  to dayafter
+E | 0 |  |  - orrow to dayafter
+E | 0 |  class | tom  - 5pm

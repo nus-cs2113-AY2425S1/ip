@@ -34,7 +34,7 @@ public class CreateTask {
         int lengthOfFrom = "from".length();
         int lengthOfTo = "to".length();
         int indexOfFrom = enteredString.indexOf("from");
-        int indexOfTo = enteredString.indexOf("to");
+        int indexOfTo = enteredString.indexOf("to ");
 
         String taskDescription = enteredString.substring(lengthOfEvent, indexOfFrom - 1);
         String eventFromTime = enteredString.substring(indexOfFrom + lengthOfFrom + 1, indexOfTo);
