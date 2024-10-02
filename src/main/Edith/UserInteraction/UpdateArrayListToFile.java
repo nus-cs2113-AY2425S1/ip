@@ -21,6 +21,10 @@ public class UpdateArrayListToFile {
         while (s.hasNext()) {
             String storableString = s.nextLine();
             Task task = stringToTask(storableString);
+            if (task == null) {
+                System.out.println("Invalid task type");
+                continue;
+            }
             tasks.add(task);
         }
         System.out.println("Successfully loaded tasks into the list");
@@ -54,11 +58,13 @@ public class UpdateArrayListToFile {
         }
     }
     public static void rewriteArrayList(ArrayList<Task> tasks) {
+
         try {
+            writeToFile(FILE_PATH, "");
             for (Task task : tasks) {
-                writeToFile(FILE_PATH, task.getStorableString());
+                appendToFile(FILE_PATH, task.getStorableString());
             }
-            //initializeArrayList(tasks, new File(FILE_PATH));
+            initializeArrayList(tasks, new File(FILE_PATH));
         } catch (IOException e) {
             System.out.println("IOException");
         }

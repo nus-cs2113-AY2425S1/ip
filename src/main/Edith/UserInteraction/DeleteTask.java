@@ -12,7 +12,7 @@ public class DeleteTask {
     public static void deleteTask(ArrayList<Task> tasks, String enteredString) {
         try {
             Task removedTask = tasks.remove(getTaskNumber(tasks, enteredString) - 1);
-            //rewriteArrayList(tasks);
+            rewriteArrayList(tasks);
             System.out.println("Noted. I've removed this task:");
             System.out.println(removedTask);
             printNumberOfTasks(tasks);
