@@ -57,10 +57,10 @@ public class MarkCommand extends Command {
         try {
             storage.save(taskList.getTasks());
             String message = isMark ? "Marked task as done." : "Marked task as not done.";
-            ui.response(message);
+            Ui.response(message);
         } catch (IOException e) {
             // Handle IOException by notifying the user
-            ui.response("Error saving tasks: " + e.getMessage());
+            Ui.response("Error saving tasks: " + e.getMessage());
         }
     }
 }

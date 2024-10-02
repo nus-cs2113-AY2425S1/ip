@@ -38,7 +38,7 @@ public abstract class Task {
      * @return "✓" if the task is done, otherwise " ".
      */
     public String getStatus() {
-        return (isDone ? "✓" : " ");
+        return (isDone ? "X" : " ");
     }
 
     /**

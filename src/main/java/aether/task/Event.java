@@ -1,6 +1,8 @@
 package aether.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -15,21 +17,53 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     protected String from;
     protected String to;
-    protected LocalDateTime fromDateTime;
-    protected LocalDateTime toDateTime;
+    protected ParsedDateTime fromDateTime;
+    protected ParsedDateTime toDateTime;
 
     // Supported date and time formats
-    private static final DateTimeFormatter[] SUPPORTED_FORMATS = {
-            DateTimeFormatter.ofPattern("d/M/yyyy Hmm"),      // 2/12/2019 1800
-            DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm"),    // 02/12/2019 1800
-            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"),    // 2/12/2019 18:00
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),  // 02/12/2019 18:00
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),  // 2019-12-02 18:00
+    private static final DateTimeFormatter[] DATETIME_FORMATS = {
+            // Date and time with various separators and formats
+            DateTimeFormatter.ofPattern("d/M/yyyy Hmm"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+            DateTimeFormatter.ofPattern("d-M-yyyy Hmm"),
+            DateTimeFormatter.ofPattern("dd-MM-yyyy Hmm"),
+            DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"),
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
+            DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"),
+            // Include patterns with AM/PM
+            DateTimeFormatter.ofPattern("d/M/yyyy h:mma"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy h:mma"),
+            DateTimeFormatter.ofPattern("d-M-yyyy h:mma"),
+            DateTimeFormatter.ofPattern("dd-MM-yyyy h:mma"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd h:mma"),
+            DateTimeFormatter.ofPattern("MM-dd-yyyy h:mma"),
     };
 
-    // Basic format for displaying the date without ordinal
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMMM yyyy");
-    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
+    private static final DateTimeFormatter[] DATE_FORMATS = {
+            // Date only with various separators
+            DateTimeFormatter.ofPattern("d/M/yyyy"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+            DateTimeFormatter.ofPattern("d-M-yyyy"),
+            DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("MM-dd-yyyy"),
+    };
+
+    private static final DateTimeFormatter[] TIME_FORMATS = {
+            // Time only in various formats
+            DateTimeFormatter.ofPattern("Hmm"),
+            DateTimeFormatter.ofPattern("HHmm"),
+            DateTimeFormatter.ofPattern("H:mm"),
+            DateTimeFormatter.ofPattern("HH:mm"),
+            DateTimeFormatter.ofPattern("h:mma"),
+    };
+
+    // Basic formats for displaying
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT = DateTimeFormatter.ofPattern("MMMM yyyy");
+    private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
 
     /**
      * Constructs an {@code Event} task with the specified description, start time, and end time.
@@ -51,20 +85,40 @@ public class Event extends Task {
     }
 
     /**
-     * Parses the input date and time string into a {@code LocalDateTime} object.
+     * Parses the input date and time string into a {@code ParsedDateTime} object.
      *
      * @param dateTimeStr The date and time string to parse.
-     * @return A {@code LocalDateTime} object if parsing is successful; {@code null} otherwise.
+     * @return A {@code ParsedDateTime} object if parsing is successful; {@code null} otherwise.
      */
-    private LocalDateTime parseDateTime(String dateTimeStr) {
-        for (DateTimeFormatter formatter : SUPPORTED_FORMATS) {
+    private ParsedDateTime parseDateTime(String dateTimeStr) {
+        // Try to parse as LocalDateTime
+        for (DateTimeFormatter formatter : DATETIME_FORMATS) {
             try {
-                return LocalDateTime.parse(dateTimeStr, formatter);  // Return if parsing succeeds
+                LocalDateTime dt = LocalDateTime.parse(dateTimeStr, formatter);
+                return new ParsedDateTime(dt);
             } catch (DateTimeParseException e) {
-                // Ignore and continue to the next format
+                // Ignore and continue
             }
         }
-        return null;  // Return null if no formats match
+        // Try to parse as LocalDate
+        for (DateTimeFormatter formatter : DATE_FORMATS) {
+            try {
+                LocalDate date = LocalDate.parse(dateTimeStr, formatter);
+                return new ParsedDateTime(date);
+            } catch (DateTimeParseException e) {
+                // Ignore and continue
+            }
+        }
+        // Try to parse as LocalTime
+        for (DateTimeFormatter formatter : TIME_FORMATS) {
+            try {
+                LocalTime time = LocalTime.parse(dateTimeStr, formatter);
+                return new ParsedDateTime(time);
+            } catch (DateTimeParseException e) {
+                // Ignore and continue
+            }
+        }
+        return null; // Return null if parsing fails
     }
 
     /**
@@ -73,7 +127,7 @@ public class Event extends Task {
      * @param dayOfMonth The day of the month as an integer.
      * @return The day of the month with its appropriate ordinal suffix.
      */
-    private String getDayWithOrdinalSuffix(int dayOfMonth) {
+    private static String getDayWithOrdinalSuffix(int dayOfMonth) {
         if (dayOfMonth >= 11 && dayOfMonth <= 13) {
             return dayOfMonth + "th";
         }
@@ -91,9 +145,30 @@ public class Event extends Task {
      * @param dateTime The {@code LocalDateTime} to format.
      * @return The formatted date and time string.
      */
-    private String formatDateTimeWithOrdinal(LocalDateTime dateTime) {
+    public static String formatDateTimeWithOrdinal(LocalDateTime dateTime) {
         String dayWithSuffix = getDayWithOrdinalSuffix(dateTime.getDayOfMonth());
-        return dayWithSuffix + " of " + dateTime.format(DATE_FORMAT) + ", " + dateTime.format(TIME_FORMAT).toLowerCase();
+        return dayWithSuffix + " of " + dateTime.format(DISPLAY_DATE_FORMAT) + ", " + dateTime.format(DISPLAY_TIME_FORMAT).toLowerCase();
+    }
+
+    /**
+     * Formats the date in the desired format with ordinal suffix.
+     *
+     * @param date The {@code LocalDate} to format.
+     * @return The formatted date string.
+     */
+    public static String formatDateWithOrdinal(LocalDate date) {
+        String dayWithSuffix = getDayWithOrdinalSuffix(date.getDayOfMonth());
+        return dayWithSuffix + " of " + date.format(DISPLAY_DATE_FORMAT);
+    }
+
+    /**
+     * Formats the time in the desired format.
+     *
+     * @param time The {@code LocalTime} to format.
+     * @return The formatted time string.
+     */
+    public static String formatTime(LocalTime time) {
+        return time.format(DISPLAY_TIME_FORMAT).toLowerCase();
     }
 
     /**
@@ -103,11 +178,9 @@ public class Event extends Task {
      */
     @Override
     public String toDataString() {
-        // Store the parsed date/time or fallback to original 'from' and 'to' strings
-        return (fromDateTime != null && toDateTime != null)
-                ? "E | " + getStatusForStorage() + " | " + description + " | "
-                + fromDateTime.format(DATE_FORMAT) + " | " + toDateTime.format(DATE_FORMAT)
-                : "E | " + getStatusForStorage() + " | " + description + " | " + from + " | " + to;
+        return "E | " + getStatusForStorage() + " | " + description + " | "
+                + (fromDateTime != null ? fromDateTime.toDataString() : from) + " | "
+                + (toDateTime != null ? toDateTime.toDataString() : to);
     }
 
     /**
@@ -117,10 +190,69 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        // If fromDateTime and toDateTime are valid, format them; otherwise return the strings
-        return (fromDateTime != null && toDateTime != null)
-                ? "[E]" + super.toString() + " (from: " + formatDateTimeWithOrdinal(fromDateTime)
-                + " to: " + formatDateTimeWithOrdinal(toDateTime) + ")"
-                : "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: "
+                + (fromDateTime != null ? fromDateTime.format() : from)
+                + " to: " + (toDateTime != null ? toDateTime.format() : to) + ")";
+    }
+
+    /**
+     * A helper class to hold parsed date and/or time.
+     */
+    private static class ParsedDateTime {
+        private LocalDateTime dateTime; // Both date and time
+        private LocalDate date;         // Only date
+        private LocalTime time;         // Only time
+
+        // Constructor for LocalDateTime
+        public ParsedDateTime(LocalDateTime dateTime) {
+            this.dateTime = dateTime;
+        }
+
+        // Constructor for LocalDate
+        public ParsedDateTime(LocalDate date) {
+            this.date = date;
+        }
+
+        // Constructor for LocalTime
+        public ParsedDateTime(LocalTime time) {
+            this.time = time;
+        }
+
+        /**
+         * Formats the parsed date/time into a string based on what is available.
+         *
+         * @return The formatted date/time string.
+         */
+        public String format() {
+            if (dateTime != null) {
+                return formatDateTimeWithOrdinal(dateTime);
+            } else if (date != null) {
+                return formatDateWithOrdinal(date);
+            } else if (time != null) {
+                return formatTime(time);
+            } else {
+                return "";
+            }
+        }
+
+        /**
+         * Serializes the parsed date/time into a string for storage.
+         *
+         * @return The serialized date/time string.
+         */
+        public String toDataString() {
+            if (dateTime != null) {
+                // Prefix with "DT:" to indicate LocalDateTime
+                return "DT:" + dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            } else if (date != null) {
+                // Prefix with "D:" to indicate LocalDate
+                return "D:" + date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            } else if (time != null) {
+                // Prefix with "T:" to indicate LocalTime
+                return "T:" + time.format(DateTimeFormatter.ISO_LOCAL_TIME);
+            } else {
+                return "";
+            }
+        }
     }
 }
