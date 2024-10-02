@@ -2,23 +2,23 @@ package atom.task;
 
 public class Event extends Task{
 
-    protected String from;
-    protected String to;
+    protected String startDate;
+    protected String endDate;
 
-    public Event(String item, String from, String to) {
+    public Event(String item, String startDate, String endDate) {
         super(item);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
-    public String getFrom() {
-        return from;
+    public String getStartDate() {
+        return startDate;
     }
 
     @Override
-    public String getTo() {
-        return to;
+    public String getEndDate() {
+        return endDate;
     }
 
     @Override

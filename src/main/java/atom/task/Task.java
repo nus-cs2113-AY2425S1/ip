@@ -1,6 +1,6 @@
 package atom.task;
 
-public class Task {
+public abstract class Task {
     protected String item;
     protected boolean isDone;
 
@@ -26,18 +26,18 @@ public class Task {
     }
 
     public String setTaskType() {
-        return "-";
-    }
-
-    public String getBy() {
         return "";
     }
 
-    public String getFrom() {
+    public String getDueDate() {
         return "";
     }
 
-    public String getTo() {
+    public String getStartDate() {
+        return "";
+    }
+
+    public String getEndDate() {
         return "";
     }
 }

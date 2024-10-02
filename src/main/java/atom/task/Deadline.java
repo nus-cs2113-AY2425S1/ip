@@ -2,16 +2,16 @@ package atom.task;
 
 public class Deadline extends Task{
 
-    String by;
+    protected String dueDate;
 
-    public Deadline(String item, String by) {
+    public Deadline(String item, String dueDate) {
         super(item);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     @Override
-    public String getBy() {
-        return by;
+    public String getDueDate() {
+        return dueDate;
     }
 
     @Override
