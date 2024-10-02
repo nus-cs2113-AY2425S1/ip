@@ -15,55 +15,11 @@ import java.io.IOException;
 public class NewFile {
 
     public File file;
-    public final String FILE_DIR_FROM_IP_DIR = "ip/src/main/java/TheThinker/Data";
+
 
     public NewFile(String filename) {
 
-        String filePath = getRemainingPath();
-
-        if(filePath.equals("invalid")){
-            System.out.println("Please place jar file within ip directory");
-        }else {
-            File directory = new File(filePath);
-
-            if (!directory.exists() || !directory.isDirectory()) {
-                System.out.println("Directory Data does not exist");
-                System.out.println("Please create Package /Data under src/main/java/TheThinker/");
-            }
-        }
-
-        this.file = new File(getRemainingPath() + "/" + filename);
-    }
-
-    /**
-     * Returns path from anywhere within ip project to the text file which is Data directory
-     *
-     * @return Path
-     */
-    public String getRemainingPath(){
-        String pwd = System.getProperty("user.dir").replace("\\", "/");
-        String[] userDirectories = pwd.split("/");
-        String[] absolutePathDir = FILE_DIR_FROM_IP_DIR.split("/");
-        int matchingDirIndexInUserPath = 0;
-        int matchingDirIndexInAbsolutePath = 0;
-        String matchingDir = "";
-        for(int i = userDirectories.length - 1; i >= 0; i--){
-            for(int j = absolutePathDir.length - 1; j >= 0; j--){
-                if(absolutePathDir[j].equals(userDirectories[i])){
-                    matchingDirIndexInAbsolutePath = j;
-                    matchingDirIndexInUserPath = i;
-                    matchingDir = userDirectories[i];
-                }
-            }
-        }
-
-        if(matchingDir.isEmpty() && matchingDirIndexInUserPath == 0 && matchingDirIndexInAbsolutePath == 0){
-            return "invalid";
-        }
-        String newConstructedPath = "../".repeat(userDirectories.length - matchingDirIndexInUserPath - 1);
-        int indexOfMatchingDirInAbsolutePath = FILE_DIR_FROM_IP_DIR.indexOf(matchingDir);
-        newConstructedPath += FILE_DIR_FROM_IP_DIR.substring(indexOfMatchingDirInAbsolutePath + matchingDir.length()+1);
-        return newConstructedPath;
+        this.file = new File(FileLoader.FILE_DIR + "/" +  filename);
     }
 
     public boolean isFileExist() {
