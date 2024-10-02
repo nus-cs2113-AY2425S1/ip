@@ -122,13 +122,12 @@ public class Ronaldo {
             Goal goal = goalList.getGoalNumber(goalNumber);
             String command = input[0];
             if (command.equals("mark")) {
+                goal.markAsDone();
                 System.out.println("SIUUUUUUU! One step closer to achieving your dreams! " +
                         "Your goal is now completed:\n" + goal.toString());
-                goal.markAsDone();
             } else if (command.equals("unmark")) {
-                System.out.println("Ronaldo is disappointed. Your goal is now incomplete:\n" + goal.toString());
                 goal.markAsUndone();
-
+                System.out.println("Ronaldo is disappointed. Your goal is now incomplete:\n" + goal.toString());
             }
             saveGoals();
         } catch (NumberFormatException e) {
