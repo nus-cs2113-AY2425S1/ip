@@ -108,6 +108,16 @@ public class TaskList {
         }
     }
 
+    public static void find(String line) {
+        line = line.substring(5);
+        for (int i = 0; i < Storage.getCount(); i++) {
+            if (getTask(i).toString().contains(line)) {
+                Ui.show(i);
+            }
+        }
+        System.out.println("");
+    }
+
     private static int getIndex(ArrayList<Task> tasks, String line, int beginIndex, String func) throws NumberFormatException, IndexOutOfRangeException, TaskSameStateException {
         try {
             int index = Integer.parseInt(line.substring(beginIndex));
