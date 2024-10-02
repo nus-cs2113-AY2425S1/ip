@@ -38,6 +38,10 @@ public class Ui {
         System.out.println("Now you have " + Storage.getCount() + " tasks in the list.\n");
     }
 
+    public static void show(int index) {
+        System.out.println(TaskList.getTask(index));
+    }
+
     public static void printList() {
         for (int i = 0; i < Storage.getCount(); i++) {
             System.out.println((i + 1) + ". " + TaskList.getTask(i));

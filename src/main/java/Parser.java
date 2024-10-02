@@ -26,6 +26,8 @@ public class Parser {
             Storage.saveFile();
         } else if (line.equals("bye")) {
             Anke.isExit = true;
+        } else if (line.startsWith("find ")) {
+            TaskList.find(line);
         } else {
             Ui.handleWrongFormat();
         }
