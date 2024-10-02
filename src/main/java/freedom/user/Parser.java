@@ -19,7 +19,7 @@ public class Parser {
                 setEnd(true);
                 return;
             case "list":
-                taskList.printList();
+                taskList.printList(taskList.getTasks());
                 return;
             case "mark":
             case "unmark":
@@ -35,6 +35,9 @@ public class Parser {
                 break;
             case "event":
                 taskList.addTask("event", input);
+                break;
+            case "find":
+                taskList.findTasks(input);
                 break;
             default:
                 throw new InvalidCommand();
