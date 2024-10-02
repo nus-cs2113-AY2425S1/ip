@@ -229,6 +229,14 @@ public class lovespiritual {
     }
 
     private static void markTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
+    /**
+     * Marks a task as completed.
+     *
+     * @param input User input string for marking a task.
+     * @param tasks List of tasks.
+     * @throws lovespiritualException If the task number is invalid or out of range.
+     */
+    private static void markTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Hmm... (ʘ‿ʘ) A valid number, please?");
