@@ -25,24 +25,24 @@ Legin is a command line chat bot that helps users with their daily tracking of t
 
 ### Adding a Todo task: ```todo```
 
-Adds a Todo task to the task list.
+Adds a Todo task to the task list. <br />
 Format: ```todo TASK_DESCRIPTION``` <br />
 Example: 
-+ ```todo Water the plants```
++ ```todo Water the plants``` </br>
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/777aa717-3c10-4e65-a484-79ec87161220)
 
 
 ### Adding a Deadline task: ```deadline```
 
-Adds a task that has a deadline to the task list.
+Adds a task that has a deadline to the task list. <br />
 Format: ```deadline TASK_DESCRIPTION /by DEADLINE``` <br />
 Example:
-+ ```deadline submit quiz 1 /by 27 October 4pm```
++ ```deadline submit quiz 1 /by 27 October 4pm``` <br />
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/ad576583-c6d2-49ab-9cbe-867826817688)
   
-Note: Users are to adhere to the space after ```TASK_DESCRIPTION``` and /by to prevent unexpected behavior
+Note: Users are to adhere to the space after ```TASK_DESCRIPTION``` and ```/by``` to prevent unexpected behavior
 
 ### Adding a Event task: ```event```
 
@@ -53,7 +53,7 @@ Example:
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/2ac2d029-b1fe-4083-9835-0e599d41f0e9)
   
-Note: Users are to adhere to the space after ```EVENT_DESCRIPTION```, /from and /to to prevent unexpected behavior
+Note: Users are to adhere to the space after ```EVENT_DESCRIPTION```, ```/from``` and ```/to``` to prevent unexpected behavior
 
 
 ### Marking a task: ```mark```
