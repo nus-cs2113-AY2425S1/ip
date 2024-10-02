@@ -6,12 +6,21 @@ import wildpeace.parser.Parser;
 import wildpeace.Storage.Storage;
 import wildpeace.ui.Ui;
 
+/**
+ * Manages the high-level routine of Ui, Storage, TaskList, and Parser classes.
+ * The routine involves showing the user guide, parsing user commands and arguments,
+ * handling task operations (such as adding, marking, deleting tasks), and saving tasks.
+ */
 public class TaskManager {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Constructor for TaskManager class.
+     * Initializes the user interface (Ui), task storage, task list, and command parser.
+     */
     public TaskManager() {
         ui = new Ui();
         storage = new Storage();
@@ -19,6 +28,11 @@ public class TaskManager {
         parser = new Parser();
     }
 
+    /**
+     * Starts the main loop for managing tasks.
+     * The loop continually reads user commands, processes them, and updates the task list
+     * until the user exits the program by typing "bye".
+     */
     public void run() {
         ui.showGuide();
         boolean isExit = false;
@@ -40,6 +54,15 @@ public class TaskManager {
         ui.close();
     }
 
+    /**
+     * Processes user commands and performs corresponding task operations.
+     * This includes listing tasks, adding todo/deadline/event tasks, marking/unmarking tasks,
+     * and deleting tasks. The tasks are saved to the storage after each operation.
+     *
+     * @param command   The command parsed from user input.
+     * @param arguments The arguments associated with the command.
+     * @return true if the user chooses to exit the program, false otherwise.
+     */
     private boolean handleCommand(String command, String arguments) {
         try {
             switch (command) {
@@ -54,7 +77,6 @@ public class TaskManager {
                 storage.save(taskList.getTasks());
                 break;
             case "deadline":
-                // Assuming '/by' separates task and deadline
                 if (!arguments.contains("/by")) {
                     throw new InvalidInputException("Deadline tasks must include '/by <deadline>'.");
                 }
@@ -63,7 +85,6 @@ public class TaskManager {
                 storage.save(taskList.getTasks());
                 break;
             case "event":
-                // Assuming '/at' separates task and event time
                 if (!arguments.contains("/at")) {
                     throw new InvalidInputException("Event tasks must include '/at <event time>'.");
                 }
