@@ -25,7 +25,7 @@ Welcome to **Yukee**, your friendly task management chatbot! Yukee is designed t
 
 ## Quick Start
 1. Ensure you have **Java 11** installed.
-2. Download the latest version of Yukee from the [releases page](https://github.com/{your username}/{repo name}/releases).
+2. Download the latest version of Yukee from the [releases page](https://github.com/YukeeHong/ip/releases).
 3. Open your terminal and navigate to the folder where Yukee is located.
 4. Run the chatbot using the command:
    ```sh
