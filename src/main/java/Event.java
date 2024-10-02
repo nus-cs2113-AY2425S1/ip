@@ -14,4 +14,9 @@ public class Event extends Task {
         super.printTask();
         System.out.println("(from: " + from + " to: " + to + ")");
     }
+
+    @Override
+    public String convertToSaveFormat() {
+        return "E | " + super.convertToSaveFormat() + " | " + from + " | " + to;
+    }
 }

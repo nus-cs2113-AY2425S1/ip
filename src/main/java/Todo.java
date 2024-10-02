@@ -9,4 +9,9 @@ public class Todo extends Task {
         super.printTask();
         System.out.println();
     }
+
+    @Override
+    public String convertToSaveFormat() {
+        return "T | " + super.convertToSaveFormat();
+    }
 }

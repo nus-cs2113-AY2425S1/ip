@@ -10,7 +10,7 @@ public class Miku {
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList = loadTasksFromFile();
 
         printGreeting();
 
@@ -20,6 +20,7 @@ public class Miku {
         while (!line.equals("bye")) {
             try {
                 handleInput(line, taskList);
+                saveFile(taskList);
             } catch (Exception e) {
                 System.out.println("Please enter valid commands");
             }
@@ -28,6 +29,7 @@ public class Miku {
             printDivider();
         }
 
+        saveFile(taskList);
         printGoodbye();
 
         inputScanner.close();
@@ -36,6 +38,26 @@ public class Miku {
     private static void printGoodbye() {
         System.out.println("Bye, see you later!");
         printDivider();
+    }
+
+    private static TaskList loadTasksFromFile(){
+        TaskList taskList = new TaskList();
+        try {
+            taskList.loadFile("tasks.txt");
+        }
+        catch (Exception e) {
+            System.out.println("Failed to load tasks.txt");
+        }
+        return taskList;
+    }
+
+    private static void saveFile(TaskList taskList){
+        try{
+            taskList.saveFile("tasks.txt");
+        }
+        catch (Exception e) {
+            System.out.println("Failed to save tasks.txt");
+        }
     }
 
     private static String[] splitCommand(String line) {
