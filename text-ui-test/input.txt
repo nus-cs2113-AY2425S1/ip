@@ -1,0 +1,10 @@
+todo Learn spanish
+deadline CS2113 iP /by Tuesday 11.59pm
+event Dinner with friends /from Monday 6.30pm /to 8pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+bye
