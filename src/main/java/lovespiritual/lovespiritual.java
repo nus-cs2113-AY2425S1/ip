@@ -22,8 +22,13 @@ public class lovespiritual {
         TaskList taskList = new TaskList();
         Storage storage = new Storage("./data/lovespiritual.txt");
 
+    public lovespiritual(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
         storage.loadTasks(tasks);
         ui.printWelcomeScreen();
+    }
 
         // loop that keeps recurring when the program is running
         while (true) {
