@@ -15,7 +15,7 @@ public class DeadlineCommand extends Command {
             taskList.addTask(deadline);
             ui.printAddMessage(taskList.get(taskList.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
-            ui.invalidTask(deadline);
+            ui.printInvalidTaskError(deadline);
         }
     }
 }

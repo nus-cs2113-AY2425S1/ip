@@ -1,8 +1,8 @@
 package ui;
 
-import tasks.*;
-
 import java.util.Scanner;
+
+import tasks.*;
 
 public class Ui {
     private Scanner scanner;
@@ -20,13 +20,13 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
     }
 
-    public void invalidCommand() {
+    public void printInvalidCommandError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Oops?! I don't know that one >.<");
         System.out.print(Skeleton.LINE_BREAK);
     }
 
-    public void invalidTask(Task task) {
+    public void printInvalidTaskError(Task task) {
         if (task instanceof Todo) {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to be missing a description");
@@ -44,7 +44,7 @@ public class Ui {
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
-    public void fileError() {
+    public void printFileError() {
         System.out.print((Skeleton.LINE_BREAK));
         System.out.println("Seems like an error occurred");
         System.out.print((Skeleton.LINE_BREAK));
@@ -94,6 +94,19 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.print("added: ");
         task.print();
+        System.out.print(Skeleton.LINE_BREAK);
+    }
+    public void printDateError() {
+        System.out.print(Skeleton.LINE_BREAK);
+        System.out.println("I think you formatted the date wrong =.=");
+        System.out.println("Format: yyyy-mm-dd");
+        System.out.print(Skeleton.LINE_BREAK);
+    }
+    public void searchError() {
+        System.out.print(Skeleton.LINE_BREAK);
+        System.out.println("I don't think you can search like that....");
+        System.out.println("Searching for tasks before: search /b <date>");
+        System.out.println("Searching for tasks after: search /a <date>");
         System.out.print(Skeleton.LINE_BREAK);
     }
 }

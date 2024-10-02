@@ -15,7 +15,7 @@ public class TodoCommand extends Command {
             taskList.addTask(todo);
             ui.printAddMessage(taskList.get(taskList.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
-            ui.invalidTask(todo);
+            ui.printInvalidTaskError(todo);
         }
     }
 }

@@ -1,8 +1,7 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import tasks.Task;
 import commands.Command;
 import exceptions.IllegalCommandException;
 import parser.Parser;
@@ -33,7 +32,9 @@ public class Nateh {
                 Command command = Parser.parse(input);
                 command.execute(taskList, ui);
             } catch (IllegalCommandException e) {
-                ui.invalidCommand();
+                ui.printInvalidCommandError();
+            } catch (DateTimeException e) {
+                ui.printDateError();
             }
         }
     }

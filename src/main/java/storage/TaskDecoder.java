@@ -3,6 +3,7 @@ package storage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,11 +24,11 @@ public class TaskDecoder {
                 list.add(new Todo(splitInput[2], Boolean.parseBoolean(splitInput[1])));
             } else if (splitInput[0].equals("[D]")) {
                 list.add(new Deadlines(splitInput[2], Boolean.parseBoolean(splitInput[1]),
-                        splitInput[3]));
+                        LocalDate.parse(splitInput[3])));
                 System.out.println(splitInput[0]);
             } else if (splitInput[0].equals("[E]")) {
                 list.add(new Event(splitInput[2], Boolean.parseBoolean(splitInput[1]),
-                        splitInput[3], splitInput[4]));
+                        LocalDate.parse(splitInput[3]), LocalDate.parse(splitInput[4])));
             }
         }
         return new TaskList(list);

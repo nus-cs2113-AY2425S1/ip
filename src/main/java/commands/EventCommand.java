@@ -13,7 +13,7 @@ public class EventCommand extends Command {
             taskList.addTask(event);
             ui.printAddMessage(taskList.get(taskList.size() - 1));
         } catch (StringIndexOutOfBoundsException e) {
-            ui.invalidTask(event);
+            ui.printInvalidTaskError(event);
         }
     }
     public EventCommand(Event event) {
