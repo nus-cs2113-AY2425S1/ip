@@ -63,7 +63,7 @@ bye
 ## Detailed User Manual
 ### Todo
 <a id ="todo"></a>
-`rgb(9, 105, 218)` Tasks include Todo, Deadlines and Events
+Tasks include Todo, Deadlines and Events
 * Todos includes tasks which does not have a deadline. To input a Todo, use the following syntax
 * An error will be printed if the syntax is invalid
 ```
@@ -72,7 +72,7 @@ todo {taskName}
 
 ### Deadlines
 <a id ="deadline"></a>
-`rgb(9, 105, 218)` deadlines includes tasks which has a deadline. To input a Deadline, use the following syntax
+Deadlines includes tasks which has a deadline. To input a Deadline, use the following syntax
 * An error will be printed if the syntax is invalid 
 * If the date is input in the format YYYY-MM-dd, it will be saved as the default format.
 ```
@@ -81,7 +81,7 @@ deadline {taskName} /by {deadline}
 
 ### Events
 <a id ="event"></a>
-`rgb(9, 105, 218)` Events includes tasks which has a start date and a deadline. To input an Event, use the following syntax
+Events includes tasks which has a start date and a deadline. To input an Event, use the following syntax
 * An error will be printed if the syntax is invalid
 * If the date is input in the format YYYY-MM-dd, it will be saved as the default format.
 ```
@@ -90,7 +90,7 @@ event {taskName} /from {startDate} /to {deadline}
 
 ## Mark Tasks
 <a name ="mark"></a>
-`rgb(9, 105, 218)`  arks a task as complete
+Marks a task as complete
 * To mark an item, specify the index number of the item.
 * An error will be printed if the syntax is invalid
 * You can only mark an item if it exists. 
@@ -101,7 +101,7 @@ mark {indexNmber}
 
 ## Unmark Tasks
 <a name ="unmark"></a>
-`rgb(9, 105, 218)`  Unmarks a task as incomplete
+Unmarks a task as incomplete
 * To unmark an item, specify the index number of the item.
 * An error will be printed if the syntax is invalid
 * You can only mark an item if it exists.
@@ -112,7 +112,7 @@ unmark {indexNmber}
 
 ## List Items
 <a name ="list"></a>
-`rgb(9, 105, 218)`  Lists the current items in your list
+Lists the current items in your list
 * To list, just enter the keyword list. 
 ```
 list
@@ -120,7 +120,7 @@ list
 
 ## Find Tasks
 <a name ="find"></a>
-`rgb(9, 105, 218)` Returns all the items in the list according to a keyword
+Returns all the items in the list according to a keyword
 
 ```
 find {keyword}
@@ -128,7 +128,7 @@ find {keyword}
 
 ## Delete Tasks
 <a name ="delete"></a>
-`rgb(9, 105, 218)` Deletes tasks in the list according to its index number
+Deletes tasks in the list according to its index number
 * If the item number is not found, an error will be returned
 ```
 delete {indexNumber}
@@ -136,7 +136,7 @@ delete {indexNumber}
 
 ## Closing the bot
 <a name ="bye"></a>
-`rgb(9, 105, 218)` Ends the bot. Tasks saved will be recovered on next startup
+Ends the bot. Tasks saved will be recovered on next startup
 ```
 bye
 ```
