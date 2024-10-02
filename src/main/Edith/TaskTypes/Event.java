@@ -1,8 +1,10 @@
-public class Events extends Task{
+package TaskTypes;
+
+public class Event extends Task{
     private String from;
     private String to;
 
-    public Events(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description, TypeOfTask.Events);
         this.from = from;
         this.to = to;
@@ -22,6 +24,7 @@ public class Events extends Task{
         this.from = from;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
     }

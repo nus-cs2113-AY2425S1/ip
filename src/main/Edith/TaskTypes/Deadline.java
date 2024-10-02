@@ -1,18 +1,22 @@
-public class Deadlines extends Task{
+package TaskTypes;
+
+public class Deadline extends Task {
     private String by;
-    Deadlines(String description, String by){
+
+    public Deadline(String description, String by) {
         super(description, TypeOfTask.Deadlines);
         this.by = by;
     }
 
-    public String getBy(){
+    public String getBy() {
         return by;
     }
 
-    public void setBy(String by){
+    public void setBy(String by) {
         this.by = by;
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
