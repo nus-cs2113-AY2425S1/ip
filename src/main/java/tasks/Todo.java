@@ -6,7 +6,7 @@ public class Todo extends Task {
         super(description);
     }
 
-    public String fileFormat() {
+    public String toFormatFile() {
         return "T | " + isDone + " | " + description;
     }
 

@@ -8,7 +8,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public String fileFormat() {
+    public String toFormatFile() {
         return "D | " + isDone + " | " + description + " | " + by;
     }
 

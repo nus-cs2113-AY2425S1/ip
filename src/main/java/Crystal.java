@@ -19,72 +19,72 @@ public class Crystal {
     private static final int DEADLINE_CHAR_COUNT = 8;
     private static final int EVENT_CHAR_COUNT = 5;
 
-    public static void horizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
     public static void sayHello() {
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Hola! I'm Crystal.\n"
             + "What can I do for you today?");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public static void sayBye() {
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Adios, hasta luego!");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public static void list() {
-        horizontalLine();
+        printHorizontalLine();
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
-        horizontalLine();
+        printHorizontalLine();
     }
 
-    public static void mark(int taskNumber) {
+    public static void markTask(int taskNumber) {
         try {
             int index = taskNumber - 1;
             if (index >= taskCount | index < 0) {
-                horizontalLine();
+                printHorizontalLine();
                 throw new IllegalCommandException("This number is not valid.");
             }
             Task t = tasks.get(index);
             t.markAsDone();
-            horizontalLine();
+            printHorizontalLine();
             System.out.println("YAY!! This task is now marked done:\n" + t);
-            horizontalLine();
+            printHorizontalLine();
         } catch (IllegalCommandException e) {
             printExceptionMessage(e);
         }
     }
 
-    public static void unmark(int taskNumber) {
+    public static void unmarkTask(int taskNumber) {
         try {
             int index = taskNumber - 1;
             if (index >= taskCount | index < 0) {
-                horizontalLine();
+                printHorizontalLine();
                 throw new IllegalCommandException("This number is not valid.");
             }
             Task t = tasks.get(index);
             t.unmark();
-            horizontalLine();
+            printHorizontalLine();
             System.out.println("OK, I've marked this task as not done yet:\n" + t);
-            horizontalLine();
+            printHorizontalLine();
         } catch (IllegalCommandException e) {
             printExceptionMessage(e);
         }
     }
 
     public static void printAddedTaskMessage() {
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Got it! I have added this task:");
         System.out.println(tasks.get(taskCount).toString());
         taskCount++;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public static void printExceptionMessage(Exception e) {
@@ -93,7 +93,7 @@ public class Crystal {
             System.out.print(message);
         }
         System.out.println(" Can you repeat it again?");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public static void addTodo(String line) {
@@ -107,7 +107,7 @@ public class Crystal {
         try {
             String[] twoParts = line.substring(DEADLINE_CHAR_COUNT + 1).trim().split(" /by ");
             if (twoParts.length != 2) {
-                horizontalLine();
+                printHorizontalLine();
                 throw new IncompleteCommandException("You are missing some parameters! ");
             }
             String description = twoParts[0];
@@ -124,7 +124,7 @@ public class Crystal {
         try {
             String[] threeParts = line.substring(EVENT_CHAR_COUNT + 1).trim().split(" /from | /to ");
             if (threeParts.length != 3) {
-                horizontalLine();
+                printHorizontalLine();
                 throw new IncompleteCommandException("You are missing some parameters! ");
             }
             String description = threeParts[0];
@@ -142,16 +142,16 @@ public class Crystal {
         try {
             int index = taskNumber - 1;
             if (index >= taskCount | index < 0) {
-                horizontalLine();
+                printHorizontalLine();
                 throw new IllegalCommandException("This number is not valid.");
             }
             Task t = tasks.get(index);
             tasks.remove(index);
             taskCount--;
-            horizontalLine();
+            printHorizontalLine();
             System.out.println("Noted. I have deleted the task below: \n" + t);
             System.out.println("Now you have " + taskCount + " tasks in the list.");
-            horizontalLine();
+            printHorizontalLine();
         } catch (IllegalCommandException e) {
             printExceptionMessage(e);
         }
@@ -182,18 +182,18 @@ public class Crystal {
             // rewriting data in the list to the file
             FileWriter fw = new FileWriter(file);
             for (Task task : list) {
-                fw.write(task.fileFormat() + System.lineSeparator());
+                fw.write(task.toFormatFile() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException | SecurityException e) {
-            horizontalLine();
+            printHorizontalLine();
             System.out.print("Error: " + e.getMessage());
             printExceptionMessage(e);
         }
     }
 
     public static void updateTask(boolean isDoneUpdated, Task t) {
-        t.updateBool(isDoneUpdated);
+        t.setIsDone(isDoneUpdated);
         tasks.add(t);
         taskCount++;
     }
@@ -219,7 +219,7 @@ public class Crystal {
                 throw new IOException();
             }
         } catch (IOException e) {
-            horizontalLine();
+            printHorizontalLine();
             System.out.print("File is Corrupted.");
             printExceptionMessage(e);
         }
@@ -258,12 +258,12 @@ public class Crystal {
                     break;
                 case "mark":
                     taskNumber = Integer.parseInt(words[1]);
-                    mark(taskNumber);
+                    markTask(taskNumber);
                     saveTaskList(tasks);
                     break;
                 case "unmark":
                     taskNumber = Integer.parseInt(words[1]);
-                    unmark(taskNumber);
+                    unmarkTask(taskNumber);
                     saveTaskList(tasks);
                     break;
                 case "todo":
@@ -283,7 +283,7 @@ public class Crystal {
                     delete(taskNumber);
                     break;
                 default:
-                    horizontalLine();
+                    printHorizontalLine();
                     throw new InvalidCommandException("Did you misspell or miss out something? ");
                 }
             } catch (InvalidCommandException e) {

@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone ? "[X]" : "[ ]"); // markTask done task with X
     }
 
     public void markAsDone() {
@@ -21,9 +21,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public abstract String fileFormat();
+    public abstract String toFormatFile();
 
-    public void updateBool(boolean isDoneUpdated){
+    public void setIsDone(boolean isDoneUpdated){
         this.isDone = isDoneUpdated;
     }
 
