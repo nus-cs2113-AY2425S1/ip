@@ -16,17 +16,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to facilitate storing tasks in a text file.
+ */
 public class Storage {
     private static final UiStorage ui = new UiStorage();
 
     private String filePath;
     private String directoryPath;
 
+    /**
+     * Constructor for <code>Storage</code>.
+     * Initialises the required file paths for storage.
+     *
+     * @param filePath path to text file.
+     * @param directoryPath path to directory containing text file.
+     */
     public Storage(String filePath, String directoryPath) {
         setFilePath(filePath);
         setDirectoryPath(directoryPath);
     }
 
+    /**
+     * Loads the data from the text file to TaskList.
+     *
+     * @return <code>ArrayList</code> containing stored tasks.
+     * @throws Exception If text file cannot be read.
+     */
     public ArrayList<Task> loadData() throws Exception {
         final int COMMAND_INDEX = 0;
         final int STATUS_INDEX = 1;
@@ -73,6 +89,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the tasks to the storage text file.
+     *
+     * @param taskList task list.
+     */
     public void saveData(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         int lastIndex = taskList.getLastIndex();
@@ -89,6 +110,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks for the existence of storage text file and its directory.
+     * Creates the file and directory if it does not exist.
+     *
+     * @throws Exception If unable to create file or directory.
+     */
     public void checkData() throws Exception{
         try {
             File directory = new File(getDirectoryPath());
