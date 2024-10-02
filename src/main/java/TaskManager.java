@@ -23,7 +23,7 @@ public class TaskManager {
 
     public void markTask(String line) throws EvaException {
 
-        int taskNumber = extractDigit(line) - 1;
+        int taskNumber = Integer.parseInt(line) - 1;
 
         if (taskNumber < 0 || taskNumber >= count) {
             throw new EvaException("Oh no! The task number you provided is out of range.\n" +
@@ -42,7 +42,7 @@ public class TaskManager {
 
     public void unmarkTask(String line) throws EvaException {
 
-        int taskNumber = extractDigit(line) - 1;
+        int taskNumber = Integer.parseInt(line) - 1;
 
         if (taskNumber < 0 || taskNumber >= count) {
             throw new EvaException("Oh no! The task number you provided is out of range.\n" +
@@ -59,7 +59,8 @@ public class TaskManager {
     }
 
     public void deleteTask(String line) throws EvaException {
-        int taskNumber = extractDigit(line) - 1;
+
+        int taskNumber = Integer.parseInt(line) - 1;
 
         if (taskNumber < 0 || taskNumber >= count) {
             throw new EvaException("Oh no! The task number you provided is out of range.\n" +
@@ -77,11 +78,6 @@ public class TaskManager {
         ui.showMessage(HORIZONTAL_LINE);
 
         saveTasks();
-    }
-
-    public static int extractDigit(String input) {
-        String numberString = input.replaceAll("[^0-9]", "");
-        return Integer.parseInt(numberString);
     }
 
     public void printTodo(String line) throws EvaException {
