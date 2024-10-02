@@ -9,6 +9,10 @@ import lovespiritual.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main class for task manager application.
+ * Handles user input, task management, and file storage.
+ */
 public class lovespiritual {
     public static final String SEPARATOR = "_".repeat(30);
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -16,14 +20,24 @@ public class lovespiritual {
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Constructor initialises task manager with the specified file path.
+     * Loads tasks from storage and displays the welcome screen.
+     *
+     * @param filePath Path to the file where the list of tasks are stored.
+     */
     public lovespiritual(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
         taskList = new TaskList();
         storage.loadTasks(tasks);
-        ui.printWelcomeScreen();
+        ui.printWelcomeMessage();
     }
 
+    /**
+     * Main loop that runs the task manager, the processing of user input.
+     * Commands include adding, deleting, marking, and listing tasks.
+     */
     public void run() {
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -35,17 +49,17 @@ public class lovespiritual {
                 switch (command) {
                 case "bye":
                     storage.saveTasks(tasks);
-                    ui.printExitScreen();
+                    ui.printExitMessage();
                     return;
                 case "list":
                     ui.printList(tasks);
                     break;
                 case "mark":
-                    markTask(input, tasks.size(), tasks);
+                    markTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 case "unmark":
-                    unmarkTask(input, tasks.size(), tasks);
+                    unmarkTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 case "todo":
@@ -61,7 +75,7 @@ public class lovespiritual {
                     storage.saveTasks(tasks);
                     break;
                 case "delete":
-                    taskList.deleteTask(input, tasks, tasks.size());
+                    taskList.deleteTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 case "find":
@@ -77,6 +91,23 @@ public class lovespiritual {
         }
     }
 
+    /**
+     * Start of the running of application.
+     * Starts task manager with the file path for storing tasks.
+     *
+     * @param args Command-line arguments which are not used.
+     */
+    public static void main(String[] args) {
+        new lovespiritual("data/lovespiritual.txt").run();
+    }
+
+    /**
+     * Find tasks from the list based on the word provided in the input.
+     * All tasks that has the word provided in it would be printed out.
+     *
+     * @param input User input of word to find.
+     * @throws lovespiritualException If the input is missing the word to find.
+     */
     private static void find(String input) throws lovespiritualException {
         String findTask = input.substring("find".length()).trim();
         if (findTask.isEmpty()) {
@@ -98,10 +129,14 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
-    public static void main(String[] args) {
-        new lovespiritual("data/lovespiritual.txt").run();
-    }
-
+    /**
+     * Adds a new event task to the task list.
+     * Ensures that the task description includes both 'from' and 'to' times.
+     *
+     * @param input User input string for adding an event.
+     * @param tasks List of tasks to which the new event will be added.
+     * @throws lovespiritualException If the input is formatted incorrectly or missing required details.
+     */
     private static void event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
@@ -138,6 +173,14 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Adds a new deadline task to the task list.
+     * Ensures that the task description includes a 'by' time for the deadline.
+     *
+     * @param input User input string for adding a deadline.
+     * @param tasks List of tasks to which the new deadline will be added.
+     * @throws lovespiritualException If the input is formatted incorrectly or missing required details.
+     */
     private static void deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
@@ -165,6 +208,13 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Adds a new todo task to the task list.
+     *
+     * @param input User input string for adding a todo.
+     * @param tasks List of tasks to which the new todo will be added.
+     * @throws lovespiritualException If the input is missing the task description.
+     */
     private static void todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
@@ -178,7 +228,14 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
-    private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
+    /**
+     * Unmarks a task as not completed.
+     *
+     * @param input User input string for unmarking a task.
+     * @param tasks List of tasks.
+     * @throws lovespiritualException If the task number is invalid or out of range.
+     */
+    private static void unmarkTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
@@ -189,7 +246,7 @@ public class lovespiritual {
         } catch (NumberFormatException e) {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.get(indexNumber).unmark();
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task isn't done yet!");
@@ -200,7 +257,14 @@ public class lovespiritual {
         }
     }
 
-    private static void markTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
+    /**
+     * Marks a task as completed.
+     *
+     * @param input User input string for marking a task.
+     * @param tasks List of tasks.
+     * @throws lovespiritualException If the task number is invalid or out of range.
+     */
+    private static void markTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Hmm... (ʘ‿ʘ) A valid number, please?");
@@ -211,7 +275,7 @@ public class lovespiritual {
         } catch (NumberFormatException e) {
             throw new lovespiritualException("Whoa there! (O.O) That’s not a number! Can you double-check?");
         }
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.get(indexNumber).mark();
             System.out.println(SEPARATOR);
             System.out.println("Yay! (^_^) This task is all done!");
