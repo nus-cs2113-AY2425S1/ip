@@ -5,6 +5,10 @@ import apsea.task.Event;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
+/**
+ * Represents a command to add an event to the task list.
+ * <code>fullCommand</code> represents the user's input.
+ */
 public class AddEventCommand extends Command {
     private String fullCommand;
     private final int NAME_POSITION = 6;
@@ -16,6 +20,14 @@ public class AddEventCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Checks if user input is not empty and of the correct event format.
+     *
+     * @param line User's full input.
+     * @param fromPosition Index of "/from" in user's input.
+     * @param toPosition Index of "to" in user's input.
+     * @return true if input is valid, false otherwise.
+     */
     public boolean isValidEvent(String line, int fromPosition, int toPosition) {
         //event name is valid when /from starts after index 6
         boolean hasFrom = fromPosition > 6;
@@ -26,6 +38,13 @@ public class AddEventCommand extends Command {
         return hasFrom && hasTo && isValidFrom && isValidTo;
     }
 
+    /**
+     * Adds new event to the list of tasks.
+     *
+     * @param taskList List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if input is empty or of wrong format.
+     */
     @Override
     public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
 

@@ -5,6 +5,10 @@ import apsea.task.Deadline;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
+/**
+ * Represents a command to add a deadline to the task list.
+ * <code>fullCommand</code> represents the user's input.
+ */
 public class AddDeadlineCommand extends Command {
     private String fullCommand;
     private final int NAME_POSITION = 9;
@@ -16,10 +20,24 @@ public class AddDeadlineCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Checks if user input is not empty and of the correct deadline format.
+     *
+     * @param line User's full input.
+     * @param byPosition Index of "/by" in user's input.
+     * @return True if input is valid, false otherwise.
+     */
     public boolean isValidDeadline(String line, int byPosition) {
         return (byPosition > 9) && (byPosition + 4 < line.length());
     }
 
+    /**
+     * Adds new deadline to the list of tasks.
+     *
+     * @param taskList List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if user input is not a valid deadline.
+     */
     @Override
     public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
 

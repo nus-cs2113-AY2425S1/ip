@@ -15,5 +15,12 @@ public abstract class Command {
         return isExit;
     }
 
+    /**
+     * Executes command based on user's input.
+     *
+     * @param tasklist List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if arguments and input are invalid.
+     */
     public abstract void runCommand(TaskList tasklist, Ui ui) throws ApseaException;
 }

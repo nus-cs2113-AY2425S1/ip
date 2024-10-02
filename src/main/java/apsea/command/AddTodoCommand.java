@@ -5,6 +5,10 @@ import apsea.task.TaskList;
 import apsea.task.Todo;
 import apsea.ui.Ui;
 
+/**
+ * Represents a command to add a todo to the task list.
+ * <code>fullCommand</code> represents the user's input.
+ */
 public class AddTodoCommand extends Command {
     private String fullCommand;
     private final int NAME_POSITION = 5;
@@ -14,6 +18,13 @@ public class AddTodoCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     *  Adds new todo to task list.
+     *
+     * @param tasklist List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if user input is not empty.
+     */
     @Override
     public void runCommand(TaskList tasklist, Ui ui) throws ApseaException {
         if (fullCommand.length() <= NAME_POSITION) {

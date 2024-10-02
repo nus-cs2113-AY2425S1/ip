@@ -12,16 +12,6 @@ public class Apsea {
     private Parser parser;
     private TaskList taskList;
 
-    public static void printLine() {
-        System.out.println("\t________________________________________________________");
-    }
-
-    public static void printError() {
-        printLine();
-        System.out.println("\tSorry, please try again with a valid command.");
-        printLine();
-    }
-
     public Apsea() {
         ui = new Ui();
         taskList = new TaskList();
@@ -30,6 +20,10 @@ public class Apsea {
 
     }
 
+    /**
+     * Greets User and continuously takes in user commands until "bye" is received.
+     * Saves existing taskList to hard disk upon termination.
+     */
     public void run(){
         ui.printHello();
         boolean isExit = false;

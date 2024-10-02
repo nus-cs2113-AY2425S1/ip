@@ -4,6 +4,12 @@ import apsea.exception.ApseaException;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
+
+/**
+ * Represents a command to indicate a task as incomplete.
+ * This command changes the task from complete status to incomplete status.
+ * <code>words</code> represents an array of words user's input.
+ */
 public class UnmarkTaskCommand extends Command {
     private String[] words;
     private String UNMARK_TASK_ERROR_MESSAGE = "\tSorry, please use the format:\n"
@@ -13,6 +19,13 @@ public class UnmarkTaskCommand extends Command {
         this.words = words;
     }
 
+    /**
+     * Changes the completion status of a task from done to undone.
+     *
+     * @param taskList List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if input is not a valid integer or empty.
+     */
     @Override
     public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
         try {

@@ -22,6 +22,13 @@ public class Storage {
     private static final String SAVE_FILE_ERROR = "Sorry, there is an issue saving the data file.";
     private static final String SEPARATOR = "; ";
 
+    /**
+     * Writes an todo to the task list.
+     * The todo created should have a description and completion status
+     *
+     * @param words Array of tokens of a saved todo.
+     * @param taskList List of tasks.
+     */
     public static void loadTodo(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
@@ -29,6 +36,13 @@ public class Storage {
         taskList.addTask(new Todo(description, isDone));
     }
 
+    /**
+     * Writes a deadline to the task list.
+     * The deadline created should have a description, completion status and a by description.
+     *
+     * @param words Array of tokens of a saved deadline.
+     * @param taskList List of tasks.
+     */
     public static void loadDeadline(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
@@ -37,6 +51,13 @@ public class Storage {
         taskList.addTask(new Deadline(description, isDone, by));
     }
 
+    /**
+     * Writes an event to the task list.
+     * The event created should have a description, completion status, from and to descriptions.
+     *
+     * @param words Array of tokens of a saved event.
+     * @param taskList List of tasks.
+     */
     public static void loadEvent(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
@@ -46,6 +67,12 @@ public class Storage {
         taskList.addTask(new Event(description, isDone, from, to));
     }
 
+    /**
+     * Executes methods to load saved tasks based on type of task in the data file.
+     *
+     * @param taskList List of tasks.
+     * @throws FileNotFoundException if data file does not exist.
+     */
     public static void loadData(TaskList taskList) throws FileNotFoundException {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
@@ -66,8 +93,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a data file if it does not exist in the hard drive.
+     * Otherwise, loads data file from the hard drive to be written into the task list.
+     *
+     * @param taskList List of tasks.
+     */
     public static void loadFile(TaskList taskList) {
-
         try {
             File dir = new File(FILE_DIR);
             File f = new File(FILE_PATH);
@@ -86,6 +118,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the data in the list of tasks into the hard drive.
+     *
+     * @param taskList List of tasks.
+     */
     public static void saveData(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);

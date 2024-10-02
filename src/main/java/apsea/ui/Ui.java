@@ -5,6 +5,9 @@ import apsea.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Displays messages to user.
+ */
 public class Ui {
     private final String SEPARATOR = "\t______________________________________________________________________________";
     private final String HELLO_MESSAGE = "\tHello! I'm Apsea!\n" + "\tWhat can I do for you?";
