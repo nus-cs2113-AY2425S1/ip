@@ -1,7 +1,8 @@
 # Melchizedek User Guide
-
-// Product screenshot goes here
-
+```
+Hello! I'm Melchizedek.
+How can I be a blessing to you?
+```
 Melchizedek is a chatbot that manages your tasks.
 
 ## Getting the list of commands:`help`
