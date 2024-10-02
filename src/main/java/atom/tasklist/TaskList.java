@@ -1,4 +1,4 @@
-package atom;
+package atom.tasklist;
 
 import atom.task.Deadline;
 import atom.task.Event;

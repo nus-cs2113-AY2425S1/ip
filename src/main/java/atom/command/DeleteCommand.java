@@ -1,16 +1,17 @@
-package atom;
+package atom.command;
 
+import atom.storage.Storage;
+import atom.tasklist.TaskList;
+import atom.ui.Ui;
 import atom.exception.EmptyTaskIdException;
 import atom.exception.TaskIdOutOfBoundsException;
 
-public class MarkCommand extends Command{
+public class DeleteCommand extends Command{
 
     protected String[] userInputSplit;
-    protected String command;
 
-    public MarkCommand(String[] words, String command) {
+    public DeleteCommand(String[] words) {
         userInputSplit = words;
-        this.command = command;
     }
 
     @Override
@@ -26,13 +27,8 @@ public class MarkCommand extends Command{
                 throw new TaskIdOutOfBoundsException(tasks.getTasksListSize());
             }
 
-            if (command.equals("mark")) {
-                tasks.markAsDone(taskId);
-                ui.showTaskStatusMessage(tasks, taskId, command);
-            } else {
-                tasks.markAsUndone(taskId);
-                ui.showTaskStatusMessage(tasks, taskId, command);
-            }
+            tasks.deleteTask(taskId);
+            ui.showDeleteTaskMessage(tasks, taskId);
 
         } catch (EmptyTaskIdException e) {
             ui.showError(e.getMessage());

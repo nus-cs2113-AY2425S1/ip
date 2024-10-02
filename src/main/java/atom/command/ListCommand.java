@@ -1,4 +1,8 @@
-package atom;
+package atom.command;
+
+import atom.storage.Storage;
+import atom.tasklist.TaskList;
+import atom.ui.Ui;
 
 public class ListCommand extends Command{
 

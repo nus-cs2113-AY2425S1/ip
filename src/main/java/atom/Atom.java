@@ -1,6 +1,11 @@
 package atom;
 
+import atom.command.Command;
 import atom.exception.AtomException;
+import atom.parser.Parser;
+import atom.storage.Storage;
+import atom.tasklist.TaskList;
+import atom.ui.Ui;
 
 public class Atom {
 

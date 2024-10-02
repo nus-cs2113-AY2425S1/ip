@@ -1,4 +1,12 @@
-package atom;
+package atom.parser;
+
+import atom.command.Command;
+import atom.command.AddCommand;
+import atom.command.DeleteCommand;
+import atom.command.ExitCommand;
+import atom.command.ListCommand;
+import atom.command.InvalidCommand;
+import atom.command.MarkCommand;
 
 public class Parser {
 

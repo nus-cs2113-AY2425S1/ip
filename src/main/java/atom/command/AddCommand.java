@@ -1,12 +1,15 @@
-package atom;
+package atom.command;
 
+import atom.storage.Storage;
+import atom.tasklist.TaskList;
+import atom.ui.Ui;
 import atom.exception.EmptyDeadlineException;
 import atom.exception.EmptyEventException;
 import atom.exception.EmptyTodoException;
 import atom.exception.InvalidDeadlineFormatException;
 import atom.exception.InvalidEventFormatException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     public static final int TODO_START_INDEX = 5;
     public static final int DEADLINE_START_INDEX = 9;

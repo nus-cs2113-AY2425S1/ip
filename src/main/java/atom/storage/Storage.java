@@ -1,5 +1,6 @@
-package atom;
+package atom.storage;
 
+import atom.tasklist.TaskList;
 import atom.exception.AtomException;
 import atom.task.Deadline;
 import atom.task.Event;
