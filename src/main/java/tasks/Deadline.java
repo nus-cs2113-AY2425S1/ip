@@ -1,8 +1,14 @@
 package tasks;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Deadline class represents a task that has a specific deadline.
+ * It extends the Task class, adding a deadline date and time.
+ * This class includes methods for retrieving the deadline and formatting
+ * the task for file storage and display.
+ */
 
 public class Deadline extends Task{
     private LocalDateTime deadline;

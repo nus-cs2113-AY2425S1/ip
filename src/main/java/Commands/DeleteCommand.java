@@ -3,6 +3,11 @@ package Commands;
 import exceptions.InvalidCommandException;
 import taskmanager.Storage;
 
+/**
+ * The DeleteCommand class handles the deletion of a task based on the user's input.
+ * It parses the task index from the input, validates it, and removes the task from storage.
+ */
+
 public class DeleteCommand extends Command {
 
     protected String userInput;
@@ -10,6 +15,15 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String userInput) {
         this.userInput = userInput;
     }
+
+    /**
+     * Executes the delete command by parsing the user input to extract the task index.
+     * The method then deletes the task from storage and prints the remaining tasks.
+     * If the task number is invalid or missing, an exception is thrown.
+     *
+     * @param storage The storage object that manages the task list.
+     * @throws InvalidCommandException If the task number is invalid or missing.
+     */
 
     @Override
     public void execute(Storage storage) throws InvalidCommandException {

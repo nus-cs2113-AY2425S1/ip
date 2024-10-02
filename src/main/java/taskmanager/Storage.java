@@ -9,6 +9,12 @@ import exceptions.InvalidCommandException;
 import java.util.ArrayList;
 import filemanager.FileManager;
 
+/**
+ * The Storage class manages the task list and handles the interaction
+ * between the in-memory task list and the file where tasks are saved.
+ * It provides methods to insert, delete, mark, unmark, list, and clear tasks,
+ * as well as save and load tasks to and from a file using the FileManager.
+ */
 
 public class Storage {
 

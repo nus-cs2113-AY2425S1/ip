@@ -3,6 +3,11 @@ package Commands;
 import exceptions.InvalidCommandException;
 import taskmanager.Storage;
 
+/**
+ * The MarkCommand class handles marking a task as completed based on the user's input.
+ * It parses the task index from the input, validates it, and marks the task as done in storage.
+ */
+
 public class MarkCommand extends Command {
 
     protected String userInput;
@@ -10,6 +15,15 @@ public class MarkCommand extends Command {
     public MarkCommand(String userInput) {
         this.userInput = userInput;
     }
+
+    /**
+     * Executes the mark command by parsing the user input to extract the task index.
+     * The method then marks the task as done in storage and prints the updated list of tasks.
+     * If the task number is invalid or missing, an exception is thrown.
+     *
+     * @param storage The storage object that manages the task list.
+     * @throws InvalidCommandException If the task number is invalid or missing.
+     */
 
     @Override
     public void execute(Storage storage) throws InvalidCommandException {

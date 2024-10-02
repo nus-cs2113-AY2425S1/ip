@@ -3,9 +3,23 @@ package Commands;
 import exceptions.InvalidCommandException;
 import taskmanager.Storage;
 
+/**
+ * The UnmarkCommand class handles marking a task as not completed based on the user's input.
+ * It parses the task index from the input, validates it, and unmarks the task in storage.
+ */
+
 public class UnmarkCommand extends Command {
 
     protected String userInput;
+
+    /**
+     * Executes the unmark command by parsing the user input to extract the task index.
+     * The method then unmarks the task in storage and prints the updated list of tasks.
+     * If the task number is invalid or missing, an exception is thrown.
+     *
+     * @param storage The storage object that manages the task list.
+     * @throws InvalidCommandException If the task number is invalid or missing.
+     */
 
     public UnmarkCommand(String userInput) {
         this.userInput = userInput;

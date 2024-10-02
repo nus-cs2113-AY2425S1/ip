@@ -4,6 +4,13 @@ import Commands.Command;
 import taskmanager.Storage;
 import exceptions.InvalidCommandException;
 
+/**
+ * JeM is the main class for the JeM chatbot application.
+ * It initializes the necessary components (Ui, Storage, and Parser)
+ * and handles the main loop of the application, processing user inputs
+ * until the chatbot is instructed to exit.
+ */
+
 public class JeM {
 
     private Ui ui;

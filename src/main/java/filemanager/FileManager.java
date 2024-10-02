@@ -14,6 +14,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * The FileManager class handles the loading and saving of tasks to and from a file.
+ * It supports the reading of tasks from a file, parsing them into Task objects,
+ * and writing them back to the file in a specific format. The supported task types
+ * include ToDo, Deadline, and Event.
+ */
+
 public class FileManager {
 
     private String filePath;
@@ -21,6 +29,15 @@ public class FileManager {
     public FileManager(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads the tasks from the file specified by the file path. If the file
+     * or its directory does not exist, it will create them. The method reads
+     * each line of the file, parses it into a Task object, and adds it to the
+     * task list.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
 
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
