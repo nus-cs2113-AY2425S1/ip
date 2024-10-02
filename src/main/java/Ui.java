@@ -96,7 +96,7 @@ public class Ui {
      */
     public void showTaskUnmarked(Task task) {
         showLine();
-        System.out.println("It’s unmarked. Gonna change it again? Make up your mind, or get out of my swamp!");
+        System.out.println("It’s unmarked. Now get out of my swamp!");
         System.out.println("     [" + task.getStatusIcon() + "] " + task.getDescription());
         showLine();
     }
@@ -156,7 +156,7 @@ public class Ui {
      */
     public void showInputError() {
         showLine();
-        System.out.println("What are you typing donkey? Specify the time/task right or get out of my swamp.");
+        System.out.println("What are you typing donkey? Specify the command right or get out of my swamp.");
         showLine();
     }
 
