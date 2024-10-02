@@ -73,7 +73,7 @@ public class lovespiritual {
         }
     }
 
-    private static int event(String input, ArrayList <Task> tasks) throws lovespiritualException {
+    private static void event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Uh-oh! (・_・;) Your event description seems to be missing!");
@@ -107,10 +107,9 @@ public class lovespiritual {
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("Woot! (^▽^) You now have " + tasks.size() + " tasks in your list!");
         System.out.println(SEPARATOR);
-        return tasks.size();
     }
 
-    private static int deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
+    private static void deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
             throw new lovespiritualException("Oops! (｡•́︿•̀｡) Your deadline needs a little description!");
@@ -135,10 +134,9 @@ public class lovespiritual {
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
         System.out.println(SEPARATOR);
-        return tasks.size();
     }
 
-    private static int todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
+    private static void todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
             throw new lovespiritualException("Hmm... (¬‿¬) What's the todo? Looks like the description's missing!");
@@ -149,7 +147,6 @@ public class lovespiritual {
         System.out.println(" [T][ ] " + taskDescription);
         System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + tasks.size() + " tasks lined up!");
         System.out.println(SEPARATOR);
-        return tasks.size();
     }
 
     private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
