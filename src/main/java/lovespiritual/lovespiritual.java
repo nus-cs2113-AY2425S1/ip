@@ -16,12 +16,6 @@ public class lovespiritual {
     private TaskList taskList;
     private UI ui;
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        UI ui = new UI();
-        TaskList taskList = new TaskList();
-        Storage storage = new Storage("./data/lovespiritual.txt");
-
     public lovespiritual(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -30,7 +24,8 @@ public class lovespiritual {
         ui.printWelcomeScreen();
     }
 
-        // loop that keeps recurring when the program is running
+    public void run() {
+        Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine().trim();
 
