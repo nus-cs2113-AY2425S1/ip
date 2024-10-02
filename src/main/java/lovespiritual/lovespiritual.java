@@ -143,6 +143,14 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Adds a new deadline task to the task list.
+     * Ensures that the task description includes a 'by' time for the deadline.
+     *
+     * @param input User input string for adding a deadline.
+     * @param tasks List of tasks to which the new deadline will be added.
+     * @throws lovespiritualException If the input is formatted incorrectly or missing required details.
+     */
     private static void deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
