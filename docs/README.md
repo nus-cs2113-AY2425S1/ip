@@ -14,7 +14,7 @@
 java -jar CodyChen.jar
 ```
 5. You should see the following output:
-   <picture> <source srcset="startScreen.png"></picture>
+   ![Screenshot](startScreen.png)
 
 ## 1.1 Overview of Executables
 ### [List: Shows all tasks](#list)
