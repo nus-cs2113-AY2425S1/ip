@@ -101,6 +101,13 @@ public class lovespiritual {
         new lovespiritual("data/lovespiritual.txt").run();
     }
 
+    /**
+     * Find tasks from the list based on the word provided in the input.
+     * All tasks that has the word provided in it would be printed out.
+     *
+     * @param input User input of word to find.
+     * @throws lovespiritualException If the input is missing the word to find.
+     */
     private static void find(String input) throws lovespiritualException {
         String findTask = input.substring("find".length()).trim();
         if (findTask.isEmpty()) {
