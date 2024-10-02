@@ -118,12 +118,4 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-
-    public void findTask(String arguments) {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(arguments)) {
-                System.out.println(i+1 + ". " + tasks.get(i));
-            }
-        }
-    }
 }
