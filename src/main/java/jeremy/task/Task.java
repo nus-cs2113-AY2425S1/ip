@@ -6,17 +6,12 @@ package jeremy.task;
  */
 public abstract class Task {
     protected final String description;
+    protected final String icon;
     protected boolean isDone;
-    protected String icon = " ";
 
-    /**
-     * Constructs a new {@code Task} with the specified description.
-     * By default, the task is not marked as completed.
-     *
-     * @param description The description of the task.
-     */
-    public Task(String description) {
+    protected Task(String description, String icon) {
         this.description = description;
+        this.icon = icon;
         this.isDone = false;
     }
 

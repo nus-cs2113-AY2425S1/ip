@@ -22,7 +22,7 @@ public class Deadline extends Task {
      * @throws InvalidCommandFormatException If the command format is invalid (i.e., if the deadline date is not properly formatted after "/by").
      */
     public Deadline(String input) throws EmptyArgumentException, InvalidCommandFormatException {
-        super(input.split("/", 2)[0].trim());
+        super(input.split("/", 2)[0].trim(), "D");
 
         if (input.isBlank()) {
             throw new EmptyArgumentException("Deadline description");
@@ -35,6 +35,7 @@ public class Deadline extends Task {
                     "Deadline dates should come after \"/by \"");
         }
 
+
         String datePart = parts[1].trim();
         if (!datePart.startsWith("by ")) {
             throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
@@ -45,43 +46,8 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
         }
-        this.icon = "D";
     }
 
-    /**
-     * Constructs a new {@code Deadline} task with the specified description, deadline, and completion status.
-     *
-     * @param input The task description followed by the deadline in the format "description /by date".
-     * @param isDone Whether the task is marked as completed.
-     * @throws EmptyArgumentException If the task description is empty or blank.
-     * @throws InvalidCommandFormatException If the command format is invalid (i.e., if the deadline date is not properly formatted after "/by").
-     */
-    public Deadline(String input, boolean isDone) throws EmptyArgumentException, InvalidCommandFormatException {
-        super(input.split("/", 2)[0].trim());
-
-        if (input.isBlank()) {
-            throw new EmptyArgumentException("Deadline description");
-        }
-
-        String[] parts = input.split("/", 2);
-
-        if (parts.length != 2 || parts[1].isBlank()) {
-            throw new InvalidCommandFormatException("Invalid command format, " +
-                    "Deadline dates should come after \"/by \"");
-        }
-
-        String datePart = parts[1].trim();
-        if (!datePart.startsWith("by ")) {
-            throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
-        }
-        this.isDone = isDone;
-        try {
-            this.deadline = LocalDate.parse(datePart.substring(3)); // ignore "bye "
-        } catch (DateTimeParseException e) {
-            throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
-        }
-        this.icon = "D";
-    }
 
     /**
      * Returns a string representation of the task, including its completion status and deadline.

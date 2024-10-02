@@ -77,22 +77,33 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Adds a task to the list and prints a confirmation message unless the task
-     * is already marked as done (used for loading from storage).
+     * Adds a task to the list and prints a confirmation message.
      *
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
         tasks.add(task);
+        ui.lineBreak();
+        ui.println("Got it. I've added this task:");
+        ui.println(task.toString());
+        ui.println("Now you have " + tasks.size() + " tasks in the list.");
+        ui.lineBreak();
+    }
 
-        // Doesn't print if task is being loaded
-        if (!task.isDone()) {
-            ui.lineBreak();
-            ui.println("Got it. I've added this task:");
-            ui.println(task.toString());
-            ui.println("Now you have " + tasks.size() + " tasks in the list.");
-            ui.lineBreak();
+    /**
+     * Overloaded addTask for adding tasks for loading data without print
+     * statements.
+     *
+     * @param task The task to be added to the list.
+     * @param isDone Whether the task is done or undone.
+     */
+    public void addTask(Task task, boolean isDone) {
+        if (isDone) {
+            task.markDone();
+        } else {
+            task.markNotDone();
         }
+        tasks.add(task);
     }
 
     /**

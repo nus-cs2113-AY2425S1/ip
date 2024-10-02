@@ -14,31 +14,11 @@ public class Todo extends Task {
      * @throws EmptyArgumentException If the task description is empty or blank.
      */
     public Todo(String description) throws EmptyArgumentException {
-        super(description);
+        super(description, "T");
 
         if (description.isBlank()) {
             throw new EmptyArgumentException("Todo description");
         }
-
-        this.icon = "T";
-    }
-
-    /**
-     * Constructs a new {@code Todo} task with the specified description and completion status.
-     *
-     * @param description The task description.
-     * @param isDone Whether the task is marked as completed.
-     * @throws EmptyArgumentException If the task description is empty or blank.
-     */
-    public Todo(String description, boolean isDone) throws EmptyArgumentException {
-        super(description);
-
-        if (description.isBlank()) {
-            throw new EmptyArgumentException("Todo description");
-        }
-
-        this.isDone = isDone;
-        this.icon = "T";
     }
 
     /**
