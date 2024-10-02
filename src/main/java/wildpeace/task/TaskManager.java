@@ -4,7 +4,7 @@ import wildpeace.exceptions.EmptyCommandException;
 import wildpeace.exceptions.InvalidInputException;
 import wildpeace.task.Parser;
 import wildpeace.Storage.Storage;
-import wildpeace.ui.Ui;
+import wildpeace.task.Ui;
 
 /**
  * Manages the high-level routine of Ui, Storage, TaskList, and Parser classes.
@@ -108,12 +108,6 @@ public class TaskManager {
                 return true;
             case "q":
                 ui.showGuide();
-                break;
-            case "find":
-                if (arguments.isEmpty()) {
-                    throw new EmptyCommandException("The description of a todo cannot be empty.");
-                }
-                taskList.findTask(arguments);
                 break;
             default:
                 ui.showError("Unknown command.");
