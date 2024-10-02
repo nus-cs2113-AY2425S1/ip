@@ -1,4 +1,4 @@
-package constants;
+package ui;
 
 public class Skeleton {
     public static final String SKELETON = """

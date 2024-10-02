@@ -8,7 +8,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import constants.Skeleton;
+import tasks.Task;
+import ui.Skeleton;
 
 
 
@@ -36,53 +37,60 @@ public class TaskEncoder {
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
-    public static void addTask(String text) throws IOException {
-        FileWriter writer = new FileWriter(pathName, true);
-        writer.write(text);
-        writer.write(System.lineSeparator());
-        writer.close();
-    }
-    public static void markTask(int index) throws IOException {
-        File tasks = new File(pathName);
-        Scanner input = new Scanner(tasks);
-        ArrayList<String> tempList = new ArrayList<>();
-        while (input.hasNextLine()) {
-            tempList.add(input.nextLine());
-        }
-        tempList.set(index, tempList.get(index).replace("false", "true"));
-        FileWriter writer = new FileWriter(pathName, false);
-        for (String line : tempList) {
-            writer.write(line + System.lineSeparator());
+
+    public static void overrideFile(ArrayList<Task> taskList) throws IOException {
+        FileWriter writer = new FileWriter(pathName);
+        for (Task task : taskList) {
+            writer.write(task.toString() + System.lineSeparator());
         }
         writer.close();
     }
-    public static void unmarkTask(int index) throws IOException {
-        File tasks = new File(pathName);
-        Scanner input = new Scanner(tasks);
-        ArrayList<String> tempList = new ArrayList<>();
-        while (input.hasNextLine()) {
-            tempList.add(input.nextLine());
-        }
-        tempList.set(index, tempList.get(index).replace("true", "false"));
-        FileWriter writer = new FileWriter(pathName, false);
-        for (String line : tempList) {
-            writer.write(line + System.lineSeparator());
-        }
-        writer.close();
-    }
-    public static void deleteTask(int index) throws IOException {
-        File tasks = new File(pathName);
-        Scanner input = new Scanner(tasks);
-        ArrayList<String> tempList = new ArrayList<>();
-        String holder;
-        while (input.hasNextLine()) {
-            tempList.add(input.nextLine());
-        }
-        tempList.remove(index);
-        FileWriter writer = new FileWriter(pathName, false);
-        for (String line : tempList) {
-            writer.write(line + System.lineSeparator());
-        }
-        writer.close();
-    }
+    //    public static void addTask(String text) throws IOException {
+    //        FileWriter writer = new FileWriter(pathName, true);
+//        writer.write(text);
+//        writer.write(System.lineSeparator());
+//        writer.close();
+//    }
+//    public static void markTask(int index) throws IOException {
+//        File tasks = new File(pathName);
+//        Scanner input = new Scanner(tasks);
+//        ArrayList<String> tempList = new ArrayList<>();
+//        while (input.hasNextLine()) {
+//            tempList.add(input.nextLine());
+//        }
+//        tempList.set(index, tempList.get(index).replace("false", "true"));
+//        FileWriter writer = new FileWriter(pathName, false);
+//        for (String line : tempList) {
+//            writer.write(line + System.lineSeparator());
+//        }
+//        writer.close();
+//    }
+//    public static void unmarkTask(int index) throws IOException {
+//        File tasks = new File(pathName);
+//        Scanner input = new Scanner(tasks);
+//        ArrayList<String> tempList = new ArrayList<>();
+//        while (input.hasNextLine()) {
+//            tempList.add(input.nextLine());
+//        }
+//        tempList.set(index, tempList.get(index).replace("true", "false"));
+//        FileWriter writer = new FileWriter(pathName, false);
+//        for (String line : tempList) {
+//            writer.write(line + System.lineSeparator());
+//        }
+//        writer.close();
+//    }
+//    public static void deleteTask(int index) throws IOException {
+//        File tasks = new File(pathName);
+//        Scanner input = new Scanner(tasks);
+//        ArrayList<String> tempList = new ArrayList<>();
+//        while (input.hasNextLine()) {
+//            tempList.add(input.nextLine());
+//        }
+//        tempList.remove(index);
+//        FileWriter writer = new FileWriter(pathName, false);
+//        for (String line : tempList) {
+//            writer.write(line + System.lineSeparator());
+//        }
+//        writer.close();
+//    }
 }
