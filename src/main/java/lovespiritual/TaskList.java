@@ -21,15 +21,6 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    public static void deleteTask(String input, ArrayList<Task> tasks, int taskCount) throws lovespiritualException {
     /**
      * Deletes a task from the list based on the task number provided in the input.
      *
@@ -37,6 +28,7 @@ public class TaskList {
      * @param tasks List of tasks.
      * @throws lovespiritualException If the task number is invalid or out of range.
      */
+    public static void deleteTask(String input, ArrayList<Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("delete".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
@@ -48,7 +40,7 @@ public class TaskList {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
         Task removedTask = tasks.get(indexNumber);
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.remove(indexNumber);
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task is removed!");

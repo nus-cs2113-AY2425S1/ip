@@ -31,7 +31,7 @@ public class lovespiritual {
         storage = new Storage(filePath);
         taskList = new TaskList();
         storage.loadTasks(tasks);
-        ui.printWelcomeScreen();
+        ui.printWelcomeMessage();
     }
 
     /**
@@ -49,17 +49,17 @@ public class lovespiritual {
                 switch (command) {
                 case "bye":
                     storage.saveTasks(tasks);
-                    ui.printExitScreen();
+                    ui.printExitMessage();
                     return;
                 case "list":
                     ui.printList(tasks);
                     break;
                 case "mark":
-                    markTask(input, tasks.size(), tasks);
+                    markTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 case "unmark":
-                    unmarkTask(input, tasks.size(), tasks);
+                    unmarkTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 case "todo":
@@ -75,7 +75,7 @@ public class lovespiritual {
                     storage.saveTasks(tasks);
                     break;
                 case "delete":
-                    taskList.deleteTask(input, tasks, tasks.size());
+                    taskList.deleteTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
                 default:
@@ -198,7 +198,6 @@ public class lovespiritual {
         System.out.println(SEPARATOR);
     }
 
-    private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
     /**
      * Unmarks a task as not completed.
      *
@@ -217,7 +216,7 @@ public class lovespiritual {
         } catch (NumberFormatException e) {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.get(indexNumber).unmark();
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task isn't done yet!");
@@ -228,7 +227,6 @@ public class lovespiritual {
         }
     }
 
-    private static void markTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
     /**
      * Marks a task as completed.
      *
@@ -247,7 +245,7 @@ public class lovespiritual {
         } catch (NumberFormatException e) {
             throw new lovespiritualException("Whoa there! (O.O) That’s not a number! Can you double-check?");
         }
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.get(indexNumber).mark();
             System.out.println(SEPARATOR);
             System.out.println("Yay! (^_^) This task is all done!");
