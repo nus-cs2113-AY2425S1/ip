@@ -38,7 +38,6 @@ public class Blossom {
      * Starts Blossom. Initialises the parser and begins the interaction loop.
      */
     public void run() {
-        ui.printIntro();
         Parser parser = new Parser(ui, tasks, storage);
         parser.start();
     }
