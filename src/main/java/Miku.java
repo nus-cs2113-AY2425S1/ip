@@ -90,6 +90,9 @@ public class Miku {
         case "unmark":
             taskList.attemptToUnmarkTask(parts[1]);
             break;
+        case "delete":
+            taskList.attemptToDelete(parts[1]);
+            break;
         case "todo":
             if (doesOptionsMapContainNull(options, TODO_REQUIRED_OPTIONS)) {
                 System.out.println("Please provide required options: "+ Arrays.toString(TODO_REQUIRED_OPTIONS));
