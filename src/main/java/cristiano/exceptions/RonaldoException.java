@@ -8,7 +8,7 @@ import java.util.Map;
  * Certain exceptions are
  */
 public class RonaldoException extends Exception {
-    private static final Map<String, String> messages = new HashMap<String, String>() {{
+    private static final Map<String, String> messages = new HashMap<>() {{
         put("Format", "Invalid format! Please enter 'help' for full list of commands and formats.");
         put("Empty", "Your input is empty, just like Spurs' trophy cabinet.");
         put("Range", "Goal number is out of range!");
@@ -19,7 +19,6 @@ public class RonaldoException extends Exception {
         put("Delete", "Invalid delete format! Please use: <delete> <Goal number>");
         put("Find", "Invalid find format! Please use: <find> <Goal number>");
     }};
-
 
     /**
      * Constructs a RonaldoException with a message.
