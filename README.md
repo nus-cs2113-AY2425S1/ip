@@ -7,6 +7,7 @@
 Stay organized and productive with Bean, the easy-to-use task management app.
 
 Bean helps you:
+
 Create and manage tasks: Easily add, edit, and delete tasks to keep track of your to-do list.
 Set deadlines: Assign due dates to your tasks to stay on top of your schedule.
 Categorize tasks: Organize your tasks into different categories for better management.
