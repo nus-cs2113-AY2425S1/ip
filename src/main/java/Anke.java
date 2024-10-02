@@ -6,15 +6,28 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Anke {
-    static int count = 0;
-    static Scanner in = new Scanner(System.in);
+/**
+ * Anke : a Chat Bot
+ *
+ * @param storage handle loading and savinf file
+ * @param isExit true if the program is going to exit
+ * @param ui handle UI of the program
+ *
+ */
 
+public class Anke {
     private final Storage storage;
-    private TaskList tasks = new TaskList();
     private final Ui ui;
     public static boolean isExit = false;
 
+    /**
+     * constructor of Anke class
+     * initialize ui and storage
+     * load data from file path
+     *
+     * @param filePath the file path where previous data is stored
+     * @throws AnkeException If file not found
+     */
     public Anke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +38,12 @@ public class Anke {
         }
     }
 
+    /**
+     * Chat Bot handling user input
+     *
+     * @throws AnkeException If parser cannot handle command
+     *
+     */
     public void run() {
         ui.showWelcome();
         while (!isExit) {
@@ -59,7 +78,10 @@ public class Anke {
 //        }
 //        System.out.println("");
 //    }
-
+    /**
+     * main function
+     *
+     */
     public static void main(String[] args) {
         new Anke("./Anke.txt").run();
 
