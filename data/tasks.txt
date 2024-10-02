@@ -1,3 +1,4 @@
+T | 0 | help la
+T | 0 | okokokok
+E | 0 | team dinner | 2023-11-25 1900 to 2023-11-25 2100
 T | 0 | help
-T | 0 | read a book
-T | 1 | read a newspaper
