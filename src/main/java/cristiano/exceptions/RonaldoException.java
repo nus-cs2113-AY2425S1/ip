@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Custom exceptions for this program.
- * Certain exceptions are
+ * Custom exceptions are stored for easy access.
  */
 public class RonaldoException extends Exception {
     private static final Map<String, String> messages = new HashMap<>() {{
