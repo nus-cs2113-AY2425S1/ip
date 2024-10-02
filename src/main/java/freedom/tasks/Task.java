@@ -57,6 +57,10 @@ public class Task {
         return getStatusIcon() + " | " + getDescription();
     }
 
+    public boolean containKeyword(String keyword) {
+        return getDescription().contains(keyword);
+    }
+
     public String getDoneBy() {
         return "";
     }

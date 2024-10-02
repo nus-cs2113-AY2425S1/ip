@@ -25,7 +25,7 @@ public class Freedom {
     public void run() {
         String input;
         ui.printStartMessage();
-        taskList.printList();
+        taskList.printList(taskList.getTasks());
         while(!Parser.isEnd()) {
             input = ui.readInput();
             Parser.handleInput(taskList, storage, input);

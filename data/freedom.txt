@@ -1,5 +1,5 @@
 T |   | build gundam
-E |   | exam | 1000 | 1200
+E | X | exam | 1000 | 1200
 D | X | tutorial assignment | 6 oct
 T | X | shoot
 T |   | assignment

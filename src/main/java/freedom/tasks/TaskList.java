@@ -86,14 +86,27 @@ public class TaskList {
         }
     }
 
-    public void printList() {
+    public void printList(ArrayList<Task> tasks) {
         ui.printListHeader();
         int counter = 1;
-        for (int i = 0; i < getLastIndex(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + counter + "." + tasks.get(i).generateTaskLine());
             counter++;
         }
         ui.printTailDivider();
+    }
+
+    public void findTasks(String input) {
+        String keyword = input.replaceFirst("find", "").trim();
+        Task taskToCheck;
+        ArrayList<Task> compactTaskList = new ArrayList<>();
+        for (int i = 0; i < getLastIndex(); i++) {
+            taskToCheck = tasks.get(i);
+            if (taskToCheck.containKeyword(keyword)) {
+                compactTaskList.add(taskToCheck);
+            }
+        }
+        printList(compactTaskList);
     }
 
     public int getLastIndex() {
