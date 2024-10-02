@@ -6,14 +6,13 @@ import TaskTypes.Task;
 import TaskTypes.ToDo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static File.FileFunctions.*;
 
-public class UpdateArrayListToFile {
+public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
 
     public static void initializeArrayList(ArrayList<Task> tasks, File f) throws IOException {
@@ -64,7 +63,7 @@ public class UpdateArrayListToFile {
             for (Task task : tasks) {
                 appendToFile(FILE_PATH, task.getStorableString());
             }
-            initializeArrayList(tasks, new File(FILE_PATH));
+            //initializeArrayList(tasks, new File(FILE_PATH));
         } catch (IOException e) {
             System.out.println("IOException");
         }

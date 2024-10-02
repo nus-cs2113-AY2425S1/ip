@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import static UserInteraction.CreateTask.addNewTask;
 import static UserInteraction.HelperMethods.printNumberOfTasks;
 import static UserInteraction.PrintShape.printHorizontalLine;
-import static UserInteraction.UpdateArrayListToFile.addTaskToFile;
+import static UserInteraction.Storage.addTaskToFile;
 
 public class AddTask {
 

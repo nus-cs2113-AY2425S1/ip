@@ -9,11 +9,11 @@ import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
 import static UserInteraction.DeleteTask.deleteTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
-public class ChatBot {
+public class Ui {
     private final String MY_NAME;
     ArrayList<Task> tasks;
 
-    public ChatBot(String MY_NAME) {
+    public Ui(String MY_NAME) {
         this.MY_NAME = MY_NAME;
         tasks = new ArrayList<>();
     }

@@ -2,9 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import UserInteraction.ChatBot;
+import UserInteraction.Ui;
 import static File.FileFunctions.*;
-import static UserInteraction.UpdateArrayListToFile.initializeArrayList;
+import static UserInteraction.Storage.initializeArrayList;
 
 
 public class Main {
@@ -16,7 +16,7 @@ public class Main {
 
         try {
             printFileContents(absolutePath, f);
-            ChatBot edith = new ChatBot("Edith");
+            Ui edith = new Ui("Edith");
             initializeArrayList(edith.getTasks(), f);
             edith.giveIntroduction();
             edith.interactWithUser();

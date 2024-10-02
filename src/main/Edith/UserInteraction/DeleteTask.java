@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import static UserInteraction.HelperMethods.*;
 import static UserInteraction.PrintShape.printHorizontalLine;
-import static UserInteraction.UpdateArrayListToFile.rewriteArrayList;
+import static UserInteraction.Storage.rewriteArrayList;
 
 public class DeleteTask {
     public static void deleteTask(ArrayList<Task> tasks, String enteredString) {
