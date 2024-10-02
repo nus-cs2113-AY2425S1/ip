@@ -9,6 +9,7 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     public static Command parse(String fullCommand) throws BebeException {
         try {
@@ -43,6 +44,10 @@ public class Parser {
                     yield new DeleteCommand(words[1]);
                 }
                 case COMMAND_HELP -> new HelpCommand();
+                case COMMAND_FIND -> {
+                    if (words.length < 2) throw new BebeException("The 'find' command requires a keyword.");
+                    yield new FindCommand(words[1]);
+                }
                 default -> throw new BebeException("Unknown command: " + command);
             };
         } catch (ArrayIndexOutOfBoundsException e) {
