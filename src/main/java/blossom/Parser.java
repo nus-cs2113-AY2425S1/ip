@@ -2,13 +2,26 @@ package blossom;
 
 import java.util.Scanner;
 
+/**
+ * The <code>Parser</code> class parses user input and handles command execution.
+ * It reads and interprets commands from the user and executes corresponding actions
+ * on the <code>TaskList</code>.
+ */
+
 public class Parser {
-    private final String HORIZONTAL_LINE = "____________________________________________________________";
+    private final String horizontalLine = "____________________________________________________________";
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
     private Scanner scanner;
 
+    /**
+     * Constructs a Parser object that handles the logic for parsing and executing commands.
+     *
+     * @param ui the Ui to interact with the user
+     * @param tasks the task list to manage tasks
+     * @param storage the storage to manage saving and loading tasks
+     */
     Parser(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
         this.tasks = tasks;
@@ -16,6 +29,10 @@ public class Parser {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Starts the command processing loop which continuously reads user input and processes commands
+     * until the "bye" command is typed by the user.
+     */
     public void start() {
         boolean isRunning = true;
         while (isRunning) {
@@ -23,14 +40,22 @@ public class Parser {
             isRunning = executeCommand(command);
         }
         scanner.close();
+        // Terminates Blossom
         System.exit(0);
     }
 
-    private boolean executeCommand(String command) {
+    /**
+     * Executes a given command by calling the suitable methods based on the command type.
+     *
+     * @param command the user input command to be executed
+     * @return <code>false</code> if the command is "bye" (indicating the program should stop),
+     *         <code>true</code> otherwise (indicating to continue processing commands).
+     */
+    public boolean executeCommand(String command) {
         if (command.equalsIgnoreCase("bye")) {
             ui.printGoodbye();
             storage.saveTasks();
-            return false; // Stop the program
+            return false;
         } else if (command.equalsIgnoreCase("list")) {
             ui.printItems(tasks.getTasks());
         } else if (command.startsWith("mark") || command.startsWith("unmark")) {
@@ -44,11 +69,13 @@ public class Parser {
             try {
                 tasks.addTask(command);
             } catch (BlossomException e) {
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(horizontalLine);
                 System.out.println(e.getMessage());
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(horizontalLine);
             }
         }
-        return true; // Continue listening
+
+        // Continue running Blossom
+        return true;
     }
 }

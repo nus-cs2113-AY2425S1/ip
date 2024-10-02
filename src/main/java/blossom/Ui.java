@@ -3,9 +3,13 @@ package blossom;
 import blossom.task.Task;
 import java.util.ArrayList;
 
+/**
+ * The <code>Ui</code> class handles all user interactions, displaying messages, tasks, and other
+ * information to the console.
+ */
 public class Ui {
-    private final String HORIZONTAL_LINE = "____________________________________________________________";
-    private final String LOGO =
+    private final String horizontalLine = "____________________________________________________________";
+    private final String logo =
             """
                      _______     .---.       ,-----.       .-'''-.    .-'''-.     ,-----.    ,---.    ,---.\s
                     \\  ____  \\   | ,_|     .'  .-,  '.    / _     \\  / _     \\  .'  .-,  '.  |    \\  /    |\s
@@ -18,12 +22,16 @@ public class Ui {
                     /_______.'   `--------`  '-----'      `-...-'    `-...-'      '-----'    '--'      '--'""";
 
 
+    /**
+     * Prints all tasks in the list.
+     *
+     * @param listOfTasks the list of tasks to be printed
+     */
     public void printItems(ArrayList<Task> listOfTasks) {
-        System.out.println(HORIZONTAL_LINE);
-        if(listOfTasks.isEmpty()) {
+        System.out.println(horizontalLine);
+        if (listOfTasks.isEmpty()) {
             System.out.println("No tasks added! ( • ᴖ • )");
-        }
-        else {
+        } else {
             // Print items in order
             System.out.println("Try hard to get these tasks done~~ ");
             int orderInList = 1;
@@ -32,23 +40,34 @@ public class Ui {
                 orderInList++;
             }
         }
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(horizontalLine);
     }
 
+    /**
+     * Prints the starting up message to the user.
+     */
     public void printIntro() {
-        System.out.println(LOGO + "\n" +"Hello, I'm Blossom! ⸜(｡˃ ᵕ ˂ )⸝♡");
+        System.out.println(logo + "\n" +"Hello, I'm Blossom! ⸜(｡˃ ᵕ ˂ )⸝♡");
         System.out.println("Your wish is my command (シ_ _ )シ");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(horizontalLine);
     }
 
+    /**
+     * Prints the total number of tasks currently in the list.
+     *
+     * @param listOfTasks the list of tasks to count
+     */
     public void printNumberOfTasks(ArrayList<Task> listOfTasks) {
         System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(horizontalLine);
     }
 
+    /**
+     * Prints a goodbye message when the user exits the application.
+     */
     public void printGoodbye() {
         System.out.println("Bye~~~ Come visit me soon! (๑>◡<๑)");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(horizontalLine);
     }
 
 

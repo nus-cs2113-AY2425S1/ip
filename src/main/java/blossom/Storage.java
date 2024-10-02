@@ -12,14 +12,31 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The <code>Storage</code> class handles loading and saving tasks to a text file.
+ * It is responsible for reading and writing task data to the hard disk.
+ */
 public class Storage {
-    private String filePath = "";
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private final String filePath;
+    private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     * @param tasks The list of tasks to be loaded or saved.
+     */
     Storage(String filePath, ArrayList<Task> tasks) {
         this.filePath = filePath;
         this.tasks = tasks;
     }
+
+    /**
+     * Loads tasks from the file specified by filePath. If the file does not exist,
+     * it tries to create a new file.
+     *
+     * @throws BlossomException if there is no file to be found.
+     */
     public void loadTasks() throws BlossomException {
         File f = new File(this.filePath); // create a File for the given file path
         try (Scanner s = new Scanner(f)) {
@@ -33,6 +50,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a single line from the text file and adds the corresponding task
+     * to the task list.
+     *
+     * @param fileInput A line from the task file that stands for a single task.
+     * @throws BlossomException if the task type is unknown.
+     */
     public void addTaskFromFile(String fileInput) throws BlossomException {
         String[] parts = fileInput.split("\\|");
         String type = parts[0].trim();
@@ -63,9 +87,14 @@ public class Storage {
             }
             this.tasks.add(event);
             break;
+        default:
+            throw new BlossomException("Invalid task type: " + type);
         }
     }
 
+    /**
+     * Saves all tasks in the task list to the text file specified by filePath.
+     */
     public void saveTasks() {
         try (FileWriter fw = new FileWriter(this.filePath, false)) {
             for (Task item : this.tasks) {
