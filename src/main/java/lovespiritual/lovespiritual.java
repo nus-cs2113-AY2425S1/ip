@@ -78,6 +78,8 @@ public class lovespiritual {
                     taskList.deleteTask(input, tasks);
                     storage.saveTasks(tasks);
                     break;
+                case "find":
+                    find(input);
                 default:
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
@@ -97,6 +99,27 @@ public class lovespiritual {
      */
     public static void main(String[] args) {
         new lovespiritual("data/lovespiritual.txt").run();
+    }
+
+    private static void find(String input) throws lovespiritualException {
+        String findTask = input.substring("find".length()).trim();
+        if (findTask.isEmpty()) {
+            throw new lovespiritualException("Oops! (・_・;) What should I find? Please give me a keyword.");
+        }
+        System.out.println(SEPARATOR);
+        System.out.println("Here are the matching tasks in your list:");
+        int matchCount = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.toString().toLowerCase().contains(findTask.toLowerCase())) {
+                matchCount++;
+                System.out.println((i + 1) + "." + task);
+            }
+        }
+        if (matchCount == 0) {
+            System.out.println("No tasks found with the keyword: " + findTask);
+        }
+        System.out.println(SEPARATOR);
     }
 
     /**

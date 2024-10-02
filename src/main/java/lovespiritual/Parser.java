@@ -31,6 +31,8 @@ public class Parser {
             return "event";
         } else if (command.startsWith("delete")) {
             return "delete";
+        } else if (command.startsWith("find")){
+            return "find";
         } else {
             throw new lovespiritualException("(^_^) Let's get started with a command!");
         }
