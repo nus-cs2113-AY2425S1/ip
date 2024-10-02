@@ -65,7 +65,7 @@ public class EventCommand extends Command {
             from = LocalDate.parse(eventDetails[0]);
             to = LocalDate.parse(eventDetails[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidInputException(e.getMessage());
+            throw new InvalidInputException("Invalid date. Use YYYY-MM-DD format.");
         }
     }
 }

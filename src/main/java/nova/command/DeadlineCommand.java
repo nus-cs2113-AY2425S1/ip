@@ -61,7 +61,7 @@ public class DeadlineCommand extends Command {
         try {
             by = LocalDate.parse(splitInput[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidInputException(e.getMessage());
+            throw new InvalidInputException("Invalid date. Use YYYY-MM-DD format.");
         }
     }
 }

@@ -9,13 +9,13 @@ todo
 todo read book
 deadline
 deadline watch tv
-deadline /by 31/8
-deadline watch tv /by 31/8
+deadline /by 2024-08-31
+deadline watch tv /by 2024-08-31
 event
 event party
 event party /from /to
-event party /from 31/9
-event party /from 27/8 /to 28/8
+event party /from 2024-09-31
+event party /from 2024-08-27 /to 2024-08-28
 list
 mark 2
 list
