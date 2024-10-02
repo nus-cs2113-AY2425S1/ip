@@ -8,14 +8,28 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles loading and saving tasks to a file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file and returns a list of tasks.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws BebeException if there is an error reading from the file.
+     */
     public List<Task> load() throws BebeException {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -54,6 +68,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws BebeException if there is an error writing to the file.
+     */
     public void save(List<Task> tasks) throws BebeException {
         try {
             File directory = new File("./data");

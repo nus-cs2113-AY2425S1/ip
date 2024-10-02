@@ -1,9 +1,16 @@
 import java.util.Scanner;
 
+/**
+ * Handles user input and output. Manages interaction between the user and the Bebe application.
+ * Responsible for reading user commands and displaying output messages.
+ */
 public class Ui {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public void showWelcome() {
         showLogo();
         showLine();
@@ -11,26 +18,50 @@ public class Ui {
         System.out.println("What can I do for you today?");
     }
 
+    /**
+     * Reads and returns the user's input command.
+     *
+     * @return The user's input as a trimmed string.
+     */
     public String readCommand() {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Displays a horizontal line to separate sections of the output.
+     */
     public void showLine() {
         System.out.println("_______________________________________________________");
     }
 
+    /**
+     * Displays an error message for when tasks fail to load from storage.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks.");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
         System.out.println("Error: " + message);
     }
 
+    /**
+     * Displays a general message to the user.
+     *
+     * @param message The message to display.
+     */
     public void show(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays the list of available commands to the user.
+     */
     public void showHelp() {
         System.out.println("Here are the commands you can use:");
         System.out.println("  todo <task description>          - Adds a ToDo task.");
@@ -45,6 +76,9 @@ public class Ui {
         System.out.println("  bye                             - Exits the chatbot.");
     }
 
+    /**
+     * Displays the application logo to the user.
+     */
     public void showLogo() {
         String logo = """
                  ____    ______   ____    ______ \s

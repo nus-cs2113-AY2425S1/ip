@@ -1,9 +1,18 @@
+/**
+ * Main class representing the Bebe application that runs the task manager.
+ * It initializes the necessary components such as UI, storage, and task list.
+ */
 public class Bebe {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Bebe instance with the specified file path for task storage.
+     *
+     * @param filePath The file path where tasks are saved and loaded from.
+     */
     public Bebe(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -15,6 +24,9 @@ public class Bebe {
         }
     }
 
+    /**
+     * Starts the Bebe application and enters the main command loop.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -33,6 +45,11 @@ public class Bebe {
         }
     }
 
+    /**
+     * Main method to start the Bebe application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Bebe("data/tasks.txt").run();
     }

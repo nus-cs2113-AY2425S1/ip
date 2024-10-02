@@ -1,3 +1,7 @@
+/**
+ * Parses user input into a command and returns the corresponding Command object.
+ * Supports commands such as add, delete, mark, unmark, list, find, and exit.
+ */
 public class Parser {
 
     private static final String COMMAND_BYE = "bye";
@@ -11,6 +15,13 @@ public class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
 
+    /**
+     * Parses the user's input and returns the corresponding command.
+     *
+     * @param fullCommand The full string input entered by the user.
+     * @return The corresponding Command object based on the user's input.
+     * @throws BebeException if the input is invalid or the command is unknown.
+     */
     public static Command parse(String fullCommand) throws BebeException {
         try {
             String[] words = fullCommand.split(" ", 2);
