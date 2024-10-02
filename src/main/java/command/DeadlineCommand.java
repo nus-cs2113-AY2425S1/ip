@@ -26,20 +26,32 @@ public class DeadlineCommand extends Command {
             return;
         }
 
-        String description = userInput.substring(DEADLINE_WORD_LENGTH, byIndex).trim();
-        String dueDate = userInput.substring(byIndex + DEADLINE_DUE_DATE_OFFSET).trim();
+        String description = getDescription(userInput, byIndex);
+        String dueDate = getDueDate(userInput, byIndex);
         if (description.isEmpty() || dueDate.isEmpty()) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.deadlineDescriptionMissing());
             System.out.println(SEPARATOR);
         } else {
-            Deadline newTask = new Deadline(description, dueDate);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addDeadline(taskList, description, dueDate);
         }
+    }
+
+    private static String getDueDate(String userInput, int byIndex) {
+        return userInput.substring(byIndex + DEADLINE_DUE_DATE_OFFSET).trim();
+    }
+
+    private static String getDescription(String userInput, int byIndex) {
+        return userInput.substring(DEADLINE_WORD_LENGTH, byIndex).trim();
+    }
+
+    private static void addDeadline(TaskList taskList, String description, String dueDate) {
+        Deadline newTask = new Deadline(description, dueDate);
+        taskList.storeTask(newTask);
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
+        System.out.println(SEPARATOR);
     }
 }

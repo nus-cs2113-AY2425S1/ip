@@ -29,22 +29,38 @@ public class EventCommand extends Command {
             return;
         }
 
-        String description = userInput.substring(EVENT_WORD_LENGTH, startIndex).trim();
-        String start = userInput.substring(startIndex + START_WORD_LENGTH, endIndex).trim();
-        String end = userInput.substring(endIndex + END_WORD_LENGTH).trim();
+        String description = getDescription(userInput, startIndex);
+        String start = getStart(userInput, startIndex, endIndex);
+        String end = getEnd(userInput, endIndex);
 
         if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.eventDescriptionMissing());
             System.out.println(SEPARATOR);
         } else {
-            Event newTask = new Event(description, start, end);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addEvent(taskList, description, start, end);
         }
+    }
+
+    private static void addEvent(TaskList taskList, String description, String start, String end) {
+        Event newTask = new Event(description, start, end);
+        taskList.storeTask(newTask);
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
+        System.out.println(SEPARATOR);
+    }
+
+    private static String getEnd(String userInput, int endIndex) {
+        return userInput.substring(endIndex + END_WORD_LENGTH).trim();
+    }
+
+    private static String getStart(String userInput, int startIndex, int endIndex) {
+        return userInput.substring(startIndex + START_WORD_LENGTH, endIndex).trim();
+    }
+
+    private static String getDescription(String userInput, int startIndex) {
+        return userInput.substring(EVENT_WORD_LENGTH, startIndex).trim();
     }
 }

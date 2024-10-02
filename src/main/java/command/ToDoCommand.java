@@ -23,13 +23,17 @@ public class ToDoCommand extends Command {
             System.out.println(EchoException.todoDescriptionMissing());
             System.out.println(SEPARATOR);
         } else {
-            ToDo newTask = new ToDo(description);
-            taskList.storeTask(newTask);
-            System.out.println(SEPARATOR);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-            System.out.println(SEPARATOR);
+            addTodo(taskList, description);
         }
+    }
+
+    private static void addTodo(TaskList taskList, String description) {
+        ToDo newTask = new ToDo(description);
+        taskList.storeTask(newTask);
+        System.out.println(SEPARATOR);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
+        System.out.println(SEPARATOR);
     }
 }
