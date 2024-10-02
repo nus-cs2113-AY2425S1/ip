@@ -34,8 +34,9 @@ public class Parser {
         case "todo":
             try{
                 return new AddCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("Please specify todo <task> ");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
+                        "Kindly specify todo <task> ");
             }
             break;
 
@@ -43,8 +44,9 @@ public class Parser {
         case "deadline":
             try{
                 return new AddDeadlineCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("Please specify deadline <task> /by <End Date> ");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
+                        "Kindly specify deadline <task> /by <End Date> ");
             }
             break;
 
@@ -52,32 +54,39 @@ public class Parser {
         case "event":
             try{
                 return new AddEventCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("Please specify event <task> /from <Start Date> /to <End Date> ");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
+                        "Kindly specify event <task> /from <Start Date> /to <End Date> ");
             }
             break;
 
         case "delete":
             try{
                 return new DeleteCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("The selected item is not found");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
+            } catch (NumberFormatException e){
+                System.out.println(">CodyChen:\n\t CodyChen could not find that item! Kindly enter only numbers");
             }
             break;
 
         case "mark":
             try {
                 return new MarkCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("The selected item is not found");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
+            } catch (NumberFormatException e){
+                System.out.println(">CodyChen:\n\t CodyChen could not find that item! Kindly enter only numbers");
             }
             break;
 
         case "unmark":
             try {
                 return new UnmarkCommand(line);
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("The selected item is not found");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
+            } catch (NumberFormatException e){
+                System.out.println(">CodyChen:\n\t CodyChen could not find that item! Kindly enter only numbers");
             }
             break;
 

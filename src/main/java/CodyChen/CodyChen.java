@@ -45,7 +45,9 @@ public class CodyChen {
             try{
                 c.execute(tasks, ui, storage);
             } catch (NullPointerException e){
-                System.out.println("Please re-enter a value ");
+                System.out.println(">CodyChen: \n\tPlease enter a valid command:");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
             }
         }
         ui.showEnd();

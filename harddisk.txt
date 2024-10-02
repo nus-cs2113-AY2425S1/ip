@@ -1,6 +1,5 @@
-1. [T][ ] read book
-2. [E][ ] project meeting (by: Aug 6th to: 4pm)
-3. [T][ ] join sports club
-4. [T][ ] borrow book
-5. [D][ ] return book (by: Sunday)
-6. [E][ ] project meeting (by: Mon 2pm to: 4pm)
+1. [E][ ] project meeting (by: Aug 6th to: 4pm)
+2. [T][ ] join sports club
+3. [T][ ] borrow book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (by: Mon 2pm to: 4pm)
