@@ -1,5 +1,5 @@
 # Bean User Guide
-![Product screenshot](/assets/images/product_screenshot.png)
+![Product screenshot](src/main/assets/images/product_screenshot.png)
 
 ## Product Intro
 // Product intro goes here
