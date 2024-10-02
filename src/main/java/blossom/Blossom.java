@@ -25,9 +25,9 @@ public class Blossom {
         tasks = new TaskList(ui);
         storage = new Storage(filePath, tasks.getTasks());
 
-        ui.printIntro();
         try {
             storage.loadTasks();
+            ui.printIntro();
         } catch (BlossomException e) {
             tasks = new TaskList(ui);
             throw new RuntimeException(e);
