@@ -26,4 +26,10 @@ public class FileFunctions {
         fw.write(textToAppend);
         fw.close();
     }
+
+    public static void getFileProperties(File f) {
+        System.out.println("full path: " + f.getAbsolutePath());
+        System.out.println("file exists?: " + f.exists());
+        System.out.println("is Directory?: " + f.isDirectory());
+    }
 }
