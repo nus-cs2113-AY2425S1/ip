@@ -17,7 +17,7 @@
     - [Deleting a Task: `delete`](#deleting-a-task-delete)
     - [Finding Tasks: `find`](#finding-tasks-find)
     - [Exiting the Application: `bye`](#exiting-the-application-bye)
-- [Saving Data](#saving-data)
+    - [Saving Data](#saving-data)
 - [FAQ](#faq)
 - [Editing the Data File](#editing-the-data-file)
 - [Command Summary](#command-summary)
@@ -54,7 +54,6 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
     - deadline Submit report /by 15/09/2023 23:59 : Adds a deadline task for "Submit report".
     - event Team meeting /from 20/09/2023 14:00 /to 20/09/2023 16:00 : Adds an event named "Team meeting" with start and end times.
     - delete 3 : Deletes the 3rd task shown in the current list.
-    - clear : Deletes all tasks.
     - bye : Exits the application.
 
 9. Refer to the Features section below for more details about each command.
@@ -67,17 +66,17 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
 > - For example: In `todo DESCRIPTION`, **DESCRIPTION** is a placeholder that can be replaced with the actual task, such as `todo Read book`.
 > - If you are using a **PDF version** of this document, be careful when copying and pasting commands that span multiple lines, as space characters surrounding line-breaks may be omitted when copied into the application.
 > - **Dates and Times** must follow specific formats, **else they will be treated as strings** :
->- **Date Formats:**
->  - `1/9/2024` (d/m/yyyy)
->  - `01/09/2024` (dd/mm/yyyy)
->  - `1-9-2024` (d-m-yyyy)
->  - `2024-09-01` (yyyy-mm-dd)
->  - **Time Formats:**
->    - `930` (hmm)
->    - `0930` (hhmm)
->    - `9:30` (h:mm)
->    - `09:30` (hh:mm)
->    - `9:30AM` (h:mma)
+>   - **Date Formats:**
+>     - `1/9/2024` (d/m/yyyy)
+>     - `01/09/2024` (dd/mm/yyyy)
+>     - `1-9-2024` (d-m-yyyy)
+>     - `2024-09-01` (yyyy-mm-dd)
+>   - **Time Formats:**
+>     - `930` (hmm)
+>     - `0930` (hhmm)
+>     - `9:30` (h:mm)
+>     - `09:30` (hh:mm)
+>     - `9:30AM` (h:mma)
 
 ### Adding a Todo Task: `todo`
 
