@@ -20,4 +20,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    public char getTaskCharacter() {
+        return 'D';
+    }
+
+    public String getStorableString() {
+        int isDoneInteger = getIsDone() ? 1 : 0;
+        return getTaskCharacter() + " | " + isDoneInteger + " | " + getDescription() + " | " + getBy();
+    }
 }

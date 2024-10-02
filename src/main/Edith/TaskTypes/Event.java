@@ -28,4 +28,13 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
     }
+
+    public char getTaskCharacter() {
+        return 'E';
+    }
+
+    public String getStorableString() {
+        int isDoneInteger = getIsDone() ? 1 : 0;
+        return getTaskCharacter() + " | " + isDoneInteger + " | " + getDescription() + " | " + getFrom() + " - " + getTo();
+    }
 }

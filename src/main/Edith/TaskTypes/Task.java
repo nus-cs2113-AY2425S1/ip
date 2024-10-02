@@ -1,6 +1,6 @@
 package TaskTypes;
 
-public class Task {
+abstract public class Task {
     private String description;
     private boolean isDone;
     public TypeOfTask typeOfTask;
@@ -31,6 +31,11 @@ public class Task {
         if (isDone) return "[X]";
         else return "[ ]";
     }
+
+    public abstract char getTaskCharacter();
+
+    public abstract String getStorableString();
+
 
     /*
     public String printTask(Task task) {
