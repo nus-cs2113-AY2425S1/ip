@@ -1,5 +1,10 @@
 @ECHO OFF
 
+REM delete the data folder and its contents if it exists
+if exist data (
+    rmdir /S /Q data
+)
+
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
