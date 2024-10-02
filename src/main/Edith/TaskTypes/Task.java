@@ -1,5 +1,7 @@
+package TaskTypes;
+
 public class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
     public TypeOfTask typeOfTask;
 
@@ -9,22 +11,23 @@ public class Task {
         this.typeOfTask = typeOfTask; //has potential to create error
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    protected boolean getIsDone() {
+    public boolean getIsDone() {
         return isDone;
     }
-    protected void setIsDone(boolean isDone) {
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    @Override
     public String toString() {
         return getIsDoneString() + description;
     }
 
-    private String getIsDoneString() {
+    public String getIsDoneString() {
         if (isDone) return "[X]";
         else return "[ ]";
     }
