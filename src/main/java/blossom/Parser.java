@@ -65,6 +65,8 @@ public class Parser {
         } else if (command.startsWith("delete")) {
             String[] parts = command.split(" ");
             tasks.deleteTask(Integer.parseInt(parts[1]));
+        } else if (command.startsWith("find")) {
+            tasks.findTask(command.substring("find".length()+1));
         } else {
             try {
                 tasks.addTask(command);

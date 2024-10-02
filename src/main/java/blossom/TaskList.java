@@ -141,4 +141,24 @@ public class TaskList {
         this.listOfTasks.remove(indexOfTask-1);
         ui.printNumberOfTasks(this.listOfTasks);
     }
+
+    public void findTask(String keyword) {
+        System.out.println(horizontalLine);
+        int orderInList = 1;
+        boolean found = false;
+        for(Task item : listOfTasks) {
+           if(item.toString().contains(keyword)) {
+               if(!found) {
+                   System.out.println("Here are the matching tasks in your list! ૮ ˶ᵔ ᵕ ᵔ˶ ა");
+                   found = true;
+               }
+               System.out.println(orderInList+ ". " + item);
+           }
+           orderInList++;
+        }
+        if(!found) {
+            System.out.println("Oops, no tasks found! . ‸ .");
+        }
+        System.out.println(horizontalLine);
+    }
 }
