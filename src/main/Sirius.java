@@ -8,6 +8,11 @@ import storage.Storage;
 import tasklist.TaskList;
 import parser.Parser;
 
+/**
+ * Sirius is a chatbot application that interacts with the user to manage tasks.
+ * It processes user commands, maintains a task list, and stores the list in a file.
+ * The chatbot supports various task-related commands such as adding, deleting, marking, unmarking tasks, and more.
+ */
 public class Sirius {
 
     private final Storage storage;

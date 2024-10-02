@@ -37,12 +37,7 @@ public abstract class Task{
      */
     @Override
     public String toString(){
-        if (isMarked){
-            return "[X] " + taskName;
-        }
-        else{
-            return "[ ] " + taskName;
-        }
+        return "[" + (isMarked ? "X":" ")  + "] " + taskName;
     }
     public abstract String toFileFormat();
 }
