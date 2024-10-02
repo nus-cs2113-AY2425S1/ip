@@ -41,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into the list provided.
+     *
+     * @param tasks List of tasks to load data into.
+     */
     public void loadTasks(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);
