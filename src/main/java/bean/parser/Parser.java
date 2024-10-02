@@ -95,6 +95,7 @@ public class Parser {
                     throw new InvalidInputException();
 
                 }
+
             } catch (InvalidInputException e) {
                 Ui.printInvalidInputMessage();
 
