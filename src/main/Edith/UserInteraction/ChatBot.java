@@ -1,10 +1,10 @@
 package UserInteraction;
 
 import TaskTypes.Task;
+import TaskTypes.TaskTypeException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import UserInteraction.ChangeTaskStatus;
-
 import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
@@ -17,30 +17,25 @@ public class ChatBot {
         tasks = new ArrayList<>();
     }
 
+    public void giveIntroduction() {
+        System.out.println("Hello I am " + MY_NAME + ".");
+        System.out.println("What can I do for you?");
+        printHorizontalLine();
+    }
+
     public void interactWithUser() {
         Scanner sc = new Scanner(System.in);
-        giveIntroduction();
         do {
             String enteredString = sc.nextLine();
             printHorizontalLine();
             if (enteredString.equals("bye")) {
-                sayGoodbye();
                 break;
             } else if (enteredString.equals("list")) {
-                listTasks();
+                HelperMethods.listTasks(tasks);
             } else if (enteredString.contains("mark")) {
                 changeTaskStatus(tasks, enteredString);
             } else {
-                Task newTask = CreateTask.addNewTask(enteredString);
-                if (newTask == null) {
-                    printHorizontalLine();
-                    break;
-                }
-                tasks.add(newTask);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(newTask);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list");
-                printHorizontalLine();
+                HelperMethods.addTaskToList(tasks, enteredString);
             }
         } while (true);
     }
@@ -49,21 +44,4 @@ public class ChatBot {
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
-
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list: ");
-        int serialNumber = 0;
-        for(Task task : tasks) {
-            serialNumber++;
-            System.out.println(serialNumber + "." + task.toString());
-        }
-        printHorizontalLine();
-    }
-    public void giveIntroduction() {
-        System.out.println("Hello I am " + MY_NAME + ".");
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
-    }
-
-
 }

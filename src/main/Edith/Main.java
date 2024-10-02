@@ -26,7 +26,9 @@ public class Main {
         //System.out.println("file exists?: " + f.exists());
         //System.out.println("is Directory?: " + f.isDirectory());
         ChatBot edith = new ChatBot("Edith");
+        edith.giveIntroduction();
         edith.interactWithUser();
+        edith.sayGoodbye();
 
     }
 }

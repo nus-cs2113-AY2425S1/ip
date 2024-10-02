@@ -37,28 +37,18 @@ public class CreateTask {
         return new ToDo(taskDescription);
     }
 
-    public static Task addNewTask(String enteredString) {
-        Task newTask = null;
-        try {
-            if (enteredString.startsWith("deadline")) {
-                newTask = createDeadlineTask(enteredString);
-            } else if (enteredString.startsWith("event")) {
-                newTask = createEventTask(enteredString);
-            } else if (enteredString.startsWith("todo")) {
-                newTask = createTodoTask(enteredString);
-            } else {
-                throw new TaskTypeException("No task type stated. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid format for input. Please try again.");
-            printHorizontalLine();
-        } catch (TaskTypeException e) {
-            System.out.println("No task type stated. Please try again.");
-            printHorizontalLine();
-        } catch (Exception e) {
-            System.out.println("Error. Please try again.");
-            printHorizontalLine();
+    public static Task addNewTask(String enteredString) throws TaskTypeException, StringIndexOutOfBoundsException, Exception {
+        Task newTask;
+        if (enteredString.startsWith("deadline")) {
+            newTask = createDeadlineTask(enteredString);
+        } else if (enteredString.startsWith("event")) {
+            newTask = createEventTask(enteredString);
+        } else if (enteredString.startsWith("todo")) {
+            newTask = createTodoTask(enteredString);
+        } else {
+            throw new TaskTypeException("No task type stated. Please try again.");
         }
+
             return newTask;
     }
 }

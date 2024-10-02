@@ -11,22 +11,28 @@ public class ChangeTaskStatus {
 
     public static void changeTaskStatus(ArrayList<Task> tasks, String enteredString) {
         int lengthOfString = enteredString.length();
-        String taskNumberString = enteredString.substring(lengthOfString - 1);
-        int taskNumber = Integer.parseInt(taskNumberString);
+        try {
+            String taskNumberString = enteredString.substring(lengthOfString - 1);
+            int taskNumber = Integer.parseInt(taskNumberString);
 
-        if (! HelperMethods.isValidTaskNumber(tasks, taskNumber)) { //can add an exception here
-            System.out.println("Invalid task number. Please try again.");
+            if (HelperMethods.isInvalidTaskNumber(tasks, taskNumber)) { //can add an exception here
+                throw new InvalidTaskNumberException("Invalid task number. Please try again.");
+            }
+
+            Task currentTask = tasks.get(taskNumber - 1);
+            if (enteredString.contains("unmark")) {
+                unmarkTask(currentTask);
+            } else if (enteredString.contains("mark")) {
+                markTask(currentTask);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Task Number not found ");
+        } catch (InvalidTaskNumberException e) {
+            System.out.println(e.getMessage());
+        } finally {
             printHorizontalLine();
-            return;
         }
 
-        Task currentTask = tasks.get(taskNumber - 1);
-        if (enteredString.contains("unmark")) {
-            unmarkTask(currentTask);
-        } else if (enteredString.contains("mark")) {
-            markTask(currentTask);
-        }
-        printHorizontalLine();
     }
 
     public static void unmarkTask(Task task) {
