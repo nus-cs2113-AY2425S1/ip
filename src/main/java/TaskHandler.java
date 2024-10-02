@@ -3,10 +3,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class TaskHandler {
-    ArrayList<Task> taskArrayList;
+    private Fenix fenix;
+    private ArrayList<Task> taskArrayList;
 
-    public TaskHandler(ArrayList<Task> taskArrayList) {
-        this.taskArrayList = taskArrayList;
+    public TaskHandler(Fenix fenix) {
+        this.fenix = fenix;
+        this.taskArrayList = new ArrayList<>();
     }
 
     // Return an unmodifiable view of the taskArrayList
@@ -15,32 +17,11 @@ public class TaskHandler {
     }
 
     public Task markAsDone(String taskNumber) {
-        int taskIndex = getTaskIndex(taskNumber);
+        int taskIndex = fenix.getTaskIndexFromInput(taskNumber);
         if (taskIndex == -1) {
             return null;
         }
         return markTaskAsDone(taskIndex);
-    }
-
-    private int getTaskIndex(String taskNumber) {
-        if (taskNumber.isBlank()) {
-            System.out.println("Please provide a task");
-            return -1;
-        }
-        if (!isValidTaskNumber(taskNumber)) {
-            System.out.println("Please provide a valid task number");
-            return -1;
-        }
-        return Integer.parseInt(taskNumber) - 1;
-    }
-
-    private boolean isValidTaskNumber(String input) {
-        try {
-            int index = Integer.parseInt(input);
-            return index > 0 && index <= taskArrayList.size();
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     private Task markTaskAsDone(int taskNumber) {
@@ -50,7 +31,7 @@ public class TaskHandler {
     }
 
     public Task unmarkAsDone(String taskNumber) {
-        int taskIndex = getTaskIndex(taskNumber);
+        int taskIndex = fenix.getTaskIndexFromInput(taskNumber);
         if (taskIndex == -1) {
             return null;
         }
@@ -68,7 +49,7 @@ public class TaskHandler {
     }
 
     public Task deleteTask(String taskNumber) {
-        int taskIndex = getTaskIndex(taskNumber);
+        int taskIndex = fenix.getTaskIndexFromInput(taskNumber);
         if (taskIndex == -1) {
             return null;
         }

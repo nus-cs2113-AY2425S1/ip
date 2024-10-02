@@ -3,7 +3,8 @@ public abstract class Task {
     protected String taskName;
     protected String formattedTaskInfo = "";
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -13,14 +14,6 @@ public abstract class Task {
     public Task(boolean isDone, String formattedTaskInfo) {
         this.isDone = isDone;
         this.formattedTaskInfo = formattedTaskInfo;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public boolean isDone() {
-        return isDone;
     }
 
     public void markAsDone() {

@@ -1,17 +1,12 @@
 import java.util.Scanner;
 
-public class UserInterface implements SampleStrings{
+public class UserInterface implements SampleStrings {
     private Fenix fenix;
-    private Parser parser;
     private Scanner scanner;
 
     public UserInterface(Fenix fenix) {
         this.fenix = fenix;
         this.scanner = new Scanner(System.in);
-    }
-
-    public void setParser(Parser parser) {
-        this.parser = parser;
     }
 
     public void greet() {
@@ -20,13 +15,8 @@ public class UserInterface implements SampleStrings{
         System.out.println(SERVICE_PROMPT);
     }
 
-    public void acceptUserInput() {
+    public String getUserInput() {
         System.out.println(HORIZONTAL_LINE_USER_COMMAND);
-        String userInput = getUserInput();
-        parser.processUserInput(userInput);
-    }
-
-    private String getUserInput() {
         return scanner.nextLine();
     }
 
@@ -49,7 +39,7 @@ public class UserInterface implements SampleStrings{
 
     private void printFenixModification(String modification, Task task) {
         int taskIndex = fenix.indexOfTask(task) + 1;
-        String taskNumber =  (taskIndex == 0 ? "" : taskIndex + ". ");
+        String taskNumber = (taskIndex == 0 ? "" : taskIndex + ". ");
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         System.out.println("\t\t" + modification + taskNumber + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
@@ -66,6 +56,10 @@ public class UserInterface implements SampleStrings{
 
     public void requestForTask() {
         System.out.println("Please provide a task");
+    }
+
+    public void requestForValidTask() {
+        System.out.println("Please provide a valid task number");
     }
 
     public void bidFarewell() {

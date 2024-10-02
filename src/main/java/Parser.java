@@ -1,65 +1,42 @@
-public class Parser implements SampleStrings{
-    UserInterface ui;
-    TaskHandler taskHandler;
+public class Parser {
+    private Fenix fenix;
 
-    public Parser(UserInterface ui, TaskHandler taskHandler) {
-        this.ui = ui;
-        this.taskHandler = taskHandler;
+    public Parser(Fenix fenix) {
+        this.fenix = fenix;
     }
 
     public void processUserInput(String userInput) {
-        Task task;
         String[] words = userInput.trim().split(" ", 2);
         String commandType = words[0];
-        String commandInfo = ((words.length > 1) ? words[1] : "");
+        String commandInfo = (words.length > 1) ? words[1] : "";
+
         switch (commandType) {
         case "bye":
-            ui.bidFarewell();
-            return;
+            fenix.handleBye();
+            break;
         case "list":
-            ui.showAllTasks(false);
+            fenix.handleList();
             break;
         case "mark":
-            task = taskHandler.markAsDone(commandInfo);
-            ui.showFenixModification(MARK, task);
+            fenix.handleMark(commandInfo);
             break;
         case "unmark":
-            task = taskHandler.unmarkAsDone(commandInfo);
-            ui.showFenixModification(UNMARK, task);
+            fenix.handleUnmark(commandInfo);
             break;
         case "todo":
         case "deadline":
         case "event":
-            task = processTasks(commandType, commandInfo);
-            ui.showFenixModification(ADD, task);
+            fenix.handleAddTask(commandType, commandInfo);
             break;
         case "delete":
-            task = taskHandler.deleteTask(commandInfo);
-            ui.showFenixModification(DELETE, task);
+            fenix.handleDelete(commandInfo);
             break;
         default:
-            ui.requestForValidCommand();
+            fenix.handleInvalidCommand();
         }
-        ui.acceptUserInput();
     }
 
-    public Task processTasks(String commandType, String commandInfo) {
-        if (commandType == null || commandType.isBlank()) {
-            ui.requestForCommand();
-            return null;
-        } else if (commandInfo == null || commandInfo.isBlank()) {
-            ui.requestForTask();
-            return null;
-        }
-        Task task = returnTaskObject(commandType, commandInfo);
-        if (task == null) {
-            return null;
-        }
-        taskHandler.storeTask(task);
-        return task;
-    }
-
-    private Task returnTaskObject(String type, String information) {
+    public Task returnTaskObject(String type, String information) {
         switch (type) {
         case "todo":
             return new Todo(information);
@@ -90,5 +67,18 @@ public class Parser implements SampleStrings{
             case "E" -> new Event(isDone, taskInfo);
             default -> null;
         };
+    }
+
+    public boolean isValidTaskNumber(String taskNumber) {
+        try {
+            int index = parseInteger(taskNumber);
+            return index > 0 && index <= fenix.getSize();
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public int parseInteger(String inputInteger) {
+        return Integer.parseInt(inputInteger);
     }
 }

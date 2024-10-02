@@ -2,14 +2,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Storage {
-    FileHandler fileHandler;
-    TaskHandler taskHandler;
-    Parser parser;
+    private Fenix fenix;
+    private FileHandler fileHandler;
 
-    public Storage(FileHandler fileHandler, Parser parser, TaskHandler taskHandler) {
-        this.fileHandler = fileHandler;
-        this.taskHandler = taskHandler;
-        this.parser = parser;
+    public Storage(Fenix fenix) {
+        this.fenix = fenix;
+        fileHandler = new FileHandler();
     }
 
     public void loadAllInfo() {
@@ -18,8 +16,7 @@ public class Storage {
             if (!fileContent.isBlank()) {
                 decipherAllInfo(fileContent);
             }
-        }
-        catch (FileNotFoundException ignored) {
+        } catch (FileNotFoundException ignored) {
         }
     }
 
@@ -36,7 +33,7 @@ public class Storage {
             String taskType = stringArray[1];
             String taskStatus = stringArray[2];
             String taskInfo = stringArray[3].trim();
-            taskHandler.storeTask(parser.returnTaskObject(taskType, taskStatus, taskInfo));
+            fenix.addTaskFromStorage(taskType, taskStatus, taskInfo);
         }
     }
 
@@ -48,13 +45,12 @@ public class Storage {
     private void clearAllInfo() {
         try {
             fileHandler.writeToFile("");
-        }
-        catch (IOException | NullPointerException ignored) {
+        } catch (IOException | NullPointerException ignored) {
         }
     }
 
     private void saveAllInfo() {
-        for (Task task : taskHandler.getTaskArrayList()) {
+        for (Task task : fenix.getTaskArrayList()) {
             try {
                 String taskToWrite = task.toString();
                 taskToWrite = taskToWrite.replaceAll("\\[", "|");
@@ -62,8 +58,7 @@ public class Storage {
                 taskToWrite = taskToWrite.replace("||", "|");
                 fileHandler.appendToFile(taskToWrite);
                 fileHandler.appendToFile("\n");
-            }
-            catch (IOException | NullPointerException e) {
+            } catch (IOException | NullPointerException e) {
                 return;
             }
         }
