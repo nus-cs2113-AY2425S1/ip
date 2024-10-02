@@ -13,6 +13,8 @@
 ```
 java -jar CodyChen.jar
 ```
+5. You should see the following output:
+   <picture> <src = "docs/startScreen.png"> </picture>
 
 ## 1.1 Overview of Executables
 ### [List: Shows all tasks](#list)
