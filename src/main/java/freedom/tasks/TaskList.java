@@ -9,8 +9,13 @@ public class TaskList {
     private int lastIndex;
 
     public TaskList() {
-        tasks = new ArrayList<>();
+        setTasks(new ArrayList<>());
         setLastIndex(0);
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        setTasks(tasks);
+        setLastIndex(tasks.size());
     }
 
     public void addTask(String type, String input) {
@@ -79,8 +84,6 @@ public class TaskList {
             System.out.println(LOGO + message);
             System.out.println("\t  " + taskToBeMarked.printLine());
             System.out.println(LOGO);
-
-            //saveData();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(LOGO);
             System.out.print("""
