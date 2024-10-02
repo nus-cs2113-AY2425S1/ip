@@ -199,6 +199,14 @@ public class lovespiritual {
     }
 
     private static void unmarkTask(String input, int taskCount, ArrayList <Task> tasks) throws lovespiritualException {
+    /**
+     * Unmarks a task as not completed.
+     *
+     * @param input User input string for unmarking a task.
+     * @param tasks List of tasks.
+     * @throws lovespiritualException If the task number is invalid or out of range.
+     */
+    private static void unmarkTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
