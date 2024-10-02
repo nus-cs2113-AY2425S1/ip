@@ -11,6 +11,12 @@ abstract public class Task {
         this.typeOfTask = typeOfTask; //has potential to create error
     }
 
+    public Task(String description, TypeOfTask typeOfTask, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.typeOfTask = typeOfTask; //has potential to create error
+    }
+
     public String getDescription() {
         return description;
     }

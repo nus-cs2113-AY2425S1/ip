@@ -3,6 +3,8 @@ package UserInteraction;
 import TaskTypes.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static UserInteraction.AddTask.addTaskToList;
 import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
 import static UserInteraction.DeleteTask.deleteTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
@@ -36,7 +38,7 @@ public class ChatBot {
             } else if (enteredString.contains("delete")) {
                 deleteTask(tasks, enteredString);
             } else {
-                AddTaskToList.addTaskToList(tasks, enteredString);
+                addTaskToList(tasks, enteredString);
             }
         } while (true);
     }
@@ -44,5 +46,9 @@ public class ChatBot {
     public void sayGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }

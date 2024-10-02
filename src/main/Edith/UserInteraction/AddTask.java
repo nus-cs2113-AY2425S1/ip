@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import static UserInteraction.CreateTask.addNewTask;
 import static UserInteraction.HelperMethods.printNumberOfTasks;
 import static UserInteraction.PrintShape.printHorizontalLine;
+import static UserInteraction.UpdateArrayListToFile.addTaskToFile;
 
-public class AddTaskToList {
+public class AddTask {
+
     public static void addTaskToList(ArrayList<Task> tasks, String enteredString) {
         try {
             Task newTask = addNewTask(enteredString);
             tasks.add(newTask);
+            addTaskToFile(newTask);
             System.out.println("Got it. I've added this task: ");
             System.out.println(newTask);
             printNumberOfTasks(tasks);

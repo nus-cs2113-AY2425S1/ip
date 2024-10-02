@@ -3,6 +3,7 @@ package UserInteraction;
 import TaskTypes.*;
 
 public class CreateTask {
+
     public static Task addNewTask(String enteredString) throws TaskTypeException, StringIndexOutOfBoundsException, Exception {
         Task newTask;
         if (enteredString.startsWith("deadline")) {

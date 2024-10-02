@@ -5,6 +5,10 @@ public class ToDo extends Task{
         super(description, TypeOfTask.ToDos);
     }
 
+    public ToDo(String description, boolean isDone) {
+        super(description, TypeOfTask.ToDos, isDone);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

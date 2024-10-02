@@ -10,6 +10,12 @@ public class Event extends Task{
         this.to = to;
     }
 
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, TypeOfTask.Events, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     public String getTo() {
         return to;
     }
