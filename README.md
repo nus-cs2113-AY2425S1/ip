@@ -1,4 +1,7 @@
-## [CS2113 - Individual Project](https://github.com/yakultbottle/ip)
+---
+layout: default
+title: Jeremy user guide
+---
 
 # Jeremy user guide
 
@@ -189,6 +192,7 @@ Advanced users can manually update data by editing this file.
 > ignored by the program and will be erased once the file is saved after loading.
 
 ## Command summary
+
 | Action       | Format, Examples                                                                                          |
 |--------------|-----------------------------------------------------------------------------------------------------------|
 | **list**     | `list`                                                                                                    |
