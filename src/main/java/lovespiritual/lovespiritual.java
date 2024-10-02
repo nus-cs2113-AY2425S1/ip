@@ -34,6 +34,10 @@ public class lovespiritual {
         ui.printWelcomeScreen();
     }
 
+    /**
+     * Main loop that runs the task manager, the processing of user input.
+     * Commands include adding, deleting, marking, and listing tasks.
+     */
     public void run() {
         Scanner in = new Scanner(System.in);
         while (true) {
