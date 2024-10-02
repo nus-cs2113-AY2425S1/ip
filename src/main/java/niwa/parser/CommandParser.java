@@ -5,6 +5,7 @@ import niwa.exception.NiwaException;
 import niwa.exception.NiwaInvalidSyntaxException;
 import niwa.messages.NiwaMesssages;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -117,8 +118,14 @@ public class CommandParser {
             // Get the remaining argument string after the keyword
             String afterKeyword = getAfterKeyword(argumentString, keywordIndex);
 
-            // Continue splitting recursively
-            splitCommandRecursively(afterKeyword, keywords, arguments, keywordFound);
+            // Create a new keywords array without the found keyword
+            String finalKeywordFound = keywordFound;
+            String[] updatedKeywords = Arrays.stream(keywords)
+                    .filter(k -> !k.equals(finalKeywordFound))
+                    .toArray(String[]::new);
+
+            // Continue splitting recursively with the updated keywords
+            splitCommandRecursively(afterKeyword, updatedKeywords, arguments, keywordFound);
         } else {
             // If no more keywords are found, assign the remaining argument
             arguments.put(prevKeyword, argumentString);
