@@ -1,10 +1,14 @@
 package freedom.tasks;
 
 import freedom.exceptions.DescriptionEmpty;
+import freedom.exceptions.InvalidDateTime;
 import freedom.exceptions.TimeEmpty;
+import freedom.user.DateParser;
+
+import java.time.LocalDateTime;
 
 public class Deadline extends Task{
-    protected String doneBy;
+    protected LocalDateTime doneBy;
 
     public Deadline(String description) throws Exception {
         super(description);
@@ -30,25 +34,29 @@ public class Deadline extends Task{
         }
     }
 
-    public Deadline(String description, boolean isDone, String doneBy) {
+    public Deadline(String description, boolean isDone, String doneByString) {
         super(description);
         this.isDone = isDone;
-        setDoneBy(doneBy);
-    }
-
-    public void setDoneBy(String doneBy) {
-        this.doneBy = doneBy;
+        setDoneBy(doneByString);
     }
 
     public String getDoneBy() {
-        return doneBy;
+        return DateParser.convertToString(doneBy);
+    }
+
+    public void setDoneBy(String doneBy) {
+        try {
+            this.doneBy = DateParser.convertToDateTime(doneBy);
+        } catch (InvalidDateTime e) {
+            ui.printInvalidDateTime();
+        }
     }
 
     public String generateTaskLine() {
-        return "[D]" + super.generateTaskLine() + " (by: " + doneBy + ")";
+        return "[D]" + super.generateTaskLine() + " (by: " + getDoneBy() + ")";
     }
 
     public String generateStorageLine() {
-        return "D | " + super.generateStorageLine() + " | " + getDoneBy() + "\n";
+        return "D | " + super.generateStorageLine() + " | " + getDoneBy() +  "\n";
     }
 }
