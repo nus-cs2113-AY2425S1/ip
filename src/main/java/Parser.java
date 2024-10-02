@@ -122,6 +122,10 @@ public class Parser {
      * @throws IOException if an error occurs while saving tasks
      */
     private void addTodoTask(String input) throws IOException {
+        if (input.length() == 5){
+            ui.showInputError();
+            return;
+        }
         String description = input.substring(5);
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
