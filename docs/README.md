@@ -28,7 +28,7 @@ Legin is a command line chat bot that helps users with their daily tracking of t
 Adds a Todo task to the task list. <br />
 Format: ```todo TASK_DESCRIPTION``` <br />
 Example: 
-+ ```todo Water the plants``` </br>
++ ```todo Water the plants``` <br />
   The following would be seen on the terminal if done correctly:
   ![image](https://github.com/user-attachments/assets/777aa717-3c10-4e65-a484-79ec87161220)
 
