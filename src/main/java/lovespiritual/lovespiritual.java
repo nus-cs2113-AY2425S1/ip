@@ -28,32 +28,41 @@ public class lovespiritual {
             String input = in.nextLine().trim();
 
             try {
-                if (input.equalsIgnoreCase("bye")) {
+                String command = Parser.parseCommand(input);
+
+                switch (command) {
+                case "bye":
                     storage.saveTasks(tasks);
                     ui.printExitScreen();
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
+                    return;
+                case "list":
                     ui.printList(tasks);
-                } else if (input.startsWith("mark")) {
-                    markTask(input, taskCount, tasks);
+                    break;
+                case "mark":
+                    markTask(input, tasks.size(), tasks);
                     storage.saveTasks(tasks);
-                } else if (input.startsWith("unmark")) {
-                    unmarkTask(input, taskCount, tasks);
+                    break;
+                case "unmark":
+                    unmarkTask(input, tasks.size(), tasks);
                     storage.saveTasks(tasks);
-                } else if (input.startsWith("todo")) {
-                    taskCount = todo(input, tasks);
+                    break;
+                case "todo":
+                    todo(input, tasks);
                     storage.saveTasks(tasks);
-                } else if (input.startsWith("deadline")) {
-                    taskCount = deadline(input, tasks);
+                    break;
+                case "deadline":
+                    deadline(input, tasks);
                     storage.saveTasks(tasks);
-                } else if (input.startsWith("event")) {
-                    taskCount = event(input, tasks);
+                    break;
+                case "event":
+                    event(input, tasks);
                     storage.saveTasks(tasks);
-                } else if (input.startsWith("delete")) {
-                    taskList.deleteTask(input, tasks, taskCount);
+                    break;
+                case "delete":
+                    taskList.deleteTask(input, tasks, tasks.size());
                     storage.saveTasks(tasks);
-                }
-                else {
+                    break;
+                default:
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
             } catch (lovespiritualException e) {
