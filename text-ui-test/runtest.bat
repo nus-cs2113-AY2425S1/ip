@@ -19,3 +19,6 @@ java -classpath ..\bin jeremy.Jeremy < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM deletes stores data
+rmdir /s /q "./data"

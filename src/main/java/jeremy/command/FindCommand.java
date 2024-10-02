@@ -29,8 +29,8 @@ public class FindCommand extends Command {
         for (Task task : tasks) {
             if (task.contains(argument)) {
                 ui.println(index + "." + task);
-                index++;
             }
+            index++;
         }
         ui.lineBreak();
     }

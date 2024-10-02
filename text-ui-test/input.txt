@@ -8,5 +8,6 @@ list
 unmark 2
 delete 4
 find book
+find meeting
 list
 bye

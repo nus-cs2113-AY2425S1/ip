@@ -72,6 +72,10 @@ Here are the matching tasks in your list:
 2.[D][ ] return book (by: Jun 6 2024)
 ________________________________________
 ________________________________________
+Here are the matching tasks in your list:
+3.[E][ ] project meeting (from: Aug 6 2024 to: Aug 7 2024)
+________________________________________
+________________________________________
 1.[T][X] read book
 2.[D][ ] return book (by: Jun 6 2024)
 3.[E][ ] project meeting (from: Aug 6 2024 to: Aug 7 2024)
