@@ -45,6 +45,17 @@ public class Parser {
     }
 
     /**
+     * Extracts the keyword as a String from the user input for find command.
+     *
+     * @param userInput The user's input string.
+     * @return The keyword extracted from input.
+     */
+    public static String obtainKeyword(String userInput) {
+        String[] words = userInput.split(" ");
+        return words[1].trim();
+    }
+
+    /**
      * Processes user input in a loop until the user exits.
      * Handles different commands like "list", "mark", "add", "delete", etc.
      * Catches and displays appropriate error messages for invalid input, empty list, invalid task number, insufficient space, and I/O exceptions.
@@ -89,6 +100,10 @@ public class Parser {
 
                 case "delete":
                     TaskList.deleteTask(obtainTaskNum(userInput));
+                    break;
+
+                case "find":
+                    TaskList.getTasksByKeyword(obtainKeyword(userInput));
                     break;
 
                 default:
