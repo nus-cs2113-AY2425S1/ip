@@ -1,9 +1,9 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Deadlines;
-import nateh.classes.Task;
-import nateh.storage.TaskEncoder;
+import constants.Skeleton;
+import tasks.Deadlines;
+import tasks.Task;
+import storage.TaskEncoder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ public class DeadlineCommand extends Command {
     public void execute(ArrayList<Task> taskList) {
         try {
             taskList.add(deadline);
-            TaskEncoder.addTask(taskList.getLast().toString());
+            TaskEncoder.addTask(taskList.get(taskList.size() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
             System.out.print("added: ");
-            taskList.getLast().print();
+            taskList.get(taskList.size() - 1).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));

@@ -1,8 +1,8 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Task;
-import nateh.exceptions.IllegalCommandException;
+import constants.Skeleton;
+import tasks.Task;
+import exceptions.IllegalCommandException;
 
 import java.util.ArrayList;
 

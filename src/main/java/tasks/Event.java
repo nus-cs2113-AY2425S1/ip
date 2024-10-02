@@ -1,4 +1,4 @@
-package nateh.classes;
+package tasks;
 
 public class Event extends Task {
     private String from;

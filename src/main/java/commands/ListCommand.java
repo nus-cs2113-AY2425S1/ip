@@ -1,11 +1,11 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Task;
+import constants.Skeleton;
+import tasks.Task;
 
 import java.util.ArrayList;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     @Override
     public void execute(ArrayList<Task> taskList) {
         System.out.print(Skeleton.LINE_BREAK);
@@ -14,7 +14,5 @@ public class ListCommand extends Command{
             taskList.get(i).print();
         }
         System.out.print(Skeleton.LINE_BREAK);
-    }
-    public ListCommand() {
     }
 }

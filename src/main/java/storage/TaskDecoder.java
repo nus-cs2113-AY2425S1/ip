@@ -1,9 +1,9 @@
-package nateh.storage;
+package storage;
 
-import nateh.classes.Deadlines;
-import nateh.classes.Event;
-import nateh.classes.Task;
-import nateh.classes.Todo;
+import tasks.Deadlines;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;

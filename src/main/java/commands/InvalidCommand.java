@@ -1,7 +1,7 @@
-package nateh.commands;
+package commands;
 
-import nateh.classes.Task;
-import nateh.exceptions.IllegalCommandException;
+import tasks.Task;
+import exceptions.IllegalCommandException;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package nateh.classes;
+package tasks;
 
 public class Todo extends Task {
     public Todo(String task, boolean isDone) {

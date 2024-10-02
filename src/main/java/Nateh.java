@@ -1,18 +1,15 @@
-package nateh;
-
-import nateh.classes.Deadlines;
-import nateh.classes.Event;
-import nateh.classes.Task;
-import nateh.classes.Todo;
-import nateh.commands.Command;
-import nateh.exceptions.IllegalCommandException;
-import nateh.parser.Parser;
-import nateh.storage.TaskDecoder;
-import nateh.storage.TaskEncoder;
-
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import constants.Skeleton;
+import tasks.Task;
+import commands.Command;
+import exceptions.IllegalCommandException;
+import parser.Parser;
+import storage.TaskDecoder;
+import storage.TaskEncoder;
+
 
 public class Nateh {
 

@@ -1,4 +1,4 @@
-package nateh.classes;
+package tasks;
 
 public class Task {
     protected static int length = 0;

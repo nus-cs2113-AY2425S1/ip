@@ -1,12 +1,13 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Task;
-import nateh.storage.TaskEncoder;
+import constants.Skeleton;
+import tasks.Task;
+import storage.TaskEncoder;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private int index;
     @Override
     public void execute(ArrayList<Task> taskList) {
@@ -14,26 +15,26 @@ public class UnmarkCommand extends Command {
             if (taskList.isEmpty()) {
                 throw new NullPointerException();
             }
-            taskList.get(index).setDone(false);
-            TaskEncoder.unmarkTask(index);
+            taskList.get(index).setDone(true);
+            TaskEncoder.markTask(index);
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Aw you didn't get to finish. :(");
+            System.out.println("Wow! Great job! :)");
             taskList.get(index).print();
             System.out.print(Skeleton.LINE_BREAK);
         } catch (NumberFormatException e) {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Woah, that wasn't a number?");
-            System.out.println("format: unmark <number>");
+            System.out.println("format: mark <number>");
             System.out.print(Skeleton.LINE_BREAK);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Uh oh. I think you didn't input a number :/ ");
-            System.out.println("format: unmark <number>");
+            System.out.println("format: mark <number>");
             System.out.print(Skeleton.LINE_BREAK);
         } catch (NullPointerException e) {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Uh oh. I think you gave too big a number :/ ");
-            System.out.println("format: unmark <number smaller than number of tasks>");
+            System.out.println("format: mark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
         } catch (IOException e) {
             System.out.print(Skeleton.LINE_BREAK);
@@ -41,7 +42,7 @@ public class UnmarkCommand extends Command {
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 }

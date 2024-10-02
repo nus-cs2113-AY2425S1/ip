@@ -1,5 +1,4 @@
-package nateh.storage;
-import nateh.Skeleton;
+package storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import constants.Skeleton;
+
 
 
 public class TaskEncoder {
@@ -35,10 +37,10 @@ public class TaskEncoder {
         }
     }
     public static void addTask(String text) throws IOException {
-            FileWriter writer = new FileWriter(pathName, true);
-            writer.write(text);
-            writer.write(System.lineSeparator());
-            writer.close();
+        FileWriter writer = new FileWriter(pathName, true);
+        writer.write(text);
+        writer.write(System.lineSeparator());
+        writer.close();
     }
     public static void markTask(int index) throws IOException {
         File tasks = new File(pathName);
@@ -50,7 +52,6 @@ public class TaskEncoder {
         tempList.set(index, tempList.get(index).replace("false", "true"));
         FileWriter writer = new FileWriter(pathName, false);
         for (String line : tempList) {
-            System.out.println(line);
             writer.write(line + System.lineSeparator());
         }
         writer.close();
@@ -65,12 +66,11 @@ public class TaskEncoder {
         tempList.set(index, tempList.get(index).replace("true", "false"));
         FileWriter writer = new FileWriter(pathName, false);
         for (String line : tempList) {
-            System.out.println(line);
             writer.write(line + System.lineSeparator());
         }
         writer.close();
     }
-    public static void deleteTask(int index) throws IOException{
+    public static void deleteTask(int index) throws IOException {
         File tasks = new File(pathName);
         Scanner input = new Scanner(tasks);
         ArrayList<String> tempList = new ArrayList<>();
@@ -81,7 +81,6 @@ public class TaskEncoder {
         tempList.remove(index);
         FileWriter writer = new FileWriter(pathName, false);
         for (String line : tempList) {
-            System.out.println(line);
             writer.write(line + System.lineSeparator());
         }
         writer.close();

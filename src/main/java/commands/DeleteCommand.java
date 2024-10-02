@@ -1,8 +1,8 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Task;
-import nateh.storage.TaskEncoder;
+import constants.Skeleton;
+import tasks.Task;
+import storage.TaskEncoder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             System.out.print(Skeleton.LINE_BREAK);
             System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
             System.out.print(Skeleton.LINE_BREAK);
-        }  catch (IOException e) {
+        } catch (IOException e) {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("Seems like an error occurred");
             System.out.print((Skeleton.LINE_BREAK));

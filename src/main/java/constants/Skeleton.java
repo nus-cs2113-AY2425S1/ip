@@ -1,4 +1,4 @@
-package nateh;
+package constants;
 
 public class Skeleton {
     public static final String SKELETON = """

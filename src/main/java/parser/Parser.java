@@ -1,10 +1,10 @@
-package nateh.parser;
+package parser;
 
-import nateh.classes.Deadlines;
-import nateh.classes.Event;
-import nateh.classes.Task;
-import nateh.classes.Todo;
-import nateh.commands.*;
+import tasks.Deadlines;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+import commands.*;
 import java.util.ArrayList;
 
 public class Parser {

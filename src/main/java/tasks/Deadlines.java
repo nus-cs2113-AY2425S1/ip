@@ -1,4 +1,4 @@
-package nateh.classes;
+package tasks;
 
 public class Deadlines extends Task {
     private String deadline;

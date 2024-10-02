@@ -1,9 +1,10 @@
-package nateh.commands;
+package commands;
 
-import nateh.Skeleton;
-import nateh.classes.Task;
-import nateh.classes.Todo;
-import nateh.storage.TaskEncoder;
+
+import constants.Skeleton;
+import tasks.Task;
+import tasks.Todo;
+import storage.TaskEncoder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ public class TodoCommand extends Command {
     public void execute(ArrayList<Task> taskList) {
         try {
             taskList.add(todo);
-            TaskEncoder.addTask(taskList.getLast().toString());
+            TaskEncoder.addTask(taskList.get(taskList.size() - 1).toString());
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("added: " + taskList.getLast().getTask());
+            System.out.println("added: " + taskList.get(taskList.size() - 1).getTask());
             System.out.print(Skeleton.LINE_BREAK);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print((Skeleton.LINE_BREAK));
