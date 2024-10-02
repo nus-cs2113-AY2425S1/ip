@@ -1,8 +1,3 @@
----
-layout: default
-title: Jeremy user guide
----
-
 # Jeremy user guide
 
 Jeremy is a Command Line Interface(CLI) for keeping track of upcoming tasks. 
