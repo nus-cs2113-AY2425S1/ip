@@ -1,5 +1,10 @@
 package apsea.task;
 
+/**
+ * Represents a task in the task list.
+ * <code>description</code> represents the description or name of the task.
+ * <code>isDone</code> represents the completion status of the task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

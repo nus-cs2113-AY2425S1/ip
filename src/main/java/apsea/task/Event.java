@@ -1,5 +1,11 @@
 package apsea.task;
 
+/**
+ * Represents an event task
+ * <code>from</code> represents the start date and time of the task.
+ * <code>to</code> represents the end date and time of the task.
+ */
+
 public class Event extends Task{
     private String from;
     private String to;
@@ -10,6 +16,7 @@ public class Event extends Task{
         this.to = to;
     }
 
+    /* Constructor with completion status */
     public Event(String description, boolean isDone, String from, String to) {
         super(description);
         this.isDone = isDone;

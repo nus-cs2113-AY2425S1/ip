@@ -34,6 +34,13 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parsers user's information to an array of Strings to return the relevant commands to be executed.
+     *
+     * @param fullCommand User's full input.
+     * @return Command to be executed based on user's input.
+     * @throws ApseaException if user's input does not start with the expected expressions.
+     */
     public Command parse(String fullCommand) throws ApseaException {
         String[] words = fullCommand.split(" ");
         switch (words[0].toLowerCase()) {

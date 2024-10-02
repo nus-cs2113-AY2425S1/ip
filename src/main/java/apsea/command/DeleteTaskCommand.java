@@ -5,6 +5,10 @@ import apsea.task.Task;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
+/**
+ * Represents a command to delete a task to the task list.
+ * <code>words</code> represents an array of words user's input.
+ */
 public class DeleteTaskCommand extends Command {
     private String[] words;
     private String DELETE_FORMAT_ERROR = "\tSorry, please use the format:\n"
@@ -14,6 +18,13 @@ public class DeleteTaskCommand extends Command {
         this.words = words;
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskList List of tasks.
+     * @param ui Ui for displaying messages.
+     * @throws ApseaException if input is not an integer, empty or out of range.
+     */
     @Override
     public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
         try {
