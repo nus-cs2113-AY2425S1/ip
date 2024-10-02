@@ -238,6 +238,31 @@ public class Ronaldo {
         }
     }
 
-
+    /**
+     * Works hand in hand with GoalList's method findMatchingGoals().
+     * However, keyword cannot be completely empty (I.e, Not even spaces are included for keyword).
+     *
+     * @param words contains keywords that are to be matched.
+     * returns list of matching goals. A prompt will be given if list is empty.
+     */
+    public void find(String words) throws RonaldoException {
+        String[] input = words.split("find ", 2);
+        if (input.length < 2) {
+            throw new RonaldoException("Find");
+        }
+        String keyword = input[1];
+        if (keyword.trim().isEmpty()) {
+            throw new RonaldoException("Find");
+        }
+        List<Goal> matchingGoals = goalList.findMatchingGoals(keyword);
+        if (matchingGoals.isEmpty()) {
+            System.out.println("Woops, no matching goals found.");
+        } else {
+            System.out.println("Here are the matching goals found in the list:\n");
+            for (Goal goal : matchingGoals) {
+                System.out.println(goal);
+            }
+        }
+    }
 
 }
