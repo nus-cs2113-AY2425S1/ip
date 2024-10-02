@@ -172,7 +172,7 @@ public class Deadline extends Task {
     @Override
     public String toDataString() {
         return "D | " + getStatusForStorage() + " | " + description + " | "
-                + (dueDateTime != null ? dueDateTime.toDataString() : by);
+                + (dueDateTime != null ? dueDateTime.format() : by);
     }
 
     /**
@@ -221,26 +221,6 @@ public class Deadline extends Task {
                 return formatDateWithOrdinal(date);
             } else if (time != null) {
                 return formatTime(time);
-            } else {
-                return "";
-            }
-        }
-
-        /**
-         * Serializes the parsed date/time into a string for storage.
-         *
-         * @return The serialized date/time string.
-         */
-        public String toDataString() {
-            if (dateTime != null) {
-                // Prefix with "DT:" to indicate LocalDateTime
-                return "DT:" + dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            } else if (date != null) {
-                // Prefix with "D:" to indicate LocalDate
-                return "D:" + date.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            } else if (time != null) {
-                // Prefix with "T:" to indicate LocalTime
-                return "T:" + time.format(DateTimeFormatter.ISO_LOCAL_TIME);
             } else {
                 return "";
             }
