@@ -2,7 +2,17 @@ package lovespiritual;
 
 import lovespiritual.exception.lovespiritualException;
 
+/**
+ * Handles user input and determines the command to execute.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the appropriate command.
+     *
+     * @param input User input string.
+     * @return A string representing the command to execute.
+     * @throws lovespiritualException If the command is not recognised by the function.
+     */
     public static String parseCommand(String input) throws lovespiritualException {
         String command = input.trim().toLowerCase();
         if (command.equals("bye")) {
