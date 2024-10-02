@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * It is responsible for reading and writing task data to the hard disk.
  */
 public class Storage {
+    private final String horizontalLine = "____________________________________________________________";
     private final String filePath;
     private final ArrayList<Task> tasks;
 
@@ -47,6 +48,8 @@ public class Storage {
         } catch (BlossomException | FileNotFoundException e) {
             System.out.println("Data file not found! Creating a new one....");
             new File("./data").mkdirs();
+            System.out.println("Data file created!");
+            System.out.println(horizontalLine);
         }
     }
 
