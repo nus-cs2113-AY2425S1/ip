@@ -20,6 +20,12 @@ public class lovespiritual {
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Constructor initialises task manager with the specified file path.
+     * Loads tasks from storage and displays the welcome screen.
+     *
+     * @param filePath Path to the file where the list of tasks are stored.
+     */
     public lovespiritual(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
