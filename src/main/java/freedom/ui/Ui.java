@@ -31,6 +31,16 @@ public class Ui {
         printTailDivider();
     }
 
+    public void printInvalidDateTime() {
+        printHeadDivider();
+        System.out.print("""
+                \tDate and/or Time is not correctly formatted!
+                \tUse this: dd/mm/yyyy hhmm
+                \tYou can use placeholders like 0000 if the time is not specified.
+                """);
+        printTailDivider();
+    }
+
     public void printHeadDivider() {
         System.out.print(DIVIDER);
     }

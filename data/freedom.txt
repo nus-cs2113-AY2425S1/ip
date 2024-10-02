@@ -1,7 +1,8 @@
 T |   | build gundam
-E | X | exam | 1000 | 1200
-D | X | tutorial assignment | 6 oct
 T | X | shoot
 T |   | assignment
-E | X | test | 10/10 | 11/10
-D |   | application | 15/10/2024
+T |   | test
+D |   | tutorial | 10 Oct 2024 1800
+T | X | shower
+D | X | quiz | 29 Sep 2024 2359
+E |   | concert | 11 Oct 2024 1800 | 11 Oct 2024 2100

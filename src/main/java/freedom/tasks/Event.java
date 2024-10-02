@@ -1,11 +1,15 @@
 package freedom.tasks;
 
 import freedom.exceptions.DescriptionEmpty;
+import freedom.exceptions.InvalidDateTime;
 import freedom.exceptions.TimeEmpty;
+import freedom.user.DateParser;
+
+import java.time.LocalDateTime;
 
 public class Event extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description) throws Exception {
         super(description);
@@ -41,23 +45,31 @@ public class Event extends Task{
     }
 
     public void setFrom(String from) {
-        this.from = from;
+        try {
+            this.from = DateParser.convertToDateTime(from);
+        } catch (InvalidDateTime e) {
+            ui.printInvalidDateTime();
+        }
     }
 
     public String getFrom() {
-        return from;
+        return DateParser.convertToString(from);
     }
 
     public void setTo(String to) {
-        this.to = to;
+        try {
+            this.to = DateParser.convertToDateTime(to);
+        } catch (InvalidDateTime e) {
+            ui.printInvalidDateTime();
+        }
     }
 
     public String getTo() {
-        return to;
+        return DateParser.convertToString(to);
     }
 
     public String generateTaskLine() {
-        return "[E]" + super.generateTaskLine() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.generateTaskLine() + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 
     public String generateStorageLine() {
