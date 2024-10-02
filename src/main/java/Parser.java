@@ -122,7 +122,7 @@ public class Parser {
      * @throws IOException if an error occurs while saving tasks
      */
     private void addTodoTask(String input) throws IOException {
-        if (input.length() == 5){
+        if (input.length() == 5){ // Ensures user dont enter empty 'todo' task. Will cause load issues.
             ui.showInputError();
             return;
         }
@@ -183,6 +183,10 @@ public class Parser {
      * @throws IOException if an error occurs while saving tasks
      */
     private void addGenericTask(String input) throws IOException {
+        if (input.isEmpty()){
+            ui.showInputError();
+            return;
+        }
         Task newTask = new Task(input);
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask, tasks.getSize());
