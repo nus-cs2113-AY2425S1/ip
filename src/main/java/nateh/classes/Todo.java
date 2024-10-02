@@ -1,16 +1,12 @@
-package classes;
+package nateh.classes;
 
 public class Todo extends Task {
-
-    public Todo(String input) {
-        super(input.substring(!input.contains(" ") ? -1 : input.indexOf(" ") + 1));
-    }
-
     public Todo(String task, boolean isDone) {
         super(task, isDone);
     }
-
-
+    public Todo(String task) {
+        super(task);
+    }
     public String getTypeMarker() {
         return "[T]";
     }

@@ -1,4 +1,4 @@
-package classes;
+package nateh.classes;
 
 public class Event extends Task {
     private String from;
@@ -8,12 +8,6 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-    }
-
-    public Event(String input) {
-        super(input.substring(input.indexOf(" ") + 1, input.indexOf("/from") - 1));
-        this.from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
-        this.to = input.substring(input.indexOf("/to") + 4);
     }
 
     public Event(String task, boolean isDone, String to, String from) {

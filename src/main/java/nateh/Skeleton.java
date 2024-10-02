@@ -1,3 +1,5 @@
+package nateh;
+
 public class Skeleton {
     public static final String SKELETON = """
                 

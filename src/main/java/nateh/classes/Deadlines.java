@@ -1,4 +1,4 @@
-package classes;
+package nateh.classes;
 
 public class Deadlines extends Task {
     private String deadline;
@@ -10,11 +10,6 @@ public class Deadlines extends Task {
     public Deadlines(String task, boolean isDone, String deadline) {
         super(task, isDone);
         this.deadline = deadline;
-    }
-
-    public Deadlines(String input) {
-        super(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1));
-        this.deadline = input.substring(input.indexOf("/by") + 4);
     }
 
     public String getDeadline() {
