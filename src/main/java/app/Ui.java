@@ -2,6 +2,12 @@ package app;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class handles all interactions with the user.
+ * It reads user input, displays welcome and exit messages,
+ * and manages the interface of the JeM chatbot.
+ */
+
 public class Ui {
 
     private Scanner scanner;

@@ -1,6 +1,10 @@
 package tasks;
 
-import java.time.LocalDate;
+/**
+ * The Task class represents a task with a description and a completion status.
+ * It provides methods to retrieve the task details, mark the task as done or not done,
+ * and convert the task into a format suitable for saving to a file.
+ */
 
 public class Task {
     private String task;

@@ -9,11 +9,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The AddDeadlineCommand class handles the creation of a deadline task based on the user's input.
+ * It parses the task description and deadline date from the input, validates them, and adds the task
+ * to storage if valid.
+ */
+
 public class AddDeadlineCommand extends AddCommand {
 
     public AddDeadlineCommand(String userInput) {
         super(userInput);
     }
+
+    /**
+     * Executes the add deadline command by parsing the user input to create a new Deadline task.
+     * The task description and deadline date are extracted from the input and validated.
+     * If valid, the task is inserted into storage. If invalid, an exception is thrown.
+     *
+     * @param storage The storage object that manages the task list.
+     * @throws InvalidCommandException If the task description or deadline is invalid or in the wrong format.
+     */
 
     @Override
     public void execute(Storage storage) throws InvalidCommandException {

@@ -1,8 +1,14 @@
 package tasks;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Event class represents a task that occurs during a specific time period.
+ * It extends the Task class and adds start and end times to the task.
+ * This class provides methods to retrieve the start and end times, as well as
+ * to format the task for file storage.
+ */
 
 public class Event extends Task{
     private LocalDateTime start;

@@ -10,11 +10,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The AddEventCommand class handles the creation of an event task based on the user's input.
+ * It parses the task description, start time, and end time from the input, validates them,
+ * and adds the task to storage if valid.
+ */
+
 public class AddEventCommand extends AddCommand {
 
     public AddEventCommand(String userInput) {
         super(userInput);
     }
+
+    /**
+     * Executes the add event command by parsing the user input to create a new Event task.
+     * The task description, start time, and end time are extracted from the input and validated.
+     * If valid, the task is inserted into storage. If invalid, an exception is thrown.
+     *
+     * @param storage The storage object that manages the task list.
+     * @throws InvalidCommandException If the task description, start time, or end time is invalid or in the wrong format.
+     */
 
     @Override
     public void execute(Storage storage) throws InvalidCommandException {
