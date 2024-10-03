@@ -23,6 +23,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + getIcon() + "]" + description;
