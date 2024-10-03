@@ -54,7 +54,6 @@ public class Deadline extends Task {
             // Parse the due date and time into LocalDateTime
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             LocalDateTime dueDateTime = LocalDateTime.parse(byString, inputFormatter);
-            DateTimeFormatter dTF = DateTimeFormatter.ofPattern("dd MMM uuuu h:mma");
     
             // Create and add the new deadline task
             Deadline deadlineTask = new Deadline(description, dueDateTime);

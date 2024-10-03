@@ -19,12 +19,7 @@ import tyrone.task.ToDo;
      */
 
 public class Parser {
-    /**
-     * Main Logic for the Tyrone ChatBot
-     * Each command has its own if else block
-     * @param userInput
-     * @throws TyroneException
-     */
+
     public static void getUserInput(String userInput) throws TyroneException {
         if (userInput.startsWith("mark ")) {
             int index = Integer.parseInt(userInput.substring(5)) - 1;
