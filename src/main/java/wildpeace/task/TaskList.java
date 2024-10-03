@@ -118,4 +118,17 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Find all the tasks in the task list that matchers the argument.
+     * @param arguments The input by user.
+     */
+    public void findTask(String arguments) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getDescription().contains(arguments)) {
+                System.out.println(i + 1 + ". " + tasks.get(i));
+            }
+
+        }
+    }
 }

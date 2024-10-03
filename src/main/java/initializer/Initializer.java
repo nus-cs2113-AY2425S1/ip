@@ -20,8 +20,8 @@ public class Initializer {
             Echo.echo(scanner);
             break;
         case "2":
-            TaskManager taskManager = new TaskManager();  // Renamed DataStorage to TaskManager
-            taskManager.run();  // Call run method instead of storeData
+            TaskManager taskManager = new TaskManager();
+            taskManager.run();
             break;
         default:
             System.out.println("Invalid input");

@@ -109,6 +109,12 @@ public class TaskManager {
             case "q":
                 ui.showGuide();
                 break;
+            case "find":
+                if(arguments.isEmpty()) {
+                    throw new EmptyCommandException("The description of a task cannot be empty.");
+                }
+                taskList.findTask(arguments);
+                break;
             default:
                 ui.showError("Unknown command.");
             }
