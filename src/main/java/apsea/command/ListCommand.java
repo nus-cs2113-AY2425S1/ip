@@ -1,5 +1,6 @@
 package apsea.command;
 
+import apsea.storage.Storage;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
@@ -11,7 +12,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void runCommand(TaskList taskList, Ui ui) {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
         ui.printTasks(taskList);
     }
 }

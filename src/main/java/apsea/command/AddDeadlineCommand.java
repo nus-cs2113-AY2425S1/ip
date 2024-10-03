@@ -1,6 +1,7 @@
 package apsea.command;
 
 import apsea.exception.ApseaException;
+import apsea.storage.Storage;
 import apsea.task.Deadline;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
@@ -39,7 +40,7 @@ public class AddDeadlineCommand extends Command {
      * @throws ApseaException if user input is not a valid deadline.
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) throws ApseaException {
 
         int byPosition = fullCommand.indexOf("/by");
 
@@ -50,6 +51,7 @@ public class AddDeadlineCommand extends Command {
         taskList.addTask(new Deadline(fullCommand.substring(NAME_POSITION, byPosition),
                 fullCommand.substring(byPosition + 4)));
 
+        storage.saveData(taskList);
         ui.printAddTask(taskList);
         ui.printTotalTaskCount(taskList);
     }

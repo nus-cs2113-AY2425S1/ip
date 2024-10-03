@@ -1,6 +1,7 @@
 package apsea.command;
 
 import apsea.exception.ApseaException;
+import apsea.storage.Storage;
 import apsea.task.TaskList;
 import apsea.task.Todo;
 import apsea.ui.Ui;
@@ -21,18 +22,19 @@ public class AddTodoCommand extends Command {
     /**
      *  Adds new todo to task list.
      *
-     * @param tasklist List of tasks.
+     * @param taskList List of tasks.
      * @param ui Ui for displaying messages.
      * @throws ApseaException if user input is not empty.
      */
     @Override
-    public void runCommand(TaskList tasklist, Ui ui) throws ApseaException {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) throws ApseaException {
         if (fullCommand.length() <= NAME_POSITION) {
             throw new ApseaException(TODO_FORMAT_ERROR);
         }
-        tasklist.addTask(new Todo(fullCommand.substring(NAME_POSITION)) );
+        taskList.addTask(new Todo(fullCommand.substring(NAME_POSITION)) );
 
-        ui.printAddTask(tasklist);
-        ui.printTotalTaskCount(tasklist);
+        storage.saveData(taskList);
+        ui.printAddTask(taskList);
+        ui.printTotalTaskCount(taskList);
     }
 }

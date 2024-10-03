@@ -2,7 +2,6 @@ package apsea.storage;
 
 import apsea.task.Event;
 import apsea.task.Deadline;
-import apsea.task.Task;
 import apsea.task.Todo;
 
 import apsea.task.TaskList;
@@ -11,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -22,6 +20,8 @@ public class Storage {
     private static final String SAVE_FILE_ERROR = "Sorry, there is an issue saving the data file.";
     private static final String SEPARATOR = "; ";
 
+    public Storage() {
+    }
     /**
      * Writes an todo to the task list.
      * The todo created should have a description and completion status
@@ -29,7 +29,7 @@ public class Storage {
      * @param words Array of tokens of a saved todo.
      * @param taskList List of tasks.
      */
-    public static void loadTodo(String [] words, TaskList taskList){
+    public void loadTodo(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
 
@@ -43,7 +43,7 @@ public class Storage {
      * @param words Array of tokens of a saved deadline.
      * @param taskList List of tasks.
      */
-    public static void loadDeadline(String [] words, TaskList taskList){
+    public void loadDeadline(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
         String by = words[3];
@@ -58,7 +58,7 @@ public class Storage {
      * @param words Array of tokens of a saved event.
      * @param taskList List of tasks.
      */
-    public static void loadEvent(String [] words, TaskList taskList){
+    public void loadEvent(String [] words, TaskList taskList){
         boolean isDone = words[1].equals("1");
         String description = words[2];
         String from = words[3];
@@ -73,7 +73,7 @@ public class Storage {
      * @param taskList List of tasks.
      * @throws FileNotFoundException if data file does not exist.
      */
-    public static void loadData(TaskList taskList) throws FileNotFoundException {
+    public void loadData(TaskList taskList) throws FileNotFoundException {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
@@ -99,7 +99,7 @@ public class Storage {
      *
      * @param taskList List of tasks.
      */
-    public static void loadFile(TaskList taskList) {
+    public void loadFile(TaskList taskList) {
         try {
             File dir = new File(FILE_DIR);
             File f = new File(FILE_PATH);
@@ -123,7 +123,7 @@ public class Storage {
      *
      * @param taskList List of tasks.
      */
-    public static void saveData(TaskList taskList) {
+    public void saveData(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (int i = 0; i < taskList.getTotal(); i++) {

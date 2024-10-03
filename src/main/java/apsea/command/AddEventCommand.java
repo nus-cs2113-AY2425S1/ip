@@ -1,6 +1,7 @@
 package apsea.command;
 
 import apsea.exception.ApseaException;
+import apsea.storage.Storage;
 import apsea.task.Event;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
@@ -46,7 +47,7 @@ public class AddEventCommand extends Command {
      * @throws ApseaException if input is empty or of wrong format.
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) throws ApseaException {
 
         int fromPosition = fullCommand.indexOf("/from");
         int toPosition = fullCommand.indexOf("/to");
@@ -59,6 +60,7 @@ public class AddEventCommand extends Command {
                 fullCommand.substring(fromPosition + 6, toPosition - 1),
                 fullCommand.substring(toPosition + 4)));
 
+        storage.saveData(taskList);
         ui.printAddTask(taskList);
         ui.printTotalTaskCount(taskList);
     }

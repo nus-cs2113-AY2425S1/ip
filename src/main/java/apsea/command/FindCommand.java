@@ -1,6 +1,7 @@
 package apsea.command;
 
 import apsea.exception.ApseaException;
+import apsea.storage.Storage;
 import apsea.task.Task;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
@@ -17,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void runCommand(TaskList taskList, Ui ui) throws ApseaException {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) throws ApseaException {
         if (fullCommand.length() <= SEARCH_POSITION) {
             throw new ApseaException(FIND_FORMAT_ERROR);
         }
@@ -26,10 +27,13 @@ public class FindCommand extends Command {
         for (Task task: taskList.getTaskList()) {
             String lowerCaseQuery = query.toLowerCase();
             String lowerCaseDescription = (task.getDescription()).toLowerCase();
-            if (lowerCaseDescription.contains(lowerCaseQuery)) {
-                int taskNumber = taskList.getTaskIndex(task) + 1;
-                ui.printFindMatch(task, taskNumber);
+
+            if (!lowerCaseDescription.contains(lowerCaseQuery)) {
+                continue;
             }
+
+            int taskNumber = taskList.getTaskIndex(task) + 1;
+            ui.printFindMatch(task, taskNumber);
         }
     }
 }

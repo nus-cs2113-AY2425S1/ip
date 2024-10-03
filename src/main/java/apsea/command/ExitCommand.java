@@ -1,5 +1,6 @@
 package apsea.command;
 
+import apsea.storage.Storage;
 import apsea.task.TaskList;
 import apsea.ui.Ui;
 
@@ -11,8 +12,10 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void runCommand(TaskList taskList, Ui ui) {
+    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
         this.isExit = true;
+
+        storage.saveData(taskList);
         ui.printBye();
     }
 
