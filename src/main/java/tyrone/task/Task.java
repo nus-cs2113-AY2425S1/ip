@@ -2,6 +2,10 @@ package tyrone.task;
 
 import tyrone.constants.Constants;
 
+/**
+ * Base Class for the different types of Tasks
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;

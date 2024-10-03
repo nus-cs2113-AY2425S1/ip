@@ -16,11 +16,8 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-src/main/java/Tyrone.class
-src/main/java/*class
-src/main/java/tyrone/task/*class
-src/main/java/tyrone/constants/*class
 *.class
 
 src/main/java/data/Tasks.txt
+
 ip.jar

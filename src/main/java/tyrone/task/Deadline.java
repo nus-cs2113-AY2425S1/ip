@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline specific functions.
+ */
+
 public class Deadline extends Task {
     protected String doBy;
     protected LocalDateTime dueDateTime;
@@ -49,7 +53,7 @@ public class Deadline extends Task {
         try {
             // Parse the due date and time into LocalDateTime
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            LocalDateTime dueDateTime = LocalDateTime.parse(byString, inputFormatter); // Correctly parse the string
+            LocalDateTime dueDateTime = LocalDateTime.parse(byString, inputFormatter);
             DateTimeFormatter dTF = DateTimeFormatter.ofPattern("dd MMM uuuu h:mma");
     
             // Create and add the new deadline task

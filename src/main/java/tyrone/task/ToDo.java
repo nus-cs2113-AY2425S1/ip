@@ -2,6 +2,10 @@ package tyrone.task;
 
 import tyrone.constants.Constants;
 
+/**
+ * Todo specific functions.
+ */
+
 public class ToDo extends Task {
 
     public ToDo(String description) {
