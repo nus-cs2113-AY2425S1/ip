@@ -1,6 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import taskmanager.*;
+
+import taskmanager.Deadline;
+import taskmanager.Event;
+import taskmanager.FileManager;
+import taskmanager.RyanException;
+import taskmanager.Task;
+import taskmanager.Todo;
+import taskmanager.Utils;
 
 public class Ryan {
 
@@ -53,7 +60,7 @@ public class Ryan {
                         break;
 
                     default:
-                        defaultCase();
+                        handleDefaultCase();
                         break;
                 }
                 FileManager.saveTasks(tasks);
@@ -72,7 +79,7 @@ public class Ryan {
         Utils.horizontalLine();
     }
 
-    private static void defaultCase() {
+    private static void handleDefaultCase() {
         Utils.horizontalLine();
         System.out.println("Invalid command");
         Utils.horizontalLine();
