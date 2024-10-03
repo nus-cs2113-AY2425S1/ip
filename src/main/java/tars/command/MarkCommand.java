@@ -4,7 +4,7 @@ import tars.userinterface.UserInterface;
 import tars.tasklist.TaskList;
 import tars.storage.Storage;
 import tars.task.Task;
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws tarsException {
+    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException {
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
         ui.showTaskDone(task);

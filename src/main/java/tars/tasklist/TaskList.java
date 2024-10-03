@@ -1,6 +1,6 @@
 package tars.tasklist;
 
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 import tars.task.Task;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,10 @@ public class TaskList {
     // 构造函数，初始化一个空的任务列表
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     // 获取任务列表
@@ -24,17 +28,17 @@ public class TaskList {
     }
 
     // 获取指定索引的任务，如果索引超出范围，抛出异常
-    public Task getTask(int index) throws tarsException {
+    public Task getTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new tarsException("Task number out of range.");
+            throw new TarsException("Task number out of range.");
         }
         return tasks.get(index);
     }
 
     // 删除指定索引的任务，并返回该任务；如果索引超出范围，抛出异常
-    public Task deleteTask(int index) throws tarsException {
+    public Task deleteTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new tarsException("Task number out of range.");
+            throw new TarsException("Task number out of range.");
         }
         return tasks.remove(index);
     }
@@ -52,5 +56,15 @@ public class TaskList {
             }
         }
         return false;  // 如果没有重复任务，返回 false
+    }
+
+    public List<Task> findTasksContainingKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }

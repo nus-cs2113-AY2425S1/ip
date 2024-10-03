@@ -4,7 +4,7 @@ import tars.userinterface.UserInterface;
 import tars.storage.Storage;
 import tars.tasklist.TaskList;
 import tars.task.Task;
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws tarsException {
+    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException {
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
         ui.showTaskNotDone(task);
