@@ -159,6 +159,25 @@ public class TaskList {
         }
     }
 
+    public void listTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found");
+            printHorizontalLine();
+            return;
+        }
+        try {
+            System.out.println("Here are the matching tasks in your list:");
+            int serialNumber = 0;
+            for (Task task : tasks) {
+                serialNumber++;
+                System.out.println(serialNumber + "." + task.toString());
+            }
+            printHorizontalLine();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public Task getTask(String enteredString) throws NumberFormatException, InvalidTaskNumberException {
         int taskNumber = getTaskNumber(enteredString);
         Task task = tasks.get(taskNumber - 1);
@@ -181,5 +200,12 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public void findTask(String searchItem) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+
+        }
     }
 }
