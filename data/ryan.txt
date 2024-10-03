@@ -1,2 +1,0 @@
-D | 1 |  | tmr
-E | 0 | andre | now | sleep
