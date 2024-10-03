@@ -1,5 +1,4 @@
 package bob.ui;
-
 import bob.command.Command;
 import bob.command.AddTodoCommand;
 import bob.command.AddDeadlineCommand;
@@ -9,6 +8,7 @@ import bob.command.UnmarkCommand;
 import bob.command.DeleteCommand;
 import bob.command.ListCommand;
 import bob.command.ExitCommand;
+import bob.command.FindCommand;
 
 public class Parser {
     private static final String COMMAND_TODO = "todo";
@@ -19,6 +19,7 @@ public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_FIND = "find";
     private static final Ui UI = new Ui();
 
     public static Command parse(String fullCommand) {
@@ -41,6 +42,8 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(commandParts[1]) - 1);
             case COMMAND_LIST:
                 return new ListCommand();
+            case COMMAND_FIND:
+                return new FindCommand(commandParts[1]);
             case COMMAND_BYE:
                 return new ExitCommand();
             default:

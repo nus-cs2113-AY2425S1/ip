@@ -1,6 +1,7 @@
 package bob.ui;
 import bob.task.Task;
 import bob.task.TaskList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -118,5 +119,16 @@ public class Ui {
 
     public void printInvalidCommand() {
         System.out.println("Sorry! This is an invalid command. I don't understand what you mean.");
+    }
+
+    public void showMatchingTasks(List<Task> taskList, List<Integer> matchingIndices) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (Integer index : matchingIndices) {
+            System.out.println((index + 1) + "." + taskList.get(index));
+        }
+    }
+
+    public void printNoMatchingTasks() {
+        System.out.println("Sorry! There are no matching tasks in your list.");
     }
 }

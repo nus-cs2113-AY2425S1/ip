@@ -1,16 +1,13 @@
 package bob.storage;
-
 import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
