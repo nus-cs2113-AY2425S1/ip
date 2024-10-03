@@ -7,8 +7,11 @@ public class Ui extends Functions{
                 "1. Add tasks: I can add tasks to your task list.",
                 "   - Type command: <task>",
                 "   - Type command: todo <task>",
-                "   - Type command: deadline <task> /by <date>",
-                "   - Type command: event <task> /from <day> <start time> /to <end time>",
+                "   - Type command: deadline <task> /by <deadline>",
+                "   - Type command: deadline <task> /by <date in dd-MM-yyyy> <time in HHmm>",
+                "   - Type command: event <task> /from <start> /to <end>",
+                "   - Type command: event <task> /from <date in dd-MM-yyyy> <time in HHmm>" +
+                        " /to <date in dd-MM-yyyy> <time in HHmm>",
                 "2. Mark tasks as done:",
                 "   - Type command: mark <task number>",
                 "3. Mark tasks as not done:",

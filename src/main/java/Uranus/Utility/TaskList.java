@@ -4,7 +4,7 @@ import Uranus.Tasks.Deadlines;
 import Uranus.Tasks.Events;
 import Uranus.Tasks.Task;
 import Uranus.Tasks.ToDos;
-import UranusExceptions.EmptyCommandException;
+import UranusExceptions.EmptyDescriptionException;
 import UranusExceptions.EmptyInputExceptions;
 import UranusExceptions.IllegalCommandException;
 import UranusExceptions.UranusExceptions;
@@ -92,7 +92,7 @@ public class TaskList extends Functions{
     protected static void handleFind(String input) {
         try {
             if (input.trim().equals(Parser.FIND_COMMAND)){
-                throw new EmptyCommandException();
+                throw new EmptyDescriptionException();
             }
             String[] str = input.split(" ");
             String taskToFind = str[1];

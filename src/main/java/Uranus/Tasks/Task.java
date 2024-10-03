@@ -1,7 +1,7 @@
 package Uranus.Tasks;
 
 import UranusExceptions.UranusExceptions;
-import UranusExceptions.EmptyCommandException;
+import UranusExceptions.EmptyDescriptionException;
 
 public class Task {
     protected String description;
@@ -45,7 +45,7 @@ public class Task {
         return taskTag;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws UranusExceptions {
         this.description = description;
     }
 
@@ -53,7 +53,7 @@ public class Task {
         int separatorIndex = description.indexOf(' ');
         this.description = description.substring(separatorIndex + 1).trim();
         if (this.description.equals(description) || this.description.isEmpty()){
-            throw new EmptyCommandException();
+            throw new EmptyDescriptionException();
         }
     }
 

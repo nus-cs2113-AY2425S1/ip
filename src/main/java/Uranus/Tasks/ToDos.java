@@ -10,7 +10,7 @@ public class ToDos extends Task{
     }
 
     @Override
-    public void setDescription(String description){
+    public void setDescription(String description) throws UranusExceptions{
         super.setDescription(description);
     }
 }

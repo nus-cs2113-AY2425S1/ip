@@ -1,7 +1,7 @@
 package UranusExceptions;
 
-public class EmptyCommandException extends UranusExceptions {
-    public EmptyCommandException() {
+public class EmptyDescriptionException extends UranusExceptions {
+    public EmptyDescriptionException() {
         super();
     }
 

@@ -1,6 +1,8 @@
 package Uranus.Tasks;
 
 import UranusExceptions.UranusExceptions;
+import UranusExceptions.EmptyDescriptionException;
+import UranusExceptions.InvalidDeadlineException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,9 +40,16 @@ public class Deadlines extends Task {
     }
 
     @Override
-    public void setDescription(String description) {
-        String[] str = description.split(DEADLINE_SEPARATOR);
-        setBy(parseDate(str[1].trim()));
-        this.description = str[0] + "(" + DEADLINE_LABEL + getBy() + ")";
+    public void setDescription(String description) throws UranusExceptions {
+        try {
+            String[] str = description.split(DEADLINE_SEPARATOR);
+            setBy(parseDate(str[1].trim()));
+            this.description = str[0] + "(" + DEADLINE_LABEL + getBy() + ")";
+            if (str[0].isEmpty() || by.isEmpty()) {
+                throw new InvalidDeadlineException();
+            }
+        } catch (Exception e) {
+            throw new InvalidDeadlineException();
+        }
     }
 }
