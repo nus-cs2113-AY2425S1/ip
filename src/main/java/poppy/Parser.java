@@ -65,54 +65,57 @@ public class Parser {
         String[] commandArgs = input.split(" ", 2);
         String command = commandArgs[0];
         try {
-            switch (command) {
-                case "delete":
-                    taskList.deleteTask(Integer.parseInt(commandArgs[1]) - 1);  // Adjust for 0-based index
-                    System.out.println("Task deleted.");
-                    break;
-                case "mark":
-                    markAsDone(taskList.getTasks(), commandArgs);
-                    break;
-                case "unmark":
-                    markAsNotDone(taskList.getTasks(), commandArgs);
-                    break;
-                case "List":
-                    taskList.showTasks();
-                    break;
-                case "todo":
-                    if (commandArgs.length < 2) {
-                        throw new CustomExceptions.MissingArgsException("Description of ToDo cannot be empty");
-                    }
-                    ToDo todo = new ToDo(commandArgs[1]);
-                    taskList.addTask(todo);
-                    System.out.println(todo.toString());
-                    System.out.println("You now have " + taskList.getSize() + " tasks");
-                    break;
-                case "deadline":
-                    if (commandArgs.length < 2) {
-                        throw new CustomExceptions.MissingArgsException("Description of Deadline cannot be empty");
-                    }
-                    String[] deadlinestring = commandArgs[1].split("/by", 2);
-                    Deadline deadline = new Deadline(deadlinestring[0].trim(), deadlinestring[1].trim());
-                    taskList.addTask(deadline);
-                    System.out.println(deadline.toString());
-                    System.out.println("You now have " + taskList.getSize() + " tasks");
-                    break;
-                case "event":
-                    if (commandArgs.length < 2) {
-                        throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
-                    }
-                    String[] eventstring = commandArgs[1].split("/from", 2);
-                    Events event = new Events(eventstring[0].trim(), eventstring[1].trim());
-                    taskList.addTask(event);
-                    System.out.println(event.toString());
-                    System.out.println("You now have " + taskList.getSize() + " tasks");
-                    break;
-                case "Bye":
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid command");
+        switch (command) {
+        case "delete":
+            taskList.deleteTask(Integer.parseInt(commandArgs[1]) - 1);  // Adjust for 0-based index
+            System.out.println("Task deleted.");
+            break;
+        case "mark":
+            markAsDone(taskList.getTasks(), commandArgs);
+            break;
+        case "unmark":
+            markAsNotDone(taskList.getTasks(), commandArgs);
+            break;
+        case "List":
+            taskList.showTasks();
+            break;
+        case "todo":
+            if (commandArgs.length < 2) {
+                throw new CustomExceptions.MissingArgsException("Description of ToDo cannot be empty");
             }
+            ToDo todo = new ToDo(commandArgs[1]);
+            taskList.addTask(todo);
+            System.out.println(todo.toString());
+            System.out.println("You now have " + taskList.getSize() + " tasks");
+            break;
+        case "deadline":
+            if (commandArgs.length < 2) {
+                throw new CustomExceptions.MissingArgsException("Description of Deadline cannot be empty");
+            }
+            String[] deadlinestring = commandArgs[1].split("/by", 2);
+            Deadline deadline = new Deadline(deadlinestring[0].trim(), deadlinestring[1].trim());
+            taskList.addTask(deadline);
+            System.out.println(deadline.toString());
+            System.out.println("You now have " + taskList.getSize() + " tasks");
+            break;
+        case "event":
+            if (commandArgs.length < 2) {
+                throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
+            }
+            String[] eventstring = commandArgs[1].split("/from", 2);
+            Events event = new Events(eventstring[0].trim(), eventstring[1].trim());
+            taskList.addTask(event);
+            System.out.println(event.toString());
+            System.out.println("You now have " + taskList.getSize() + " tasks");
+            break;
+        case "Find":
+            System.out.println("Here are the matching results below:");
+            findTask(taskList.getTasks(), commandArgs[1]);
+        case "Bye":
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid command");
+        }
         } catch (IllegalArgumentException e) {
             System.out.println("Wait, I don't understand what you are saying??");
         } catch (CustomExceptions.MissingArgsException | CustomExceptions.InvalidTaskIndexException e) {

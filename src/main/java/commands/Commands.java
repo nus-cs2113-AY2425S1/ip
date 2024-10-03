@@ -69,5 +69,19 @@ public class Commands {
             System.out.println("Invalid task number.");
         }
     }
+
+    public static void findTask(ArrayList<Task> list, String keyword) {
+        int counter = 0;
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.description.contains(keyword)) {
+                counter++;
+                System.out.println((i+1) + ". " + task.toString());
+            }
+        }
+        if (counter==0){
+            System.out.println("No task found.");
+        }
+    }
 }
 
