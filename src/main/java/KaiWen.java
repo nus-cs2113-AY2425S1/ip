@@ -1,57 +1,56 @@
 import java.io.IOException;
 
 public class KaiWen {
-
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Ui ui = new Ui();
 
-    public KaiWen(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public KaiWen(String var1) {
+        this.storage = new Storage(var1);
+
         try {
-            tasks = new TaskList(storage.load());
-        } catch (IOException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            this.tasks = new TaskList(this.storage.load());
+        } catch (IOException var3) {
+            this.ui.showLoadingError();
+            this.tasks = new TaskList();
         }
+
     }
 
     public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
+        this.ui.showWelcome();
+        boolean var1 = false;
 
-        while (!isExit) {
+        while(!var1) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line
-                String[] command = Parser.parseCommand(fullCommand);
-
-                switch (command[0]) {
+                String var2 = this.ui.readCommand();
+                this.ui.showLine();
+                String[] var3 = Parser.parseCommand(var2);
+                switch (var3[0]) {
                     case "bye":
-                        ui.showGoodbye();
-                        isExit = true;
+                        this.ui.showGoodbye();
+                        var1 = true;
                         break;
                     case "list":
-                        tasks.printTasks();
+                        this.tasks.printTasks();
                         break;
                     default:
-                        CommandHandler.handleCommand(command, tasks);
-                        break;
+                        CommandHandler.handleCommand(var3, this.tasks);
                 }
 
-                storage.save(tasks.getTasks());
-            } catch (KaiException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showError("Error saving tasks: " + e.getMessage());
+                this.storage.save(this.tasks.getTasks());
+            } catch (KaiException var10) {
+                this.ui.showError(var10.getMessage());
+            } catch (IOException var11) {
+                this.ui.showError("Error saving tasks: " + var11.getMessage());
             } finally {
-                ui.showLine();
+                this.ui.showLine();
             }
         }
+
     }
 
-    public static void main(String[] args) {
-        new KaiWen("data/tasks.txt").run();
+    public static void main(String[] var0) {
+        (new KaiWen("data/tasks.txt")).run();
     }
 }
