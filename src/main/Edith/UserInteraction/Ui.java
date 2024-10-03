@@ -3,20 +3,10 @@ package UserInteraction;
 import TaskTypes.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static UserInteraction.AddTask.addTaskToList;
-import static UserInteraction.ChangeTaskStatus.changeTaskStatus;
-import static UserInteraction.DeleteTask.deleteTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
 
 public class Ui {
-    private final String MY_NAME;
-    ArrayList<Task> tasks;
-
-    public Ui(String MY_NAME) {
-        this.MY_NAME = MY_NAME;
-        tasks = new ArrayList<>();
-    }
+    private final String MY_NAME = "Edith";
 
     public void giveIntroduction() {
         System.out.println("Hello I am " + MY_NAME + ".");
@@ -24,23 +14,14 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public void interactWithUser() {
+    public void interactWithUser(TaskList tasks, Storage storage) {
         Scanner sc = new Scanner(System.in);
+        boolean isBye;
         do {
             String enteredString = sc.nextLine();
             printHorizontalLine();
-            if (enteredString.equals("bye")) {
-                break;
-            } else if (enteredString.equals("list")) {
-                HelperMethods.listTasks(tasks);
-            } else if (enteredString.contains("mark")) {
-                changeTaskStatus(tasks, enteredString);
-            } else if (enteredString.contains("delete")) {
-                deleteTask(tasks, enteredString);
-            } else {
-                addTaskToList(tasks, enteredString);
-            }
-        } while (true);
+            isBye = Parser.understandUser(tasks, enteredString, storage);
+        } while (!isBye);
     }
 
     public void sayGoodbye() {
@@ -48,7 +29,7 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public void showLoadingError() {
+        System.out.println("Unable to load file. Creating a new ArrayList");
     }
 }
