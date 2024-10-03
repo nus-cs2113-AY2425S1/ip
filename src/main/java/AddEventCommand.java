@@ -3,11 +3,10 @@ public class AddEventCommand extends Command {
     private String from;
     private String to;
 
-    public AddEventCommand(String input) {
-        String[] parts = input.split("/from|/to");
-        this.description = parts[0].trim().substring(6).trim();
-        this.from = parts[1].trim();
-        this.to = parts[2].trim();
+    public AddEventCommand(String description, String from, String to) {
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
