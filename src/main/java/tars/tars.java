@@ -15,8 +15,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The main class of the TARS application.
+ * TARS helps users manage their tasks, deadlines, and events.
+ */
 public class tars {
-    private static final String logo =
+
+    private static final String LOGO =
             "       [][][][][][][][]       \n"
                     + "       []   |    |   []        \n"
                     + "       []   [    ]   []        \n"
@@ -28,8 +33,14 @@ public class tars {
                     + "       []   |____|   []        \n"
                     + "       []__  ____  __[]        \n";
 
+    /**
+     * The main entry point for the TARS application.
+     * Initializes the application, loads tasks, and processes user input.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
-        System.out.println(logo);
+        System.out.println(LOGO);
         UserInterface ui = new UserInterface();
 
         // Initialize Storage and load tasks from file
@@ -61,7 +72,15 @@ public class tars {
         }
     }
 
-    // Process user input and return true if "bye" is entered to exit
+    /**
+     * Processes the user's input and executes the appropriate command.
+     *
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The user interface for interacting with the user.
+     * @param storage The storage to save and load tasks.
+     * @return true if the input is "bye" and the program should exit; false otherwise.
+     */
     public static boolean processUserInput(String input, List<Task> taskList, UserInterface ui, Storage storage) {
         try {
             // Handle "bye" command
@@ -130,6 +149,14 @@ public class tars {
         return false;  // Continue processing user input
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param tasks The list of tasks.
+     * @param taskType The type of task (todo, deadline, or event).
+     * @param input The user's input for the task.
+     * @param storage The storage to save the task.
+     */
     public static void addTask(List<Task> tasks, String taskType, String input, Storage storage) {
         UserInterface ui = new UserInterface();
 
@@ -141,7 +168,7 @@ public class tars {
                     break;
                 case "deadline":
                     String[] deadlineParts = input.split("/by");
-                    tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));  // 解析日期
+                    tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));  // Parse date
                     break;
                 case "event":
                     String[] eventParts = input.split("/from|/to");
@@ -170,7 +197,15 @@ public class tars {
         }
     }
 
-    // Mark a task as done and save the updated task list
+    /**
+     * Marks a task as completed.
+     *
+     * @param input The user's input containing the task number.
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage to save the updated task list.
+     * @throws tarsException If the task number is invalid or out of range.
+     */
     public static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
             if (!input.contains(" ")) {
@@ -196,7 +231,15 @@ public class tars {
         }
     }
 
-    // Unmark a task as not done and save the updated task list
+    /**
+     * Unmarks a task as incomplete.
+     *
+     * @param input The user's input containing the task number.
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage to save the updated task list.
+     * @throws tarsException If the task number is invalid or out of range.
+     */
     public static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
             if (!input.contains(" ")) {
@@ -222,7 +265,15 @@ public class tars {
         }
     }
 
-    // Function to delete tasks and save the updated task list
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input The user's input containing the task number.
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage to save the updated task list.
+     * @throws tarsException If the task number is invalid or out of range.
+     */
     public static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws tarsException {
         try {
             String[] inputs = input.split(" ");
@@ -266,7 +317,11 @@ public class tars {
         }
     }
 
-    // Print the total number of tasks in the list
+    /**
+     * Prints the total number of tasks in the list.
+     *
+     * @param taskCount The number of tasks in the list.
+     */
     public static void printTaskCount(int taskCount) {
         System.out.println("    Now you have " + taskCount + " tasks in the list.");
     }

@@ -3,9 +3,18 @@ package tars.parser;
 import tars.command.*;
 import tars.tarsexception.tarsException;
 
+/**
+ * Represents the parser that interprets user input and returns the corresponding command.
+ */
 public class Parser {
 
-    // 解析用户输入并返回命令类型
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return The appropriate Command object based on the user's input.
+     * @throws tarsException If the input is not recognized as a valid command.
+     */
     public Command parse(String userInput) throws tarsException {
         String[] splitInput = userInput.split(" ", 2);
         String command = splitInput[0];
@@ -33,7 +42,13 @@ public class Parser {
         }
     }
 
-    // 解析标记任务为完成的命令
+    /**
+     * Parses the command for marking a task as completed.
+     *
+     * @param arguments The task number provided by the user.
+     * @return A MarkCommand object to mark the task as done.
+     * @throws tarsException If the task number is missing or invalid.
+     */
     private Command parseMarkCommand(String arguments) throws tarsException {
         if (arguments.isEmpty()) {
             throw new tarsException("The mark command requires a task number.");
@@ -42,7 +57,13 @@ public class Parser {
         return new MarkCommand(taskIndex);
     }
 
-    // 解析取消标记任务为未完成的命令
+    /**
+     * Parses the command for unmarking a task as not completed.
+     *
+     * @param arguments The task number provided by the user.
+     * @return An UnmarkCommand object to unmark the task as not done.
+     * @throws tarsException If the task number is missing or invalid.
+     */
     private Command parseUnmarkCommand(String arguments) throws tarsException {
         if (arguments.isEmpty()) {
             throw new tarsException("The unmark command requires a task number.");
@@ -51,7 +72,13 @@ public class Parser {
         return new UnmarkCommand(taskIndex);
     }
 
-    // 解析删除任务的命令
+    /**
+     * Parses the command for deleting a task.
+     *
+     * @param arguments The task number provided by the user.
+     * @return A DeleteCommand object to delete the task.
+     * @throws tarsException If the task number is missing or invalid.
+     */
     private Command parseDeleteCommand(String arguments) throws tarsException {
         if (arguments.isEmpty()) {
             throw new tarsException("The delete command requires a task number.");
@@ -60,7 +87,13 @@ public class Parser {
         return new DeleteCommand(taskIndex);
     }
 
-    // 解析 deadline 任务的命令
+    /**
+     * Parses the command for adding a deadline task.
+     *
+     * @param arguments The task description and deadline date provided by the user.
+     * @return An AddDeadlineCommand object to add the deadline task.
+     * @throws tarsException If the deadline format is incorrect or the date is missing.
+     */
     private Command parseDeadlineCommand(String arguments) throws tarsException {
         if (!arguments.contains("/by")) {
             throw new tarsException("The deadline command requires a /by date.");
@@ -71,7 +104,13 @@ public class Parser {
         return new AddDeadlineCommand(description, by);
     }
 
-    // 解析 event 任务的命令
+    /**
+     * Parses the command for adding an event task.
+     *
+     * @param arguments The task description, start time, and end time provided by the user.
+     * @return An AddEventCommand object to add the event task.
+     * @throws tarsException If the event format is incorrect or the times are missing.
+     */
     private Command parseEventCommand(String arguments) throws tarsException {
         if (!arguments.contains("/from") || !arguments.contains("/to")) {
             throw new tarsException("The event command requires both /from and /to times.");
