@@ -3,7 +3,6 @@ import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.Ui;
 import bob.storage.Storage;
-
 import java.util.ArrayList;
 
 public class ListCommand extends Command {
