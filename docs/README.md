@@ -30,7 +30,7 @@ For details on all available commands, refer to the Features section below.
 ## Editing the data file
 
 
-// Product screenshot goes here
+<!-- // Product screenshot goes here 
 
 // Product intro goes here
 
@@ -56,3 +56,4 @@ expected output
 ## Feature XYZ
 
 // Feature details
+-->
