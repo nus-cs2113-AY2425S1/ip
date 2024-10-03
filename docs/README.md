@@ -2,7 +2,7 @@
 
 ## Quick start
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest `.jar` file from [here](github.com/glenn-chew/ip/releases).
+2. Download the latest `.jar` file from [here](https://github.com/glenn-chew/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for Apsea.
 4. Open a command terminal, `cd` into the folder you put the jar file in,
 and use the `java -jar apsea.jar` command to run the application. 
