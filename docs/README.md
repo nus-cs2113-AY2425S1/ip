@@ -42,14 +42,89 @@ For details on all available commands, refer to the Features section below.
     eg. Do not use `|`, `<`, `>`.
 
 ### Listing all tasks: `list`
+Displays all tasks in the task list, along with their completion status and details. Tasks are shown in the order they were added.
+
+Format: `list`
+
 ### Adding a To-Do task: `todo`
+Adds a to-do task to the task list. This type of task does not have a specific time component.
+
+Format: `todo TASK_DESCRIPTION`
+
+Examples:
+- `todo Buy groceries`
+- `todo Read book`
+
 ### Adding a Deadline task: `deadline`
+Adds a task with a specific deadline to the task list.
+
+Format: `deadline TASK_DESCRIPTION by DEADLINE_TIME`
+
+Examples:
+- `deadline Submit assignment by 10 Oct 11:59pm`
+- `deadline Complete peer review by 3/10`
+
 ### Adding an Event task: `event`
+Adds an event to the task list, with a specific start and end time.
+
+Format: `event TASK_DESCRIPTION from START_TIME to END_TIME`
+
+Example:
+- `event Team meeting from 5 Oct 2pm to 5 Oct 4pm`
+- `event Europe trip 3 Dec 2024 to 3 Jan 2024`
+
 ### Marking a task as completed: `mark`
+Marks a task as completed.
+
+Format: `mark INDEX`
+- Marks the task at the specified `INDEX`.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+Example:
+- `mark 3` marks task 3 in the task list as completed.
+
 ### Unmarking a task as not completed: `unmark`
+Reverts a previously marked task to an incomplete state.
+
+Format: `unmark INDEX`
+- Unmarks the task at the specified `INDEX`.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+Example:
+- `unmark 3` marks task 3 in the task list as not completed.
+
 ### Deleting a task: `delete`
+Removes a task from the task list.
+
+Format: `delete INDEX`
+- Deletes the task at the specified `INDEX`.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+Example:
+- `delete 2` deletes task 2 from the task list.
+
 ### Finding tasks: `find`
+Searches for tasks that contain a specific keyword.
+
+Format: `find WORD`
+- The search is case-insensitive. 
+
+    eg `book` will match `Book`
+- Partial words can also be matched. 
+
+    eg. `bo` will match `book`
+
+Example:
+- `find assignment` will display all tasks containing the word "assignment".
+
 ### Exiting the program: `exit`
+Exits the program.
+
+Format: `exit`
+
 ## Saving the data
 ## Editing the data file
 
