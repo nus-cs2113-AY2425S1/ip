@@ -17,6 +17,30 @@ For details on all available commands, refer to the Features section below.
 
 ## Features
 ### Notes about the command format:
+- Words in `UPPER_CASE` are the parameters to be supplied by the user. 
+
+    eg. In `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo Buy groceries`.
+
+
+- All parameters must be provided for commands that require them.
+
+    eg. In `todo TASK_DESCRIPTION`, you must provide the task description, such as `todo Buy groceries`.
+
+
+- Parameters must be entered in the order specified for each command.
+
+    eg. In `event EVENT_DESCRIPTION from START_TIME to END_TIME`, you must provide the parameters in this exact order such as `event Team meeting from Oct 5 2pm to Oct 5 4pm`.
+
+
+- Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
+
+    eg. if the command specifies `list 123`, it will be interpreted as `list`.
+
+
+- Avoid including special characters or symbols. 
+
+    eg. Do not use `|`, `<`, `>`.
+
 ### Listing all tasks: `list`
 ### Adding a To-Do task: `todo`
 ### Adding a Deadline task: `deadline`
