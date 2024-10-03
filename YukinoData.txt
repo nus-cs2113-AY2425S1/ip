@@ -1,1 +1,7 @@
 T | test | 0 |  | 
+E | Ma | 0 | fri | fry
+E | ent Ma Yitao attend CS2113 | 0 | fri | fry
+E | Ma Yitao attend CS2113 | 0 | fri | fry
+E | Ma Yitao attend CS2113 | 0 | ri 111 222 | fry 333 444
+E | Ma Yitao attend CS2113 | 0 | fri 111 222 | fry 333 444
+T | test | 0 |  | 

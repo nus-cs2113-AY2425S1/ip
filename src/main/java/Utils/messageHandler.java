@@ -4,11 +4,20 @@ import Entity.Message;
 import Entity.messageList;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
+
+    public static LocalDate readTime(String time){
+        LocalDate date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh-EEE-dd-MM-yyyy");
+        date = LocalDate.parse(time, formatter);
+        return date;
+    }
 
     public static void preHandle(messageList list) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -72,14 +81,14 @@ public class messageHandler {
             else if(type == 2){
                 By = " By: ";
                 typeSign = "[D]";
-                endTime = messages.get(i-1).getEndTime();
+                endTime = String.valueOf(messages.get(i-1).getEndTime());
             }
             else if(type == 3){
                 typeSign = "[E]";
                 By = " By: ";
                 From = " From: ";
-                startTime = messages.get(i-1).getStartTime();
-                endTime = messages.get(i-1).getEndTime();
+                startTime = String.valueOf(messages.get(i-1).getStartTime());
+                endTime = String.valueOf(messages.get(i-1).getEndTime());
             }
             System.out.println(i + ". " + typeSign + "[" + doneSign + "] " + messages.get(i-1).getMessage() + From + startTime + By + endTime );
             i++;
@@ -91,8 +100,7 @@ public class messageHandler {
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
-            String[] strings = input.split(" ");
-            String eventName = strings[1];
+            String eventName = input.substring(5).trim();
             message.setMessage(eventName);
             messages.add(message);
             list.setMessages(messages);
@@ -103,9 +111,10 @@ public class messageHandler {
         else if(input.contains("deadline")) {
             List<Message> messages = list.getMessages();
             String[] strings = input.split("/");
-            String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-2].split(" ")[1];
-            Message message = new Message(eventName, endTime, 2);
+            String endTime = strings[strings.length-1].substring(3).trim();
+            LocalDate endDate = readTime(endTime);
+            String eventName = strings[strings.length-2].substring(8).trim();
+            Message message = new Message(eventName, endDate, 2);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
@@ -115,14 +124,20 @@ public class messageHandler {
         else if(input.contains("event")) {
             List<Message> messages = list.getMessages();
             String[] strings = input.split("/");
-            String startTime = strings[strings.length-2].split(" ")[1];
-            String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-3].split(" ")[1];
-            Message message = new Message(eventName, startTime, endTime, 3);
+            String startTime = strings[strings.length-2].substring(5).trim();
+            String endTime = strings[strings.length-1].substring(3).trim();
+            LocalDate startDate = readTime(startTime);
+            LocalDate endDate = readTime(endTime);
+            String eventName = strings[strings.length-3].substring(5).trim();
+            Message message = new Message(eventName, startDate, endDate, 3);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
+        }
+        else {
+            System.out.println("Unknown command entered!");
+            return;
         }
         saveHandler.writeToFile(list);
         int taskNumber = list.getMessages().size();

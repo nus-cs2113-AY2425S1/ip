@@ -13,6 +13,8 @@ import java.util.Scanner;
 
 public class saveHandler {
 
+    private static final String path = "YukinoData.txt";
+
     public static String converter(Message message) {
         String output = null;
         int typeNumber = message.getType();
@@ -41,7 +43,7 @@ public class saveHandler {
 
     public static void initFile(messageList list){
         try {
-            File file = new File("YukinoData.txt");
+            File file = new File(path);
             if(file.createNewFile()) {
             }
             else {
@@ -56,7 +58,7 @@ public class saveHandler {
 
     public static void writeToFile(messageList list) throws IOException {
         List<Message> messages = list.getMessages();
-        FileWriter fw = new FileWriter("YukinoData.txt");
+        FileWriter fw = new FileWriter(path);
         for(int i = 0; i < messages.size(); i++) {
             Message message = messages.get(i);
             String toWrite = converter(message);
@@ -68,7 +70,7 @@ public class saveHandler {
 
     public static void retrieveData(messageList list){
         try {
-            File file = new File("YukinoData.txt");
+            File file = new File(path);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
