@@ -1,16 +1,18 @@
 package CassHelpers.commands;
 
 import CassHelpers.exceptions.InvalidDateFormatException;
+import CassHelpers.exceptions.InvalidDateRangeException;
 import CassHelpers.exceptions.InvalidEventFormatException;
 import CassHelpers.types.Event;
 import CassHelpers.util.Storage;
 import CassHelpers.types.Task;
 import CassHelpers.util.TaskList;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static CassHelpers.util.Parser.parseDateTime;
+import static CassHelpers.util.Parser.*;
 
 /**
  * Command class responsible for adding an event task to the task list.
@@ -44,7 +46,7 @@ public class AddEventCommand implements Command {
      * @throws InvalidDateFormatException If the date format is invalid.
      */
     @Override
-    public void execute() throws InvalidEventFormatException, InvalidDateFormatException {
+    public void execute() throws InvalidEventFormatException, InvalidDateFormatException, InvalidDateRangeException {
         int fromIndex = input.indexOf("/from") + FROM_INDEX_OFFSET;
         int toIndex = input.indexOf("/to");
 
@@ -58,6 +60,16 @@ public class AddEventCommand implements Command {
 
         LocalDateTime fromDate = parseDateTime(from);
         LocalDateTime toDate = parseDateTime(to);
+        DayOfWeek dayOfWeek = parseDayOfWeek(to);
+
+        if (dayOfWeek != null) {
+            // Adjust 'toDate' to the next occurrence of the given day of the week after 'toDate'
+            toDate = getNextDayOfWeek(toDate, dayOfWeek);
+        }
+
+        if (toDate.isBefore(fromDate)) {
+            throw new InvalidDateRangeException("The end date cannot be earlier than the start date.");
+        }
 
         Event newEvent = new Event(eventTaskName, fromDate, toDate);
         taskList.add(newEvent);

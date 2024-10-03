@@ -21,7 +21,7 @@ import static CassHelpers.util.Parser.parseStringToLocalDateTime;
  */
 public class Storage {
     public static final String TODO = "T";
-    public static final String DEADLINE = "D";
+    public static final String  DEADLINE = "D";
     public static final String EVENT = "E";
     private final File dir;
     private final File file;

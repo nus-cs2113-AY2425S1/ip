@@ -1,4 +1,7 @@
 package CassHelpers.commands;
+
+import CassHelpers.exceptions.InvalidDateRangeException;
+
 /**
  * The Command interface represents an abstraction for various commands
  * that can be executed on the task list. Each command class implementing

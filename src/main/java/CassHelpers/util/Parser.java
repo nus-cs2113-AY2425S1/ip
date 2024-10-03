@@ -60,18 +60,58 @@ public class Parser {
      */
     public static LocalDate getNextDayOfWeek(DayOfWeek dayOfWeek) {
         LocalDate today = LocalDate.now();
-        LocalDate nextOrSameDay = today.with(TemporalAdjusters.nextOrSame(dayOfWeek));
-        return nextOrSameDay;
+        return today.with(TemporalAdjusters.nextOrSame(dayOfWeek));
     }
 
     /**
-     * Parses a string input to determine a deadline date and time.
-     * Supports natural language (e.g., "monday", "next monday") and specific date/time formats.
+     * Returns the next occurrence of the specified day of the week after the given date.
      *
-     * @param by The user input specifying the deadline.
-     * @return A LocalDateTime object representing the parsed deadline.
-     * @throws InvalidDeadlineFormatException if the input does not match an expected format.
+     * This method ensures that the returned `LocalDateTime` maintains the same time
+     * of day as the original `fromDate` while advancing to the next occurrence of the
+     * `targetDayOfWeek` within the next week. If the target day is already the same as
+     * the day of `fromDate`, it will skip to the next week's occurrence.
+     *
+     * @param fromDate The starting date and time from which to find the next occurrence of the day.
+     * @param targetDayOfWeek The day of the week to find the next occurrence of.
+     * @return The `LocalDateTime` of the next occurrence of the target day with the same time of day as `fromDate`.
      */
+    public static LocalDateTime getNextDayOfWeek(LocalDateTime fromDate, DayOfWeek targetDayOfWeek) {
+        LocalDateTime resultDate = fromDate.plusDays(7);
+        // Maintain the time of day from 'fromDate'
+        return resultDate.withHour(fromDate.getHour()).withMinute(fromDate.getMinute()).withSecond(fromDate.getSecond());
+    }
+
+    /**
+     * Parses a string input to return the corresponding `DayOfWeek` enum.
+     *
+     * This method supports both full day names (e.g., "Monday") and inputs that start with
+     * "next" (e.g., "next Monday"), stripping out the "next" part before attempting to parse.
+     * If the input cannot be parsed into a valid day of the week, it returns null.
+     *
+     * @param input The string input to parse, potentially containing a day of the week.
+     * @return The `DayOfWeek` corresponding to the input, or `null` if the input is invalid.
+     */
+    public static DayOfWeek parseDayOfWeek(String input) {
+        String dayPart = input.toLowerCase().trim();
+        if(dayPart.startsWith("next ")){
+            dayPart = dayPart.replace("next ", "").trim();
+        }
+        try{
+            return DayOfWeek.valueOf(dayPart.toUpperCase());
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+        /**
+         * Parses a string input to determine a deadline date and time.
+         * Supports natural language (e.g., "monday", "next monday") and specific date/time formats.
+         *
+         * @param by The user input specifying the deadline.
+         * @return A LocalDateTime object representing the parsed deadline.
+         * @throws InvalidDeadlineFormatException if the input does not match an expected format.
+         */
     public static LocalDateTime parseDateTime(String by) throws InvalidDeadlineFormatException {
 
         // Regex to match inputs like "next monday 1600" or "wednesday 1400"
