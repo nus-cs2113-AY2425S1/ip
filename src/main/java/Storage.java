@@ -12,7 +12,6 @@ public class Storage {
     /**
      * Loading any saved data from previous runs when Crystal is booted.
      *
-     * @throws FileNotFoundException if there is no data to load.
      */
     public static void loadTaskList() {
         try {
@@ -32,8 +31,6 @@ public class Storage {
      * Saving any data changed into the data file. Will create a directory and
      * a file if needed, and new data will be rewritten into the file.
      *
-     * @throws IOException if data cannot be retrieved due to certain reasons,
-     *                     such as corrupted file or wrong formatting.
      */
     public static void saveTaskList(ArrayList<Task> list) {
         try {
@@ -79,9 +76,6 @@ public class Storage {
     /**
      * Called in loadTaskList(), where each line of task saved in the data
      * file is processed in this method
-     *
-     * @throws IOException if data cannot be retrieved due to certain reasons,
-     *                     such as corrupted file or wrong formatting.
      */
     public static void addTaskToList(String[] words) {
         String command = words[0];

@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String toFormatFile() {
-        return "E | " + isDone + " | " + description + " | " + from + "-" + to;
+        return "E | " + isDone + " | " + description + " | " + from + " | " + to;
     }
 
     @Override

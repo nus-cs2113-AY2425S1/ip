@@ -1,82 +1,164 @@
 # Crystal User Guide
 
-![img.png](img.png)
+Welcome to Crystal, _the_ personal bot for you!
 
-Want to keep a **list** of things, but can't find one **personalised** one?
+Crystal is a command-line bot that helps you manage your daily tasks!
 
-Not to worry, but Crystal is for you! She will be helpful and kind to you.
+She will be able to help you record, mark/unmark, delete, find and lists 
+your tasks. It also will save your past progress, so fret not if you want
+to access your past tasks!
 
-## Adding Todos
+## QUICK START
+1. Ensure you have Java `17` or above installed in your Computer.
+2. Download the latest `.jar` file from here.
+3. Copy the file to the folder you want to use as the home folder 
+for your Task Manager.
+4. Open a command terminal, `cd` into the folder you put the jar file in, 
+and use the `java -jar Crystal.jar` command to run the application.
+5. Type the command in the command box and press Enter to execute it.
+Here are some commands you can try:
+    - `list` : Lists all the tasks you have so far
+    - `todo yoga` : Adds todo task named yoga
+    - `deadline cs2113 by 8pm` : Adds deadline task named cs2113, and the deadline is 8pm
+    - `event lecture from 4pm to 6pm` : Adds event task named lecture, starting at 4pm and ends at 6pm
+    - `mark 2` : Mark the second task in the list
+    - `unmark 2` : Unmark the second task in the list
+    - `delete 3` : Delete the third task in the list
+    - `find yoga` : Finds all tasks that contain the word "yoga"
+    - `bye` : Crystal bids you goodbye and the new list is saved.
+6. Refer to the features below for a more detailed explanation of each command.
 
-Input: todo [Task Name]
+## Features
 
-This stores the task and its name into a list.
+### Adding a task: `todo`, `deadline`, `event`
+
+#### Add `todo` task
+
+Add a task with just the name.
 
 Example: `todo yoga`
 
 expected output:
 ```
-expected output
+____________________________________________________________
+Got it! I have added this task:
+[T][ ] yoga
+Now you have 4 tasks in the list.
+____________________________________________________________
+
 ```
 
-## Adding deadlines
+#### Add `deadline` task
 
-Input: deadline [Task Name] by [time]
+Add a task with its name and its deadline (time).
 
-This stores the task and its deadline (time) into a list.
-
-Example: `deadline CS2113 iP by 8pm `
+Example: `deadline cs2113 ip by 8pm`
 
 expected output:
 ```
-expected output
+____________________________________________________________
+Got it! I have added this task:
+[D][ ] cs2113 ip (by: 8pm)
+Now you have 5 tasks in the list.
+____________________________________________________________
 ```
 
-## Adding events
+#### Add `event` task
 
-Input: event [Task Name] from [time] to [time]
+Add a task and its start and end time.
 
-This stores the task and its start and end time into a list.
-
-Example: `event CS2113 lecture from 4pm to 6pm `
+Example: `event CS2113 lecture from 4pm to 6pm`
 
 expected output:
 ```
-expected output
+____________________________________________________________
+Got it! I have added this task:
+[E][ ] CS2113 lecture (from: 4pm to: 6pm)
+Now you have 6 tasks in the list.
+____________________________________________________________
 ```
 
-## Listing
-
-Input: list
+### Listing a task
 
 This will produce a list of the tasks that were saved and input before.
 
-Example: `list `
+Example: `list`
 
 expected output:
 ```
-expected output
+____________________________________________________________
+1. [T][ ] yoga
+2. [D][ ] cs2113 ip (by: 8pm)
+3. [E][ ] CS2113 lecture (from: 4pm to: 6pm)
+____________________________________________________________
 ```
 
-## Marking and Unmarking task
+### Marking a task
 
-Input: mark [taskNumber]
-Input: unmark [taskNumber]
-
-This will change the status icon of the task with respect to the input.
+This will mark the task with that task number in the list.
 
 Example: `mark 2`
 
 expected output:
 ```
-expected output
+____________________________________________________________
+YAY!! This task is now marked done:
+[D][X] CS2113 iP (by: 8pm)
+____________________________________________________________
+
+```
+### Unmarking a task
+This will unmark the task with that task number in the list.
+
+Example: `unmark 2`
+
+expected output:
+```
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[D][ ] cs2113 ip (by: 8pm)
+____________________________________________________________
+```
+### Deleting a task
+Delete a task with that task number in the list.
+
+Example: `delete 2`
+
+expected output:
+```
+____________________________________________________________
+Noted. I have deleted the task below: 
+[D][ ] cs2113 ip (by: 8pm)
+Now you have 2 tasks in the list.
+____________________________________________________________
 ```
 
-## Feature ABC
+### Finding a task
+Find the task(s) in the list that contain the keyword you input
+(not case sensitive).
 
-// Feature details
+Example: `find CS2113`
 
+expected output:
+```
+____________________________________________________________
+Here are the matching tasks in your list:
+2. [D][ ] cs2113 ip (by: 8pm)
+3. [E][ ] CS2113 lecture (from: 4pm to: 6pm)
+____________________________________________________________
+```
 
-## Feature XYZ
+### Bye Crystal
+Terminate your session with Crystal.
 
-// Feature details
+Example: `bye`
+
+expected output:
+```
+____________________________________________________________
+Adios, hasta luego!
+____________________________________________________________
+```
+### Saving the file
+There is no need to specifically save your file as it is automatically
+saved to your hard disk when you terminate.
