@@ -119,6 +119,10 @@ public class TaskManager {
                 }
                 taskList.findTask(arguments);
                 break;
+            case "clear":
+                taskList.clear();
+                storage.save(taskList.getTasks());
+                break;
             default:
                 ui.showError("Unknown command.");
             }

@@ -131,4 +131,8 @@ public class TaskList {
 
         }
     }
+
+    public void clear() {
+        tasks.clear();
+    }
 }

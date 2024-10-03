@@ -1,4 +1,5 @@
 2
+clear
 todo Finish reading book
 deadline Submit assignment /by 2024-12-01
 event Project meeting /at 2024-10-05
