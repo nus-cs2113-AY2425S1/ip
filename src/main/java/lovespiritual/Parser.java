@@ -15,9 +15,9 @@ public class Parser {
      */
     public static String parseCommand(String input) throws lovespiritualException {
         String command = input.trim().toLowerCase();
-        if (command.equals("bye")) {
+        if (command.startsWith("bye")) {
             return "bye";
-        } else if (command.equals("list")) {
+        } else if (command.startsWith("list")) {
             return "list";
         } else if (command.startsWith("mark")) {
             return "mark";
