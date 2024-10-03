@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles user interactions for the task manager application.
+ * Handles user interactions for task managing.
  */
 public class Ui {
 

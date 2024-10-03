@@ -1,7 +1,7 @@
 package conglo.exception;
 
 /**
- * Exception thrown when a user inputs an unrecognized command.
+ * Represents an exception thrown when a user inputs an unrecognized command.
  */
 public class UnknownCommand extends CongloException {
 

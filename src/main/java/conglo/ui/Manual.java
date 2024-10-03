@@ -1,5 +1,8 @@
 package conglo.ui;
 
+/**
+ * Provides a manual with basic instructions for using the Conglo application.
+ */
 public class Manual {
 
     /**

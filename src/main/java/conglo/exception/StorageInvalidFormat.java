@@ -1,7 +1,7 @@
 package conglo.exception;
 
 /**
- * Exception thrown when the storage file contains an invalid task format.
+ * Represents an exception thrown when the storage file contains an invalid task format.
  */
 public class StorageInvalidFormat extends CongloException {
 

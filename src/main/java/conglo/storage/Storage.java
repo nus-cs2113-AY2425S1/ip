@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks from a file to provide persistent storage.
+ */
 public class Storage {
 
     private static String filePath;

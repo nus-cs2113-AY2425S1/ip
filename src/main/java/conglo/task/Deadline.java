@@ -1,9 +1,5 @@
 package conglo.task;
 
-import conglo.command.DateParser;
-
-import java.time.LocalDateTime;
-
 /**
  * Represents a deadline task with a description and a deadline date.
  */
