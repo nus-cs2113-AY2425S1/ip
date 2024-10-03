@@ -121,12 +121,9 @@ public interface CommandLine {
         }
     }
 
-    public static boolean getWriteTaskInput() {
+    static boolean getSaveTaskInput() {
         System.out.println("Do you want to save your tasks to a file? yes / no");
         String userInput = UserInputParser.getUserInput();
-        if(userInput.equalsIgnoreCase("yes")) {
-            return true;
-        }
-        return false;
+        return userInput.equalsIgnoreCase("yes");
     }
 }

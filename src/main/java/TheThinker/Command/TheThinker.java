@@ -18,14 +18,14 @@ public class TheThinker{
     public static void main(String[] args) {
 
         try {
-            boolean isWriteTaskToFile = CommandLine.getWriteTaskInput();
+            boolean isSaveTaskToFile = CommandLine.getSaveTaskInput();
             NewFile data = new NewFile("");
-            if(isWriteTaskToFile){
+            if(isSaveTaskToFile){
                 data = FileLoader.loadDefaultFileElseInputNewFile();
             }
 
             UiControl.printGreeting();
-            CommandLine.pollForUserInputTillBye(data , isWriteTaskToFile);
+            CommandLine.pollForUserInputTillBye(data , isSaveTaskToFile);
 
         } catch (FileNotFoundException e) {
             System.out.println("Please create file before proceeding");
