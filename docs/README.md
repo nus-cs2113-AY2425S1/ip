@@ -26,7 +26,7 @@ Upon launching the application, you should see the following introduction:
 * Contains multiple goal types with different formats, 
   such as `Todos✅`, `Events🗓️` and `Deadlines💀`.
 * Ability to show list of goals 📃
-* Ability to save goals 📩
+* Instantly saves goals upon addition, deletion and marking of goals 📩
 * Ability to find goals 🔎
 * Ability to mark and unmark goals 📌
 
@@ -62,7 +62,51 @@ Format: `todo <description>`
 Input: `todo Score a goal`
 
 Output:
+```
+GOALLL! Your todo has been added: 
+[T][ ] Score a goal
+Now you have 1 goal in the list.
 
-## Feature XYZ
+Saving data at: <filepath>
+```
 
-// Feature details
+## Add Deadline Goal
+
+Adds a `deadline` goal in this format: `<Goal Number> <Description> [D][ ] (by: )`
+
+Format: `deadline <description> /by <time>`
+
+### Example:
+
+Input: `deadline Prepare match /by today 2359`
+
+Output: 
+```
+GOALLL! Your deadline has been added: 
+[D][ ] Prepare match (by:today 2359)
+Now you have 2 goals in the list.
+
+Saving data at: <filepath>
+```
+
+## Add Event Goal
+
+Adds a goal in this format: `<Description> [E][ ] (from: <time> to: <time>)`
+
+Format: `event <description> /from <time> /to <time>`
+
+### Example:
+
+Input: `event Matchday /from Saturday 1900 /to 2100`
+
+Output:
+```
+GOALLL! Your event has been added: 
+[E][ ] Matchday(from: Saturday 1900 to: 2100)
+Now you have 3 goals in the list.
+
+Saving data at: <filepath>
+```
+
+
+
