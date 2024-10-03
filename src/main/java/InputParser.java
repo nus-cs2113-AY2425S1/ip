@@ -64,6 +64,9 @@ public class InputParser {
         case "delete":
             taskList.attemptToDelete(parts[1]);
             break;
+        case "find":
+            taskList.searchTasks(parts[1]);
+            break;
         case "todo":
             if (doesOptionsMapContainNull(options, TODO_REQUIRED_OPTIONS)) {
                 System.out.println("Please provide required options: "+ Arrays.toString(TODO_REQUIRED_OPTIONS));
