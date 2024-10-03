@@ -1,11 +1,22 @@
+/**
+ * Handles common operations while outputting information.
+ */
+
 public class UI {
     public static final String DIVIDER_LINE = "____________________________________________________________";
+
+    /**
+     * Prints a single line of output with dividers.
+     */
     public static void printContent(String content) {
         System.out.println(DIVIDER_LINE);
         System.out.println(content);
         System.out.println(DIVIDER_LINE);
     }
 
+    /**
+     * Prints the help manual.
+     */
     public static void printHelp() {
         System.out.println(DIVIDER_LINE);
         System.out.println("Welcome to Aerus, your ultimate task manager and planner!\n");
@@ -24,10 +35,16 @@ public class UI {
         System.out.println(DIVIDER_LINE);
     }
 
+    /**
+     * Greets the user when the program starts.
+     */
     public static void greetUser() {
         printContent("Hello! I'm Aerus!\nWhat can I do for you?\nType \"help\" to get started!");
     }
 
+    /**
+     * Print a message indicating the program's termination.
+     */
     public static void exitProgram() {
         printContent("See you next time!");
     }
