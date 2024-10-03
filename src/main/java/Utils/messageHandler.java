@@ -2,7 +2,6 @@ package Utils;
 
 import Entity.Message;
 import Entity.messageList;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,16 +26,20 @@ public class messageHandler {
                 System.out.println("-----------------------------------\n");
                 break;
 
-            } else if (input.equals("list")) {
+            } 
+          else if (input.equals("list")) {
                 messageHandler.listShow(list);
-            } else if (input.contains("mark") || input.contains("unmark")) {
+            } 
+          else if (input.contains("mark") || input.contains("unmark")) {
                 messageHandler.mark(list, input);
-            } else if (input.contains("delete")) {
+            } 
+          else if (input.contains("delete")) {
                 messageHandler.delete(list, input);
-            } else if (input.contains("add")) {
+            } 
+          else if (input.contains("add")) {
                 messageHandler.addList(list, input);
             }
-            else if (input.contains("find")) {
+          else if (input.contains("find")) {
                 messageHandler.find(list, input);
             }
         }
@@ -111,12 +114,12 @@ public class messageHandler {
         System.out.println("-----------------------------------\n");
     }
 
-    public static void addList(messageList list, String input) throws IOException {
+    public static void addList(messageList list, String input){
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
-            String[] strings = input.split(" ");
-            String eventName = strings[1];
+
+            String eventName = input.substring(5).trim();
             message.setMessage(eventName);
             messages.add(message);
             list.setMessages(messages);
@@ -147,6 +150,10 @@ public class messageHandler {
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
+        }
+        else {
+            System.out.println("Unknown command entered!");
+            return;
         }
         saveHandler.writeToFile(list);
         int taskNumber = list.getMessages().size();
@@ -192,3 +199,4 @@ public class messageHandler {
         System.out.println("------------------------------------\n");
     }
 }
+

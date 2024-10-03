@@ -13,6 +13,8 @@ import java.util.Scanner;
 
 public class saveHandler {
 
+    private static final String path = "YukinoData.txt";
+
     public static String converter(Message message) {
         String output = null;
         int typeNumber = message.getType();
@@ -41,7 +43,7 @@ public class saveHandler {
 
     public static void initFile(messageList list){
         try {
-            File file = new File("YukinoData.txt");
+            File file = new File(path);
             if(file.createNewFile()) {
             }
             else {
@@ -56,19 +58,23 @@ public class saveHandler {
 
     public static void writeToFile(messageList list) throws IOException {
         List<Message> messages = list.getMessages();
-        FileWriter fw = new FileWriter("YukinoData.txt");
+        FileWriter fw = new FileWriter(path);
         for(int i = 0; i < messages.size(); i++) {
             Message message = messages.get(i);
             String toWrite = converter(message);
             System.out.println(toWrite);
             fw.write(toWrite + "\n");
+            fw.close();
         }
-        fw.close();
+        catch(IOException e){
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
     }
 
     public static void retrieveData(messageList list){
         try {
-            File file = new File("YukinoData.txt");
+            File file = new File(path);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -100,6 +106,67 @@ public class saveHandler {
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateFile(Message message) {
+        try {
+            File file = new File("YukinoData.txt");
+            List<String> lines = new ArrayList<String>();
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                lines.add(sc.nextLine());
+            }
+            String task = message.getMessage();
+            String isDone = null;
+            if (message.isDone()) {
+                isDone = "1";
+            }
+            else {
+                isDone = "0";
+            }
+            int i = 0;
+            while (i < lines.size()) {
+                String line = lines.get(i);
+                String[] data = line.split("\\|");
+
+                if(task.equals(data[1].trim())) {
+                    String done = data[2].trim();
+                    String startTime = data[3].trim();
+                    String endTime = data[4].trim();
+                    //line =
+                    break;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteLine(Message message) throws IOException {
+        String task = message.getMessage();
+        File file = new File("YukinoData.txt");
+        FileWriter fw = new FileWriter("YukinoData.txt");
+        List<String> lines = new ArrayList<String>();
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine()) {
+            lines.add(sc.nextLine());
+        }
+        String toDelete = converter(message);
+        int i = 0;
+        while(i < lines.size()) {
+            String line = lines.get(i);
+            if(toDelete.equals(line)) {
+                lines.remove(i);
+            }
+            i++;
+        }
+        i = 0;
+        while (i < lines.size()) {
+            String line = lines.get(i);
+            fw.write(line + "\n");
+            i++;
         }
     }
 }
