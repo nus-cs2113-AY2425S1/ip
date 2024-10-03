@@ -1,5 +1,7 @@
 package Uranus.Tasks;
 
+import UranusExceptions.UranusExceptions;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +17,7 @@ public class Events extends Task{
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
-    public Events(String description){
+    public Events(String description) throws UranusExceptions {
         super(description, EVENT_TAG);
     }
 
@@ -46,11 +48,10 @@ public class Events extends Task{
 
     @Override
     public void setDescription(String description){
-        int separatorIndex = description.indexOf(' ');
         String[] str = description.split(SEPARATOR);
         setFrom(parseDate(str[1].substring(START_TIME_LABEL.length()).trim()));
         setTo(parseDate(str[2].substring(END_TIME_LABEL.length()).trim()));
-        this.description = description.substring(separatorIndex + 1, description.indexOf(SEPARATOR))
-                + "(" + START_TIME_LABEL + ": " + from + " " + END_TIME_LABEL + ": " + to + ")";
+        this.description = str[0] + "(" + START_TIME_LABEL + ": "
+                + from + " " + END_TIME_LABEL + ": " + to + ")";
     }
 }

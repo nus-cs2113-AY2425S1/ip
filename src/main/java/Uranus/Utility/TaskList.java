@@ -70,18 +70,13 @@ public class TaskList extends Functions{
         try {
             if (input == null || input.trim().isEmpty()) {
                 throw new EmptyInputExceptions();
-            } else if (input.trim().equals(Parser.TODO_COMMAND) ||
-                    input.trim().equals(Parser.DEADLINE_COMMAND) ||
-                    input.trim().equals(Parser.TASK_COMMAND) ||
-                    input.trim().equals(Parser.ECHO_COMMAND)){
-                throw new EmptyCommandException();
-            } else if (input.startsWith(Parser.TODO_COMMAND + " ")){
+            } else if (input.startsWith(Parser.TODO_COMMAND)){
                 taskList.add(new ToDos(input));
-            } else if (input.startsWith(Parser.DEADLINE_COMMAND + " ")){
+            } else if (input.startsWith(Parser.DEADLINE_COMMAND)){
                 taskList.add(new Deadlines(input));
-            } else if (input.startsWith(Parser.EVENT_COMMAND + " ")){
+            } else if (input.startsWith(Parser.EVENT_COMMAND)){
                 taskList.add(new Events(input));
-            } else if (input.startsWith(Parser.TASK_COMMAND + " ")){
+            } else if (input.startsWith(Parser.TASK_COMMAND)){
                 taskList.add(new Task(input));
             } else{
                 throw new IllegalCommandException();

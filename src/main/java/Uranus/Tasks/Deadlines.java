@@ -1,5 +1,7 @@
 package Uranus.Tasks;
 
+import UranusExceptions.UranusExceptions;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,7 +15,7 @@ public class Deadlines extends Task {
     private static final DateTimeFormatter DATE_TIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter DATE_TIME_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
-    public Deadlines(String description) {
+    public Deadlines(String description) throws UranusExceptions {
         super(description, DEADLINE_TAG);
     }
 
@@ -37,10 +39,8 @@ public class Deadlines extends Task {
 
     @Override
     public void setDescription(String description) {
-        int separatorIndex = description.indexOf(' ');
         String[] str = description.split(DEADLINE_SEPARATOR);
         setBy(parseDate(str[1].trim()));
-        this.description = description.substring(separatorIndex + 1, description.indexOf(DEADLINE_SEPARATOR))
-                + " (" + DEADLINE_LABEL + getBy() + ")";
+        this.description = str[0] + "(" + DEADLINE_LABEL + getBy() + ")";
     }
 }
