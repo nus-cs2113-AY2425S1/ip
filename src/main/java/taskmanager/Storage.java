@@ -2,7 +2,6 @@ package taskmanager;
 
 import tasks.Task;
 import tasks.Deadline;
-import tasks.Todo;
 import tasks.Event;
 import exceptions.InvalidCommandException;
 
@@ -27,14 +26,30 @@ public class Storage {
         taskList = fileManager.loadTasks();
     }
 
+    /**
+     * Returns the current list of tasks.
+     *
+     * @return The list of tasks.
+     */
+
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    /**
+     * Saves the current list of tasks to the file.
+     */
 
     public void saveTasks() {
         fileManager.saveTasksToFile(taskList);
     }
 
+    /**
+     * Inserts a task into the task list, saves the updated list to the file,
+     * and displays the added task and the total number of tasks.
+     *
+     * @param task The task to be inserted into the list.
+     */
 
     public void storageInsert(Task task) {
         taskList.add(task);
@@ -54,6 +69,14 @@ public class Storage {
         System.out.println("Now you have " + numOfTasks + " tasks in your list.");
     }
 
+    /**
+     * Deletes a task at the specified index from the task list, saves the updated list,
+     * and throws an InvalidCommandException if the index is out of bounds.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws InvalidCommandException If the task at the given index does not exist.
+     */
+
     public void storageDelete(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
             throw new InvalidCommandException("Task number " + index + " does not exist");
@@ -61,6 +84,14 @@ public class Storage {
         taskList.remove(index - 1);
         saveTasks();
     }
+
+    /**
+     * Marks a task at the specified index as completed, saves the updated list,
+     * and throws an InvalidCommandException if the index is out of bounds.
+     *
+     * @param index The index of the task to be marked.
+     * @throws InvalidCommandException If the task at the given index does not exist.
+     */
 
     public void storageMark(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
@@ -70,6 +101,14 @@ public class Storage {
         saveTasks();
     }
 
+    /**
+     * Unmarks a task at the specified index as completed, saves the updated list,
+     * and throws an InvalidCommandException if the index is out of bounds.
+     *
+     * @param index The index of the task to be marked.
+     * @throws InvalidCommandException If the task at the given index does not exist.
+     */
+
     public void storageUnmark(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
             throw new InvalidCommandException("Task number " + index + " does not exist");
@@ -77,6 +116,10 @@ public class Storage {
         taskList.get(index - 1).unsetStatus();
         saveTasks();
     }
+
+    /**
+     * Prints the whole list.
+     */
 
     public void storageList() {
         System.out.println("Here is your current list: ");
@@ -94,6 +137,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints the task at the specified index as a string
+     *
+     * @param index The index of the task to be printed.
+     */
+
     public void storagePrintTask(int index){
         Task task = taskList.get(index - 1);
         if (task instanceof Deadline) {
@@ -104,6 +153,10 @@ public class Storage {
             System.out.println((index) + "." + task.getStatusIcon() + " " + task);
         }
     }
+
+    /**
+     * Clears the whole list and makes it empty.
+     */
 
     public void storageClear(){
         taskList.clear();

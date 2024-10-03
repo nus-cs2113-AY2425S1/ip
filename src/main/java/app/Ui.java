@@ -29,6 +29,11 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Displays the welcome message and instructions to the user when the chatbot starts.
+     * Includes the JeM logo and basic command descriptions.
+     */
+
     public void displayWelcomeMessage() {
         String logo = "      _         __  __ \n"
                 + "     | |       |  \\/  |\n"

@@ -62,6 +62,13 @@ public class FileManager {
         return taskList;
     }
 
+    /**
+     * Saves the list of tasks to the file. Each task is written in a format
+     * suitable for reading back into the program later.
+     *
+     * @param tasks An ArrayList of Task objects to be saved to the file.
+     */
+
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
@@ -75,6 +82,15 @@ public class FileManager {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+
+    /**
+     * Parses a line from the file into a Task object. The line is expected
+     * to be in a specific format corresponding to different task types
+     * (ToDo, Deadline, or Event). Invalid or unrecognized lines are skipped.
+     *
+     * @param line The string representing a task from the file.
+     * @return A Task object corresponding to the line or null if the line is invalid.
+     */
 
     public Task parseTask(String line) {
         if (line.trim().isEmpty()) {

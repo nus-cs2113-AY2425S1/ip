@@ -24,14 +24,13 @@ public class JeM {
     }
 
     public void run() {
-        boolean isRunning = true;
         ui.displayWelcomeMessage();
 
-        while (isRunning) {
+        while (true) {
             String userInput = ui.readInput();
             if (userInput.equalsIgnoreCase("bye")) {
                 ui.exitChatBot();
-                isRunning = false;
+                break;
             }
             try {
                 Command command = parser.parse(userInput, storage);
@@ -41,6 +40,13 @@ public class JeM {
             }
         }
     }
+
+    /**
+     * The main method that serves as the entry point for the JeM application.
+     * It creates a new instance of JeM and starts the chatbot.
+     *
+     * @param args Command-line arguments (not used).
+     */
 
     public static void main(String[] args) {
         new JeM().run();

@@ -17,6 +17,13 @@ public abstract class AddCommand extends Command {
         this.userInput = userInput;
     }
 
-    // Each subclass will implement its specific execute logic
+    /**
+     * Executes the specific add command logic. Each subclass of AddCommand
+     * must implement this method to define how the command interacts with Storage.
+     *
+     * @param storage The storage object that the command will interact with.
+     * @throws InvalidCommandException If the command is invalid or cannot be executed properly.
+     */
+    
     public abstract void execute(Storage storage) throws InvalidCommandException;
 }

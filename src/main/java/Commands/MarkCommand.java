@@ -35,9 +35,8 @@ public class MarkCommand extends Command {
 
         try {
             int index = Integer.parseInt(parts[1]);
-            System.out.println(index);
-            storage.storageMark(index);      // Mark the task
-            storage.storageList();           // List the updated tasks
+            storage.storageMark(index);
+            storage.storageList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }

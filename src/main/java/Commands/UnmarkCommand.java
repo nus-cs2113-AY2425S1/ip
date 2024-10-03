@@ -12,6 +12,10 @@ public class UnmarkCommand extends Command {
 
     protected String userInput;
 
+    public UnmarkCommand(String userInput) {
+        this.userInput = userInput;
+    }
+
     /**
      * Executes the unmark command by parsing the user input to extract the task index.
      * The method then unmarks the task in storage and prints the updated list of tasks.
@@ -20,11 +24,6 @@ public class UnmarkCommand extends Command {
      * @param storage The storage object that manages the task list.
      * @throws InvalidCommandException If the task number is invalid or missing.
      */
-
-    public UnmarkCommand(String userInput) {
-        this.userInput = userInput;
-    }
-
     @Override
     public void execute(Storage storage) throws InvalidCommandException {
         // Split the user input to extract the index of the task to unmark

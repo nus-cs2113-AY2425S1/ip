@@ -23,9 +23,22 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the task description.
+     *
+     * @return The description of the task.
+     */
+
     public String getTask() {
         return task;
     }
+
+    /**
+     * Returns the status icon for the task, which is "[X]" if the task is done
+     * and "[ ]" if it is not done.
+     *
+     * @return A string representing the status icon of the task.
+     */
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
@@ -47,6 +60,12 @@ public class Task {
     public String toString() {
         return this.task;
     }
+
+    /**
+     * Returns the task in a file-saving format, including its type and status.
+     *
+     * @return A string in the format suitable for saving to a file.
+     */
 
     public String fileFormat(){
         return ("T | " + (getIsDone() ? "+" : "-") + " | " + getTask());
