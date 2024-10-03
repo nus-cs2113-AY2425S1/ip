@@ -4,7 +4,8 @@
 This chatbot develops the personality of Cristiano Ronaldo.
 He is arguably the greatest football player of all time (He is for me).
 
-![img_1.png](img_1.png)
+![Ronaldo after scoring in the ucl final vs Juventus, 2017]
+(https://www.kindpng.com/picc/m/654-6541754_cristiano-ronaldo-png-ronaldo-ucl-vs-barca-transparent.png)
 
 Ronaldo is a Java based CLI application that is able to manage tasks efficiently,
 which will be known as goals in this chatbot.
