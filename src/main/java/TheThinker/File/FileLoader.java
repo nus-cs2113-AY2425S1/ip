@@ -49,7 +49,7 @@ public interface FileLoader {
      */
     private static NewFile inputFileNameAndCreateFile() throws IOException {
         UiControl.printSeparation();
-        System.out.println("Input file name you want to extract data from under the Data directory [filename.txt]");
+        System.out.println("Input file name you want to save data to under the Data directory [filename] without .txt");
         UiControl.printSeparation();
         String filename = UserInputParser.getUserInput();
         NewFile newFile = new NewFile(filename + ".txt");
@@ -74,6 +74,7 @@ public interface FileLoader {
         File dataDirectory = new File(FILE_DIR);
 
         if (!dataDirectory.isDirectory()) {
+            System.out.println(FILE_DIR + " does not exist. Creating it now.......");
             createFolder(dataDirectory);
         }
     }

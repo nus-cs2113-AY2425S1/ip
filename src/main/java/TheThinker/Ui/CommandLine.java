@@ -17,14 +17,16 @@ public interface CommandLine {
      *
      * @param data File created to accept task input
      */
-    static void pollForUserInputTillBye(NewFile data) {
+    static void pollForUserInputTillBye(NewFile data , boolean isWriteTask) {
         String userInput;
         do{
             userInput = getUserInputAndDoTask();
-            try {
-                data.writeTaskToFile();
-            } catch (IOException e) {
-                System.out.println("Failed to write task to file");
+            if(isWriteTask) {
+                try {
+                    data.writeTaskToFile();
+                } catch (IOException e) {
+                    System.out.println("Failed to write task to file");
+                }
             }
         }while(!userInput.equals("bye"));
     }
@@ -117,5 +119,14 @@ public interface CommandLine {
             System.out.println("The task number after [mark] is not a number / not in the correct format");
 
         }
+    }
+
+    public static boolean getWriteTaskInput() {
+        System.out.println("Do you want to save your tasks to a file? yes / no");
+        String userInput = UserInputParser.getUserInput();
+        if(userInput.equalsIgnoreCase("yes")) {
+            return true;
+        }
+        return false;
     }
 }
