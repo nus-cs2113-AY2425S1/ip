@@ -21,7 +21,11 @@ public class Ui extends Functions{
                 "5. Be a parrot!",
                 "   - Type command: echo",
                 "6. Shut myself down. Use this if you no longer need me :(",
-                "   - Type command: bye"
+                "   - Type command: bye",
+                "7. Show you what assistance I can provide",
+                "   - Type command: help",
+                "8. Simulate clearing of screen",
+                "   - Type command: clear"
         );
     }
 
@@ -57,5 +61,12 @@ public class Ui extends Functions{
     // Goodbye Screen
     public static void printByeMessage() {
         Ui.print("Bye. Hope to see you again!");
+    }
+
+    // Simulate Clearing of Screen
+    public static void clearScreen(){
+        for (int i = 0; i < 35; i++) {
+            System.out.println();
+        }
     }
 }

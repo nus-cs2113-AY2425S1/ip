@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Chatbot {
     protected static final Scanner in = new Scanner(System.in);
-    private static final String LINE_SEPARATOR = "_________________________________________________________";
 
     // Constructor for chatbot
     public Chatbot() {

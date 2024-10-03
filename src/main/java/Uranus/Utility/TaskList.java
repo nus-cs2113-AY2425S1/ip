@@ -52,7 +52,7 @@ public class TaskList extends Functions{
         }
     }
 
-    public static String taskStatus(ArrayList<Task> taskList,int index){
+    public static String taskStatus(ArrayList<Task> taskList, int index){
         return taskList.get(index).getTaskStatus();
     }
 
@@ -105,9 +105,7 @@ public class TaskList extends Functions{
     protected static void findTasks(String input){
         ArrayList<Task> filteredTasks =
                 taskList.stream()
-                        .filter(task -> {
-                            return task.getDescription().toLowerCase().contains(input.toLowerCase());
-                        })
+                        .filter(task -> task.getDescription().toLowerCase().contains(input.toLowerCase()))
                         .collect(Collectors.toCollection(ArrayList::new));
         listTasks(filteredTasks);
     }
