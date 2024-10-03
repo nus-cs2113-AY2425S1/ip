@@ -4,6 +4,9 @@ import freedom.ui.UiTaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Class to store and manage Tasks.
+ */
 public class TaskList {
     private static final UiTaskList ui = new UiTaskList();
 
@@ -15,11 +18,23 @@ public class TaskList {
         setLastIndex(0);
     }
 
+    /**
+     * Constructor for <code>TaskList</code>.
+     * Sets the initial list of tasks and number of tasks.
+     *
+     * @param tasks ArrayList of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         setTasks(tasks);
         setLastIndex(tasks.size());
     }
 
+    /**
+     * Adds a task of the specified type to the end of the ArrayList.
+     *
+     * @param type task type.
+     * @param input user input.
+     */
     public void addTask(String type, String input) {
         String description;
         try {
@@ -48,6 +63,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks/ Unmarks/ Deletes tasks from the list.
+     * Task is specified by its index in the list.
+     *
+     * @param words Array containing specific command and task index.
+     */
     public void editTask(String[] words) {
         final int COMMAND_INDEX = 0;
         final int TASK_INDEX = 1;
@@ -86,6 +107,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the ordered list of tasks.
+     *
+     * @param tasks task list.
+     */
     public void printList(ArrayList<Task> tasks) {
         ui.printListHeader();
         int counter = 1;
@@ -96,6 +122,11 @@ public class TaskList {
         ui.printTailDivider();
     }
 
+    /**
+     * Prints a filtered list of tasks based on a keyword.
+     *
+     * @param input String containing command "find" and keyword.
+     */
     public void findTasks(String input) {
         String keyword = input.replaceFirst("find", "").trim();
         Task taskToCheck;
