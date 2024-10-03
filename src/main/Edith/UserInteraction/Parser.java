@@ -15,6 +15,8 @@ public class Parser {
             tasks.changeTaskStatus(enteredString, storage);
         } else if (enteredString.contains("delete")) {
             tasks.deleteTask(enteredString, storage);
+        } else if (enteredString.contains("find")) {
+            tasks.findTask(enteredString);
         } else {
             tasks.addTaskToList(enteredString, storage);
         }
