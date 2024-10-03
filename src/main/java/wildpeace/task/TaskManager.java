@@ -6,6 +6,8 @@ import wildpeace.task.Parser;
 import wildpeace.Storage.Storage;
 import wildpeace.task.Ui;
 
+import java.util.Scanner;
+
 /**
  * Manages the high-level routine of Ui, Storage, TaskList, and Parser classes.
  * The routine involves showing the user guide, parsing user commands and arguments,
@@ -21,11 +23,13 @@ public class TaskManager {
      * Constructor for TaskManager class.
      * Initializes the user interface (Ui), task storage, task list, and command parser.
      */
-    public TaskManager() {
-        ui = new Ui();
+    public TaskManager(Scanner scanner) {
+
+        ui = new Ui(scanner);
         storage = new Storage();
         taskList = new TaskList(storage.load());
         parser = new Parser();
+
     }
 
     /**

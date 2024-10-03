@@ -1,4 +1,10 @@
-w
 2
-event play
-now till forever
+todo Finish reading book
+deadline Submit assignment /by 2024-12-01
+event Project meeting /at 2024-10-05
+list
+mark 1
+unmark 1
+delete 2
+find book
+bye

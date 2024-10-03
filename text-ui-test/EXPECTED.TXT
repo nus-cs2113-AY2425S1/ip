@@ -5,13 +5,20 @@ __        ___ _     _
   \ V  V / | | | (_| | |_) |  __/ (_| | (_|  __/
    \_/\_/  |_|_|\__,_| .__/ \___|\__,_|\___\___|
                      |_|
-What can I do for you, enter '1' for echo, '2' for storing your plan, '0' to exit
-Invalid input
-What can I do for you, enter '1' for echo, '2' for storing your plan, '0' to exit
+What can I do for you? Enter '1' for echo, '2' for storing your plan, '0' to exit.
+No existing tasks found. Starting fresh.
 List your plans in the following format:
-todo/ deadline/ evet + task, eg. todo homework
-You may also mark/ unmark existing task by: mark/ unmark + task
+todo/ deadline/ event + task, e.g., todo homework
+You may also mark/unmark tasks by: mark/unmark + task
 Return to tutorial by entering Q
-Duration for the event:
-Added: [ ] [E] play (by: now till forever)
-
+Added: [T] [ ] Finish reading book
+Added: [D] [ ] Submit assignment (by: 12月 1 2024)
+Added: [E] [ ] Project meeting (by: 10月 5 2024)
+1: [T] [ ] Finish reading book
+2: [D] [ ] Submit assignment (by: 12月 1 2024)
+3: [E] [ ] Project meeting (by: 10�� 5 2024)
+Marked as done: [T] [X] Finish reading book
+Unmarked: [T] [ ] Finish reading book
+Removed: [D] [ ] Submit assignment (by: 12�� 1 2024)
+1. [T] [ ] Finish reading book
+Goodbye!

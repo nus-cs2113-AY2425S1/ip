@@ -13,8 +13,8 @@ public class Ui {
     /**
      * Constructs a Ui object and initializes a Scanner to read user input.
      */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    public Ui(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     /**
@@ -23,7 +23,12 @@ public class Ui {
      * @return The command input by the user as a string.
      */
     public String readCommand() {
-        return scanner.nextLine();
+        // Reads one line at a time, treating each as a command
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine().trim();  // Ensure commands are trimmed
+        } else {
+            return "bye";  // Exit when there are no more lines
+        }
     }
 
     /**
