@@ -4,11 +4,17 @@ import Entity.Message;
 import Entity.messageList;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
+
+    private static int todo = 1;
+    private static int deadline = 2;
+    private static int event = 3;
 
     public static void preHandle(messageList list) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -27,22 +33,68 @@ public class messageHandler {
                 messageHandler.mark(list, input);
             } else if (input.contains("delete")) {
                 messageHandler.delete(list, input);
-            } else {
+            } else if (input.contains("add")) {
                 messageHandler.addList(list, input);
+            }
+            else if (input.contains("find")) {
+                messageHandler.find(list, input);
             }
         }
     }
 
-    public static void echo(String message) {
+    public static LocalDate convertToDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-HH-dd-MM-yyyy");
+        return LocalDate.parse(input, formatter);
+    }
 
-        if(Objects.equals(message, "bye")) {
-            System.out.println("Bye. Hope to see you soon!");
-            return;
+    public static void print(Message message, int index) {
+        boolean isDone = message.isDone();
+        String doneSign = "";
+        if(isDone) {
+            doneSign = "X";
         }
+        else {
+            doneSign = "";
+        }
+        int type = message.getType();
+        String typeSign = "";
+        LocalDate startTime = null;
+        LocalDate endTime = null;
+        String By = "";
+        String From = "";
+        String task = message.getMessage();
+        if(type == todo){
+            typeSign = "[T]";
+        }
+        else if(type == deadline){
+            By = " By: ";
+            typeSign = "[D]";
+            endTime = message.getEndTime();
+        }
+        else if(type == event){
+            typeSign = "[E]";
+            By = " By: ";
+            From = " From: ";
+            startTime = message.getStartTime();
+            endTime = message.getEndTime();
+        }
+        String number = "";
+        if(index > 0) {
+            number = String.valueOf(index);
+        }
+        System.out.println(number + ". " + typeSign + "[" + doneSign + "] " + task + From + startTime + By + endTime);
 
-        System.out.println("-----------------------------------\n");
-        System.out.println(message);
-        System.out.println("-----------------------------------\n");
+    }
+
+    public static void find(messageList list, String input) {
+        List<Message> messages = list.getMessages();
+        for(int i = 0; i < messages.size(); i++) {
+            Message message = messages.get(i);
+            String task = message.getMessage();
+            if(task.contains(input)) {
+                print(message, 0);
+            }
+        }
     }
 
     public static void listShow(messageList list) {
@@ -52,36 +104,8 @@ public class messageHandler {
         int type = 0;
         List<Message> messages = list.getMessages();
         while(i <= messages.size()) {
-            isDone = messages.get(i-1).isDone();
-            String doneSign = "";
-            if(isDone) {
-                doneSign = "X";
-            }
-            else {
-                doneSign = "";
-            }
-            type = messages.get(i-1).getType();
-            String typeSign = "";
-            String startTime = "";
-            String endTime = "";
-            String By = "";
-            String From = "";
-            if(type == 1){
-                typeSign = "[T]";
-            }
-            else if(type == 2){
-                By = " By: ";
-                typeSign = "[D]";
-                endTime = messages.get(i-1).getEndTime();
-            }
-            else if(type == 3){
-                typeSign = "[E]";
-                By = " By: ";
-                From = " From: ";
-                startTime = messages.get(i-1).getStartTime();
-                endTime = messages.get(i-1).getEndTime();
-            }
-            System.out.println(i + ". " + typeSign + "[" + doneSign + "] " + messages.get(i-1).getMessage() + From + startTime + By + endTime );
+            Message message = messages.get(i - 1);
+            print(message, i);
             i++;
         }
         System.out.println("-----------------------------------\n");
@@ -105,7 +129,7 @@ public class messageHandler {
             String[] strings = input.split("/");
             String endTime = strings[strings.length-1].split(" ")[1];
             String eventName = strings[strings.length-2].split(" ")[1];
-            Message message = new Message(eventName, endTime, 2);
+            Message message = new Message(eventName, convertToDate(endTime), 2);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
@@ -118,7 +142,7 @@ public class messageHandler {
             String startTime = strings[strings.length-2].split(" ")[1];
             String endTime = strings[strings.length-1].split(" ")[1];
             String eventName = strings[strings.length-3].split(" ")[1];
-            Message message = new Message(eventName, startTime, endTime, 3);
+            Message message = new Message(eventName, convertToDate(startTime), convertToDate(endTime), 3);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
