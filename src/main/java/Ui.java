@@ -9,11 +9,11 @@ public class Ui {
         inputScanner = new Scanner(System.in);
     }
 
-    public void run(TaskList taskList){
+    public void run(TaskList taskList) {
         printGreeting();
 
         String inputLine;
-        do{
+        do {
             inputLine = inputScanner.nextLine();
             printDivider();
             try {

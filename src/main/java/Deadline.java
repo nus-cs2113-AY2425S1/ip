@@ -12,6 +12,7 @@ public class Deadline extends Task {
         super.printTask();
         System.out.println("(by: " + dueBy + ")");
     }
+
     @Override
     public String convertToSaveFormat() {
         return "D | " + super.convertToSaveFormat() + " | " + dueBy;

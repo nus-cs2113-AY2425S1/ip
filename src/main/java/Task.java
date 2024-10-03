@@ -27,8 +27,8 @@ public class Task {
         System.out.printf("[%s] %s", done ? "X" : " ", taskInfo);
     }
 
-    public String convertToSaveFormat(){
-       return (done?"1":"0") + " | " + taskInfo;
+    public String convertToSaveFormat() {
+        return (done ? "1" : "0") + " | " + taskInfo;
 
     }
 

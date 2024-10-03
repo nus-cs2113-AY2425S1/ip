@@ -22,7 +22,7 @@ public class Storage {
     }
 
     public void saveFile(TaskList taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath,false);
+        FileWriter fw = new FileWriter(filePath, false);
         String fileData = convertToSaveFormat(taskList);
         fw.write(fileData);
         fw.close();
@@ -31,7 +31,7 @@ public class Storage {
 
     public String convertToSaveFormat(TaskList taskList) throws IOException {
         StringBuilder toWrite = new StringBuilder();
-        for (Task task:taskList.getList()){
+        for (Task task : taskList.getList()) {
             toWrite.append(task.convertToSaveFormat()).append(System.lineSeparator());
         }
         return toWrite.toString();

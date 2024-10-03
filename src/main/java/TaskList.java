@@ -7,17 +7,17 @@ public class TaskList {
         list = new ArrayList<>();
     }
 
-    public TaskList(String fileData){
+    public TaskList(String fileData) {
         list = new ArrayList<>();
         parseFileData(fileData);
     }
 
-    public void parseFileData(String fileData){
+    public void parseFileData(String fileData) {
         String[] lines = fileData.split(System.lineSeparator());
         for (String line : lines) {
             try {
                 parseLine(line);
-            }catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Save file has been tampered with or corrupted");
             }
         }
@@ -57,9 +57,9 @@ public class TaskList {
     }
 
     public void printTaskList() {
-        if (list.isEmpty()){
-           System.out.println("You currently have no tasks");
-           return;
+        if (list.isEmpty()) {
+            System.out.println("You currently have no tasks");
+            return;
         }
         System.out.println("Here is your list of tasks:");
         for (int i = 1; i <= list.size(); i++) {
@@ -73,7 +73,7 @@ public class TaskList {
             int index = Integer.parseInt(listIndex);
             list.get(index - 1).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            list.get(index-1).printTask();
+            list.get(index - 1).printTask();
         } catch (Exception e) {
             //Treat invalid command as a task
             System.out.println("Please use a valid index");
@@ -85,18 +85,18 @@ public class TaskList {
             int index = Integer.parseInt(listIndex);
             list.get(index - 1).markAsNotDone();
             System.out.println("Nice! I've marked this task as not done:");
-            list.get(index-1).printTask();
+            list.get(index - 1).printTask();
         } catch (Exception e) {
             //Treat invalid command as a task
             System.out.println("Please use a valid index");
         }
     }
 
-    public void attemptToDelete(String listIndex){
+    public void attemptToDelete(String listIndex) {
         try {
             int index = Integer.parseInt(listIndex);
-            Task temp = list.get(index-1);
-            list.remove(index-1);
+            Task temp = list.get(index - 1);
+            list.remove(index - 1);
             System.out.println("Nice! I've deleted this task for you:");
             temp.printTask();
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class TaskList {
         }
     }
 
-    public void searchTasks(String match){
+    public void searchTasks(String match) {
         System.out.println("The tasks matching your search term are:");
         int printIndex = 1;
         for (Task task : list) {
@@ -118,6 +118,6 @@ public class TaskList {
     }
 
     public ArrayList<Task> getList() {
-        return  list;
+        return list;
     }
 }
