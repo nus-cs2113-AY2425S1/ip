@@ -34,19 +34,6 @@ Upon launching the application, you should see the following introduction:
 * Exclaims when input contains "siu" 🤩
 * Boasts when input contains "messi" 🥱
 
-## Commands
-1. `todo <description>` - Adds a goal in this format: [T][ ]
-2. `deadline <description> /by <time>` - Adds a goal in this format: [D][ ] (by: )
-3. `event <description> /from <time> /to <time>` - Adds a goal in this format: [E][ ] (from: to: )
-4. `mark <Goal Number>` - Marks a goal as complete `[X]`
-5. `unmark <Goal Number>` - Marks a goal as incomplete `[ ]`
-6. `list` - Provides a list of all goals
-7. `delete <Goal Number>`- Deletes a goal
-8. `find <Keyword>` - Finds a goal with matching keywords
-9. `bye` - Exits the program
-
-
-
 ## Help
 
 Shows the user a list of commands available to use.
