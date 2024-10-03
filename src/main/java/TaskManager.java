@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a manager for handling tasks in the task list.
+ * The TaskManager class is responsible for managing tasks, including adding,
+ * deleting, marking, unmarking, and finding tasks. It provides methods to interact
+ * with the user interface (UI) and stores tasks in a file using the Storage class.
+ */
 public class TaskManager {
 
     private final static Ui ui = new Ui();
@@ -17,10 +23,20 @@ public class TaskManager {
         loadTasks();
     }
 
+    /**
+     * Prints out all the tasks in the list to the user.
+     */
     public void printTaskList() {
         ui.printTaskList(tasks);
     }
 
+    /**
+     * Marks the task as done based on the provided task number.
+     * If the task number is out of range, a {@link EvaException} is thrown.
+     *
+     * @param line A string representing the task number to be marked as done.
+     * @throws EvaException If number given is out of bounds (< 0 or > count)
+     */
     public void markTask(String line) throws EvaException {
 
         int taskNumber = Integer.parseInt(line) - 1;
@@ -40,6 +56,13 @@ public class TaskManager {
         saveTasks();
     }
 
+    /**
+     * Unmarks the task as done based on the provided task number.
+     * If the task number is out of range, a {@link EvaException} is thrown.
+     *
+     * @param line A string representing the task number to be unmarked as done.
+     * @throws EvaException If number given is out of bounds (< 0 or > count)
+     */
     public void unmarkTask(String line) throws EvaException {
 
         int taskNumber = Integer.parseInt(line) - 1;
@@ -58,6 +81,13 @@ public class TaskManager {
         saveTasks();
     }
 
+    /**
+     * Deletes the task as specified by the user.
+     * If the task number is out of range, a {@link EvaException} is thrown.
+     *
+     * @param line A string representing the task number to be deleted.
+     * @throws EvaException If number given is out of bounds (< 0 or > count)
+     */
     public void deleteTask(String line) throws EvaException {
 
         int taskNumber = Integer.parseInt(line) - 1;
@@ -80,12 +110,16 @@ public class TaskManager {
         saveTasks();
     }
 
-    public void printTodo(String line) throws EvaException {
-
-        if (line.isEmpty()) {
-            throw new EvaException("On no! The description of a todo cannot be empty." +
-                    " \nPlease try again by typing todo (name of task).");
-        }
+    /**
+     * Adds a new Todo task to the task list.
+     * Creates a new {@code Todo} object using the provided task description
+     * and adds it to the list of tasks.
+     * After adding the task, a confirmation message is displayed,
+     * the total number of tasks is printed, and the updated list is saved.
+     *
+     * @param line The description of the Todo task to be added.
+     */
+    public void addTodo(String line) {
 
         tasks.add(new Todo(line));
 
@@ -99,12 +133,17 @@ public class TaskManager {
         saveTasks();
     }
 
-    public void printDeadline(String description, String by) throws EvaException {
-
-        if (description.isEmpty() || by.isEmpty()) {
-            throw new EvaException("Oh no! Either the description part is empty or the by part is empty!" +
-                    "\nPlease try again!");
-        }
+    /**
+     * Add a new Deadline task to the task list.
+     * Creates a new {@code Deadline} object using the provided task description
+     * and adds it to the list of tasks
+     * After adding the task, a confirmation message is displayed,
+     * the total number of tasks is printed, and updated list is saved
+     *
+     * @param description The description of the Deadline task to be added
+     * @param by The time by which the Deadline task needs to be completed
+     */
+    public void addDeadline(String description, String by) {
 
         tasks.add(new Deadline(description, by));
 
@@ -118,12 +157,18 @@ public class TaskManager {
         saveTasks();
     }
 
-    public void printEvent(String description, String from, String to) throws EvaException {
-
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new EvaException("Oh no! The description, from or to parts are empty!" +
-                    "\nPlease try again!");
-        }
+    /**
+     * Add a new Event task to the task list
+     * Creates a new {@code Event} object using the provided task description
+     * and adds it to the list of tasks
+     * After adding the task, a confirmation message is displayed,
+     * the total number of tasks is printed, and updated list is saved
+     *
+     * @param description The description of the Event task to be added
+     * @param from The time when the Event task starts
+     * @param to The time when the Event task ends
+     */
+    public void addEvent(String description, String from, String to) {
 
         tasks.add(new Event(description, from, to));
 
@@ -137,6 +182,15 @@ public class TaskManager {
         saveTasks();
     }
 
+    /**
+     * Finds and displays the tasks that match the given keyword
+     * It searches the task list for tasks whose description matches
+     * the specific keyword.
+     * If matching tasks are found, they are displayed to the user
+     * If no matching tasks are found, a message indicating no matches will show
+     *
+     * @param subject The keyword used to search for matching tasks
+     */
     public void findTasks(String subject) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -156,6 +210,11 @@ public class TaskManager {
         ui.showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the number of tasks in the task list
+     *
+     * @param count The number of tasks in the list (based zero)
+     */
     public void printNumTasks(int count) {
         ui.showMessage("Now you have " + (count + 1) + " tasks in the list.");
     }

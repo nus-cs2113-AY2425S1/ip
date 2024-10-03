@@ -1,3 +1,10 @@
+/**
+ * The main class for Eva chatbot
+ * This class initialises the program by creating instances of
+ * {@link TaskManager}, {@link Ui}, {@link Parser}, {@link CommandHandler}
+ * and manages how the program read the input from the user, parse the input,
+ * executes the commands and exits the program
+ */
 public class Eva {
 
     private final static TaskManager taskManager = new TaskManager();

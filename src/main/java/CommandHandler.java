@@ -5,6 +5,17 @@ public class CommandHandler {
         this.taskManager = taskManager;
     }
 
+    /**
+     * Executes the specified command with the provided arguments
+     * This method interprets the command and delegates the execution to the
+     * appropriate methods in {@code TaskManager} performing actions such as
+     * listing tasks, marking/unmarking tasks, adding new tasks (todo, deadline, event) etc.
+     * If the command is unknown, it throws an {@code EvaException}.
+     *
+     * @param command The command to be executed
+     * @param args An array of strings containing the arguments required for a command
+     * @throws EvaException If the command is unknown
+     */
     public void executeCommand(String command, String[] args) throws EvaException {
         switch (command) {
         case "list":
