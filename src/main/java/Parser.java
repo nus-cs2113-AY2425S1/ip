@@ -34,6 +34,9 @@ public class Parser {
                 taskNumber = Integer.parseInt(words[1]);
                 tasklist.deleteTask(taskNumber);
                 break;
+            case "find":
+                tasklist.findTask(input);
+                break;
             default:
                 Ui.printHorizontalLine();
                 throw new InvalidCommandException("Did you misspell or miss out something? ");

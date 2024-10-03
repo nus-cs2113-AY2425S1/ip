@@ -10,6 +10,7 @@ public class TaskList {
     private static final int TODO_CHAR_COUNT = 4;
     private static final int DEADLINE_CHAR_COUNT = 8;
     private static final int EVENT_CHAR_COUNT = 5;
+    private static final int FIND_CHAR_COUNT = 4;
 
     // may not need
     public TaskList() {
@@ -114,6 +115,28 @@ public class TaskList {
         } catch (IllegalCommandException e) {
             Ui.printExceptionMessage(e);
         }
+    }
+
+    public void findTask(String input) {
+        boolean found = false;
+        boolean foundMessageHeader = false;
+        String keyword = input.substring(FIND_CHAR_COUNT + 1).trim();
+        for (int i = 0; i < taskCount; i++) {
+            Task task = tasks.get(i);
+            String description = task.getDescription().toLowerCase();
+            if (description.contains(keyword.toLowerCase())) {
+                if (!foundMessageHeader) {
+                    Ui.printFoundMessageHeader();
+                    foundMessageHeader = true;
+                }
+                System.out.println((i + 1) + ". " + task);
+                found = true;
+            }
+        }
+        if (!found) {
+            Ui.printMissingMessage();
+        }
+        Ui.printHorizontalLine();
     }
 
 }

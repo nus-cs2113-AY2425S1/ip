@@ -1,2 +1,3 @@
 D | false | yoga | 7pm
 T | false | smile
+T | false | smile yoga
