@@ -105,6 +105,18 @@ public class TaskList {
         }
     }
 
+    public void searchTasks(String match){
+        System.out.println("The tasks matching your search term are:");
+        int printIndex = 1;
+        for (Task task : list) {
+            if (task.getInfo().contains(match)) {
+                System.out.print(printIndex + ". ");
+                printIndex++;
+                task.printTask();
+            }
+        }
+    }
+
     public ArrayList<Task> getList() {
         return  list;
     }
