@@ -6,12 +6,12 @@
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application:java -jar lovespiritual.jar
 5. The application will start, and any existing tasks will be loaded from the file data/lovespiritual.txt. If this file doesn't exist, it will be created automatically when tasks are added.
-6. Type commands in the input box and press Enter to execute them. For example:
-- 'list': Lists all tasks.
-- 'todo Buy groceries': Adds a todo task with the description "Buy groceries".
-- 'mark 1': Marks the 1st task as done.
-- 'delete 2': Deletes the 2nd task in the list.
-- 'bye': Exits the application.
+6. Type commands below the outputs and press Enter to execute them. For example:
+   - 'list': Lists all tasks.
+   - 'todo Buy groceries': Adds a todo task with the description "Buy groceries".
+   - 'mark 1': Marks the 1st task as done.
+   - 'delete 2': Deletes the 2nd task in the list.
+   - 'bye': Exits the application.
 
 For details on all available commands, refer to the Features section below.
 
