@@ -1,13 +1,24 @@
 import java.io.*;
 import java.util.Scanner;
-
+/**
+ * Handles loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
-
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file to load/save tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file and returns them as an array.
+     *
+     * @return An array of loaded tasks.
+     */
     public Task[] loadTasksFromFile() {
         Task[] tasks = new Task[100];
         int lastIndex = 0;
@@ -51,7 +62,12 @@ public class Storage {
 
         return tasks;
     }
-
+    /**
+     * Saves the specified tasks to the file.
+     *
+     * @param tasks     The tasks to save.
+     * @param lastIndex The number of tasks to save.
+     */
     public void saveTasksToFile(Task[] tasks, int lastIndex) {
         try {
             File dir = new File("./data");
