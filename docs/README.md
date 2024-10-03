@@ -1,5 +1,19 @@
 # User Guide for lovespiritual Task Manager
 
+## Quick start
+## Features
+### Notes about the command format:
+### Listing all tasks: list
+### Adding a To-Do task: todo
+### Adding a Deadline task: deadline
+### Adding an Event task: event
+### Marking a task as completed: mark
+### Unmarking a task as not completed: unmark
+### Deleting a task: delete
+### Finding tasks: find
+### Exiting the program: exit
+## Saving the data
+## Editing the data file
 
 
 // Product screenshot goes here
