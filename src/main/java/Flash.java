@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class Flash {
 
-    private static final List<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/flash.txt";
+    private static Storage storage;
 
     public static void displayTasks() {
         System.out.println("____________________________________________________________");
@@ -98,8 +100,17 @@ public class Flash {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        storage = new Storage(FILE_PATH);
 
+        // Load tasks from file
+        try {
+            tasks = storage.load();
+            System.out.println("Loaded tasks from file successfully.");
+        } catch (FlashException e) {
+            System.out.println("Failed to load tasks: " + e.getMessage());
+        }
+
+        Scanner in = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Flash");
         System.out.println(" What can I do for you?");
@@ -117,14 +128,19 @@ public class Flash {
                     displayTasks();
                 } else if (input.startsWith("mark")) {
                     markTask(input);
+                    storage.save(tasks);
                 } else if (input.startsWith("unmark")) {
                     unMarkTask(input);
+                    storage.save(tasks);
                 } else if (input.startsWith("todo")) {
                     todo(input);
+                    storage.save(tasks);
                 } else if (input.startsWith("deadline")) {
                     deadline(input);
+                    storage.save(tasks);
                 } else if (input.startsWith("event")) {
                     event(input);
+                    storage.save(tasks);
                 } else {
                     throw new FlashException("Uh-oh! I don't know what that means.");
                 }
