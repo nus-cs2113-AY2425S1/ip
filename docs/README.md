@@ -1,6 +1,6 @@
-# Duke User Guide
+# User Guide for lovespiritual Task Manager
 
-// Update the title above to match the actual product name
+
 
 // Product screenshot goes here
 
