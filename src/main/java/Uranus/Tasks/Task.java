@@ -1,5 +1,8 @@
 package Uranus.Tasks;
 
+import UranusExceptions.UranusExceptions;
+import UranusExceptions.EmptyDescriptionException;
+
 public class Task {
     protected String description;
     protected String commandInput;
@@ -9,17 +12,19 @@ public class Task {
     private static final String INCOMPLETE_STATUS_ICON = " ";
     private static final String NO_TAG = " ";
 
-    public Task(String description) {
+    public Task(String description) throws UranusExceptions {
         this.commandInput = description;
-        setDescription(description);
+        removeCommand(description);
+        setDescription(this.description);
         this.isDone = false;
         this.taskTag = NO_TAG; // for no-tag
     }
 
     // Overloaded function for available tags
-    public Task(String description, String taskTag) {
+    public Task(String description, String taskTag) throws UranusExceptions {
         this.commandInput = description;
-        setDescription(description);
+        removeCommand(description);
+        setDescription(this.description);
         this.isDone = false;
         this.taskTag = taskTag;
     }
@@ -40,9 +45,16 @@ public class Task {
         return taskTag;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws UranusExceptions {
+        this.description = description;
+    }
+
+    public void removeCommand(String description) throws UranusExceptions {
         int separatorIndex = description.indexOf(' ');
-        this.description = description.substring(separatorIndex + 1);
+        this.description = description.substring(separatorIndex + 1).trim();
+        if (this.description.equals(description) || this.description.isEmpty()){
+            throw new EmptyDescriptionException();
+        }
     }
 
     public String getDescription(){

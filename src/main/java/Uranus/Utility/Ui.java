@@ -7,8 +7,11 @@ public class Ui extends Functions{
                 "1. Add tasks: I can add tasks to your task list.",
                 "   - Type command: <task>",
                 "   - Type command: todo <task>",
-                "   - Type command: deadline <task> /by <date>",
-                "   - Type command: event <task> /from <day> <start time> /to <end time>",
+                "   - Type command: deadline <task> /by <deadline>",
+                "   - Type command: deadline <task> /by <date in dd-MM-yyyy> <time in HHmm>",
+                "   - Type command: event <task> /from <start> /to <end>",
+                "   - Type command: event <task> /from <date in dd-MM-yyyy> <time in HHmm>" +
+                        " /to <date in dd-MM-yyyy> <time in HHmm>",
                 "2. Mark tasks as done:",
                 "   - Type command: mark <task number>",
                 "3. Mark tasks as not done:",
@@ -18,7 +21,11 @@ public class Ui extends Functions{
                 "5. Be a parrot!",
                 "   - Type command: echo",
                 "6. Shut myself down. Use this if you no longer need me :(",
-                "   - Type command: bye"
+                "   - Type command: bye",
+                "7. Show you what assistance I can provide",
+                "   - Type command: help",
+                "8. Simulate clearing of screen",
+                "   - Type command: clear"
         );
     }
 
@@ -54,5 +61,12 @@ public class Ui extends Functions{
     // Goodbye Screen
     public static void printByeMessage() {
         Ui.print("Bye. Hope to see you again!");
+    }
+
+    // Simulate Clearing of Screen
+    public static void clearScreen(){
+        for (int i = 0; i < 35; i++) {
+            System.out.println();
+        }
     }
 }
