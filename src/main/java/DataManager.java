@@ -59,7 +59,7 @@ public class DataManager {
     public void saveData() {
         try {
             FileWriter fileWriter = new FileWriter(dataFile);
-            for (Task task : Aerus.tasks) {
+            for (Task task : TaskList.tasks) {
                 fileWriter.write(task.toSaveString() + "\n");
             }
             fileWriter.close();

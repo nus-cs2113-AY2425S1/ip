@@ -1,28 +1,49 @@
 import exception.InvalidCreateTaskException;
 import exception.InvalidMarkException;
 
+import java.util.Scanner;
+
 import static java.lang.Integer.parseInt;
 
 public class InputHandler {
+    public static void execute() {
+        String userInput;
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            while (true) {
+                userInput = scanner.nextLine();
+                int result = InputHandler.inputHandler(userInput);
+                if (result == -1) {
+                    break;
+                }
+            }
+        } catch (InvalidMarkException e) {
+            System.out.println("This task does not exist, please check again.");
+        }
+    }
+
     public static int inputHandler(String userInput) throws InvalidMarkException {
         switch (userInput) {
 
-        // Case: Terminate program
         case "bye":
             return -1;
 
-        // Case: See list
         case "list":
-            if (Aerus.tasks.isEmpty()) {
+            if (TaskList.tasks.isEmpty()) {
                 UI.printContent("You don't have any tasks!");
                 return 1;
             }
 
             System.out.println(UI.DIVIDER_LINE);
-            for (int i = 1; i <= Aerus.tasks.size(); i++) {
-                System.out.println(i + ". " + Aerus.tasks.get(i - 1).toString());
+            for (int i = 1; i <= TaskList.tasks.size(); i++) {
+                System.out.println(i + ". " + TaskList.tasks.get(i - 1).toString());
             }
             System.out.println(UI.DIVIDER_LINE);
+            return 1;
+
+        case "help":
+            UI.printHelp();
             return 1;
         }
 
@@ -32,11 +53,11 @@ public class InputHandler {
         // Test if the input is formatted like a mark/unmark command
         if (isMarkCommandType(userInput)) {
             int taskIndex = parseInt(userInputSplit[1]) - 1;
-            if (taskIndex > Aerus.tasks.size()) {
+            if (taskIndex > TaskList.tasks.size()) {
                 throw new InvalidMarkException();
             }
             String command = userInputSplit[0];
-            Task task = Aerus.tasks.get(taskIndex);
+            Task task = TaskList.tasks.get(taskIndex);
             switch (command) {
             case "mark":
                 task.markAsDone();

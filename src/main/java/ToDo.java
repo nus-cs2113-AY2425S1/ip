@@ -7,8 +7,8 @@ public class ToDo extends Task {
     }
 
     public static void createNewToDo(String userInput) throws InvalidCreateToDoException {
-        if (userInput.length() > 0) {
-            Aerus.tasks.add(new ToDo(userInput));
+        if (!userInput.isEmpty()) {
+            TaskList.tasks.add(new ToDo(userInput));
             UI.printContent("Added ToDo: " + userInput);
         } else {
             throw new InvalidCreateToDoException();

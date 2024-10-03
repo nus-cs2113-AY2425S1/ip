@@ -3,7 +3,10 @@ import exception.InvalidCreateEventException;
 import exception.InvalidCreateTaskException;
 import exception.InvalidCreateToDoException;
 
+import java.util.ArrayList;
+
 public class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -27,8 +30,8 @@ public class Task {
     }
 
     public static void deleteTask(int taskIndex) {
-        Aerus.tasks.get(taskIndex).printDelete();
-        Aerus.tasks.remove(taskIndex);
+        TaskList.tasks.get(taskIndex).printDelete();
+        TaskList.tasks.remove(taskIndex);
     }
 
     public String getStatusIcon() {
