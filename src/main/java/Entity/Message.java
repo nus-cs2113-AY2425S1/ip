@@ -6,8 +6,8 @@ public class Message {
     private int type; //1: todo, 2: ddl, 3: event
     private String message;
     private boolean isDone;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private String startTime;
+    private String endTime;
 
     //todo
     public Message(String message) {
@@ -17,7 +17,7 @@ public class Message {
     }
 
     //event
-    public Message(String message, LocalDate startTime, LocalDate endTime, int type) {
+    public Message(String message, String startTime, String endTime, int type) {
         this.message = message;
         this.isDone = false;
         this.startTime = startTime;
@@ -26,7 +26,7 @@ public class Message {
     }
 
     //ddl
-    public Message(String message, LocalDate endTime, int type) {
+    public Message(String message, String endTime, int type) {
         this.message = message;
         this.isDone = false;
         this.endTime = endTime;
@@ -34,7 +34,7 @@ public class Message {
     }
 
     //retrieve
-    public Message(String message, boolean isDone, LocalDate startTime, LocalDate endTime, int type) {
+    public Message(String message, boolean isDone, String startTime, String endTime, int type) {
         this.message = message;
         this.isDone = false;
         this.startTime = startTime;
@@ -50,19 +50,19 @@ public class Message {
         this.type = type;
     }
 
-    public LocalDate getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(String endTime) {
 
         this.endTime = endTime;
     }
