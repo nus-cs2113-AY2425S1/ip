@@ -14,6 +14,7 @@ public class UI {
         System.out.println("deadline [description] /by [time]               : note down a deadline task");
         System.out.println("event    [description] /from [time] /to [time]  : note down an event task");
         System.out.println("list                                            : view all your tasks");
+        System.out.println("search   [input query]                          : search for tasks by description");
         System.out.println("mark     [task number]                          : mark a task as done");
         System.out.println("unmark   [task number]                          : mark a task as undone");
         System.out.println("delete   [task number]                          : delete a task from Aerus");

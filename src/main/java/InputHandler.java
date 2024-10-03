@@ -1,6 +1,7 @@
 import exception.InvalidCreateTaskException;
 import exception.InvalidMarkException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -35,11 +36,7 @@ public class InputHandler {
                 return 1;
             }
 
-            System.out.println(UI.DIVIDER_LINE);
-            for (int i = 1; i <= TaskList.tasks.size(); i++) {
-                System.out.println(i + ". " + TaskList.tasks.get(i - 1).toString());
-            }
-            System.out.println(UI.DIVIDER_LINE);
+            TaskList.printTaskList();
             return 1;
 
         case "help":
@@ -47,8 +44,22 @@ public class InputHandler {
             return 1;
         }
 
-        // Case: Mark & Unmark
+        // Case: Mark, Unmark, Delete, Search
         String[] userInputSplit = userInput.split(" ");
+
+        if (userInputSplit[0].equals("search")) {
+            if (userInput.length() > 7) {
+                ArrayList<Task> searchResult = SearchEngine.search(userInput.substring(7));
+                if (searchResult.isEmpty()) {
+                    System.out.println("You don't have any tasks matching this description!");
+                } else {
+                    TaskList.printSearchResult(searchResult);
+                }
+            } else {
+                UI.printContent("Please provide a search argument!");
+            }
+            return 1;
+        }
 
         // Test if the input is formatted like a mark/unmark command
         if (isMarkCommandType(userInput)) {
