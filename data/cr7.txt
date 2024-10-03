@@ -1,3 +1,2 @@
-T | 0 | Score a goal
 D | 0 | Prepare match | today 2359
 E | 0 | Matchday | Saturday 1900 | 2100

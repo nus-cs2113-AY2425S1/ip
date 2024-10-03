@@ -47,15 +47,37 @@ Upon launching the application, you should see the following introduction:
 
 
 
+## Help
+
+Shows the user a list of commands available to use.
+
+Input Format: `help`
+
+### Example:
+
+Input: `help`
+
+Output:
 ```
-expected output
+Please enter either of these commands in this format without '<>': 
+<bye> 
+<list> 
+<delete> <Goal Number> 
+<mark> <Goal Number> 
+<unmark> <Goal Number> 
+<find> <Keyword> 
+<event> <Description> /from <Time> /to <Time> 
+<todo> <Description> 
+<deadline> <Description> /by <Time> 
 ```
 
-## Add Todo Goals
+## Add Todo Goal
 
-Adds a `todo` goal in this format: `<Goal Number> <Description> [T][ ]`
+Adds a `todo` goal to the goal list.
 
-Format: `todo <description>`
+Input Format: `todo <description>`
+
+Output Format: `[T][ ] <Description>`
 
 ### Example:
 
@@ -72,9 +94,11 @@ Saving data at: <filepath>
 
 ## Add Deadline Goal
 
-Adds a `deadline` goal in this format: `<Goal Number> <Description> [D][ ] (by: )`
+Adds a `deadline` goal to the goal list.
 
-Format: `deadline <description> /by <time>`
+Input Format: `deadline <description> /by <time>`
+
+Output Format: `[D][ ] <Description> (by: )`
 
 ### Example:
 
@@ -91,9 +115,11 @@ Saving data at: <filepath>
 
 ## Add Event Goal
 
-Adds a goal in this format: `<Description> [E][ ] (from: <time> to: <time>)`
+Adds an `event` goal to the goal list.
 
-Format: `event <description> /from <time> /to <time>`
+Input Format: `event <description> /from <time> /to <time>`
+
+Output Format: `[E][ ] <Description> (from: <time> to: <time>)`
 
 ### Example:
 
@@ -102,11 +128,111 @@ Input: `event Matchday /from Saturday 1900 /to 2100`
 Output:
 ```
 GOALLL! Your event has been added: 
-[E][ ] Matchday(from: Saturday 1900 to: 2100)
+[E][ ] Matchday (from: Saturday 1900 to: 2100)
 Now you have 3 goals in the list.
 
 Saving data at: <filepath>
 ```
 
+## Find Goal
 
+Finds a goal with matching keywords. Do note that keywords are case-sensitive.
 
+Input Format: `find <Keyword>`
+
+### Example:
+
+Input: `find Score`
+
+Output: 
+```
+Here are the matching goals found in the list:
+[T][ ] Score a goal
+```
+
+## Delete Goal
+
+Deletes a goal from the goal list.
+
+Input format: `delete <Goal Number>`
+
+### Example:
+
+Input: `delete 1`
+
+Output:
+```
+VAR disallowed your goal: 
+[T][ ] Score a goal
+Now you have 2 goals in the list.
+
+Saving data at: <filepath>
+```
+
+## Mark Goal
+
+Marks a goal as complete via `[X]`
+
+Input Format: `mark <Goal Number>`
+
+### Example:
+
+Input: `mark 1`
+
+Output:
+```
+SIUUUUUUU! One step closer to achieving your dreams! Your goal is now completed:
+[D][X] Prepare match (by:today 2359)
+
+Saving data at: <filepath>
+```
+
+## Unmark Goal
+
+Marks a goal as incomplete `[ ]`
+
+Input Format: `unmark <Goal Number>`
+
+### Example:
+
+Input: `unmark 1`
+
+Output:
+```
+Ronaldo is disappointed in you. Your goal is now incomplete:
+[D][ ] Prepare match (by:today 2359)
+
+Saving data at: <filepath>
+```
+
+## Show List Of Goals
+
+Prints the list of goals current in the goal list.
+
+Input Format: `list`
+
+### Example:
+
+Input: `list`
+
+Output:
+```
+Here are the goals to complete in order for you to reach your dreams:
+1. [D][ ] Prepare match (by:today 2359)
+2. [E][ ] Matchday (from: Saturday 1900 to: 2100)
+```
+
+## Exit Program
+
+Exits the program
+
+Input Format: `bye`
+
+### Example:
+
+Input: `bye`
+
+Output:
+```
+Bye. Hope to see you soon! SIUUUUUUU!
+```

@@ -99,7 +99,7 @@ public class Ronaldo {
                     <delete> <Goal Number>\s
                     <mark> <Goal Number>\s
                     <unmark> <Goal Number>\s
-                    <find> <Goal Number>\s
+                    <find> <Keyword>\s
                     <event> <Description> /from <Time> /to <Time>\s
                     <todo> <Description>\s
                     <deadline> <Description> /by <Time>\s
@@ -129,10 +129,11 @@ public class Ronaldo {
             if (command.equals("mark")) {
                 goal.markAsDone();
                 System.out.println("SIUUUUUUU! One step closer to achieving your dreams! " +
-                        "Your goal is now completed:\n" + goal.toString());
+                        "Your goal is now completed:\n" + goal + "\n");
             } else if (command.equals("unmark")) {
                 goal.markAsUndone();
-                System.out.println("Ronaldo is disappointed. Your goal is now incomplete:\n" + goal.toString());
+                System.out.println("Ronaldo is disappointed in you. Your goal is now incomplete:\n" +
+                        goal + "\n");
             }
             saveGoals();
         } catch (NumberFormatException e) {
@@ -245,6 +246,7 @@ public class Ronaldo {
     /**
      * Works hand in hand with GoalList's method findMatchingGoals().
      * However, keyword cannot be completely empty (I.e, Not even spaces are included for keyword).
+     * Matching keywords are case-sensitive.
      *
      * @param words contains keywords that are to be matched.
      * returns list of matching goals. A prompt will be given if list is empty.
@@ -262,7 +264,7 @@ public class Ronaldo {
         if (matchingGoals.isEmpty()) {
             System.out.println("Woops, no matching goals found.");
         } else {
-            System.out.println("Here are the matching goals found in the list:\n");
+            System.out.println("Here are the matching goals found in the list:");
             for (Goal goal : matchingGoals) {
                 System.out.println(goal);
             }
