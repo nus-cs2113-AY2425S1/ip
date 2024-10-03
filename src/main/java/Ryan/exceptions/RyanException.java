@@ -1,4 +1,4 @@
-package taskmanager;
+package Ryan.exceptions;
 
 public class RyanException extends Exception {
     public RyanException(String message) {

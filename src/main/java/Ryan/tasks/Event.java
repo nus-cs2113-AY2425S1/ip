@@ -1,4 +1,4 @@
-package taskmanager;
+package Ryan.tasks;
 
 public class Event extends Task {
     protected String from;

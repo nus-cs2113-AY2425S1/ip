@@ -1,14 +1,18 @@
-package taskmanager;
+package Ryan.utility;
 
+import Ryan.tasks.Deadline;
+import Ryan.tasks.Event;
+import Ryan.tasks.Task;
+import Ryan.tasks.Todo;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
 import java.io.IOException;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
 
     private static final String FILE_PATH = "./data/ryan.txt";
 

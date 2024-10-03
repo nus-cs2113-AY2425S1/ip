@@ -1,4 +1,4 @@
-package taskmanager;
+package Ryan.tasks;
 
 public class Deadline extends Task {
     protected String by;
