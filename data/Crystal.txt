@@ -1,2 +1,3 @@
-D | false | yoga | 7pm
-T | false | smile
+T | false | laugh
+D | true | cs2113 | 7am
+E | false | spanish | 2pm-4pm

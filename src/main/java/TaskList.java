@@ -4,16 +4,16 @@ import tasks.*;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList is a class that should contain all possible methods that the different
+ * commands would call for.
+ */
 public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>();
     public static int taskCount = 0;
     private static final int TODO_CHAR_COUNT = 4;
     private static final int DEADLINE_CHAR_COUNT = 8;
     private static final int EVENT_CHAR_COUNT = 5;
-
-    // may not need
-    public TaskList() {
-    }
 
     public void listTask() {
         for (int i = 0; i < taskCount; i++) {
@@ -22,6 +22,14 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Changing their status by marking the task with respect to the taskNumber
+     * specified
+     *
+     * @param taskNumber                is the index of the desired task shown on the list
+     * @throws IllegalCommandException  when input number does not exist on the
+     *                                  existing list
+     */
     public void markTask(int taskNumber) {
         try {
             int index = taskNumber - 1;
@@ -38,6 +46,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Changing their status by removing the mark of the task with respect to
+     * the taskNumber specified
+     *
+     * @param taskNumber                is the index of the desired task shown on the list
+     * @throws IllegalCommandException  when input number does not exist on the
+     *                                  existing list
+     */
     public void unmarkTask(int taskNumber) {
         try {
             int index = taskNumber - 1;
@@ -54,6 +70,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adding a task of type Todo into the list of tasks.
+     * List is saved after its addition.
+     *
+     * @param line is the input containing information on the task
+     *
+     */
     public void addTodo(String line) {
         String description = line.substring(TODO_CHAR_COUNT + 1).trim();
         Task t =  new Todo(description);
@@ -62,9 +85,18 @@ public class TaskList {
         Storage.saveTaskList(tasks);
     }
 
+    /**
+     * Adding a task of type Deadline into the list of tasks.
+     * List is saved after its addition.
+     *
+     * @param line                          is the input containing information on the task
+     * @throws IncompleteCommandException   when number of parameters needed does not
+     *                                      match the amount given.
+     *
+     */
     public void addDeadline(String line) {
         try {
-            String[] twoParts = line.substring(DEADLINE_CHAR_COUNT + 1).trim().split(" /by ");
+            String[] twoParts = line.substring(DEADLINE_CHAR_COUNT + 1).trim().split(" by ");
             if (twoParts.length != 2) {
                 Ui.printHorizontalLine();
                 throw new IncompleteCommandException("You are missing some parameters! ");
@@ -80,9 +112,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adding a task of type Event into the list of tasks.
+     * List is saved after its addition.
+     *
+     * @param line                          is the input containing information on the task
+     * @throws IncompleteCommandException   when number of parameters needed does not
+     *                                      match the amount given.
+     *
+     */
     public void addEvent(String line) {
         try {
-            String[] threeParts = line.substring(EVENT_CHAR_COUNT + 1).trim().split(" /from | /to ");
+            String[] threeParts = line.substring(EVENT_CHAR_COUNT + 1).trim().split(" from | to ");
             if (threeParts.length != 3) {
                 Ui.printHorizontalLine();
                 throw new IncompleteCommandException("You are missing some parameters! ");
@@ -99,6 +140,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deleting a task from the list of tasks. Type does not matter.
+     * List is saved after its addition.
+     *
+     * @param taskNumber                    is the index of the desired task shown on the list
+     * @throws IncompleteCommandException   when number of parameters needed does not
+     *                                      match the amount given.
+     *
+     */
     public void deleteTask(int taskNumber) {
         try {
             int index = taskNumber - 1;

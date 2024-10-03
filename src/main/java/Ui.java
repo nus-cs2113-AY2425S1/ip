@@ -23,6 +23,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Method will be called whenever any form of task is added.
+     * It will print the task added in the correct format, as well as inform
+     * users the number of tasks in the current list.
+     */
     public static void printAddedTaskMessage() {
         System.out.println("Got it! I have added this task:");
         TaskList.taskCount++;
@@ -31,6 +36,13 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Method will be called whenever any exceptions are called.
+     * It will print any existing exception message in the exception itself,
+     * as well as print its own message to inform users to repeat.
+     *
+     * @param e the exception invoked
+     */
     public static void printExceptionMessage(Exception e) {
         String message = e.getMessage();
         if (message != null && !message.isEmpty()) {
@@ -50,6 +62,13 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Method will be called whenever any form of task is deleted.
+     * It will print the task deleted in the correct format, as well as inform
+     * users the number of tasks left in the current list.
+     *
+     * @param t the task that is deleted
+     */
     public static void printDeletedMessage(Task t) {
         System.out.println("Noted. I have deleted the task below: \n" + t);
         System.out.println("Now you have " + TaskList.taskCount + " tasks in the list.");
