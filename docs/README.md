@@ -13,7 +13,7 @@ which will be known as goals in this chatbot.
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Download the latest `.jar` file.
+1. Download the latest [`.jar` file](https://github.com/Holy-An/ip/releases/tag/A-Jar).
 2. Place the file in your desired folder for the chatbot.
 3. Open a command terminal from the folder containing the `.jar` file, 
    or `cd` into the folder containing the `.jar` file.
