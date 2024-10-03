@@ -1,2 +1,2 @@
 D | false | yoga | 7pm
-D | true | cs2113 tp | 8pm
+T | false | smile
