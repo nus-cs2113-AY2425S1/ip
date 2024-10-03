@@ -167,6 +167,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finding a task with a keyword (from input). Any tasks containing the keyword
+     * will be printed.
+     *
+     * @param input is the index of the desired task shown on the list
+     *
+     */
     public void findTask(String input) {
         boolean found = false;
         boolean foundMessageHeader = false;

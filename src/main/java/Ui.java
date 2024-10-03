@@ -75,10 +75,20 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Method will be called when the keyword is "find".
+     * It is a header and will only be shown if there is at least a task containing
+     * the keyword.
+     */
     public static void printFoundMessageHeader() {
         System.out.println("Here are the matching tasks in your list:");
     }
 
+    /**
+     * Method will be called when the keyword is "find".
+     * It will inform the users the to search for a valid task that exists in the
+     * current list.
+     */
     public static void printMissingMessage() {
         System.out.println("Sorry, there are no task with that word.");
         System.out.println("Can you key in a valid task?");
