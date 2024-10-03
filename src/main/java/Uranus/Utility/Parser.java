@@ -1,5 +1,10 @@
 package Uranus.Utility;
 
+/**
+ * The Parser class is responsible for interpreting user input
+ * commands and directing them to the appropriate handlers.
+ * It processes user commands.
+ */
 public class Parser extends Functions {
 
     protected static final String MARK_COMMAND = "mark";
@@ -16,6 +21,12 @@ public class Parser extends Functions {
     protected static final String DEADLINE_COMMAND = "deadline";
     protected static final String FIND_COMMAND = "find";
 
+    /**
+     * Processes the input command provided by the user.
+     * Depending on the command, it directs the input to the appropriate functionality.
+     *
+     * @param input The command input from the user.
+     */
     protected static void processCommand(String input) {
         if (input.startsWith(MARK_COMMAND) || input.startsWith(UNMARK_COMMAND)) {
             TaskList.handleMarking(input);
