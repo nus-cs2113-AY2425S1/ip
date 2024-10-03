@@ -22,25 +22,27 @@ public class TaskList {
 
     public void parseLine(String line) {
         String[] parts = line.split(" \\| ");
-        System.out.println(Arrays.toString(parts));
         switch (parts[0]) {
         case "T":
-            addTask(new Todo(parts[2]));
+            Todo todoTask = new Todo(parts[2]);
             if (parts[1].trim().equals("1")) {
-                attemptToMarkTask(String.valueOf(list.size()));
+                todoTask.markAsDone();
             }
+            loadTask(todoTask);
             break;
         case "D":
-            addTask(new Deadline(parts[2], parts[3]));
+            Deadline deadlineTask = new Deadline(parts[2], parts[3]);
             if (parts[1].trim().equals("1")) {
-                attemptToMarkTask(String.valueOf(list.size()));
+                deadlineTask.markAsDone();
             }
+            loadTask(deadlineTask);
             break;
         case "E":
-            addTask(new Event(parts[2], parts[3], parts[4]));
+            Event eventTask = new Event(parts[2], parts[3], parts[4]);
             if (parts[1].trim().equals("1")) {
-                attemptToMarkTask(String.valueOf(list.size()));
+                eventTask.markAsDone();
             }
+            loadTask(eventTask);
             break;
         }
     }
@@ -55,11 +57,14 @@ public class TaskList {
         fw.close();
     }
 
-    public void addTask(Task newTask) {
+    public void loadTask(Task task) {
+        list.add(task);
+    }
 
+    public void addTask(Task newTask) {
         System.out.println("I've added this to your list: ");
         newTask.printTask();
-        list.add(newTask);
+        loadTask(newTask);
     }
 
     public void printTaskList() {
@@ -74,6 +79,8 @@ public class TaskList {
         try {
             int index = Integer.parseInt(listIndex);
             list.get(index - 1).markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            list.get(index-1).printTask();
         } catch (Exception e) {
             //Treat invalid command as a task
             System.out.println("Please use a valid index");
@@ -84,6 +91,8 @@ public class TaskList {
         try {
             int index = Integer.parseInt(listIndex);
             list.get(index - 1).markAsNotDone();
+            System.out.println("Nice! I've marked this task as done:");
+            list.get(index-1).printTask();
         } catch (Exception e) {
             //Treat invalid command as a task
             System.out.println("Please use a valid index");

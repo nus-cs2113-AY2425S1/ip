@@ -17,8 +17,6 @@ public class Task {
 
     public void markAsDone() {
         done = true;
-        System.out.println("Nice! I've marked this task as done:");
-        printTask();
     }
 
     public void markAsNotDone() {
@@ -32,7 +30,7 @@ public class Task {
     }
 
     public String convertToSaveFormat(){
-       return done?"1":"0" + " | " + taskInfo;
+       return (done?"1":"0") + " | " + taskInfo;
 
     }
 
