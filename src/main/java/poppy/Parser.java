@@ -90,6 +90,9 @@ public class Parser {
                 System.out.println(event.toString());
                 System.out.println("You now have " + taskList.getSize() + " tasks");
                 break;
+            case "Find":
+                System.out.println("Here are the matching results below:");
+                findTask(taskList.getTasks(), commandArgs[1]);
             case "Bye":
                 break;
             default:
