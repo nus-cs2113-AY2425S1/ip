@@ -34,6 +34,7 @@ public class Message {
     }
 
     //retrieve
+
     public Message(String message, boolean isDone, LocalDate startTime, LocalDate endTime, int type) {
         this.message = message;
         this.isDone = false;
@@ -61,6 +62,7 @@ public class Message {
     public LocalDate getEndTime() {
         return endTime;
     }
+
 
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;

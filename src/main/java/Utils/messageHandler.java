@@ -2,7 +2,6 @@ package Utils;
 
 import Entity.Message;
 import Entity.messageList;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +10,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
+
 
     public static LocalDate readTime(String time){
         LocalDate date;
@@ -34,8 +34,6 @@ public class messageHandler {
                 messageHandler.listShow(list);
             } else if (input.contains("mark") || input.contains("unmark")) {
                 messageHandler.mark(list, input);
-            } else if (input.contains("delete")) {
-                messageHandler.delete(list, input);
             } else {
                 messageHandler.addList(list, input);
             }
@@ -96,10 +94,11 @@ public class messageHandler {
         System.out.println("-----------------------------------\n");
     }
 
-    public static void addList(messageList list, String input) throws IOException {
+    public static void addList(messageList list, String input){
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
+
             String eventName = input.substring(5).trim();
             message.setMessage(eventName);
             messages.add(message);
@@ -166,20 +165,5 @@ public class messageHandler {
             System.out.println("I have marked this task as done!\n" + "[X] " + messages.get(number-1).getMessage());
             System.out.println("-----------------------------------\n");
         }
-    }
-
-    public static void delete(messageList list, String input) throws IOException {
-        String[] sentences = input.split(" ");
-        int number = Integer.parseInt(sentences[1]);
-        List<Message> messages = list.getMessages();
-        if(number - 1 > messages.size() || number < 1) {
-            System.out.println("You are deleting an event that does not exist");
-        }
-        messages.remove(number - 1);
-        list.setMessages(messages);
-        saveHandler.writeToFile(list);
-        System.out.println("------------------------------------\n");
-        System.out.println("You have successfully deleted this task");
-        System.out.println("------------------------------------\n");
     }
 }
