@@ -4,8 +4,7 @@
 This chatbot develops the personality of Cristiano Ronaldo.
 He is arguably the greatest football player of all time (He is for me).
 
-![Ronaldo after scoring in the ucl final vs Juventus, 2017]
-(https://www.kindpng.com/picc/m/654-6541754_cristiano-ronaldo-png-ronaldo-ucl-vs-barca-transparent.png)
+![Ronaldo after scoring in the ucl final vs Juventus, 2017](https://www.nicepng.com/png/detail/175-1751571_cristiano-ronaldo-png-cristiano-ronaldo-purple-2017-png.png)
 
 Ronaldo is a Java based CLI application that is able to manage tasks efficiently,
 which will be known as goals in this chatbot.
@@ -19,7 +18,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. Open a command terminal from the jar file, or cd into the folder containing the jar file
 4. Enter the command on the terminal:
 
-Upon launching the application, you sbould see the following introduction:
+Upon launching the application, you should see the following introduction:
 // Give examples of usage
 
 Example: `keyword (optional arguments)`

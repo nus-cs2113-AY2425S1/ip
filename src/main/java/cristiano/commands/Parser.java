@@ -17,8 +17,8 @@ public class Parser {
 
     /**
      * Parses the user input and returns the corresponding Command object based on the input.
-     * If the input is empty or contains unrecognized commands, it throws a RonaldoException.
      * This method also checks for hidden commands based on certain keywords.
+     * Resets, isHidden so hidden commands can be triggered again.
      *
      * @param commands The user input string that contains the command to be parsed.
      * @return The Command object that matches the user input.
