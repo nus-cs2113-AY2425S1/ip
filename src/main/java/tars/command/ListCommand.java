@@ -1,8 +1,8 @@
-package Tars.Command;
+package tars.command;
 
-import Tars.TaskList;
-import Tars.Storage;
-import Tars.UserInterface;
+import tars.userinterface.UserInterface;
+import tars.tasklist.TaskList;
+import tars.storage.Storage;
 
 public class ListCommand extends Command {
     @Override

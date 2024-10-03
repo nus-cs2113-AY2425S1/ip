@@ -1,4 +1,4 @@
-package Tars.Task;
+package tars.task;
 
 public class Event extends Task {
     protected String from; // Save event start time

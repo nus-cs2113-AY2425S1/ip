@@ -1,20 +1,18 @@
-package Tars;
+package tars.userinterface;
 
-import Tars.Task.Task;
+import tars.task.Task;
 
 import java.util.List;
 
 public class UserInterface {
 
-    // 打印分隔线
     public void printSeparator() {
         System.out.println("    " + "------------------------------------------------------------");
     }
 
-    // 显示欢迎信息
     public void showWelcomeMessage() {
         printSeparator();
-        System.out.println("    Hello! I'm Tars.Tars.");
+        System.out.println("    Hello! I'm tars.tars.");
         System.out.println("    Ready to conquer the world? Or maybe just help with something smaller? What can I do for you?");
         printSeparator();
     }
@@ -94,68 +92,19 @@ public class UserInterface {
         printSeparator();
     }
 
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        printSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        printSeparator();
+    }
+
+    public void showNoMatchingTasksMessage() {
+        printSeparator();
+        System.out.println("No matching tasks found.");
+        printSeparator();
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//package Tars;
-//
-//import Tars.Task.Task;
-//
-//import java.util.List;
-//
-//public class UserInterface {
-//    public void printSeparator() {
-//        System.out.println("    " + "------------------------------------------------------------");
-//    }
-//
-//    // Display the tasks or show a message if the task list is empty
-//    public void showTasks(List<Task> taskList) {
-//        printSeparator();
-//        if (taskList.isEmpty()) {
-//            // Show message when task list is empty
-//            System.out.println("    Your task list is empty. Looks like you have nothing to do... for now.");
-//        } else {
-//            // Show tasks if the list is not empty
-//            System.out.println("    Here are your tasks. If you're planning world domination, you're off to a slow start: ");
-//            for (int i = 0; i < taskList.size(); i++) {
-//                System.out.println("    " + (i + 1) + ". " + taskList.get(i));
-//            }
-//        }
-//        printSeparator();
-//    }
-//
-//    public void showGoodbyeMessage() {
-//        printSeparator();
-//        System.out.println("    Oh, leaving already? Fine, I will just sit here calculating the probability of you returning. It's... pretty high.");
-//        printSeparator();
-//    }
-//
-//    public void showInvalidInputMessage() {
-//        printSeparator();
-//        System.out.println("    That input didn't quite compute. Try again, or I'll have to assume you're speaking in code.");
-//        printSeparator();
-//    }
-//
-//}

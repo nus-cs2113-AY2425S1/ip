@@ -1,6 +1,7 @@
-package Tars;
+package tars.parser;
 
-import Tars.Command.*;
+import tars.command.*;
+import tars.tarsexception.TarsException;
 
 public class Parser {
 
@@ -27,6 +28,8 @@ public class Parser {
                 return parseDeadlineCommand(arguments);
             case "event":
                 return parseEventCommand(arguments);
+            case "find":
+                return parseFindCommand(arguments);
             default:
                 throw new TarsException("Unknown command: " + command);
         }
@@ -81,4 +84,12 @@ public class Parser {
         String to = taskParts[2].trim();
         return new AddEventCommand(description, from, to);
     }
+
+    private Command parseFindCommand(String keyword) throws TarsException {
+        if (keyword.isEmpty()) {
+            throw new TarsException("The find command requires a keyword.");
+        }
+        return new FindCommand(keyword);
+    }
+
 }

@@ -1,4 +1,4 @@
-package Tars;
+package tars.tarsexception;
 
 public class TarsException extends Exception {
 

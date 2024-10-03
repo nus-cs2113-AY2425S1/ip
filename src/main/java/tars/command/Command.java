@@ -1,9 +1,9 @@
-package Tars.Command;
+package tars.command;
 
-import Tars.TaskList;
-import Tars.Storage;
-import Tars.UserInterface;
-import Tars.TarsException;
+import tars.tasklist.TaskList;
+import tars.storage.Storage;
+import tars.userinterface.UserInterface;
+import tars.tarsexception.TarsException;
 
 public abstract class Command {
     public abstract void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException;

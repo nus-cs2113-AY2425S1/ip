@@ -1,10 +1,11 @@
-package Tars.Command;
+package tars.command;
 
-import Tars.TaskList;
-import Tars.Task.Todo;
-import Tars.Storage;
-import Tars.UserInterface;
-import Tars.TarsException;
+import tars.tasklist.TaskList;
+import tars.storage.Storage;
+import tars.task.Todo;
+import tars.userinterface.UserInterface;
+import tars.tarsexception.TarsException;
+
 import java.io.IOException;
 
 public class AddTodoCommand extends Command {

@@ -1,4 +1,4 @@
-package Tars.Task;
+package tars.task;
 
 public class Task {
     protected String description;
@@ -27,13 +27,17 @@ public class Task {
         this.isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
-    }
-
     // This is the format for saving to file, subclasses will override this method
     public String toSaveFormat() {
         return description;  // Subclasses will override this method
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
