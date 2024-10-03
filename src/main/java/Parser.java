@@ -1,5 +1,14 @@
 public class Parser {
 
+    /**
+     * Extracts and returns the command from the given input string.
+     * Input string is converted to lowercase for case-insensitive matching
+     * If the command is not recognised, a {@code EvaException} is thrown
+     *
+     * @param line The input string from the user containing the command and description
+     * @return The extracted command
+     * @throws EvaException if the command is not recognised
+     */
     public String getCommand(String line) throws EvaException {
         String command = line.split(" ")[0].toLowerCase();
 
@@ -19,6 +28,17 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse the arguments from the input line based on the provided command.
+     * This method will then split the input line into different argument based on
+     * the command type.
+     * If the command format is invalid or arguments are missing, a {@code EvaException} is thrown
+     *
+     * @param line The input string containing the command and description
+     * @param command The specific command extracted from {@link #getCommand(String)}
+     * @return An array of strings containing the parsed arguments
+     * @throws EvaException if the arguments are missing or improperly formatted for the given command
+     */
     public String[] parseArguments(String line, String command) throws EvaException {
         String[] args;
         switch (command) {
