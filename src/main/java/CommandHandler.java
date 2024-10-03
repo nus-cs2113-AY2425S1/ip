@@ -28,13 +28,13 @@ public class CommandHandler {
             taskManager.unmarkTask(args[0]);
             break;
         case "todo":
-            taskManager.printTodo(args[0]);
+            taskManager.addTodo(args[0]);
             break;
         case "deadline":
-            taskManager.printDeadline(args[0], args[1]);
+            taskManager.addDeadline(args[0], args[1]);
             break;
         case "event":
-            taskManager.printEvent(args[0], args[1], args[2]);
+            taskManager.addEvent(args[0], args[1], args[2]);
             break;
         case "delete":
             taskManager.deleteTask(args[0]);
