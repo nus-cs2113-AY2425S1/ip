@@ -56,6 +56,15 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public static void printFoundMessageHeader() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public static void printMissingMessage() {
+        System.out.println("Sorry, there are no task with that word.");
+        System.out.println("Can you key in a valid task?");
+    }
+
     public static String readInput() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();

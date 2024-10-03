@@ -13,6 +13,10 @@ public abstract class Task {
         return (isDone ? "[X]" : "[ ]"); // markTask done task with X
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
