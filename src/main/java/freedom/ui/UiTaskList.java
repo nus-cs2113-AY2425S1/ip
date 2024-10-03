@@ -1,6 +1,13 @@
 package freedom.ui;
 
 public class UiTaskList extends Ui {
+
+    /**
+     * Indicates the task is added and counts the total number of tasks.
+     *
+     * @param task added task.
+     * @param taskIndex index position of the task in TaskList.
+     */
     public void printAddedTask(String task, int taskIndex) {
         printHeadDivider();
         System.out.println("\tAlright! Added this task for you:");
@@ -9,6 +16,12 @@ public class UiTaskList extends Ui {
         printTailDivider();
     }
 
+    /**
+     * Indicates the task has been edited.
+     *
+     * @param task edited task.
+     * @param action specific edit to the task.
+     */
     public void printEditedTask(String task, String action) {
         printHeadDivider();
         String message;
@@ -30,6 +43,9 @@ public class UiTaskList extends Ui {
         printTailDivider();
     }
 
+    /**
+     * Indicates the requested task index cannot be reached.
+     */
     public void printArrayIndexOutOfBoundsException() {
         printHeadDivider();
         System.out.print("""
@@ -39,6 +55,9 @@ public class UiTaskList extends Ui {
         printTailDivider();
     }
 
+    /**
+     * Indicates the list of tasks follows.
+     */
     public void printListHeader() {
         printHeadDivider();
         System.out.println("\tHere are your tasks:");
