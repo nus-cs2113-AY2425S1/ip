@@ -1,6 +1,6 @@
 package TheThinker.Tasks;
 
-import TheThinker.Parser.Date;
+import TheThinker.Parser.DateParser;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -55,7 +55,7 @@ public class TaskList {
         System.out.println("Here are the tasks in your list in " + date + " :");
         int counter = 0;
         for(int i = 0; i < listLength; i++){
-            if(Date.isMatchingDateByType(listOfTasks.get(i) , date)) {
+            if(DateParser.isMatchingDateByType(listOfTasks.get(i) , date)) {
                 System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
                 counter++;
             }

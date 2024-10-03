@@ -2,12 +2,12 @@ package TheThinker.Ui;
 
 import TheThinker.Exceptions.FormattingException;
 import TheThinker.File.NewFile;
-import TheThinker.Parser.UserInputParser;
+import TheThinker.Parser.*;
 import TheThinker.Tasks.TaskList;
 import java.io.IOException;
 
 /**
- * CommandLine handles all the commandLine related method
+ * CommandLine Class handles all the commandLine related method
  */
 public interface CommandLine {
 
@@ -70,19 +70,19 @@ public interface CommandLine {
                 break;
 
             case "todo":
-                TaskList.addTask(UserInputParser.parseTodo());
+                TaskList.addTask(TodoParser.parseTodo());
                 break;
 
             case "event":
-                TaskList.addTask(UserInputParser.parseEvent());
+                TaskList.addTask(EventParser.parseEvent());
                 break;
 
             case "deadline":
-                TaskList.addTask(UserInputParser.parseDeadline());
+                TaskList.addTask(DeadlineParser.parseDeadline());
                 break;
 
             case "get":
-                String date = UserInputParser.parseDateAfterGet();
+                String date = DateParser.parseDateAfterGet();
                 TaskList.listTasksOfDate(date);
                 break;
 

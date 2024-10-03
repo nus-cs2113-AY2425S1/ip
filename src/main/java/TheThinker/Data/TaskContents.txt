@@ -1,3 +1,0 @@
-E | false | travel | 20 October 2025 , 6 pm | 20 November 2025 , 6 pm
-T | false | travel
-T | false | return book
