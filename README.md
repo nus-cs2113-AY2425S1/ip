@@ -147,7 +147,7 @@ You can remove tasks from your list.
 
 ### **6. Exiting the Application**
 
-You can exit the Task Management Function by typing the following command:
+You can exit the programme by typing the following command:
 
 - **Command**: `bye`
 - **Example**:
@@ -201,18 +201,18 @@ Advanced users can directly modify the `tasks.json` file, which is stored in the
 
 ## **Command Summary**
 
-| **Command**      | **Format**                          | **Example**                                       |
-|------------------|-------------------------------------|---------------------------------------------------|
-| **Todo**         | `todo DESCRIPTION`                  | `todo Finish reading book`                        |
-| **Deadline**     | `deadline DESCRIPTION /by DEADLINE` | `deadline Submit assignment /by 2024-12-01`       |
-| **Event**        | `event DESCRIPTION /at EVENT_TIME`  | `event Project presentation /at 2024-10-05 14:00` |
-| **List Tasks**   | `list`                              |                                                   |
-| **Mark Task**    | `mark INDEX`                        | `mark 1`                                          |
-| **Unmark Task**  | `unmark INDEX`                      | `unmark 1`                                        |
-| **Delete Task**  | `delete INDEX`                      | `delete 1`                                        |
-| **Exit Program** | `exit`                              |                                                   |
-| **Clear Tasks**  | `clear`                             | `clear`                                           |
-| ** Find Tasks**  | `find DESCRIPTION`                   | `find book`                                        |
+| **Command**      | **Format**                          | **Example**                                 |
+|------------------|-------------------------------------|---------------------------------------------|
+| **Todo**         | `todo DESCRIPTION`                  | `todo Finish reading book`                  |
+| **Deadline**     | `deadline DESCRIPTION /by DEADLINE` | `deadline Submit assignment /by 2024-12-01` |
+| **Event**        | `event DESCRIPTION /at EVENT_DATE`  | `event Project presentation /at 2024-10-05` |
+| **List Tasks**   | `list`                              | `bye`                                        |
+| **Mark Task**    | `mark INDEX`                        | `mark 1`                                    |
+| **Unmark Task**  | `unmark INDEX`                      | `unmark 1`                                  |
+| **Delete Task**  | `delete INDEX`                      | `delete 1`                                  |
+| **Exit Program** | `bye`                               | `bye`                                       |
+| **Clear Tasks**  | `clear`                             | `clear`                                     |
+| ** Find Tasks**  | `find DESCRIPTION`                  | `find book`                                 |
 
 ---
 
