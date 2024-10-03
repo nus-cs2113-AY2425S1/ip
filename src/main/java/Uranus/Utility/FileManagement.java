@@ -10,10 +10,19 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Provides file management utilities to save and load tasks to/from a file.
+ * The class includes methods for saving the current task list to a file and loading tasks from a backup file.
+ */
 public abstract class FileManagement extends Functions{
 
+    /**
+     * Saves the current task list to a file named "tasksBackup.txt".
+     * Save the task list as a command in the file.
+     * If the file does not exist, a new file will be created.
+     * If there is an error during the file saving process, an error message will be printed.
+     */
     public static void saveFile() {
-
         // Checks if the file exist. If not, create new file
         try (FileWriter writer = new FileWriter("tasksBackup.txt")) {
             for (int i = 0; i < taskList.size(); i++) {
@@ -28,6 +37,12 @@ public abstract class FileManagement extends Functions{
         }
     }
 
+    /**
+     * Loads the tasks from the file "tasksBackup.txt".
+     * If the file exists, it reads each line and processes the commands to restore tasks.
+     * If the file is not found, an error message is printed and a new backup file is created.
+     * The method also temporarily redirects system output to prevent unwanted output during the task loading process.
+     */
     public static void load() {
         File f = new File("tasksBackup.txt");
         PrintStream out = System.out;

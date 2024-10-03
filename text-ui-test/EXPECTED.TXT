@@ -7,8 +7,10 @@ Currently, I am able to execute the following functions:
 1. Add tasks: I can add tasks to your task list.
    - Type command: <task>
    - Type command: todo <task>
-   - Type command: deadline <task> /by <date>
-   - Type command: event <task> /from <day> <start time> /to <end time>
+   - Type command: deadline <task> /by <deadline>
+   - Type command: deadline <task> /by <date in dd-MM-yyyy> <time in HHmm>
+   - Type command: event <task> /from <start> /to <end>
+   - Type command: event <task> /from <date in dd-MM-yyyy> <time in HHmm> /to <date in dd-MM-yyyy> <time in HHmm>
 2. Mark tasks as done:
    - Type command: mark <task number>
 3. Mark tasks as not done:
@@ -19,6 +21,10 @@ Currently, I am able to execute the following functions:
    - Type command: echo
 6. Shut myself down. Use this if you no longer need me :(
    - Type command: bye
+7. Show you what assistance I can provide
+   - Type command: help
+8. Simulate clearing of screen
+   - Type command: clear
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task:
@@ -27,13 +33,13 @@ Now you have 1 task(s) in the list
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task:
-  [D][ ] weekly 2113 quiz  (by: Monday 9pm)
+  [D][ ] weekly 2113 quiz (by: Monday 9pm)
 Now you have 2 task(s) in the list
 _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] Si Thu Lin Aung: Answer CS2113 tutorial questions
-2. [D][ ] weekly 2113 quiz  (by: Monday 9pm)
+2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task:
@@ -47,12 +53,12 @@ _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
 1. [T][X] Si Thu Lin Aung: Answer CS2113 tutorial questions
-2. [D][ ] weekly 2113 quiz  (by: Monday 9pm)
+2. [D][ ] weekly 2113 quiz (by: Monday 9pm)
 3. [E][ ] CS2113 lecture (from: Friday 4pm to: 6pm)
 _________________________________________________________
 _________________________________________________________
 Got it. I've removed this task:
-  [D][ ] weekly 2113 quiz  (by: Monday 9pm)
+  [D][ ] weekly 2113 quiz (by: Monday 9pm)
 Now you have 2 task(s) in the list
 _________________________________________________________
 _________________________________________________________
