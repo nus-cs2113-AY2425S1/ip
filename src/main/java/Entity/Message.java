@@ -63,7 +63,6 @@ public class Message {
         return endTime;
     }
 
-
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
