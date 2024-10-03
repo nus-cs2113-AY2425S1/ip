@@ -13,13 +13,22 @@ which will be known as goals in this chatbot.
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Download the latest jar file.
+1. Download the latest `.jar` file.
 2. Place the file in your desired folder for the chatbot.
-3. Open a command terminal from the jar file, or cd into the folder containing the jar file
-4. Enter the command on the terminal:
+3. Open a command terminal from the folder containing the `.jar` file, 
+   or `cd` into the folder containing the `.jar` file.
+4. Enter the command on the terminal: `java -jar Ronaldo.jar`
 
-Upon launching the application, you should see the following introduction:
-// Give examples of usage
+Upon launching the application, you should see the following introduction:
+
+## Features
+* Ability to add ➕ and delete ❌ goals
+* Contains multiple goal types with different formats, 
+  such as Todos, Events and Deadlines.
+* Ability to show list of goals 📃
+* Ability to save goals 📩
+* Ability to find goals 🔎
+* Ability to mark and unmark goals 📌
 
 Example: `keyword (optional arguments)`
 
