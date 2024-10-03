@@ -10,6 +10,14 @@ import tyrone.task.Deadline;
 import tyrone.task.Event;
 import tyrone.task.ToDo;
 
+    /**
+     * Main Logic for the Tyrone ChatBot
+     * Each command has its own if else block which calls the appriopriate function in the right packages
+     * After each input, the ChatBot runs a save function to save the data into data/Tasks.txt
+     * @param userInput
+     * @throws TyroneException
+     */
+
 public class Parser {
     /**
      * Main Logic for the Tyrone ChatBot
