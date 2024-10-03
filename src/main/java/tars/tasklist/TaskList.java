@@ -1,14 +1,13 @@
 package tars.tasklist;
 
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 import tars.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a list of tasks.
- * The TaskList class provides methods to manage tasks, including adding,
- * retrieving, and deleting tasks.
+ * Provides methods to manage tasks, including adding, retrieving, and deleting tasks.
  */
 public class TaskList {
     private final List<Task> tasks;
@@ -18,6 +17,15 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Initializes the TaskList with an existing list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -43,11 +51,11 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
-     * @throws tarsException If the index is out of range.
+     * @throws TarsException If the index is out of range.
      */
-    public Task getTask(int index) throws tarsException {
+    public Task getTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new tarsException("Task number out of range.");
+            throw new TarsException("Task number out of range.");
         }
         return tasks.get(index);
     }
@@ -57,11 +65,11 @@ public class TaskList {
      *
      * @param index The index of the task to delete.
      * @return The deleted task.
-     * @throws tarsException If the index is out of range.
+     * @throws TarsException If the index is out of range.
      */
-    public Task deleteTask(int index) throws tarsException {
+    public Task deleteTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new tarsException("Task number out of range.");
+            throw new TarsException("Task number out of range.");
         }
         return tasks.remove(index);
     }
@@ -88,5 +96,21 @@ public class TaskList {
             }
         }
         return false;
+    }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks containing the keyword.
+     */
+    public List<Task> findTasksContainingKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }

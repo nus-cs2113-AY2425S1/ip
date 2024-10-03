@@ -132,4 +132,27 @@ public class UserInterface {
         System.out.println("    Error: " + message);
         printSeparator();
     }
+
+    /**
+     * Displays matching tasks found using a keyword search.
+     *
+     * @param matchingTasks The list of matching tasks.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        printSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        printSeparator();
+    }
+
+    /**
+     * Displays a message when no tasks match the search keyword.
+     */
+    public void showNoMatchingTasksMessage() {
+        printSeparator();
+        System.out.println("No matching tasks found.");
+        printSeparator();
+    }
 }

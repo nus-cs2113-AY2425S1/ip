@@ -45,6 +45,20 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the task description.
+     *
+     * @return The task's description.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return Task information formatted as a string.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

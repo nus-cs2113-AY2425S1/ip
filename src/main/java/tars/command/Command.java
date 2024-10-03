@@ -3,7 +3,7 @@ package tars.command;
 import tars.tasklist.TaskList;
 import tars.storage.Storage;
 import tars.userinterface.UserInterface;
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 
 /**
  * Abstract class representing a command.
@@ -18,9 +18,9 @@ public abstract class Command {
      * @param tasks   The task list to operate on.
      * @param ui      The user interface to interact with the user.
      * @param storage The storage to save or load tasks from.
-     * @throws tarsException If an error occurs during execution.
+     * @throws TarsException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, UserInterface ui, Storage storage) throws tarsException;
+    public abstract void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException;
 
     /**
      * Determines if the command is an exit command.

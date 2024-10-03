@@ -4,7 +4,7 @@ import tars.tasklist.TaskList;
 import tars.storage.Storage;
 import tars.task.Todo;
 import tars.userinterface.UserInterface;
-import tars.tarsexception.tarsException;
+import tars.tarsexception.TarsException;
 
 import java.io.IOException;
 
@@ -32,9 +32,9 @@ public class AddTodoCommand extends Command {
      * @throws tarsException If the description is empty.
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws tarsException {
+    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException {
         if (description.isEmpty()) {
-            throw new tarsException("The description of a todo cannot be empty.");
+            throw new TarsException("The description of a todo cannot be empty.");
         }
 
         // Create a new Todo task and add it to the task list

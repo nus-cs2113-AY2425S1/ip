@@ -1,2 +1,4 @@
-D | 0 | submit report | 2089-10-11
-D | 0 | submit report | 2023-10-11
+E | 0 | project meeting | 2023-10-11 | 2023-10-12
+T | 0 | read book
+T | 0 | ,,,,
+D | 0 | book | 2002-12-02

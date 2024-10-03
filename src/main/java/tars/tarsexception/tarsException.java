@@ -1,16 +1,17 @@
 package tars.tarsexception;
 
 /**
- * Custom exception class for handling errors specific to the TARS application.
+ * Represents a custom exception for the TARS application.
+ * This exception is used to handle specific errors related to TARS commands and operations.
  */
-public class tarsException extends Exception {
+public class TarsException extends Exception {
 
     /**
-     * Constructs a new tarsException with the specified detail message.
+     * Constructs a new TarsException with the specified detail message.
      *
-     * @param message The detail message that explains the reason for the exception.
+     * @param message The detail message for the exception.
      */
-    public tarsException(String message) {
+    public TarsException(String message) {
         super(message);
     }
 

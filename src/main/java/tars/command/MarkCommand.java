@@ -4,8 +4,7 @@ import tars.userinterface.UserInterface;
 import tars.tasklist.TaskList;
 import tars.storage.Storage;
 import tars.task.Task;
-import tars.tarsexception.tarsException;
-
+import tars.tarsexception.TarsException;
 import java.io.IOException;
 
 /**
@@ -30,10 +29,10 @@ public class MarkCommand extends Command {
      * @param tasks   The task list containing the task to be marked as done.
      * @param ui      The user interface to display the task status.
      * @param storage The storage to save the updated task list.
-     * @throws tarsException If the task cannot be found or an error occurs during execution.
+     * @throws TarsException If the task cannot be found or an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws tarsException {
+    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException {
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
         ui.showTaskDone(task);
