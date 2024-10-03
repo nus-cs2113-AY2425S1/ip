@@ -4,11 +4,11 @@ public class Messages {
     // String constants for conversation
     public static final String LOGO =
             "        /)\n" +
-                    "   .-\"\".L,\"\"-.\n" +
-                    "  ;           :\n" +
-                    "  (    ^_^  :7)\n" +
-                    "   :         ;\n" +
-                    "    \"..-\"-..\"\n";
+            "   .-\"\".L,\"\"-.\n" +
+            "  ;           :\n" +
+            "  (    ^_^  :7)\n" +
+            "   :         ;\n" +
+            "    \"..-\"-..\"\n";
     public static final String SEPARATOR = "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
     public static final String WELCOME_MESSAGE = "Heyo! I'm your pal, Appal!" +
             "\nLet's get things rolling, what would you like to do today?";
