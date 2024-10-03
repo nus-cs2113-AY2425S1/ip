@@ -1,5 +1,7 @@
 package Parser;
 
+import Storage.Storage;
+import commands.Task;
 import constants.Utils;
 import exceptions.*;
 import Ui.Ui;
@@ -28,10 +30,10 @@ public class Parser {
      *
      * @throws IllegalCommandException when the user gives an undefined command
      */
-    public int handleCommand(String input, int count, String command, String[] splitInputs) throws IllegalEmptyException,
+    public int handleCommand(String input, String command, String[] splitInputs) throws IllegalEmptyException,
             IllegalCommandException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
         if (command.equalsIgnoreCase("list")) {
-            Ui.printList(count,taskList);
+            Ui.printList(count,staskList);
         } else if (command.equals(Utils.MARK)) {
             taskList.markItem(splitInputs, count);
         } else if (command.equals(Utils.UNMARK)) {
@@ -98,6 +100,13 @@ public class Parser {
 
         // Return the trimmed description
         return outputSubstrings[1].trim();
+    }
+
+    public void checkComplete(String[] storedTaskSubstrings, Task task) {
+        int completed = Integer.parseInt(storedTaskSubstrings[1].trim());
+        if (completed == 1){
+            task.setDone(true);
+        }
     }
 }
 

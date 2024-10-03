@@ -33,4 +33,6 @@ public class Task {
     public String createTaskList(){
         return "";
     }
+
+    public String createTaskTxt(){ return "";}
 }

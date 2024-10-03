@@ -14,8 +14,8 @@ public class Todo extends Task {
     public String createTaskList() {
         return (getStatusIcon()+ " " +  description);
     }
-
-    public String createTodoTxt() {
+    @Override
+    public String createTaskTxt() {
         return ("T | " + super.getStatus() + " | " + description);
     }
 }

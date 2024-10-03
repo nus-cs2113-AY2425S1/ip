@@ -20,7 +20,8 @@ public class Event extends Task {
         return  getStatusIcon() + " "+  description + "(from: " + from + " to: " + to + ")";
     }
 
-    public String createEventTxt() {
+    @Override
+    public String createTaskTxt() {
         return "E | " + super.getStatus() + " | " + description + " | " + from + "-" + to;
     }
 }

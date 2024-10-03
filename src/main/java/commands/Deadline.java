@@ -22,7 +22,8 @@ public class Deadline extends Task {
         return (getStatusIcon()+  " " +  description + "(by:" + by + ")");
     }
 
-    public String createDeadlineTxt() {
+    @Override
+    public String createTaskTxt() {
         return ("D | " + super.getStatus() + " | " + description + " | " + by);
     }
 }

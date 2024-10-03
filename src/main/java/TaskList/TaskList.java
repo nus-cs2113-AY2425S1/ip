@@ -23,10 +23,12 @@ public class TaskList {
 
     //ArrayList to store all the tasks
     private final ArrayList<Task> tasks;
+    private final Storage storage;
 
     //TaskList constructor
     public TaskList() {
         tasks = new ArrayList<>();
+        storage = new Storage();
     }
 
     /**
@@ -37,6 +39,12 @@ public class TaskList {
             throw new IllegalIndexException("Please enter a valid task number from 0 to " + tasks.size());
         }
         return tasks.get(index);
+    }
+    /**
+     * Add Task into the tasks ArrayList
+     */
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     /**
@@ -87,7 +95,7 @@ public class TaskList {
         Ui.printTodoMessage(count, todo.createTaskList());
 
         //Stores the new todo task into the txt file
-        Storage.saveNewData(todo.createTodoTxt());
+        storage.saveNewData(todo.createTaskTxt());
         return count + 1;
     }
 
@@ -125,7 +133,7 @@ public class TaskList {
         Ui.printDeadlineMessage(count, deadline.createTaskList());
 
         //Stores the new deadline task into the txt file
-        Storage.saveNewData(deadline.createDeadlineTxt());
+        storage.saveNewData(deadline.createTaskTxt());
         return count + 1;
     }
 
@@ -163,7 +171,7 @@ public class TaskList {
         Ui.printEventMessage(count, event.createTaskList());
 
         //Stores the new event task into the txt file
-        Storage.saveNewData(event.createEventTxt());
+        storage.saveNewData(event.createTaskTxt());
         return count + 1;
     }
 
@@ -227,3 +235,5 @@ public class TaskList {
         Ui.printLine();
     }
 }
+
+
