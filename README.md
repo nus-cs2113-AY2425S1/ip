@@ -1,5 +1,5 @@
 # Bean User Guide
-![Product screenshot](src/main/assets/images/product_screenshot.png)
+![Product screenshot](docs/images/product_screenshot.png)
 
 
 

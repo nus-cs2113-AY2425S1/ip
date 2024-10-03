@@ -1,5 +1,5 @@
 # Bean User Guide
-![Product screenshot](src/main/assets/images/product_screenshot.png)
+![Product screenshot](/images/product_screenshot.png)
 
 
 
@@ -85,7 +85,7 @@ find homework
 ### Expected output:
 A list of tasks whose descriptions contain the keyword "homework".
 > [!IMPORTANT]
-> The keyword input is case-sensitive. find homework will return tasks whose description contains 'homework', but not 'Homework'.
+> The keyword input is case-sensitive. `find homework` will return tasks whose description contains 'homework', but not 'Homework'.
 
 
 
@@ -103,8 +103,9 @@ ____________________________________________________________
 ```
 > [!IMPORTANT]
 > Ensure that task number is valid to avoid errors.
+
 > [!TIP]
-> use command `list` to check for valid task number range
+> Use command `list` to check for valid task number range.
 
 
 
