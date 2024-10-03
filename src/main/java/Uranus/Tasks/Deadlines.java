@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a Deadline task with a specific deadline date and time.
  * Inherits from the Task class and includes additional information about the deadline.
+ * Has a specific tag "D" for deadlines.
  */
 public class Deadlines extends Task {
 

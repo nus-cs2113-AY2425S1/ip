@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents an Event task with a specific start and end time.
  * Inherits from the Task class and includes additional information about the event duration.
+ * Has a specific tag "E" for events.
  */
 public class Events extends Task{
 

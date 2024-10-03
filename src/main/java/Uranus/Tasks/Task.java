@@ -3,6 +3,12 @@ package Uranus.Tasks;
 import UranusExceptions.UranusExceptions;
 import UranusExceptions.EmptyDescriptionException;
 
+/**
+ * Represents a generic task that contains a description,
+ * status (done or not done), and a task tag.
+ * This class is intended to be extended by specific task types
+ * (e.g., ToDos, Deadlines, Events).
+ */
 public class Task {
     protected String description;
     protected String commandInput;
