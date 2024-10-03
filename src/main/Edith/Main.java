@@ -8,7 +8,7 @@ import static UserInteraction.Storage.initializeArrayList;
 
 
 public class Main {
-    private static final String FILE_PATH = "./data/tasks.txt";
+    private static final String FILE_PATH = "./data/listOfTasks.txt";
     public static void main(String[] args) {
         File f = new File(FILE_PATH);
         getFileProperties(f);

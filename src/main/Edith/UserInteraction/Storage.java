@@ -13,7 +13,7 @@ import java.util.Scanner;
 import static File.FileFunctions.*;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/tasks.txt";
+    private static final String FILE_PATH = "./data/listOfTasks.txt";
 
     public static void initializeArrayList(ArrayList<Task> tasks, File f) throws IOException {
         Scanner s = new Scanner(f);

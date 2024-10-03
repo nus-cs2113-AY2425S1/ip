@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static UserInteraction.HelperMethods.getTask;
 import static UserInteraction.PrintShape.printHorizontalLine;
+import static UserInteraction.Storage.rewriteArrayList;
 
 public class ChangeTaskStatus {
 
@@ -22,6 +23,7 @@ public class ChangeTaskStatus {
         } catch (InvalidTaskNumberException e) {
             System.out.println(e.getMessage());
         } finally {
+            rewriteArrayList(tasks);
             printHorizontalLine();
         }
 
