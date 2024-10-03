@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks from a file to provide persistent storage.
+ */
 public class Storage {
 
     private static String filePath;
@@ -61,17 +64,13 @@ public class Storage {
                     task = new Todo(description);
                     break;
                 case "D":
-                    if (parts.length < 4) {
-                        throw new StorageInvalidFormat(line);
-                    }
-                    task = new Deadline(description, parts[3].substring(3));
+                    validatePartsLength(parts, 4, line);
+                    String deadlineTime = parts[3].substring(3);
+                    task = new Deadline(description, deadlineTime);
                     break;
                 case "E":
-                    if (parts.length < 4) {
-                        throw new StorageInvalidFormat(line);
-                    }
-                    String[] details = parts[3].split(" to ");
-                    details[0] = details[0].substring(5);
+                    validatePartsLength(parts, 4, line);
+                    String[] details = extractEventDetails(parts[3]);
                     task = new Event(description, details[0], details[1]);
                     break;
                 }
@@ -85,6 +84,33 @@ public class Storage {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Validates if the parts array has the required length.
+     * Throws StorageInvalidFormat if invalid.
+     *
+     * @param parts The array of string parts.
+     * @param expectedLength The expected minimum length.
+     * @param line The original line for the error message.
+     * @throws StorageInvalidFormat if the length is insufficient.
+     */
+    private void validatePartsLength(String[] parts, int expectedLength, String line) throws StorageInvalidFormat {
+        if (parts.length < expectedLength) {
+            throw new StorageInvalidFormat(line);
+        }
+    }
+
+    /**
+     * Extracts the event details (start and end time) from the event part string.
+     *
+     * @param eventPart The string containing the event times (from-to format).
+     * @return A String array containing the start and end times.
+     */
+    private String[] extractEventDetails(String eventPart) {
+        String[] details = eventPart.split(" to ");
+        details[0] = details[0].substring(5); // Clean start time
+        return details;
     }
 
     /**
