@@ -24,7 +24,9 @@ public class FindCommand extends Command {
         String query = fullCommand.substring(SEARCH_POSITION);
 
         for (Task task: taskList.getTaskList()) {
-            if (task.getDescription().contains(query)) {
+            String lowerCaseQuery = query.toLowerCase();
+            String lowerCaseDescription = (task.getDescription()).toLowerCase();
+            if (lowerCaseDescription.contains(lowerCaseQuery)) {
                 int taskNumber = taskList.getTaskIndex(task) + 1;
                 ui.printFindMatch(task, taskNumber);
             }
