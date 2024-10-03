@@ -37,16 +37,12 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
 
         if (!Files.exists(Paths.get(filePath))) {
-            System.out.println("Data file does not exist at: " + filePath);  // Debug message
             return tasks;  // Return empty list if no file exists
         }
 
-        System.out.println("Loading tasks from file: " + filePath);  // Debug message
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                System.out.println("Reading line: " + line);  // Debug message for each line
-
                 String[] parts = line.split(" \\| ");
                 if (parts.length < 3) {
                     throw new BebeException("Incorrect format in data file.");

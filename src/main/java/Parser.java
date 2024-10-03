@@ -31,11 +31,15 @@ public class Parser {
                 case COMMAND_BYE -> new ExitCommand();
                 case COMMAND_LIST -> new ListCommand();
                 case COMMAND_MARK -> {
-                    if (words.length < 2) throw new BebeException("The 'mark' command requires an index.");
+                    if (words.length < 2 || !isNumeric(words[1])) {
+                        throw new BebeException("The 'mark' command requires a valid task number.");
+                    }
                     yield new MarkCommand(words[1], true);
                 }
                 case COMMAND_UNMARK -> {
-                    if (words.length < 2) throw new BebeException("The 'unmark' command requires an index.");
+                    if (words.length < 2 || !isNumeric(words[1])) {
+                        throw new BebeException("The 'unmark' command requires a valid task number.");
+                    }
                     yield new MarkCommand(words[1], false);
                 }
                 case COMMAND_TODO -> {
@@ -51,7 +55,9 @@ public class Parser {
                     yield new AddCommand("event", words[1]);
                 }
                 case COMMAND_DELETE -> {
-                    if (words.length < 2) throw new BebeException("The 'delete' command requires an index.");
+                    if (words.length < 2 || !isNumeric(words[1])) {
+                        throw new BebeException("The 'delete' command requires a valid task number.");
+                    }
                     yield new DeleteCommand(words[1]);
                 }
                 case COMMAND_HELP -> new HelpCommand();
@@ -63,6 +69,16 @@ public class Parser {
             };
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new BebeException("Invalid input. Please check your command format.");
+        }
+    }
+
+    // Helper method to check if a string is numeric
+    private static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

@@ -71,7 +71,7 @@ public class Ui {
         System.out.println("  mark <task number>              - Marks a task as done.");
         System.out.println("  unmark <task number>            - Marks a task as not done.");
         System.out.println("  delete <task number>            - Deletes a task.");
-        System.out.println("  location                        - Shows the location where the tasks are saved.");
+        System.out.println("  find                            - Shows all task that matches ur description.");
         System.out.println("  help                            - Shows this help message.");
         System.out.println("  bye                             - Exits the chatbot.");
     }
