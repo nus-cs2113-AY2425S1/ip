@@ -2,9 +2,13 @@ package pythia.task;
 
 import pythia.utility.WriteVisitor;
 
+import java.util.Date;
+
 public class Event extends Task {
     private String startDate;
+    private Date startDateDay;
     private String endDate;
+    private Date endDateDay;
 
     public Event(String name, String startDate, String endDate) {
         super(name);
