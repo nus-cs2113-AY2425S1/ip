@@ -1,5 +1,7 @@
 package cristiano.goals;
 
+import cristiano.exceptions.RonaldoException;
+
 public abstract class Goal {
     protected String description;
     protected boolean isDone;
@@ -18,18 +20,16 @@ public abstract class Goal {
         return isDone ? "X" : " ";
     }
 
-    public void markAsDone() {
+    public void markAsDone() throws RonaldoException {
         if (isDone) {
-            System.out.println("Goal is already marked!");
-            return;
+            throw new RonaldoException("Goal is already marked!");
         }
         this.isDone = true;
     }
 
-    public void markAsUndone() {
+    public void markAsUndone() throws RonaldoException {
         if (!isDone) {
-            System.out.println("Goal is already unmarked!");
-            return;
+            throw new RonaldoException("Goal is already unmarked!");
         }
         this.isDone = false;
     }
