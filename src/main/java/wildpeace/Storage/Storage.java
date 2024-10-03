@@ -3,10 +3,13 @@ package wildpeace.Storage;
 import wildpeace.task.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +17,7 @@ import java.util.ArrayList;
  * The tasks are saved to a file named "tasks.json" and can be loaded from it when needed.
  */
 public class Storage {
-    private static final String FILE_PATH = "tasks.json";
+    private static final String FILE_PATH = getJarDirectory() + "/tasks.json";;
     private Gson gson;
 
     /**
@@ -24,6 +27,20 @@ public class Storage {
         this.gson = new Gson();
     }
 
+    /**
+     * Obtain the directory when the built JAR file is located.
+     * Updated at last stage to ensure the application works outside of IDE.
+     * @return a String type the target directory
+     */
+    private static String getJarDirectory() {
+        try {
+            // Get the path of the running JAR file
+            File jarFile = new File(Storage.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            return jarFile.getParent();  // Return the directory where the JAR is located
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to determine the application directory.", e);
+        }
+    }
     /**
      * Loads tasks from the JSON file "tasks.json".
      * If the file is not found or cannot be read, it returns an empty task list.
@@ -57,3 +74,4 @@ public class Storage {
         }
     }
 }
+
