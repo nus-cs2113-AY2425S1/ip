@@ -2,9 +2,11 @@ package pythia.task;
 
 import pythia.utility.WriteVisitor;
 
+import java.util.Date;
+
 public class Deadline extends Task {
     private String dueDate;
-
+    private Date dueDateDay;
     public Deadline(String name, String dueDate) {
         super(name);
         this.dueDate = dueDate;
