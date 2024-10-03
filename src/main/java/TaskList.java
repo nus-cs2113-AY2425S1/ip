@@ -91,7 +91,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(listIndex);
             list.get(index - 1).markAsNotDone();
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("Nice! I've marked this task as not done:");
             list.get(index-1).printTask();
         } catch (Exception e) {
             //Treat invalid command as a task
