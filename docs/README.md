@@ -24,25 +24,44 @@ Upon launching the application, you should see the following introduction:
 ## Features
 * Ability to add ➕ and delete ❌ goals
 * Contains multiple goal types with different formats, 
-  such as Todos, Events and Deadlines.
+  such as `Todos✅`, `Events🗓️` and `Deadlines💀`.
 * Ability to show list of goals 📃
 * Ability to save goals 📩
 * Ability to find goals 🔎
 * Ability to mark and unmark goals 📌
 
-## Commands
-Example: `keyword (optional arguments)`
+### Hidden Features
+* Exclaims when input contains "siu" 🤩
+* Boasts when input contains "messi" 🥱
 
-// A description of the expected outcome goes here
+## Commands
+1. `todo <description>` - Adds a goal in this format: [T][ ]
+2. `deadline <description> /by <time>` - Adds a goal in this format: [D][ ] (by: )
+3. `event <description> /from <time> /to <time>` - Adds a goal in this format: [E][ ] (from: to: )
+4. `mark <Goal Number>` - Marks a goal as complete `[X]`
+5. `unmark <Goal Number>` - Marks a goal as incomplete `[ ]`
+6. `list` - Provides a list of all goals
+7. `delete <Goal Number>`- Deletes a goal
+8. `find <Keyword>` - Finds a goal with matching keywords
+9. `bye` - Exits the program
+
+
 
 ```
 expected output
 ```
 
-## Feature ABC
+## Add Todo Goals
 
-// Feature details
+Adds a `todo` goal in this format: `<Goal Number> <Description> [T][ ]`
 
+Format: `todo <description>`
+
+### Example:
+
+Input: `todo Score a goal`
+
+Output:
 
 ## Feature XYZ
 

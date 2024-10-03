@@ -50,6 +50,11 @@ public class Ronaldo {
         System.out.println();
     }
 
+    /**
+     * Used to print every error shown from Ronaldo exceptions.
+     *
+     * @param message Error message from Ronaldo Exception
+     */
     public void showError(String message) {
         System.out.println("Woops! " + message);
     }
