@@ -3,9 +3,18 @@ package tars.parser;
 import tars.command.*;
 import tars.tarsexception.TarsException;
 
+/**
+ * Represents the parser that interprets user input and returns the corresponding command.
+ */
 public class Parser {
 
-    // 解析用户输入并返回命令类型
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The full input string provided by the user.
+     * @return The appropriate Command object based on the user's input.
+     * @throws TarsException If the input is not recognized as a valid command.
+     */
     public Command parse(String userInput) throws TarsException {
         String[] splitInput = userInput.split(" ", 2);
         String command = splitInput[0];
@@ -35,7 +44,13 @@ public class Parser {
         }
     }
 
-    // 解析标记任务为完成的命令
+    /**
+     * Parses the command for marking a task as completed.
+     *
+     * @param arguments The task number provided by the user.
+     * @return A MarkCommand object to mark the task as done.
+     * @throws TarsException If the task number is missing or invalid.
+     */
     private Command parseMarkCommand(String arguments) throws TarsException {
         if (arguments.isEmpty()) {
             throw new TarsException("The mark command requires a task number.");
@@ -44,7 +59,13 @@ public class Parser {
         return new MarkCommand(taskIndex);
     }
 
-    // 解析取消标记任务为未完成的命令
+    /**
+     * Parses the command for unmarking a task as not completed.
+     *
+     * @param arguments The task number provided by the user.
+     * @return An UnmarkCommand object to unmark the task as not done.
+     * @throws TarsException If the task number is missing or invalid.
+     */
     private Command parseUnmarkCommand(String arguments) throws TarsException {
         if (arguments.isEmpty()) {
             throw new TarsException("The unmark command requires a task number.");
@@ -53,7 +74,13 @@ public class Parser {
         return new UnmarkCommand(taskIndex);
     }
 
-    // 解析删除任务的命令
+    /**
+     * Parses the command for deleting a task.
+     *
+     * @param arguments The task number provided by the user.
+     * @return A DeleteCommand object to delete the task.
+     * @throws TarsException If the task number is missing or invalid.
+     */
     private Command parseDeleteCommand(String arguments) throws TarsException {
         if (arguments.isEmpty()) {
             throw new TarsException("The delete command requires a task number.");
@@ -62,7 +89,13 @@ public class Parser {
         return new DeleteCommand(taskIndex);
     }
 
-    // 解析 deadline 任务的命令
+    /**
+     * Parses the command for adding a deadline task.
+     *
+     * @param arguments The task description and deadline date provided by the user.
+     * @return An AddDeadlineCommand object to add the deadline task.
+     * @throws TarsException If the deadline format is incorrect or the date is missing.
+     */
     private Command parseDeadlineCommand(String arguments) throws TarsException {
         if (!arguments.contains("/by")) {
             throw new TarsException("The deadline command requires a /by date.");
@@ -73,7 +106,13 @@ public class Parser {
         return new AddDeadlineCommand(description, by);
     }
 
-    // 解析 event 任务的命令
+    /**
+     * Parses the command for adding an event task.
+     *
+     * @param arguments The task description, start time, and end time provided by the user.
+     * @return An AddEventCommand object to add the event task.
+     * @throws TarsException If the event format is incorrect or the times are missing.
+     */
     private Command parseEventCommand(String arguments) throws TarsException {
         if (!arguments.contains("/from") || !arguments.contains("/to")) {
             throw new TarsException("The event command requires both /from and /to times.");
@@ -85,6 +124,13 @@ public class Parser {
         return new AddEventCommand(description, from, to);
     }
 
+    /**
+     * Parses the command for finding tasks with a keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A FindCommand object to find tasks containing the keyword.
+     * @throws TarsException If the keyword is missing.
+     */
     private Command parseFindCommand(String keyword) throws TarsException {
         if (keyword.isEmpty()) {
             throw new TarsException("The find command requires a keyword.");

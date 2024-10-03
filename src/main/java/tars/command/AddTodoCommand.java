@@ -8,31 +8,46 @@ import tars.tarsexception.TarsException;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class AddTodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs an AddTodoCommand with the specified task description.
+     *
+     * @param description The description of the todo task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes the command to add a todo task to the task list, display it in the UI, and save it to storage.
+     *
+     * @param tasks   The task list to which the todo task will be added.
+     * @param ui      The user interface to display task information.
+     * @param storage The storage to save the updated task list.
+     * @throws tarsException If the description is empty.
+     */
     @Override
     public void execute(TaskList tasks, UserInterface ui, Storage storage) throws TarsException {
         if (description.isEmpty()) {
             throw new TarsException("The description of a todo cannot be empty.");
         }
 
-        // 创建新的 Todo 任务并添加到任务列表
+        // Create a new Todo task and add it to the task list
         Todo newTask = new Todo(description);
         tasks.addTask(newTask);
 
-        // 显示任务添加成功信息
+        // Display task added confirmation
         ui.showTaskAdded(newTask, tasks.getTaskCount());
 
-        // 使用 try-catch 捕获可能的 IOException
+        // Save the updated task list, catching possible IOException
         try {
             storage.saveTasks(tasks.getTasks());
         } catch (IOException e) {
-            // 捕获异常并显示错误信息
             ui.showError("Failed to save tasks: " + e.getMessage());
         }
     }

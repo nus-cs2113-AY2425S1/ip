@@ -12,15 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles reading and writing tasks to and from a file.
+ */
 public class Storage {
     private final String filePath;
 
-    // 构造函数初始化文件路径
+    /**
+     * Constructs a Storage object with a specified file path.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // 保存任务到文件
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void saveTasks(List<Task> tasks) throws IOException {
         File file = new File(filePath);
         createDirectoryIfNotExists(file);
@@ -31,17 +43,22 @@ public class Storage {
             }
         } catch (IOException e) {
             System.err.println("Error saving tasks: " + e.getMessage());
-            throw e;  // 重新抛出异常以让上层调用处理
+            throw e;  // Re-throw the exception for upper-level handling.
         }
     }
 
-    // 从文件加载任务列表
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If there is an error reading from the file.
+     */
     public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
         if (!file.exists()) {
-            return tasks;  // 如果文件不存在，返回空的任务列表
+            return tasks;  // Return an empty list if the file does not exist.
         }
 
         try (Scanner scanner = new Scanner(file)) {
@@ -59,13 +76,17 @@ public class Storage {
         return tasks;
     }
 
-    // 将字符串转换为任务对象
+    /**
+     * Converts a string from the file to a Task object.
+     *
+     * @param taskString The string representation of a task.
+     * @return The corresponding Task object, or null if the task type is unknown.
+     */
     private Task convertStringToTask(String taskString) {
         String[] taskParts = taskString.split(" \\| ");
         String type = taskParts[0];
         boolean isDone = taskParts[1].equals("1");
 
-        // 根据任务类型创建不同的任务对象
         switch (type) {
             case "T":
                 return new Todo(taskParts[2], isDone);
@@ -75,11 +96,15 @@ public class Storage {
                 return new Event(taskParts[2], taskParts[3], taskParts[4], isDone);
             default:
                 System.err.println("Unknown task type found: " + type);
-                return null;  // 返回 null 以处理未知的任务类型
+                return null;  // Return null to handle unknown task types.
         }
     }
 
-    // 创建文件目录（如果不存在）
+    /**
+     * Creates the directory for storing the file if it does not already exist.
+     *
+     * @param file The file for which the directory is to be created.
+     */
     private void createDirectoryIfNotExists(File file) {
         File directory = file.getParentFile();
         if (directory != null && !directory.exists()) {
@@ -90,106 +115,3 @@ public class Storage {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//package tars;
-//import tars.Task.Deadline;
-//import tars.Task.Task;
-//import tars.Task.Todo;
-//import tars.Task.Event;
-//
-//import java.io.File;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.util.Scanner;
-//import java.util.List;
-//import java.util.ArrayList;
-//
-//public class Storage {
-//    private String filePath;
-//
-//    public Storage(String filePath) {
-//        this.filePath = filePath;
-//    }
-//
-//    // Save tasks to file
-//    public void saveTasks(List<Task> tasks) throws IOException {
-//        File file = new File(filePath);
-//        File directory = file.getParentFile();
-//        if (directory != null && !directory.exists()) {
-//            directory.mkdirs();  // Create the "data" directory if it doesn't exist
-//        }
-//
-//        FileWriter fileWriter = new FileWriter(file);
-//        for (Task task : tasks) {
-//            fileWriter.write(task.toSaveFormat() + System.lineSeparator());
-//        }
-//        fileWriter.close();
-//    }
-//
-//    // Load tasks from file
-//    public List<Task> loadTasks() throws IOException {
-//        List<Task> tasks = new ArrayList<>();
-//        File file = new File(filePath);
-//        if (!file.exists()) {
-//            return tasks;
-//        }
-//
-//        Scanner scanner = new Scanner(file);
-//        while (scanner.hasNextLine()) {
-//            String taskString = scanner.nextLine();
-//            tasks.add(convertStringToTask(taskString));
-//        }
-//        scanner.close();
-//        return tasks;
-//    }
-//
-//    // Convert the saved string to a Task object
-//    private Task convertStringToTask(String taskString) {
-//        String[] taskParts = taskString.split(" \\| ");
-//        String type = taskParts[0];
-//        boolean isDone = taskParts[1].equals("1");
-//
-//        switch (type) {
-//            case "T":
-//                return new Todo(taskParts[2], isDone);
-//            case "D":
-//                return new Deadline(taskParts[2], taskParts[3], isDone);
-//            case "E":
-//                return new Event(taskParts[2], taskParts[3], taskParts[4], isDone);
-//            default:
-//                return null;
-//        }
-//    }
-//}

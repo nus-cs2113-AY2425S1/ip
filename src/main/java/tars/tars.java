@@ -17,8 +17,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The main class of the TARS application.
+ * TARS helps users manage their tasks, deadlines, and events.
+ */
 public class tars {
-    private static final String logo =
+
+    private static final String LOGO =
             "       [][][][][][][][]       \n"
                     + "       []   |    |   []        \n"
                     + "       []   [    ]   []        \n"
@@ -30,8 +35,14 @@ public class tars {
                     + "       []   |____|   []        \n"
                     + "       []__  ____  __[]        \n";
 
+    /**
+     * The main entry point for the TARS application.
+     * Initializes the application, loads tasks, and processes user input.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
-        System.out.println(logo);
+        System.out.println(LOGO);
         UserInterface ui = new UserInterface();
 
         // Initialize Storage and load tasks from file
@@ -47,7 +58,6 @@ public class tars {
         // Provide help prompt
         System.out.println("    If you need to see the tutorial, type 'help' to view available commands.");
         ui.printSeparator();
-
 
         // Main loop to process user input
         Scanner scanner = new Scanner(System.in);
@@ -71,7 +81,15 @@ public class tars {
         return taskList;
     }
 
-    // Process user input and return true if "bye" is entered to exit
+    /**
+     * Processes the user's input and executes the appropriate command.
+     *
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The user interface for interacting with the user.
+     * @param storage The storage to save and load tasks.
+     * @return true if the input is "bye" and the program should exit; false otherwise.
+     */
     public static boolean processUserInput(String input, List<Task> taskList, UserInterface ui, Storage storage) {
         try {
             if (input.equals("bye")) {
@@ -150,7 +168,7 @@ public class tars {
     }
 
     // Add a task and save it
-    private static void addTask(List<Task> tasks, String taskType, String input, Storage storage) {
+    public static void addTask(List<Task> tasks, String taskType, String input, Storage storage) {
         UserInterface ui = new UserInterface();
 
         try {
@@ -160,7 +178,7 @@ public class tars {
                     break;
                 case "deadline":
                     String[] deadlineParts = input.split("/by");
-                    tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                    tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));  // Parse date
                     break;
                 case "event":
                     String[] eventParts = input.split("/from|/to");
@@ -189,7 +207,7 @@ public class tars {
     }
 
     // Mark a task as completed
-    private static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
@@ -209,7 +227,7 @@ public class tars {
     }
 
     // Unmark a task as incomplete
-    private static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
@@ -229,7 +247,7 @@ public class tars {
     }
 
     // Delete a task
-    private static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    public static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
@@ -250,7 +268,7 @@ public class tars {
     }
 
     // Print the total number of tasks
-    private static void printTaskCount(int taskCount) {
+    public static void printTaskCount(int taskCount) {
         System.out.println("    Now you have " + taskCount + " tasks in the list.");
     }
 

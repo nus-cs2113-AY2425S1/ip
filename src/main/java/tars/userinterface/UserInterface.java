@@ -1,15 +1,23 @@
 package tars.userinterface;
 
 import tars.task.Task;
-
 import java.util.List;
 
+/**
+ * Handles the interactions with the user by displaying messages, tasks, and errors.
+ */
 public class UserInterface {
 
+    /**
+     * Prints a separator line for visual clarity.
+     */
     public void printSeparator() {
         System.out.println("    " + "------------------------------------------------------------");
     }
 
+    /**
+     * Displays a welcome message when the program starts.
+     */
     public void showWelcomeMessage() {
         printSeparator();
         System.out.println("    Hello! I'm tars.tars.");
@@ -17,7 +25,11 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示任务列表或显示空任务列表消息
+    /**
+     * Displays the list of tasks or shows a message if the task list is empty.
+     *
+     * @param taskList The list of tasks to display.
+     */
     public void showTasks(List<Task> taskList) {
         printSeparator();
         if (taskList.isEmpty()) {
@@ -31,7 +43,12 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示任务已添加消息
+    /**
+     * Displays a message when a new task is added.
+     *
+     * @param task      The task that was added.
+     * @param taskCount The total number of tasks in the list after adding the new task.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         printSeparator();
         System.out.println("    Got it. I've added this task: ");
@@ -40,7 +57,11 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示任务完成消息
+    /**
+     * Displays a message when a task is marked as done.
+     *
+     * @param task The task that was marked as done.
+     */
     public void showTaskDone(Task task) {
         printSeparator();
         System.out.println("    Great! Task marked as complete: ");
@@ -48,7 +69,11 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示任务未完成消息
+    /**
+     * Displays a message when a task is unmarked as not done.
+     *
+     * @param task The task that was unmarked.
+     */
     public void showTaskNotDone(Task task) {
         printSeparator();
         System.out.println("    Task has been unmarked: ");
@@ -56,7 +81,12 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示删除任务后的信息
+    /**
+     * Displays a message when a task is deleted.
+     *
+     * @param task      The task that was deleted.
+     * @param taskCount The total number of tasks left in the list after deletion.
+     */
     public void showTaskDeleted(Task task, int taskCount) {
         printSeparator();
         System.out.println("    Noted. I've successfully removed this task: ");
@@ -65,33 +95,49 @@ public class UserInterface {
         printSeparator();
     }
 
-    // 显示用户输入错误信息
+    /**
+     * Displays an error message when an invalid input is detected.
+     */
     public void showInvalidInputMessage() {
         printSeparator();
         System.out.println("    That input didn't quite compute. Try again, or I'll have to assume you're speaking in code.");
         printSeparator();
     }
 
-    // 显示加载文件时的错误信息
+    /**
+     * Displays an error message when loading tasks from a file fails.
+     */
     public void showLoadingError() {
         printSeparator();
         System.out.println("    Error loading tasks from file.");
         printSeparator();
     }
 
-    // 显示再见消息
+    /**
+     * Displays a goodbye message when the program exits.
+     */
     public void showGoodbyeMessage() {
         printSeparator();
         System.out.println("    Oh, leaving already? Fine, I will just sit here calculating the probability of you returning. It's... pretty high.");
         printSeparator();
     }
 
+    /**
+     * Displays a custom error message.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
         printSeparator();
         System.out.println("    Error: " + message);
         printSeparator();
     }
 
+    /**
+     * Displays matching tasks found using a keyword search.
+     *
+     * @param matchingTasks The list of matching tasks.
+     */
     public void showMatchingTasks(List<Task> matchingTasks) {
         printSeparator();
         System.out.println("Here are the matching tasks in your list:");
@@ -101,10 +147,12 @@ public class UserInterface {
         printSeparator();
     }
 
+    /**
+     * Displays a message when no tasks match the search keyword.
+     */
     public void showNoMatchingTasksMessage() {
         printSeparator();
         System.out.println("No matching tasks found.");
         printSeparator();
     }
-
 }

@@ -5,26 +5,48 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
-    protected LocalDate by;  // 使用 LocalDate 来存储日期
+    protected LocalDate by;  // The deadline date
 
-    // 构造函数：接受任务描述和截止日期
+    /**
+     * Creates a Deadline task with the given description and due date.
+     *
+     * @param description Task description.
+     * @param by Due date in "yyyy-MM-dd" format.
+     * @throws DateTimeParseException If the due date format is invalid.
+     */
     public Deadline(String description, String by) throws DateTimeParseException {
-        super(description);  // 调用父类 Task 的构造函数
-        this.by = parseDate(by);  // 解析并保存截止日期
+        super(description);
+        this.by = parseDate(by);
     }
 
-    // 构造函数：接受任务描述、截止日期和任务状态
+    /**
+     * Creates a Deadline task with the given description, due date, and completion status.
+     *
+     * @param description Task description.
+     * @param by Due date in "yyyy-MM-dd" format.
+     * @param isDone Task completion status.
+     * @throws DateTimeParseException If the due date format is invalid.
+     */
     public Deadline(String description, String by, boolean isDone) throws DateTimeParseException {
-        super(description);  // 调用父类 Task 的构造函数
-        this.by = parseDate(by);  // 解析并保存截止日期
-        this.isDone = isDone;  // 初始化任务状态
+        super(description);
+        this.by = parseDate(by);
+        this.isDone = isDone;
     }
 
-    // 将字符串解析为 LocalDate
+    /**
+     * Converts the date string to LocalDate.
+     *
+     * @param dateStr Date string in "yyyy-MM-dd" format.
+     * @return Parsed LocalDate.
+     * @throws DateTimeParseException If the date format is invalid.
+     */
     public static LocalDate parseDate(String dateStr) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateStr.trim(), formatter);  // 将日期字符串解析为 LocalDate 对象
+        return LocalDate.parse(dateStr.trim(), formatter);
     }
 
     @Override

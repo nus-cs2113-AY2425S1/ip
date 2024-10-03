@@ -5,29 +5,54 @@ import tars.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ * Provides methods to manage tasks, including adding, retrieving, and deleting tasks.
+ */
 public class TaskList {
     private final List<Task> tasks;
 
-    // 构造函数，初始化一个空的任务列表
+    /**
+     * Initializes an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initializes the TaskList with an existing list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    // 获取任务列表
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
-    // 添加任务到任务列表
+    /**
+     * Adds a new task to the TaskList.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    // 获取指定索引的任务，如果索引超出范围，抛出异常
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     * @throws TarsException If the index is out of range.
+     */
     public Task getTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
             throw new TarsException("Task number out of range.");
@@ -35,7 +60,13 @@ public class TaskList {
         return tasks.get(index);
     }
 
-    // 删除指定索引的任务，并返回该任务；如果索引超出范围，抛出异常
+    /**
+     * Deletes the task at the specified index and returns it.
+     *
+     * @param index The index of the task to delete.
+     * @return The deleted task.
+     * @throws TarsException If the index is out of range.
+     */
     public Task deleteTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
             throw new TarsException("Task number out of range.");
@@ -43,21 +74,36 @@ public class TaskList {
         return tasks.remove(index);
     }
 
-    // 返回任务列表中的任务总数
+    /**
+     * Returns the total number of tasks in the TaskList.
+     *
+     * @return The total number of tasks.
+     */
     public int getTaskCount() {
         return tasks.size();
     }
 
-    // 检查是否已有相同的任务，避免重复添加
+    /**
+     * Checks if a task already exists in the TaskList.
+     *
+     * @param task The task to check.
+     * @return True if the task exists, false otherwise.
+     */
     public boolean hasTask(Task task) {
         for (Task existingTask : tasks) {
             if (existingTask.equals(task)) {
-                return true;  // 如果发现重复任务，返回 true
+                return true;
             }
         }
-        return false;  // 如果没有重复任务，返回 false
+        return false;
     }
 
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks containing the keyword.
+     */
     public List<Task> findTasksContainingKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {

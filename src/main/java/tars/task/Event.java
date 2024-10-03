@@ -1,22 +1,38 @@
 package tars.task;
 
+/**
+ * Represents an event task with a start and end time.
+ */
 public class Event extends Task {
-    protected String from; // Save event start time
-    protected String to;   // Save event end time
+    protected String from; // Event start time
+    protected String to;   // Event end time
 
-    // Constructor: accepts only task description, start time, and end time
+    /**
+     * Creates an Event task with the given description, start time, and end time.
+     *
+     * @param description Task description.
+     * @param from Start time of the event.
+     * @param to End time of the event.
+     */
     public Event(String description, String from, String to) {
-        super(description);  // Call the parent Task constructor with the description
-        this.from = from;  // Save event start time
-        this.to = to;  // Save event end time
+        super(description);
+        this.from = from;
+        this.to = to;
     }
 
-    // Constructor: accepts task description, start time, end time, and task status
+    /**
+     * Creates an Event task with the given description, start time, end time, and completion status.
+     *
+     * @param description Task description.
+     * @param from Start time of the event.
+     * @param to End time of the event.
+     * @param isDone Task completion status.
+     */
     public Event(String description, String from, String to, boolean isDone) {
-        super(description);  // Call the parent Task constructor with the description
-        this.from = from;  // Save event start time
-        this.to = to;  // Save event end time
-        this.isDone = isDone;  // Initialize task status
+        super(description);
+        this.from = from;
+        this.to = to;
+        this.isDone = isDone;
     }
 
     @Override
