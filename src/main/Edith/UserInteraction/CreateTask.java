@@ -13,7 +13,7 @@ public class CreateTask {
         } else if (enteredString.startsWith("todo")) {
             newTask = createTodoTask(enteredString);
         } else {
-            throw new TaskTypeException("No task type stated. Please try again.");
+            throw new TaskTypeException("Invalid input format. Please try again");
         }
 
         return newTask;
