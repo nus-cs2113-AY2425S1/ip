@@ -8,6 +8,8 @@ public class Parser extends Functions {
     protected static final String BYE_COMMAND = "bye";
     protected static final String LIST_COMMAND = "list";
     protected static final String ECHO_COMMAND = "echo";
+    protected static final String HELP_COMMAND = "help";
+    protected static final String CLEAR_COMMAND = "clear";
     protected static final String TODO_COMMAND = "todo";
     protected static final String TASK_COMMAND = "task";
     protected static final String EVENT_COMMAND = "event";
@@ -34,6 +36,14 @@ public class Parser extends Functions {
 
             case ECHO_COMMAND:
                 Ui.echo();
+                break;
+
+            case HELP_COMMAND:
+                Ui.printFunctions();
+                break;
+
+            case CLEAR_COMMAND:
+                Ui.clearScreen();
                 break;
 
             default:

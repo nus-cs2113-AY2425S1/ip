@@ -1,15 +1,16 @@
 package Uranus.Tasks;
 
+import UranusExceptions.UranusExceptions;
+
 public class ToDos extends Task{
     private static final String TODO_TAG = "T";
 
-    public ToDos(String description){
+    public ToDos(String description) throws UranusExceptions {
         super(description, TODO_TAG);
     }
 
     @Override
-    public void setDescription(String description){
-        int separatorIndex = description.indexOf(' ');
-        this.description = description.substring(separatorIndex + 1);
+    public void setDescription(String description) throws UranusExceptions{
+        super.setDescription(description);
     }
 }
