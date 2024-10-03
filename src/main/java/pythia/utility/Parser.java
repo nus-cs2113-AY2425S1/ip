@@ -87,6 +87,15 @@ public class Parser {
         }
     }
 
+    public void parseFind(String rawText) throws PythiaException {
+        argumentList = tokenize(rawText, "find\\s(.+)");
+        boolean isCorrectFormat = argumentList.size() == 1;
+
+        if (!isCorrectFormat) {
+            throw new PythiaException(parsingErrorMessage, "Please specify what should I find.");
+        }
+    }
+
     private ArrayList<String> tokenize(String rawText, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(rawText);
@@ -114,6 +123,7 @@ public class Parser {
             case "deadline" -> parseDeadline(rawText);
             case "event" -> parseEvent(rawText);
             case "delete" -> parseDelete(rawText);
+            case "find" -> parseFind(rawText);
         }
     }
 
@@ -131,6 +141,7 @@ public class Parser {
             case "deadline" -> Pythia.addDeadline(argumentList.get(0), argumentList.get(1));
             case "event" -> Pythia.addEvent(argumentList.get(0), argumentList.get(1), argumentList.get(2));
             case "delete" -> Pythia.deleteTask(Integer.parseInt(argumentList.get(0)));
+            case "find" -> Pythia.findTasks(argumentList.get(0));
             default -> throw new PythiaException(parsingErrorMessage, "Hmm. I am not sure what you mean.");
         }
     }
