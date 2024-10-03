@@ -45,7 +45,17 @@ public class Pythia {
     }
 
     public static void listTasks() {
-        ui.printTaskList(taskList);
+        StringBuilder comment = new StringBuilder();
+        int remainingTasks = taskList.getNumberOfRemainingTasks();
+
+        comment.append("Now you have ").append(remainingTasks);
+        if (remainingTasks == 1) {
+            comment.append(" task in the list.");
+        } else {
+            comment.append(" tasks in the list.");
+        }
+
+        ui.printTaskList(taskList, "", comment.toString());
     }
 
     public static void addTask(String taskName) {
@@ -90,6 +100,24 @@ public class Pythia {
             ui.printResponse(msg);
         } catch (IndexOutOfBoundsException e){
             ui.printResponse("There is no such task :(");
+        }
+    }
+
+    public static void findTasks(String taskKeyword) {
+        TaskList filteredTaskList = new TaskList();
+        for (Task task : taskList) {
+            String taskName = task.getName();
+            if (taskName.contains(taskKeyword)) {
+                filteredTaskList.add(task);
+            }
+        }
+
+        if (filteredTaskList.getNumberOfTasks() == 0) {
+            ui.printResponse("There is no such task :(");
+        } else {
+            String commentBefore = "Here are the matching tasks in your list:";
+            String commentAfter = "";
+            ui.printTaskList(filteredTaskList, commentBefore, commentAfter);
         }
     }
 

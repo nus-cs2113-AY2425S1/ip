@@ -24,21 +24,15 @@ public class Ui {
         printResponse(text.toLowerCase());
     }
 
-    public void printTaskList(TaskList taskList) {
-        int remainingTasks = taskList.getNumberOfTasks();
-        StringBuilder taskListString = new StringBuilder();
-        for (int i = 0; i < remainingTasks; i++) {
-            taskListString.append(i + 1).append(". ");
-            taskListString.append(taskList.get(i).toString());
-            taskListString.append("\n");
+    public void printTaskList(TaskList taskList, String commentBefore, String commentAfter) {
+        StringBuilder response = new StringBuilder();
+        if (commentBefore != null && !commentBefore.isEmpty()) {
+            response.append(commentBefore).append("\n");
         }
-
-        taskListString.append("Now you have ").append(remainingTasks);
-        if (remainingTasks == 1) {
-            taskListString.append(" task in the list.");
-        } else {
-            taskListString.append(" tasks in the list.");
+        response.append(taskList.toString());
+        if (commentAfter != null && !commentAfter.isEmpty()) {
+            response.append("\n").append(commentAfter);
         }
-        printResponse(taskListString.toString());
+        printResponse(response.toString());
     }
 }
