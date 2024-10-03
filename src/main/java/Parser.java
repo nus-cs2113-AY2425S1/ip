@@ -2,6 +2,15 @@ import exceptions.InvalidCommandException;
 
 public class Parser {
 
+    /**
+     * Parse the input into substrings where it selects the case by the command
+     *
+     * @param input                     the input users enter
+     * @param tasklist                  the list of methods where specific ones are called
+     *                                  according to its command
+     * @throws InvalidCommandException  if input does not have the specifc commands
+     *                                  in the cases
+     */
     public static boolean parse(String input, TaskList tasklist) {
         String[] words = input.split(" ");
         String command = words[0];
