@@ -7,8 +7,8 @@ __        ___ _     _
                      |_|                        
 What can I do for you? Enter '1' for echo, '2' for storing your plan, '0' to exit.
 List your plans in the following format:
-todo/ deadline/ event + task, e.g., todo homework
-You may also mark/unmark tasks by: mark/unmark + task
+todo DESCRIPTION/ deadline DESCRIPTION /by DEADLINE / event DESCRIPTION /at EVENT_TIME, e.g., todo homework
+You may also mark/unmark tasks by: mark/unmark INDEX
 Return to tutorial by entering Q
 Added: [T] [ ] Finish reading book
 Added: [D] [ ] Submit assignment (by: Dec 1 2024)

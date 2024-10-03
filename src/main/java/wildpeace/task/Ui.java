@@ -11,7 +11,7 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a Ui object and initializes a Scanner to read user input.
+     * Constructs an Ui object and initializes a Scanner to read user input.
      */
     public Ui(Scanner scanner) {
         this.scanner = scanner;
@@ -54,8 +54,8 @@ public class Ui {
      */
     public void showGuide() {
         System.out.println("List your plans in the following format:");
-        System.out.println("todo/ deadline/ event + task, e.g., todo homework");
-        System.out.println("You may also mark/unmark tasks by: mark/unmark + task");
+        System.out.println("todo DESCRIPTION/ deadline DESCRIPTION /by DEADLINE / event DESCRIPTION /at EVENT_TIME, e.g., todo homework");
+        System.out.println("You may also mark/unmark tasks by: mark/unmark INDEX");
         System.out.println("Return to tutorial by entering Q");
     }
 

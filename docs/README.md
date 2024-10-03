@@ -1,7 +1,21 @@
 # **Wildpeace User Guide**
 
 ## **Introduction**
-Wildpeace is a command-line interface (CLI)-based task management application designed to help users organize their daily tasks efficiently. It allows for the creation of tasks such as todos, deadlines, and events. Wildpeace supports operations like adding, deleting, marking, unmarking, and listing tasks. It also saves tasks automatically and loads them upon restarting the application.
+```
+__        ___ _     _                           
+\ \      / (_) | __| |_ __   ___  __ _  ___ ___ 
+ \ \ /\ / /| | |/ _` | '_ \ / _ \/ _` |/ __/ _ \
+  \ V  V / | | | (_| | |_) |  __/ (_| | (_|  __/
+   \_/\_/  |_|_|\__,_| .__/ \___|\__,_|\___\___|
+                     |_|                                      
+```
+Wildpeace is a command-line interface (CLI)-based task management application designed to help users organize their 
+daily tasks efficiently. It allows for the creation of tasks such as todos, deadlines, and events. Wildpeace supports 
+operations like adding, deleting, marking, unmarking, and listing tasks. It also saves tasks automatically and loads 
+them upon restarting the application.
+- **The Main UI will let you choose 1 or 2 for the echo function or the Task Manager Function. You may type the input
+accordingly and press enter. In the echo function, the programme will repeat everything you have said. For the Task
+Manager Function, please refer to the guide below.**
 
 ---
 
@@ -27,10 +41,10 @@ Wildpeace supports three types of tasks: `todo`, `deadline`, and `event`.
 #### Adding a Todo Task
 You can add a simple todo task without any specific date or time associated with it.
 
-- **Command**: `add todo DESCRIPTION`
+- **Command**: `todo DESCRIPTION`
 - **Example**:
    ```
-   add todo Finish reading book
+   todo Finish reading book
    ```
 - **Expected Outcome**: A todo task will be added to the task list.
    ```
@@ -40,10 +54,10 @@ You can add a simple todo task without any specific date or time associated with
 #### Adding a Deadline Task
 For tasks that need to be completed by a certain date, you can add a deadline.
 
-- **Command**: `add deadline DESCRIPTION /by DEADLINE`
+- **Command**: ` deadline DESCRIPTION /by DEADLINE`
 - **Example**:
    ```
-   add deadline Submit assignment /by 2024-12-01
+    deadline Submit assignment /by 2024-12-01
    ```
 - **Expected Outcome**: A deadline task will be added with the specified deadline.
    ```
@@ -53,14 +67,14 @@ For tasks that need to be completed by a certain date, you can add a deadline.
 #### Adding an Event Task
 For events that occur at a specific time, use the event task type.
 
-- **Command**: `add event DESCRIPTION /at EVENT_TIME`
+- **Command**: ` event DESCRIPTION /at EVENT_DATE`
 - **Example**:
    ```
-   add event Project presentation /at 2024-10-05 14:00
+    event Project presentation /at 2024-10-05 
    ```
 - **Expected Outcome**: An event task will be added with the event time specified.
    ```
-   Added: [E][ ] Project presentation (at: 2024-10-05 14:00)
+   Added: [E][ ] Project presentation (at: 2024-10-05)
    ```
 
 ---
@@ -133,24 +147,41 @@ You can remove tasks from your list.
 
 ### **6. Exiting the Application**
 
-You can exit the application by typing the following command:
+You can exit the Task Management Function by typing the following command:
 
-- **Command**: `exit`
+- **Command**: `bye`
 - **Example**:
    ```
-   exit
+   bye
    ```
-- **Expected Outcome**: The application will close.
+- **Expected Outcome**: Goodbye!
 
 ---
+### **7. Clear Tasks**
 
-### **7. Saving Data**
+You can Clear all the tasks in the Task List by typing the following command:
+- **Command**: `clear`
+- **Example**:
+   ```
+   clear
+   ```
+### **8. Find Tasks**
+
+You can find tasks in the Task List by key word search using the following command:
+- **Command**: `find DESCRIPTION`
+- **Example**:
+   ```
+   find book
+   ```
+- **Expected Outcome**: 1. [T] [ ] Finish reading book
+
+### **9. Saving Data**
 
 Wildpeace automatically saves your tasks to a local `tasks.json` file after any modification. You do not need to manually save the tasks. When you restart the application, your tasks will be loaded from this file.
 
 ---
 
-### **8. Editing the Data File**
+### **10. Editing the Data File**
 
 Advanced users can directly modify the `tasks.json` file, which is stored in the application's directory. This file is formatted as JSON, so be cautious when editing it. Incorrect formatting may cause the application to fail when loading the tasks.
 
@@ -170,16 +201,18 @@ Advanced users can directly modify the `tasks.json` file, which is stored in the
 
 ## **Command Summary**
 
-| **Command**         | **Format**                                         | **Example**                                                |
-|---------------------|----------------------------------------------------|------------------------------------------------------------|
-| **Add Todo**        | `add todo DESCRIPTION`                             | `add todo Finish reading book`                              |
-| **Add Deadline**    | `add deadline DESCRIPTION /by DEADLINE`            | `add deadline Submit assignment /by 2024-12-01`             |
-| **Add Event**       | `add event DESCRIPTION /at EVENT_TIME`             | `add event Project presentation /at 2024-10-05 14:00`       |
-| **List Tasks**      | `list`                                             |                                                            |
-| **Mark Task**       | `mark INDEX`                                       | `mark 1`                                                   |
-| **Unmark Task**     | `unmark INDEX`                                     | `unmark 1`                                                 |
-| **Delete Task**     | `delete INDEX`                                     | `delete 1`                                                 |
-| **Exit Program**    | `exit`                                             |                                                            |
+| **Command**      | **Format**                          | **Example**                                       |
+|------------------|-------------------------------------|---------------------------------------------------|
+| **Todo**         | `todo DESCRIPTION`                  | `todo Finish reading book`                        |
+| **Deadline**     | `deadline DESCRIPTION /by DEADLINE` | `deadline Submit assignment /by 2024-12-01`       |
+| **Event**        | `event DESCRIPTION /at EVENT_TIME`  | `event Project presentation /at 2024-10-05 14:00` |
+| **List Tasks**   | `list`                              |                                                   |
+| **Mark Task**    | `mark INDEX`                        | `mark 1`                                          |
+| **Unmark Task**  | `unmark INDEX`                      | `unmark 1`                                        |
+| **Delete Task**  | `delete INDEX`                      | `delete 1`                                        |
+| **Exit Program** | `exit`                              |                                                   |
+| **Clear Tasks**  | `clear`                             | `clear`                                           |
+| ** Find Tasks**  | `find DESCRIPTION`                   | `find book`                                        |
 
 ---
 
