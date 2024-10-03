@@ -23,3 +23,4 @@ src/main/java/tyrone/constants/*class
 *.class
 
 src/main/java/data/Tasks.txt
+ip.jar
