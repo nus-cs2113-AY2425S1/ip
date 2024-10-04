@@ -84,13 +84,13 @@ public class Event extends Task {
         try {
             this.startDateTime = LocalDateTime.parse(startDateString,
                     DateTimeFormatter.ofPattern(
-                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT));
             this.startDateString = "";
         } catch (DateTimeParseException e) {
             try {
                 this.startDate = LocalDate.parse(startDateString,
                         DateTimeFormatter.ofPattern(
-                            DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                            DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT));
                 this.startDateString = "";
             } catch (DateTimeParseException ex) {
                 this.startDateString = startDateString;
@@ -109,14 +109,14 @@ public class Event extends Task {
         try {
             this.endDateTime = LocalDateTime.parse(endDateString,
                     DateTimeFormatter.ofPattern(
-                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT));
             this.endDateString = "";
         } catch (DateTimeParseException e) {
             this.endDateString = "";
             try {
                 this.endDate = LocalDate.parse(endDateString,
                         DateTimeFormatter.ofPattern(
-                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT));
             } catch (DateTimeParseException ex) {
                 this.endDateString = endDateString;
             }
@@ -124,12 +124,11 @@ public class Event extends Task {
     }
 
 
-   /**
+    /**
      * Converts the event task to a string format for display,
      * including the Event symbol, start date and an end date.
      *
-     * @return a formatted string showing the Deadline task's
-     * status, description, start date and end date.
+     * @return a formatted string showing the Deadline task's status, description, start date and end date.
      */
     @Override
     public String taskToDisplay() {
@@ -151,8 +150,7 @@ public class Event extends Task {
      * Converts the event task to a string format for writing to / reading from a file,
      * including the Event symbol, start date and an end date.
      *
-     * @return a formatted string representing the deadline task's
-     * status, description, start date and end date.
+     * @return a formatted string representing the deadline task's status, description, start date and end date.
      */
     @Override
     public String taskToString() {

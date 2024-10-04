@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import yapper.io.DateAndTimeHandler;
 
+import yapper.io.DateAndTimeHandler;
 import yapper.io.StringStorage;
 
 /**
@@ -61,13 +61,13 @@ public class Deadline extends Task {
         try {
             this.endDateTime = LocalDateTime.parse(endDateString,
                     DateTimeFormatter.ofPattern(
-                    DateAndTimeHandler.DATE_WITH_TIME_INPUT) );
+                    DateAndTimeHandler.DATE_WITH_TIME_INPUT));
             this.endDateString = "";
         } catch (DateTimeParseException e) {
             try {
                 this.endDate = LocalDate.parse(endDateString,
                         DateTimeFormatter.ofPattern(
-                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT) );
+                        DateAndTimeHandler.DATE_WITHOUT_TIME_INPUT));
                 this.endDateString = "";
             } catch (DateTimeParseException ex) {
                 this.endDateString = endDateString;
@@ -81,8 +81,7 @@ public class Deadline extends Task {
      * Converts the deadline task to a string format for display,
      * including the Deadline symbol and the end date.
      *
-     * @return a formatted string showing the Deadline task's
-     * status, description and end date.
+     * @return a formatted string showing the Deadline task's status, description and end date.
      */
     @Override
     public String taskToDisplay() {
@@ -98,8 +97,7 @@ public class Deadline extends Task {
      * Converts the deadline task to a string format for writing to / reading from a file,
      * including the Deadline symbol and the end date.
      *
-     * @return a formatted string representing the deadline task's
-     * status, description and end date.
+     * @return a formatted string representing the deadline task's status, description and end date.
      */
     @Override
     public String taskToString() {

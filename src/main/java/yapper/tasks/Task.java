@@ -68,7 +68,9 @@ public class Task {
      *
      * @return true if the task is done; false otherwise
      */
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
     /**
      * Sets the completion status of the task.
      *
@@ -93,8 +95,8 @@ public class Task {
      * @return a formatted string representing the task's status and description.
      */
     public String taskToString() {
-        return getDoneStatus() + " " +
-                StringStorage.COMBINE_USING_DELIMITER + " "
+        return getDoneStatus() + " "
+                + StringStorage.COMBINE_USING_DELIMITER + " "
                 + taskDesc;
     }
 }

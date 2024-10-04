@@ -47,7 +47,6 @@ public class StringStorage {
     public static final String DELIMITER_DEADLINE_END_DATE = "/by";
     public static final String DELIMITER_EVENT_START_DATE = "/from";
     public static final String DELIMITER_EVENT_END_DATE = "/to";
-
     /**
      * Symbols used to represent task types and statuses, for File I/O.
      */
@@ -56,23 +55,12 @@ public class StringStorage {
     public static final String SYMBOL_TODO = "T";
     public static final String SYMBOL_DEADLINE = "D";
     public static final String SYMBOL_EVENT = "E";
-
     /**
      * Constants related to file management.
      */
     public static final String SAVE_FILE_PATH = "./data/savedata.txt";
     public static final String COMBINE_USING_DELIMITER = "|";
     public static final String SPLIT_USING_DELIMITER = "\\|";
-    /**
-     * Splits a task string by a specified delimiter.
-     *
-     * @param taskAsString The string representation of the task to be split.
-     * @return An array of strings obtained by splitting the input string.
-     */
-    public static String[] splitByDelimiter(String taskAsString) {
-        return taskAsString.split(SPLIT_USING_DELIMITER, 3);
-    }
-
 
     /**
      * Divides text printed to output, to distinguish between different sets of messages
@@ -85,16 +73,6 @@ public class StringStorage {
             "___________________ PROGRAM OUTPUT BELOW ___________________";
     public static final String LINE_DIVIDER_YAPPER =
             "___________________ YAPPING OUTPUT BELOW ___________________";
-    /**
-     * Prints a message with dividers for better visibility.
-     *
-     * @param message The message to be printed.
-     */
-    public static void printWithDividers(String message) {
-        System.out.println(LINE_DIVIDER_OUTPUT);
-        System.out.println(message);
-        System.out.println(LINE_DIVIDER_INPUT);
-    }
 
     /**
      * Messages that occur when no instruction can be executed.
@@ -172,7 +150,6 @@ public class StringStorage {
             "Keep it up! You'll be done with it eventually! ";
     public static final String TASK_IS_NOT_DONE_STRING =
             "Keep going, you'll get it done eventually! ";
-
 
 
     /**
@@ -275,4 +252,23 @@ public class StringStorage {
     public static final String SAVING_ERROR_MESSAGE = // unused ?
             "error in saving data";
 
+    /**
+     * Splits a task string by a specified delimiter.
+     *
+     * @param taskAsString The string representation of the task to be split.
+     * @return An array of strings obtained by splitting the input string.
+     */
+    public static String[] splitByDelimiter(String taskAsString) {
+        return taskAsString.split(SPLIT_USING_DELIMITER, 3);
+    }
+    /**
+     * Prints a message with dividers for better visibility.
+     *
+     * @param message The message to be printed.
+     */
+    public static void printWithDividers(String message) {
+        System.out.println(LINE_DIVIDER_OUTPUT);
+        System.out.println(message);
+        System.out.println(LINE_DIVIDER_INPUT);
+    }
 }
