@@ -5,6 +5,7 @@ import ran.task.Event;
 import ran.task.Task;
 import ran.task.TaskType;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * A class representing the user interface for interacting with the user.
@@ -22,6 +23,15 @@ public class Ui {
             + "\t   |:|\\/__/        /:/  /       |::/  /" + System.lineSeparator()
             + "\t   |:|  |         /:/  /        /:/  /" + System.lineSeparator()
             + "\t    \\|__|         \\/__/         \\/__/" + System.lineSeparator();
+    private Scanner in;
+
+    /**
+     * Constructor for a <code>Ui</code> object.
+     * Overloads default constructor to initialise a scanner object reading user inputs.
+     */
+    public Ui() {
+        in = new Scanner(System.in);
+    }
 
     /**
      * Display a greeting message.
@@ -122,5 +132,14 @@ public class Ui {
             System.out.println("\t" + line);
         }
         System.out.println(LINE);
+    }
+
+    /**
+     * Return user input as a string when user hit enter key.
+     *
+     * @return String representing what user typed into the program
+     */
+    public String readCommand() {
+        return in.nextLine();
     }
 }

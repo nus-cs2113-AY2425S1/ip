@@ -95,12 +95,8 @@ public class Ran {
     public void run() {
         ui.greet();
         boolean isTerminated = false;
-        // Take in user input from the terminal
-        String input;
-        Scanner in = new Scanner(System.in);
-
         while (!isTerminated) {
-            input = in.nextLine();
+            String input = ui.readCommand();
             try {
                 Command c = Parser.parse(input);
                 isTerminated = c.execute(tasks, ui, storage);
