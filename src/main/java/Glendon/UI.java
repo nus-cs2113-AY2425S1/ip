@@ -16,6 +16,31 @@ public class UI {
     UI() {
         scanner = new Scanner(System.in);
     }
+    
+  
+    /**
+     * Prints the message that there is no such task
+     */
+    public void noSuchTask() {
+        System.out.println("    No such task found");
+    }
+    
+    /**
+     * Prints the list of task found with the specific keyword used
+     * @param tasks the list of tasks 
+     */
+    public void tasksFound(ArrayList<Task> tasks) {
+        int taskNumber = 1;
+        Task currentTask;
+        System.out.println("    Here are the tasks with the specific task name:");
+        for (int i = 0; i < tasks.size(); i++) {
+            currentTask = tasks.get(i);
+            if (currentTask != null) {
+                System.out.println("        " + taskNumber + ". " + currentTask.toString());
+                taskNumber++;
+            }
+        }
+    }
 
     /**
      * Prints the message for user when there is an issue creating the file and the description
