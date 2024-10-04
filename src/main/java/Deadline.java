@@ -1,3 +1,8 @@
+/**
+ * Represents a deadline task with a description and due date.
+ * This class extends the {@code Task} class and adds a due date for the deadline task.
+ * It provides functionality to create a deadline task and represent it as a string.
+ */
 public class Deadline extends Task {
 
     protected String by;
