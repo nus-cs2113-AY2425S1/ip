@@ -1,5 +1,6 @@
 package tyrone.storage;
 
+import tyrone.util.TaskInputConstants;
 import tyrone.ui.Ui;
 import tyrone.command.exceptions.EmptyFieldException;
 import tyrone.task.Deadline;
@@ -16,16 +17,9 @@ import java.util.Scanner;
 /**
  * Class to handle reading data from and writing data to save file
  */
-public class Storage {
+public class Storage implements TaskInputConstants {
 
     //Constants used by methods to parse inputs
-    public static final String EVENT_START_FLAG = " /from";
-    public static final String EVENT_END_FLAG = " /to";
-    public static final String DEADLINE_FLAG = " /by";
-    public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
-    public static final int START_INDEX_OFFSET_START = 7;
-    public static final int START_INDEX_OFFSET_END = 5;
-    public static final int START_INDEX_OFFSET_DEADLINE = 5;
     public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
     public static final int INPUT_START_INDEX = 2;
 

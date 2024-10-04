@@ -7,23 +7,17 @@ import tyrone.task.Deadline;
 import tyrone.task.Event;
 import tyrone.task.TaskList;
 import tyrone.task.Todo;
+import tyrone.util.TaskInputConstants;
 
 /**
  * Class to parse user inputs to chatbot through Ui
  */
-public class Parser {
-    
+public class Parser implements TaskInputConstants {
+
     private TaskList taskList;
     private Storage storage;
 
     // Constants for handleInput function
-    public static final String EVENT_START_FLAG = " /from";
-    public static final String EVENT_END_FLAG = " /to";
-    public static final String DEADLINE_FLAG = " /by";
-    public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
-    public static final int START_INDEX_OFFSET_START = 7;
-    public static final int START_INDEX_OFFSET_END = 5;
-    public static final int START_INDEX_OFFSET_DEADLINE = 5;
     public static final int START_INDEX_OFFSET_KEYWORD = 1;
     public static final String TWO_SPACE_INDENT = "  ";
 
