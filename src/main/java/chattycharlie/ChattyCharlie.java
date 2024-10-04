@@ -52,7 +52,7 @@ public class ChattyCharlie {
             } catch (CharlieExceptions e) {
                 ui.displayError(e.getMessage());
             } catch (IllegalArgumentException e) {
-                ui.displayError("Oop, did you make a typo?");
+                ui.displayError("Oop, did you make a typo? ");
             }
         }
     }

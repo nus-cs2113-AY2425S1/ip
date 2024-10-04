@@ -16,7 +16,7 @@ public class Parser {
      * @throws IllegalArgumentException if the input does not match any known command.
      */
     public CommandType getCommand(String input) {
-        String firstWord = input.split(" ")[0];
+        String firstWord = input.trim().split(" ")[0];
         return CommandType.valueOf(firstWord.toUpperCase());
     }
 }

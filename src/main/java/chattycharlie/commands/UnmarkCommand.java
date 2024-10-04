@@ -19,7 +19,7 @@ public class UnmarkCommand implements Command {
      * @throws NumberFormatException if the index provided is not a valid integer.
      */
     public UnmarkCommand(String line) {
-        String toUnmarkIndex = line.substring(4).trim();
+        String toUnmarkIndex = line.substring(6).trim();
         this.toUnmarkIndex = Integer.parseInt(toUnmarkIndex) - 1;
     }
 

@@ -83,7 +83,7 @@ public class TaskList {
         if (index >= 0 && index < size) {
             tasks.get(index).markTask();
             int remainingTask = countUnmarkedTasks();
-            ui.displayMarkingText("yay, 1 down!", remainingTask);
+            ui.displayMarkingText("yay, 1 down! ", remainingTask);
         } else {
             ui.displayError("Invalid task number.");
         }
@@ -100,7 +100,7 @@ public class TaskList {
         if (index >= 0 && index < size) {
             tasks.get(index).unmarkTask();
             int remainingTask = countUnmarkedTasks();
-            ui.displayMarkingText("Hmmm, not quite done yet,", remainingTask);
+            ui.displayMarkingText("Hmmm, not quite done yet, ", remainingTask);
         } else {
             ui.displayError("Invalid task number.");
         }
