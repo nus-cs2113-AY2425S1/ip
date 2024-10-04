@@ -15,7 +15,7 @@ public abstract class Command {
     }
 
     public boolean isExit() {
-        return isExit;
+        return false;
     }
 
     public abstract void executeCommand(TaskList tasks, Ui ui);

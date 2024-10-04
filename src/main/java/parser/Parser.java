@@ -4,11 +4,12 @@ import commands.AddCommand;
 import commands.Command;
 import commands.ExitCommand;
 import commands.*;
+import exceptions.DootException;
 
 public class Parser {
 
 
-    public static Command findCommand(String command) {
+    public static Command findCommand(String command) throws DootException {
         boolean containsSpace = command.contains(" ");
         String cmd = containsSpace ? command.substring(0, command.indexOf(" ")) : command;
         String args = containsSpace ? command.substring(command.indexOf(" ") + 1) : "";
@@ -21,7 +22,7 @@ public class Parser {
             case ListCommand.COMMAND_WORD -> new ListCommand(cmd, args);
             case MarkCommand.COMMAND_WORD -> new MarkCommand(cmd, args);
             case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(cmd, args);
-            default -> throw new IllegalArgumentException("Unknown command: " + cmd);
+            default -> throw new DootException("Unknown command: " + cmd);
         };
 
     }

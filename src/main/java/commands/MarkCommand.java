@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, Ui ui) {
-        Task toMark = tasks.getTask(Integer.parseInt(args));
+        Task toMark = tasks.getTask(Integer.parseInt(args) - 1);
         toMark.markDone();
         System.out.println(Ui.DIVIDER + "Nice! I've marked this task as done: "
                 + toMark.getDescription() + "\n"

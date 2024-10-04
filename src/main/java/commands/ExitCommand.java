@@ -4,11 +4,14 @@ import data.TaskList;
 import ui.Ui;
 
 public class ExitCommand extends Command{
-    public static final String COMMAND_WORD = "exit";
-    protected boolean isExit = True;
+    public static final String COMMAND_WORD = "bye";
 
     public ExitCommand(String cmd, String args) {
         super(cmd, args);
+    }
+
+    public boolean isExit(){
+        return true;
     }
 
     /**

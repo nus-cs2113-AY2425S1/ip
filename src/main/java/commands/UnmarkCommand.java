@@ -18,8 +18,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, Ui ui) {
-        Task toMark = tasks.getTask(Integer.parseInt(args));
-        toMark.markDone();
+        Task toMark = tasks.getTask(Integer.parseInt(args) - 1);
+        toMark.markUnDone();
         System.out.println(Ui.DIVIDER + "OK, I've marked this task as not done yet: "
                 + toMark.getDescription()
                 + "\n" + Ui.DIVIDER);

@@ -27,4 +27,7 @@ public class Ui {
     }
 
 
+    public void printUnknownCommand(String command) {
+        out.println("Unknown command: " + command);
+    }
 }
