@@ -1,0 +1,92 @@
+Having issues reading from ./savedata.txt! Check your file permissions!
+Hello! I'm Cuboyd
+What can I do for you?
+> No description was given! Please run the command again with `todo <description>`!
+> Got it. I've added this task:
+  [T][ ] alpha
+Now you have 1 tasks in the list.
+> No description was given! Please run the command again with `deadline <description> /by <by date>`!
+> /by not given! Please run the command again with `deadline <description> /by <by date>`!
+> /by not given! Please run the command again with `deadline <description> /by <by date>`!
+> Got it. I've added this task:
+  [D][ ] alpha beta (by: by a)
+Now you have 2 tasks in the list.
+> No description was given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /from not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /from not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /to not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> Got it. I've added this task:
+  [E][ ] alpha (from: a beta to: alpha beta)
+Now you have 3 tasks in the list.
+> Here are the matching tasks in your list:
+No keyword given! Please run the command again with `find <keyword>`!
+> Here are the matching tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] alpha beta (by: by a)
+3.[E][ ] alpha (from: a beta to: alpha beta)
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] alpha beta (by: by a)
+3.[E][ ] alpha (from: a beta to: alpha beta)
+> Bye. Hope to see you again soon!
+Error when reading from ./savedata.txt! Savefile might be corrupted!
+Hello! I'm Cuboyd
+What can I do for you?
+> No description was given! Please run the command again with `todo <description>`!
+> Got it. I've added this task:
+  [T][ ] alpha
+Now you have 1 tasks in the list.
+> No description was given! Please run the command again with `deadline <description> /by <by date>`!
+> /by not given! Please run the command again with `deadline <description> /by <by date>`!
+> /by not given! Please run the command again with `deadline <description> /by <by date>`!
+> Got it. I've added this task:
+  [D][ ] alpha beta (by: by a)
+Now you have 2 tasks in the list.
+> No description was given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /from not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /from not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> /to not given! Please run the command again with `event <description> /from <from date> /to <to date>`!
+> Got it. I've added this task:
+  [E][ ] alpha (from: a beta to: alpha beta)
+Now you have 3 tasks in the list.
+> Here are the matching tasks in your list:
+No keyword given! Please run the command again with `find <keyword>`!
+> Here are the matching tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] alpha beta (by: by a)
+3.[E][ ] alpha (from: a beta to: alpha beta)
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> No Task Index was given! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Task Index given not a valid number! Please run the command again with `<command> <task index>`!
+> Task Index out of range! There are only 3 tasks. Please run the command again with `<command> <task index>`!
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] alpha beta (by: by a)
+3.[E][ ] alpha (from: a beta to: alpha beta)
+> Bye. Hope to see you again soon!

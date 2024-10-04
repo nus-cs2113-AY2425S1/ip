@@ -1,0 +1,30 @@
+todo
+todo alpha
+deadline
+deadline alpha
+deadline alpha beta
+deadline alpha beta /by by a
+event
+event alpha
+event alpha beta
+event alpha /from a
+event alpha /from a beta /to alpha beta
+find
+find a
+mark
+mark -1
+mark 0
+mark a
+mark 4
+unmark
+unmark -1
+unmark 0
+unmark a
+unmark 4
+delete
+delete -1
+delete 0
+delete a
+delete 4
+list
+bye
