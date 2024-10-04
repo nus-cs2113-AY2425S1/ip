@@ -17,19 +17,19 @@ Ellio is a command-line chatbot designed to manage your tasks efficiently.
    ```plaintext
    todo [description] 
    ```
-   Example: todo Buy groceries
+   Example: todo New Task
 
 2. **Add a deadline**
    ```plaintext
    deadline [description] /by [dd/MM/yyyy]
    ```
-   Example: deadline Submit report /by 12/10/2024
+   Example: deadline New Deadline /by 12/10/2024
 
 3. **Add an event**
    ```plaintext
    event [description] /from [start time] /to [end time]
    ```
-   Example: event Team meeting /from 13/10/2024 /to 13/10/2024
+   Example: event New Event /from 13/10/2024 /to 13/10/2024
 
 4. **Mark a task as done**
    ```plaintext
@@ -58,7 +58,7 @@ Ellio is a command-line chatbot designed to manage your tasks efficiently.
    ```plaintext
    find [keyword]
    ```
-   Example: find groceries
+   Example: find Task
 
 9. **Exit the application**
    ```plaintext
