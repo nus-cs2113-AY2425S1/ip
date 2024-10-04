@@ -36,7 +36,7 @@ public class Ui {
             "mark 2 : Mark the second task in the list\n" +
             "unmark 2 : Unmark the second task in the list\n" +
             "delete 3 : Delete the third task in the list\n" +
-            "find yoga : Finds all tasks that contain the word “yoga”\n" +
+            "find yoga : Finds all tasks that contain the word 'yoga'\n" +
             "help : Displays this list of commands to ask Crystal.\n" +
             "bye : Crystal bids you goodbye and the new list is saved.");
         printHorizontalLine();
