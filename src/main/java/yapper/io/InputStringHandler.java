@@ -36,9 +36,9 @@ public class InputStringHandler {
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.LIST);
-            } else if (userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX)) {
-                if (!userInputString.trim().equals(StringStorage.HELP_INSTRUCTION_PREFIX)) {
-                    throw new YapperException(StringStorage.HELP_INSTRUCTION_PREFIX
+            } else if (userInputString.startsWith(StringStorage.PREFIX_HELP_INSTRUCTION)) {
+                if (!userInputString.trim().equals(StringStorage.PREFIX_HELP_INSTRUCTION)) {
+                    throw new YapperException(StringStorage.PREFIX_HELP_INSTRUCTION
                             + " does not need other parameters");
                 }
                 return new Instruction(Instruction.InstructionType.HELP);
