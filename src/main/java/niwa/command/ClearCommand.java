@@ -46,7 +46,11 @@ public class ClearCommand extends Command {
         NiwaUI ui = new NiwaUI();
         ui.printMiddleMessage(NiwaMesssages.MESSAGE_CLEAR_ASK); // Ask for confirmation
 
-        String response = ui.getUserCommand().toUpperCase().trim(); // Get user confirmation
+        String response;
+        do {
+            response = ui.getUserCommand().toUpperCase().trim(); // Get user confirmation
+        } while (!(response.equals(NiwaShortMessages.YES_MESSAGE)
+                || response.equals(NiwaShortMessages.NO_MESSAGE)));
 
         if (response.equals(NiwaShortMessages.YES_MESSAGE)) {
             TaskList.getInstance().clearTaskList(); // Clear the task list
