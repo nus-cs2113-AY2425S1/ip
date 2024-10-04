@@ -19,10 +19,13 @@ import java.util.Scanner;
 public class Storage {
 
     //Constants used by methods to parse inputs
+    public static final String EVENT_START_FLAG = " /from";
+    public static final String EVENT_END_FLAG = " /to";
+    public static final String DEADLINE_FLAG = " /by";
     public static final int START_INDEX_OFFSET_DESCRIPTION = 1;
-    public static final int START_INDEX_OFFSET_START = 6;
-    public static final int START_INDEX_OFFSET_END = 4;
-    public static final int START_INDEX_OFFSET_DEADLINE = 4;
+    public static final int START_INDEX_OFFSET_START = 7;
+    public static final int START_INDEX_OFFSET_END = 5;
+    public static final int START_INDEX_OFFSET_DEADLINE = 5;
     public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
     public static final int INPUT_START_INDEX = 2;
 
@@ -61,10 +64,10 @@ public class Storage {
     private void parseEvent(String input, boolean isDone, TaskList taskList) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
-                    input.indexOf(" /from"));
-            String start = input.substring(input.indexOf("/from") + START_INDEX_OFFSET_START,
-                    input.indexOf(" /to"));
-            String end = input.substring(input.indexOf("/to") + START_INDEX_OFFSET_END);
+                    input.indexOf(EVENT_START_FLAG));
+            String start = input.substring(input.indexOf(EVENT_START_FLAG) + START_INDEX_OFFSET_START,
+                    input.indexOf(EVENT_END_FLAG));
+            String end = input.substring(input.indexOf(EVENT_END_FLAG) + START_INDEX_OFFSET_END);
             if (description.isBlank() || start.isBlank() || end.isBlank()) {
                 throw new EmptyFieldException();
             }
@@ -87,8 +90,8 @@ public class Storage {
     private void parseDeadline(String input, boolean isDone, TaskList taskList) {
         try {
             String description = input.substring(input.indexOf(" ") + START_INDEX_OFFSET_DESCRIPTION,
-                    input.indexOf(" /by"));
-            String deadline = input.substring(input.indexOf("/by") + START_INDEX_OFFSET_DEADLINE);
+                    input.indexOf(DEADLINE_FLAG));
+            String deadline = input.substring(input.indexOf(DEADLINE_FLAG) + START_INDEX_OFFSET_DEADLINE);
             if (description.isBlank() || deadline.isBlank()) {
                 throw new EmptyFieldException();
             }
