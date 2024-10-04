@@ -42,4 +42,7 @@ public class TaskList {
         System.out.print(Ui.DIVIDER + "added: " + toAdd + "\n" + Ui.DIVIDER);
     }
 
+    public TaskList getTaskListCopy() {
+        return new TaskList(taskList);
+    }
 }

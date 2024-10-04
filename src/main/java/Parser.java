@@ -19,6 +19,6 @@ public class Parser {
         } else {
             handleDefault(cmd, args);
         }
-        storage.writeTaskData();
+
     }
 }

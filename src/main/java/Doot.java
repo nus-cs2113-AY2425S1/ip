@@ -27,7 +27,9 @@ public class Doot {
         while (!isExit) {
             String currentInput = ui.readCommand();
             Command c = Parser.findCommand(currentInput);
+            c.executeCommand();
             isExit = c.isExit();
+            storage.writeTaskData(tasks.getTaskListCopy());
         }
         ui.showExit();
     }
