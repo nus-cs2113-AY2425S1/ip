@@ -7,6 +7,7 @@ import doug.TaskList;
 import doug.Storage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Class for the main chatbot Doug
@@ -36,6 +37,7 @@ public class Doug {
         } catch (FileNotFoundException e) {
             ui.sayNewUserWelcome();
         }
+
     }
 
     /**

@@ -61,6 +61,11 @@ public class Parser {
         if (command.isEmpty()) {
             throw new DougException(ui.getConfusedMessage());
         }
+        if (todoName.isEmpty()) {
+            throw new DougException(ui.getDashedLine()
+                    + "Didn't name your todo task did you bud?\n"
+                    + ui.getDashedLine());
+        }
         return new AddToDoCommand(todoName);
     }
 

@@ -38,6 +38,11 @@ public class DeleteCommand extends Command {
         }
 
         System.out.println(ui.getDashedLine() + "I've deleted: " + removedTask + " for you.");
-        System.out.println("Your list is now " + tasks.getCount() + " tasks long partner\n" + ui.getDashedLine());
+
+        if (tasks.getCount() == 1) {
+            System.out.println("Your list is now " + tasks.getCount() + " task long partner\n" + ui.getDashedLine());
+        } else {
+            System.out.println("Your list is now " + tasks.getCount() + " tasks long partner\n" + ui.getDashedLine());
+        }
     }
 }
