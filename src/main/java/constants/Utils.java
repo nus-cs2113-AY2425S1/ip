@@ -1,5 +1,9 @@
 package constants;
 
+/**
+ * Class that contain commonly used keywords such as commands,
+ * file paths and horizontal line
+ */
 public class Utils {
 
     public static final String MARK = "mark";
