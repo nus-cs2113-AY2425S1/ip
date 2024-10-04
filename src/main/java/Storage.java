@@ -115,7 +115,7 @@ public class Storage {
         String dataFileContent = getDataFileContent();
         String newDataFileContent = dataFileContent.replaceAll(line + System.lineSeparator() , "");
         FileWriter fw = new FileWriter(filePath);
-        fw.write(dataFileContent);
+        fw.write(newDataFileContent);
         fw.close();
     }
 }
