@@ -1,8 +1,8 @@
 package bob.task;
 
 public class Event extends Task {
-    private String startOfEvent;
-    private String endOfEvent;
+    private final String startOfEvent;
+    private final String endOfEvent;
 
     public Event(String description, String startTime, String endTime) {
         super(description);
