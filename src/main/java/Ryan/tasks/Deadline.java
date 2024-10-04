@@ -38,7 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFile() {
-        return String.format("%s | %d | %s | %s", getTaskType(), isMarked() ? 1 : 0, getDescription(), by);
+        return String.format("%s | %d | %s | %s", getTaskType(), isMarked() ? MARKED_VALUE : UNMARKED_VALUE, getDescription(), by);
     }
 
     /**
