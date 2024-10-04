@@ -12,7 +12,7 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
-
+loo
 # Ignore generated JAR files
 /out/artifacts/
 

@@ -19,6 +19,11 @@ public class TaskStorage {
                 String taskLine = scanner.nextLine();
                 String[] parts = taskLine.split(" \\| ");
 
+                // Check if the line contains at least 3 parts (taskType, isDone, description)
+                if (parts.length < 3) {
+                    continue;  // Skip to the next line without printing anything
+                }
+
                 // Task parsing logic
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
@@ -30,16 +35,25 @@ public class TaskStorage {
                     task = new TodoTask(description);
                     break;
                 case "D":
-                    String by = parts[3];
-                    task = new DeadlineTask(description, by);
+                    // Check if we have enough parts for DeadlineTask
+                    if (parts.length >= 4) {
+                        String by = parts[3];
+                        task = new DeadlineTask(description, by);
+                    }
                     break;
                 case "E":
-                    String eventDetails = parts[3];  // This holds the "from /to to" format
-                    String[] eventParts = eventDetails.split(" /to ");  // Split into "from" and "to"
-                    String from = eventParts[0].trim();
-                    String to = eventParts[1].trim();
+                    // Check if we have enough parts for EventTask
+                    if (parts.length >= 4) {
+                        String eventDetails = parts[3];  // This holds the "from /to to" format
+                        String[] eventParts = eventDetails.split(" /to ");
 
-                    task = new EventTask(description, from, to);  // Pass description, from, and to
+                        // Ensure the eventParts contains both "from" and "to"
+                        if (eventParts.length == 2) {
+                            String from = eventParts[0].trim();
+                            String to = eventParts[1].trim();
+                            task = new EventTask(description, from, to);
+                        }
+                    }
                     break;
                 }
 
@@ -47,7 +61,9 @@ public class TaskStorage {
                     task.setDone(true);
                 }
 
-                tasks.add(task);  // Add the task to the list
+                if (task != null) {
+                    tasks.add(task);  // Add the task to the list
+                }
             }
 
             scanner.close();
