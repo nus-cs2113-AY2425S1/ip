@@ -27,12 +27,12 @@ Welcome to Archibald, your personal task management assistant! This guide will h
 Some example commands to try:
 
 - `list`: Lists all tasks.
-- `todo Read a book`: Adds a new todo task.
-- `deadline Submit report /by 2023-04-15 1400`: Adds a new deadline task.
-- `event Team meeting /from 2023-04-10 1000 /to 2023-04-10 1200`: Adds a new event task.
+- `todo Read a tome`: Adds a new todo task.
+- `deadline Submit scroll /by 2023-04-15 1400`: Adds a new deadline task.
+- `event Wizard meeting /from 2023-04-10 1000 /to 2023-04-10 1200`: Adds a new event task.
 - `done 1`: Marks the first task as done.
 - `delete 2`: Deletes the second task.
-- `find report`: Finds tasks containing the word "report".
+- `find scroll`: Finds tasks containing the word "scroll".
 - `bye`: Exits the application.
 
 Refer to the sections below for more details on each command and feature.
@@ -55,13 +55,13 @@ Archibald supports three types of tasks:
 #### Adding Tasks
 
 - Add a Todo: `todo <description>`
-  Example: `todo Read a book`
+  Example: `todo Read a tome`
 
 - Add a Deadline: `deadline <description> /by <yyyy-MM-dd HHmm>`
-  Example: `deadline Submit report /by 2023-04-15 1400`
+  Example: `deadline Submit scroll /by 2023-04-15 1400`
 
 - Add an Event: `event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
-  Example: `event Team meeting /from 2023-04-10 1000 /to 2023-04-10 1200`
+  Example: `event Wizard meeting /from 2023-04-10 1000 /to 2023-04-10 1200`
 
 #### Marking Tasks as Done
 
@@ -76,7 +76,7 @@ Archibald supports three types of tasks:
 ### Finding and Filtering Tasks
 
 - Find tasks by keyword: `find <keyword>`
-  Example: `find report`
+  Example: `find scroll`
 
 - Show tasks happening on a specific date: `happening <yyyy-MM-dd>`
   Example: `happening 2023-04-15`
