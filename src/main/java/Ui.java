@@ -39,7 +39,7 @@ public class Ui {
     public void greet() {
         System.out.println(LINE);
         System.out.println(logo + "\tHello, I'm Ran.");
-        System.out.println("\tHow may I assist you?");
+        System.out.println("\tHow may I assist you? Don't be afraid to ask for help.");
         System.out.println(LINE);
     }
 
@@ -75,7 +75,7 @@ public class Ui {
      */
     public void printMarkedTask(String markedTask) {
         System.out.println(LINE);
-        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\tExcellent! I've marked this task as done:");
         System.out.println("\t  " + markedTask);
         System.out.println(LINE);
     }
@@ -87,7 +87,7 @@ public class Ui {
      */
     public void printUnmarkedTask(String unmarkedTask) {
         System.out.println(LINE);
-        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\tSure, I've marked this task as not done yet:");
         System.out.println("\t  " + unmarkedTask);
         System.out.println(LINE);
     }

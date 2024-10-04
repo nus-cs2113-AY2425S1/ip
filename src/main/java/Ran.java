@@ -123,7 +123,8 @@ public class Ran {
             } catch (InvalidCommandException e) {
                 ui.printMessage(new String[] {"Your command doesn't comply to the spellbook rules.", 
                         "Here's some you can consider:", 
-                        "todo, deadline, event, mark, unmark, list, bye"});
+                        "todo, deadline, event, mark, unmark, list, bye", 
+                        "Alternatively, type \'help\'."});
             }
         }
         ui.bidFarewell();
