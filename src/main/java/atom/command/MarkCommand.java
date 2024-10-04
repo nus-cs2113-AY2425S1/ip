@@ -40,7 +40,7 @@ public class MarkCommand extends Command{
         } catch (EmptyTaskIdException e) {
             ui.showError(e.getMessage());
         } catch (NumberFormatException e) {
-            ui.showNumberFormatExceptionError();
+            ui.showNumberFormatExceptionMessage();
         } catch (TaskIdOutOfBoundsException e) {
             ui.showError(e.getMessage());
         }

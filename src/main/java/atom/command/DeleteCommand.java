@@ -27,13 +27,13 @@ public class DeleteCommand extends Command{
                 throw new TaskIdOutOfBoundsException(tasks.getTasksListSize());
             }
 
-            tasks.deleteTask(taskId);
             ui.showDeleteTaskMessage(tasks, taskId);
+            tasks.deleteTask(taskId);
 
         } catch (EmptyTaskIdException e) {
             ui.showError(e.getMessage());
         } catch (NumberFormatException e) {
-            ui.showNumberFormatExceptionError();
+            ui.showNumberFormatExceptionMessage();
         } catch (TaskIdOutOfBoundsException e) {
             ui.showError(e.getMessage());
         }
