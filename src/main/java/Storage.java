@@ -67,16 +67,12 @@ public class Storage {
      */
     private Task parseTask(String[] parts) throws BebeException {
         try {
-            switch (parts[0]) {
-                case "T":
-                    return new Todo(parts[2]);
-                case "D":
-                    return new Deadline(parts[2], parseDateTime(parts[3]));
-                case "E":
-                    return new Event(parts[2], parseDateTime(parts[3]), parseDateTime(parts[4]));
-                default:
-                    throw new BebeException("Unknown task type in file.");
-            }
+            return switch (parts[0]) {
+                case "T" -> new Todo(parts[2]);
+                case "D" -> new Deadline(parts[2], parseDateTime(parts[3]));
+                case "E" -> new Event(parts[2], parseDateTime(parts[3]), parseDateTime(parts[4]));
+                default -> throw new BebeException("Unknown task type in file.");
+            };
         } catch (DateTimeParseException e) {
             throw new BebeException("Invalid date/time format in task.");
         }

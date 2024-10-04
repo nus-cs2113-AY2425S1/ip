@@ -1,6 +1,6 @@
-T | 0 | Read book
 D | 0 | Submit report | 2024-05-30 2359
 E | 1 | Conference | 2024-10-20 1921 | 2024-10-22 1911
 D | 0 | help | 2000-02-11 2359
 E | 0 | Project presentation | 2024-10-20 1010 | 2024-10-22 2359
 T | 0 | Read a book t/reading
+T | 0 | 121212

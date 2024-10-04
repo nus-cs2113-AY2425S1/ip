@@ -275,15 +275,15 @@ If you make changes that corrupt the format, Bebe Task Manager may discard all y
 
 ## Command Summary
 
-Action | Format  
----|---
-**Add a Todo Task** | `todo <task description>`  
-**Add a Deadline Task** | `deadline <task description> /by <due date>`  
-**Add an Event Task** | `event <task description> /from <start date time> /to <end date time>`  
-**List All Tasks** | `list`  
-**Mark a Task as Done** | `mark <task number>`  
-**Unmark a Task** | `unmark <task number>`  
-**Delete a Task** | `delete <task number>`  
-**Find Tasks** | `find <keyword>`  
-**Exit the Program** | `bye`  
-**Help** | `help`
+| Action                  | Format                                                                 |
+|-------------------------|------------------------------------------------------------------------|
+| **Add a Todo Task**     | `todo <task description>`                                              |
+| **Add a Deadline Task** | `deadline <task description> /by <due date>`                           |
+| **Add an Event Task**   | `event <task description> /from <start date time> /to <end date time>` |
+| **List All Tasks**      | `list`                                                                 |
+| **Mark a Task as Done** | `mark <task number>`                                                   |
+| **Unmark a Task**       | `unmark <task number>`                                                 |
+| **Delete a Task**       | `delete <task number>`                                                 |
+| **Find Tasks**          | `find <keyword>`                                                       |
+| **Exit the Program**    | `bye`                                                                  |
+| **Help**                | `help`                                                                 |
