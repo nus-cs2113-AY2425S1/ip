@@ -52,25 +52,15 @@ Yapper supports 10 different command types:
 9. Mark 
 10. Unmark
 
-> [!NOTE]
-> I have formatted the instructions on how to use each command, as such:
-
-### Format
+Yapper will only understand user inputs that start with the keywords above.
 
 To perform a command,
-use the command_keyword, followed by additional arguments if any
-e.g. `shown here is how to format input`.
+use the command keyword, followed by additional arguments if any
+e.g. `Shown here is how to format your input so that Yapper understands`.
 ```
-shown here is a sample program output
+Shown here is a sample program output based on the sample input above.
 ```
-The command_keyword is always in lowercase.
-
-Arguments, if any, are compulsory if indicated.
-
-> [!CAUTION]
-> Extraneous parameters for commands that do not take in parameters (such as list, help, bye) will not be ignored.
-Yapper will not understand.
-
+The command keyword is always in lowercase.
 
 ### Adding and Deleting Tasks
 
@@ -121,8 +111,22 @@ Don't worry, I've already forgotten about it!
 ### Listing All Tasks
 
 To list all tasks in Yapper, use the list command.
-use the list command
+use the list command without any parameters.
 e.g. `list`
+```
+___________________ PROGRAM OUTPUT BELOW ___________________
+You're forgetting already? Lemme refresh your memory: 
+1.[T][X] todoDesc 
+2.[D][ ] deadlineDesc, due endDate 
+3.[E][ ] eventDesc, from startDate to endDate 
+That should be all of them. Did I forget any? 
+```
+
+### Finding Tasks via its description
+
+To find tasks in Yapper, use the find command.
+use the find command followed by the query string that you wish to filter by,
+e.g. `find CS2113`
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
 You're forgetting already? Lemme refresh your memory: 
@@ -156,7 +160,8 @@ Keep going, you'll get it done eventually!
 
 ### Getting Help
 
-To get a help message, use the help command,
+To get a help message, 
+use the help command without any parameters,
 e.g. `help`.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
@@ -176,7 +181,8 @@ _____________________ USER INPUT BELOW _____________________
 
 ### Exiting Yapper
 
-To exit the program, use the bye command, 
+To exit the program, 
+use the bye command without any parameters,
 e.g. `bye`.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
@@ -188,19 +194,24 @@ ____________________________________________________________
 
 ## Command Summary
 
-If there are additional parameters, they must be included and must be in the same order indicated.
+If a command requires additional parameters, they must be included and must be in the same order indicated.
 
-| Command | Description                                                     | Format                               | Example                                    | 
-|---------|-----------------------------------------------------------------|--------------------------------------|--------------------------------------------|
-| todo    | Adds a new Todo task to the list                                | todo [desc]                          | todo study for exam                        |
-| deadline | Adds a new Deadline task to the list                            | deadline [desc] /by [date]           | deadline canvas quiz /by today             |
-| event   | Adds a new Event task to the list                               | event [desc] /from [date] /to [date] | event tP meeting /from today 2100 /to 2000 |
-| delete  | Deletes a task from the list                                    | delete [ordinal]                     | delete 6                                   |
-| mark    | Marks an uncompleted task in the list as done                   | mark  [ordinal]                      | mark 4                                     |
-| unmark  | Marks a completed task in the list as not done                  | unmark [ordinal]                     | unmark 3                                   |
-| list    | Lists all tasks in the list                                     | list                                 | list                                       |
-| find    | Lists all tasks in the list whose description contains the query | find [query]                         | find CS2113                                |
-| bye     | Exits the program with a goodbye message                        | bye                                  | bye                                        |
+If a command does not require additional parameters, do not include anything after the command keyword.
 
-desc, date, query are strings.
-ordinal is an integer.
+Command keywords are always in lowercase.
+
+| Command  | Description                                                      | Format                               | Example                                    | 
+|----------|------------------------------------------------------------------|--------------------------------------|--------------------------------------------|
+| todo     | Adds a new Todo task to the list                                 | todo [desc]                          | todo study for exam                        |
+| deadline | Adds a new Deadline task to the list                             | deadline [desc] /by [date]           | deadline canvas quiz /by today             |
+| event    | Adds a new Event task to the list                                | event [desc] /from [date] /to [date] | event tP meeting /from today 2000 /to 2100 |
+| delete   | Deletes a task from the list                                     | delete [ordinal]                     | delete 6                                   |
+| mark     | Marks an uncompleted task in the list as done                    | mark  [ordinal]                      | mark 4                                     |
+| unmark   | Marks a completed task in the list as not done                   | unmark [ordinal]                     | unmark 3                                   |
+| list     | Lists all tasks in the list                                      | list                                 | list                                       |
+| find     | Lists all tasks in the list whose description contains the query | find [query]                         | find CS2113                                |
+| bye      | Exits the program with a goodbye message                         | bye                                  | bye                                        |
+
+Do note that parameters must be of a certain type: 
+* desc, date, query are strings.
+* ordinal is an integer.
