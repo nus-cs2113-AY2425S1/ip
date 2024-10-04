@@ -12,10 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles saving and loading of tasks from a file.
+ */
 public class Storage {
 
     private static final String FILE_PATH = "./data/ryan.txt";
 
+    /**
+     * Saves the list of tasks to a file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
@@ -35,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from a file.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
@@ -57,6 +70,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a line from the file format into a Task object.
+     *
+     * @param line The line to be parsed.
+     * @return The corresponding Task object.
+     */
     private static Task parseTaskFromFile(String line) {
         String[] parts = line.split(" \\| ");
 

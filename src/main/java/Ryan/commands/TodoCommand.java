@@ -1,13 +1,22 @@
 package Ryan.commands;
 
+import Ryan.tasks.Task;
+import Ryan.tasks.Todo;
 import Ryan.utility.TaskList;
 import Ryan.utility.Ui;
-import Ryan.tasks.*;
 import Ryan.exceptions.RyanException;
 
+/**
+ * Command to add a Todo task.
+ */
 public class TodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs a TodoCommand with the specified task description.
+     *
+     * @param description The description of the Todo task.
+     */
     public TodoCommand(String description) {
         this.description = description;
     }
@@ -20,7 +29,6 @@ public class TodoCommand extends Command {
 
         Task task = new Todo(description);
         tasks.addTask(task);
-
         ui.showTaskAdded(task, tasks.size());
     }
 }

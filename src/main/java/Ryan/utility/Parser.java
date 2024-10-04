@@ -3,8 +3,18 @@ package Ryan.utility;
 import Ryan.exceptions.RyanException;
 import Ryan.commands.*;
 
+/**
+ * Represents a parser that processes user input and returns the appropriate command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return The command corresponding to the input.
+     * @throws RyanException If the command is invalid or cannot be parsed.
+     */
     public Command parse(String fullCommand) throws RyanException {
         String[] parts = fullCommand.trim().split(" ", 2);
         String commandWord = parts[0].toLowerCase();
