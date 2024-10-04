@@ -29,7 +29,7 @@ public class UI {
         System.out.println("mark     [task number]                          : mark a task as done");
         System.out.println("unmark   [task number]                          : mark a task as undone");
         System.out.println("delete   [task number]                          : delete a task from Aerus");
-        System.out.println("bye                                             : Exit the program");
+        System.out.println("bye / quit                                      : Exit the program");
         System.out.println("\nAerus saves all your tasks so you don't have to worry about missing anything!");
         System.out.println("Happy planning!");
         System.out.println(DIVIDER_LINE);

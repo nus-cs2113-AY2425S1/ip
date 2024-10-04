@@ -57,6 +57,10 @@ public class Task {
      */
 
     public static void deleteTask(int taskIndex) {
+        if (taskIndex > TaskList.tasks.size()) {
+            System.out.println("This task does not exist!");
+            return;
+        }
         TaskList.tasks.get(taskIndex).printDelete();
         TaskList.tasks.remove(taskIndex);
     }

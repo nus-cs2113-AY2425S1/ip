@@ -48,6 +48,7 @@ public class InputHandler {
         switch (userInput) {
 
         case "bye":
+        case "quit":
             return -1;
 
         case "list":
@@ -68,8 +69,8 @@ public class InputHandler {
         String[] userInputSplit = userInput.split(" ");
 
         if (userInputSplit[0].equals("search")) {
-            if (userInput.length() > 7) {
-                ArrayList<Task> searchResult = SearchEngine.search(userInput.substring(7));
+            if (userInput.length() > "search ".length()) {
+                ArrayList<Task> searchResult = SearchEngine.search(userInput.substring("search ".length()));
                 if (searchResult.isEmpty()) {
                     System.out.println("You don't have any tasks matching this description!");
                 } else {
@@ -84,9 +85,11 @@ public class InputHandler {
         // Test if the input is formatted like a mark/unmark command
         if (isMarkCommandType(userInput)) {
             int taskIndex = parseInt(userInputSplit[1]) - 1;
-            if (taskIndex > TaskList.tasks.size()) {
-                throw new InvalidMarkException();
+            if (taskIndex >= TaskList.tasks.size()) {
+                UI.printContent("This task does not exist, please check again.");
+                return 0;
             }
+
             String command = userInputSplit[0];
             Task task = TaskList.tasks.get(taskIndex);
             switch (command) {
@@ -108,7 +111,7 @@ public class InputHandler {
                 Task.createNewTask(userInput);
                 return 1;
             } catch (InvalidCreateTaskException e) {
-                System.out.println("Error: Invalid command syntax. Please provide a task type with corresponding parameters.");
+                UI.printContent("Error: Invalid command syntax. Please provide a task type with corresponding parameters.");
             }
             return 1;
         }
