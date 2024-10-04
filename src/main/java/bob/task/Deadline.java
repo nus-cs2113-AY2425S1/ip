@@ -4,7 +4,7 @@ package bob.task;
  * Represents a deadline task with a specific due date.
  */
 public class Deadline extends Task {
-    private String byDeadline;
+    private final String byDeadline;
 
     /**
      * Constructs a Deadline task object with the given description and deadline.
@@ -25,7 +25,7 @@ public class Deadline extends Task {
     public String getDeadline() {
         return this.byDeadline;
     }
-
+  
     /**
      * Returns a string representation of the Deadline task.
      *

@@ -26,4 +26,8 @@ event
 event
 event party /from Tuesday
 event party /from Tuesday to Wednesday
+find book
+find project meeting
+find join sports club
+find cs2113
 bye

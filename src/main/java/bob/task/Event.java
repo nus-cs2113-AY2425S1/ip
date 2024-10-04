@@ -4,8 +4,8 @@ package bob.task;
  * Represents an event task with a specific start and end time.
  */
 public class Event extends Task {
-    private String startOfEvent;
-    private String endOfEvent;
+    private final String startOfEvent;
+    private final String endOfEvent;
 
     /**
      * Constructs an Event task with the given description, start time and end time.
