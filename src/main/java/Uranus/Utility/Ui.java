@@ -34,7 +34,9 @@ public class Ui extends Functions{
                 "7. Show you what assistance I can provide",
                 "   - Type command: help",
                 "8. Simulate clearing of screen",
-                "   - Type command: clear"
+                "   - Type command: clear",
+                "9. Find tasks based on keyword(s)",
+                "   - Type command: find <keyword>"
         );
     }
 
