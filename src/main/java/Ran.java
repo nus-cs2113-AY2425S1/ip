@@ -42,7 +42,8 @@ public class Ran {
             storage = new Storage(directory);
         } catch (IOException e) {
             ui.printMessage(new String[] {"There appears to a barrier between your data file and I.", 
-                    "Maybe I can use my master's gap manipulation powers to overcome this..."});
+                    "Maybe I can use my master's boundary manipulation powers to overcome this...", 
+                    "Oh nevermind, she is still asleep."});
             return;
         } 
         try {
@@ -50,7 +51,7 @@ public class Ran {
         } catch (FileNotFoundException e) {
             ui.printMessage(new String[] {"That is strange, I swear I thought your data file exists...", 
                     "Could this be the start of another incident?", 
-                    "I ought to report this pecularity to master Yukari."});
+                    "I ought to report this anomaly to master Yukari."});
             return;
         }
     }
@@ -81,6 +82,9 @@ public class Ran {
         case DELETE:
             return new String[] {"Here's how to delete a task:", 
                     "delete [index_number]"};
+        case FIND:
+            return new String[] {"Here's how to find tasks based on keyphrase:", 
+                    "find [keyphrase]"};
         case UNDEFINED:
             // Fall-through
         Default:
