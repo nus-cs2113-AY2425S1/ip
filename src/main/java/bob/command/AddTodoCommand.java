@@ -5,8 +5,6 @@ import bob.task.ToDo;
 import bob.ui.Ui;
 import bob.storage.Storage;
 
-import java.util.ArrayList;
-
 /**
  * Represents a command to add a "To-Do" task.
  * It parses the input to retrieve the description and adds the to-do task to the task list.

@@ -235,6 +235,12 @@ public class Ui {
         System.out.println("Sorry! This is an invalid command. I don't understand what you mean.");
     }
 
+    /**
+     * Displays the matching tasks found in the user's task list.
+     *
+     * @param taskList        The list of tasks to search through.
+     * @param matchingIndices The indices of the tasks that match the search criteria.
+     */
     public void showMatchingTasks(List<Task> taskList, List<Integer> matchingIndices) {
         System.out.println("Here are the matching tasks in your list:");
         for (Integer index : matchingIndices) {
@@ -242,6 +248,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Informs the user that there are no matching tasks in the task list.
+     */
     public void printNoMatchingTasks() {
         System.out.println("Sorry! There are no matching tasks in your list.");
     }
