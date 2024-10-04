@@ -1,8 +1,8 @@
 # Appal User Guide
 
-![Staring up Appal](appalscreenshot.png)
+![Starting up Appal](appalscreenshot.png)
 
-Appal is your best pal with whom to track your tasks. such as your todos, deadlines and events, and you can access them
+Appal is your best pal with whom to track your tasks, such as your todos, deadlines and events, and you can access them
 by listing the tasks or filtering the list to find specific tasks. For each Appal session, your task list will be saved
 right into your laptop too!
 
@@ -23,8 +23,6 @@ I've helped you load your previously saved tasks! Type 'list' to check them out!
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
-> [!NOTE]
-> Tasks that are added to the task list in Appal are by default unmarked.
 
 ## Adding todos: `todo`
 
