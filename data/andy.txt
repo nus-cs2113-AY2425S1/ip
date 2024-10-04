@@ -3,3 +3,4 @@ T | 0 | homework
 T | 0 | show 
 T | 0 | add
 T | 0 | 1
+T | 0 | list

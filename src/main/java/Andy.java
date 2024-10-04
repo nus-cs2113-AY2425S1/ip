@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Andy {
     private UI ui;
     private Storage storage;
@@ -39,6 +41,11 @@ public class Andy {
                     String[] timeParts = parts[1].split(" /to ");
                     tasks.addTask(new EventTask(parts[0], timeParts[0], timeParts[1]));  // Add event task
                     ui.showTaskAddedMessage(parts[0]);
+                    break;
+                case "find":
+                    String keyword = parser.parseTaskDescription(input, "find");
+                    List<Task> foundTasks = tasks.findTasks(keyword);
+                    ui.showFoundTasks(foundTasks);
                     break;
                 case "delete":
                     int index = parser.parseTaskIndex(input);  // Parse the index to delete
