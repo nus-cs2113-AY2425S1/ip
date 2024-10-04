@@ -100,10 +100,10 @@ public class Ui {
 
     /**
      * Displays Cuboyd Exception.
-     * @param exception CuboydException to print
+     * @param cuboydException CuboydException to print
      */
-    public void displayCuboydException(CuboydException exception) {
-        System.out.println(exception.getMessage());
+    public void displayCuboydException(CuboydException cuboydException) {
+        System.out.println(cuboydException.getMessage());
     }
 
     /**
@@ -121,8 +121,8 @@ public class Ui {
             argumentsMap = parser.parseCommandToArgumentsMap(line);
             try {
                 isAskingInput = parser.commandMatching(this, taskList, storage, argumentsMap);
-            } catch (CuboydException e){
-                displayCuboydException(e);
+            } catch (CuboydException cuboydException){
+                displayCuboydException(cuboydException);
             }
         }
     }

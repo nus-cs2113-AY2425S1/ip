@@ -16,8 +16,8 @@ public class Cuboyd {
         Storage storage = new Storage("./savedata.txt");
         try{
             storage.load(taskList);
-        } catch (CuboydException e) {
-            System.out.println(e.getMessage());
+        } catch (CuboydException cuboydException) {
+            System.out.println(cuboydException.getMessage());
         }
         Ui ui = new Ui();
         ui.run(taskList, storage);

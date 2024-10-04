@@ -28,27 +28,27 @@ public class Storage {
     /**
      * Writes a task to a file using FileWriter.
      * @param task Task to write
-     * @param fw FileWriter
+     * @param fileWriter FileWriter
      * @throws IOException If there are issues writing to the file
      */
-    private void writeTaskToFileWriter(Task task, FileWriter fw) throws IOException {
+    private void writeTaskToFileWriter(Task task, FileWriter fileWriter) throws IOException {
         if (task instanceof ToDo todo) {
-            writeToDoToFileWriter(todo, fw);
+            writeToDoToFileWriter(todo, fileWriter);
         } else if (task instanceof Deadline deadline) {
-            writeDeadlineToFileWriter(deadline, fw);
+            writeDeadlineToFileWriter(deadline, fileWriter);
         } else if (task instanceof Event event) {
-            writeEventToFileWriter(event, fw);
+            writeEventToFileWriter(event, fileWriter);
         }
     }
 
     /**
      * Writes a ToDo to a file using FileWriter.
      * @param todo ToDo to write
-     * @param fw FileWriter
+     * @param fileWriter FileWriter
      * @throws IOException If there are issues writing to the file
      */
-    private void writeToDoToFileWriter(ToDo todo, FileWriter fw) throws IOException {
-        fw.write(String.format(
+    private void writeToDoToFileWriter(ToDo todo, FileWriter fileWriter) throws IOException {
+        fileWriter.write(String.format(
                 "T|%s|%s\n",
                 todo.getStatusIcon(),
                 Base64.getEncoder().encodeToString(todo.getDescription().getBytes(StandardCharsets.UTF_8))
@@ -58,11 +58,11 @@ public class Storage {
     /**
      * Writes a Deadline to a file using FileWriter.
      * @param deadline Deadline to write
-     * @param fw FileWriter
+     * @param fileWriter FileWriter
      * @throws IOException If there are issues writing to the file
      */
-    private void writeDeadlineToFileWriter(Deadline deadline, FileWriter fw) throws IOException {
-        fw.write(String.format(
+    private void writeDeadlineToFileWriter(Deadline deadline, FileWriter fileWriter) throws IOException {
+        fileWriter.write(String.format(
                 "D|%s|%s|%s\n",
                 deadline.getStatusIcon(),
                 Base64.getEncoder().encodeToString(
@@ -74,11 +74,11 @@ public class Storage {
     /**
      * Writes a Event to a file using FileWriter.
      * @param event Event to write
-     * @param fw FileWriter
+     * @param fileWriter FileWriter
      * @throws IOException If there are issues writing to the file
      */
-    private void writeEventToFileWriter(Event event, FileWriter fw) throws IOException {
-        fw.write(String.format(
+    private void writeEventToFileWriter(Event event, FileWriter fileWriter) throws IOException {
+        fileWriter.write(String.format(
                 "E|%s|%s|%s|%s\n",
                 event.getStatusIcon(),
                 Base64.getEncoder().encodeToString(event.getDescription().getBytes(StandardCharsets.UTF_8)),
@@ -89,12 +89,12 @@ public class Storage {
 
     /**
      * Writes a list of tasks to a file using FileWriter.
-     * @param fw FileWriter
+     * @param fileWriter FileWriter
      * @throws IOException If there are issues writing to the file
      */
-    private void writeTaskListToFileWriter(TaskList taskList, FileWriter fw) throws IOException {
+    private void writeTaskListToFileWriter(TaskList taskList, FileWriter fileWriter) throws IOException {
         for (int i = 0; i < taskList.size(); i++) {
-            writeTaskToFileWriter(taskList.getTask(i), fw);
+            writeTaskToFileWriter(taskList.getTask(i), fileWriter);
         }
     }
 
@@ -104,11 +104,11 @@ public class Storage {
      * @throws CuboydException If there are any issues saving
      */
     public void save(TaskList taskList) throws CuboydException {
-        FileWriter fw = null;
+        FileWriter fileWriter = null;
         try {
-            fw = new FileWriter(filePath);
-            writeTaskListToFileWriter(taskList, fw);
-            fw.close();
+            fileWriter = new FileWriter(filePath);
+            writeTaskListToFileWriter(taskList, fileWriter);
+            fileWriter.close();
         } catch (IOException e) {
             throw new CuboydException(String.format(
                     "Having issues saving to %s! Check your file permissions!\n", filePath));
@@ -170,10 +170,10 @@ public class Storage {
      * @throws CuboydException If there are any issues on loading
      */
     public void load(TaskList taskList) throws CuboydException {
-        File f = new File(filePath);
-        Scanner s = null; // create a Scanner using the File as the source
+        File file = new File(filePath);
+        Scanner scanner = null; // create a Scanner using the File as the source
         try {
-            s = new Scanner(f);
+            scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new CuboydException(String.format(
                     "Having issues reading from %s! Check your file permissions!", filePath));
@@ -181,7 +181,7 @@ public class Storage {
 
         taskList.clear();
         try {
-            loadFromScanner(s, taskList);
+            loadFromScanner(scanner, taskList);
         } catch (Exception e) {
             throw new CuboydException(String.format(
                     "Error when reading from %s! Savefile might be corrupted!", filePath));

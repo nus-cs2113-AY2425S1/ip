@@ -43,7 +43,7 @@ public class Parser{
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();
-        for (int i = 1; i< words.length; i++) {
+        for (int i = 1; i < words.length; i++) {
             if (words[i].isEmpty()) { // Should be redundant but just in case
                 continue;
             }
