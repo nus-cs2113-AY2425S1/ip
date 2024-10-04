@@ -50,7 +50,7 @@ public abstract class Command {
         String message;
         try {
             storage.writeTaskList(TaskList.getInstance().getTaskList()); // Write the current task list to the file
-            message = String.format(NiwaMesssages.MESSAGE_SAVE_COMPLETE, Niwa.getOutputFilePath()); // Success message
+            message = NiwaMesssages.MESSAGE_SAVE_COMPLETE_DEFAULT; // Success message
         } catch (IOException e) {
             message = String.format(NiwaMesssages.MESSAGE_SAVE_FAILED, e.getMessage()); // Error message if save fails
         }

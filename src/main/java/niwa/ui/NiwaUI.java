@@ -18,9 +18,12 @@ public class NiwaUI {
 
     /**
      * Initializes a new instance of the {@code NiwaUI} class, setting up the scanner for user input.
+     * There is only one scanner active during the session.
      */
     public NiwaUI() {
-        scanner = new Scanner(System.in);
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
     }
 
     /**
@@ -36,7 +39,6 @@ public class NiwaUI {
             while (command.trim().isEmpty()) {
                 command = scanner.nextLine();
             }
-
             return command;
         }
         return "";

@@ -62,7 +62,10 @@ public class ReadCommand extends Command {
         ArrayList<String> messages = new ArrayList<>(); // Messages for command execution
 
         try {
-            messages.add(String.format(NiwaMesssages.MESSAGE_READ_INFORM, dataPath)); // Inform reading
+            // Print the file path when read from external file
+            if (!dataPath.equals(Niwa.getOutputFilePath())) {
+                messages.add(String.format(NiwaMesssages.MESSAGE_READ_INFORM, dataPath)); // Inform reading
+            }
             tasks = storage.loadTaskList(); // Load tasks
         } catch (IOException e) {
             messages.add(String.format(NiwaMesssages.MESSAGE_READ_FAILED, e.getMessage()));

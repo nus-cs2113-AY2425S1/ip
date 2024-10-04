@@ -25,7 +25,7 @@ public class Niwa {
             + "\t| |\\  | | | | |/  |// //_| |\n"
             + "\t|_| \\_|_|_| |__/|__/ //  |_|";
 
-    private static final String HOME = System.getProperty("user.home");
+    private static final String HOME = System.getProperty("user.dir");
 
     // Inserts correct file path separator on *nix and Windows
     private static final Path PATH = Paths.get(HOME, "Niwa", "data", "NiwaTaskList.txt");

@@ -6,6 +6,7 @@ package niwa.messages;
  */
 public class NiwaMesssages {
     public static final String MESSAGE_SAVE_COMPLETE = "Data saved! Here's the path: %s.";
+    public static final String MESSAGE_SAVE_COMPLETE_DEFAULT = "Data saved!";
     public static final String MESSAGE_SAVE_FAILED = "Failed to save your data: %s.";
 
     public static final String MESSAGE_READ_FAILED = "Failed to read your data: %s.";
