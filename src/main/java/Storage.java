@@ -1,14 +1,17 @@
 import Tasks.Task;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Storage {
+    private static final String DEFAULT_FILE_NAME = "dootData.txt";
 
+    public Storage() {}
 
-
-    public void load() {
+    public ArrayList<Task> load() {
+        ArrayList<Task> taskList = new ArrayList<>();
         try {
-            FileInputStream fileReader = new FileInputStream(FILE_NAME);
+            FileInputStream fileReader = new FileInputStream(DEFAULT_FILE_NAME);
             ObjectInputStream objectReader = new ObjectInputStream(fileReader);
             boolean fileHasData = true;
             while (fileHasData) {
@@ -26,6 +29,22 @@ public class Storage {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e);
         }
+        return taskList;
+    }
 
+    public void writeTaskData(TaskList taskList) {
+        try {
+            FileOutputStream fileWriter = new FileOutputStream(DEFAULT_FILE_NAME);
+            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
+            for (Task task : taskList) {
+                if (task != null) {
+                    objectWriter.writeObject(task);
+                }
+            }
+            objectWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }

@@ -1,77 +1,39 @@
+import Commands.Command;
 import Tasks.Deadline;
 import Tasks.Event;
-import Tasks.Task;
 import Tasks.ToDo;
 
-import Tasks.TaskList;
-
 import java.util.Scanner;
-import java.io.FileOutputStream;
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class Doot {
-    private static final String DIVIDER = "____________________________________________________________\n\n";
-    private static final String FILE_NAME = "dootData.txt";
-    private static TaskList tasks;
+    private TaskList tasks;
+    private Storage storage;
+    private Ui ui;
 
     public static void main(String[] args) {
-        tasks = new TaskList();
-
-        tasks.loadTaskData();
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
-        String currentInput = scanner.nextLine();
-        while (!currentInput.equals("bye")) {
-            findCommand(currentInput);
-            currentInput = scanner.nextLine();
-        }
-        System.out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
-        scanner.close();
+        new Doot().run();
     }
 
-    public static void writeTaskData() {
-        try {
-            FileOutputStream fileWriter = new FileOutputStream(FILE_NAME);
-            ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
-            for (Task task : taskList) {
-                if (task != null) {
-                    objectWriter.writeObject(task);
-                }
-            }
-            objectWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+    public Doot(){
+        ui = new Ui();
+        storage = new Storage();
+        tasks = new TaskList(storage.load());
+
     }
 
-    public static void findCommand(String command) {
-        String wordDigit = "\\d{1,3}$";
-        String deadlineMatch = "(\\w+ )*/by .+";
-        String eventMatch = "(\\w+ )*/from (\\w+ )*/to .+";
-        boolean containsSpace = command.contains(" ");
-        String cmd = containsSpace ? command.substring(0, command.indexOf(" ")) : command;
-        String args = containsSpace ? command.substring(command.indexOf(" ") + 1) : "";
-        if (args.matches(wordDigit)) {
-            handleWordDigit(cmd, args);
-        } else if (args.matches(eventMatch)) {
-            handleEvent(cmd, args);
-        } else if (args.matches(deadlineMatch)) {
-            handleDeadline(cmd, args);
-        } else {
-            handleDefault(cmd, args);
+    public void run(){
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String currentInput = ui.readCommand();
+            Command c = Parser.findCommand(currentInput);
+            isExit = c.isExit();
         }
-        writeTaskData();
+        ui.showExit();
     }
 
-    private static void handleWordDigit(String command, String args) {
+
+    private void handleWordDigit(String command, String args) {
         int digit = Integer.parseInt(args);
         switch (command) {
             case "mark":
@@ -81,15 +43,15 @@ public class Doot {
                 unmarkTask(digit);
                 break;
             case "delete":
-                deleteTask(digit);
+                tasks.deleteTask(digit);
                 break;
             default:
-                addToList(command);
+                tasks.addToList(command);
                 break;
         }
     }
 
-    private static void handleDeadline(String command, String args) {
+    private void handleDeadline(String command, String args) {
         String[] parts = args.split(" /by ");
         String wordOne = parts[0];
         String wordTwo = parts[1];
@@ -98,7 +60,7 @@ public class Doot {
                 makeDeadline(wordOne, wordTwo);
                 break;
             default:
-                addToList(command + args);
+                tasks.addToList(command + args);
                 break;
         }
     }
@@ -173,33 +135,6 @@ public class Doot {
         System.out.println(DIVIDER + "OK, I've marked this task as not done yet: "
                 + taskList.get(taskList.size() - 1).getDescription()
                 + "\n" + DIVIDER);
-    }
-
-    public static void addToList(String toAdd) {
-        taskList.add(new Task(toAdd));
-        System.out.print(DIVIDER + "added: " + toAdd + "\n" + DIVIDER);
-    }
-
-    public static void printList() {
-        System.out.print(DIVIDER);
-        int curIdx = 0;
-        System.out.println("Here are the tasks in your list:");
-        while (curIdx != taskList.size()) {
-            Task curTask = taskList.get(curIdx);
-            int oneIndexedIdx = curIdx + 1;
-            System.out.println(oneIndexedIdx + ". " + curTask.toString());
-            curIdx++;
-        }
-        System.out.print(DIVIDER);
-
-    }
-
-    public static void deleteTask(int idx) {
-        int zeroIndexedIdx = idx - 1;
-        Task toDelete = taskList.get(zeroIndexedIdx);
-        taskList.remove(zeroIndexedIdx);
-        System.out.println(DIVIDER + "Noted. I've removed this task: \n" + toDelete.toString() + "\nNow you have "
-                + taskList.size() + " tasks in this list.\n" + DIVIDER);
     }
 
 }

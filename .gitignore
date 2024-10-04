@@ -2,3 +2,7 @@
 *.txt
 *.sh
 *.bat
+.idea/
+ip.iml
+out/
+src/main/java/META-INF
