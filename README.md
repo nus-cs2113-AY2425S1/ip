@@ -84,6 +84,7 @@ Archibald supports three types of tasks:
 ### Saving and Loading
 
 Archibald automatically saves your tasks to a file. When you restart the application, it will load your previously saved tasks.
+This is located in the `data` folder as `archibald.txt`.
 
 ### Exiting Archibald
 
