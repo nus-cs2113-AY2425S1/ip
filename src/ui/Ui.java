@@ -1,8 +1,6 @@
 package ui;
-
 import exception.IncompleteCommandException;
 import tasklist.TaskList;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import static main.Sirius.*;
@@ -44,12 +42,11 @@ public class Ui {
     // ========== Success messages ==========
 
     /**
-     * Displays an error message when the task list file cannot be loaded.
+     * Displays an message when starting with a new task list.
      */
     public void showLoadingError(){
         System.out.println(SEPARATOR);
-        System.out.println(LOADING_ERROR_MESSAGE);
-        System.out.println(SEPARATOR);
+        System.out.println(CREATE_NEW_LIST_MESSAGE);
     }
 
     /**

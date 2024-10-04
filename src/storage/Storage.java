@@ -9,8 +9,8 @@ import java.util.Scanner;
 import task.*;
 import ui.Ui;
 
-import static main.Sirius.CREATE_DIRECTORY_MESSAGE;
-import static main.Sirius.CREATE_FILE_MESSAGE;
+//import static main.Sirius.CREATE_DIRECTORY_MESSAGE;
+//import static main.Sirius.CREATE_FILE_MESSAGE;
 import static main.Sirius.STATUS_DELIMINATOR;
 
 /**
@@ -60,22 +60,32 @@ public class Storage {
     public void saveTaskList(ArrayList<Task> list, Ui ui) {
         try {
             File directory = new File("./data");
-            if (!directory.exists()) {
-                if (directory.mkdirs()){  // If the directory DNE, create.
-                    ui.print(CREATE_DIRECTORY_MESSAGE);
-                }
-            }
             File file = new File(directory, "Sirius.txt");
-            if (!file.exists()) {
-                if (file.createNewFile()){  // If the file DNE, create and write.
-                    ui.print(CREATE_FILE_MESSAGE);
-                }
-            }
             FileWriter writer = new FileWriter(file);  // override the previous contents in txt file.
             for (Task task : list) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }
             writer.close();
+        } catch (IOException e) {
+            ui.showSavingError();
+        }
+    }
+
+    /**
+     * If the directory or file does not exist, it creates a new file to store the task list.
+     *
+     * @param ui The UI object for printing messages to the user.
+     */
+    public void creatNewFile(Ui ui){
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                boolean mkdirs = directory.mkdirs();
+            }
+            File file = new File(directory, "Sirius.txt");
+            if (!file.exists()) {
+                boolean newFile = file.createNewFile();
+            }
         } catch (IOException e) {
             ui.showSavingError();
         }

@@ -38,8 +38,6 @@ public class Sirius {
     public static final String SEPARATOR = "-----------------------------";
 
     // Error messages for some exceptions
-    public static final String CREATE_DIRECTORY_MESSAGE = "Create a new directory named 'data'!";
-    public static final String CREATE_FILE_MESSAGE = "Create a new file named 'Sirius.txt' to store the list!";
     public static final String WELCOME_MESSAGE = "Hello! I'm Sirius, your chatting robot!\nWhat can I do for you?";
     public static final String GOODBYE_MESSAGE = "Goodbye! Hope to see you soon!";
     public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
@@ -52,7 +50,7 @@ public class Sirius {
 
     public static final String INDEX_BOUND_ERROR_MESSAGE = "The task index is out of bound! Please enter a valid task index.";
     public static final String INDEX_FORMAT_ERROR_MESSAGE = "The task index must be a number! Please enter a valid index number!";
-    public static final String LOADING_ERROR_MESSAGE ="Oh, Task file not found. Start with a new task list!";
+    public static final String CREATE_NEW_LIST_MESSAGE ="You have no previous task list. Start with a new task list!";
     public static final String SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks.";
     public static final String ILLEGAL_COMMAND_MESSAGE = "I don't understand it. Please enter an illegal command!";
 
@@ -70,6 +68,7 @@ public class Sirius {
         try {
             tasks = new TaskList(storage.loadTaskList());
         } catch (FileNotFoundException e) {
+            storage.creatNewFile(ui);
             ui.showLoadingError();
             tasks = new TaskList();
         }
