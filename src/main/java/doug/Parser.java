@@ -1,14 +1,6 @@
 package doug;
 
-import doug.Commands.Command;
-import doug.Commands.AddDeadlineCommand;
-import doug.Commands.AddEventCommand;
-import doug.Commands.AddToDoCommand;
-import doug.Commands.DeleteCommand;
-import doug.Commands.FindCommand;
-import doug.Commands.ListCommand;
-import doug.Commands.MarkCommand;
-import doug.Commands.UnMarkCommand;
+import doug.Commands.*;
 import doug.Main.DougException;
 
 /**
@@ -30,8 +22,10 @@ public class Parser {
         Command c = new Command();
         if (command.equals("bye")) {
             c.setBye();
-        } else if (command.equals("list")){
+        } else if (command.equals("list")) {
             c = new ListCommand();
+        } else if (command.equals("help")) {
+            c = new HelpCommand();
         } else if (command.startsWith("mark")) {
             c = parseMark(tasks, command, ui);
         } else if (command.startsWith("unmark")) {

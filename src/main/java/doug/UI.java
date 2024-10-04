@@ -47,11 +47,13 @@ public class UI {
             = DASHED_LINE
             + "YEEHAW, they call me Doug Dimmadome in these parts.\n"
             + "I see this is your first rodeo, partner.\n"
+            + "If you are ever confused on what's what, just holler \"help\" and I'll clear things up for ya.\n"
             + "Now what can I do for ya?\n"
             + DASHED_LINE;
     private static final String existingWelcomeMessage
             = DASHED_LINE
             + "Welcome back partner, YEEHAW!\n"
+            + "If you are ever confused on what's what, just holler \"help\" and I'll clear things up for ya.\n"
             + "Now what can old Doug do for ya?\n"
             + DASHED_LINE;
     private static final String goodbyeMessage
@@ -66,6 +68,28 @@ public class UI {
     private static final String missingIndexMessage
             = DASHED_LINE
             + "You're missing the index number pal...\n"
+            + DASHED_LINE;
+
+    private static final String listOfCommands
+            = DASHED_LINE
+            + "This is all the services I offer partner:\n"
+            + "0. help                              -  Lists out all the available commands and their useage\n"
+            + "1. list                              -  Lists out all the existing tasks in order of creation\n"
+            + "2. todo TASK_NAME                    -  Creates a new todo task\n"
+            + "3. deadline TASK_NAME /by DUE_DATE   -  Creates a new deadline task\n"
+            + "4. event TASK_NAME /from START_DATE /to END_DATE  -  Creates a new event task\n"
+            + "5. mark INDEX                        -  Marks the task (with that index) as done\n"
+            + "6. unmark INDEX                      -  Marks the task (with that index) as not done\n"
+            + "7. delete INDEX                      -  Deletes the task (with that index) from the list\n"
+            + "8. find KEYWORDS                     -  Finds and lists all tasks that match the input keywords\n"
+            + "9. bye                               -  Ends the program\n"
+            + DASHED_LINE
+            + "The format for the DUE_DATE, START_DATE and END_DATE parameters must be one of the following:\n"
+            + "1. In Text form                                  (e.g. tomorrow)\n"
+            + "2. In Date form              yyyy-MM-dd          (e.g. 2001-11-09)\n"
+            + "3. In Date AND Time form     yyyy-MM-dd hhmm     (e.g. 2020-03-14 1745)\n"
+            + DASHED_LINE
+            + "Now what can I do for ya?\n"
             + DASHED_LINE;
 
     private Scanner input;
@@ -93,10 +117,17 @@ public class UI {
     }
 
     /**
-     * Prints the dashed line to CLI
+     * Prints the dashed line to the CLI
      */
     public void printDashedLine() {
         System.out.println(DASHED_LINE);
+    }
+
+    /**
+     * Prints a list of all available commands to the CLI
+     */
+    public void printListOfCommands() {
+        System.out.println(listOfCommands);
     }
 
     /**

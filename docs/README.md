@@ -37,6 +37,12 @@ Tasks are shown to the user in the following format
   - X = task is marked as **done**. 
   - (blank) = task is marked as **not done**.
 
+## Getting Help
+
+Format: `help`
+
+Lists out all the available commands and describes their usage
+
 ## Adding Todos
 
 Format: `todo TASK_NAME`
