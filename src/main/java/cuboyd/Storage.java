@@ -1,13 +1,19 @@
+package cuboyd;
+
+import cuboyd.tasks.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Handles storage
+ */
 public class Storage {
     public String filePath;
 
@@ -20,38 +26,69 @@ public class Storage {
     }
 
     /**
-     * Writes a task to a file using FileWriter
+     * Writes a task to a file using FileWriter.
+     * @param task Task to write
      * @param fw FileWriter
      * @throws IOException If there are issues writing to the file
      */
     private void writeTaskToFileWriter(Task task, FileWriter fw) throws IOException {
         if (task instanceof ToDo todo) {
-            fw.write(String.format(
-                    "T|%s|%s\n",
-                    todo.getStatusIcon(),
-                    Base64.getEncoder().encodeToString(todo.getDescription().getBytes(StandardCharsets.UTF_8))
-            ));
+            writeToDoToFileWriter(todo, fw);
         } else if (task instanceof Deadline deadline) {
-            fw.write(String.format(
-                    "D|%s|%s|%s\n",
-                    deadline.getStatusIcon(),
-                    Base64.getEncoder().encodeToString(
-                            deadline.getDescription().getBytes(StandardCharsets.UTF_8)),
-                    Base64.getEncoder().encodeToString(deadline.by.getBytes(StandardCharsets.UTF_8))
-            ));
+            writeDeadlineToFileWriter(deadline, fw);
         } else if (task instanceof Event event) {
-            fw.write(String.format(
-                    "E|%s|%s|%s|%s\n",
-                    event.getStatusIcon(),
-                    Base64.getEncoder().encodeToString(event.getDescription().getBytes(StandardCharsets.UTF_8)),
-                    Base64.getEncoder().encodeToString(event.from.getBytes(StandardCharsets.UTF_8)),
-                    Base64.getEncoder().encodeToString(event.to.getBytes(StandardCharsets.UTF_8))
-            ));
+            writeEventToFileWriter(event, fw);
         }
     }
 
     /**
-     * Writes a list of tasks to a file using FileWriter
+     * Writes a ToDo to a file using FileWriter.
+     * @param todo ToDo to write
+     * @param fw FileWriter
+     * @throws IOException If there are issues writing to the file
+     */
+    private void writeToDoToFileWriter(ToDo todo, FileWriter fw) throws IOException {
+        fw.write(String.format(
+                "T|%s|%s\n",
+                todo.getStatusIcon(),
+                Base64.getEncoder().encodeToString(todo.getDescription().getBytes(StandardCharsets.UTF_8))
+        ));
+    }
+
+    /**
+     * Writes a Deadline to a file using FileWriter.
+     * @param deadline Deadline to write
+     * @param fw FileWriter
+     * @throws IOException If there are issues writing to the file
+     */
+    private void writeDeadlineToFileWriter(Deadline deadline, FileWriter fw) throws IOException {
+        fw.write(String.format(
+                "D|%s|%s|%s\n",
+                deadline.getStatusIcon(),
+                Base64.getEncoder().encodeToString(
+                        deadline.getDescription().getBytes(StandardCharsets.UTF_8)),
+                Base64.getEncoder().encodeToString(deadline.getBy().getBytes(StandardCharsets.UTF_8))
+        ));
+    }
+
+    /**
+     * Writes a Event to a file using FileWriter.
+     * @param event Event to write
+     * @param fw FileWriter
+     * @throws IOException If there are issues writing to the file
+     */
+    private void writeEventToFileWriter(Event event, FileWriter fw) throws IOException {
+        fw.write(String.format(
+                "E|%s|%s|%s|%s\n",
+                event.getStatusIcon(),
+                Base64.getEncoder().encodeToString(event.getDescription().getBytes(StandardCharsets.UTF_8)),
+                Base64.getEncoder().encodeToString(event.getFrom().getBytes(StandardCharsets.UTF_8)),
+                Base64.getEncoder().encodeToString(event.getTo().getBytes(StandardCharsets.UTF_8))
+        ));
+    }
+
+    /**
+     * Writes a list of tasks to a file using FileWriter.
      * @param fw FileWriter
      * @throws IOException If there are issues writing to the file
      */
@@ -62,7 +99,7 @@ public class Storage {
     }
 
     /**
-     * Saves data from a task list into a file
+     * Saves data from a task list into a file.
      * @param taskList Task List to save into a file
      * @throws CuboydException If there are any issues saving
      */
@@ -79,7 +116,7 @@ public class Storage {
     }
 
     /**
-     * Returns the task represented by a given line (from the save file)
+     * Returns the task represented by a given line (from the save file).
      * @param line Line
      * @return Task parsed from the line
      */
@@ -113,7 +150,7 @@ public class Storage {
     }
 
     /**
-     * Loads data from a scanner into a task list
+     * Loads data from a scanner into a task list.
      * @param scanner Scanner to load data from
      * @param taskList Task List to load the save data into
      * @throws CuboydException If there are any issues on loading
@@ -128,7 +165,7 @@ public class Storage {
     }
 
     /**
-     * Loads the file into a task list
+     * Loads the file into a task list.
      * @param taskList Task List to load the save data into
      * @throws CuboydException If there are any issues on loading
      */
@@ -148,7 +185,6 @@ public class Storage {
         } catch (Exception e) {
             throw new CuboydException(String.format(
                     "Error when reading from %s! Savefile might be corrupted!\n", filePath));
-            //e.printStackTrace();
         }
     }
 }

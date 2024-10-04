@@ -1,3 +1,5 @@
+package cuboyd;
+
 public class CuboydException extends Exception {
     /**
      * Creates CuboydException

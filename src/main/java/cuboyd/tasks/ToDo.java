@@ -1,3 +1,5 @@
+package cuboyd.tasks;
+
 public class ToDo extends Task {
     /**
      * Creates todo

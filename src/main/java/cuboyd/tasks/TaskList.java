@@ -1,18 +1,21 @@
+package cuboyd.tasks;
+
+import cuboyd.CuboydException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TaskList {
     public ArrayList<Task> tasks;
 
     /**
-     * Initialises the task list
+     * Initialises the task list.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Returns size of the task list
+     * Returns size of the task list.
      * @return Size of the task list
      */
     public int size(){
@@ -20,23 +23,24 @@ public class TaskList {
     }
 
     /**
-     * Clear all tasks in list
+     * Clear all tasks in list.
      */
     public void clear(){
         this.tasks.clear();
     }
 
     /**
-     * Gets a task from a task list, given an index
+     * Gets a task from a task list, given an index.
      * @param index Index of task in the list
      * @return Task at given list index
      */
     public Task getTask(int index){
         return this.tasks.get(index);
     }
+
     // Listing /////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
-     * Returns a String that lists tasks in the given task list
+     * Returns a String that lists tasks in the given task list.
      * @param tasks ArrayList of Tasks
      * @return List of Tasks as a String
      */
@@ -49,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a String that lists all tasks in the task list
+     * Returns a String that lists all tasks in the task list.
      * @return List of Tasks as a String
      */
     public String listAllTasks(){
@@ -58,7 +62,7 @@ public class TaskList {
 
     // Add Task ////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
-     * Adds task to the task list
+     * Adds task to the task list.
      * @param task Task to Add
      * @return Task that was added
      */
@@ -68,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * Adds todo to the task list
+     * Adds todo to the task list.
      * @param description Description of todo
      * @return todo that was Added
      * @throws CuboydException If any parameter was not provided
@@ -81,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Adds deadline to the task list
+     * Adds deadline to the task list.
      * @param description Description of deadline
      * @param by End date of deadline
      * @return deadline that was Added
@@ -99,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Adds event to the task list
+     * Adds event to the task list.
      * @param description Description of event
      * @param from Start date of event
      * @param to End date of event
@@ -122,7 +126,7 @@ public class TaskList {
     }
     // Menu Options - Find ///////////////////////////////////////////////////////////////////////////////////////////
     /**
-     * Return ArrayList of Tasks with the keyword
+     * Returns ArrayList of Tasks with the keyword.
      * @param keyword Keyword
      * @return ArrayList of Tasks with the keyword
      * @throws CuboydException
@@ -141,7 +145,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a String that lists tasks with the keyword in the task list
+     * Returns a String that lists tasks with the keyword in the task list.
      * @param keyword Keyword
      * @return List of Tasks in the keyword as a String
      */
@@ -151,7 +155,7 @@ public class TaskList {
 
     // Menu Options - Mark /////////////////////////////////////////////////////////////////////////////////////////////
     /**
-     * Converts a String to an Integer. Meant to convert a command argument into an integer
+     * Converts a String to an Integer. Meant to convert a command argument into an integer.
      * representing the task index.
      * @param taskIndexStr String storing the task index
      * @return Integer representing the Task Index
@@ -185,7 +189,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task in the task list
+     * Marks a task in the task list.
      * @param taskIndex List Index of the task to mark
      * @return Task that was marked
      * @throws CuboydException If <code>taskIndex</code> is invalid
@@ -198,7 +202,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task in the task list
+     * Unmarks a task in the task list.
      * @param taskIndex List Index of the task to unmark
      * @return Task that was marked
      * @throws CuboydException If <code>taskIndex</code> is invalid
@@ -211,7 +215,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task in the task list
+     * Marks a task in the task list.
      * @param taskIndexStr List Index of the task to mark as a String
      * @return Task that was marked
      * @throws CuboydException If <code>taskIndexStr</code> is invalid
@@ -221,7 +225,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task in the task list
+     * Unmarks a task in the task list.
      * @param taskIndexStr List Index of the task to unmark as a String
      * @return Task that was unmarked
      * @throws CuboydException If <code>taskIndexStr</code> is invalid
@@ -232,7 +236,7 @@ public class TaskList {
 
     // Menu Options - Delete ///////////////////////////////////////////////////////////////////////////////////////////
     /**
-     * Deletes a task in the task list
+     * Deletes a task in the task list.
      * @param taskIndex List Index of the task to unmark
      * @return Task that was deleted
      * @throws CuboydException If <code>taskIndex</code> is invalid
@@ -245,7 +249,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task in the task list
+     * Deletes a task in the task list.
      * @param taskIndexStr List Index of the task to unmark as a String
      * @return Task that was deleted
      * @throws CuboydException If <code>taskIndexStr</code> is invalid

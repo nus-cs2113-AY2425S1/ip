@@ -1,3 +1,5 @@
+package cuboyd.tasks;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -12,6 +14,22 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Returns Start date of event
+     * @return from Start date of event
+     */
+    public String getFrom() {
+        return from;
+    }
+
+    /**
+     * Returns End date of event
+     * @return to End date of event
+     */
+    public String getTo() {
+        return to;
     }
 
     /**

@@ -1,3 +1,5 @@
+package cuboyd.tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;

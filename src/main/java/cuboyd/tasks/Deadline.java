@@ -1,3 +1,5 @@
+package cuboyd.tasks;
+
 public class Deadline extends Task {
     protected String by;
 
@@ -9,6 +11,14 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+    }
+
+    /**
+     * Returns End date of deadline
+     * @return by End date of deadline
+     */
+    public String getBy() {
+        return by;
     }
 
     /**
