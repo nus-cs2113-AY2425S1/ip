@@ -16,8 +16,6 @@ import yapper.io.StringStorage;
  */
 public class ExceptionHandler {
 
-    // User Input Validation Errors
-
     /**
      * Checks if the string is empty when reading from user.
      *
@@ -134,8 +132,6 @@ public class ExceptionHandler {
     }
 
 
-    // User Input Parsing Exception
-
     /**
      * Checks if the Deadline keywords are present in the parsed input when reading from user.
      *
@@ -172,8 +168,6 @@ public class ExceptionHandler {
     }
 
 
-    // File Input Parsing Exceptions
-
     /**
      * Validates if the specified task type is valid when reading from file.
      *
@@ -199,9 +193,6 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.INVALID_TASK_STATUS_MESSAGE);
         }
     }
-
-
-    // Exceptions for: DELETE, MARK, UNMARK
 
     /**
      * Checks if there are tasks in the list before performing DELETE, MARK, or UNMARK operations.

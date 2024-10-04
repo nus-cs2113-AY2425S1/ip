@@ -36,7 +36,7 @@ public class OutputFileHandler {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
                     + "error occurred when saving task to file: "
-                    + e.getMessage()); // ?
+                    + e.getMessage());
         }
     }
 
@@ -56,9 +56,9 @@ public class OutputFileHandler {
                 taskLines.add(scanner.nextLine());
             }
             scanner.close();
-            // Remove Task at Ordinal
+
             taskLines.remove(taskOrdinal);
-            // Rewrite File without Deleted Task
+
             FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH);
             for (String taskLine : taskLines) {
                 fileWriter.write(taskLine + "\n");
@@ -82,16 +82,16 @@ public class OutputFileHandler {
     public static void amendTaskStatus(Task task, int taskOrdinal) throws YapperException {
         try {
             File file = new File(StringStorage.SAVE_FILE_PATH);
-            // Convert Entire File to Array for easier search of taskLine
+
             Scanner scanner = new Scanner(file);
             ArrayList<String> taskLines = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 taskLines.add(scanner.nextLine());
             }
             scanner.close();
-            // Update Task at Ordinal
+
             taskLines.set(taskOrdinal, task.taskToString());
-            // Rewrite File without Deleted Task
+
             FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH);
             for (String taskLine : taskLines) {
                 fileWriter.write(taskLine + "\n");

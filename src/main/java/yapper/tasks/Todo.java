@@ -6,9 +6,6 @@ import yapper.io.StringStorage;
  * Todo is a Task with no dates.
  */
 public class Todo extends Task {
-    // No Additional Attributes
-
-    // Constructors
     /**
      * Constructs a Todo task with the specified description and
      * initializes its completion status to false (not done).
@@ -31,7 +28,6 @@ public class Todo extends Task {
     public Todo(String taskDesc, boolean isDone) {
         super(taskDesc, isDone);
     }
-    // No Getters and Setters Yet
 
 
     /**

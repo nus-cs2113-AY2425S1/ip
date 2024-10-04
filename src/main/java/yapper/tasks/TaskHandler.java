@@ -13,9 +13,12 @@ import java.util.List;
  *
  */
 public class TaskHandler {
+    /**
+     * The collection of tasks.
+     */
     private List<Task> tasks;
 
-    // Constructor and Getters
+
     public TaskHandler() {
         tasks = new ArrayList<>();
     }
@@ -64,7 +67,6 @@ public class TaskHandler {
         return tasks.indexOf(task);
     }
 
-    // Create, Update, Delete Operations
 
     /**
      * Adds a new task to the list.

@@ -74,8 +74,6 @@ public class Instruction {
     private Integer taskOrdinal; // Ordinal
 
 
-    // Constructors
-
     /**
      * Constructs an Instruction with the specified type.
      *
@@ -152,8 +150,6 @@ public class Instruction {
         this.taskOrdinal = taskOrdinal;
     }
 
-
-    // Getters
 
     /**
      * Returns the type of the instruction.

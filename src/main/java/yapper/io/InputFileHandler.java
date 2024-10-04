@@ -96,18 +96,17 @@ public class InputFileHandler {
             if (taskParts.length < 3) {
                 throw new YapperException("invalid task format, missing fields");
             }
-            // Check Task Type, indirectly checks if missing
+
             String taskType = taskParts[0].trim();
             ExceptionHandler.checkIfTaskTypeValid(taskType);
-            // Check Task Status, indirectly checks if missing
+
             String taskStatus = taskParts[1].trim();
             ExceptionHandler.checkIfTaskStatusValid(taskStatus);
             boolean isDone = taskStatus.equals(StringStorage.SYMBOL_IS_DONE);
-            // Check Desc and other Arguments, indirectly checks if missing
+
             String remainingParts = taskParts[2].trim();
             switch (taskType) {
             case StringStorage.SYMBOL_TODO:
-                // no need to split
                 ExceptionHandler.checkIfTodoArgsMissing(
                         remainingParts.trim());
                 return new Todo(remainingParts, isDone);
@@ -125,11 +124,11 @@ public class InputFileHandler {
                 throw new YapperException("loadTask method reached default switch-case");
             }
         } catch (YapperException e) {
-            throw new YapperException(taskData + ", because " + e.getMessage()); // ?
+            throw new YapperException(taskData + ", because " + e.getMessage());
         }
     }
 
-    // User-Input-related Methods to Split by delimiter into keywords
+
     /**
      * Splits the given instruction arguments by the deadline keyword delimiter.
      *

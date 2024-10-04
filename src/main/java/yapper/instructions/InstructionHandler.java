@@ -23,7 +23,6 @@ import yapper.tasks.Todo;
  *
  */
 public class InstructionHandler {
-    // UI Operations: Error_Check -> Do -> Print -> Update_File
 
     /**
      * Handles the FIND instruction by printing matching tasks.
@@ -32,10 +31,7 @@ public class InstructionHandler {
      * @param query       The string that is to be found in task descriptions.
      */
     public static void handleFindInstruction(TaskHandler taskHandler, String query) {
-        // No Error_Check yet ?
-        // Do & Print
         OutputStringHandler.printSelectedTasks(taskHandler, query);
-        // No Update_File needed
     }
 
     /**
@@ -46,11 +42,8 @@ public class InstructionHandler {
      */
     public static void handleListInstruction(TaskHandler taskHandler) throws YapperException {
         try {
-            // Error_Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal());
-            // Do & Print
             OutputStringHandler.printAllTasks(taskHandler);
-            // No Update_File needed
         } catch (YapperException e) {
             throw new YapperException(
                     "YapperException has occurred when trying to list all tasks. \n"
@@ -67,12 +60,10 @@ public class InstructionHandler {
      */
     public static void handleAddInstruction(TaskHandler taskHandler, Task task) throws YapperException {
         try {
-            // No Error_Check yet ?
-            // Do
             taskHandler.addTask(task);
-            // Print
+
             OutputStringHandler.printAddedTask(task, taskHandler.getCurrTaskTotal());
-            // Update_File
+
             OutputFileHandler.storeAddedTask(task);
         } catch (YapperException e) {
             throw new YapperException(
@@ -89,16 +80,14 @@ public class InstructionHandler {
      * @throws YapperException If an error occurs while deleting the task.
      */
     public static void handleDeleteInstruction(TaskHandler taskHandler, Integer taskOrdinal) throws YapperException {
-        // OOB method should indirectly check if list is empty?
         try {
-            // No Error_Check yet
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-            // Do
+
             Task task = taskHandler.getTaskAtOrdinal(taskOrdinal);
             taskHandler.deleteTask(taskOrdinal);
-            // Print
+
             OutputStringHandler.printDeletedTask(task, taskHandler.getCurrTaskTotal());
-            // Update_File
+
             OutputFileHandler.unstoreDeletedTask(taskOrdinal);
         } catch (YapperException e) {
             throw new YapperException(
@@ -118,15 +107,14 @@ public class InstructionHandler {
     public static void handleMarkingInstruction(TaskHandler taskHandler, Integer taskOrdinal, boolean isDone)
             throws YapperException {
         try {
-            // Error Check
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
             Task task = taskHandler.getTaskAtOrdinal(taskOrdinal); // need for methods later
             ExceptionHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
-            // Do
+
             taskHandler.updateTaskStatus(task, isDone);
-            // Print
+
             OutputStringHandler.printTaskStatus(task, isDone);
-            // Update_File
+
             OutputFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
         } catch (YapperException e) {
             throw new YapperException(
@@ -199,7 +187,6 @@ public class InstructionHandler {
                 break;
             default:
             }
-            // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
         } catch (YapperException e) {
             System.out.println(
                     "YapperException has occurred when executing instruction. \n"

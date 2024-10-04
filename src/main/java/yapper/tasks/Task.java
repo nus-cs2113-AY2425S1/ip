@@ -13,7 +13,14 @@ import yapper.io.StringStorage;
  *
  */
 public class Task {
+    /**
+     * The description of the task.
+     */
     protected String taskDesc;
+    /**
+     * The completion status of the task.
+     * It is either done or not done.
+     */
     protected boolean isDone;
 
     /**
@@ -41,7 +48,11 @@ public class Task {
         this.isDone = isDone;
     }
 
-    // Getters and Setters
+    /**
+     * Returns the task description
+     *
+     * @return the task description
+     */
     public String getDesc() { return taskDesc; }
     public void setDesc(String taskDesc) { this.taskDesc = taskDesc; }
     /**

@@ -12,8 +12,6 @@ import yapper.io.StringStorage;
  * Event is a Task with both a start date and end date.
  */
 public class Event extends Task {
-    // Additional Attributes
-
     /**
      * The string representation of the start date, used if the start date
      * cannot be parsed into a valid {@code LocalDateTime} or {@code LocalDate}.
@@ -45,7 +43,6 @@ public class Event extends Task {
 
 
 
-    // Constructors
 
     /**
      * Creates an event task with the given description, start date, and end date.
@@ -149,7 +146,7 @@ public class Event extends Task {
                 + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
 
-    // Task Conversion Operations for Saving/Loading Data
+
     /**
      * Converts the event task to a string format for writing to / reading from a file,
      * including the Event symbol, start date and an end date.

@@ -29,7 +29,6 @@ public class InputStringHandler {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
 
-            // Handle 1-Argument Instructions: LIST, HELP
             if (userInputString.startsWith(StringStorage.PREFIX_LIST_INSTRUCTION)) {
                 ExceptionHandler.checkIfTooManyArguments(userInputString, StringStorage.PREFIX_LIST_INSTRUCTION);
                 return new Instruction(Instruction.InstructionType.LIST);
@@ -37,6 +36,7 @@ public class InputStringHandler {
                 ExceptionHandler.checkIfTooManyArguments(userInputString, StringStorage.PREFIX_HELP_INSTRUCTION);
                 return new Instruction(Instruction.InstructionType.HELP);
             }
+
             String[] instructionParts = userInputString.split(" ", 2);
             String instructionType = instructionParts[0];
             String instructionArgs = instructionParts.length > 1
@@ -45,17 +45,13 @@ public class InputStringHandler {
 
             switch (instructionType) {
             case StringStorage.PREFIX_FIND_INSTRUCTION:
-                // no keywords here to validate
                 ExceptionHandler.checkIfFindArgsMissing(
                         instructionArgs.trim());
-                // no need to split arg
                 return new Instruction(Instruction.InstructionType.FIND,
                         instructionArgs.trim());
             case StringStorage.PREFIX_TODO_INSTRUCTION:
-                // no keywords here to validate
                 ExceptionHandler.checkIfTodoArgsMissing(
                     instructionArgs.trim());
-                // no need to split arg
                 return new Instruction(Instruction.InstructionType.TODO,
                         instructionArgs.trim());
             case StringStorage.PREFIX_DEADLINE_INSTRUCTION:
@@ -88,7 +84,6 @@ public class InputStringHandler {
                         : Instruction.InstructionType.UNMARK;
                 return new Instruction(type, taskOrdinal);
             default:
-                // If none of the above code works, user input cannot be recognized
                 throw new YapperException(
                         StringStorage.UNRECOGNISED_INSTRUCTION_MESSAGE);
             }
@@ -100,7 +95,6 @@ public class InputStringHandler {
         }
     }
 
-    // User-Input-related Methods to Split by delimiter into keywords
 
     /**
      * Splits the instruction arguments by the deadline keyword delimiter.

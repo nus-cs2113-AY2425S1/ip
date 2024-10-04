@@ -12,8 +12,6 @@ import yapper.io.StringStorage;
  * Deadline is a Task with an end date.
  */
 public class Deadline extends Task {
-    // Additional Attributes
-
     /**
      * The string representation of the end date input.
      */
@@ -27,8 +25,6 @@ public class Deadline extends Task {
      */
     protected LocalDateTime endDateTime;
 
-
-    // Constructors
 
     /**
      * Creates a new Deadline task with the given description and end date.

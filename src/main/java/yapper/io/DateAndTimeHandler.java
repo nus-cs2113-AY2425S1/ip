@@ -13,13 +13,19 @@ import java.time.format.DateTimeFormatter;
  * </p>
  */
 public class DateAndTimeHandler {
-    // Date and time format patterns for display purposes.
+    /**
+     * Date and time format patterns for display purposes.
+     */
     public static final String DATE_WITHOUT_TIME_TO_DISPLAY = "MM/dd/yyyy";
     public static final String DATE_WITH_TIME_TO_DISPLAY = "MM/dd/yyyy, EEE, hh:mm a";
-    // Date and time format patterns for converting to string, for storage purposes.
+    /**
+     * Date and time format patterns for converting to string, for storage purposes.
+     */
     public static final String DATE_WITHOUT_TIME_TO_STRING = "yyyy-dd-MM";
     public static final String DATE_WITH_TIME_TO_STRING = "yyyy-dd-MM hhmm";
-    // Date and time format patterns for parsing input from the user.
+    /**
+     * Date and time format patterns for parsing input from the user.
+     */
     public static final String DATE_WITHOUT_TIME_INPUT = "yyyy-MM-dd";
     public static final String DATE_WITH_TIME_INPUT = "yyyy-MM-dd HHmm";
 

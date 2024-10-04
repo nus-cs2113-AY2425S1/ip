@@ -64,7 +64,6 @@ public class Yapper {
      * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
-        // Pre-Program Message
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         TaskHandler taskHandler = InputFileHandler.loadTasks();
         if (taskHandler.isEmpty()) {
@@ -75,10 +74,8 @@ public class Yapper {
             System.out.println("let us resume where we left off, shall we?");
         }
 
-        // Startup ChatBot Program
         startYappin(taskHandler);
 
-        // Post-Program Message
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
         System.out.println(StringStorage.LINE_DIVIDER);
     }

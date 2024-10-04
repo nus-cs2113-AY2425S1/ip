@@ -42,7 +42,6 @@ public class OutputStringHandler {
     }
 
 
-
     /**
      * Prints the list of tasks that match the query string.
      * Used in the "find" instruction to filter and display tasks by description.
