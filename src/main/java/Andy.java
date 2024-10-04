@@ -1,12 +1,20 @@
 import java.util.List;
 
+/**
+ * Main class for the Andy task manager application. It handles user input,
+ * manages tasks, and interacts with storage, UI, and other components.
+ */
 public class Andy {
     private UI ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
 
-    // Constructor initializes UI, Storage, TaskList, and Parser
+    /**
+     * Constructor for Andy. Initializes UI, Storage, TaskList, and Parser.
+     *
+     * @param filePath the file path where the tasks are stored.
+     */
     public Andy(String filePath) {
         ui = new UI();  // Initialize UI
         storage = new Storage(filePath);  // Initialize Storage with file path
@@ -14,6 +22,10 @@ public class Andy {
         parser = new Parser();  // Initialize Parser
     }
 
+    /**
+     * Starts the main loop of the Andy task manager.
+     * Continuously processes user input until the user enters "bye".
+     */
     public void run() {
         ui.showWelcomeMessage();  // Show the welcome message
 
@@ -22,6 +34,7 @@ public class Andy {
         while (!(input = ui.getUserInput()).equals("bye")) {
             try {
                 String command = parser.parseCommand(input);  // Get the command
+
                 switch (command) {
                 case "list":
                     ui.showTaskList(tasks);  // Display task list
@@ -44,8 +57,8 @@ public class Andy {
                     break;
                 case "find":
                     String keyword = parser.parseTaskDescription(input, "find");
-                    List<Task> foundTasks = tasks.findTasks(keyword);
-                    ui.showFoundTasks(foundTasks);
+                    List<Task> foundTasks = tasks.findTasks(keyword);  // Find tasks by keyword
+                    ui.showFoundTasks(foundTasks);  // Display matching tasks
                     break;
                 case "delete":
                     int index = parser.parseTaskIndex(input);  // Parse the index to delete
@@ -53,17 +66,37 @@ public class Andy {
                     tasks.deleteTask(index);  // Delete the task
                     ui.showTaskDeletedMessage(deletedTask.getDescription());  // Show confirmation
                     break;
+                case "mark":
+                    int markIndex = parser.parseTaskIndex(input);  // Parse the index to mark as done
+                    tasks.getTask(markIndex).setDone(true);  // Mark the task as done
+                    ui.showTaskMarkedAsDone(tasks.getTask(markIndex));  // Show confirmation
+                    break;
+                case "unmark":
+                    int unmarkIndex = parser.parseTaskIndex(input);  // Parse the index to unmark
+                    tasks.getTask(unmarkIndex).setDone(false);  // Unmark the task as not done
+                    ui.showTaskUnmarked(tasks.getTask(unmarkIndex));  // Show confirmation
+                    break;
                 default:
                     throw new AndyException("Invalid command.");
                 }
-                storage.saveTasks(tasks.getTasks());  // Save updated task list after each command
+
+                // Save updated task list after each command
+                storage.saveTasks(tasks.getTasks());
+
             } catch (AndyException e) {
                 ui.showErrorMessage(e.getMessage());  // Handle any exceptions with an error message
             }
         }
-        ui.showGoodbyeMessage();  // Show goodbye message before exiting
+
+        // Show goodbye message before exiting
+        ui.showGoodbyeMessage();
     }
 
+    /**
+     * Main method to start the Andy task manager application.
+     *
+     * @param args command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Andy("./data/andy.txt").run();  // Run the application
     }
