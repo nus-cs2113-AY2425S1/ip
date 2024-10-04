@@ -5,18 +5,33 @@ import bob.ui.Ui;
 import bob.storage.Storage;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * This command removes a task based on its index and updates the task list accordingly.
+ */
 public class DeleteCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Constructs a DeleteCommand object with the specified index of the task to be deleted.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Executes the delete task command, removing a task from the task list.
+     * If the task list is empty or an invalid index is provided, an error message is displayed.
+     *
+     * @param tasks   The TaskList that the command will operate on.
+     * @param ui      The Ui object to interact with the user interface.
+     * @param storage The Storage object to handle saving the updated task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-
-        ArrayList<Task> taskList = tasks.getTaskList();
-        if (taskList.isEmpty()) {
+        if (tasks.getTaskList().isEmpty()) {
             ui.printEmptyListMessage();
             return;
         }
@@ -29,6 +44,11 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Determines whether this command will exit the program.
+     *
+     * @return false as the delete command does not exit the program.
+     */
     @Override
     public boolean isExit() {
         return false;
