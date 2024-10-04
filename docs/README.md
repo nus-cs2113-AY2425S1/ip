@@ -25,7 +25,7 @@ _Expected output:_
 ____________________________________________________________
 Got it. I've added this task:
   [T][ ] read book
-No you have 1 task in the list.
+Now you have 1 task in the list.
 ____________________________________________________________
 ```
 
