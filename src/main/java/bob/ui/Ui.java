@@ -107,7 +107,7 @@ public class Ui {
      */
     public void showUnmarkTaskMessage(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        System.out.println("  " + task);
     }
 
     /**
@@ -167,7 +167,7 @@ public class Ui {
     public void showDeleteTaskMessage(Task removedTask, int size) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + removedTask);
-        System.out.println("Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
+        System.out.println("Now you have " + size + ((size == 1 | size == 0) ? " task" : " tasks") + " in the list.");
     }
 
     /**
