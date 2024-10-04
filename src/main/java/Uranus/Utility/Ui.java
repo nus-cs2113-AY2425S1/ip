@@ -93,7 +93,7 @@ public class Ui extends Functions{
      * to push the previous content out of view.
      */
     public static void clearScreen(){
-        for (int i = 0; i < 35; i++) {
+        for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
