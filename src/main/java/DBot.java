@@ -90,6 +90,10 @@ public class DBot {
     }
 
     private static void todo() {
+        if (parser.getPrompt().isEmpty()) {
+            ui.printError("Cannot have empty prompt");
+            return;
+        }
         Todo task = new Todo(parser.getPrompt());
         taskList.addTask(task);
         ui.printLongMessage(new Object[]{
@@ -100,6 +104,10 @@ public class DBot {
     }
 
     private static void deadline() {
+        if (parser.getPrompt().isEmpty()) {
+            ui.printError("Cannot have empty prompt");
+            return;
+        }
         Hashtable<String, String> arguments = parser.getArguments();
         Deadline task;
         try {
@@ -118,6 +126,10 @@ public class DBot {
     }
 
     private static void event() {
+        if (parser.getPrompt().isEmpty()) {
+            ui.printError("Cannot have empty prompt");
+            return;
+        }
         Hashtable<String, String> arguments = parser.getArguments();
         Event task;
         try {
