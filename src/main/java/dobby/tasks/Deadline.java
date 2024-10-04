@@ -8,18 +8,18 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate date;
-    protected LocalDateTime dateAndTime;
+    protected LocalDate byDate;
+    protected LocalDateTime byDateAndTime;
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
 
         try {
-            dateAndTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            byDateAndTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
             try {
-                date = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             } catch (DateTimeParseException e2) {
                 this.by = by;
             }
@@ -27,29 +27,12 @@ public class Deadline extends Task {
     }
 
     public String getBy() {
-        if (dateAndTime != null) {
-            return dateAndTime.format(DateTimeFormatter.ofPattern("yyyy MM dd HH.mm"));
-        } else if (date != null) {
-            return date.format(DateTimeFormatter.ofPattern("yyyy MM dd"));
+        if (byDateAndTime != null) {
+            return byDateAndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else if (byDate != null) {
+            return byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else {
             return by;
-        }
-    }
-
-    public void setBy(String by) {
-        this.by = by;
-
-        try {
-            dateAndTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy MM dd HH.mm"));
-            date = null;
-        } catch (DateTimeParseException e) {
-            try {
-                date = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy MM dd"));
-                dateAndTime = null;
-            } catch (DateTimeParseException e2) {
-                date = null;
-                dateAndTime = null;
-            }
         }
     }
 
@@ -57,10 +40,10 @@ public class Deadline extends Task {
     public String toString() {
         String formattedTime;
 
-        if (dateAndTime != null) {
-            formattedTime = dateAndTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH.mm"));
-        } else if (date != null) {
-            formattedTime = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (byDateAndTime != null) {
+            formattedTime = byDateAndTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH.mm"));
+        } else if (byDate != null) {
+            formattedTime = byDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             formattedTime = by;
         }

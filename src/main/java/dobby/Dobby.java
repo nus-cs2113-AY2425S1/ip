@@ -32,7 +32,7 @@ public class Dobby {
             String line;
             while (true) {
                 line = in.nextLine().trim();
-                if (line.equalsIgnoreCase("bye")){
+                if (line.equalsIgnoreCase("bye") || line.equalsIgnoreCase("sock")) {
                     break;
                 }
                 try {

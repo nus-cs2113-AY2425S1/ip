@@ -1,10 +1,6 @@
 package dobby.ui;
 
-import dobby.exceptions.MissingDescriptionException;
-import dobby.exceptions.EmptyListException;
-import dobby.exceptions.IllegalInputException;
-import dobby.exceptions.TaskAlreadyMarkedException;
-import dobby.exceptions.TaskAlreadyUnmarkedException;
+import dobby.exceptions.*;
 import dobby.tasks.Task;
 import dobby.tasklist.TaskList;
 
@@ -37,7 +33,11 @@ public class Ui {
         printSeparator();
         System.out.println("    Dobby has added this task:");
         System.out.println("      " + task);
-        System.out.println("    Dobby says master has " + taskListSize + " tasks in the list!");
+        if (taskListSize == 1) {
+            System.out.println("    Dobby says master has " + taskListSize + " task in the list!");
+        } else {
+            System.out.println("    Dobby says master has " + taskListSize + " tasks in the list!");
+        }
         printSeparator();
     }
 
@@ -78,7 +78,13 @@ public class Ui {
         }
 
         printSeparator();
-        System.out.println("    Here are the tasks in master's list:");
+
+        if (taskList.size() == 1) {
+            System.out.println("    Here is the task in master's list:");
+        } else {
+            System.out.println("    Here are the tasks in master's list:");
+        }
+
         for (int i = 1; i <= taskList.size(); i++) {
             Task t = taskList.get(i - 1);
             System.out.println("    " + i + "." + t);
@@ -93,8 +99,8 @@ public class Ui {
      */
     public static void handleExceptions(Exception exception) {
         printSeparator();
-        if (exception instanceof MissingDescriptionException) {
-            System.out.println("    Dobby thinks master should add a description here!");
+        if (exception instanceof InvalidDescriptionException) {
+            System.out.println("    Dobby thinks master should check their input!");
         } else if (exception instanceof IllegalInputException) {
             System.out.println("    Dobby doesn't understand master's command!");
         } else if (exception instanceof TaskAlreadyMarkedException) {
@@ -105,6 +111,8 @@ public class Ui {
             System.out.println("    Dobby says master's list is empty!");
         } else if (exception instanceof IndexOutOfBoundsException) {
             System.out.println("    Dobby says master's list is full!");
+        } else if (exception instanceof InvalidTaskNumberException) {
+            System.out.println("    Dobby says master did not give a valid task number!");
         }
         printSeparator();
     }

@@ -1,6 +1,7 @@
 package dobby.tasklist;
 
-import dobby.exceptions.MissingDescriptionException;
+import dobby.exceptions.InvalidTaskNumberException;
+import dobby.exceptions.InvalidDescriptionException;
 import dobby.exceptions.TaskAlreadyMarkedException;
 import dobby.exceptions.TaskAlreadyUnmarkedException;
 import dobby.tasks.Task;
@@ -77,9 +78,9 @@ public class TaskList {
      * @param line The command containing task details.
      * @param ui The UI object to interact with the user.
      * @param storage The storage object to save the task list.
-     * @throws MissingDescriptionException If the task description is missing.
+     * @throws InvalidDescriptionException If the task description is invalid.
      */
-    public void addTaskFromCommand(String line, Ui ui, Storage storage) throws MissingDescriptionException {
+    public void addTaskFromCommand(String line, Ui ui, Storage storage) throws InvalidDescriptionException {
         Task task = TaskCreator.createTask(line);
         if (task != null) {
             addTask(task);
@@ -93,18 +94,29 @@ public class TaskList {
      *
      * @param line The command specifying which task to delete.
      * @param ui The UI object to interact with the user.
+     * @throws InvalidTaskNumberException If the task number provided is invalid.
      */
-    public void deleteTask(String line, Ui ui) {
-        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
-        if (isValidTaskNumber(taskNumber)) {
-            Task t = taskList.get(taskNumber - 1);
-            taskList.remove(t);
-            ui.printSeparator();
-            System.out.println("    Dobby is removing this task:");
-            System.out.println("        " + t);
-            System.out.println("    Dobby says master has " + size() + " remaining tasks!");
-            ui.printSeparator();
+    public void deleteTask(String line, Ui ui) throws InvalidTaskNumberException {
+
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
         }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException();
+        }
+
+        Task task = taskList.get(taskNumber - 1);
+        taskList.remove(task);
+        ui.printSeparator();
+        System.out.println("    Dobby is removing this task:");
+        System.out.println("        " + task);
+        System.out.println("    Dobby says master has " + size() + " remaining tasks!");
+        ui.printSeparator();
     }
 
     /**
@@ -114,18 +126,31 @@ public class TaskList {
      * @param ui The UI object to interact with the user.
      * @param storage The storage object to save the task list.
      * @throws TaskAlreadyMarkedException If the task is already marked as done.
+     * @throws InvalidTaskNumberException If the task number provided is invalid.
      */
-    public void markTaskAsDone(String line, Ui ui, Storage storage) throws TaskAlreadyMarkedException {
-        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
-        if (isValidTaskNumber(taskNumber)){
-            Task task = taskList.get(taskNumber - 1);
-            if (task.isDone()){
-                throw new TaskAlreadyMarkedException();
-            }
-            task.markAsDone();
-            ui.printTaskStatus("done", task);
-            storage.saveTasks(taskList);
+    public void markTaskAsDone(String line, Ui ui, Storage storage)
+            throws TaskAlreadyMarkedException, InvalidTaskNumberException {
+
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
         }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException();
+        }
+
+        Task task = taskList.get(taskNumber - 1);
+        if (task.isDone()) {
+            throw new TaskAlreadyMarkedException();
+        }
+
+        task.markAsDone();
+        ui.printTaskStatus("done", task);
+        storage.saveTasks(taskList);
     }
 
     /**
@@ -135,18 +160,31 @@ public class TaskList {
      * @param ui The UI object to interact with the user.
      * @param storage The storage object to save the task list.
      * @throws TaskAlreadyUnmarkedException If the task is already marked as undone.
+     * @throws InvalidTaskNumberException If the task number provided is invalid.
      */
-    public void unmarkTaskAsDone(String line, Ui ui, Storage storage) throws TaskAlreadyUnmarkedException {
-        int taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
-        if (isValidTaskNumber(taskNumber)) {
-            Task task = taskList.get(taskNumber-1);
-            if (!task.isDone()){
-                throw new TaskAlreadyUnmarkedException();
-            }
-            task.unmarkAsDone();
-            ui.printTaskStatus("incomplete", task);
-            storage.saveTasks(taskList);
+    public void unmarkTaskAsDone(String line, Ui ui, Storage storage)
+            throws TaskAlreadyUnmarkedException, InvalidTaskNumberException {
+
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
         }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException();
+        }
+
+        Task task = taskList.get(taskNumber - 1);
+        if (!task.isDone()){
+            throw new TaskAlreadyUnmarkedException();
+        }
+
+        task.unmarkAsDone();
+        ui.printTaskStatus("incomplete", task);
+        storage.saveTasks(taskList);
     }
 
 

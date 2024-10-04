@@ -7,56 +7,63 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
-    protected String fromTime;
-    protected String toTime;
-    protected LocalDate fromDate;
-    protected LocalDate toDate;
-    protected LocalDateTime fromDateTime;
-    protected LocalDateTime toDateTime;
+    protected String from;
+    protected String to;
+    protected LocalDate fromDate = null;
+    protected LocalDate toDate = null;
+    protected LocalDateTime fromDateTime = null;
+    protected LocalDateTime toDateTime = null;
 
-    public Event(String description, String fromTime, String toTime) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+        this.from = from;
+        this.to = to;
 
-        try {
-            fromDateTime = LocalDateTime.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        } catch (DateTimeParseException e) {
-            try {
-                fromDate = LocalDate.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            } catch (DateTimeParseException e2) {
-                this.fromTime = fromTime;
-            }
-        }
+        parseFromTime(from);
+        parseToTime(to);
+    }
 
+    private void parseToTime(String toTime) {
         try {
             toDateTime = LocalDateTime.parse(toTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
             try {
                 toDate = LocalDate.parse(toTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             } catch (DateTimeParseException e2) {
-                this.toTime = toTime;
+                this.to = toTime;
             }
         }
     }
 
-    public String getFromTime() {
-        if (fromDateTime != null) {
-            return fromDateTime.format(DateTimeFormatter.ofPattern("yyyy MM dd HH.mm"));
-        } else if (fromDate != null) {
-            return fromDate.format(DateTimeFormatter.ofPattern("yyyy MM"));
-        } else {
-            return fromTime;
+    private void parseFromTime(String fromTime) {
+        try {
+            fromDateTime = LocalDateTime.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            try {
+                fromDate = LocalDate.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (DateTimeParseException e2) {
+                this.from = fromTime;
+            }
         }
     }
 
-    public String getToTime() {
-        if (toDateTime != null) {
-            return toDateTime.format(DateTimeFormatter.ofPattern("yyyy MM dd HH.mm"));
+    public String getFrom() {
+        if (fromDateTime != null) {
+            return fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } else if (fromDate != null) {
-            return toDate.format(DateTimeFormatter.ofPattern("yyyy MM"));
+            return fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else {
-            return toTime;
+            return from;
+        }
+    }
+
+    public String getTo() {
+        if (toDateTime != null) {
+            return toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else if (toDate != null) {
+            return toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } else {
+            return to;
         }
     }
 
@@ -70,7 +77,7 @@ public class Event extends Task {
         } else if (fromDate != null) {
             formattedFromTime = fromDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
-            formattedFromTime = fromTime;
+            formattedFromTime = from;
         }
 
         if (toDateTime != null) {
@@ -78,7 +85,7 @@ public class Event extends Task {
         } else if (toDate != null) {
             formattedToTime = toDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
-            formattedToTime = toTime;
+            formattedToTime = to;
         }
 
         return "[E]" + super.toString() + " (from: " + formattedFromTime + " to: " + formattedToTime + ")";

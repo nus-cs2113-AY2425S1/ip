@@ -1,10 +1,12 @@
 package dobby.parser;
 
-import dobby.exceptions.MissingDescriptionException;
+import dobby.exceptions.InvalidDescriptionException;
 import dobby.exceptions.EmptyListException;
 import dobby.exceptions.IllegalInputException;
 import dobby.exceptions.TaskAlreadyMarkedException;
 import dobby.exceptions.TaskAlreadyUnmarkedException;
+import dobby.exceptions.InvalidTaskNumberException;
+
 import dobby.storage.Storage;
 import dobby.tasklist.TaskList;
 import dobby.ui.Ui;
@@ -22,15 +24,16 @@ public class Parser {
      * @param taskList The list of tasks managed in the session.
      * @param ui The UI object responsible for interacting with the user.
      * @param storage The storage object for saving and loading tasks.
-     * @throws MissingDescriptionException If a task description is missing.
+     * @throws InvalidDescriptionException If a task description is missing.
      * @throws IllegalInputException If the input command is not recognized.
      * @throws TaskAlreadyMarkedException If the task is already marked as done.
      * @throws TaskAlreadyUnmarkedException If the task is already marked as incomplete.
      * @throws EmptyListException If an operation is attempted on an empty task list.
+     * @throws InvalidTaskNumberException If an operation is attempted on a non-existent task.
      */
     public static void processCommand (String line, TaskList taskList, Ui ui, Storage storage)
-            throws MissingDescriptionException, IllegalInputException, TaskAlreadyMarkedException,
-                    TaskAlreadyUnmarkedException, EmptyListException {
+            throws InvalidDescriptionException, IllegalInputException, TaskAlreadyMarkedException,
+                    TaskAlreadyUnmarkedException, EmptyListException, InvalidTaskNumberException {
 
         if (line.equals("list")) {
             ui.printList(taskList);

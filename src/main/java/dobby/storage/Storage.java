@@ -86,7 +86,7 @@ public class Storage {
             return type + "|" + status + "|" + deadline.getDescription() + "|" + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return type + "|" + status + "|" + event.getDescription() + "|" + event.getFromTime() + "|" + event.getToTime();
+            return type + "|" + status + "|" + event.getDescription() + "|" + event.getFrom() + "|" + event.getTo();
         } else if (task instanceof Todo) {
             return type + "|" + status + "|" + task.getDescription();
         } else {

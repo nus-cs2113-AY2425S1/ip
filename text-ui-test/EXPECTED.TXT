@@ -5,7 +5,7 @@
   ____________________________________________________________
     Dobby has added this task:
       [T][ ] borrow book
-    Dobby says master has 1 tasks in the list!
+    Dobby says master has 1 task in the list!
   ____________________________________________________________
   ____________________________________________________________
     Dobby has added this task:

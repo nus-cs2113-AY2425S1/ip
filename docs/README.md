@@ -4,6 +4,8 @@
 Dobby is a desktop chatbot that stores and manages your list of activities, optimised for use via a Command Line Interface (CLI). 
 If you wish to immerse into the magical world of wizards and elves, look no further and start chatting with Dobby, your loyal follower!
 
+---
+
 # Features 
 ### Adding Todos
 
@@ -17,10 +19,10 @@ Expected Outcome:
   ____________________________________________________________
     Dobby has added this task:
       [T][ ] read research paper
-    Dobby says master has 1 tasks in the list!
+    Dobby says master has 1 task in the list!
   ____________________________________________________________
 ```
-
+---
 ### Adding Deadlines
 
 Creates a deadline task and adds it to your task list.
@@ -40,6 +42,8 @@ Expected Outcome:
     Dobby says master has 2 tasks in the list!
   ____________________________________________________________
 ```
+
+---
 
 ### Adding Events
 
@@ -62,6 +66,7 @@ Expected Outcome:
   ____________________________________________________________
 ```
 
+---
 
 ### Listing Tasks
 
@@ -79,6 +84,8 @@ Expected Outcome:
   ____________________________________________________________
 ```
 
+---
+
 ### Finding Tasks
 
 Searches through the task list to find tasks with descriptions matching the keyword.
@@ -94,6 +101,8 @@ Expected Outcome:
     1.[D][ ] Submit report on sleep (by: 23/09/2024)
   ____________________________________________________________
 ```
+
+---
 
 ### Marking Tasks as complete
 
@@ -111,6 +120,8 @@ Expected Outcome:
   ____________________________________________________________
 ```
 
+---
+
 ### Unmarking Tasks as incomplete
 
 Marks the task as not done.
@@ -126,6 +137,8 @@ Expected Outcome:
       [T][ ] read research paper
   ____________________________________________________________
 ```
+
+---
 
 ### Deleting Tasks
 
@@ -144,16 +157,20 @@ Expected Outcome:
   ____________________________________________________________
 ```
 
+---
+
 ### Saving tasks
 
 All task list data are saved in the hard disk automatically after any command that modifies the task list. 
 There is no need to save manually. 
 
+---
+
 ### Exit Program
 
 Terminate the runtime of the chatbot. 
 
-Format: `bye`
+Formats: `bye`, `sock`
 
 Expected Outcome:
 ```
@@ -161,3 +178,5 @@ Expected Outcome:
     Thank you master, Dobby is free!!!
   ____________________________________________________________
 ```
+
+---
