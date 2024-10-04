@@ -11,7 +11,7 @@ You can add a task (todo, deadline or event), view the task list, search for tas
 unmark a task as not done and delete a task.
 
 ## Add todo
-Adds a todo to the task list.
+Add a todo to the task list.
 
 > Command: todo [description]
 
@@ -30,7 +30,7 @@ ____________________________________________________________
 ```
 
 ## Add deadline
-Adds a deadline with a specific due date to the task list.
+Add a deadline with a specific due date to the task list.
 
 > Command: deadline [description] /by [due date]
 
@@ -49,7 +49,7 @@ ____________________________________________________________
 ```
 
 ## Add event
-Adds an event with a start and end time to the task list.
+Add an event with a start and end time to the task list.
 
 > Command: event [description] /from [start time] /to [end time]
 
