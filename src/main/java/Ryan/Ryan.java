@@ -8,7 +8,7 @@ import Ryan.utility.Storage;
 import Ryan.utility.Ui;
 import Ryan.utility.TaskList;
 
-import Ryan.commands.*;
+import Ryan.commands.Command;
 
 public class Ryan {
     public static void main(String[] args) {

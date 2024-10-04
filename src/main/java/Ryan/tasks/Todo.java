@@ -4,12 +4,16 @@ package Ryan.tasks;
  * Represents a simple task without a specific time.
  */
 public class Todo extends Task {
-
-    /**
+  
+    public static final String TODO_TASK_TYPE = "T";
+    public static final String TODO_TASK_ICON = "[T]";
+  
+  /**
      * Constructs a Todo task with the given description.
      *
      * @param description The task's description.
      */
+
     public Todo(String description) {
         super(description);
     }
@@ -21,7 +25,7 @@ public class Todo extends Task {
      */
     @Override
     public String getTaskType() {
-        return "T";
+        return TODO_TASK_TYPE;
     }
 
     /**
@@ -31,6 +35,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TODO_TASK_ICON + super.toString();
     }
 }

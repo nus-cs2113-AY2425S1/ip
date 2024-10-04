@@ -1,16 +1,19 @@
 package Ryan.commands;
 
-import Ryan.exceptions.RyanException;
 import Ryan.utility.TaskList;
 import Ryan.utility.Ui;
-import Ryan.tasks.Deadline;
+
 import Ryan.tasks.Task;
+import Ryan.tasks.Deadline;
+
+import Ryan.exceptions.RyanException;
 
 /**
  * Command to add a Deadline task.
  */
 public class DeadlineCommand extends Command {
     private final String command;
+    private static final String DEADLINE_SPLIT_KEYWORD = "/by";
 
     /**
      * Constructs a DeadlineCommand with the user input command string.
@@ -30,7 +33,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui) throws RyanException {
-        String[] splitCommand = command.split("/by", 2);
+        String[] splitCommand = command.split(DEADLINE_SPLIT_KEYWORD, 2);
 
         if (splitCommand.length < 2) {
             throw new RyanException("Deadline tasks should be in the format 'description /by deadline'.");

@@ -1,8 +1,10 @@
 package Ryan.commands;
 
-import Ryan.tasks.Task;
 import Ryan.utility.TaskList;
 import Ryan.utility.Ui;
+
+import Ryan.tasks.Task;
+
 import Ryan.exceptions.RyanException;
 
 /**

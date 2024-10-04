@@ -4,6 +4,13 @@ package Ryan.tasks;
  * Represents a task with a description and a marked/unmarked status.
  */
 public class Task {
+
+    public static final String MARKED_SYMBOL = "[X]";
+    public static final String UNMARKED_SYMBOL = "[ ]";
+    public static final int MARKED_VALUE = 1;
+    public static final int UNMARKED_VALUE = 0;
+    public static final String DEFAULT_TASK_TYPE = "T";
+
     private final String description;
     private boolean isMarked = false;
 
@@ -54,7 +61,7 @@ public class Task {
      * @return A string formatted for file storage.
      */
     public String toFile() {
-        return String.format("%s | %d | %s", getTaskType(), isMarked() ? 1 : 0, getDescription());
+        return String.format("%s | %d | %s", getTaskType(), isMarked() ? MARKED_VALUE : UNMARKED_VALUE, getDescription());
     }
 
     /**
@@ -63,7 +70,7 @@ public class Task {
      * @return A string representing the task type.
      */
     public String getTaskType() {
-        return "T";
+        return DEFAULT_TASK_TYPE;
     }
 
     /**
@@ -73,6 +80,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (isMarked ? "[X] " : "[ ] ") + description;
+        return (isMarked ? MARKED_SYMBOL : UNMARKED_SYMBOL) + " " + description;
     }
 }

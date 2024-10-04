@@ -4,6 +4,10 @@ package Ryan.tasks;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
+
+    public static final String DEADLINE_TASK_TYPE = "D";
+    public static final String DEADLINE_TASK_ICON = "[D]";
+
     protected String by;
 
     /**
@@ -24,7 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskType() {
-        return "D";
+        return DEADLINE_TASK_TYPE;
     }
 
     /**
@@ -44,6 +48,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return DEADLINE_TASK_ICON + super.toString() + " (by: " + by + ")";
     }
 }

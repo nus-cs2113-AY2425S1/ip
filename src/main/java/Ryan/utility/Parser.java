@@ -1,12 +1,32 @@
 package Ryan.utility;
 
 import Ryan.exceptions.RyanException;
-import Ryan.commands.*;
+import Ryan.commands.Command;
+import Ryan.commands.TodoCommand;
+import Ryan.commands.DeadlineCommand;
+import Ryan.commands.EventCommand;
+import Ryan.commands.DeleteCommand;
+import Ryan.commands.MarkCommand;
+import Ryan.commands.UnmarkCommand;
+import Ryan.commands.ListCommand;
+import Ryan.commands.FindCommand;
+import Ryan.commands.ExitCommand;
 
 /**
  * Represents a parser that processes user input and returns the appropriate command.
  */
 public class Parser {
+
+    protected static final String TODO_COMMAND = "todo";
+    protected static final String DEADLINE_COMMAND = "deadline";
+    protected static final String EVENT_COMMAND = "event";
+    protected static final String DELETE_COMMAND = "delete";
+    protected static final String MARK_COMMAND = "mark";
+    protected static final String UNMARK_COMMAND = "unmark";
+    protected static final String LIST_COMMAND = "list";
+    protected static final String FIND_COMMAND = "find";
+    protected static final String EXIT_COMMAND = "bye";
+    protected static final String INVALID_COMMAND_DESCRIPTION = "Unknown command: ";
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -22,26 +42,26 @@ public class Parser {
 
         try {
             switch (commandWord) {
-                case "todo":
+                case TODO_COMMAND:
                     return new TodoCommand(arguments);
-                case "deadline":
+                case DEADLINE_COMMAND:
                     return new DeadlineCommand(arguments);
-                case "event":
+                case EVENT_COMMAND:
                     return new EventCommand(arguments);
-                case "delete":
+                case DELETE_COMMAND:
                     return new DeleteCommand(Integer.parseInt(arguments));
-                case "mark":
+                case MARK_COMMAND:
                     return new MarkCommand(Integer.parseInt(arguments));
-                case "unmark":
+                case UNMARK_COMMAND:
                     return new UnmarkCommand(Integer.parseInt(arguments));
-                case "bye":
-                    return new ExitCommand();
-                case "list":
+                case LIST_COMMAND:
                     return new ListCommand();
-                case "find":
+                case FIND_COMMAND:
                     return new FindCommand(arguments);
+                case EXIT_COMMAND:
+                    return new ExitCommand();
                 default:
-                    throw new RyanException("Unknown command: " + commandWord);
+                    throw new RyanException(INVALID_COMMAND_DESCRIPTION + commandWord);
             }
         } catch (NumberFormatException e) {
             throw new RyanException("Please provide a valid task number.");
