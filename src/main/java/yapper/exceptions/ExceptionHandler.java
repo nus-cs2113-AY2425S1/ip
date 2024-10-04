@@ -228,4 +228,17 @@ public class ExceptionHandler {
         }
     }
 
+    /**
+     * Checks if the list or help has arguments
+     *
+     * @param userInputString the input string to validate
+     * @param instructionTypeAsString the instruction type prefix
+     * @throws YapperException if the list or help input string has arguments
+     */
+    public static void checkIfTooManyArguments(String userInputString, String instructionTypeAsString)
+            throws YapperException {
+        if (!userInputString.trim().equals(instructionTypeAsString)) {
+            throw new YapperException(instructionTypeAsString + " does not need other parameters");
+        }
+    }
 }

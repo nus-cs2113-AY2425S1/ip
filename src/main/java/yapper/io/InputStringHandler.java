@@ -31,16 +31,10 @@ public class InputStringHandler {
 
             // Handle 1-Argument Instructions: LIST, HELP
             if (userInputString.startsWith(StringStorage.PREFIX_LIST_INSTRUCTION)) {
-                if (!userInputString.trim().equals(StringStorage.PREFIX_LIST_INSTRUCTION)) {
-                    throw new YapperException(StringStorage.PREFIX_LIST_INSTRUCTION
-                            + " does not need other parameters");
-                }
+                ExceptionHandler.checkIfTooManyArguments(userInputString, StringStorage.PREFIX_LIST_INSTRUCTION);
                 return new Instruction(Instruction.InstructionType.LIST);
             } else if (userInputString.startsWith(StringStorage.PREFIX_HELP_INSTRUCTION)) {
-                if (!userInputString.trim().equals(StringStorage.PREFIX_HELP_INSTRUCTION)) {
-                    throw new YapperException(StringStorage.PREFIX_HELP_INSTRUCTION
-                            + " does not need other parameters");
-                }
+                ExceptionHandler.checkIfTooManyArguments(userInputString, StringStorage.PREFIX_HELP_INSTRUCTION);
                 return new Instruction(Instruction.InstructionType.HELP);
             }
             String[] instructionParts = userInputString.split(" ", 2);
@@ -105,7 +99,6 @@ public class InputStringHandler {
                     "Invalid task ordinal detected. Try again. ");
         }
     }
-
 
     // User-Input-related Methods to Split by delimiter into keywords
 
