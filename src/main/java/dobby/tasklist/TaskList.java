@@ -113,11 +113,20 @@ public class TaskList {
         Task task = taskList.get(taskNumber - 1);
         taskList.remove(task);
         ui.printSeparator();
-        System.out.println("    Dobby is removing this task:");
-        System.out.println("        " + task);
-        System.out.println("    Dobby says master has " + size() + " remaining tasks!");
+        ui.printDeleteMessage(task, size());
         ui.printSeparator();
     }
+
+//    private void printDeleteMessage(Task task) {
+//        System.out.println("    Dobby is removing this task:");
+//        System.out.println("        " + task);
+//
+//        if (size() == 1) {
+//            System.out.println("    Dobby says master has " + size() + " remaining task!");
+//        } else {
+//            System.out.println("    Dobby says master has " + size() + " remaining tasks!");
+//        }
+//    }
 
     /**
      * Marks a task as done based on the user command.

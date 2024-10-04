@@ -51,7 +51,8 @@ public class Ui {
     }
 
     /**
-     * Prints The task status message indicating whether a task has been marked as done or incomplete.
+     * Prints the task status message indicating whether a task has been marked as done or incomplete.
+     *
      * @param status The status of the task (e.g., "done", "incomplete").
      * @param task The task being marked or unmarked.
      */
@@ -64,6 +65,23 @@ public class Ui {
         }
         System.out.println("      " + task);
         printSeparator();
+    }
+
+    /**
+     * Prints the task status message when a task is deleted.
+     *
+     * @param task The task being marked or unmarked.
+     * @param taskListSize The size of the task list after deleting a task.
+     */
+    public static void printDeleteMessage(Task task, int taskListSize) {
+        System.out.println("    Dobby is removing this task:");
+        System.out.println("        " + task);
+
+        if (taskListSize == 1) {
+            System.out.println("    Dobby says master has " + taskListSize + " remaining task!");
+        } else {
+            System.out.println("    Dobby says master has " + taskListSize + " remaining tasks!");
+        }
     }
 
     /**
