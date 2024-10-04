@@ -55,11 +55,6 @@ public class TaskList {
         if (taskInfo.length() == 0) {
             throw new GlendonException();
         }
-    //    boolean numericalStartDateTime = checkDateFormat(startDateTime);
-    //    boolean numericalEndDateTime = checkDateFormat(endDateTime);
-    //    if (numericalStartDateTime && numericalEndDateTime) {
-
-    //    }
         taskList.add(new Event(taskInfo, startDateTime, endDateTime));
         taskCounter++;
     }
@@ -99,8 +94,8 @@ public class TaskList {
     public void findTask(String wantedTask) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : taskList) {
-            String taskName = task.taskName;
-            if (taskName.contains(wantedTask)) {
+            String taskName = task.taskName.toLowerCase();
+            if (taskName.contains(wantedTask.toLowerCase())) {
                 tasks.add(task);
             }
         }
@@ -110,19 +105,4 @@ public class TaskList {
             ui.tasksFound(tasks);
         }
     }
-
-    /* public boolean checkDateFormat(String dateTime) {
-        if (dateTime.contains("/") || dateTime.contains("-")) {
-            return true;
-        }
-        return false;
-    }
-    */
-    /*public LocalDateTime formattedDateTime(String dateTime) {
-        String[] dateTimeInput = dateTime.split(" ");
-        if (dateTimeInput.length == 2 && dateTimeInput[0].contains("-")) {
-
-       }
-        return null;
-    } */
 }
