@@ -1,22 +1,38 @@
-echo hello
-event Anime Festival /from Dec 10 /to Dec 12
-deadline Registry /by Dec 10
-event a /from
-deadline x
-todo
-event /from/to
-list 1234
+list
+clear
+N
+list
+clear
+u
+u
+m
+y
+list
+echo hello world
+todo Read lecture note
+event Anime Festival /from 2024-10-10 1000 /to 2024-10-17
+deadline Assignment 1 /by 2024-01-12
+read Niwa/data_external/read.txt
+read Niwa/data_external/random.txt
 list
 mark 1
-mark 2 4 6
-mark 3
+save Niwa/data_external/write.txt
+list
 unmark 1
-todo Read book
 list
-delete 1
-mark 2
-delete x
+delete 3
 list
-help halo
-bye 123
+help
+echo
+todo
+event Anime Festival /from 2024-12-10 1000 /to 2024-10-17
+deadline Assignment 1 /by 2024.11.11
+list 342
+mark 999
+lis
+unmark 133
+delete 33
+list
+help 12
+bye 12
 bye
