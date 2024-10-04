@@ -1,23 +1,38 @@
 package Parser;
 
 import commands.Task;
-import constants.Utils;
-import exceptions.*;
+import exceptions.IllegalEmptyException;
+import exceptions.IllegalTaskException;
 import Ui.Ui;
 import constants.Warnings;
-import TaskList.TaskList;
+
 
 import java.util.ArrayList;
 
+/**
+ * Represents methods that parse user input
+ * before passing it to other methods
+ */
 public class Parser {
 
     private final Ui ui;
 
+    /**
+     * Parser constructor
+     */
     public Parser() {
         ui = new Ui();
     }
 
-
+    /**
+     * Returns cleaned string of the trimmed description.
+     * Commands such as "todo" or "event" are removed.
+     *
+     * @param input A String containing the user input
+     * @return cleaned string of the trimmed description.
+     * @throws IllegalEmptyException when the input only contains the command with no description
+     * OR when the description string is empty
+     */
     public static String trimString(String input) throws IllegalEmptyException {
         String output = input.trim();
 
@@ -33,7 +48,17 @@ public class Parser {
         return outputSubstrings[1].trim();
     }
 
-    public void validateMark(String[] splitInputs, ArrayList<Task> items) throws IllegalTaskException, IllegalEmptyException{
+    /**
+     * To check if the mark is valid
+     * Throws an IllegalTaskException when the index is out of range or
+     * when the mark index is not a number
+     *
+     * @param splitInputs A String[] containing the user input, split by " " delimiter.
+     * @throws IllegalTaskException if index is out of range or when the index is not a number
+     */
+    public void validateMark(String[] splitInputs, ArrayList<Task> items)
+            throws IllegalTaskException, IllegalEmptyException {
+
         try {
 
             if (splitInputs.length < 2) {
@@ -52,6 +77,13 @@ public class Parser {
 
     }
 
+    /**
+     * To check if the task is completed when parsing task string from the txt file.
+     * The task is completed when the number in the second column equals to 1.
+     * @param storedTaskSubstrings A String[] containing the stored values, split by "|" delimiter.
+     * @param task The task object stored in the ArrayList
+     *             that we want to check the state of completion.
+     */
     public void checkComplete(String[] storedTaskSubstrings, Task task) {
         int completed = Integer.parseInt(storedTaskSubstrings[1].trim());
         if (completed == 1) {
