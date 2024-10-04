@@ -50,7 +50,7 @@ public class AddEventCommand extends Command {
                String description = commandArg.substring(0, fromPrefixIndex - 1);
                String from = commandArg.substring(fromPrefixIndex + FROM_PREFIX.length() + 1, toPrefixIndex - 1);
                String to = commandArg.substring(toPrefixIndex + TO_PREFIX.length() + 1);
-               Event newEvent = new Event(description, from, to);
+               Event newEvent = new Event(description.trim(), from.trim(), to.trim());
                tasks.addTask(newEvent);
                int taskCount = tasks.getTaskCount();
                storage.addToDataFile(newEvent.dataFileInput());

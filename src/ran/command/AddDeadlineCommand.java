@@ -46,7 +46,7 @@ public class AddDeadlineCommand extends Command {
                }
                String description = commandArg.substring(0, byPrefixIndex - 1);
                String by = commandArg.substring(byPrefixIndex + BY_PREFIX.length() + 1);
-               Deadline newDeadline = new Deadline(description, by);
+               Deadline newDeadline = new Deadline(description.trim(), by.trim());
                tasks.addTask(newDeadline);
                int taskCount = tasks.getTaskCount();
                storage.addToDataFile(newDeadline.dataFileInput());

@@ -25,7 +25,7 @@ public class Parser {
     private static String getCommandArg(String input) {
         String[] splitInput = input.split("\\s+", 2);
         if (splitInput.length == 2) {
-            return splitInput[1];
+            return splitInput[1].trim();
         } else {
             return "";
         }
