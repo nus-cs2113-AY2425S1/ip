@@ -1,17 +1,29 @@
 package melchizedek.task;
 
+import melchizedek.Parser;
+
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
-    private String by;
+    private LocalDate byDate;
+    private String byTime;
+
+//    public Deadline(String description, String byDate) {
+//        super(description);
+//        this.byDate = Parser.parseDate(byDate);
+//        this.byTime = null;
+//    }
 
     /**
      * Constructor of the Deadline class.
      *
      * @param description Deadline description
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String byDate, String byTime) {
         super(description);
-        this.by = by;
+        this.byDate = Parser.parseDate(byDate);
+        this.byTime = byTime;
     }
 
     /**
@@ -21,9 +33,10 @@ public class Deadline extends Task {
      * @param description Deadline description
      * @param isDone Truth value of whether deadline has been marked as done
      */
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, String byDate, String byTime) {
         super(description, isDone);
-        this.by = by;
+        this.byDate = Parser.parseDate(byDate);
+        this.byTime = byTime;
     }
 
     /**
@@ -33,7 +46,10 @@ public class Deadline extends Task {
      */
     @Override
     public String taskToFile() {
-        return "D | " + super.taskToFile() + " | " + by;
+        if (byTime != null) {
+            return "D | " + super.taskToFile() + " | " + Parser.stringDateToFile(byDate) + " | " + byTime;
+        }
+        return "D | " + super.taskToFile() + " | " + Parser.stringDateToFile(byDate);
     }
 
     /**
@@ -43,6 +59,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        if (byTime != null) {
+            return "[D]" + super.toString() + " (by: " + Parser.stringDate(byDate) + byTime + ")";
+        }
+        return "[D]" + super.toString() + " (by: " + Parser.stringDate(byDate) + ")";
     }
 }

@@ -106,10 +106,14 @@ public class TaskList {
         }
 
         String description = null;
-        String by = null;
+        String byDate = null;
+        String byTime = null;
         try {
             description = Parser.joinStringArray(tokens, 0, byIndex, " ");
-            by = Parser.joinStringArray(tokens, byIndex + 1, tokens.length, " ");
+            byDate = tokens[byIndex + 1];
+            if (tokens.length > byIndex + 2) {
+                byTime = Parser.joinStringArray(tokens, byIndex + 2, tokens.length, " ");
+            }
         } catch (IllegalArgumentException e) {
             if (byIndex == INVALID_INDEX) {
                 Ui.printUnableToProcessWithoutKey("\"/by\"");
@@ -118,7 +122,7 @@ public class TaskList {
             }
         }
 
-        allTasks.add(new Deadline(description, by));
+        allTasks.add(new Deadline(description, byDate, byTime));
         int taskCount = getTaskCount();
         Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
@@ -221,8 +225,12 @@ public class TaskList {
     public void loadDeadline(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
-        String by  = tokens[2];
-        allTasks.add(new Deadline(description, isDone, by));
+        String byDate  = tokens[2];
+        String byTime  = null;
+        if (tokens.length > 3) {
+            byTime = tokens[3];
+        }
+        allTasks.add(new Deadline(description, isDone, byDate, byTime));
     }
 
     /**

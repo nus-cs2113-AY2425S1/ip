@@ -1,5 +1,8 @@
 package melchizedek;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 /**
@@ -40,5 +43,29 @@ public class Parser {
      */
     public static String joinStringArray(String[] array, String delimiter) {
         return String.join(delimiter, array);
+    }
+
+    public static LocalDate parseDate(String stringDate) {
+        return LocalDate.parse(stringDate);
+    }
+
+    public static String stringDate(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
+
+    public static String stringDateToFile(LocalDate localDate) {
+        return localDate.toString();
+    }
+
+    public static LocalTime parseTime(String stringTime) {
+        return LocalTime.parse(stringTime);
+    }
+
+    public static String stringTime(LocalTime localTime) {
+        return localTime.format(DateTimeFormatter.ofPattern(""));
+    }
+
+    public static String stringTimeToFile(LocalTime localTime) {
+        return localTime.toString();
     }
 }
