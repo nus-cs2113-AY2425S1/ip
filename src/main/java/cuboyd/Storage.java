@@ -176,7 +176,7 @@ public class Storage {
             s = new Scanner(f);
         } catch (FileNotFoundException e) {
             throw new CuboydException(String.format(
-                    "Having issues reading from %s! Check your file permissions!\n", filePath));
+                    "Having issues reading from %s! Check your file permissions!", filePath));
         }
 
         taskList.clear();
@@ -184,7 +184,7 @@ public class Storage {
             loadFromScanner(s, taskList);
         } catch (Exception e) {
             throw new CuboydException(String.format(
-                    "Error when reading from %s! Savefile might be corrupted!\n", filePath));
+                    "Error when reading from %s! Savefile might be corrupted!", filePath));
         }
     }
 }
