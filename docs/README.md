@@ -119,7 +119,7 @@ Displays a list of all tasks.
   list
   ```
 - **Output**:
-  ```plaintext
+  ```bash
   Here are the tasks in your list:
   1. [T][ ] Read a book
   2. [D][ ] Submit assignment (by: Oct 10 2024, 11:59 pm)
