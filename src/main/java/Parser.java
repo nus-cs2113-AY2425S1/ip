@@ -46,6 +46,9 @@ public class Parser {
             case "find":
                 tasklist.findTask(input);
                 break;
+            case "help":
+                Ui.askHelp();
+                break;
             default:
                 Ui.printHorizontalLine();
                 throw new InvalidCommandException("Did you misspell or miss out something? ");

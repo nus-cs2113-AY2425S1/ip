@@ -18,6 +18,7 @@ public class Crystal {
      */
     public void callCrystal() {
         Ui.sayHello();
+        Ui.askHelp();
         boolean isExit = false;
         while (!isExit) {
             String input = Ui.readInput();

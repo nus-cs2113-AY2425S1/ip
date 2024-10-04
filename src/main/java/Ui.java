@@ -24,6 +24,25 @@ public class Ui {
     }
 
     /**
+     * Method will be called when Crystal is first booted
+     * This will be called again if user needs help to check which commands he/she should call
+     */
+    public static void askHelp() {
+        System.out.println("Type the command in the command box and press Enter to execute it. Here are some commands you can try:\n" +
+            "list : Lists all the tasks you have so far\n" +
+            "todo yoga : Adds todo task named yoga\n" +
+            "deadline cs2113 by 8pm : Adds deadline task named cs2113, and the deadline is 8pm\n" +
+            "event lecture from 4pm to 6pm : Adds event task named lecture, starting at 4pm and ends at 6pm\n" +
+            "mark 2 : Mark the second task in the list\n" +
+            "unmark 2 : Unmark the second task in the list\n" +
+            "delete 3 : Delete the third task in the list\n" +
+            "find yoga : Finds all tasks that contain the word “yoga”\n" +
+            "help : Displays this list of commands to ask Crystal.\n" +
+            "bye : Crystal bids you goodbye and the new list is saved.");
+        printHorizontalLine();
+    }
+
+    /**
      * Method will be called whenever any form of task is added.
      * It will print the task added in the correct format, as well as inform
      * users the number of tasks in the current list.
