@@ -1,6 +1,10 @@
-# Duke User Guide
+# TARS User Guide
 
-// Update the title above to match the actual product name
+## Product Introduction
+
+TARS is an intelligent task manager that helps users keep track of tasks, deadlines, and events. Designed to assist 
+with everyday scheduling and productivity, TARS features a user-friendly interface that makes it easy to manage tasks
+through simple commands.
 
 // Product screenshot goes here
 

@@ -127,12 +127,12 @@ public class tars {
     // Handle the "find" command
     private static void handleFindCommand(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         if (input.length() <= 5 || !input.substring(4, 5).equals(" ")) {
-            throw new TarsException("The correct format is: find <keyword>. Please make sure to include a space after 'find' followed by a keyword.");
+            throw new TarsException("   The correct format is: find <keyword>. Please make sure to include a space after 'find' followed by a keyword.");
         }
 
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
-            throw new TarsException("The find command requires a keyword.");
+            throw new TarsException("   The find command requires a keyword.");
         }
 
         FindCommand findCommand = new FindCommand(keyword);
@@ -141,17 +141,18 @@ public class tars {
 
     // Display available commands
     private static void showHelp() {
-        System.out.println("Here are the available commands:");
-        System.out.println("1. todo <description> - Adds a todo task.");
-        System.out.println("2. deadline <description> /by <date> - Adds a deadline task.");
-        System.out.println("3. event <description> /from <start> /to <end> - Adds an event task.");
-        System.out.println("4. list - Lists all tasks.");
-        System.out.println("5. mark <task number> - Marks a task as completed.");
-        System.out.println("6. unmark <task number> - Marks a task as not completed.");
-        System.out.println("7. delete <task number> - Deletes a task.");
-        System.out.println("8. find <keyword> - Finds tasks containing the keyword.");
-        System.out.println("9. bye - Exits the program.");
-        System.out.println("10. help - Shows this help message.");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("    Here are the available commands:");
+        System.out.println("    1. todo <description> - Adds a todo task.");
+        System.out.println("    2. deadline <description> /by <date> - Adds a deadline task.");
+        System.out.println("    3. event <description> /from <start> /to <end> - Adds an event task.");
+        System.out.println("    4. list - Lists all tasks.");
+        System.out.println("    5. mark <task number> - Marks a task as completed.");
+        System.out.println("    6. unmark <task number> - Marks a task as not completed.");
+        System.out.println("    7. delete <task number> - Deletes a task.");
+        System.out.println("    8. find <keyword> - Finds tasks containing the keyword.");
+        System.out.println("    9. bye - Exits the program.");
+        System.out.println("    10. help - Shows this help message.");
         System.out.println("------------------------------------------------------------");
     }
 
@@ -160,29 +161,55 @@ public class tars {
         String description;
         switch (taskType) {
             case "todo":
-                description = input.substring(5).trim();
+                // Ensure proper format is followed: 'todo <description>'
+                if (input.length() <= 5 || !input.substring(4, 5).equals(" ")) {
+                    throw new TarsException("   Oops! It seems you forgot the space! Please format the todo task like this: 'todo <description>'.");
+                }
+                description = input.substring(5).trim(); // Capture the description after 'todo '
                 if (description.isEmpty()) {
-                    throw new TarsException("Oops! Your todo needs a description. Please try again.");
+                    throw new TarsException("   Oops! Your todo needs a description. Please try again: 'todo <description>'. I'll be waiting.");
+                }
+                if (isDuplicateTask(description, tasks)) {
+                    throw new TarsException("   Hold on! You already have a task that looks exactly like this: '" + description + "'. Trying to pull a fast one on me?");
                 }
                 addTask(tasks, "todo", description, storage);
                 break;
+
             case "deadline":
                 if (!input.contains("/by")) {
-                    throw new TarsException("A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
+                    throw new TarsException("   A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'. Time is of the essence, even for robots!");
                 }
                 description = input.substring(9).trim();
+                if (isDuplicateTask(description, tasks)) {
+                    throw new TarsException("   Wait a second! You've already added this deadline: '" + description + "'. Trying to get ahead of time?");
+                }
                 addTask(tasks, "deadline", description, storage);
                 break;
+
             case "event":
                 if (!input.contains("/from") || !input.contains("/to")) {
-                    throw new TarsException("An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
+                    throw new TarsException("   An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'. Let's keep things organized!");
                 }
                 description = input.substring(6).trim();
+                if (isDuplicateTask(description, tasks)) {
+                    throw new TarsException("   Déjà vu! This event already exists: '" + description + "'. Nice try, but I never forget.");
+                }
                 addTask(tasks, "event", description, storage);
                 break;
+
             default:
-                throw new TarsException("Unknown task type: " + taskType);
+                throw new TarsException("   Unknown task type: " + taskType + ". Let's stick to the plan, please.");
         }
+    }
+
+    // Check if the task is a duplicate
+    private static boolean isDuplicateTask(String description, List<Task> tasks) {
+        for (Task task : tasks) {
+            if (task.getDescription().equalsIgnoreCase(description)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Add a task and save it
@@ -215,11 +242,11 @@ public class tars {
             storage.saveTasks(tasks);
         } catch (DateTimeParseException e) {
             ui.printSeparator();
-            System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+            System.out.println("    Invalid date format. Please use yyyy-mm-dd.");
             ui.printSeparator();
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             ui.printSeparator();
-            System.out.println("An error occurred while processing your task. Please try again.");
+            System.out.println("    An error occurred while processing your task. Please try again.");
             ui.printSeparator();
         }
     }
@@ -228,12 +255,12 @@ public class tars {
     private static void handleMarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         String[] parts = input.split(" ");
         if (parts.length != 2) {
-            throw new TarsException("The mark command requires a task number. Format it like this: 'mark <task number>'.");
+            throw new TarsException("   The mark command requires a task number. Format it like this: 'mark <task number>'.");
         }
         try {
             int taskNumber = Integer.parseInt(parts[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("That task number is out of range.");
+                throw new TarsException("   That task number is out of range.");
             }
 
             Task task = taskList.get(taskNumber);
@@ -252,7 +279,7 @@ public class tars {
                 storage.saveTasks(taskList);
             }
         } catch (NumberFormatException | IOException e) {
-            throw new TarsException("Error: " + e.getMessage());
+            throw new TarsException("   Error: " + e.getMessage());
         }
     }
 
@@ -260,12 +287,12 @@ public class tars {
     private static void handleUnmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         String[] parts = input.split(" ");
         if (parts.length != 2) {
-            throw new TarsException("The unmark command requires a task number. Format it like this: 'unmark <task number>'.");
+            throw new TarsException("   The unmark command requires a task number. Format it like this: 'unmark <task number>'.");
         }
         try {
             int taskNumber = Integer.parseInt(parts[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("That task number is out of range.");
+                throw new TarsException("   That task number is out of range.");
             }
 
             Task task = taskList.get(taskNumber);
@@ -284,33 +311,44 @@ public class tars {
                 storage.saveTasks(taskList);
             }
         } catch (NumberFormatException | IOException e) {
-            throw new TarsException("Error: " + e.getMessage());
+            throw new TarsException("   Error: " + e.getMessage());
         }
     }
 
-
-    // Handle deleting a task
+    // Handle deleting a task or all tasks
     private static void handleDeleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
         String[] parts = input.split(" ");
         if (parts.length != 2) {
-            throw new TarsException("The delete command requires a task number. Format it like this: 'delete <task number>'.");
+            throw new TarsException("   The delete command requires a task number or 'all' to delete everything. Format it like this: 'delete <task number>' or 'delete all'.");
         }
+
         try {
-            int taskNumber = Integer.parseInt(parts[1]) - 1;
-            if (taskNumber < 0 || taskNumber >= taskList.size()) {
-                throw new TarsException("That task number is out of range.");
+            if (parts[1].equalsIgnoreCase("all")) {
+                // Deleting all tasks
+                taskList.clear();
+                ui.printSeparator();
+                System.out.println("    Whoa! All tasks have been successfully deleted.");
+                System.out.println("    Your list is now empty. A clean slate, ready for world domination.");
+                ui.printSeparator();
+            } else {
+                // Deleting a specific task
+                int taskNumber = Integer.parseInt(parts[1]) - 1;
+                if (taskNumber < 0 || taskNumber >= taskList.size()) {
+                    throw new TarsException("   That task number is out of range. Let's keep it within bounds, commander!");
+                }
+
+                Task removedTask = taskList.remove(taskNumber);
+                ui.printSeparator();
+                System.out.println("    Noted. I've successfully removed this task: ");
+                System.out.println("    " + removedTask);
+                System.out.println("    Now you have " + taskList.size() + " tasks left in your list. The universe is looking a little lighter.");
+                ui.printSeparator();
             }
 
-            Task removedTask = taskList.remove(taskNumber);
-            ui.printSeparator();
-            System.out.println("    Noted. I've successfully removed this task: ");
-            System.out.println("    " + removedTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks left in your list.");
-            ui.printSeparator();
-
+            // Save the updated task list to storage
             storage.saveTasks(taskList);
         } catch (NumberFormatException | IOException e) {
-            throw new TarsException("Error: " + e.getMessage());
+            throw new TarsException("   Error: " + e.getMessage());
         }
     }
 
