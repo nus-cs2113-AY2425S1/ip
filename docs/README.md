@@ -24,9 +24,11 @@
 Niwa chatbot is your best friend, who will help you managing all your tasks! Given below are instructions on how to talk to me.
 Let's chat!
 
+*This user guide is written based on the [AB-3 User Guide](https://se-education.org/addressbook-level3/UserGuide.html)*
+
 ### Quick start
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest .jar file from here.
+2. Download the latest .jar file from [here](https://github.com/DanLinhHuynh-Niwashi/ip/releases/tag/v2.0).
 3. Copy the file to the folder you want Niwa to stay in.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the ```java -jar Niwa.jar``` command to meet Niwa!
    
