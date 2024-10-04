@@ -14,7 +14,7 @@ public class Ryan {
     public static void main(String[] args) {
         boolean isExiting = false;
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList(Storage.loadTasks()); // Using TaskList
+        TaskList taskList = new TaskList(Storage.loadTasks());
         Parser parser = new Parser();
 
         Ui.printGreeting();
@@ -23,9 +23,9 @@ public class Ryan {
             try {
                 String userInput = scanner.nextLine();
                 Command command = parser.parse(userInput);
-                command.execute(taskList, new Ui()); // Pass TaskList instead
+                command.execute(taskList, new Ui());
                 isExiting = command.isExit();
-                Storage.saveTasks(taskList.getTasks()); // Save tasks from TaskList
+                Storage.saveTasks(taskList.getTasks());
             } catch (RyanException | NumberFormatException e) {
                 Ui.showError(e.getMessage());
             }
