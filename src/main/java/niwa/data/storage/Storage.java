@@ -40,7 +40,7 @@ public class Storage {
 
     /**
      * Creates a new file.
-     *
+     * Referred to AddressBook project.
      * @throws IOException If the file already exists or an error occurs while creating the file.
      */
     public void createFile() throws IOException {
@@ -75,6 +75,7 @@ public class Storage {
 
     /**
      * Reads the contents of the data file and returns it as a list of strings.
+     * Referred to AddressBook project.
      *
      * @return An {@code ArrayList<String>} containing each line from the file.
      * @throws IOException If the file does not exist or is empty, or an error occurs while reading the file.
