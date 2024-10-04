@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
             throw new RyanException("Invalid task number.");
         }
 
-        Task task = tasks.getTask(index); // Get the task before marking
+        Task task = tasks.getTask(index);
         task.unmark();
         ui.showTaskUnmarked(task);
     }

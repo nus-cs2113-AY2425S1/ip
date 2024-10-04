@@ -8,7 +8,7 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui) throws RyanException;
 
     public boolean isExit() {
-        return false; // Default implementation
+        return false;
     }
 }
 

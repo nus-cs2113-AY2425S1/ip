@@ -2,7 +2,7 @@ package Ryan.tasks;
 
 public class Task {
     private final String description;
-    private boolean isMarked = false;  // Inline initialization
+    private boolean isMarked = false;
 
     public Task(String description) {
         this.description = description;

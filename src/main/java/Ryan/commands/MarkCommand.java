@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
             throw new Ryan.exceptions.RyanException("Invalid task number.");
         }
 
-        Task task = tasks.getTask(index); // Get the task before marking
+        Task task = tasks.getTask(index);
         task.mark();
         ui.showTaskMarked(task);
     }
