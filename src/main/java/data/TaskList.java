@@ -4,6 +4,7 @@ import tasks.Task;
 import ui.Ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final int DEFAULT_TASKS = 100;
@@ -56,13 +57,16 @@ public class TaskList {
         return taskList.get(idx);
     }
 
-    public ArrayList<Task> findTasks(String keyword){
-        ArrayList<Task> foundTasks = new ArrayList<>();
+    public ArrayList<ArrayList<Object>> findTasks(String keyword){
+        ArrayList<ArrayList<Object>> taskAndIdxList = new ArrayList<>();
+        int i = 0;
         for (Task curTask : taskList) {
+            i++;
             if (curTask.toString().contains(keyword)) {
-                foundTasks.add(curTask);
+                Object[] taskAndIdx = {curTask, i};
+                taskAndIdxList.add(new ArrayList<Object>(List.of(taskAndIdx)));
             }
         }
-        return foundTasks;
+        return taskAndIdxList;
     }
 }

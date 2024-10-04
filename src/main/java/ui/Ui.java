@@ -34,10 +34,10 @@ public class Ui {
         out.println("Unknown command: " + command);
     }
 
-    public void printList(ArrayList<Task> tasks) {
+    public void printList(ArrayList<ArrayList<Object>> idxAndTaskList) {
         out.print(DIVIDER);
-        for (Task task : tasks) {
-            out.println(task);
+        for (ArrayList<Object> idxAndTask : idxAndTaskList) {
+            out.println(idxAndTask.get(1).toString() + ". " + idxAndTask.get(0).toString());
         }
         out.print(DIVIDER);
     }
