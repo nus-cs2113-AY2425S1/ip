@@ -1,6 +1,5 @@
 package cuboyd;
 
-import cuboyd.tasks.Task;
 import cuboyd.tasks.TaskList;
 
 import java.util.HashMap;

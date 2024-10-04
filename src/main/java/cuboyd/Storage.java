@@ -1,6 +1,10 @@
 package cuboyd;
 
-import cuboyd.tasks.*;
+import cuboyd.tasks.Deadline;
+import cuboyd.tasks.Event;
+import cuboyd.tasks.Task;
+import cuboyd.tasks.TaskList;
+import cuboyd.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
