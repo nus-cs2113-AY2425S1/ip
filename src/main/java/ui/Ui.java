@@ -1,6 +1,9 @@
 package ui;
 
+import tasks.Task;
+
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -29,5 +32,13 @@ public class Ui {
 
     public void printUnknownCommand(String command) {
         out.println("Unknown command: " + command);
+    }
+
+    public void printList(ArrayList<Task> tasks) {
+        out.print(DIVIDER);
+        for (Task task : tasks) {
+            out.println(task);
+        }
+        out.print(DIVIDER);
     }
 }

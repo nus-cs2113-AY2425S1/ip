@@ -55,4 +55,14 @@ public class TaskList {
     public Task getTask(int idx){
         return taskList.get(idx);
     }
+
+    public ArrayList<Task> findTasks(String keyword){
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task curTask : taskList) {
+            if (curTask.toString().contains(keyword)) {
+                foundTasks.add(curTask);
+            }
+        }
+        return foundTasks;
+    }
 }

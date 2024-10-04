@@ -22,6 +22,7 @@ public class Parser {
             case ListCommand.COMMAND_WORD -> new ListCommand(cmd, args);
             case MarkCommand.COMMAND_WORD -> new MarkCommand(cmd, args);
             case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(cmd, args);
+            case FindCommand.COMMAND_WORD -> new FindCommand(cmd, args);
             default -> throw new DootException("Unknown command: " + cmd);
         };
 
