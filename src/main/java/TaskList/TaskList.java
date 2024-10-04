@@ -24,19 +24,9 @@ public class TaskList {
     public TaskList() {
         items = new ArrayList<>();
         storage = new Storage();
-        loadTask();
+        items = loadTask();
     }
 
-    public int getSize(){
-        return items.size();
-    }
-
-    public Task getTask(int index) throws IllegalIndexException {
-        if (index < 0 || index >= items.size()) {
-            throw new IllegalIndexException("Please enter a valid task number from 0 to " + items.size());
-        }
-        return items.get(index);
-    }
 
     public void markItem(String[] splitInputs) throws IllegalTaskException, IllegalEmptyException {
         parser.validateMark(splitInputs,items);
@@ -140,11 +130,11 @@ public class TaskList {
     }
 
     public ArrayList<Task> loadTask(){
-        storage.loadExistingData();
+        items = storage.loadExistingData();
         return items;
     }
 
-    public void printList() throws IllegalIndexException{
+    public void printList() {
         ui.printLine();
         System.out.println(Statements.LIST_TASKS);
 

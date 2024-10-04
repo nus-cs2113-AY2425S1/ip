@@ -17,10 +17,6 @@ public class Storage{
 
     private Parser parser = new Parser();
 
-    public Storage() {
-
-    }
-
     public ArrayList<Task> loadExistingData() {
         ArrayList<Task> items = new ArrayList<>();
         try {
