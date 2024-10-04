@@ -37,13 +37,16 @@ public class InputFileHandler {
      */
     public static TaskHandler loadTasks() {
         TaskHandler taskHandler = new TaskHandler();
+        System.out.println("Searching for a save file ... ");
         File file = null;
         try {
             file = new File(StringStorage.SAVE_FILE_PATH);
             if (!file.exists()) {
-                System.out.println("File not found. Starting with an empty task list.");
+                System.out.println("No save file has been found. Starting with an empty task list. ");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+            } else {
+                System.out.println("A save file has been found. Initialising the task list ... ");
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
@@ -69,13 +72,13 @@ public class InputFileHandler {
             scanner.close();
 
             if (invalidTaskCount > 0) {
-                System.out.println("total invalid tasks found: " + invalidTaskCount); // ?
+                System.out.println("There were " + invalidTaskCount + " invalid tasks detected in the save file. ");
             } else {
-                System.out.println("no invalid tasks detected in file");
+                System.out.println("No invalid tasks were detected in the save file. ");
             }
             System.out.println(StringStorage.LINE_DIVIDER);
         } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException: " + e.getMessage());
+            System.out.println("There is a FileNotFoundException: " + e.getMessage());
         }
         return taskHandler;
     }

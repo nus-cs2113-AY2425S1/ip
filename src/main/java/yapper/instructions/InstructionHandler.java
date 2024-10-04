@@ -147,8 +147,7 @@ public class InstructionHandler {
             instruction = InputStringHandler.parseUserInput(userInputString.trim());
         } catch (YapperException e) {
             System.out.println(
-                    "YapperException has occurred when parsing user input. "
-                    + "See info below for more details: \n"
+                    "YapperException has occurred when parsing user input. \n"
                     + e.getMessage());
             return;
         }
@@ -203,8 +202,7 @@ public class InstructionHandler {
             // FYI: BYE instruction is not handled here, but in Yapper.startYappin()
         } catch (YapperException e) {
             System.out.println(
-                    "YapperException has occurred when executing instruction. "
-                    + "See info below for more details: \n"
+                    "YapperException has occurred when executing instruction. \n"
                     + e.getMessage());
         }
 

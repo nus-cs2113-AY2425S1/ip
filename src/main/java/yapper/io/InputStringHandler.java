@@ -102,7 +102,7 @@ public class InputStringHandler {
             throw new YapperException(e.getMessage());
         } catch (NumberFormatException e) {
             throw new YapperException(
-                    "NumberFormatException has occurred: \n" + e.getMessage());
+                    "Invalid task ordinal detected. Try again. ");
         }
     }
 
