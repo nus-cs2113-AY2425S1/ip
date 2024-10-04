@@ -119,7 +119,7 @@ Displays a list of all tasks.
   list
   ```
 - **Output**:
-  ```bash
+  ```
   Here are the tasks in your list:
   1. [T][ ] Read a book
   2. [D][ ] Submit assignment (by: Oct 10 2024, 11:59 pm)
@@ -197,7 +197,7 @@ Searches for tasks that contain a specific keyword in their description.
   find project
   ```
 - **Output**:
-  ```plaintext
+  ```
   Here are the matching tasks in your list:
   1. [E][ ] Project presentation (from: Oct 20 2024, 10:10 am to: Oct 22 2024, 11:59 pm)
   ```
