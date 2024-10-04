@@ -52,6 +52,19 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.MISSING_PREFIX_MESSAGE);
         }
     }
+    /**
+     * Checks if the list or help has arguments
+     *
+     * @param userInputString the input string to validate
+     * @param instructionTypeAsString the instruction type prefix
+     * @throws YapperException if the list or help input string has arguments
+     */
+    public static void checkIfTooManyArguments(String userInputString, String instructionTypeAsString)
+            throws YapperException {
+        if (!userInputString.trim().equals(instructionTypeAsString)) {
+            throw new YapperException(instructionTypeAsString + " does not need other parameters");
+        }
+    }
 
     /**
      * Checks if the string argument for the Find instruction is missing.
@@ -225,20 +238,6 @@ public class ExceptionHandler {
             throw new YapperException(StringStorage.TASK_ALREADY_DONE_MESSAGE);
         } else if (!oldStatus && !newStatus) {
             throw new YapperException(StringStorage.TASK_STILL_NOT_DONE_MESSAGE);
-        }
-    }
-
-    /**
-     * Checks if the list or help has arguments
-     *
-     * @param userInputString the input string to validate
-     * @param instructionTypeAsString the instruction type prefix
-     * @throws YapperException if the list or help input string has arguments
-     */
-    public static void checkIfTooManyArguments(String userInputString, String instructionTypeAsString)
-            throws YapperException {
-        if (!userInputString.trim().equals(instructionTypeAsString)) {
-            throw new YapperException(instructionTypeAsString + " does not need other parameters");
         }
     }
 }
