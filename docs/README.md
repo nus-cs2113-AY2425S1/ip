@@ -55,7 +55,7 @@ Yapper supports 10 different command types:
 Yapper will only understand user inputs that start with the keywords above.
 
 To perform a command,
-use the command keyword, followed by additional arguments if any
+use the command keyword, followed by additional arguments if any, 
 e.g. `Shown here is how to format your input so that Yapper understands`.
 ```
 Shown here is a sample program output based on the sample input above.
@@ -122,18 +122,20 @@ You're forgetting already? Lemme refresh your memory:
 That should be all of them. Did I forget any? 
 ```
 
-### Finding Tasks via its description
+### Finding Tasks 
 
 To find tasks in Yapper, use the find command.
-use the find command followed by the query string that you wish to filter by,
+use the find command followed by the query string,
 e.g. `find CS2113`
+This will list all tasks who have that query in its description, if any.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
-You're forgetting already? Lemme refresh your memory: 
-1.[T][X] todoDesc 
-2.[D][ ] deadlineDesc, due endDate 
-3.[E][ ] eventDesc, from startDate to endDate 
-That should be all of them. Did I forget any? 
+Hmmm, let me think. What tasks could you be referring to? 
+3.[T][O] desc
+4.[T][X] desc
+2 task(s) found contains your query string. 
+___________________ YAPPING OUTPUT BELOW ___________________
+Is any of them what you were looking for? 
 ```
 
 ### Marking and Unmarking Tasks
