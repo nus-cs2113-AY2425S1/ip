@@ -1,4 +1,6 @@
-import Tasks.Task;
+package storage;
+
+import tasks.Task;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class Storage {
         return taskList;
     }
 
-    public void writeTaskData(TaskList taskList) {
+    public void writeTaskData(ArrayList<Task> taskList) {
         try {
             FileOutputStream fileWriter = new FileOutputStream(DEFAULT_FILE_NAME);
             ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);

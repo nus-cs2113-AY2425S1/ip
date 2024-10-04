@@ -1,5 +1,7 @@
-import ;
-import Tasks.Task;
+package data;
+
+import tasks.Task;
+import ui.Ui;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,10 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> taskList){
         this.taskList = taskList;
+    }
+
+    public int getTaskCount() {
+        return taskList.size();
     }
 
     public void deleteTask(int idx) {
@@ -37,12 +43,16 @@ public class TaskList {
 
     }
 
-    public void addToList(String toAdd) {
-        taskList.add(new Task(toAdd));
+    public void addToList(Task toAdd) {
+        taskList.add(toAdd);
         System.out.print(Ui.DIVIDER + "added: " + toAdd + "\n" + Ui.DIVIDER);
     }
 
-    public TaskList getTaskListCopy() {
-        return new TaskList(taskList);
+    public ArrayList<Task> getTaskListCopy() {
+        return new ArrayList<Task>(taskList);
+    }
+
+    public Task getTask(int idx){
+        return taskList.get(idx);
     }
 }
