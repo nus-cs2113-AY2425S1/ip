@@ -53,8 +53,9 @@ public class Task {
      *
      * @return the task description
      */
-    public String getDesc() { return taskDesc; }
-    public void setDesc(String taskDesc) { this.taskDesc = taskDesc; }
+    public String getDesc() {
+        return taskDesc;
+    }
     /**
      * Returns the completion status symbol of the task.
      *
