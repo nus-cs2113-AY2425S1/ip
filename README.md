@@ -64,9 +64,13 @@ Archibald supports three types of tasks:
   Example: `event Wizard meeting /from 2023-04-10 1000 /to 2023-04-10 1200`
 
 #### Marking Tasks as Done
+- Mark a task as done: `mark <task_number>`
+  Example: `mark 1`
 
-- Mark a task as done: `done <task_number>`
-  Example: `done 1`
+- Unmark a task as done: `unmark <task_number>`
+  Example: `unmark 1`
+
+Note: The task number corresponds to the order in which tasks are listed when you use the `list` command. Make sure to use the correct task number when marking a task as done.
 
 #### Deleting Tasks
 
