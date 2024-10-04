@@ -65,14 +65,22 @@ public class Parser {
                     if (words.length < 2) throw new BebeException("The 'find' command requires a keyword.");
                     yield new FindCommand(words[1]);
                 }
-                default -> throw new BebeException("Unknown command: " + command);
+                default -> throw new BebeException("Unknown command: " + command +
+                        "\nPlease use the 'help' command to see the command list.");
             };
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new BebeException("Invalid input. Please check your command format.");
         }
     }
 
-    // Helper method to check if a string is numeric
+    /**
+     * Checks if the provided string is a valid numeric value.
+     * This method attempts to parse the string as an integer.
+     *
+     * @param str The string to be checked for a numeric value.
+     * @return {@code true} if the string can be parsed as an integer,
+     *         {@code false} otherwise.
+     */
     private static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);

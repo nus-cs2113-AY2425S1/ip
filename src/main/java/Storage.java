@@ -19,25 +19,25 @@ public class Storage {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a Storage object with the given file path.
      *
-     * @param filePath The file path where tasks are stored.
+     * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Loads tasks from the specified file and returns a list of tasks.
+     * Loads the list of tasks from the file.
      *
      * @return A list of tasks loaded from the file.
-     * @throws BebeException if there is an error reading from the file.
+     * @throws BebeException If there is an error during loading or if the file format is incorrect.
      */
     public List<Task> load() throws BebeException {
         List<Task> tasks = new ArrayList<>();
 
         if (!Files.exists(Paths.get(filePath))) {
-            return tasks;  // Return empty list if no file exists
+            return tasks;
         }
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
@@ -48,8 +48,8 @@ public class Storage {
                     throw new BebeException("Incorrect format in data file.");
                 }
 
-                Task task = parseTask(parts);  // Delegate task parsing to a method
-                if (parts[1].equals("1")) task.markAsDone();  // Mark as done if needed
+                Task task = parseTask(parts);
+                if (parts[1].equals("1")) task.markAsDone();
                 tasks.add(task);
             }
         } catch (IOException e) {
@@ -59,11 +59,11 @@ public class Storage {
     }
 
     /**
-     * Parses the task from the parts of a file line.
+     * Parses a single task from its string representation.
      *
-     * @param parts The array containing task details split from the line.
-     * @return The parsed Task object.
-     * @throws BebeException If there is an error in the task format or date parsing.
+     * @param parts The parts of the task string, split by " | ".
+     * @return The corresponding Task object (Todo, Deadline, or Event).
+     * @throws BebeException If the task type is unknown or the date format is invalid.
      */
     private Task parseTask(String[] parts) throws BebeException {
         try {
@@ -73,11 +73,7 @@ public class Storage {
                 case "D":
                     return new Deadline(parts[2], parseDateTime(parts[3]));
                 case "E":
-                    String[] eventTimeParts = parts[3].split(" to ");
-                    if (eventTimeParts.length < 2) {
-                        throw new BebeException("Invalid event format: missing 'to' in event times.");
-                    }
-                    return new Event(parts[2], parseDateTime(eventTimeParts[0]), parseDateTime(eventTimeParts[1]));
+                    return new Event(parts[2], parseDateTime(parts[3]), parseDateTime(parts[4]));
                 default:
                     throw new BebeException("Unknown task type in file.");
             }
@@ -87,21 +83,21 @@ public class Storage {
     }
 
     /**
-     * Parses a date-time string using the specified format.
+     * Parses a string into a LocalDateTime object.
      *
-     * @param dateTimeString The string representing the date and time.
+     * @param dateTimeString The string representation of the date and time.
      * @return The parsed LocalDateTime object.
-     * @throws DateTimeParseException If the string cannot be parsed.
+     * @throws DateTimeParseException If the string cannot be parsed into a valid date and time.
      */
     private LocalDateTime parseDateTime(String dateTimeString) throws DateTimeParseException {
         return LocalDateTime.parse(dateTimeString, FORMATTER);
     }
 
     /**
-     * Saves the current list of tasks to the file.
+     * Saves the list of tasks to the file.
      *
-     * @param tasks The list of tasks to save.
-     * @throws BebeException if there is an error writing to the file.
+     * @param tasks The list of tasks to be saved.
+     * @throws BebeException If there is an error during saving.
      */
     public void save(List<Task> tasks) throws BebeException {
         try {

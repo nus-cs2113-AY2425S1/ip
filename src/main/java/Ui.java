@@ -65,7 +65,7 @@ public class Ui {
     public void showHelp() {
         System.out.println("Here are the commands you can use:");
         System.out.println("  todo <task description>          - Adds a ToDo task.");
-        System.out.println("  deadline <task description> /by <date/time>  - Adds a Deadline task.");
+        System.out.println("  deadline <task description> /by <date time>  - Adds a Deadline task.");
         System.out.println("  event <task description> /from <start time> /to <end time>  - Adds an Event task.");
         System.out.println("  list                            - Lists all tasks.");
         System.out.println("  mark <task number>              - Marks a task as done.");

@@ -1,217 +1,233 @@
 
-# BEBE (Task Management System) - User Guide
-
-## 1. Introduction
-The BEBE is designed to help users manage their tasks efficiently using various commands. Users can add, delete, mark tasks as done, and search for specific tasks based on keywords. The application supports different types of tasks, including Todos, Deadlines, and Events. It operates through a simple command-line interface (CLI).
-
-This guide will walk you through the installation, usage, and available commands.
+# Bebe Task Manager User Guide
 
 ---
 
-## 2. System Requirements
-- Java version: 17.
-- Operating System: Any system that supports Java (Windows, macOS, Linux).
+## Quick Start
+
+1. **Install Java**: Ensure you have Java `17` or above installed on your computer.
+2. **Download the Application**: Download the latest `.jar` file from [here].
+3. **Set Up**: Copy the `.jar` file to the folder you want to use as the _home folder_ for Bebe Task Manager.
+4. **Run the Application**:
+  - Open a command terminal.
+  - Navigate (`cd`) into the folder where you placed the `.jar` file.
+  - Run the application with:
+    ```bash
+    java -jar bebe.jar
+    ```
+5. **Using the Application**: The application is now running, and you can start entering commands.
 
 ---
 
-## 3. Installation
-### Step 1: Download
-Download the source code files from the repository or the provided distribution package. Ensure that the following files are included:
-- `AddCommand.java`
-- `Bebe.java`
-- `BebeException.java`
-- `Command.java`
-- `Deadline.java`
-- `DeleteCommand.java`
-- `Event.java`
-- `ExitCommand.java`
-- `FindCommand.java`
-- `HelpCommand.java`
-- `ListCommand.java`
-- `MarkCommand.java`
-- `Parser.java`
-- `Storage.java`
-- `Task.java`
-- `TaskList.java`
-- `Todo.java`
-- `Ui.java`
+## Key Features
 
-### Step 2: Compilation
-Navigate to the folder where the files are located and compile the files using the `javac` command in your terminal:
-```bash
-javac *.java
-```
-
-### Step 3: Running the Application
-Once compiled, you can run the application using:
-```bash
-java Bebe
-```
+Bebe Task Manager supports several essential task management features:
+1. **ToDo**: A basic task with no time constraints.
+2. **Deadline**: A task that has a due date and time.
+3. **Event**: A task with a defined start and end time.
+4. **Mark Tasks**: Mark tasks as completed.
+5. **Unmark Tasks**: Unmark tasks to mark them as incomplete.
+6. **Delete Tasks**: Remove tasks from the list.
+7. **Find Tasks**: Search tasks by keywords.
+8. **View All Tasks**: List all tasks.
+9. **Exit Program**: Terminate the program.
 
 ---
 
-## 4. Usage
+## Command Format
 
-Once the program is running, you can start entering commands to manage your tasks. The available commands are listed in the **Commands** section below.
-
-Each command follows a specific format that should be adhered to. If an invalid format is detected, the system will provide an appropriate error message.
+ℹ️ **Notes**:
+- Words in `UPPER_CASE` are placeholders for user-supplied parameters.  
+  e.g., `todo TASK` means `todo` is the command and `TASK` is the user-provided task description, such as `todo Read a book`.
+- Commands can be entered in any order as long as the required parameters are present.
+- Invalid or extra parameters for commands that don’t accept arguments (e.g., `list`, `bye`) will be ignored.
 
 ---
 
-## 5. Commands
+## Managing Tasks
 
-### 5.1 `todo <task description>`
-Adds a new ToDo task to the list.
+### 1. Adding a ToDo Task
+Adds a simple task without a deadline.
 
-- **Example Input:**
+- **Format**:
+  ```bash
+  todo TASK
+  ```
+- **Example**:
   ```bash
   todo Read a book
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   Got it. I've added this task:
-    [T][✗] Read a book
-  Now you have 1 task in the list.
+    [T][ ] Read a book
   ```
 
-### 5.2 `deadline <task description> /by <due date>`
-Adds a new Deadline task to the list.
+---
 
-- **Example Input:**
+### 2. Adding a Deadline Task
+Adds a task with a specific deadline.
+
+- **Format**:
   ```bash
-  deadline Submit assignment /by 2024-10-10
+  deadline TASK /by DATE_TIME
   ```
-- **Example Output:**
-  ```plaintext
-  Got it. I've added this task:
-    [D][✗] Submit assignment (by: 2024-10-10)
-  Now you have 2 tasks in the list.
-  ```
+  - `DATE_TIME` should be in the format `yyyy-MM-dd HHmm`.
 
-### 5.3 `event <task description> /from <start date> /to <end date>`
-Adds a new Event task to the list.
-
-- **Example Input:**
+- **Example**:
   ```bash
-  event Project presentation /from 2024-10-20 /to 2024-10-22
+  deadline Submit assignment /by 2024-10-10 2359
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   Got it. I've added this task:
-    [E][✗] Project presentation (from: 2024-10-20 to: 2024-10-22)
-  Now you have 3 tasks in the list.
+    [D][ ] Submit assignment (by: Oct 10 2024, 11:59 pm)
   ```
 
-### 5.4 `list`
-Displays all tasks currently in the list.
+---
 
-- **Example Input:**
+### 3. Adding an Event Task
+Adds a task with both a start and end time.
+
+- **Format**:
+  ```bash
+  event TASK /from START_DATE_TIME /to END_DATE_TIME
+  ```
+  - `START_DATE_TIME` and `END_DATE_TIME` should be in the format `yyyy-MM-dd HHmm`.
+
+- **Example**:
+  ```bash
+  event Project presentation /from 2024-10-20 1010 /to 2024-10-22 2359
+  ```
+- **Output**:
+  ```plaintext
+  Got it. I've added this task:
+    [E][ ] Project presentation (from: Oct 20 2024, 10:10 am to: Oct 22 2024, 11:59 pm)
+  ```
+
+---
+
+### 4. Listing All Tasks
+Displays a list of all tasks.
+
+- **Format**:
   ```bash
   list
   ```
-- **Example Output:**
+- **Example**:
+  ```bash
+  list
+  ```
+- **Output**:
   ```plaintext
   Here are the tasks in your list:
-  1.[T][✗] Read a book
-  2.[D][✗] Submit assignment (by: 2024-10-10)
-  3.[E][✗] Project presentation (from: 2024-10-20 to: 2024-10-22)
+  1. [T][ ] Read a book
+  2. [D][ ] Submit assignment (by: Oct 10 2024, 11:59 pm)
+  3. [E][ ] Project presentation (from: Oct 20 2024, 10:10 am to: Oct 22 2024, 11:59 pm)
   ```
 
-### 5.5 `mark <task number>`
-Marks the task at the specified index as done.
+---
 
-- **Example Input:**
+### 5. Marking a Task as Done
+Marks a task at the specified index as completed.
+
+- **Format**:
+  ```bash
+  mark INDEX
+  ```
+- **Example**:
   ```bash
   mark 2
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   Nice! I've marked this task as done:
-    [D][✓] Submit assignment (by: 2024-10-10)
+    [D][X] Submit assignment (by: Oct 10 2024, 11:59 pm)
   ```
 
-### 5.6 `unmark <task number>`
-Unmarks the task at the specified index (marks it as not done).
+---
 
-- **Example Input:**
+### 6. Unmarking a Task
+Unmarks a task at the specified index as not done.
+
+- **Format**:
+  ```bash
+  unmark INDEX
+  ```
+- **Example**:
   ```bash
   unmark 2
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   OK, I've marked this task as not done yet:
-    [D][✗] Submit assignment (by: 2024-10-10)
+    [D][ ] Submit assignment (by: Oct 10 2024, 11:59 pm)
   ```
 
-### 5.7 `delete <task number>`
-Deletes the task at the specified index.
+---
 
-- **Example Input:**
+### 7. Deleting a Task
+Removes a task from the list by its index.
+
+- **Format**:
+  ```bash
+  delete INDEX
+  ```
+- **Example**:
   ```bash
   delete 1
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   Noted. I've removed this task:
-    [T][✗] Read a book
-  Now you have 2 tasks in the list.
+    [T][ ] Read a book
   ```
 
-### 5.8 `find <keyword>`
-Searches for tasks that contain the specified keyword in their description.
+---
 
-- **Example Input:**
+### 8. Finding Tasks
+Searches for tasks that contain a specific keyword in their description.
+
+- **Format**:
+  ```bash
+  find KEYWORD
+  ```
+- **Example**:
   ```bash
   find project
   ```
-- **Example Output:**
+- **Output**:
   ```plaintext
   Here are the matching tasks in your list:
-  1.[E][✗] Project presentation (from: 2024-10-20 to: 2024-10-22)
+  1. [E][ ] Project presentation (from: Oct 20 2024, 10:10 am to: Oct 22 2024, 11:59 pm)
   ```
 
-### 5.9 `help`
-Displays a list of available commands and their usage.
+---
 
-- **Example Input:**
-  ```bash
-  help
-  ```
-- **Example Output:**
-  ```plaintext
-  Here are the available commands:
-  - todo <task description>
-  - deadline <task description> /by <due date>
-  - event <task description> /from <start date> /to <end date>
-  - list
-  - mark <task number>
-  - unmark <task number>
-  - delete <task number>
-  - find <keyword>
-  - help
-  - bye
-  ```
+### 9. Exiting the Program
+Exits the program.
 
-### 5.10 `bye`
-Exits the application, saving the current list of tasks.
-
-- **Example Input:**
+- **Format**:
   ```bash
   bye
   ```
-- **Example Output:**
+- **Example**:
+  ```bash
+  bye
+  ```
+- **Output**:
   ```plaintext
   Bye. Hope to see you again soon!
   ```
 
 ---
-
-## 6. Error Handling
+## Error Handling
 
 ### Invalid Commands
 If the system does not recognize a command, it will return an error message such as:
 ```bash
 Unknown command: <your input>
+Please use the 'help' command to see the command list.
 ```
 
 ### Missing Arguments
@@ -240,15 +256,34 @@ Please enter a valid command. Type 'help' to see available commands.
 
 ---
 
-## 7. Saving and Loading
+---
 
-The system automatically saves tasks upon exiting the application. When you restart the application, your previous tasks will be loaded automatically, allowing you to continue where you left off.
+## Saving Data
+
+Bebe Task Manager automatically saves your tasks to a file after any modification. You don't need to save manually.
 
 ---
 
-## 8. Conclusion
+## Editing the Data File
 
-This Task Management System provides an easy-to-use interface for managing tasks of different types. By following the commands listed in this guide, you can keep track of todos, deadlines, and events effectively. For any help or clarification, use the `help` command at any time.
+The task data is saved in a `tasks.txt` file. You can edit this file directly, but ensure the format remains valid to avoid errors when loading the data.
+
+**Caution:**  
+If you make changes that corrupt the format, Bebe Task Manager may discard all your tasks and start fresh with an empty list the next time it's run. Always back up the data file before making edits.
 
 ---
 
+## Command Summary
+
+Action | Format  
+---|---
+**Add a Todo Task** | `todo <task description>`  
+**Add a Deadline Task** | `deadline <task description> /by <due date>`  
+**Add an Event Task** | `event <task description> /from <start date time> /to <end date time>`  
+**List All Tasks** | `list`  
+**Mark a Task as Done** | `mark <task number>`  
+**Unmark a Task** | `unmark <task number>`  
+**Delete a Task** | `delete <task number>`  
+**Find Tasks** | `find <keyword>`  
+**Exit the Program** | `bye`  
+**Help** | `help`
