@@ -1,0 +1,4 @@
+list
+event a /from b /to c
+list
+bye

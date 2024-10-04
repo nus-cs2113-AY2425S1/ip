@@ -1,0 +1,79 @@
+Having issues reading from ./savedata.txt! Check your file permissions!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+> Got it. I've added this task:
+  [T][ ] alpha
+Now you have 1 tasks in the list.
+> Here are the tasks in your list:
+1.[T][ ] alpha
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][ ] alpha
+> Got it. I've added this task:
+  [D][ ] a (by: b)
+Now you have 2 tasks in the list.
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+> Got it. I've added this task:
+  [E][ ] a (from: b to: c)
+Now you have 3 tasks in the list.
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Nice! I've marked this task:
+  [T][X] alpha
+> Here are the tasks in your list:
+1.[T][X] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][X] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Nice! I've unmarked this task:
+  [T][ ] alpha
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[D][ ] a (by: b)
+3.[E][ ] a (from: b to: c)
+> Noted. I've removed this task:
+  [D][ ] a (by: b)
+Now you have 2 tasks in the list.
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[E][ ] a (from: b to: c)
+> Bye. Hope to see you again soon!
+Hello! I'm Cuboyd
+What can I do for you?
+> Here are the tasks in your list:
+1.[T][ ] alpha
+2.[E][ ] a (from: b to: c)
+> Bye. Hope to see you again soon!
