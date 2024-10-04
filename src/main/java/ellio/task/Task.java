@@ -14,6 +14,10 @@ public class Task {
         }
     }
 
+    /**
+     * For visual Demarcation during printing to terminal
+     * @return String of either X for completed task and a blank otherwise
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -34,6 +38,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Formats the Current Task object into String format
+     * that will be saved into the file.
+     * @return String format of current task.
+     */
     public String getSaveFileTask(){
         String markState;
         if(isDone){

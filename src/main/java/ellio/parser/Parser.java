@@ -16,6 +16,7 @@ public class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
 
     /**
      * Checks for the first word in the command, and checks against the command library
@@ -24,7 +25,7 @@ public class Parser {
      * @return Command Object for subsequent execution
      * @throws EllioExceptions.UnknownCommandException
      */
-    public static Command parse(String inputCommand) throws EllioExceptions.UnknownCommandException {
+    public static Command parse(String inputCommand) throws EllioExceptions {
         String[] inputs = inputCommand.split(" ",2);
         switch (inputs[0].toLowerCase()){
         case COMMAND_LIST:

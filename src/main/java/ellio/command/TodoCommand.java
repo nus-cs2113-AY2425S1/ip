@@ -1,6 +1,5 @@
 package ellio.command;
 
-import ellio.BotText;
 import ellio.storage.Storage;
 import ellio.task.TaskList;
 import ellio.task.Todo;
@@ -14,7 +13,8 @@ public class TodoCommand extends Command{
     }
 
     /**
-     * Adds a ToDo type Task into the list
+     * Adds a Todo type Task into the list
+     * Prints an acknowledge message on successful operation and saves it to file
      * @param tasks Input by user
      * @param ui Ui interface reference
      * @param storage Reference for Storage functions
@@ -24,8 +24,7 @@ public class TodoCommand extends Command{
         Todo newTodo = new Todo(description, "0");
         tasks.addTask(newTodo);
         tasks.addNumberTask();
-        System.out.println(BotText.LINE_BORDER + "Got it. I've added this task:\n  " + newTodo.getTaskInfo());
-        System.out.println("Now you have " + tasks.getNumberTask() + " tasks in the list.\n" + BotText.LINE_BORDER);
+        ui.showAddTaskMessage(newTodo.getTaskInfo(),tasks.getNumberTask());
         storage.saveNewTask(newTodo.getSaveFileTask());
     }
 }

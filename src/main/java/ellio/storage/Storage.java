@@ -25,6 +25,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a New File with the predeclared filepath
+     * Checks & ensures if the parent directory does not exist, or not null path.
+     * else prints an error output.
+     */
     public static void createFile(){
         try{
             File parentDir = saveFile.getParentFile();

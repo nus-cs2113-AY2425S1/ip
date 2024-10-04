@@ -1,13 +1,12 @@
 package ellio.command;
 
 import ellio.BotText;
+import ellio.EllioExceptions;
 import ellio.storage.Storage;
 import ellio.task.Task;
 import ellio.task.TaskList;
-import ellio.task.Todo;
 import ellio.ui.Ui;
 
-import static ellio.Ellio.storage;
 
 public class DeleteCommand extends Command {
 
@@ -21,10 +20,10 @@ public class DeleteCommand extends Command {
      * @param ui Ui interface reference
      * @param storage Reference for Storage functions
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EllioExceptions{
         int index = Integer.parseInt(tasks.getTaskIndex(inputCommand));
         if(index > tasks.getNumberTask()){
-            throw new IndexOutOfBoundsException();
+            throw new EllioExceptions.OutOfIndexException(tasks.getNumberTask());
         }
         Task deletedTask = tasks.getTask(index-1);
         System.out.println(BotText.LINE_BORDER + "Got it. I've removed this task:\n  " + deletedTask.getTaskInfo());

@@ -29,8 +29,7 @@ public class EventCommand extends Command {
             Event newEvent = formatEvent(inputCommand);
             tasks.addTask(newEvent);
             tasks.addNumberTask();
-            System.out.println(BotText.LINE_BORDER + "Got it. I've added this task:\n  " + newEvent.getTaskInfo());
-            System.out.println("Now you have " + tasks.getNumberTask() + " tasks in the list.\n" + BotText.LINE_BORDER);
+            ui.showAddTaskMessage(newEvent.getTaskInfo(), tasks.getNumberTask());
             storage.saveNewTask(newEvent.getSaveFileTask());
         } catch (EllioExceptions e){
             System.out.println(e.getMessage());

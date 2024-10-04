@@ -1,6 +1,7 @@
 package ellio.command;
 
 import ellio.BotText;
+import ellio.EllioExceptions;
 import ellio.storage.Storage;
 import ellio.task.TaskList;
 import ellio.task.Todo;
@@ -22,15 +23,13 @@ public class MarkCommand extends Command {
      * @param ui Ui interface reference
      * @param storage Reference for Storage functions
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage)throws EllioExceptions{
         int index = Integer.parseInt(tasks.getTaskIndex(inputCommand));
         if(index > tasks.getNumberTask()){
-            throw new IndexOutOfBoundsException();
+            throw new EllioExceptions.OutOfIndexException(tasks.getNumberTask());
         }
         tasks.getTask(index-1).markTaskAsDone();
         storage.updateSavedTaskFile();
-        System.out.println(BotText.LINE_BORDER +
-                BotText.MESSAGE_MARKED + "  " + tasks.getTask(index-1).getTaskInfo() + "\n" +
-                BotText.LINE_BORDER);
+        ui.showMarkMessage(tasks.getTask(index-1));
     }
 }

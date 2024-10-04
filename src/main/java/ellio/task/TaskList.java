@@ -40,6 +40,12 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Takes in current line input by user and extracts the task Index
+     * Splits the command String and extract the second word in the string (index)
+     * @param input current line input being read
+     * @return index in String format
+     */
     public static String getTaskIndex(String input) {
         String[] words = input.split(" ");
         return words[1];
