@@ -1,4 +1,5 @@
 import java.util.Hashtable;
+import java.util.List;
 
 public class DBot {
     private static boolean isOn;
@@ -46,6 +47,9 @@ public class DBot {
                 case "delete":
                     delete();
                     break;
+                case "find":
+                    find();
+                    break;
                 default:
                     ui.printError("Unknown command: " + line);
             }
@@ -53,14 +57,7 @@ public class DBot {
     }
 
     private static void list() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < taskList.getSize(); i++) {
-            sb.append(i + 1);
-            sb.append(". ");
-            sb.append(taskList.getTask(i).toString());
-            sb.append('\n');
-        }
-        ui.printShortMessage(sb.toString());
+        ui.printShortMessage(ui.listTasks(taskList.getTaskList()));
     }
 
     private static void mark() {
@@ -149,5 +146,13 @@ public class DBot {
         } catch (Exception e) {
             ui.printError("Invalid input, input must be a positive integer and must exist");
         }
+    }
+
+    private static void find() {
+        List<Task> result = taskList.find(parser.getPrompt());
+        ui.printLongMessage(new Object[]{
+                "Here are the matching tasks in your list:",
+                ui.listTasks(result)
+        });
     }
 }
