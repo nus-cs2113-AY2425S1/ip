@@ -26,7 +26,6 @@ public class Crystal {
         }
         Ui.printHorizontalLine();
         Ui.sayBye();
-
     }
 
     public static void main(String[] args) {

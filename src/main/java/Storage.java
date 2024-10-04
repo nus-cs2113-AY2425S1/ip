@@ -11,7 +11,7 @@ public class Storage {
 
     /**
      * Loading any saved data from previous runs when Crystal is booted.
-     *
+     * 
      */
     public static void loadTaskList() {
         try {
