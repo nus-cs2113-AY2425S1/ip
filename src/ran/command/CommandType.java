@@ -50,6 +50,11 @@ public enum CommandType {
     FIND,
 
     /**
+     * Show help message to user
+     */
+    HELP,
+
+    /**
      * Catch-all for all invalid commands
      */
     UNDEFINED

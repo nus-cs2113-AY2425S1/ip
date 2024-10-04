@@ -142,4 +142,30 @@ public class Ui {
     public String readCommand() {
         return in.nextLine();
     }
+
+    /**
+     * Display help message to user.
+     */
+    public void printHelp() {
+        System.out.println(LINE);
+        System.out.println("\tNeed help? You got it.");
+        System.out.println("\tThere are 3 types of tasks I am authorised to manage:");
+        System.out.println("\t\'todo\', \'deadline\', \'event\'");
+        System.out.println("\tEach of these words represents the command to add a task of that type.");
+        System.out.println("\tUse the \'list\' command to see all your added tasks.");
+        System.out.println("\tUse the \'find\' command to search your tasks containing a keyphrase.");
+        System.out.println("\tModify your tasks using the \'mark\' and \'unmark\' command.");
+        System.out.println("\tAnd if you get cold feet, use the \'delete\' command to remove tasks.");
+        System.out.println("\tTry typing any of these commands, I can guide you along.");
+        System.out.println("\tWhen you are done, just type \'bye\' to release me back to the computer.");
+        System.out.println("\tFor more comprehensive help, check out the user guide in this weblink:");
+        System.out.println("\thttps://3ccly.github.io/ip/");
+        System.out.println("\t...");
+        System.out.println("\tYou know what? I could do with some help too.");
+        System.out.println("\tHave you seen my cat?");
+        System.out.println("\t...");
+        System.out.println("\tHold on.");
+        System.out.println("\tNevermind, she was in my right hand all along.");
+        System.out.println(LINE);
+    }
 }

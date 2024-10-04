@@ -11,6 +11,7 @@ import ran.command.UnmarkTaskCommand;
 import ran.command.ShowListCommand;
 import ran.command.TerminateCommand;
 import ran.command.FindCommand;
+import ran.command.HelpCommand;
 
 import ran.exception.MissingArgumentException;
 import ran.exception.InvalidCommandException;
@@ -53,6 +54,8 @@ public class Parser {
             return CommandType.DELETE;
         case ("find"):
             return CommandType.FIND;
+        case ("help"):
+            return CommandType.HELP;
         default:
             return CommandType.UNDEFINED;
         }
@@ -87,6 +90,8 @@ public class Parser {
             return new DeleteTaskCommand(commandArg);
         case FIND:
             return new FindCommand(commandArg);
+        case HELP:
+            return new HelpCommand(commandArg);
         case UNDEFINED:
             // Fall-through
         default:

@@ -99,6 +99,7 @@ public class Ran {
     public void run() {
         ui.greet();
         boolean isTerminated = false;
+
         while (!isTerminated) {
             String input = ui.readCommand();
             try {
@@ -125,7 +126,6 @@ public class Ran {
                         "todo, deadline, event, mark, unmark, list, bye"});
             }
         }
-
         ui.bidFarewell();
     }
 
