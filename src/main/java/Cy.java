@@ -2,7 +2,11 @@ import CommandHandler.CommandHandler;
 import Storage.Storage;
 
 import Ui.Ui;
-import exceptions.*;
+import exceptions.IllegalEmptyException;
+import exceptions.IllegalCommandException;
+import exceptions.IllegalKeywordException;
+import exceptions.IllegalTaskException;
+import exceptions.IllegalIndexException;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -44,8 +48,8 @@ public class Cy {
 
             try {
                 commandHandler.handleCommand(input, command, splitInputs);
-            } catch (IllegalEmptyException | IllegalCommandException | IllegalTaskException | IllegalKeywordException |
-                     IllegalIndexException e) {
+            } catch (IllegalEmptyException | IllegalCommandException | IllegalTaskException |
+                     IllegalKeywordException | IllegalIndexException e) {
                 System.out.println("Error: " + e.getMessage());
             }
 

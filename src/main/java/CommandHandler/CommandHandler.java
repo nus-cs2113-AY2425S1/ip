@@ -1,9 +1,12 @@
 package CommandHandler;
 
 import TaskList.TaskList;
-import Ui.Ui;
 import constants.Utils;
-import exceptions.*;
+import exceptions.IllegalEmptyException;
+import exceptions.IllegalIndexException;
+import exceptions.IllegalKeywordException;
+import exceptions.IllegalTaskException;
+import exceptions.IllegalCommandException;
 
 public class CommandHandler {
 
