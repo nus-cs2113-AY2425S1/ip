@@ -14,6 +14,23 @@ public class UI {
         scanner = new Scanner(System.in);
     }
 
+    public void noSuchTask() {
+        System.out.println("    No such task found");
+    }
+
+    public void tasksFound(ArrayList<Task> tasks) {
+        int taskNumber = 1;
+        Task currentTask;
+        System.out.println("    Here are the tasks with the specific task name:");
+        for (int i = 0; i < tasks.size(); i++) {
+            currentTask = tasks.get(i);
+            if (currentTask != null) {
+                System.out.println("        " + taskNumber + ". " + currentTask.toString());
+                taskNumber++;
+            }
+        }
+    }
+
     public void fileCreationError(Exception e) {
         System.out.println("    Issue with creating file :" + e.getMessage());
     }

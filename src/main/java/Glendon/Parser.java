@@ -12,6 +12,7 @@ public class Parser {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
     public Storage storage;
     public ArrayList<String> commands;
 
@@ -116,6 +117,13 @@ public class Parser {
                 ui.showTaskNumberError();
             }
             break;
+        case FIND:
+            try {
+                tasks.findTask(response.substring(5));
+                break;
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.showTaskInfoError();
+            }
         default:
             try {
                 checkResponse(response);
