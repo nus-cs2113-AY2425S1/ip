@@ -196,7 +196,7 @@ public class Ui {
      * Method to print out an example for the "deadline" command.
      */
     public static void printDeadlineExample() {
-        System.out.println("\tExample: deadline coding assignment /by 12pm");
+        System.out.println("\tExample: deadline coding assignment /by 24/09/24 12pm");
     }
 
     /**
