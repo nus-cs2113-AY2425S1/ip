@@ -30,8 +30,6 @@ public class MarkCommand extends Command {
         }
         tasks.getTask(index-1).markTaskAsDone();
         storage.updateSavedTaskFile();
-        System.out.println(BotText.LINE_BORDER +
-                BotText.MESSAGE_MARKED + "  " + tasks.getTask(index-1).getTaskInfo() + "\n" +
-                BotText.LINE_BORDER);
+        ui.showMarkMessage(tasks.getTask(index-1));
     }
 }

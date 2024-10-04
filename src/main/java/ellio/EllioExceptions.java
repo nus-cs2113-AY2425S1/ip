@@ -58,4 +58,12 @@ public class EllioExceptions extends Exception{
                     BotText.LINE_BORDER);
         }
     }
+
+    public static class InvalidDateFormatException extends EllioExceptions{
+        public InvalidDateFormatException (){
+            super(BotText.LINE_BORDER +
+                    BotText.MESSAGE_INVALID_DATE_FORMAT +
+                    BotText.LINE_BORDER);
+        }
+    }
 }

@@ -28,8 +28,7 @@ public class DeadlineCommand extends Command {
             Deadline newDeadline = formatDeadline(inputCommand);
             tasks.addTask(newDeadline);
             tasks.addNumberTask();
-            System.out.println(BotText.LINE_BORDER + "Got it. I've added this task:\n  " + newDeadline.getTaskInfo());
-            System.out.println("Now you have " + tasks.getNumberTask() + " tasks in the list.\n" + BotText.LINE_BORDER);
+            ui.showAddTaskMessage(newDeadline.getTaskInfo(), tasks.getNumberTask());
             storage.saveNewTask(newDeadline.getSaveFileTask());
         } catch (EllioExceptions e){
             System.out.println(e.getMessage());

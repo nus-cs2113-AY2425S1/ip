@@ -26,8 +26,6 @@ public class UnmarkCommand extends Command {
         }
         tasks.getTask(index-1).unmarkTaskAsDone();
         storage.updateSavedTaskFile();
-        System.out.println(BotText.LINE_BORDER +
-                BotText.MESSAGE_UNMARK + "  " + tasks.getTask(index-1).getTaskInfo() + "\n" +
-                BotText.LINE_BORDER);
+        ui.showUnmarkMessage(tasks.getTask(index-1));
     }
 }

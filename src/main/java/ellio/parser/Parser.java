@@ -16,6 +16,7 @@ public class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
 
     /**
      * Checks for the first word in the command, and checks against the command library

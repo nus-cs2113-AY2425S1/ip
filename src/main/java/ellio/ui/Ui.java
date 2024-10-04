@@ -1,8 +1,8 @@
 package ellio.ui;
 
 import ellio.BotText;
+import ellio.task.Task;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
@@ -85,5 +85,39 @@ public class Ui {
     public void showMatch(){
         System.out.print("Here are the matching tasks in your list:\n");
     }
+
+    /**
+     * Display Custom Successful Unmark Message
+     * Takes in Task argument to extract task info (String)
+     * @param task
+     */
+    public void showUnmarkMessage(Task task){
+        System.out.println(BotText.LINE_BORDER +
+                BotText.MESSAGE_UNMARK + "  " + task.getTaskInfo() + "\n" +
+                BotText.LINE_BORDER);
+    }
+
+    /**
+     * Display Custom Successful Addition of Todo Message
+     * Takes in TaskInfo and currentNumOfTasks for printing message
+     * @param taskInfo
+     * @param currentNumberOfTasks
+     */
+    public void showAddTaskMessage(String taskInfo, int currentNumberOfTasks){
+        System.out.println(BotText.LINE_BORDER + "Got it. I've added this task:\n  " + taskInfo);
+        System.out.println("Now you have " + currentNumberOfTasks + " tasks in the list.\n" + BotText.LINE_BORDER);
+    }
+
+    /**
+     * Display Custom Successful Unmark Message
+     * Takes in Task argument to extract task info (String)
+     * @param task
+     */
+    public void showMarkMessage(Task task){
+        System.out.println(BotText.LINE_BORDER +
+                BotText.MESSAGE_MARKED + "  " + task.getTaskInfo() + "\n" +
+                BotText.LINE_BORDER);
+    }
+
 
 }

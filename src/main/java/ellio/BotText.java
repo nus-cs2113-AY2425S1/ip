@@ -15,4 +15,5 @@ public class BotText {
     public static final String MESSAGE_INVALID_EVENT_TIME_FORMAT = "Missing Start or End timing detected. Remember to add /from and /to to your event\n";
     public static final String MESSAGE_INVALID_DEADLINE_TIME_FORMAT = "The format used for your date is incorrect. Initialise date with a /by\n";
     public static final String MESSAGE_MISSING_DEADLINE_TIME = "Missing deadline date detected. Remember to add /by to your deadline\n";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format detected. Try again with DD/MM/YYYY\n";
 }
