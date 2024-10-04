@@ -28,7 +28,7 @@ public class Task {
      * @return "X" if the task is completed, otherwise a space.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");  // Return "X" if completed, otherwise space
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -46,22 +46,12 @@ public class Task {
     }
 
     /**
-     * Returns the task description.
+     * Returns whether the task is completed or not.
      *
-     * @return The task's description.
+     * @return True if the task is done, false otherwise.
      */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Returns the string representation of the task.
-     *
-     * @return Task information formatted as a string.
-     */
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -71,6 +61,15 @@ public class Task {
      * @return Task in string format suitable for saving.
      */
     public String toSaveFormat() {
-        return description;  // Subclasses will override this method
+        return description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

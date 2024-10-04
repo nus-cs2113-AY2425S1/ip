@@ -1,4 +1,9 @@
 E | 0 | project meeting | 2023-10-11 | 2023-10-12
-T | 0 | read book
-T | 0 | ,,,,
-D | 0 | book | 2002-12-02
+D | 1 | book | 2002-12-02
+E | 0 | task | monday | sunday
+E | 1 | task | 2222-11-3 | 2365-9-2
+D | 0 | play | 2024-10-02
+T | 0 | game
+T | 1 | dadasd
+T | 0 | 88888
+T | 0 | 11111

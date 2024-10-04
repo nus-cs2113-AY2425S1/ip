@@ -102,29 +102,17 @@ public class tars {
             } else if (input.startsWith("find")) {
                 handleFindCommand(input, taskList, ui, storage);
             } else if (input.startsWith("todo")) {
-                String taskDescription = input.substring(5).trim();
-                if (taskDescription.isEmpty()) {
-                    throw new TarsException("Oops! Your todo needs a description. Please try again.");
-                }
-                addTask(taskList, "todo", taskDescription, storage);
+                handleAddTask("todo", input, taskList, storage);
             } else if (input.startsWith("deadline")) {
-                if (!input.contains("/by")) {
-                    throw new TarsException("A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
-                }
-                String deadlineDescription = input.substring(9).trim();
-                addTask(taskList, "deadline", deadlineDescription, storage);
+                handleAddTask("deadline", input, taskList, storage);
             } else if (input.startsWith("event")) {
-                if (!input.contains("/from") || !input.contains("/to")) {
-                    throw new TarsException("An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
-                }
-                String eventDescription = input.substring(6).trim();
-                addTask(taskList, "event", eventDescription, storage);
+                handleAddTask("event", input, taskList, storage);
             } else if (input.startsWith("mark")) {
-                markTask(input, taskList, ui, storage);
+                handleMarkTask(input, taskList, ui, storage);
             } else if (input.startsWith("unmark")) {
-                unmarkTask(input, taskList, ui, storage);
+                handleUnmarkTask(input, taskList, ui, storage);
             } else if (input.startsWith("delete")) {
-                deleteTask(input, taskList, ui, storage);
+                handleDeleteTask(input, taskList, ui, storage);
             } else {
                 handleUnknownCommand();
             }
@@ -167,6 +155,36 @@ public class tars {
         System.out.println("------------------------------------------------------------");
     }
 
+    // Handle adding a task
+    private static void handleAddTask(String taskType, String input, List<Task> tasks, Storage storage) throws TarsException {
+        String description;
+        switch (taskType) {
+            case "todo":
+                description = input.substring(5).trim();
+                if (description.isEmpty()) {
+                    throw new TarsException("Oops! Your todo needs a description. Please try again.");
+                }
+                addTask(tasks, "todo", description, storage);
+                break;
+            case "deadline":
+                if (!input.contains("/by")) {
+                    throw new TarsException("A deadline needs a due date. Format it like this: 'deadline <task> /by <due date>'.");
+                }
+                description = input.substring(9).trim();
+                addTask(tasks, "deadline", description, storage);
+                break;
+            case "event":
+                if (!input.contains("/from") || !input.contains("/to")) {
+                    throw new TarsException("An event needs both start and end times. Format it like this: 'event <task> /from <start> /to <end>'.");
+                }
+                description = input.substring(6).trim();
+                addTask(tasks, "event", description, storage);
+                break;
+            default:
+                throw new TarsException("Unknown task type: " + taskType);
+        }
+    }
+
     // Add a task and save it
     public static void addTask(List<Task> tasks, String taskType, String input, Storage storage) {
         UserInterface ui = new UserInterface();
@@ -206,50 +224,79 @@ public class tars {
         }
     }
 
-    // Mark a task as completed
-    public static void markTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    // Handle marking a task as completed
+    private static void handleMarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new TarsException("The mark command requires a task number. Format it like this: 'mark <task number>'.");
+        }
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
                 throw new TarsException("That task number is out of range.");
             }
 
-            taskList.get(taskNumber).markAsDone();
-            ui.printSeparator();
-            System.out.println("    Great! Task marked as complete: ");
-            System.out.println("    " + taskList.get(taskNumber));
-            ui.printSeparator();
+            Task task = taskList.get(taskNumber);
 
-            storage.saveTasks(taskList);
+            if (task.isDone()) {
+                ui.printSeparator();
+                System.out.println("    It seems this task is already done, like checking the airlock twice. Mission accomplished!");
+                ui.printSeparator();
+            } else {
+                task.markAsDone();
+                ui.printSeparator();
+                System.out.println("    Ding! Another task bites the dust. Mission accomplished: ");
+                System.out.println("    " + task);
+                System.out.println("    Keep this up, and you'll conquer the galaxy in no time.");
+                ui.printSeparator();
+                storage.saveTasks(taskList);
+            }
         } catch (NumberFormatException | IOException e) {
             throw new TarsException("Error: " + e.getMessage());
         }
     }
 
-    // Unmark a task as incomplete
-    public static void unmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+    // Handle unmarking a task
+    private static void handleUnmarkTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new TarsException("The unmark command requires a task number. Format it like this: 'unmark <task number>'.");
+        }
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
                 throw new TarsException("That task number is out of range.");
             }
 
-            taskList.get(taskNumber).markAsNotDone();
-            ui.printSeparator();
-            System.out.println("    Task has been unmarked: ");
-            System.out.println("    " + taskList.get(taskNumber));
-            ui.printSeparator();
+            Task task = taskList.get(taskNumber);
 
-            storage.saveTasks(taskList);
+            if (!task.isDone()) {
+                ui.printSeparator();
+                System.out.println("    Hmm, it looks like this task was never completed. Can't undo what's not been done.");
+                ui.printSeparator();
+            } else {
+                task.markAsNotDone();
+                ui.printSeparator();
+                System.out.println("    Task unmarked. Looks like you changed your mind, no worries: ");
+                System.out.println("    " + task);
+                System.out.println("    I'll be here when you're ready to finish the job. Calculating probability of completion... low.");
+                ui.printSeparator();
+                storage.saveTasks(taskList);
+            }
         } catch (NumberFormatException | IOException e) {
             throw new TarsException("Error: " + e.getMessage());
         }
     }
 
-    // Delete a task
-    public static void deleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+
+    // Handle deleting a task
+    private static void handleDeleteTask(String input, List<Task> taskList, UserInterface ui, Storage storage) throws TarsException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new TarsException("The delete command requires a task number. Format it like this: 'delete <task number>'.");
+        }
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
             if (taskNumber < 0 || taskNumber >= taskList.size()) {
                 throw new TarsException("That task number is out of range.");
             }
