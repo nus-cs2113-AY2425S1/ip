@@ -1,6 +1,13 @@
 package atom.parser;
 
+import atom.ui.Ui;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class DateTimeParser {
+
     public static boolean isValidDateTime(String date, Ui ui) throws
             ArrayIndexOutOfBoundsException, NumberFormatException{
         //format example: "12/11/2024 17:30"
@@ -28,6 +35,7 @@ public class DateTimeParser {
 
         return isValidDate && isValidTime;
     }
+
     private static boolean isValidDay(int day, Ui ui) {
         if (day < 1 || day > 31) {
             ui.showInvalidDayMessage();
@@ -66,5 +74,13 @@ public class DateTimeParser {
             return false;
         }
         return true;
+    }
+
+    public static String parseDateTime(String dateTime) throws DateTimeParseException {
+        //format example: "12/11/2024 17:30"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        String parsedDateTime = localDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma"));
+        return parsedDateTime;
     }
 }
