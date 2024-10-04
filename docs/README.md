@@ -152,6 +152,7 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | START_DATE 
 
 **Example:** 
 - `save tasks.txt` will save your task list to `tasks.txt`.
+- `save path/tasks.txt` will save your task list to `path/tasks.txt`.
 
 ---
 ### 13. Read tasks from a file: **`read`**
@@ -167,7 +168,8 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | yyyy-MM-dd 
 - Tasks with wrong format will be passed.
 
 **Example:** 
-- `read tasks.txt`
+- `read tasks.txt` will read the task list from `tasks.txt`.
+- `read path/tasks.txt` will read the task list from `path/tasks.txt`.
 
 ---
 ### 14. End the chat: **`bye`**
