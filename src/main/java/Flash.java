@@ -101,20 +101,22 @@ public class Flash {
 
     public static void deleteTask(String input) throws FlashException {
         try {
-            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-            if (taskNumber < 0 || taskNumber > tasks.size()) {
-                throw new FlashException("Uh-oh! The task number entered is invalid.");
-            }
-            Task task = tasks.remove(taskNumber);
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = tasks.get(taskNumber);
+            tasks.remove(taskNumber);
+
             System.out.println("____________________________________________________________");
             System.out.println("Noted. I've removed this task:");
             System.out.println(" " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
-        } catch (NumberFormatException e) {
-            throw new FlashException("Uh-oh! The task number should be an integer.");
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new FlashException("Uh-oh! Task number is needed for deletion. Enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
     }
+
 
     public static void main(String[] args) {
         storage = new Storage(FILE_PATH);
