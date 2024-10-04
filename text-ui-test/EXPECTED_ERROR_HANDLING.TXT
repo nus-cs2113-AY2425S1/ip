@@ -43,6 +43,15 @@ No keyword given! Please run the command again with `find <keyword>`!
 1.[T][ ] alpha
 2.[D][ ] alpha beta (by: by a)
 3.[E][ ] alpha (from: a beta to: alpha beta)
+> No valid command given! Valid Commands are: 
+  - list
+  - todo
+  - deadline
+  - event
+  - mark
+  - unmark
+  - delete
+  - bye
 > Bye. Hope to see you again soon!
 Error when reading from ./savedata.txt! Savefile might be corrupted!
 Hello! I'm Cuboyd
@@ -89,4 +98,13 @@ No keyword given! Please run the command again with `find <keyword>`!
 1.[T][ ] alpha
 2.[D][ ] alpha beta (by: by a)
 3.[E][ ] alpha (from: a beta to: alpha beta)
+> No valid command given! Valid Commands are: 
+  - list
+  - todo
+  - deadline
+  - event
+  - mark
+  - unmark
+  - delete
+  - bye
 > Bye. Hope to see you again soon!

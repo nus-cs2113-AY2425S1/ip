@@ -27,4 +27,5 @@ delete 0
 delete a
 delete 4
 list
+alpha
 bye
