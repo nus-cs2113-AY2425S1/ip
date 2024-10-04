@@ -12,6 +12,9 @@ import Ryan.commands.ListCommand;
 import Ryan.commands.FindCommand;
 import Ryan.commands.ExitCommand;
 
+/**
+ * Represents a parser that processes user input and returns the appropriate command.
+ */
 public class Parser {
 
     protected static final String TODO_COMMAND = "todo";
@@ -25,6 +28,13 @@ public class Parser {
     protected static final String EXIT_COMMAND = "bye";
     protected static final String INVALID_COMMAND_DESCRIPTION = "Unknown command: ";
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return The command corresponding to the input.
+     * @throws RyanException If the command is invalid or cannot be parsed.
+     */
     public Command parse(String fullCommand) throws RyanException {
         String[] parts = fullCommand.trim().split(" ", 2);
         String commandWord = parts[0].toLowerCase();
