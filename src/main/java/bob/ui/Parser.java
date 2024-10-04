@@ -1,5 +1,4 @@
 package bob.ui;
-
 import bob.command.Command;
 import bob.command.AddTodoCommand;
 import bob.command.AddDeadlineCommand;
@@ -10,6 +9,9 @@ import bob.command.DeleteCommand;
 import bob.command.ListCommand;
 import bob.command.ExitCommand;
 
+/**
+ * Parses user input commands and returns the corresponding command object.
+ */
 public class Parser {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -21,6 +23,12 @@ public class Parser {
     private static final String COMMAND_UNMARK = "unmark";
     private static final Ui UI = new Ui();
 
+    /**
+     * Parses the given command string and returns the corresponding command object.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A Command object representing the user command, or null if the command is invalid.
+     */
     public static Command parse(String fullCommand) {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandWord = commandParts[0];

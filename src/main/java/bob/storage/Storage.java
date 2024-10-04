@@ -10,11 +10,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage mechanism for managing tasks.
+ * This class handles loading and saving tasks to a file,
+ * as well as creating necessary directories and files.
+ */
 public class Storage {
 
     private static final String SEPARATOR = "\\|";
@@ -31,11 +36,22 @@ public class Storage {
     private final String filePath;
     private final Ui ui;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath).toString();
         this.ui = new Ui();
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as an Arraylist of Task objects.
+     * If the file or directory does not exist, they will be created and a corresponding message will be printed.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -63,6 +79,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Creates the parent directory of the specified file if it does not exist.
+     *
+     * @param file The file whose parent directory will be created if needed.
+     */
     private void createDirectoryIfNotExists(File file) {
         File parentDirectory = file.getParentFile();
         if (!parentDirectory.exists()) {
@@ -73,6 +94,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the specified file if it does not exist.
+     *
+     * @param file The file to be created if it does not exist.
+     */
     private void createFileIfNotExists(File file) {
         if (!file.exists()) {
             this.ui.printCreationMessage(FILE, true);
@@ -84,6 +110,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the storage file to create a Task object.
+     *
+     * @param line The line of text representing a task.
+     * @return A Task object parsed from the line.
+     * @throws IllegalArgumentException if the line format is invalid, a specific error message will be displayed.
+     */
     private Task parseTask(String line) throws IllegalArgumentException {
         String[] parts = line.split(SEPARATOR);
         if (parts.length < MIN_TASK_LENGTH) {
@@ -131,6 +164,11 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param tasks An ArrayList of Task objects to save.
+     */
     public void save(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
@@ -144,6 +182,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a task to the storage file.
+     *
+     * @param task The Task object to be appended to the file.
+     */
     public void appendTask(Task task) {
         try (FileWriter writer = new FileWriter(filePath, true)) {
             writer.write(taskToString(task) + System.lineSeparator());
@@ -152,6 +195,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object to its string representation for saving to a file.
+     *
+     * @param task The Task object to be converted to its string representation.
+     * @return A string representation of the Task object.
+     */
     private String taskToString(Task task) {
         StringBuilder sb = new StringBuilder();
         if (task instanceof ToDo) {
