@@ -8,6 +8,6 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         ArrayList<Task> tasks = taskList.getTasks();
-        ui.printTasks(tasks);  // Using the Ui class to print tasks
+        ui.printTasks(tasks);
     }
 }

@@ -17,8 +17,8 @@ public class DeleteCommand extends Command {
             throw new RyanException("Invalid task number.");
         }
 
-        Task task = tasks.getTask(index); // Get the task before removal
-        tasks.deleteTask(index); // Now delete the task
+        Task task = tasks.getTask(index);
+        tasks.deleteTask(index);
         ui.showTaskDeleted(task, tasks.size());
     }
 

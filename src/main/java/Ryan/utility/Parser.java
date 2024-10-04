@@ -28,6 +28,8 @@ public class Parser {
                     return new ExitCommand();
                 case "list":
                     return new ListCommand();
+                case "find":
+                    return new FindCommand(arguments);
                 default:
                     throw new RyanException("Unknown command: " + commandWord);
             }

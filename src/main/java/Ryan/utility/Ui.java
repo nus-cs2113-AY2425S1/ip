@@ -58,6 +58,15 @@ public class Ui {
         System.out.println("  " + task);
         Ui.horizontalLine();
     }
+    
+    public static void showFoundTasks(ArrayList<Task> tasks) {
+        Ui.horizontalLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        Ui.horizontalLine();
+    }
 
     public static void printTasks(ArrayList<Task> tasks) {
         Ui.horizontalLine();
