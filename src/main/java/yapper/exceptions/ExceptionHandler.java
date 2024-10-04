@@ -40,7 +40,7 @@ public class ExceptionHandler {
      * @throws YapperException if the input string does not start with a valid prefix
      */
     public static void checkIfStartWithInstructionPrefix(String userInputString) throws YapperException {
-        if (!userInputString.startsWith(StringStorage.HELP_INSTRUCTION_PREFIX)
+        if (!userInputString.startsWith(StringStorage.PREFIX_HELP_INSTRUCTION)
                 && !userInputString.startsWith(StringStorage.PREFIX_FIND_INSTRUCTION)
                 && !userInputString.startsWith(StringStorage.PREFIX_LIST_INSTRUCTION)
                 && !userInputString.startsWith(StringStorage.PREFIX_TODO_INSTRUCTION)
