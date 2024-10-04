@@ -1,7 +1,10 @@
 package Ryan.commands;
 
-import Ryan.utility.*;
-import Ryan.tasks.*;
+import Ryan.utility.TaskList;
+import Ryan.utility.Ui;
+
+import Ryan.tasks.Task;
+
 import java.util.ArrayList;
 
 public class ListCommand extends Command {

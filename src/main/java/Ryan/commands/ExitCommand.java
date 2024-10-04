@@ -1,6 +1,7 @@
 package Ryan.commands;
 
-import Ryan.utility.*;
+import Ryan.utility.TaskList;
+import Ryan.utility.Ui;
 
 public class ExitCommand extends Command {
     @Override

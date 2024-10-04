@@ -1,6 +1,10 @@
 package Ryan.tasks;
 
 public class Deadline extends Task {
+
+    public static final String DEADLINE_TASK_TYPE = "D";
+    public static final String DEADLINE_TASK_ICON = "[D]";
+
     protected String by;
 
     public Deadline(String description, String by) {
@@ -10,7 +14,7 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskType() {
-        return "D";
+        return DEADLINE_TASK_TYPE;
     }
 
     @Override
@@ -20,6 +24,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return DEADLINE_TASK_ICON + super.toString() + " (by: " + by + ")";
     }
 }

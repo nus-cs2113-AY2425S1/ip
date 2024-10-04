@@ -9,12 +9,19 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
     private static final String FILE_PATH = "./data/ryan.txt";
+    private static final String SPLIT_DELIMITER = " \\| ";
+    private static final String MARKED_VALUE = "1";
+
+    private static final String TODO_TASK_TYPE = "T";
+    private static final String DEADLINE_TASK_TYPE = "D";
+    private static final String EVENT_TASK_TYPE = "E";
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
@@ -58,7 +65,7 @@ public class Storage {
     }
 
     private static Task parseTaskFromFile(String line) {
-        String[] parts = line.split(" \\| ");
+        String[] parts = line.split(SPLIT_DELIMITER);
 
         if (parts.length < 3) {
             System.out.println("Invalid task format: " + line);
@@ -66,15 +73,15 @@ public class Storage {
         }
 
         String type = parts[0];
-        boolean isMarked = parts[1].equals("1");
+        boolean isMarked = parts[1].equals(MARKED_VALUE);
         String description = parts[2];
 
         Task task;
         switch (type) {
-            case "T":
+            case TODO_TASK_TYPE:
                 task = new Todo(description);
                 break;
-            case "D":
+            case DEADLINE_TASK_TYPE:
                 if (parts.length < 4) {
                     System.out.println("Invalid deadline format: " + line);
                     return null;
@@ -82,7 +89,7 @@ public class Storage {
                 String by = parts[3];
                 task = new Deadline(description, by);
                 break;
-            case "E":
+            case EVENT_TASK_TYPE:
                 if (parts.length < 5) {
                     System.out.println("Invalid event format: " + line);
                     return null;

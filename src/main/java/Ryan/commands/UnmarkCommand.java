@@ -1,9 +1,11 @@
 package Ryan.commands;
 
-import Ryan.tasks.*;
-import Ryan.exceptions.RyanException;
 import Ryan.utility.TaskList;
 import Ryan.utility.Ui;
+
+import Ryan.tasks.Task;
+
+import Ryan.exceptions.RyanException;
 
 public class UnmarkCommand extends Command {
     private final int index;

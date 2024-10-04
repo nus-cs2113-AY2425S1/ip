@@ -1,17 +1,21 @@
 package Ryan.tasks;
 
 public class Todo extends Task {
+
+    public static final String TODO_TASK_TYPE = "T";
+    public static final String TODO_TASK_ICON = "[T]";
+
     public Todo(String description) {
         super(description);
     }
 
     @Override
     public String getTaskType() {
-        return "T";
+        return TODO_TASK_TYPE;
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TODO_TASK_ICON + super.toString();
     }
 }
