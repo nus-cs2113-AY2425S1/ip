@@ -1,26 +1,25 @@
-import Parser.Parser;
+import CommandHandler.CommandHandler;
 import Storage.Storage;
-import TaskList.TaskList;
+
 import Ui.Ui;
 import exceptions.*;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Cy {
 
-    private final Parser parser;
     private final Storage storage;
-    private final TaskList taskList;
     private final Ui ui;
+    private final CommandHandler commandHandler;
 
     public Cy() {
         ui = new Ui();
         storage = new Storage();
-        parser = new Parser();
-        taskList = new TaskList();
+        commandHandler = new CommandHandler();
     }
 
-    public static void main(String[] args) throws IllegalCommandException, IllegalEmptyException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
+    public static void main(String[] args) throws IllegalCommandException, IllegalEmptyException, IllegalTaskException, IllegalKeywordException, IllegalIndexException, FileNotFoundException {
         new Cy().run();
     }
 
@@ -30,11 +29,11 @@ public class Cy {
      * Next, it would scan and handle commands until the "bye" command is entered,
      * which would exit this method.
      */
-    public void run() throws IllegalCommandException, IllegalEmptyException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
+    public void run() throws IllegalCommandException, IllegalEmptyException, IllegalTaskException, IllegalKeywordException, IllegalIndexException, FileNotFoundException {
 
-        Ui.printWelcomeMessage();
+        ui.printWelcomeMessage();
 
-        storage.loadFileData();
+        storage.printFileContents();
 
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
@@ -44,7 +43,7 @@ public class Cy {
             String command = splitInputs[0].toLowerCase();
 
             try {
-                parser.handleCommand(input, command, splitInputs);
+                commandHandler.handleCommand(input, command, splitInputs);
             } catch (IllegalEmptyException | IllegalCommandException | IllegalTaskException | IllegalKeywordException |
                      IllegalIndexException e) {
                 System.out.println("Error: " + e.getMessage());
@@ -53,7 +52,7 @@ public class Cy {
             input = scan.nextLine();
         }
 
-        Ui.printEndingMessage();
+        ui.printEndingMessage();
         scan.close();
     }
 }
