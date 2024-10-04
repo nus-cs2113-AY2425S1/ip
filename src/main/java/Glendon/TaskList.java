@@ -53,7 +53,7 @@ public class TaskList {
         String startDateTime = dates[0];
         String endDateTime = dates[1];
         if (taskInfo.length() == 0) {
-            throw new GlendonException();
+            throw new GlendonException(); // throw exception due to a lack of information of the task
         }
         taskList.add(new Event(taskInfo, startDateTime, endDateTime));
         taskCounter++;
@@ -63,7 +63,7 @@ public class TaskList {
         String[] answers = response.split("/by ");
         String taskInfo = answers[0].substring(9);
         if (taskInfo.length() == 0) {
-            throw new GlendonException();
+            throw new GlendonException(); // throw exception due to a lack of information of the task
         }
         String taskDeadline = answers[1];
         taskList.add(new Deadline(taskInfo, taskDeadline));
