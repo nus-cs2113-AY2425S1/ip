@@ -4,39 +4,77 @@ how may I be of assistance!
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [T][ ] eat food
+  [T][ ] Read ancient scrolls
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] make food (by: Sunday)
+  [D][ ] Submit potion recipe (by: May 01 2023 23:59)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] food meeting (from: Mon 2pm to: 4pm)
+  [E][ ] Wizard's council (from: Apr 15 2023 10:00 to: Apr 15 2023 14:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
+1. [T][ ] Read ancient scrolls
+2. [D][ ] Submit potion recipe (by: May 01 2023 23:59)
+3. [E][ ] Wizard's council (from: Apr 15 2023 10:00 to: Apr 15 2023 14:00)
 ____________________________________________________________
-1. [T][ ] eat food
-2. [D][ ] make food (by: Sunday)
-3. [E][ ] food meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Practice levitation spell
+Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] Enchant broomstick (by: Apr 20 2023 18:00)
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] Alchemy workshop (from: Apr 18 2023 09:00 to: Apr 18 2023 17:00)
+Now you have 6 tasks in the list.
+____________________________________________________________
 ____________________________________________________________
 Great Wizard of Skibidiness! Thou hath completed task:
-  [T][X] eat food
-____________________________________________________________
-____________________________________________________________
-Big yikers! The task hath been marked undone:
-  [D][ ] make food (by: Sunday)
+  [D][X] Submit potion recipe (by: May 01 2023 23:59)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
+1. [T][ ] Read ancient scrolls
+2. [D][X] Submit potion recipe (by: May 01 2023 23:59)
+3. [E][ ] Wizard's council (from: Apr 15 2023 10:00 to: Apr 15 2023 14:00)
+4. [T][ ] Practice levitation spell
+5. [D][ ] Enchant broomstick (by: Apr 20 2023 18:00)
+6. [E][ ] Alchemy workshop (from: Apr 18 2023 09:00 to: Apr 18 2023 17:00)
 ____________________________________________________________
-1. [T][X] eat food
-2. [D][ ] make food (by: Sunday)
-3. [E][ ] food meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Big yikers! The task hath been marked undone:
+  [D][ ] Submit potion recipe (by: May 01 2023 23:59)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [D][ ] Submit potion recipe (by: May 01 2023 23:59)
+____________________________________________________________
+____________________________________________________________
+No tasks found on 2022-12-22
+____________________________________________________________
+____________________________________________________________
+Duly noted sire. Thy hath removed this task:
+  [E][ ] Wizard's council (from: Apr 15 2023 10:00 to: Apr 15 2023 14:00)
+Now thou hath 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] Read ancient scrolls
+2. [D][ ] Submit potion recipe (by: May 01 2023 23:59)
+3. [T][ ] Practice levitation spell
+4. [D][ ] Enchant broomstick (by: Apr 20 2023 18:00)
+5. [E][ ] Alchemy workshop (from: Apr 18 2023 09:00 to: Apr 18 2023 17:00)
+____________________________________________________________
 ____________________________________________________________
 I bid thee farewell! May our paths cross again!
 ____________________________________________________________

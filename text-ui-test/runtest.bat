@@ -6,8 +6,12 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete archibald.txt in /data before every run to purge history
+if exist data\archibald.txt del data\archibald.txt
+
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+for /r ..\src\main\java %%f in (*.java) do javac -cp ..\src\main\java -Xlint:none -d ..\bin "%%f"
+
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
@@ -15,7 +19,7 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Archibald < input.txt > ACTUAL.TXT
+java -classpath ..\bin archibald.Archibald < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

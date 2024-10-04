@@ -1,8 +1,15 @@
-todo eat food
-deadline make food /by Sunday
-event food meeting /from Mon 2pm /to 4pm
+todo Read ancient scrolls
+deadline Submit potion recipe /by 2023-05-01 2359
+event Wizard's council /from 2023-04-15 1000 /to 2023-04-15 1400
 list
-mark 1
+todo Practice levitation spell
+deadline Enchant broomstick /by 2023-04-20 1800
+event Alchemy workshop /from 2023-04-18 0900 /to 2023-04-18 1700
+mark 2
+list
 unmark 2
+find potion
+happening 2022-12-22
+delete 3
 list
 bye
