@@ -121,19 +121,29 @@ public class Ui {
     }
 
     public void showTaskDeleted(TaskList tasks, int index) {
-        System.out.println(">CodyChen:\n\t CodyChen has removed this task for you:");
-        System.out.print((index + 1) + ".");
-        System.out.print("[" + tasks.getTask(index).getType() + "]" +
-                tasks.getTask(index).getStatusIcon() +
-                tasks.getTask(index).getDescription());
         switch (tasks.getTask(index).getType()) {
         case 'T':
+            System.out.println(">CodyChen:\n\t CodyChen has removed this task for you:");
+            System.out.print((index + 1) + ".");
+            System.out.print("[" + tasks.getTask(index).getType() + "]" +
+                    tasks.getTask(index).getStatusIcon() +
+                    tasks.getTask(index).getDescription());
             System.out.println();
             break;
         case 'D':
+            System.out.println(">CodyChen:\n\t CodyChen has removed this task for you:");
+            System.out.print((index + 1) + ".");
+            System.out.print("[" + tasks.getTask(index).getType() + "]" +
+                    tasks.getTask(index).getStatusIcon() +
+                    tasks.getTask(index).getDescription());
             System.out.println("(by: " + tasks.getTask(index).formattedDeadline() + ")");
             break;
         case 'E':
+            System.out.println(">CodyChen:\n\t CodyChen has removed this task for you:");
+            System.out.print((index + 1) + ".");
+            System.out.print("[" + tasks.getTask(index).getType() + "]" +
+                    tasks.getTask(index).getStatusIcon() +
+                    tasks.getTask(index).getDescription());
             System.out.println("(by: " + tasks.getTask(index).formattedDeadline() +
                     tasks.getTask(index).formattedEvent());
             break;
