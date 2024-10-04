@@ -157,18 +157,6 @@ Example: `help`
 expected output:
 ```
 ____________________________________________________________
-Adios, hasta luego!
-____________________________________________________________
-```
-
-### Bye Crystal!
-Terminate your session with Crystal.
-
-Example: `bye`
-
-expected output:
-```
-____________________________________________________________
 Type the command in the command box and press Enter to execute it. Here are some commands you can try:
 list : Lists all the tasks you have so far
 todo yoga : Adds todo task named yoga
@@ -180,6 +168,18 @@ delete 3 : Delete the third task in the list
 find yoga : Finds all tasks that contain the word “yoga”
 help : Displays this list of commands to ask Crystal.
 bye : Crystal bids you goodbye and the new list is saved.
+____________________________________________________________
+```
+
+### Bye Crystal!
+Terminate your session with Crystal.
+
+Example: `bye`
+
+expected output:
+```
+____________________________________________________________
+Adios, hasta luego!
 ____________________________________________________________
 
 ```
