@@ -14,9 +14,9 @@ public class Miku {
         try {
             String fileData = storage.loadFile();
             taskList = new TaskList(fileData);
-        } catch (Exception e) {
-            taskList = new TaskList();
+        } catch (IOException e) {
             System.out.println("Failed to load tasks.txt");
+            taskList = new TaskList();
         }
     }
 

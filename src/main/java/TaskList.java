@@ -9,7 +9,9 @@ public class TaskList {
 
     public TaskList(String fileData) {
         list = new ArrayList<>();
-        parseFileData(fileData);
+        if (fileData != null) {
+            parseFileData(fileData);
+        }
     }
 
     public void parseFileData(String fileData) {
@@ -109,11 +111,15 @@ public class TaskList {
         System.out.println("The tasks matching your search term are:");
         int printIndex = 1;
         for (Task task : list) {
-            if (task.getInfo().contains(match)) {
+            String lowerCaseDescription = task.getInfo().toLowerCase();
+            if (lowerCaseDescription.contains(match.toLowerCase())) {
                 System.out.print(printIndex + ". ");
                 printIndex++;
                 task.printTask();
             }
+        }
+        if (printIndex==1){
+            System.out.println("No matches found");
         }
     }
 

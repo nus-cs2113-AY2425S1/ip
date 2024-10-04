@@ -12,6 +12,10 @@ public class Storage {
 
     public String loadFile() throws IOException {
         File f = new File(filePath);
+        if (f.createNewFile()){
+            System.out.println("New save file created successfully");
+            return null;
+        }
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         StringBuilder fileData = new StringBuilder();
         while (s.hasNext()) {
