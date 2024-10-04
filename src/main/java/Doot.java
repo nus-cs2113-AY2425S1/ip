@@ -1,3 +1,10 @@
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
+import Tasks.TaskList;
+
 import java.util.Scanner;
 import java.io.FileOutputStream;
 import java.io.EOFException;
@@ -10,12 +17,13 @@ import java.util.ArrayList;
 
 public class Doot {
     private static final String DIVIDER = "____________________________________________________________\n\n";
-    private static final int DEFAULT_TASKS = 100;
-    private static ArrayList<Task> taskList = new ArrayList<>(DEFAULT_TASKS);
     private static final String FILE_NAME = "dootData.txt";
+    private static TaskList tasks;
 
     public static void main(String[] args) {
-        loadTaskData();
+        tasks = new TaskList();
+
+        tasks.loadTaskData();
 
         Scanner scanner = new Scanner(System.in);
         System.out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
@@ -26,29 +34,6 @@ public class Doot {
         }
         System.out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
         scanner.close();
-    }
-
-    public static void loadTaskData() {
-        try {
-            FileInputStream fileReader = new FileInputStream(FILE_NAME);
-            ObjectInputStream objectReader = new ObjectInputStream(fileReader);
-            boolean fileHasData = true;
-            while (fileHasData) {
-                try {
-                    Object taskToAdd = objectReader.readObject();
-                    taskList.add((Task) taskToAdd);
-                } catch (EOFException e) {
-                    fileHasData = false;
-                }
-            }
-            objectReader.close();
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Read file does not exist, will be created!");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
-        }
-
     }
 
     public static void writeTaskData() {
