@@ -13,6 +13,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task data from the file at the specified file path.
+     * The tasks are represented as lines in the file, with each line
+     * containing the task type, its completion status, and relevant task details.
+     * <p>
+     * If the file does not exist or an error occurs, an empty list is returned.
+     *
+     * @return a list of tasks loaded from the file
+     */
     public List<Task> loadData() {
         List<Task> data = new ArrayList<>();
         try {
@@ -43,6 +52,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given list of tasks to the file at the specified file path.
+     * Each task is saved with its type, completion status, and relevant task details.
+     * <p>
+     * If the file does not exist, it will be created along with any necessary directories.
+     * Returns true if the data is successfully saved, or false if an error occurs.
+     *
+     * @param taskList the list of tasks to save
+     * @return true if the data is saved successfully, false otherwise
+     */
     public boolean saveData(List<Task> taskList) {
         try {
             File file = new File(filePath);

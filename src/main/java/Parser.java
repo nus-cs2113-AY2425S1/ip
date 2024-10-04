@@ -11,6 +11,14 @@ public class Parser {
         arguments = new Hashtable<>();
     }
 
+    /**
+     * Parses the given command line and extracts the command, prompt, and arguments.
+     * The command is the first word in the line, the prompt is any non-argument
+     * text following the command, and the arguments are key-value pairs prefixed
+     * by "/".
+     *
+     * @param line the command line input to be parsed
+     */
     public void parseCommand(String line) {
         prompt = "";
         arguments = new Hashtable<>();
@@ -46,14 +54,32 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the command extracted from the parsed input.
+     *
+     * @return the command as a string
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Returns the prompt text extracted from the parsed input.
+     * The prompt is the text that follows the command but is not part of any argument.
+     *
+     * @return the prompt as a string
+     */
     public String getPrompt() {
         return prompt;
     }
 
+    /**
+     * Returns the arguments extracted from the parsed input.
+     * The arguments are stored as key-value pairs in a Hashtable, where each argument
+     * key is prefixed with "/" in the original input.
+     *
+     * @return a Hashtable containing the arguments as key-value pairs
+     */
     public Hashtable<String, String> getArguments() {
         return arguments;
     }
