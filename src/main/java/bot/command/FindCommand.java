@@ -1,7 +1,6 @@
 package bot.command;
 
 import bot.Storage;
-import bot.TobyBotException;
 import bot.Ui;
 import task.Task;
 import task.TaskList;

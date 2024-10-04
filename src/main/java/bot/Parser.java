@@ -1,6 +1,13 @@
 package bot;
 
-import bot.command.*;
+import bot.command.AddCommand;
+import bot.command.Command;
+import bot.command.DeleteCommand;
+import bot.command.ExitCommand;
+import bot.command.FindCommand;
+import bot.command.ListCommand;
+import bot.command.MarkCommand;
+import bot.command.UnmarkCommand;
 import bot.TobyBotException;
 
 /**
