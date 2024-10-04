@@ -15,3 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/data
+
+# Compiled Java Classes
+src/main/java/*.class
+src/ran/command/*.class
+src/ran/exception/*.class
+src/ran/task/*.class

@@ -10,8 +10,8 @@
 	   |:|\/__/        /:/  /       |::/  /
 	   |:|  |         /:/  /        /:/  /
 	    \|__|         \/__/         \/__/
-	Hello! I'm Ran.
-	What can I do for you?
+	Hello, I'm Ran.
+	How may I assist you? Don't be afraid to ask for help.
 	____________________________________________________________
 	____________________________________________________________
 	Understood, I have noted down the following task:
@@ -34,7 +34,7 @@
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
+	Excellent! I've marked this task as done:
 	  [D][X] finish homework (by: Friday)
 	____________________________________________________________
 	____________________________________________________________
@@ -43,7 +43,7 @@
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
 	____________________________________________________________
 	____________________________________________________________
-	OK, I've marked this task as not done yet:
+	Sure, I've marked this task as not done yet:
 	  [D][ ] finish homework (by: Friday)
 	____________________________________________________________
 	____________________________________________________________
@@ -52,10 +52,11 @@
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
 	____________________________________________________________
 	____________________________________________________________
-	Understood, I have noted down the following task:
-	 [ ] random
-	You currently have 4 tasks in your list.
+	Your command doesn't comply to the spellbook rules.
+	Here's some you can consider:
+	todo, deadline, event, mark, unmark, list, bye
+	Alternatively, type 'help'.
 	____________________________________________________________
 	____________________________________________________________
-	Bye. Hope to see you again soon!
+	Farewell. May we meet again!
 	____________________________________________________________
