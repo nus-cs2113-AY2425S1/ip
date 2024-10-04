@@ -190,18 +190,17 @@ ____________________________________________________________
 
 If there are additional parameters, they must be included and must be in the same order indicated.
 
-| Command  | Description                                                      | Format                               | Example                                    | 
-|:--------:|------------------------------------------------------------------|--------------------------------------|--------------------------------------------|
-|   todo   | Adds a new Todo task to the list                                 | todo [desc]                          | todo study for exam                        |
-| deadline | Adds a new Deadline task to the list                             | deadline [desc] /by [date]           | deadline canvas quiz /by today             |
-|  event   | Adds a new Event task to the list                                | event [desc] /from [date] /to [date] | event tP meeting /from today 2100 /to 2000 |
-|  delete  | Deletes a task from the list                                     | delete [ordinal]                     | delete 6                                   |
-|   mark   | Marks an uncompleted task in the list as done                    | mark  [ordinal]                      | mark 4                                     |
-|  unmark  | Marks a completed task in the list as not done                   | unmark [ordinal]                     | unmark 3                                   |
-|   list   | Lists all tasks in the list                                      | list                                 | list                                       |
-|   find   | Lists all tasks in the list whose description contains the query | find [query]                         | find CS2113                                |
-|   bye    | Exits the program with a goodbye message                         | bye                                  | bye                                        |
+| Command | Description                                                     | Format                               | Example                                    | 
+|---------|-----------------------------------------------------------------|--------------------------------------|--------------------------------------------|
+| todo    | Adds a new Todo task to the list                                | todo [desc]                          | todo study for exam                        |
+| deadline | Adds a new Deadline task to the list                            | deadline [desc] /by [date]           | deadline canvas quiz /by today             |
+| event   | Adds a new Event task to the list                               | event [desc] /from [date] /to [date] | event tP meeting /from today 2100 /to 2000 |
+| delete  | Deletes a task from the list                                    | delete [ordinal]                     | delete 6                                   |
+| mark    | Marks an uncompleted task in the list as done                   | mark  [ordinal]                      | mark 4                                     |
+| unmark  | Marks a completed task in the list as not done                  | unmark [ordinal]                     | unmark 3                                   |
+| list    | Lists all tasks in the list                                     | list                                 | list                                       |
+| find    | Lists all tasks in the list whose description contains the query | find [query]                         | find CS2113                                |
+| bye     | Exits the program with a goodbye message                        | bye                                  | bye                                        |
+
 desc, date, query are strings.
 ordinal is an integer.
-
----
