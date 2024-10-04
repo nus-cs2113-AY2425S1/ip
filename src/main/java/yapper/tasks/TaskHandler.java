@@ -74,7 +74,7 @@ public class TaskHandler {
     public void addTask(Task task) {
         tasks.add(task);
     }
-   /**
+    /**
      * Deletes a task from the list based on its ordinal index.
      *
      * @param taskOrdinal the index of the task to be deleted

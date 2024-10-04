@@ -1,7 +1,5 @@
 package yapper.io;
 
-// TODO: make more conversational
-
 /**
  * Contains characters/strings for the Yapper program
  *

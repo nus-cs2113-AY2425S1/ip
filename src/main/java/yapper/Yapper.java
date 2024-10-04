@@ -34,6 +34,7 @@ public class Yapper {
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
             String userInputString = scanner.nextLine();
+
             System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
             if (userInputString.trim().equals(
                     StringStorage.PREFIX_BYE_INSTRUCTION)) {
