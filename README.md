@@ -13,9 +13,29 @@ Welcome to Archibald, your personal task management assistant! This guide will h
 6. [Saving and Loading](#saving-and-loading)
 7. [Exiting Archibald](#exiting-archibald)
 
-### Getting Started
+### Quick Start
 
-To start using Archibald, simply run the application. You'll be greeted with a welcome message and can begin entering commands immediately.
+1. Ensure you have Java 17 or above installed on your computer.
+2. Download the latest Archibald.jar file
+3. Copy the file to your desired folder for Archibald.
+4. Open a command terminal, navigate to the folder containing the jar file, and run:
+   ```
+   java -jar Archibald.jar
+   ```
+5. Archibald will launch with a welcome message. You can now start entering commands.
+
+Some example commands to try:
+
+- `list`: Lists all tasks.
+- `todo Read a book`: Adds a new todo task.
+- `deadline Submit report /by 2023-04-15 1400`: Adds a new deadline task.
+- `event Team meeting /from 2023-04-10 1000 /to 2023-04-10 1200`: Adds a new event task.
+- `done 1`: Marks the first task as done.
+- `delete 2`: Deletes the second task.
+- `find report`: Finds tasks containing the word "report".
+- `bye`: Exits the application.
+
+Refer to the sections below for more details on each command and feature.
 
 ### Basic Commands
 
