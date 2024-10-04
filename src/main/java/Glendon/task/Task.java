@@ -1,8 +1,8 @@
 package Glendon.task;
 
 public class Task {
-    protected String taskName;
-    protected boolean isCompleted;
+    public String taskName;
+    public boolean isCompleted;
 
     /**
      * Constructs the task with the given name and default completion status of the task

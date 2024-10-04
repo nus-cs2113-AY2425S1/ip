@@ -1,1 +1,3 @@
-D|0||tuesday
+T|0|ip part 1
+D|0|ip part 2 |tuesday
+E|0|ip part 3 |tues |fri
