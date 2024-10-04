@@ -28,4 +28,43 @@ public class DateTimeParser {
 
         return isValidDate && isValidTime;
     }
+    private static boolean isValidDay(int day, Ui ui) {
+        if (day < 1 || day > 31) {
+            ui.showInvalidDayMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValidMonth(int month, Ui ui) {
+        if (month < 1 || month > 12) {
+            ui.showInvalidMonthMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValidYear(int year, Ui ui) {
+        if (year < 2024) {
+            ui.showInvalidYearMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValidHour(int hour, Ui ui) {
+        if (hour < 0 || hour > 24) {
+            ui.showInvalidHourMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValidMinute(int min, Ui ui) {
+        if (min < 0 || min > 60) {
+            ui.showInvalidMinuteMessage();
+            return false;
+        }
+        return true;
+    }
 }
