@@ -88,7 +88,7 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
-    public void showNumberFormatExceptionError() {
+    public void showNumberFormatExceptionMessage() {
         System.out.println("Task id must be a number!");
         System.out.println("-> Pssst, just a reminder, I'm SPACE sensitive!!");
     }
@@ -142,7 +142,54 @@ public class Ui {
         }
 
         System.out.println();
-        System.out.println("You now have " + tasksList.size() + " tasks in your list.");
+        System.out.println("You now have " + (tasksList.size() - 1) + " tasks in your list.");
+    }
+
+    public void showInvalidDayMessage() {
+        System.out.println("DAY entered is invalid!!" +
+                "\nThere are only at most 31 days in a month!!");
+    }
+
+    public void showInvalidMonthMessage() {
+        System.out.println("MONTH entered is invalid!!" +
+                "\nThere are only 12 months in a year!!");
+    }
+
+    public void showInvalidYearMessage() {
+        System.out.println("YEAR entered is invalid!!" +
+                "\nReminder to enter the full year. (e.g 2024)");
+    }
+
+    public void showInvalidHourMessage() {
+        System.out.println("HOUR entered is invalid!!" +
+                "\nHOUR should be between 0 and 24!!");
+    }
+
+    public void showInvalidMinuteMessage() {
+        System.out.println("MINUTE entered is invalid!!" +
+                "\nThere are only 60 minutes in an hour you know..");
+    }
+
+    public void showDateTimeFormat() {
+        System.out.println("\nHere's the DATE TIME format:");
+        System.out.println("-> DD/MM/YYYY HOUR:MIN");
+    }
+
+    public void showInvalidDateTimeFormatMessage() {
+        System.out.println("Oops!! Wrong date time format");
+        showDateTimeFormat();
+    }
+
+    public void showInvalidDateTimeParamsMessage() {
+        System.out.println("Oh man.. Cannot identify date or time.");
+        System.out.println("DATE or TIME doesn't conform with the format.");
+        showDateTimeFormat();
+    }
+
+    public void showDateTimeParseErrorMessage() {
+        System.out.println("Erm.. Error in parsing date or time..");
+        System.out.println("Remember to add a \"0\" in front for values 0 to 9.");
+        showDateTimeFormat();
     }
 
     public void showExitMessage() {
