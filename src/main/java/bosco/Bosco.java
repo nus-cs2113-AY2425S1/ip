@@ -56,7 +56,7 @@ public class Bosco {
         try {
             tasks = new TaskList(storage.loadFileContents());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Error encountered: " + e.getMessage());
         }
         ui.printWelcomeMessage();
     }
@@ -94,7 +94,7 @@ public class Bosco {
             try {
                 storage.writeToFile(tasks.getAllTasks());
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("IO Error encountered: " + e.getMessage());
             }
         }
     }

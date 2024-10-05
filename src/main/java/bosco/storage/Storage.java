@@ -34,7 +34,7 @@ public class Storage {
                 Files.createFile(path);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Error encountered: " + e.getMessage());
         }
     }
 
