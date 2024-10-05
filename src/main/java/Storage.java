@@ -3,9 +3,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Manages saving and loading task list data to and from a text file.
+ */
 public class Storage {
     private String filePath;
 
@@ -13,7 +15,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws IOException, CorruptedFileException, IndexOutOfBoundsException, GertrudeException {
+    /**
+     * Finds the matching txt file and fills in a TaskList with the corresponding data.
+     * Data is formatted on each line as SYMBOL | DONE | NAME | TIME1 | TIME2
+     * @return the loaded task list
+     * @throws GertrudeException if the save file isn't found
+     * @throws CorruptedFileException if the save file doesn't have the correct format
+     */
+    public ArrayList<Task> load() throws GertrudeException, CorruptedFileException {
         try {
             File dataDirectory = new File("data");
             dataDirectory.mkdir();
@@ -35,17 +44,17 @@ public class Storage {
                 switch (lineArr[0]) {
                 case "T":
                     Todo newTodo = new Todo(lineArr[2]);
-                    newTodo.done = isDone;
+                    newTodo.isDone = isDone;
                     tasks.add(newTodo);
                     break;
                 case "D":
                     Deadline newDeadline = new Deadline(lineArr[2], lineArr[3]);
-                    newDeadline.done = isDone;
+                    newDeadline.isDone = isDone;
                     tasks.add(newDeadline);
                     break;
                 case "E":
                     Event newEvent = new Event(lineArr[2], lineArr[3], lineArr[4]);
-                    newEvent.done = isDone;
+                    newEvent.isDone = isDone;
                     tasks.add(newEvent);
                     break;
                 default:
@@ -59,10 +68,17 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Saves all tasks in a TaskList to a txt file.
+     * Executes each iteration of the code.
+     * @param tasks the TaskList to be saved
+     * @throws IOException if an error with the file writer occurs
+     * @throws FileNotFoundException if the file cannot be found
+     */
     public void saveFile(TaskList tasks) throws IOException, FileNotFoundException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks.getTaskList()) {
-            fw.write(task.symbol + " | " + task.done + " | " + task.name + task.dataForSave() + System.lineSeparator());
+            fw.write(task.symbol + " | " + task.isDone + " | " + task.name + task.dataForSave() + System.lineSeparator());
         }
         fw.close();
     }

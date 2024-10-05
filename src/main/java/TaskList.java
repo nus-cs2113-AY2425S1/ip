@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Contains the list of Tasks as well as methods to print and manipulate the Tasks.
+ */
 public class TaskList {
 
     private ArrayList<Task> taskList;
@@ -16,6 +19,9 @@ public class TaskList {
         return taskList;
     }
 
+    /**
+     * Prints each task in the task list and then states how many tasks there are.
+     */
     public void printList() {
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.print(i + ".");
@@ -24,6 +30,10 @@ public class TaskList {
         System.out.println("You have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Marks a task as done or not done.
+     * @param lineInputArr the line input to interpret
+     */
     public void markTask(String[] lineInputArr) {
         int index = InputParser.parseMark(lineInputArr, this);
         if (index < 0) {
@@ -33,11 +43,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list and then prints that task
+     * @param task the task to add
+     * @param lineInput the line input to print
+     */
     public void addTask(Task task, String lineInput) {
         taskList.add(task);
         System.out.println("added: " + lineInput);
     }
 
+    /**
+     * Deletes a task from the list, prints it, and then prints how many tasks remain.
+     * @param lineInputArr the line input to interpret
+     */
     public void deleteTask(String[] lineInputArr) {
         try {
             Task taskToRemove = taskList.get(Integer.parseInt(lineInputArr[1]) - 1);
@@ -52,6 +71,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints a task based on the inputted keyword.
+     * Checks for multiple keywords inputted. Isn't case-sensitive.
+     * @param lineInputArr the inputted line to interpret
+     */
     public void findKeyword(String[] lineInputArr) {
         ArrayList<Task> tasksWithKeyword = new ArrayList<Task>();
         for(int i = 1; i < lineInputArr.length; i++) {
