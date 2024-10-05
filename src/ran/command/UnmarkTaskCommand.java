@@ -40,21 +40,21 @@ public class UnmarkTaskCommand extends Command {
      * @throws MissingArgumentException If command argument cannot be converted to a valid integer
      */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws OutOfListBoundsException,
-           IOException, MissingArgumentException {
-               int index;
-               try {
-                   int commandNumber = Integer.parseInt(commandArg);
-                   index = commandNumber - 1;
-               } catch (NumberFormatException e) {
-                   throw new MissingArgumentException(CommandType.UNMARK);
-               }
-               Task targetTask = tasks.getTask(index);
-               String oldLine = targetTask.dataFileInput();
-               targetTask.setAsUndone();
-               String newLine = targetTask.dataFileInput();
-               storage.modifyDataFile(oldLine, newLine);
-               String unmarkedTask = targetTask.toString();
-               ui.printUnmarkedTask(unmarkedTask);
-               return false;
+            IOException, MissingArgumentException {
+        int index;
+        try {
+            int commandNumber = Integer.parseInt(commandArg);
+            index = commandNumber - 1;
+        } catch (NumberFormatException e) {
+            throw new MissingArgumentException(CommandType.UNMARK);
+        }
+        Task targetTask = tasks.getTask(index);
+        String oldLine = targetTask.dataFileInput();
+        targetTask.setAsUndone();
+        String newLine = targetTask.dataFileInput();
+        storage.modifyDataFile(oldLine, newLine);
+        String unmarkedTask = targetTask.toString();
+        ui.printUnmarkedTask(unmarkedTask);
+        return false;
     }
 }

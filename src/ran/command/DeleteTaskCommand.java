@@ -40,17 +40,17 @@ public class DeleteTaskCommand extends Command {
      * @throws MissingArgumentException If command argument cannot be converted to a valid integer
      */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws OutOfListBoundsException,
-           IOException, MissingArgumentException {
-               int index;
-               try {
-                   int commandNumber = Integer.parseInt(commandArg);
-                   index = commandNumber - 1;
-               } catch (NumberFormatException e) {
-                   throw new MissingArgumentException(CommandType.DELETE);
-               }
-               Task deletedTask = tasks.removeTask(index);
-               storage.deleteFromDataFile(deletedTask.dataFileInput());
-               ui.printDeletedTask(deletedTask.toString(), tasks.getTaskCount());
-               return false;
+            IOException, MissingArgumentException {
+        int index;
+        try {
+            int commandNumber = Integer.parseInt(commandArg);
+            index = commandNumber - 1;
+        } catch (NumberFormatException e) {
+            throw new MissingArgumentException(CommandType.DELETE);
+        }
+        Task deletedTask = tasks.removeTask(index);
+        storage.deleteFromDataFile(deletedTask.dataFileInput());
+        ui.printDeletedTask(deletedTask.toString(), tasks.getTaskCount());
+        return false;
     }
 }

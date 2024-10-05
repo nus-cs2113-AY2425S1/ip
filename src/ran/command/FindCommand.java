@@ -15,8 +15,7 @@ public class FindCommand extends Command {
         super(commandArg);
     }
 
-    private int getMatchList(TaskList tasks, int taskCount, TaskList matchList) 
-            throws OutOfListBoundsException {
+    private int getMatchList(TaskList tasks, int taskCount, TaskList matchList) throws OutOfListBoundsException {
         int matchListCount = 0;
         for (int i = 0; i < taskCount; i++) {
             String taskDescription = tasks.getTask(i).getDescription();
@@ -29,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws IOException, 
-           OutOfListBoundsException, EmptyListException, MissingArgumentException {
+            OutOfListBoundsException, EmptyListException, MissingArgumentException {
         int taskCount = tasks.getTaskCount();
         if (taskCount == 0) {
             throw new EmptyListException();

@@ -39,28 +39,29 @@ public class AddEventCommand extends Command {
      * @throws IOException If encounter error interfacing
      * @throws MissingArgumentException If command argument doesn't meet attribute requirement of an event
      */
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws MissingArgumentException,
-           IOException {
-               int fromPrefixIndex = commandArg.indexOf(FROM_PREFIX);
-               int toPrefixIndex = commandArg.indexOf(TO_PREFIX);
-               int fromArgIndex = fromPrefixIndex + FROM_PREFIX.length();
-               int toArgIndex = toPrefixIndex + TO_PREFIX.length();
-               if (commandArg.equals("") || fromPrefixIndex < 1 || toPrefixIndex < 1 
-                       || fromPrefixIndex > toPrefixIndex || fromArgIndex >= toPrefixIndex  
-                       || toArgIndex >= commandArg.length()) {
-                   throw new MissingArgumentException(CommandType.EVENT);
-                       }
-               String description = commandArg.substring(0, fromPrefixIndex);
-               String from = commandArg.substring(fromArgIndex, toPrefixIndex);
-               if (from.trim().equals("")) {
-                   throw new MissingArgumentException(CommandType.EVENT);
-               }
-               String to = commandArg.substring(toArgIndex);
-               Event newEvent = new Event(description.trim(), from.trim(), to.trim());
-               tasks.addTask(newEvent);
-               int taskCount = tasks.getTaskCount();
-               storage.addToDataFile(newEvent.dataFileInput());
-               ui.printAddedTask(newEvent.toString(), taskCount);
-               return false;
+    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws MissingArgumentException, IOException {
+        int fromPrefixIndex = commandArg.indexOf(FROM_PREFIX);
+        int toPrefixIndex = commandArg.indexOf(TO_PREFIX);
+        int fromArgIndex = fromPrefixIndex + FROM_PREFIX.length();
+        int toArgIndex = toPrefixIndex + TO_PREFIX.length();
+        boolean isDescriptionEmpty = commandArg.equals("");
+        boolean isTimeEmpty = fromArgIndex >= toPrefixIndex|| toArgIndex >= commandArg.length();
+        boolean isOrderWrong = fromPrefixIndex > toPrefixIndex;
+        boolean isMissingIdentifier = fromPrefixIndex < 1 || toPrefixIndex < 1;
+        if (isDescriptionEmpty || isTimeEmpty || isOrderWrong || isMissingIdentifier) {
+            throw new MissingArgumentException(CommandType.EVENT);
+        }
+        String description = commandArg.substring(0, fromPrefixIndex);
+        String from = commandArg.substring(fromArgIndex, toPrefixIndex);
+        if (from.trim().equals("")) {
+            throw new MissingArgumentException(CommandType.EVENT);
+        }
+        String to = commandArg.substring(toArgIndex);
+        Event newEvent = new Event(description.trim(), from.trim(), to.trim());
+        tasks.addTask(newEvent);
+        int taskCount = tasks.getTaskCount();
+        storage.addToDataFile(newEvent.dataFileInput());
+        ui.printAddedTask(newEvent.toString(), taskCount);
+        return false;
     }
 }

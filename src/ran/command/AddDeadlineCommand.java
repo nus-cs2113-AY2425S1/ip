@@ -38,20 +38,19 @@ public class AddDeadlineCommand extends Command {
      * @throws IOException If encounter error interfacing
      * @throws MissingArgumentException If command argument doesn't meet attribute requirement of a deadline
      */
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws MissingArgumentException,
-           IOException {
-               int byPrefixIndex = commandArg.indexOf(BY_PREFIX);
-               int byArgIndex = byPrefixIndex + BY_PREFIX.length();
-               if (commandArg.equals("") || byPrefixIndex < 1 || byArgIndex >= commandArg.length()) {
-                   throw new MissingArgumentException(CommandType.DEADLINE);
-               }
-               String description = commandArg.substring(0, byPrefixIndex);
-               String by = commandArg.substring(byArgIndex);
-               Deadline newDeadline = new Deadline(description.trim(), by.trim());
-               tasks.addTask(newDeadline);
-               int taskCount = tasks.getTaskCount();
-               storage.addToDataFile(newDeadline.dataFileInput());
-               ui.printAddedTask(newDeadline.toString(), taskCount);
-               return false;
+    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws MissingArgumentException, IOException {
+        int byPrefixIndex = commandArg.indexOf(BY_PREFIX);
+        int byArgIndex = byPrefixIndex + BY_PREFIX.length();
+        if (commandArg.equals("") || byPrefixIndex < 1 || byArgIndex >= commandArg.length()) {
+            throw new MissingArgumentException(CommandType.DEADLINE);
+        }
+        String description = commandArg.substring(0, byPrefixIndex);
+        String by = commandArg.substring(byArgIndex);
+        Deadline newDeadline = new Deadline(description.trim(), by.trim());
+        tasks.addTask(newDeadline);
+        int taskCount = tasks.getTaskCount();
+        storage.addToDataFile(newDeadline.dataFileInput());
+        ui.printAddedTask(newDeadline.toString(), taskCount);
+        return false;
     }
 }
