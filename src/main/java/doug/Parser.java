@@ -57,7 +57,7 @@ public class Parser {
      * @throws DougException If the user input is missing the name/description of the task
      */
     public static Command parseToDo(TaskList tasks, String command, UI ui) throws DougException{
-        String todoName = command.replace("todo", "").trim();
+        String todoName = command.replaceFirst("todo", "").trim();
         if (command.isEmpty()) {
             throw new DougException(ui.getConfusedMessage());
         }
@@ -80,7 +80,7 @@ public class Parser {
      * @throws DougException If the user input is missing the name or deadline time/date of the task
      */
     public static Command parseDeadline(TaskList tasks, String command, UI ui) throws DougException{
-        command = command.replace("deadline", "").trim();
+        command = command.replaceFirst("deadline", "").trim();
         if (command.isEmpty()) {
             throw new DougException(ui.getConfusedMessage());
         }
@@ -98,8 +98,8 @@ public class Parser {
                     + ui.getDashedLine());
         }
 
-        command = command.replace(deadlineName, "");
-        String deadlineBy = command.replace("/by", "").trim();
+        command = command.replaceFirst(deadlineName, "");
+        String deadlineBy = command.replaceFirst("/by", "").trim();
         if (deadlineBy.isEmpty()) {
             throw new DougException(ui.getDashedLine()
                     + "Forgot to mention when it's due by, huh bud?\n"
@@ -119,7 +119,7 @@ public class Parser {
      * @throws DougException If the user input is missing the name or start/end time/date of the task
      */
     public static Command parseEvent(TaskList tasks, String command, UI ui) throws DougException {
-        command = command.replace("event", "").trim();
+        command = command.replaceFirst("event", "").trim();
         if (command.isEmpty()) {
             throw new DougException(ui.getConfusedMessage());
         }
@@ -149,8 +149,8 @@ public class Parser {
             throw new DougException(ui.getDashedLine() + "Didn't name your event did you bud?\n" + ui.getDashedLine());
         }
 
-        command = command.replace(eventName, "");
-        command = command.replace("/from", "").trim();
+        command = command.replaceFirst(eventName, "");
+        command = command.replaceFirst("/from", "").trim();
         int indexOfSecondSlash = command.indexOf("/to");
         String eventFrom = command.substring(0, indexOfSecondSlash).trim();
         if (eventFrom.isEmpty()) {
@@ -158,8 +158,8 @@ public class Parser {
                     + " starts, huh bud?\n" + ui.getDashedLine());
         }
 
-        command = command.replace(eventFrom, "");
-        String eventTo = command.replace("/to", "").trim();
+        command = command.replaceFirst(eventFrom, "");
+        String eventTo = command.replaceFirst("/to", "").trim();
         if (eventTo.isEmpty()) {
             throw new DougException(ui.getDashedLine() + "Forgot to mention when " + eventName
                     + " ends, huh bud?\n" + ui.getDashedLine());
@@ -286,7 +286,7 @@ public class Parser {
      * @throws DougException If the user input is missing the keyword to find in the tasks
      */
     public static Command parseFind(TaskList tasks, String command, UI ui) throws DougException {
-        command = command.replace("find", "").trim();
+        command = command.replaceFirst("find", "").trim();
         if (command.isEmpty()) {
             throw new DougException(ui.getConfusedMessage());
         }

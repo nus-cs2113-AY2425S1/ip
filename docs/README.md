@@ -7,12 +7,14 @@
 His main goal is to help you note down and access your important tasks.
 
 # How To Launch and Use Doug
-1. Ensure that you have Java 17 installed
+1. Download the latest version of Doug.jar from KSanjith's GitHub iP releases section
+   - Latest release version as of now is v0.2
+2. Ensure that you have Java 17 installed on your PC
    - Doug will not launch with any other version of Java
-2. Open a command terminal
-3. Navigate to the directory where 2113IP.jar is located at using the `cd` command
-4. Type in `java -jar 2113IP.jar` to launch Doug 
-5. If successful, you should see the welcome message as shown above
+3. Open a command terminal
+4. Navigate to the directory where Doug.jar is located at using the `cd` command
+5. Type in `java -jar Doug.jar` to launch Doug 
+6. If successful, you should see the welcome message as shown above
 
 
 # Features
@@ -28,12 +30,12 @@ His main goal is to help you note down and access your important tasks.
 ### Interpreting Output Format
 Tasks are shown to the user in the following format
 `[Z][X] description [time/date]`
-- In the first box, the letter represents the task type
+- In the first box, the letter (Z) represents the task type
   - T = **todo** task
   - D = **deadline** task
   - E = **event** task
 
-- In the second box, the letter represents whether the task is marked as done or not done
+- In the second box, the letter (X) represents whether the task is marked as done or not done
   - X = task is marked as **done**. 
   - (blank) = task is marked as **not done**.
 
