@@ -110,7 +110,7 @@ Don't worry, I've already forgotten about it!
 
 ### Listing All Tasks
 
-To list all tasks in Yapper, use the list command.
+To list all tasks in your task list, 
 use the list command without any parameters.
 e.g. `list`
 ```
@@ -124,15 +124,15 @@ That should be all of them. Did I forget any?
 
 ### Finding Tasks 
 
-To find tasks in Yapper, use the find command.
+To find tasks,
 use the find command followed by the query string,
 e.g. `find CS2113`
-This will list all tasks who have that query in its description, if any.
+This will list all tasks which have that query in its description, if any.
 ```
 ___________________ PROGRAM OUTPUT BELOW ___________________
 Hmmm, let me think. What tasks could you be referring to? 
-3.[T][O] desc
-4.[T][X] desc
+3.[T][O] CS2113 iP 
+4.[T][X] CS2113 tP 
 2 task(s) found contains your query string. 
 ___________________ YAPPING OUTPUT BELOW ___________________
 Is any of them what you were looking for? 
