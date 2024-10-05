@@ -86,19 +86,15 @@ public class StringStorage {
      */
     public static final String HELP_MESSAGE =
             "To jog your memory, here's what we can discuss: \n"
-            // Nullary Argument Commands
             + "list" + ", if you forgot what you said. \n"
             + "help" + ", if you forgot what kinda stuff we can yap about. \n"
             + "bye" + ", if you want me to stop yappin. \n"
-            // Unary Argument Commands
             + "delete [index]" + ", if you don't want something. \n"
             + "mark [index]" + ", if you're done with something. \n"
             + "unmark [index]" + ", if you're not done with something. \n"
             + "find [keyword]" + ", if you're looking for something. \n"
             + "todo [todoDesc]" + ", to for a task with no dates. \n"
-            // Binary Argument Commands
             + "deadline [deadlineDesc] /by [end]" + ", for a task with an end date. \n"
-            // Trinary Argument Commands
             + "event [eventDesc] /from [start] /to [end]" + ", for a task with a start date and an end date. ";
     public static final String START_UP_MESSAGE =
             "Wassup! \n"
