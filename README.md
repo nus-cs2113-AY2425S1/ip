@@ -1,7 +1,6 @@
 
 
-```markdown
-#Andy Bot
+# Andy Bot
 
 Welcome to **Andy Bot**, your personal assistant to manage tasks, deadlines, and events effortlessly. Andy helps you keep track of all your tasks with an easy-to-use interface, and all your inputs are stored safely so you never lose track of important tasks.
 
@@ -28,7 +27,6 @@ Andy stores all your tasks in a file called **andy.txt** located in the `data` d
 3. Run the command:
    ```bash
    java -jar andy.jar
-   ```
 
 To exit the application, simply type `bye`.
 
