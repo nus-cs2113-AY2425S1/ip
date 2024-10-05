@@ -54,6 +54,19 @@ public class TaskList {
         taskList.get(taskNumber - 1).markAsDone();
     }
 
+    public Task getLatestTask() {
+       return  taskList.get(taskList.size() - 1);
+    }
+
+    /**
+     * Prints the number of tasks in the list.
+     */
+    public static void printNumberOfTasks() {
+        taskList.trimToSize();
+        int numberOfTasks = taskList.size();
+        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+    }
+
     /**
      * Marks the task as not done.
      *
@@ -78,38 +91,38 @@ public class TaskList {
 
     public static void deleteTask(String task) throws IllegalArgumentException {
         int taskNumberDelete = Integer.parseInt(task);
-        if (taskNumberDelete > Task.getNumberOfTasks()) {
+        if (taskNumberDelete > taskList.size()) {
             throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumberDelete - 1).toString());
         taskList.remove(taskNumberDelete - 1);
-        Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
-        Task.printNumberOfTasks();
+        taskList.trimToSize();
+        printNumberOfTasks();
     }
 
     public static void deleteTask(int taskNumber) throws IllegalArgumentException {
 
-        if (taskNumber > Task.getNumberOfTasks()) {
+        if (taskNumber > taskList.size()) {
             throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
         taskList.remove(taskNumber - 1);
-        Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
-        Task.printNumberOfTasks();
+        taskList.trimToSize();
+        printNumberOfTasks();
     }
 
     public static void deleteTask(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
 
-        if (taskNumber > Task.getNumberOfTasks()) {
+        if (taskNumber > taskList.size()) {
             throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
         taskList.remove(taskNumber - 1);
-        Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
-        Task.printNumberOfTasks();
+        taskList.trimToSize();
+        printNumberOfTasks();
     }
 
     /**
@@ -118,11 +131,11 @@ public class TaskList {
      * @param taskList list of tasks
      */
     public static void printAllTasks(ArrayList<Task> taskList) {
-        if (Task.getNumberOfTasks() == 0) {
+        if (taskList.isEmpty()) {
             TextUi.printWarning("The list is empty.");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 TextUi.printSuccess((i + 1) + "." + taskList.get(i).toString());
             }
         }
@@ -134,11 +147,11 @@ public class TaskList {
      * @param taskList list of tasks
      */
     public static void printAllTasks() {
-        if (Task.getNumberOfTasks() == 0) {
+        if (taskList.isEmpty()) {
             TextUi.printWarning("The list is empty.");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 TextUi.printSuccess((i + 1) + "." + taskList.get(i).toString());
             }
         }

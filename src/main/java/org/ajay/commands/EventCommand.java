@@ -26,6 +26,11 @@ public class EventCommand extends Command{
         } catch (InvalidCommandFormatException e) {
             ui.printExceptions(e.getMessage());
         }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.getLatestTask().toString());
+        TaskList.printNumberOfTasks();
+
         storage.saveTaskList(tasks.getTaskList());
     }
 

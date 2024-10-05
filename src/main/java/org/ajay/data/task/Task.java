@@ -13,7 +13,7 @@ public abstract class Task {
     private boolean isDone;     // Status of the task
 
     // TODO: Possible to use arraylist length
-    private static int numberOfTasks = 0; // Number of tasks in the list
+    // private static int numberOfTasks = 0; // Number of tasks in the list
 
     /**
      * Constructor for the Task class.
@@ -29,7 +29,7 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
 
-        numberOfTasks++;
+        // numberOfTasks++;
     }
 
     /**
@@ -97,25 +97,13 @@ public abstract class Task {
 
 
 
-    /**
-     * Returns the number of tasks in the list.
-     *
-     * @return number of tasks in the list
-     */
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
 
-    public static int setNumberOfTasks(int num) {
-        return numberOfTasks = num;
-    }
 
-    /**
-     * Prints the number of tasks in the list.
-     */
-    public static void printNumberOfTasks() {
-        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
-    }
+    // public static int setNumberOfTasks(int num) {
+    //     return numberOfTasks = num;
+    // }
+
+
 
     /**
      * Prints the task to the console.

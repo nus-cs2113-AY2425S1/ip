@@ -19,6 +19,10 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         try {
             tasks.addTask(new Deadline(Parser.task));
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + tasks.getLatestTask().toString());
+            tasks.printNumberOfTasks();
+
             storage.saveTaskList(tasks.getTaskList());
         } catch (EmptyArgumentException e) {
             TextUi.printExceptions(e.getMessage());

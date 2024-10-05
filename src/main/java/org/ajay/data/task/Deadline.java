@@ -27,9 +27,6 @@ public class Deadline extends Task {
             TextUi.printExceptions(e.getMessage());
         }
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        Task.printNumberOfTasks();
     }
 
 
@@ -44,9 +41,6 @@ public class Deadline extends Task {
         super(description);
         setBy(by);
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        Task.printNumberOfTasks();
     }
 
     public Deadline(boolean isDone, String description, String by) throws EmptyArgumentException {

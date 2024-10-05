@@ -1,5 +1,6 @@
 package org.ajay.data.task;
 
+
 import org.ajay.data.exceptions.EmptyArgumentException;
 
 public class Todo extends Task {
@@ -13,9 +14,7 @@ public class Todo extends Task {
      */
     public Todo(String description) throws EmptyArgumentException {
         super(description);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        Task.printNumberOfTasks();
+
     }
 
     public Todo(String description, boolean isDone) throws EmptyArgumentException {

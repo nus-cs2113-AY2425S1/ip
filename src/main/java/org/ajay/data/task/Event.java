@@ -26,9 +26,7 @@ public class Event extends Task {
         setFrom(getFromFromString(description));
         setTo(getToFromString(description));
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        Task.printNumberOfTasks();
+
 
     }
 
