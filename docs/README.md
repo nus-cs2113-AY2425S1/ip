@@ -4,7 +4,7 @@
 [img.png](img.png)
 
 Chatty Charlie is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
-If you can type fast, AB3 can track your task faster than traditional GUI apps.
+If you can type fast, Chatty Charlie can track your task faster than traditional GUI apps.
 
 ## Adding deadlines
 Add a task that has a specific deadline. You provide the task description along with a deadline date.
