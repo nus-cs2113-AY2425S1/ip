@@ -1,19 +1,17 @@
+package task;
 import exception.LeginEmptyTaskException;
 import exception.LeginMissingParamsException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
 import java.util.ArrayList;
+import ui.Ui;
 
 /**
  * Keeps track of the number of task the user has and stores all task information in an array of {@code Task}
  */
 public class TaskList {
-    private final int DECREMENT_FOR_ZERO_INDEX = 1;
-    private ArrayList<Task> tasks;
+    private static final int DECREMENT_FOR_ZERO_INDEX = 1;
+    private final ArrayList<Task> tasks;
+    private final Ui ui = new Ui();
     private int currentTaskCount;
-    private Ui ui = new Ui();
 
     public TaskList(ArrayList<Task> tasks, int currentTaskCount) {
         this.currentTaskCount = currentTaskCount;
