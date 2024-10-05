@@ -67,11 +67,13 @@ public class TaskList {
             throw new lovespiritualException("Oops! (0.0) What should I find? Please give me a keyword.");
         }
         System.out.println(SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
         int matchCount = 0;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.toString().toLowerCase().contains(findTask.toLowerCase())) {
+                if (matchCount == 0) {
+                    System.out.println("Here are the matching tasks in your list:");
+                }
                 matchCount++;
                 System.out.println((i + 1) + "." + task);
             }
