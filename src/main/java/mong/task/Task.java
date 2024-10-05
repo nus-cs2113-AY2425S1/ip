@@ -18,9 +18,6 @@ public abstract class Task implements TaskManager {
         return isCompleted;
     }
 
-    /**
-     * Prints out command and the following 'mark' action that has been completed on it.
-     */
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
@@ -47,9 +44,13 @@ public abstract class Task implements TaskManager {
         return "[ ] "+ description;
     }
 
+    /**
+     * Constructor of a Task.
+     * @param description The name of the task (e.g. chinese class) in String format.
+     * Default value of isCompleted for each task is false.
+     */
     public Task(String description) {
         setDescription(description);
-        // default value for isCompleted is false
         this.isCompleted = false;
         setIndex();
     }

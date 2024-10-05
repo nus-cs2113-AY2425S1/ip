@@ -16,6 +16,10 @@ public enum TaskType {
         return command;
     }
 
+    /**
+     * Returns a TaskType enum.
+     * @param command The word in index 0 of the user input.
+     */
     public static TaskType fromCommand(String command) throws IllegalTaskTypeException {
         for (TaskType taskType : TaskType.values()) {
             if (taskType.getCommand().equalsIgnoreCase(command)) {
