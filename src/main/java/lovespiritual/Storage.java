@@ -1,6 +1,5 @@
 package lovespiritual;
 
-import lovespiritual.exception.lovespiritualException;
 import lovespiritual.task.Task;
 
 import java.io.*;
