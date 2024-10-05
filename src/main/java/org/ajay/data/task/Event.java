@@ -26,8 +26,6 @@ public class Event extends Task {
         setFrom(getFromFromString(description));
         setTo(getToFromString(description));
 
-
-
     }
 
     /**
@@ -123,7 +121,8 @@ public class Event extends Task {
     public static String getFromFromString(String input) throws InvalidCommandFormatException {
 
         if (input == null || !input.contains(FROM_KEYWORD_STRING)) {
-            throw new InvalidCommandFormatException("Invalid command format. Please include the from date. " + Error.INVAILD_COMMAND_FORMAT.toString());
+            throw new InvalidCommandFormatException(
+                    "Invalid command format. Please include the from date. " + Error.INVAILD_COMMAND_FORMAT.toString());
         }
 
         int indexAfterFrom = input.indexOf(FROM_KEYWORD_STRING) + FROM_KEYWORD_STRING.length();
@@ -142,7 +141,8 @@ public class Event extends Task {
     public static String getToFromString(String input) throws InvalidCommandFormatException {
 
         if (input == null || !input.contains(TO_KEYWORD_STRING)) {
-            throw new InvalidCommandFormatException("Invalid command format. Please include the to date. " + Error.INVAILD_COMMAND_FORMAT.toString());
+            throw new InvalidCommandFormatException(
+                    "Invalid command format. Please include the to date. " + Error.INVAILD_COMMAND_FORMAT.toString());
         }
 
         int indexAfterTo = input.indexOf(TO_KEYWORD_STRING) + TO_KEYWORD_STRING.length();
@@ -152,14 +152,15 @@ public class Event extends Task {
 
     @Override
     public String saveTaskString() {
-        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + from + " | "
+                + to;
     }
 
-    public static Event loadTaskString(boolean isDone, String description, String from, String to) throws EmptyArgumentException {
+    public static Event loadTaskString(boolean isDone, String description, String from, String to)
+            throws EmptyArgumentException {
         Event event = new Event(isDone, description, from, to);
         return event;
     }
-
 
     @Override
     public String toString() {

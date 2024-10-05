@@ -10,5 +10,4 @@ public class HelpCommand extends Command {
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         ui.printHelpMsgs();
     }
-
 }

@@ -2,7 +2,6 @@ package org.ajay.ui;
 
 import org.ajay.common.Messages;
 
-
 public class TextUi {
     /**
      * Prints a break line to the console.
@@ -23,7 +22,7 @@ public class TextUi {
     /**
      * Prints the prompt to the console for visual marker for user to type.
      */
-    public static  void printPrompt() {
+    public static void printPrompt() {
         System.out.print(Messages.MESSAGE_PROMPT);
     }
 
@@ -53,7 +52,7 @@ public class TextUi {
      * Prints the greeting messages to the console.
      */
     public void printGreetingMsgs() {
-        String[] greetings = {Messages.MESSAGE_WELCOME}; // List of greetings
+        String[] greetings = { Messages.MESSAGE_WELCOME }; // List of greetings
 
         // Print the greetings
         for (String greeting : greetings) {
@@ -67,7 +66,7 @@ public class TextUi {
      * Prints the goodbye messages to the console.
      */
     public void printGoodbyeMsgs() {
-        String[] goodbyes = {Messages.MESSAGE_EXIT}; // List of goodbye messages
+        String[] goodbyes = { Messages.MESSAGE_EXIT }; // List of goodbye messages
         // List of goodbye messages
         // Print the goodbye messages
         for (String goodbye : goodbyes) {
@@ -79,7 +78,7 @@ public class TextUi {
     }
 
     public static void printHelpMsgs() {
-        String[] helpMsgs = {Messages.MESSAGE_HELP};
+        String[] helpMsgs = { Messages.MESSAGE_HELP };
         printBreakLine();
         // Print the help messages
         for (String helpMsg : helpMsgs) {
@@ -87,6 +86,5 @@ public class TextUi {
         } // Print the help message
         printBreakLine();
     }
-
 
 }

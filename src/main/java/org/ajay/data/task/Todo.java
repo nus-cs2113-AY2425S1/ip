@@ -1,6 +1,5 @@
 package org.ajay.data.task;
 
-
 import org.ajay.data.exceptions.EmptyArgumentException;
 
 public class Todo extends Task {
@@ -21,7 +20,6 @@ public class Todo extends Task {
         super(description);
         super.setDoneState(isDone);
     }
-
 
     @Override
     public String saveTaskString() {

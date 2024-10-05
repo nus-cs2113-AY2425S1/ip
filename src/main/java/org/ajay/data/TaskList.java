@@ -7,7 +7,7 @@ import org.ajay.ui.TextUi;
 
 public class TaskList {
 
-    private  static ArrayList<Task> taskList = new ArrayList<>(); // ArrayList to store tasks
+    private static ArrayList<Task> taskList = new ArrayList<>(); // ArrayList to store tasks
 
     public ArrayList<Task> getTaskList() {
         return taskList;
@@ -17,7 +17,8 @@ public class TaskList {
         TaskList.taskList = taskList;
     }
 
-    public TaskList() {}
+    public TaskList() {
+    }
 
     public TaskList(ArrayList<Task> taskList) {
         setTaskList(taskList);
@@ -55,7 +56,7 @@ public class TaskList {
     }
 
     public Task getLatestTask() {
-       return  taskList.get(taskList.size() - 1);
+        return taskList.get(taskList.size() - 1);
     }
 
     /**

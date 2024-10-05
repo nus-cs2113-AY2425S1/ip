@@ -11,8 +11,8 @@ public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = Todo.COMMAND_STRING;
     public static final String MESSAGE_USAGE = """
-                                               Creates a todo task.
-                                               Example: """ + COMMAND_WORD;
+            Creates a todo task.
+            Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Todo has been created!";
 
@@ -29,5 +29,4 @@ public class TodoCommand extends Command {
         System.out.println("  " + tasks.getLatestTask().toString());
         TaskList.printNumberOfTasks();
     }
-
 }

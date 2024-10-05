@@ -14,7 +14,6 @@ import org.ajay.data.task.Task;
 import org.ajay.data.task.Todo;
 import org.ajay.ui.TextUi;
 
-
 public class Storage {
 
     private static String filePath;
@@ -27,7 +26,8 @@ public class Storage {
         Storage.filePath = filePath;
     }
 
-    public Storage() {}
+    public Storage() {
+    }
 
     public Storage(String filePath) {
         setFilePath(filePath);

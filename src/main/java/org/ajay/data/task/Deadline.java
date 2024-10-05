@@ -19,7 +19,7 @@ public class Deadline extends Task {
      *
      * @throws InvalidCommandFormatException
      */
-    public Deadline(String description) throws EmptyArgumentException  {
+    public Deadline(String description) throws EmptyArgumentException {
         super(getDescriptionFromString(description));
         try {
             setBy(getDayFromString(description));
@@ -29,7 +29,6 @@ public class Deadline extends Task {
 
     }
 
-
     /**
      * Constructor for the Deadline class.
      *
@@ -37,7 +36,7 @@ public class Deadline extends Task {
      * @param by          by date
      * @throws EmptyArgumentException
      */
-    public Deadline(String description, String by) throws EmptyArgumentException  {
+    public Deadline(String description, String by) throws EmptyArgumentException {
         super(description);
         setBy(by);
 
@@ -77,7 +76,8 @@ public class Deadline extends Task {
     public static String getDayFromString(String input) throws InvalidCommandFormatException {
 
         if (input == null) {
-            throw new InvalidCommandFormatException("Invalid command format. Please include the by date. " + Error.INVAILD_COMMAND_FORMAT.toString());
+            throw new InvalidCommandFormatException(
+                    "Invalid command format. Please include the by date. " + Error.INVAILD_COMMAND_FORMAT.toString());
         }
 
         int indexAfterBy = input.indexOf(BY_KEYWORD_STRING) + BY_KEYWORD_STRING.length();
@@ -112,7 +112,6 @@ public class Deadline extends Task {
         Deadline deadline = new Deadline(isDone, description, by);
         return deadline;
     }
-
 
     @Override
     public String toString() {

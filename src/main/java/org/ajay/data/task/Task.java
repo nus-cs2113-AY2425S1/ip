@@ -10,7 +10,7 @@ public abstract class Task {
     public final static String DELETE_COMMAND_STRING = "delete";
 
     protected String description; // Description of the task
-    private boolean isDone;     // Status of the task
+    private boolean isDone; // Status of the task
 
     // TODO: Possible to use arraylist length
     // private static int numberOfTasks = 0; // Number of tasks in the list
@@ -95,15 +95,9 @@ public abstract class Task {
         System.out.println("OK, I've marked this task as not done yet: \n  " + this.toString());
     }
 
-
-
-
-
     // public static int setNumberOfTasks(int num) {
-    //     return numberOfTasks = num;
+    // return numberOfTasks = num;
     // }
-
-
 
     /**
      * Prints the task to the console.
@@ -116,8 +110,5 @@ public abstract class Task {
     }
 
     public abstract String saveTaskString();
-
-
-
 
 }

@@ -58,7 +58,6 @@ public class Parser {
             TextUi.printExceptions(e.getMessage());
         }
 
-
     }
 
     public static Command parseCommand(String command, String task) {

@@ -8,8 +8,8 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
     public static final String MESSAGE_USAGE = """
-                                               Exits the program.
-                                               Example: """ + COMMAND_WORD;
+            Exits the program.
+            Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Exiting program...";
 
@@ -18,5 +18,4 @@ public class ExitCommand extends Command {
         super.setExitBool(true);
         ui.printGoodbyeMsgs();
     }
-
 }

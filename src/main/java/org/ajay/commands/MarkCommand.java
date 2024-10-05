@@ -10,8 +10,8 @@ public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = Task.MARK_COMMAND_STRING;
     public static final String MESSAGE_USAGE = """
-                                               Marks a task as done.
-                                               Example: """ + COMMAND_WORD;
+            Marks a task as done.
+            Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Task has been marked as done";
 
@@ -20,5 +20,4 @@ public class MarkCommand extends Command {
         tasks.markAsDone(Parser.task);
         storage.saveTaskList(tasks.getTaskList());
     }
-
 }
