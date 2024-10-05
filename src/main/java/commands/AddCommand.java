@@ -62,7 +62,7 @@ public class AddCommand extends Command {
         }
     }
 
-    public void makeDeadline(String description, String by, TaskList tasks) {
+    private void makeDeadline(String description, String by, TaskList tasks) {
         Deadline newDeadline = new Deadline(description, by);
         tasks.addToList(newDeadline);
         System.out
@@ -70,7 +70,7 @@ public class AddCommand extends Command {
                         + "Now you have " + tasks.getTaskCount() + " tasks in the list.\n" + Ui.DIVIDER);
     }
 
-    public void makeEvent(String description, String to, String from, TaskList tasks) {
+    private void makeEvent(String description, String to, String from, TaskList tasks) {
         Event newEvent = new Event(description, to, from);
         tasks.addToList(newEvent);
         System.out
@@ -78,7 +78,7 @@ public class AddCommand extends Command {
                         + "Now you have " + tasks.getTaskCount() + " tasks in the list.\n" + Ui.DIVIDER);
     }
 
-    public void makeToDo(String description, TaskList tasks) throws DootException {
+    private void makeToDo(String description, TaskList tasks) throws DootException {
         if (description.isEmpty()) {
             throw new DootException("The description of a todo cannot be empty.");
         }

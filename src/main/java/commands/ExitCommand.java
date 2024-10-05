@@ -10,6 +10,10 @@ public class ExitCommand extends Command{
         super(cmd, args);
     }
 
+    /**
+     * Returns that this Command is an exit command
+     * @return true
+     */
     public boolean isExit(){
         return true;
     }
