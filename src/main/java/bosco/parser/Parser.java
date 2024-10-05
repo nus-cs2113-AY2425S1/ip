@@ -61,7 +61,6 @@ public class Parser {
         case "event":
             return prepareAddEvent(commandArgs);
         case "bye":
-        case "exit":
             return new ExitCommand();
         default:
             throw new IllegalCommandException();
@@ -114,10 +113,12 @@ public class Parser {
         if (indexOfByPrefix == -1) {
             throw new MissingPrefixException(DEADLINE_PREFIX_BY);
         }
+
         String description = commandArgs.substring(0, indexOfByPrefix).strip();
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
+
         String by = removePrefix(commandArgs.substring(indexOfByPrefix), DEADLINE_PREFIX_BY).strip();
         try {
             LocalDateTime byDateTime = DateTimeParser.parseDateTime(by);
@@ -137,13 +138,24 @@ public class Parser {
         if (indexOfToPrefix == -1) {
             throw new MissingPrefixException(EVENT_PREFIX_TO);
         }
-        String description = commandArgs.substring(0, indexOfFromPrefix).strip();
+
+        String description = commandArgs.substring(0, Math.min(indexOfFromPrefix, indexOfToPrefix)).strip();
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        String from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
-                EVENT_PREFIX_FROM).strip();
-        String to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
+
+        String from;
+        String to;
+        if (indexOfFromPrefix < indexOfToPrefix) {
+            from = removePrefix(commandArgs.substring(indexOfFromPrefix, indexOfToPrefix),
+                    EVENT_PREFIX_FROM).strip();
+            to = removePrefix(commandArgs.substring(indexOfToPrefix), EVENT_PREFIX_TO).strip();
+        } else {
+            from = removePrefix(commandArgs.substring(indexOfFromPrefix), EVENT_PREFIX_FROM).strip();
+            to = removePrefix(commandArgs.substring(indexOfToPrefix, indexOfFromPrefix),
+                    EVENT_PREFIX_TO).strip();
+        }
+
         try {
             LocalDateTime fromDateTime = DateTimeParser.parseDateTime(from);
             LocalDateTime toDateTime = DateTimeParser.parseDateTime(to);
