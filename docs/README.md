@@ -10,11 +10,11 @@ XiaoMe is a Command Line Interface (CLI) chatbot designed to help you manage you
 2. Download the latest ip.jar from [here](https://github.com/gskang-22/ip/releases).
 3. Copy the `.jar` file to your desired directory.
 4. Open a terminal, navigate to the directory, and run the application with:
-    ```bash
+    ```
     java -jar ip.jar
     ```
 5. You will see a welcome message like below:
-    ```rust
+    ```
 	  ____________________________________________________________
 	  Hello! I'm XiaoMe
 	  What can I do for you?
@@ -30,12 +30,12 @@ Adds a new to-do task to your task list.
 - **Format**: `todo TASK_DESCRIPTION`
 
 - **Example**:
-    ```bash
+    ```
     todo Buy groceries
     ```
 
 - **Output**:
-    ```less
+    ```
 	 ____________________________________________________________
 	 Got it. I've added this task:
 	 	[T][ ] Buy groceries
@@ -49,12 +49,12 @@ Adds a new deadline task with a specified due date.
 - **Format**: `deadline TASK_DESCRIPTION /by DATE`
 
 - **Example**:
-    ```bash
+    ```
     deadline Finish assignment /by Monday
     ```
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     Got it. I've added this task:
       [D][ ] Finish assignment (by: Monday)
@@ -68,12 +68,12 @@ Adds a new event with a specified start and end time.
 - **Format**: `event TASK_DESCRIPTION /from START /to END`
 
 - **Example**:
-    ```vbnet
+    ```
     event Team meeting /from 5PM /to 6PM
     ```
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     Got it. I've added this task:
       [E][ ] Team meeting (from: 5PM to: 6PM)
@@ -87,12 +87,12 @@ Displays all tasks currently in the task list.
 - **Format**: `list`
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ] Buy groceries
-    2. [D][ ] Finish assignment (by: Monday)
-    3. [E][ ] Team meeting (from: 5PM to: 6PM)
+      1.[T][ ] Buy groceries
+      2.[D][ ] Finish assignment (by: Monday)
+      3.[E][ ] Team meeting (from: 5PM to: 6PM)
   ____________________________________________________________
     ```
 
@@ -102,12 +102,12 @@ Marks the specified task as completed.
 - **Format**: `mark INDEX`
 
 - **Example**:
-    ```css
+    ```
     mark 1
     ```
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     Nice! I've marked this task as done:
       [T][X] Buy groceries
@@ -120,15 +120,33 @@ Marks the specified task as not done.
 - **Format**: `unmark INDEX`
 
 - **Example**:
-    ```bash
+    ```
     unmark 1
     ```
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     OK, I've marked this task as not done yet:
       [T][ ] Buy groceries
+  ____________________________________________________________
+    ```
+
+### Finding tasks: `find`
+Finds a specified task from the list by searching for a keyword.
+
+- **Format**: `find KEYWORD`
+
+- **Example**:
+    ```
+  find Finish
+  ```
+
+- **Output**:
+    ```
+  ____________________________________________________________
+    Here are the matching tasks in your list:
+      1.[D][ ] Finish assignment (by: Monday)
   ____________________________________________________________
     ```
 
@@ -138,12 +156,12 @@ Deletes the specified task from the list.
 - **Format**: `delete INDEX`
 
 - **Example**:
-    ```arduino
+    ```
     delete 2
     ```
 
 - **Output**:
-    ```less
+    ```
   ____________________________________________________________
     Noted. I've removed this task:
       [D][ ] Finish assignment (by: Monday)
@@ -157,7 +175,7 @@ Exits the program.
 - **Format**: `bye`
 
 - **Expected Output**:
-    ```css
+    ```
   ____________________________________________________________
     Bye. Hope to see you again soon!
   ____________________________________________________________
@@ -175,13 +193,14 @@ Caution: If the changes to the data file makes its format invalid, XiaoMe will d
 empty data file at the next run.
 
 ## Command Summary
-| Action        | Format                                       | Example                                 |
-|---------------|----------------------------------------------|-----------------------------------------|
-| Add to-do     | `todo TASK_DESCRIPTION`                      | `todo Buy groceries`                    |
-| Add deadline  | `deadline TASK_DESCRIPTION /by DATE`         | `deadline Finish assignment /by Monday` |
-| Add event     | `event TASK_DESCRIPTION /from START /to END` | `event Team meeting /from 5PM /to 6PM`  |
-| List tasks    | `list`                                       | `list`                                  |
-| Mark task     | `mark INDEX`                                 | `mark 1`                                |
-| Unmark task   | `unmark INDEX`                               | `unmark 1`                              |
-| Delete task   | `delete INDEX`                               | `delete 2`                              |
-| Exit          | `bye`                                        | `bye`                                   |
+| Action       | Format                                       | Example                                 |
+|--------------|----------------------------------------------|-----------------------------------------|
+| Add to-do    | `todo TASK_DESCRIPTION`                      | `todo Buy groceries`                    |
+| Add deadline | `deadline TASK_DESCRIPTION /by DATE`         | `deadline Finish assignment /by Monday` |
+| Add event    | `event TASK_DESCRIPTION /from START /to END` | `event Team meeting /from 5PM /to 6PM`  |
+| List tasks   | `list`                                       | `list`                                  |
+| Mark task    | `mark INDEX`                                 | `mark 1`                                |
+| Unmark task  | `unmark INDEX`                               | `unmark 1`                              |
+| Find task    | `find KEYWORD`                               | `find Finish`                           |
+| Delete task  | `delete INDEX`                               | `delete 2`                              |
+| Exit         | `bye`                                        | `bye`                                   |
