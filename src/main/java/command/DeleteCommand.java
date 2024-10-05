@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
             ui.showTaskRemoved(tasks.remove(taskNumber), tasks.size());
             storage.save(tasks.getTasks());
         } else {
-            throw new MondayException("Invalid task number.");
+            throw new MondayException(" Invalid task number.");
         }
     }
 }

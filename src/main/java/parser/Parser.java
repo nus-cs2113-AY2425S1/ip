@@ -31,7 +31,7 @@ public class Parser {
         } else if (input.equals("bye")) {
             return new ExitCommand();
         } else {
-            throw new MondayException("Invalid command. Please try again.");
+            throw new MondayException(" Invalid command. Please try again.");
         }
     }
 }

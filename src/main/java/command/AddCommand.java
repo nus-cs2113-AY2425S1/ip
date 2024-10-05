@@ -43,19 +43,19 @@ public class AddCommand extends Command {
         if (input.startsWith("todo ")) {
             String description = input.substring(5).trim();
             if (description.isEmpty()) {
-                throw new MondayException("    The description of a todo cannot be empty.");
+                throw new MondayException(" The description of a todo cannot be empty.");
             }
             task = new Todo(description, false);
 
         } else if (input.startsWith("deadline ")) {
             String[] parts = input.split(" /by ");
             if (parts.length != 2) {
-                throw new MondayException("    Invalid deadline format. Please use: deadline <description> /by <time>");
+                throw new MondayException(" Invalid deadline format. Please use: deadline <description> /by <time>");
             }
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
             if (description.isEmpty() || by.isEmpty()) {
-                throw new MondayException("    The description or deadline time cannot be empty.");
+                throw new MondayException(" The description or deadline time cannot be empty.");
             }
 
             // Parse the date-time format dd/MM/yyyy HHmm
@@ -64,7 +64,7 @@ public class AddCommand extends Command {
                 LocalDateTime deadlineDate = LocalDateTime.parse(by, formatter);
                 task = new Deadline(description, false, deadlineDate);
             } catch (DateTimeParseException e) {
-                throw new MondayException("    Invalid date format. Please use: dd/MM/yyyy HHmm (e.g., 2/12/2019 1800)");
+                throw new MondayException(" Invalid date format. Please use: dd/MM/yyyy HHmm (e.g., 2/12/2019 1800)");
             }
 
         } else if (input.startsWith("event ")) {
@@ -74,14 +74,14 @@ public class AddCommand extends Command {
                 String from = parts[1].trim();
                 String to = parts[2].trim();
                 if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                    throw new MondayException("    The description or event time cannot be empty.");
+                    throw new MondayException(" The description or event time cannot be empty.");
                 }
                 task = new Event(description, false, from, to);
             } else {
-                throw new MondayException("    Invalid event format. Please use: event <description> /from <start time> /to <end time>");
+                throw new MondayException(" Invalid event format. Please use: event <description> /from <start time> /to <end time>");
             }
         } else {
-            throw new MondayException("    Sorry, I don't understand the command. "
+            throw new MondayException(" Sorry, I don't understand the command. "
                     + "Please use keywords like: 'todo', 'deadline', or 'event'. "
                     + "For example, 'todo <description>' or 'deadline <description> /by <time>'.");
         }

@@ -30,13 +30,22 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MondayException {
-        int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1; // Extracts task number from input
-        if (tasks.isValidTaskNumber(taskNumber)) {
-            tasks.markAsNotDone(taskNumber); // Method to mark the task as not done
-            ui.showTaskUnmarked(tasks.get(taskNumber)); // Show unmarked task message
-            storage.save(tasks.getTasks()); // Save the updated tasks
-        } else {
-            throw new MondayException("    Invalid task number.");
+        String[] parts = input.trim().split("\\s+"); // Split input by spaces
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new MondayException(" Please provide a valid task number to unmark.");
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1].trim()) - 1; // Convert to 0-based index
+            if (tasks.isValidTaskNumber(taskNumber)) {
+                tasks.markAsNotDone(taskNumber);
+                ui.showTaskUnmarked(tasks.get(taskNumber));
+                storage.save(tasks.getTasks());
+            } else {
+                throw new MondayException(" Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            throw new MondayException(" Please enter a valid task number.");
         }
     }
 }

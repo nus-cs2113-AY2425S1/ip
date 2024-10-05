@@ -11,7 +11,7 @@ import ui.Ui;
  * The main class for the Monday task management application.
  */
 public class Monday {
-    private static final String FILE_PATH = "../data/monday.txt";
+    private static final String FILE_PATH = "./data/monday.txt";
     private Ui ui;
     private Storage storage;
     private TaskList tasks;

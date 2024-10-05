@@ -7,16 +7,16 @@ Welcome to Monday, your personal task management assistant! With Monday, you can
 
 • [Quick Start](#Quick-Start)
 
-• [Features](#Features)
-- [Adding Todos](#Adding-Todos)  
-- [Adding Deadlines](#Adding-Deadlines)
-- [Adding Events](#Adding-Events)
-- [Deleting Tasks](#Deleting-Tasks)
-- [Listing All Tasks](#Listing-All-Tasks)
-- [Finding Tasks](#Finding-Tasks)
-- [Marking Tasks as Done](#Marking-Tasks-as-Done)
-- [Unmarking Tasks](#Unmarking-Tasks)
-- [Exiting Monday](#Exiting-Monday)
+• [Features](#features)
+- [Adding Todos](#adding-todos)  
+- [Adding Deadlines](#adding-deadlines)
+- [Adding Events](#adding-events)
+- [Deleting Tasks](#deleting-tasks)
+- [Listing All Tasks](#listing-all-tasks)
+- [Finding Tasks](#finding-tasks)
+- [Marking Tasks as Done](#marking-tasks-as-done)
+- [Unmarking Tasks](#unmarking-tasks)
+- [Exiting Monday](#exiting-monday)
 
 ## Quick Start
 
@@ -35,7 +35,7 @@ Welcome to Monday, your personal task management assistant! With Monday, you can
 5. Type the command in the command box and press Enter to execute it. 
 
 
-6. Refer to the [Features](Features) below for details of each command.
+6. Refer to the [Features](features) below for details of each command.
 
 ## Features
 Notes about the command format:
@@ -51,9 +51,8 @@ Example: `todo <description>`
 You will receive confirmation that the todo task has been added.
 
 ```
-    Got it. I've added this task:
-      [T][ ] <description>
-    Now you have X tasks in the list.
+    Added: [T][ ] <description>
+    Now you have 2 tasks in the list.
 ```
 
 ## Adding Deadlines
@@ -65,8 +64,7 @@ Example: `deadline <description> /by <dd/MM/yyyy hhmm>`
 You will see a confirmation message that the deadline has been added to your task list.
 
 ```
-    Got it. I've added this task:
-      [D][ ] <description> (by: <date and time>)
+    Added: [D][ ] <description> (by: <date and time>)
     Now you have X tasks in the list.
 ```
 
@@ -79,8 +77,7 @@ Example: `event <description> /from <start time> /to <end time>`
 You will see a message confirming that the event has been added.
 
 ```
-    Got it. I've added this task:
-      [E][ ] <description> (from: <start time> to: <end time>)
+    Added: [E][ ] <description> (from: <start time> to: <end time>)
     Now you have X tasks in the list.
 ```
 
@@ -93,8 +90,7 @@ Example: `delete <task number>`
 You will receive a confirmation that the task has been removed.
 
 ```
-    Noted. I've removed this task:
-      [T][ ] <description>
+    Removed: [T][ ] <description>
     Now you have X tasks in the list.
 ```
 
@@ -107,10 +103,10 @@ Example: `list`
 The application will display all tasks along with their statuses.
 
 ```
-    Here are the tasks:
-      1.[T][ ] <description>
-      2.[D][ ] <description> (by: <date and time>)
-      3.[E][ ] <description> (from: <start time> to: <end time>)
+    Here are your tasks:
+    1.[T][ ] <description>
+    2.[D][ ] <description> (by: <date and time>)
+    3.[E][ ] <description> (from: <start time> to: <end time>)
 ```
 ## Finding Tasks
 
@@ -118,11 +114,11 @@ Search for tasks that contain a specific keyword.
 
 Example: `find <keyword>`
 
-The system will return all tasks matching the keyword only in description.
+The system will return all tasks matching the keyword only from description.
 
 ```
     Here are the matching tasks in your list:
-      1.[D][ ] <description> (by: <date and time>)
+    1.[D][ ] <description>
 ```
 ## Marking Tasks as Done
 
@@ -134,7 +130,7 @@ The task will be marked as done, and you will see a confirmation message.
 
 ```
     Nice! I've marked this task as done:
-      [D][X] <description> (by: <date and time>)
+    [D][X] <description> (by: <date and time>)
 ```
 
 ## Unmarking Tasks
@@ -146,8 +142,8 @@ Example: `unmark <task number>`
 The task will be marked as not done, and you will see a confirmation message.
 
 ```
-    OK, I've marked this task as not done yet:
-      [D][ ] <description> (by: <date and time>)
+    OK, I've marked this task as not done:
+    [D][ ] <description> (by: <date and time>)
 ```
 
 ## Exiting Monday
@@ -159,5 +155,5 @@ Example: `bye`
 The application will terminate, displaying a farewell message.
 
 ```
-    Bye! Hope to see you again soon!
+    Exiting the application. Goodbye!
 ```

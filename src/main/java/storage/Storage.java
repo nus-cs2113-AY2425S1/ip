@@ -50,7 +50,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new MondayException("    Error loading tasks from file: " + e.getMessage());
+            throw new MondayException(" Error loading tasks from file: " + e.getMessage());
         }
         return tasks;
     }
@@ -61,7 +61,18 @@ public class Storage {
      * @param tasks the list of tasks to be saved
      */
     public void save(ArrayList<Task> tasks) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))) {
+        File file = new File(filePath);
+
+        // Ensure parent directories exist, create them if they don't
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            boolean dirCreated = parentDir.mkdirs();
+            if (dirCreated) {
+                System.out.println("Created missing directory: " + parentDir.getAbsolutePath());
+            }
+        }
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     Todo todo = (Todo) task;
@@ -92,7 +103,7 @@ public class Storage {
 
         // Check if there are enough parts for different task types
         if (parts.length < 3) {
-            throw new MondayException("Not enough data to parse task: " + line);
+            throw new MondayException(" Not enough data to parse task: " + line);
         }
 
         String taskType = parts[0].trim(); // T, D, E etc.
@@ -104,7 +115,7 @@ public class Storage {
             return new Todo(description, isDone);
         case "D":
             if (parts.length < 4) {
-                throw new MondayException("Not enough data to parse Deadline: " + line);
+                throw new MondayException(" Not enough data to parse Deadline: " + line);
             }
             String deadlineDate = parts[3].trim(); // e.g., the date part for Deadline
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -112,13 +123,13 @@ public class Storage {
             return new Deadline(description, isDone, by);
         case "E":
             if (parts.length < 5) {
-                throw new MondayException("Not enough data to parse Event: " + line);
+                throw new MondayException(" Not enough data to parse Event: " + line);
             }
             String from = parts[3].trim(); // Start
             String to = parts[4].trim(); // End
             return new Event(description, isDone, from, to);
         default:
-            throw new MondayException("Unknown task format: " + line);
+            throw new MondayException(" Unknown task format: " + line);
         }
     }
 }
