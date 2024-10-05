@@ -146,7 +146,7 @@ public class Storage {
         line = line.replaceFirst(taskName, "");
         line = line.replaceFirst("\\| ", "").trim();
         int indexOfSecondBoundary = line.indexOf("| ");
-        String taskFrom = line.substring(0, indexOfSecondBoundary);
+        String taskFrom = line.substring(0, indexOfSecondBoundary).trim();
 
         line = line.replaceFirst(taskFrom, "");
         String taskTo = line.replaceFirst("\\| ", "").trim();

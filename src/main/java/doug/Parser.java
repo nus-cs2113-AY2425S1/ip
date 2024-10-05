@@ -85,7 +85,9 @@ public class Parser {
             throw new DougException(ui.getConfusedMessage());
         }
         if (!command.contains("/by")) {
-            throw new DougException(ui.getDashedLine() + "You're missing the \"/by\" keyword bud.\n" + ui.getDashedLine());
+            throw new DougException(ui.getDashedLine()
+                    + "You're missing the \"/by\" keyword bud.\n"
+                    + ui.getDashedLine());
         }
 
         int indexOfSlash = command.indexOf("/by");
@@ -127,7 +129,18 @@ public class Parser {
                     + ui.getDashedLine());
         }
         if (!command.contains("/to")) {
-            throw new DougException(ui.getDashedLine() + "You're missing the \"/to\" keyword bud.\n" + ui.getDashedLine());
+            throw new DougException(ui.getDashedLine()
+                    + "You're missing the \"/to\" keyword bud.\n"
+                    + ui.getDashedLine());
+        }
+
+        // check to see if the /from comes before the /to input parameter
+        int indexOfFrom = command.indexOf("/from");
+        int indexOfTo = command.indexOf("/to");
+        if (indexOfFrom >= indexOfTo) {
+            throw new DougException(ui.getDashedLine()
+                    + "You're gotten the order of the \"/from\" and \"/to\" all mixed up bud.\n"
+                    + ui.getDashedLine());
         }
 
         int indexOfFirstSlash = command.indexOf("/from");
