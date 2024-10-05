@@ -11,20 +11,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath the path of the file to save/load tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws MondayException if an error occurs while loading tasks
+     */
     public ArrayList<Task> load() throws MondayException {
         File file = new File(filePath);
         System.out.println("Loading tasks from: " + file.getAbsolutePath()); // Debugging line
 
         ArrayList<Task> tasks = new ArrayList<>();
 
-        // Check if the file exists
         if (!file.exists()) {
             System.out.println("File does not exist: " + filePath);
             return tasks; // Return empty tasks if file does not exist
@@ -42,6 +55,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks the list of tasks to be saved
+     */
     public void save(ArrayList<Task> tasks) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
@@ -62,6 +80,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from a line of text.
+     *
+     * @param line the line containing task data
+     * @return the Task object parsed from the line
+     * @throws MondayException if the line format is invalid
+     */
     private Task parseTask(String line) throws MondayException {
         String[] parts = line.split(" \\| "); // Assuming fields are separated by " | "
 

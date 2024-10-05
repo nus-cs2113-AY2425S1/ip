@@ -13,13 +13,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private String input;
 
+    /**
+     * Constructs an AddCommand with the specified input.
+     *
+     * @param input the input string containing the task details
+     */
     public AddCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param tasks   the task list to which the task will be added
+     * @param ui     the UI component for user interaction
+     * @param storage the storage component for saving tasks
+     * @throws MondayException if the input format is invalid or if required fields are empty
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MondayException {
         Task task = null;
