@@ -3,6 +3,7 @@
 ![Jem ChatBot Screenshot](https://imgur.com/RZW6wEB)
 
 JeM is a personal task management chatbot designed to help you organize and track your to-dos, deadlines, and events in a simple and efficient way. With JeM, you can add tasks, mark them as completed, delete them, and much more. This guide will walk you through all of JeM's features so you can use it effectively.
+To try out the chatbot, you can download the latest version of JeM from [here](https://github.com/Atulteja/ip/releases/tag/A-Release).
 
 ## Features Overview
 
