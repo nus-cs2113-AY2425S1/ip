@@ -2,56 +2,63 @@ ____________________________________________________________
 Hello! I'm Legin, your best online companion!
 What can I do for you today my friend :D
 ____________________________________________________________
+Exception Occurred: exception.LeginInvalidCommandException: BROO! No such command!
+____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[ ] make the bed
+[T][ ] make bread for breakfast
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ] finish tutorial 1
+[D][ ] finish bread on table (by: 4 Sep)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] finish bread on table (by: 4 Sep)
+[E][ ] training at lakeside (from: 3.30pm to: 7pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] training at lakeside (from: 3.30pm to: 7pm)
-Now you have 4 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-1. [ ] make the bed
-2. [T][ ] finish tutorial 1
-3. [D][ ] finish bread on table (by: 4 Sep)
-4. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
+1. [T][ ] make bread for breakfast
+2. [D][ ] finish bread on table (by: 4 Sep)
+3. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
 ____________________________________________________________
 ____________________________________________________________
 Good Job Buddy! I've marked this task as done:
-[T][X] finish tutorial 1
+[D][X] finish bread on table (by: 4 Sep)
+____________________________________________________________
+Exception Occurred: exception.LeginIndexOutOfBoundsException: BROO! No such task index!
 ____________________________________________________________
 ____________________________________________________________
-Good Job Buddy! I've marked this task as done:
-[E][X] training at lakeside (from: 3.30pm to: 7pm)
-____________________________________________________________
-____________________________________________________________
-1. [ ] make the bed
-2. [T][X] finish tutorial 1
-3. [D][ ] finish bread on table (by: 4 Sep)
-4. [E][X] training at lakeside (from: 3.30pm to: 7pm)
+1. [T][ ] make bread for breakfast
+2. [D][X] finish bread on table (by: 4 Sep)
+3. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
 ____________________________________________________________
 ____________________________________________________________
 Alright! I've marked this task as not done yet:
+[D][ ] finish bread on table (by: 4 Sep)
+____________________________________________________________
+Exception Occurred: exception.LeginIndexOutOfBoundsException: BROO! No such task index!
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] make bread for breakfast
+2. [D][ ] finish bread on table (by: 4 Sep)
+3. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
 [E][ ] training at lakeside (from: 3.30pm to: 7pm)
+Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-1. [ ] make the bed
-2. [T][X] finish tutorial 1
-3. [D][ ] finish bread on table (by: 4 Sep)
-4. [E][ ] training at lakeside (from: 3.30pm to: 7pm)
+1. [T][ ] make bread for breakfast
+2. [D][ ] finish bread on table (by: 4 Sep)
 ____________________________________________________________
 ____________________________________________________________
-Bye . Hope to see you again really soon!
+1. [T][ ] make bread for breakfast
+2. [D][ ] finish bread on table (by: 4 Sep)
+____________________________________________________________
+____________________________________________________________
+Bye ?. Hope to see you again really soon! ?
 ____________________________________________________________

@@ -15,6 +15,31 @@ public class Deadline extends Task{
     private static final int INCREMENT_TO_BY_START = 4;
     protected String duedate;
 
+    /**
+     * Constructor for {@code Deadline} used when program creates new {@code Deadline} task from user input
+     *
+     * @param input User input into command line
+     * @throws LeginEmptyTaskException If the task description is empty
+     * @throws LeginMissingParamsException If there is missing due date
+     */
+    public Deadline(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
+        super(getDeadlineDescription(input));
+        int startingIndexOfDueDate = input.indexOf("/by") + INCREMENT_TO_BY_START;
+        this.duedate = input.substring(startingIndexOfDueDate);
+    }
+
+    /**
+     * Constructor for {@code Deadline} used by {@code Storage} class to retrieve old user data from storage text file
+     *
+     * @param description Description of the {@code Deadline} task
+     * @param duedate Due date of the task
+     * @throws LeginEmptyTaskException If task description is empty
+     */
+    public Deadline(String description, String duedate) throws LeginEmptyTaskException {
+        super(description);
+        this.duedate = duedate;
+    }
+
     private static String getDeadlineDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         checkValidity(input);
@@ -22,14 +47,6 @@ public class Deadline extends Task{
                 input.indexOf("/by") - DECREMENT_TO_DESCRIPTION_END);
     }
 
-    /**
-     * Checks if the user input is valid with a description and a due date <br>
-     * If user fails to input /by before the due date a {@code LeginMissingParamsException} will be thrown
-     *
-     * @param input User input in command line
-     * @throws LeginMissingParamsException If missing due date
-     * @throws LeginEmptyTaskException If no deadline task description
-     */
     private static void checkValidity(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfBy = input.indexOf("/by");
@@ -40,17 +57,6 @@ public class Deadline extends Task{
                 || input.length() == indexOfBy + SIZE_OF_WORD_BY_AND_SPACE) {
             throw new LeginMissingParamsException();
         }
-    }
-
-    public Deadline(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
-        super(getDeadlineDescription(input));
-        int startingIndexOfDueDate = input.indexOf("/by") + INCREMENT_TO_BY_START;
-        this.duedate = input.substring(startingIndexOfDueDate);
-    }
-
-    public Deadline(String description, String duedate) throws LeginEmptyTaskException {
-        super(description);
-        this.duedate = duedate;
     }
 
     /**

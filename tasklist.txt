@@ -4,4 +4,6 @@ T|false|make sushi
 T|false|finish up essay
 T|false|make bed
 D|false|feed cat|8 Dec
-E|false|concert|1pm|3pm
+T|false|make bed
+E|false|bake cake|4pm|8pm
+D|false|tutorial 2|2pm

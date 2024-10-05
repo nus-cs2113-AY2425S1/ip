@@ -1,10 +1,13 @@
+package ui;
+
 import task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
 
-    private final int INCREMENT_ZERO_INDEX = 1;
+    private static final int INCREMENT_ZERO_INDEX = 1;
+    private final Scanner in = new Scanner(System.in);
 
     public void printHorizontalLine() {
         System.out.println("______________________" +
@@ -28,7 +31,6 @@ public class Ui {
     }
 
     public String readInput() {
-        Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
 

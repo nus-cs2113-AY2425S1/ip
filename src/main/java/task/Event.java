@@ -17,6 +17,38 @@ public class Event extends Task{
     protected String eventStart;
     protected String eventEnd;
 
+    /**
+     * Constructor for {@code Event} used when program creates new {@code Event} task from user input
+     *
+     * @param input User input into command line
+     * @throws LeginEmptyTaskException If the task description is empty
+     * @throws LeginMissingParamsException If there is missing duration
+     */
+    public Event(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
+        super(getEventDescription(input));
+        int startingIndexOfEventStart = input.indexOf("/from") + INCREMENT_FROM_START_OF_FROM;
+        int endingIndexOfEventStart = input.indexOf("/to") + DECREMENT_FROM_START_OF_TO;
+        int startingIndexOfEventEnd = input.indexOf("/to") + INCREMENT_FROM_START_OF_TO;
+        String eventStart = input.substring(startingIndexOfEventStart, endingIndexOfEventStart);
+        String eventEnd = input.substring(startingIndexOfEventEnd);
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+    }
+
+    /**
+     * Constructor for {@code Event} used by {@code Storage} class to retrieve old user data from storage text file
+     *
+     * @param description Description of the {@code Event} task
+     * @param eventStart Starting date and/or time of the task
+     * @param eventEnd Ending date and/or time of the task
+     * @throws LeginEmptyTaskException If task description is empty
+     */
+    public Event(String description, String eventStart, String eventEnd) throws LeginEmptyTaskException {
+        super(description);
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+    }
+
     private static String getEventDescription(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         checkValidity(input);
@@ -24,15 +56,6 @@ public class Event extends Task{
                 input.indexOf("/from") + DECREMENT_TO_DESCRIPTION_END);
     }
 
-    /**
-     * Checks if the user input is valid with a description and duration of event <br>
-     * If user fails to input /from and /to before the stated duration a {@code LeginMissingParamsException} will be
-     * thrown
-     *
-     * @param input User input in command line
-     * @throws LeginMissingParamsException If missing duration of event
-     * @throws LeginEmptyTaskException If no event task description
-     */
     private static void checkValidity(String input) throws LeginMissingParamsException,
             LeginEmptyTaskException {
         int indexOfFrom = input.indexOf("from");
@@ -45,23 +68,6 @@ public class Event extends Task{
                 || indexOfFrom + INCREMENT_FROM_START_OF_FROM_WITH_SPACE == indexOfTo) {
             throw new LeginMissingParamsException();
         }
-    }
-
-    public Event(String input) throws LeginEmptyTaskException, LeginMissingParamsException {
-        super(getEventDescription(input));
-        int startingIndexOfEventStart = input.indexOf("/from") + INCREMENT_FROM_START_OF_FROM;
-        int endingIndexOfEventStart = input.indexOf("/to") + DECREMENT_FROM_START_OF_TO;
-        int startingIndexOfEventEnd = input.indexOf("/to") + INCREMENT_FROM_START_OF_TO;
-        String eventStart = input.substring(startingIndexOfEventStart, endingIndexOfEventStart);
-        String eventEnd = input.substring(startingIndexOfEventEnd);
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
-    }
-
-    public Event(String description, String eventStart, String eventEnd) throws LeginEmptyTaskException {
-        super(description);
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
     }
 
     /**
