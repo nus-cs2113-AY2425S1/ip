@@ -111,7 +111,7 @@ public class lovespiritual {
     private static void find(String input) throws lovespiritualException {
         String findTask = input.substring("find".length()).trim();
         if (findTask.isEmpty()) {
-            throw new lovespiritualException("Oops! (・_・;) What should I find? Please give me a keyword.");
+            throw new lovespiritualException("Oops! (0.0) What should I find? Please give me a keyword.");
         }
         System.out.println(SEPARATOR);
         System.out.println("Here are the matching tasks in your list:");
@@ -140,37 +140,37 @@ public class lovespiritual {
     private static void event(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("event".length()).trim();
         if (fullTaskDescription.isEmpty()) {
-            throw new lovespiritualException("Uh-oh! (・_・;) Your event description seems to be missing!");
+            throw new lovespiritualException("Uh-oh! ¯\\_(ツ)_/¯ Your event description seems to be missing!");
         }
         if (!fullTaskDescription.contains("from")) {
-            throw new lovespiritualException("Hmmm (・_・) Your event is missing the 'from' time! Please add it.");
+            throw new lovespiritualException("Hmmm ¯\\_(ツ)_/¯ Your event is missing the 'from' time! Please add it.");
         }
         if (!fullTaskDescription.contains("to")) {
-            throw new lovespiritualException("Oops! (•‿•) The 'to' part is missing! Let's add it.");
+            throw new lovespiritualException("Oops! (0.0) The 'to' part is missing! Let's add it.");
         }
         String taskDescription;
         String from;
         String to;
         String[] taskDetails = fullTaskDescription.split("from ");
         if (taskDetails[0].trim().isEmpty()) {
-            throw new lovespiritualException("Yikes! (⊙_⊙;) You forgot to tell me what the event is about!");
+            throw new lovespiritualException("Yikes! :/ You forgot to tell me what the event is about!");
         }
         taskDescription = taskDetails[0].trim();
         String[] time = taskDetails[1].split("to ");
         if (time.length < 2 || time[0].trim().isEmpty()) {
-            throw new lovespiritualException("Start date/time? (。_。) We can't go without it!");
+            throw new lovespiritualException("Start date/time? ¯\\_(ツ)_/¯ We can't go without it!");
         }
         if (time[1].trim().isEmpty()) {
-            throw new lovespiritualException("The end date/time is missing (･o･;) When does this event wrap up?");
+            throw new lovespiritualException("The end date/time is missing (0.0) When does this event wrap up?");
         }
         from = time[0].trim();
         to = time[1].trim();
         try {
             tasks.add(new Event(taskDescription, from, to));
             System.out.println(SEPARATOR);
-            System.out.println("Yippee! (★^O^★) Task added successfully!");
+            System.out.println("Woohoo! d(^_^)b Your task is safely added!");
             System.out.println(tasks.get(tasks.size() - 1));
-            System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
+            System.out.println("Amazing! :D You’ve got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (Exception e) {
             throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
@@ -188,28 +188,28 @@ public class lovespiritual {
     private static void deadline(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String fullTaskDescription = input.substring("deadline".length()).trim();
         if (fullTaskDescription.isEmpty()) {
-            throw new lovespiritualException("Oops! (｡•́︿•̀｡) Your deadline needs a little description!");
+            throw new lovespiritualException("Oops! (0.0) Your deadline needs a little description!");
         }
         if (!fullTaskDescription.contains("by")) {
-            throw new lovespiritualException("The 'by' is missing! (・_・;) When's it due?");
+            throw new lovespiritualException("The 'by' is missing! ¯\\_(ツ)_/¯ When's it due?");
         }
         String taskDescription;
         String by;
         String[] taskDetails = fullTaskDescription.split("by", 2);
         if (taskDetails.length < 2 || taskDetails[0].trim().isEmpty()) {
-            throw new lovespiritualException("Hmm... (・_・;) Don’t forget to tell me what this deadline is about!");
+            throw new lovespiritualException("Hmm... ¯\\_(ツ)_/¯ Don’t forget to tell me what this deadline is about!");
         }
         if (taskDetails[1].trim().isEmpty()) {
-            throw new lovespiritualException("Uh-oh! (・へ・) I need to know the deadline date or time.");
+            throw new lovespiritualException("Uh-oh! (0.0) I need to know the deadline date or time.");
         }
         taskDescription = taskDetails[0].trim();
         by = taskDetails[1].trim();
         try {
             tasks.add(new Deadline(taskDescription, by));
             System.out.println(SEPARATOR);
-            System.out.println("Yippee! (★^O^★) Task added successfully!");
+            System.out.println("Woohoo! d(^_^)b Your task is safely added!");
             System.out.println(tasks.get(tasks.size() - 1));
-            System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
+            System.out.println("Amazing! :D You’ve got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (Exception e) {
             throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
@@ -226,13 +226,13 @@ public class lovespiritual {
     private static void todo(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskDescription = input.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
-            throw new lovespiritualException("Hmm... (¬‿¬) What's the todo? Looks like the description's missing!");
+            throw new lovespiritualException("Hmm... (~_~) What's the todo? Looks like the description's missing!");
         }
         tasks.add(new Todo(taskDescription));
         System.out.println(SEPARATOR);
-        System.out.println("Woohoo! (＾▽＾) Your task is safely added!");
+        System.out.println("Woohoo! d(^_^)b Your task is safely added!");
         System.out.println(" [T][ ] " + taskDescription);
-        System.out.println("Amazing! (•̀ᴗ•́) You’ve got " + tasks.size() + " tasks lined up!");
+        System.out.println("Amazing! :D You’ve got " + tasks.size() + " tasks lined up!");
         System.out.println(SEPARATOR);
     }
 
@@ -246,7 +246,7 @@ public class lovespiritual {
     private static void unmarkTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("unmark".length()).trim();
         if (taskNumber.isEmpty()) {
-            throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
+            throw new lovespiritualException("Hmm... ¯\\_(ツ)_/¯ A valid number, please?");
         }
         int indexNumber;
         try {
@@ -261,7 +261,7 @@ public class lovespiritual {
             System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
-            throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
+            throw new lovespiritualException("Whoa there! (0.0) That’s not a number! Can you double-check?");
         }
     }
 
@@ -275,13 +275,13 @@ public class lovespiritual {
     private static void markTask(String input, ArrayList <Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("mark".length()).trim();
         if (taskNumber.isEmpty()) {
-            throw new lovespiritualException("Hmm... (ʘ‿ʘ) A valid number, please?");
+            throw new lovespiritualException("Hmm... ¯\\_(ツ)_/¯ A valid number, please?");
         }
         int indexNumber;
         try {
             indexNumber = Integer.parseInt(taskNumber) - 1;
         } catch (NumberFormatException e) {
-            throw new lovespiritualException("Whoa there! (O.O) That’s not a number! Can you double-check?");
+            throw new lovespiritualException("Whoa there! (0.0) That’s not a number! Can you double-check?");
         }
         if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.get(indexNumber).mark();
@@ -290,7 +290,7 @@ public class lovespiritual {
             System.out.println(tasks.get(indexNumber));
             System.out.println(SEPARATOR);
         } else {
-            throw new lovespiritualException("Hmm... (°ヘ°) That number seems a bit off. Try again?");
+            throw new lovespiritualException("Hmm... ¯\\(ツ)_/¯ That number seems a bit off. Try again?");
         }
     }
 }

@@ -34,23 +34,23 @@ public class TaskList {
     public static void deleteTask(String input, ArrayList<Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("delete".length()).trim();
         if (taskNumber.isEmpty()) {
-            throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
+            throw new lovespiritualException("Hmm... ¯\\_(ツ)_/¯ A valid number, please?");
         }
         int indexNumber;
         try {
             indexNumber = Integer.parseInt(taskNumber) - 1;
         } catch (NumberFormatException e) {
-            throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
+            throw new lovespiritualException("Whoa there! (0.0) That’s not a number! Can you double-check?");
         }
         Task removedTask = tasks.get(indexNumber);
         if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.remove(indexNumber);
             System.out.println(SEPARATOR);
-            System.out.println("Got it! (◠‿◠) This task is removed!");
+            System.out.println("Got it! :D This task is removed!");
             System.out.println(removedTask);
             System.out.println(SEPARATOR);
         } else {
-            throw new lovespiritualException("Yikes! (≧Д≦) That number doesn't look right. Can you double-check it?");
+            throw new lovespiritualException("Hmm... ¯\\_(ツ)_/¯ That number seems a bit off. Try again?");
         }
     }
 

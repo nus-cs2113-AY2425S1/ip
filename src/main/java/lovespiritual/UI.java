@@ -15,7 +15,7 @@ public class UI {
      */
     public static void printExitMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
+        System.out.println("Goodbye! <3 Hope to see you again soon!");
         System.out.println(SEPARATOR);
     }
 
@@ -24,8 +24,8 @@ public class UI {
      */
     public static void printWelcomeMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Hiya! (✿◠‿◠) I'm lovespiritual, ready to help!");
-        System.out.println("How can I assist? (•‿•) I'm all ears!");
+        System.out.println("Hiya! <3 I'm lovespiritual, ready to help!");
+        System.out.println("How can I assist? (^_^)/ I'm all ears!");
         System.out.println(SEPARATOR);
     }
 
@@ -37,9 +37,9 @@ public class UI {
     public static void printList(ArrayList <Task> tasks) {
         System.out.println(SEPARATOR);
         if (tasks.isEmpty()) {
-            System.out.println("There is nothing on your list yet!");
+            System.out.println("There is nothing on your list yet! (-_-)zZz");
         } else {
-            System.out.println("Here's your list! (・∀・) Ready to tackle it?");
+            System.out.println("Here's your list! (^_^)/ Ready to tackle it?");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
@@ -63,7 +63,7 @@ public class UI {
      */
     public void printUnexpectedError() {
         System.out.println(SEPARATOR);
-        System.out.println("Oh no! (＞﹏＜) Something went a little wrong...");
+        System.out.println("Oh no! (>_<) Something went a little wrong...");
         System.out.println(SEPARATOR);
     }
 }
