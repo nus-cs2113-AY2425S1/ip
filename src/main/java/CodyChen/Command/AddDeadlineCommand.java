@@ -1,9 +1,6 @@
 package CodyChen.Command;
-import CodyChen.Task.Task;
-import CodyChen.Ui;
-import CodyChen.Storage;
-import CodyChen.Task.Deadline;
-import CodyChen.TaskList;
+import CodyChen.*;
+import CodyChen.Task.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

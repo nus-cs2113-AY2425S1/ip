@@ -1,7 +1,5 @@
 package CodyChen.Command;
-import CodyChen.Ui;
-import CodyChen.Storage;
-import CodyChen.TaskList;
+import CodyChen.*;
 
 public class DeleteCommand extends Command{
     private int index;

@@ -1,6 +1,6 @@
 package CodyChen;
 
-import CodyChen.Command.Command;
+import CodyChen.Command.*;
 
 /**
  * The CodyChen class is the main application that manages the task list.
@@ -45,7 +45,7 @@ public class CodyChen {
             try{
                 c.execute(tasks, ui, storage);
             } catch (NullPointerException e){
-                System.out.println(">CodyChen:\n\tPlease enter a valid command:");
+                System.out.println(">CodyChen: \n\tPlease enter a valid command:");
             } catch (IndexOutOfBoundsException e){
                 System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
             }
