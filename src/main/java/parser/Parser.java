@@ -13,6 +13,9 @@ public class Parser {
             return new UnmarkCommand(input);
         } else if (input.startsWith("delete ")) {
             return new DeleteCommand(input);
+        } else if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim(); // Extract the keyword after "find "
+            return new FindCommand(keyword); // Create a new FindCommand with the keyword
         } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
             return new AddCommand(input);
         } else if (input.equals("bye")) {
