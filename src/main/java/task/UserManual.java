@@ -8,7 +8,7 @@ public class UserManual {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("Commands Available");
         System.out.println("1. [todo]: 'todo <tasks>'");
-        System.out.println("2. [deadline]: 'deadline <tasks> /by <date/time>");
+        System.out.println("2. [deadline]: 'deadline <tasks> /by <date/time>'");
         System.out.println("3. [event]: 'event <tasks> /from <time> /to <time>'");
         System.out.println("4. [list all tasks]: 'list'");
         System.out.println("5. [mark task as done]: 'mark <task number>'");

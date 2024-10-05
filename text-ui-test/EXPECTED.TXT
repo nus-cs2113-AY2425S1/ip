@@ -1,7 +1,8 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+added: [T][ ] read book
+added: [D][ ] read book2 (by: Monday)
+added: [E][ ] read book3 (from: 2pm to 4pm)
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] submit report (by: Monday)
+3. [E][ ] team meeting (from: 2pm to 4pm)
+End of Program
