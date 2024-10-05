@@ -147,7 +147,7 @@ e.g. `mark 1`
 ___________________ PROGRAM OUTPUT BELOW ___________________
 I know, you told me that this task is done
   [T][O] procrastinate
-Keep it up! You'll be done with it eventually! 
+Keep it up! What are you gonna do next? 
 ```
 
 To unmark a task as incomplete, 

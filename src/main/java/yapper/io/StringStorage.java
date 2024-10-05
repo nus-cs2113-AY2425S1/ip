@@ -143,7 +143,7 @@ public class StringStorage {
     public static final String TASK_COMPLETION_STATUS_CHANGED_STRING =
             "I know, you told me that this task is ";
     public static final String TASK_IS_DONE_STRING =
-            "Keep it up! You'll be done with it eventually! ";
+            "Keep it up! What are you gonna do next? ";
     public static final String TASK_IS_NOT_DONE_STRING =
             "Keep going, you'll get it done eventually! ";
 
