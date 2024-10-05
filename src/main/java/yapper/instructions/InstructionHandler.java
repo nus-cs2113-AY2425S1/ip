@@ -139,7 +139,7 @@ public class InstructionHandler {
                     + e.getMessage());
             return;
         }
-        // There are 2 try-catch to separate the exception messages for parsing and executing
+        /* There are 2 try-catch to separate the exception messages for parsing and executing */
         try {
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {

@@ -76,7 +76,6 @@ public class Deadline extends Task {
     }
 
 
-
     /**
      * Converts the deadline task to a string format for display,
      * including the Deadline symbol and the end date.

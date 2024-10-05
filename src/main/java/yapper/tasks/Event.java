@@ -144,8 +144,6 @@ public class Event extends Task {
         return "[" + StringStorage.SYMBOL_EVENT + "]"
                 + super.taskToDisplay() + ", from " + startDateAsString + " to " + endDateAsString;
     }
-
-
     /**
      * Converts the event task to a string format for writing to / reading from a file,
      * including the Event symbol, start date and an end date.
@@ -171,5 +169,4 @@ public class Event extends Task {
                 + StringStorage.COMBINE_USING_DELIMITER + " "
                 + endDateAsString;
     }
-
 }
