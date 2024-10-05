@@ -6,23 +6,23 @@ import tasks.Event;
 import exceptions.InvalidCommandException;
 
 import java.util.ArrayList;
-import filemanager.FileManager;
+import filemanager.Storage;
 
 /**
  * The Storage class manages the task list and handles the interaction
  * between the in-memory task list and the file where tasks are saved.
  * It provides methods to insert, delete, mark, unmark, list, and clear tasks,
- * as well as save and load tasks to and from a file using the FileManager.
+ * as well as safe and load tasks to and from a file using the FileManager.
  */
 
-public class Storage {
+public class taskManager {
 
+    Storage fileManager;
     private ArrayList<Task> taskList;
-    FileManager fileManager;
 
-    public Storage() {
-        taskList = new ArrayList<Task>();
-        fileManager = new FileManager("C:\\Users\\ASUS\\Documents\\NUS\\Yr 2 Sem 1\\CS2113\\ip\\.\\data\\tasks.txt");
+    public taskManager() {
+        taskList = new ArrayList<>();
+        fileManager = new Storage("C:\\Users\\ASUS\\Documents\\NUS\\Yr 2 Sem 1\\CS2113\\ip\\.\\data\\tasks.txt");
         taskList = fileManager.loadTasks();
     }
 
@@ -122,14 +122,24 @@ public class Storage {
      */
 
     public void storageList() {
-        System.out.println("Here is your current list: ");
+        if (taskList.isEmpty()){
+            System.out.println("Your task list is empty!");
+        }else {
+            System.out.println("Here is your current list: ");
+        }
 
         int index = 0;
+
         for (Task task : taskList) {
             if (task instanceof Deadline) {
-                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (by: " + ((Deadline) task).getDeadline() + ")");
+                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task
+                        + " (by: " + ((Deadline) task).getDeadline() + ")");
+
             } else if (task instanceof Event) {
-                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task + " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
+                System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task
+                        + " (from: " + ((Event) task).getStart()
+                        + " to: " + ((Event) task).getEnd() + ")");
+
             } else {
                 System.out.println((index + 1) + "." + task.getStatusIcon() + " " + task);
             }
@@ -146,9 +156,14 @@ public class Storage {
     public void storagePrintTask(int index){
         Task task = taskList.get(index - 1);
         if (task instanceof Deadline) {
-            System.out.println((index) + "." + task.getStatusIcon() + " " + task + " (by: " + ((Deadline) task).getDeadline() + ")");
+            System.out.println((index) + "." + task.getStatusIcon() + " " + task
+                    + " (by: " + ((Deadline) task).getDeadline() + ")");
+
         }else if (task instanceof Event) {
-            System.out.println((index) + "." + task.getStatusIcon() + " " + task + " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")");
+            System.out.println((index) + "." + task.getStatusIcon() + " " + task
+                    + " (from: " + ((Event) task).getStart()
+                    + " to: " + ((Event) task).getEnd() + ")");
+
         }else{
             System.out.println((index) + "." + task.getStatusIcon() + " " + task);
         }

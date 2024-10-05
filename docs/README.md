@@ -252,6 +252,23 @@ Bye. Hope to see you again soon!
 
 ---
 
+## Command Summary
+
+| Command          | Description                                 | Format                                            |
+|------------------|---------------------------------------------|---------------------------------------------------|
+| **List Tasks**   | Displays all the tasks in the list.         | `list`                                            |
+| **Add Todo**     | Adds a todo task.                           | `todo DESCRIPTION`                                |
+| **Add Deadline** | Adds a deadline task.                       | `deadline DESCRIPTION /by DEADLINE`               |
+| **Add Event**    | Adds an event task.                         | `event DESCRIPTION /from START_DATE /to END_DATE` |
+| **Mark Task**    | Marks a task as completed using its index.  | `mark INDEX`                                      |
+| **Unmark Task**  | Marks a task as incomplete using its index. | `unmark INDEX`                                    |
+| **Delete Task**  | Deletes a task using its index.             | `delete INDEX`                                    |
+| **Find Task**    | Displays tasks matching a keyword.          | `find KEYWORD`                                    |
+| **Clear Tasks**  | Clears the entire task list.                | `clear`                                           |
+| **Exit**         | Exits the application.                      | `bye`                                             |
+
+---
+
 ## Conclusion
 
 JeM is a powerful and simple chatbot that helps you stay organized by managing your to-dos, deadlines, and events. Use the commands listed above to effectively track your tasks and manage your workload. Enjoy your time with JeM, and feel free to explore the commands to see how they can assist you in your daily life!

@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.Storage;
+import taskmanager.taskManager;
 
 /**
  * The AddCommand class is an abstract class that represents a command for adding tasks.
@@ -11,7 +11,7 @@ import taskmanager.Storage;
 
 public abstract class AddCommand extends Command {
 
-    protected String userInput;
+    protected final String userInput;
 
     public AddCommand(String userInput) {
         this.userInput = userInput;
@@ -25,5 +25,5 @@ public abstract class AddCommand extends Command {
      * @throws InvalidCommandException If the command is invalid or cannot be executed properly.
      */
     
-    public abstract void execute(Storage storage) throws InvalidCommandException;
+    public abstract void execute(taskManager storage) throws InvalidCommandException;
 }

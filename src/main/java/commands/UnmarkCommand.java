@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.Storage;
+import taskmanager.taskManager;
 
 /**
  * The UnmarkCommand class handles marking a task as not completed based on the user's input.
@@ -10,7 +10,7 @@ import taskmanager.Storage;
 
 public class UnmarkCommand extends Command {
 
-    protected String userInput;
+    protected final String userInput;
 
     public UnmarkCommand(String userInput) {
         this.userInput = userInput;
@@ -25,18 +25,17 @@ public class UnmarkCommand extends Command {
      * @throws InvalidCommandException If the task number is invalid or missing.
      */
     @Override
-    public void execute(Storage storage) throws InvalidCommandException {
-        // Split the user input to extract the index of the task to unmark
+    public void execute(taskManager storage) throws InvalidCommandException {
         String[] parts = userInput.split(" ");
         if (parts.length < 2) {
             throw new InvalidCommandException("Provide index of the task to unmark");
         }
 
         try {
-            // Parse the index and unmark the task
             int index = Integer.parseInt(parts[1]);
-            storage.storageUnmark(index);   // Unmark the task
-            storage.storageList();          // List the updated tasks
+            storage.storageUnmark(index);
+            System.out.println("____________________________________________________________");
+            storage.storageList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }

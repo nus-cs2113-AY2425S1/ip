@@ -1,8 +1,16 @@
 package app;
 
-import Commands.*;
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
+import commands.AddTodoCommand;
+import commands.ClearCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
 import exceptions.InvalidCommandException;
-import taskmanager.Storage;
 
 /**
  * The Parser class is responsible for interpreting the user's input
@@ -19,12 +27,11 @@ public class Parser {
      * Parses the user input and maps it to the corresponding command.
      *
      * @param userInput The input provided by the user.
-     * @param storage The storage object that handles task data management.
      * @return The corresponding Command object based on the user input.
      * @throws InvalidCommandException If the input does not match a known command.
      */
 
-    public Command parse(String userInput, Storage storage) throws InvalidCommandException {
+    public Command parse(String userInput) throws InvalidCommandException {
         if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
         } else if (userInput.toLowerCase().startsWith("delete")) {

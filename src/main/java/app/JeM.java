@@ -1,7 +1,7 @@
 package app;
 
-import Commands.Command;
-import taskmanager.Storage;
+import commands.Command;
+import taskmanager.taskManager;
 import exceptions.InvalidCommandException;
 
 /**
@@ -13,15 +13,20 @@ import exceptions.InvalidCommandException;
 
 public class JeM {
 
-    private Ui ui;
-    private Storage storage;
-    private Parser parser;
+    private final Ui ui;
+    private final taskManager storage;
+    private final Parser parser;
 
     public JeM(){
         ui = new Ui();
-        storage = new Storage();
+        storage = new taskManager();
         parser = new Parser();
     }
+
+    /**
+     * Runs the chatbot, accepting user input and processing commands
+     * until the user exits by typing 'bye'.
+     */
 
     public void run() {
         ui.displayWelcomeMessage();
@@ -33,7 +38,7 @@ public class JeM {
                 break;
             }
             try {
-                Command command = parser.parse(userInput, storage);
+                Command command = parser.parse(userInput);
                 command.execute(storage);
             }catch(InvalidCommandException e) {
                 System.out.println(e.getMessage());

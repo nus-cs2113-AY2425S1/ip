@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import taskmanager.Storage;
+import taskmanager.taskManager;
 
 /**
  * The ListCommand class is responsible for listing all tasks currently stored.
@@ -16,7 +16,7 @@ public class ListCommand extends Command {
      */
 
     @Override
-    public void execute(Storage storage) {
+    public void execute(taskManager storage) {
         storage.storageList();
     }
 }

@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import taskmanager.Storage;
+import taskmanager.taskManager;
 import tasks.Task;
 
 /**
@@ -10,7 +10,7 @@ import tasks.Task;
 
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword.substring(4).trim();
@@ -24,7 +24,8 @@ public class FindCommand extends Command {
      */
 
     @Override
-    public void execute(Storage storage) {
+    public void execute(taskManager storage) {
+        System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
 
         int index;

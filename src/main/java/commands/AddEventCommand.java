@@ -1,8 +1,7 @@
-package Commands;
+package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.Storage;
-import tasks.Deadline;
+import taskmanager.taskManager;
 import tasks.Task;
 import tasks.Event;
 
@@ -28,11 +27,12 @@ public class AddEventCommand extends AddCommand {
      * If valid, the task is inserted into storage. If invalid, an exception is thrown.
      *
      * @param storage The storage object that manages the task list.
-     * @throws InvalidCommandException If the task description, start time, or end time is invalid or in the wrong format.
+     * @throws InvalidCommandException If the task description, start time,
+     *         or end time is invalid or in the wrong format.
      */
 
     @Override
-    public void execute(Storage storage) throws InvalidCommandException {
+    public void execute(taskManager storage) throws InvalidCommandException {
         if (!userInput.contains("/from") || !userInput.contains("/to")) {
             throw new InvalidCommandException("Missing start or end date and time");
         }
@@ -62,6 +62,7 @@ public class AddEventCommand extends AddCommand {
         }catch (DateTimeParseException e){
             throw new InvalidCommandException("Invalid date format! Please use dd/MM/yyyy HH:mm.");
         }
+        System.out.println("____________________________________________________________");
         storage.storageList();
     }
 }

@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.Storage;
+import taskmanager.taskManager;
 
 /**
  * The DeleteCommand class handles the deletion of a task based on the user's input.
@@ -10,7 +10,7 @@ import taskmanager.Storage;
 
 public class DeleteCommand extends Command {
 
-    protected String userInput;
+    protected final String userInput;
 
     public DeleteCommand(String userInput) {
         this.userInput = userInput;
@@ -26,8 +26,7 @@ public class DeleteCommand extends Command {
      */
 
     @Override
-    public void execute(Storage storage) throws InvalidCommandException {
-        // Split the user input to extract the index of the task to delete
+    public void execute(taskManager storage) throws InvalidCommandException {
         String[] parts = userInput.split(" ");
         if (parts.length < 2) {
             throw new InvalidCommandException("Provide index of the task to delete");
@@ -37,9 +36,10 @@ public class DeleteCommand extends Command {
             // Parse the index and delete the task
             int index = Integer.parseInt(parts[1]);
             System.out.println("I have removed this task: ");
-            storage.storagePrintTask(index);  // Print the task before removing it
-            storage.storageDelete(index);     // Delete the task
-            storage.storageList();            // List the remaining tasks
+            storage.storagePrintTask(index);
+            storage.storageDelete(index);
+            System.out.println("____________________________________________________________");
+            storage.storageList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }

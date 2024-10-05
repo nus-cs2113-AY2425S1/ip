@@ -7,8 +7,13 @@ package tasks;
  */
 
 public class Task {
-    private String task;
+    private final String task;
     private boolean isDone;
+
+    public Task(String task) {
+        this.task = task;
+        this.isDone = false;
+    }
 
     public Task() {
         task = "";
@@ -16,11 +21,6 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
-    }
-
-    public Task(String task) {
-        this.task = task;
-        this.isDone = false;
     }
 
     /**

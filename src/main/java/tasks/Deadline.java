@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Deadline extends Task{
-    private LocalDateTime deadline;
-    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-    DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+    private final LocalDateTime deadline;
+    private final DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
 
     public Deadline(String task, LocalDateTime deadline) {
         super(task);
