@@ -25,11 +25,13 @@ public class FindCommand extends Command {
 
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).toString().contains(input)) {
-                string.append("\t\t").append(i + 1).append(".").append(tasks.getTask(i));
-                matchCount += 1;
-                if (i != tasks.getSize() - 1) {
+
+                if (matchCount != 0) {
                     string.append("\n");
                 }
+
+                string.append("\t\t").append(matchCount + 1).append(".").append(tasks.getTask(i));
+                matchCount += 1;
             }
         }
 
@@ -37,7 +39,6 @@ public class FindCommand extends Command {
             return "\tText provided does not have a corresponding task";
         }
 
-        System.out.println(matchCount);
         return string.toString();
     }
 

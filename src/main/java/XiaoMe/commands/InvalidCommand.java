@@ -22,6 +22,6 @@ public class InvalidCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
-        return "Invalid command :(";
+        return "\tInvalid command :(";
     }
 }
