@@ -7,13 +7,14 @@ import constants.Utils;
 import java.util.ArrayList;
 
 public class Ui {
+
     /**
      * Welcome users to the application through the welcome message
      */
     public void printWelcomeMessage() {
-        System.out.println("Hello, I'm Cy");
+        System.out.println("Welcome to Cy Mart! I'm Cy the owner of this convenience store!");
         System.out.println("What can I do for you?");
-        System.out.println("But first, let me load your previous submissions!");
+        System.out.println("But first, let me load your previous tasks!");
     }
 
     /**
@@ -89,7 +90,7 @@ public class Ui {
      */
     public void printDeleteMessage(Task deleteItem) {
         printLine();
-        System.out.println("Got it. I've deleted this task:");
+        System.out.println(Statements.CONFIRM_DELETE);
         System.out.println(deleteItem.getStatusIcon() + " " + deleteItem.getDescription());
     }
     /**
@@ -97,7 +98,7 @@ public class Ui {
      */
     public void printEndingMessage() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Thanks for visiting Cy Mart! Have a nice day :)");
         printLine();
     }
 }

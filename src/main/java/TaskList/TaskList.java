@@ -106,7 +106,7 @@ public class TaskList {
         String by = descriptionSubstrings[1].trim();
 
         if(deadlineDescription.isEmpty() || by.isEmpty()) {
-            throw new IllegalEmptyException("Please enter a valid deadline or description!");
+            throw new IllegalEmptyException(Warnings.VALID_DEADLINE_WARNING);
         }
 
         Deadline deadline = new Deadline(deadlineDescription, by);
@@ -139,8 +139,7 @@ public class TaskList {
 
 
         if (splitInputs.length < 3) {
-            throw new IllegalEmptyException("Please fulfil all criteria: event description, " +
-                    "start time and end time!");
+            throw new IllegalEmptyException(Warnings.INCOMPLETE_EVENT_WARNING);
         }
         //Substring in between the 'from' and 'to' delimiter represents the event's start time.
         String start = splitInputs[1].trim();
@@ -150,7 +149,7 @@ public class TaskList {
         String eventDescription = splitInputs[0].trim();
 
         if(eventDescription.isEmpty() || start.isEmpty() || end.isEmpty()) {
-            throw new IllegalEmptyException("Please enter a valid description, start time and end time!");
+            throw new IllegalEmptyException(Warnings.EMPTY_EVENT_WARNING);
         }
 
         Event event = new Event(eventDescription, start, end);
