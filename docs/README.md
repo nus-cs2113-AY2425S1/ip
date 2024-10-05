@@ -191,16 +191,3 @@ Advanced users are welcome to update data directly by editing the data file.
 
 Caution: If the changes to the data file makes its format invalid, XiaoMe will discard all data and start with an 
 empty data file at the next run.
-
-## Command Summary
-| Action       | Format                                       | Example                                 |
-|--------------|----------------------------------------------|-----------------------------------------|
-| Add to-do    | `todo TASK_DESCRIPTION`                      | `todo Buy groceries`                    |
-| Add deadline | `deadline TASK_DESCRIPTION /by DATE`         | `deadline Finish assignment /by Monday` |
-| Add event    | `event TASK_DESCRIPTION /from START /to END` | `event Team meeting /from 5PM /to 6PM`  |
-| List tasks   | `list`                                       | `list`                                  |
-| Mark task    | `mark INDEX`                                 | `mark 1`                                |
-| Unmark task  | `unmark INDEX`                               | `unmark 1`                              |
-| Find task    | `find KEYWORD`                               | `find Finish`                           |
-| Delete task  | `delete INDEX`                               | `delete 2`                              |
-| Exit         | `bye`                                        | `bye`                                   |
