@@ -1,4 +1,4 @@
-It seems there was an issue generating the markdown file for the user guide. I'll provide you with the full markdown content here so that you can copy it into your own markdown file.
+
 
 ```markdown
 #Andy Bot
