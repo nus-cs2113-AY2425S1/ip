@@ -17,18 +17,30 @@ public class UI {
             + INTENDATION + "   _/ |           \n"
             + INTENDATION + "  |__/            \n";
 
+    /**
+     * Encapsulates basic formatting for maintaining standard output structure
+     * @param input String to be formatted and printed to the UI
+     * @param actionPerformed String specifying a certain action indicator to the user
+     */
     public static void printReply(String input, String actionPerformed) {
         System.out.println("");
         System.out.println(INTENDATION + actionPerformed + input);
         System.out.println(INTENDATION + SEPARATOR);
     }
 
+    /**
+     * Extension of printReply for longer inputs
+     * @param inputs Array of Strings to be outputted in standard format
+     */
     public static void printMultiLine(String[] inputs) {
         Arrays.stream(inputs)
             .forEachOrdered(input -> System.out.println(INTENDATION + input));
         System.out.println(INTENDATION + SEPARATOR);
     }
 
+    /**
+     * Encapsulates statements executed at the start of the application
+     */
     public static void printGreeting() {
         System.out.println(INTENDATION + LOGO);
         System.out.println(INTENDATION + SEPARATOR);
@@ -37,6 +49,9 @@ public class UI {
         System.out.println(INTENDATION + SEPARATOR);
     }
 
+    /**
+     * Encapsulates code executed at termination of the application
+     */
     public static void printFarewell() {
         System.out.println(INTENDATION + "See you soon!");
         System.out.println(INTENDATION + SEPARATOR);

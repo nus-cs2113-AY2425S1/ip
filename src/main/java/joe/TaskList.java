@@ -74,6 +74,11 @@ public class TaskList {
         return this.toDoItemArrayList.size();
     }
 
+    /**
+     * Determines the String representation of a task correpsonding to a provided index
+     * @param toDoNumber int index specifying the task in question
+     * @return String the String of the task in this TaskList object with index toDoNumber -1
+     */
     public String toTaskString(int toDoNumber) {
 
         return this.toDoItemArrayList.get(toDoNumber - 1).toString();
