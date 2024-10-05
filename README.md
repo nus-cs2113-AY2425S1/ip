@@ -151,6 +151,17 @@ Here are the matching tasks in your list:
 
 Closes Andy Bot and saves your tasks.
 
+**Example**:
+
+```
+bye
+```
+
+**Expected Outcome**
+```
+Bye. Hope to see you again soon!
+```
+
 
 
 
