@@ -41,11 +41,12 @@ public class AddDeadlineCommand extends Command {
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws MissingArgumentException,
            IOException {
                int byPrefixIndex = commandArg.indexOf(BY_PREFIX);
-               if (commandArg.equals("") || byPrefixIndex < 1) {
+               int byArgIndex = byPrefixIndex + BY_PREFIX.length();
+               if (commandArg.equals("") || byPrefixIndex < 1 || byArgIndex >= commandArg.length()) {
                    throw new MissingArgumentException(CommandType.DEADLINE);
                }
-               String description = commandArg.substring(0, byPrefixIndex - 1);
-               String by = commandArg.substring(byPrefixIndex + BY_PREFIX.length() + 1);
+               String description = commandArg.substring(0, byPrefixIndex);
+               String by = commandArg.substring(byArgIndex);
                Deadline newDeadline = new Deadline(description.trim(), by.trim());
                tasks.addTask(newDeadline);
                int taskCount = tasks.getTaskCount();

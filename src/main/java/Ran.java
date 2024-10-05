@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
  * Ran is able to help the user maintain a list of tasks, using various commands.
  *
  * @author 3CCLY
- * @version 0.1.1
+ * @version 0.2
  * @since 2024-08-23
  */
 public class Ran {

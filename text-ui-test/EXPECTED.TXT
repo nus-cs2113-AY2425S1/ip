@@ -29,6 +29,7 @@
 	You currently have 3 tasks in your list.
 	____________________________________________________________
 	____________________________________________________________
+	Here's what you have so far:
 	1.[T][ ] eat bread
 	2.[D][ ] finish homework (by: Friday)
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
@@ -38,6 +39,7 @@
 	  [D][X] finish homework (by: Friday)
 	____________________________________________________________
 	____________________________________________________________
+	Here's what you have so far:
 	1.[T][ ] eat bread
 	2.[D][X] finish homework (by: Friday)
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
@@ -47,6 +49,7 @@
 	  [D][ ] finish homework (by: Friday)
 	____________________________________________________________
 	____________________________________________________________
+	Here's what you have so far:
 	1.[T][ ] eat bread
 	2.[D][ ] finish homework (by: Friday)
 	3.[E][ ] sleep (from: tonight to: tomorrow morning)
