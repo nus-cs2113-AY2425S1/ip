@@ -12,9 +12,11 @@ public class Ui {
      * Welcome users to the application through the welcome message
      */
     public void printWelcomeMessage() {
+        printLine();
         System.out.println("Welcome to Cy Mart! I'm Cy the owner of this convenience store!");
         System.out.println("What can I do for you?");
         System.out.println("But first, let me load your previous tasks!");
+        printLine();
     }
 
     /**
@@ -92,6 +94,7 @@ public class Ui {
         printLine();
         System.out.println(Statements.CONFIRM_DELETE);
         System.out.println(deleteItem.getStatusIcon() + " " + deleteItem.getDescription());
+        printLine();
     }
     /**
      * End the application through a goodbye message

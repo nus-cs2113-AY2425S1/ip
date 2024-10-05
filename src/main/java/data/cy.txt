@@ -1,9 +1,3 @@
 
-[T] |0| homework
-[T] | 0 | homework
-E | 0 | meeting | 1pm-5pm
-D | 0 | homework | 6pm
-[T] | 0 | homework
-[T] | 0 | list
-D | 0 | homework | 6pm
-E | 0 | meetign | 1pm-2pm
+T | 0 | read book
+D | 0 | cs2113 quiz | 2024-11-11

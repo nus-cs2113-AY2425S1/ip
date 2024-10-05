@@ -36,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String createTaskList() {
-        return (getStatusIcon()+  " " +  description + "(by:" + by + ")");
+        return (getStatusIcon()+  " " +  description + " (by:" + by + ")");
     }
 
     /**
