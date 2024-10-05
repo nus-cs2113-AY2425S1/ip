@@ -88,7 +88,15 @@ public class Bosco {
             } catch (MissingPrefixException e) {
                 ui.printMessages("Error: missing " + e.missingPrefix + " prefix.");
             } catch (IllegalDateTimeException e) {
-                ui.printMessages("Error: invalid datetime format.");
+                ui.printMessages("Error: invalid datetime format. Valid formats are:",
+                        "yyyy-MM-dd HH:mm",
+                        "dd/MM/yyyy HH:mm",
+                        "MM-dd-yyyy HH:mm",
+                        "MMM dd yyyy h.mma",
+                        "yyyy-MM-dd",
+                        "dd/MM/yyyy",
+                        "MM-dd-yyyy",
+                        "MMM dd yyyy");
             }
 
             try {
