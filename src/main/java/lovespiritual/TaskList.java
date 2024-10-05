@@ -10,24 +10,28 @@ import lovespiritual.task.Task;
 import lovespiritual.task.Todo;
 import java.util.ArrayList;
 
+/**
+ * Handles the list of tasks and provides methods for modifying and retrieving tasks.
+ */
 public class TaskList {
     public static final String SEPARATOR = "_".repeat(30);
-
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    public static void deleteTask(String input, ArrayList<Task> tasks, int taskCount) throws lovespiritualException {
+    /**
+     * Deletes a task from the list based on the task number provided in the input.
+     *
+     * @param input User input of the task number to delete.
+     * @param tasks List of tasks.
+     * @throws lovespiritualException If the task number is invalid or out of range.
+     */
+    public static void deleteTask(String input, ArrayList<Task> tasks) throws lovespiritualException {
         String taskNumber = input.substring("delete".length()).trim();
         if (taskNumber.isEmpty()) {
             throw new lovespiritualException("Oopsie! (⊙_⊙) Please give me a valid number!");
@@ -39,7 +43,7 @@ public class TaskList {
             throw new lovespiritualException("Hmm, that's not a number! (・_・;) Try again, please!");
         }
         Task removedTask = tasks.get(indexNumber);
-        if (indexNumber >= 0 && indexNumber < taskCount) {
+        if (indexNumber >= 0 && indexNumber < tasks.size()) {
             tasks.remove(indexNumber);
             System.out.println(SEPARATOR);
             System.out.println("Got it! (◠‿◠) This task is removed!");
@@ -50,6 +54,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Extracts a task from the file based on the line format.
+     *
+     * @param line String of data of the task.
+     * @return Object corresponding to the data.
+     */
     public static Task extractTasks(String line) {
         try {
             String[] parts = line.split(" \\| ");
@@ -104,6 +114,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a formatted string suitable for saving a task to a file.
+     *
+     * @param task Task to be formatted.
+     * @return Formatted string of the task.
+     */
     public static String savedFormat(Task task) {
         String taskType = "";
         String formattedTask = "";
