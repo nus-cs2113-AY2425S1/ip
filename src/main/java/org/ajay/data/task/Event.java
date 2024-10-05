@@ -1,8 +1,8 @@
-package org.ajay.task;
+package org.ajay.data.task;
 
-import org.ajay.exceptions.EmptyArgumentException;
-import org.ajay.exceptions.Error;
-import org.ajay.exceptions.InvalidCommandFormatException;
+import org.ajay.data.exceptions.EmptyArgumentException;
+import org.ajay.data.exceptions.Error;
+import org.ajay.data.exceptions.InvalidCommandFormatException;
 
 public class Event extends Task {
     public final static String COMMAND_STRING = "event"; // Command string for the Event class
@@ -26,9 +26,7 @@ public class Event extends Task {
         setFrom(getFromFromString(description));
         setTo(getToFromString(description));
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        Task.printNumberOfTasks();
+
 
     }
 
