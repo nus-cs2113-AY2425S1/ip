@@ -1,4 +1,4 @@
-package task;
+package XiaoMe.task;
 
 /**
  * Represents a Todo task, which is a type of Task.
@@ -23,5 +23,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    public String saveString() {
+        return "T|" + getStatusIcon() + "|" + getDescription() + "\n";
     }
 }

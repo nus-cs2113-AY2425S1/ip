@@ -1,11 +1,9 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import storage.Storage;
-import task.Event;
-import task.Task;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
+import XiaoMe.Storage;
+import XiaoMe.task.Event;
 
 /**
  * Represents a command that adds an event task to the task list.
@@ -35,24 +33,28 @@ public class EventCommand extends Command {
      * @throws XiaoMeException if the user input format is invalid
      */
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException  {
+    public String execute(TaskList tasks) throws XiaoMeException  {
         try {
-            // user is creating a new event
-            String[] eventWords = userInput.split("/");
+            String[] eventWords = userInput.replace("event", "").trim().split(" /");
 
+            for (String word : eventWords) {
+                if (word.isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
+            }
             if (eventWords.length != 3 ||
                     !eventWords[1].startsWith("from ") ||
                     !eventWords[2].startsWith("to ")) {
                 throw new IllegalArgumentException();
             }
 
-            tasks.add(new Event(eventWords[0].replace("event", "").trim(), eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim())); // add task to storage
+            tasks.addTask(new Event(eventWords[0], eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim())); // add task to storage
 
-            Storage.saveFile(tasks);
+            Storage.saveFile(tasks.getTasks());
 
             return "\tGot it. I've added this task:\n"
-                    + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
-                    + "\tNow you have " + tasks.size() + " tasks in the list.";
+                    + "\t\t" + tasks.getLast() + "\n"
+                    + "\tNow you have " + tasks.getSize() + " tasks in the list.";
 
         } catch (Exception e) {
             throw new XiaoMeException("""

@@ -1,9 +1,9 @@
-package task;
+package XiaoMe.task;
 
 /**
  * Represents a task with a description and a completion status.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -48,9 +48,12 @@ public class Task {
      * its status and description.
      *
      * @return a String representation of the task
-     */
+     **/
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public abstract String saveString();
+
 }

@@ -1,11 +1,9 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import storage.Storage;
-import task.Task;
-import task.Todo;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
+import XiaoMe.Storage;
+import XiaoMe.task.Todo;
 
 /**
  * Represents a command that adds a new Todo task to the list.
@@ -35,7 +33,7 @@ public class ToDoCommand extends Command {
      * @throws XiaoMeException if the user input format is invalid or the task description is empty
      */
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
+    public String execute(TaskList tasks) throws XiaoMeException {
         try {
             // user is creating a new  Task.Todo
             String string = userInput.replace("todo", "").trim();
@@ -44,13 +42,13 @@ public class ToDoCommand extends Command {
                 throw new IllegalArgumentException();
             }
 
-            tasks.add(new Todo(string)); // add task to storage
+            tasks.addTask(new Todo(string)); // add task to storage
 
-            Storage.saveFile(tasks);
+            Storage.saveFile(tasks.getTasks());
 
             return "\tGot it. I've added this task:\n"
-                    + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
-                    + "\tNow you have " + tasks.size() + " tasks in the list.";
+                    + "\t\t" + tasks.getLast() + "\n"
+                    + "\tNow you have " + tasks.getSize() + " tasks in the list.";
 
         } catch (Exception e) {
             throw new XiaoMeException("""
@@ -58,5 +56,4 @@ public class ToDoCommand extends Command {
                     \tUse 'todo <task>'""");
         }
     }
-
 }

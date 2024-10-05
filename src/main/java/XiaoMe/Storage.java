@@ -1,12 +1,12 @@
-package storage;
+package XiaoMe;
 
-import exceptions.XiaoMeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import XiaoMe.task.Deadline;
+import XiaoMe.task.Event;
+import XiaoMe.task.Task;
+import XiaoMe.task.Todo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    static final String FILE_PATH = "./tasks.txt";
+    static final String FILE_PATH = "./data/tasks.txt";
+    static final String DIR_PATH = "./data";
 
     /**
      * Saves the given list of tasks to the specified file.
@@ -28,10 +29,10 @@ public class Storage {
      */
     public static void saveFile(ArrayList<Task> tasks) throws XiaoMeException {
         try {
-            File f = new File(FILE_PATH);
-            if (!f.exists()) {
+            File dir = new File(DIR_PATH);
+            if (!dir.isDirectory()) {
                 // file does not exist
-                f.createNewFile();
+                dir.mkdir();
             }
 
             // writing to the file
@@ -40,15 +41,13 @@ public class Storage {
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     // T|<icon>|<description>
-                    writer.write("T|" + task.getStatusIcon() + "|" + task.getDescription() + "\n");
+                    writer.write(task.saveString());
                 } else if (task instanceof Deadline) {
                     // D|<icon>|<description>|<by>
-                    writer.write("D|" + task.getStatusIcon() + "|" + task.getDescription() + "|"
-                                 + ((Deadline) task).getBy() + "\n");
+                    writer.write(task.saveString());
                 } else if (task instanceof Event){
                     // E|<icon>|<description>|<start>|<end>
-                    writer.write("E|" + task.getStatusIcon() + "|" + task.getDescription() + "|"
-                                 + ((Event) task).getStart() + "|" + ((Event) task).getEnd() + "\n");
+                    writer.write(task.saveString());
                 }
             }
             writer.close();
@@ -69,10 +68,6 @@ public class Storage {
 
         try {
             File f = new File(FILE_PATH);
-            if (!f.exists()) {
-                // file does not exist
-                f.createNewFile();
-            }
 
             Scanner scanner = new Scanner(f);
             while (scanner.hasNextLine()) {
@@ -84,18 +79,20 @@ public class Storage {
                     tasks.add(new Deadline(words[2], words[3]));
                 } else if (Objects.equals(words[0], "E")) {
                     tasks.add(new Event(words[2], words[3], words[4]));
+                } else {
+                    throw new XiaoMeException("File data is corrupted");
                 }
 
                 if (Objects.equals(words[1], "X")) {
                     tasks.get(tasks.size() - 1).setDone(true);
                 }
             }
+            return tasks;
 
-        } catch (IOException e) {
-            throw new XiaoMeException("An error occurred while reading file.");
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new XiaoMeException("File data is corrupted");
         }
-        return tasks;
     }
 }

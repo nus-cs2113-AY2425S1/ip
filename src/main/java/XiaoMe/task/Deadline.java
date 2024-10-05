@@ -1,4 +1,4 @@
-package task;
+package XiaoMe.task;
 
 /**
  * Represents a deadline task with a description and a due date.
@@ -35,5 +35,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    public String saveString() {
+        return "D|" + getStatusIcon() + "|" + getDescription() + "|" + getBy() + "\n";
     }
 }

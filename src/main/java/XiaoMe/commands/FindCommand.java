@@ -1,9 +1,7 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import task.Task;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
 
 public class FindCommand extends Command {
 
@@ -15,7 +13,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
+    public String execute(TaskList tasks) throws XiaoMeException {
         String input = userInput.replace("find", "").trim();
 
         if (input.isEmpty()) {
@@ -25,11 +23,11 @@ public class FindCommand extends Command {
         StringBuilder string = new StringBuilder("\tHere are the matching tasks in your list:\n");
         int matchCount = 0;
 
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(input)) {
-                string.append("\t\t").append(i + 1).append(".").append(tasks.get(i));
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.getTask(i).toString().contains(input)) {
+                string.append("\t\t").append(i + 1).append(".").append(tasks.getTask(i));
                 matchCount += 1;
-                if (i != tasks.size() - 1) {
+                if (i != tasks.getSize() - 1) {
                     string.append("\n");
                 }
             }

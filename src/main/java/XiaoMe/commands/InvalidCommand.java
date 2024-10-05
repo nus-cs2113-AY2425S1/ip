@@ -1,8 +1,6 @@
-package commands;
+package XiaoMe.commands;
 
-import task.Task;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
 
 /**
  * Represents a command that is executed when the user input is invalid.
@@ -23,7 +21,7 @@ public class InvalidCommand extends Command {
      * @return an error message indicating that the command is invalid
      */
     @Override
-    public String execute(ArrayList<Task> tasks) {
+    public String execute(TaskList tasks) {
         return "Invalid command :(";
     }
 }

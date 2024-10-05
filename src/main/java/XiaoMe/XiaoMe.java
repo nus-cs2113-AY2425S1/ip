@@ -1,18 +1,16 @@
-import commands.Command;
-import exceptions.XiaoMeException;
-import parser.Parser;
-import storage.Storage;
-import task.Task;
+package XiaoMe;
+
+import XiaoMe.commands.Command;
+import XiaoMe.task.Task;
 
 import java.util.ArrayList;
-import ui.UI;
 
 /**
  * The main class for the XiaoMe task management application.
  * It initializes the user interface, task storage, and handles the main application logic.
  */
 public class XiaoMe {
-    ArrayList<Task> tasks;
+    TaskList tasks;
     private UI ui;
     Storage storage;
 
@@ -34,13 +32,12 @@ public class XiaoMe {
      */
     public XiaoMe() throws XiaoMeException {
         ui = new UI();
-        tasks = new ArrayList<>();
         storage = new Storage();
         try {
-            tasks = storage.readFile();
+            tasks = new TaskList(storage.readFile());
         } catch (XiaoMeException e) {
             ui.printToUser(e.getError());
-            tasks = new ArrayList<>(); // start with empty list if error occurs when reading file
+            tasks = new TaskList(); // start with empty list if error occurs when reading file
         }
     }
 

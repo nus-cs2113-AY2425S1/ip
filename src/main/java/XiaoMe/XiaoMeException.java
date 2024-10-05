@@ -1,4 +1,4 @@
-package exceptions;
+package XiaoMe;
 
 /**
  * Custom exception class for the XiaoMe application.

@@ -1,10 +1,9 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import storage.Storage;
-import task.Task;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
+import XiaoMe.Storage;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -36,7 +35,7 @@ public class MarkCommand extends Command {
      * @throws XiaoMeException if the user input format is invalid or if the task index is out of bounds
      */
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException  {
+    public String execute(TaskList tasks) throws XiaoMeException  {
         try {
             String string;
             // user input is mark/unmark x: mark corresponding task as done or undone
@@ -44,17 +43,17 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(markWords[1]) - 1;
 
             if (Objects.equals(markWords[0], "mark")) {
-                tasks.get(index).setDone(true);
-                Storage.saveFile(tasks);
+                tasks.getTask(index).setDone(true);
+                Storage.saveFile(tasks.getTasks());
 
                 return "\tNice! I've marked this task as done:\n"
-                        + "\t\t" + tasks.get(index);
+                        + "\t\t" + tasks.getTask(index);
             } else {
-                tasks.get(index).setDone(false);
-                Storage.saveFile(tasks);
+                tasks.getTask(index).setDone(false);
+                Storage.saveFile(tasks.getTasks());
 
                 return "\tOK, I've marked this task as not done yet:\n"
-                        + "\t\t" + tasks.get(index);
+                        + "\t\t" + tasks.getTask(index);
             }
 
 

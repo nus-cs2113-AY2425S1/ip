@@ -1,11 +1,9 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import storage.Storage;
-import task.Deadline;
-import task.Task;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
+import XiaoMe.Storage;
+import XiaoMe.task.Deadline;
 
 /**
  * Represents a command that adds a new deadline task to the task list.
@@ -34,21 +32,27 @@ public class DeadlineCommand extends Command {
      * @throws XiaoMeException if the user input format is invalid
      */
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
+    public String execute(TaskList tasks) throws XiaoMeException {
         try {
             // user is creating a new deadline
-            String[] lineWords = userInput.split("/by");
+            String[] lineWords = userInput.replace("deadline", "").trim().split(" /by ");
+
             if (lineWords.length != 2) {
                 throw new IllegalArgumentException();
             }
+            for (String word : lineWords) {
+                if (word.isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
+            }
 
-            tasks.add(new Deadline(lineWords[0].replace("deadline", "").trim(), lineWords[1].trim())); // add task to storage
+            tasks.addTask(new Deadline(lineWords[0], lineWords[1].trim())); // add task to storage
 
-            Storage.saveFile(tasks);
+            Storage.saveFile(tasks.getTasks());
 
             return "\tGot it. I've added this task:\n"
-                    + "\t\t" + tasks.get(tasks.size() - 1) + "\n"
-                    + "\tNow you have " + tasks.size() + " tasks in the list.";
+                    + "\t\t" + tasks.getLast() + "\n"
+                    + "\tNow you have " + tasks.getSize() + " tasks in the list.";
 
         } catch (Exception e) {
             throw new XiaoMeException("""

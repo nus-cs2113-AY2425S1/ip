@@ -1,10 +1,9 @@
-package commands;
+package XiaoMe.commands;
 
-import exceptions.XiaoMeException;
-import storage.Storage;
-import task.Task;
-
-import java.util.ArrayList;
+import XiaoMe.TaskList;
+import XiaoMe.XiaoMeException;
+import XiaoMe.Storage;
+import XiaoMe.task.Task;
 
 /**
  * Represents a command that deletes a task from the task list.
@@ -34,19 +33,19 @@ public class DeleteCommand extends Command {
      * @throws XiaoMeException if the user input format is invalid or the index is out of bounds
      */
     @Override
-    public String execute(ArrayList<Task> tasks) throws XiaoMeException {
+    public String execute(TaskList tasks) throws XiaoMeException {
         try {
             String[] markWords = userInput.split(" ");
             int index = Integer.parseInt(markWords[1]) - 1;
-            Task temp = tasks.get(index);
+            Task temp = tasks.getTask(index);
 
-            tasks.remove(index);
+            tasks.deleteTask(index);
 
-            Storage.saveFile(tasks);
+            Storage.saveFile(tasks.getTasks());
 
             return "\tNoted. I've removed this task:\n"
                            + "\t\t" + temp + "\n"
-                           + "\tNow you have " + tasks.size() + " tasks in the list.";
+                           + "\tNow you have " + tasks.getSize() + " tasks in the list.";
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new XiaoMeException("""
