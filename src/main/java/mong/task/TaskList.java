@@ -84,16 +84,24 @@ public class TaskList {
     }
 
     /**
-     * Add a Task of type Deadline from txt file.
-     * A deadline consists of the task description and deadline in String format.
+     * Checks the completion status of a task in the parsed .txt file,
+     * and sets it as completed or uncompleted.
      */
-    public static void addDeadline(String isCompleted, String description, String by) {
-        list.add(new Deadline(description, by));
+    private static void setTaskCompletion(String isCompleted) {
         if (isCompleted.contentEquals("0")) {
             list.get(list.size() - 1).setCompleted(false);
         } else if (isCompleted.contentEquals("1")) {
             list.get(list.size() - 1).setCompleted(true);
         }
+    }
+
+    /**
+     * Add a Task of type Deadline from txt file.
+     * A deadline consists of the task description and deadline in String format.
+     */
+    public static void addDeadline(String isCompleted, String description, String by) {
+        list.add(new Deadline(description, by));
+        setTaskCompletion(isCompleted);
     }
 
     /**
@@ -120,11 +128,7 @@ public class TaskList {
      */
     public static void addTodo(String isCompleted, String description) {
         list.add(new Todo(description));
-        if (isCompleted.contentEquals("0")) {
-            list.get(list.size() - 1).setCompleted(false);
-        } else if (isCompleted.contentEquals("1")) {
-            list.get(list.size() - 1).setCompleted(true);
-        }
+        setTaskCompletion(isCompleted);
     }
 
     /**
@@ -148,11 +152,7 @@ public class TaskList {
      */
     public static void addEvent(String isCompleted, String description, String from, String to) {
         list.add(new Event(description, from, to));
-        if (isCompleted.contentEquals("0")) {
-            list.get(list.size() - 1).setCompleted(false);
-        } else if (isCompleted.contentEquals("1")) {
-            list.get(list.size() - 1).setCompleted(true);
-        }
+        setTaskCompletion(isCompleted);
     }
 
     /**
