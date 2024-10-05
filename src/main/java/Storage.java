@@ -10,6 +10,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the text data stored at the filepath member
+     * If the file does not exist, it is created by Java
+     * @return The text data stored in the file, if it was just created then returns null
+     * @throws IOException Due to failure of Scanner or createNewFile
+     */
     public String loadFile() throws IOException {
         File f = new File(filePath);
         if (f.createNewFile()){
@@ -25,6 +31,11 @@ public class Storage {
         return fileData.toString();
     }
 
+    /**
+     * Stores all the data in the taskList into the saveFile at the filepath member
+     * @param taskList The taskList that is to be stored
+     * @throws IOException Due to failure of file writer
+     */
     public void saveFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         String fileData = convertToSaveFormat(taskList);
@@ -33,7 +44,7 @@ public class Storage {
     }
 
 
-    public String convertToSaveFormat(TaskList taskList) throws IOException {
+    private String convertToSaveFormat(TaskList taskList) {
         StringBuilder toWrite = new StringBuilder();
         for (Task task : taskList.getList()) {
             toWrite.append(task.convertToSaveFormat()).append(System.lineSeparator());

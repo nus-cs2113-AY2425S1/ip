@@ -9,6 +9,10 @@ public class Ui {
         inputScanner = new Scanner(System.in);
     }
 
+    /**
+     * Handles the main runtime loop for the UI
+     * @param taskList The list of tasks we want use to for the program
+     */
     public void run(TaskList taskList) {
         printGreeting();
 
@@ -28,10 +32,7 @@ public class Ui {
         inputScanner.close();
     }
 
-    /**
-     * Prints a greeting to the user
-     */
-    public static void printGreeting() {
+    private void printGreeting() {
         String logo =
                 """
                          __  __   _   _           \s
@@ -49,14 +50,11 @@ public class Ui {
         printDivider();
     }
 
-    /**
-     * Prints a line divider consisting of _ characters
-     */
-    public static void printDivider() {
+    private void printDivider() {
         System.out.println("____________________________________________________________");
     }
 
-    private static void printGoodbye() {
+    private void printGoodbye() {
         System.out.println("Bye, see you later!");
         printDivider();
     }

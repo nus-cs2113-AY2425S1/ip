@@ -35,6 +35,11 @@ public class InputParser {
         return false;
     }
 
+    /**
+     * Performs the appropriate action for a given user input and a task list
+     * @param line One line of user input
+     * @param taskList The task list to perform command on
+     */
     public void handleInput(String line, TaskList taskList) {
         if (line.equals("bye")) {
             return;
