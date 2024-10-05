@@ -1,7 +1,7 @@
-package org.ajay.task;
+package org.ajay.data.task;
 
-import org.ajay.exceptions.EmptyArgumentException;
-import org.ajay.exceptions.Error;
+import org.ajay.data.exceptions.EmptyArgumentException;
+import org.ajay.data.exceptions.Error;
 
 public abstract class Task {
     public final static String MARK_COMMAND_STRING = "mark";

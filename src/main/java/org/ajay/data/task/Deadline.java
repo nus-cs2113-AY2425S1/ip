@@ -1,8 +1,8 @@
-package org.ajay.task;
+package org.ajay.data.task;
 
-import org.ajay.exceptions.EmptyArgumentException;
-import org.ajay.exceptions.Error;
-import org.ajay.exceptions.InvalidCommandFormatException;
+import org.ajay.data.exceptions.EmptyArgumentException;
+import org.ajay.data.exceptions.Error;
+import org.ajay.data.exceptions.InvalidCommandFormatException;
 
 public class Deadline extends Task {
     public final static String COMMAND_STRING = "deadline";
