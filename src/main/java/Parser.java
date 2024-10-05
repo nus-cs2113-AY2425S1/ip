@@ -32,14 +32,13 @@ public class Parser {
     }
 
     private static CommandType getCommandType(String input) {
-        if (input.equals("bye")) {
-            return CommandType.TERMINATE;
-        } else if (input.equals("list")) {
-            return CommandType.LIST;
-        }
         String[] splitInput = input.split("\\s+", 2);
         String command = splitInput[0];
-        switch (command) {
+        switch (command.toLowerCase()) {
+        case ("bye"):
+            return CommandType.TERMINATE;
+        case ("list"):
+            return CommandType.LIST;
         case ("todo"):
             return CommandType.TODO;
         case ("event"):

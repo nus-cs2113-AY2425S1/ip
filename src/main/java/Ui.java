@@ -115,7 +115,7 @@ public class Ui {
      */
     public void printList(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
-        System.out.println("Here's what you have so far:");
+        System.out.println("\tHere's what you have so far:");
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
@@ -130,8 +130,8 @@ public class Ui {
      */
     public void printFound(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
-        System.out.println("By separating the boundary between the haves and have nots, ");
-        System.out.println("here's what I managed to find:");
+        System.out.println("\tBy separating the boundary between the haves and have nots, ");
+        System.out.println("\there's what I managed to find:");
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
