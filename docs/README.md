@@ -191,8 +191,8 @@ Possible Output:
 
 ```
     ____________________________________________________________
-    By separating the boundary between the haves and have nots, 
-	here's what I managed to find:
+    By separating the boundary between the haves and have nots,
+    here's what I managed to find:
     1.[D][ ] Math homework (by: Friday)
     2.[D][ ] Physics homework (by: Thursday)
     3.[D][ ] Chemistry homework (by: Friday)
