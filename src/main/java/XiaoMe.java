@@ -40,6 +40,7 @@ public class XiaoMe {
             tasks = storage.readFile();
         } catch (XiaoMeException e) {
             ui.printToUser(e.getError());
+            tasks = new ArrayList<>(); // start with empty list if error occurs when reading file
         }
     }
 
