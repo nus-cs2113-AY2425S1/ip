@@ -4,6 +4,44 @@
 
 Welcome to Monday, your personal task management assistant! With Monday, you can easily add, delete, find, and manage your tasks efficiently. This guide will walk you through the features and how to use them.
 
+
+• [Quick Start](#Quick-Start)
+
+• [Features](#Features)
+- [Adding Todos](#Adding-Todos)  
+- [Adding Deadlines](#Adding-Deadlines)
+- [Adding Events](#Adding-Events)
+- [Deleting Tasks](#Deleting-Tasks)
+- [Listing All Tasks](#Listing-All-Tasks)
+- [Finding Tasks](#Finding-Tasks)
+- [Marking Tasks as Done](#Marking-Tasks-as-Done)
+- [Unmarking Tasks](#Unmarking-Tasks)
+- [Exiting Monday](#Exiting-Monday)
+
+## Quick Start
+
+1. Ensure you have Java 17 or above installed in your Computer.
+
+
+2. Download the latest .jar file from here.
+
+
+3. Copy the file to a folder. The saved data the same directory as the .jar file.
+
+
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Monday.jar command to run the application.
+
+
+5. Type the command in the command box and press Enter to execute it. 
+
+
+6. Refer to the [Features](Features) below for details of each command.
+
+## Features
+Notes about the command format:
+- Words in `<angle brackets>` are the parameters to be supplied by the user.
+- In the example outputs below, `X` is just a placeholder to represent the number of tasks in the list.
+
 ## Adding Todos
 
 Add a todo task.
@@ -111,6 +149,7 @@ The task will be marked as not done, and you will see a confirmation message.
     OK, I've marked this task as not done yet:
       [D][ ] <description> (by: <date and time>)
 ```
+
 ## Exiting Monday
 
 Exit the application.
