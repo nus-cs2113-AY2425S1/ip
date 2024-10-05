@@ -1,4 +1,4 @@
-package org.ajay.exceptions;
+package org.ajay.data.exceptions;
 
 
 public class IllegalCommandException extends JarvisException {
