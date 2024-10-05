@@ -130,7 +130,10 @@ public class lovespiritual {
         }
         taskDescription = taskDetails[0].trim();
         String[] time = taskDetails[1].split("to ");
-        if (time.length < 2 || time[0].trim().isEmpty()) {
+        if (time.length < 2) {
+            throw new lovespiritualException("The end date/time is missing (0.0) When does this event wrap up?");
+        }
+        if (time[0].trim().isEmpty()) {
             throw new lovespiritualException("Start date/time? (~_~) We can't go without it!");
         }
         if (time[1].trim().isEmpty()) {
