@@ -79,7 +79,8 @@ public class lovespiritual {
                     storage.saveTasks(tasks);
                     break;
                 case "find":
-                    find(input);
+                    taskList.find(input, tasks);
+                    break;
                 default:
                     throw new lovespiritualException("(^_^) Let's get started with a command!");
                 }
