@@ -5,28 +5,28 @@
 Welcome to Monday, your personal task management assistant! With Monday, you can easily add, delete, find, and manage your tasks efficiently. This guide will walk you through the features and how to use them.
 
 
-• [Quick Start](#Quick-Start)
+- [Quick Start](#Quick-Start)
 
-• [Features](#features)
-- [Adding Todos](#adding-todos)  
-- [Adding Deadlines](#adding-deadlines)
-- [Adding Events](#adding-events)
-- [Deleting Tasks](#deleting-tasks)
-- [Listing All Tasks](#listing-all-tasks)
-- [Finding Tasks](#finding-tasks)
-- [Marking Tasks as Done](#marking-tasks-as-done)
-- [Unmarking Tasks](#unmarking-tasks)
-- [Exiting Monday](#exiting-monday)
+- [Features](#features)
+  - [Adding Todos](#adding-todos)  
+  - [Adding Deadlines](#adding-deadlines)
+  - [Adding Events](#adding-events)
+  - [Deleting Tasks](#deleting-tasks)
+  - [Listing All Tasks](#listing-all-tasks)
+  - [Finding Tasks](#finding-tasks)
+  - [Marking Tasks as Done](#marking-tasks-as-done)
+  - [Unmarking Tasks](#unmarking-tasks)
+  - [Exiting Monday](#exiting-monday)
 
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your Computer.
 
 
-2. Download the latest .jar file from here.
+2. Download the latest .jar file from [here](https://github.com/lucas-sc0/ip/releases/tag/Monday-v0.2).
 
 
-3. Copy the file to a folder. The saved data the same directory as the .jar file.
+3. Copy the file to a folder.
 
 
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Monday.jar command to run the application.
@@ -35,12 +35,14 @@ Welcome to Monday, your personal task management assistant! With Monday, you can
 5. Type the command in the command box and press Enter to execute it. 
 
 
-6. Refer to the [Features](features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 ## Features
 Notes about the command format:
 - Words in `<angle brackets>` are the parameters to be supplied by the user.
 - In the example outputs below, `X` is just a placeholder to represent the number of tasks in the list.
+- When running monday for the first time, `/data/monday.txt` will be generated in the same folder as monday.jar.
+- Tasks that are subsequently added will be saved & loaded from `monday.txt`.
 
 ## Adding Todos
 
