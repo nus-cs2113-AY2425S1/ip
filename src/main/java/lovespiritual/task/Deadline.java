@@ -1,11 +1,14 @@
 package lovespiritual.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline task, which has a description and a deadline (date/time).
  */
 public class Deadline extends Task {
     /** Deadline (date/time) for the task. */
-    public String by;
+    public LocalDateTime  by;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
@@ -15,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -25,6 +28,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 }

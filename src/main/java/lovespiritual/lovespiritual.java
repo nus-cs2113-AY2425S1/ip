@@ -165,12 +165,16 @@ public class lovespiritual {
         }
         from = time[0].trim();
         to = time[1].trim();
-        tasks.add(new Event(taskDescription, from, to));
-        System.out.println(SEPARATOR);
-        System.out.println("Yay! (•‿•) I've added your task!");
-        System.out.println(tasks.get(tasks.size() - 1));
-        System.out.println("Woot! (^▽^) You now have " + tasks.size() + " tasks in your list!");
-        System.out.println(SEPARATOR);
+        try {
+            tasks.add(new Event(taskDescription, from, to));
+            System.out.println(SEPARATOR);
+            System.out.println("Yippee! (★^O^★) Task added successfully!");
+            System.out.println(tasks.get(tasks.size() - 1));
+            System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
+            System.out.println(SEPARATOR);
+        } catch (Exception e) {
+            throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
+        }
     }
 
     /**
@@ -200,12 +204,16 @@ public class lovespiritual {
         }
         taskDescription = taskDetails[0].trim();
         by = taskDetails[1].trim();
-        tasks.add(new Deadline(taskDescription, by));
-        System.out.println(SEPARATOR);
-        System.out.println("Yippee! (★^O^★) Task added successfully!");
-        System.out.println(tasks.get(tasks.size() - 1));
-        System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
-        System.out.println(SEPARATOR);
+        try {
+            tasks.add(new Deadline(taskDescription, by));
+            System.out.println(SEPARATOR);
+            System.out.println("Yippee! (★^O^★) Task added successfully!");
+            System.out.println(tasks.get(tasks.size() - 1));
+            System.out.println("Wow! (｡♥‿♥｡) You now have " + tasks.size() + " tasks! Keep going!");
+            System.out.println(SEPARATOR);
+        } catch (Exception e) {
+            throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
+        }
     }
 
     /**

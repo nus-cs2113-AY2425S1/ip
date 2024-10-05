@@ -1,13 +1,16 @@
 package lovespiritual.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task, which has a description, start time, and end time.
  */
 public class Event extends Task {
     /** Start time of the event. */
-    public String from;
+    public LocalDateTime from;
     /** End time of the event. */
-    public String to;
+    public LocalDateTime to;
 
     /**
      * Constructs a new Event task with the specified description, start time, and end time.
@@ -18,8 +21,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -29,6 +32,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + ", to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ", to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 }
