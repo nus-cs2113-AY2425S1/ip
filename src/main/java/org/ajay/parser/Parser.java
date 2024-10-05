@@ -1,6 +1,5 @@
 package org.ajay.parser;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import org.ajay.commands.Command;
 import org.ajay.commands.DeadlineCommand;
@@ -51,81 +50,14 @@ public class Parser {
      * @param lineBufferString
      */
     public static void readInput(Scanner in) {
-
         try {
             TextUi.printPrompt(); // Print the prompt to the console
             String lineBufferString = in.nextLine();
             splitCommandAndTask(lineBufferString);
-
-            // switch (command) {
-            // case Ui.EXIT_STRING: // Exit the program
-            // in.close();
-            // Ui.printGoodbyeMsgs();
-            // break;
-            // case Ui.EXIT_STRING_ALT: // Habit of typing exit to exit the program
-            // in.close();
-            // Ui.printGoodbyeMsgs();
-            // break;
-            // case Task.LIST_COMMAND_STRING: // List all the tasks
-            // Ui.printBreakLine();
-            // TaskList.printAllTasks();
-            // Ui.printBreakLine();
-            // break;
-            // case Todo.COMMAND_STRING: // Add a todo task
-            // // taskList[Task.getNumberOfTasks()] = new Todo(task);
-            // TaskList.addTask(new Todo(task));
-            // Ui.printBreakLine();
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // case Deadline.COMMAND_STRING: // Add a deadline task
-            // // taskList[Task.getNumberOfTasks()] = new Deadline(task);
-            // TaskList.addTask(new Deadline(task));
-            // Ui.printBreakLine();
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // case Event.COMMAND_STRING: // Add an event task
-            // // taskList[Task.getNumberOfTasks()] = new Event(task);
-            // TaskList.addTask(new Event(task));
-            // Ui.printBreakLine();
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // case Task.MARK_COMMAND_STRING: // Mark the task as done
-            // TaskList.markAsDone(task);
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // case Task.UNMARK_COMMAND_STRING: // Mark the task as undone
-            // TaskList.markAsUndone(task);
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // case Task.DELETE_COMMAND_STRING: // Delete the task
-            // int taskNumberDelete = Integer.parseInt(task); // Get the task number
-            // TaskList.deleteTask(TaskList.taskList, taskNumberDelete); // Delete the task
-
-            // Storage.saveTaskList(TaskList.taskList);
-            // break;
-            // default:
-            // throw new IllegalCommandException(Error.ILLEGAL_COMMAND.toString());
-            // }
-
-            // readInput(); // Recursively call the function to read the next input
         } catch (EmptyArgumentException e) {
-            TextUi.printBreakLine();
             TextUi.printExceptions(e.getMessage());
-            TextUi.printBreakLine();
         }
-        // catch (InvalidCommandFormatException e) {
-        // // TODO: Update me
-        // } catch (IllegalCommandException e) {
-        // // TODO: Update me
-        // }
-        catch (NoSuchElementException e) {
-            // FIXME: Facing unexpected NoSuchElementException error
-        }
+
 
     }
 

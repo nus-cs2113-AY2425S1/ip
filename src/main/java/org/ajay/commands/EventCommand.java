@@ -11,8 +11,9 @@ import org.ajay.ui.TextUi;
 public class EventCommand extends Command{
 
     public static final String COMMAND_WORD = Event.COMMAND_STRING;
-    public static final String MESSAGE_USAGE = "Creates an event task.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = """
+                                               Creates an event task.
+                                               Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Event has been created!";
 
@@ -21,13 +22,11 @@ public class EventCommand extends Command{
         try {
             tasks.addTask(new Event(Parser.task));
         } catch (EmptyArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ui.printExceptions(e.getMessage());
         } catch (InvalidCommandFormatException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ui.printExceptions(e.getMessage());
         }
-        storage.saveTaskList(tasks.taskList);
+        storage.saveTaskList(tasks.getTaskList());
     }
 
 }

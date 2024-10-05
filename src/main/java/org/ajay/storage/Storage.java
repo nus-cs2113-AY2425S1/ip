@@ -12,6 +12,8 @@ import org.ajay.data.task.Deadline;
 import org.ajay.data.task.Event;
 import org.ajay.data.task.Task;
 import org.ajay.data.task.Todo;
+import org.ajay.ui.TextUi;
+
 
 public class Storage {
 
@@ -31,7 +33,7 @@ public class Storage {
         setFilePath(filePath);
     }
 
-    public ArrayList<Task> load() throws EmptyArgumentException, IllegalArgumentException {
+    public ArrayList<Task> load() throws IllegalArgumentException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         // Check if the file exists
@@ -40,8 +42,7 @@ public class Storage {
             try {
                 f.createNewFile();
             } catch (IOException e) {
-                // TODO: Update me
-                e.printStackTrace();
+                TextUi.printExceptions(e.getMessage());
             }
         }
 
@@ -61,10 +62,11 @@ public class Storage {
                 switch (task[0]) {
                     case Todo.TASK_STRING:
                         if (task.length < 3) {
-                            throw new IllegalArgumentException("Importing todo task failed. Data is corrupted.");
+                            throw new IllegalArgumentException("Importing Todo task failed. Data is corrupted.");
                         }
 
                         taskList.add(Todo.loadTaskString(isDone, task[2]));
+
                         break;
                     case Event.TASK_STRING:
                         if (task.length < 5) {
@@ -85,14 +87,17 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error while reading a file.");
+            // System.out.println("Error while reading a file.");
+            TextUi.printExceptions("Error while reading a file.");
+        } catch (EmptyArgumentException e) {
+            TextUi.printExceptions(e.getMessage());
         }
 
         return taskList;
 
     }
 
-    public static void saveTaskList(ArrayList<Task> taskList) {
+    public void saveTaskList(ArrayList<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
@@ -100,8 +105,8 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Unable to write to file: " + filePath);
-            e.printStackTrace();
+            // System.out.println("Unable to write to file: " + filePath);
+            TextUi.printExceptions("Unable to write to file: " + filePath);
         }
     }
 }

@@ -1,21 +1,26 @@
 package org.ajay.data;
 
 import java.util.ArrayList;
-
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.task.Task;
 import org.ajay.ui.TextUi;
 
 public class TaskList {
 
-    public static ArrayList<Task> taskList = new ArrayList<>(); // ArrayList to store tasks
+    private  static ArrayList<Task> taskList = new ArrayList<>(); // ArrayList to store tasks
 
-    public TaskList() {
-
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
+    public void setTaskList(ArrayList<Task> taskList) {
+        TaskList.taskList = taskList;
+    }
+
+    public TaskList() {}
+
     public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+        setTaskList(taskList);
     }
 
     /**
@@ -23,7 +28,7 @@ public class TaskList {
      *
      * @param task task to be added
      */
-    public static void addTask(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 

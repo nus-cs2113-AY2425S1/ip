@@ -3,6 +3,7 @@ package org.ajay.data.task;
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
+import org.ajay.ui.TextUi;
 
 public class Deadline extends Task {
     public final static String COMMAND_STRING = "deadline";
@@ -14,12 +15,17 @@ public class Deadline extends Task {
      * Constructor for the Deadline class.
      *
      * @param description description of the deadline
+     * @throws EmptyArgumentException
      *
      * @throws InvalidCommandFormatException
      */
-    public Deadline(String description) throws EmptyArgumentException, InvalidCommandFormatException {
+    public Deadline(String description) throws EmptyArgumentException  {
         super(getDescriptionFromString(description));
-        setBy(getDayFromString(description));
+        try {
+            setBy(getDayFromString(description));
+        } catch (InvalidCommandFormatException e) {
+            TextUi.printExceptions(e.getMessage());
+        }
 
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this.toString());
@@ -32,8 +38,9 @@ public class Deadline extends Task {
      *
      * @param description description of the deadline
      * @param by          by date
+     * @throws EmptyArgumentException
      */
-    public Deadline(String description, String by) throws EmptyArgumentException {
+    public Deadline(String description, String by) throws EmptyArgumentException  {
         super(description);
         setBy(by);
 
@@ -62,7 +69,7 @@ public class Deadline extends Task {
      *
      * @param by
      */
-    public void setBy(String by) {
+    private void setBy(String by) {
         this.by = by;
     }
 

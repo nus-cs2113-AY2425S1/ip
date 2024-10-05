@@ -4,10 +4,6 @@ import org.ajay.common.Messages;
 
 
 public class TextUi {
-
-
-
-
     /**
      * Prints a break line to the console.
      */
@@ -36,7 +32,9 @@ public class TextUi {
     }
 
     public static void printExceptions(String errorMsg) {
+        printBreakLine();
         System.out.println(Color.ANSI_RED + errorMsg + Color.ANSI_RESET);
+        printBreakLine();
     }
 
     public static void printSuccess(String successMsg) {

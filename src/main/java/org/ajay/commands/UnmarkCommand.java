@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         tasks.markAsUndone(Parser.task);
-        storage.saveTaskList(tasks.taskList);
+        storage.saveTaskList(tasks.getTaskList());
     }
 
 }

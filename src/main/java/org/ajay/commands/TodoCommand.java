@@ -10,8 +10,9 @@ import org.ajay.ui.TextUi;
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = Todo.COMMAND_STRING;
-    public static final String MESSAGE_USAGE = "Creates a todo task.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = """
+                                               Creates a todo task.
+                                               Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Todo has been created!";
 
@@ -19,10 +20,9 @@ public class TodoCommand extends Command {
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         try {
             tasks.addTask(new Todo(Parser.task));
-            storage.saveTaskList(tasks.taskList);
+            storage.saveTaskList(tasks.getTaskList());
         } catch (EmptyArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ui.printExceptions(e.getMessage());
         }
 
     }
