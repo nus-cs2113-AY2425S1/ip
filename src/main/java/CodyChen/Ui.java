@@ -16,7 +16,7 @@ public class Ui {
                 "  \\_____\\___/ \\__,_|\\__, |\\_____|_| |_|\\___|_| |_|\n" +
                 "                     __/ |                        \n" +
                 "                    |___/                         ");
-        System.out.println(">CodyChen: \n\tCody Chen Welcomes You! Please enter a command:");
+        System.out.println(">CodyChen:\n\tCody Chen Welcomes You! Please enter a command:");
     }
 
     public String readCommand() {
@@ -26,20 +26,19 @@ public class Ui {
     }
 
     public void showEnd() {
-        System.out.println("   ▄██████▄   ▄██████▄   ▄██████▄  ████████▄  ▀█████████▄  ▄██   ▄      ▄████████ \n" +
-                "  ███    ███ ███    ███ ███    ███ ███   ▀███   ███    ███ ███   ██▄   ███    ███ \n" +
-                "  ███    █▀  ███    ███ ███    ███ ███    ███   ███    ███ ███▄▄▄███   ███    █▀  \n" +
-                " ▄███        ███    ███ ███    ███ ███    ███  ▄███▄▄▄██▀  ▀▀▀▀▀▀███  ▄███▄▄▄     \n" +
-                "▀▀███ ████▄  ███    ███ ███    ███ ███    ███ ▀▀███▀▀▀██▄  ▄██   ███ ▀▀███▀▀▀     \n" +
-                "  ███    ███ ███    ███ ███    ███ ███    ███   ███    ██▄ ███   ███   ███    █▄  \n" +
-                "  ███    ███ ███    ███ ███    ███ ███   ▄███   ███    ███ ███   ███   ███    ███ \n" +
-                "  ████████▀   ▀██████▀   ▀██████▀  ████████▀  ▄█████████▀   ▀█████▀    ██████████ \n" +
-                "                                                                                  ");
-        System.out.println(">CodyChen: \n\tThank You for using CodyChen. Have a nice day.");
+        System.out.println("   ▄██████▄   ▄██████▄   ▄██████▄  ████████▄  ▀█████████▄  ▄██   ▄      ▄████████\n" +
+                "  ███    ███ ███    ███ ███    ███ ███   ▀███   ███    ███ ███   ██▄   ███    ███\n" +
+                "  ███    █▀  ███    ███ ███    ███ ███    ███   ███    ███ ███▄▄▄███   ███    █▀\n" +
+                " ▄███        ███    ███ ███    ███ ███    ███  ▄███▄▄▄██▀  ▀▀▀▀▀▀███  ▄███▄▄▄\n" +
+                "▀▀███ ████▄  ███    ███ ███    ███ ███    ███ ▀▀███▀▀▀██▄  ▄██   ███ ▀▀███▀▀▀\n" +
+                "  ███    ███ ███    ███ ███    ███ ███    ███   ███    ██▄ ███   ███   ███    █▄\n" +
+                "  ███    ███ ███    ███ ███    ███ ███   ▄███   ███    ███ ███   ███   ███    ███\n" +
+                "  ████████▀   ▀██████▀   ▀██████▀  ████████▀  ▄█████████▀   ▀█████▀    ██████████\n");
+        System.out.println(">CodyChen:\n\tThank You for using CodyChen. Have a nice day.");
     }
 
     public void listPopulated(TaskList taskList) {
-        System.out.println(">CodyChen: \n\tCodyChen has returned your list as follows:");
+        System.out.println(">CodyChen:\n\tCodyChen has returned your list as follows:");
         int loop = 1;
         ArrayList<Task> tasks = taskList.getTask();
         for (Task task : tasks) {
@@ -58,15 +57,19 @@ public class Ui {
             }
             loop += 1;
         }
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void toFind(TaskList taskList, String wordtoFind) {
-        System.out.println(">CodyChen: \n\tShowing relevant searches ");
         int loop = 1;
+        int flag = 0;
         ArrayList<Task> tasks = taskList.getTask();
         for (Task task : tasks) {
             if (task.getDescription().contains(wordtoFind)) {
+                if(loop == 1){
+                    System.out.println(">CodyChen:\n\tShowing relevant searches ");
+                    flag = 1;
+                }
                 System.out.print(loop + "."); // Prints object Array
                 System.out.print("[" + task.getType() + "]" + task.getStatusIcon() + task.getDescription());
                 switch (task.getType()) {
@@ -83,11 +86,14 @@ public class Ui {
             }
             loop += 1;
         }
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        if(flag == 0){
+            System.out.println(">CodyChen:\n\tNo results were returned");
+        }
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void listEmpty() {
-        System.out.println(">CodyChen: \n\tDone! But...Your list seems lonely here >< Time to add some tasks!");
+        System.out.println(">CodyChen:\n\tDone! But...Your list seems lonely here >< Time to add some tasks!");
     }
 
     public void showTodoAdded(TaskList tasks) {
@@ -96,17 +102,17 @@ public class Ui {
         System.out.println("[" + tasks.getTask(index).getType() + "]" +
                 tasks.getTask(index).getStatusIcon() +
                 tasks.getTask(index).getDescription());
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void showDeadlineAdded(TaskList tasks) {
         int index = tasks.size() - 1;
-        System.out.println(">CodyChen:\n\t CodyChen has added this DEADLINE task for you:");
+        System.out.println(">CodyChen:\n\tCodyChen has added this DEADLINE task for you:");
         System.out.println("[" + tasks.getTask(index).getType() + "]" +
                 tasks.getTask(index).getStatusIcon() +
                 tasks.getTask(index).getDescription() +
                 "(by: " + tasks.getTask(index).formattedDeadline() + ")");
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void showEventAdded(TaskList tasks) {
@@ -117,7 +123,7 @@ public class Ui {
                 tasks.getTask(index).getDescription() +
                 "(by: " + tasks.getTask(index).formattedDeadline() +
                 tasks.getTask(index).formattedEvent());
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void showTaskDeleted(TaskList tasks, int index) {
@@ -148,7 +154,7 @@ public class Ui {
                     tasks.getTask(index).formattedEvent());
             break;
         }
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void showTaskMarked(TaskList tasks, int index) {
@@ -168,7 +174,7 @@ public class Ui {
                     tasks.getTask(index).formattedEvent());
             break;
         }
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 
     public void showTaskUnmarked(TaskList tasks, int index) {
@@ -188,6 +194,6 @@ public class Ui {
                     tasks.getTask(index).formattedEvent());
             break;
         }
-        System.out.println(">CodyChen: \n\tDone! Please enter the next command:");
+        System.out.println(">CodyChen:\n\tDone! Please enter the next command:");
     }
 }

@@ -1,5 +1,7 @@
 package CodyChen.Command;
-import CodyChen.*;
+import CodyChen.Ui;
+import CodyChen.Storage;
+import CodyChen.TaskList;
 
 public class MarkCommand extends Command {
     private int index;
