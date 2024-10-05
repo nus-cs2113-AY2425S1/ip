@@ -86,17 +86,17 @@ public class Parser {
     }
 
     private Command prepareMark(String commandArgs) {
-        int targetNumber = Integer.parseInt(commandArgs);
+        int targetNumber = Integer.parseInt(commandArgs.strip());
         return new MarkCommand(targetNumber);
     }
 
     private Command prepareUnmark(String commandArgs) {
-        int targetNumber = Integer.parseInt(commandArgs);
+        int targetNumber = Integer.parseInt(commandArgs.strip());
         return new UnmarkCommand(targetNumber);
     }
 
     private Command prepareDelete(String commandArgs) {
-        int targetNumber = Integer.parseInt(commandArgs);
+        int targetNumber = Integer.parseInt(commandArgs.strip());
         return new DeleteCommand(targetNumber);
     }
 
