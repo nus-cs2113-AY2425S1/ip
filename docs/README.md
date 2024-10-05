@@ -4,7 +4,7 @@
 
 ### Ran? Ran Yakumo? From Touhou Project?
 Yes!
-The power of Ran Yakumo, from the hit video-game series Touhou Project, in the chasis of your computer.
+The power of Ran Yakumo, from the hit video-game series Touhou Project, in the chassis of your computer.
 Yukari Yakumo has agreed to loan out a tiny portion of her beloved Shikigami's power towards making a chatbot.
 Harness a small percentage of Ran's intellect to help you manage your day-to-day tasks! 
 
