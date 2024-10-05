@@ -1,7 +1,5 @@
 package yapper.io;
 
-import java.util.List;
-
 import yapper.tasks.Task;
 import yapper.tasks.TaskHandler;
 
@@ -52,19 +50,18 @@ public class OutputStringHandler {
     public static void printSelectedTasks(TaskHandler taskHandler, String query) {
         System.out.println(StringStorage.LIST_RELEVANT_TASKS_STRING);
 
-        List<Task> tasks = taskHandler.getAllTasks();
-        int totalMatching = 0;
-        for (Task task : tasks) {
+        int totalTasksThatContainsQuery = 0;
+        for (Task task : taskHandler.getAllTasks()) {
             if (task.getDesc().contains(query)) {
                 int ordinal = taskHandler.getOrdinalOf(task);
                 System.out.println(displayTaskWithOrdinal(task, ordinal));
-                totalMatching++;
+                totalTasksThatContainsQuery++;
             }
         }
 
-        if (totalMatching > 0) {
+        if (totalTasksThatContainsQuery > 0) {
             System.out.println(
-                    totalMatching + StringStorage.RELEVANT_TASKS_FOUND_STRING);
+                    totalTasksThatContainsQuery + StringStorage.RELEVANT_TASKS_FOUND_STRING);
         } else {
             System.out.println(StringStorage.RELEVANT_TASKS_NOT_FOUND_STRING);
         }
