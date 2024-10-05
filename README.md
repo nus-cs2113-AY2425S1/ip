@@ -154,7 +154,7 @@ Here are the matching tasks in your list:
 Closes Andy Bot and saves your tasks.
 ```
 
-You can copy this content into a markdown file (`Andy_User_Guide.md`) in your preferred text editor or IDE. Let me know if you need further help!
+
 
 
 
