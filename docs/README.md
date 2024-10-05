@@ -71,7 +71,7 @@ Create an Event and add it to the end of your list.
 
 **Example: `search homework project`**
 
-Searches through the list of your Tasks and return all matches 
+Searches through your tasks list and return all matches 
 (i.e. Tasks whose description contains any word in your query).
 
 ## `mark`, `unmark` & `delete` - Organize your tasks!
