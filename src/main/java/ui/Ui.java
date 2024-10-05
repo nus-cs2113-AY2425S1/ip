@@ -27,6 +27,10 @@ public class Ui {
         printLine();
     }
 
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
     public void showTaskAdded(Task task, int size) {
         System.out.println("    Added: " + task);
         System.out.println("    Now you have " + size + " tasks in the list.");
