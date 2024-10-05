@@ -5,7 +5,7 @@
 Welcome to Monday, your personal task management assistant! With Monday, you can easily add, delete, find, and manage your tasks efficiently. This guide will walk you through the features and how to use them.
 
 
-- [Quick Start](#quick-start)
+- [Quick Start](#Quick-Start)
 
 - [Features](#features)
   - [Adding Todos](#adding-todos)  
