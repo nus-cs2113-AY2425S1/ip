@@ -1,6 +1,14 @@
 package CodyChen;
 
-import CodyChen.Command.*;
+import CodyChen.Command.AddCommand;
+import CodyChen.Command.Command;
+import CodyChen.Command.AddDeadlineCommand;
+import CodyChen.Command.AddEventCommand;
+import CodyChen.Command.FindCommand;
+import CodyChen.Command.ListCommand;
+import CodyChen.Command.MarkCommand;
+import CodyChen.Command.UnmarkCommand;
+import CodyChen.Command.DeleteCommand;
 
 /**
  * The Parser class is responsible for interpreting user input
@@ -36,7 +44,7 @@ public class Parser {
                 return new AddCommand(line);
             } catch (IndexOutOfBoundsException e){
                 System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
-                        "Kindly specify todo <task> ");
+                        "Kindly specify todo <task>");
             }
             break;
 
@@ -46,7 +54,7 @@ public class Parser {
                 return new AddDeadlineCommand(line);
             } catch (IndexOutOfBoundsException e){
                 System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
-                        "Kindly specify deadline <task> /by <End Date> ");
+                        "Kindly specify deadline <task> /by <End Date>");
             }
             break;
 
@@ -56,7 +64,7 @@ public class Parser {
                 return new AddEventCommand(line);
             } catch (IndexOutOfBoundsException e){
                 System.out.println(">CodyChen:\n\tOops, CodyChen did not get that\n" +
-                        "Kindly specify event <task> /from <Start Date> /to <End Date> ");
+                        "Kindly specify event <task> /from <Start Date> /to <End Date>");
             }
             break;
 
@@ -101,8 +109,10 @@ public class Parser {
         case "find":
             try{
                 return new FindCommand(line);
-            } catch (Exception e){
-                System.out.println("The selected item is not found");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(">CodyChen:\n\t Your number is out-of-range! Kindly enter a valid index");
+            } catch (NumberFormatException e){
+                System.out.println(">CodyChen:\n\t CodyChen could not find that item! Kindly enter only numbers");
             }
             break;
         }

@@ -1,11 +1,12 @@
-   _____          _        _____ _
-  / ____|        | |      / ____| |
- | |     ___   __| |_   _| |    | |__   ___ _ __
- | |    / _ \ / _` | | | | |    | '_ \ / _ \ '_ \
+File is empty
+   _____          _        _____ _                
+  / ____|        | |      / ____| |               
+ | |     ___   __| |_   _| |    | |__   ___ _ __  
+ | |    / _ \ / _` | | | | |    | '_ \ / _ \ '_ \ 
  | |___| (_) | (_| | |_| | |____| | | |  __/ | | |
   \_____\___/ \__,_|\__, |\_____|_| |_|\___|_| |_|
-                     __/ |
-                    |___/
+                     __/ |                        
+                    |___/                         
 >CodyChen:
 	Cody Chen Welcomes You! Please enter a command:
 >You:
@@ -53,7 +54,7 @@
 --------------------------------------------------------------
 >CodyChen:
 	 CodyChen has marked this task for you:
-[T][X] borrow book
+[T][X] join sports club
 >CodyChen:
 	Done! Please enter the next command:
 >You:
@@ -70,32 +71,43 @@
 >CodyChen:
 	CodyChen has returned your list as follows:
 1.[T][X] read book
-2.[E][ ] project meeting (by: Aug 6th to: 4pm)
-3.[T][ ] join sports club
-4.[T][X] borrow book
-5.[D][ ] return book (by: Sunday)
-6.[E][ ] project meeting (by: Mon 2pm to: 4pm)
-7.[T][ ] read book
-8.[D][ ] return book (by: June 6th)
-9.[E][ ] project meeting (by: Aug 6th to: 4pm)
-10.[T][ ] join sports club
-11.[T][ ] borrow book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (by: Aug 6th to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
 >CodyChen:
 	Done! Please enter the next command:
 >You:
-	deadline return book /by Sunday
+	find book
+--------------------------------------------------------------
+>CodyChen:
+	Showing relevant searches 
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+5.[T][ ] borrow book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	find 0
+--------------------------------------------------------------
+>CodyChen:
+	No results were returned
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	deadline return book /by 2023-01-10
 --------------------------------------------------------------
 >CodyChen:
 	 CodyChen has added this DEADLINE task for you:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Jan 10 2023)
 >CodyChen:
 	Done! Please enter the next command:
 >You:
-	event project meeting /from Mon 2pm /to 4pm
+	event project meeting /from 2023-01-10 /to 2023-01-11
 --------------------------------------------------------------
 >CodyChen:
 	 CodyChen has added this EVENT task for you:
-[E][ ] project meeting (by: Mon 2pm to: 4pm)
+[E][ ] project meeting (by: Jan 10 2023 to: Jan 11 2023)
 >CodyChen:
 	Done! Please enter the next command:
 >You:
@@ -104,19 +116,19 @@
 >CodyChen:
 	Oops, CodyChen did not get that
 Kindly specify todo <task>
->CodyChen:
+>CodyChen: 
 	Please enter a valid command:
 >You:
 	blah
 --------------------------------------------------------------
->CodyChen:
+>CodyChen: 
 	Please enter a valid command:
 >You:
 	delete 2
 --------------------------------------------------------------
 >CodyChen:
 	 CodyChen has removed this task for you:
-2.[E][ ] project meeting (by: Aug 6th to: 4pm)
+2.[D][ ] return book (by: June 6th)
 >CodyChen:
 	Done! Please enter the next command:
 >You:
@@ -125,17 +137,11 @@ Kindly specify todo <task>
 >CodyChen:
 	CodyChen has returned your list as follows:
 1.[T][X] read book
-2.[T][ ] join sports club
-3.[T][X] borrow book
-4.[D][ ] return book (by: Sunday)
-5.[E][ ] project meeting (by: Mon 2pm to: 4pm)
-6.[T][ ] read book
-7.[D][ ] return book (by: June 6th)
-8.[E][ ] project meeting (by: Aug 6th to: 4pm)
-9.[T][ ] join sports club
-10.[T][ ] borrow book
-11.[D][ ] return book (by: Sunday)
-12.[E][ ] project meeting (by: Mon 2pm to: 4pm)
+2.[E][ ] project meeting (by: Aug 6th to: 4pm)
+3.[T][X] join sports club
+4.[T][ ] borrow book
+5.[D][ ] return book (by: Jan 10 2023)
+6.[E][ ] project meeting (by: Jan 10 2023 to: Jan 11 2023)
 >CodyChen:
 	Done! Please enter the next command:
 >You:
@@ -150,5 +156,5 @@ Kindly specify todo <task>
   ███    ███ ███    ███ ███    ███ ███   ▄███   ███    ███ ███   ███   ███    ███
   ████████▀   ▀██████▀   ▀██████▀  ████████▀  ▄█████████▀   ▀█████▀    ██████████
 
->CodyChen:
+>CodyChen: 
 	Thank You for using CodyChen. Have a nice day.
