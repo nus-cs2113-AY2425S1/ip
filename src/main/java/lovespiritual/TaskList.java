@@ -1,5 +1,8 @@
 package lovespiritual;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import lovespiritual.exception.lovespiritualException;
 import lovespiritual.task.Deadline;
 import lovespiritual.task.Event;
@@ -68,16 +71,16 @@ public class TaskList {
                 if (parts.length < 4) {
                     throw new lovespiritualException("Error reading Deadline from file: Missing 'by' date.");
                 }
-                String by = parts[3];
-                task = new Deadline(description, by);
+                LocalDateTime by = LocalDateTime.parse(parts[3]);
+                task = new Deadline(description, by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
                 break;
             case "E":
                 if (parts.length < 5) {
                     throw new lovespiritualException("Error reading Event from file: Missing 'from' or 'to' time.");
                 }
-                String from = parts[3];
-                String to = parts[4];
-                task = new Event(description, from, to);
+                LocalDateTime from = LocalDateTime.parse(parts[3]);
+                LocalDateTime to = LocalDateTime.parse(parts[4]);
+                task = new Event(description, from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
                 break;
             default:
                 throw new lovespiritualException("Error reading task from file: Unknown task type.");
