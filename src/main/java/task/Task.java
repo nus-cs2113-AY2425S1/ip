@@ -1,6 +1,9 @@
 package task;
 import exception.LeginEmptyTaskException;
 
+/**
+ * Abstract class that provides methods shared across {@code Todo}, {@code Deadline} and {@code Event} classes
+ */
 public abstract class Task {
     protected boolean isDone;
     protected String task;

@@ -1,11 +1,15 @@
 make the bed
-todo finish tutorial 1
+todo make bread for breakfast
 deadline finish bread on table /by 4 Sep
 event training at lakeside /from 3.30pm /to 7pm
 list
 mark 2
 mark 4
 list
+unmark 2
 unmark 4
 list
+delete 3
+list
+find bread
 bye

@@ -6,6 +6,18 @@ import exception.LeginEmptyTaskException;
  */
 public class Todo extends Task{
     private static final int INCREMENT_TO_START_INDEX = 1;
+
+    /**
+     * Instantiates a Todo member with its description
+     *
+     * @param input User input in command line
+     * @param isFromLoadFile Set to {@code true} when data comes from storage text file
+     * @throws LeginEmptyTaskException If task has no description
+     */
+    public Todo(String input, boolean isFromLoadFile) throws LeginEmptyTaskException {
+        super(getTodoDescription(input, isFromLoadFile));
+    }
+
     /**
      * Retrieves the task description fo the Todo task
      *
@@ -18,17 +30,6 @@ public class Todo extends Task{
             return input;
         }
         return input.substring(input.indexOf(" ") + INCREMENT_TO_START_INDEX);
-    }
-
-    /**
-     * Instantiates a Todo member with its description
-     *
-     * @param input User input in command line
-     * @param isFromLoadFile Set to {@code true} when data comes from storage text file
-     * @throws LeginEmptyTaskException If task has no description
-     */
-    public Todo(String input, boolean isFromLoadFile) throws LeginEmptyTaskException {
-        super(getTodoDescription(input, isFromLoadFile));
     }
 
     /**
