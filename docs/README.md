@@ -12,12 +12,45 @@ Harness a small percentage of Ran's intellect to help you manage your day-to-day
 1. Ensure that you have Java `17` installed on your computer.
 2. Download the latest `ran.jar` file from [here](https://github.com/3CCLY/ip/releases).
 3. Navigate to the directory where `ran.jar` is installed, and relocate it to whichever directory you please.
-4. Open the terminal, and `cd` into the directory of `ran.jar`, and run the command `java -jar ran.jar` to start the chatbot.
+4. Open the terminal (`Terminal` on Linux and MacOS, `Command Prompt` on Windows), and use the `cd` command to go into the directory of `ran.jar`, and run the command `java -jar ran.jar` to start the chatbot.
 5. If all goes well, you should see the screen look something like the picture above.
-6. Use commands listed in the [Features](#features) section to get Ran to manage your tasks.
+6. Use commands listed in the [Features](#features) section to get Ran to manage your tasks (alternatively type `help` to get Ran to guide you).
 7. Type `bye` to terminate the Ran chatbot.
 
 # Features
+
+### Input formatting
+
+Ran waits for you to type an input and hit the enter key, and proceed to interpret it as a command. 
+If your input is formatted badly, Ran might be unwilling to follow through. 
+Try your best to follow the format given with each type of commands!
+
+- Extra white spaces at the start and end of your input are safely ignored
+- The first word in your input represent the base command
+  - The base command is not case-sensitive, so both `bye` and `Bye` would work for example
+  - If just a base command is sufficient (e.g. `bye`, `help`), all input after the base command is ignored
+- Parameters are shown between square brackets in the format of the command
+  - e.g. for the `todo` command, replace the `[DESCRIPTION]` in the format with whatever you want to type
+  - Extra white spaces at the start and end of your parameters are safely ignored
+- White spaces in between the base command and format identifiers (/by, /from, /to) are not allowed
+  - e.g. `dead line Math homework /b y Friday` is considered an invalid command
+
+### Output formatting
+
+Ran will show your added tasks in this format: `[ ][ ] description (optional-time)`
+
+- The first `[ ]` represents the type of the task, using a letter within the square brackets:
+  - `T` stands for a Todo task
+  - `D` stands for a Deadline task
+  - `E` stands for an Event task
+- The second `[ ]` shows if the task is done or not
+  - A `X` within the square bracket indicates the task is marked as done
+
+## Getting help: `help`
+
+Receive a help message from Ran.
+
+Format: `help`
 
 ## Add a Todo Task: `todo`
 
@@ -41,9 +74,9 @@ Expected Output:
 
 Add a Deadline task to the list of tasks.
 
-Format: `Deadline [DESCRIPTION] /by [DEADLINE]`
+Format: `deadline [DESCRIPTION] /by [DEADLINE]`
 
-Example: `Deadline Math homework /by Friday`
+Example: `deadline Math homework /by Friday`
 
 Expected Output:
 
@@ -83,6 +116,7 @@ Possible Output:
 
 ```
     ____________________________________________________________
+    Here's what you have so far:
     1.[T][ ] Water the plants
     2.[T][ ] Play guitar
     3.[D][ ] Math homework (by: Friday)
@@ -105,7 +139,7 @@ Possible Output:
 
 ```
     ____________________________________________________________
-    Nice! I've marked this task as done:
+    Excellent! I've marked this task as done:
       [T][X] Feed cat
     ____________________________________________________________
 ```
@@ -122,7 +156,7 @@ Possible Output:
 
 ```
     ____________________________________________________________
-    OK, I've marked this task as not done yet:
+    Sure, I've marked this task as not done yet:
       [T][ ] Feed cat
     ____________________________________________________________
 ```
@@ -157,6 +191,8 @@ Possible Output:
 
 ```
     ____________________________________________________________
+    By separating the boundary between the haves and have nots, 
+	here's what I managed to find:
     1.[D][ ] Math homework (by: Friday)
     2.[D][ ] Physics homework (by: Thursday)
     3.[D][ ] Chemistry homework (by: Friday)
@@ -184,3 +220,15 @@ In the directory that Ran chatbot is started up, a `data` directory is created,
 with a `ran.txt` text file within to backup your entire list of tasks.
 If such a text file in the correct directory already exists,
 then Ran will read from it and load all the saved tasks.
+
+More advanced users may want to tinker with the file to manually modify their tasks, 
+but care must be taken to ensure that the format of the file is followed. 
+Advanced users may also keep this text file as a backup, and run Ran on another computer with this backup.
+
+# Extra
+
+### Credits
+
+This is a fan-made derivative work of the Touhou Project. 
+All Touhou Project characters mentioned belongs to ZUN (Team Shanghai Alice).
+Touhou Project fan creation guideline: [here](https://touhou-project.news/guideline/) 
