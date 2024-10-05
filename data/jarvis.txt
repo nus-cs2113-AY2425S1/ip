@@ -1,2 +1,0 @@
-T | 0 | Answer CS2113 tutorial questions
-D | 0 | weekly CS2113 quiz | Monday 9pm
