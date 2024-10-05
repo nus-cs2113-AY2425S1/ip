@@ -14,7 +14,15 @@
 	 Now you have 1 tasks in the list.
 	________________________________________________________________________________
 	________________________________________________________________________________
-	 Error: invalid datetime format.
+	 Error: invalid datetime format. Valid formats are:
+	 yyyy-MM-dd HH:mm
+	 dd/MM/yyyy HH:mm
+	 MM-dd-yyyy HH:mm
+	 MMM dd yyyy h.mma
+	 yyyy-MM-dd
+	 dd/MM/yyyy
+	 MM-dd-yyyy
+	 MMM dd yyyy
 	________________________________________________________________________________
 	________________________________________________________________________________
 	 Got it. I've added this task:
@@ -22,7 +30,15 @@
 	 Now you have 2 tasks in the list.
 	________________________________________________________________________________
 	________________________________________________________________________________
-	 Error: invalid datetime format.
+	 Error: invalid datetime format. Valid formats are:
+	 yyyy-MM-dd HH:mm
+	 dd/MM/yyyy HH:mm
+	 MM-dd-yyyy HH:mm
+	 MMM dd yyyy h.mma
+	 yyyy-MM-dd
+	 dd/MM/yyyy
+	 MM-dd-yyyy
+	 MMM dd yyyy
 	________________________________________________________________________________
 	________________________________________________________________________________
 	 Got it. I've added this task:
@@ -65,7 +81,15 @@
 	 5.[T][ ] borrow book
 	________________________________________________________________________________
 	________________________________________________________________________________
-	 Error: invalid datetime format.
+	 Error: invalid datetime format. Valid formats are:
+	 yyyy-MM-dd HH:mm
+	 dd/MM/yyyy HH:mm
+	 MM-dd-yyyy HH:mm
+	 MMM dd yyyy h.mma
+	 yyyy-MM-dd
+	 dd/MM/yyyy
+	 MM-dd-yyyy
+	 MMM dd yyyy
 	________________________________________________________________________________
 	________________________________________________________________________________
 	 Error: missing /from prefix.
