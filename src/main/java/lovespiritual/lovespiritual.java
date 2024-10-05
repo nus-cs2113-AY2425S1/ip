@@ -8,6 +8,9 @@ import lovespiritual.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Main class for task manager application.
@@ -106,6 +109,9 @@ public class lovespiritual {
      * Adds a new event task to the task list.
      * Ensures that the task description includes both 'from' and 'to' times.
      *
+     * The expected date format is 'yyyy-MM-dd HHmm' (e.g., 2024-10-05 1800 for 5 October 2024, 6:00 PM).
+     * The 'from' time must be before the 'to' time.
+     *
      * @param input User input string for adding an event.
      * @param tasks List of tasks to which the new event will be added.
      * @throws lovespiritualException If the input is formatted incorrectly or missing required details.
@@ -142,13 +148,18 @@ public class lovespiritual {
         from = time[0].trim();
         to = time[1].trim();
         try {
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            if (!fromDateTime.isBefore(toDateTime)) {
+                throw new lovespiritualException("Hmm (~_~) The start date/time must be before the end date/time.");
+            }
             tasks.add(new Event(taskDescription, from, to));
             System.out.println(SEPARATOR);
             System.out.println("Woohoo! d(^_^)b Your task is safely added!");
             System.out.println(tasks.get(tasks.size() - 1));
             System.out.println("Amazing! :D You've got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
         }
     }
@@ -156,6 +167,8 @@ public class lovespiritual {
     /**
      * Adds a new deadline task to the task list.
      * Ensures that the task description includes a 'by' time for the deadline.
+     *
+     * The expected date format is 'yyyy-MM-dd HHmm' (e.g., 2024-10-05 1800 for 5 October 2024, 6:00 PM).
      *
      * @param input User input string for adding a deadline.
      * @param tasks List of tasks to which the new deadline will be added.
