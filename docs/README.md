@@ -200,3 +200,17 @@ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
+
+## Automatic Saving and Retrieval of Tasks
+Bob automatically saves your tasks to a file after each operation (adding, deleting, marking/unmarking tasks). 
+This means you don't have to worry about losing your progress!
+
+### How It Works:
+1. **Auto-Saving:**
+Every time you add, delete, mark or unmark a task, Bob automatically saves the updated task list to a file.
+
+2. **Auto-Loading on Startup:**
+When you start Bob again, the program will automatically load your previously saved tasks from the file, allowing you 
+to continue from where you left off.
+
+This feature ensures that all tasks persist even after you exit the application, providing a seamless user experience.
