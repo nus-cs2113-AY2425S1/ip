@@ -17,6 +17,11 @@ public class Storage {
     private final TaskList taskList;
     private final File file;
 
+    /**
+     * Constructs new Storage object for reading and writing actions on a TaskList object.
+     * Data will be written and read from the default path specified in the FILE_PATH constant.
+     * @param taskList TaskList containing all Tasks created and not deleted yet by the user
+     */
     public Storage(TaskList taskList) {
         this.taskList = taskList;
         this.file = new File(FILE_PATH);

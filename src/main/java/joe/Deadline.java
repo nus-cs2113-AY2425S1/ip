@@ -14,11 +14,22 @@ public class Deadline extends Task {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm");
     private LocalDateTime deadlineDate;
 
+    /**
+     * Constructs a new Deadline Object with todo status set to true per default
+     * @param itemDescription String describing the general task
+     * @param deadlineDate LocalDateTime specifying the deadline of the task
+     */
     public Deadline(String itemDescription, LocalDateTime deadlineDate) {
         super(itemDescription);
         this.deadlineDate = deadlineDate;
     }
 
+    /**
+     * Constructs a new Deadline Object with the todo status being a modifyiable
+     * @param itemDescription String describing the task
+     * @param deadlineDate LocalDateTime specifying the deadline of the task
+     * @param isToDo todo status of the task
+     */
     public Deadline(String itemDescription, LocalDateTime deadlineDate, boolean isToDo) {
         super(itemDescription, isToDo);
         this.deadlineDate = deadlineDate;
@@ -92,6 +103,11 @@ public class Deadline extends Task {
         return new Deadline(itemDescription, deadlineDate, isToDo);
     }
 
+    /**
+     * Determines whether this deadline object has is in the timeframe up to a given due date.
+     * @param dueDate LocalDateTime against which the date of the deadline is compared
+     * @return true if the deadline object is due previous or at the given dueDate. Returns false otherwise.
+     */
     public boolean isDueBy(LocalDateTime dueDate) {
         return this.deadlineDate.isBefore(dueDate) || this.deadlineDate.isEqual(dueDate);
     }

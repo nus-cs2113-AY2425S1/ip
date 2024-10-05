@@ -14,12 +14,25 @@ public class Event extends Task{
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    /**
+     * Constructs a new Event object with default todo status
+     * @param itemDescription String description of the task
+     * @param startDate LocalDateTime specifying the start of this task
+     * @param endDate LocalDateTime specifying the end of this task
+     */
     public Event(String itemDescription, LocalDateTime startDate, LocalDateTime endDate) {
         super(itemDescription);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    /**
+     * Constructs a new Event object with modifiable todo status
+     * @param itemDescription String description of the task
+     * @param startDate LocalDateTime specifying the start of this task
+     * @param endDate LocalDateTime specifying the end of this task
+     * @param isToDo boolean todo status of the task
+     */
     public Event(String itemDescription, LocalDateTime startDate, LocalDateTime endDate, boolean isToDo) {
         super(itemDescription, isToDo);
         this.startDate = startDate;
@@ -123,10 +136,19 @@ public class Event extends Task{
 
     }
 
+    /**
+     * Computes whether the event begins previous or at a provided dueDate
+     * @param dueDate LocalDateTime specifying the time for comparison
+     * @return true if the event begins before/at dueDate, false otherwise
+     */
     public boolean isDueBy(LocalDateTime dueDate) {
         return this.startDate.isBefore(dueDate) || this.startDate.isEqual(dueDate);
     }
 
+    /**
+     * Creates String representing the event
+     * @return String
+     */
     @Override
     public String toString() {
         String checkBox;
