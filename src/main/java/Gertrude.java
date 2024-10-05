@@ -31,7 +31,7 @@ public class Gertrude {
         } catch (GertrudeException e) {
             Ui.showLoadingError();
             tasks = new TaskList();
-        } catch (CorruptedFileException | IndexOutOfBoundsException | IOException e) {
+        } catch (CorruptedFileException | IndexOutOfBoundsException e) {
             Ui.showCorruptionError();
             tasks = new TaskList();
         }
