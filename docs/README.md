@@ -22,7 +22,7 @@ Bosco is a helpful CLI task manager, ready to assist you with tracking your todo
 
 ### Adding a Todo task: `todo`
 
-Adds a **Todo** to the list of tasks.
+Adds a **Todo** to the task list.
 
 Format: `todo DESCRIPTION`
 
@@ -39,9 +39,16 @@ Output:
 
 ### Adding a Deadline task: `deadline`
 
-Adds a **Deadline** to the list of tasks.
+Adds a **Deadline** to the task list.
 
 Format: `deadline DESCRIPTION /by DEADLINE`
+- `DEADLINE` must be a string matching one of the following formats:
+  - `yyyy-MM-dd HH:mm`
+  - `dd/MM/yyyy HH:mm`
+  - `MM-dd-yyyy HH:mm`
+  - `MMM dd yyyy h.mma`
+- Hour and minute section is optional. If not provided, 
+  Bosco will interpret the time as end of day (23:59).
 
 Example: `deadline assignment 4 /by 11/10/2024`  
 Output:
@@ -55,9 +62,16 @@ Output:
 
 ### Adding an Event task: `event`
 
-Adds an **Event** to the list of tasks.
+Adds an **Event** to the task list.
 
 Format: `event DESCRIPTION /from START /to END`
+- `START` and `END` must be strings matching one of the following formats:
+   - `yyyy-MM-dd HH:mm`
+   - `dd/MM/yyyy HH:mm`
+   - `MM-dd-yyyy HH:mm`
+   - `MMM dd yyyy h.mma`
+- Hour and minute section is optional. If not provided,
+  Bosco will interpret the time as end of day (23:59).
 
 Example: `event math midterm /from 10-12-2024 13:00 /to 10-12-2024 14:00`  
 Output:
@@ -71,9 +85,11 @@ Output:
 
 ### Marking a task as done: `mark`
 
-Marks the task at the specified list index as **done**.
+Marks the specified task as **done**.
 
 Format: `mark INDEX`
+- Marks the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list.
+- The index must be a **positive integer** 1, 2, 3, ...
 
 Example: `mark 2` marks the second task in the list.  
 Output: 
@@ -86,9 +102,11 @@ Output:
 
 ### Unmarking a task as not done: `unmark`
 
-Sets the task at the specified list index to **not done**.
+Sets the specified task as **not done**.
 
 Format: `unmark INDEX`
+- Unmarks the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list.
+- The index must be a **positive integer** 1, 2, 3, ...
 
 Example: `unmark 1` unmarks the first task in the list.  
 Output:
@@ -120,6 +138,8 @@ Example output:
 Finds tasks with descriptions containing the specified keyword.
 
 Format: `find KEYWORD`
+- The search is **case-sensitive**, e.g. `math` will not match `Math`.
+- Partial words will be matched, e.g. `math` will match `mathematics`.
 
 Example: `find math`  
 Output:
@@ -133,9 +153,11 @@ Output:
 
 ### Deleting a task: `delete`
 
-Deletes the task at the specified list index.
+Deletes the specified task from the task list.
 
 Format: `delete INDEX`
+- Deletes the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list.
+- The index must be a **positive integer** 1, 2, 3, ...
 
 Example: `delete 3` deletes the third task in the list.  
 Output:
