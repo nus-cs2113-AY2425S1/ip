@@ -1,6 +1,6 @@
 # Cy User Guide
 
-![Screenshot of Cy chatbot welcome page](https://github.com/hzxnancy/ip/blob/master/docs/cyscreenshot.png)
+![Screenshot of Cy chatbot welcome page](cyscreenshot.png)
 
 Cy is your personal assistant, working in a convenience store called Cy Mart! 
 She helps users to organise your daily tasks, from todos to deadlines and events. 
@@ -11,12 +11,15 @@ Last but not least, user's task list would be stored locally after a session and
 # Features
 > NOTE: Words in UPPER_CASE are the parameters to be supplied by the user.
   e.g. in todo DESCRIPTION, DESCRIPTION is a parameter which can be used as `todo cs2113 quiz`
+
 > NOTE: After every command, the changes to the task list would be reflected in the local txt file immediately. 
 
 ## Adding Todos: `todo`
 
 Adds tasks without any date or time attached to it.
+
 Format: `todo n/DESCRIPTION`
+
 Example: `todo read book`
 
 Expected output:
@@ -31,7 +34,9 @@ ______________________________________
 ## Adding Deadlines: `deadline`
 
 Add tasks that needs to be completed before a specific deadline.
+
 Format: `deadline DESCRIPTION /by DEADLINE`
+
 Example: `deadline cs2113 quiz /by 2024-11-11`
 
 Expected output: 
@@ -45,7 +50,9 @@ ______________________________________
 ## Adding Events: `event`
 
 Add tasks that starts and ends at a specific date/time.
+
 Format: `event DESCRIPTION /from START /to END`
+
 Example: `event cs2113 meeting /from 2pm /to 4pm`
 
 Expected output: 
@@ -60,8 +67,8 @@ ______________________________________
 ## List Tasks: `list`
 
 Prints out all the tasks in your list from both existing and previous sessions.
+
 Format: `list`
-Example: `list`
 
 Expected output: 
 ```
@@ -75,7 +82,9 @@ ______________________________________
 ## Mark as Done: `mark`
 
 Mark completed task as _done_ by indicating its index.
+
 Format: `mark INDEX`
+
 Example: `mark 1`
 
 Expected output: 
@@ -88,7 +97,9 @@ ______________________________________
 
 ## Unmark as Incomplete: `unmark`
 Unmark completed task as _incomplete_ by indicating its index.
+
 Format: `unmark INDEX`
+
 Example: `unmark 1`
 
 Expected output:
@@ -101,7 +112,9 @@ ______________________________________
 ## Delete Tasks: `delete`
 
 Delete tasks from the list by indicating its index.
+
 Format: `delete INDEX`
+
 Example: `delete 3`
 
 Expected output:
@@ -115,7 +128,9 @@ ______________________________________
 ## Find Tasks: `find`
 
 Find task by searching for a keyword
+
 Format: `find KEYWORD`
+
 Example: `find cs2113`
 
 Expected output:
@@ -129,8 +144,8 @@ ______________________________________
 ## Exit the program: `bye`
 
 Exits the program
+
 Format: `bye`
-Example: `bye`
 
 Expected output: 
 ```
