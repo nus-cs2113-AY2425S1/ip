@@ -11,29 +11,42 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
-
-    public Ui(){
+    /**
+     * Creates a new instance of the Ui class with default values.
+     */
+    public Ui() {
         in = new Scanner(System.in);
         out = new PrintStream(System.out);
     }
 
-    public void showWelcome(){
+    /**
+     * Shows a welcome message for the Doot application.
+     */
+    public void showWelcome() {
         out.print(DIVIDER + "Hello! I'm  Doot\nWhat can I do for you?\n" + DIVIDER);
     }
 
-    public void showExit(){
+    /**
+     * Shows the exit message for the Doot application.
+     */
+    public void showExit() {
         out.print(DIVIDER + "Bye. Hope to see you again soon!" + "\n" + DIVIDER);
     }
 
+    /**
+     * Reads the next line of input from the user.
+     *
+     * @return the next line of input from the user
+     */
     public String readCommand() {
         return in.nextLine();
     }
 
-
-    public void printUnknownCommand(String command) {
-        out.println("Unknown command: " + command);
-    }
-
+    /**
+     * Prints the index and Task for each task in the given list
+     *
+     * @param idxAndTaskList ArrayList of ArrayLists holding an index and Task
+     */
     public void printList(ArrayList<ArrayList<Object>> idxAndTaskList) {
         out.print(DIVIDER);
         for (ArrayList<Object> idxAndTask : idxAndTaskList) {

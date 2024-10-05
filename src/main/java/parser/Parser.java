@@ -9,11 +9,18 @@ import exceptions.DootException;
 public class Parser {
 
 
+    /**
+     * Parses the given command to find which type of Command object to make. It then returns that Command object.
+     *
+     * @param command command to be parsed
+     * @return Command object
+     * @throws DootException Unknown command
+     */
     public static Command findCommand(String command) throws DootException {
         boolean containsSpace = command.contains(" ");
         String cmd = containsSpace ? command.substring(0, command.indexOf(" ")) : command;
         String args = containsSpace ? command.substring(command.indexOf(" ") + 1) : "";
-        if (AddCommand.COMMAND_WORDS.contains(cmd)){
+        if (AddCommand.COMMAND_WORDS.contains(cmd)) {
             return new AddCommand(cmd, args);
         }
         return switch (cmd) {

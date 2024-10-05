@@ -1,30 +1,47 @@
 import commands.Command;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
+import tasks.Task;
 import data.TaskList;
 import exceptions.DootException;
 import parser.Parser;
 import storage.Storage;
 import ui.Ui;
 
+import java.util.ArrayList;
+
 public class Doot {
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
 
+
+    /**
+     * Main function for Doot. Sets up and starts the Doot app.
+     *
+     * @param args Arguments given from the command line. Not used by the program.
+     */
     public static void main(String[] args) {
         new Doot().run();
     }
 
-    public Doot(){
+    /**
+     * Default constructor for Doot.
+     */
+    public Doot() {
         ui = new Ui();
         storage = new Storage();
-        tasks = new TaskList(storage.load());
+        ArrayList<Task> storedTasks = storage.load();
+        if (storedTasks.isEmpty()) {
+            tasks = new TaskList();
+        } else {
+            tasks = new TaskList(storedTasks);
+        }
 
     }
 
-    public void run(){
+    /**
+     * Runs the Doot application.
+     */
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
