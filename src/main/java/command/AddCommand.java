@@ -1,15 +1,16 @@
 package command;
 
-import model.Task;
-import model.Todo;
 import model.Deadline;
 import model.Event;
+import model.Task;
+import model.Todo;
 import exception.MondayException;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
@@ -29,22 +30,25 @@ public class AddCommand extends Command {
                 throw new MondayException("    The description of a todo cannot be empty.");
             }
             task = new Todo(description, false);
+
         } else if (input.startsWith("deadline ")) {
             String[] parts = input.split(" /by ");
-            if (parts.length != 2) { // Check if the split resulted in exactly 2 parts
+            if (parts.length != 2) {
                 throw new MondayException("    Invalid deadline format. Please use: deadline <description> /by <time>");
             }
-            String description = parts[0].substring(8).trim();
-            String by = parts[1].trim(); // Get the time
+            String description = parts[0].substring(9).trim();
+            String by = parts[1].trim();
             if (description.isEmpty() || by.isEmpty()) {
                 throw new MondayException("    The description or deadline time cannot be empty.");
             }
 
+            // Parse the date-time format dd/MM/yyyy HHmm
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             try {
-                LocalDate byDate = LocalDate.parse(by); // Parse the date
-                task = new Deadline(description, false, byDate);
+                LocalDateTime deadlineDate = LocalDateTime.parse(by, formatter);
+                task = new Deadline(description, false, deadlineDate);
             } catch (DateTimeParseException e) {
-                throw new MondayException("    Invalid date format. Please use yyyy-mm-dd.");
+                throw new MondayException("    Invalid date format. Please use: dd/MM/yyyy HHmm (e.g., 2/12/2019 1800)");
             }
 
         } else if (input.startsWith("event ")) {

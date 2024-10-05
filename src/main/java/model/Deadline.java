@@ -1,25 +1,25 @@
 package model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDate by; // The deadline date
+    private LocalDateTime by;
 
-    // Updated constructor to handle LocalDate
-    public Deadline(String description, boolean isDone, LocalDate by) {
+    // Constructor that takes LocalDateTime for 'by'
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
 
-    // Format the date as "MMM dd yyyy" (e.g., Dec 02 2019)
     @Override
     public String toString() {
-        return "[D][" + (isDone() ? "X" : " ") + "] " + getDescription() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return "[D][" + (isDone() ? "X" : " ") + "] " + getDescription() + " (by: " + by.format(formatter) + ")";
     }
 
-    // Store in save format "D | 0 | description | yyyy-MM-dd"
     public String saveFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(formatter);
     }
 }

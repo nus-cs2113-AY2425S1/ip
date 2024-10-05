@@ -7,6 +7,8 @@ import model.Deadline;
 import model.Event;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -39,7 +41,6 @@ public class Storage {
         }
         return tasks;
     }
-
 
     public void save(ArrayList<Task> tasks) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))) {
@@ -81,20 +82,18 @@ public class Storage {
                 throw new MondayException("Not enough data to parse Deadline: " + line);
             }
             String deadlineDate = parts[3].trim(); // e.g., the date part for Deadline
-            return new Deadline(description, isDone, deadlineDate);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime by = LocalDateTime.parse(deadlineDate, formatter); // Convert String to LocalDateTime
+            return new Deadline(description, isDone, by);
         case "E":
             if (parts.length < 5) {
                 throw new MondayException("Not enough data to parse Event: " + line);
             }
-            String from = parts[3].trim(); // Start time
-            String to = parts[4].trim(); // End time
+            String from = parts[3].trim(); // Start
+            String to = parts[4].trim(); // End
             return new Event(description, isDone, from, to);
         default:
             throw new MondayException("Unknown task format: " + line);
         }
     }
-
-
-
-
 }

@@ -35,21 +35,21 @@ public class Monday {
     private void handleUserInput() {
         String input;
         while (true) {
-            input = ui.getInput(); // Get user input
+            input = ui.getInput();
             ui.printLine();
 
             try {
-                Command command = Parser.parse(input); // Parse the command
-                command.execute(tasks, ui, storage); // Execute the command
+                Command command = Parser.parse(input);
+                command.execute(tasks, ui, storage);
 
                 // After executing the command, save the tasks
-                storage.save(tasks.getTasks()); // Here we call getTasks() to save the tasks
+                storage.save(tasks.getTasks());
 
                 if (command instanceof ExitCommand) {
-                    break; // Exit the loop if the command is Exit
+                    break;
                 }
             } catch (MondayException e) {
-                ui.showError(e.getMessage()); // Show error if there's an exception
+                ui.showError(e.getMessage());
             }
 
             ui.printLine();
