@@ -103,34 +103,6 @@ public class lovespiritual {
     }
 
     /**
-     * Find tasks from the list based on the word provided in the input.
-     * All tasks that has the word provided in it would be printed out.
-     *
-     * @param input User input of word to find.
-     * @throws lovespiritualException If the input is missing the word to find.
-     */
-    private static void find(String input) throws lovespiritualException {
-        String findTask = input.substring("find".length()).trim();
-        if (findTask.isEmpty()) {
-            throw new lovespiritualException("Oops! (0.0) What should I find? Please give me a keyword.");
-        }
-        System.out.println(SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
-        int matchCount = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.toString().toLowerCase().contains(findTask.toLowerCase())) {
-                matchCount++;
-                System.out.println((i + 1) + "." + task);
-            }
-        }
-        if (matchCount == 0) {
-            System.out.println("No tasks found with the keyword: " + findTask);
-        }
-        System.out.println(SEPARATOR);
-    }
-
-    /**
      * Adds a new event task to the task list.
      * Ensures that the task description includes both 'from' and 'to' times.
      *
