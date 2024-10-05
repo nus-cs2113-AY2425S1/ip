@@ -9,6 +9,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class AddCommand extends Command {
     private String input;
 
@@ -25,18 +28,25 @@ public class AddCommand extends Command {
             if (description.isEmpty()) {
                 throw new MondayException("    The description of a todo cannot be empty.");
             }
-            task = new Todo(description, false); // isDone = false
+            task = new Todo(description, false);
         } else if (input.startsWith("deadline ")) {
-            String[] parts = input.split(" /by "); // Split based on "/by"
+            String[] parts = input.split(" /by ");
             if (parts.length != 2) { // Check if the split resulted in exactly 2 parts
                 throw new MondayException("    Invalid deadline format. Please use: deadline <description> /by <time>");
             }
-            String description = parts[0].substring(8).trim(); // Get the description
+            String description = parts[0].substring(8).trim();
             String by = parts[1].trim(); // Get the time
             if (description.isEmpty() || by.isEmpty()) {
                 throw new MondayException("    The description or deadline time cannot be empty.");
             }
-            task = new Deadline(description, false, by); // isDone = false
+
+            try {
+                LocalDate byDate = LocalDate.parse(by); // Parse the date
+                task = new Deadline(description, false, byDate);
+            } catch (DateTimeParseException e) {
+                throw new MondayException("    Invalid date format. Please use yyyy-mm-dd.");
+            }
+
         } else if (input.startsWith("event ")) {
             if (input.contains(" /from ") && input.contains(" /to ")) {
                 String[] parts = input.substring(6).split(" /from | /to ");
@@ -46,7 +56,7 @@ public class AddCommand extends Command {
                 if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                     throw new MondayException("    The description or event time cannot be empty.");
                 }
-                task = new Event(description, false, from, to); // isDone = false
+                task = new Event(description, false, from, to);
             } else {
                 throw new MondayException("    Invalid event format. Please use: event <description> /from <start time> /to <end time>");
             }
