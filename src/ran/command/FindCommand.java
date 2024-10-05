@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         TaskList matchList = new TaskList();
         int matchListCount = getMatchList(tasks, taskCount, matchList);
         if (matchListCount > 0) {
-            ui.printList(matchList.getAllTasks(), matchListCount);
+            ui.printFound(matchList.getAllTasks(), matchListCount);
         } else {
             ui.printMessage(new String[] {"I couldn't find anything.", 
                     "Perhaps try a different keyphrase?"});

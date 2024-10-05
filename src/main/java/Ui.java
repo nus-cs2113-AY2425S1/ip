@@ -108,13 +108,30 @@ public class Ui {
     }
 
     /**
-     * Display a list of tasks.
+     * Display the entire list of tasks.
      *
      * @param list ArrayList of tasks to be displayed
      * @param listCount Integer representing total number of tasks in <code>list</code>
      */
     public void printList(ArrayList<Task> list, int listCount) {
         System.out.println(LINE);
+        System.out.println("Here's what you have so far:");
+        for (int i = 0; i < listCount; i++) {
+            System.out.println("\t" + (i + 1) + "." + list.get(i));
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Display a list of found tasks.
+     *
+     * @param list ArrayList of tasks to be displayed
+     * @param listCount Integer representing total number of tasks in <code>list</code>
+     */
+    public void printFound(ArrayList<Task> list, int listCount) {
+        System.out.println(LINE);
+        System.out.println("By separating the boundary between the haves and have nots, ");
+        System.out.println("here's what I managed to find:");
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
