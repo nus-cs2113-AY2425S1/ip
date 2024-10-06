@@ -137,7 +137,6 @@ public class TaskList {
         //Split description into substrings with both the 'from' and 'to' delimiter.
         String[] splitInputs = input.split(" from | to ");
 
-
         if (splitInputs.length < 3) {
             throw new IllegalEmptyException(Warnings.INCOMPLETE_EVENT_WARNING);
         }

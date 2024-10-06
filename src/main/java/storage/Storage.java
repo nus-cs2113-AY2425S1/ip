@@ -69,15 +69,15 @@ public class Storage{
                 String command = storedTaskSubstrings[0].trim();
 
                 switch (command) {
-                    case "T":
-                        loadExistingTodo(storedTaskSubstrings,items);
-                        break;
-                    case "D":
-                        loadExistingDeadline(storedTaskSubstrings,items);
-                        break;
-                    case "E":
-                        loadExistingEvent(storedTaskSubstrings,items);
-                        break;
+                case "T":
+                    loadExistingTodo(storedTaskSubstrings,items);
+                    break;
+                case "D":
+                    loadExistingDeadline(storedTaskSubstrings,items);
+                    break;
+                case "E":
+                    loadExistingEvent(storedTaskSubstrings,items);
+                    break;
                 }
             }
 
