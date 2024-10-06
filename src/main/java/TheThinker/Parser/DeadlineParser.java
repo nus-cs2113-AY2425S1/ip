@@ -4,15 +4,15 @@ import TheThinker.Exceptions.FormattingException;
 import TheThinker.Tasks.Deadline;
 
 public class DeadlineParser extends UserInputParser{
+
     public static final int LENGTH_OF_SLASH_BY = 3;
     public static final int LENGTH_OF_DEADLINE = 8;
 
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
 
     /**
-     * Parse user input based on the format of Deadline and use the result to create Deadline object.
+     * Parse user input based on the format of Deadline and create Deadline object.
      *
-     * @return Deadline Object.
      * @throws FormattingException If /by , task description , deadline is missing from user input
      */
     public static Deadline parseDeadline() throws FormattingException{

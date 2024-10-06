@@ -4,13 +4,16 @@ import TheThinker.Exceptions.FormattingException;
 
 import java.util.Scanner;
 
+/**
+ * Handles the parsing of input other than to-do , deadline , event and date related parsing.
+ */
 public class UserInputParser {
 
     public static String userInput;
     public static final Scanner scanner = new Scanner(System.in);
 
 
-    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy] or [dd/MMMM/yyyy] or [dd/MM/yyyy , HH am/pm]";
+    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
     public static final String FIND_FORMAT = "Please follow format : find [keyword]";
 
     public static String getUserInput(){
@@ -25,33 +28,48 @@ public class UserInputParser {
     }
 
     /**
-     * Parses the task number after unmark or mark command
+     * Used to obtain task number after inputting commands that require task number
      *
      * @return Task number
      * @throws NumberFormatException If task number string provided is not a number.
      * @throws FormattingException If no task or multiple task number is provided.
      */
-    public static int parseNumberAfterTask() throws NumberFormatException , FormattingException{
-        String[] parsedInputs = userInput.split(" ");
+    public static int parseNumberAfterTask(String task) throws NumberFormatException , FormattingException{
 
-        if(parsedInputs.length == 1){
+        int indexOfTask = userInput.toLowerCase().indexOf(task);
+        String taskNumber = userInput.substring(indexOfTask + task.length()).trim();
+        String[] parsedInputs = taskNumber.split(" ");
+
+        if(taskNumber.isEmpty()){
             throw new FormattingException("Task number is not indicated. Please follow format : mark/unmark [number]");
         }
 
-        if(parsedInputs.length > 2){
+        if(parsedInputs.length >= 2){
             throw new FormattingException("Multiple tasks to mark is indicated in a single command. Please mark them one by one.");
         }
 
-        String numberToMark = parsedInputs[1].trim();
-        return Integer.parseInt(numberToMark);
+        return Integer.parseInt(taskNumber);
     }
 
+    /**
+     * @return keyword after removing space on the side
+     * @throws FormattingException If no keyword is provided or keyword is more than one word
+     */
     public static String parseKeywordAfterFind() throws FormattingException{
-        String[] parsedInputs = userInput.split(" ");
-        if(parsedInputs.length != 2){
-            throw new FormattingException("keyword is missing. " + FIND_FORMAT);
+
+        final int LENGTH_OF_FIND = 4;
+        int indexOfTask = userInput.toLowerCase().indexOf("find");
+        String keyword = userInput.substring(indexOfTask + LENGTH_OF_FIND).trim();
+        String[] parsedInputs = keyword.split(" ");
+
+        if(keyword.isEmpty()){
+            throw new FormattingException("Keyword is missing. " + FIND_FORMAT);
         }
 
-        return parsedInputs[1].trim();
+        if(parsedInputs.length >= 2){
+            throw new FormattingException("More than one word is provided. " + FIND_FORMAT);
+        }
+
+        return keyword;
     }
 }

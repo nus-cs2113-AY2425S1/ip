@@ -12,6 +12,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * NewFile class handles file related operations
+ */
 public class NewFile {
 
     public File file;
@@ -27,7 +30,7 @@ public class NewFile {
     }
 
     /**
-     * Reads the contents of the file and adds the task to current task list.
+     * Read content of a file and adds all task to current task list.
      *
      * @throws FileNotFoundException If the filepath is invalid.
      */
@@ -46,13 +49,11 @@ public class NewFile {
     }
 
     /**
-     * Adds task without reprinting the task to the user.
+     * Adds task to task list without printing anything to the console.
      * If task type is not T or D or E , the task will be ignored.
      *
-     * @param parameters A string array containing parameters to initialise different task.
-     *                   Task : [task type , task description].
-     *                   Deadline : [task type , task description , deadline].
-     *                   Event : [task type , task description , start time , end time].
+     * @param parameters A string array containing values to initialise different task.
+     *
      */
     private void addTaskAccordingToFileData(String[] parameters){
         switch (parameters[0]) {
@@ -83,12 +84,9 @@ public class NewFile {
     }
 
     /**
-     *
-     * Converts all tasks in task list to file format and writes to file.
-     *
      * @throws IOException If the filepath is invalid.
      */
-    public void writeTaskToFile() throws IOException {
+    public void writeTaskListToFile() throws IOException {
         FileWriter fw = new FileWriter(this.file);
         String textToAdd = convertTaskListToString();
         fw.write(textToAdd);
@@ -96,11 +94,10 @@ public class NewFile {
     }
 
     /**
-     * Returns a string of task list in file format with
-     * Each task member variable is seperated by "|" and each task seperated by "/n".
+     * Converts task list into a load file format
      * If TaskList is empty , an empty string will be returned.
      *
-     * @return A single string of task list in file format with "/n" included.
+     * @return A single string of task list in file format.
      */
     private String convertTaskListToString(){
         StringBuilder TaskListString = new StringBuilder();

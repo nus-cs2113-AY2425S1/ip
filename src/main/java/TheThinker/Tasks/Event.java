@@ -1,11 +1,5 @@
 package TheThinker.Tasks;
 
-/**
- * Represents an event type task. An event object contains
- * task type , task description ,
- * start time and end time of format dd/MMMM/yyyy h a.
- *
- */
 public class Event extends Task{
     public String startTime;
     public String endTime;
@@ -27,6 +21,7 @@ public class Event extends Task{
         return "E" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + startTime + " | " + endTime;
     }
 
+    @Override
     public String getTaskDate(){
         return startTime;
     }

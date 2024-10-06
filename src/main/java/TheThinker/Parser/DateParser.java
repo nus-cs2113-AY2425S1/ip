@@ -59,67 +59,47 @@ public class DateParser extends UserInputParser {
     }
 
     /**
-     * Returns boolean if day , month and year of both parameters are same , ignoring time.
+     * Compares date according to the deadline of each task types.
      *
+     * @param task Task to compare
      * @param specifiedDate date in format of dd/MM/yyyy.
-     * @param taskDate date in format of dd MMMM yyyy , h a.
-     * @return boolean
-     *
-     */
-    private static boolean isMatchingDateOfResultDateTime(String specifiedDate , String taskDate) {
-        if(isResultDateTimeFormat(taskDate)) {
-            LocalDate parsedDate = LocalDate.parse(specifiedDate, dateFormatter);
-            LocalDateTime parsedDateTime = LocalDateTime.parse(taskDate, resultDateTimeFormatter);
-            return parsedDate.getMonthValue() == parsedDateTime.getMonthValue() &&
-                    parsedDate.getDayOfMonth() == parsedDateTime.getDayOfMonth() &&
-                    parsedDate.getYear() == parsedDateTime.getYear();
-        }
-        return false;
-    }
-
-    private static boolean isMatchingDateOfDateTime(String specifiedDate , String taskDate) {
-        if(isDateTimeFormat(taskDate)) {
-            LocalDate parsedDate = LocalDate.parse(specifiedDate, dateFormatter);
-            LocalDateTime parsedDateTime = LocalDateTime.parse(taskDate, dateTimeFormatter);
-            return parsedDate.getMonthValue() == parsedDateTime.getMonthValue() &&
-                    parsedDate.getDayOfMonth() == parsedDateTime.getDayOfMonth() &&
-                    parsedDate.getYear() == parsedDateTime.getYear();
-        }
-        return false;
-    }
-
-    private static boolean isMatchingDateOnly(String specifiedDate , String taskDate) {
-        if(isDateOnlyFormat(taskDate)) {
-            LocalDate parsedSpecifiedDate = LocalDate.parse(specifiedDate, dateFormatter);
-            LocalDate parsedTaskDate = LocalDate.parse(taskDate, dateFormatter);
-            return parsedSpecifiedDate.getMonthValue() == parsedTaskDate.getMonthValue() &&
-                    parsedSpecifiedDate.getDayOfMonth() == parsedTaskDate.getDayOfMonth() &&
-                    parsedSpecifiedDate.getYear() == parsedTaskDate.getYear();
-        }
-        return false;
-    }
-
-    /**
-     * Returns true if day , month and year matches according to deadlines by task type.
-     * If task type is not event or deadline, return false.
-     *
-     * @param task Object of type task and subclasses.
-     * @param specifiedDate date in format of dd/MM/yyyy.
-     * @return boolean
      */
     public static boolean isMatchingDateByType(Task task , String specifiedDate){
 
         if((task.getTaskType() == 'D' || task.getTaskType() == 'E')){
 
-            return isMatchingAnyDateFormat(task , specifiedDate);
+            return isMatchingDate(task.getTaskDate() , specifiedDate);
         }
         return false;
     }
 
-    private static boolean isMatchingAnyDateFormat(Task task , String specifiedDate){
-        return isMatchingDateOfResultDateTime(specifiedDate ,task.getTaskDate()) ||
-                isMatchingDateOfDateTime(specifiedDate ,task.getTaskDate()) ||
-                isMatchingDateOnly(specifiedDate ,task.getTaskDate());
+    private static DateTimeFormatter getDateFormat(String date){
+        if(isDateOnlyFormat(date)) {
+            return dateFormatter;
+        }
+        if(isDateTimeFormat(date)) {
+            return dateTimeFormatter;
+        }
+        if(isResultDateTimeFormat(date)) {
+            return resultDateTimeFormatter;
+        }
+        return null;
+    }
+
+    /**
+     * @param taskDate Deadline corresponding to the task
+     * @param specifiedDate Queried date in any format
+     */
+    private static boolean isMatchingDate(String taskDate , String specifiedDate) {
+        DateTimeFormatter formatOfTaskDate = getDateFormat(taskDate);
+        if(formatOfTaskDate != null) {
+            LocalDate parsedSpecifiedDate = LocalDate.parse(specifiedDate, dateFormatter);
+            LocalDate parsedTaskDate = LocalDate.parse(taskDate, formatOfTaskDate);
+            return parsedSpecifiedDate.getMonthValue() == parsedTaskDate.getMonthValue() &&
+                    parsedSpecifiedDate.getDayOfMonth() == parsedTaskDate.getDayOfMonth() &&
+                    parsedSpecifiedDate.getYear() == parsedTaskDate.getYear();
+        }
+        return false;
     }
 
     public static boolean isDateOnlyFormat(String dateStr){
@@ -154,10 +134,10 @@ public class DateParser extends UserInputParser {
     }
 
     /**
-     * Parse date after get command
+     * Parse date after get command and checks if queried date is of dd/mm/yyyy format
      *
      * @return date in dd/MM/yyyy format
-     * @throws FormattingException If date is missing or in the wrong format
+     * @throws FormattingException If date is missing or in the wrong format(i.e. not dd/mm/yyyy)
      */
     public static String parseDateAfterGet() throws FormattingException{
         int LENGTH_OF_GET = 3;

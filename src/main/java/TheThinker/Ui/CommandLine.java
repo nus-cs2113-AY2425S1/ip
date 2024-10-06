@@ -1,29 +1,26 @@
 package TheThinker.Ui;
 
 import TheThinker.Exceptions.FormattingException;
+import TheThinker.File.FileLoader;
 import TheThinker.File.NewFile;
 import TheThinker.Parser.*;
 import TheThinker.Tasks.TaskList;
 import java.io.IOException;
 
-/**
- * CommandLine Class handles all the commandLine related method
- */
 public interface CommandLine {
 
     /**
      * Checks for user input and do corresponding command
      * and write task to file till bye command.
-     *
-     * @param data File created to accept task input
      */
-    static void pollForUserInputTillBye(NewFile data , boolean isWriteTask) {
+    static void pollForUserInputTillBye(boolean isWriteTask) {
         String userAction;
+        NewFile dataFile = FileLoader.inputFile;
         do{
             userAction = getUserActionAndDoTask();
             if(isWriteTask) {
                 try {
-                    data.writeTaskToFile();
+                    dataFile.writeTaskListToFile();
                 } catch (IOException e) {
                     System.out.println("Failed to write task to file");
                 }
@@ -34,7 +31,7 @@ public interface CommandLine {
     /**
      * Checks for user input and do corresponding command and write task to file.
      *
-     * @return the original trimmed user input
+     * @return the original trimmed user action
      */
     private static String getUserActionAndDoTask() {
         String userInput = UserInputParser.getUserInput();
@@ -54,17 +51,17 @@ public interface CommandLine {
             switch (userAction.toLowerCase()) {
 
             case "mark":
-                int numberToMark = UserInputParser.parseNumberAfterTask();
+                int numberToMark = UserInputParser.parseNumberAfterTask("mark");
                 TaskList.setAsDone(numberToMark);
                 break;
 
             case "unmark":
-                int numberToUnmark = UserInputParser.parseNumberAfterTask();
+                int numberToUnmark = UserInputParser.parseNumberAfterTask("unmark");
                 TaskList.setAsNotDone(numberToUnmark);
                 break;
 
             case "delete" :
-                int numberToDelete = UserInputParser.parseNumberAfterTask();
+                int numberToDelete = UserInputParser.parseNumberAfterTask("delete");
                 TaskList.deleteTask(numberToDelete);
                 break;
 
@@ -118,11 +115,5 @@ public interface CommandLine {
             System.out.println("The task number after " + userAction.toLowerCase() +  " is not a number / not in the correct format");
 
         }
-    }
-
-    static boolean getSaveTaskInput() {
-        System.out.println("Do you want to save your tasks to a file? yes / no");
-        String userInput = UserInputParser.getUserInput();
-        return userInput.equalsIgnoreCase("yes");
     }
 }

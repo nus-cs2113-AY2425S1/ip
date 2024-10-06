@@ -14,9 +14,8 @@ public class EventParser extends UserInputParser{
     /**
      * Parse user input based on the format of Event and use the result to create Event object.
      *
-     * @return Event Object.
      * @throws FormattingException If /from , /to , task description , start time and end time
-     * is missing from user input
+     * is missing from user input. If /to is in front of /from.
      */
     public static Event parseEvent() throws FormattingException{
 

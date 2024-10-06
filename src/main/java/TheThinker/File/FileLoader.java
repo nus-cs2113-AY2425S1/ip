@@ -10,51 +10,46 @@ import java.io.IOException;
 /**
  * Handles file loading operations when starting the program
  */
-public interface FileLoader {
+public class FileLoader {
 
-    String FILE_DIR = "Data";
+    public static String FILE_DIR = "Data";
+    public static NewFile inputFile = new NewFile("TaskContents.txt");
 
     /**
-     * Loads default file name and path and check if it exists.
-     * If file exists , load the contents of the file.
-     * If file does not exist , ask user for another file name.
+     * Loads default filepath and check if it exists.
+     * If file does not exist , create a new file based on user input
      *
-     * @return NewFile object.
-     * @throws FileNotFoundException If the filepath is invalid.
+     * @throws FileNotFoundException If file creation failed.
      */
-    static NewFile loadDefaultFileElseInputNewFile() throws FileNotFoundException {
+    public static void loadDefaultFileElseInputNewFile() throws FileNotFoundException {
         UiControl.printLoadingText();
         createFolderIfNotExist();
 
-        NewFile data = new NewFile("TaskContents.txt");
-
-        if(!data.isFileExist()) {
+        if(!inputFile.isFileExist()) {
             try {
-                data = inputFileNameAndCreateFile();
+               inputFileNameAndCreateFile();
             } catch (IOException e) {
                 System.out.println("File not found. No data loaded. Please create the file under Data directory");
                 throw new FileNotFoundException();
             }
         }else{
-            data.loadFile();
+            inputFile.loadFile();
         }
-        return data;
     }
 
     /**
-     * Gets user input for file name they want to load and load the file.
+     * Gets user input for file name and create the file.
      *
-     * @return NewFile object.
      * @throws FileNotFoundException If file name they input does not exist under /Data directory.
      */
-    private static NewFile inputFileNameAndCreateFile() throws IOException {
+    private static void inputFileNameAndCreateFile() throws IOException {
         UiControl.printSeparation();
         System.out.println("Input file name you want to save data to under the Data directory [filename] without .txt");
         UiControl.printSeparation();
         String filename = UserInputParser.getUserInput();
         NewFile newFile = new NewFile(filename + ".txt");
+        inputFile = newFile;
         createNewFile(newFile.file);
-        return newFile;
     }
 
     private static void createNewFile(File filename){
@@ -86,5 +81,11 @@ public interface FileLoader {
         }else{
             System.out.println(directoryName + " directory already exists or failed to create.");
         }
+    }
+
+    public static boolean getSaveTaskInput() {
+        System.out.println("Do you want to save your tasks to a file? yes / no");
+        String userInput = UserInputParser.getUserInput();
+        return userInput.equalsIgnoreCase("yes");
     }
 }

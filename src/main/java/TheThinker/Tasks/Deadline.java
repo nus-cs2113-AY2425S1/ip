@@ -1,11 +1,6 @@
 package TheThinker.Tasks;
 
-/**
- * Represents a deadline type task. A deadline object contains
- * task type , task description ,
- * deadline of format dd/MMMM/yyyy h a.
- *
- */
+
 public class Deadline extends Task{
     public String deadline;
 
@@ -25,6 +20,7 @@ public class Deadline extends Task{
         return "D" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + deadline;
     }
 
+    @Override
     public String getTaskDate(){
         return deadline;
     }

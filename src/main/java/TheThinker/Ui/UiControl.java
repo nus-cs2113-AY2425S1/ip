@@ -2,9 +2,6 @@ package TheThinker.Ui;
 
 import TheThinker.Command.TheThinker;
 
-/**
- * Interface controls all the Ui methods
- */
 public interface UiControl {
 
     static void printGreeting() {
@@ -40,7 +37,7 @@ public interface UiControl {
         System.out.println("todo : todo [task]");
         System.out.println("event : event [task] /from [start time] /by [end time]");
         System.out.println("deadline : deadline [task] /by [time]");
-        System.out.println("get : get [dd/MM/yyyy] or [dd/MMMM/yyyy] or [dd/MM/yyyy , HH am/pm]");
+        System.out.println("get : get [dd/MM/yyyy]");
         System.out.println("find : find [keyword]");
     }
 

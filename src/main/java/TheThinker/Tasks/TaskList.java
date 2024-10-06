@@ -16,6 +16,9 @@ public class TaskList {
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
+    /**
+     * Adds task to task list without printing any information to the console compared to addTask()
+     */
     public static void addTaskWithoutResponse(Task task){
         listOfTasks.add(task);
         listLength++;
@@ -56,7 +59,8 @@ public class TaskList {
         System.out.println("Here are the tasks in your list in " + date + " :");
         int counter = 0;
         for(int i = 0; i < listLength; i++){
-            if(DateParser.isMatchingDateByType(listOfTasks.get(i) , date)) {
+            Task currentTask = listOfTasks.get(i);
+            if(DateParser.isMatchingDateByType(currentTask , date)) {
                 System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
                 counter++;
             }
@@ -67,7 +71,9 @@ public class TaskList {
         System.out.println("Here are the matching tasks in your list:");
         int counter = 0;
         for(int i = 0; i < listLength; i++){
-            if(listOfTasks.get(i).taskDescription.toLowerCase().contains(keyword.toLowerCase())) {
+            Task currentTask = listOfTasks.get(i);
+            String taskDescription = currentTask.getTaskDescription().toLowerCase();
+            if(taskDescription.contains(keyword.toLowerCase())) {
                 System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
                 counter++;
             }
