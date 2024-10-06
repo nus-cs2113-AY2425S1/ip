@@ -21,7 +21,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
 ## Using Taylor
 
-Taylor is a simple chatbot that allows you to add, list, mark, unmark, and delete tasks. Below is a list of commands and features to help you get started.
+Taylor is a quite simple chatbot that allows you to add, list, mark, unmark, and delete tasks. Below is a list of commands and features to help you get started.
 
 ### Available Commands
 
