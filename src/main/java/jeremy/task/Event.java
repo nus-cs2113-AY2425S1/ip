@@ -32,15 +32,13 @@ public class Event extends Task {
 
         String[] parts = input.split("/", 3);
 
-        if (parts.length != 3 || parts[1].isBlank() || parts[2].isBlank()) {
-            throw new InvalidCommandFormatException("Invalid command format, " +
-                    "Event dates should come after \"/from \" and \"/to \"");
+        if (parts[0].isBlank()) {
+            throw new EmptyArgumentException("Event description");
         }
-
-        String dateFrom = parts[1].trim();
-        String dateTo = parts[2].trim();
-        if (!dateFrom.startsWith("from ") || !dateTo.startsWith("to ")) {
-            throw new InvalidCommandFormatException("Event dates should start with \"/from \" or \"/to \"");
+        if (parts.length != 3 || parts[1].isBlank() || parts[2].isBlank()
+            || parts[1].trim().startsWith("from ") || parts[2].trim().startsWith("to ")) {
+            throw new InvalidCommandFormatException("Invalid command format, " +
+                    "Event dates should follow the format \"event /from start /to end\"");
         }
 
         String from = parts[1].trim().substring(5); // ignore "from "
