@@ -30,24 +30,18 @@ public class Deadline extends Task {
 
         String[] parts = input.split("/", 2);
 
-        if (parts.length != 2 || parts[1].isBlank()) {
+        if (parts.length != 2 || parts[1].isBlank() || !parts[1].trim().startsWith("by ")) {
             throw new InvalidCommandFormatException("Invalid command format, " +
-                    "Deadline dates should come after \"/by \"");
+                    "Deadlines should follow the format \"deadline /by date\"");
         }
-
 
         String datePart = parts[1].trim();
-        if (!datePart.startsWith("by ")) {
-            throw new InvalidCommandFormatException("Deadline dates should start with \"/by \"");
-        }
-
         try {
             this.deadline = LocalDate.parse(datePart.substring(3)); // ignore "bye "
         } catch (DateTimeParseException e) {
             throw new InvalidCommandFormatException("Dates should be in the format yyyy-mm-dd, eg 2020-03-21");
         }
     }
-
 
     /**
      * Returns a string representation of the task, including its completion status and deadline.

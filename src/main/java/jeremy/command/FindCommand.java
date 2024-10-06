@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TaskNotFoundException, InvalidTaskNumberException, EmptyArgumentException, InvalidCommandFormatException {
         if (this.argument.isBlank()) {
-            throw new EmptyArgumentException("Find argument cannot be empty");
+            throw new EmptyArgumentException("Find argument");
         }
 
         int index = 1;

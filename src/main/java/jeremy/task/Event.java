@@ -40,7 +40,7 @@ public class Event extends Task {
         String dateFrom = parts[1].trim();
         String dateTo = parts[2].trim();
         if (!dateFrom.startsWith("from ") || !dateTo.startsWith("to ")) {
-            throw new InvalidCommandFormatException("Event dates should start with \"from \" or \"to \"");
+            throw new InvalidCommandFormatException("Event dates should start with \"/from \" or \"/to \"");
         }
 
         String from = parts[1].trim().substring(5); // ignore "from "

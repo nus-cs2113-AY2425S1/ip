@@ -77,12 +77,14 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Adds a task to the list and prints a confirmation message.
+     * Adds a task to the list and prints a confirmation message unless the task
+     * is already marked as done (used for loading from storage).
      *
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
         tasks.add(task);
+
         ui.lineBreak();
         ui.println("Got it. I've added this task:");
         ui.println(task.toString());
@@ -141,13 +143,7 @@ public class TaskList implements Iterable<Task> {
      * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
      */
     public void markTaskAsDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
-        try {
-            setTaskStatus(argument, true);
-        } catch (InvalidTaskNumberException e) {
-            throw new InvalidTaskNumberException(e.getMessage());
-        } catch (TaskNotFoundException e) {
-            throw new TaskNotFoundException(e.getMessage());
-        }
+        setTaskStatus(argument, true);
     }
 
     /**
@@ -158,13 +154,7 @@ public class TaskList implements Iterable<Task> {
      * @throws TaskNotFoundException      If the task number is out of bounds or doesn't exist.
      */
     public void markTaskAsNotDone(String argument) throws InvalidTaskNumberException, TaskNotFoundException {
-        try {
-            setTaskStatus(argument, false);
-        } catch (InvalidTaskNumberException e) {
-            throw new InvalidTaskNumberException(e.getMessage());
-        } catch (TaskNotFoundException e) {
-            throw new TaskNotFoundException(e.getMessage());
-        }
+        setTaskStatus(argument, false);
     }
 
     /**
@@ -195,7 +185,7 @@ public class TaskList implements Iterable<Task> {
             }
             ui.println(tasks.get(taskNumber - 1).toString());
             ui.lineBreak();
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             throw new TaskNotFoundException(argument, tasks.size());
         }
     }
