@@ -8,11 +8,11 @@ import tasks.ToDo;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    public static final ArrayList<String> COMMAND_WORDS = new ArrayList<>(List.of(new String[]{"deadline", "todo", "event"}));
+    public static final ArrayList<String> COMMAND_WORDS = new ArrayList<>(Arrays.asList(new String[]{"deadline", "todo", "event"}));
 
     public AddCommand(String cmd, String args) {
         super(cmd, args);

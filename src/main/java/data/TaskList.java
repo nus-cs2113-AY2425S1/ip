@@ -4,6 +4,7 @@ import tasks.Task;
 import ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskList {
@@ -107,7 +108,7 @@ public class TaskList {
             i++;
             if (curTask.toString().contains(keyword)) {
                 Object[] taskAndIdx = {curTask, i};
-                taskAndIdxList.add(new ArrayList<Object>(List.of(taskAndIdx)));
+                taskAndIdxList.add(new ArrayList<Object>(Arrays.asList(taskAndIdx)));
             }
         }
         return taskAndIdxList;

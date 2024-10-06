@@ -23,15 +23,22 @@ public class Parser {
         if (AddCommand.COMMAND_WORDS.contains(cmd)) {
             return new AddCommand(cmd, args);
         }
-        return switch (cmd) {
-            case ExitCommand.COMMAND_WORD -> new ExitCommand(cmd, args);
-            case DeleteCommand.COMMAND_WORD -> new DeleteCommand(cmd, args);
-            case ListCommand.COMMAND_WORD -> new ListCommand(cmd, args);
-            case MarkCommand.COMMAND_WORD -> new MarkCommand(cmd, args);
-            case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(cmd, args);
-            case FindCommand.COMMAND_WORD -> new FindCommand(cmd, args);
-            default -> throw new DootException("Unknown command: " + cmd);
-        };
+        switch (cmd) {
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand(cmd, args);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommand(cmd, args);
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand(cmd, args);
+            case MarkCommand.COMMAND_WORD:
+                return new MarkCommand(cmd, args);
+            case UnmarkCommand.COMMAND_WORD:
+                return new UnmarkCommand(cmd, args);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommand(cmd, args);
+            default:
+                throw new DootException("Unknown command: " + cmd);
+        }
 
     }
 }
