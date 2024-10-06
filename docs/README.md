@@ -109,7 +109,7 @@ Now you have <list size> tasks in the list.
 Create a task with a deadline and add it to the list.
 Deadline can be formatted in any date convention. If not a date, it will simply save the input as a string.
 
-Please refer to [Appendix](#appendix) for accepted date conventions.
+Please refer to [Date Conventions](#date-conventions) in the [Appendix](#appendix) for accepted date conventions.
 
 Format: `deadline <task description> /by <deadline>`
 
