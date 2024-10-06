@@ -5,6 +5,8 @@ todoborrow book
 list
 deadline return book /by 19/09/2024 19:55
 deadline return book /by 19/09/2024
+deadline return book/by19/09/2024 19:55
+deadline return book/by19/09/2024
 deadline return book /by now
 deadline /by now
 deadline
@@ -14,6 +16,10 @@ deadline return book /bynow
 list
 event library visit /from 19/09/2024 19:10 /to 19/09/2024 20:35
 event library visit /from 19/09/2024 /to 19/09/2024
+event library visit/from 19/09/2024 19:10/to 19/09/2024 20:35
+event library visit/from 19/09/2024/to 19/09/2024
+event library visit/to 19/09/2024 20:35/from 19/09/2024 19:10
+event library visit/to 19/09/2024/from 19/09/2024
 event library visit /from start time /to end time
 event
 event /from start time /to end time

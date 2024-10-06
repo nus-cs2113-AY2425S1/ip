@@ -12,54 +12,224 @@
  	What can I do for you?
 	____________________________________________________________
 	____________________________________________________________
-	It seems that there are no tasks! Please consider adding some!
-	____________________________________________________________
-	Got it. I've added this task:
-	  [T][ ] borrow book 
-	Now you have 1 tasks in the list.
-	____________________________________________________________
-	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
+	Error: List is empty, please consider adding some items!
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: Sunday)
+	  [T][ ] borrow book
+	Now you have 1 task in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] borrow book
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
-	2.[D][ ] return book (by: Sunday)
+	Error: Todo cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list:
+	1. [T][ ] borrow book
+	2. [T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [D][ ] return book (by: 19 Sep 2024 7.55PM)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
-	2.[D][ ] return book (by: Sunday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Got it. I've added this task:
+	  [D][ ] return book (by: 19 Sep 2024)
+	Now you have 4 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] borrow book
+	Got it. I've added this task:
+	  [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] return book
+	Got it. I've added this task:
+	  [D][ ] return book (by: 19 Sep 2024)
+	Now you have 6 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] project meeting
+	Got it. I've added this task:
+	  [D][ ] return book (by: now)
+	Now you have 7 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][X] borrow book 
-	2.[D][X] return book (by: Sunday)
-	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	Error: Deadline cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: Deadline cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: now)
+	Now you have 8 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: Deadline cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: now)
+	Now you have 9 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list:
+	1. [T][ ] borrow book
+	2. [T][ ] borrow book
+	3. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	4. [D][ ] return book (by: 19 Sep 2024)
+	5. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	6. [D][ ] return book (by: 19 Sep 2024)
+	7. [D][ ] return book (by: now)
+	8. [D][ ] return book (by: now)
+	9. [D][ ] return book (by: now)
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	Now you have 10 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	Now you have 11 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	Now you have 12 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	Now you have 13 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from:  19/09/2024 19:10 to:  19/09/2024 20:35)
+	Now you have 14 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from:  19/09/2024 to:  19/09/2024)
+	Now you have 15 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: end time)
+	Now you have 16 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: Event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: Event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: Event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: Event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from:  to: end time)
+	Now you have 17 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: )
+	Now you have 18 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: end time)
+	Now you have 19 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: end time)
+	Now you have 20 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: end time)
+	Now you have 21 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] library visit (from: start time to: end time)
+	Now you have 22 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list:
+	1. [T][ ] borrow book
+	2. [T][ ] borrow book
+	3. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	4. [D][ ] return book (by: 19 Sep 2024)
+	5. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	6. [D][ ] return book (by: 19 Sep 2024)
+	7. [D][ ] return book (by: now)
+	8. [D][ ] return book (by: now)
+	9. [D][ ] return book (by: now)
+	10. [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	11. [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	12. [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	13. [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	14. [E][ ] library visit (from:  19/09/2024 19:10 to:  19/09/2024 20:35)
+	15. [E][ ] library visit (from:  19/09/2024 to:  19/09/2024)
+	16. [E][ ] library visit (from: start time to: end time)
+	17. [E][ ] library visit (from:  to: end time)
+	18. [E][ ] library visit (from: start time to: )
+	19. [E][ ] library visit (from: start time to: end time)
+	20. [E][ ] library visit (from: start time to: end time)
+	21. [E][ ] library visit (from: start time to: end time)
+	22. [E][ ] library visit (from: start time to: end time)
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] to be deleted
+	Now you have 23 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Nice! I've deleted this task:
+	[D][ ] return book (by: 19 Sep 2024)
+	Now you have 22 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list:
+	1. [T][ ] borrow book
+	2. [T][ ] borrow book
+	3. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	4. [D][ ] return book (by: 19 Sep 2024 7.55PM)
+	5. [D][ ] return book (by: 19 Sep 2024)
+	6. [D][ ] return book (by: now)
+	7. [D][ ] return book (by: now)
+	8. [D][ ] return book (by: now)
+	9. [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	10. [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	11. [E][ ] library visit (from: 19 Sep 2024 7.10PM to: 19 Sep 2024 8.35PM)
+	12. [E][ ] library visit (from: 19 Sep 2024 to: 19 Sep 2024)
+	13. [E][ ] library visit (from:  19/09/2024 19:10 to:  19/09/2024 20:35)
+	14. [E][ ] library visit (from:  19/09/2024 to:  19/09/2024)
+	15. [E][ ] library visit (from: start time to: end time)
+	16. [E][ ] library visit (from:  to: end time)
+	17. [E][ ] library visit (from: start time to: )
+	18. [E][ ] library visit (from: start time to: end time)
+	19. [E][ ] library visit (from: start time to: end time)
+	20. [E][ ] library visit (from: start time to: end time)
+	21. [E][ ] library visit (from: start time to: end time)
+	22. [T][ ] to be deleted
+	____________________________________________________________
+	____________________________________________________________
+	All tasks deleted. There are now 0 tasks
+	____________________________________________________________
+	____________________________________________________________
+	Error: List is empty, please consider adding some items!
 	____________________________________________________________
 	____________________________________________________________
 	Bye! Hope to see you again soon!

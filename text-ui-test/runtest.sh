@@ -13,7 +13,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/erika/*.java ../src/main/java/erika/command/*.java ../src/main/java/erika/command/addcommand/*.java ../src/main/java/erika/console/*.java ../src/main/java/erika/exception/*.java ../src/main/java/erika/filesystem/*.java ../src/main/java/erika/parser/*.java ../src/main/java/erika/settings/*.java ../src/main/java/erika/task/*.java ../src/main/java/erika/tasklist/*.java ../src/main/java/erika/ui/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
