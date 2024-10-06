@@ -10,7 +10,7 @@ public class UserInputParser {
     public static final Scanner scanner = new Scanner(System.in);
 
 
-    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
+    public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy] or [dd/MMMM/yyyy] or [dd/MM/yyyy , HH am/pm]";
     public static final String FIND_FORMAT = "Please follow format : find [keyword]";
 
     public static String getUserInput(){

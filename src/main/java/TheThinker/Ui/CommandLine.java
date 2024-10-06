@@ -18,9 +18,9 @@ public interface CommandLine {
      * @param data File created to accept task input
      */
     static void pollForUserInputTillBye(NewFile data , boolean isWriteTask) {
-        String userInput;
+        String userAction;
         do{
-            userInput = getUserInputAndDoTask();
+            userAction = getUserActionAndDoTask();
             if(isWriteTask) {
                 try {
                     data.writeTaskToFile();
@@ -28,7 +28,7 @@ public interface CommandLine {
                     System.out.println("Failed to write task to file");
                 }
             }
-        }while(!userInput.equals("bye"));
+        }while(!userAction.equalsIgnoreCase("bye"));
     }
 
     /**
@@ -36,12 +36,11 @@ public interface CommandLine {
      *
      * @return the original trimmed user input
      */
-    private static String getUserInputAndDoTask() {
-        String userInput;
-        userInput = UserInputParser.getUserInput();
+    private static String getUserActionAndDoTask() {
+        String userInput = UserInputParser.getUserInput();
         String userAction = UserInputParser.parseUserAction();
         doTaskAccordingToUserAction(userAction);
-        return userInput;
+        return userAction;
     }
 
     /**
@@ -52,7 +51,7 @@ public interface CommandLine {
     private static void doTaskAccordingToUserAction(String userAction){
         UiControl.printSeparation();
         try {
-            switch (userAction) {
+            switch (userAction.toLowerCase()) {
 
             case "mark":
                 int numberToMark = UserInputParser.parseNumberAfterTask();
@@ -113,10 +112,10 @@ public interface CommandLine {
             e.printErrorMessage();
 
         }catch(IndexOutOfBoundsException e){
-            System.out.println("try again with the correct format");
+            System.out.println("The task to " + userAction.toLowerCase() + " is outside of number of list" );
 
         }catch (NumberFormatException e){
-            System.out.println("The task number after [mark] is not a number / not in the correct format");
+            System.out.println("The task number after " + userAction.toLowerCase() +  " is not a number / not in the correct format");
 
         }
     }

@@ -9,10 +9,10 @@ public class TaskList {
     public static int listLength = 0;
 
     public static void addTask(Task task){
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + task);
         listOfTasks.add(task);
         listLength++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("   " + task);
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
@@ -22,22 +22,23 @@ public class TaskList {
     }
 
     public static void deleteTask(int taskNumber){
-        System.out.println("Noted. I've removed this task:");
+
         Task taskToRemove = listOfTasks.get(taskNumber-1);
         listLength--;
         listOfTasks.remove(taskNumber-1);
+        System.out.println("Noted. I've removed this task:");
         System.out.println(taskToRemove);
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
-    public static void setAsDone(int listNumber){
+    public static void setAsDone(int listNumber) throws IndexOutOfBoundsException{
         Task currentTask = listOfTasks.get(listNumber-1);
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("  [%c][X] " + currentTask.getTaskDescription() + "\n" , currentTask.getTaskType());
         currentTask.setMarkedAsDone(true);
     }
 
-    public static void setAsNotDone(int listNumber){
+    public static void setAsNotDone(int listNumber) throws IndexOutOfBoundsException{
         Task currentTask = listOfTasks.get(listNumber-1);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.printf("  [%c][ ] " + currentTask.getTaskDescription() + "\n" , currentTask.getTaskType());

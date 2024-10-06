@@ -1,19 +1,33 @@
-todo borrow book
-todo return book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-list
+yes
+todo remove book
+deadline get book /by 10/12/2002
+deadline /by 10/12/2002
+deadline get book /by 10 December 2002
+get 10/12/2002
+deadline get book /by 10 December 2002 , 6pm
+deadline get book /by 10 December 2002 , 6 pm
 mark 1
-list
+mark 100000
+mark two
 unmark 1
+unmark 100000
+unmark two
+delete 1
+delete 100000
+delete two
+event task /from /to
+event task /from friday /to
+event task /from /to friday
+event task /from friday /to friday
+event /from /to
+event task /to friday /from friday
+event task /from 10 December /to friday
+find
+find ret
 list
-event /from monday /to friday
-event return book /from  /to friday
-event return book /from monday /to
-produce
-mark 2 3
-mark
-deadline
-deadline /by friday
+bye
+help
+list 2
+help 2
 bye
 

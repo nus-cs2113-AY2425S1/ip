@@ -21,19 +21,23 @@ public class EventParser extends UserInputParser{
     public static Event parseEvent() throws FormattingException{
 
         String remainingTaskDescription = userInput.substring(LENGTH_OF_EVENT).trim();
-        int indexOfFirstSlash = remainingTaskDescription.indexOf("/from");
+        int indexOfFrom = remainingTaskDescription.indexOf("/from");
+        int indexOfTo = remainingTaskDescription.indexOf("/to");
 
-        if(indexOfFirstSlash == -1){
+        if(indexOfFrom > indexOfTo){
+            throw new FormattingException("/to is in front of /from. " + EVENT_FORMAT);
+        }
+        if(indexOfFrom == -1){
             throw new FormattingException("/from is missing. " + EVENT_FORMAT);
         }
 
-        String taskDescription = remainingTaskDescription.substring(0, indexOfFirstSlash).trim();
+        String taskDescription = remainingTaskDescription.substring(0, indexOfFrom).trim();
 
         if(taskDescription.isEmpty()){
             throw new FormattingException("task to do is missing. " + EVENT_FORMAT);
         }
 
-        remainingTaskDescription = remainingTaskDescription.substring(indexOfFirstSlash + LENGTH_OF_SLASH_FROM).trim();
+        remainingTaskDescription = remainingTaskDescription.substring(indexOfFrom + LENGTH_OF_SLASH_FROM).trim();
         int indexOfSecondSlash = remainingTaskDescription.indexOf("/to");
 
         if(indexOfSecondSlash == -1){
