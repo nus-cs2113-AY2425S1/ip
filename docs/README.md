@@ -5,6 +5,11 @@
 Tyrone the Terrific Task Tracker is a CLI-based desktop app for tracking 
 tasks which helps users remember all the tasks they need to get done.
 
+## Table of Contents
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+3. [Command Summary](#command-summary)
+
 ## Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.
