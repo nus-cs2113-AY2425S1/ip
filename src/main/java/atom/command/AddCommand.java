@@ -14,12 +14,12 @@ import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
 
-    public static final int TODO_START_INDEX = 5;
-    public static final int DEADLINE_START_INDEX = 9;
-    public static final int DUE_DATE_START_INDEX_OFFSET = 4;
-    public static final int EVENT_START_INDEX = 6;
-    public static final int START_DATE_START_INDEX_OFFSET = 6;
-    public static final int END_DATE_START_INDEX_OFFSET = 4;
+    private static final int TODO_START_INDEX = 5;
+    private static final int DEADLINE_START_INDEX = 9;
+    private static final int DUE_DATE_START_INDEX_OFFSET = 4;
+    private static final int EVENT_START_INDEX = 6;
+    private static final int START_DATE_START_INDEX_OFFSET = 6;
+    private static final int END_DATE_START_INDEX_OFFSET = 4;
 
     protected String[] userInputSplit;
     protected String fullCommand;
