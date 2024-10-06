@@ -13,7 +13,7 @@ Example: `deadline run /by 2024-07-29`
 Prints a message saying that the deadline was successfully added.
 
 ```
-added: [D][ ] watch tv (by: 2024-07-29)
+added: [D][ ] run (by: 2024-07-29)
 ```
 
 ## Adding todo
