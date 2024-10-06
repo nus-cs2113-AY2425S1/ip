@@ -1,6 +1,6 @@
-package tommi;
+package tommi.Task;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     public ToDo(boolean isDone, String taskName) {
         super(isDone, taskName);

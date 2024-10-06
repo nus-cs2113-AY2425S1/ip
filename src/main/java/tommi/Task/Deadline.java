@@ -1,4 +1,4 @@
-package tommi;
+package tommi.Task;
 
 public class Deadline extends Task{
 
