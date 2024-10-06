@@ -107,7 +107,7 @@ public class TaskList {
     public String getAllTaskDetails() {
         String details = "";
         for (int i = 0; i < tasks.size(); i++) {
-            details += (i+1) + ". " + getSingleTaskDetails(i);
+            details += (i + 1) + ". " + getSingleTaskDetails(i);
             details += System.lineSeparator();
         }
         return details;
