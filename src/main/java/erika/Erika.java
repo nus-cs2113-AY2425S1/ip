@@ -3,6 +3,7 @@ package erika;
 import erika.command.Command;
 import erika.console.Console;
 import erika.exception.ErikaException;
+import erika.exception.OutOfBoundsException;
 import erika.filesystem.FileSystem;
 import erika.parser.Parser;
 import erika.settings.Settings;
@@ -10,6 +11,7 @@ import erika.ui.Ui;
 import erika.tasklist.TaskList;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 public class Erika {
     private static Ui ui;
@@ -37,6 +39,8 @@ public class Erika {
                 Console.printMessage(e.getMessage());
             } catch (IOException e) {
                 Console.printMessage("Error: IO Exception while writing to filesystem");
+            } catch (NoSuchElementException e) {
+                Console.printMessage("Error: No line to parse");
             }
         }
     }
