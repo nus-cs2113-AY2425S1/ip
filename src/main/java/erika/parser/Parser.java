@@ -36,14 +36,11 @@ public class Parser {
         if(!line.contains("event ")) {
             throw new EmptyDescriptionException("Event");
         }
-        int indexOfFrom = line.indexOf(" /from ");
+        int indexOfFrom = line.indexOf("/from");
         if (indexOfFrom == -1) {
             throw new FormatErrorException("missing /from parameter");
         }
-        if(line.indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
-            throw new EmptyDescriptionException("Event");
-        }
-        int indexOfTo = line.indexOf(" /to ");
+        int indexOfTo = line.indexOf("/to");
         if(indexOfTo == -1) {
             throw new FormatErrorException("missing /to parameter");
         }
@@ -51,14 +48,16 @@ public class Parser {
             throw new FormatErrorException("missing /from parameter");
         }
 
-        int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
+        int substringStart = line.indexOf("event ") + Settings.EVENT_OFFSET;
         int substringEnd = 0;
 
         String fromText;
         String toText;
         if (indexOfFrom < indexOfTo) {
             fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
+            fromText = fromText.trim();
             toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+            toText = toText.trim();
             substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
         } else {
             fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET);
@@ -66,7 +65,7 @@ public class Parser {
             substringEnd = indexOfTo - Settings.TO_REAR_OFFSET;
         }
 
-        String description = line.substring(substringStart, substringEnd);
+        String description = line.substring(substringStart, substringEnd).trim();
 
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
@@ -78,18 +77,15 @@ public class Parser {
         if (!line.contains("deadline ")) {
             throw new EmptyDescriptionException("Deadline");
         }
-        int indexOfBy = line.indexOf(" /by ");
+        int indexOfBy = line.indexOf("/by");
         if (indexOfBy == -1) {
             throw new FormatErrorException("missing /by parameter");
         }
-        if (line.indexOf(" ") == indexOfBy - Settings.BY_REAR_OFFSET) {
-            throw new EmptyDescriptionException("Deadline");
-        }
-        int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
+        int substringStart = line.indexOf("deadline ") + Settings.DEADLINE_OFFSET;
         int substringEnd = indexOfBy - Settings.BY_REAR_OFFSET;
-        String description = line.substring(substringStart, substringEnd);
-        String byText = line.substring(indexOfBy + Settings.BY_LENGTH_OFFSET);
-        if (description.trim().isEmpty()) {
+        String description = line.substring(substringStart, substringEnd).trim();
+        String byText = line.substring(indexOfBy + Settings.BY_LENGTH_OFFSET).trim();
+        if (description.isEmpty()) {
             throw new EmptyDescriptionException("Deadline");
         }
         return new AddDeadlineCommand(description,byText);
