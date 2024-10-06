@@ -215,3 +215,6 @@ list
 	2. [E][ ] return book (from: 01 Jan 2024 to: 02 Jan 2024)
 	____________________________________________________________
 ```
+
+## Automatic Saving of Tasks
+Understanding the busy bee that you are, Bento periodically saves your task list whenever you add or delete tasks and say goodbye so that you never miss anything. Bento saves all your tasks in `./data/save.txt` for your perusal at your convenience!
