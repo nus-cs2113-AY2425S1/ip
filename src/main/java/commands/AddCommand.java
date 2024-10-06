@@ -38,20 +38,30 @@ public class AddCommand extends Command {
     }
 
     private void handleDeadline(TaskList tasks) {
-        String[] parts = args.split(" /by ");
-        String wordOne = parts[0];
-        String wordTwo = parts[1];
-        makeDeadline(wordOne, wordTwo, tasks);
+        try {
+            String[] parts = args.split(" /by ");
+            String wordOne = parts[0];
+            String wordTwo = parts[1];
+            makeDeadline(wordOne, wordTwo, tasks);
+        }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("Invalid deadline format");
+        }
     }
 
     private void handleEvent(TaskList tasks){
-        String[] parts = args.split(" /from ");
-        String wordOne = parts[0];
-        String wordTwo = parts[1];
-        parts = wordTwo.split(" /to ");
-        wordTwo = parts[0];
-        String wordThree = parts[1];
-        makeEvent(wordOne, wordTwo, wordThree, tasks);
+        try {
+            String[] parts = args.split(" /from ");
+            String wordOne = parts[0];
+            String wordTwo = parts[1];
+            parts = wordTwo.split(" /to ");
+            wordTwo = parts[0];
+            String wordThree = parts[1];
+            makeEvent(wordOne, wordTwo, wordThree, tasks);
+        }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("Invalid event format");
+        }
     }
 
     private void handleToDo(TaskList tasks) {

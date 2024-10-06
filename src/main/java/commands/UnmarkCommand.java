@@ -13,15 +13,24 @@ public class UnmarkCommand extends Command {
 
     /**
      * Unmark the task at the given index as done
+     *
      * @param tasks TaskList object that stores all the tasks currently stored
-     * @param ui Ui object used for interacting with the user
+     * @param ui    Ui object used for interacting with the user
      */
     @Override
     public void executeCommand(TaskList tasks, Ui ui) {
-        Task toMark = tasks.getTask(Integer.parseInt(args) - 1);
-        toMark.markUnDone();
-        System.out.println(Ui.DIVIDER + "OK, I've marked this task as not done yet: "
-                + toMark.getDescription()
-                + "\n" + Ui.DIVIDER);
+        try {
+            Task toMark = tasks.getTask(Integer.parseInt(args) - 1);
+            toMark.markUnDone();
+            System.out.println(Ui.DIVIDER + "OK, I've marked this task as not done yet: "
+                    + toMark.getDescription()
+                    + "\n" + Ui.DIVIDER);
+        } catch (
+                NumberFormatException e) {
+            System.out.println("Must include a number to mark");
+        } catch (
+                IndexOutOfBoundsException e) {
+            System.out.println("Invalid index");
+        }
     }
 }
