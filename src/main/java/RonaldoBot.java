@@ -11,7 +11,7 @@ import java.util.Scanner;
  * This chatbot develops a personality of Cristiano Ronaldo,
  * a world renowned footballer and the most followed celebrity in the world.
  */
-public class Main {
+public class RonaldoBot {
     private final Ronaldo ronaldo;
     private final Storage storage;
     private final Scanner input;
@@ -21,7 +21,7 @@ public class Main {
      *
      * @param filepath The path to the data file used for storing and retrieving goals.
      */
-    public Main(String filepath) {
+    public RonaldoBot(String filepath) {
         this.storage = new Storage(filepath);
         this.ronaldo = new Ronaldo(storage);
         this.input = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class Main {
      * @param args Command-line arguments;
      */
     public static void main(String[] args) {
-        new Main("data/cr7.txt").run();
+        new RonaldoBot("data/cr7.txt").run();
     }
 
 }
