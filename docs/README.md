@@ -109,6 +109,8 @@ Now you have <list size> tasks in the list.
 Create a task with a deadline and add it to the list.
 Deadline can be formatted in any date convention. If not a date, it will simply save the input as a string.
 
+Please refer to [Appendix](#appendix) for accepted date conventions.
+
 Format: `deadline <task description> /by <deadline>`
 
 Example of usage: `deadline IP Submission /by 2024-03-07`
@@ -126,6 +128,8 @@ Now you have <list size> tasks in the list.
 
 Create an event with a start date and end date and add it to the list.
 Start and end dates can be formatted in any date convention. If not a date, it will simply save the input as a string.
+
+Please refer to [Date Conventions](#date-conventions) in the [Appendix](#appendix) for accepted date conventions.
 
 Format: `event <task description> /from <start date> /to <end date>`
 
@@ -213,7 +217,9 @@ Got it. Here are the tasks with the matching keyword '<expression>':
 
 Searches for tasks which occur on a specified date.
 Can only search for deadlines and events.
-Date must be of format YYYY-MM-DD
+Date must contain year, month and date.
+
+Please refer to [Date Conventions](#date-conventions) in the [Appendix](#appendix) for accepted date conventions.
 
 Format: `data <date>`
 
@@ -227,3 +233,46 @@ Got it. Here are the tasks with the matching date:
   2.[<task type>][<completion>] <task description>
   3.[<task type>][<completion>] <task description>
 ```
+
+## Appendix
+
+### Date Conventions:
+
+The following are the accepted date conventions in decreasing priority.
+
+Note that the convention used for all outputs/storage is "MMM DD YYYY".
+
+- "yyyy-MM-dd"
+- "yyyy/MM/dd"
+- "dd-MM-yyyy"
+- "dd/MM/yyyy"
+- "MM-dd-yyyy"
+- "MM/dd/yyyy"
+- "d-MM-yyyy"
+- "yyyy MMM dd"
+- "dd MMM yyyy"
+- "yyyy-MMM-dd"
+- "dd-MMM-yyyy"
+- "yyyy-MM-dd[ HH:mm]"
+- "yyyy/MM/dd[ HH:mm]"
+- "dd-MM-yyyy[ HH:mm]"
+- "dd/MM/yyyy[ HH:mm]"
+- "MM-dd-yyyy[ HH:mm]"
+- "MM/dd/yyyy[ HH:mm]"
+- "d-MM-yyyy[ HH:mm]"
+- "yyyy MMM dd[ HH:mm]"
+- "dd MMM yyyy[ HH:mm]"
+- "yyyy-MMM-dd[ HH:mm]"
+- "dd-MMM-yyyy[ HH:mm]"
+- "yyyy-MM-dd[ hh:mma]"
+- "yyyy/MM/dd[ hh:mma]"
+- "dd-MM-yyyy[ hh:mma]"
+- "dd/MM/yyyy[ hh:mma]"
+- "MM-dd-yyyy[ hh:mma]"
+- "MM/dd/yyyy[ hh:mma]"
+- "d-MM-yyyy[ HH:mma]"
+- "yyyy MMM dd[ hh:mma]"
+- "dd MMM yyyy[ hh:mma]"
+- "yyyy-MMM-dd[ hh:mma]"
+- "dd-MMM-yyyy[ hh:mma]"
+- "MMM-dd-yyyy[ hh:mma]"

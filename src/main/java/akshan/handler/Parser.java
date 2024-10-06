@@ -38,6 +38,9 @@ public class Parser {
             case DEADLINE:
                 // Fallthrough
             case EVENT:
+                if (commandString.length < 2) {
+                    throw new IllegalArgumentException("Invalid task command. Please incldue task string.");
+                }
                 command = Optional.of(new TaskCommand(commandType, commandString[1], taskList));
                 break;
             case DELETE:

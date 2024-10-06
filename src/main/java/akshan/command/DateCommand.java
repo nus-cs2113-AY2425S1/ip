@@ -1,7 +1,6 @@
 package akshan.command;
 
 import akshan.handler.DateTime;
-import akshan.task.Task;
 import akshan.task.TaskList;
 
 import java.util.stream.IntStream;
@@ -29,17 +28,29 @@ public final class DateCommand extends Command {
             throw new IllegalArgumentException(taskString + " is not a date/time!");
         }
 
-        String dateTimeString = DateTime.convertToString(taskString);
+        if (taskList.size() == 0) {
+            throw new IndexOutOfBoundsException("Oops the list is empty!");
+        }
 
-        System.out.println("Got it. Here are the tasks with the matching date " + dateTimeString + ":");
+        String dateTimeString = DateTime.convertToString(taskString);
+        TaskList toBePrinted = new TaskList();
+
         IntStream.range(0, taskList.size())
-                .filter(index -> DateTime.convertToString(taskList
+                .filter(index -> taskList
                         .getTask(index)
-                        .toString())
+                        .toString()
                         .contains(dateTimeString))
-                .forEach(index -> System.out.println("  " + (index + 1) + "."
-                        + taskList
-                        .getTask(index)
-                        .toString()));
+                .forEach(index -> toBePrinted.addItem(taskList.getTask(index)));
+
+        if (toBePrinted.size() == 0) {
+            System.out.println("Got it. Sadly, there are no tasks that match the date " + dateTimeString + ".");
+        } else {
+            System.out.println("Got it. Here are the tasks with the matching date " + dateTimeString + ":");
+            IntStream.range(0, toBePrinted.size())
+                    .forEach(index -> System.out.println("  " + (index + 1) + "."
+                            + taskList
+                            .getTask(index)
+                            .toString()));
+        }
     }
 }

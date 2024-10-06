@@ -26,15 +26,26 @@ public final class FindCommand extends Command {
         if (taskList.size() == 0) {
             throw new IndexOutOfBoundsException("Oops the list is empty!");
         }
-        System.out.println("Got it. Here are the tasks with the matching keyword '" + taskString + "':");
+
+        TaskList toBePrinted = new TaskList();
+
         IntStream.range(0, taskList.size())
                 .filter(index -> taskList
                         .getTask(index)
                         .toString()
                         .contains(taskString))
-                .forEach(index -> System.out.println("  " + (index + 1) + "."
-                        + taskList
-                        .getTask(index)
-                        .toString()));
+                .forEach(index -> toBePrinted.addItem(taskList.getTask(index)));
+
+        if (toBePrinted.size() == 0) {
+            System.out.println("Got it. Sadly, there are no tasks that match the keyword '" + taskString + "'.");
+        }
+        else {
+            System.out.println("Got it. Here are the tasks with the matching keyword '" + taskString + "':");
+            IntStream.range(0, toBePrinted.size())
+                    .forEach(index -> System.out.println("  " + (index + 1) + "."
+                            + taskList
+                            .getTask(index)
+                            .toString()));
+        }
     }
 }

@@ -18,7 +18,7 @@ public class Storage {
     private static File storage;
     private static final Path STORAGE_FOLDER_PATH = Paths.get("data");
     private static final Path STORAGE_PATH = STORAGE_FOLDER_PATH.resolve("akshan.txt");
-    private static final String SEPARATOR = " <-> ";
+    private static final String SEPARATOR = "//";
 
     /**
      * Constructor for Storage.

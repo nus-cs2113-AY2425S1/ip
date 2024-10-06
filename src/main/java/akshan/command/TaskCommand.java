@@ -23,8 +23,9 @@ public final class TaskCommand extends Command {
      * @param commandType The command from the user.
      * @param taskString  The string appended to the command to be executed.
      * @param taskList The list of tasks.
+     * @throws IllegalArgumentException If the task input is invalid.
      */
-    public TaskCommand(CommandType commandType, String taskString, TaskList taskList) {
+    public TaskCommand(CommandType commandType, String taskString, TaskList taskList) throws IllegalArgumentException{
         super(commandType, taskString, taskList);
 
         try {
@@ -43,11 +44,10 @@ public final class TaskCommand extends Command {
      * @throws IllegalArgumentException If the todo task description is missing.
      */
     private static String[] parseTodo(String taskString) throws IllegalArgumentException {
-        String[] parts = taskString.split(" ");
-        if (parts.length < 1) {
+        if (taskString.isEmpty()) {
             throw new IllegalArgumentException("Todo task description is missing");
         }
-        return new String[]{parts[0]};
+        return new String[]{taskString};
     }
 
     /**
@@ -83,6 +83,10 @@ public final class TaskCommand extends Command {
         if (startParts.length < 2 || endParts.length < 2) {
             throw new IllegalArgumentException("Event task is missing start time or end time");
         }
+        else if (!taskString.contains("/from") || !taskString.contains("/to")) {
+            throw new IllegalArgumentException("Event task is missing /from or /to");
+        }
+
         return new String[]{parts[0], startParts[1], endParts[1]};
     }
 
