@@ -5,7 +5,7 @@
 Welcome to my user guide !!!
 
 First , TheThinker is a task manager which allows you to add different task.
-Task includes Deadlines , Events and Todo via CLI. 
+Task includes Deadlines , Events and Todo via CLI . 
 
 Second, various editing features like mark , unmarking , deleting task are available.
 
