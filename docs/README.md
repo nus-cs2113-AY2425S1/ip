@@ -9,7 +9,7 @@ Bosco is a helpful CLI task manager, ready to assist you with tracking your todo
 ## Quick Start
 
 1. Ensure that you have Java 17 installed on your computer.
-2. Download the latest `Bosco.jar` file from [here]().
+2. Download the latest `Bosco.jar` file from [here](https://github.com/jinzihan2002/ip/releases).
 3. Move the file to the folder you want to use as the home folder for the application.
 4. Open the terminal, `cd` into the folder containing `Bosco.jar`, and use the `java -jar Bosco.jar` 
    command to start the application.
