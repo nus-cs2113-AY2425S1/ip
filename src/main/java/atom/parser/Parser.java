@@ -4,9 +4,10 @@ import atom.command.Command;
 import atom.command.AddCommand;
 import atom.command.DeleteCommand;
 import atom.command.ExitCommand;
-import atom.command.ListCommand;
 import atom.command.InvalidCommand;
+import atom.command.ListCommand;
 import atom.command.MarkCommand;
+import atom.command.FindCommand;
 
 public class Parser {
 
@@ -28,6 +29,8 @@ public class Parser {
             return new AddCommand(words, fullCommand, command);
         case "delete":
             return new DeleteCommand(words);
+        case "find":
+            return new FindCommand(words, fullCommand);
         default:
             return new InvalidCommand();
         }
