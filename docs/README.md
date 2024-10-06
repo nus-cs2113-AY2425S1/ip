@@ -1,10 +1,8 @@
 # Doot User Guide
-
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
 // Product intro goes here
+Doot - a minimal CLI task manager application. Allows storage of todos, events, and deadlines. Also allows the user to
+mark, unmark, search, and delete tasks.
+
 
 ## Adding deadlines
 
