@@ -13,10 +13,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Storage class handles the saving and loading of tasks to and from a file.
+ * It ensures persistence by storing tasks in a local text file and recreating them upon program initialization.
+ */
 public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_PATH = "sleepy.txt";
 
+    /**
+     * Initializes the Storage class by creating the necessary file structure if it does not exist.
+     * Ensures that the directory and file for storing tasks are created.
+     */
     //creates file if is empty
     public Storage() {
         String directoryPath = Paths.get("").toAbsolutePath() + File.separator + DIRECTORY_NAME;
@@ -36,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (Task task : tasks) {
@@ -46,6 +59,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file into an ArrayList of tasks.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");

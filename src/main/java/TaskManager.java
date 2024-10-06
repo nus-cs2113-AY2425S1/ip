@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Manages a list of tasks, including the addition, deletion, and modification
+ * of various types of tasks (Event, Deadline, Todo). Supports marking tasks as
+ * done, unmarking, and searching for tasks by keyword.
+ */
 public class TaskManager {
     public static final String EVENT = "event";
     public static final String DEADLINE = "deadline";
@@ -14,15 +19,31 @@ public class TaskManager {
     private ArrayList<Task> tasks;
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
 
+    /**
+     * Initializes the TaskManager with a list of tasks.
+     *
+     * @param tasks The initial list of tasks.
+     */
     public TaskManager(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Retrieves the current list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    //add different tasks based on input, else throw exception
+    /**
+     * Adds a task based on the input command. Supports adding events, deadlines,
+     * and todos based on the command prefix.
+     *
+     * @param input The input string for adding a task.
+     * @throws SleepyException if the command is invalid or unknown.
+     */
     public void addTask(String input) throws SleepyException {
         if (input.startsWith(EVENT)) {
             addEvent(input);
@@ -36,8 +57,14 @@ public class TaskManager {
         }
     }
 
-    //checks though the Event task input and throws exception if there are any errors
-    private void addEvent(String input) throws SleepyException {
+    /**
+     * Adds an event to the task list based on the input.
+     * The input should follow the format: "event description /from start_time /to end_time".
+     *
+     * @param input The input string for adding an event.
+     * @throws SleepyException if the input format is invalid.
+     */
+    public void addEvent(String input) throws SleepyException {
         //splitting and checking if there are at least 2 parts (description and event time)
         String[] parts = input.substring(5).split(" /from ");
         if (parts.length != 2) {
@@ -61,8 +88,14 @@ public class TaskManager {
         addTaskToList(task);
     }
 
-    //checks though the Deadline task input and throws exception if there are any errors
-    private void addDeadline(String input) throws SleepyException {
+    /**
+     * Adds a deadline to the task list based on the input.
+     * The input should follow the format: "deadline description /by date_time".
+     *
+     * @param input The input string for adding a deadline.
+     * @throws SleepyException if the input format is invalid or the date-time is incorrectly formatted.
+     */
+    public void addDeadline(String input) throws SleepyException {
         String[] parts = input.substring(8).split(" /by ");
 
         // Checking if the deadline has a description and by component
@@ -95,8 +128,14 @@ public class TaskManager {
         }
     }
 
-    //checks though the Todo task input and throws exception if there are any errors
-    private void addTodo(String input) throws SleepyException {
+    /**
+     * Adds a todo task to the task list based on the input.
+     * The input should follow the format: "todo description".
+     *
+     * @param input The input string for adding a todo.
+     * @throws SleepyException if the todo description is empty.
+     */
+    public void addTodo(String input) throws SleepyException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
             throw new SleepyException("Invalid todo format. Todo description cannot be empty\n");
@@ -105,7 +144,12 @@ public class TaskManager {
         addTaskToList(task);
     }
 
-    private void addTaskToList(Task task) {
+    /**
+     * Adds a task to the list and prints a message indicating the task has been added.
+     *
+     * @param task The task to add to the list.
+     */
+    public void addTaskToList(Task task) {
         tasks.add(task);
         System.out.println(LINE_SEPARATOR
                 + "added...\n"
@@ -114,6 +158,12 @@ public class TaskManager {
                 + LINE_SEPARATOR);
     }
 
+    /**
+     * Deletes a task from the list by its index and prints a message indicating the task has been removed.
+     *
+     * @param taskIndex The index of the task to delete (1-based index).
+     * @throws SleepyException if the task index is invalid.
+     */
     public void deleteTask(int taskIndex) throws SleepyException{
         if (taskIndex <= 0 || taskIndex > tasks.size()) {
             throw new SleepyException("Invalid task number.");
@@ -127,6 +177,9 @@ public class TaskManager {
         tasks.remove(taskIndex - 1);
     }
 
+    /**
+     * Prints the list of tasks. If the list is empty, a message indicating no tasks remain is printed.
+     */
     public void listTasks() {
         if (!tasks.isEmpty()) {
             System.out.println(LINE_SEPARATOR
@@ -142,6 +195,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as done by its index and prints a message indicating the task has been marked.
+     *
+     * @param taskNumber The index of the task to mark as done (1-based index).
+     * @throws SleepyException if the task index is invalid.
+     */
     public void markTask(int taskNumber) throws SleepyException {
         if (taskNumber <= tasks.size() && taskNumber > 0) {
             tasks.get(taskNumber - 1).markAsDone();
@@ -155,6 +214,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Unmarks a task by its index and prints a message indicating the task has been unmarked.
+     *
+     * @param taskNumber The index of the task to unmark (1-based index).
+     * @throws SleepyException if the task index is invalid.
+     */
     public void unmarkTask(int taskNumber) throws SleepyException {
         if (taskNumber <= tasks.size() && taskNumber > 0) {
             tasks.get(taskNumber - 1).markAsNotDone();
@@ -167,6 +232,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Finds tasks that contain the given keyword in their description and prints the matching tasks.
+     *
+     * @param keyword The keyword to search for within the task descriptions.
+     * @throws SleepyException if the keyword is empty.
+     */
     public void findTask(String keyword) throws SleepyException {
         if (keyword.isEmpty()) {
             throw new SleepyException("Keyword cannot be empty.");

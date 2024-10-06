@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Sleepy {
+    // Constants for the UI
     private static final String LOGO = """
                 ____________________________________________________________
                   ____   _      ____   ____  ____   __    __
@@ -12,20 +13,37 @@ public class Sleepy {
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
     private static final String CMD_BYE = "bye";
 
+    // Input scanner and task manager instance
     private final Scanner input;
     private final TaskManager taskManager;
 
+    /**
+     *  Initializes a new Sleepy instance
+     *
+     * @param taskManager The TaskManager object to manage the user's tasks.
+     */
     public Sleepy(TaskManager taskManager) {
         this.taskManager = taskManager;
         this.input = new Scanner(System.in);
     }
 
+    /**
+     * The main method starts the Sleep application
+     * It displays the Sleepy logo and then enters the command loop
+     *
+     * @param args Command-line arguments (not used)
+     */
     public static void main(String[] args) {
         System.out.println(LOGO);
         Sleepy ui = new Sleepy(new TaskManager(Storage.loadTasks()));
         ui.run();
     }
 
+    /**
+     * Run the Sleepy program
+     * This method handles user input in a loop, allowing users to issue commands
+     * to manage tasks until the 'bye' command is given
+     */
     public void run() {
         System.out.println(getGreeting());
 
