@@ -85,4 +85,19 @@ public class TaskList {
         Task currTask = tasksList.get(taskId);
         tasksList.remove(currTask);
     }
+
+    public ArrayList<Task> findTasksWithKeyword(String keyword) {
+        ArrayList<Task> tasksFoundList = new ArrayList<>();
+        keyword = keyword.trim();
+
+        for (Task task : tasksList) {
+            String taskName = task.getItem();
+
+            if (taskName.contains(keyword)) {
+                tasksFoundList.add(task);
+            }
+        }
+
+        return tasksFoundList;
+    }
 }
