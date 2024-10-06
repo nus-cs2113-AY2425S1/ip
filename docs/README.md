@@ -103,6 +103,7 @@ Returns a list of all tasks with description containing the given keyword.
 
 Format: `find KEYWORD`
 * Lists all tasks which description contains KEYWORD as a substring within it.
+  * Please note that `KEYWORD` is case-sensitive.
 
 Example:
 * `find book` returns tasks `read book` and `book club`.
