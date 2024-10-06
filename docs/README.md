@@ -1,4 +1,4 @@
-# Duke User Guide
+# Doot User Guide
 
 // Update the title above to match the actual product name
 
@@ -20,11 +20,104 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Adding todo
 
-// Feature details
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Adding events
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
 
 
-## Feature XYZ
+## Removing a task
 
-// Feature details
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+
+## Marking a task
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+
+## Unmarking a task
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Listing tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+
+## Finding tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `keyword (optional arguments)`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
