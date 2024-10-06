@@ -55,16 +55,10 @@ public class Ui {
         return userInput;
     }
 
-    public void printList(TaskList tasks) {
-        if (tasks.getTasksListSize() == 0) {
-            System.out.println("Oh oh! List is empty.");
-            return;
-        }
-
+    public void printTasksInList(ArrayList<Task> tasks) {
         int index = 1;
 
-        System.out.println("Here is your list:\n");
-        for (Task item : tasks.getTasksList()) {
+        for (Task item : tasks) {
 
             System.out.print(index + "." + "[" + item.setTaskType() + "]" +
                     "[" + item.getStatus() + "] " + item.getItem());
@@ -78,6 +72,27 @@ public class Ui {
             System.out.println();
             index++;
         }
+    }
+
+    public void printList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Oh oh! List is empty.");
+            return;
+        }
+
+        System.out.println("Here is your list:\n");
+        printTasksInList(tasks);
+    }
+
+    public void printMatchingTasksList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Your search resulted in 0 matches. :(");
+            return;
+        }
+
+        System.out.println("Your search resulted in " + tasks.size() + " matches.\n");
+        System.out.println("Here are the matching tasks that I found:");
+        printTasksInList(tasks);
     }
 
     public void showLoadingError() {
