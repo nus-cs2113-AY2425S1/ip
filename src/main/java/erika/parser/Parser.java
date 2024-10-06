@@ -52,19 +52,21 @@ public class Parser {
         }
 
         int substringStart = line.indexOf(" ") + Settings.SPACE_OFFSET;
-        int substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
+        int substringEnd = 0;
 
-        String description = line.substring(substringStart, substringEnd);
         String fromText;
         String toText;
         if (indexOfFrom < indexOfTo) {
             fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET, indexOfTo - Settings.TO_REAR_OFFSET);
             toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET);
+            substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
         } else {
             fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET);
             toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET, indexOfFrom - Settings.FROM_REAR_OFFSET);
+            substringEnd = indexOfTo - Settings.TO_REAR_OFFSET;
         }
 
+        String description = line.substring(substringStart, substringEnd);
 
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
