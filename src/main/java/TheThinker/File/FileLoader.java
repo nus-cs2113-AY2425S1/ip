@@ -84,7 +84,9 @@ public class FileLoader {
     }
 
     public static boolean getSaveTaskInput() {
+        UiControl.printSeparation();
         System.out.println("Do you want to save your tasks to a file? yes / no");
+        UiControl.printSeparation();
         String userInput = UserInputParser.getUserInput();
         return userInput.equalsIgnoreCase("yes");
     }
