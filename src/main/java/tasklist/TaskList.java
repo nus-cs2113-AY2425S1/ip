@@ -1,7 +1,7 @@
-package TaskList;
-import Parser.Parser;
-import Ui.Ui;
-import Storage.Storage;
+package tasklist;
+import parser.Parser;
+import ui.Ui;
+import storage.Storage;
 import commands.Deadline;
 import commands.Event;
 import commands.Task;
@@ -92,14 +92,14 @@ public class TaskList {
      */
     public void addDeadline(String input) throws IllegalEmptyException, IllegalKeywordException {
         //throws an error when the by keyword is missing from user's input
-        if (!input.contains("by")) {
+        if (!input.contains(" by ")) {
             throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
         }
         //Execute the trimString() method to remove 'deadline' command from input
         String description = Parser.trimString(input);
 
         //Split description into substrings with 'by' delimiter
-        String[] descriptionSubstrings = description.split("by", 2);
+        String[] descriptionSubstrings = description.split(" by ", 2);
         //Substring before the 'by' delimiter represents the deadline description
         String deadlineDescription = descriptionSubstrings[0].trim();
         //Substring after  the 'by' delimiter represents when the deadline is by
@@ -130,12 +130,12 @@ public class TaskList {
         input = Parser.trimString(input);
 
         //throws an error when the 'from' or 'to' keyword is missing from user's input
-        if (!input.contains("from") || !input.contains("to")) {
+        if (!input.contains(" from ") || !input.contains(" to ")) {
             throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
         }
 
         //Split description into substrings with both the 'from' and 'to' delimiter.
-        String[] splitInputs = input.split("from|to");
+        String[] splitInputs = input.split(" from | to ");
 
 
         if (splitInputs.length < 3) {

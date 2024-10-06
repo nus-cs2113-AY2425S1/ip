@@ -13,4 +13,5 @@ public class Warnings {
     public static final String INCOMPLETE_EVENT_WARNING = "Please fulfil all criteria: event description, " +
             "start time and end time!";
     public static final String EMPTY_EVENT_WARNING = "Please enter a valid description, start time and end time!";
+    public static final String VALID_COMMAND_WARNING = "Please enter a valid command";
 }

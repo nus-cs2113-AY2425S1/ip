@@ -1,9 +1,9 @@
-package Parser;
+package parser;
 
 import commands.Task;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalTaskException;
-import Ui.Ui;
+import ui.Ui;
 import constants.Warnings;
 
 
@@ -60,13 +60,14 @@ public class Parser {
             throws IllegalTaskException, IllegalEmptyException {
 
         try {
-
+            //throws an error when no index is written
             if (splitInputs.length < 2) {
                 throw new IllegalEmptyException("Please enter a valid index!");
             }
 
             int index = Integer.parseInt(splitInputs[1]) - 1;
 
+            //throws an error when index is out of range
             if (index < 0 || index >= items.size()) {
                 throw new IllegalTaskException(Warnings.VALID_INDEX_WARNING + items.size());
             }

@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 import commands.Task;
 import constants.Statements;

@@ -48,7 +48,7 @@ public class Task {
 
     /**
      * Returns the formatted task string for display in task list
-     * Function is used mainly for overriding by children classes
+     * Function is used mainly for overriding by child classes
      * (Todo, Event and Deadline)
      *
      * @return A string containing for display in task list
@@ -59,7 +59,7 @@ public class Task {
 
     /**
      * Returns the formatted task string for saving in txt
-     * Function is used mainly for overriding by children classes
+     * Function is used mainly for overriding by child classes
      * (Todo, Event and Deadline)
      *
      * @return A string containing for saving in txt

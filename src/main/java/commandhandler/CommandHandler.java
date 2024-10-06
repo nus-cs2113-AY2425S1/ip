@@ -1,6 +1,7 @@
-package CommandHandler;
+package commandhandler;
 
-import TaskList.TaskList;
+import constants.Warnings;
+import tasklist.TaskList;
 import constants.Utils;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalIndexException;
@@ -37,9 +38,7 @@ public class CommandHandler {
      * @throws IllegalIndexException when the index of task is out of range
      */
     public void handleCommand(String input, String command, String[] splitInputs) throws IllegalEmptyException,
-            IllegalCommandException, IllegalTaskException,
-            IllegalKeywordException, IllegalIndexException {
-
+            IllegalCommandException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
         if (command.equals(Utils.LIST)) {
             taskList.printList();
         } else if (command.equals(Utils.MARK)) {
@@ -57,7 +56,7 @@ public class CommandHandler {
         } else if (command.equals(Utils.FIND)){
             taskList.findItem(input);
         } else {
-            throw new IllegalCommandException("Please enter a valid command");
+            throw new IllegalCommandException(Warnings.VALID_COMMAND_WARNING);
         }
     }
 }

@@ -1,7 +1,7 @@
-import CommandHandler.CommandHandler;
-import Storage.Storage;
+import commandhandler.CommandHandler;
+import storage.Storage;
 
-import Ui.Ui;
+import ui.Ui;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalCommandException;
 import exceptions.IllegalKeywordException;

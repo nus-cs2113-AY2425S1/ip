@@ -38,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String createTaskList() {
-        return  getStatusIcon() + " "+  description + "(from: " + from + " to: " + to + ")";
+        return  getStatusIcon() + " "+  description + " (from: " + from + " to: " + to + ")";
     }
 
     /**

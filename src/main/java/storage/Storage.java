@@ -1,5 +1,5 @@
-package Storage;
-import Parser.Parser;
+package storage;
+import parser.Parser;
 import commands.Deadline;
 import commands.Event;
 import commands.Task;
@@ -37,6 +37,9 @@ public class Storage{
 
     /**
      * Print previously stored tasks from the txt file
+     *
+     * @throws FileNotFoundException when cy.txt is not found in the relevant file path
+     * from loadExistingData() method
      */
     public void printFileContents() throws FileNotFoundException {
         File f = new File(Utils.FILE_PATH);
