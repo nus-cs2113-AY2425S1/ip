@@ -64,7 +64,7 @@ public class TaskList {
      * Deletes a task indicated by the user
      * @param response input given by the user including the task number
      */
-    public void deleteTask(String response) throws IndexOutOfBoundsException {
+    public void deleteTask(String response) {
         int taskNumber = Integer.parseInt(response.split(" ")[1]);
         taskList.remove(taskNumber - 1);
     }
@@ -74,7 +74,7 @@ public class TaskList {
      * @param response input given by the user including the task information, start date and
      *                 end date of the task
      */
-    public void addEvent(String response) throws StringIndexOutOfBoundsException,ArrayIndexOutOfBoundsException {
+    public void addEvent(String response) {
         String[] answers = response.split("/from ");
         String taskInfo = answers[0].substring(6);
         String[] dates = answers[1].split("/to ");
@@ -92,7 +92,7 @@ public class TaskList {
      * @param response input given by the user including the task information
      *                 deadline of the task
      */
-    public void addDeadline(String response) throws GlendonException {
+    public void addDeadline(String response) {
         String[] answers = response.split("/by ");
         String taskInfo = answers[0].substring(9);
         if (taskInfo.length() == 0) {
@@ -107,7 +107,7 @@ public class TaskList {
      * Add a todo task based on the users input
      * @param response input given by the user including the task information
      */
-    public void addTodo(String response) throws StringIndexOutOfBoundsException {
+    public void addTodo(String response) {
         String taskInfo = response.substring(5);
         if (taskInfo.length() == 0) {
             throw new GlendonException();
@@ -121,7 +121,7 @@ public class TaskList {
      * @param response input given by the user including the task number
      *
      */
-    public void unmarkTask(String response) throws ArrayIndexOutOfBoundsException, NumberFormatException {
+    public void unmarkTask(String response) {
         String[] responsesArray = (response.split(" "));
         int taskIndex = Integer.parseInt(responsesArray[1]) - 1;
         taskList.get(taskIndex).setCompleted(false);
@@ -132,7 +132,7 @@ public class TaskList {
      * @param response input given by the user including the task number
      *
      */
-    public void markTask(String response) throws ArrayIndexOutOfBoundsException, NumberFormatException {
+    public void markTask(String response) {
         String[] responsesArray = (response.split(" "));
         int taskIndex = Integer.parseInt(responsesArray[1]) - 1; //getting the index of Task to be deleted
         taskList.get(taskIndex).setCompleted(true);
