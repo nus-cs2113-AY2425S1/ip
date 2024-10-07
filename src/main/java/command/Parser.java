@@ -4,6 +4,11 @@ import exceptions.IrisException;
 import task.Task;
 import task.TaskList;
 
+import static exceptions.ExceptionErrorMessage.EMPTY_COMMAND_MESSAGE;
+import static exceptions.ExceptionErrorMessage.INVALID_COMMAND_MESSAGE;
+import static exceptions.ExceptionErrorMessage.INVALID_TASK_NUMBER_MESSAGE;
+import static exceptions.ExceptionErrorMessage.INVALID_TASK_NUMBER_FORMAT_MESSAGE;
+
 /**
  * The Parser class is responsible for interpreting user commands and converting
  * them into executable {@link Command} objects. It also helps in identifying
@@ -12,11 +17,6 @@ import task.TaskList;
  * @author Tan Ping Hui
  */
 public class Parser {
-
-    private static final String EMPTY_COMMAND_MESSAGE = "No command given";
-    private static final String INVALID_COMMAND_MESSAGE = "Unrecognised or incomplete command";
-    private static final String INVALID_TASK_NUMBER_MESSAGE = "This task does not exist";
-    private static final String INVALID_TASK_NUMBER_FORMAT_MESSAGE = "The index of the task must be an integer";
 
     /**
      * Parses the full command entered by the user and converts it into the corresponding

@@ -3,8 +3,8 @@ invalidCommand
 list
 deadline
 deadline assignment
-event networking /on monday 3pm
-todo homework /from tuesday 1pm /to thursday 4pm
+event networking /on 2024-10-10
+todo homework /by 2024-12-12
 list
 mark
 mark string
@@ -15,4 +15,11 @@ unmark
 unmark string
 unmark 1
 list
+date
+date 2024-11-11
+delete 3
+delete 1
+find
+find homework
+find net
 bye

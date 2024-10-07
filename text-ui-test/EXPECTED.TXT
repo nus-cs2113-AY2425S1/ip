@@ -1,17 +1,18 @@
+Failed to load task list, initializing with an empty list.
+---------------------------------------------
 Hello! I'm Iris!
-What can I do for you?
 ---------------------------------------------
 ---------------------------------------------
-HUH?!? I don't recognize this command :(
+Error: Unrecognised or incomplete command
 ---------------------------------------------
 ---------------------------------------------
-Tell me your needs! I'm here to help!
+Error: No command given
 ---------------------------------------------
 ---------------------------------------------
-No tasks added.
+No tasks added, add more now!
 ---------------------------------------------
 ---------------------------------------------
-MISSING!!! The description of a deadline cannot be empty.
+Error: Unrecognised or incomplete command
 ---------------------------------------------
 ---------------------------------------------
 Got it. I've added this task:
@@ -20,25 +21,25 @@ Now you have 1 tasks in the list
 ---------------------------------------------
 ---------------------------------------------
 Got it. I've added this task:
-[E][ ] networking (on: monday 3pm)
+[E][ ] networking  (on: 2024-10-10)
 Now you have 2 tasks in the list
 ---------------------------------------------
 ---------------------------------------------
 Got it. I've added this task:
-[T][ ] homework (from: tuesday 1pm to: thursday 4pm)
+[T][ ] homework  (by: 2024-12-12)
 Now you have 3 tasks in the list
 ---------------------------------------------
 ---------------------------------------------
 Here are the tasks in your list:
 1.[D][ ] assignment
-2.[E][ ] networking (on: monday 3pm)
-3.[T][ ] homework (from: tuesday 1pm to: thursday 4pm)
+2.[E][ ] networking  (on: 2024-10-10)
+3.[T][ ] homework  (by: 2024-12-12)
 ---------------------------------------------
 ---------------------------------------------
-NOO!!! Missing task number
+Error: Unrecognised or incomplete command
 ---------------------------------------------
 ---------------------------------------------
-HMMM... The index of the task must be an integer
+Error: The index of the task must be an integer
 ---------------------------------------------
 ---------------------------------------------
 Nice! I've marked this task as done:
@@ -46,19 +47,19 @@ Nice! I've marked this task as done:
 ---------------------------------------------
 ---------------------------------------------
 Nice! I've marked this task as done:
-[T][X] homework (from: tuesday 1pm to: thursday 4pm)
+[T][X] homework  (by: 2024-12-12)
 ---------------------------------------------
 ---------------------------------------------
 Here are the tasks in your list:
 1.[D][X] assignment
-2.[E][ ] networking (on: monday 3pm)
-3.[T][X] homework (from: tuesday 1pm to: thursday 4pm)
+2.[E][ ] networking  (on: 2024-10-10)
+3.[T][X] homework  (by: 2024-12-12)
 ---------------------------------------------
 ---------------------------------------------
-NOO!!! Missing task number
+Error: Unrecognised or incomplete command
 ---------------------------------------------
 ---------------------------------------------
-HMMM... The index of the task must be an integer
+Error: The index of the task must be an integer
 ---------------------------------------------
 ---------------------------------------------
 OK, I've marked this task as not done yet:
@@ -67,8 +68,40 @@ OK, I've marked this task as not done yet:
 ---------------------------------------------
 Here are the tasks in your list:
 1.[D][ ] assignment
-2.[E][ ] networking (on: monday 3pm)
-3.[T][X] homework (from: tuesday 1pm to: thursday 4pm)
+2.[E][ ] networking  (on: 2024-10-10)
+3.[T][X] homework  (by: 2024-12-12)
 ---------------------------------------------
 ---------------------------------------------
-Bye. Hope to see you again soon!
+Error: Unrecognised or incomplete command
+---------------------------------------------
+---------------------------------------------
+Here are the tasks before 2024-11-11:
+[E][ ] networking  (on: 2024-10-10)
+---------------------------------------------
+Here are the tasks after 2024-11-11:
+[T][X] homework  (by: 2024-12-12)
+---------------------------------------------
+---------------------------------------------
+Noted. I've removed this task:
+[T][X] homework  (by: 2024-12-12)
+Now you have 2 tasks in the list
+---------------------------------------------
+---------------------------------------------
+Noted. I've removed this task:
+[D][ ] assignment
+Now you have 1 tasks in the list
+---------------------------------------------
+---------------------------------------------
+Error: Unrecognised or incomplete command
+---------------------------------------------
+---------------------------------------------
+Here are the matching tasks in your list:
+---------------------------------------------
+---------------------------------------------
+Here are the matching tasks in your list:
+[E][ ] networking  (on: 2024-10-10)
+---------------------------------------------
+---------------------------------------------
+Saved task list successfully!
+Bye! Hope to see you again soon!
+---------------------------------------------

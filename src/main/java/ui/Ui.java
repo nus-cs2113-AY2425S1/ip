@@ -1,5 +1,8 @@
 package ui;
 
+import task.Task;
+import task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -15,8 +18,16 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String DIVIDER = "---------------------------------------------";
-    private static final String WELCOME_MESSAGE = "Hello! I'm Iris!\nTell me your needs!";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Iris!";
     private static final String END_CHAT_MESSAGE = "Bye! Hope to see you again soon!";
+    private static final String EMPTY_LIST_MESSAGE = "No tasks added, add more now!";
+    private static final String NONEMPTY_LIST_MESSAGE = "Here are the tasks in your list:";
+    private static final String MARK_AS_COMPLETED_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String UNMARK_FROM_COMPLETED_MESSAGE = "OK, I've marked this task as not done yet:";
+    private static final String SAVE_SUCCESS_MESSAGE = "Saved task list successfully!";
+    private static final String SAVE_ERROR_MESSAGE = "Failed to save task list.";
+    private static final String LOAD_SUCCESS_MESSAGE = "Loaded task list successfully!";
+    private static final String LOAD_ERROR_MESSAGE = "Failed to load task list, initializing with an empty list.";
 
     private final Scanner scanner;
 
@@ -65,5 +76,59 @@ public class Ui {
      */
     public static void showEndChatMessage() {
         System.out.println(END_CHAT_MESSAGE);
+    }
+
+    /**
+     * Prints a message confirming that a task has been added to the task list,
+     * displaying the newly added task and the current number of tasks in the list.
+     *
+     * @param task The new task has been added.
+     * @param size The size of the task list
+     */
+    public static void printAddTaskMessage(Task task, int size) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have "
+                + size
+                + " tasks in the list");
+    }
+
+    public static void printEmptyListMessage() {
+        System.out.println(EMPTY_LIST_MESSAGE);
+    }
+
+    public static void printNonEmptyListMessage() {
+        System.out.println(NONEMPTY_LIST_MESSAGE);
+    }
+
+    public static void printMarkMessage() {
+        System.out.println(MARK_AS_COMPLETED_MESSAGE);
+    }
+
+    public static void printUnmarkMessage() {
+        System.out.println(UNMARK_FROM_COMPLETED_MESSAGE);
+    }
+
+    public static void printTask(Task task) {
+        System.out.println(task);
+    }
+
+    public static void printSaveSuccessMessage() {
+        System.out.println(SAVE_SUCCESS_MESSAGE);
+    }
+
+    public static void printSaveErrorMessage(String errorMessage) {
+        System.out.println(SAVE_ERROR_MESSAGE);
+        Ui.showErrorMessage(errorMessage);
+    }
+
+    public static void printLoadSuccessMessage() {
+        System.out.println(LOAD_SUCCESS_MESSAGE);
+        Ui.showDivider();
+    }
+
+    public static void printLoadErrorMessage() {
+        System.out.println(LOAD_ERROR_MESSAGE);
+        Ui.showDivider();
     }
 }

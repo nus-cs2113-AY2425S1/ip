@@ -21,11 +21,6 @@ import java.io.ObjectOutputStream;
  * @author Tan Ping Hui
  */
 public class Storage {
-    private static final String LOAD_SUCCESS_MESSAGE = "Loaded task list successfully!";
-    private static final String LOAD_ERROR_MESSAGE = "Failed to load task list, initializing with an empty list.";
-    private static final String SAVE_SUCCESS_MESSAGE = "Saved task list successfully!";
-    private static final String SAVE_ERROR_MESSAGE = "Failed to save task list.";
-
     private final String filePath;
 
     /**
@@ -50,10 +45,9 @@ public class Storage {
             FileInputStream fis = new FileInputStream(filePath);
             ObjectInputStream ois = new ObjectInputStream(fis);
             tasks = (TaskList) ois.readObject();
-            System.out.println(LOAD_SUCCESS_MESSAGE);
-            Ui.showDivider();
+            Ui.printLoadSuccessMessage();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(LOAD_ERROR_MESSAGE);
+            Ui.printLoadErrorMessage();
             tasks = new TaskList();
         }
         return tasks;
@@ -70,10 +64,9 @@ public class Storage {
             FileOutputStream fos = new FileOutputStream(filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(tasks);
-            System.out.println(SAVE_SUCCESS_MESSAGE);
+            Ui.printSaveSuccessMessage();
         } catch (IOException e) {
-            System.out.println(SAVE_ERROR_MESSAGE);
-            Ui.showErrorMessage(e.getMessage());
+            Ui.printSaveErrorMessage(e.getMessage());
         }
     }
 }

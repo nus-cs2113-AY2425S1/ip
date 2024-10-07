@@ -4,6 +4,7 @@ import data.Storage;
 import exceptions.IrisException;
 import task.Task;
 import task.TaskList;
+import ui.Ui;
 
 /**
  * The MarkCommand class handles marking a task as completed or uncompleted
@@ -17,9 +18,6 @@ import task.TaskList;
  * @author Tan Ping Hui
  */
 public class MarkCommand extends Command {
-    private static final String MARK_AS_COMPLETED_MESSAGE = "Nice! I've marked this task as done:";
-    private static final String UNMARK_FROM_COMPLETED_MESSAGE = "OK, I've marked this task as not done yet:";
-
     private final boolean isMark;
     private final String description;
 
@@ -60,10 +58,10 @@ public class MarkCommand extends Command {
      */
     private static void printChangeTaskStatusMessage(Task task, boolean isMark) {
         if (isMark) {
-            System.out.println(MARK_AS_COMPLETED_MESSAGE);
+            Ui.printMarkMessage();
         } else {
-            System.out.println(UNMARK_FROM_COMPLETED_MESSAGE);
+            Ui.printUnmarkMessage();
         }
-        System.out.println(task);
+        Ui.printTask(task);
     }
 }

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static exceptions.ExceptionErrorMessage.INVALID_DATE_FORMAT;
+
 /**
  * The Task class represents a task with a description, status (whether it's done or not),
  * and an optional due date. It can parse user input to separate the task description
@@ -17,8 +19,6 @@ import java.time.format.DateTimeParseException;
  * @author Tan Ping Hui
  */
 public class Task implements Serializable {
-    private static final String INVALID_DATE_FORMAT = "Invalid Date Format (Use YYYY-MM-DD)";
-
     public String description;
     protected boolean isDone;
     public LocalDate dueDate;

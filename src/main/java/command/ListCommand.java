@@ -3,6 +3,7 @@ package command;
 import data.Storage;
 import task.Task;
 import task.TaskList;
+import ui.Ui;
 
 /**
  * The ListCommand class handles the listing of all tasks in the task list.
@@ -10,9 +11,6 @@ import task.TaskList;
  *
  */
 public class ListCommand extends Command {
-    private static final String EMPTY_LIST_MESSAGE = "No tasks added, add more now!";
-    private static final String NONEMPTY_LIST_MESSAGE = "Here are the tasks in your list:";
-
     /**
      * Executes the command to list all tasks in the task list.
      * If the task list is empty, it prints a message indicating that no tasks have been added.
@@ -23,10 +21,10 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
-            System.out.println(EMPTY_LIST_MESSAGE);
+            Ui.printEmptyListMessage();
             return;
         }
-        System.out.println(NONEMPTY_LIST_MESSAGE);
+        Ui.printNonEmptyListMessage();
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             System.out.println((i + 1) + "." + currentTask);

@@ -9,6 +9,8 @@ import ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static exceptions.ExceptionErrorMessage.INVALID_DATE_FORMAT;
+
 /**
  * The DateCommand class handles the filtering of tasks based on a specified date.
  * It retrieves and displays tasks that are either before or after the given date.
@@ -18,7 +20,6 @@ import java.time.format.DateTimeParseException;
  * @author Tan Ping Hui
  */
 public class DateCommand extends Command {
-    private static final String INVALID_DATE_FORMAT = "Invalid Date Format (Use YYYY-MM-DD)";
 
     private final LocalDate date;
 

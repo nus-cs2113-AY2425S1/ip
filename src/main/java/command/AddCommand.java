@@ -7,6 +7,7 @@ import task.type.Deadline;
 import task.type.Event;
 import task.TaskList;
 import task.type.Todo;
+import ui.Ui;
 
 /**
  * The AddCommand class handles the addition of new tasks (Todo, Deadline, or Event)
@@ -57,20 +58,6 @@ public class AddCommand extends Command {
             newTask = new Event(description);
         }
         tasks.add(newTask);
-        printAddTaskMessage(tasks);
-    }
-
-    /**
-     * Prints a message confirming that a task has been added to the task list,
-     * displaying the newly added task and the current number of tasks in the list.
-     *
-     * @param tasks The task list to which the new task has been added.
-     */
-    private static void printAddTaskMessage(TaskList tasks) {
-        System.out.println("Got it. I've added this task:\n"
-                + tasks.get(tasks.size() - 1)
-                + "\nNow you have "
-                + tasks.size()
-                + " tasks in the list");
+        Ui.printAddTaskMessage(newTask, tasks.size());
     }
 }
