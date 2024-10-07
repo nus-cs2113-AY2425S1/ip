@@ -5,6 +5,7 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -106,7 +107,9 @@ public class Taskmanager {
         }catch (EmptyTaskEntry e){
             System.out.println(e.getMessage());
         }catch (DateTimeParseException e){
-            System.out.println("Key in valid deadline using format dd/MM/yyyy Hmm");
+            System.out.println("Key in valid deadline using format dd/MM/yyyy HHmm");
+        }catch (DateTimeException e){
+            System.out.println("Key in valid deadline using format dd/MM/yyyy HHmm please");
         }
     }
 
