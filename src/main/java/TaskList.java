@@ -34,6 +34,22 @@ public class TaskList {
         return;
     }
 
+    public void findTasks(String keyword) {
+        int index = 1;
+        System.out.println("Here are the matching tasks in your list: ");
+        ui.printEnclosure();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(index++ + ". " + task.toString());
+            }
+        }
+        ui.printEnclosure();
+
+        if (index == 1) {
+            System.out.println("no tasks found");
+        }
+    }
+
     public void toMark (String input, boolean shouldMark) throws DianaException {
         try {
             String substring = input.substring(input.indexOf(" ") + 1);
