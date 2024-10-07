@@ -59,23 +59,38 @@ public class Storage {
     }
 
     private Task parseTaskFromString(String line) {
-        line = line.trim();
+        boolean isDone = line.contains("[X]");
+        String description;
 
         if (line.startsWith("[T]")) {
-            return new Todo(line.substring(6).trim());
+            description = line.substring(6).trim();
+            Todo todo = new Todo(description);
+            if (isDone) {
+                todo.setMarkAsDone();
+            }
+            return todo;
         } else if (line.startsWith("[D]")) {
             String[] parts = line.split("\\(by: ");
-            String description = parts[0].substring(6).trim();
+            description = parts[0].substring(6).trim();
             String by = parts[1].replace(")", "");
-            return new Deadline(description, by);
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.setMarkAsDone();
+            }
+            return deadline;
         } else if (line.startsWith("[E]")) {
             String[] parts = line.split("\\(from: | to: |\\)");
-            String description = parts[0].substring(6).trim();
+            description = parts[0].substring(6).trim();
             String from = parts[1].trim();
             String to = parts[2].trim();
-            return new Event(description, from, to);
+            Event event = new Event(description, from, to);
+            if (isDone) {
+                event.setMarkAsDone();
+            }
+            return event;
+        } else {
+            System.out.println("Warning: Unrecognized task format - " + line);
+            return null;
         }
-        return null;
     }
-
 }
