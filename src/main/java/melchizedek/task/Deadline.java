@@ -10,35 +10,13 @@ public class Deadline extends Task {
     private LocalDate byDate;
     private LocalTime byTime;
 
-    public Deadline(String description, LocalDate byDate) {
-        super(description);
-        this.byDate = byDate;
-        this.byTime = null;
-    }
-
     /**
      * Constructor of the Deadline class.
      *
      * @param description Deadline description
-     */
-    public Deadline(String description, LocalDate byDate, LocalTime byTime) {
-        super(description);
-        this.byDate = byDate;
-        this.byTime = byTime;
-    }
-
-    public Deadline(String description, boolean isDone, LocalDate byDate) {
-        super(description, isDone);
-        this.byDate = byDate;
-        this.byTime = null;
-    }
-
-    /**
-     * Constructor of the Deadline class,
-     * mainly used when loading tasks from save file only.
-     *
-     * @param description Deadline description
      * @param isDone Truth value of whether deadline has been marked as done
+     * @param byDate Date of deadline
+     * @param byTime Time of deadline
      */
     public Deadline(String description, boolean isDone, LocalDate byDate, LocalTime byTime) {
         super(description, isDone);
@@ -60,7 +38,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Override method to format deadline to printable String
+     * Override method to format deadline to printable String.
      *
      * @return Deadline in formatted String
      */

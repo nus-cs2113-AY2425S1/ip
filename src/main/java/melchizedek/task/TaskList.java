@@ -89,7 +89,7 @@ public class TaskList {
     public void addTodo(String[] tokens) {
         String description = Parser.joinStringArray(tokens, " ");
 
-        allTasks.add(new Todo(description));
+        allTasks.add(new Todo(description, false));
         int taskCount = getTaskCount();
         Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
@@ -128,11 +128,7 @@ public class TaskList {
             return;
         }
 
-        if (byTime == null) {
-            allTasks.add(new Deadline(description, byDate));
-        } else {
-            allTasks.add(new Deadline(description, byDate, byTime));
-        }
+        allTasks.add(new Deadline(description, false, byDate, byTime));
         int taskCount = getTaskCount();
         Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
@@ -246,7 +242,7 @@ public class TaskList {
     public void loadDeadline(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
-        LocalDate byDate = null;
+        LocalDate byDate;
         LocalTime byTime = null;
         try {
             byDate  = Parser.parseDate(tokens[2]);
@@ -258,10 +254,6 @@ public class TaskList {
             return;
         }
 
-        if (byTime == null) {
-            allTasks.add(new Deadline(description, isDone, byDate));
-            return;
-        }
         allTasks.add(new Deadline(description, isDone, byDate, byTime));
     }
 

@@ -13,21 +13,14 @@ public class Event extends Task {
     private LocalTime toTime;
 
     /**
-     * Constructor of the Event class.
-     *
-     * @param description Event description
-     */
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-    /**
-     * Constructor of the Event class,
-     * mainly used when loading tasks from save file only.
+     * Constructor of Event class
      *
      * @param description Event description
      * @param isDone Truth value of whether event has been marked as done
+     * @param fromDate Starting date of event
+     * @param fromTime Starting time of event
+     * @param toDate Ending date of event
+     * @param toTime Ending time of event
      */
     public Event(String description, boolean isDone, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
         super(description, isDone);

@@ -292,13 +292,19 @@ public class Ui {
         System.out.println("\tOh no! I cannot search without a keyword!");
     }
 
+    /**
+     * Method to print out a warning that Date or Time is in the wrong format.
+     */
     public static void printDateTimeParseException() {
         System.out.println("\tOh no! Please input a valid date and/or time in the specified format!");
         printDateTimeFormat();
     }
 
+    /**
+     * Method to print out the correct Date Time format.
+     */
     public static void printDateTimeFormat() {
-        System.out.println("\tDate and Time Format: yyyy-MM-dd HH:mm");
-        System.out.println("\tTime is optional");
+        System.out.println("\t  Date and Time Format: yyyy-MM-dd HH:mm");
+        System.out.println("\t  Time is optional");
     }
 }

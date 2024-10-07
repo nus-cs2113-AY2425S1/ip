@@ -3,15 +3,6 @@ package melchizedek.task;
 public class Todo extends Task {
 
     /**
-     * Constructor of the Todo class.
-     *
-     * @param description Todo description
-     */
-    public Todo(String description) {
-        super(description);
-    }
-
-    /**
      * Constructor of the Todo class,
      * mainly used when loading tasks from save file only.
      *

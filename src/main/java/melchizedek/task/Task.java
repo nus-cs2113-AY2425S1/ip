@@ -5,16 +5,6 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor of the Task class
-     *
-     * @param description Task description
-     */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    /**
      * Constructor of the Task class,
      * mainly used when loading tasks from save file only.
      *
@@ -58,18 +48,21 @@ public abstract class Task {
 
     /**
      * Method to check if the task contains the keyword.
+     * Case of keyword is ignored.
      *
      * @param keyword The keyword to check for
      * @return The truth value of whether the task contains the keyword
      */
     public boolean containsKeyword(String keyword) {
-        return description.contains(keyword);
+        String keywordLowerCase = keyword.toLowerCase();
+        String descriptionLowerCase = description.toLowerCase();
+        return descriptionLowerCase.contains(keywordLowerCase);
     }
 
     /**
      * Method to convert task to the save file format.
      *
-     * @return
+     * @return Task in File format
      */
     public String taskToFile() {
         if (isDone) {

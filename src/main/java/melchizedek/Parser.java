@@ -3,7 +3,6 @@ package melchizedek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -46,26 +45,62 @@ public class Parser {
         return String.join(delimiter, array);
     }
 
+    /**
+     * Method that parses String into LocalDate.
+     *
+     * @param stringDate Date in String type
+     * @return Date in LocalDate type
+     */
     public static LocalDate parseDate(String stringDate) {
         return LocalDate.parse(stringDate);
     }
 
+    /**
+     * Method that parses LocalDate into printable String format.
+     *
+     * @param localDate Date in LocalDate type
+     * @return Date in print format
+     */
     public static String stringDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
     }
 
+    /**
+     * Method that parses LocalDate into File storing format.
+     *
+     * @param localDate Date in LocalDate type
+     * @return Date in File format
+     */
     public static String stringDateToFile(LocalDate localDate) {
         return localDate.toString();
     }
 
+    /**
+     * Method that parses String into LocalTime.
+     *
+     * @param stringTime Time in String type
+     * @return Time in LocalTime type
+     */
     public static LocalTime parseTime(String stringTime) {
         return LocalTime.parse(stringTime);
     }
 
+    /**
+     * Method that parses LocalTime into printable String format.
+     *
+     * @param localTime Time in LocalTime type
+     * @return Time in print format
+     */
     public static String stringTime(LocalTime localTime) {
         return localTime.format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
+    /**
+     * Method that parses LocalTime into File storing format.
+     *
+     * @param localTime Time in LocalTime type
+     * @return Time in File format
+     */
     public static String stringTimeToFile(LocalTime localTime) {
         return localTime.toString();
     }
