@@ -64,8 +64,9 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filePath);
+            System.out.println("\tFile not found: " + filePath);
         }
+        Ui.printHorizontalLine();
     }
 
     /**

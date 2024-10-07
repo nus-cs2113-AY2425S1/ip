@@ -21,7 +21,7 @@ public class Ui {
     /**
      * Prints a horizontal line for separating sections in the user interface.
      */
-    public void printHorizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println(DRAW_HORIZONTAL_LINE);
     }
 

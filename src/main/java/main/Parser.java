@@ -15,54 +15,55 @@ public class Parser {
     public static final String EVENT_FROM_KEYWORD = "/from";
     public static final String EVENT_TO_KEYWORD = "/to";
 
-    /**
-     * Continuously reads user input and interprets the commands to modify the task list.
-     *
-     * @param in           Scanner to read user input.
-     * @param storage
-     * @param ui
-     * @param userList     The current task list.
-     */
     public static void getUserInput(Scanner in, Storage storage, Ui ui, TaskList userList) {
         String line;
         while (true) {
             line = getLine(ui, in);
+            String commandType = getCommandType(line); // Get command type using the new method
 
-            if (isBye(line)) {
+            switch (commandType) {
+            case "bye":
                 ui.printByeMessage();
+                ui.printHorizontalLine();
+                return;
+
+            case "list":
+                userList.printList();
                 ui.printHorizontalLine();
                 break;
 
-            } else if (isList(line)) {
-                userList.printList();
-                ui.printHorizontalLine();
-
-            } else if (isMark(line)) {
+            case "mark":
                 userList.markItem(line);
                 ui.printHorizontalLine();
                 storage.saveListToFile(userList);
+                break;
 
-            } else if (isUnmark(line)) {
+            case "unmark":
                 userList.unmarkItem(line);
                 ui.printHorizontalLine();
                 storage.saveListToFile(userList);
+                break;
 
-            } else if (isDelete(line)) {
+            case "delete":
                 userList.deleteItem(line);
                 ui.printHorizontalLine();
                 storage.saveListToFile(userList);
+                break;
 
-            } else if (isFind(line)) {
+            case "find":
                 userList.findItem(line);
                 ui.printHorizontalLine();
-            } else {
+                break;
+
+            default:
                 userList.addItem(line);
                 ui.printHorizontalLine();
                 storage.saveListToFile(userList);
-
+                break;
             }
         }
     }
+
 
     /**
      * Reads a line of input from the user and prints a horizontal line after the input.
@@ -79,53 +80,46 @@ public class Parser {
     }
 
     /**
-     * Checks if the input command is to list all tasks.
+     * Checks if the input command matches any of the predefined commands.
      * @param line The input string.
-     * @return True if the command is "list", false otherwise.
+     * @return The command type if it matches, or "unknown" if not recognized.
      */
-    private static boolean isList(String line) {
-        return line.equals("list");
+    private static String getCommandType(String line) {
+        if (line.equals("list")) {
+            return "list";
+        } else if (line.equals("bye")) {
+            return "bye";
+        } else if (line.startsWith("mark ")) {
+            return "mark";
+        } else if (line.startsWith("unmark ")) {
+            return "unmark";
+        } else if (line.startsWith("delete ")) {
+            return "delete";
+        } else if (line.startsWith("find ")) {
+            return "find";
+        } else {
+            return "unknown"; // Return "unknown" for commands that do not match
+        }
     }
 
     /**
-     * Checks if the input command is to exit the program.
-     * @param line The input string.
-     * @return True if the command is "bye", false otherwise.
+     * Determines the type of task based on the input line.
+     *
+     * @param line The user input containing task information.
+     * @return The task type as a string ("event", "deadline", "todo", or "unknown").
      */
-    private static boolean isBye(String line) {
-        return line.equals("bye");
+    public static String getTaskType(String line) {
+        if (isValidEvent(line)) {
+            return "event";
+        } else if (isValidDeadline(line)) {
+            return "deadline";
+        } else if (isTodo(line)) {
+            return "todo";
+        } else {
+            return "unknown"; // Return "unknown" for unrecognized task types
+        }
     }
 
-    /**
-     * Checks if the input command is to mark a task as done.
-     * @param line The input string.
-     * @return True if the command starts with "mark", false otherwise.
-     */
-    public static boolean isMark(String line) {
-        return line.startsWith("mark ");
-    }
-
-    /**
-     * Checks if the input command is to unmark a task (mark it as not done).
-     * @param line The input string.
-     * @return True if the command starts with "unmark", false otherwise.
-     */
-    public static boolean isUnmark(String line) {
-        return line.startsWith("unmark ");
-    }
-
-    /**
-     * Checks if the input command is to delete a task.
-     * @param line The input string.
-     * @return True if the command starts with "delete", false otherwise.
-     */
-    public static boolean isDelete(String line) {
-        return line.startsWith("delete ");
-    }
-
-    public static boolean isFind(String line) {
-        return line.startsWith("find ");
-    }
 
     /**
      * Checks if the input string is a valid event format.

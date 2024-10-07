@@ -41,14 +41,21 @@ public class TaskList {
      * @param line The user input containing task information.
      */
     public void addItem(String line) {
-        if (Parser.isValidEvent(line)) {
+        String commandType = Parser.getTaskType(line); // Assuming a method to determine task type
+
+        switch (commandType) {
+        case "event":
             List.addEvent(itemArrayList, ui, line);
-        } else if (Parser.isValidDeadline(line)) {
+            break;
+        case "deadline":
             List.addDeadline(itemArrayList, ui, line);
-        } else if (Parser.isTodo(line)) {
+            break;
+        case "todo":
             List.addTodo(itemArrayList, ui, line);
-        } else {
+            break;
+        default:
             ui.printInvalidTaskMessage();
+            break;
         }
     }
 
