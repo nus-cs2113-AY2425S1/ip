@@ -2,6 +2,7 @@ package atom.parser;
 
 import atom.ui.Ui;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -100,5 +101,13 @@ public class DateTimeParser {
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
         String parsedDateTime = localDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma"));
         return parsedDateTime;
+    }
+
+    public static String parseDate(String date) throws DateTimeParseException {
+        //format example: "12/11/2024"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        String parsedDate = localDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        return parsedDate;
     }
 }
