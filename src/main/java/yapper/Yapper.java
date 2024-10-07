@@ -29,7 +29,7 @@ public class Yapper {
      *
      * @param taskHandler the TaskHandler instance that manages tasks
      */
-    public static void startMainLoop(TaskHandler taskHandler) {
+    public static void runMainLoop(TaskHandler taskHandler) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
@@ -74,7 +74,7 @@ public class Yapper {
             System.out.println("let us resume where we left off, shall we?");
         }
 
-        startMainLoop(taskHandler);
+        runMainLoop(taskHandler);
 
         System.out.println(StringStorage.SHUT_DOWN_MESSAGE);
         System.out.println(StringStorage.LINE_DIVIDER);
