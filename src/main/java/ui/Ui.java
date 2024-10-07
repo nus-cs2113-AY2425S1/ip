@@ -6,21 +6,21 @@ import tasks.*;
 
 public class Ui {
     private Scanner scanner;
+    public enum Type {
+        TODO, DEADLINE, EVENT
+    };
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
     public String receiveCommand() {
         return scanner.nextLine();
     }
-    public enum Type {TODO, DEADLINE, EVENT};
-
     public void printWelcomeMessage() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hello! I'm Nateh.Nateh\nWhat can I do for you?");
         System.out.println(Skeleton.SKELETON);
         System.out.print(Skeleton.LINE_BREAK);
     }
-
     public void printInvalidCommandError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Oops?! I don't know that one >.<");
@@ -44,7 +44,7 @@ public class Ui {
         case EVENT -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
-            System.out.println("Format: deadline <description> /from <from> /to <to>");
+            System.out.println("Format: event <description> /from <from> /to <to>");
             System.out.print((Skeleton.LINE_BREAK));
         }
         }
@@ -107,7 +107,7 @@ public class Ui {
         System.out.println("Format: yyyy-mm-dd");
         System.out.print(Skeleton.LINE_BREAK);
     }
-    public void searchError() {
+    public void printSearchError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("I don't think you can search like that....");
         System.out.println("Searching for tasks with specific date: search /d <date>");
