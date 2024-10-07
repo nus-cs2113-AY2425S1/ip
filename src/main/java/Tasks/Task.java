@@ -12,18 +12,33 @@ public class Task {
          this.isDone = false;
      }
 
+    /**
+     * Returns description of task
+     * @return description of task
+     */
      public String getDescription() {
          return description;
      }
 
+    /**
+     * Returns status of task completion
+     * @return true if task is done, else false
+     */
      public boolean isDone() {
          return isDone;
      }
 
+    /**
+     * Sets task as done
+     */
      public void markAsDone() {
          isDone = true;
      }
-     public void markAsUndone(){
+
+    /**
+     * Sets task as undone
+     */
+    public void markAsUndone(){
          isDone = false;
      }
      public String toString(){

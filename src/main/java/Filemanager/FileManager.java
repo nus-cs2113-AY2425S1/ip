@@ -26,7 +26,6 @@ public class FileManager {
      */
     public void createFile(){
         try {
-
             if (f.exists()) {
                 System.out.println("This file exists");
                 return;
@@ -78,8 +77,7 @@ public class FileManager {
         fileWriter.close();
 
         }
-
-    }
+}
 
 
 
