@@ -22,8 +22,13 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
     Got it. I've added this task:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+      [D][ ] return book (by: 2/12/2019 1800)
     Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+    Got it. I've added this task:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
     OOPS!!! Sorry, I don't understand the command. Please use keywords like: 'todo', 'deadline', or 'event'. For example, 'todo <description>' or 'deadline <description> /by <time>'.
@@ -32,7 +37,8 @@ ____________________________________________________________
     Here are the tasks in your list:
     1.[T][ ] borrow book
     2.[D][ ] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    3.[D][ ] return book (by: 2/12/2019 1800)
+    4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
     Nice! I've marked this task as done:
@@ -44,7 +50,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
     Nice! I've marked this task as done:
-      [E][X] project meeting (from: Mon 2pm to: 4pm)
+      [D][X] return book (by: 2/12/2019 1800)
 ____________________________________________________________
 ____________________________________________________________
     OOPS!!! Invalid task number.
@@ -53,7 +59,8 @@ ____________________________________________________________
     Here are the tasks in your list:
     1.[T][X] borrow book
     2.[D][X] return book (by: Sunday)
-    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+    3.[D][X] return book (by: 2/12/2019 1800)
+    4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
     Bye. Hope to see you again soon!
