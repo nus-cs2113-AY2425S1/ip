@@ -4,6 +4,7 @@ import datahandling.Storage;
 import task.Deadline;
 import task.TaskList;
 import ui.UserInteraction;
+import java.io.IOException;
 
 public class DeadlineCommand extends Command {
     private final String taskDetails;
@@ -13,17 +14,20 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UserInteraction ui, Storage storage) throws Exception {
-        String[] parts = taskDetails.split(" /by ", 2);
-        if (parts.length < 2) {
-            ui.showMessage("Invalid deadline format. Use: deadline <task> /by <date>");
-            return;
-        }
+    public void execute(TaskList tasks, UserInteraction ui, Storage storage) throws IOException {
+        try {
+            String[] parts = taskDetails.split(" /by ", 2);
+            if (parts.length < 2) {
+                throw new IllegalArgumentException("Invalid deadline format. Use: deadline <task> /by <date>");
+            }
 
-        String description = parts[0];
-        String by = parts[1];
-        tasks.addTask(new Deadline(description, by));
-        ui.showMessage("Added: [D][ ] " + description + " (by: " + by + ")");
-        storage.save(tasks.getTasks());
+            String description = parts[0];
+            String by = parts[1];
+            tasks.addTask(new Deadline(description, by));
+            ui.showMessage("Added: " + tasks.getTask(tasks.getSize() - 1));
+            storage.saveTasksToFile(tasks.getTasks());
+        } catch (IllegalArgumentException e) {
+            ui.showMessage(e.getMessage());
+        }
     }
 }
