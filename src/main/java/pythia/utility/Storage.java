@@ -4,15 +4,35 @@ import pythia.task.Task;
 
 import java.io.*;
 
+/**
+ * The {@code Storage} class is responsible for saving
+ * and loading {@link TaskList} objects to and from a file.
+ * It provides methods to serialize a task list into a file
+ * and deserialize a task list from a file.
+ */
 public class Storage {
     private String filePath;
     private WriteVisitor writeVisitor;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath the path to the file where the {@link TaskList}
+     *                will be stored or read from
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.writeVisitor = new WriteVisitor();
     }
 
+    /**
+     * Saves the given {@link TaskList} to a file at the specified path.
+     * Each task in the task list is serialized into a string representation
+     * using the {@link WriteVisitor} and written to the file.
+     *
+     * @param taskList the {@link TaskList} object to be saved to the file
+     * @throws IOException if an I/O error occurs during writing to the file
+     */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
             for (Task task : taskList) {
@@ -25,6 +45,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a {@link TaskList} from the file at the specified path.
+     * Each line in the file is deserialized into a {@link Task} object using
+     * the {@link TaskFromStringFactory} and added to a new task list.
+     *
+     * @return the newly created {@link TaskList} object loaded from the file
+     * @throws IOException if an I/O error occurs during reading from the file
+     */
     public TaskList load() {
         TaskList taskList = new TaskList();
         TaskFromStringFactory factory = new TaskFromStringFactory();

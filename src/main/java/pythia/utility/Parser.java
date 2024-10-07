@@ -3,18 +3,33 @@ package pythia.utility;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Collections;
 import pythia.exceptions.PythiaException;
 import pythia.Pythia;
 
+/**
+ * The {@code Parser} class is responsible for parsing and executing
+ * user commands in the Pythia application.
+ * It validates commands, extracts necessary arguments, and invokes
+ * corresponding actions.
+ */
 public class Parser {
     private String commandType = null;
     private ArrayList<String> argumentList = null;
     private String parsingErrorMessage = "Parsing of add command unsuccessful.";
 
+    /**
+     * Constructs a {@code Parser} object.
+     */
     public Parser() {
     }
 
+    /**
+     * Parses the command type from the given raw text.
+     * The command type is identified as the first word before any spaces.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     * @return the command type as a string
+     */
     private String parseCommandType(String rawText) {
         int spaceIndex = rawText.indexOf(' ');
 
@@ -27,12 +42,30 @@ public class Parser {
         return firstPart;
     }
 
+    /**
+     * Handles parsing for the "bye" command.
+     * As no arguments are required for this command, this method is intentionally left empty.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     */
     private void parseBye(String rawText) {
     }
 
+    /**
+     * Handles parsing for the "list" command.
+     * As no arguments are required for this command, this method is intentionally left empty.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     */
     private void parseList(String rawText) {
     }
 
+    /**
+     * Parses the "add" command, checking if the input format is correct.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     * @throws PythiaException if the command lacks a valid task description
+     */
     private void parseAdd(String rawText) throws PythiaException {
         argumentList = tokenize(rawText, "add\\s(.+)");
         boolean isCorrectFormat = argumentList.size() == 1;
@@ -42,6 +75,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "mark" command, ensuring it includes a valid task number.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     * @throws PythiaException if the command lacks a valid task number
+     */
     private void parseMark(String rawText) throws PythiaException {
         argumentList = tokenize(rawText, "mark\\s(.+)");
         boolean isCorrectFormat = argumentList.size() == 1 && argumentList.get(0).matches("\\d+");
@@ -96,6 +135,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Splits the given command string into tokens based on the provided regular expression.
+     *
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * String rawText = "event <eventname> /from <startDate> /to <endDate>";
+     * String regex = "event\\s(.+)\\s/from\\s(.+)\\s/to\\s(.+)";
+     * ArrayList<String> tokens = tokenize(rawText, regex);
+     * // Resulting tokens = {<eventname>, <startDate>, <endDate>}
+     * }</pre>
+     *
+     * @param rawText the whole, unaltered command input from the user
+     * @param regex the regular expression used to capture command arguments
+     * @return a list of tokens extracted from the input text
+     */
     private ArrayList<String> tokenize(String rawText, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(rawText);
@@ -111,6 +165,13 @@ public class Parser {
         return tokens;
     }
 
+    /**
+     * Parses the entire command input and determines which specific parsing method to call.
+     * The command is identified by its type and validated accordingly.
+     *
+     * @param rawText the whole, unaltered command input from the user
+     * @throws PythiaException if the command is invalid
+     */
     public void parse(String rawText) throws PythiaException {
         commandType = parseCommandType(rawText);
 
@@ -127,6 +188,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the parsed command by invoking the corresponding method in the {@link Pythia} class.
+     * If no command has been parsed, it throws a {@link PythiaException}.
+     *
+     * @throws PythiaException if no command was parsed or the command is unrecognized
+     */
     public void execute() throws PythiaException {
         if (commandType == null) {
             throw new PythiaException(parsingErrorMessage, "Sorry, I am busy.");
