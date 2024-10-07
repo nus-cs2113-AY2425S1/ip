@@ -35,9 +35,7 @@ public class EchoUI {
             userInput = parser.getUserInput();
             parser.processUserInput(userInput, taskList);
         } while (!userInput.equalsIgnoreCase("bye"));
-
         taskList.saveTasks();
-        displayExitMessage();
     }
 
     /**

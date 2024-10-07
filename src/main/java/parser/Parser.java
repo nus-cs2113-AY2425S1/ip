@@ -10,6 +10,7 @@ import command.DeadlineCommand;
 import command.EventCommand;
 import command.DeleteCommand;
 import command.FindCommand;
+import ui.EchoUI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ public class Parser {
     private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private static final String SEPARATOR = "_".repeat(30);
     private Scanner scanner = new Scanner(System.in);
+    EchoUI echoUI = new EchoUI();
 
     /**
      * Converts the date from a string.
@@ -76,6 +78,12 @@ public class Parser {
             new DeleteCommand().execute(taskList, userInput);
         } else if (userInput.startsWith("find")) {
             new FindCommand().execute(taskList, userInput);
+        } else if (userInput.equalsIgnoreCase("bye")) {
+            echoUI.displayExitMessage();
+        } else{
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.unknownCommand());
+            System.out.println(SEPARATOR);
         }
     }
 }
