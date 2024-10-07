@@ -61,6 +61,47 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public void showTaskAsDone(String description) {
+        showMessage("Great! This task is marked as done: ");
+        showMessage(description);
+        showMessage("Well done! ;)");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    public void showTaskAsNotDone (String description) {
+        showMessage("Ok, This task is marked as not done yet: ");
+        showMessage(description);
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    public void showDeleteTask (String taskDescription, int taskNumber, int remainingTasks) {
+        showMessage("Okay. I have deleted task " + (taskNumber + 1) + ".");
+        showMessage(taskDescription);
+        showMessage("Now you have " + remainingTasks + " tasks in the list.");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    public void showAddTodo (String todoDescription, int count) {
+        showMessage("Okay, I've added this todo: ");
+        showMessage(todoDescription);
+        showMessage("Now you have " + count + " tasks in the list.");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    public void showAddDeadline (String deadlineDescription, int count) {
+        showMessage("Okay, I've added this deadline: ");
+        showMessage(deadlineDescription);
+        showMessage("Now you have " + count + " tasks in the list.");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    public void showAddEvent (String eventDescription, int count) {
+        showMessage("Okay, I've added this event: ");
+        showMessage(eventDescription);
+        showMessage("Now you have " + count + " tasks in the list.");
+        showMessage(HORIZONTAL_LINE);
+    }
+
     public void closeScanner() {
         scanner.close();
     }
