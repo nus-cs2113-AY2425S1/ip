@@ -70,8 +70,23 @@ The sections below give more details of each component.
 API: [Yapper.java](../src/main/java/yapper/Yapper.java)
 
 The `Yapper` class is the main entry point of the program. 
-It manages the program's main loop, processes user input via the `InstructionHandler`, 
+It manages the program's main loop, parses and processes user input, 
 and also handles program initialization and termination.
+
+It consists of `main` and `runMainLoop`.
+
+* `Main`
+  1. main checks for an existing save file via `InputFileHandler`. 
+  2. If absent, it initializes an empty `TaskHandler`, then prints the startup and help message. 
+  If present, it loads the file's contents into `TaskHandler`, then prints a different message. 
+  3. After that, it starts the chatbot loop. 
+  4. When the loop is exited, it displays a shutdown message.
+* `runMainLoop`
+  1. Within a loop, user input is read from the command line via `Scanner`,
+  user input is parsed and validated via `InputStringHandler`, then
+  relevant actions are performed via `InstructionHandler`.
+  2. The loop continues indefinitely until a valid bye command is entered. 
+  If input is an invalid bye command, it outputs a warning message.
 
 
 <!-- DIVIDER -->
