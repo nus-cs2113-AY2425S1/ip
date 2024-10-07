@@ -13,6 +13,14 @@ Third, unique search features include search by date and search by keyword are a
 
 Finally, a Save feature is also introduced which allows you to save and load task via a file.
 
+# Getting Started
+
+1) Make sure you have Java 17 or above installed on your computer.
+2) Download the .jar file
+3) Open a terminal in the directory which you saved the .jar file, then run the following: 
+<br>`java -jar ip.jar`
+
+
 # Initial configuration
 
 After starting the program , you will be prompted on whether you would like to save your tasks to a file.
@@ -28,7 +36,7 @@ ____________________________________________________________
 
 If you have input "no" after the prompt , do take note that the task which are created will not be saved anywhere.<br>
 
-### <b>All data will be lost upon ending the program</b>
+#### Note : <b>All data will be lost upon ending the program</b>
 
 ## <u>YES</u>
 
