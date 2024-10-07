@@ -1,24 +1,65 @@
-# Duke project template
+# Yappatron User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Yappatron is a useful app for managing tasks in a calendar. 
 
-## Setting up in Intellij
+## Features 
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### List all tasks: `list`
+Lists down all tasks that were previously input by the user.<br/>
+Format: `list`
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+### Mark task as done: `mark`
+Marks an existing entry in the list of tasks. <br/>
+Format: `mark INDEX`
+- Marks the task at the specified index. Index refers to the index number displayed as shown in the list.
+- Marked tasks are denoted by [X] in the list.
+<br/>
+Example:`mark 1` Marks the first task in the list as done.
+
+
+### Unmark task as done: `unmark`
+Unmarks an existing entry in the list of tasks.<br/>
+Format: `unmark INDEX`
+- Unmarks the task at specified index. Index refers to index number displayed as shown in the list.
+- Unmarked tasks are denoted by [] in the list.
+<br/>
+Example:`unmark 1` Unmarks the first task in the list as done.
+
+
+### Add a Todo task: `todo`
+Adds a new task that is a Todo, with no deadlines or times. <br/>
+Format: `todo ACTIVITY NAME` <br/>
+Example: `todo water plants`
+
+
+### Add a Deadline task: `deadline`
+Adds a new task that is a Deadline, with a specific deadline in the form of a date and time. <br/>
+Format: `deadline ACTIVITY NAME by DEADLINE`
+- Deadline must be provided in form of dd/MM/yyyy HHmm
+- Output when listed will be shown in the form MMM dd yyyy H:mm (eg Oct 11 2024 23:59)
+<br/>
+Example: `deadline CS2113 iP by 11/10/2024 2359`
+
+
+### Add an Event task: `event`
+Adds a new event task, with a specific from and to (duration) specified.<br/>
+Format: `event ACTIVITY NAME from START TIME to END TIME`
+- Start and end time does not have to be in dd/MM/yyyy HHmm format like in add deadline.
+- Start and end time can be generic (eg from Mon 12am to 2am)
+<br/>
+Example: `event night cycling from Mon 10pm to Tues 5am`
+
+
+### Delete a task from record: `delete`
+Deletes a task from the list. <br/>
+Format: `delete INDEX`
+- Deletes the task at the specified index. Index refers to the index number displayed as shown in the list.
+<br/>
+Example: `delete 1` deletes first task in the list
+
+
+### Find task: `find`
+Finds a task based on the filter keyword(s) provided.<br/>
+Format: `find KEYWORD(s)`<br/>
+Example: `find book` filters list to show only tasks with the word "book" in the task name.
