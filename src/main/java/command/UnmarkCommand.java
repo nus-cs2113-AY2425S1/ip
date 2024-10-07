@@ -9,6 +9,7 @@ import ui.Ui;
  * Represents a command to unmark a task as not done in the task list.
  */
 public class UnmarkCommand extends Command {
+    private static final int INDEX_OFFSET = 1; // Offset for converting user input to zero-based index
     private String input;
 
     /**
@@ -36,7 +37,7 @@ public class UnmarkCommand extends Command {
         }
 
         try {
-            int taskNumber = Integer.parseInt(parts[1].trim()) - 1; // Convert to 0-based index
+            int taskNumber = Integer.parseInt(parts[1].trim()) - INDEX_OFFSET; // Convert to 0-based index
             if (tasks.isValidTaskNumber(taskNumber)) {
                 tasks.markAsNotDone(taskNumber);
                 ui.showTaskUnmarked(tasks.get(taskNumber));

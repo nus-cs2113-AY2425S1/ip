@@ -17,7 +17,8 @@ public class ExitCommand extends Command {
      * @param tasks   the task list (not used in exit command)
      * @param ui      the UI for user interaction
      * @param storage the storage for saving tasks (not used in exit command)
-     * @throws UserInputException,InvalidCommandException if there is an error during execution
+     * @throws InvalidCommandException if the command is invalid
+     * @throws UserInputException if there is an error with user input
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws UserInputException, InvalidCommandException {

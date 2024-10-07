@@ -15,6 +15,16 @@ import java.util.ArrayList;
  * Handles loading and saving tasks to and from a file.
  */
 public class Storage {
+    private static final String TODO_TASK_TYPE = "T";
+    private static final String DEADLINE_TASK_TYPE = "D";
+    private static final String EVENT_TASK_TYPE = "E";
+    private static final String DELIMITER = " \\| ";
+    private static final int DONE_STATUS = 1;
+    private static final int NOT_DONE_STATUS = 0;
+    private static final int TODO_PARTS_LENGTH = 3;
+    private static final int DEADLINE_PARTS_LENGTH = 4;
+    private static final int EVENT_PARTS_LENGTH = 5;
+
     private String filePath;
 
     /**
@@ -86,7 +96,6 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            // Handle exception, e.g., log the error or notify the user
             System.out.println("    Error saving tasks to file: " + e.getMessage());
         }
     }
@@ -99,30 +108,30 @@ public class Storage {
      * @throws StorageException if the line format is invalid
      */
     private Task parseTask(String line) throws StorageException {
-        String[] parts = line.split(" \\| "); // Assuming fields are separated by " | "
+        String[] parts = line.split(DELIMITER); // Assuming fields are separated by " | "
 
         // Check if there are enough parts for different task types
-        if (parts.length < 3) {
+        if (parts.length < TODO_PARTS_LENGTH) {
             throw new StorageException(" Not enough data to parse task: " + line);
         }
 
         String taskType = parts[0].trim(); // T, D, E etc.
-        boolean isDone = parts[1].trim().equals("1"); // Assuming 1 for done, 0 for not done
+        boolean isDone = parts[1].trim().equals(String.valueOf(DONE_STATUS));
         String description = parts[2].trim(); // Task description
 
         switch (taskType) {
-        case "T":
+        case TODO_TASK_TYPE:
             return new Todo(description, isDone);
-        case "D":
-            if (parts.length < 4) {
+        case DEADLINE_TASK_TYPE:
+            if (parts.length < DEADLINE_PARTS_LENGTH) {
                 throw new StorageException(" Not enough data to parse Deadline: " + line);
             }
-            String deadlineDate = parts[3].trim(); // e.g., the date part for Deadline
+            String deadlineDate = parts[3].trim(); // date part for Deadline
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime by = LocalDateTime.parse(deadlineDate, formatter); // Convert String to LocalDateTime
             return new Deadline(description, isDone, by);
-        case "E":
-            if (parts.length < 5) {
+        case EVENT_TASK_TYPE:
+            if (parts.length < EVENT_PARTS_LENGTH) {
                 throw new StorageException(" Not enough data to parse Event: " + line);
             }
             String from = parts[3].trim(); // Start

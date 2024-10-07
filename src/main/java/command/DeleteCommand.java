@@ -9,6 +9,8 @@ import ui.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
+    private static final int DELETE_COMMAND_PREFIX_LENGTH = 7;
+
     private String input;
 
     /**
@@ -31,7 +33,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws UserInputException {
         try {
-            String taskNumberStr = input.substring(7).trim(); // Extract the task number part
+            String taskNumberStr = input.substring(DELETE_COMMAND_PREFIX_LENGTH).trim(); // Extract the task number part
 
             if (taskNumberStr.isEmpty()) { // Check if the task number is empty
                 throw new UserInputException(" Task number cannot be empty.");

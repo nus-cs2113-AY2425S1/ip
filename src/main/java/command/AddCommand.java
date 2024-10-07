@@ -18,6 +18,12 @@ import java.time.format.DateTimeParseException;
  * Represents a command to add a task to the task list.
  */
 public class AddCommand extends Command {
+    private static final int TODO_PREFIX_LENGTH = 5;
+    private static final int DEADLINE_PREFIX_LENGTH = 9;
+    private static final int EVENT_PREFIX_LENGTH = 6;
+    private static final int DEADLINE_PARTS_LENGTH = 2;
+    private static final int EVENT_PARTS_LENGTH = 3;
+
     private String input;
 
     /**
@@ -33,7 +39,7 @@ public class AddCommand extends Command {
      * Executes the command to add a task to the task list.
      *
      * @param tasks   the task list to which the task will be added
-     * @param ui     the UI component for user interaction
+     * @param ui      the UI component for user interaction
      * @param storage the storage component for saving tasks
      * @throws UserInputException if the input format is invalid or if required fields are empty
      */
@@ -42,7 +48,7 @@ public class AddCommand extends Command {
         Task task = null;
 
         if (input.startsWith("todo ")) {
-            String description = input.substring(5).trim();
+            String description = input.substring(TODO_PREFIX_LENGTH).trim();
             if (description.isEmpty()) {
                 throw new UserInputException(" The description of a todo cannot be empty.");
             }
@@ -50,10 +56,10 @@ public class AddCommand extends Command {
 
         } else if (input.startsWith("deadline ")) {
             String[] parts = input.split(" /by ");
-            if (parts.length != 2) {
+            if (parts.length != DEADLINE_PARTS_LENGTH) {
                 throw new UserInputException(" Invalid deadline format. Please use: deadline <description> /by <time>");
             }
-            String description = parts[0].substring(9).trim();
+            String description = parts[0].substring(DEADLINE_PREFIX_LENGTH).trim();
             String by = parts[1].trim();
             if (description.isEmpty() || by.isEmpty()) {
                 throw new UserInputException(" The description or deadline time cannot be empty.");
@@ -70,7 +76,10 @@ public class AddCommand extends Command {
 
         } else if (input.startsWith("event ")) {
             if (input.contains(" /from ") && input.contains(" /to ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
+                String[] parts = input.substring(EVENT_PREFIX_LENGTH).split(" /from | /to ");
+                if (parts.length != EVENT_PARTS_LENGTH) {
+                    throw new UserInputException(" Invalid event format. Please use: event <description> /from <start time> /to <end time>");
+                }
                 String description = parts[0].trim();
                 String from = parts[1].trim();
                 String to = parts[2].trim();
