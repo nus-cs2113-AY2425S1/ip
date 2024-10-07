@@ -1,5 +1,6 @@
 package atom.command;
 
+import atom.parser.DateTimeParser;
 import atom.storage.Storage;
 import atom.tasklist.TaskList;
 import atom.ui.Ui;
@@ -8,6 +9,8 @@ import atom.exception.EmptyEventException;
 import atom.exception.EmptyTodoException;
 import atom.exception.InvalidDeadlineFormatException;
 import atom.exception.InvalidEventFormatException;
+
+import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
 
@@ -74,13 +77,21 @@ public class AddCommand extends Command {
             if (deadlineName.trim().isEmpty()) {
                 ui.showMissingDeadlineNameMessage();
             } else {
-                tasks.addDeadlineTaskWithMessage(deadlineName, dueDate);
+                if (DateTimeParser.isValidDateTime(dueDate, ui)) {
+                    String parsedDateTime = DateTimeParser.parseDateTime(dueDate.trim());
+                    tasks.addDeadlineTaskWithMessage(deadlineName, parsedDateTime);
+                }
             }
-
         } catch (EmptyDeadlineException e) {
             ui.showError(e.getMessage());
         } catch (InvalidDeadlineFormatException e) {
             ui.showError(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showInvalidDateTimeFormatMessage();
+        } catch (NumberFormatException e) {
+            ui.showInvalidDateTimeParamsMessage();
+        } catch (DateTimeParseException e) {
+            ui.showDateTimeParseErrorMessage();
         }
     }
 
@@ -108,13 +119,23 @@ public class AddCommand extends Command {
             if (eventName.trim().isEmpty()) {
                 ui.showMissingEventNameMessage();
             } else {
-                tasks.addEventTaskWithMessage(eventName, startDate, endDate);
+                if (DateTimeParser.isValidDateTime(startDate, ui) &&
+                        DateTimeParser.isValidDateTime(endDate, ui)) {
+                    String parsedStartDateTime = DateTimeParser.parseDateTime(startDate.trim());
+                    String parsedEndDateTime = DateTimeParser.parseDateTime(endDate.trim());
+                    tasks.addEventTaskWithMessage(eventName, parsedStartDateTime, parsedEndDateTime);
+                }
             }
-
         } catch (EmptyEventException e) {
             ui.showError(e.getMessage());
         } catch (InvalidEventFormatException e) {
             ui.showError(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showInvalidDateTimeFormatMessage();
+        } catch (NumberFormatException e) {
+            ui.showInvalidDateTimeParamsMessage();
+        } catch (DateTimeParseException e) {
+            ui.showDateTimeParseErrorMessage();
         }
     }
 

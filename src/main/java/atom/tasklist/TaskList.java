@@ -100,4 +100,40 @@ public class TaskList {
 
         return tasksFoundList;
     }
+
+    public ArrayList<Task> filterTasksByDate(String date) {
+        ArrayList<Task> tasksFoundList = new ArrayList<>();
+        date = date.trim();
+
+        for (Task task : tasksList) {
+            if (task.setTaskType().equals("T")) {
+                continue;
+            }
+
+            if (task.setTaskType().equals("D")) {
+                String taskDueDate = task.getDueDate();
+                String[] taskDueDateParams = taskDueDate.split(",");
+                String taskDueDateWithoutTime = taskDueDateParams[0];
+
+                if (taskDueDateWithoutTime.equals(date)) {
+                    tasksFoundList.add(task);
+                }
+
+            } else if (task.setTaskType().equals("E")) {
+                String taskStartDate = task.getStartDate();
+                String[] taskStartDateParams = taskStartDate.split(",");
+                String taskStartDateWithoutTime = taskStartDateParams[0];
+
+                String taskEndDate = task.getEndDate();
+                String[] taskEndDateParams = taskEndDate.split(",");
+                String taskEndDateWithoutTime = taskEndDateParams[0];
+
+                if (taskStartDateWithoutTime.equals(date) || taskEndDateWithoutTime.equals(date)) {
+                    tasksFoundList.add(task);
+                }
+            }
+        }
+
+        return tasksFoundList;
+    }
 }
