@@ -182,8 +182,9 @@ public class Ui {
     }
 
     public void showInvalidYearMessage() {
-        System.out.println("YEAR entered is invalid!!" +
-                "\nReminder to enter the full year. (e.g 2024)");
+        System.out.println("YEAR entered is invalid!! (YEAR must be >= 2024)" +
+                "\nWhat's the point of tracking tasks in the past eh??\n" +
+                "\nReminder to enter the full year too. (e.g 2024)");
     }
 
     public void showInvalidHourMessage() {
@@ -201,6 +202,11 @@ public class Ui {
         System.out.println("-> DD/MM/YYYY HOUR:MIN");
     }
 
+    public void showDateFormat() {
+        System.out.println("\nHere's the DATE format:");
+        System.out.println("-> DD/MM/YYYY");
+    }
+
     public void showInvalidDateTimeFormatMessage() {
         System.out.println("Oops!! Wrong date time format");
         showDateTimeFormat();
@@ -212,10 +218,29 @@ public class Ui {
         showDateTimeFormat();
     }
 
+    public void showInvalidDateFormatMessage() {
+        System.out.println("Oops!! Wrong date format");
+        showDateFormat();
+    }
+
+    public void showInvalidDateParamsMessage() {
+        System.out.println("Sorry.. Cannot identify date.");
+        System.out.println("DATE doesn't conform with the format.");
+        showDateFormat();
+    }
+
     public void showDateTimeParseErrorMessage() {
         System.out.println("Erm.. Error in parsing date or time..");
-        System.out.println("Remember to add a \"0\" in front for values 0 to 9.");
         showDateTimeFormat();
+        System.out.println("\nRemember to add a \"0\" in front for values 0 to 9.");
+
+    }
+
+    public void showDateParseErrorMessage() {
+        System.out.println("Erm.. Error in parsing date..");
+        showDateFormat();
+        System.out.println("\nRemember to add a \"0\" in front for values 0 to 9.");
+
     }
 
     public void showExitMessage() {
