@@ -3,6 +3,7 @@ package Yukee.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 /**
  * Represents a task with a deadline.
@@ -28,12 +29,15 @@ public class Deadline extends Task {
      * @return the parsed LocalDateTime object, or null if parsing fails
      */
     private LocalDateTime parseDateTime(String dateTime) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateTime, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
-            return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        while (true) {
+            try {
+                return LocalDateTime.parse(dateTime, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+                Scanner scanner = new Scanner(System.in);
+                dateTime = scanner.nextLine().trim();
+            }
         }
     }
 
