@@ -1,6 +1,6 @@
 package ui;
 
-import model.Task;
+import tasktypes.Task;
 import tasklist.TaskList;
 
 import java.util.Scanner;

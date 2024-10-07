@@ -3,7 +3,7 @@ package command;
 import tasklist.TaskList;
 import ui.Ui;
 import storage.Storage;
-import model.Task;
+import tasktypes.Task;
 
 import java.util.ArrayList;
 

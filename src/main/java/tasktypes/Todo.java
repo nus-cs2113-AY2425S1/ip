@@ -1,4 +1,4 @@
-package model;
+package tasktypes;
 
 /**
  * Represents a Todo task.

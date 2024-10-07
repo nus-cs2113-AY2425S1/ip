@@ -1,6 +1,6 @@
 package tasklist;
 
-import model.Task;
+import tasktypes.Task;
 
 import java.util.ArrayList;
 

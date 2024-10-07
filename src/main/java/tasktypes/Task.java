@@ -1,4 +1,4 @@
-package model;
+package tasktypes;
 
 /**
  * Represents a generic task with a description and status.

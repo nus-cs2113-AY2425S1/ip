@@ -1,4 +1,4 @@
-package model;
+package tasktypes;
 
 /**
  * Represents an Event task.
