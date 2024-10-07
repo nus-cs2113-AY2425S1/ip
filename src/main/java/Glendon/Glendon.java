@@ -36,7 +36,7 @@ public class Glendon {
             parser.inputs(fullCommand, ui, tasks);
             ui.showLine();
             if (fullCommand.equals("bye")) {
-                break;
+                return;
             }
         }
     }
