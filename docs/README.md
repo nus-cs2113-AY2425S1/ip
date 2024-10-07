@@ -51,7 +51,6 @@ Mong-ed! This item has been added:
 ## Finding Tasks: ```find```
 
 Find the tasks with the relevant keyword and displays them in a list
-* This feature currently only supports single keyword inputs.
 
 Example: `find run`
 
