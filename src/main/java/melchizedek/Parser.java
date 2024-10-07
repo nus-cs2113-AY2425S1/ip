@@ -3,6 +3,7 @@ package melchizedek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -62,10 +63,11 @@ public class Parser {
     }
 
     public static String stringTime(LocalTime localTime) {
-        return localTime.format(DateTimeFormatter.ofPattern(""));
+        return localTime.format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
     public static String stringTimeToFile(LocalTime localTime) {
         return localTime.toString();
     }
+
 }

@@ -196,14 +196,14 @@ public class Ui {
      * Method to print out an example for the "deadline" command.
      */
     public static void printDeadlineExample() {
-        System.out.println("\tExample: deadline coding assignment /by 24/09/24 12pm");
+        System.out.println("\tExample: deadline coding assignment /by 2024-09-24 12:00");
     }
 
     /**
      * Method to print out an example for the "event" command.
      */
     public static void printEventExample() {
-        System.out.println("\tExample: event coding lecture /from 2pm /to 4pm" );
+        System.out.println("\tExample: event coding lecture /from 2024-09-24 14:00 /to 2024-09-24 16:00" );
     }
 
     /**
@@ -290,5 +290,15 @@ public class Ui {
      */
     public static void printUnableToFindWithoutKeyword() {
         System.out.println("\tOh no! I cannot search without a keyword!");
+    }
+
+    public static void printDateTimeParseException() {
+        System.out.println("\tOh no! Please input a valid date and/or time in the specified format!");
+        printDateTimeFormat();
+    }
+
+    public static void printDateTimeFormat() {
+        System.out.println("\tDate and Time Format: yyyy-MM-dd HH:mm");
+        System.out.println("\tTime is optional");
     }
 }

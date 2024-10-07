@@ -4,6 +4,9 @@ import melchizedek.Parser;
 import melchizedek.Ui;
 import melchizedek.exceptions.InvalidTaskNumberException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -106,13 +109,13 @@ public class TaskList {
         }
 
         String description = null;
-        String byDate = null;
-        String byTime = null;
+        LocalDate byDate = null;
+        LocalTime byTime = null;
         try {
             description = Parser.joinStringArray(tokens, 0, byIndex, " ");
-            byDate = tokens[byIndex + 1];
+            byDate = Parser.parseDate(tokens[byIndex + 1]);
             if (tokens.length > byIndex + 2) {
-                byTime = Parser.joinStringArray(tokens, byIndex + 2, tokens.length, " ");
+                byTime = Parser.parseTime(Parser.joinStringArray(tokens, byIndex + 2, tokens.length, " "));
             }
         } catch (IllegalArgumentException e) {
             if (byIndex == INVALID_INDEX) {
@@ -120,9 +123,16 @@ public class TaskList {
                 Ui.printDeadlineExample();
                 return;
             }
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseException();
+            return;
         }
 
-        allTasks.add(new Deadline(description, byDate, byTime));
+        if (byTime == null) {
+            allTasks.add(new Deadline(description, byDate));
+        } else {
+            allTasks.add(new Deadline(description, byDate, byTime));
+        }
         int taskCount = getTaskCount();
         Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
@@ -225,10 +235,21 @@ public class TaskList {
     public void loadDeadline(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
-        String byDate  = tokens[2];
-        String byTime  = null;
-        if (tokens.length > 3) {
-            byTime = tokens[3];
+        LocalDate byDate = null;
+        LocalTime byTime = null;
+        try {
+            byDate  = Parser.parseDate(tokens[2]);
+            if (tokens.length > 3) {
+                byTime = Parser.parseTime(tokens[3]);
+            }
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseException();
+            return;
+        }
+
+        if (byTime == null) {
+            allTasks.add(new Deadline(description, isDone, byDate));
+            return;
         }
         allTasks.add(new Deadline(description, isDone, byDate, byTime));
     }

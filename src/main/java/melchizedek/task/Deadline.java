@@ -3,27 +3,34 @@ package melchizedek.task;
 import melchizedek.Parser;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Deadline extends Task {
 
     private LocalDate byDate;
-    private String byTime;
+    private LocalTime byTime;
 
-//    public Deadline(String description, String byDate) {
-//        super(description);
-//        this.byDate = Parser.parseDate(byDate);
-//        this.byTime = null;
-//    }
+    public Deadline(String description, LocalDate byDate) {
+        super(description);
+        this.byDate = byDate;
+        this.byTime = null;
+    }
 
     /**
      * Constructor of the Deadline class.
      *
      * @param description Deadline description
      */
-    public Deadline(String description, String byDate, String byTime) {
+    public Deadline(String description, LocalDate byDate, LocalTime byTime) {
         super(description);
-        this.byDate = Parser.parseDate(byDate);
+        this.byDate = byDate;
         this.byTime = byTime;
+    }
+
+    public Deadline(String description, boolean isDone, LocalDate byDate) {
+        super(description, isDone);
+        this.byDate = byDate;
+        this.byTime = null;
     }
 
     /**
@@ -33,9 +40,9 @@ public class Deadline extends Task {
      * @param description Deadline description
      * @param isDone Truth value of whether deadline has been marked as done
      */
-    public Deadline(String description, boolean isDone, String byDate, String byTime) {
+    public Deadline(String description, boolean isDone, LocalDate byDate, LocalTime byTime) {
         super(description, isDone);
-        this.byDate = Parser.parseDate(byDate);
+        this.byDate = byDate;
         this.byTime = byTime;
     }
 
@@ -47,7 +54,7 @@ public class Deadline extends Task {
     @Override
     public String taskToFile() {
         if (byTime != null) {
-            return "D | " + super.taskToFile() + " | " + Parser.stringDateToFile(byDate) + " | " + byTime;
+            return "D | " + super.taskToFile() + " | " + Parser.stringDateToFile(byDate) + " | " + Parser.stringTimeToFile(byTime);
         }
         return "D | " + super.taskToFile() + " | " + Parser.stringDateToFile(byDate);
     }
@@ -60,7 +67,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (byTime != null) {
-            return "[D]" + super.toString() + " (by: " + Parser.stringDate(byDate) + byTime + ")";
+            return "[D]" + super.toString() + " (by: " + Parser.stringDate(byDate) + " " + Parser.stringTime(byTime) + ")";
         }
         return "[D]" + super.toString() + " (by: " + Parser.stringDate(byDate) + ")";
     }
