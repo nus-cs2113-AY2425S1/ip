@@ -7,6 +7,7 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class List {
         } catch (EmptyDateFieldException e) {
             System.out.println("\tError: Date field(s) cannot be empty");
         } catch (DateTimeException e) {
-            System.out.println("\tInvalid date format: yyyy-mm-dd HH:mm");
+            System.out.println("\tInvalid date format, try: \n\t yyyy-mm-dd HH:mm \n\t yyyy-MM-dd \n\t dd/MM/yyyy HH:mm \n\t dd/MM/yyyy");
         }
     }
 
@@ -120,10 +121,43 @@ public class List {
         itemArrayList.remove(itemNum - 1);
     }
 
+//    public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
+//        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//            return LocalDateTime.parse(deadlineDate, inputFormatter);
+//    }
+
     public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            return LocalDateTime.parse(deadlineDate, inputFormatter);
+        // Define multiple format patterns to support different date and date-time formats
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),  // With time
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),        // Date only
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),  // With time, different format
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"),        // Date only, different format
+        };
+
+        // Try to parse as LocalDateTime (with time)
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(deadlineDate, formatter);
+            } catch (DateTimeException ignored) {
+                // Ignore and try the next formatter
+            }
+        }
+
+        // Try to parse as LocalDate (without time) and convert to LocalDateTime
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                LocalDate date = LocalDate.parse(deadlineDate, formatter);
+                return date.atTime(23, 59, 59);  // Return LocalDateTime with time set to 23:59
+            } catch (DateTimeException ignored) {
+                // Ignore and try the next formatter
+            }
+        }
+
+        // If parsing fails for all formats, throw an exception or handle it as needed
+        throw new DateTimeException("Invalid date format: " + deadlineDate);
     }
+
 
     public static LocalDateTime getDeadlineDateAsLocalDateTimeFromFile(String deadlineDate) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
