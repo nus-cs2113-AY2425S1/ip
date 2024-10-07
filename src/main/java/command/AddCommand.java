@@ -7,6 +7,7 @@ import task.Event;
 import task.ToDo;
 import task.TaskList;
 import ui.UserInteraction;
+import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
     private final String taskDescription;
@@ -36,7 +37,7 @@ public class AddCommand extends Command {
             return;
         }
 
-        Task newTask = createTask(typeoftask, taskDetails);
+        Task newTask = createTask(typeoftask, taskDetails, ui);
         if (newTask == null) {
             ui.showMessage("Invalid task type.");
             return;
@@ -50,33 +51,46 @@ public class AddCommand extends Command {
     /**
      * Factory method to create a Task based on the task type.
      */
-    private Task createTask(String typeoftask, String taskDetails) {
+    private Task createTask(String typeoftask, String taskDetails, UserInteraction ui) {
         switch (typeoftask) {
             case TODO:
                 return new ToDo(taskDetails);
             case DEADLINE:
-                return createDeadlineTask(taskDetails);
+                return createDeadlineTask(taskDetails, ui);
             case EVENT:
-                return createEventTask(taskDetails);
+                return createEventTask(taskDetails, ui);
             default:
+                ui.showMessage("Invalid task type.");
                 return null;
         }
     }
 
-    private Task createDeadlineTask(String taskDetails) {
+    private Task createDeadlineTask(String taskDetails, UserInteraction ui) {
         String[] deadlineParts = taskDetails.split(" /by ", 2);
         if (deadlineParts.length < 2) {
-            return null;  // Invalid deadline format
+            ui.showMessage("Invalid deadline format. Use: deadline <task> /by <date>.");
+            return null;
         }
-        return new Deadline(deadlineParts[0], deadlineParts[1]);
+        try {
+            return new Deadline(deadlineParts[0], deadlineParts[1]);
+        } catch (DateTimeParseException e) {
+            ui.showMessage("Invalid date format for deadline. Use: yyyy-MM-dd HHmm.");
+            return null;
+        }
     }
 
-    private Task createEventTask(String taskDetails) {
+    private Task createEventTask(String taskDetails, UserInteraction ui) {
         String[] eventParts = taskDetails.split(" /from | /to ", 3);
         if (eventParts.length < 3) {
-            return null;  // Invalid event format
+            ui.showMessage("Invalid event format. Use: event <task> /from <start> /to <end>.");
+            return null;
         }
-        return new Event(eventParts[0], eventParts[1], eventParts[2]);
+        try {
+            return new Event(eventParts[0], eventParts[1], eventParts[2]);
+        } catch (DateTimeParseException e) {
+            ui.showMessage("Invalid date format for event. Use: yyyy-MM-dd HHmm.");
+            return null;
+        }
     }
 }
 
