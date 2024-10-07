@@ -1,7 +1,7 @@
 package parser;
 
 import command.*;
-import exception.MondayException;
+import exception.InvalidCommandException;
 
 /**
  * Parses user input commands and returns the appropriate Command object.
@@ -12,9 +12,9 @@ public class Parser {
      *
      * @param input the input command string
      * @return the Command object corresponding to the input
-     * @throws MondayException if the input is invalid
+     * @throws InvalidCommandException if the input is invalid
      */
-    public static Command parse(String input) throws MondayException {
+    public static Command parse(String input) throws InvalidCommandException {
         if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark ")) {
@@ -31,7 +31,7 @@ public class Parser {
         } else if (input.equals("bye")) {
             return new ExitCommand();
         } else {
-            throw new MondayException(" Invalid command. Please try again.");
+            throw new InvalidCommandException(" Invalid command. Please try again.");
         }
     }
 }

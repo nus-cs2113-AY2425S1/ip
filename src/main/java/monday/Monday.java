@@ -1,7 +1,9 @@
 package monday;
 
 import command.*;
-import exception.MondayException;
+import exception.InvalidCommandException;
+import exception.StorageException;
+import exception.UserInputException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
@@ -24,7 +26,7 @@ public class Monday {
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
-        } catch (MondayException e) {
+        } catch (StorageException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -57,7 +59,7 @@ public class Monday {
                 if (command instanceof ExitCommand) {
                     break;
                 }
-            } catch (MondayException e) {
+            } catch (InvalidCommandException | UserInputException e) {
                 ui.showError(e.getMessage());
             }
 

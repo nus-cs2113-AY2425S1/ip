@@ -1,6 +1,6 @@
 package command;
 
-import exception.MondayException;
+import exception.UserInputException;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
@@ -26,13 +26,13 @@ public class UnmarkCommand extends Command {
      * @param tasks   the task list containing the task to unmark
      * @param ui      the UI for user interaction
      * @param storage the storage for saving tasks
-     * @throws MondayException if the task number is invalid
+     * @throws UserInputException if the task number is invalid
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MondayException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws UserInputException {
         String[] parts = input.trim().split("\\s+"); // Split input by spaces
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MondayException(" Please provide a valid task number to unmark.");
+            throw new UserInputException(" Please provide a valid task number to unmark.");
         }
 
         try {
@@ -42,10 +42,10 @@ public class UnmarkCommand extends Command {
                 ui.showTaskUnmarked(tasks.get(taskNumber));
                 storage.save(tasks.getTasks());
             } else {
-                throw new MondayException(" Invalid task number.");
+                throw new UserInputException(" Invalid task number.");
             }
         } catch (NumberFormatException e) {
-            throw new MondayException(" Please enter a valid task number.");
+            throw new UserInputException(" Please enter a numerical task number.");
         }
     }
 }

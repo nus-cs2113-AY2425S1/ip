@@ -1,9 +1,10 @@
 package command;
 
+import exception.InvalidCommandException;
+import exception.UserInputException;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
-import exception.MondayException; // Import the exception
 
 /**
  * Represents a command to exit the application.
@@ -16,10 +17,10 @@ public class ExitCommand extends Command {
      * @param tasks   the task list (not used in exit command)
      * @param ui      the UI for user interaction
      * @param storage the storage for saving tasks (not used in exit command)
-     * @throws MondayException if there is an error during execution
+     * @throws UserInputException,InvalidCommandException if there is an error during execution
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MondayException { // Declare it can throw MondayException
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws UserInputException, InvalidCommandException {
         ui.showExitMessage();
     }
 

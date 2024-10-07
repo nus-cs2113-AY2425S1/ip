@@ -1,10 +1,10 @@
 package storage;
 
-import exception.MondayException;
-import model.Task;
-import model.Todo;
-import model.Deadline;
-import model.Event;
+import exception.StorageException;
+import tasktypes.Task;
+import tasktypes.Todo;
+import tasktypes.Deadline;
+import tasktypes.Event;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -30,9 +30,9 @@ public class Storage {
      * Loads tasks from the file and returns them as an ArrayList.
      *
      * @return a list of tasks loaded from the file
-     * @throws MondayException if an error occurs while loading tasks
+     * @throws StorageException if an error occurs while loading tasks
      */
-    public ArrayList<Task> load() throws MondayException {
+    public ArrayList<Task> load() throws StorageException {
         File file = new File(filePath);
         System.out.println("Loading tasks from: " + file.getAbsolutePath()); // Debugging line
 
@@ -50,7 +50,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new MondayException(" Error loading tasks from file: " + e.getMessage());
+            throw new StorageException(" Error loading tasks from file: " + e.getMessage());
         }
         return tasks;
     }
@@ -96,14 +96,14 @@ public class Storage {
      *
      * @param line the line containing task data
      * @return the Task object parsed from the line
-     * @throws MondayException if the line format is invalid
+     * @throws StorageException if the line format is invalid
      */
-    private Task parseTask(String line) throws MondayException {
+    private Task parseTask(String line) throws StorageException {
         String[] parts = line.split(" \\| "); // Assuming fields are separated by " | "
 
         // Check if there are enough parts for different task types
         if (parts.length < 3) {
-            throw new MondayException(" Not enough data to parse task: " + line);
+            throw new StorageException(" Not enough data to parse task: " + line);
         }
 
         String taskType = parts[0].trim(); // T, D, E etc.
@@ -115,7 +115,7 @@ public class Storage {
             return new Todo(description, isDone);
         case "D":
             if (parts.length < 4) {
-                throw new MondayException(" Not enough data to parse Deadline: " + line);
+                throw new StorageException(" Not enough data to parse Deadline: " + line);
             }
             String deadlineDate = parts[3].trim(); // e.g., the date part for Deadline
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -123,13 +123,13 @@ public class Storage {
             return new Deadline(description, isDone, by);
         case "E":
             if (parts.length < 5) {
-                throw new MondayException(" Not enough data to parse Event: " + line);
+                throw new StorageException(" Not enough data to parse Event: " + line);
             }
             String from = parts[3].trim(); // Start
             String to = parts[4].trim(); // End
             return new Event(description, isDone, from, to);
         default:
-            throw new MondayException(" Unknown task format: " + line);
+            throw new StorageException(" Unknown task format: " + line);
         }
     }
 }
