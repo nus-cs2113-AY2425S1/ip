@@ -24,6 +24,8 @@ public class Parser {
             return prepEvent(input);
         case "delete":
             return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
+        case "search":
+            return prepSearch(splitInput, input);
         default:
             return new InvalidCommand();
         }
@@ -41,5 +43,8 @@ public class Parser {
         return new EventCommand(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/from") - 1),
                 input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1),
                 input.substring(input.indexOf("/to") + 4)));
+    }
+    private static Command prepSearch(String[] splitInput, String input) {
+        return new SearchCommand(splitInput[1], input.substring(input.indexOf("/c") + 3));
     }
 }
