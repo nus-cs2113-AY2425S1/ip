@@ -1,0 +1,5 @@
+todo read book
+deadline read book2 /by Monday
+event read book3 /from 2pm /to 4pm
+list
+bye
