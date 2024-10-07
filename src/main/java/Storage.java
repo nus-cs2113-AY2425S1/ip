@@ -7,14 +7,14 @@ import task.*;
 public class Storage {
     private static final String FILE_PATH = "./data/diana.txt";
 
-    public static void saveTasks(List<Task> tasks) throws IOException {
+    public static void saveTasks(TaskList tasks) throws IOException {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-        for (Task task : tasks) {
+        for (Task task : tasks.getTasks()) {
             writer.write(task.toFileFormat());
             writer.newLine();
         }
@@ -22,11 +22,12 @@ public class Storage {
         writer.close();
     }
 
-    public static List<Task> loadTasks() throws IOException {
-        List<Task> tasks = new ArrayList<>();
+    public static TaskList loadTasks() throws IOException {
+        TaskList tasks = new TaskList();
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
+            System.out.println("File does not exist");
             return tasks;
         }
 
@@ -34,8 +35,10 @@ public class Storage {
         String line;
 
         while ((line = reader.readLine()) != null) {
-            tasks.add(parseTask(line));
+            tasks.addTask(parseTask(line));
         }
+
+        System.out.println("Loaded " + tasks.getTasks().size() + " tasks");
 
         reader.close();
         return tasks;
