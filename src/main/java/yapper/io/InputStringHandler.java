@@ -8,23 +8,36 @@ import yapper.instructions.Instruction;
  * Input String Parser for Yapper.
  *
  * <p>
- * This class handles the parsing of user input strings into
- * structured instructions for task management. It validates
- * input, checks for required parameters, and splits
- * arguments as needed.
+ * This class handles the parsing of user input strings into structured instructions for task management.
+ * It validates input, checks for required parameters, and splits arguments as needed.
  * </p>
  *
  */
 public class InputStringHandler {
 
     /**
-     * Parses a user input string and returns an Instruction object.
+     * Parses and validates a user input string, and if exceptions are encountered,
+     * rethrows them to consolidate the exception messages.
      *
      * @param userInputString the input string provided by the user
      * @return an Instruction object representing the parsed command
      * @throws YapperException if the input is invalid or any required parameters are missing
      */
     public static Instruction parseUserInput(String userInputString) throws YapperException {
+        try {
+            return InputStringHandler.parseAndValidateUserInput(userInputString.trim());
+        } catch (YapperException e) {
+            throw new YapperException("when parsing user input. \n" + e.getMessage());
+        }
+    }
+    /**
+     * Parses and validates a user input string, returning an Instruction object.
+     *
+     * @param userInputString the input string provided by the user
+     * @return an Instruction object representing the parsed command
+     * @throws YapperException if the input is invalid or any required parameters are missing
+     */
+    public static Instruction parseAndValidateUserInput(String userInputString) throws YapperException {
         try {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
@@ -90,8 +103,7 @@ public class InputStringHandler {
         } catch (YapperException e) {
             throw new YapperException(e.getMessage());
         } catch (NumberFormatException e) {
-            throw new YapperException(
-                    "Invalid task ordinal detected. Try again. ");
+            throw new YapperException("Invalid task ordinal detected. Try again. ");
         }
     }
 

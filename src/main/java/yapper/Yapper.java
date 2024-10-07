@@ -2,8 +2,11 @@ package yapper;
 
 import java.util.Scanner;
 
+import yapper.exceptions.YapperException;
+import yapper.instructions.Instruction;
 import yapper.instructions.InstructionHandler;
 import yapper.io.InputFileHandler;
+import yapper.io.InputStringHandler;
 import yapper.io.StringStorage;
 import yapper.tasks.TaskHandler;
 
@@ -12,7 +15,7 @@ import yapper.tasks.TaskHandler;
  *
  * <p>
  * The Yapper class implements a simple command-line chatbot.
- * It interacts with the user through a loop that:
+ * It interacts with the user through a loop that
  * processes user input, handles tasks, and manages program flow.
  * <p/>
  *
@@ -46,7 +49,13 @@ public class Yapper {
                     + " does not need other parameters");
                 continue;
             }
-            InstructionHandler.handleInstruction(taskHandler, userInputString);
+
+            try {
+                Instruction instruction = InputStringHandler.parseUserInput(userInputString.trim());
+                InstructionHandler.handleInstruction(taskHandler, instruction);
+            } catch (YapperException e) {
+                System.out.println("YapperException has occurred " + e.getMessage());
+            }
         }
         scanner.close();
     }

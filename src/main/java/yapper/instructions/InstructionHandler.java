@@ -124,22 +124,12 @@ public class InstructionHandler {
     }
 
     /**
-     * Parses and performs the appropriate executions, after being given a user instruction string.
+     * Performs the appropriate executions, after being given an instruction parsed from user input.
      *
-     * @param taskHandler     The handler that manages the list of tasks.
-     * @param userInputString The raw user input string representing the instruction.
+     * @param taskHandler The handler that manages the list of tasks.
+     * @param instruction The parsed instruction
      */
-    public static void handleInstruction(TaskHandler taskHandler, String userInputString) {
-        Instruction instruction = null;
-        try {
-            instruction = InputStringHandler.parseUserInput(userInputString.trim());
-        } catch (YapperException e) {
-            System.out.println(
-                    "YapperException has occurred when parsing user input. \n"
-                    + e.getMessage());
-            return;
-        }
-        /* There are 2 try-catch to separate the exception messages for parsing and executing */
+    public static void handleInstruction(TaskHandler taskHandler, Instruction instruction) throws YapperException {
         try {
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
@@ -188,10 +178,7 @@ public class InstructionHandler {
             default:
             }
         } catch (YapperException e) {
-            System.out.println(
-                    "YapperException has occurred when executing instruction. \n"
-                    + e.getMessage());
+            throw new YapperException("when executing instruction. \n" + e.getMessage());
         }
-
     }
 }
