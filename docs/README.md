@@ -147,15 +147,15 @@ Example Output
 All tasks will be saved upon the exiting of chatbot using the exiting function
 
 ## Command Summary
-Action |                    Format                     | 
---------|:---------------------------------------------:|
-Todo |                todo TASK_NAME                 
-Deadline| deadline TASK_NAME /by DUE_DATE
-Event | event TASK_NAME /from START_DATE /to END_DATE 
-Find | find KEYWORD
-Delete | delete TASK_NUMBER
-List | list
-Mark | mark TASK_NUMBER
-Unmark | unmark TASK_NUMBER
+| Action   |                    Format                     | 
+|----------|:---------------------------------------------:|
+| Todo     |                todo TASK_NAME                 |
+| Deadline | deadline TASK_NAME /by DUE_DATE|
+| Event    | event TASK_NAME /from START_DATE /to END_DATE |
+| Find     | find KEYWORD|
+| Delete   | delete TASK_NUMBER|
+| List     | list|
+| Mark     | mark TASK_NUMBER|
+|  Unmark  | unmark TASK_NUMBER|
 
 
