@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * The {@code CommandResult} class represents the result of a command execution.
+ * Partly referred to AddressBook project.
  */
 public class CommandResult {
 
