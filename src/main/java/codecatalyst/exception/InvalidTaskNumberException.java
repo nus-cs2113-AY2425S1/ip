@@ -5,7 +5,7 @@ public class InvalidTaskNumberException extends Exception {
         super("Invalid task input \"" + invalidInput + "\". " + message);
     }
 
-    public InvalidTaskNumberException(String message, int taskNumber) {
-        super("Invalid task number \"" + taskNumber + "\". " + message);
+    public InvalidTaskNumberException(String message, int taskIndex) {
+        super("Invalid task number \"" + (taskIndex + 1) + "\". " + message);
     }
 }

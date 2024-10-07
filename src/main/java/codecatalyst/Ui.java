@@ -38,7 +38,7 @@ public class Ui {
 
     public void printGreeting() {
         printDivider();
-        System.out.println("         Hello, I'm CodeCatalyst. ");
+        System.out.println("         Hello, I'm CodeCatalyst, a chatbot that helps you manage tasks efficiently ");
         System.out.println("         What can I do for you?");
         printDivider();
     }
@@ -83,7 +83,7 @@ public class Ui {
      * @param task The task that has been unmarked.
      */
     public void printTaskUnmarked(Task task) {
-        System.out.println("         Nice! I've unmarked this task as done:");
+        System.out.println("         Nice! I've marked this task as not done yet:");
         System.out.println("         " + task);
     }
 
@@ -119,7 +119,7 @@ public class Ui {
      * @param keyword The keyword used for the search.
      */
     public void printMatchingTasks(ArrayList<Task> tasks, String keyword) {
-        System.out.println("         Tasks that match the keyword \"" + keyword + "\" is shown in the following list.");
+        System.out.println("         Tasks that match the keyword \"" + keyword + "\" are shown below:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("         " + (i + 1) + ". " + tasks.get(i));
         }

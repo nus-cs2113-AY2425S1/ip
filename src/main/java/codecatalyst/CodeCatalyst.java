@@ -16,7 +16,8 @@ public class CodeCatalyst {
 
     /**
      * Constructs a {@code CodeCatalyst} object.
-     * It initializes the UI, storage, and task list. If the task list cannot be loaded from the file, an empty task list is initialized.
+     * It initializes the UI, storage, and task list. If the task list cannot be loaded from the file,
+     * an empty task list is initialized.
      *
      * @param filepath The path of the file from which tasks are loaded.
      */
@@ -34,7 +35,8 @@ public class CodeCatalyst {
 
     /**
      * Starts and runs the CodeCatalyst task management system.
-     * This method repeatedly reads user input, processes commands, and updates the task list until the exit command is given.
+     * This method repeatedly reads user input, processes commands,
+     * and updates the task list until the exit command is given.
      */
     public void runCodeCatalyst() {
         ui.printGreeting();

@@ -36,6 +36,6 @@ public class AddDeadlineCommand extends Command {
         Deadline deadline = new Deadline(parts[0], parts[1]);
         tasklist.addTask(deadline);
         ui.printTaskAdded(deadline, tasklist.getSize());
-        storage.saveTasksToFile(tasklist.getTasks());  // throw IOException
+        storage.saveTasksToFile(tasklist.getTasks());
     }
 }

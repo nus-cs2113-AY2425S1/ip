@@ -6,7 +6,7 @@ import codecatalyst.Ui;
 
 /**
  * Abstract base class representing a command that can be executed.
- * All specific commands (e.g., Add, Delete, Mark, etc.) should extend this class
+ * All specific commands (e.g., Event, Delete, Mark, etc.) extends this class
  * and provide implementation for the {@code execute} method.
  */
 public abstract class Command {
