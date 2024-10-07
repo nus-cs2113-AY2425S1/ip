@@ -36,6 +36,24 @@ public class DateTimeParser {
         return isValidDate && isValidTime;
     }
 
+    public static boolean isValidDate(String date, Ui ui) throws
+            ArrayIndexOutOfBoundsException, NumberFormatException{
+        //format example: "12/11/2024"
+        date = date.trim();
+
+        String[] dateParams = date.split("/");
+        String dayString = dateParams[0].trim();
+        String monthString = dateParams[1].trim();
+        String yearString = dateParams[2].trim();
+
+        int day = Integer.parseInt(dayString);
+        int month = Integer.parseInt(monthString);
+        int year = Integer.parseInt(yearString);
+
+        boolean isValidDate = isValidDay(day, ui) && isValidMonth(month, ui) && isValidYear(year, ui);
+        return isValidDate;
+    }
+
     private static boolean isValidDay(int day, Ui ui) {
         if (day < 1 || day > 31) {
             ui.showInvalidDayMessage();
