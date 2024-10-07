@@ -51,7 +51,7 @@ public class ExceptionHandler {
         }
     }
     /**
-     * Checks if the list or help has arguments
+     * Checks if the bye, list or help user input string has arguments
      *
      * @param userInputString the input string to validate
      * @param instructionTypeAsString the instruction type prefix
