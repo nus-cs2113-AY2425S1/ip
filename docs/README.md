@@ -186,3 +186,21 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | yyyy-MM-dd 
 - Niwa will read task information from the default file path when she starts running.
   
   ![Read](./images/Read.png)
+
+## Command Summary
+| **Command**            | **Format**                                       | **Example**                             |
+|------------------------|--------------------------------------------------|-----------------------------------------|
+| **Help**               | `help`                                           | `help`                                  |
+| **Echo a String**       | `echo STRING_TO_ECHO`                            | `echo Halo bae <3>`                     |
+| **Add a To-Do**         | `todo DESCRIPTION`                               | `todo Buy groceries`                    |
+| **Add a Deadline**      | `deadline DESCRIPTION /by YYYY-MM-DD HHMM`       | `deadline Submit assignment /by 2024-10-01 1700` |
+| **Add an Event**        | `event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM` | `event Groceries day /from 2024-10-01 1300 /to 2024-10-01 1400` |
+| **List Tasks**          | `list`                                           | `list`                                  |
+| **Find Tasks by Keyword**| `find KEYWORD`                                  | `find groceries`                        |
+| **Mark a Task as Done** | `mark TASK_INDEX`                                | `mark 1`                                |
+| **Unmark a Task**       | `unmark TASK_INDEX`                              | `unmark 1`                              |
+| **Delete a Task**       | `delete TASK_INDEX`                              | `delete 1`                              |
+| **Clear All Tasks**     | `clear`                                          | `clear`                                 |
+| **Save Task List**      | `save FILE_PATH.txt`                             | `save tasks.txt`                        |
+| **Read Tasks from a File**| `read FILE_PATH.txt`                           | `read tasks.txt`                        |
+| **End the Chat**        | `bye`                                            | `bye`                                   |
