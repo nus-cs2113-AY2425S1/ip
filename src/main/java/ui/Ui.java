@@ -12,6 +12,7 @@ public class Ui {
     public String receiveCommand() {
         return scanner.nextLine();
     }
+    public enum Type {TODO, DEADLINE, EVENT};
 
     public void printWelcomeMessage() {
         System.out.print(Skeleton.LINE_BREAK);
@@ -26,22 +27,26 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
     }
 
-    public void printInvalidTaskError(Task task) {
-        if (task instanceof Todo) {
+    public void printInvalidTaskError(Type type) {
+        switch (type) {
+        case TODO -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to be missing a description");
             System.out.println("Format: todo <description>");
             System.out.print((Skeleton.LINE_BREAK));
-        } else if (task instanceof Deadlines) {
+        }
+        case DEADLINE -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /by <deadline>");
             System.out.print((Skeleton.LINE_BREAK));
-        } else if (task instanceof Event) {
+        }
+        case EVENT -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /from <from> /to <to>");
             System.out.print((Skeleton.LINE_BREAK));
+        }
         }
     }
     public void printFileError() {
@@ -105,6 +110,7 @@ public class Ui {
     public void searchError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("I don't think you can search like that....");
+        System.out.println("Searching for tasks with specific date: search /d <date>");
         System.out.println("Searching for tasks before: search /b <date>");
         System.out.println("Searching for tasks after: search /a <date>");
         System.out.print(Skeleton.LINE_BREAK);

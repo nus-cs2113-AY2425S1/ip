@@ -33,8 +33,6 @@ public class Nateh {
                 command.execute(taskList, ui);
             } catch (IllegalCommandException e) {
                 ui.printInvalidCommandError();
-            } catch (DateTimeException e) {
-                ui.printDateError();
             }
         }
     }

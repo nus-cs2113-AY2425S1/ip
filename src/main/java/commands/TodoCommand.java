@@ -11,11 +11,7 @@ public class TodoCommand extends Command {
     }
     @Override
     public void execute(TaskList taskList, Ui ui) {
-        try {
-            taskList.addTask(todo);
-            ui.printAddMessage(taskList.get(taskList.size() - 1));
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.printInvalidTaskError(todo);
-        }
+        taskList.addTask(todo);
+        ui.printAddMessage(taskList.get(taskList.size() - 1));
     }
 }
