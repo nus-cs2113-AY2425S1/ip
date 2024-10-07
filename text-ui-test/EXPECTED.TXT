@@ -22,7 +22,11 @@
 	________________________________________
 
 	________________________________________
-	Invalid date format: yyyy-mm-dd HH:mm
+	Invalid date format, expected: 
+		yyyy-mm-dd HH:mm 
+		yyyy-MM-dd 
+		dd/MM/yyyy HH:mm 
+		dd/MM/yyyy
 	________________________________________
 
 	________________________________________
@@ -145,7 +149,11 @@
 	________________________________________
 
 	________________________________________
-	Invalid date format: yyyy-mm-dd HH:mm
+	Invalid date format, expected: 
+		yyyy-mm-dd HH:mm 
+		yyyy-MM-dd 
+		dd/MM/yyyy HH:mm 
+		dd/MM/yyyy
 	________________________________________
 
 	________________________________________
