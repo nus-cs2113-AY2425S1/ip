@@ -22,6 +22,39 @@ import yapper.tasks.Task;
 public class OutputFileHandler {
 
     /**
+     * Reads the content of a file line by line and
+     * stores each line in an {@code ArrayList<String>}.
+     *
+     * @param file the {@code File} object representing the file to be read
+     * @return an {@code ArrayList<String>} containing the lines of the file
+     * @throws FileNotFoundException if the specified file does not exist or cannot be opened
+     */
+    private static ArrayList<String> convertFileToArrayList(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        ArrayList<String> taskLines = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            taskLines.add(scanner.nextLine());
+        }
+        scanner.close();
+        return taskLines;
+    }
+    /**
+     * Writes the contents of an {@code ArrayList<String>} to a file,
+     * with each element written as a new line in the file.
+     *
+     * @param taskLines the {@code ArrayList<String>} containing the lines to be written to the file
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
+    private static void convertArrayListToFile(ArrayList<String> taskLines) throws IOException {
+        FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH);
+        for (String taskLine : taskLines) {
+            fileWriter.write(taskLine + "\n");
+        }
+        fileWriter.close();
+    }
+
+
+    /**
      * Stores an added task to the file.
      *
      * @param task             the task to be saved
@@ -49,21 +82,9 @@ public class OutputFileHandler {
     public static void unstoreDeletedTask(int taskOrdinal) throws YapperException {
         try {
             File file = new File(StringStorage.SAVE_FILE_PATH);
-            // Convert Entire File to Array for easier search of taskLine
-            Scanner scanner = new Scanner(file);
-            ArrayList<String> taskLines = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                taskLines.add(scanner.nextLine());
-            }
-            scanner.close();
-
+            ArrayList<String> taskLines = convertFileToArrayList(file);
             taskLines.remove(taskOrdinal);
-
-            FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH);
-            for (String taskLine : taskLines) {
-                fileWriter.write(taskLine + "\n");
-            }
-            fileWriter.close();
+            convertArrayListToFile(taskLines);
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
@@ -71,7 +92,6 @@ public class OutputFileHandler {
                     + e.getMessage());
         }
     }
-
     /**
      * Amends the status of a task in the file.
      *
@@ -82,21 +102,9 @@ public class OutputFileHandler {
     public static void amendTaskStatus(Task task, int taskOrdinal) throws YapperException {
         try {
             File file = new File(StringStorage.SAVE_FILE_PATH);
-
-            Scanner scanner = new Scanner(file);
-            ArrayList<String> taskLines = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                taskLines.add(scanner.nextLine());
-            }
-            scanner.close();
-
+            ArrayList<String> taskLines = convertFileToArrayList(file);
             taskLines.set(taskOrdinal, task.taskToString());
-
-            FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH);
-            for (String taskLine : taskLines) {
-                fileWriter.write(taskLine + "\n");
-            }
-            fileWriter.close();
+            convertArrayListToFile(taskLines);
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE

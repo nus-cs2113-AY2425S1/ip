@@ -244,9 +244,10 @@ public class StringStorage {
             + SYMBOL_IS_DONE + ", "
             + SYMBOL_NOT_DONE; // "I don't remember if this task was done or not.";
 
-
-    public static final String SAVING_ERROR_MESSAGE = // unused ?
-            "error in saving data";
+    public static final String FILE_NOT_FOUND_ERROR_MESSAGE =
+            "FileNotFoundException occurred when finding file";
+    public static final String SAVING_ERROR_MESSAGE =
+            "IOException occurred when saving data";
 
     /**
      * Splits a task string by a specified delimiter.
