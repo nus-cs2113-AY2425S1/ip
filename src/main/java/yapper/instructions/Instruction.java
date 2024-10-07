@@ -52,7 +52,7 @@ public class Instruction {
      * </p>
      *
      */
-    private String[] taskDates; // Non-Desc
+    private String[] taskDates;
     /**
      * The description of the task associated with the instruction.
      *
@@ -61,9 +61,9 @@ public class Instruction {
      * </p>
      *
      */
-    private String instructionDesc; // Desc
+    private String instructionDesc;
     /**
-     * The ordinal number of a task,
+     * The ordinal number of a task in the task list.
      *
      * <p>
      * It is used in these instruction types:
@@ -71,7 +71,7 @@ public class Instruction {
      * </p>
      *
      */
-    private Integer taskOrdinal; // Ordinal
+    private Integer taskOrdinal;
 
 
     /**
@@ -146,7 +146,7 @@ public class Instruction {
      * @param taskOrdinal The ordinal number of the task.
      */
     public Instruction(InstructionType type, Integer taskOrdinal) {
-        this.instructionType = type; // DELETE, MARK, UNMARK
+        this.instructionType = type;
         this.taskOrdinal = taskOrdinal;
     }
 
