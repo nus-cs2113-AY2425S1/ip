@@ -1,7 +1,31 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+--------------------------------------------------
+
+ _   _         _____        _ _   _ 
+| | | | ##### |_   _|##### |   \ | |
+| |_| |#        | |  #     | |\ \| |
+|  _  | #####   | |  ##### | | \ \ |
+| | | |      # _| |_ #     | |  \  |
+|_| |_| ##### |_____|##### |_|   \_|
+
+Hello! I am Hsien, your personal chatbot...
+
+--------------------------------------------------
+
+Please enter a command/add task (type 'bye' to exit): Added task: hi
+Now you have [1] tasks in the list.
+
+--------------------------------------------------
+
+Please enter a command/add task (type 'bye' to exit): Added task: CS2113 quiz
+Now you have [2] tasks in the list.
+
+--------------------------------------------------
+
+Please enter a command/add task (type 'bye' to exit): Here are the tasks in your list!
+1. [ ] hi
+2. [T][ ] CS2113 quiz
+
+--------------------------------------------------
+
+Please enter a command/add task (type 'bye' to exit): 
