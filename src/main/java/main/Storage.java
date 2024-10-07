@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -97,7 +98,7 @@ public class Storage {
                 }
                 userList.itemArrayList.add(deadlineTask);
             } catch (DateTimeException e) {
-                System.out.println("\tInvalid date format: yyyy-mm-dd HH:mm");
+                System.out.println("\tInvalid date format, try: \n\t yyyy-mm-dd HH:mm \n\t yyyy-MM-dd \n\t dd/MM/yyyy HH:mm \n\t dd/MM/yyyy");
             }
             break;
 
