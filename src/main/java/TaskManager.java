@@ -41,10 +41,7 @@ public class TaskManager {
 
         int taskNumber = Integer.parseInt(line) - 1;
 
-        if (taskNumber < 0 || taskNumber >= count) {
-            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
-                    "Please provide a valid task number between 1 and " + count + ".");
-        }
+        EvaException.validateTaskNumber(taskNumber, count);
 
         tasks.get(taskNumber).setMarkAsDone();
 
@@ -64,10 +61,7 @@ public class TaskManager {
 
         int taskNumber = Integer.parseInt(line) - 1;
 
-        if (taskNumber < 0 || taskNumber >= count) {
-            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
-                    "Please provide a valid task number between 1 and " + count + ".");
-        }
+        EvaException.validateTaskNumber(taskNumber, count);
 
         tasks.get(taskNumber).setMarkAsNotDone();
 
@@ -87,10 +81,7 @@ public class TaskManager {
 
         int taskNumber = Integer.parseInt(line) - 1;
 
-        if (taskNumber < 0 || taskNumber >= count) {
-            throw new EvaException("Oh no! The task number you provided is out of range.\n" +
-                    "Please provide a valid task number between 1 and " + count + ".");
-        }
+        EvaException.validateTaskNumber(taskNumber, count);
 
         String taskDescription = tasks.get(taskNumber).toString();
 
