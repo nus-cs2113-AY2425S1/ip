@@ -5,6 +5,8 @@ import exceptions.IrisException;
 import task.Task;
 import task.TaskList;
 
+import static ui.Ui.printDeleteTaskMessage;
+
 /**
  * The DeleteCommand class handles the deletion of tasks from the task list.
  * It identifies the task to be removed and updates the task list accordingly.
@@ -36,19 +38,5 @@ public class DeleteCommand extends Command {
         Task taskToDelete = Parser.getTaskNum(tasks, description);
         tasks.remove(taskToDelete);
         printDeleteTaskMessage(taskToDelete, tasks.size());
-    }
-
-    /**
-     * Prints a message indicating that a task has been deleted from the task list.
-     *
-     * @param taskToDelete The task that was removed.
-     * @param size The current size of the task list after deletion.
-     */
-    private static void printDeleteTaskMessage(Task taskToDelete, int size) {
-        System.out.println("Noted. I've removed this task:\n"
-                + taskToDelete
-                + "\nNow you have "
-                + size
-                + " tasks in the list");
     }
 }

@@ -82,12 +82,26 @@ public class Ui {
      * Prints a message confirming that a task has been added to the task list,
      * displaying the newly added task and the current number of tasks in the list.
      *
-     * @param task The new task has been added.
+     * @param taskToAdd The new task has been added.
      * @param size The size of the task list
      */
-    public static void printAddTaskMessage(Task task, int size) {
+    public static void printAddTaskMessage(Task taskToAdd, int size) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+        System.out.println(taskToAdd);
+        System.out.println("Now you have "
+                + size
+                + " tasks in the list");
+    }
+
+    /**
+     * Prints a message indicating that a task has been deleted from the task list.
+     *
+     * @param taskToDelete The task that was removed.
+     * @param size The current size of the task list after deletion.
+     */
+    public static void printDeleteTaskMessage(Task taskToDelete, int size) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskToDelete);
         System.out.println("Now you have "
                 + size
                 + " tasks in the list");
