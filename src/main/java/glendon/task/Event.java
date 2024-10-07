@@ -1,4 +1,4 @@
-package Glendon.task;
+package glendon.task;
 
 public class Event extends Task {
     protected String start;
@@ -29,11 +29,11 @@ public class Event extends Task {
      * @param start the start date of the task
      * @param end the end date of the task
      */
-    public Event(int completed, String description, String start, String end) {
+    public Event(int completionIndicator, String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end;
-        if (completed == 1) {
+        if (completionIndicator == 1) {
             super.isCompleted = true;
         }
     }
