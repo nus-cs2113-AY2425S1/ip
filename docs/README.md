@@ -1,6 +1,7 @@
 # Yappatron User Guide
 
 Yappatron is a useful app for managing tasks in a calendar. 
+Navigate to src/main/java/Yappatron/Yappatron.java to run the program.
 
 ## Features 
 
