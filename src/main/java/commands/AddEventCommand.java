@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 import tasks.Task;
 import tasks.Event;
 
@@ -32,7 +32,7 @@ public class AddEventCommand extends AddCommand {
      */
 
     @Override
-    public void execute(taskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager storage) throws InvalidCommandException {
         if (!userInput.contains("/from") || !userInput.contains("/to")) {
             throw new InvalidCommandException("Missing start or end date and time");
         }
@@ -58,11 +58,11 @@ public class AddEventCommand extends AddCommand {
             LocalDateTime start = LocalDateTime.parse(startString, formatter);
             LocalDateTime end = LocalDateTime.parse(endString, formatter);
             Task task = new Event(taskContent, start, end);
-            storage.storageInsert(task);
+            storage.insertTask(task);
         }catch (DateTimeParseException e){
             throw new InvalidCommandException("Invalid date format! Please use dd/MM/yyyy HH:mm.");
         }
         System.out.println("____________________________________________________________");
-        storage.storageList();
+        storage.printList();
     }
 }

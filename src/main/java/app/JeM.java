@@ -1,7 +1,7 @@
 package app;
 
 import commands.Command;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 import exceptions.InvalidCommandException;
 
 /**
@@ -14,12 +14,12 @@ import exceptions.InvalidCommandException;
 public class JeM {
 
     private final Ui ui;
-    private final taskManager storage;
+    private final TaskManager storage;
     private final Parser parser;
 
     public JeM(){
         ui = new Ui();
-        storage = new taskManager();
+        storage = new TaskManager();
         parser = new Parser();
     }
 

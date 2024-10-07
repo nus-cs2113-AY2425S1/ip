@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import filemanager.Storage;
 
 /**
- * The Storage class manages the task list and handles the interaction
+ * The Taskmanager class manages the task list and handles the interaction
  * between the in-memory task list and the file where tasks are saved.
  * It provides methods to insert, delete, mark, unmark, list, and clear tasks,
  * as well as safe and load tasks to and from a file using the FileManager.
  */
 
-public class taskManager {
+public class TaskManager {
 
     Storage fileManager;
     private ArrayList<Task> taskList;
 
-    public taskManager() {
+    public TaskManager() {
         taskList = new ArrayList<>();
         fileManager = new Storage("C:\\Users\\ASUS\\Documents\\NUS\\Yr 2 Sem 1\\CS2113\\ip\\.\\data\\tasks.txt");
         taskList = fileManager.loadTasks();
@@ -51,7 +51,7 @@ public class taskManager {
      * @param task The task to be inserted into the list.
      */
 
-    public void storageInsert(Task task) {
+    public void insertTask(Task task) {
         taskList.add(task);
         saveTasks();
         int numOfTasks = taskList.size();
@@ -77,7 +77,7 @@ public class taskManager {
      * @throws InvalidCommandException If the task at the given index does not exist.
      */
 
-    public void storageDelete(int index) throws InvalidCommandException {
+    public void deleteTask(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
@@ -93,7 +93,7 @@ public class taskManager {
      * @throws InvalidCommandException If the task at the given index does not exist.
      */
 
-    public void storageMark(int index) throws InvalidCommandException {
+    public void markTask(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
@@ -109,7 +109,7 @@ public class taskManager {
      * @throws InvalidCommandException If the task at the given index does not exist.
      */
 
-    public void storageUnmark(int index) throws InvalidCommandException {
+    public void unmarkTask(int index) throws InvalidCommandException {
         if (index > taskList.size()) {
             throw new InvalidCommandException("Task number " + index + " does not exist");
         }
@@ -121,7 +121,7 @@ public class taskManager {
      * Prints the whole list.
      */
 
-    public void storageList() {
+    public void printList() {
         if (taskList.isEmpty()){
             System.out.println("Your task list is empty!");
         }else {
@@ -153,7 +153,7 @@ public class taskManager {
      * @param index The index of the task to be printed.
      */
 
-    public void storagePrintTask(int index){
+    public void printTask(int index){
         Task task = taskList.get(index - 1);
         if (task instanceof Deadline) {
             System.out.println((index) + "." + task.getStatusIcon() + " " + task
@@ -173,7 +173,7 @@ public class taskManager {
      * Clears the whole list and makes it empty.
      */
 
-    public void storageClear(){
+    public void clearTasklist(){
         taskList.clear();
         saveTasks();
     }

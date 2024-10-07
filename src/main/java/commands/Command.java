@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 
 /**
  * The Command class is an abstract class that represents a command issued by the user.
@@ -18,5 +18,5 @@ public abstract class Command {
      * @throws InvalidCommandException If the command is invalid or cannot be executed properly.
      */
 
-    public abstract void execute(taskManager storage) throws InvalidCommandException;
+    public abstract void execute(TaskManager storage) throws InvalidCommandException;
 }

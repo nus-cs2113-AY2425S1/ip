@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 
 
 /**
- * The FileManager class handles the loading and saving of tasks to and from a file.
+ * The Storage class handles the loading and saving of tasks to and from a file.
  * It supports the reading of tasks from a file, parsing them into Task objects,
  * and writing them back to the file in a specific format. The supported task types
  * include ToDo, Deadline, and Event.

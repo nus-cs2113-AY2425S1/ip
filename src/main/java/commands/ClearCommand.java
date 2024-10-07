@@ -1,6 +1,6 @@
 package commands;
 
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 
 /**
  * The ClearCommand class handles clearing all tasks from the task list.
@@ -17,8 +17,8 @@ public class ClearCommand extends Command {
      */
 
     @Override
-    public void execute(taskManager storage) {
-        storage.storageClear();
+    public void execute(TaskManager storage) {
+        storage.clearTasklist();
         System.out.println("Your Task list is empty");
     }
 }

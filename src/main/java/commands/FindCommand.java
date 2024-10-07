@@ -1,6 +1,6 @@
 package commands;
 
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 import tasks.Task;
 
 /**
@@ -24,7 +24,7 @@ public class FindCommand extends Command {
      */
 
     @Override
-    public void execute(taskManager storage) {
+    public void execute(TaskManager storage) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
 
@@ -33,7 +33,7 @@ public class FindCommand extends Command {
         for (index = 0; index < storage.getTaskList().size(); index++) {
             Task task = storage.getTaskList().get(index);
             if (task.getContents().contains(keyword)) {
-                storage.storagePrintTask(index + 1);
+                storage.printTask(index + 1);
                 count++;
             }
         }

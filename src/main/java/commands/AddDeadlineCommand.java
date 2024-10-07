@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 import tasks.Task;
 import tasks.Deadline;
 
@@ -31,7 +31,7 @@ public class AddDeadlineCommand extends AddCommand {
      */
 
     @Override
-    public void execute(taskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager storage) throws InvalidCommandException {
         String[] parts = userInput.substring(8).split(" /by ");
         if (parts[0].trim().isEmpty()) {
             throw new InvalidCommandException("The description of the deadline task cannot be empty");
@@ -45,12 +45,12 @@ public class AddDeadlineCommand extends AddCommand {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime deadline = LocalDateTime.parse(deadlineString, formatter);
             Task task = new Deadline(taskContent, deadline);
-            storage.storageInsert(task);
+            storage.insertTask(task);
         } catch (DateTimeParseException e) {
             throw new InvalidCommandException("Invalid date format! Please use dd/MM/yyyy HH:mm.");
         }
         System.out.println("____________________________________________________________");
-        storage.storageList();
+        storage.printList();
     }
 }
 

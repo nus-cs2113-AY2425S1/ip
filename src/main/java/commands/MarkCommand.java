@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 
 /**
  * The MarkCommand class handles marking a task as completed based on the user's input.
@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
      */
 
     @Override
-    public void execute(taskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager storage) throws InvalidCommandException {
         // Split the user input to extract the index of the task to mark
         String[] parts = userInput.split(" ");
         if (parts.length < 2) {
@@ -35,9 +35,9 @@ public class MarkCommand extends Command {
 
         try {
             int index = Integer.parseInt(parts[1]);
-            storage.storageMark(index);
+            storage.markTask(index);
             System.out.println("____________________________________________________________");
-            storage.storageList();
+            storage.printList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }

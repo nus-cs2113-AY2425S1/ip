@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 import tasks.Task;
 import tasks.Todo;
 
@@ -26,15 +26,15 @@ public class AddTodoCommand extends AddCommand {
      */
 
     @Override
-    public void execute(taskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager storage) throws InvalidCommandException {
         if (userInput.trim().length() <= 4) {
             throw new InvalidCommandException("The description of the todo task cannot be empty");
         }
         String taskContent = userInput.substring(5).trim();
         Task task = new Todo(taskContent);
-        storage.storageInsert(task);
+        storage.insertTask(task);
         System.out.println("____________________________________________________________");
-        storage.storageList();
+        storage.printList();
     }
 }
 

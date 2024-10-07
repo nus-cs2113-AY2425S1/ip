@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.InvalidCommandException;
-import taskmanager.taskManager;
+import taskmanager.TaskManager;
 
 /**
  * The AddCommand class is an abstract class that represents a command for adding tasks.
@@ -25,5 +25,5 @@ public abstract class AddCommand extends Command {
      * @throws InvalidCommandException If the command is invalid or cannot be executed properly.
      */
     
-    public abstract void execute(taskManager storage) throws InvalidCommandException;
+    public abstract void execute(TaskManager storage) throws InvalidCommandException;
 }
