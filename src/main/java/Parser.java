@@ -34,6 +34,9 @@ public class Parser {
                 case "delete":
                     tasklist.deleteTask(input);
                     break;
+                case "find":
+                    tasklist.findTasks(input.substring("find".length()).trim());
+                    break;
                 default:
                     throw new DianaException("Unknown Command: " + input);
             }
