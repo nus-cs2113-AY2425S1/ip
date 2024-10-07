@@ -38,6 +38,7 @@ public class Storage {
         return dataFile; // Return the data file
     }
 
+    //Reused from https://github.com/nus-cs2113-AY2425S1/Tasks
     /**
      * Creates a new file.
      * Referred to AddressBook project.
@@ -73,9 +74,10 @@ public class Storage {
         }
     }
 
+    //Reused from https://github.com/nus-cs2113-AY2425S1/Tasks
+    // with minor modifications
     /**
      * Reads the contents of the data file and returns it as a list of strings.
-     * Referred to AddressBook project.
      *
      * @return An {@code ArrayList<String>} containing each line from the file.
      * @throws IOException If the file does not exist or is empty, or an error occurs while reading the file.
@@ -120,6 +122,7 @@ public class Storage {
         return allTasks;
     }
 
+    //Adapted from https://github.com/nus-cs2113-AY2425S1/Tasks
     /**
      * Writes the list of tasks to the data file.
      *
