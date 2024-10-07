@@ -36,13 +36,13 @@ public class Yapper {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
-            String userInputString = scanner.nextLine();
+            String userInputString = scanner.nextLine().trim();
 
             System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
-            if (userInputString.trim().equals(
+            if (userInputString.equals(
                     StringStorage.PREFIX_BYE_INSTRUCTION)) {
                 break;
-            } else if (userInputString.trim().startsWith(
+            } else if (userInputString.startsWith(
                     StringStorage.PREFIX_BYE_INSTRUCTION)) {
                 StringStorage.printWithDividers(
                     StringStorage.PREFIX_BYE_INSTRUCTION
@@ -51,7 +51,7 @@ public class Yapper {
             }
 
             try {
-                Instruction instruction = InputStringHandler.parseUserInput(userInputString.trim());
+                Instruction instruction = InputStringHandler.parseUserInput(userInputString);
                 InstructionHandler.handleInstruction(taskHandler, instruction);
             } catch (YapperException e) {
                 System.out.println("YapperException has occurred " + e.getMessage());
