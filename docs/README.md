@@ -23,7 +23,7 @@ Welcome to Monday, your personal task management assistant! With Monday, you can
 1. Ensure you have Java 17 or above installed in your Computer.
 
 
-2. Download the latest .jar file from [here](https://github.com/lucas-sc0/ip/releases/tag/Monday-v0.2).
+2. Download the latest .jar file from [here](https://github.com/lucas-sc0/ip/releases/tag/A-Release).
 
 
 3. Copy the file to a folder.
