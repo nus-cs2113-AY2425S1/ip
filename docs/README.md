@@ -6,7 +6,7 @@ How can I be a blessing to you?
 Melchizedek is a chatbot that manages your tasks.
 
 ## Getting the list of commands:`help`
-Get a full list of available commands.
+Get the full list of available commands.
 
 Example:`help`
 
@@ -25,20 +25,20 @@ Example:`list`
 ```
 Here is the list of tasks:
 1.[T][ ] read lecture notes
-2.[E][X] coding lecture (from: 2pm to: 4pm)
-3.[D][X] coding assignment (by: 24/09/24 12pm)
+2.[E][X] coding lecture (from: 24 Sep 2024 2:00 pm to: 24 Sep 2024 4:00 pm)
+3.[D][X] coding assignment (by: 24 Sep 2024 12:00 pm)
 ```
 
 ## Searching for tasks:`find`
-Get all tasks that contain the keyword
+Get all tasks that contain the keyword, ignoring case.
 
 Format:`find KEYWORD`
 
 Example:`find coding`
 ```
 Here are the matching tasks in your list:
-1.[E][X] coding lecutre (from: 2pm to: 4pm)
-2.[D][X] coding assignment (by: 24/09/24 12pm)
+1.[E][X] coding lecture (from: 24 Sep 2024 2:00 pm to: 24 Sep 2024 4:00 pm)
+2.[D][X] coding assignment (by: 24 Sep 2024 12:00 pm)
 ```
 
 ## Adding todos:`todo`
@@ -56,24 +56,24 @@ Now you have 4 tasks in the list.
 ## Adding deadlines:`deadline`
 Add a deadline to the task list.
 
-Format:`deadline DESCRIPTION /by BY`
+Format:`deadline DESCRIPTION /by YYYY-MM-DD (HH:MM)`
 
-Example:`deadline report /by 31/10/24`
+Example:`deadline report /by 2024-10-31`
 ```
 I have added this task:
-  [D][ ] report (by: 31/10/24)
+  [D][ ] report (by: 31 Oct 2024)
 Now you have 5 tasks in the list.
 ```
 
 ## Adding events:`event`
 Add an event to the task list.
 
-Format:`event DESCRIPTION /from FROM /to TO`
+Format:`event DESCRIPTION /from YYYY-MM-DD (HH:MM) /to YYYY-MM-DD (HH:MM)`
 
-Example:`event report review with prof /from 11/10/24 3pm /to 4pm`
+Example:`event report review with prof /from 2024-10-11 15:00 /to 2024-10-11 16:00`
 ```
 I have added this task:
-  [E][ ] report review with prof (from: 11/10/24 3pm to: 4pm)
+  [E][ ] report review with prof (from: 11 Oct 2024 3:00 pm to: 11 Oct 2024 4:00 pm)
 Now you have 6 tasks in the list.
 ```
 ## Deleting tasks:`delete`
@@ -84,7 +84,7 @@ Format:`delete INDEX`
 Example:`delete 2`
 ```
 I have removed the following task from your list:
-  [E][X] coding lecture (from: 2pm to: 4pm)
+  [E][X] coding lecture (from: 24 Sep 2024 2:00 pm to: 24 Sep 2024 4:00 pm)
 Now you have 5 tasks in the list.
 ```
 
