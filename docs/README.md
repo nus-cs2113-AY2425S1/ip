@@ -108,17 +108,17 @@ Adds a simple todo task to your list.
   
 
 ## Command Summary
-| Command           | Format                                      | Example                                 |
-|-------------------|--------------------------------------------|-----------------------------------------|
-| Add a Todo        | `todo <task_description>`                  | `todo read book`                        |
-| Add a Deadline    | `deadline <task_description> /by <date>`   | `deadline return book /by 2/12/2019 1800` |
-| Add an Event      | `event <task_description> /from <date> /to <date>` | `event project meeting /from 10/12/2019 0900 /to 10/12/2019 1100` |
-| List Tasks        | `list`                                     | `list`                                  |
-| Mark Task Done    | `mark <task_number>`                       | `mark 2`                                |
-| Unmark Task       | `unmark <task_number>`                     | `unmark 2`                              |
-| Delete Task       | `delete <task_number>`                     | `delete 3`                              |
-| Find Task         | `find <keyword>`                           | `find book`                             |
-| Help              | `help`                                     | `help`                                  |
+| Command        | Format                                             | Example                                                           |
+|----------------|----------------------------------------------------|-------------------------------------------------------------------|
+| Add a Todo     | `todo <task_description>`                          | `todo read book`                                                  |
+| Add a Deadline | `deadline <task_description> /by <date>`           | `deadline return book /by 2/12/2019 1800`                         |
+| Add an Event   | `event <task_description> /from <date> /to <date>` | `event project meeting /from 10/12/2019 0900 /to 10/12/2019 1100` |
+| List Tasks     | `list`                                             | `list`                                                            |
+| Mark Task Done | `mark <task_number>`                               | `mark 2`                                                          |
+| Unmark Task    | `unmark <task_number>`                             | `unmark 2`                                                        |
+| Delete Task    | `delete <task_number>`                             | `delete 3`                                                        |
+| Find Task      | `find <keyword>`                                   | `find book`                                                       |
+| Help           | `help`                                             | `help`                                                            |
 
 
 
