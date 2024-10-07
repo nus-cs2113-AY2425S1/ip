@@ -1,6 +1,5 @@
 package task;
 
-
 import java.time.LocalDateTime;
 import main.List;
 
@@ -9,17 +8,17 @@ import main.List;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    protected LocalDateTime byDate;
 
     /**
      * Constructs a Deadline with the specified description and due date.
      *
      * @param description The description of the deadline task.
-     * @param by The due date of the deadline task.
+     * @param byDate The due date of the deadline task.
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     /**
@@ -30,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + List.convertDeadlineDateAsString(by) + ")");
+        return ("[D][" + getDoneStatusIcon() + "] " + description + " (by: " + List.convertDeadlineDateAsString(byDate) + ")");
     }
 
     /**
@@ -40,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String formattedTask() {
-        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + List.convertDeadlineDateAsString(by));
+        return ("D | " + getDoneStatusIcon() + " | " + description + " | " + List.convertDeadlineDateAsString(byDate));
     }
 
 }

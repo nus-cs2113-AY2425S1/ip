@@ -21,7 +21,7 @@ public class Ui {
     /**
      * Prints a horizontal line for separating sections in the user interface.
      */
-    public void printHorizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println(DRAW_HORIZONTAL_LINE);
     }
 
@@ -87,8 +87,8 @@ public class Ui {
     /**
      * Prints a generic error message for unknown issues.
      */
-    public void printUnknownErrorMessage() {
-        System.out.println("Unknown error experienced.");
+    public void printIndexOutOfBoundsMessage() {
+        System.out.println("Index given was ouf of bounds of the list");
     }
 
     /**
@@ -135,6 +135,14 @@ public class Ui {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + itemArrayList.size() + " tasks in the list.");
+    }
+
+    public void printInvalidDateFormatMessage() {
+        System.out.println("\tInvalid date format, expected: \n\t\tyyyy-mm-dd HH:mm \n\t\tyyyy-MM-dd \n\t\tdd/MM/yyyy HH:mm \n\t\tdd/MM/yyyy");
+    }
+
+    public void printDateFieldEmptyMessage() {
+        System.out.println("\tError: Date field(s) cannot be empty");
     }
 }
 

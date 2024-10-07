@@ -1,7 +1,7 @@
 package main;
 
 import exception.EmptyDescriptionException;
-import task.*;
+import task.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,6 @@ import java.util.Arrays;
  */
 public class TaskList {
 
-    private int numItems;
     private Ui ui;
     private Task[] itemList = new Task[0];
     ArrayList<Task> itemArrayList = new ArrayList<>(Arrays.asList(itemList));
@@ -21,7 +20,6 @@ public class TaskList {
      * Constructs an empty task list with no items.
      */
     public TaskList(Ui ui) {
-        this.numItems = 0;
         this.ui = ui;
     }
 
@@ -43,14 +41,21 @@ public class TaskList {
      * @param line The user input containing task information.
      */
     public void addItem(String line) {
-        if (Parser.isValidEvent(line)) {
+        String commandType = Parser.getTaskType(line); // Assuming a method to determine task type
+
+        switch (commandType) {
+        case "event":
             List.addEvent(itemArrayList, ui, line);
-        } else if (Parser.isValidDeadline(line)) {
+            break;
+        case "deadline":
             List.addDeadline(itemArrayList, ui, line);
-        } else if (Parser.isTodo(line)) {
+            break;
+        case "todo":
             List.addTodo(itemArrayList, ui, line);
-        } else {
+            break;
+        default:
             ui.printInvalidTaskMessage();
+            break;
         }
     }
 
@@ -72,8 +77,8 @@ public class TaskList {
             }
         } catch (NumberFormatException e) {
             ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.printIndexOutOfBoundsMessage();
         }
     }
 
@@ -95,8 +100,8 @@ public class TaskList {
             }
         } catch (NumberFormatException e) {
             ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.printIndexOutOfBoundsMessage();
         }
     }
 
@@ -119,8 +124,8 @@ public class TaskList {
             }
         } catch (NumberFormatException e) {
             ui.printInputIndexNotAnIntegerMessage();
-        } catch (Exception e) {
-            ui.printUnknownErrorMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.printIndexOutOfBoundsMessage();
         }
     }
 
