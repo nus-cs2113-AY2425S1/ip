@@ -95,6 +95,17 @@ public class Ui {
         printTasksInList(tasks);
     }
 
+    public void printTasksFilteredByDateList(ArrayList<Task> tasks, String date) {
+        if (tasks.isEmpty()) {
+            System.out.println("Your search resulted in 0 matches. :(");
+            return;
+        }
+
+        System.out.println("Your search resulted in " + tasks.size() + " matches.\n");
+        System.out.println("Here are the tasks occurring on " + date + ":");
+        printTasksInList(tasks);
+    }
+
     public void showLoadingError() {
         System.out.println("File contents corrupted. Error loading contents to list.. :(");
     }
