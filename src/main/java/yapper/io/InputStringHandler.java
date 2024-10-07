@@ -97,7 +97,7 @@ public class InputStringHandler {
 
 
     /**
-     * Splits the instruction arguments by the deadline keyword delimiter.
+     * Splits the instruction argument string into 2 parts, by the deadline keyword delimiter.
      *
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the deadline description and date
@@ -110,7 +110,7 @@ public class InputStringHandler {
         return new String[] {deadlineDesc, deadlineDate};
     }
     /**
-     * Splits the instruction arguments by the event keywords.
+     * Splits the instruction argument string into 3 parts, by the event keyword delimiters.
      *
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the event description, start date, and end date
