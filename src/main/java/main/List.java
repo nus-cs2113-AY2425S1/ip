@@ -41,7 +41,7 @@ public class List {
         } catch (EmptyDescriptionException e) {
             ui.printTaskDescriptionEmptyMessage();
         } catch (EmptyDateFieldException e) {
-            System.out.println("\tError: Date field(s) cannot be empty");
+            ui.printDateFieldEmptyMessage();
         }
     }
 
@@ -85,9 +85,9 @@ public class List {
         } catch (EmptyDescriptionException e) {
             ui.printTaskDescriptionEmptyMessage();
         } catch (EmptyDateFieldException e) {
-            System.out.println("\tError: Date field(s) cannot be empty");
+            ui.printDateFieldEmptyMessage();
         } catch (DateTimeException e) {
-            System.out.println("\tInvalid date format, try: \n\t yyyy-mm-dd HH:mm \n\t yyyy-MM-dd \n\t dd/MM/yyyy HH:mm \n\t dd/MM/yyyy");
+            ui.printInvalidDateFormatMessage();
         }
     }
 
@@ -121,11 +121,6 @@ public class List {
         itemArrayList.remove(itemNum - 1);
     }
 
-//    public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
-//        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//            return LocalDateTime.parse(deadlineDate, inputFormatter);
-//    }
-
     public static LocalDateTime convertDeadlineDateAsLocalDateTime(String deadlineDate) {
         // Define multiple format patterns to support different date and date-time formats
         DateTimeFormatter[] formatters = {
@@ -154,7 +149,7 @@ public class List {
             }
         }
 
-        // If parsing fails for all formats, throw an exception or handle it as needed
+        // If parsing fails for all formats, throw an exception
         throw new DateTimeException("Invalid date format: " + deadlineDate);
     }
 
@@ -166,7 +161,7 @@ public class List {
 
     public static String convertDeadlineDateAsString(LocalDateTime dateTime) {
         DateTimeFormatter outputformatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        String formattedDateTime = dateTime.format(outputformatter); // "1986-04-08 12:30"
+        String formattedDateTime = dateTime.format(outputformatter);
 
         return formattedDateTime;
     }

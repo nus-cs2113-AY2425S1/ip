@@ -11,10 +11,6 @@ import java.util.Scanner;
  * to perform the appropriate actions on the task list.
  */
 public class Parser {
-    private static final int MARK_WORD_LEN = 4;
-    private static final int UNMARK_WORD_LEN = 6;
-    private static final int INPUT_SPACE_BUFFER = 2;
-    private static final int DELETE_WORD_LEN = 6;
     public static final String DEADLINE_BY_KEYWORD = "/by";
     public static final String EVENT_FROM_KEYWORD = "/from";
     public static final String EVENT_TO_KEYWORD = "/to";
