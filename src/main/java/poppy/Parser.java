@@ -30,22 +30,22 @@ public class Parser {
         String description = commandArgs[2];
 
         switch (command) {
-            case "T":
-                ToDo task = new ToDo(description);
-                taskList.add(task);
-                break;
-            case "D":
-                String[] deadlineParts = description.split("\\|", 2);
-                Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-                taskList.add(deadline);
-                break;
-            case "E":
-                String[] eventParts = description.split("\\| ", 2);
-                Events event = new Events(eventParts[0].trim(), eventParts[1].trim());
-                taskList.add(event);
-                break;
-            default:
-                return;
+        case "T":
+            ToDo task = new ToDo(description);
+            taskList.add(task);
+            break;
+        case "D":
+            String[] deadlineParts = description.split("\\|", 2);
+            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            taskList.add(deadline);
+            break;
+        case "E":
+            String[] eventParts = description.split("\\| ", 2);
+            Events event = new Events(eventParts[0].trim(), eventParts[1].trim());
+            taskList.add(event);
+            break;
+        default:
+            return;
         }
 
         if (status.equals("1")) {
