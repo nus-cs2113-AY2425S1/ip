@@ -61,6 +61,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays confirmation message that a task is marked
+     *
+     * @param description The description of the task that is marked
+     */
     public void showTaskAsDone(String description) {
         showMessage("Great! This task is marked as done: ");
         showMessage(description);
@@ -68,12 +73,25 @@ public class Ui {
         showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Display message to show that the task has been unmarked
+     *
+     * @param description The description of the task that is unmarked
+     */
     public void showTaskAsNotDone (String description) {
         showMessage("Ok, This task is marked as not done yet: ");
         showMessage(description);
         showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Display message that a task is deleted.
+     * It will also show the number of tasks remaining
+     *
+     * @param taskDescription The description of the task that is deleted
+     * @param taskNumber The task number of task deleted based 0
+     * @param remainingTasks The number of task remaining in the task list
+     */
     public void showDeleteTask (String taskDescription, int taskNumber, int remainingTasks) {
         showMessage("Okay. I have deleted task " + (taskNumber + 1) + ".");
         showMessage(taskDescription);
@@ -81,6 +99,13 @@ public class Ui {
         showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Show message that a new todo task is added.
+     * Show the total number of task in the list
+     *
+     * @param todoDescription The description of the todo task added
+     * @param count The number of tasks in the list
+     */
     public void showAddTodo (String todoDescription, int count) {
         showMessage("Okay, I've added this todo: ");
         showMessage(todoDescription);
@@ -88,6 +113,13 @@ public class Ui {
         showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Show message that a new deadline task is added.
+     * Shows the total number of tasks in task list
+     *
+     * @param deadlineDescription The description of deadline task added
+     * @param count Total number of tasks in the task list
+     */
     public void showAddDeadline (String deadlineDescription, int count) {
         showMessage("Okay, I've added this deadline: ");
         showMessage(deadlineDescription);
@@ -95,6 +127,13 @@ public class Ui {
         showMessage(HORIZONTAL_LINE);
     }
 
+    /**
+     * Show message that a new event task is added
+     * Shows total number of task in the task list
+     *
+     * @param eventDescription The description of the event task added
+     * @param count The total number of tasks in the task list
+     */
     public void showAddEvent (String eventDescription, int count) {
         showMessage("Okay, I've added this event: ");
         showMessage(eventDescription);
