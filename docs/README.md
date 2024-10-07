@@ -1,5 +1,5 @@
 # Niwa User Guide
-// Product screenshot goes here
+![Welcome screen](./images/Welcome.png)
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
@@ -136,6 +136,8 @@ Here’s a list of available commands along with their expected outputs:
 
 **Tips:** You will be prompted to confirm this action.
 
+![Clear](./images/Clear.png)
+
 ---
 ### 12. Save task list: **`save`**
 **Syntax:** **`save FILE_PATH.txt`**
@@ -178,5 +180,9 @@ event: E | TASK_STATUS (0 as undone, 1 as done) | TASK_DESCRIPTION | yyyy-MM-dd 
 **Description:** End the chat.
 
 ## Additional Notes
-- The task list is automatically saved to a default file path whenever it changes.
+- The task list is automatically saved to a default file named `NiwaTaskList.txt` whenever it changes. You should find your data folder in your working directory.
+  
+  ![Data](./images/Data.png)
 - Niwa will read task information from the default file path when she starts running.
+  
+  ![Read](./images/Read.png)
