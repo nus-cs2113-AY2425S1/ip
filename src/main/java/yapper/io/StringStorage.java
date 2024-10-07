@@ -257,14 +257,4 @@ public class StringStorage {
     public static String[] splitByDelimiter(String taskAsString) {
         return taskAsString.split(SPLIT_USING_DELIMITER, 3);
     }
-    /**
-     * Prints a message with dividers for better visibility.
-     *
-     * @param message The message to be printed.
-     */
-    public static void printWithDividers(String message) {
-        System.out.println(LINE_DIVIDER_OUTPUT);
-        System.out.println(message);
-        System.out.println(LINE_DIVIDER_INPUT);
-    }
 }
