@@ -154,13 +154,21 @@ public class TaskList {
             }
         }
 
-        String description = null;
-        String from = null;
-        String to = null;
+        String description;
+        LocalDate fromDate;
+        LocalTime fromTime = null;
+        LocalDate toDate;
+        LocalTime toTime = null;
         try {
             description = Parser.joinStringArray(tokens, 0, fromIndex, " ");
-            from = Parser.joinStringArray(tokens, fromIndex + 1, toIndex, " ");
-            to = Parser.joinStringArray(tokens, toIndex + 1, tokens.length, " ");
+            fromDate = Parser.parseDate(tokens[fromIndex + 1]);
+            toDate = Parser.parseDate(tokens[toIndex + 1]);
+            if (toIndex > fromIndex + 2) {
+                fromTime = Parser.parseTime(Parser.joinStringArray(tokens, fromIndex + 2, toIndex, " "));
+            }
+            if (tokens.length > toIndex + 2) {
+                toTime = Parser.parseTime(Parser.joinStringArray(tokens, toIndex + 2, tokens.length, " "));
+            }
         } catch (IllegalArgumentException e) {
             if (fromIndex == INVALID_INDEX && toIndex == INVALID_INDEX) {
                 Ui.printUnableToProcessWithoutKey("\"/from\" and \"/to\"");
@@ -172,9 +180,12 @@ public class TaskList {
             }
             Ui.printEventExample();
             return;
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseException();
+            return;
         }
 
-        allTasks.add(new Event(description, from, to));
+        allTasks.add(new Event(description, false, fromDate, fromTime, toDate, toTime));
         int taskCount = getTaskCount();
         Ui.printAddedTask(getTaskToString(taskCount - 1), taskCount);
     }
@@ -262,9 +273,24 @@ public class TaskList {
     public void loadEvent(String[] tokens) {
         boolean isDone = tokens[0].equals("1");
         String description = tokens[1];
-        String from  = tokens[2];
-        String to = tokens[3];
-        allTasks.add(new Event(description, isDone, from, to));
+        LocalDate fromDate;
+        LocalTime fromTime = null;
+        LocalDate toDate;
+        LocalTime toTime = null;
+        try {
+            fromDate  = Parser.parseDate(tokens[2]);
+            if (!tokens[3].equalsIgnoreCase("null")) {
+                fromTime = Parser.parseTime(tokens[3]);
+            }
+            toDate  = Parser.parseDate(tokens[4]);
+            if (tokens.length > 5) {
+                toTime = Parser.parseTime(tokens[5]);
+            }
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseException();
+            return;
+        }
+        allTasks.add(new Event(description, isDone, fromDate, fromTime, toDate, toTime));
     }
 
     /**
