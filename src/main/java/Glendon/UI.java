@@ -21,6 +21,7 @@ public class UI {
      * Prints the message that there is no such task
      */
     public void noSuchTask() {
+        showLine();
         System.out.println("    No such task found");
     }
 
@@ -29,6 +30,7 @@ public class UI {
      * @param tasks the list of tasks
      */
     public void tasksFound(ArrayList<Task> tasks) {
+        showLine();
         int taskNumber = 1;
         Task currentTask;
         System.out.println("    Here are the tasks with the specific task name:");
@@ -46,6 +48,7 @@ public class UI {
      * of the issue
      */
     public void fileCreationError(Exception e) {
+        showLine();
         System.out.println("    Issue with creating file :" + e.getMessage());
     }
 
@@ -54,6 +57,7 @@ public class UI {
      * of the issue
      */
     public void fileNotFoundError(String filePath) {
+        showLine();
         System.out.println("File not found" + filePath);
     }
 
@@ -62,6 +66,7 @@ public class UI {
      * of the issue
      */
     public void fileAccessError(String filePath) {
+        showLine();
         System.out.println("    Error: Access denied while saving to " + filePath);
     }
 
@@ -70,6 +75,7 @@ public class UI {
      * of the issue
      */
     public void fileSavingError(Exception e) {
+        showLine();
         System.out.println("    Unexpected error saving file: " + e.getMessage());
     }
 
@@ -85,6 +91,7 @@ public class UI {
      * Prints the message for user when the chosen task has already been marked
      */
     public void showMarkError() {
+        showLine();
         System.out.println("    Task has already been marked");
     }
 
@@ -92,6 +99,7 @@ public class UI {
      * Prints the message for user when the chosen task has already been unmarked
      */
     public void showUnmarkError() {
+        showLine();
         System.out.println("    Task has already been unmarked");
     }
 
@@ -99,6 +107,7 @@ public class UI {
      * Prints the message for user when there is no such commands
      */
     public void showMissingCommandError() {
+        showLine();
         System.out.println("    Ayo no such commands.");
     }
 
@@ -106,6 +115,7 @@ public class UI {
      * Prints the message for user when the file is missing and it will be created now
      */
     public void showLoadingError() {
+        showLine();
         System.out.println("    Missing File\n  Attempting to create a new file");
     }
 
@@ -113,6 +123,7 @@ public class UI {
      * Prints the message for user when there is no input of the task number
      */
     public void showTaskNumberError() {
+        showLine();
         System.out.println("    My guy you dont have that task number");
     }
 
@@ -120,6 +131,7 @@ public class UI {
      * Prints the message for user when there is no input of the task name
      */
     public void showTaskInfoError() {
+        showLine();
         System.out.println("    Ayo you forgot to tell me what is the task");
     }
 
@@ -127,6 +139,7 @@ public class UI {
      * Prints the message for user when there is no input of the date
      */
     public void showDateError() {
+        showLine();
         System.out.println("    You have forgotten to tell me the date");
     }
 
@@ -134,6 +147,7 @@ public class UI {
      * Prints the message for user when there is a task number is given instead of task name
      */
     public void showTaskNameError() {
+        showLine();
         System.out.println("    Bruh tell me a number, not the task.");
     }
 
@@ -144,6 +158,7 @@ public class UI {
      * @param taskIndex the index of the task to be marked
      */
     public void markedTaskMessage(TaskList tasks, int taskIndex) {
+        showLine();
         System.out.println("    Nice! I've marked this task as done:");
         System.out.println("        " + tasks.taskList.get(taskIndex));
     }
@@ -155,6 +170,7 @@ public class UI {
      * @param taskIndex the index of the task to be unmarked
      */
     public void unmarkedTaskMessage(TaskList tasks, int taskIndex) {
+        showLine();
         System.out.println("    OK, I've marked this task as not done yet:");
         System.out.println("        " + tasks.taskList.get(taskIndex));
     }
@@ -167,7 +183,7 @@ public class UI {
      * @param tasks the updated list of task
      */
     public void showDeletedMessage(Task removedTask, TaskList tasks) {
-        System.out.println(lineDivider);
+        showLine();
         System.out.println("    Noted. I've removed this task:");
         System.out.println("        " + removedTask);
         System.out.println("    Now you have " + tasks.taskList.size() + " tasks in the list");
@@ -179,7 +195,7 @@ public class UI {
      */
     public void showAddedTask(TaskList tasks) {
         int taskCounter = tasks.taskList.size() - 1;
-        System.out.println(lineDivider);
+        showLine();
         System.out.println("    Got it. I've added this task:");
         System.out.println("        " + tasks.taskList.get(taskCounter));
         System.out.println("    Now you have " + (taskCounter+1) + " tasks in the list.");
@@ -190,7 +206,7 @@ public class UI {
      * @param tasks the list of task in the chatbot
      */
     public void showTaskList(TaskList tasks) {
-        System.out.println(lineDivider);
+        showLine();
         ArrayList<Task> currentTaskList = tasks.taskList;
         if (currentTaskList.isEmpty()) {
             System.out.println("    You are free from task");
@@ -212,7 +228,7 @@ public class UI {
      * Prints the GoodBye message for user
      */
     public void showBye() {
-        System.out.println(lineDivider);
+        showLine();
         System.out.println("    Bye. Hope to see you again soon!");
     }
 
