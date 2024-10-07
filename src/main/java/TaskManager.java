@@ -48,10 +48,7 @@ public class TaskManager {
 
         tasks.get(taskNumber).setMarkAsDone();
 
-        ui.showMessage("Great! This task is marked as done: ");
-        ui.showMessage(tasks.get(taskNumber).toString());
-        ui.showMessage("Well done! ;)");
-        ui.showMessage(HORIZONTAL_LINE);
+        ui.showTaskAsDone(tasks.get(taskNumber).toString());
 
         saveTasks();
     }
@@ -74,9 +71,7 @@ public class TaskManager {
 
         tasks.get(taskNumber).setMarkAsNotDone();
 
-        ui.showMessage("Ok, This task is marked as not done yet: ");
-        ui.showMessage(tasks.get(taskNumber).toString());
-        ui.showMessage(HORIZONTAL_LINE);
+        ui.showTaskAsNotDone(tasks.get(taskNumber).toString());
 
         saveTasks();
     }
@@ -97,15 +92,12 @@ public class TaskManager {
                     "Please provide a valid task number between 1 and " + count + ".");
         }
 
-        String temp = tasks.get(taskNumber).toString();
+        String taskDescription = tasks.get(taskNumber).toString();
 
         tasks.remove(taskNumber);
-        count = count - 1;
+        count --;
 
-        ui.showMessage("Okay. I have deleted task " + (taskNumber + 1) + ".");
-        ui.showMessage(temp);
-        printNumTasks(count - 1);
-        ui.showMessage(HORIZONTAL_LINE);
+        ui.showDeleteTask(taskDescription, taskNumber, count);
 
         saveTasks();
     }
@@ -123,12 +115,9 @@ public class TaskManager {
 
         tasks.add(new Todo(line));
 
-        ui.showMessage("Okay, I've added this todo: ");
-        ui.showMessage(tasks.get(count).toString());
-        printNumTasks(count);
-        ui.showMessage(HORIZONTAL_LINE);
-
         count++;
+
+        ui.showAddTodo(tasks.get(count - 1).toString(), count);
 
         saveTasks();
     }
@@ -147,12 +136,9 @@ public class TaskManager {
 
         tasks.add(new Deadline(description, by));
 
-        ui.showMessage("Okay, I've added this deadline: ");
-        ui.showMessage(tasks.get(count).toString());
-        printNumTasks(count);
-        ui.showMessage(HORIZONTAL_LINE);
-
         count++;
+
+        ui.showAddDeadline(tasks.get(count - 1).toString(), count);
 
         saveTasks();
     }
@@ -172,12 +158,9 @@ public class TaskManager {
 
         tasks.add(new Event(description, from, to));
 
-        ui.showMessage("Okay, I've added this event: ");
-        ui.showMessage(tasks.get(count).toString());
-        printNumTasks(count);
-        ui.showMessage(HORIZONTAL_LINE);
-
         count++;
+
+        ui.showAddEvent(tasks.get(count - 1).toString(), count);
 
         saveTasks();
     }
@@ -208,15 +191,6 @@ public class TaskManager {
             }
         }
         ui.showMessage(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints the number of tasks in the task list
-     *
-     * @param count The number of tasks in the list (based zero)
-     */
-    public void printNumTasks(int count) {
-        ui.showMessage("Now you have " + (count + 1) + " tasks in the list.");
     }
 
     private void saveTasks() {
