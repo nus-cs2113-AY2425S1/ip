@@ -1,4 +1,4 @@
-package Glendon.task;
+package glendon.task;
 
 public class Todo extends Task {
 

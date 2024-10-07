@@ -1,9 +1,9 @@
-package Glendon;
+package glendon;
 
-import Glendon.task.Deadline;
-import Glendon.task.Event;
-import Glendon.task.Task;
-import Glendon.task.Todo;
+import glendon.task.Deadline;
+import glendon.task.Event;
+import glendon.task.Task;
+import glendon.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

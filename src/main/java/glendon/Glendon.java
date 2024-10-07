@@ -1,4 +1,4 @@
-package Glendon;
+package glendon;
 
 import java.io.FileNotFoundException;
 

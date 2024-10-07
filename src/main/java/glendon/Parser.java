@@ -1,6 +1,6 @@
-package Glendon;
+package glendon;
 
-import Glendon.task.Task;
+import glendon.task.Task;
 import java.util.ArrayList;
 
 public class Parser {

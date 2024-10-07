@@ -1,12 +1,12 @@
-package Glendon;
+package glendon;
 
-import Glendon.task.Deadline;
-import Glendon.task.Event;
-import Glendon.task.Task;
-import Glendon.task.Todo;
-import java.time.LocalDateTime;
+import glendon.task.Deadline;
+import glendon.task.Event;
+import glendon.task.Task;
+import glendon.task.Todo;
+
 import java.util.ArrayList;
-import static Glendon.Glendon.filePath;
+import static glendon.Glendon.filePath;
 
 public class TaskList {
     public static ArrayList<Task> taskList;
