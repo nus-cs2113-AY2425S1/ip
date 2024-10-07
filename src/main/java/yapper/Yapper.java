@@ -64,10 +64,8 @@ public class Yapper {
      * The main method that serves as the entry point of the Yapper program.
      *
      * <p>
-     * It initializes the TaskHandler.
-     * It displays the startup message if no tasks are present in the file.
-     * It starts the chatbot loop.
-     * It displays a shutdown message when the program ends.
+     * It initializes the TaskHandler, starts the chatbot loop,
+     * and displays messages when the program starts and ends.
      * <p/>
      *
      * @param args command line arguments (not used)
