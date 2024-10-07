@@ -1,6 +1,7 @@
 package yapper.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,11 +69,10 @@ public class OutputFileHandler {
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when saving task to file: "
+                    + "error occurred when saving task to file: \n"
                     + e.getMessage());
         }
     }
-
     /**
      * Removes a deleted task from the file.
      *
@@ -85,10 +85,15 @@ public class OutputFileHandler {
             ArrayList<String> taskLines = convertFileToArrayList(file);
             taskLines.remove(taskOrdinal);
             convertArrayListToFile(taskLines);
+        } catch (FileNotFoundException e) {
+            throw new YapperException(
+                    StringStorage.FILE_NOT_FOUND_ERROR_MESSAGE
+                    + ", when deleting task from file: \n"
+                    + e.getMessage());
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when deleting task from file: "
+                    + ", when deleting task from file: \n"
                     + e.getMessage());
         }
     }
@@ -105,10 +110,15 @@ public class OutputFileHandler {
             ArrayList<String> taskLines = convertFileToArrayList(file);
             taskLines.set(taskOrdinal, task.taskToString());
             convertArrayListToFile(taskLines);
+        } catch (FileNotFoundException e) {
+            throw new YapperException(
+                    StringStorage.FILE_NOT_FOUND_ERROR_MESSAGE
+                    + ", when amending task status in file: \n"
+                    + e.getMessage());
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when amending task status in file: "
+                    + ", when amending task status in file: \n"
                     + e.getMessage());
         }
     }
