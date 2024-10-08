@@ -151,6 +151,8 @@ public class Parser {
             return new ListCommand();
         } else if (checkCommand(line, "mark")) {
            return markEntry(line);
+        } else if (checkCommand(line, "unmark")) {
+            return markEntry(line);
         } else if (checkCommand(line, "todo")) {
             return addTodo(line);
         } else if (checkCommand(line, "deadline")) {
