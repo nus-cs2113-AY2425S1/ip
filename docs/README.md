@@ -1,5 +1,8 @@
 # Pythia User Guide
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](Screenshot.png)
+<p align="center">
+  <img src="Screenshot.png" alt="Description" style="max-height: 300px;">
+</p>
+
 Pythia chatbot is desktop app **designed to help you manage all of your tasks, 
 optimized for use via command-line interface**.
 It allows for adding tasks, deleting, marking and saving them for later.
