@@ -15,45 +15,45 @@ Exiting the program : bye
 Saving the data
 
 ### Adding a task: 
-todo
-Adds a todo task to the task list.
-Format: todo TASK_DESCRIPTION
+`todo` <br>
+Adds a todo task to the task list. <br>
+Format: `todo TASK_DESCRIPTION`
 
-deadline
-Adds a deadline to the task list.
-Format: deadline TASK_DESCRIPTION /by TIME
+`deadline` <br>
+Adds a deadline to the task list. <br>
+Format: `deadline TASK_DESCRIPTION /by TIME`
 
-event
-Adds an event to the task list.
-Format: event TASK_DESCRIPTION /from START_TIME /to END_TIME
-
+`event` <br>
+Adds an event to the task list. <br>
+Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME
+`
 ### Listing all tasks: list
-Shows all tasks in the task list.
-Format: list
+Shows all tasks in the task list. <br>
+Format: `list`
 
 ### Location tasks by name: find
-Find tasks whose description matches the keyword.
-Format: find KEYWORD
+Find tasks whose description matches the keyword. <br>
+Format: `find KEYWORD`
 
 ### Deleting a task: delete
-Deletes the specified task from the task list.
-Format: delete INDEX
+Deletes the specified task from the task list. <br>
+Format: `delete INDEX`
 
 - Deletes the task at the specified INDEX.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
 
 ### Marking tasks as complete: mark
-Marks the specified task in the task list as complete. 
-Format: mark INDEX
+Marks the specified task in the task list as complete. <br>
+Format: `mark INDEX`
 
 - Marks the task at the specified INDEX as complete.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
 
 ### Unmarking tasks: unmark
-Marks the specified task in the task list as incomplete. 
-Format: mark INDEX
+Marks the specified task in the task list as incomplete. <br>
+Format: `mark INDEX`
 
 - Marks the task at the specified INDEX as incomplete.
 - The index refers to the index number shown in the displayed task list.
@@ -61,7 +61,7 @@ Format: mark INDEX
 
 ### Exiting the program : bye
 Exits the program.
-Format: bye
+Format: `bye`
 
 ### Saving the data
 Task data are saved in the hard disk automatically after the bye command. There is no need to save manually.
