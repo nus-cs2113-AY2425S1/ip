@@ -58,10 +58,14 @@ public class Parser {
             return false;
         } else if (command.equalsIgnoreCase("list")) {
             ui.printItems(tasks.getTasks());
-        } else if (command.startsWith("mark") || command.startsWith("unmark")) {
-            // Call the unmark and mark function
+        } else if (command.startsWith("mark")) {
+            // Call the mark function
             String[] parsedLine = command.split(" ");
-            tasks.markAndUnmarkItem(Integer.parseInt(parsedLine[1]), parsedLine[0]);
+            tasks.markItem(Integer.parseInt(parsedLine[1]));
+        } else if (command.startsWith("unmark")) {
+            // Call the mark function
+            String[] parsedLine = command.split(" ");
+            tasks.unmarkItem(Integer.parseInt(parsedLine[1]));
         } else if (command.startsWith("delete")) {
             String[] parts = command.split(" ");
             tasks.deleteTask(Integer.parseInt(parts[1]));

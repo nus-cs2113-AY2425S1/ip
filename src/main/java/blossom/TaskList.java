@@ -41,26 +41,38 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks a task based on the given action.
+     * Marks a task as complete.
      *
-     * @param itemIndex The index of the task to be marked or unmarked.
-     * @param action The action to perform ('mark' or 'unmark').
+     * @param itemIndex The index of the task to be marked.
      */
-    public void markAndUnmarkItem(int itemIndex, String action) {
+    public void markItem(int itemIndex) {
         itemIndex--;
         // If this item is marked - change boolean
         Task item = this.listOfTasks.get(itemIndex);
         if (item != null) {
             System.out.println(horizontalLine);
-            if(action.equalsIgnoreCase("mark")) {
-                item.markAsDone();
-                System.out.println("Yayy~~ Good job in getting this done!");
-                System.out.println(item);
-            } else {
-                item.markAsUndone();
-                System.out.println("Hope you get this done soon! :D");
-                System.out.println(item);
-            }
+            item.markAsDone();
+            System.out.println("Yayy~~ Good job in getting this done!");
+            System.out.println(item);
+
+            System.out.println(horizontalLine);
+        }
+    }
+
+    /**
+     * Marks a task as incomplete.
+     *
+     * @param itemIndex The index of the task to be marked as incomplete.
+     */
+    public void unmarkItem(int itemIndex) {
+        itemIndex--;
+        // If this item is marked - change boolean
+        Task item = this.listOfTasks.get(itemIndex);
+        if (item != null) {
+            System.out.println(horizontalLine);
+            item.markAsUndone();
+            System.out.println("Hope you get this done soon! :D");
+            System.out.println(item);
             System.out.println(horizontalLine);
         }
     }
