@@ -50,4 +50,3 @@ public class Emoji {
         return "\u203C\uFE0F";
     }
 }
-

@@ -1,20 +1,18 @@
 package nus.edu.rizzler.task;
 
-import nus.edu.rizzler.ui.Emoji;
-
 public class Todo extends Task{
-    Emoji emoji = new Emoji();
 
-    public Todo(String taskName) {
-        super(taskName);
+    public Todo(String taskName, Boolean isDone) {
+        super(taskName, isDone);
     }
+
     @Override
-    public String getTaskTag() {
-        return "[T]";
+    public String toString() {
+        return String.format("[T]%s", super.toString());
     }
 
-    public String toString() {
-        String taskStatus = this.getIsDone() ? emoji.getTickEmoji() : emoji.getHourglassEmoji();
-        return String.format("%s %s %s", this.getTaskTag(), this.getTaskName(), taskStatus);
+    @Override
+    public String toCSV(){
+        return String.format("T, %s", super.toCSV());
     }
 }
