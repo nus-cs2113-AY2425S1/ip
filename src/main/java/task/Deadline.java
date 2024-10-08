@@ -2,14 +2,23 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
-    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDateTime.parse(by, formatter);
+        try {
+            this.by = LocalDateTime.parse(by, DEFAULT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            try {
+                this.by = LocalDateTime.parse(by, ALTERNATE_FORMATTER);
+            } catch (DateTimeParseException e2) {
+                this.by = LocalDateTime.now();
+                System.out.println("Invalid date format, using local date");
+            }
+        }
     }
 
     public String getFormattedDate() {
@@ -18,7 +27,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return super.toFileFormat() + " | " + by.format(formatter);
+        return super.toFileFormat() + " | " + by.format(DISPLAY_FORMATTER);
     }
 
     @Override
