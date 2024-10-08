@@ -23,9 +23,10 @@ public class Deadline extends Task {
         super(description);
 
         try {
-            this.by = LocalDate.parse(by); // Parse the due date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.by = LocalDate.parse(by, formatter); // Parse the due date
         } catch (DateTimeParseException e) {
-            throw new DukeException("please input date in valid format yyyy/MM/dd");
+            throw new DukeException("please input date in valid format yyyy-MM-dd");
         }
     }
 
