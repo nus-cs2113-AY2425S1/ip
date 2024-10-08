@@ -9,23 +9,44 @@ import nus.edu.rizzler.ui.Emoji;
 
 import java.util.ArrayList;
 
+/**
+ * Manages a list of tasks, allowing addition, deletion, status updates, and searching.
+ */
 public class TaskList {
     private Emoji emoji = new Emoji();
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a {@code TaskList} with tasks loaded from a CSV string.
+     *
+     * @param csvString The CSV string containing task data.
+     */
     public TaskList(String csvString) {
         tasks = new ArrayList<>();
         loadTasks(csvString);
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Returns a string representation of all tasks in the list.
+     *
+     * @return The list of tasks as a formatted string.
+     */
     public String toString() {
         int taskCount = getSize();
         if (taskCount == 0) {
@@ -45,24 +66,56 @@ public class TaskList {
         return tasksString.toString();
     }
 
+    /**
+     * Adds a new todo task to the list.
+     *
+     * @param taskName The name of the todo task.
+     * @param isDone Whether the task is marked as done.
+     * @return The string representation of the added todo task.
+     */
     public String addTodo(String taskName, Boolean isDone) {
         Todo todo = new Todo(taskName, isDone);
         tasks.add(todo);
         return todo.toString();
     }
 
+    /**
+     * Adds a new deadline task to the list.
+     *
+     * @param taskName The name of the deadline task.
+     * @param isDone Whether the task is marked as done.
+     * @param by The deadline for the task.
+     * @return The string representation of the added deadline task.
+     */
     public String addDeadline(String taskName, Boolean isDone, String by) {
         Deadline deadline = new Deadline(taskName, isDone, by);
         tasks.add(deadline);
         return deadline.toString();
     }
 
+    /**
+     * Adds a new event task to the list.
+     *
+     * @param taskName The name of the event task.
+     * @param isDone Whether the task is marked as done.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     * @return The string representation of the added event task.
+     */
     public String addEvent(String taskName, Boolean isDone, String from, String to) {
         Event event = new Event(taskName, isDone, from, to);
         tasks.add(event);
         return event.toString();
     }
 
+    /**
+     * Updates the completion status of a task.
+     *
+     * @param taskIndex The index of the task to update.
+     * @param isDone The new completion status.
+     * @return The string representation of the updated task.
+     * @throws RizzlerException If the task index is out of range.
+     */
     public String updateTaskStatus(int taskIndex, boolean isDone) {
         if (taskIndex >= this.getSize()) {
             throw new RizzlerException("Update task status failed. Task index is out of range.");
@@ -73,6 +126,13 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Deletes a task from the list by index.
+     *
+     * @param taskIndex The index of the task to delete.
+     * @return The string representation of the deleted task.
+     * @throws RizzlerException If the task index is out of range.
+     */
     public String deleteTask(int taskIndex) {
         if (taskIndex >= this.getSize()) {
             throw new RizzlerException("Delete Task failed. Task index is out of range.");
@@ -83,6 +143,12 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Finds and returns tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in tasks.
+     * @return A formatted string of tasks containing the keyword.
+     */
     public String findKeyword(String keyword) {
         int itemCount = 0;
         StringBuilder matchString = new StringBuilder();
@@ -104,6 +170,11 @@ public class TaskList {
         return matchString.toString();
     }
 
+    /**
+     * Converts the list of tasks to a CSV string format.
+     *
+     * @return The CSV string representation of the task list.
+     */
     public String toCSVString() {
         StringBuilder csvString = new StringBuilder();
 
@@ -117,6 +188,12 @@ public class TaskList {
         return csvString.toString();
     }
 
+    /**
+     * Loads tasks from a CSV string into the task list.
+     *
+     * @param csvString The CSV string containing task data.
+     * @throws RizzlerException If task data is corrupted or missing fields.
+     */
     public void loadTasks(String csvString) throws RizzlerException {
         try{
             String[] taskStrings = csvString.split("\n");
