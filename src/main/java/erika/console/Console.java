@@ -64,7 +64,7 @@ public class Console {
      * @param deletedTask <code>Task</code> that was deleted
      */
     public static void printDeletedMessage(Task deletedTask) {
-        String message = "Nice! I've deleted this task:\n" + "\t" + deletedTask + "\n\t"
+        String message = "Nice! I've deleted this task:\n" + "\t  " + deletedTask + "\n\t"
                 + "Now you have " + (TaskList.getTaskArraySize() - 1) + " tasks in the list.";
         printMessage(message);
     }
@@ -75,7 +75,7 @@ public class Console {
      * @param markedTask <code>Task</code> that was marked as done
      */
     public static void printMarkedMessage(Task markedTask) {
-        String message = "Nice! I've marked this task as done:\n" + "\t" + markedTask;
+        String message = "Nice! I've marked this task as done:\n" + "\t  " + markedTask;
         printMessage(message);
     }
 
@@ -85,7 +85,7 @@ public class Console {
      * @param unmarkedTask <code>Task</code> that was marked as not done
      */
     public static void printUnmarkedMessage(Task unmarkedTask) {
-        String message = "Nice! I've marked this task as not done yet:\n" + "\t\t" + unmarkedTask;
+        String message = "Nice! I've marked this task as not done yet:\n" + "\t  " + unmarkedTask;
         printMessage(message);
     }
 
