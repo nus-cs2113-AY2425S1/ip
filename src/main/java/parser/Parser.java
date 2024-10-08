@@ -62,7 +62,7 @@ public class Parser {
      * @param taskList The TaskList object to pass in the list of tasks.
      */
     public void processUserInput(String userInput, TaskList taskList) {
-        if (userInput.startsWith("list")) {
+        if (userInput.equals("list")) {
             new ListCommand().execute(taskList, userInput);
         } else if (userInput.startsWith("mark")) {
             new MarkCommand().execute(taskList, userInput);

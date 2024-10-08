@@ -1,5 +1,6 @@
 package command;
 
+import exception.EchoException;
 import tasklist.TaskList;
 
 public class FindCommand extends Command {
@@ -14,9 +15,15 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, String userInput) {
-        String keywordInUserInput = userInput.substring(FIND_WORD_LENGTH).trim();
-        System.out.println(SEPARATOR);
-        System.out.println(taskList.findTasksByKeyword(keywordInUserInput));
-        System.out.println(SEPARATOR);
+        try {
+            String keywordInUserInput = userInput.substring(FIND_WORD_LENGTH).trim();
+            System.out.println(SEPARATOR);
+            System.out.println(taskList.findTasksByKeyword(keywordInUserInput));
+            System.out.println(SEPARATOR);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.findInputEmpty());
+            System.out.println(SEPARATOR);
+        }
     }
 }

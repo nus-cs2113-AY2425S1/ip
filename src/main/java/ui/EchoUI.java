@@ -1,6 +1,7 @@
 package ui;
 
 import parser.Parser;
+import task.Task;
 import tasklist.TaskList;
 
 public class EchoUI {
@@ -31,11 +32,30 @@ public class EchoUI {
      */
     public void runChat(Parser parser, TaskList taskList) {
         String userInput;
+
         do {
             userInput = parser.getUserInput();
             parser.processUserInput(userInput, taskList);
+
+            if (containsNullTasks(taskList)) {
+                System.out.println("There are tasks with incorrect format. Fix them in test.txt file, \n" +
+                                   "Warning: new tasks will not be saved until it is fixed.");
+            }
+
         } while (!userInput.equalsIgnoreCase("bye"));
-        taskList.saveTasks();
+
+        if (!containsNullTasks(taskList)) {
+            taskList.saveTasks();
+        }
+    }
+
+    private boolean containsNullTasks(TaskList taskList) {
+        for (Task task : taskList.getTasks()) {
+            if (task == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

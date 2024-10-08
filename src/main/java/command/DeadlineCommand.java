@@ -4,6 +4,8 @@ import tasklist.TaskList;
 import task.Deadline;
 import exception.EchoException;
 
+import java.time.format.DateTimeParseException;
+
 public class DeadlineCommand extends Command {
     private static final int DEADLINE_WORD_LENGTH = 8;
     private static final int DEADLINE_DUE_DATE_OFFSET = 5;
@@ -46,12 +48,18 @@ public class DeadlineCommand extends Command {
     }
 
     private static void addDeadline(TaskList taskList, String description, String dueDate) {
-        Deadline newTask = new Deadline(description, dueDate);
-        taskList.storeTask(newTask);
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        try {
+            Deadline newTask = new Deadline(description, dueDate);
+            taskList.storeTask(newTask);
+            System.out.println(SEPARATOR);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.println("Now you have " + taskList.getTaskNumber() + " tasks in the list.");
+            System.out.println(SEPARATOR);
+        } catch (DateTimeParseException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.invalidDeadlineFormat());
+            System.out.println(SEPARATOR);
+        }
     }
 }

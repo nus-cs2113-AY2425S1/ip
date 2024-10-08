@@ -1,5 +1,6 @@
 package storage;
 
+import exception.EchoException;
 import task.Task;
 
 import java.io.File;
@@ -60,7 +61,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found");
+            System.out.println(EchoException.fileNotFound());
         }
 
         return tasks;

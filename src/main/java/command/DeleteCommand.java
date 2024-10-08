@@ -28,6 +28,10 @@ public class DeleteCommand extends Command {
             System.out.println(taskList.deleteTask(taskNumber));
             System.out.println(SEPARATOR);
             taskList.saveTasks();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.deleteInputEmpty());
+            System.out.println(SEPARATOR);
         } catch (NumberFormatException e) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.invalidTaskNumberFormat());

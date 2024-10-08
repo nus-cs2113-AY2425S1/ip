@@ -27,6 +27,10 @@ public class MarkCommand extends Command {
             System.out.println(SEPARATOR);
             System.out.println(taskList.markTaskAsDone(taskNumber));
             System.out.println(SEPARATOR);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.markIndexEmpty());
+            System.out.println(SEPARATOR);
         } catch (NumberFormatException e) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.invalidTaskNumberFormat());

@@ -27,6 +27,10 @@ public class UnmarkCommand extends Command {
             System.out.println(SEPARATOR);
             System.out.println(taskList.markTaskAsNotDone(taskNumber));
             System.out.println(SEPARATOR);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(SEPARATOR);
+            System.out.println(EchoException.unmarkIndexEmpty());
+            System.out.println(SEPARATOR);
         } catch (NumberFormatException e) {
             System.out.println(SEPARATOR);
             System.out.println(EchoException.invalidTaskNumberFormat());

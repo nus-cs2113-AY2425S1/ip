@@ -56,4 +56,28 @@ public class EchoException {
     public static String invalidTaskNumberFormat() {
         return "Give an integer only.";
     }
+
+    public static String invalidDeadlineFormat() {
+        return "Invalid date format! Please enter the due date in the format yyyy-MM-dd.";
+    }
+
+    public static String unmarkIndexEmpty() {
+        return "Please specify a task number after 'unmark'.";
+    }
+
+    public static String markIndexEmpty() {
+        return "Please specify a task number after 'mark'.";
+    }
+
+    public static String findInputEmpty() {
+        return "Please provide a keyword to find.";
+    }
+
+    public static String deleteInputEmpty() {
+        return "Please provide a task number to delete.";
+    }
+
+    public static String fileNotFound() {
+        return "File cannot be found.";
+    }
 }

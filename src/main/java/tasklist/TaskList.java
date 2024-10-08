@@ -15,6 +15,10 @@ public class TaskList {
         loadTasks();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public int getTaskNumber() {
         return tasks.size();
     }
