@@ -1,7 +1,8 @@
-package utils;
+package exception;
 
-public class SuBotException extends Exception{
+public abstract class SuBotException extends Exception{
     public SuBotException() {
+        super();
     }
 
     public SuBotException(String message) {
