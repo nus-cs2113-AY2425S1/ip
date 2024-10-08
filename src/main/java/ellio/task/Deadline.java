@@ -24,7 +24,7 @@ public class Deadline extends Task{
      */
     public void getDeadlineDate(String deadlineDate) throws EllioExceptions {
         String[] Date = deadlineDate.split(" ", 2);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             formattedDeadline = LocalDate.parse(Date[1], formatter);
         } catch (Exception e) {

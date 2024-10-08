@@ -44,6 +44,8 @@ public class Parser {
             return new UnmarkCommand(inputCommand);
         case COMMAND_DELETE:
             return new DeleteCommand(inputCommand);
+        case COMMAND_HELP:
+            return new HelpCommand(inputCommand);
         case COMMAND_MARK:
             return new MarkCommand(inputCommand);
         default:

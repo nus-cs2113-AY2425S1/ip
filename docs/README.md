@@ -21,9 +21,9 @@ Ellio is a command-line chatbot designed to manage your tasks efficiently.
 
 2. **Add a deadline**
    ```plaintext
-   deadline [description] /by [dd/MM/yyyy]
+   deadline [description] /by [dd-MM-yyyy]
    ```
-   Example: deadline New Deadline /by 12/10/2024
+   Example: deadline New Deadline /by 12-10-2024
 
 3. **Add an event**
    ```plaintext
@@ -64,8 +64,12 @@ Ellio is a command-line chatbot designed to manage your tasks efficiently.
    ```plaintext
    bye
    ```
+9. **Get List of Commands**
+   ```plaintext
+   help
+   ```
 
 ## Prerequisites
 
 * JDK 17
-* Eliio JAR file (Ensure you have the compiled JAR file to run the application)
+* Ellio JAR file (Ensure you have the compiled JAR file to run the application)

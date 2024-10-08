@@ -2,8 +2,8 @@ package ellio;
 
 public class BotText {
     public static final String LINE_BORDER = "______________________________________\n";
-    public static final String MESSAGE_WELCOME = "Hello! I'm Ellio\nWhat can I do for you?\n";
-    public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!\n";
+    public static final String MESSAGE_WELCOME = "Hello! I'm Ellio, I am happy to help you in managing your task\n";
+    public static final String MESSAGE_GOODBYE = "Goodbye. Hope to see you again soon!\n";
     public static final String MESSAGE_LIST = "Here are the tasks in your list:\n";
     public static final String MESSAGE_MARKED = "Nice! I've marked this task as done:\n";
     public static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";

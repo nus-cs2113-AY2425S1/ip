@@ -60,6 +60,7 @@ public class Ui {
     public void showWelcome(){
         System.out.println(BotText.LINE_BORDER +
                 BotText.MESSAGE_WELCOME +
+                showCommandList() +
                 BotText.LINE_BORDER);
     }
 
@@ -117,6 +118,30 @@ public class Ui {
         System.out.println(BotText.LINE_BORDER +
                 BotText.MESSAGE_MARKED + "  " + task.getTaskInfo() + "\n" +
                 BotText.LINE_BORDER);
+    }
+
+    public void showHelpMessage(){
+        System.out.println(BotText.LINE_BORDER +
+                showCommandList() +
+                BotText.LINE_BORDER);
+    }
+
+    /**
+     * Display the list of commands the application supports
+     * @return String of list of commands
+     */
+    public String showCommandList(){
+        return ("Here are the list of commands that I can do:\n" +
+                "1. todo [Description]\n" +
+                "2. deadline [Description] /by [dd-mm-yyyy]\n" +
+                "3. event [Description] /from [dd-mm-yyyy 00:00] /to [dd-mm-yyyy 00:00]\n" +
+                "4. mark [Task Number]\n" +
+                "5. unmark [Task Number]\n" +
+                "6. delete [Task Number]\n" +
+                "7. list\n" +
+                "8. find [Keyword]\n" +
+                "9. bye\n" +
+                "10. help\n");
     }
 
 
