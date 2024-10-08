@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Add any other dependencies your project requires here
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    // Set the name of the output JAR file
+    archiveBaseName.set('Quinn')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+
+    // Specify the Main-Class attribute in the manifest
+    manifest {
+        attributes(
+                'Main-Class': 'quinn.Quinn'
+        )
+    }
+}
