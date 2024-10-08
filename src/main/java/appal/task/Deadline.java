@@ -22,6 +22,7 @@ public class Deadline extends Task {
         super(description);
         try {
             this.by = LocalDate.parse(by);
+            totalTasks += 1;
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineFormatException();
         }

@@ -9,7 +9,7 @@ package appal.task;
 public class Task {
     protected String task;
     protected boolean isDone;
-    private static int totalTasks = 0;
+    protected static int totalTasks = 0;
 
     /**
      * Class constructor.
@@ -19,7 +19,6 @@ public class Task {
     public Task(String task) {
         setTask(task);
         setDone(false);
-        totalTasks += 1;
     }
 
     /**
