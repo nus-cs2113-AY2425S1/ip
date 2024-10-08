@@ -91,18 +91,15 @@ public class TaskList {
      * @throws IllegalEmptyException when one of the description and by criteria is empty
      */
     public void addDeadline(String input) throws IllegalEmptyException, IllegalKeywordException {
-        //throws an error when the by keyword is missing from user's input
+
         if (!input.contains(" by ")) {
             throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
         }
-        //Execute the trimString() method to remove 'deadline' command from input
+        //Parse string and remove 'deadline' command from input
         String description = Parser.trimString(input);
 
-        //Split description into substrings with 'by' delimiter
         String[] descriptionSubstrings = description.split(" by ", 2);
-        //Substring before the 'by' delimiter represents the deadline description
         String deadlineDescription = descriptionSubstrings[0].trim();
-        //Substring after  the 'by' delimiter represents when the deadline is by
         String by = descriptionSubstrings[1].trim();
 
         if(deadlineDescription.isEmpty() || by.isEmpty()) {
@@ -113,8 +110,6 @@ public class TaskList {
         items.add(deadline);
 
         ui.printDeadlineMessage(deadline.createTaskList(), items);
-
-        //Stores the new deadline task into the txt file
         storage.saveNewData(items);
     }
     /**
@@ -126,25 +121,22 @@ public class TaskList {
      */
     public void addEvent(String input) throws IllegalEmptyException, IllegalKeywordException {
 
-        //Execute the trimString() method to remove 'event' command from input
+        //Parse string and remove 'event' command from input
         input = Parser.trimString(input);
 
-        //throws an error when the 'from' or 'to' keyword is missing from user's input
+
         if (!input.contains(" from ") || !input.contains(" to ")) {
             throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
         }
 
-        //Split description into substrings with both the 'from' and 'to' delimiter.
         String[] splitInputs = input.split(" from | to ");
 
         if (splitInputs.length < 3) {
             throw new IllegalEmptyException(Warnings.INCOMPLETE_EVENT_WARNING);
         }
-        //Substring in between the 'from' and 'to' delimiter represents the event's start time.
+
         String start = splitInputs[1].trim();
-        //Substring after the 'to' delimiter represents the event's end time
         String end = splitInputs[2].trim();
-        //Substring before the 'from' delimiter represents the event's description
         String eventDescription = splitInputs[0].trim();
 
         if(eventDescription.isEmpty() || start.isEmpty() || end.isEmpty()) {
@@ -155,20 +147,18 @@ public class TaskList {
         items.add(event);
 
         ui.printEventMessage(event.createTaskList(),items);
-        //Stores the new event task into the txt file
         storage.saveNewData(items);
     }
 
     /**
      * The method also deletes a task from the ArrayList.
+     *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
      * @throws IllegalIndexException when the index of item is < 0 or > tasks.size();
      */
     public void deleteItem(String[] splitInputs) throws IllegalIndexException {
 
-        //Get the index of item to be deleted
         int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
-        //throws an error when index is out or range
         if (deleteIndex < 0 || deleteIndex >= items.size()) {
             throw new IllegalIndexException(Warnings.VALID_INDEX_WARNING + items.size());
         }
@@ -230,7 +220,6 @@ public class TaskList {
             }
         }
 
-        //Print "no task found" when no task in the list contains the regex
         if (listCount == 0) {
             System.out.println(Statements.NO_TASK_FOUND);
         }

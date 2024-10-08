@@ -15,6 +15,6 @@ public class Utils {
     public static final String FIND = "find";
     public static final String LIST = "list";
 
-    public static final String FILE_PATH = "src/main/java/data/cy.txt";
+    public static final String FILE_PATH = "./src/main/java/data/cy.txt";
     public static final String HORIZONTAL_LINE = "______________________________________";
 }

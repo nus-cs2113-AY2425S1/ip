@@ -25,7 +25,7 @@ public class Parser {
     }
 
     /**
-     * Returns cleaned string of the trimmed description.
+     * Returns cleaned string of the trimmed description, without the command
      * Commands such as "todo" or "event" are removed.
      *
      * @param input A String containing the user input
@@ -85,7 +85,7 @@ public class Parser {
      * @param task The task object stored in the ArrayList
      *             that we want to check the state of completion.
      */
-    public void checkComplete(String[] storedTaskSubstrings, Task task) {
+    public void isComplete(String[] storedTaskSubstrings, Task task) {
         int completed = Integer.parseInt(storedTaskSubstrings[1].trim());
         if (completed == 1) {
             task.setDone(true);

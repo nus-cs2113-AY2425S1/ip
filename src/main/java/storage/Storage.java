@@ -21,6 +21,8 @@ public class Storage{
     private Parser parser = new Parser();
 
     /**
+     * Returns an ArrayList of Tasks from previous sessions, stored in a txt file
+     *
      * Store existing data from txt file to the ArrayList.
      * Create a new text file if the file is not found
      * @return an ArrayList containing the preexisting tasks from txt file
@@ -168,7 +170,7 @@ public class Storage{
         String description = storedTaskSubstrings[2].trim();
         String by = storedTaskSubstrings[3].trim();
         Deadline deadline = new Deadline(description, by);
-        parser.checkComplete(storedTaskSubstrings, deadline);
+        parser.isComplete(storedTaskSubstrings, deadline);
 
         items.add(deadline);
     }
@@ -186,7 +188,7 @@ public class Storage{
         String end = time.split("-")[1];
 
         Event event = new Event(description, start, end);
-        parser.checkComplete(storedTaskSubstrings, event);
+        parser.isComplete(storedTaskSubstrings, event);
 
         items.add(event);
     }
@@ -200,7 +202,7 @@ public class Storage{
     public void loadExistingTodo(String[] storedTaskSubstrings, ArrayList<Task> items) {
         String description = storedTaskSubstrings[2].trim();
         Todo todo = new Todo(description);
-        parser.checkComplete(storedTaskSubstrings, todo);
+        parser.isComplete(storedTaskSubstrings, todo);
 
         items.add(todo);
     }
