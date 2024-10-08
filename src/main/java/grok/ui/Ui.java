@@ -14,10 +14,11 @@ public class Ui {
         System.out.println("1. Create a todo task eg. [todo read book]");
         System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
         System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
-        System.out.println("4. Type either mark or unmark and the task number to indicate completion of task");
-        System.out.println("5. Type delete followed by the task number to remove a task from your list");
-        System.out.println("6. Type list to view your list of tasks.");
-        System.out.println("7. Type bye to exit the programme");
+        System.out.println("4. Type list to view your list of tasks");
+        System.out.println("5. Type either mark or unmark and the task number to indicate completion of task");
+        System.out.println("6. Type delete followed by the task number to remove a task from your list");
+        System.out.println("7. Type find followed by a keyword to see relevant tasks");
+        System.out.println("8. Type bye to exit the programme");
         showLine();
     }
 
