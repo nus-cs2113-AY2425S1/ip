@@ -48,7 +48,7 @@ Example input: deadline [TASK] /by [DEADLINE]
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 I've added the below to your to-do list, you can do it!
-[D][ ] finish tutorial(by: 11 Sept)
+[D][ ] finish tutorial(by: Oct 12 2024)
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -113,7 +113,7 @@ Task done! One more step towards success :)
 
 You have 3 to-dos!
 1.[T][ ] read book
-2.[D][ ] finish tutorial(by: 11 Sept)
+2.[D][ ] finish tutorial(by: Oct 12 2024)
 3.[E][X] code meet(from: 7 Sept 2pm to: 4pm)
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++

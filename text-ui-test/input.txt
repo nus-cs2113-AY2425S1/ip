@@ -2,7 +2,7 @@ todo
 todo read book
 deadline
 deadline finish tutorial
-deadline finish tutorial /by 11 Sept
+deadline finish tutorial /by 2024-10-12
 event
 event code meet /from 7 Sept 2pm
 event code meet /from 7 Sept 2pm /to 4pm
