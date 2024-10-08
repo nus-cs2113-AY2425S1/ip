@@ -5,14 +5,14 @@
 Blossom is your personal assistant designed to help you stay organised and keeping on top of all your tasks! Whether you're a busy professional, a student juggling assignments, or anyone in between, Blossom is here to make your life easier by keeping track of your daily tasks. 
 
 ## Features
-[Adding a task: todo, deadline, event](adding-a-task) <br>
-[Listing all tasks: list]() <br>
-Locating tasks by name: find <br>
-Deleting a task: delete <br>
-Marking tasks as complete: mark <br>
-Unmarking tasks: unmark <br>
-Exiting the program : bye <br>
-Saving the data <br>
+- [Adding a task: todo, deadline, event](#adding-a-task) <br>
+- [Listing all tasks: list](#listing-all-tasks-list) <br>
+- [Locating tasks by name: find](#locating-tasks-by-name-find) <br>
+- [Deleting a task: delete](#deleting-a-task-delete) <br>
+- [Marking tasks as complete: mark](#marking-tasks-as-complete-mark) <br>
+- [Unmarking tasks: unmark](#unmarking-tasks-unmark) <br>
+- [Exiting the program: bye](#exiting-the-program-bye) <br>
+- [Saving the data](#saving-the-data) <br>
 
 ### Adding a task: 
 `todo` <br>
