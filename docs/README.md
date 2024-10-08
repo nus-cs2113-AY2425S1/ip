@@ -64,13 +64,13 @@ Examples:
 
 ## Adding a event task: event
 
-Adds tasks that start at a specific date/time and ends at a specific date/time e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019
+Adds tasks that start at a specific date/time and ends at a specific date/time e.g., team project meeting on 2/10/2019 from 2pm to 4pm
 
 Format: event DESCRIPTION /from START_TIME /to END_TIME
 - Adds the event task with the specified DESCRIPTION. The DESCRIPTION refers to the name of the task that will be shown in the task list.
 - The DESCRIPTION is a string and must not be empty.
 - Adds event start and end date/time to the task with the specified START_TIME and END_TIME, respectively. The START_TIME and END_TIME are input as strings and must not be empty.
-- The START_TIME and END_TIME can be specified in any string format.
+- The START_TIME and END_TIME can be specified as a string in any format.
 
 
 Examples:
@@ -115,10 +115,9 @@ Finds persons whose names contain any of the given keywords.
 
 Format: find KEYWORD_STRING
 - The search is case-insensitive. e.g. book will match Book
-- The entire keyword string has to fully match at least part of the task description. e.g. read a large book will not match with read a small book
-- The KEYWORD_STRING order matters. e.g. Pencil Case will not match Case Pencil
-- Only the task description is searched.
+- The entire keyword string must be found within the task description. e.g. read a large book will not match with read a small book
 - Parts of words will be matched e.g. Pen will match Pencil
+- Only the task description is searched.
 
 Examples:
 
@@ -133,3 +132,31 @@ Examples:
 Exits the program.
 
 Format: bye
+
+## Saving the data
+
+The task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+## Command Summary
+
+| Action                         | Format, Examples                                    |
+|--------------------------------|-----------------------------------------------------|
+| **Add a todo task**            | `todo DESCRIPTION`                                  |
+|                                | e.g., `todo read book`                              |
+| **Add a deadline task**        | `deadline DESCRIPTION /by DATE`                     |
+|                                | e.g., `deadline return book /by 2024-11-04 20:00`   |
+|                                | e.g., `deadline submit form /by 2024-11-05`         |
+| **Add an event task**          | `event DESCRIPTION /from START_TIME /to END_TIME`   |
+|                                | e.g., `event dinner with friends /from 5pm /to 6pm` |
+| **Delete a task**              | `delete INDEX`                                      |
+|                                | e.g., `delete 2`                                    |
+| **Mark task as completed**     | `mark INDEX`                                        |
+|                                | e.g., `mark 2`                                      |
+| **Unmark task as uncompleted** | `unmark INDEX`                                      |
+|                                | e.g., `unmark 2`                                    |
+| **Find tasks**                 | `find KEYWORD_STRING`                               |
+|                                | e.g., `find read book`                              |
+| **List tasks**                 | `list`                                              |
+|                                | e.g., `list`                                        |
+| **End the chatbot**            | `bye`                                               |
+|                                | e.g., `bye`                                         |
