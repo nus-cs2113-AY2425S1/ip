@@ -146,6 +146,10 @@ Example Output
 ## Saving of tasks
 All tasks will be saved upon the exiting of chatbot using the exiting function
 
+## Loading of previously saved tasks
+All tasks that were saved previously during the last usage of the chatbot will automatically be loaded upon activating
+of the chatbot
+
 ## Command Summary
 
 
