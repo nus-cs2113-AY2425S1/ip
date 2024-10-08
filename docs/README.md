@@ -22,7 +22,7 @@ Welcome to JerChatBot. This guide will help you to navigate the bot's features, 
 2. **Running JerChatBot Program**:
    - Open terminal
    - Navigate via `cd` to working directory of JerChatBot
-   - Run program using the command:
+   - Run program using the following command:
      ```sh
      java -jar JerChatBot.jar
      ```
@@ -96,7 +96,8 @@ bye
 ```
 
 ### Save and Load Task
-JerChatBot data will be saved automatically into a text file (`tasks.txt`). JerChatBot will load data from `tasks.txt`.
+JerChatBot data will be saved automatically into a text file (`tasks.txt`). 
+JerChatBot will load data from `tasks.txt`.
 
 ## FAQ
 Qn: How can I edit an existing task?
