@@ -28,4 +28,5 @@ public class Messages {
 
     public static final String MESSAGE_GOODBYE = "Good bye!";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_INVALID_COMMAND_NUMBER_FORMAT = "Invalid command number format! \n%1$s";
 }
