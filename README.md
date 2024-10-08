@@ -85,8 +85,6 @@ Task data is saved automatically to the hard disk when the application is exited
 ## Editing the Data File
 Task data is saved as a CSV file at the designated file path. Advanced users can update data directly by editing that file.
 
-> **Caution:** If your changes to the data file make its format invalid, the application may discard all data and start with an empty file at the next run. Therefore, it is recommended to take a backup of the file before editing it. Certain edits can cause the app to behave unexpectedly, so proceed with caution.
-
 ## Command Summary
 
 | Command              | Description                                                       | Format                              | Example                          |
