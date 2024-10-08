@@ -9,7 +9,7 @@ import codecatalyst.task.Task;
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a {@code FindCommand} with the specified search keyword.
@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (int i = 0; i < tasklist.getSize(); i ++) {

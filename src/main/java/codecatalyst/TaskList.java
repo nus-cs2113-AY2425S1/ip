@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * This class handles the addition, deletion, and updating of tasks in the task list.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();

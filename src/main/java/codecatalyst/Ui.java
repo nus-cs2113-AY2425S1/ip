@@ -10,7 +10,7 @@ import java.util.Scanner;
  * This class is responsible for reading user input and printing messages to the console.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new {@code Ui} object and initializes the scanner for user input.
@@ -38,7 +38,7 @@ public class Ui {
 
     public void printGreeting() {
         printDivider();
-        System.out.println("         Hello, I'm CodeCatalyst, a chatbot that helps you manage tasks efficiently ");
+        System.out.println("         Hello, I'm CodeCatalyst, a chatbot that helps you manage tasks efficiently");
         System.out.println("         What can I do for you?");
         printDivider();
     }

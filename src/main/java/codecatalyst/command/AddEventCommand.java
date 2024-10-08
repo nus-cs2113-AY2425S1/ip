@@ -6,8 +6,10 @@ import codecatalyst.Ui;
 import codecatalyst.exception.EmptyTaskDetailException;
 import codecatalyst.task.Event;
 
+import java.io.IOException;
+
 public class AddEventCommand extends Command {
-    private String input;
+    private final String input;
 
     /**
      * Constructs an {@code AddEventCommand} with the specified user input.
@@ -19,7 +21,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws EmptyTaskDetailException, IOException {
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3) {
             throw new EmptyTaskDetailException("Event task description, start date or end date is empty.");

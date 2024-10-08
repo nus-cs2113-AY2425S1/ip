@@ -10,9 +10,9 @@ import java.io.IOException;
  */
 public class CodeCatalyst {
     private static final String FILE_PATH = "data/CodeCatalystData.txt";
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasklist;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a {@code CodeCatalyst} object.

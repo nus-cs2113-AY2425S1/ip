@@ -6,8 +6,10 @@ import codecatalyst.Ui;
 import codecatalyst.exception.EmptyTaskDetailException;
 import codecatalyst.task.Deadline;
 
+import java.io.IOException;
+
 public class AddDeadlineCommand extends Command {
-    private String input;
+    private final String input;
 
     /**
      * Constructs an {@code AddDeadlineCommand} with the specified user input.
@@ -19,7 +21,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws EmptyTaskDetailException, IOException {
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
             throw new EmptyTaskDetailException("Deadline task description or due date cannot be empty.");

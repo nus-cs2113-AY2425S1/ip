@@ -8,7 +8,7 @@ import codecatalyst.exception.InvalidTaskNumberException;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a {@code MarkCommand} with the specified task index.
@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws InvalidTaskNumberException, IOException {
         if (taskIndex < 0 || taskIndex >= tasklist.getSize()) {
             throw new InvalidTaskNumberException("Task number is out of bounds!", taskIndex);
         }

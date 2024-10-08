@@ -6,8 +6,10 @@ import codecatalyst.Ui;
 import codecatalyst.exception.EmptyTaskDetailException;
 import codecatalyst.task.Todo;
 
+import java.io.IOException;
+
 public class AddTodoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * Constructs an {@code AddTodoCommand} with the specified task description.
@@ -20,7 +22,7 @@ public class AddTodoCommand extends Command {
 
 
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws EmptyTaskDetailException, IOException {
         if (description.trim().isEmpty()) {
             throw new EmptyTaskDetailException("Todo task description cannot be empty.");
         }
