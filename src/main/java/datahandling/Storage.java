@@ -11,14 +11,26 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Storage Class used to manage loading and saving task from a file.
+ */
 public class Storage {
     private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
     private final String filePath;
 
+    /**
+     * Construct Storage object with specified file path.
+     * @param filePath path of file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads task from file, and create the file if it does not exist.
+     * @return list of tasks loaded from file
+     * @throws IOException if there is an issue reading file
+     */
     public List<Task> loadTaskFromFile() throws IOException {
         File file = new File(filePath);
         List<Task> tasks = new ArrayList<>();
@@ -48,6 +60,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save list of tasks to storage file.
+     * @param tasks list of task to save
+     * @throws IOException if issue faced when writing to file
+     */
     public void saveTasksToFile(List<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {

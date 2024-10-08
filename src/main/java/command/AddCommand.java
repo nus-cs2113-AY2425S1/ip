@@ -9,6 +9,10 @@ import task.TaskList;
 import ui.UserInteraction;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add tasks (ToDo, Deadline, or Event) to task list.
+ * Parses task type and details, create defined task, and adds it to list.
+ */
 public class AddCommand extends Command {
     private final String taskDescription;
 
@@ -16,10 +20,22 @@ public class AddCommand extends Command {
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
 
+    /**
+     * Constructs AddCommand with defined task description.
+     * @param taskDescription represents the description of the task to add to list
+     */
     public AddCommand(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
+    /**
+     * Executes AddCommand by parsing task description and creating Task object.
+     * Task added to Tasklist, and a confirmation message will be displayed.
+     * @param tasks task list which task will be added to
+     * @param ui User Interaction object for displaying messages
+     * @param storage Storage handler used to save updated task list
+     * @throws Exception if issue face during execution of command
+     */
     @Override
     public void execute(TaskList tasks, UserInteraction ui, Storage storage) throws Exception {
         if (taskDescription == null || taskDescription.isEmpty()) {
@@ -31,7 +47,6 @@ public class AddCommand extends Command {
         String typeoftask = parts[0];
         String taskDetails = parts.length > 1 ? parts[1] : "";
 
-        // Guard clause: Ensure taskDetails is provided
         if (taskDetails.isEmpty()) {
             ui.showMessage("The description of a " + typeoftask + " cannot be empty.");
             return;
@@ -49,7 +64,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Factory method to create a Task based on the task type.
+     * Create Task object based on defined Task type.
+     * @param typeoftask type of task (todo, deadline, event)
+     * @param taskDetails description of task
+     * @param ui user interaction object for displaying messages
+     * @return new Task object created, else task type is invalid
      */
     private Task createTask(String typeoftask, String taskDetails, UserInteraction ui) {
         switch (typeoftask) {
@@ -65,6 +84,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Create deadline task
+     * @param taskDetails description of deadline task
+     * @param ui user interaction object for displauing messages
+     * @return new deadline task created, or null if invalid
+     */
     private Task createDeadlineTask(String taskDetails, UserInteraction ui) {
         String[] deadlineParts = taskDetails.split(" /by ", 2);
         if (deadlineParts.length < 2) {
@@ -79,6 +104,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Create event task
+     * @param taskDetails description of event and date-time information
+     * @param ui user interaction object for displaying messages
+     * @return new event task created, or null if invalid
+     */
     private Task createEventTask(String taskDetails, UserInteraction ui) {
         String[] eventParts = taskDetails.split(" /from | /to ", 3);
         if (eventParts.length < 3) {

@@ -13,7 +13,17 @@ import command.FindCommand;
 import exception.InvalidTaskNumberException;
 import exception.UnknownCommandException;
 
+/**
+ * Parser used to parse user inputs into command for execution.
+ */
 public class Parser {
+    /**
+     * Parse user input and return corresponding Command object
+     * @param userInput user input as a string
+     * @return Command object corresponding to parsed input
+     * @throws UnknownCommandException if command is not recognised
+     * @throws InvalidTaskNumberException if task number provided is invalid
+     */
     public static Command parse(String userInput) throws UnknownCommandException, InvalidTaskNumberException {
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0];
