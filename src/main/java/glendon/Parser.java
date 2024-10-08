@@ -52,11 +52,11 @@ public class Parser {
             ui.showTaskList(tasks);
             break;
         case MARK:
-            if (tasks.checkMark(response)) {
-                ui.showMarkError();
-                break;
-            };
             try {
+                if (tasks.checkMark(response)) {
+                    ui.showMarkError();
+                    break;
+                };
                 tasks.markTask(response);
                 taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
                 ui.markedTaskMessage(tasks, taskIndex);
@@ -69,11 +69,11 @@ public class Parser {
             }
             break;
         case UNMARK:
-            if (tasks.checkUnmark(response)) {
-                ui.showUnmarkError();
-                break;
-            };
             try {
+                if (tasks.checkUnmark(response)) {
+                    ui.showUnmarkError();
+                    break;
+                };
                 tasks.unmarkTask(response);
                 taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
                 ui.unmarkedTaskMessage(tasks, taskIndex);
@@ -127,6 +127,8 @@ public class Parser {
                 ui.showDeletedMessage(deletedTask, tasks);
             } catch (IndexOutOfBoundsException e) {
                 ui.showTaskNumberError();
+            } catch (NumberFormatException e) {
+                ui.showTaskNameError();
             }
             break;
         case FIND:
