@@ -9,6 +9,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a collection of tasks.
+ *
+ * Includes the varying methods to manipulate the data on the tasklist
+ */
 public class TaskList {
 
     private List<Task> tasks;

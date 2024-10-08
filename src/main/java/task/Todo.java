@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represents a task with no specific deadline
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

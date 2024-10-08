@@ -8,6 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The main entry point for the Diana task management assistant.
+ *
+ * This class handles the primary interaction with the user, including:
+ * - Printing welcome and goodbye messages
+ * - Reading user input
+ * - Parsing and executing user commands
+ * - Managing task list persistence
+ */
 public class DianaAssistant {
     private TaskList tasklist;
     private Ui ui;

@@ -1,3 +1,10 @@
+/**
+ * Parses user input and determines the corresponding task list command
+ *
+ * This class recieves user input, extract the command keyword, and delegate the
+ * execution of the command to the appropriate method in the TaskList class
+ */
+
 public class Parser {
     private String input;
     private TaskList tasklist;
