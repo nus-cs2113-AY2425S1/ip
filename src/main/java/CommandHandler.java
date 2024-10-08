@@ -2,8 +2,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles user commands and processes tasks accordingly.
+ */
 public class CommandHandler {
 
+    /**
+     * Processes the given command and performs the corresponding action.
+     */
     public static void handleCommand(String[] command, TaskList tasks) throws KaiException {
         switch (command[0]) {
             case "todo":
@@ -33,6 +39,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles the addition of a Todo task.
+     */
     private static void handleTodoCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of a todo cannot be empty.");
@@ -43,6 +52,9 @@ public class CommandHandler {
         System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
+    /**
+     * Handles the addition of a Deadline task.
+     */
     private static void handleDeadlineCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of a deadline cannot be empty.");
@@ -65,6 +77,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles the addition of an Event task.
+     */
     private static void handleEventCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The description of an event cannot be empty.");
@@ -91,6 +106,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles the deletion of a task.
+     */
     private static void handleDeleteCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
@@ -109,6 +127,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Marks a task as done.
+     */
     private static void handleMarkCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
@@ -126,6 +147,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Marks a task as not done.
+     */
     private static void handleUnmarkCommand(String[] command, TaskList tasks) throws KaiException {
         try {
             if (command.length < 2) {
@@ -143,6 +167,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Finds tasks that match the given keyword.
+     */
     private static void handleFindCommand(String[] command, TaskList tasks) throws KaiException {
         if (command.length < 2 || command[1].trim().isEmpty()) {
             throw new KaiException("The keyword for the find command cannot be empty.");

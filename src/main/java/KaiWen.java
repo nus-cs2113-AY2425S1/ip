@@ -1,10 +1,18 @@
 import java.io.IOException;
 
+/**
+ * The main class for the KaiWen chatbot that manages tasks.
+ * It integrates with Storage, TaskList, and Ui classes to handle user commands and task management.
+ */
 public class KaiWen {
     private Storage storage;
     private TaskList tasks;
     private Ui ui = new Ui();
 
+    /**
+     * Initializes the KaiWen chatbot with the specified file path.
+     * Loads tasks from the file if available, or creates an empty TaskList if not.
+     */
     public KaiWen(String var1) {
         this.storage = new Storage(var1);
 
@@ -17,6 +25,10 @@ public class KaiWen {
 
     }
 
+    /**
+     * Starts the main loop of the chatbot, handling user input and commands.
+     * Continues to run until the user enters the "bye" command.
+     */
     public void run() {
         this.ui.showWelcome();
         boolean var1 = false;
@@ -50,6 +62,9 @@ public class KaiWen {
 
     }
 
+    /**
+     * The entry point for the KaiWen application. Creates a new instance and runs the chatbot.
+     */
     public static void main(String[] var0) {
         (new KaiWen("data/tasks.txt")).run();
     }

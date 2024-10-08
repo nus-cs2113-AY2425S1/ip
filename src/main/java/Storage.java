@@ -9,24 +9,37 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * This class manages the storage of tasks in a text file and the conversion of tasks to and from file format.
+ */
 public class Storage {
     private final String filePath;
 
+    // Constructs a Storage object that operates on the specified file path.
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file. If the file does not exist, it creates the file and returns an empty list.
+     * Parses the task details from the file and converts them into Task objects.
+     */
     public ArrayList<Task> load() throws IOException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
             File directory = new File(file.getParent());
+
+            // Create directory if it doesn't exist
             if (!directory.exists()) {
-                directory.mkdirs(); // Create directory if it doesn't exist
+                directory.mkdirs();
             }
-            file.createNewFile(); // Create new file if it doesn't exist
-            return tasks; // Return empty task list if file doesn't exist
+
+            // Create new file if it doesn't exist
+            file.createNewFile();
+            return tasks;
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -73,6 +86,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     * Converts each task into a format suitable for storage and writes them to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
