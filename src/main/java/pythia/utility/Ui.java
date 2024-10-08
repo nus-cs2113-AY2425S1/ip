@@ -59,10 +59,16 @@ public class Ui {
         if (commentBefore != null && !commentBefore.isEmpty()) {
             response.append(commentBefore).append("\n");
         }
-        response.append(taskList.toString());
-        if (commentAfter != null && !commentAfter.isEmpty()) {
-            response.append("\n").append(commentAfter);
+
+        String taskListAsString = taskList.toString();
+        if (taskListAsString != null && !taskListAsString.isEmpty()) {
+            response.append(taskListAsString).append("\n");
         }
+
+        if (commentAfter != null && !commentAfter.isEmpty()) {
+            response.append(commentAfter);
+        }
+
         printResponse(response.toString());
     }
 }

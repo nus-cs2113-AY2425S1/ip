@@ -1,6 +1,9 @@
 package pythia.utility;
 
 import pythia.task.Task;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.io.*;
 
@@ -51,12 +54,35 @@ public class Storage {
      * the {@link TaskFromStringFactory} and added to a new task list.
      *
      * @return the newly created {@link TaskList} object loaded from the file
-     * @throws IOException if an I/O error occurs during reading from the file
      */
     public TaskList load() {
         TaskList taskList = new TaskList();
         TaskFromStringFactory factory = new TaskFromStringFactory();
+        Path path = Paths.get(filePath);
+        Path directory = path.getParent();  // Get the directory part of the path
 
+        // Check if the directory exists, if not create it
+        if (directory != null && Files.notExists(directory)) {
+            try {
+                Files.createDirectories(directory);  // Create all missing directories
+            } catch (IOException e) {
+                System.err.println("Error creating directory: " + e.getMessage());
+                return taskList; // Return empty task list if directory creation fails
+            }
+        }
+
+        // Check if the file exists, if not create an empty file
+        if (Files.notExists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                System.err.println("Error creating new file: " + e.getMessage());
+                return taskList; // Return empty task list if file creation fails
+            }
+            return taskList; // Return empty task list for a newly created file
+        }
+
+        // If file exists, read the tasks from the file
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String taskAsString;
             while ((taskAsString = reader.readLine()) != null) {
@@ -66,6 +92,7 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Error reading from file: " + e.getMessage());
         }
+
         return taskList;
     }
 }

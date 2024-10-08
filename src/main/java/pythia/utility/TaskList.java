@@ -103,6 +103,10 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
+        if (taskList.isEmpty()) {
+            return "";
+        }
+
         StringBuilder taskListString = new StringBuilder();
         for (int i = 0; i < remainingTasks - 1; i++) {
             taskListString.append(i + 1).append(". ");
