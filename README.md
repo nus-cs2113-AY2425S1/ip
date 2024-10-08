@@ -1,4 +1,5 @@
 # Erika Chatbot
+For more detailed information, please visit the <a href="https://rcpilot1604.github.io/ip/">User Guide</a>.
 
 ```angular2html
 	Hello from
