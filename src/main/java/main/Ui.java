@@ -12,11 +12,15 @@ public class Ui {
 
     public static final String DRAW_HORIZONTAL_LINE = "\t________________________________________";
     public static final String INVALID_EVENT_INPUT_MESSAGE = "event <event name> /from <start date/time> /end <end date/time>";
-    public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <deadline>";
+    public static final String INVALID_DEADLINE_INPUT_MESSAGE = "deadline <deadline name> /by <yyyy-MM-dd HH:mm>";
     public static final String INVALID_TODO_INPUT_MESSAGE = "todo <task name>";
     private static final String INVALID_MARK_MESSAGE = "mark <task index>";
     private static final String INVALID_UNMARK_MESSAGE = "unmark <task index>";
     private static final String INVALID_DELETE_MESSAGE = "delete <task index>";
+    private static final String INVALID_FIND_MESSAGE = "find <task keyword string>";
+    private static final String INVALID_LIST_MESSAGE = "list";
+    private static final String INVALID_BYE_MESSAGE = "bye";
+
 
     /**
      * Prints a horizontal line for separating sections in the user interface.
@@ -59,7 +63,10 @@ public class Ui {
                 + INVALID_EVENT_INPUT_MESSAGE + System.lineSeparator() + "\t\t"
                 + INVALID_MARK_MESSAGE + System.lineSeparator() + "\t\t"
                 + INVALID_UNMARK_MESSAGE + System.lineSeparator() + "\t\t"
-                + INVALID_DELETE_MESSAGE);
+                + INVALID_DELETE_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_FIND_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_LIST_MESSAGE + System.lineSeparator() + "\t\t"
+                + INVALID_BYE_MESSAGE);
     }
 
     /**

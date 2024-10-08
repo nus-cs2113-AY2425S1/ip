@@ -1,7 +1,6 @@
 # Mel User Guide
 
 
-// Product screenshot goes here
 ![img.png](img.png)
 
 Mel is a console-based chatbot designed to help you manage tasks efficiently, including todos, deadlines, and events. The chatbot understands a variety of commands to add, remove, and track your tasks, as well as search and manage them interactively. With Mel, you can keep track of your schedule, deadlines, and daily tasks seamlessly.
@@ -51,25 +50,33 @@ Format: deadline DESCRIPTION /by DATE
 
 Examples:
 
-    deadline return book /by 2024-11-04 20:00 Adds a deadline task with a description and deadline of return book and Nov 04 2024, 08:00 pm, respectively.
-    deadline submit quiz /by 2024-11-05 Adds a deadline task with a description and deadline of submit quiz and Nov 05 2024, 11:59 pm, respectively.
-    deadline order cake /by 07/11/2024 21:00 Adds a deadline task with a description and deadline of return book and Nov 07 2024, 09:00 pm, respectively.
-    deadline submit form /by 09/11/2024 Adds a deadline task with a description and deadline of submit form and Nov 09 2024, 11:59 pm, respectively.
+    //Add a deadline task with a description and deadline of return book and Nov 04 2024, 08:00 pm, respectively
+    deadline return book /by 2024-11-04 20:00 
+
+    //Add a deadline task with a description and deadline of submit quiz and Nov 05 2024, 11:59 pm, respectively
+    deadline submit quiz /by 2024-11-05
+
+    //Add a deadline task with a description and deadline of return book and Nov 07 2024, 09:00 pm, respectively
+    deadline order cake /by 07/11/2024 21:00 
+
+    //Add a deadline task with a description and deadline of submit form and Nov 09 2024, 11:59 pm, respectively
+    deadline submit form /by 09/11/2024 
 
 ## Adding a event task: event
 
-Adds tasks that start at a specific date/time and ends at a specific date/time e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019
+Adds tasks that start at a specific date/time and ends at a specific date/time e.g., team project meeting on 2/10/2019 from 2pm to 4pm
 
 Format: event DESCRIPTION /from START_TIME /to END_TIME
 - Adds the event task with the specified DESCRIPTION. The DESCRIPTION refers to the name of the task that will be shown in the task list.
 - The DESCRIPTION is a string and must not be empty.
 - Adds event start and end date/time to the task with the specified START_TIME and END_TIME, respectively. The START_TIME and END_TIME are input as strings and must not be empty.
-- The START_TIME and END_TIME can be specified in any string format.
+- The START_TIME and END_TIME can be specified as a string in any format.
 
 
 Examples:
-
-    event dinner with friends /from 5pm /to 6pm Adds an event task with a description, start time and end time of dinner with friends, 5pm and 6pm, respectively.
+    
+    //Add an event task with a description, start time and end time of dinner with friends, 5pm and 6pm, respectively
+    event dinner with friends /from 5pm /to 6pm 
 
 ## Deleting a task: delete
 
@@ -82,7 +89,8 @@ Format: delete INDEX
 
 Examples:
 
-    delete 2 deletes the 2nd task in the task list.
+    //Delete the 2nd task in the task list
+    delete 2 
 
 ## Mark/Unmark Task Completion: mark/ unmark
 
@@ -95,27 +103,54 @@ Format: mark/unmark INDEX
 
 Examples:
 
-    mark 2 marks the 2nd task in the task list as completed.
-    unmark 2 unmarks the 2nd task in the task list so that is becomes uncompleted.
+    //Mark the 2nd task in the task list as completed
+    mark 2 
+
+    //Unmark the 2nd task in the task list so that is becomes uncompleted
+    unmark 2 
 
 ## Finding tasks by description keywords: find
 
 Finds persons whose names contain any of the given keywords.
 
-Format: find KEYWORD [MORE_KEYWORDS]
-- The search is case-insensitive. e.g book will match Book
-- The order of the keywords matter. e.g. Pencil Case will not match Case Pencil
-- Only the task description is searched.
+Format: find KEYWORD_STRING
+- The search is case-insensitive. e.g. book will match Book
+- The entire keyword string must be found within the task description. e.g. read a large book will not match with read a small book
 - Parts of words will be matched e.g. Pen will match Pencil
-- Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Pencil Case will return Pencil Box, Pencil Case
+- Only the task description is searched.
 
 Examples:
 
-    find submit returns submit quiz and submit form
-    find read book returns read magazine, book reservation
+    //Return submit quiz and submit form
+    find submit 
+
+    //Return read magazine, book reservation
+    find read book 
 
 ## End Chatbot: bye
 
 Exits the program.
 
 Format: bye
+
+## Saving the data
+
+The task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+## Command Summary
+
+| Action                         | Format, Examples                                                                                                                        |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| **List tasks**                 | `list`                                                                                                                                  |
+| **Add a todo task**            | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                          |
+| **Add a deadline task**        | `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline return book /by 2024-11-04 20:00` <br/>e.g., `deadline submit form /by 2024-11-05` |
+| **Add an event task**          | `event DESCRIPTION /from START_TIME /to END_TIME` <br/>e.g., `event dinner with friends /from 5pm /to 6pm`                              |
+|                                |                                                                                                                                         |
+| **Delete a task**              | `delete INDEX` <br/>e.g., `delete 2`                                                                                                    |
+|                                |                                                                                                                                         |
+| **Mark task as completed**     | `mark INDEX` <br/>e.g., `mark 2`                                                                                                        |
+|                                |                                                                                                                                         |
+| **Unmark task as uncompleted** | `unmark INDEX` <br/>e.g., `unmark 2`                                                                                                    |
+|                                |                                                                                                                                         |
+| **Find tasks**                 | `find KEYWORD_STRING` <br/>e.g., `find read book`                                                                                       |
+| **End the chatbot**            | `bye`                                                                                                                                   |
