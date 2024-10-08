@@ -1,5 +1,6 @@
-package commands;
+package commands.addcommands;
 
+import commands.AddCommand;
 import exceptions.InvalidCommandException;
 import taskmanager.TaskManager;
 import tasks.Task;

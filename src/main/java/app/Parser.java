@@ -1,8 +1,8 @@
 package app;
 
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.AddTodoCommand;
+import commands.addcommands.AddDeadlineCommand;
+import commands.addcommands.AddEventCommand;
+import commands.addcommands.AddTodoCommand;
 import commands.ClearCommand;
 import commands.Command;
 import commands.DeleteCommand;
