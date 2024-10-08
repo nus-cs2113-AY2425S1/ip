@@ -9,11 +9,12 @@ import erika.settings.Settings;
 
 
 import java.io.IOException;
+import java.text.Format;
 
 public class Parser {
 
     private static int extractTaskIndex(String line) throws NumberFormatException {
-        if (line.contains(" all")) {
+        if (line.trim().endsWith("all")) {
             return -1;
         }
         String digitString = line.replaceAll("[^0-9-]", "");
@@ -24,31 +25,23 @@ public class Parser {
         }
     }
 
-    private Command indexOperation(String line, boolean isDelete) throws IndexOutOfBoundsException, EmptyDescriptionException{
-        if(!isDelete) {
-            return markEntry(line);
-        } else {
-            return deleteEntry(line);
-        }
-    }
-
     private AddEventCommand addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
-        if(!line.contains("event ")) {
-            throw new EmptyDescriptionException("Event");
+        if (line.trim().equals("event")) {
+            throw new EmptyDescriptionException("event");
+        }
+        if (!line.contains("event ")) {
+            throw new FormatErrorException("Invalid event command format.\n\tDid you leave a space after keyword 'event'?");
         }
         int indexOfFrom = line.indexOf("/from");
         if (indexOfFrom == -1) {
             throw new FormatErrorException("missing /from parameter");
         }
         int indexOfTo = line.indexOf("/to");
-        if(indexOfTo == -1) {
+        if (indexOfTo == -1) {
             throw new FormatErrorException("missing /to parameter");
         }
-        if(line.substring(line.indexOf(" ")).indexOf(" ") == indexOfFrom - Settings.FROM_REAR_OFFSET) {
-            throw new FormatErrorException("missing /from parameter");
-        }
 
-        int substringStart = line.indexOf("event ") + Settings.EVENT_OFFSET;
+        int substringStart = line.indexOf("event ") + Settings.EVENT_LENGTH_OFFSET;
         int substringEnd = 0;
 
         String fromText;
@@ -61,30 +54,43 @@ public class Parser {
             substringEnd = indexOfFrom - Settings.FROM_REAR_OFFSET;
         } else {
             fromText = line.substring(indexOfFrom + Settings.FROM_LENGTH_OFFSET);
+            fromText = fromText.trim();
             toText = line.substring(indexOfTo + Settings.TO_LENGTH_OFFSET, indexOfFrom - Settings.FROM_REAR_OFFSET);
+            toText = toText.trim();
             substringEnd = indexOfTo - Settings.TO_REAR_OFFSET;
         }
-
         String description = line.substring(substringStart, substringEnd).trim();
 
         if (description.trim().isEmpty()) {
             throw new EmptyDescriptionException("Event");
         }
+        if (fromText.isEmpty()) {
+            throw new FormatErrorException("missing /from parameter");
+        }
+        if (toText.isEmpty()) {
+            throw new FormatErrorException("missing /to parameter");
+        }
         return new AddEventCommand(description, fromText, toText);
     }
 
     private AddDeadlineCommand addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
+        if (line.trim().equals("deadline")) {
+            throw new EmptyDescriptionException("deadline");
+        }
         if (!line.contains("deadline ")) {
-            throw new EmptyDescriptionException("Deadline");
+            throw new FormatErrorException("Invalid deadline command format.\n\tDid you leave a space after keyword 'deadline'?");
         }
         int indexOfBy = line.indexOf("/by");
         if (indexOfBy == -1) {
             throw new FormatErrorException("missing /by parameter");
         }
-        int substringStart = line.indexOf("deadline ") + Settings.DEADLINE_OFFSET;
+        String byText = line.substring(indexOfBy + Settings.BY_LENGTH_OFFSET).trim();
+        if (byText.isEmpty()) {
+            throw new FormatErrorException("missing /by parameter");
+        }
+        int substringStart = line.indexOf("deadline ") + Settings.DEADLINE_LENGTH_OFFSET;
         int substringEnd = indexOfBy - Settings.BY_REAR_OFFSET;
         String description = line.substring(substringStart, substringEnd).trim();
-        String byText = line.substring(indexOfBy + Settings.BY_LENGTH_OFFSET).trim();
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("Deadline");
         }
@@ -92,17 +98,23 @@ public class Parser {
     }
 
     private AddTodoCommand addTodo(String line) throws EmptyDescriptionException{
+        if (line.trim().equals("todo")) {
+            throw new EmptyDescriptionException("todo");
+        }
         if (!line.contains("todo ")) {
-            throw new EmptyDescriptionException("Todo");
+            throw new FormatErrorException("Invalid todo command format.\n\tDid you leave a space after keyword 'todo'?");
         }
 
-        String description = line.substring(line.indexOf(" ")+Settings.SPACE_OFFSET);
+        String description = line.substring(line.indexOf("todo ")+Settings.TODO_LENGTH_OFFSET).trim();
         return new AddTodoCommand(description);
     }
 
-    private DeleteCommand deleteEntry(String line) throws EmptyDescriptionException {
-        if (!line.contains("delete ")) {
+    private DeleteCommand deleteEntry(String line) throws EmptyDescriptionException, NumberFormatException {
+        if (line.trim().equals("delete")) {
             throw new EmptyDescriptionException("delete");
+        }
+        if (!line.contains("delete ")) {
+            throw new FormatErrorException("Invalid delete command format.\n\tDid you leave a space after keyword 'delete'?");
         }
         int index = extractTaskIndex(line);
         return new DeleteCommand(index);
@@ -129,7 +141,7 @@ public class Parser {
         return new FindCommand(key);
     }
 
-    public Command parseInput(String line) throws IOException, ErikaException{
+    public Command parseInput(String line) throws IOException, ErikaException, NumberFormatException{
         String errMsg = "";
         if (line.equals("bye")) {
             return new ExitCommand();
