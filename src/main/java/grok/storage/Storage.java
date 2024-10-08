@@ -17,6 +17,13 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+        File file = new File(filePath);
+        File directory = file.getParentFile(); // Get the parent directory
+
+        // Check if the directory exists, if not, create it
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
     }
 
     /**
@@ -70,6 +77,13 @@ public class Storage {
      * @throws IOException If there is an error writing to the file.
      */
     public void saveTasks(List<Task> tasks) throws IOException {
+        File file = new File(filePath);
+        // Ensure the directory exists before saving
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
             writer.write(task.toSaveFormat() + "\n");
