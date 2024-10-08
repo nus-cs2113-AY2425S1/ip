@@ -1,5 +1,5 @@
 # Grok User Guide
-Grok is a desktop app for managing tasks, optimized for use via a CLI.
+Grok is a desktop app for managing tasks and is optimized for use via the Command Line Interface.
 
 - [Quickstart](#QuickStart)
 - [Features](#Features)
