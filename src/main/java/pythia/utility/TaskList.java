@@ -108,12 +108,12 @@ public class TaskList implements Iterable<Task> {
         }
 
         StringBuilder taskListString = new StringBuilder();
-        for (int i = 0; i < remainingTasks - 1; i++) {
+        for (int i = 0; i < taskList.size() - 1; i++) {
             taskListString.append(i + 1).append(". ");
             taskListString.append(taskList.get(i).toString());
             taskListString.append("\n");
         }
-        int lastIndex = remainingTasks - 1;
+        int lastIndex = taskList.size() - 1;
         taskListString.append(lastIndex + 1).append(". ");
         taskListString.append(taskList.get(lastIndex).toString());
 

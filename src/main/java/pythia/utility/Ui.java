@@ -62,11 +62,11 @@ public class Ui {
 
         String taskListAsString = taskList.toString();
         if (taskListAsString != null && !taskListAsString.isEmpty()) {
-            response.append(taskListAsString).append("\n");
+            response.append(taskListAsString);
         }
 
         if (commentAfter != null && !commentAfter.isEmpty()) {
-            response.append(commentAfter);
+            response.append("\n").append(commentAfter);
         }
 
         printResponse(response.toString());

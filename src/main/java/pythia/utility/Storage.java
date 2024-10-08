@@ -34,7 +34,6 @@ public class Storage {
      * using the {@link WriteVisitor} and written to the file.
      *
      * @param taskList the {@link TaskList} object to be saved to the file
-     * @throws IOException if an I/O error occurs during writing to the file
      */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
