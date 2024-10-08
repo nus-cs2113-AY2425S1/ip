@@ -1,11 +1,17 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Transcendent {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Printer.printEntry();
         List.init();
+        File.init();
+        File.loadFile();
         InputHandler.takeInput();
+        File.clear();
+        File.save();
         Printer.printExit();
     }
 
@@ -25,29 +31,37 @@ public class Transcendent {
 
         private static void printExit() {
             Printer.printSeparator();
+            System.out.println("The current list has been saved.");
+            Printer.printSeparator();
             System.out.println("Let me know should you need assistance again.");
             System.out.println("Farewell.");
             Printer.printSeparator();
         }
 
-        private static void printAddConfirm(List.Task task) {
+        private static void printAddConfirm(List.Task task) throws IOException {
             Printer.printSeparator();
             System.out.println("Added: " + task.toString());
             Printer.printSeparator();
+            File.clear();
+            File.save();
         }
 
-        private static void printMarkConfirm(List.Task task) {
+        private static void printMarkConfirm(List.Task task) throws IOException {
             Printer.printSeparator();
             System.out.println("I have marked the following task.");
             System.out.println(task.toString());
             Printer.printSeparator();
+            File.clear();
+            File.save();
         }
 
-        private static void printUnmarkConfirm(List.Task task) {
+        private static void printUnmarkConfirm(List.Task task) throws IOException {
             Printer.printSeparator();
             System.out.println("I have unmarked the following task.");
             System.out.println(task.toString());
             Printer.printSeparator();
+            File.clear();
+            File.save();
         }
 
         private static void printInvalidCommand() {
@@ -93,6 +107,20 @@ public class Transcendent {
         private static void printAlreadyUnmarked() {
             Printer.printSeparator();
             System.out.println("This task is already unmarked.");
+            Printer.printSeparator();
+        }
+
+        private static void printSaveFileCreated() {
+            Printer.printSeparator();
+            System.out.println("Save file created.");
+            Printer.printSeparator();
+        }
+
+        private static void printLoadConfirm() {
+            System.out.println("Save file loaded:");
+            for (int i = 0; i < List.listCount; i += 1) {
+                System.out.println(List.tasks[i].toString());
+            }
             Printer.printSeparator();
         }
 
@@ -150,7 +178,9 @@ public class Transcendent {
                     List.unmark(index);
                 }
             } catch (NumberFormatException e) {
-                Printer.printInvalidCommand();
+                Printer.printInvalidCommand();                                                                          
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -161,9 +191,9 @@ public class Transcendent {
         public static final int MAX_TASKS = 100;
 
         private static class Task {
-            protected String description;
-            protected boolean isDone;
-            protected int taskNum;
+            public String description;
+            public boolean isDone;
+            public int taskNum;
             public Task(String description, int taskNum) {
                 this.description = description;
                 this.isDone = false;
@@ -186,7 +216,7 @@ public class Transcendent {
             }
             @Override
             public String toString() {
-                return (this.taskNum + 1) + "." + "[D]" + super.toString() + " (by: " + by + ")";
+                return (this.taskNum + 1) + "." + "[D]" + super.toString() + " BY: " + by;
             }
         }
 
@@ -210,7 +240,7 @@ public class Transcendent {
             }
             @Override
             public String toString() {
-                return (this.taskNum + 1) + "." + "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+                return (this.taskNum + 1) + "." + "[E]" + super.toString() + " FROM: " + from + " TO: " + to;
             }
         }
 
@@ -231,6 +261,8 @@ public class Transcendent {
                 Printer.printAddConfirm(newTask);
             } catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printInvalidDeadline();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -243,6 +275,8 @@ public class Transcendent {
             }
             catch (StringIndexOutOfBoundsException e) {
                 Printer.printInvalidTodo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -256,6 +290,8 @@ public class Transcendent {
                     Printer.printAddConfirm(newTask);
                 } catch (StringIndexOutOfBoundsException e) {
                     Printer.printInvalidEvent();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printInvalidEvent();
@@ -270,7 +306,7 @@ public class Transcendent {
             Printer.printSeparator();
         }
 
-        private static void mark(int toBeMarked){
+        private static void mark(int toBeMarked) throws IOException {
             if (tasks[toBeMarked].isDone) {
                 Printer.printAlreadyMarked();
             } else {
@@ -279,12 +315,108 @@ public class Transcendent {
             }
         }
 
-        private static void unmark(int toBeUnmarked) {
+        private static void unmark(int toBeUnmarked) throws IOException {
             if (!tasks[toBeUnmarked].isDone) {
                 Printer.printAlreadyUnmarked();
             } else {
                 tasks[toBeUnmarked].isDone = false;
                 Printer.printUnmarkConfirm(tasks[toBeUnmarked]);
+            }
+        }
+
+        private static void addTaskFromSave(String taskType, String taskStatus, String taskDesc) {
+            switch (taskType) {
+            case "T" -> {
+                Task newTask = new ToDo(taskDesc, listCount);
+                tasks[listCount] = newTask;
+            }
+            case "D" -> {
+                String[] words = taskDesc.split(" /by ");
+                Task newTask = new Deadline(words[0], listCount, words[1]);
+                tasks[listCount] = newTask;
+            }
+            case "E" -> {
+                String[] words = taskDesc.split(" /from | /to ");
+                Task newTask = new Event(words[0], listCount, words[1], words[2]);
+                tasks[listCount] = newTask;
+            }
+            }
+            listCount += 1;
+            if (taskStatus.equals("X")) {
+                tasks[listCount - 1].isDone = true;
+            }
+        }
+
+    }
+
+    private static class File {
+
+        private static java.io.File f;
+        private static String path;
+
+        private static void init() throws IOException{
+            f = new java.io.File(".data/SaveFile.txt");
+            path = f.getAbsolutePath();
+            if (!f.exists()) {
+                if (f.getParentFile().mkdirs() && f.createNewFile()) {
+                    Printer.printSaveFileCreated();
+                }
+            }
+        }
+
+        private static void clear() throws IOException {
+            FileWriter fw = new FileWriter(path);
+            fw.write("");
+            fw.close();
+        }
+
+        private static void appendToFile(String textToAppend) throws IOException {
+            FileWriter fw = new FileWriter(path, true);
+            fw.write(textToAppend);
+            fw.close();
+        }
+
+        private static void loadFile() throws IOException {
+            Scanner s = new Scanner(f);
+            StringBuilder fileContent = new StringBuilder();
+            while (s.hasNext()) {
+                fileContent.append(s.nextLine());
+                fileContent.append("\n");
+            }
+            String fileString = fileContent.toString();
+            if (!fileString.isBlank()) {
+                decipherAllInfo(fileString);
+            }
+        }
+
+        private static void decipherAllInfo(String fileContent) {
+            String[] arrayOfTasks = fileContent.split("\n");
+            for (String task : arrayOfTasks) {
+                String[] stringArray = task.split("\\|");
+                String taskType = stringArray[0];
+                String taskStatus = stringArray[1];
+                String taskDesc = stringArray[2].trim();
+                List.addTaskFromSave(taskType, taskStatus, taskDesc);
+            }
+            Printer.printLoadConfirm();
+        }
+
+        private static void save() {
+            for (List.Task task : List.tasks) {
+                try {
+                    String taskString = task.toString();
+                    String stringToWrite = taskString.substring(3);
+                    stringToWrite = stringToWrite.replaceAll("\\[", "|");
+                    stringToWrite = stringToWrite.replaceAll("]", "|");
+                    stringToWrite = stringToWrite.replaceAll("BY:", "/by");
+                    stringToWrite = stringToWrite.replaceAll("FROM:", "/from");
+                    stringToWrite = stringToWrite.replaceAll("TO:", "/to");
+                    stringToWrite = stringToWrite.replace("||", "|");
+                    appendToFile(stringToWrite);
+                    appendToFile("\n");
+                } catch (IOException | NullPointerException e) {
+                    return;
+                }
             }
         }
 
