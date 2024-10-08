@@ -20,8 +20,8 @@ Grok is a desktop app for managing tasks and is optimized for use via the Comman
 
 1. Ensure you have Java `17` or above installed in your Computer.
 2. Grab the latest `.jar` file from [here](https://github.com/naveen42x/ip/releases).
-3. Copy the file to the folder you want to use as the home folder for Medea.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar medea.jar command to run the application.
+3. Copy the file to the folder you want to use as the home folder for Grok.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Grok.jar command to run the application.
 5. Once you see the welcome message, you may begin entering commands. Refer to [features](#features) for full list of commands.
 
 ## Features
