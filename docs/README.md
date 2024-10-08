@@ -17,15 +17,21 @@ Blossom is your personal assistant designed to help you stay organised and keepi
 ### Adding a task: 
 `todo` <br>
 Adds a todo task to the task list. <br>
-Format: `todo TASK_DESCRIPTION`
+Format: `todo TASK_DESCRIPTION` <br>
+**Example**: <br>
+`todo read book`
 
 `deadline` <br>
 Adds a deadline to the task list. <br>
 Format: `deadline TASK_DESCRIPTION /by TIME`
+**Example**: <br>
+`deadline do assignment /by Friday`
 
 `event` <br>
 Adds an event to the task list. <br>
 Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME
+**Example**: <br>
+`event team meeting /from Friday 3pm /to Friday 5pm`
 `
 ### Listing all tasks: list
 Shows all tasks in the task list. <br>
@@ -34,6 +40,8 @@ Format: `list`
 ### Location tasks by name: find
 Find tasks whose description matches the keyword. <br>
 Format: `find KEYWORD`
+**Example**: <br>
+`find book` returns tasks with the keyword "book" in it.
 
 ### Deleting a task: delete
 Deletes the specified task from the task list. <br>
@@ -42,6 +50,8 @@ Format: `delete INDEX`
 - Deletes the task at the specified INDEX.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
+**Example** <br>
+`delete 2` deletes the second task in the task list.
 
 ### Marking tasks as complete: mark
 Marks the specified task in the task list as complete. <br>
@@ -50,14 +60,18 @@ Format: `mark INDEX`
 - Marks the task at the specified INDEX as complete.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
+**Example** <br>
+`mark 1` marks the first in the task list as complete.
 
 ### Unmarking tasks: unmark
 Marks the specified task in the task list as incomplete. <br>
-Format: `mark INDEX`
+Format: `unmark INDEX`
 
 - Marks the task at the specified INDEX as incomplete.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
+  **Example** <br>
+`unmark 1` marks the first in the task list as incomplete.
 
 ### Exiting the program : bye
 Exits the program.
