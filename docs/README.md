@@ -3,7 +3,7 @@
 
 Pythia chatbot is desktop app **designed to help you manage all of your tasks, 
 optimized for use via command-line interface**.
-It is a  app that allows adding tasks, deleting, marking and saving them for later.
+It allows for adding tasks, deleting, marking and saving them for later.
 
 # Table of Contents
 - [Quick start](#quick-start)
@@ -23,17 +23,23 @@ It is a  app that allows adding tasks, deleting, marking and saving them for lat
 App supports several types of commands with different functionalities and synatx. 
 All of them summarized in a table below.
 
-| Feature               | Syntax                                                |
-|-----------------------|-------------------------------------------------------|
-| **List all tasks**    | `list`                                                |
-| **Add a a todo**      | `todo <description>`                                  |
-| **Add a deadline**    | `deadline <description> /by <deadline>`               |
-| **Add an event**      | `event <description> /from <startDate> /to <endDate>` |
-| **Mark task as done** | `mark <taskNumber>`                                   |
-| **Delete a task**     | `delete <taskNumber>`                                 |
-| **Find a task**       | `find <keyword>`                                      |
-| **Quit the app**      | `bye`                                                 |
+| Feature             | Syntax                                               |
+|---------------------|------------------------------------------------------|
+| **List all tasks**  | `list`                                               |
+| **Add a task**      | `add <description>`                                  |
+| **Add a todo**      | `todo <description>`                                 |
+| **Add a deadline**  | `deadline <description> /by <deadline>`              |
+| **Add an event**    | `event <description> /from <startDate> /to <endDate>`|
+| **Mark task as done** | `mark <taskNumber>`                                |
+| **Delete a task**   | `delete <taskNumber>`                                |
+| **Find a task**     | `find <keyword>`                                     |
+| **Quit the app**    | `bye`                                                |
 
+> [!TIP]
+> To know `<taskNumber` is it advised to execute `list` command first
+
+> [!WARNING]
+> Once a task is deleted it cannot be recovered
 ## Add `Task`
 
 // Describe the action and its outcome.
