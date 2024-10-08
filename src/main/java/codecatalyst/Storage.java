@@ -25,7 +25,7 @@ public class Storage {
     private static final String SEPARATOR1_SYMBOL = " | ";
     private static final String SEPARATOR2_SYMBOL = "-";
     
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.
@@ -49,8 +49,8 @@ public class Storage {
 
         createDataDirectory(file);
         createTaskFile(file);
-        Scanner s = new Scanner(file);
-        processEveryLineInFile(s, tasks);
+        Scanner scanner = new Scanner(file);
+        processEveryLineInFile(scanner, tasks);
         return tasks;
     }
 
@@ -79,15 +79,16 @@ public class Storage {
     /**
      * Processes each line in the file to extract and add tasks to the task list.
      *
-     * @param s The scanner object reading the file.
+     * @param scanner The scanner object reading the file.
      * @param tasks The list of tasks to which the extracted tasks are added.
      */
-    private static void processEveryLineInFile(Scanner s, ArrayList<Task> tasks) {
-        while (s.hasNext()) {
-            String[] parts = s.nextLine().split(" \\| ");
+    private static void processEveryLineInFile(Scanner scanner, ArrayList<Task> tasks) {
+        while (scanner.hasNext()) {
+            String[] parts = scanner.nextLine().split(" \\| ");
             String taskType = parts[0];
             boolean isDone = parts[1].equals(MARKED_SYMBOL);
             String description = parts[2];
+
             switch (taskType) {
             case TODO_TYPE:
                 ConvertLineToTodoTask(tasks, description, isDone);
@@ -169,21 +170,27 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
 
         for (Task task : tasks) {
-            String CompletionNumber = task.isDone() ? MARKED_SYMBOL : UNMARKED_SYMBOL;
-
-            if (task instanceof Todo){
-                fw.write(TODO_TYPE + SEPARATOR1_SYMBOL + CompletionNumber +
-                        SEPARATOR1_SYMBOL + task.getDescription() + "\n");
-            } else if (task instanceof Deadline){
-                fw.write(DEADLINE_TYPE + SEPARATOR1_SYMBOL + CompletionNumber +
-                        SEPARATOR1_SYMBOL + task.getDescription() + SEPARATOR1_SYMBOL +
-                        ((Deadline) task).getBy() + "\n");
-            } else if (task instanceof Event){
-                fw.write(EVENT_TYPE + SEPARATOR1_SYMBOL + CompletionNumber + 
-                        SEPARATOR1_SYMBOL + task.getDescription() + SEPARATOR1_SYMBOL +
-                        ((Event) task).getFrom() + SEPARATOR2_SYMBOL + ((Event) task).getTo() + "\n");
-            }
+            fw.write(convertTaskToLine(task));
         }
         fw.close();
+    }
+
+    private static String convertTaskToLine(Task task) {
+        String CompletionNumber = task.isDone() ? MARKED_SYMBOL : UNMARKED_SYMBOL;
+
+        if (task instanceof Todo){
+            return TODO_TYPE + SEPARATOR1_SYMBOL + CompletionNumber +
+                    SEPARATOR1_SYMBOL + task.getDescription() + "\n";
+        } else if (task instanceof Deadline){
+            return DEADLINE_TYPE + SEPARATOR1_SYMBOL + CompletionNumber +
+                    SEPARATOR1_SYMBOL + task.getDescription() +
+                    SEPARATOR1_SYMBOL + ((Deadline) task).getBy() + "\n";
+        } else {
+            // Event Task
+            return EVENT_TYPE + SEPARATOR1_SYMBOL + CompletionNumber +
+                    SEPARATOR1_SYMBOL + task.getDescription() +
+                    SEPARATOR1_SYMBOL + ((Event) task).getFrom() +
+                    SEPARATOR2_SYMBOL + ((Event) task).getTo() + "\n";
+        }
     }
 }
