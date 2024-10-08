@@ -9,7 +9,6 @@ public class Todo extends Task {
     public static final String TYPE = "T";
     /**
      * Constructs a new Todo task with the specified description.
-     * The task is initially not done and an acknowledgement message is printed.
      *
      * @param description The description of the Todo task.
      */
@@ -19,9 +18,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Constructs a Todo task with the specified status and description.
-     * The task is marked as done if the status string is "X".
-     * This function is used to load Todo task from storage
+     * Constructs a Todo task with the specified status and description from storage
      *
      * @param isDone The status of the task ("X" for done, otherwise not done).
      * @param description The description of the Todo task.

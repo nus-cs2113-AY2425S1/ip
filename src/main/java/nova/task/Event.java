@@ -29,14 +29,12 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs an Event task with the specified status, description, start time, and end time.
-     * The task is marked as done if the status string is "X".
-     * This function is used to load Event task from storage
+     * Constructs an Event task with the specified status, description, start time, and end time from storage
      *
-     * @param isDone     The status of the task ("X" for done, otherwise not done).
+     * @param isDone The status of the task ("X" for done, otherwise not done).
      * @param description The description of the Event task.
-     * @param from       The start time of the Event task.
-     * @param to         The end time of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
      */
     public Event(String isDone, String description, String from, String to) {
         super(description);
@@ -48,7 +46,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its status icon, description, start time, and end time.
+     * Returns a string representation of the Event task.
      *
      * @return The Event task information as a string.
      */
@@ -70,8 +68,7 @@ public class Event extends Task {
     }
 
     /**
-     * Checks if the event occurs on a given date.
-     * This method compares the task's event range (from-to) to the input date.
+     * Checks if the task's event range (from-to) occurs on a given date.
      *
      * @param date The date to check against.
      * @return true if the input date falls within the event's start and end date, false otherwise.

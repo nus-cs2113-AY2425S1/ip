@@ -2,7 +2,6 @@ package nova.task;
 
 import nova.Ui;
 
-
 import java.time.LocalDate;
 
 /**
@@ -10,30 +9,20 @@ import java.time.LocalDate;
  * Provides methods to mark tasks as done, retrieve task information, and manage the total number of tasks.
  */
 public class Task {
+    /** Divider used in the task storage format. */
+    public static final String DIVIDER = " | ";
 
-    /**
-     * The description of the task.
-     */
+    /** Tracks the total number of tasks. */
+    private static int numberOfTasks = 0;
+
+    /** The description of the task. */
     protected String description;
 
-    /**
-     * The status of the task (true if done, false otherwise).
-     */
+    /** The status of the task (true if done, false otherwise). */
     protected boolean isDone;
 
     /**
-     * Divider used in the task storage format.
-     */
-    public static final String DIVIDER = " | ";
-
-    /**
-     * Tracks the total number of tasks.
-     */
-    private static int numberOfTasks = 0;
-
-    /**
-     * Constructs a new task with the given description. The task is initially not done.
-     * Increments the total number of tasks.
+     * Constructs a new task with the given description.
      *
      * @param description The description of the task.
      */
@@ -75,7 +64,6 @@ public class Task {
 
     /**
      * Returns the status icon for the task.
-     * If the task is done, it returns "X". If not, it returns a blank space.
      *
      * @return The status icon ("X" for done, " " for not done).
      */
@@ -103,7 +91,6 @@ public class Task {
 
     /**
      * Returns a string representation of the task for storage purposes.
-     * This method is expected to be overridden by subclasses for specific task types.
      *
      * @return A string representing the task for storage.
      */
@@ -113,8 +100,6 @@ public class Task {
 
     /**
      * Checks if the task is associated with a given date.
-     * By default, this method always returns false.
-     * Subclasses (such as Deadline and Event) should override this method to provide specific date-related checks.
      *
      * @param date The date to check against.
      * @return false by default subclasses should override this method to provide actual date matching logic.

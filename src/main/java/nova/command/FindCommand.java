@@ -17,8 +17,7 @@ public class FindCommand extends Command {
     public static final String FIND_MESSAGE = "All the tasks that contain the word '";
 
     /**
-     * Executes the 'find' command. Searches for tasks containing the given phrase
-     * and displays them to the user.
+     * Executes the 'find' command. Searches for tasks containing the given phrase and displays them to the user.
      *
      * @param inputs The user input containing the command and the phrase to search for.
      * @param taskList The list of tasks to search within.
@@ -30,15 +29,28 @@ public class FindCommand extends Command {
             Ui.displayInvalidInputMessage(e.getMessage(), FIND_USAGE);
         }
 
-        int counter = 1;
         String result = FIND_MESSAGE + inputs[1] + "'";
+        result = findTasks(inputs, taskList, result);
+        Ui.displayMessage(result);
+    }
+
+    /**
+     * Appends task that contain the specified phrase to the result string.
+     *
+     * @param inputs The input arguments provided by the user.
+     * @param taskList The task list to search within.
+     * @param result The string to store and display matching tasks.
+     * @return The final result string with all matching tasks.
+     */
+    private static String findTasks(String[] inputs, TaskList taskList, String result) {
+        int counter = 1;
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
             if (taskList.doesContain(i, inputs[1])) {
                 result += SPACING + counter + "." + taskList.getTaskInfo(i);
                 counter++;
             }
         }
-        Ui.displayMessage(result);
+        return result;
     }
 
     /**

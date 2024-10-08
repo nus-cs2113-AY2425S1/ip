@@ -3,19 +3,14 @@ package nova;
 import nova.task.Task;
 
 /**
- * Handles the user interface for displaying messages to the user.
- * This includes welcome messages, task status updates, and error notifications.
+ * Text UI of the application.
  */
 public class Ui {
 
-    /**
-     * The separator line used to format messages.
-     */
+    /** The separator line used to format messages. */
     public static final String SEPARATOR = "    ___________________________________________________________________";
 
-    /**
-     * A string representing a new line in the formatted messages.
-     */
+    /** A string representing a new line in the formatted messages. */
     public static final String NEW_LINE = "\n     ";
 
     /**
@@ -53,8 +48,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that an invalid input was entered.
-     * It provides guidance on valid commands.
+     * Displays a message indicating that an invalid input was entered and provide help message.
      */
     public static void displayInvalidInputMessage() {
         displayMessage("Invalid input. Please use one of the following commands:" + NEW_LINE +
@@ -83,13 +77,6 @@ public class Ui {
      */
     public static void displayInvalidInputMessage(String message) {
         displayMessage(message);
-    }
-
-    /**
-     * Displays the separator line.
-     */
-    public static void displaySeparator() {
-        System.out.println(SEPARATOR);
     }
 
     /**

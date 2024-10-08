@@ -13,12 +13,8 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the Exit command by displaying a farewell message
-     * and returning true to indicate the application should close.
-     *
-     * @return true to signal that the application should terminate.
      */
-    public static boolean execute() {
+    public static void execute() {
         Ui.displayMessage(BYE_MESSAGE);
-        return true;
     }
 }

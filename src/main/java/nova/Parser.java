@@ -1,17 +1,20 @@
 package nova;
 
-import nova.command.*;
+import nova.command.ListCommand;
+import nova.command.MarkCommand;
+import nova.command.TodoCommand;
+import nova.command.DeadlineCommand;
+import nova.command.DeleteCommand;
+import nova.command.EventCommand;
+import nova.command.FindCommand;
+import nova.command.UnmarkCommand;
 
 /**
- * Parses and processes user input commands.
- * The {@code Parser} directs commands to their respective command handlers
- * based on the input and manages task operations through the {@code TaskList}.
+ * Parses user input.
  */
 public class Parser {
 
-    /**
-     * The task manager that handles task operations.
-     */
+    /** The task manager that handles task operations. */
     private TaskList taskManager;
 
     /**
@@ -24,25 +27,22 @@ public class Parser {
     }
 
     /**
-     * Handles user input by determining which command to execute based on the input string.
-     * It matches the first element of the input array to a command and invokes the relevant
-     * command execution method.
+     * Parses user input and execute it.
      *
      * @param inputs The array of input strings, where the first string indicates the command.
-     * @return {@code true} if the command is an exit command, otherwise {@code false}.
      */
-    public boolean handleInput(String[] inputs) {
+    public void handleInput(String[] inputs) {
         switch (inputs[0].toLowerCase()) {
-        case ExitCommand.COMMAND_WORD:
-            return ExitCommand.execute();
-
         case ListCommand.COMMAND_WORD:
             ListCommand.execute(inputs, taskManager);
             break;
 
-        case MarkAndUnmarkCommand.COMMAND_WORD1:
-        case MarkAndUnmarkCommand.COMMAND_WORD2:
-            MarkAndUnmarkCommand.execute(inputs, taskManager);
+        case MarkCommand.COMMAND_WORD:
+            MarkCommand.execute(inputs, taskManager);
+            break;
+
+        case UnmarkCommand.COMMAND_WORD:
+            UnmarkCommand.execute(inputs, taskManager);
             break;
 
         case TodoCommand.COMMAND_WORD:
@@ -69,6 +69,5 @@ public class Parser {
             Ui.displayInvalidInputMessage();
             break;
         }
-        return false;
     }
 }

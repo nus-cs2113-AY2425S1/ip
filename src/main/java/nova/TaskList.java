@@ -8,21 +8,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks that can be added, removed, marked, or unmarked.
- * It manages tasks in memory and updates task information to persistent storage.
- *
- * Tasks are limited by a maximum number defined by {@code MAX_TASKS}.
+ * Represents the entire TaskList. Contains the data of the TaskList.
  */
 public class TaskList {
 
-    /**
-     * Maximum number of tasks that can be stored.
-     */
+    /** Maximum number of tasks that can be stored. */
     private static final int MAX_TASKS = 100;
 
-    /**
-     * The list of tasks stored in the system.
-     */
+    /** The list of tasks stored in the system. */
     private static ArrayList<Task> tasks;
 
     /**
@@ -34,8 +27,6 @@ public class TaskList {
 
     /**
      * Checks if there is sufficient space to add more tasks.
-     * Throws an {@code InsufficientSpaceException} if the maximum number
-     * of tasks has been reached.
      *
      * @throws InsufficientSpaceException If the number of tasks reaches {@code MAX_TASKS}.
      */
@@ -47,7 +38,6 @@ public class TaskList {
 
     /**
      * Adds a new task to the task list and appends it to the storage.
-     * Displays a storage error message if an {@code IOException} occurs.
      *
      * @param task The task to be added.
      */
@@ -109,7 +99,6 @@ public class TaskList {
 
     /**
      * Updates the storage with the current task information.
-     * If an {@code IOException} occurs, a storage error message is displayed.
      */
     public void updateStorage() {
         String updatedInfo = "";
@@ -135,7 +124,6 @@ public class TaskList {
 
     /**
      * Checks if the task at the specified index is associated with the given date.
-     * This method delegates the date check to the task at the specified index.
      *
      * @param i The index of the task in the task list.
      * @param localDate The date to check against.
@@ -147,7 +135,6 @@ public class TaskList {
 
     /**
      * Checks if the task at the specified index contains the given phrase in its description.
-     * This method delegates the phrase check to the task at the specified index.
      *
      * @param i The index of the task in the task list.
      * @param phrase The phrase to search for in the task's description.

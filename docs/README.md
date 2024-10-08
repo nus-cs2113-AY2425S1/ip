@@ -160,3 +160,18 @@ Format: `bye`
      Bye. Hope to see you again soon!
     ___________________________________________________________________
 ```
+
+Command Summary
+
+| **Command**       | **Description**                                  | **Format**                                   | **Example**                                    |
+|-------------------|--------------------------------------------------|----------------------------------------------|------------------------------------------------|
+| **Add Todo**       | Adds a todo task                                | `todo [task description]`                    | `todo Buy a new phone`                         |
+| **Add Deadline**   | Adds a task with a deadline                     | `deadline [task description] /by [due date]` | `deadline Submit assignment /by 2024-09-30`    |
+| **Add Event**      | Adds an event with start and end dates          | `event [task description] /from [start date] /to [end date]` | `event Korea holiday /from 2024-09-10 /to 2024-09-15` |
+| **List Tasks**     | Lists all tasks or tasks on a specific date     | `list` or `list [date]`                      | `list` or `list 2024-09-30`                    |
+| **Mark Task**      | Marks a task as done                            | `mark [task index]`                          | `mark 2`                                       |
+| **Unmark Task**    | Marks a task as undone                          | `unmark [task index]`                        | `unmark 1`                                     |
+| **Delete Task**    | Deletes a task from the list                    | `delete [task index]`                        | `delete 2`                                     |
+| **Find Task**      | Finds tasks containing a specific keyword       | `find [keyword]`                             | `find phone`                                   |
+| **Exit**           | Exits the application                           | `bye`                                        |                                                |
+

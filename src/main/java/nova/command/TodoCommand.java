@@ -11,10 +11,6 @@ import nova.task.Todo;
  * This command allows users to create tasks that do not have a specific deadline.
  */
 public class TodoCommand extends Command {
-
-    /**
-     * The command word for adding a Todo task.
-     */
     public static final String COMMAND_WORD = "todo";
     private static final String TODO_USAGE = "Usage: todo <task description>.";
 
@@ -43,6 +39,10 @@ public class TodoCommand extends Command {
      * @throws InvalidInputException If the input is invalid.
      */
     private static void validateTodoInput(String[] inputs) throws InvalidInputException {
+        checkForDescription(inputs);
+    }
+
+    private static void checkForDescription(String[] inputs) {
         if (inputs.length != 2) {
             throw new InvalidInputException("No description entered.");
         }

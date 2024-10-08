@@ -1,16 +1,11 @@
 package nova.exception;
 
 /**
- * Exception thrown when the user provides invalid input.
- * This is a runtime exception indicating that the input format or
- * parameters are not as expected for a command.
+ * Signals that the user provides invalid input.
  */
 public class InvalidInputException extends RuntimeException {
-
     /**
-     * Constructs a new InvalidInputException with the specified detail message.
-     *
-     * @param message The detail message to be used for this exception.
+     * @param message should contain relevant information on the failed constraint(s)
      */
     public InvalidInputException(String message) {
         super(message);

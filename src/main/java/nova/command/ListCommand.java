@@ -12,10 +12,6 @@ import java.time.format.DateTimeParseException;
  * The 'list' command can display all tasks or filter tasks by a specific date if provided.
  */
 public class ListCommand extends Command {
-
-    /**
-     * The command word for the List command.
-     */
     public static final String COMMAND_WORD = "list";
     private static final String LIST_ALL_MESSAGE = "Listing all tasks";
     private static final String LIST_TASK_DATE_MESSAGE = "Listing all tasks on ";
@@ -23,7 +19,6 @@ public class ListCommand extends Command {
 
     /**
      * Executes the 'list' command. If a date is provided, it lists all tasks scheduled on that date.
-     * Otherwise, it lists all tasks in the task manager.
      *
      * @param inputs The user input containing the 'list' command and an optional date.
      * @param taskManager The task manager that holds the current tasks.
