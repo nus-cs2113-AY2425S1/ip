@@ -23,13 +23,13 @@ Format: `todo TASK_DESCRIPTION` <br>
 
 `deadline` <br>
 Adds a deadline to the task list. <br>
-Format: `deadline TASK_DESCRIPTION /by TIME`
+Format: `deadline TASK_DESCRIPTION /by TIME` <br>
 **Example**: <br>
 `deadline do assignment /by Friday`
 
 `event` <br>
 Adds an event to the task list. <br>
-Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME`
+Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME` <br>
 **Example**: <br>
 `event team meeting /from Friday 3pm /to Friday 5pm`
 
@@ -39,13 +39,13 @@ Format: `list`
 
 ### Location tasks by name: find
 Find tasks whose description matches the keyword. <br>
-Format: `find KEYWORD`
+Format: `find KEYWORD` <br>
 **Example**: <br>
 `find book` returns tasks with the keyword "book" in it.
 
 ### Deleting a task: delete
 Deletes the specified task from the task list. <br>
-Format: `delete INDEX`
+Format: `delete INDEX` <br>
 
 - Deletes the task at the specified INDEX.
 - The index refers to the index number shown in the displayed task list.
@@ -55,7 +55,7 @@ Format: `delete INDEX`
 
 ### Marking tasks as complete: mark
 Marks the specified task in the task list as complete. <br>
-Format: `mark INDEX`
+Format: `mark INDEX` <br>
 
 - Marks the task at the specified INDEX as complete.
 - The index refers to the index number shown in the displayed task list.
@@ -74,7 +74,7 @@ Format: `unmark INDEX`
 `unmark 1` marks the first in the task list as incomplete.
 
 ### Exiting the program : bye
-Exits the program.
+Exits the program. <br>
 Format: `bye`
 
 ### Saving the data
