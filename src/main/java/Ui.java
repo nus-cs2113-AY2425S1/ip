@@ -56,11 +56,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showTaskList(String taskList) {
-        System.out.println(taskList);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
     /**
      * Displays confirmation message that a task is marked
      *
@@ -139,10 +134,6 @@ public class Ui {
         showMessage(eventDescription);
         showMessage("Now you have " + count + " tasks in the list.");
         showMessage(HORIZONTAL_LINE);
-    }
-
-    public void closeScanner() {
-        scanner.close();
     }
 
     /**

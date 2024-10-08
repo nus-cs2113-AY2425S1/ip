@@ -38,7 +38,6 @@ public class TaskManager {
      * @throws EvaException If number given is out of bounds (< 0 or > count)
      */
     public void markTask(String line) throws EvaException {
-
         int taskNumber = Integer.parseInt(line) - 1;
 
         EvaException.validateTaskNumber(taskNumber, count);
@@ -58,7 +57,6 @@ public class TaskManager {
      * @throws EvaException If number given is out of bounds (< 0 or > count)
      */
     public void unmarkTask(String line) throws EvaException {
-
         int taskNumber = Integer.parseInt(line) - 1;
 
         EvaException.validateTaskNumber(taskNumber, count);
@@ -78,7 +76,6 @@ public class TaskManager {
      * @throws EvaException If number given is out of bounds (< 0 or > count)
      */
     public void deleteTask(String line) throws EvaException {
-
         int taskNumber = Integer.parseInt(line) - 1;
 
         EvaException.validateTaskNumber(taskNumber, count);
@@ -103,9 +100,7 @@ public class TaskManager {
      * @param line The description of the Todo task to be added.
      */
     public void addTodo(String line) {
-
         tasks.add(new Todo(line));
-
         count++;
 
         ui.showAddTodo(tasks.get(count - 1).toString(), count);
@@ -124,9 +119,7 @@ public class TaskManager {
      * @param by The time by which the Deadline task needs to be completed
      */
     public void addDeadline(String description, String by) {
-
         tasks.add(new Deadline(description, by));
-
         count++;
 
         ui.showAddDeadline(tasks.get(count - 1).toString(), count);
@@ -146,9 +139,7 @@ public class TaskManager {
      * @param to The time when the Event task ends
      */
     public void addEvent(String description, String from, String to) {
-
         tasks.add(new Event(description, from, to));
-
         count++;
 
         ui.showAddEvent(tasks.get(count - 1).toString(), count);
