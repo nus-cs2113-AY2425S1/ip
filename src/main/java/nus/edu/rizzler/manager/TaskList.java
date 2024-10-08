@@ -83,6 +83,27 @@ public class TaskList {
         return task.toString();
     }
 
+    public String findKeyword(String keyword) {
+        int itemCount = 0;
+        StringBuilder matchString = new StringBuilder();
+
+        for (Task task : tasks) {
+            String taskString = task.toString().toUpperCase();
+            String keywordString = keyword.toUpperCase();
+            if (taskString.contains(keywordString)) {
+                if (itemCount > 0){
+                    matchString.append("\n");
+                }
+                matchString.append(String.format("%d. %s", ++itemCount, task));
+            }
+        }
+        if (itemCount == 0) {
+            return "Nothing in the pipeline yet! Let's get to work! "
+                    + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji();
+        }
+        return matchString.toString();
+    }
+
     public String toCSVString() {
         StringBuilder csvString = new StringBuilder();
 

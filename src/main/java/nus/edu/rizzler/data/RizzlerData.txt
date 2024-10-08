@@ -1,2 +1,1 @@
-T, false, read a book
-D, false, read book, 4pm
+D, true, read book, 4pm

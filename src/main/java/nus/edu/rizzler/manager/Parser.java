@@ -21,6 +21,7 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD: return createUnmarkCommand(argumentString);
         case ListCommand.COMMAND_WORD: return createListCommand();
         case DeleteCommand.COMMAND_WORD: return createDeleteCommand(argumentString);
+        case FindCommand.COMMAND_WORD: return createFindCommand(argumentString);
         case ExitCommand.COMMAND_WORD: return createExitCommand();
         default: return createInvalidCommand();
         }
@@ -93,6 +94,13 @@ public class Parser {
     private Command createDeleteCommand(String argumentString) throws RizzlerException {
         int taskIndex = parseTaskIndex(argumentString);
         return new DeleteCommand(taskIndex);
+    }
+
+    private Command createFindCommand(String keyword) throws RizzlerException {
+        if (keyword.trim().isEmpty()) {
+            throw new RizzlerException("Keyword cannot be empty. Please provide valid keyword for find.");
+        }
+        return new FindCommand(keyword);
     }
 
     private Command createExitCommand() {
