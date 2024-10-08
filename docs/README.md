@@ -1,6 +1,5 @@
 # Pythia User Guide
-// Product screenshot goes here
-
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](Screenshot.png)
 Pythia chatbot is desktop app **designed to help you manage all of your tasks, 
 optimized for use via command-line interface**.
 It allows for adding tasks, deleting, marking and saving them for later.
@@ -19,7 +18,7 @@ It allows for adding tasks, deleting, marking and saving them for later.
 
 # Feature overview
 App supports several types of commands with different functionalities and synatx. 
-All of them summarized in a table below.
+All of them summarized in the table below.
 
 | Feature             | Syntax                                               |
 |---------------------|------------------------------------------------------|
@@ -34,15 +33,16 @@ All of them summarized in a table below.
 | **Quit the app**    | `bye`                                                |
 
 > **Tip:**
-> To know `<taskNumber>` is it advised to execute `list` command first
+> To know `<taskNumber>` it is advised to execute `list` command first
 
 > **Warning:**
 > Once a task is deleted it cannot be recovered
 
 ## Add `Task`
 Adds a task to the list of tasks. Use syntax `add <description>`
-where `<description>` is a task description of the task such 
-as a name or anything desired.
+where:
+- `<description>` is a task description of the task such 
+as a name or anything desired
 
 ### Example:
 ```
@@ -59,7 +59,8 @@ list
 
 ## Add `ToDo`
 Adds a `TdDo` to the list of tasks. Use syntax `todo <description>`
-where `<description>` is a `ToDo` description of the task such
+where:
+- `<description>` is a `ToDo` description of the task such
 as a name or anything desired.
 
 ### Example:
@@ -82,9 +83,9 @@ list
 ## Add `Event`
 Adds an `Event` to the list of tasks. Use syntax `event <description> /from <startDate> /to <endDate>`
 where:
-- `<description>` is a `Event` description
-- `<startDate>` is the time at which the event starts, can we any sequence of characters
-- `<endDate>` is the time at which the event end, can we any sequence of characters
+- `<description>` is an `Event` description
+- `<startDate>` is the time at which the event starts, any sequence of characters is accepted
+- `<endDate>` is the time at which the event end, any sequence of characters is accepted
 
 
 ### Example:
@@ -131,10 +132,10 @@ it will be kept indefinitely unless deleted explicitly. Look above for examples 
 ## Delete a task
 Deletes a `Task` from the list of tasks. Use syntax `delete <taskNumber>`
 where:
-- `<taskNumber>` is a number of the task in a list
+- `<taskNumber>` is a number of the task in the list
 
 > **Tip:**
-> To know `<taskNumber>` is it advised to execute `list` command first as task numbers change upon deletion
+> To know `<taskNumber>` it is advised to execute `list` command first as task numbers change upon deletion
 
 ### Example:
 ```
@@ -155,10 +156,10 @@ list
 ## Mark task as done
 Marks a `Task` as done. Use syntax `mark <taskNumber>`
 where:
-- `<taskNumber>` is a number of the task in a list
+- `<taskNumber>` is a number of the task in the list
 
 > **Tip:**
-> To know `<taskNumber>` is it advised to execute `list` command first as task numbers change upon deletion
+> To know `<taskNumber>` it is advised to execute `list` command first as task numbers change upon deletion
 
 ### Example:
 ```
@@ -177,7 +178,7 @@ list
 ```
 
 ## Find a task
-Finds a `Task` with a keyword contain in the task description. Use syntax `find <keyword>`.
+Finds a `Task` with a keyword contained in the task description. Use syntax `find <keyword>`.
 
 ### Example:
 ```
