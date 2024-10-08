@@ -2,7 +2,6 @@ package yapper.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 import yapper.exceptions.ExceptionHandler;
@@ -27,60 +26,71 @@ import yapper.tasks.Todo;
 public class InputFileHandler {
 
     /**
-     * Retrieves tasks from file
+     * Converts a save file to a task list.
      *
+     * <p>
      * Loads tasks from the file and returns a TaskHandler containing
      * the tasks. If the file does not exist, an empty task list is
      * initialized.
+     * </p>
      *
-     * @return a TaskHandler with loaded tasks
+     * @return a TaskHandler with tasks loaded from the file
      */
-    public static TaskHandler loadTasks() {
-        TaskHandler taskHandler = new TaskHandler();
-        System.out.println("Searching for a save file ... ");
-        File file = null;
+    public static TaskHandler loadTasksFromFile() {
+        TaskHandler taskHandler = FileHandler.getTaskHandler();
         try {
-            file = new File(StringStorage.SAVE_FILE_PATH);
-            if (!file.exists()) {
-                System.out.println("No save file has been found. Starting with an empty task list. ");
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } else {
-                System.out.println("A save file has been found. Initialising the task list ... ");
-            }
-        } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
-        }
-
-        int invalidTaskCount = 0;
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String taskData = scanner.nextLine();
-                if (taskData.isEmpty()) {
-                    break; // end scanning once blank line is detected
-                }
-
-                try {
-                    Task task = loadTask(taskData);
-                    taskHandler.addTask(task);
-                } catch (YapperException e) {
-                    System.out.println("skipping invalid task: " + e.getMessage());
-                    invalidTaskCount++;
-                }
-            }
-            scanner.close();
-
-            if (invalidTaskCount > 0) {
-                System.out.println("There were " + invalidTaskCount + " invalid tasks detected in the save file. ");
-            } else {
-                System.out.println("No invalid tasks were detected in the save file. ");
-            }
-            System.out.println(StringStorage.LINE_DIVIDER);
+            loadTasksAndRecordInvalidTasks();
         } catch (FileNotFoundException e) {
             System.out.println("There is a FileNotFoundException: " + e.getMessage());
         }
         return taskHandler;
+    }
+    /**
+     * Prints a different message depending on the number of invalid tasks encountered when loading tasks.
+     *
+     * @throws FileNotFoundException if the save file is not found
+     */
+    public static void loadTasksAndRecordInvalidTasks() throws FileNotFoundException {
+        int invalidTaskCount = loadTasks();
+        if (invalidTaskCount > 0) {
+            System.out.println("There were " + invalidTaskCount + " invalid tasks detected in the save file. ");
+        } else {
+            System.out.println("No invalid tasks were detected in the save file. ");
+        }
+        System.out.println(StringStorage.LINE_DIVIDER);
+    }
+    /**
+     * Loads tasks from the file to the TaskHandler, noting the number of invalid tasks encountered along the way.
+     *
+     * <p>
+     * This method scans each line of the file, attempting to parse it as a task.
+     * If a task is invalid, it is skipped and the count of invalid tasks is incremented.
+     * </p>
+     *
+     * @return the updated count of invalid tasks encountered during the file scan
+     * @throws FileNotFoundException if the save file is not found
+     */
+    public static int loadTasks() throws FileNotFoundException {
+        int invalidTaskCount = 0;
+        TaskHandler taskHandler = FileHandler.getTaskHandler();
+        File file = new File(StringStorage.SAVE_FILE_PATH);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String taskData = scanner.nextLine();
+            if (taskData.isEmpty()) {
+                break; // end scanning once blank line is detected
+            }
+
+            try {
+                Task task = loadTask(taskData);
+                taskHandler.addTask(task);
+            } catch (YapperException e) {
+                System.out.println("skipping invalid task: " + e.getMessage());
+                invalidTaskCount++;
+            }
+        }
+        scanner.close();
+        return invalidTaskCount;
     }
 
     /**

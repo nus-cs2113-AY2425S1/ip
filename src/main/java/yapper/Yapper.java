@@ -69,7 +69,7 @@ public class Yapper {
      */
     public static void main(String[] args) {
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
-        TaskHandler taskHandler = InputFileHandler.loadTasks();
+        TaskHandler taskHandler = InputFileHandler.loadTasksFromFile();
         if (taskHandler.isEmpty()) {
             System.out.println(StringStorage.START_UP_MESSAGE);
             System.out.println(StringStorage.LINE_DIVIDER);
