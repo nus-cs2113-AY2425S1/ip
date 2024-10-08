@@ -1,30 +1,100 @@
-# grok.Grok User Guide
+# Grok User Guide
+Grok is a desktop app for managing tasks and is optimized for use via the Command Line Interface.
 
-// Update the title above to match the actual product name
+- [Quickstart](#QuickStart)
+- [Features](#Features)
+    - [Listing Tasks](#listing-tasks-list)
+    - [Adding a Todo](#adding-a-todo-todo)
+    - [Adding a Deadline](#adding-a-deadline-deadline)
+    - [Adding an Event](#adding-a-event-event)
+    - [Mark Done Task](#mark-done-task-mark)
+    - [Unmark Done Task](#unmark-done-task-unmark-)
+    - [Deleting Tasks](#deleting-tasks-delete-)
+    - [Finding Tasks](#finding-tasks-find)
+    - [Exiting the App](#exiting-the-app-bye-)
+- [Saving Data](#saving-data)
+- [Editing the Data File](#editing-the-data-file)
+- [Command Summary](#command-summary)
 
-// Product screenshot goes here
+## Quickstart
 
-// Product intro goes here
+1. Ensure you have Java `17` or above installed in your Computer.
+2. Grab the latest `.jar` file from [here](https://github.com/naveen42x/ip/releases).
+3. Copy the file to the folder you want to use as the home folder for Medea.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar medea.jar command to run the application.
+5. Once you see the welcome message, you may begin entering commands. Refer to [features](#features) for full list of commands.
 
-## Adding deadlines
+## Features
 
-// Describe the action and its outcome.
+> **Take Note:**  Command Style
+> - **Words in UPPER_CASE** are the parameters to be supplied by the user.  
+    e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
+> - **Parameters must be input in the specified order.**  
+    e.g. if the command specifies `/from START /to END`, `/to END /from START` will cause data inaccuracy.
+> - **Extraneous parameters** for commands that do not take in parameters will be ignored.  
+    e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
-// Give examples of usage
+### Listing Tasks: `list`
+Displays all the tasks currently in the list of tasks.   
+Format: `list`    
+Example: `list`
 
-Example: `keyword (optional arguments)`
+### Adding a Todo: `todo`
+Adds a todo task into the list of tasks.  
+Format:  `todo DESCRIPTION`  
+Example: `todo read book`
 
-// A description of the expected outcome goes here
+### Adding a Deadline: `deadline`
+Adds a deadline task into the list of tasks.  
+Format:  `deadline DESCRIPTION /by DEADLINE`  
+Example: `todo read book /by Tuesday`
 
-```
-expected output
-```
+### Adding a Event: `event`
+Adds a event task into the list of tasks.
+Format:  `todo DESCRIPTION /from START /to END`  
+Example: `todo read book /from 6pm /to 8pm`
 
-## Feature ABC
+### Mark Done Task: `mark`
+Using the task's index, marks a task as completed.
+Format: `mark INDEX`    
+Example: `mark 4`
 
-// Feature details
+### Unmark Done Task: `unmark`
+Using the task's index, marks a task as incomplete.  
+Format: `unmark INDEX`    
+Example: `unmark 4`
 
+### Deleting Tasks: `delete`
+Using the task's index, delete a task from the list of tasks.  
+Format: `delete INDEX`    
+Example: `delete 1`
 
-## Feature XYZ
+### Finding Tasks: `find`
+Display all tasks that match a given keyword.  
+Format: `find KEYWORD`    
+Example: `find book`
 
-// Feature details
+### Exiting the App: `bye`
+Exits the application.  
+Format: `bye`    
+Example: `bye`
+
+## Saving Data
+Task data is saved automatically to the hard disk when the application is exited. No manual saving is required.
+
+## Editing the Data File
+Task data is saved as a CSV file at the designated file path. Advanced users can update data directly by editing that file.
+
+## Command Summary
+
+| Command              | Description                                                       | Format                              | Example                          |
+|----------------------|-------------------------------------------------------------------|-------------------------------------|----------------------------------|
+| **List Tasks**        | Displays all the tasks in the list.                               | `list`                              | `list`                           |
+| **Add Todo**          | Adds a todo task.                                                 | `todo DESCRIPTION`                  | `todo read book`                 |
+| **Add Deadline**      | Adds a deadline task.                                             | `deadline DESCRIPTION /by DEADLINE` | `deadline read book /by Tuesday`|
+| **Add Event**         | Adds an event task.                                               | `event DESCRIPTION /from START /to END`| `event read book /from 6pm /to 8pm` |
+| **Mark Task as Done** | Marks a task as completed using its index.                        | `mark INDEX`                        | `mark 4`                         |
+| **Unmark Task**       | Marks a task as incomplete using its index.                       | `unmark INDEX`                      | `unmark 4`                       |
+| **Delete Task**       | Deletes a task using its index.                                   | `delete INDEX`                      | `delete 1`                       |
+| **Find Task**         | Displays tasks matching a keyword.                                | `find KEYWORD`                      | `find book`                  |
+| **Exit**              | Exits the application.                                            | `bye`                               | `bye`                            |
