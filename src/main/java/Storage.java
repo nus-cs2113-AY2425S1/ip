@@ -5,6 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The Storage class is responsible for reading from and writing to a file
+ * that stores task data. It provides methods to save tasks to a file and
+ * load tasks from a file into an ArrayList of Task objects.
+ */
 public class Storage {
 
     private final String filePath;
@@ -13,6 +18,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by filePath.
+     * If the directory does not exist, it creates one.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File directory = new File("data");
@@ -34,6 +45,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified by filePath and returns them
+     * as an ArrayList of Task objects.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     *         If the file does not exist, returns an empty ArrayList.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -58,6 +76,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a task from a string representation of a task. The format of the
+     * string determines whether the task is a Todo, Deadline, or Event.
+     *
+     * @param line The string representation of a task.
+     * @return A Task object parsed from the string, or null if the format is unrecognized.
+     */
     private Task parseTaskFromString(String line) {
         boolean isDone = line.contains("[X]");
         String description;
