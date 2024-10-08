@@ -3,6 +3,7 @@ package erika.task;
 import erika.settings.Settings;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a deadline task.
@@ -21,21 +22,19 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        getDeadline(deadline);
     }
 
-    /**
-     * Overrides the <code>toString</code> method and prints out the deadline in a specific format for printing to console
-     */
-
-    public Deadline(String description, LocalDate deadlineDate) {
-        super(description);
-        this.deadlineDate = deadlineDate;
-    }
-
-    public Deadline(String description, LocalDateTime deadlineDateTime) {
-        super(description);
-        this.deadlineDateTime = deadlineDateTime;
+    private void getDeadline(String by) {
+        try {
+            this.deadlineDateTime = Settings.parseLocalDateTime(by);
+        } catch (DateTimeParseException e1) {
+            try {
+                this.deadlineDate = Settings.parseLocalDate(by);
+            } catch (DateTimeParseException e2) {
+                this.deadline = by;
+            }
+        }
     }
 
     @Override

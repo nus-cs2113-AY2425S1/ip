@@ -12,54 +12,203 @@
  	What can I do for you?
 	____________________________________________________________
 	____________________________________________________________
-	It seems that there are no tasks! Please consider adding some!
+	Error: List is empty, please consider adding some items!
+	____________________________________________________________
+	____________________________________________________________
+	Error: find cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: List is empty, please consider adding some items!
+	____________________________________________________________
+	____________________________________________________________
+	Error: Unknown command
+	____________________________________________________________
+	____________________________________________________________
+	Error: Unknown command
+	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	  [T][ ] borrow book 
-	Now you have 1 tasks in the list.
-	____________________________________________________________
-	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
+	  [T][ ] test
+	Now you have 1 task in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: Sunday)
+	  [T][ ] borrow book
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
-	2.[D][ ] return book (by: Sunday)
+	Error: command format error, Invalid todo command format.
+	Did you leave a space after keyword 'todo'?
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, Invalid todo command format.
+	Did you leave a space after keyword 'todo'?
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [T][ ] borrow   book
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][ ] borrow book 
-	2.[D][ ] return book (by: Sunday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Here are the items in your list: 
+	1. [T][ ] test
+	2. [T][ ] borrow book
+	3. [T][ ] borrow   book
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] borrow book
+	Error: deadline cannot have empty description
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] return book
+	Error: Unknown command
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	[X] project meeting
+	Error: Deadline cannot have empty description
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[T][X] borrow book 
-	2.[D][X] return book (by: Sunday)
-	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	Error: command format error, missing /by parameter
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: now)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return   book (by: now)
+	Now you have 5 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: 10 Oct 2024)
+	Now you have 6 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: 10 Oct 2024 8.20PM)
+	Now you have 7 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, Invalid deadline command format.
+	Did you leave a space after keyword 'deadline'?
+	____________________________________________________________
+	____________________________________________________________
+	Error: Unknown command
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list: 
+	1. [T][ ] test
+	2. [T][ ] borrow book
+	3. [T][ ] borrow   book
+	4. [D][ ] return book (by: now)
+	5. [D][ ] return   book (by: now)
+	6. [D][ ] return book (by: 10 Oct 2024)
+	7. [D][ ] return book (by: 10 Oct 2024 8.20PM)
+	____________________________________________________________
+	____________________________________________________________
+	Here are the matching items in your list: 
+	
+	____________________________________________________________
+	____________________________________________________________
+	Here are the matching items in your list: 
+	4. [D][ ] return book (by: now)
+	5. [D][ ] return   book (by: now)
+	6. [D][ ] return book (by: 10 Oct 2024)
+	7. [D][ ] return book (by: 10 Oct 2024 8.20PM)
+	____________________________________________________________
+	____________________________________________________________
+	Error: event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, Invalid event command format.
+	Did you leave a space after keyword 'event'?
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, Invalid event command format.
+	Did you leave a space after keyword 'event'?
+	____________________________________________________________
+	____________________________________________________________
+	Error: Event cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read   book (from: now to: /later)
+	Now you have 8 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read book (from: now to: later)
+	Now you have 9 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read book (from: now to: later)
+	Now you have 10 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read book (from: now to: later)
+	Now you have 11 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read book (from: now to: 20 Oct 2024)
+	Now you have 12 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] read book (from: 11 Oct 2024 11.23PM to: end of year)
+	Now you have 13 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, missing /from parameter
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] to be deleted
+	Now you have 14 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: delete cannot have empty description
+	____________________________________________________________
+	____________________________________________________________
+	Nice! I've deleted this task:
+	[D][ ] return book (by: now)
+	Now you have 13 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Error: Supplied index is out of bounds
+	____________________________________________________________
+	____________________________________________________________
+	Error: command format error, Invalid delete command format
+	Did you either supply an integer or keyword 'all'?
+	____________________________________________________________
+	____________________________________________________________
+	Here are the items in your list: 
+	1. [T][ ] test
+	2. [T][ ] borrow book
+	3. [T][ ] borrow   book
+	4. [D][ ] return   book (by: now)
+	5. [D][ ] return book (by: 10 Oct 2024)
+	6. [D][ ] return book (by: 10 Oct 2024 8.20PM)
+	7. [E][ ] read   book (from: now to: /later)
+	8. [E][ ] read book (from: now to: later)
+	9. [E][ ] read book (from: now to: later)
+	10. [E][ ] read book (from: now to: later)
+	11. [E][ ] read book (from: now to: 20 Oct 2024)
+	12. [E][ ] read book (from: 11 Oct 2024 11.23PM to: end of year)
+	13. [T][ ] to be deleted
+	____________________________________________________________
+	____________________________________________________________
+	All tasks deleted. There are now 0 tasks
+	____________________________________________________________
+	____________________________________________________________
+	Error: List is empty, please consider adding some items!
+	____________________________________________________________
+	____________________________________________________________
+	Error: Unknown command
+	____________________________________________________________
+	____________________________________________________________
+	Error: Unknown command
 	____________________________________________________________
 	____________________________________________________________
 	Bye! Hope to see you again soon!
