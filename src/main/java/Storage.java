@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import task.*;
 
-
+/**
+ * Handles saving and loading tasks to and from a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/diana.txt";
 
@@ -75,5 +77,4 @@ public class Storage {
 
         return task;
     }
-
 }

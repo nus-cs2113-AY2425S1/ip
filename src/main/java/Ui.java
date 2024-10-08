@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents the varying messages that is displayed on the CLI
+ */
 public class Ui {
     private static final String ENCLOSURE = "------------------------------";
     private Scanner scanner;
@@ -51,5 +54,4 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("Error loading tasks, reverting to empty list");
     }
-
 }

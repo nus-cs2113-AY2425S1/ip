@@ -3,6 +3,9 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a generic task that can be added to a task list
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
