@@ -29,10 +29,10 @@ Format: `deadline TASK_DESCRIPTION /by TIME`
 
 `event` <br>
 Adds an event to the task list. <br>
-Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME
+Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME`
 **Example**: <br>
 `event team meeting /from Friday 3pm /to Friday 5pm`
-`
+
 ### Listing all tasks: list
 Shows all tasks in the task list. <br>
 Format: `list`
