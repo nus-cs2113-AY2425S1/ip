@@ -1,45 +1,50 @@
 import CustomExceptions.*; // Import custom exception classes
 import TaskChildren.*; // Import task-related classes like ToDo, Deadline, and Event
-import java.io.File;
-import java.io.FileWriter;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner; // Import Scanner for user input
+import java.util.Scanner;
+
 
 public class Juan {
-    // Constant for common error message to improve code readability and reusability
-    private final static String porFavor = "Por Favor?\n";
+
 
     private final static String dataFilePath = "data.text";
+    private UI ui;
 
-    // Main entry point for the application
-    public static void main(String[] args) {
+    // Constructor
+    public void Juan() {
+
+        ui = new UI();
+    }
+
+    // Main running function
+    public void run() {
+
         // Display initial line and welcome message
-        lineMessage();
-        helloMessage();
-        lineMessage();
+        ui.helloMessage();
 
         // Add function to Read Data
         readData();
-        lineMessage();
+        ui.lineMessage();
 
         // Continue chatting as long as user doesn't exit
         boolean continueChatting = true;
         while (continueChatting) {
             // Chat feature to handle user input
-            continueChatting = chatFeature();
+            continueChatting = chatFeature(ui.readUserInput());
         }
 
         // Add Function to Write Data
         writeDate();
-        lineMessage();
+        ui.lineMessage();
         // Display goodbye message when the chat ends
-        byeMessage();
-        lineMessage();
+        ui.byeMessage();
     }
 
-    public static void readData() {
+    public void readData() {
 
         File dataFile = new File(dataFilePath);
         try {
@@ -94,7 +99,7 @@ public class Juan {
 
     }
 
-    public static void writeDate() {
+    public void writeDate() {
         try {
             FileWriter writer = new FileWriter(dataFilePath);
             for (int i = 0; i < Task.size(); i++) {
@@ -103,16 +108,14 @@ public class Juan {
             writer.close();
             System.out.println("Data File Written");
         } catch (IOException e) {
-            System.out.println("Error writing to file");
+            ui.porFavorMessage(e.getMessage());
         }
     }
 
     // Handles user input and executes corresponding actions
-    public static boolean chatFeature() {
+    public boolean chatFeature(String line) {
 
-        Scanner scanner = new Scanner(System.in); // Initialize the scanner for reading user input
-        String line = scanner.nextLine(); // Read user input
-        lineMessage(); // Print separator line
+        ui.lineMessage(); // Print separator line
 
         // Handle "bye" command to end chat
         if (line.equals("bye")) {
@@ -129,10 +132,10 @@ public class Juan {
                 Task.deleteTask(taskIndex); // Mark the task as done
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Handle invalid index or format exceptions
-                System.out.println(porFavor + "DELETE EXCEPTION: INVALID TASK INDEX");
+                ui.porFavorMessage("DELETE EXCEPTION: INVALID TASK INDEX");
             } catch (NullPointerException e) {
                 // Handle null task case
-                System.out.println(porFavor + "DELETE EXCEPTION: NULL TASK INDEX");
+                ui.porFavorMessage("DELETE EXCEPTION: NULL TASK INDEX");
             }
         }
         // Handle "mark" command to mark a task as completed
@@ -142,10 +145,10 @@ public class Juan {
                 Task.mark(taskIndex); // Mark the task as done
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Handle invalid index or format exceptions
-                System.out.println(porFavor + "MARK EXCEPTION: INVALID TASK INDEX");
+                ui.porFavorMessage("MARK EXCEPTION: INVALID TASK INDEX");
             } catch (NullPointerException e) {
                 // Handle null task case
-                System.out.println(porFavor + "MARK EXCEPTION: NULL TASK INDEX");
+                ui.porFavorMessage("MARK EXCEPTION: NULL TASK INDEX");
             }
         }
         // Handle "unmark" command to unmark a task as completed
@@ -155,10 +158,10 @@ public class Juan {
                 Task.unmark(taskIndex); // Unmark the task
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Handle invalid index or format exceptions
-                System.out.println(porFavor + "UNMARK EXCEPTION: INVALID TASK INDEX");
+                ui.porFavorMessage("UNMARK EXCEPTION: INVALID TASK INDEX");
             } catch (NullPointerException e) {
                 // Handle null task case
-                System.out.println(porFavor + "UNMARK EXCEPTION: NULL TASK INDEX");
+                ui.porFavorMessage("UNMARK EXCEPTION: NULL TASK INDEX");
             }
 
         }
@@ -168,7 +171,7 @@ public class Juan {
                 new ToDo(line, true); // Create a new ToDo object
             } catch (ToDoConstructorException e) {
                 // Handle custom ToDo exception
-                System.out.println(porFavor + e.getMessage());
+                ui.porFavorMessage(e.getMessage());
             }
         }
         // Handle "deadline" command to create a new Deadline task
@@ -177,7 +180,7 @@ public class Juan {
                 new Deadline(line, true); // Create a new Deadline object
             } catch (DeadlineConstructorException e) {
                 // Handle custom Deadline exception
-                System.out.println(porFavor + e.getMessage());
+                ui.porFavorMessage(e.getMessage());
             }
         }
         // Handle "event" command to create a new Event task
@@ -186,48 +189,20 @@ public class Juan {
                 new Event(line, true); // Create a new Event object
             } catch (EventConstructorException e) {
                 // Handle custom Event exception
-                System.out.println(porFavor + e.getMessage());
+                ui.porFavorMessage(e.getMessage());
             }
         }
         // Default case for unrecognized commands
         else {
-            System.out.println(porFavor + "UNRECOGNIZED REQUEST"); // Inform user about an unrecognized command
+            ui.porFavorMessage("UNRECOGNIZED REQUEST"); // Inform user about an unrecognized command
         }
 
-        lineMessage(); // Print separator line
+        ui.lineMessage(); // Print separator line
         return true; // Continue conversation
     }
 
-    // Utility function to print a separator line for clean output formatting
-    public static void lineMessage() {
-        String line = "____________________________________________________________\n";
-        System.out.print(line);
+    public static void main(String[] args) {
+        new Juan().run();
     }
 
-    // Displays a welcome message when the program starts
-    public static void helloMessage() {
-        String greeting =
-                "               ._-'-_ .\n" +
-                        "          . '  /_-_-_\\   ` .\n" +
-                        "       .'     |-_-_-_-|      `.\n" +
-                        "      (       `.-_-_-.'        )\n" +
-                        "      !`.                    .'!\n" +
-                        "        ! ` .            . ' !\n" +
-                        "          ! ! ! ! ! ! ! !  !\n" +
-                        "            / /       \\ \\\n" +
-                        "          _-| \\___ ___/ /-_\n" +
-                        "         (_ )__\\_)\\(_/__( _)\n" +
-                        "             ))))\\X\\ ((((\n" +
-                        "               \\/ \\/ \n" +
-                        "Hola Amigo, I am Juan Cervantes Salamanca from Michoacan \n" +
-                        "Welcome to la familia \n" +
-                        "How can we help you? \n";
-        System.out.print(greeting); // Print the welcome message
-    }
-
-    // Displays a goodbye message when the program ends
-    public static void byeMessage() {
-        String bye = "Adios amigo, la familia will miss you\n";
-        System.out.print(bye); // Print the goodbye message
-    }
 }
