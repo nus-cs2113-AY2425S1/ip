@@ -41,6 +41,9 @@ public class Erika {
                 Console.printMessage("Error: IO Exception while writing to filesystem");
             } catch (NoSuchElementException e) {
                 Console.printMessage("Error: No line to parse");
+            } catch (NumberFormatException e) {
+                Console.printMessage("Error: command format error, Invalid delete command format" +
+                        "\n\tDid you either supply an integer or keyword 'all'?");
             }
         }
     }
