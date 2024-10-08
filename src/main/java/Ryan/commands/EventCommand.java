@@ -37,7 +37,7 @@ public class EventCommand extends Command {
         String[] splitFrom = command.split(EVENT_FROM_KEYWORD, 2);
 
         if (splitFrom.length < 2) {
-            throw new RyanException("Event tasks should be in the format 'description /from start-time /to end-time'.");
+            throw new RyanException("Event tasks should be in the format 'description /from yyyy-mm-dd /to yyyy-mm-dd'.");
         }
 
         String description = splitFrom[0].trim();
@@ -49,9 +49,12 @@ public class EventCommand extends Command {
 
         String from = splitTo[0].trim();
         String to = splitTo[1].trim();
-        Task task = new Event(description, from, to);
-        tasks.addTask(task);
-
-        ui.showTaskAdded(task, tasks.size());
+        try {
+            Task task = new Event(description, from, to);
+            tasks.addTask(task);
+            ui.showTaskAdded(task, tasks.size());
+        } catch (Exception e) {
+            throw new RyanException("Invalid date format. Please use yyyy-mm-dd.");
+        }
     }
 }
