@@ -1,6 +1,7 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
@@ -23,6 +24,11 @@ public class Event extends Task {
                 System.out.println("Using local date as format was wrong");
             }
         }
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return this.to;
     }
 
     @Override

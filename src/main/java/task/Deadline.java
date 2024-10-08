@@ -26,6 +26,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public LocalDateTime getDueDate() {
+        return this.by;
+    }
+
+    @Override
     public String toFileFormat() {
         return super.toFileFormat() + " | " + by.format(DISPLAY_FORMATTER);
     }

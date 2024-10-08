@@ -26,12 +26,14 @@ public class Ui {
 
     public void printListofCommands() {
         System.out.println("1. Create a todo task eg. [todo read book]");
-        System.out.println("2. Create an event task eg. [event read book /from 2pm /to 4pm]");
-        System.out.println("3. Create a deadline task eg. [deadline read book /by 2pm]");
-        System.out.println("4. Type either mark or unmark to indicate the completion rate of your task");
+        System.out.println("2. Create an event task eg. [event read book /from 2/12/2019 1800 /to 3/12/2019 1800]");
+        System.out.println("3. Create a deadline task eg. [deadline read book /by 2/12/2019 1800]");
+        System.out.println("4. Type either mark <index> or unmark <index> to indicate the completion rate of your task");
         System.out.println("5. Delete a task eg. [delete 1]");
         System.out.println("6. Type list to view the your list of tasks.");
         System.out.println("7. Type bye to exit the programme");
+        System.out.println("8. find <task> to find specific keywords");
+        System.out.println("9. date <date> to find tasks on specific dates");
     }
 
     public void printErrorMessage(String errorMessage) {
