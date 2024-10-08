@@ -56,6 +56,9 @@ public class UnmarkCommand extends Command {
     @Override
     public CommandResult execute() {
         try{
+            if (this.toUnmark < 0 || this.toUnmark >= tasksList.size()) {
+                throw new IndexOutOfBoundsException("Index is out of bounds of the task list.\n You have " + tasksList.size() + " tasks in the list.");
+            }
             tasksList.get(this.toUnmark).markAsUndone();
             return new CommandResult("Nice! I've marked this task as undone:\n" + tasksList.get(this.toUnmark).toString());
         } catch (IndexOutOfBoundsException e) {

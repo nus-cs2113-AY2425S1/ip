@@ -52,6 +52,9 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() {
         try{
+            if (this.toMark < 0 || this.toMark >= tasksList.size()) {
+                throw new IndexOutOfBoundsException("Index is out of bounds of the task list.\n You have " + tasksList.size() + " tasks in the list.");
+            }
             tasksList.get(this.toMark).markAsDone();
             return new CommandResult("Nice! I've marked this task as done:\n" + tasksList.get(this.toMark).toString());
         } catch (IndexOutOfBoundsException e) {

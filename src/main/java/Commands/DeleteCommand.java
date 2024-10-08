@@ -60,6 +60,9 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
+            if (this.toDelete < 0 || this.toDelete >= tasksList.size()) {
+                throw new IndexOutOfBoundsException("Index is out of bounds of the task list.\n You have " + tasksList.size() + " tasks in the list.");
+            }
             Task deletedTask = tasksList.removeTask(toDelete);
             System.out.println("Got it. I've removed this task:\n" + deletedTask.toString());
             System.out.println("now you have " + tasksList.size() + " tasks in the list");
