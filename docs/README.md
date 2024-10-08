@@ -35,11 +35,12 @@ All of them summarized in a table below.
 | **Find a task**     | `find <keyword>`                                     |
 | **Quit the app**    | `bye`                                                |
 
-> [!TIP]
+> [TIP]
 > To know `<taskNumber` is it advised to execute `list` command first
 
-> [!WARNING]
+> [WARNING]
 > Once a task is deleted it cannot be recovered
+
 ## Add `Task`
 
 // Describe the action and its outcome.
