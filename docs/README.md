@@ -155,12 +155,8 @@ The task list data are saved in the hard disk automatically after any command th
 | **Add a todo task**            | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                          |
 | **Add a deadline task**        | `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline return book /by 2024-11-04 20:00` <br/>e.g., `deadline submit form /by 2024-11-05` |
 | **Add an event task**          | `event DESCRIPTION /from START_TIME /to END_TIME` <br/>e.g., `event dinner with friends /from 5pm /to 6pm`                              |
-|                                |                                                                                                                                         |
 | **Delete a task**              | `delete INDEX` <br/>e.g., `delete 2`                                                                                                    |
-|                                |                                                                                                                                         |
 | **Mark task as completed**     | `mark INDEX` <br/>e.g., `mark 2`                                                                                                        |
-|                                |                                                                                                                                         |
 | **Unmark task as uncompleted** | `unmark INDEX` <br/>e.g., `unmark 2`                                                                                                    |
-|                                |                                                                                                                                         |
 | **Find tasks**                 | `find KEYWORD_STRING` <br/>e.g., `find read book`                                                                                       |
 | **End the chatbot**            | `bye`                                                                                                                                   |
