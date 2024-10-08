@@ -30,8 +30,8 @@ public class Erika {
         Console.printWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
-            String line = ui.collectUserInput();
             try {
+                String line = ui.collectUserInput();
                 Command c = parser.parseInput(line);
                 c.execute(taskList, fileSystem);
                 isExit = c.isExit();
@@ -41,6 +41,7 @@ public class Erika {
                 Console.printMessage("Error: IO Exception while writing to filesystem");
             } catch (NoSuchElementException e) {
                 Console.printMessage("Error: No line to parse");
+                return;
             } catch (NumberFormatException e) {
                 Console.printMessage("Error: command format error, Invalid delete command format" +
                         "\n\tDid you either supply an integer or keyword 'all'?");
