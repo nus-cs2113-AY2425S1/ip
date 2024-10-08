@@ -1,7 +1,13 @@
 package task;
 
+/**
+ * Provides user manual for the user to know command available in Jer Chat Bot.
+ */
 public class UserManual {
 
+    /**
+     * Prints user manual which states all available commands and their format
+     */
     public static void printUserManual() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("                USER MANUAL              ");
