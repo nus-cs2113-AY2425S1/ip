@@ -33,6 +33,11 @@ event read book /to later /fromnow
 event read book /from now /to 20/10/2024
 event read book /from 11/10/2024 23:23 /to end of year
 event read book /from /to
+mark 1
+mark 2
+mark 1000
+unmark 1
+unmark 2
 todo to be deleted
 delete
   delete  4
