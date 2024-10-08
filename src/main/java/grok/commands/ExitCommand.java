@@ -4,6 +4,10 @@ import grok.tasks.TaskList;
 import grok.storage.Storage;
 import grok.ui.Ui;
 
+/**
+ * Represents a command to exit the application.
+ * This command allows the user to terminate the program.
+ */
 public class ExitCommand extends Command {
 
     @Override
@@ -18,6 +22,10 @@ public class ExitCommand extends Command {
         }
     }
 
+    /**
+     * Indicates that this command will terminate the program.
+     * @return true as the exit command terminates the program.
+     */
     @Override
     public boolean isExit() {
         return true;

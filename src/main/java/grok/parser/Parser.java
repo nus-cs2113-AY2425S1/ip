@@ -26,7 +26,7 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(words[1]));
         case "delete":
             return new DeleteCommand(Integer.parseInt(words[1]));
-        case "find":  // New case for find command
+        case "find":
             return new FindCommand(words[1]);
         case "todo":
         case "deadline":

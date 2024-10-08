@@ -19,9 +19,9 @@ public class Grok {
         ui = new Ui();
         storage = new Storage(filePath);
 
-        // Load tasks from the file
-        List<Task> loadedTasks = storage.loadTasks();  // Load tasks from the file
-        tasks = new TaskList(loadedTasks);  // Initialize TaskList with the loaded tasks
+
+        List<Task> loadedTasks = storage.loadTasks();
+        tasks = new TaskList(loadedTasks);
     }
 
     public void run() {
@@ -31,7 +31,7 @@ public class Grok {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();  // Show the divider line
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
