@@ -18,7 +18,7 @@ With Bean, you can streamline your workflow, increase your productivity, and ach
 
 
 ## Adding todos
-**Command: ** `todo [description]`
+**Command:** `todo [description]`
 ### Example:
 ```
 todo run 10km
@@ -34,7 +34,7 @@ ____________________________________________________________
 
 
 ## Adding deadlines
-**Command: ** `deadline [description] /by [by]`
+**Command:** `deadline [description] /by [by]`
 ### Example:
 ```
 deadline submit cs2113 final version /by Fri, Oct 11th 2359
@@ -50,7 +50,7 @@ ____________________________________________________________
 
 
 ## Adding events
-**Command: ** `event [description] /from [from] /to [to]`
+**Command:** `event [description] /from [from] /to [to]`
 ### Example:
 ```
 event team meeting /from 10:00 AM /to 11:00 AM
@@ -66,7 +66,7 @@ ____________________________________________________________
 
 
 ## Listing tasks
-**Command: ** `list`
+**Command:** `list`
 ### Example:
 ```
 list
@@ -77,7 +77,7 @@ The list of all tasks, including their status, description, by, from and to. (if
 
 
 ## Finding tasks by keyword
-**Command: ** `find  [keyword]`
+**Command:** `find  [keyword]`
 ### Example:
 ```
 find homework
@@ -90,7 +90,7 @@ A list of tasks whose descriptions contain the keyword "homework".
 
 
 ## Deleting tasks
-**Command: ** `delete [task number]`
+**Command:** `delete [task number]`
 ### Example:
 ```
 delete 3
@@ -110,7 +110,7 @@ ____________________________________________________________
 
 
 ## Marking tasks as done
-*Command: ** `mark [task number]`
+**Command:** `mark [task number]`
 ### Example:
 ```
 mark 3
@@ -126,7 +126,7 @@ ____________________________________________________________
 
 
 ## Unmarking tasks as done
-*Command: ** `unmark [task number]`
+**Command:** `unmark [task number]`
 ### Example:
 ```
 unmark 3
@@ -142,7 +142,7 @@ ____________________________________________________________
 
 
 ## Exit application
-*Command: ** `bye`
+**Command:** `bye`
 ### Example:
 ```
 bye
