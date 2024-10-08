@@ -80,25 +80,30 @@ public class Parser {
     }
 
     /**
-     * Checks if the input command matches any of the predefined commands.
+     * Checks if the input command matches any of the predefined commands, ignoring extraneous parameters
+     * for commands that do not take parameters (e.g., list, bye, help).
+     *
      * @param line The input string.
      * @return The command type if it matches, or "unknown" if not recognized.
      */
     private static String getCommandType(String line) {
-        if (line.equals("list")) {
+        String trimmedLine = line.split(" ")[0]; // Extract the first word (command) only
+
+        switch (trimmedLine) {
+        case "list":
             return "list";
-        } else if (line.equals("bye")) {
+        case "bye":
             return "bye";
-        } else if (line.startsWith("mark ")) {
+        case "mark":
             return "mark";
-        } else if (line.startsWith("unmark ")) {
+        case "unmark":
             return "unmark";
-        } else if (line.startsWith("delete ")) {
+        case "delete":
             return "delete";
-        } else if (line.startsWith("find ")) {
+        case "find":
             return "find";
-        } else {
-            return "unknown"; // Return "unknown" for commands that do not match
+        default:
+            return "unknown"; // Return "unknown" for unrecognized commands
         }
     }
 

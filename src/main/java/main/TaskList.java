@@ -164,7 +164,7 @@ public class TaskList {
             while (i < matchedArrayList.size()) {
                 Task t = matchedArrayList.get(i);
 
-                if (!t.getDescription().contains(findDescription)) {
+                if (!t.getDescription().toLowerCase().contains(findDescription.toLowerCase())) {
                     matchedArrayList.remove(t);
                 } else {
                     i += 1;

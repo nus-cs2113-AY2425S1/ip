@@ -92,21 +92,27 @@
 	________________________________________
 	Invalid command format:
 		todo <task name>
-		deadline <deadline name> /by <deadline>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
 		event <event name> /from <start date/time> /end <end date/time>
 		mark <task index>
 		unmark <task index>
 		delete <task index>
+		find <task keyword string>
+		list
+		bye
 	________________________________________
 
 	________________________________________
 	Invalid command format:
 		todo <task name>
-		deadline <deadline name> /by <deadline>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
 		event <event name> /from <start date/time> /end <end date/time>
 		mark <task index>
 		unmark <task index>
 		delete <task index>
+		find <task keyword string>
+		list
+		bye
 	________________________________________
 
 	________________________________________
@@ -120,11 +126,14 @@
 	________________________________________
 	Invalid command format:
 		todo <task name>
-		deadline <deadline name> /by <deadline>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
 		event <event name> /from <start date/time> /end <end date/time>
 		mark <task index>
 		unmark <task index>
 		delete <task index>
+		find <task keyword string>
+		list
+		bye
 	________________________________________
 
 	________________________________________
