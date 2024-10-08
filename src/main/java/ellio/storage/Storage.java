@@ -94,9 +94,14 @@ public class Storage {
     /**
      * Updates the new file by overwriting the old content with a new one.
      * After clearing the previous data, iterate through the list and append
-     * to the new file one by one
+     * to the new file one by one.
+     * If the List is empty, clear the contents of the file instead
      */
     public static void updateSavedTaskFile(){
+        if(listTasks.size() == 0){
+            clearSaveTaskFile();
+            return;
+        }
         String updatedTasksForSaveFile = listTasks.get(0).getSaveFileTask();
         for(int i = 1; i < listTasks.size(); i++){
             updatedTasksForSaveFile += System.lineSeparator() + listTasks.get(i).getSaveFileTask();
@@ -104,6 +109,19 @@ public class Storage {
         try{
             FileWriter fw = new FileWriter(saveFile);
             fw.write(updatedTasksForSaveFile);
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Clears Contents of file by overriding with an empty string
+     */
+    public static void clearSaveTaskFile(){
+        try{
+            FileWriter fw = new FileWriter(saveFile);
+            fw.write("");
             fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
