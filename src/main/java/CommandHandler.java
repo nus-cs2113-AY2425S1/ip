@@ -23,6 +23,10 @@ public class CommandHandler {
                 break;
             case "unmark":
                 handleUnmarkCommand(command, tasks);
+                break;
+            case "find":
+                handleFindCommand(command, tasks);
+                break;
 
             default:
                 throw new KaiException("I'm sorry, but I don't know what that means :-(");
@@ -138,5 +142,26 @@ public class CommandHandler {
             throw new KaiException("Please enter a valid task number.");
         }
     }
-}
 
+    private static void handleFindCommand(String[] command, TaskList tasks) throws KaiException {
+        if (command.length < 2 || command[1].trim().isEmpty()) {
+            throw new KaiException("The keyword for the find command cannot be empty.");
+        }
+
+        String keyword = command[1].trim();  // Extract the keyword
+        boolean found = false;
+
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getTask(i);  // Get the task at index i
+            if (task.toString().contains(keyword)) {  // Check if the task description contains the keyword
+                System.out.println(" Here are the matching tasks in your list:");
+                System.out.println((i + 1) + ". " + task);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No matching tasks found.");
+        }
+    }
+}
