@@ -6,18 +6,16 @@ optimized for use via command-line interface**.
 It allows for adding tasks, deleting, marking and saving them for later.
 
 # Table of Contents
-- [Quick start](#quick-start)
 - [Feature overview](#feature-overview)
-    - [Add `Task`](#add-task)
-    - [Add `ToDo`](#add-todo)
-    - [Add `Event`](#add-event)
-    - [Add `Deadline`](#add-deadline)
-    - [View all with `list`](#list-tasks)
-    - [Delete a task](#task-delete)
-    - [Mark task as done](#mark-task)
-    - [Find a task](#find-task)
-    - [Exit the app](#exit)
-- [FAQs](#faqs)
+- [Add `Task`](#add-task) 
+- [Add `ToDo`](#add-todo)
+- [Add `Event`](#add-event)
+- [Add `Deadline`](#add-deadline)
+- [View all with `list`](#list-tasks)
+- [Delete a task](#task-delete)
+- [Mark task as done](#mark-task)
+- [Find a task](#find-task)
+- [Exit the app](#exit)
 
 # Feature overview
 App supports several types of commands with different functionalities and synatx. 
@@ -36,7 +34,7 @@ All of them summarized in a table below.
 | **Quit the app**    | `bye`                                                |
 
 > **Tip:**
-> To know `<taskNumber` is it advised to execute `list` command first
+> To know `<taskNumber>` is it advised to execute `list` command first
 
 > **Warning:**
 > Once a task is deleted it cannot be recovered
@@ -136,7 +134,7 @@ where:
 - `<taskNumber>` is a number of the task in a list
 
 > **Tip:**
-> To know `<taskNumber` is it advised to execute `list` command first as task numbers change upon deletion
+> To know `<taskNumber>` is it advised to execute `list` command first as task numbers change upon deletion
 
 ### Example:
 ```
@@ -160,7 +158,7 @@ where:
 - `<taskNumber>` is a number of the task in a list
 
 > **Tip:**
-> To know `<taskNumber` is it advised to execute `list` command first as task numbers change upon deletion
+> To know `<taskNumber>` is it advised to execute `list` command first as task numbers change upon deletion
 
 ### Example:
 ```
