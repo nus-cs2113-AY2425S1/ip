@@ -157,6 +157,7 @@ public class Pythia {
             String msg = "Nice! I've deleted this task:\n\t" + taskList.get(taskNumber - 1).toString();
             taskList.remove(taskNumber - 1);
             ui.printResponse(msg);
+            storage.save(taskList);
         } catch (IndexOutOfBoundsException e){
             ui.printResponse("There is no such task :(");
         }
