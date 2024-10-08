@@ -6,13 +6,17 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static final DateTimeFormatter DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    public static final DateTimeFormatter DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected static final DateTimeFormatter ALTERNATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-    protected static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    public static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public LocalDateTime getDueDate() {
+        return LocalDateTime.of(1970, 1, 1, 0, 0);
     }
 
     public String getDescription() {

@@ -3,6 +3,9 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +34,6 @@ public class TaskList {
             System.out.println((i + 1) + ". " + task.toString());
         }
         ui.printEnclosure();
-        return;
     }
 
     public void findTasks(String keyword) {
@@ -48,6 +50,29 @@ public class TaskList {
         if (index == 1) {
             System.out.println("no tasks found");
         }
+    }
+
+    public void findDueDate(String input) throws DianaException {
+        String dueDate = input.substring("date".length()).trim();
+        LocalDate targetDate;
+        try {
+            targetDate = LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new DianaException("invalid date format, MMM dd yyyy");
+        }
+
+        ui.printEnclosure();
+        int i = 1;
+        for (Task task : tasks) {
+            if (task.getDueDate().toLocalDate().equals(targetDate)) {
+                System.out.println((i++) + ". " + task.toString());
+            }
+        }
+
+        if (i == 1) {
+            System.out.println("no tasks found on: " + dueDate);
+        }
+        ui.printEnclosure();
     }
 
     public void toMark (String input, boolean shouldMark) throws DianaException {

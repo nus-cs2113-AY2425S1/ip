@@ -37,6 +37,9 @@ public class Parser {
             case "find":
                 tasklist.findTasks(input.substring("find".length()).trim());
                 break;
+            case "date":
+                tasklist.findDueDate(input);
+                break;
             default:
                 throw new DianaException("Unknown Command: " + input);
             }
