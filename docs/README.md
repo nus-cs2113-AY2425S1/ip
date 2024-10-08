@@ -1,6 +1,6 @@
 # Pythia User Guide
 <p align="center">
-  <img src="Screenshot.png" alt="Description" style="max-height: 300px;">
+  <img src="Screenshot.png" alt="Description" style="max-height: 500px;">
 </p>
 
 Pythia chatbot is desktop app **designed to help you manage all of your tasks, 
