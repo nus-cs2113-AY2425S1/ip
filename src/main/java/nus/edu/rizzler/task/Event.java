@@ -1,11 +1,14 @@
 package nus.edu.rizzler.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task, which includes a description, start time, and end time.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an {@code Event} task with the specified name, completion status, start time, and end time.
@@ -17,8 +20,8 @@ public class Event extends Task {
      */
     public Event(String taskName, Boolean isDone, String from, String to) {
         super(taskName, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     /**
@@ -28,7 +31,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                from.format(DateTimeFormatter.ofPattern("d MMM yyyy, ha")),
+                to.format(DateTimeFormatter.ofPattern("d MMM yyyy, ha")));
     }
 
     /**
@@ -38,6 +43,8 @@ public class Event extends Task {
      */
     @Override
     public String toCSV(){
-        return String.format("E, %s, %s, %s", super.toCSV(), from, to);
+        return String.format("E, %s, %s, %s", super.toCSV(),
+                from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }

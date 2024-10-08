@@ -1,10 +1,13 @@
 package nus.edu.rizzler.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline, including a description and a due date.
  */
 public class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
 
     /**
      * Constructs a {@code Deadline} task with the specified name, completion status, and due date.
@@ -15,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, Boolean isDone, String by) {
         super(taskName, isDone);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     /**
@@ -25,7 +28,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                by.format(DateTimeFormatter.ofPattern("d MMM yyyy, ha")));
     }
 
     /**
@@ -35,6 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toCSV(){
-        return String.format("D, %s, %s", super.toCSV(), by);
+        return String.format("D, %s, %s", super.toCSV(),
+                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }

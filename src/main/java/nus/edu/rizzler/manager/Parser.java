@@ -3,10 +3,15 @@ package nus.edu.rizzler.manager;
 import nus.edu.rizzler.command.*;
 import nus.edu.rizzler.exception.RizzlerException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Parses and executes user input commands within the application.
  */
 public class Parser {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Parses the command string and returns the corresponding {@code Command}.
@@ -76,6 +81,8 @@ public class Parser {
         if (by.isEmpty()) {
             throw new RizzlerException("Due date cannot be empty. Please provide a valid due date.");
         }
+        validateDateTimeFormat(by);
+
         return new DeadlineCommand(taskName, by);
     }
 
@@ -106,7 +113,24 @@ public class Parser {
         if (to.isEmpty()) {
             throw new RizzlerException("End time cannot be empty. Please provide valid end time.");
         }
+        validateDateTimeFormat(from);
+        validateDateTimeFormat(to);
+
         return new EventCommand(taskName, from, to);
+    }
+
+    /**
+     * Validates the input date string using the expected date and time format.
+     *
+     * @param dateTimeString The date string to validate.
+     * @throws RizzlerException If the date string is not in the correct format.
+     */
+    private void validateDateTimeFormat(String dateTimeString) throws RizzlerException { // NEW METHOD: Validates date and time format
+        try {
+            LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new RizzlerException("Invalid date/time format. Please use 'yyyy-MM-dd HH:mm'.");
+        }
     }
 
     /**
