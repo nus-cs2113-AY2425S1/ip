@@ -1,11 +1,11 @@
 package TheThinker.Parser;
 
 import TheThinker.Exceptions.FormattingException;
-
 import java.util.Scanner;
 
 /**
  * Handles the parsing of input other than to-do , deadline , event and date related parsing.
+ * Parsing of To-do , deadline , event and date are done by their respective parsers
  */
 public class UserInputParser {
 

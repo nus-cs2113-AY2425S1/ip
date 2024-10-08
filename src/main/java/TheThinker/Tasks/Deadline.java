@@ -1,7 +1,7 @@
 package TheThinker.Tasks;
 
-
 public class Deadline extends Task{
+
     public String deadline;
 
     public Deadline(String taskDescription , String deadline){

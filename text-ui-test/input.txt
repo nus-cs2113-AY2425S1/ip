@@ -1,4 +1,4 @@
-yes
+no
 todo remove book
 deadline get book /by 10/12/2002
 deadline /by 10/12/2002

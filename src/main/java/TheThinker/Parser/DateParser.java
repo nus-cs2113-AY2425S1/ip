@@ -18,6 +18,7 @@ public class DateParser extends UserInputParser {
     }
 
     private static String toString(String date) {
+
         LocalDateTime dateObject = parseIntoDateTimeObject(date);
         return dateObject.format(resultDateTimeFormatter); // -> Oct 15 2019
     }
@@ -31,7 +32,9 @@ public class DateParser extends UserInputParser {
      *
      */
     public static String convertDateFormat(String date) {
+
         String[] dateParameters = date.split("/");
+
         if(dateParameters.length != 3 || !isDateTimeFormat(date)) {
             return date;
         }
@@ -43,7 +46,9 @@ public class DateParser extends UserInputParser {
     }
 
     private static int isValidMonth(String month) {
+
         int monthInt = Integer.parseInt(month);
+
         if(monthInt < 1 || monthInt > 12) {
             return -1;
         }
@@ -51,7 +56,9 @@ public class DateParser extends UserInputParser {
     }
 
     private static int isValidDay(String day) {
+
         int dayInt = Integer.parseInt(day);
+
         if(dayInt < 1 || dayInt > 30) {
             return -1;
         }
@@ -74,6 +81,7 @@ public class DateParser extends UserInputParser {
     }
 
     private static DateTimeFormatter getDateFormat(String date){
+
         if(isDateOnlyFormat(date)) {
             return dateFormatter;
         }
@@ -91,14 +99,19 @@ public class DateParser extends UserInputParser {
      * @param specifiedDate Queried date in any format
      */
     private static boolean isMatchingDate(String taskDate , String specifiedDate) {
+
         DateTimeFormatter formatOfTaskDate = getDateFormat(taskDate);
+
         if(formatOfTaskDate != null) {
+
             LocalDate parsedSpecifiedDate = LocalDate.parse(specifiedDate, dateFormatter);
             LocalDate parsedTaskDate = LocalDate.parse(taskDate, formatOfTaskDate);
-            return parsedSpecifiedDate.getMonthValue() == parsedTaskDate.getMonthValue() &&
-                    parsedSpecifiedDate.getDayOfMonth() == parsedTaskDate.getDayOfMonth() &&
-                    parsedSpecifiedDate.getYear() == parsedTaskDate.getYear();
+
+            return parsedSpecifiedDate.getMonthValue() == parsedTaskDate.getMonthValue()
+                    && parsedSpecifiedDate.getDayOfMonth() == parsedTaskDate.getDayOfMonth()
+                    && parsedSpecifiedDate.getYear() == parsedTaskDate.getYear();
         }
+
         return false;
     }
 
@@ -106,9 +119,12 @@ public class DateParser extends UserInputParser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try {
+
             LocalDate date = LocalDate.parse(dateStr, formatter);
             return true;
+
         } catch (DateTimeParseException e) {
+
             return false;
         }
     }
@@ -116,9 +132,12 @@ public class DateParser extends UserInputParser {
     public static boolean isDateTimeFormat(String dateStr){
 
         try {
+
             LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
             return true;
+
         } catch (DateTimeParseException e) {
+
             return false;
         }
     }
@@ -126,9 +145,12 @@ public class DateParser extends UserInputParser {
     public static boolean isResultDateTimeFormat(String dateStr){
 
         try {
+
             LocalDate date = LocalDate.parse(dateStr, resultDateTimeFormatter);
             return true;
+
         } catch (DateTimeParseException e) {
+
             return false;
         }
     }
@@ -142,12 +164,15 @@ public class DateParser extends UserInputParser {
     public static String parseDateAfterGet() throws FormattingException{
         int LENGTH_OF_GET = 3;
         String remainingDescription = userInput.substring(LENGTH_OF_GET).trim();
+
         if(remainingDescription.isEmpty()){
             throw new FormattingException("specified date is missing. " + GET_FORMAT);
         }
+
         if(!isDateOnlyFormat(remainingDescription)){
             throw new FormattingException("date is in the wrong format. " + GET_FORMAT);
         }
+
         return remainingDescription;
     }
 }

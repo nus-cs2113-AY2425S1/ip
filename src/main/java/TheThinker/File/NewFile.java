@@ -19,7 +19,6 @@ public class NewFile {
 
     public File file;
 
-
     public NewFile(String filename) {
 
         this.file = new File(FileLoader.FILE_DIR + "/" +  filename);
@@ -35,10 +34,10 @@ public class NewFile {
      * @throws FileNotFoundException If the filepath is invalid.
      */
     public void loadFile() throws FileNotFoundException {
-        Scanner SCANNER = new Scanner(this.file);
+        Scanner scanner = new Scanner(this.file);
 
-        while (SCANNER.hasNext()) {
-            String input = SCANNER.nextLine();
+        while (scanner.hasNext()) {
+            String input = scanner.nextLine();
             String[] parameters = input.split(" \\| ");
             addTaskAccordingToFileData(parameters);
         }
@@ -56,30 +55,31 @@ public class NewFile {
      *
      */
     private void addTaskAccordingToFileData(String[] parameters){
+
         switch (parameters[0]) {
-            case "T" :
-                TaskList.addTaskWithoutResponse(new Todo(parameters[2]));
-                if(Boolean.parseBoolean(parameters[1])){
-                    TaskList.setAsDone(TaskList.listLength);
-                }
-                break;
-            case "E" :
-                TaskList.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
-                if(Boolean.parseBoolean(parameters[1])){
-                    TaskList.setAsDone(TaskList.listLength);
-                }
-                break;
+        case "T" :
+            TaskList.addTaskWithoutResponse(new Todo(parameters[2]));
+            if(Boolean.parseBoolean(parameters[1])){
+                TaskList.setAsDone(TaskList.listLength);
+            }
+            break;
+        case "E" :
+            TaskList.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
+            if(Boolean.parseBoolean(parameters[1])){
+                TaskList.setAsDone(TaskList.listLength);
+            }
+            break;
 
-            case "D" :
-                TaskList.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
-                if(Boolean.parseBoolean(parameters[1])){
-                    TaskList.setAsDone(TaskList.listLength);
-                }
-                break;
+        case "D" :
+            TaskList.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
+            if(Boolean.parseBoolean(parameters[1])){
+                TaskList.setAsDone(TaskList.listLength);
+            }
+            break;
 
-            default :
-                System.out.println("Wrong task type");
-                break;
+        default :
+            System.out.println("Wrong task type");
+            break;
         }
     }
 
@@ -101,10 +101,13 @@ public class NewFile {
      */
     private String convertTaskListToString(){
         StringBuilder TaskListString = new StringBuilder();
+
         for(Task task : TaskList.listOfTasks) {
+
             String taskInFileFormat = task.convertToFileFormat();
             TaskListString.append(taskInFileFormat).append("\n");
         }
+
         return TaskListString.toString();
     }
 

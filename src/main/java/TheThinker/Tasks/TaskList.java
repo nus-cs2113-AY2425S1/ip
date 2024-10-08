@@ -29,6 +29,7 @@ public class TaskList {
         Task taskToRemove = listOfTasks.get(taskNumber-1);
         listLength--;
         listOfTasks.remove(taskNumber-1);
+
         System.out.println("Noted. I've removed this task:");
         System.out.println(taskToRemove);
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
@@ -50,6 +51,7 @@ public class TaskList {
 
     public static void listTasks(){
         System.out.println("Here are the tasks in your list:");
+
         for(int i = 0; i < listLength; i++){
             System.out.printf("%d." + listOfTasks.get(i) + "\n", i+1);
         }
@@ -58,22 +60,31 @@ public class TaskList {
     public static void listTasksOfDate(String date){
         System.out.println("Here are the tasks in your list in " + date + " :");
         int counter = 0;
+
         for(int i = 0; i < listLength; i++){
+
             Task currentTask = listOfTasks.get(i);
+
             if(DateParser.isMatchingDateByType(currentTask , date)) {
+
                 System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
                 counter++;
             }
+
         }
     }
 
     public static void listTasksOfKeyword(String keyword){
+
         System.out.println("Here are the matching tasks in your list:");
         int counter = 0;
+
         for(int i = 0; i < listLength; i++){
             Task currentTask = listOfTasks.get(i);
             String taskDescription = currentTask.getTaskDescription().toLowerCase();
+
             if(taskDescription.contains(keyword.toLowerCase())) {
+
                 System.out.printf("%d." + listOfTasks.get(i) + "\n", counter + 1);
                 counter++;
             }

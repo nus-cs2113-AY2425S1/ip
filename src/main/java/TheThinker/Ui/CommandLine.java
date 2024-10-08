@@ -103,6 +103,7 @@ public interface CommandLine {
                 UiControl.printCommands();
                 break;
             }
+
             UiControl.printSeparation();
 
         }catch(FormattingException e){

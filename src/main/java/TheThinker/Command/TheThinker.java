@@ -17,7 +17,7 @@ public class TheThinker{
     public static void main(String[] args) {
 
         try {
-            boolean isSaveTaskToFile = FileLoader.getSaveTaskInput();
+            boolean isSaveTaskToFile = FileLoader.shouldSaveTask();
             if(isSaveTaskToFile){
                 FileLoader.loadDefaultFileElseInputNewFile();
             }

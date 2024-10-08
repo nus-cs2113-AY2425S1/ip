@@ -2,17 +2,16 @@ package TheThinker.File;
 
 import TheThinker.Parser.UserInputParser;
 import TheThinker.Ui.UiControl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Handles file loading operations when starting the program
+ * Handles file loading operations when at the start of program
  */
 public class FileLoader {
 
-    public static String FILE_DIR = "Data";
+    public static final String FILE_DIR = "Data";
     public static NewFile inputFile = new NewFile("TaskContents.txt");
 
     /**
@@ -22,16 +21,19 @@ public class FileLoader {
      * @throws FileNotFoundException If file creation failed.
      */
     public static void loadDefaultFileElseInputNewFile() throws FileNotFoundException {
+
         UiControl.printLoadingText();
         createFolderIfNotExist();
 
         if(!inputFile.isFileExist()) {
+
             try {
                inputFileNameAndCreateFile();
             } catch (IOException e) {
                 System.out.println("File not found. No data loaded. Please create the file under Data directory");
                 throw new FileNotFoundException();
             }
+
         }else{
             inputFile.loadFile();
         }
@@ -46,19 +48,24 @@ public class FileLoader {
         UiControl.printSeparation();
         System.out.println("Input file name you want to save data to under the Data directory [filename] without .txt");
         UiControl.printSeparation();
+
         String filename = UserInputParser.getUserInput();
         NewFile newFile = new NewFile(filename + ".txt");
         inputFile = newFile;
+
         createNewFile(newFile.file);
     }
 
     private static void createNewFile(File filename){
+
         try {
+
             if (filename.createNewFile()) {
                 System.out.println("File created successfully: " + filename.getAbsolutePath());
             } else {
                 System.out.println("File already exists.");
             }
+
         } catch (IOException e) {
             System.err.println("Failed to create file: " + e.getMessage());
         }
@@ -75,7 +82,9 @@ public class FileLoader {
     }
 
     private static void createFolder(File directoryName){
+
         boolean isCreated = directoryName.mkdirs();
+
         if(isCreated){
             System.out.println(directoryName + " directory created successfully.");
         }else{
@@ -83,7 +92,7 @@ public class FileLoader {
         }
     }
 
-    public static boolean getSaveTaskInput() {
+    public static boolean shouldSaveTask() {
         UiControl.printSeparation();
         System.out.println("Do you want to save your tasks to a file? yes / no");
         UiControl.printSeparation();
