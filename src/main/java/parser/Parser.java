@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import commands.*;
-import exceptions.IllegalCommandException;
 import tasks.*;
 import ui.Ui;
 
@@ -30,7 +29,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
         case "search":
-            return prepSearch(splitInput);
+            return prepSearch(splitInput, input);
         default:
             return new InvalidCommand(() -> new Ui().printInvalidCommandError());
         }
@@ -65,8 +64,11 @@ public class Parser {
             return new InvalidCommand(() -> new Ui().printDateError());
         }
     }
-    private static Command prepSearch(String[] splitInput) {
+    private static Command prepSearch(String[] splitInput, String input) {
         try {
+            if (splitInput[1].equals("/c")) {
+                return new SearchCommand(splitInput[1], input.substring(input.indexOf("/c") + 3));
+            }
             return new SearchCommand(splitInput[1], LocalDate.parse(splitInput[2]));
         } catch (IndexOutOfBoundsException e) {
             return new InvalidCommand(() -> new Ui().printSearchError());
