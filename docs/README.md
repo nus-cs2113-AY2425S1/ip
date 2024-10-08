@@ -5,20 +5,63 @@
 Blossom is your personal assistant designed to help you stay organised and keeping on top of all your tasks! Whether you're a busy professional, a student juggling assignments, or anyone in between, Blossom is here to make your life easier by keeping track of your daily tasks. 
 
 ## Features
-Adding a task: add
-Listing all tasks: list
-Deleting a task: delete
+[Adding a task: todo, deadline, event](adding-a-task)
+[Listing all tasks: list]()
 Locating tasks by name: find
+Deleting a task: delete
 Marking tasks as complete: mark
 Unmarking tasks: unmark
 Exiting the program : bye
 Saving the data
 
-### Adding a task: add 
+### Adding a task: 
+todo
+Adds a todo task to the task list.
+Format: todo TASK_DESCRIPTION
+
+deadline
+Adds a deadline to the task list.
+Format: deadline TASK_DESCRIPTION /by TIME
+
+event
+Adds an event to the task list.
+Format: event TASK_DESCRIPTION /from START_TIME /to END_TIME
+
 ### Listing all tasks: list
-### Deleting a task: delete
+Shows all tasks in the task list.
+Format: list
+
 ### Location tasks by name: find
+Find tasks whose description matches the keyword.
+Format: find KEYWORD
+
+### Deleting a task: delete
+Deletes the specified task from the task list.
+Format: delete INDEX
+
+- Deletes the task at the specified INDEX.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+
 ### Marking tasks as complete: mark
+Marks the specified task in the task list as complete. 
+Format: mark INDEX
+
+- Marks the task at the specified INDEX as complete.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+
 ### Unmarking tasks: unmark
+Marks the specified task in the task list as incomplete. 
+Format: mark INDEX
+
+- Marks the task at the specified INDEX as incomplete.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+
 ### Exiting the program : bye
+Exits the program.
+Format: bye
+
 ### Saving the data
+Task data are saved in the hard disk automatically after the bye command. There is no need to save manually.
