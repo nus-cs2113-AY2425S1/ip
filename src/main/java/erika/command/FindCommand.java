@@ -7,6 +7,7 @@ import erika.task.Task;
 import erika.tasklist.TaskList;
 
 import java.io.IOException;
+import java.util.AbstractMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,9 +21,13 @@ public class FindCommand extends ListCommand{
     @Override
     protected String printList(TaskList tasks){
         return "Here are the matching items in your list: \n\t" +
-                IntStream.range(0,TaskList.getTaskArraySize())
-                .filter(t -> tasks.getTask(t).getDescription().contains(this.key))
-                .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i))
+                IntStream.range(0, TaskList.getTaskArraySize())
+                .mapToObj(i -> {
+                    Task task = tasks.getTask(i);
+                    return new AbstractMap.SimpleEntry<>(i, task);
+                })
+                .filter(entry -> entry.getValue().getDescription().contains(this.key))
+                .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue())
                 .collect(Collectors.joining("\n\t"));
     }
 

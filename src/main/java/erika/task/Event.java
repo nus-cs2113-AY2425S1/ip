@@ -29,12 +29,13 @@ public class Event extends Task{
         getEnd(end);
     }
 
+
     private void getStart(String start) {
         try {
-            this.startDateTime = LocalDateTime.parse(start, Settings.DATE_TIME_IN_FORMATTER);
+            this.startDateTime = Settings.parseLocalDateTime(start);
         } catch (DateTimeParseException e) {
             try {
-                this.startDate = LocalDate.parse(start, Settings.DATE_IN_FORMATTER);
+                this.startDate = Settings.parseLocalDate(start);
             } catch (DateTimeParseException e1) {
                 this.start = start;
             }
@@ -43,10 +44,10 @@ public class Event extends Task{
 
     private void getEnd(String end) {
         try {
-            this.endDateTime = LocalDateTime.parse(end, Settings.DATE_TIME_IN_FORMATTER);
+            this.endDateTime = Settings.parseLocalDateTime(end);
         } catch (DateTimeParseException e) {
             try {
-                this.endDate = LocalDate.parse(end, Settings.DATE_IN_FORMATTER);
+                this.endDate = Settings.parseLocalDate(end);
             } catch (DateTimeParseException e1) {
                 this.end = end;
             }

@@ -1,34 +1,46 @@
 list
+find
+find test
+add test
+add        test
+todo test
 todo borrow book
-todo
-todoborrow book
-list
-deadline return book /by 19/09/2024 19:55
-deadline return book /by 19/09/2024
-deadline return book /by now
-deadline /by now
+todoborrow
+todoborrow  book
+todo     borrow   book
+  list
 deadline
-deadline return book/by now
-deadlinereturn book /by now
-deadline return book /bynow
-list
-event library visit /from 19/09/2024 19:10 /to 19/09/2024 20:35
-event library visit /from 19/09/2024 /to 19/09/2024
-event library visit /from start time /to end time
+deadlnie
+deadline /by now
+deadline test /by
+deadline return book /by now
+   deadline       return   book     /by     now
+deadline return book  /by  10/10/2024
+deadline return book /by 10/10/2024 20:20
+deadlinereturn book
+lsit
+ list
+find Return
+ find   urn
 event
-event /from start time /to end time
-event /from /to
-eventlibrary visit /from start time /to end time
-event library visit /from /to end time
-event library visit /from start time /to
-event library visit/from start time /to end time
-event library visit /fromstart time /to end time
-event library visit /from start time/to end time
-event library visit /from start time /toend time
-list
+eventborrow
+events test /to later /from now
+event   /from now /to later
+  event  read   book       /from     now       /to      /later
+event read book /from now /to later
+event read book /to later /from now
+event read book /to later /fromnow
+event read book /from now /to 20/10/2024
+event read book /from 11/10/2024 23:23 /to end of year
+event read book /from /to
 todo to be deleted
-delete 4
+delete
+  delete  4
+delete 20
+delete a
 list
-delete all
+  delete    all
 list
-bye
+byes
+  bye   bye
+  bye
