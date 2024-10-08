@@ -14,6 +14,17 @@ Erika is a handy CLI task organizer for your daily tasks, supporting Todos, Dead
 - Parameters must be supplied with a preceding <code>/</code> character. <i> I.e to supply the <b>by</b> parameter the command given must be <code>deadline DESCRIPTION /by DEADLINE</code></i>
 - Order of parameters does not matter. <i><code>event DESCRIPTION /from START /to END</code> produces the same result as <code>event DESCRIPTION /to END /from START</code></i>
 - Commands are case sensitive, <i>i.e <code>find hello</code> is not equivalent to <code>find Hello</code></i>
+- Spaces are <i>optional</i> <b>except</b> for the <b>single</b> space between the <b>command keyword</b> (i.e ```todo```,```deadline```,```event```,```delete``` etc) and the rest of the command. Example: ```deadline sleep/bytonight``` is equivalent to ```deadline sleep /by tonight``` but ```deadlinesleep/bytonight``` will raise an exception.
+- Likewise, additional spaces between parameters other than the aforementioned initial space between the command keyword and the rest of the command will be <b>ignored</b>. 
+Example: <pre>deadline    sleep    /by   tonight</pre>
+will produce output
+```angular2html
+        ____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] sleep (by: tonight)
+	Now you have 5 tasks in the list.
+        ____________________________________________________________
+```
 ## Adding Todos: <code>todo</code>
 Adds a <b>todo</b> to the list of tasks
 
@@ -38,8 +49,8 @@ Format: <code>deadline DESCRIPTION /by DEADLINE</code>
 
 Where <code>DEADLINE</code> can either be:
 1. An unformatted <code>string</code>, example <code>tomorrow</code>
-2. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy</code> which will be interpreted as a Java<code>LocalDate</code> object
-3. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy hh:mm</code> which will be interpreted as a Java<code>LocalDateTime</code> object
+2. A <b>formatted</b> Date <code>string</code> in the format specified in [additional notes](#a-name--dateformatsaaccepted-datedatetime-formats) which will be interpreted as a Java<code>LocalDate</code> object
+3. A <b>formatted</b> DateTime <code>string</code> in the format specified in [additional notes](#a-name--dateformatsaaccepted-datedatetime-formats) which will be interpreted as a Java<code>LocalDateTime</code> object
 
 Example: `deadline return book /by tomorrow`, `deadline return book /by 23/09/2024`, `deadline return book /by 23/09/2024 23:59` for each of the three aforementioned cases respectively. 
 
@@ -62,8 +73,8 @@ Format: <code>event DESCRIPTION /from START /to END</code> <b>or </b> <code>even
 
 Where <code>START</code> and <code>END</code> can either be:
 1. An unformatted <code>string</code>, example <code>tomorrow</code>
-2. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy</code> which will be interpreted as a Java<code>LocalDate</code> object
-3. A <b>formatted</b> <code>string</code> in the format <code>dd/MM/yyyy hh:mm</code> which will be interpreted as a Java<code>LocalDateTime</code> object
+2. A <b>formatted</b> Date <code>string</code> in the format specified in [additional notes](#a-name--dateformatsaaccepted-datedatetime-formats) which will be interpreted as a Java<code>LocalDate</code> object
+3. A <b>formatted</b> DateTime <code>string</code> in the format specified in [additional notes](#a-name--dateformatsaaccepted-datedatetime-formats) which will be interpreted as a Java<code>LocalDateTime</code> object
 
 Example: `event book fair /from Monday /to Friday`, `event book fair /from 23/09/2024 /to 30/09/2024`, `event book fair /from 23/09/2024 00:00 /to 30/09/2024 23:59` for each of the three aforementioned cases respectively.
 
@@ -235,3 +246,30 @@ E,0,event task,start,end
 ```
 - Upon startup, Erika checks for the existence of this file. If it does not exist, an empty file is created. If it exists, the file is read and the entries are automatically loaded into Erika and can be accessed/manipulated. 
 - Advanced users are free to directly modify the ```./data/tasks.txt``` file to directly add/modify tasks to their liking. 
+
+## Additional Notes: 
+### <a name = "dateFormats"></a>Accepted DateTime/Date Formats:
+#### DateTime: 
+```angular2html
+yyyy-MM-dd HH:mm
+dd/MM/yyyy HH:mm
+dd-MM-yyyy HH:mm
+dd/MM/yy HH:mm
+dd-MM-yy HH:mm
+MMM dd yyyy h.mma
+dd MMM yyyy h.mma
+MMM dd yy h.mma
+dd MMM yy h.mma
+```
+#### Date:
+```angular2html
+yyyy-MM-dd 
+dd/MM/yyyy
+dd-MM-yyyy
+dd/MM/yy
+dd-MM-yy
+MMM dd yyyy
+dd MMM yyyy
+MMM dd yy
+dd MMM yy
+```
