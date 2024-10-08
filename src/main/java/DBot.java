@@ -20,47 +20,53 @@ public class DBot {
             String line = ui.readLine();
             parser.parseCommand(line);
 
-            switch (parser.getCommand()) {
-                case "bye":
-                    ui.printShortMessage("Bye. Hope to see you again soon!");
-                    isOn = false;
-                    storage.saveData(taskList.getTaskList());
-                    break;
-                case "list":
-                    list();
-                    break;
-                case "mark":
-                    mark();
-                    break;
-                case "unmark":
-                    unmark();
-                    break;
-                case "todo":
-                    todo();
-                    break;
-                case "event":
-                    event();
-                    break;
-                case "deadline":
-                    deadline();
-                    break;
-                case "delete":
-                    delete();
-                    break;
-                case "find":
-                    find();
-                    break;
-                default:
-                    ui.printError("Unknown command: " + line);
+            try {
+                switch (parser.getCommand()) {
+                    case "bye":
+                        isOn = false;
+                        break;
+                    case "list":
+                        list();
+                        break;
+                    case "mark":
+                        mark();
+                        break;
+                    case "unmark":
+                        unmark();
+                        break;
+                    case "todo":
+                        todo();
+                        break;
+                    case "event":
+                        event();
+                        break;
+                    case "deadline":
+                        deadline();
+                        break;
+                    case "delete":
+                        delete();
+                        break;
+                    case "find":
+                        find();
+                        break;
+                    default:
+                        throw new DBotException("Unknown command: " + line, "Unknown command");
+                }
+            } catch (Exception e) {
+                if (e instanceof DBotException)
+                    ui.printDBotError((DBotException) e);
+                else ui.printGenericError(e);
             }
         }
+        ui.printShortMessage("Bye. Hope to see you again soon!");
+        storage.saveData(taskList.getTaskList());
     }
 
     private static void list() {
         ui.printShortMessage(ui.listTasks(taskList.getTaskList()));
     }
 
-    private static void mark() {
+    private static void mark() throws DBotException {
         try {
             int option = Integer.parseInt(parser.getPrompt());
             Task task = taskList.getTask(option - 1);
@@ -71,11 +77,11 @@ public class DBot {
                     task.toString()
             });
         } catch (Exception e) {
-            ui.printError("Invalid input, input must be a positive integer and must exist");
+            throw new DBotException("Invalid input, input must be a positive integer and must exist", "Invalid input");
         }
     }
 
-    private static void unmark() {
+    private static void unmark() throws DBotException {
         try {
             int option = Integer.parseInt(parser.getPrompt());
             Task task = taskList.getTask(option - 1);
@@ -85,15 +91,14 @@ public class DBot {
                     task.toString()
             });
         } catch (Exception e) {
-            ui.printError("Invalid input, input must be a positive integer and must exist");
+            throw new DBotException("Invalid input, input must be a positive integer and must exist", "Invalid input");
         }
     }
 
-    private static void todo() {
-        if (parser.getPrompt().isEmpty()) {
-            ui.printError("Cannot have empty prompt");
-            return;
-        }
+    private static void todo() throws DBotException {
+        if (parser.getPrompt().isEmpty())
+            throw new DBotException("Cannot have empty prompt", "Invalid input");
+
         Todo task = new Todo(parser.getPrompt());
         taskList.addTask(task);
         ui.printLongMessage(new Object[]{
@@ -103,18 +108,16 @@ public class DBot {
         });
     }
 
-    private static void deadline() {
-        if (parser.getPrompt().isEmpty()) {
-            ui.printError("Cannot have empty prompt");
-            return;
-        }
+    private static void deadline() throws DBotException {
+        if (parser.getPrompt().isEmpty())
+            throw new DBotException("Cannot have empty prompt", "Invalid input");
+
         Hashtable<String, String> arguments = parser.getArguments();
         Deadline task;
         try {
             task = new Deadline(parser.getPrompt(), arguments.get("by"));
         } catch (Exception e) {
-            ui.printError("Invalid input, deadline missing argument '/by'");
-            return;
+            throw new DBotException("Deadline missing argument '/by'", "Missing argument");
         }
 
         taskList.addTask(task);
@@ -125,18 +128,16 @@ public class DBot {
         });
     }
 
-    private static void event() {
-        if (parser.getPrompt().isEmpty()) {
-            ui.printError("Cannot have empty prompt");
-            return;
-        }
+    private static void event() throws DBotException {
+        if (parser.getPrompt().isEmpty())
+            throw new DBotException("Cannot have empty prompt", "Invalid input");
+
         Hashtable<String, String> arguments = parser.getArguments();
         Event task;
         try {
             task = new Event(parser.getPrompt(), arguments.get("from"), arguments.get("to"));
         } catch (Exception e) {
-            ui.printError("Invalid input, event missing argument(s) '/from' or '/to'");
-            return;
+            throw new DBotException("Event missing argument(s) '/from' or '/to'", "Missing argument");
         }
         taskList.addTask(task);
         ui.printLongMessage(new Object[]{
@@ -146,7 +147,7 @@ public class DBot {
         });
     }
 
-    private static void delete() {
+    private static void delete() throws DBotException {
         try {
             int option = Integer.parseInt(parser.getPrompt());
             Task removed = taskList.removeTask(option - 1);
@@ -156,7 +157,7 @@ public class DBot {
                     "Now you have " + taskList.getSize() + " tasks in the list."
             });
         } catch (Exception e) {
-            ui.printError("Invalid input, input must be a positive integer and must exist");
+            throw new DBotException("Invalid input, input must be a positive integer and must exist", "Invalid input");
         }
     }
 

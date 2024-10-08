@@ -40,15 +40,30 @@ public class Ui {
         System.out.println(BREAK_LINE + BREAK_LINE + "\n");
     }
 
-    /**
-     * Prints an error message surrounded by a break line to format the output.
-     *
-     * @param message the error message to be printed
-     */
-    public void printError(String message) {
+    private void printError(String message) {
         System.out.println(BREAK_LINE + " Error " + BREAK_LINE);
-        System.out.println("An error occur due to: " + message);
+        System.out.println(message);
         System.out.println(BREAK_LINE + BREAK_LINE + "\n");
+    }
+
+    /**
+     * Prints an error specific to DBot using the details from a DBotException.
+     * The error includes the type of the error and its cause.
+     *
+     * @param error the DBotException containing the error type and message
+     */
+    public void printDBotError(DBotException error) {
+        printError("Error: " + error.getErrorType() + "\nDue to: " + error.getMessage());
+    }
+
+    /**
+     * Prints a generic error message for undocumented exceptions.
+     * This is used to handle any unexpected or unhandled exceptions.
+     *
+     * @param e the Exception containing the error message
+     */
+    public void printGenericError(Exception e) {
+        printError("Undocumented error occurred\nDue to: " + e.getMessage());
     }
 
     /**
@@ -78,4 +93,5 @@ public class Ui {
         System.out.print("Command: ");
         return in.nextLine().strip();
     }
+
 }
