@@ -8,15 +8,31 @@ import grok.tasks.TaskList;
 import grok.storage.Storage;
 import grok.ui.Ui;
 
+/**
+ * Represents a command to add a task to the task list.
+ * It supports adding To-do, Deadline, and Event tasks.
+ */
 public class AddCommand extends Command {
     private final String taskType;
     private final String taskDetails;
 
+    /**
+     * Constructs an AddCommand with the specified task type and details.
+     * @param taskType the type of the task (todo, deadline, or event).
+     * @param taskDetails the details of the task.
+     */
     public AddCommand(String taskType, String taskDetails) {
         this.taskType = taskType;
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * Executes the AddCommand to add a task to the task list.
+     *
+     * @param tasks the TaskList to add the task to.
+     * @param ui the Ui to interact with the user.
+     * @param storage the Storage to save the task.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;
@@ -64,6 +80,10 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns whether this command will terminate the program.
+     * @return false because AddCommand does not exit the program.
+     */
     @Override
     public boolean isExit() {
         return false;
