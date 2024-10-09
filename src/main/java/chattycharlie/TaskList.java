@@ -155,7 +155,7 @@ public class TaskList {
                 ui.displayTaskInList(eventTask, number);
                 break;
             default:
-            break;
+                break;
             }
         }
         ui.displayLine();

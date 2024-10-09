@@ -49,8 +49,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " " + startTime + " to: "
-                + endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
+                + startTime + " to: " + endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
+                + endTime + ")";
     }
 
     /**
@@ -60,8 +61,9 @@ public class Event extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "[E]" + super.toSaveFormat() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + startTime + " to: "
-                + endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + endTime + ")";
+        return "[E]" + super.toSaveFormat() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                + " " + startTime + " to: " + endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                + " " + endTime + ")";
     }
 
     public LocalDate getEndDate() {

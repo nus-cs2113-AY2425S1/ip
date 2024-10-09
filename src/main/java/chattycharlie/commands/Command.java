@@ -25,8 +25,8 @@ public interface Command {
      * The default implementation returns <code>false</code> as
      * most commands do not cause the application to exit.
      *
-     * @return <code>true</code> if the command causes the application to exit, which is only the Bye Command
-     * <code>false</code> otherwise.
+     * @return <code>true</code> if the command causes the application to exit,
+     *     which is only the Bye Command, <code>false</code> otherwise.
      */
     default boolean isExit() {
         return false;  // Default behavior: most commands are not exit commands

@@ -2,8 +2,6 @@ package chattycharlie.task;
 
 import chattycharlie.commands.CommandType;
 
-import java.time.LocalDate;
-
 /**
  * Represents an abstract task in the ChattyCharlie application.
  * Each task has a description, a status indicating if it's done, and a command type.
@@ -92,5 +90,4 @@ public abstract class Task {
     public String toSaveFormat() {
         return "[" + getMarkedStatus() + "] " + description;
     }
-
 }

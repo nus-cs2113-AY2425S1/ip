@@ -1,7 +1,11 @@
 package chattycharlie;
 
-import chattycharlie.commands.*;
-import chattycharlie.userinteractions. *;
+import chattycharlie.userinteractions.Storage;
+import chattycharlie.userinteractions.Ui;
+import chattycharlie.userinteractions.Parser;
+import chattycharlie.commands.CommandType;
+import chattycharlie.commands.Command;
+import chattycharlie.commands.CommandFactory;
 
 /**
  * Represents the main chatbot application. A <code>ChattyCharlie</code> object corresponds to
