@@ -1,17 +1,13 @@
-import customexceptions.*; // Import custom exception classes
-import taskpackage.*; // Import task-related classes like ToDo, Deadline, and Event
-
-import java.io.IOException;
-
+import taskpackage.TaskList;
 
 public class Juan {
 
 
     private final static String dataFilePath = "data.text";
-    private UI ui;
-    private Storage storage;
+    private final UI ui;
+    private final Storage storage;
     private TaskList tasks;
-    private Parser parser;
+    private final Parser parser;
 
     // Constructor
     public Juan(String dataFilePath) {

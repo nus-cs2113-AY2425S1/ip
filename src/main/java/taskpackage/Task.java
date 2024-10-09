@@ -1,5 +1,4 @@
 package taskpackage; // Package for Task-related classes
-import java.util.ArrayList;
 
 // Parent class Task which serves as a base for ToDo, Deadline, and Event tasks
 public class Task {

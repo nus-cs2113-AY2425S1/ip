@@ -6,8 +6,8 @@ import customexceptions.EventConstructorException; // Import custom exception fo
 public class Event extends Task {
 
     // Variables to store the start and end times of the event
-    private String fromString;
-    private String toString;
+    private final String fromString;
+    private final String toString;
 
     // Constructor for creating an Event task
     public Event(String inputString, TaskList tasks, boolean constructorMessage) throws EventConstructorException {
