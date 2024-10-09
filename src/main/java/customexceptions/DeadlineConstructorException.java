@@ -1,5 +1,7 @@
 package customexceptions; // Package for custom exceptions
-import taskpackage.Task; // Import Task class to manage task deletion
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 // Custom exception class for handling errors in Deadline task construction
 public class DeadlineConstructorException extends Exception {
@@ -26,6 +28,12 @@ public class DeadlineConstructorException extends Exception {
             return "MISSING TASK STATEMENT"; // Return specific error if no task description
         }
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        try {
+            dateTimeFormatter.parse(taskStringBreakdown[1]);
+        } catch (DateTimeParseException e) {
+            return "INVALID DATETIME EXCEPTION";
+        }
         // If none of the specific errors match, return an unknown error
         return "UNKNOWN ERROR";
     }
