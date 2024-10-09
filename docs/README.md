@@ -116,7 +116,7 @@ Displayed as: [E][ ] <Task Description> (from: Start Date Time to: End Date Time
 
 The square brackets next to the task type indicator (T/D/E) show the task's completion status: <br>
 [ ]: Task is not done <br>
-[✔]: Task is done
+[X]: Task is done
 
 ## Error Handling
    Quinn will display error messages if it encounters issues. Here are some common errors and their meanings:

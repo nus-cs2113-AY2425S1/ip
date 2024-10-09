@@ -39,11 +39,11 @@ public abstract class Task {
     /**
      * Returns the status icon of the task.
      *
-     * @return "[✔]" if the task is done, "[ ]" otherwise
+     * @return "[X]" if the task is done, "[ ]" otherwise
      */
     public String getStatusIcon() {
         if (isDone) {
-            return "[✔]"; // mark done task with ✔
+            return "[X]"; // mark done task with X
         } else {
             return "[ ]";
         }
