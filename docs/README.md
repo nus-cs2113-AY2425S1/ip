@@ -12,7 +12,7 @@ With Quinn, you can easily add, list, mark, and delete tasks using simple comman
 4. [Understanding Task Types](#understanding-task-types)
 5. [Error Handling](#error-handling)
 6. [Data Storage](#data-storage)
-7. [Command Summary](#command-summary)
+7. [Quinn Command Summary](#quinn-command-summary)
 
 ## Quick Start
 
