@@ -200,7 +200,7 @@ A: Yes, the task data is stored in a text file (`data/tasks.txt`), and you can e
 
 ## Known Issues
 
-- If you accidentally delete the task file, KaiWen will start with a blank task list.
+- If you accidentally delete the tasks.txt file, KaiWen will start with a blank task list.
 - Incorrectly formatted commands will result in error messages, but KaiWen will continue running.
 
 ---
