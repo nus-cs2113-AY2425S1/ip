@@ -1,3 +1,10 @@
+package eva.storage;
+
+import eva.tasks.Deadline;
+import eva.tasks.Event;
+import eva.tasks.Task;
+import eva.tasks.Todo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,9 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The Storage class is responsible for reading from and writing to a file
+ * The eva.storage.Storage class is responsible for reading from and writing to a file
  * that stores task data. It provides methods to save tasks to a file and
- * load tasks from a file into an ArrayList of Task objects.
+ * load tasks from a file into an ArrayList of eva.tasks.Task objects.
  */
 public class Storage {
 
@@ -47,9 +54,9 @@ public class Storage {
 
     /**
      * Loads tasks from the file specified by filePath and returns them
-     * as an ArrayList of Task objects.
+     * as an ArrayList of eva.tasks.Task objects.
      *
-     * @return An ArrayList of Task objects loaded from the file.
+     * @return An ArrayList of eva.tasks.Task objects loaded from the file.
      *         If the file does not exist, returns an empty ArrayList.
      */
     public ArrayList<Task> loadTasksFromFile() {
@@ -78,10 +85,10 @@ public class Storage {
 
     /**
      * Parses a task from a string representation of a task. The format of the
-     * string determines whether the task is a Todo, Deadline, or Event.
+     * string determines whether the task is a eva.tasks.Todo, eva.tasks.Deadline, or eva.tasks.Event.
      *
      * @param line The string representation of a task.
-     * @return A Task object parsed from the string, or null if the format is unrecognized.
+     * @return A eva.tasks.Task object parsed from the string, or null if the format is unrecognized.
      */
     private Task parseTaskFromString(String line) {
         boolean isDone = line.contains("[X]");

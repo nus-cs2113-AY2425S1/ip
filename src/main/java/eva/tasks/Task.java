@@ -1,3 +1,5 @@
+package eva.tasks;
+
 /**
  * Represents a task with a description and completion status.
  * This class provides functionality to create a task, mark it as done or not done,

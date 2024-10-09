@@ -1,3 +1,11 @@
+package eva;
+
+import eva.tasks.TaskManager;
+import eva.ui.Ui;
+import eva.parser.Parser;
+import eva.command.CommandHandler;
+import eva.exception.EvaException;
+
 /**
  * The main class for Eva chatbot
  * This class initialises the program by creating instances of

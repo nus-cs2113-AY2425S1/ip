@@ -1,3 +1,7 @@
+package eva.ui;
+
+import eva.tasks.Task;
+
 import java.util.Scanner;
 import java. util. ArrayList;
 
@@ -15,7 +19,7 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Eva!");
+        System.out.println("Hello! I'm eva.Eva!");
         System.out.println("What can I do for you?");
         System.out.println(HORIZONTAL_LINE);
     }

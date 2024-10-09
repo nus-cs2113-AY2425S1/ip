@@ -1,7 +1,9 @@
+package eva.exception;
+
 /**
- * Represents a custom exception for the Eva application.
+ * Represents a custom exception for the eva.Eva application.
  * This exception is thrown to indicate errors related to
- * the task management operations in the Eva application.
+ * the task management operations in the eva.Eva application.
  * It extends the built-in Exception class.
  */
 public class EvaException extends Exception {

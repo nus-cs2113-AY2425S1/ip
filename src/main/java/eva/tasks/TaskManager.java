@@ -1,10 +1,16 @@
+package eva.tasks;
+
+import eva.exception.EvaException;
+import eva.storage.Storage;
+import eva.ui.Ui;
+
 import java.util.ArrayList;
 
 /**
  * Represents a manager for handling tasks in the task list.
- * The TaskManager class is responsible for managing tasks, including adding,
+ * The eva.tasks.TaskManager class is responsible for managing tasks, including adding,
  * deleting, marking, unmarking, and finding tasks. It provides methods to interact
- * with the user interface (UI) and stores tasks in a file using the Storage class.
+ * with the user interface (UI) and stores tasks in a file using the eva.storage.Storage class.
  */
 public class TaskManager {
 
@@ -91,13 +97,13 @@ public class TaskManager {
     }
 
     /**
-     * Adds a new Todo task to the task list.
-     * Creates a new {@code Todo} object using the provided task description
+     * Adds a new eva.tasks.Todo task to the task list.
+     * Creates a new {@code eva.tasks.Todo} object using the provided task description
      * and adds it to the list of tasks.
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and the updated list is saved.
      *
-     * @param line The description of the Todo task to be added.
+     * @param line The description of the eva.tasks.Todo task to be added.
      */
     public void addTodo(String line) {
         tasks.add(new Todo(line));
@@ -109,14 +115,14 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Deadline task to the task list.
-     * Creates a new {@code Deadline} object using the provided task description
+     * Add a new eva.tasks.Deadline task to the task list.
+     * Creates a new {@code eva.tasks.Deadline} object using the provided task description
      * and adds it to the list of tasks
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and updated list is saved
      *
-     * @param description The description of the Deadline task to be added
-     * @param by The time by which the Deadline task needs to be completed
+     * @param description The description of the eva.tasks.Deadline task to be added
+     * @param by The time by which the eva.tasks.Deadline task needs to be completed
      */
     public void addDeadline(String description, String by) {
         tasks.add(new Deadline(description, by));
@@ -128,15 +134,15 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Event task to the task list
-     * Creates a new {@code Event} object using the provided task description
+     * Add a new eva.tasks.Event task to the task list
+     * Creates a new {@code eva.tasks.Event} object using the provided task description
      * and adds it to the list of tasks
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and updated list is saved
      *
-     * @param description The description of the Event task to be added
-     * @param from The time when the Event task starts
-     * @param to The time when the Event task ends
+     * @param description The description of the eva.tasks.Event task to be added
+     * @param from The time when the eva.tasks.Event task starts
+     * @param to The time when the eva.tasks.Event task ends
      */
     public void addEvent(String description, String from, String to) {
         tasks.add(new Event(description, from, to));

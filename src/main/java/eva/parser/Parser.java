@@ -1,9 +1,13 @@
+package eva.parser;
+
+import eva.exception.EvaException;
+
 public class Parser {
 
     /**
      * Extracts and returns the command from the given input string.
      * Input string is converted to lowercase for case-insensitive matching
-     * If the command is not recognised, a {@code EvaException} is thrown
+     * If the command is not recognised, a {@code eva.exception.EvaException} is thrown
      *
      * @param line The input string from the user containing the command and description
      * @return The extracted command
@@ -32,7 +36,7 @@ public class Parser {
      * Parse the arguments from the input line based on the provided command.
      * This method will then split the input line into different argument based on
      * the command type.
-     * If the command format is invalid or arguments are missing, a {@code EvaException} is thrown
+     * If the command format is invalid or arguments are missing, a {@code eva.exception.EvaException} is thrown
      *
      * @param line The input string containing the command and description
      * @param command The specific command extracted from {@link #getCommand(String)}
