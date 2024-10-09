@@ -57,10 +57,6 @@ public class InputFileHandler {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
-                if (taskData.isEmpty()) {
-                    break; // end scanning once blank line is detected
-                }
-
                 try {
                     Task task = loadTask(taskData);
                     taskHandler.addTask(task);
