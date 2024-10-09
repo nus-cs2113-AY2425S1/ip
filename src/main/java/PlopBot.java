@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -103,6 +104,9 @@ public class PlopBot {
                 tasks.clear();
                 System.out.println("All tasks cleared.");
                 break;
+            case "find":
+                find(details);
+                break;
             case "bye", "exit", "quit":
                 farewellMessage();
                 return true;
@@ -121,6 +125,7 @@ public class PlopBot {
 
         Task newToDo = new Task(details);
         tasks.add(newToDo);
+        saveTasks();
         System.out.println(ECHO_LINE);
         System.out.println("    Added the To-Do task: \n      " + newToDo.toString());
         System.out.printf("    You now have %d tasks in your list.\n", tasks.size());
@@ -148,6 +153,7 @@ public class PlopBot {
             LocalDate dueDate = parseDateString(dueDateString);
             Task newDeadline = new Task(description, dueDate);
             tasks.add(newDeadline);
+            saveTasks();
 
             System.out.println(ECHO_LINE);
             System.out.println("    Added the Deadline task: \n      " + newDeadline.toString());
@@ -193,6 +199,7 @@ public class PlopBot {
 
             Task newEvent = new Task(description, startTime, endTime);
             tasks.add(newEvent);
+            saveTasks();
             System.out.println(ECHO_LINE);
             System.out.println("    Added the Event task: \n      " + newEvent.toString());
             System.out.printf("    You now have %d tasks in your list.\n", tasks.size());
@@ -229,6 +236,7 @@ public class PlopBot {
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
                 Task task = tasks.get(taskNumber);
                 task.toggleStatus();
+                saveTasks();
                 System.out.println(ECHO_LINE);
                 System.out.printf("    Successfully updated task %d.\n", taskNumber + 1);
                 System.out.println("    Your Updated List:");
@@ -348,6 +356,7 @@ public class PlopBot {
             }
 
             Task removedTask = tasks.remove(taskNumber - 1);
+            saveTasks();
             System.out.println(ECHO_LINE);
             System.out.println("    Understood. Deleted the following task: ");
             System.out.println("      " + removedTask);
@@ -369,14 +378,72 @@ public class PlopBot {
         System.out.println(ECHO_LINE);
     }
 
+
+    private static void find(String details) {
+        if (details == null) {
+            return;
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = i.
+            if (details.toLowerCase() == i.getName().toLowerCase()) {
+
+            }
+        }
+
+        System.out.println(ECHO_LINE);
+        System.out.println("    Found the following tasks in your list: ");
+
+
+        System.out.println(ECHO_LINE);
+    }
+
     private static ArrayList<Task> loadTasks() {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
+            if (Files.exists(Paths.get(DATA_FILE))) {
+                List<String> lines = Files.readAllLines(Paths.get(DATA_FILE));
+                for (String line : lines) {
+                    try {
+                        String[] parts = line.split("\\|");
+                        if (parts.length < 3) continue;
 
-        }
-        catch (IOException e) {
-            printError("An error occurred while loading tasks: " + e.getMessage());
+                        String type = parts[0].trim();
+                        boolean isDone = parts[1].trim().equals("1");
+                        String description = parts[2].trim();
+
+                        Task task;
+                        switch (type) {
+                            case "T":
+                                task = new Task(description);
+                                break;
+                            case "D":
+                                if (parts.length < 4) continue;
+                                LocalDate deadline = LocalDate.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                                task = new Task(description, deadline);
+                                break;
+                            case "E":
+                                if (parts.length < 5) continue;
+                                LocalDateTime startTime = LocalDateTime.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                                LocalDateTime endTime = LocalDateTime.parse(parts[4].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                                task = new Task(description, startTime, endTime);
+                                break;
+                            default:
+                                continue;
+                        }
+
+                        if (isDone) {
+                            task.toggleStatus();
+                        }
+                        loadedTasks.add(task);
+                    } catch (DateTimeParseException | IndexOutOfBoundsException e) {
+                        System.out.println("    Error parsing task: " + line);
+                        // Continue to next line if there's an error with the current one
+                    }
+                }
+            }
+        } catch (IOException e) {
+            printError("    An error occurred while loading tasks: " + e.getMessage());
         }
         return loadedTasks;
     }
@@ -387,10 +454,28 @@ public class PlopBot {
             BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE));
 
             for (Task task : tasks) {
-
+                String line;
+                switch (task.getTypeIcon()) {
+                    case "T":
+                        line = String.format("T | %d | %s", task.getStatus() ? 1 : 0, task.getName());
+                        break;
+                    case "D":
+                        line = String.format("D | %d | %s | %s", task.getStatus() ? 1 : 0, task.getName(),
+                                task.getDeadline().format(DateTimeFormatter.ISO_LOCAL_DATE));
+                        break;
+                    case "E":
+                        line = String.format("E | %d | %s | %s | %s", task.getStatus() ? 1 : 0, task.getName(),
+                                task.getStartTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                                task.getEndTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                        break;
+                    default:
+                        continue;
+                }
+                writer.write(line);
+                writer.newLine();
             }
-        }
-        catch (IOException e ) {
+            writer.close();
+        } catch (IOException e) {
             printError("An error occurred while saving tasks: " + e.getMessage());
         }
     }
