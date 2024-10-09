@@ -10,6 +10,11 @@ import atom.command.MarkCommand;
 import atom.command.FindCommand;
 import atom.command.FilterCommand;
 
+/**
+ * Represents a parser which makes sense of the user command.
+ * <p>
+ * Parses the full user command and returns a <code>Command</code> type object.
+ */
 public class Parser {
 
     public static Command parse(String fullCommand) {
