@@ -37,6 +37,7 @@ public class InputFileHandler {
      * @return a TaskHandler with tasks loaded from the file
      */
     public static TaskHandler loadTasksFromFile() {
+        new FileHandler();
         TaskHandler taskHandler = FileHandler.getTaskHandler();
         try {
             loadTasksAndRecordInvalidTasks();
@@ -74,13 +75,10 @@ public class InputFileHandler {
         int invalidTaskCount = 0;
         TaskHandler taskHandler = FileHandler.getTaskHandler();
         File file = new File(StringStorage.SAVE_FILE_PATH);
+
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String taskData = scanner.nextLine();
-            if (taskData.isEmpty()) {
-                break; // end scanning once blank line is detected
-            }
-
             try {
                 Task task = loadTask(taskData);
                 taskHandler.addTask(task);
@@ -90,6 +88,7 @@ public class InputFileHandler {
             }
         }
         scanner.close();
+
         return invalidTaskCount;
     }
 
