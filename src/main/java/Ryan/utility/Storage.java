@@ -5,6 +5,11 @@ import Ryan.tasks.Event;
 import Ryan.tasks.Task;
 import Ryan.tasks.Todo;
 
+import Ryan.exceptions.RyanException;
+import Ryan.exceptions.FileIOException;
+import Ryan.exceptions.InvalidStorageFormatException;
+import Ryan.exceptions.UnknownTaskTypeException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -25,13 +30,15 @@ public class Storage {
     private static final String TODO_TASK_TYPE = "T";
     private static final String DEADLINE_TASK_TYPE = "D";
     private static final String EVENT_TASK_TYPE = "E";
+    private static final String NEW_FILE_CREATION = "No previous task file found. Starting with an empty list.";
 
     /**
      * Saves the list of tasks to a file.
      *
      * @param tasks The list of tasks to be saved.
+     * @throws RyanException If an error occurs during the file I/O operations.
      */
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void saveTasks(ArrayList<Task> tasks) throws RyanException {
         try {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
@@ -46,7 +53,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new FileIOException(e.getMessage());
         }
     }
 
@@ -54,12 +61,13 @@ public class Storage {
      * Loads the tasks from a file.
      *
      * @return The list of tasks loaded from the file.
+     * @throws RyanException If an error occurs during the file reading process or if the file format is invalid.
      */
-    public static ArrayList<Task> loadTasks() {
+    public static ArrayList<Task> loadTasks() throws RyanException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            System.out.println("No previous task file found. Starting with an empty list.");
+            System.out.println(NEW_FILE_CREATION);
             return tasks;
         }
 
@@ -72,7 +80,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new FileIOException(e.getMessage());
         }
         return tasks;
     }
@@ -82,13 +90,13 @@ public class Storage {
      *
      * @param line The line to be parsed.
      * @return The corresponding Task object.
+     * @throws RyanException If the line format is invalid or the task type is unknown.
      */
-    private static Task parseTaskFromFile(String line) {
+    private static Task parseTaskFromFile(String line) throws RyanException{
         String[] parts = line.split(SPLIT_DELIMITER);
 
         if (parts.length < 3) {
-            System.out.println("Invalid task format: " + line);
-            return null;
+            throw new InvalidStorageFormatException(line);
         }
 
         String type = parts[0];
@@ -102,23 +110,21 @@ public class Storage {
                 break;
             case DEADLINE_TASK_TYPE:
                 if (parts.length < 4) {
-                    System.out.println("Invalid deadline format: " + line);
-                    return null;
+                    throw new InvalidStorageFormatException(line);
                 }
                 String by = parts[3];
                 task = new Deadline(description, by);
                 break;
             case EVENT_TASK_TYPE:
                 if (parts.length < 5) {
-                    System.out.println("Invalid event format: " + line);
-                    return null;
+                    throw new InvalidStorageFormatException(line);
                 }
                 String from = parts[3];
                 String to = parts[4];
                 task = new Event(description, from, to);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown task type: " + type);
+                throw new UnknownTaskTypeException(type);
         }
 
         if (isMarked) {

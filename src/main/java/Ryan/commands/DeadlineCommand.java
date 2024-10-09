@@ -7,6 +7,9 @@ import Ryan.tasks.Task;
 import Ryan.tasks.Deadline;
 
 import Ryan.exceptions.RyanException;
+import Ryan.exceptions.InvalidDeadlineFormatException;
+import Ryan.exceptions.InvalidDateFormatException;
+import Ryan.exceptions.EmptyDescriptionException;
 
 /**
  * Command to add a Deadline task.
@@ -36,18 +39,22 @@ public class DeadlineCommand extends Command {
         String[] splitCommand = command.split(DEADLINE_SPLIT_KEYWORD, 2);
 
         if (splitCommand.length < 2) {
-            throw new RyanException("Deadline tasks should be in the format 'description /by yyyy-mm-dd'.");
+            throw new InvalidDeadlineFormatException();
         }
 
         String description = splitCommand[0].trim();
         String by = splitCommand[1].trim();
+
+        if (description.trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
 
         try {
             Task task = new Deadline(description, by);
             tasks.addTask(task);
             ui.showTaskAdded(task, tasks.size());
         } catch (Exception e) {
-            throw new RyanException("Invalid date format. Please use yyyy-mm-dd.");
+            throw new InvalidDateFormatException();
         }
     }
 }

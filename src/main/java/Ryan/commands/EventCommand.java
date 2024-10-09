@@ -7,6 +7,9 @@ import Ryan.tasks.Task;
 import Ryan.tasks.Event;
 
 import Ryan.exceptions.RyanException;
+import Ryan.exceptions.InvalidEventFormatException;
+import Ryan.exceptions.InvalidDateFormatException;
+import Ryan.exceptions.EmptyDescriptionException;
 
 /**
  * Command to add an Event task.
@@ -37,14 +40,19 @@ public class EventCommand extends Command {
         String[] splitFrom = command.split(EVENT_FROM_KEYWORD, 2);
 
         if (splitFrom.length < 2) {
-            throw new RyanException("Event tasks should be in the format 'description /from yyyy-mm-dd /to yyyy-mm-dd'.");
+            throw new InvalidEventFormatException();
         }
 
         String description = splitFrom[0].trim();
+
+        if (description.trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+
         String[] splitTo = splitFrom[1].split(EVENT_TO_KEYWORD, 2);
 
         if (splitTo.length < 2) {
-            throw new RyanException("Event tasks should include both start-time and end-time.");
+            throw new InvalidEventFormatException();
         }
 
         String from = splitTo[0].trim();
@@ -54,7 +62,7 @@ public class EventCommand extends Command {
             tasks.addTask(task);
             ui.showTaskAdded(task, tasks.size());
         } catch (Exception e) {
-            throw new RyanException("Invalid date format. Please use yyyy-mm-dd.");
+            throw new InvalidDateFormatException();
         }
     }
 }

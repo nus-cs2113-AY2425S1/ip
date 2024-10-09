@@ -1,6 +1,5 @@
 package Ryan.utility;
 
-import Ryan.exceptions.RyanException;
 import Ryan.commands.Command;
 import Ryan.commands.TodoCommand;
 import Ryan.commands.DeadlineCommand;
@@ -11,6 +10,10 @@ import Ryan.commands.UnmarkCommand;
 import Ryan.commands.ListCommand;
 import Ryan.commands.FindCommand;
 import Ryan.commands.ExitCommand;
+
+import Ryan.exceptions.InvalidIndexException;
+import Ryan.exceptions.RyanException;
+import Ryan.exceptions.UnknownCommandException;
 
 /**
  * Represents a parser that processes user input and returns the appropriate command.
@@ -26,7 +29,6 @@ public class Parser {
     protected static final String LIST_COMMAND = "list";
     protected static final String FIND_COMMAND = "find";
     protected static final String EXIT_COMMAND = "bye";
-    protected static final String INVALID_COMMAND_DESCRIPTION = "Unknown command: ";
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -61,11 +63,10 @@ public class Parser {
                 case EXIT_COMMAND:
                     return new ExitCommand();
                 default:
-                    throw new RyanException(INVALID_COMMAND_DESCRIPTION + commandWord);
+                    throw new UnknownCommandException(commandWord);
             }
         } catch (NumberFormatException e) {
-            throw new RyanException("Please provide a valid task number.");
+            throw new InvalidIndexException();
         }
     }
-
 }

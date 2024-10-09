@@ -2,11 +2,12 @@ package Ryan;
 
 import java.util.Scanner;
 
-import Ryan.exceptions.RyanException;
 import Ryan.utility.Parser;
 import Ryan.utility.Storage;
 import Ryan.utility.Ui;
 import Ryan.utility.TaskList;
+
+import Ryan.exceptions.RyanException;
 
 import Ryan.commands.Command;
 
@@ -14,8 +15,15 @@ public class Ryan {
     public static void main(String[] args) {
         boolean isExiting = false;
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList(Storage.loadTasks());
         Parser parser = new Parser();
+
+        TaskList taskList = null;
+        try {
+            taskList = new TaskList(Storage.loadTasks());
+        } catch (RyanException e) {
+            Ui.showError(e.getMessage());
+            taskList = new TaskList();
+        }
 
         Ui.printGreeting();
 
