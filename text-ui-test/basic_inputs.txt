@@ -1,0 +1,12 @@
+no
+todo remove book
+deadline get book /by 10/12/2002 1800
+get 10/12/2002
+mark 1
+unmark 1
+delete 1
+event book /from 10/12/2002 1800 /to 12/12/2002 1800
+find book
+get 10/12/2002
+list
+bye

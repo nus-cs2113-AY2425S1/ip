@@ -115,7 +115,7 @@ public class DateParser extends UserInputParser {
         return false;
     }
 
-    public static boolean isDateOnlyFormat(String dateStr){
+    private static boolean isDateOnlyFormat(String dateStr){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try {
@@ -129,7 +129,7 @@ public class DateParser extends UserInputParser {
         }
     }
 
-    public static boolean isDateTimeFormat(String dateStr){
+    private static boolean isDateTimeFormat(String dateStr){
 
         try {
 
@@ -142,7 +142,7 @@ public class DateParser extends UserInputParser {
         }
     }
 
-    public static boolean isResultDateTimeFormat(String dateStr){
+    private static boolean isResultDateTimeFormat(String dateStr){
 
         try {
 

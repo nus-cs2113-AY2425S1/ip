@@ -15,10 +15,10 @@ Finally, a Save feature is also introduced which allows you to save and load tas
 
 # Getting Started
 
-1) Make sure you have Java 17 or above installed on your computer.
-2) Download the .jar file
-3) Open a terminal in the directory which you saved the .jar file, then run the following: 
-<br>`java -jar ip.jar`
+1) Make sure you have Java 17 or above installed on your computer.<br>
+2) Download the .jar file<br>
+3) Open a terminal in the directory which you saved the .jar file, then run the following: <br>
+<br>`java -jar ip.jar` <br>
 
 
 # Initial configuration
@@ -72,10 +72,10 @@ Add task which has a specific deadline.
 Example: `deadline return book /by 20/10/2025 1800`
 
 Formatting rules :
-1) "deadline" is not Caps-Sensitive.
+1) "deadline" is not Caps-Sensitive. <br>
 2) Dates in the form of `dd/MM/yyyy HHmm` (e.g. 20/10/2025 1800) will be converted
-to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically
-3) Dates other than `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will not be available for the `get` command
+to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically <br>
+3) Dates other than `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will not be available for the `get` command<br>
 
 General format : `deadline [task] /by [time]`
 
@@ -96,10 +96,10 @@ Add task which has a duration.
 Example: `event travel /from 20/10/2025 1800 /to 20/11/2025 1800`
 
 Formatting rules :
-1) "event" is not Caps-Sensitive.
+1) "event" is not Caps-Sensitive.<br>
 2) Dates in the form of `dd/MM/yyyy HHmm` (e.g. 20/10/2025 1800) will be converted
-   to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically
-3) Dates other than `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will not be available for the `get` command
+   to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically<br>
+3) Dates other than `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will not be available for the `get` command<br>
 
 General format : `event [task] /from [start time] /by [end time]`
 
@@ -120,7 +120,7 @@ Add task without deadlines.
 Example: `todo travel`
 
 Formatting rules :
-1) "todo" is not Caps-Sensitive.
+1) "todo" is not Caps-Sensitive.<br>
 
 General format : `todo [task]`
 
@@ -138,8 +138,8 @@ ____________________________________________________________
 Mark task as complete and incomplete.
 
 Formatting rules :
-1) "mark" / "unmark" is not Caps-Sensitive.
-2) Only <b>one</b> task can be marked per command (i.e. `mark 1 2`) is not valid
+1) "mark" / "unmark" is not Caps-Sensitive.<br>
+2) Only <b>one</b> task can be marked per command (i.e. `mark 1 2`) is not valid<br>
 
 General format : `mark [number]`
 
@@ -173,9 +173,9 @@ Prints the format for all the commands available
 Example: `help`
 
 Formatting rules :
-1) "help" is not Caps-Sensitive.
+1) "help" is not Caps-Sensitive.<br>
 2) Help command will be triggered if first word is "help" and ignores remainder of the commands
-   (i.e. `help me with command` , `help 12414`) would work.
+   (i.e. `help me with command` , `help 12414`) would work.<br>
 
 General format : `help`
 
@@ -201,8 +201,8 @@ Delete a specific task from the list
 Example: `delete 1`
 
 Formatting rules :
-1) "delete" is not Caps-Sensitive.
-2) Deleting a task using a number greater than total of no. of task will not result in any change.
+1) "delete" is not Caps-Sensitive.<br>
+2) Deleting a task using a number greater than total of no. of task will not result in any change.<br>
 
 General format : `delete [number]`
 
@@ -229,11 +229,11 @@ Get all the task which are of specific date
 Example: `get 20/10/2025`
 
 Formatting rules :
-1) "get" is not Caps-Sensitive.
-2) Date specified must be of `dd/MM/yyyy` format only
+1) "get" is not Caps-Sensitive.<br>
+2) Date specified must be of `dd/MM/yyyy` format only<br>
 3) Dates in `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will be compared with and task with same day , month and year
-will be shown.
-4) Multiple dates are not accepted and would result 0 matching cases.
+will be shown.<br>
+4) Multiple dates are not accepted and would result 0 matching cases.<br>
 
 General format : `get [dd/MM/yyyy]`
 
@@ -259,9 +259,9 @@ Get all the task which are of specific keyword
 Example: `find travel`
 
 Formatting rules :
-1) "find" is not Caps-Sensitive.
-2) Keyword should only be 1 word.
-4) Multi-word queries are not accepted and would result 0 matching cases.
+1) "find" is not Caps-Sensitive.<br>
+2) Keyword should only be 1 word.<br>
+4) Multi-word queries are not accepted and would result 0 matching cases.<br>
 
 General format : `find [single word]`
 
@@ -288,9 +288,9 @@ Exits the program
 Example: `bye`
 
 Formatting rules :
-1) "bye" is not Caps-Sensitive.
+1) "bye" is not Caps-Sensitive.<br>
 2) Bye command will be triggered if first word is "Bye" and ignores remainder of the commands
-   (i.e. `bye me with command` , `bye 12414`) would work.
+   (i.e. `bye me with command` , `bye 12414`) would work.<br>
 
 General format : `bye`
 

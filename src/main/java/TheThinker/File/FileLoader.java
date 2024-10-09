@@ -92,6 +92,9 @@ public class FileLoader {
         }
     }
 
+    /**
+     * Get user input on whether they want to save task to a file
+     */
     public static boolean shouldSaveTask() {
         UiControl.printSeparation();
         System.out.println("Do you want to save your tasks to a file? yes / no");
