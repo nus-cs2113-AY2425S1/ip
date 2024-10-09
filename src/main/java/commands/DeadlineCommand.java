@@ -1,20 +1,21 @@
 package commands;
 
+import java.io.IOException;
+
+import storage.TaskEncoder;
 import tasks.Deadline;
 import tasks.TaskList;
 import ui.Ui;
 
-import java.time.DateTimeException;
-import java.time.format.DateTimeParseException;
-
 public class DeadlineCommand extends Command {
-    private Deadline deadline;
+    private final Deadline deadline;
     public DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public void execute(TaskList taskList, Ui ui) throws IOException {
         taskList.addTask(deadline);
+        TaskEncoder.addTask(deadline.toString());
         ui.printAddMessage(taskList.get(taskList.size() - 1));
     }
 }

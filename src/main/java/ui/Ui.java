@@ -14,9 +14,6 @@ public class Ui {
      * Scanner object for reading user input.
      */
     private Scanner scanner;
-    private enum Type {
-        TODO, DEADLINE, EVENT
-    };
     /**
      * Constructs a Ui object and initializes the Scanner.
      */
@@ -57,7 +54,7 @@ public class Ui {
      *
      * @param task the invalid Task object that caused the error
      */
-    public void printInvalidTaskError(Type type) {
+    public void printInvalidTaskError(TaskEnum type) {
         switch (type) {
         case TODO -> {
             System.out.print((Skeleton.LINE_BREAK));

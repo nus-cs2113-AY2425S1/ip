@@ -1,6 +1,5 @@
 package parser;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -61,7 +60,7 @@ public class Parser {
             return new TodoCommand(new Todo(input.substring(!input.contains(" ") ? -1
                 : input.indexOf(" ") + 1)));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.TODO));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.TODO));
         }
     }
 
@@ -74,10 +73,10 @@ public class Parser {
      */
     private static Command prepDeadline(String input) {
         try {
-            return new DeadlineCommand(new Deadlines(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1),
+            return new DeadlineCommand(new Deadline(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1),
                     LocalDate.parse(input.substring(input.indexOf("/by") + 4))));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.DEADLINE));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.DEADLINE));
         } catch (DateTimeParseException e) {
             return new InvalidCommand(() -> new Ui().printDateError());
         }
@@ -97,7 +96,7 @@ public class Parser {
                     LocalDate.parse(input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1)),
                     LocalDate.parse(input.substring(input.indexOf("/to") + 4))));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.EVENT));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.EVENT));
         } catch (DateTimeParseException e) {
             return new InvalidCommand(() -> new Ui().printDateError());
         }

@@ -34,6 +34,7 @@ public class Nateh {
                 /** catch block is empty as when the exception is thrown a message
                  will be printed based on which command was inputted incorrectly */
             } catch (IllegalCommandException e) {
+                e.runUiFunction();
             }
         }
     }

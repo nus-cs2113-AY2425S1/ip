@@ -1,18 +1,19 @@
 package tasks;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Deadline class inherits from {@code Task} and represents tasks with deadlines
  */
 public class Deadline extends Task {
-    private LocalDate deadline;
+    private final LocalDate deadline;
     /**
      * Default constructor for new Tasks
      * @param task the task description
      * @param deadline is the deadline of the task
      */
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
@@ -23,7 +24,7 @@ public class Deadline extends Task {
      * @param isDone the task status
      * @param deadline is the deadline of the task
      */
-    public Deadlines(String task, boolean isDone, LocalDate deadline) {
+    public Deadline(String task, boolean isDone, LocalDate deadline) {
         super(task, isDone);
         this.deadline = deadline;
     }

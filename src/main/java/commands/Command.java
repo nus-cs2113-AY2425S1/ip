@@ -1,8 +1,11 @@
 package commands;
 
+import java.io.IOException;
+
 import exceptions.IllegalCommandException;
 import tasks.TaskList;
 import ui.Ui;
+
 
 /**
  * Command class represents an abstract base class for all commands.
@@ -16,5 +19,5 @@ public abstract class Command {
      * @param ui the Ui object used for user interactions
      * @throws IllegalCommandException if the command cannot be executed
      */
-    public abstract void execute(TaskList taskList, Ui ui) throws IllegalCommandException;
+    public abstract void execute(TaskList taskList, Ui ui) throws IllegalCommandException, IOException;
 }
