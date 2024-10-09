@@ -1,9 +1,6 @@
 package bron.storage;
 
-import bron.task.Deadline;
-import bron.task.Event;
-import bron.task.Task;
-import bron.task.ToDo;
+import bron.task.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -16,29 +13,29 @@ public class FileStorage {
 
     public FileStorage() {
     }
-    public ArrayList<Task> load() {
-        ArrayList<Task> tasks = new ArrayList<>();
+
+    public TaskList load() {
+        TaskList taskList = new TaskList();
         Path path = Paths.get(FILE_PATH);
 
         if (!Files.exists(path)) {
             System.out.println("No existing task file found, starting with an empty task list.");
-            return tasks;
+            return taskList;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line);  // Convert file data into Task objects
+                Task task = parseTask(line);
                 if (task != null) {
-                    tasks.add(task);
+                    taskList.addTask(task);
                 }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks.");
-            e.printStackTrace();
         }
 
-        return tasks;  // Return the list of tasks
+        return taskList;
     }
 
     private Task parseTask(String line) {
@@ -46,7 +43,7 @@ public class FileStorage {
 
         if (parts.length < 3) {
             System.out.println("Error parsing line: " + line);
-            return null;  // Skip this line if it's malformed
+            return null;
         }
 
         String type = parts[0];
@@ -57,38 +54,45 @@ public class FileStorage {
         case "T":
             return new ToDo(description, isDone);
         case "D":
+            if (parts.length < 4) {
+                System.out.println("Error parsing Deadline task (too few parts): " + line);
+                return null;
+            }
             String by = parts[3];
             return new Deadline(description, by, isDone);
         case "E":
+            if (parts.length < 5) {
+                System.out.println("Error parsing Event task (too few parts): " + line);
+                return null;
+            }
             String from = parts[3];
             String to = parts[4];
             return new Event(description, from, to, isDone);
         default:
             System.out.println("Unknown task type: " + type);
-            return null;  // Handle unknown task types
+            return null;
         }
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList taskList) {
         Path directoryPath = Paths.get("./storage");
         try {
             if (!Files.exists(directoryPath)) {
-                Files.createDirectories(directoryPath);  // Create the storage directory if it doesn't exist
+                Files.createDirectories(directoryPath);
             }
         } catch (IOException e) {
             System.out.println("Failed to create directory for saving tasks.");
-            e.printStackTrace();
-            return; // Exit if directory creation fails
+            return;
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
 
-            for (Task task : tasks) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i);  // Access task using TaskList
                 writer.write(task.toSaveFormat() + System.lineSeparator());
             }
 
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks.");
-            e.printStackTrace();
         }
     }
 }

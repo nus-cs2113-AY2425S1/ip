@@ -1,20 +1,24 @@
-package bron;
+package bron.parser;
 
 import bron.command.Command;
 import bron.command.CommandHandler;
+import bron.storage.FileStorage;
 import bron.task.Task;
+import bron.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ChatBotManager {
+public class CommandProcessor {
 
     private CommandHandler commandHandler;
     private Scanner input;
+    private FileStorage storage;
 
-    public ChatBotManager(ArrayList<Task> tasks, int taskCount) {
-        this.commandHandler = new CommandHandler(tasks, taskCount);
+    public CommandProcessor(TaskList taskList, FileStorage storage) {
+        this.commandHandler = new CommandHandler(taskList, storage);
         this.input = new Scanner(System.in);
+        this.storage = storage;
     }
 
     public void start() {
