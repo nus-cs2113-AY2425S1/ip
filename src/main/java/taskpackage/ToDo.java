@@ -9,7 +9,7 @@ public class ToDo extends Task {
     // Constructor for creating a ToDo task
     public ToDo(String inputString, TaskList tasks, boolean constructorMessage) throws ToDoConstructorException {
         // Call the parent class (Task) constructor, removing the "todo" prefix from the input
-        super(inputString.replace("todo ", ""), tasks);
+        super(inputString, tasks);
         this.inputString = inputString;
         // If the task description is empty, throw a custom exception
         if (this.taskString.isEmpty()) {

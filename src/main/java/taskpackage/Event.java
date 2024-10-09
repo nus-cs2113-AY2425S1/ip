@@ -19,7 +19,7 @@ public class Event extends Task {
     // Constructor for creating an Event task
     public Event(String inputString, TaskList tasks, boolean constructorMessage) throws EventConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/from" keyword)
-        super(inputString.replace("event ", "").split(" /from ")[0], tasks);
+        super(inputString.split(" /from ")[0], tasks);
 
         this.inputString = inputString;
 

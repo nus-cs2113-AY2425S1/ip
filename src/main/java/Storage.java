@@ -56,25 +56,25 @@ public class Storage {
             ui.printMessage("ERROR READING ISDONE VALUE: " + inputLine);
             return;
         }
-        if (line.startsWith("todo ")) {
+        if (line.startsWith(CommandHandling.TODO_COMMAND)) {
             try {
-                new ToDo(line, taskList, false); // Create a new ToDo object
+                new ToDo(line.replace(CommandHandling.TODO_COMMAND, ""), tempTaskList, false); // Create a new ToDo object
             } catch (ToDoConstructorException e) {
                 // Handle custom ToDo exception
                 ui.printMessage("CORRUPTED: " + line);
                 taskList.deleteLatestTask();
             }
-        } else if (line.startsWith("deadline ")) {
+        } else if (line.startsWith(CommandHandling.DEADLINE_COMMAND)) {
             try {
-                new Deadline(line, taskList, false); // Create a new Deadline object
+                new Deadline(line.replace(CommandHandling.DEADLINE_COMMAND, ""), tempTaskList, false); // Create a new Deadline object
             } catch (DeadlineConstructorException e) {
                 // Handle custom Deadline exception
                 ui.printMessage("CORRUPTED: " + line);
                 taskList.deleteLatestTask();
             }
-        } else if (line.startsWith("event ")) {
+        } else if (line.startsWith(CommandHandling.EVENT_COMMAND)) {
             try {
-                new Event(line, taskList, false); // Create a new Event object
+                new Event(line.replace(CommandHandling.EVENT_COMMAND, ""), tempTaskList, false); // Create a new Event object
             } catch (EventConstructorException e) {
                 // Handle custom Event exception
                 ui.printMessage("CORRUPTED: " + line);
