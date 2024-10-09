@@ -6,6 +6,7 @@ import Ryan.utility.Ui;
 import Ryan.tasks.Task;
 
 import Ryan.exceptions.RyanException;
+import Ryan.exceptions.EmptyDescriptionException;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,9 @@ import java.util.ArrayList;
  * Command to find tasks based on a description.
  */
 public class FindCommand extends Command {
+
+    private static final String NO_TASK_FOUND_MESSAGE = "No tasks found with the given description.";
+
     private final String description;
 
     /**
@@ -33,7 +37,7 @@ public class FindCommand extends Command {
      */
     public void execute(TaskList taskList, Ui ui) throws RyanException {
         if (description.trim().isEmpty()) {
-            throw new RyanException("Find description cannot be empty.");
+            throw new EmptyDescriptionException();
         }
 
         ArrayList<Task> tasks = taskList.getTasks();
@@ -46,7 +50,7 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.showError("No tasks found with the given description.");
+            ui.showMessage(NO_TASK_FOUND_MESSAGE);
         } else {
             ui.showFoundTasks(matchingTasks);
         }

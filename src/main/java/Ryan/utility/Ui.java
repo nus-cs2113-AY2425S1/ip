@@ -49,6 +49,17 @@ public class Ui {
     }
 
     /**
+     * Displays a specified message.
+     *
+     * @param message The specified message to display.
+     */
+    public static void showMessage(String message) {
+        Ui.horizontalLine();
+        System.out.println(message);
+        Ui.horizontalLine();
+    }
+
+    /**
      * Shows a message when a task is added.
      *
      * @param task The task that was added.

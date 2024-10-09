@@ -6,6 +6,7 @@ import Ryan.utility.Ui;
 import Ryan.tasks.Task;
 
 import Ryan.exceptions.RyanException;
+import Ryan.exceptions.InvalidIndexException;
 
 /**
  * Command to delete a task from the task list.
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui) throws RyanException {
         if (!isValidIndex(index, tasks.size())) {
-            throw new RyanException("Invalid task number.");
+            throw new InvalidIndexException();
         }
 
         Task task = tasks.getTask(index);

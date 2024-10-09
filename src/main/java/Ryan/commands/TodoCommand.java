@@ -7,6 +7,7 @@ import Ryan.utility.TaskList;
 import Ryan.utility.Ui;
 
 import Ryan.exceptions.RyanException;
+import Ryan.exceptions.EmptyDescriptionException;
 
 /**
  * Command to add a Todo task.
@@ -26,7 +27,7 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui) throws RyanException {
         if (description.trim().isEmpty()) {
-            throw new RyanException("Todo task description cannot be empty.");
+            throw new EmptyDescriptionException();
         }
 
         Task task = new Todo(description);
