@@ -1,38 +1,15 @@
+import commands.*;
+import tasklist.TaskList;
+
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class InputParser {
-    private static final String[] TODO_REQUIRED_OPTIONS = {"desc"};
-    private static final String[] DEADLINE_REQUIRED_OPTIONS = {"desc", "by"};
-    private static final String[] EVENT_REQUIRED_OPTIONS = {"desc", "from", "to"};
 
-    private String[] splitCommand(String line) {
-        return line.split(" ", 2);
-    }
-
-    private HashMap<String, String> parseOptions(String line) {
-        if (!line.contains("/")) {
-            return new HashMap<>();
+    private String getCommand(String line) {
+        if (!line.contains(" ")){
+            return line;
         }
-        String[] parameters = line.split("/");
-        HashMap<String, String> options = new HashMap<>();
-        for (String parameter : parameters) {
-            if (parameter.isEmpty()) {
-                continue;
-            }
-            String[] parts = splitCommand(parameter);
-            options.put(parts[0], parts[1]);
-        }
-        return options;
-    }
-
-    private boolean doesOptionsMapContainNull(HashMap<String, String> options, String[] requiredOptions) {
-        for (String option : requiredOptions) {
-            if (!options.containsKey(option)) {
-                return true;
-            }
-        }
-        return false;
+        return line.substring(0, line.indexOf(" "));
     }
 
     /**
@@ -41,60 +18,42 @@ public class InputParser {
      * @param taskList The task list to perform command on
      */
     public void handleInput(String line, TaskList taskList) {
-        if (line.equals("bye")) {
+        line = line.trim();
+        if (line.isEmpty()){
             return;
         }
-        if (line.equals("list")) {
+
+        String command = getCommand(line);
+
+        switch (command) {
+        case "list":
             taskList.printTaskList();
-            return;
-        }
-
-        // Split the command into one part and the options into another
-        String[] parts = splitCommand(line);
-
-        // Every command other than list takes in at least one option
-        if (parts.length < 2) {
-            System.out.println("Insufficient arguments or Invalid command");
-            return;
-        }
-        HashMap<String, String> options = parseOptions(parts[1]);
-
-        switch (parts[0]) {
+            break;
+        case "bye":
+            break;
         case "mark":
-            taskList.attemptToMarkTask(parts[1]);
+            new MarkCommand().execute(taskList,line);
             break;
         case "unmark":
-            taskList.attemptToUnmarkTask(parts[1]);
+            new UnmarkCommand().execute(taskList,line);
             break;
         case "delete":
-            taskList.attemptToDelete(parts[1]);
+            new DeleteCommand().execute(taskList,line);
             break;
         case "find":
-            taskList.searchTasks(parts[1]);
+            new FindCommand().execute(taskList,line);
             break;
         case "todo":
-            if (doesOptionsMapContainNull(options, TODO_REQUIRED_OPTIONS)) {
-                System.out.println("Please provide required options: " + Arrays.toString(TODO_REQUIRED_OPTIONS));
-                break;
-            }
-            taskList.addTask(new Todo(options.get("desc")));
+            new TodoCommand().execute(taskList,line);
             break;
         case "deadline":
-            if (doesOptionsMapContainNull(options, DEADLINE_REQUIRED_OPTIONS)) {
-                System.out.println("Please provide required options: " + Arrays.toString(DEADLINE_REQUIRED_OPTIONS));
-                break;
-            }
-            taskList.addTask(new Deadline(options.get("desc"), options.get("by")));
+            new DeadlineCommand().execute(taskList,line);
             break;
         case "event":
-            if (doesOptionsMapContainNull(options, EVENT_REQUIRED_OPTIONS)) {
-                System.out.println("Please provide required options: " + Arrays.toString(EVENT_REQUIRED_OPTIONS));
-                break;
-            }
-            taskList.addTask(new Event(options.get("desc"), options.get("from"), options.get("to")));
+            new EventCommand().execute(taskList,line);
             break;
         default:
-            System.out.println("Invalid command");
+            System.out.println("Please input a valid command. You can refer to the docs for valid commands.");
             break;
         }
     }

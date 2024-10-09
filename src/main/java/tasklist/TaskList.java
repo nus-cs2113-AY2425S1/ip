@@ -1,3 +1,10 @@
+package tasklist;
+
+import tasklist.tasks.Deadline;
+import tasklist.tasks.Event;
+import tasklist.tasks.Task;
+import tasklist.tasks.Todo;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -79,52 +86,34 @@ public class TaskList {
     }
 
     /**
-     * Attempt to mark the task at a index specified in a string
-     * If the string is not a valid index, the task is not marked
-     * @param listIndex The string containing the index
+     * Mark the task at a index specified
+     * @param index The index of the task to be marked
      */
-    public void attemptToMarkTask(String listIndex) {
-        try {
-            int index = Integer.parseInt(listIndex);
-            list.get(index - 1).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            list.get(index - 1).printTask();
-        } catch (Exception e) {
-            System.out.println("Please use a valid index");
-        }
+    public void markTask(int index) {
+        list.get(index).markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        list.get(index).printTask();
     }
 
     /**
-     * Attempt to unmark the task at a index specified in a string
-     * If the string is not a valid index, the task is not unmarked
-     * @param listIndex The string containing the index
+     * Unmark the task at a index specified
+     * @param index The index of task to be unmarked
      */
-    public void attemptToUnmarkTask(String listIndex) {
-        try {
-            int index = Integer.parseInt(listIndex);
-            list.get(index - 1).markAsNotDone();
-            System.out.println("Nice! I've marked this task as not done:");
-            list.get(index - 1).printTask();
-        } catch (Exception e) {
-            System.out.println("Please use a valid index");
-        }
+    public void unmarkTask(int index) {
+        list.get(index).markAsNotDone();
+        System.out.println("Nice! I've marked this task as not done:");
+        list.get(index).printTask();
     }
 
     /**
-     * Attempt to delete the task at a index specified in a string
-     * If the string is not a valid index, the task is not deleted
-     * @param listIndex The string containing the index
+     * Delete the task at a index specified
+     * @param index The index of task to be deleted
      */
-    public void attemptToDelete(String listIndex) {
-        try {
-            int index = Integer.parseInt(listIndex);
-            Task temp = list.get(index - 1);
-            list.remove(index - 1);
-            System.out.println("Nice! I've deleted this task for you:");
-            temp.printTask();
-        } catch (Exception e) {
-            System.out.println("Please use a valid index");
-        }
+    public void deleteTask(int index) {
+        Task temp = list.get(index);
+        list.remove(index);
+        System.out.println("Nice! I've deleted this task for you:");
+        temp.printTask();
     }
 
     /**

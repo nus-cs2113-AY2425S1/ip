@@ -1,3 +1,5 @@
+package tasklist.tasks;
+
 public class Task {
     private boolean done;
     private final String taskInfo;

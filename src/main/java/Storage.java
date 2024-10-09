@@ -1,6 +1,10 @@
+import tasklist.tasks.Task;
+import tasklist.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -46,7 +50,8 @@ public class Storage {
 
     private String convertToSaveFormat(TaskList taskList) {
         StringBuilder toWrite = new StringBuilder();
-        for (Task task : taskList.getList()) {
+        ArrayList<Task> tasks = taskList.getList();
+        for (Task task : tasks) {
             toWrite.append(task.convertToSaveFormat()).append(System.lineSeparator());
         }
         return toWrite.toString();

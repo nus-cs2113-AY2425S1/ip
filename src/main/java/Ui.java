@@ -1,3 +1,5 @@
+import tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -20,11 +22,7 @@ public class Ui {
         do {
             inputLine = inputScanner.nextLine();
             printDivider();
-            try {
-                inputParser.handleInput(inputLine, taskList);
-            } catch (Exception e) {
-                System.out.println("Please enter valid commands");
-            }
+            inputParser.handleInput(inputLine, taskList);
             printDivider();
         } while (!inputLine.equals("bye"));
 

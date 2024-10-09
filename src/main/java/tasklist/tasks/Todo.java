@@ -1,3 +1,5 @@
+package tasklist.tasks;
+
 public class Todo extends Task {
     public Todo(String taskInfo) {
         super(taskInfo);
