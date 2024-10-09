@@ -1,6 +1,5 @@
 package parser;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -8,8 +7,22 @@ import commands.*;
 import tasks.*;
 import ui.Ui;
 
+/**
+ * The Parser class is responsible for parsing user input and returning the appropriate
+ * Command object based on the input. It contains static methods to handle specific
+ * command preparations such as tasks like ToDos, Deadlines, and Events.
+ */
 public class Parser {
-    public static Command parse(String input) throws DateTimeException {
+
+    /**
+     * Parses the user input and returns the appropriate Command object.
+     * The input is split into individual parts, and the first part (the command keyword)
+     * determines which Command subclass is returned.
+     *
+     * @param input the user input string to be parsed
+     * @return the corresponding Command object
+     */
+    public static Command parse(String input) {
         String[] splitInput = input.split(" ");
         switch (splitInput[0]) {
         case "list":
@@ -34,32 +47,56 @@ public class Parser {
             return new InvalidCommand(() -> new Ui().printInvalidCommandError());
         }
     }
+
+    /**
+     * Prepares and returns a TodoCommand object from the user input.
+     * It extracts the task description from the input and creates a Todo object.
+     *
+     * @param input the user input string for the "todo" command
+     * @return a TodoCommand object
+     */
     private static Command prepTodo(String input) {
         try {
             return new TodoCommand(new Todo(input.substring(!input.contains(" ") ? -1
                 : input.indexOf(" ") + 1)));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.TODO));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.TODO));
         }
     }
+
+    /**
+     * Prepares and returns a DeadlineCommand object from the user input.
+     * It extracts the task description and deadline from the input and creates a Deadlines object.
+     *
+     * @param input the user input string for the "deadline" command
+     * @return a DeadlineCommand object
+     */
     private static Command prepDeadline(String input) {
         try {
-            return new DeadlineCommand(new Deadlines(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1),
+            return new DeadlineCommand(new Deadline(input.substring(input.indexOf(" ") + 1, input.indexOf("/by") - 1),
                     LocalDate.parse(input.substring(input.indexOf("/by") + 4))));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.DEADLINE));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.DEADLINE));
         } catch (DateTimeParseException e) {
             return new InvalidCommand(() -> new Ui().printDateError());
         }
     }
 
+    /**
+     * Prepares and returns an EventCommand object from the user input.
+     * It extracts the event description, start time, and end time from the input
+     * and creates an Event object.
+     *
+     * @param input the user input string for the "event" command
+     * @return an EventCommand object
+     */
     private static Command prepEvent(String input) {
         try {
             return new EventCommand(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/from") - 1),
                     LocalDate.parse(input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1)),
                     LocalDate.parse(input.substring(input.indexOf("/to") + 4))));
         } catch (StringIndexOutOfBoundsException e) {
-            return new InvalidCommand(() -> new Ui().printInvalidTaskError(Ui.Type.EVENT));
+            return new InvalidCommand(() -> new Ui().printInvalidTaskError(TaskEnum.EVENT));
         } catch (DateTimeParseException e) {
             return new InvalidCommand(() -> new Ui().printDateError());
         }

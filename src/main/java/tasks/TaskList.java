@@ -2,6 +2,9 @@ package tasks;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList represents the way tasks are stored in the application
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
