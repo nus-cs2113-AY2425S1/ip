@@ -1,4 +1,4 @@
-package TheThinker.Tasks;
+package thethinker.tasks;
 
 public class Event extends Task{
 

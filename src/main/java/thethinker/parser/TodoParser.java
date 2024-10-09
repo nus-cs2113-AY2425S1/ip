@@ -1,8 +1,8 @@
-package TheThinker.Parser;
+package thethinker.parser;
 
-import TheThinker.Exceptions.FormattingException;
-import TheThinker.Tasks.Task;
-import TheThinker.Tasks.Todo;
+import thethinker.exceptions.FormattingException;
+import thethinker.tasks.Task;
+import thethinker.tasks.Todo;
 
 public class TodoParser extends UserInputParser{
 

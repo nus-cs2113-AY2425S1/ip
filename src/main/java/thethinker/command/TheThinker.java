@@ -1,8 +1,8 @@
-package TheThinker.Command;
+package thethinker.command;
 
-import TheThinker.File.FileLoader;
-import TheThinker.Ui.CommandLine;
-import TheThinker.Ui.UiControl;
+import thethinker.file.FileLoader;
+import thethinker.ui.CommandLine;
+import thethinker.ui.UiControl;
 import java.io.FileNotFoundException;
 
 /**

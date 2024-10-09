@@ -7,6 +7,7 @@ deadline get book /by 10 December 2002
 deadline get book /by 10 December 2002 , 6pm
 deadline get book /by 10 December 2002 , 6 pm
 get 10/12/2002
+get 10/12/2002 10/12/2002
 gEt 10/12/2002
 get book
 get             10/12/2002

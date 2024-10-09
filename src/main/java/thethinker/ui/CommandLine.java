@@ -1,10 +1,10 @@
-package TheThinker.Ui;
+package thethinker.ui;
 
-import TheThinker.Exceptions.FormattingException;
-import TheThinker.File.FileLoader;
-import TheThinker.File.NewFile;
-import TheThinker.Parser.*;
-import TheThinker.Tasks.TaskList;
+import thethinker.exceptions.FormattingException;
+import thethinker.file.FileLoader;
+import thethinker.file.NewFile;
+import thethinker.parser.*;
+import thethinker.tasks.TaskList;
 import java.io.IOException;
 
 public interface CommandLine {

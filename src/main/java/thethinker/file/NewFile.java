@@ -1,11 +1,11 @@
-package TheThinker.File;
+package thethinker.file;
 
-import TheThinker.Tasks.Deadline;
-import TheThinker.Tasks.Event;
-import TheThinker.Tasks.Task;
-import TheThinker.Tasks.TaskList;
-import TheThinker.Tasks.Todo;
-import TheThinker.Ui.UiControl;
+import thethinker.tasks.Deadline;
+import thethinker.tasks.Event;
+import thethinker.tasks.Task;
+import thethinker.tasks.TaskList;
+import thethinker.tasks.Todo;
+import thethinker.ui.UiControl;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -103,7 +103,6 @@ public class NewFile {
         StringBuilder TaskListString = new StringBuilder();
 
         for(Task task : TaskList.listOfTasks) {
-
             String taskInFileFormat = task.convertToFileFormat();
             TaskListString.append(taskInFileFormat).append("\n");
         }

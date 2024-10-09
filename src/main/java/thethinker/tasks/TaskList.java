@@ -1,6 +1,6 @@
-package TheThinker.Tasks;
+package thethinker.tasks;
 
-import TheThinker.Parser.DateParser;
+import thethinker.parser.DateParser;
 import java.util.ArrayList;
 
 public class TaskList {

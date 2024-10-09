@@ -1,4 +1,4 @@
-package TheThinker.Exceptions;
+package thethinker.exceptions;
 
 /**
  * This exception is thrown whenever there are formatting errors in the command given by the user

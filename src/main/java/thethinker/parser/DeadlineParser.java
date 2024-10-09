@@ -1,7 +1,7 @@
-package TheThinker.Parser;
+package thethinker.parser;
 
-import TheThinker.Exceptions.FormattingException;
-import TheThinker.Tasks.Deadline;
+import thethinker.exceptions.FormattingException;
+import thethinker.tasks.Deadline;
 
 public class DeadlineParser extends UserInputParser{
 

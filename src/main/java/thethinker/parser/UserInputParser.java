@@ -1,6 +1,6 @@
-package TheThinker.Parser;
+package thethinker.parser;
 
-import TheThinker.Exceptions.FormattingException;
+import thethinker.exceptions.FormattingException;
 import java.util.Scanner;
 
 /**

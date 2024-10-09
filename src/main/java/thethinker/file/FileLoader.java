@@ -1,7 +1,7 @@
-package TheThinker.File;
+package thethinker.file;
 
-import TheThinker.Parser.UserInputParser;
-import TheThinker.Ui.UiControl;
+import thethinker.parser.UserInputParser;
+import thethinker.ui.UiControl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

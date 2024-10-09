@@ -1,6 +1,6 @@
-package TheThinker.Ui;
+package thethinker.ui;
 
-import TheThinker.Command.TheThinker;
+import thethinker.command.TheThinker;
 
 public interface UiControl {
 

@@ -1,7 +1,7 @@
-package TheThinker.Parser;
+package thethinker.parser;
 
-import TheThinker.Exceptions.FormattingException;
-import TheThinker.Tasks.Event;
+import thethinker.exceptions.FormattingException;
+import thethinker.tasks.Event;
 
 public class EventParser extends UserInputParser{
 

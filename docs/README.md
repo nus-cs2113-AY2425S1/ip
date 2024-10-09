@@ -1,10 +1,10 @@
-# TheThinker User Guide
+# thethinker User Guide
 
 ![img.png](img.png)
 
 Welcome to my user guide !!!
 
-First , TheThinker is a task manager which allows you to add different task.
+First , thethinker is a task manager which allows you to add different task.
 Task includes Deadlines , Events and Todo via CLI . 
 
 Second, various editing features like mark , unmarking , deleting task are available.
@@ -302,5 +302,5 @@ ____________________________________________________________
 
 # The End
 
-Thank you for using TheThinker. You may check your tasks saved in the file you created during Initial Configuration 
+Thank you for using thethinker. You may check your tasks saved in the file you created during Initial Configuration 
 under `./Data/filename.txt`

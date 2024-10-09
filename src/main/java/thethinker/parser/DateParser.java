@@ -1,7 +1,7 @@
-package TheThinker.Parser;
+package thethinker.parser;
 
-import TheThinker.Exceptions.FormattingException;
-import TheThinker.Tasks.Task;
+import thethinker.exceptions.FormattingException;
+import thethinker.tasks.Task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
