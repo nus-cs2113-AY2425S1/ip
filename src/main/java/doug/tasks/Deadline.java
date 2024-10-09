@@ -38,7 +38,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overload method to return a custom string representing the task
+     * Returns a custom string representing the task
      *
      * @return String describing the task's details
      */
@@ -59,7 +59,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * To return a custom string to be written in save file
+     * Returns a custom string to be written in save file
      *
      * @return String describing the task's details in the proper format for save file
      */

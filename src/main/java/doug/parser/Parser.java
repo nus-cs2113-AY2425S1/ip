@@ -1,7 +1,9 @@
-package doug;
+package doug.parser;
 
-import doug.Commands.*;
+import doug.commands.*;
 import doug.Main.DougException;
+import doug.tasklist.TaskList;
+import doug.ui.UI;
 
 /**
  * Class that breaks down the input string from the user

@@ -54,7 +54,7 @@ public class Event extends Task{
     }
 
     /**
-     * Overload method to return a custom string representing the task
+     * Returns a custom string representing the task
      *
      * @return String describing the task's details
      */

@@ -1,6 +1,7 @@
-package doug;
+package doug.tasklist;
 
 import doug.Main.DougException;
+import doug.ui.UI;
 import doug.tasks.Task;
 
 import java.util.ArrayList;

@@ -1,16 +1,18 @@
 package doug.Main;
 
-import doug.Commands.Command;
-import doug.Parser;
-import doug.UI;
-import doug.TaskList;
-import doug.Storage;
+import doug.commands.Command;
+import doug.parser.Parser;
+import doug.ui.UI;
+import doug.tasklist.TaskList;
+import doug.storage.Storage;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
- * Class for the main chatbot Doug
+ * Main class for the chatbot Doug.
+ * Initializes Parser, UI, TaskList and Storage classes
+ * Takes in user inputs from the CLI
+ * Read and writes tasks to and from the save file
  */
 public class Doug {
     private static final String saveFilePath = "./data/tasks.txt";
@@ -61,6 +63,11 @@ public class Doug {
         ui.sayGoodbye();
     }
 
+    /**
+     * Starts the Chatbot
+     *
+     * @param args Command line arguments, which are not used
+     */
     public static void main(String[] args) {
         new Doug(saveFilePath).run();
     }

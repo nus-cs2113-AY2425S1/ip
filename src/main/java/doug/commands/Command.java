@@ -1,8 +1,8 @@
-package doug.Commands;
+package doug.commands;
 
-import doug.Storage;
-import doug.TaskList;
-import doug.UI;
+import doug.storage.Storage;
+import doug.tasklist.TaskList;
+import doug.ui.UI;
 import doug.tasks.Task;
 
 import java.io.IOException;
@@ -26,7 +26,8 @@ public class Command {
     }
 
     /**
-     * Overloaded method that executes the specific action of each inherited Command class
+     * Executes the specific action of each inherited Command class
+     * Is overloaded by the child Command classes
      *
      * @param tasks The object containing the ArrayList of tasks
      * @param ui The UI object

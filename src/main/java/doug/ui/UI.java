@@ -1,4 +1,4 @@
-package doug;
+package doug.ui;
 
 import java.util.Scanner;
 
@@ -131,7 +131,7 @@ public class UI {
     }
 
     /**
-     * Get the confused message string
+     * Returns the confused message string
      *
      * @return confused message string
      */
@@ -140,7 +140,7 @@ public class UI {
     }
 
     /**
-     * Get the missing index message string
+     * Returns the missing index message string
      *
      * @return missing index message string
      */

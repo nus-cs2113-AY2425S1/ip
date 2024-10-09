@@ -1,8 +1,8 @@
-package doug.Commands;
+package doug.commands;
 
-import doug.Storage;
-import doug.TaskList;
-import doug.UI;
+import doug.storage.Storage;
+import doug.tasklist.TaskList;
+import doug.ui.UI;
 import doug.tasks.Todo;
 
 /**

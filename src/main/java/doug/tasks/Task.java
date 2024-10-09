@@ -36,7 +36,7 @@ public class Task {
     }
 
     /**
-     * Overload method to return a custom string representing the task
+     * Returns a custom string representing the task
      * Is overriden by child classes to add task specific details
      *
      * @return String describing the task's details
@@ -46,7 +46,7 @@ public class Task {
     }
 
     /**
-     * To return a custom string to be written in save file
+     * Returns a custom string to be written in save file
      * Is overriden by child classes to add task specific details
      *
      * @return String describing the task's details in the proper format for save file
@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * Getter for the description variable
+     * Returns the description variable
      *
      * @return description variable of the task
      */
