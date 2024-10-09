@@ -1,24 +1,100 @@
-# Duke project template
+# Grok User Guide
+Grok is a desktop app for managing tasks and is optimized for use via the Command Line Interface.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+- [Quickstart](#QuickStart)
+- [Features](#Features)
+    - [Listing Tasks](#listing-tasks-list)
+    - [Adding a Todo](#adding-a-todo-todo)
+    - [Adding a Deadline](#adding-a-deadline-deadline)
+    - [Adding an Event](#adding-a-event-event)
+    - [Mark Done Task](#mark-done-task-mark)
+    - [Unmark Done Task](#unmark-done-task-unmark-)
+    - [Deleting Tasks](#deleting-tasks-delete-)
+    - [Finding Tasks](#finding-tasks-find)
+    - [Exiting the App](#exiting-the-app-bye-)
+- [Saving Data](#saving-data)
+- [Editing the Data File](#editing-the-data-file)
+- [Command Summary](#command-summary)
 
-## Setting up in Intellij
+## Quickstart
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+1. Ensure you have Java `17` or above installed in your Computer.
+2. Grab the latest `.jar` file from [here](https://github.com/naveen42x/ip/releases).
+3. Copy the file to the folder you want to use as the home folder for Grok.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Grok.jar command to run the application.
+5. Once you see the welcome message, you may begin entering commands. Refer to [features](#features) for full list of commands.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+
+> **Take Note:**  Command Style
+> - **Words in UPPER_CASE** are the parameters to be supplied by the user.  
+    e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
+> - **Parameters must be input in the specified order.**  
+    e.g. if the command specifies `/from START /to END`, `/to END /from START` will cause data inaccuracy.
+> - **Extraneous parameters** for commands that do not take in parameters will be ignored.  
+    e.g. if the command specifies `list 123`, it will be interpreted as `list`.
+
+### Listing Tasks: `list`
+Displays all the tasks currently in the list of tasks.   
+Format: `list`    
+Example: `list`
+
+### Adding a Todo: `todo`
+Adds a todo task into the list of tasks.  
+Format:  `todo DESCRIPTION`  
+Example: `todo read book`
+
+### Adding a Deadline: `deadline`
+Adds a deadline task into the list of tasks.  
+Format:  `deadline DESCRIPTION /by DEADLINE`  
+Example: `todo read book /by Tuesday`
+
+### Adding a Event: `event`
+Adds a event task into the list of tasks.
+Format:  `todo DESCRIPTION /from START /to END`  
+Example: `todo read book /from 6pm /to 8pm`
+
+### Mark Done Task: `mark`
+Using the task's index, marks a task as completed.
+Format: `mark INDEX`    
+Example: `mark 4`
+
+### Unmark Done Task: `unmark`
+Using the task's index, marks a task as incomplete.  
+Format: `unmark INDEX`    
+Example: `unmark 4`
+
+### Deleting Tasks: `delete`
+Using the task's index, delete a task from the list of tasks.  
+Format: `delete INDEX`    
+Example: `delete 1`
+
+### Finding Tasks: `find`
+Display all tasks that match a given keyword.  
+Format: `find KEYWORD`    
+Example: `find book`
+
+### Exiting the App: `bye`
+Exits the application.  
+Format: `bye`    
+Example: `bye`
+
+## Saving Data
+Task data is saved automatically to the hard disk when the application is exited. No manual saving is required.
+
+## Editing the Data File
+Task data is saved as a CSV file at the designated file path. Advanced users can update data directly by editing that file.
+
+## Command Summary
+
+| Command              | Description                                                       | Format                              | Example                          |
+|----------------------|-------------------------------------------------------------------|-------------------------------------|----------------------------------|
+| **List Tasks**        | Displays all the tasks in the list.                               | `list`                              | `list`                           |
+| **Add Todo**          | Adds a todo task.                                                 | `todo DESCRIPTION`                  | `todo read book`                 |
+| **Add Deadline**      | Adds a deadline task.                                             | `deadline DESCRIPTION /by DEADLINE` | `deadline read book /by Tuesday`|
+| **Add Event**         | Adds an event task.                                               | `event DESCRIPTION /from START /to END`| `event read book /from 6pm /to 8pm` |
+| **Mark Task as Done** | Marks a task as completed using its index.                        | `mark INDEX`                        | `mark 4`                         |
+| **Unmark Task**       | Marks a task as incomplete using its index.                       | `unmark INDEX`                      | `unmark 4`                       |
+| **Delete Task**       | Deletes a task using its index.                                   | `delete INDEX`                      | `delete 1`                       |
+| **Find Task**         | Displays tasks matching a keyword.                                | `find KEYWORD`                      | `find book`                  |
+| **Exit**              | Exits the application.                                            | `bye`                               | `bye`                            |
