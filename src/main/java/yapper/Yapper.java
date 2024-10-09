@@ -100,11 +100,11 @@ public class Yapper {
         System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
         TaskHandler taskHandler = InputFileHandler.loadTasksFromFile();
         if (taskHandler.isEmpty()) {
-            System.out.println(StringStorage.START_UP_MESSAGE);
+            System.out.println(StringStorage.START_UP_MESSAGE_IF_SAVE_FILE_NOT_FOUND);
             System.out.println(StringStorage.LINE_DIVIDER);
             System.out.println(StringStorage.HELP_MESSAGE);
         } else {
-            System.out.println("Let us resume where we left off, shall we?");
+            System.out.println(StringStorage.START_UP_MESSAGE_IF_SAVE_FILE_FOUND);
         }
 
         runMainLoop(taskHandler);
