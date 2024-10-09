@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import yapper.exceptions.YapperException;
 import yapper.tasks.Task;
+import yapper.tasks.TaskHandler;
 
 /**
  * File Data Saving Manager for Yapper.
@@ -25,16 +26,11 @@ public class OutputFileHandler {
     /**
      * Converts a list of tasks to strings and writes them to the file.
      *
-     * @param taskList the list of tasks to be saved
      * @throws YapperException if an error occurs during file operations
      */
-    public static void storeAllTasks(ArrayList<Task> taskList) throws YapperException {
+    public static void storeAllTasks(TaskHandler taskHandler) throws YapperException {
         try {
-            ArrayList<String> taskLines = new ArrayList<>();
-            for (Task task : taskList) {
-                taskLines.add(task.taskToString());
-            }
-            convertArrayListToFile(taskLines);
+            convertArrayListToFile(taskHandler.tasksToString());
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
