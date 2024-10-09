@@ -11,6 +11,19 @@ import java.util.ArrayList;
 public class Ui {
     private Scanner scanner;
 
+    private static final String GREETING_MESSAGE_1 = "Hello! I'm Ryan.";
+    private static final String GREETING_MESSAGE_2 = "What can I do for you?";
+    private static final String GOODBYE_MESSAGE = "Goodbye! Have a nice day :D";
+    private static final String ERROR_MESSAGE = "Error: ";
+    private static final String ADD_MESSAGE = "Got it. I've added this task:";
+    private static final String DELETE_MESSAGE = "Noted. I've removed this task:";
+    private static final String MARKED_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String UNMARKED_MESSAGE = "OK, I've marked this task as not done yet:";
+    private static final String TASKS_FOUND_MESSAGE = "Here are the matching tasks in your list:";
+    private static final String PRINT_LIST_MESSAGE = "Here are the tasks in your list:";
+    private static final String TOTAL_TASKS_MESSAGE_1 = "Now you have ";
+    private static final String TOTAL_TASKS_MESSAGE_2 = " tasks in the list.";
+
     /**
      * Constructs a new Ui object for interacting with the user.
      */
@@ -23,8 +36,8 @@ public class Ui {
      */
     public static void printGreeting() {
         Ui.horizontalLine();
-        System.out.println("Hello! I'm Ryan.");
-        System.out.println("What can I do for you?");
+        System.out.println(GREETING_MESSAGE_1);
+        System.out.println(GREETING_MESSAGE_2);
         Ui.horizontalLine();
     }
 
@@ -33,7 +46,7 @@ public class Ui {
      */
     public static void printGoodbye() {
         Ui.horizontalLine();
-        System.out.println("Goodbye! Have a great day.");
+        System.out.println(GOODBYE_MESSAGE);
         Ui.horizontalLine();
     }
 
@@ -44,7 +57,7 @@ public class Ui {
      */
     public static void showError(String message) {
         Ui.horizontalLine();
-        System.out.println("Error: " + message);
+        System.out.println(ERROR_MESSAGE + message);
         Ui.horizontalLine();
     }
 
@@ -67,9 +80,9 @@ public class Ui {
      */
     public static void showTaskAdded(Task task, int totalTasks) {
         Ui.horizontalLine();
-        System.out.println("Got it. I've added this task:");
+        System.out.println(ADD_MESSAGE);
         System.out.println("  " + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(TOTAL_TASKS_MESSAGE_1 + totalTasks + TOTAL_TASKS_MESSAGE_2);
         Ui.horizontalLine();
     }
 
@@ -81,9 +94,9 @@ public class Ui {
      */
     public static void showTaskDeleted(Task task, int totalTasks) {
         Ui.horizontalLine();
-        System.out.println("Noted. I've removed this task:");
+        System.out.println(DELETE_MESSAGE);
         System.out.println("  " + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(TOTAL_TASKS_MESSAGE_1 + totalTasks + TOTAL_TASKS_MESSAGE_2);
         Ui.horizontalLine();
     }
 
@@ -94,7 +107,7 @@ public class Ui {
      */
     public static void showTaskMarked(Task task) {
         Ui.horizontalLine();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(MARKED_MESSAGE);
         System.out.println("  " + task);
         Ui.horizontalLine();
     }
@@ -106,7 +119,7 @@ public class Ui {
      */
     public static void showTaskUnmarked(Task task) {
         Ui.horizontalLine();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(UNMARKED_MESSAGE);
         System.out.println("  " + task);
         Ui.horizontalLine();
     }
@@ -118,7 +131,7 @@ public class Ui {
      */
     public static void showFoundTasks(ArrayList<Task> tasks) {
         Ui.horizontalLine();
-        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(TASKS_FOUND_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
@@ -132,7 +145,7 @@ public class Ui {
      */
     public static void printTasks(ArrayList<Task> tasks) {
         Ui.horizontalLine();
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(PRINT_LIST_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
