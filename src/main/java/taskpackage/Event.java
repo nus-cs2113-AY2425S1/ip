@@ -10,11 +10,11 @@ import java.time.format.DateTimeParseException;
 // Event class, a child class of Task, represents a task with a specific start and end time
 public class Event extends Task {
 
-    // Variables to store the start and end times of the event
-    private final LocalDateTime fromDateTime;
-    private final LocalDateTime toDateTime;
+    private final LocalDateTime fromDateTime; // Stores the event start time
+    private final LocalDateTime toDateTime;   // Stores the event end time
+    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm"; // Format for date and time
+    private static final String EVENT_COMMAND = "event ";
 
-    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
     // Constructor for creating an Event task
     public Event(String inputString, TaskList tasks, boolean constructorMessage) throws EventConstructorException {
@@ -22,6 +22,7 @@ public class Event extends Task {
         super(inputString.split(" /from ")[0], tasks);
 
         this.inputString = inputString;
+        this.storageString = EVENT_COMMAND + inputString;
 
         // Validate if both "/from" and "/to" keywords are present, and the task description is not empty
         if (!(inputString.contains(" /from ") & inputString.contains(" /to ")) || this.taskString.isEmpty()) {

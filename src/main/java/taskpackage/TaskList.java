@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     public String dataFileEntry(int index) {
-        return (this.tasks.get(index).inputString + " /isdone " + this.tasks.get(index).isDone + "\n");
+        return (this.tasks.get(index).storageString + " /isdone " + this.tasks.get(index).isDone + "\n");
     }
 
     // Static method to mark a task as done by index

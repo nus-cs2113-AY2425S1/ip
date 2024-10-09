@@ -11,8 +11,14 @@ public class Task {
     public String taskString; // String to hold the task description
     public boolean isDone = false; // Boolean to track if the task is marked as done
 
-    // Constructor Function: initializes a Task object and adds it to the tasks array
-    public Task(String inputString, TaskList tasks){
+    public String storageString;
+    /**
+     * Constructor for creating a general task.
+     *
+     * @param inputString The description of the task.
+     * @param tasks       The task list to which the task is added.
+     */
+    public Task(String inputString, TaskList tasks) {
         this.taskString = inputString; // Set the task description
         tasks.addTask(this); // Add the current task to the array
     }

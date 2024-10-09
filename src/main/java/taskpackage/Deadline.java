@@ -9,17 +9,21 @@ import java.time.format.DateTimeParseException;
 // Deadline class, a child class of Task, represents a task with a specific deadline
 public class Deadline extends Task {
 
-    // Variable to store the deadline date/time string
-    private final LocalDateTime deadlineDateTime;
 
-    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
+    private final LocalDateTime deadlineDateTime; // Stores the deadline date/time
+    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm"; // Format for date and time
+    private static final String DEADLINE_COMMAND = "deadline ";
+
 
     // Constructor for creating a Deadline task
     public Deadline(String inputString, TaskList tasks, boolean constructorMessage) throws DeadlineConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/by" keyword)
         super(inputString.split(" /by ")[0], tasks);
         this.inputString = inputString;
-        // Check if the "/by" keyword is missing or if the task description is empty
+
+        this.storageString = DEADLINE_COMMAND + inputString;
+
+        // Check if the "/by" keyword is present and if the task description is valid
         if (!(inputString.contains(" /by ")) || this.taskString.isEmpty()) {
             throw new DeadlineConstructorException(inputString); // Throw custom exception if validation fails
         }
