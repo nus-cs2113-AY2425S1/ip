@@ -1,8 +1,8 @@
-package commands;
+package nateh.commands;
 
-import tasks.TaskList;
-import ui.Skeleton;
-import ui.Ui;
+import nateh.tasks.TaskList;
+import nateh.ui.Skeleton;
+import nateh.ui.Ui;
 
 /**
  * Represents the command to list out all tasks in the TaskList

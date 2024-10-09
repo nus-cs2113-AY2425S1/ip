@@ -1,4 +1,4 @@
-package exceptions;
+package nateh.exceptions;
 /**
  * IllegalCommandException is thrown when commands are not input by users correctly
  */

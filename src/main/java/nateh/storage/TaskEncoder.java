@@ -1,4 +1,4 @@
-package storage;
+package nateh.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,9 +8,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.Task;
-import tasks.TaskList;
-import ui.Skeleton;
+import nateh.tasks.Task;
+import nateh.tasks.TaskList;
+import nateh.ui.Skeleton;
 
 
 /**

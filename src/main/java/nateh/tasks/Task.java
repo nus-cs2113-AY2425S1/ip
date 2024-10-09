@@ -1,4 +1,4 @@
-package tasks;
+package nateh.tasks;
 
 /**
  * Task class acts as the base class for its child classes.

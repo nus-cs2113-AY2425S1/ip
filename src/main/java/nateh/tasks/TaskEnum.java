@@ -1,4 +1,4 @@
-package tasks;
+package nateh.tasks;
 /**
  * Represents the three task classes
  */

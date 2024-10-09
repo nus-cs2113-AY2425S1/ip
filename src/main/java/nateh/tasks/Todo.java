@@ -1,4 +1,4 @@
-package tasks;
+package nateh.tasks;
 
 /**
  * Todo class acts as the basic class for tasks with

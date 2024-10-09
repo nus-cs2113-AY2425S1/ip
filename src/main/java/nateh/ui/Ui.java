@@ -1,8 +1,8 @@
-package ui;
+package nateh.ui;
 
 import java.util.Scanner;
 
-import tasks.*;
+import nateh.tasks.*;
 
 /**
  * The Ui class is responsible for handling user interaction,
@@ -35,7 +35,7 @@ public class Ui {
      */
     public void printWelcomeMessage() {
         System.out.print(Skeleton.LINE_BREAK);
-        System.out.println("Hello! I'm Nateh.Nateh\nWhat can I do for you?");
+        System.out.println("Hello! I'm Nateh\nWhat can I do for you?");
         System.out.println(Skeleton.SKELETON);
         System.out.print(Skeleton.LINE_BREAK);
     }
@@ -139,6 +139,7 @@ public class Ui {
     public void printDeleteError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
+        System.out.println("format: delete <number of the task>");
         System.out.print(Skeleton.LINE_BREAK);
     }
 
@@ -173,6 +174,7 @@ public class Ui {
         System.out.println("Searching for tasks with specific date: search /d <date>");
         System.out.println("Searching for tasks before: search /b <date>");
         System.out.println("Searching for tasks after: search /a <date>");
+        System.out.println("Searching for tasks containing the term: search /c <search term>");
         System.out.print(Skeleton.LINE_BREAK);
     }
 }

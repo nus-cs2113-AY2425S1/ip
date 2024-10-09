@@ -1,11 +1,11 @@
-package parser;
+package nateh.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import commands.*;
-import tasks.*;
-import ui.Ui;
+import nateh.commands.*;
+import nateh.tasks.*;
+import nateh.ui.Ui;
 
 /**
  * The Parser class is responsible for parsing user input and returning the appropriate
@@ -40,7 +40,7 @@ public class Parser {
         case "event":
             return prepEvent(input);
         case "delete":
-            return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
+            return prepDelete(splitInput);
         case "search":
             return prepSearch(splitInput, input);
         default:
@@ -125,6 +125,13 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(splitInput[1]) - 1);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
             return new InvalidCommand(() -> new Ui().printUnmarkError(e));
+        }
+    }
+    private static Command prepDelete(String[] splitInput) {
+        try {
+            return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return new InvalidCommand(() -> new Ui().printDeleteError());
         }
     }
 }

@@ -1,10 +1,10 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import exceptions.IllegalCommandException;
-import tasks.TaskList;
-import ui.Ui;
+import nateh.exceptions.IllegalCommandException;
+import nateh.tasks.TaskList;
+import nateh.ui.Ui;
 
 
 /**

@@ -1,12 +1,12 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import storage.TaskEncoder;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Skeleton;
-import ui.Ui;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.Task;
+import nateh.tasks.TaskList;
+import nateh.ui.Skeleton;
+import nateh.ui.Ui;
 
 /**
  * Class represents the command where a task is deleted from the TaskList

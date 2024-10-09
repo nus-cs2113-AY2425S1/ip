@@ -1,11 +1,11 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import storage.TaskEncoder;
-import tasks.Deadline;
-import tasks.TaskList;
-import ui.Ui;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.Deadline;
+import nateh.tasks.TaskList;
+import nateh.ui.Ui;
 
 /**
  * Class represents the command that adds a deadline task to the {@code TaskList}

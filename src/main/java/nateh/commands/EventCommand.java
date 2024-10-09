@@ -1,11 +1,11 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import storage.TaskEncoder;
-import tasks.Event;
-import tasks.TaskList;
-import ui.Ui;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.Event;
+import nateh.tasks.TaskList;
+import nateh.ui.Ui;
 
 /**
  * Class represents the command that adds an event task to the {@code TaskList}

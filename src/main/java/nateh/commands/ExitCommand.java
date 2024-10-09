@@ -1,12 +1,12 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import exceptions.IllegalCommandException;
-import storage.TaskEncoder;
-import tasks.TaskList;
-import ui.Skeleton;
-import ui.Ui;
+import nateh.exceptions.IllegalCommandException;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.TaskList;
+import nateh.ui.Skeleton;
+import nateh.ui.Ui;
 
 /**
  * Represents the command to exit the program

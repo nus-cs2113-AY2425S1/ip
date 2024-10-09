@@ -1,13 +1,15 @@
+package nateh;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-import commands.Command;
-import exceptions.IllegalCommandException;
-import parser.Parser;
-import storage.TaskDecoder;
-import storage.TaskEncoder;
-import tasks.TaskList;
-import ui.Ui;
+import nateh.commands.Command;
+import nateh.exceptions.IllegalCommandException;
+import nateh.parser.Parser;
+import nateh.storage.TaskDecoder;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.TaskList;
+import nateh.ui.Ui;
 
 /**
  * The {@code Nateh} class represents the main driver for the application.

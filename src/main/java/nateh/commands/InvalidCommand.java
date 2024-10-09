@@ -1,8 +1,8 @@
-package commands;
+package nateh.commands;
 
-import exceptions.IllegalCommandException;
-import tasks.TaskList;
-import ui.Ui;
+import nateh.exceptions.IllegalCommandException;
+import nateh.tasks.TaskList;
+import nateh.ui.Ui;
 
 /**
  * InvalidCommand Object is responsible for

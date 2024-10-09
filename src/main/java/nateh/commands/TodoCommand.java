@@ -1,11 +1,11 @@
-package commands;
+package nateh.commands;
 
 import java.io.IOException;
 
-import storage.TaskEncoder;
-import tasks.TaskList;
-import tasks.Todo;
-import ui.Ui;
+import nateh.storage.TaskEncoder;
+import nateh.tasks.TaskList;
+import nateh.tasks.Todo;
+import nateh.ui.Ui;
 
 /**
  * Class represents the command that adds a todo task to the {@code TaskList}

@@ -1,4 +1,4 @@
-package tasks;
+package nateh.tasks;
 
 import java.util.ArrayList;
 

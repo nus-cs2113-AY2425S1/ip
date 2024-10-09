@@ -1,4 +1,4 @@
-package storage;
+package nateh.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.*;
+import nateh.tasks.*;
 
 /**
  * TaskDecoder class handles decoding information from

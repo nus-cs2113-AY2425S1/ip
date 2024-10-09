@@ -1,4 +1,4 @@
-package ui;
+package nateh.ui;
 
 /**
  * Skeleton class is a class for constants used in the {@code Ui} class
