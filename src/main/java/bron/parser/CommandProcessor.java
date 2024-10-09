@@ -3,29 +3,28 @@ package bron.parser;
 import bron.command.Command;
 import bron.command.CommandHandler;
 import bron.storage.FileStorage;
-import bron.task.Task;
 import bron.task.TaskList;
+import bron.ui.TextUI;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class CommandProcessor {
 
     private CommandHandler commandHandler;
-    private Scanner input;
+    private TextUI textUI;
     private FileStorage storage;
 
     public CommandProcessor(TaskList taskList, FileStorage storage) {
         this.commandHandler = new CommandHandler(taskList, storage);
-        this.input = new Scanner(System.in);
+        this.textUI = new TextUI();
         this.storage = storage;
     }
 
     public void start() {
+        TextUI.displayIntro();
         boolean isReadingInput = true;
 
         while (isReadingInput) {
-            String line = input.nextLine().trim();
+            String line = textUI.readCommand();
             String[] parts = line.split(" ");
             String commandStr = parts[0].toLowerCase();
 
@@ -36,6 +35,7 @@ public class CommandProcessor {
                 isReadingInput = false;
             }
         }
+        textUI.close();
     }
 
     private Command parseCommand(String commandStr) {

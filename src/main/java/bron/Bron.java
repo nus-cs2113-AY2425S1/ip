@@ -12,8 +12,6 @@ public class Bron {
     private FileStorage storage;
 
     public static void main(String[] args) {
-        TextUI.displayIntro();
-
         FileStorage storage = new FileStorage();
         TaskList taskList = storage.load();
 
