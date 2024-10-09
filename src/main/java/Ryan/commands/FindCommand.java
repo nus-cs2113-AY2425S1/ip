@@ -50,9 +50,9 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.showMessage(NO_TASK_FOUND_MESSAGE);
+            Ui.showMessage(NO_TASK_FOUND_MESSAGE);
         } else {
-            ui.showFoundTasks(matchingTasks);
+            Ui.showFoundTasks(matchingTasks);
         }
     }
 }

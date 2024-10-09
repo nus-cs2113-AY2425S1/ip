@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
 
         Task task = tasks.getTask(index);
         task.mark();
-        ui.showTaskMarked(task);
+        Ui.showTaskMarked(task);
     }
 
     /**

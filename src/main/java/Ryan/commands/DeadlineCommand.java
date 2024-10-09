@@ -52,7 +52,7 @@ public class DeadlineCommand extends Command {
         try {
             Task task = new Deadline(description, by);
             tasks.addTask(task);
-            ui.showTaskAdded(task, tasks.size());
+            Ui.showTaskAdded(task, tasks.size());
         } catch (Exception e) {
             throw new InvalidDateFormatException();
         }

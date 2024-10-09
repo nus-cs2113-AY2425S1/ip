@@ -17,7 +17,7 @@ public class Ryan {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
 
-        TaskList taskList = null;
+        TaskList taskList;
         try {
             taskList = new TaskList(Storage.loadTasks());
         } catch (RyanException e) {

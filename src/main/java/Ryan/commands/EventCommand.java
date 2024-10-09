@@ -60,7 +60,7 @@ public class EventCommand extends Command {
         try {
             Task task = new Event(description, from, to);
             tasks.addTask(task);
-            ui.showTaskAdded(task, tasks.size());
+            Ui.showTaskAdded(task, tasks.size());
         } catch (Exception e) {
             throw new InvalidDateFormatException();
         }

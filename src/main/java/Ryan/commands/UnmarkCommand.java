@@ -32,7 +32,7 @@ public class UnmarkCommand extends Command {
 
         Task task = tasks.getTask(index);
         task.unmark();
-        ui.showTaskUnmarked(task);
+        Ui.showTaskUnmarked(task);
     }
 
     /**

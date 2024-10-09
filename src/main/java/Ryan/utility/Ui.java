@@ -143,7 +143,6 @@ public class Ui {
      * Displays a horizontal line for formatting output.
      */
     public static void horizontalLine() {
-        System.out.println("_________________________________________________________");
+        System.out.println("_".repeat(100));
     }
-
 }

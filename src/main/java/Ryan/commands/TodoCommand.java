@@ -32,6 +32,6 @@ public class TodoCommand extends Command {
 
         Task task = new Todo(description);
         tasks.addTask(task);
-        ui.showTaskAdded(task, tasks.size());
+        Ui.showTaskAdded(task, tasks.size());
     }
 }
