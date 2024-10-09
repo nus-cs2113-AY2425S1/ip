@@ -22,6 +22,7 @@ public class ByeCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         storage.saveTasks(taskList);
+        System.out.println(StringDesign.CHARLIE + "We saved your file in: data/tasks.txt");
         System.out.println(StringDesign.CHARLIE + StringDesign.FAREWELL);
     }
 

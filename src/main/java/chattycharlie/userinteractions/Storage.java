@@ -137,7 +137,6 @@ public class Storage {
                 }
             }
             writer.close();
-            System.out.println(StringDesign.CHARLIE + "We saved your file in: " + filePath);
         } catch (IOException e) {
             System.out.println("An error has occurred when saving tasks: " + e.getMessage());
         }
