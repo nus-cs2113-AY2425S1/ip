@@ -18,7 +18,7 @@ This User Guide(UG) is also found at this link : [Quinn User Guide](https://kabo
 ## Quick Start
 
 1. Ensure you have Java 17 installed on your computer.
-2. Download the latest `Quinn.jar` file from [here](https://github.com/kaboomzxc/ip/releases/tag/A-Release).
+2. Download the latest `Quinn.jar` file from [here](https://github.com/kaboomzxc/ip/releases).
 3. Copy the file to your desired folder.
 4. Open a command prompt or terminal, navigate to the folder containing Quinn.jar, and run: **java -jar Quinn.jar**
 
