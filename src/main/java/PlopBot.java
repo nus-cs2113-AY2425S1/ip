@@ -379,21 +379,30 @@ public class PlopBot {
     }
 
 
-    private static void find(String details) {
-        if (details == null) {
+    private static void find(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            printError("Please provide a keyword to search for.");
             return;
         }
-        for (int i = 0; i < tasks.size(); i++) {
-            Task t = i.
-            if (details.toLowerCase() == i.getName().toLowerCase()) {
 
+        keyword = keyword.toLowerCase().trim();
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getName().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
             }
         }
 
         System.out.println(ECHO_LINE);
-        System.out.println("    Found the following tasks in your list: ");
-
-
+        if (matchingTasks.isEmpty()) {
+            System.out.println("    No matching tasks found.");
+        } else {
+            System.out.println("    Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + matchingTasks.get(i).toString());
+            }
+        }
         System.out.println(ECHO_LINE);
     }
 
@@ -401,8 +410,10 @@ public class PlopBot {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
+
             if (Files.exists(Paths.get(DATA_FILE))) {
                 List<String> lines = Files.readAllLines(Paths.get(DATA_FILE));
+
                 for (String line : lines) {
                     try {
                         String[] parts = line.split("\\|");
@@ -436,13 +447,15 @@ public class PlopBot {
                             task.toggleStatus();
                         }
                         loadedTasks.add(task);
-                    } catch (DateTimeParseException | IndexOutOfBoundsException e) {
+                    }
+                    catch (DateTimeParseException | IndexOutOfBoundsException e) {
                         System.out.println("    Error parsing task: " + line);
                         // Continue to next line if there's an error with the current one
                     }
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             printError("    An error occurred while loading tasks: " + e.getMessage());
         }
         return loadedTasks;
@@ -475,7 +488,8 @@ public class PlopBot {
                 writer.newLine();
             }
             writer.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             printError("An error occurred while saving tasks: " + e.getMessage());
         }
     }
