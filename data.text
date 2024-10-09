@@ -1,1 +1,3 @@
-todo go to class /isdone truetodo not be late for class /isdone false
+todo go to class /isdone true
+todo say hi /isdone false
+todo leave class /isdone false
