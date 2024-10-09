@@ -1,11 +1,7 @@
 package yapper.instructions;
 
-import java.io.File;
-import java.io.IOException;
-
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.io.FileHandler;
 import yapper.io.OutputFileHandler;
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
@@ -111,14 +107,14 @@ public class InstructionHandler {
             throws YapperException {
         try {
             ExceptionHandler.checkIfTaskOrdinalIsOutOfRange(taskHandler.getCurrTaskTotal(), taskOrdinal);
-            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal); // need for methods later
+            Task task = taskHandler.getTaskAtOrdinal(taskOrdinal);
             ExceptionHandler.checkIfDoneStatusNeedsChanging(task.isDone(), isDone);
 
             taskHandler.updateTaskStatus(task, isDone);
 
             OutputStringHandler.printTaskStatus(task, isDone);
 
-            OutputFileHandler.amendTaskStatus(task, taskOrdinal); // uses taskToString after doneStatus is changed
+            OutputFileHandler.amendTaskStatus(task, taskOrdinal);
         } catch (YapperException e) {
             throw new YapperException(
                     "YapperException has occurred when trying to mark/unmark a task. \n"
@@ -134,13 +130,6 @@ public class InstructionHandler {
      */
     public static void handleInstruction(TaskHandler taskHandler, Instruction instruction) throws YapperException {
         try {
-            if (!FileHandler.saveFolderExists() || !FileHandler.saveFileExists()) {
-                File file = new File(StringStorage.SAVE_FILE_PATH);
-                FileHandler.initSaveFolder(file, false);
-                FileHandler.initSaveFile(file, false);
-                OutputFileHandler.storeAllTasks(taskHandler);
-            }
-
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
             case LIST:
@@ -188,8 +177,6 @@ public class InstructionHandler {
             default:
                 throw new YapperException("Yapper doesn't know how to handle this instruction. ");
             }
-        } catch (IOException e) {
-            System.out.println("IOException occurred: " + e.getMessage());
         } catch (YapperException e) {
             throw new YapperException("when executing instruction. \n" + e.getMessage());
         }
