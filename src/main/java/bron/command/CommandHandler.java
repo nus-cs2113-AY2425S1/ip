@@ -3,7 +3,7 @@ package bron.command;
 import bron.exception.*;
 import bron.task.*;
 import bron.storage.FileStorage;
-
+import bron.ui.TextUI;
 
 public class CommandHandler {
     private TaskList taskList;
@@ -56,7 +56,7 @@ public class CommandHandler {
     }
 
     private void printByeMessage() {
-        System.out.println("Catch you on the flip cuh");
+        TextUI.showByeMessage();
     }
 
     private int parseIndex(String line) {

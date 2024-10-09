@@ -4,7 +4,6 @@ import bron.parser.CommandProcessor;
 import bron.storage.FileStorage;
 import bron.task.TaskList;
 import bron.ui.TextUI;
-import bron.exception.BronException;
 
 public class Bron {
     private TextUI ui;
