@@ -1,9 +1,12 @@
 package atom.task;
 
+/**
+ * Contains attributes and methods specific to an <code>event</code> task.
+ */
 public class Event extends Task{
 
-    protected String startDate;
-    protected String endDate;
+    private String startDate;
+    private String endDate;
 
     public Event(String item, String startDate, String endDate) {
         super(item);
@@ -11,16 +14,25 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getEndDate() {
         return endDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String setTaskType() {
         return "E";
