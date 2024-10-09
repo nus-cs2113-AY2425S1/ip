@@ -44,8 +44,11 @@ public class OutputManager {
         System.out.println(Constants.INDENTATION + Messages.MESSAGE_DELETED + Constants.INDENTATION + taskInfo);
     }
 
-    public static void printEchoInput(String input) {
-        System.out.print(Constants.LINE_BREAK + Constants.INDENTATION + input + Constants.LINE_BREAK);
+    public static void printFoundTasks(ArrayList<Task> searchResults, int numberOfResults) {
+        System.out.println(Constants.INDENTATION + Messages.MESSAGE_FOUND);
+        for (int i = 0; i < numberOfResults; i++) {
+            System.out.println(Constants.INDENTATION + Integer.toString(i + 1) + ". " + searchResults.get(i).toString());
+        }
     }
 
     public static void printListCommands() {
