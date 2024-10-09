@@ -1,5 +1,5 @@
-package CustomExceptions; // Package for custom exceptions
-import TaskChildren.Task; // Import Task class to manage task deletion
+package customexceptions; // Package for custom exceptions
+import taskpackage.Task; // Import Task class to manage task deletion
 
 // Custom exception class for handling errors in Deadline task construction
 public class DeadlineConstructorException extends Exception {
@@ -8,9 +8,6 @@ public class DeadlineConstructorException extends Exception {
     public DeadlineConstructorException(String message) {
         // Call the superclass (Exception) constructor with a detailed error message
         super("DEADLINE CONSTRUCTOR EXCEPTION: " + errorMessage(message));
-
-        // If an error occurs, the latest task added is deleted to prevent invalid tasks
-        Task.deleteLatestTask();
     }
 
     // Private helper method to interpret the error message

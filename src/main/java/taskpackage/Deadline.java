@@ -1,6 +1,6 @@
-package TaskChildren; // Package for Task-related classes
+package taskpackage; // Package for Task-related classes
 
-import CustomExceptions.DeadlineConstructorException; // Import custom exception for Deadline tasks
+import customexceptions.DeadlineConstructorException; // Import custom exception for Deadline tasks
 
 // Deadline class, a child class of Task, represents a task with a specific deadline
 public class Deadline extends Task {
@@ -10,9 +10,9 @@ public class Deadline extends Task {
 
 
     // Constructor for creating a Deadline task
-    public Deadline(String inputString, boolean constructorMessage) throws DeadlineConstructorException {
+    public Deadline(String inputString, TaskList tasks, boolean constructorMessage) throws DeadlineConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/by" keyword)
-        super(inputString.replace("deadline ", "").split(" /by ")[0]);
+        super(inputString.replace("deadline ", "").split(" /by ")[0], tasks);
         this.inputString = inputString;
         // Check if the "/by" keyword is missing or if the task description is empty
         if (!(inputString.contains(" /by ")) || this.taskString.isEmpty()) {

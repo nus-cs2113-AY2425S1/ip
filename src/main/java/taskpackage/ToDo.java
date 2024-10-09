@@ -1,15 +1,15 @@
-package TaskChildren; // Package for Task-related classes
+package taskpackage; // Package for Task-related classes
 
-import CustomExceptions.ToDoConstructorException; // Import custom exception for ToDo tasks
+import customexceptions.ToDoConstructorException; // Import custom exception for ToDo tasks
 
 // ToDo class, a child class of Task, represents a simple to-do task
 public class ToDo extends Task {
 
 
     // Constructor for creating a ToDo task
-    public ToDo(String inputString, boolean constructorMessage) throws ToDoConstructorException {
+    public ToDo(String inputString, TaskList tasks, boolean constructorMessage) throws ToDoConstructorException {
         // Call the parent class (Task) constructor, removing the "todo" prefix from the input
-        super(inputString.replace("todo ", ""));
+        super(inputString.replace("todo ", ""), tasks);
         this.inputString = inputString;
         // If the task description is empty, throw a custom exception
         if (this.taskString.isEmpty()) {

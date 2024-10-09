@@ -1,5 +1,5 @@
-package CustomExceptions; // Package for custom exceptions
-import TaskChildren.Task; // Import Task class to manage task deletion
+package customexceptions; // Package for custom exceptions
+import taskpackage.Task; // Import Task class to manage task deletion
 
 // Custom exception class for handling errors in ToDo task construction
 public class ToDoConstructorException extends Exception {
@@ -9,8 +9,6 @@ public class ToDoConstructorException extends Exception {
         // Call the superclass (Exception) constructor with a detailed error message
         super("TODO CONSTRUCTOR EXCEPTION: " + errorMessage(message));
 
-        // If an error occurs, the latest task added is deleted to prevent invalid tasks
-        Task.deleteLatestTask();
     }
 
     // Private helper method to interpret the error message

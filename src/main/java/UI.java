@@ -29,8 +29,14 @@ public class UI {
         scanner = new Scanner(System.in); // Initialize the scanner for reading user input
     }
 
+    // Function to read user input
     public String readUserInput() {
         return scanner.nextLine(); // Read user input
+    }
+
+    // Function to print out any messages
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     // Utility function to print a separator line for clean output formatting

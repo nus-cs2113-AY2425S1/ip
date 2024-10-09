@@ -1,6 +1,6 @@
-package TaskChildren; // Package for Task-related classes
+package taskpackage; // Package for Task-related classes
 
-import CustomExceptions.EventConstructorException; // Import custom exception for Event tasks
+import customexceptions.EventConstructorException; // Import custom exception for Event tasks
 
 // Event class, a child class of Task, represents a task with a specific start and end time
 public class Event extends Task {
@@ -10,9 +10,9 @@ public class Event extends Task {
     private String toString;
 
     // Constructor for creating an Event task
-    public Event(String inputString, boolean constructorMessage) throws EventConstructorException {
+    public Event(String inputString, TaskList tasks, boolean constructorMessage) throws EventConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/from" keyword)
-        super(inputString.replace("event ", "").split(" /from ")[0]);
+        super(inputString.replace("event ", "").split(" /from ")[0], tasks);
 
         this.inputString = inputString;
 
