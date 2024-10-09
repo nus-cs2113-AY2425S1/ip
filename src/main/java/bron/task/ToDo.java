@@ -17,7 +17,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toSaveFormat() {
-        return "T" + super.toSaveFormat();
+    protected String getTaskType() {
+        return "T";  // Task type for ToDo
     }
 }
