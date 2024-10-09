@@ -1,4 +1,4 @@
-package XiaoMe.task;
+package xiaome.task;
 
 /**
  * Represents a task with a description and a completion status.

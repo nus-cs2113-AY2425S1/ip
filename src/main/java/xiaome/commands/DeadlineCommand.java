@@ -1,9 +1,9 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
-import XiaoMe.Storage;
-import XiaoMe.task.Deadline;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
+import xiaome.Storage;
+import xiaome.task.Deadline;
 
 /**
  * Represents a command that adds a new deadline task to the task list.

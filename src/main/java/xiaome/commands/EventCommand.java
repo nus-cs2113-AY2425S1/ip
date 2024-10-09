@@ -1,9 +1,9 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
-import XiaoMe.Storage;
-import XiaoMe.task.Event;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
+import xiaome.Storage;
+import xiaome.task.Event;
 
 /**
  * Represents a command that adds an event task to the task list.
@@ -48,7 +48,8 @@ public class EventCommand extends Command {
                 throw new IllegalArgumentException();
             }
 
-            tasks.addTask(new Event(eventWords[0], eventWords[1].replace("from ", "").trim(), eventWords[2].replace("to ", "").trim())); // add task to storage
+            tasks.addTask(new Event(eventWords[0], eventWords[1].replace("from ", "").trim(),
+                    eventWords[2].replace("to ", "").trim())); // add task to storage
 
             Storage.saveFile(tasks.getTasks());
 

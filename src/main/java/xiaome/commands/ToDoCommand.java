@@ -1,9 +1,9 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
-import XiaoMe.Storage;
-import XiaoMe.task.Todo;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
+import xiaome.Storage;
+import xiaome.task.Todo;
 
 /**
  * Represents a command that adds a new Todo task to the list.

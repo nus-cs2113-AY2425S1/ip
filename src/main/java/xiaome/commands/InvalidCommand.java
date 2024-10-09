@@ -1,6 +1,6 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
+import xiaome.TaskList;
 
 /**
  * Represents a command that is executed when the user input is invalid.

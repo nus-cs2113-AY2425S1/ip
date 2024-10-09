@@ -1,4 +1,4 @@
-package XiaoMe.task;
+package xiaome.task;
 
 /**
  * Represents a Todo task, which is a type of Task.

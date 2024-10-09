@@ -1,4 +1,4 @@
-package XiaoMe;
+package xiaome;
 
 import java.util.Scanner;
 

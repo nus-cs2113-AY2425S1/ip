@@ -1,9 +1,9 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
-import XiaoMe.Storage;
-import XiaoMe.task.Task;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
+import xiaome.Storage;
+import xiaome.task.Task;
 
 /**
  * Represents a command that deletes a task from the task list.

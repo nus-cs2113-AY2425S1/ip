@@ -1,6 +1,15 @@
-package XiaoMe;
+package xiaome;
 
-import XiaoMe.commands.*;
+import xiaome.commands.ByeCommand;
+import xiaome.commands.Command;
+import xiaome.commands.DeadlineCommand;
+import xiaome.commands.DeleteCommand;
+import xiaome.commands.EventCommand;
+import xiaome.commands.FindCommand;
+import xiaome.commands.InvalidCommand;
+import xiaome.commands.ListCommand;
+import xiaome.commands.MarkCommand;
+import xiaome.commands.ToDoCommand;
 
 import java.util.Objects;
 
@@ -30,21 +39,23 @@ public class Parser {
         String[] words = userInput.trim().split(" ");
         String first = words[0];
 
-        if (Objects.equals(first, "todo")) {
+        switch(first) {
+        case "todo":
             return new ToDoCommand(userInput);
-        } else if (Objects.equals(first, "deadline")) {
+        case "deadline":
             return new DeadlineCommand(userInput);
-        } else if (Objects.equals(first, "event")) {
+        case "event":
             return new EventCommand(userInput);
-        } else if (Objects.equals(first, "mark") || Objects.equals(first, "unmark")) {
+        case "mark":
+            //Fallthrough
+        case "unmark":
             return new MarkCommand(userInput);
-        } else if (Objects.equals(first, "find")) {
+        case "find":
             return new FindCommand(userInput);
-        } else if (Objects.equals(first, "delete")) {
+        case "delete":
             return new DeleteCommand(userInput);
+        default:
+            return new InvalidCommand();
         }
-
-        return new InvalidCommand();
     }
-
 }

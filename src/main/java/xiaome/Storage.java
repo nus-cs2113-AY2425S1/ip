@@ -1,9 +1,9 @@
-package XiaoMe;
+package xiaome;
 
-import XiaoMe.task.Deadline;
-import XiaoMe.task.Event;
-import XiaoMe.task.Task;
-import XiaoMe.task.Todo;
+import xiaome.task.Deadline;
+import xiaome.task.Event;
+import xiaome.task.Task;
+import xiaome.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

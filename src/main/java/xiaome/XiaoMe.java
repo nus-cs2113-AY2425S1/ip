@@ -1,9 +1,6 @@
-package XiaoMe;
+package xiaome;
 
-import XiaoMe.commands.Command;
-import XiaoMe.task.Task;
-
-import java.util.ArrayList;
+import xiaome.commands.Command;
 
 /**
  * The main class for the XiaoMe task management application.

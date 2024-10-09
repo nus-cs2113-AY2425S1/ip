@@ -1,8 +1,8 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
-import XiaoMe.Storage;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
+import xiaome.Storage;
 
 import java.util.Objects;
 
@@ -55,8 +55,6 @@ public class MarkCommand extends Command {
                 return "\tOK, I've marked this task as not done yet:\n"
                         + "\t\t" + tasks.getTask(index);
             }
-
-
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new XiaoMeException("\tHEY mark/unmark should be followed by a valid integer");
         } catch (NullPointerException | IndexOutOfBoundsException e) {

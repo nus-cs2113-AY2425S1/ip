@@ -1,7 +1,7 @@
-package XiaoMe.commands;
+package xiaome.commands;
 
-import XiaoMe.TaskList;
-import XiaoMe.XiaoMeException;
+import xiaome.TaskList;
+import xiaome.XiaoMeException;
 
 public class Command {
     boolean isExit;

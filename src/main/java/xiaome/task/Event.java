@@ -1,4 +1,4 @@
-package XiaoMe.task;
+package xiaome.task;
 
 /**
  * Represents an event task with a description, start time, and end time.
@@ -46,10 +46,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString()
+                + " (from: " + start + " to: " + end + ")";
     }
 
     public String saveString() {
-        return "E|" + getStatusIcon() + "|" + getDescription() + "|" + getStart() + "|" + getEnd() + "\n";
+        return "E|" + getStatusIcon() + "|" + getDescription()
+                + "|" + getStart() + "|" + getEnd() + "\n";
     }
 }
