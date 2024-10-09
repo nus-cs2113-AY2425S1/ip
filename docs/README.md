@@ -6,7 +6,7 @@ If you can type fast, Chatty Charlie can track your task faster than traditional
 
 ## Quick Start
 1. Ensure you have **Java 17** or above installed on your computer.
-2. Download the latest `.jar` file from [here](https://github.com/Bev-low/ip/releases.
+2. Download the latest `.jar` file from [here](https://github.com/Bev-low/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for Chatty Charlie.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the command `java -jar ip.jar` to run the application.
 
