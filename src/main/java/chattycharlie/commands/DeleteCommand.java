@@ -21,7 +21,11 @@ public class DeleteCommand implements Command {
      */
     public DeleteCommand(String line) throws CharlieExceptions {
         String toDeleteIndex = line.substring(7).trim();
-        this.toDeleteIndex = Integer.parseInt(toDeleteIndex) - 1;
+        try {
+            this.toDeleteIndex = Integer.parseInt(toDeleteIndex) - 1;
+        } catch (NumberFormatException e) {
+            throw CharlieExceptions.invalidFormat("delete INDEX");
+        }
     }
 
     /**
@@ -33,7 +37,7 @@ public class DeleteCommand implements Command {
      * @param storage the storage system to save changes made to the task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         taskList.deleteTask(toDeleteIndex);
     }
 }

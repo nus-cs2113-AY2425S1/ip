@@ -59,8 +59,12 @@ public class TaskList {
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
-    public Task getTask(int index) {
-        return this.tasks.get(index);
+    public Task getTask(int index) throws CharlieExceptions {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        } else {
+            throw CharlieExceptions.indexOutOfBounds(index);
+        }
     }
 
     /**
@@ -78,14 +82,14 @@ public class TaskList {
      *
      * @param index The index of the task to be marked
      */
-    public void markTask(int index) {
+    public void markTask(int index) throws CharlieExceptions {
         Ui ui = new Ui();
         if (index >= 0 && index < size) {
             tasks.get(index).markTask();
             int remainingTask = countUnmarkedTasks();
             ui.displayMarkingText("yay, 1 down! ", remainingTask);
         } else {
-            ui.displayError("Invalid task number.");
+            throw CharlieExceptions.indexOutOfBounds(index);
         }
     }
 
@@ -95,14 +99,14 @@ public class TaskList {
      *
      * @param index The index of the task to be unmarked
      */
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws CharlieExceptions {
         Ui ui = new Ui();
         if (index >= 0 && index < size) {
             tasks.get(index).unmarkTask();
             int remainingTask = countUnmarkedTasks();
             ui.displayMarkingText("Hmmm, not quite done yet, ", remainingTask);
         } else {
-            ui.displayError("Invalid task number.");
+            throw CharlieExceptions.indexOutOfBounds(index);
         }
     }
 
@@ -113,7 +117,7 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws CharlieExceptions {
         Ui ui = new Ui();
         if (index >= 0 && index < size) {
             int remainingTask;
@@ -126,6 +130,8 @@ public class TaskList {
             ui.displayTask(tasks.get(index));
             tasks.remove(index);
             size--;
+        } else {
+            throw CharlieExceptions.indexOutOfBounds(index);
         }
     }
 

@@ -40,19 +40,29 @@ public class Storage {
         File file = new File(filePath);
 
         try {
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                String taskText = scanner.nextLine();
-                Task task = parseTask(taskText);
-                if (task != null) {
-                    list.addTask(task);
-                }
+            File directory = new File("data");
+            if (directory != null && !directory.exists()) {
+                directory.mkdir();
             }
-            scanner.close();
-            System.out.println(StringDesign.CHARLIE + "Task have been loaded from: " + filePath);
-        } catch (FileNotFoundException e) {
-            System.out.println("Oh first time here? Welcome to a life of Productivity, lets start!");
+
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("Oh first time here? Welcome to a life of Productivity, let's start!");
+            } else {
+                Scanner scanner = new Scanner(file);
+
+                while (scanner.hasNextLine()) {
+                    String taskText = scanner.nextLine();
+                    Task task = parseTask(taskText);
+                    if (task != null) {
+                        list.addTask(task);
+                    }
+                }
+                scanner.close();
+                System.out.println(StringDesign.CHARLIE + "Task have been loaded from: " + filePath);
+            }
+        } catch (IOException e) {
+            throw new CharlieExceptions("Error loading or creating file: " + e.getMessage());
         }
 
         return list;
@@ -65,7 +75,7 @@ public class Storage {
      * @return the corresponding <code>Task</code> object, or <code>null</code> if the task cannot be parsed.
      * @throws IllegalArgumentException if the task type is unknown.
      */
-    public Task parseTask(String taskText) {
+    public Task parseTask(String taskText) throws CharlieExceptions {
         taskText = taskText.trim(); //trim away the formatting
         char taskType = taskText.charAt(1); //get the commandType
         boolean isMarked = taskText.charAt(4) == 'X'; //get status for marked
@@ -118,7 +128,7 @@ public class Storage {
      *
      * @param list the <code>TaskList</code> containing tasks to be saved.
      */
-    public void saveTasks(TaskList list) {
+    public void saveTasks(TaskList list) throws CharlieExceptions {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (int i = 0; i < list.getSize(); i++) {

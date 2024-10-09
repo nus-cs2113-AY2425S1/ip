@@ -18,7 +18,8 @@ public class ChattyCharlie {
 
     /**
      * Constructs a <code>ChattyCharlie</code> object and initializes its user interface,
-     * storage, and task list. Attempts to load tasks from the specified file path.
+     * storage, and task list. Attempts to load tasks from the specified file path,
+     * if there is no file, it creates a new directory and then the file.
      *
      * @param filePath The path of the file where tasks are saved and loaded from.
      */

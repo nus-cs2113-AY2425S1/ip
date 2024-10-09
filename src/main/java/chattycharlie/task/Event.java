@@ -1,5 +1,6 @@
 package chattycharlie.task;
 
+import chattycharlie.CharlieExceptions;
 import chattycharlie.commands.CommandType;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,14 +23,30 @@ public class Event extends Task {
      * @param start the start date and time in <code>yyyy-MM-dd HH:mm</code> format.
      * @param end the end date and time in <code>yyyy-MM-dd HH:mm</code> format.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws CharlieExceptions {
         super(description, CommandType.EVENT);
-        String[] startParts = start.split(" ");
-        String[] endParts = end.split(" ");
-        this.startDate = LocalDate.parse(startParts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.startTime = LocalTime.parse(startParts[1], DateTimeFormatter.ofPattern("HH:mm"));
-        this.endDate = LocalDate.parse(endParts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.endTime = LocalTime.parse(endParts[1], DateTimeFormatter.ofPattern("HH:mm"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        try {
+            String[] startParts = start.split(" ");
+            String[] endParts = end.split(" ");
+
+            if (startParts.length != 2 || endParts.length != 2) {
+                throw CharlieExceptions.invalidFormat("Invalid event format. Expected format: 'yyyy-MM-dd HH:mm'");
+            }
+
+            if (!startParts[1].matches("\\d{2}:\\d{2}") || !endParts[1].matches("\\d{2}:\\d{2}")) {
+                throw CharlieExceptions.invalidFormat("HH:mm (e.g., 14:00)");
+            }
+
+            this.startDate = LocalDate.parse(startParts[0], dateFormatter);
+            this.startTime = LocalTime.parse(startParts[1], timeFormatter);
+            this.endDate = LocalDate.parse(endParts[0], dateFormatter);
+            this.endTime = LocalTime.parse(endParts[1], timeFormatter);
+        } catch (CharlieExceptions e) {
+            throw CharlieExceptions.invalidFormat("event DESCRIPTION from START_DATE START_TIME " +
+                    "to END_DATE END_TIME");
+        }
     }
 
     /**

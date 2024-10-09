@@ -1,7 +1,9 @@
 package chattycharlie.task;
 
+import chattycharlie.CharlieExceptions;
 import chattycharlie.commands.CommandType;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -9,7 +11,8 @@ import java.time.format.DateTimeFormatter;
  * A <code>Deadline</code> task has a description and a date by which it must be completed.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDate byDate;
+    protected LocalTime byTime;
 
     /**
      * Constructs a <code>Deadline</code> task with the specified description and due date.
@@ -17,9 +20,26 @@ public class Deadline extends Task {
      * @param description the description of the deadline task.
      * @param by the due date for the task in <code>yyyy-MM-dd</code> format.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws CharlieExceptions {
         super(description, CommandType.DEADLINE);
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        try {
+            String[] byParts = by.split(" ");
+
+            if (byParts.length != 2) {
+                throw CharlieExceptions.invalidFormat("deadline DESCRIPTION by DATE TIME"); // Validation for format
+            }
+
+            if (!byParts[1].matches("\\d{2}:\\d{2}")) {
+                throw CharlieExceptions.invalidFormat("Time format should be HH:mm (e.g., 14:00)");
+            }
+
+            this.byDate = LocalDate.parse(byParts[0], dateFormatter);
+            this.byTime = LocalTime.parse(byParts[1], timeFormatter);
+        } catch (CharlieExceptions e) {
+            throw CharlieExceptions.invalidFormat("Invalid deadline format. Expected format: 'yyyy-MM-dd HH:mm'");
+        }
     }
 
     /**
@@ -27,8 +47,8 @@ public class Deadline extends Task {
      *
      * @return the due date as a <code>LocalDate</code>.
      */
-    public LocalDate getBy() {
-        return by;
+    public LocalDate getByDate() {
+        return byDate;
     }
 
     /**
@@ -39,7 +59,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                + " " + byTime + ")";
     }
 
     /**
@@ -49,6 +70,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "[D]" + super.toSaveFormat() + " (by: " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
+        return "[D]" + super.toSaveFormat() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
+                " " + byTime + ")";
     }
 }

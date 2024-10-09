@@ -1,6 +1,9 @@
 package chattycharlie;
 
 import chattycharlie.commands.CommandType;
+import chattycharlie.userinteractions.Storage;
+
+import java.io.IOException;
 
 /**
  * Represents all the exceptions used in ChattyCharlie task management
@@ -33,7 +36,8 @@ public class CharlieExceptions extends Exception{
      * @return a <code>CharlieExceptions</code> instance with a specific error message.
      */
     public static CharlieExceptions missingDeadline() {
-        return new CharlieExceptions("When is this due?");
+        return new CharlieExceptions("Missing deadline, please retype with deadline in " +
+                "format: by YYYY-MM-DD HH:MM.");
     }
 
     /**
@@ -42,7 +46,13 @@ public class CharlieExceptions extends Exception{
      * @return a <code>CharlieExceptions</code> instance with a specific error message.
      */
     public static CharlieExceptions missingTimes() {
-        return new CharlieExceptions("Your event is missing or incomplete!");
+        return new CharlieExceptions("Missing times, please retype with the " +
+                " format: from YYYY-MM-DD HH:MM to YYYY-MM-DD HH:MM");
+    }
+
+    public static CharlieExceptions missingDates() {
+        return new CharlieExceptions("Missing Dates, please retype with the " +
+                " format: from YYYY-MM-DD HH:MM to YYYY-MM-DD HH:MM");
     }
 
     /**
@@ -52,5 +62,13 @@ public class CharlieExceptions extends Exception{
      */
     public static CharlieExceptions cannotIdentifyCommandType() {
         return new CharlieExceptions("Cannot identify command type.");
+    }
+
+    public static CharlieExceptions indexOutOfBounds(int index) {
+        return new CharlieExceptions("Index " + (index + 1) + " does not exist, please try again.");
+    }
+
+    public static CharlieExceptions invalidFormat(String line) {
+        return new CharlieExceptions("Wrong Format, retry with this: " + line);
     }
 }

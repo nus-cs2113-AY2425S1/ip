@@ -1,5 +1,6 @@
 package chattycharlie.commands;
 
+import chattycharlie.CharlieExceptions;
 import chattycharlie.userinteractions.Storage;
 import chattycharlie.TaskList;
 import chattycharlie.userinteractions.Ui;
@@ -16,11 +17,15 @@ public class UnmarkCommand implements Command {
      * Extracts the task index that needs to be unmarked as incomplete.
      *
      * @param line the input line containing the command and task index to unmark.
-     * @throws NumberFormatException if the index provided is not a valid integer.
+     * @throws CharlieExceptions if the index provided is not a valid integer.
      */
-    public UnmarkCommand(String line) {
+    public UnmarkCommand(String line) throws CharlieExceptions {
         String toUnmarkIndex = line.substring(6).trim();
-        this.toUnmarkIndex = Integer.parseInt(toUnmarkIndex) - 1;
+        try {
+            this.toUnmarkIndex = Integer.parseInt(toUnmarkIndex) - 1;
+        } catch (NumberFormatException e) {
+            throw CharlieExceptions.invalidFormat("unmark INDEX");
+        }
     }
 
     /**
@@ -32,7 +37,7 @@ public class UnmarkCommand implements Command {
      * @param storage the storage system to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         taskList.unmarkTask(toUnmarkIndex);
         ui.displayTask(taskList.getTask(toUnmarkIndex));
     }

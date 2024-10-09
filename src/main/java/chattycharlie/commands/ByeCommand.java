@@ -1,5 +1,6 @@
 package chattycharlie.commands;
 
+import chattycharlie.CharlieExceptions;
 import chattycharlie.userinteractions.Storage;
 import chattycharlie.TaskList;
 import chattycharlie.userinteractions.StringDesign;
@@ -19,7 +20,7 @@ public class ByeCommand implements Command {
      * @param storage the storage system used to save tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         storage.saveTasks(taskList);
         System.out.println(StringDesign.CHARLIE + StringDesign.FAREWELL);
     }

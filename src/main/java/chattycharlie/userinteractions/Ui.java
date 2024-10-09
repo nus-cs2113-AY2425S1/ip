@@ -123,4 +123,8 @@ public class Ui {
     public void displaySearchList() {
         System.out.println("Tasks found:");
     }
+
+    public void displayText(String line) {
+        System.out.println(StringDesign.SPACE + line + System.lineSeparator() + StringDesign.LINE);
+    }
 }

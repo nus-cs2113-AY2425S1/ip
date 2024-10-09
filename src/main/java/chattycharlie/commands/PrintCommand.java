@@ -23,11 +23,15 @@ public class PrintCommand implements Command{
      * Parses the input to extract the date to filter tasks by.
      *
      * @param line the input line containing the command and the date to filter tasks.
-     * @throws DateTimeParseException if the provided date is not in the correct format.
+     * @throws CharlieExceptions if the provided date is not in the correct format.
      */
-    public PrintCommand(String line) {
+    public PrintCommand(String line) throws CharlieExceptions {
         String timeText = line.substring(6).trim();
-        this.time = LocalDate.parse(timeText, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        try {
+            this.time = LocalDate.parse(timeText, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            throw CharlieExceptions.invalidFormat("print YYYY-MM-DD");
+        }
     }
 
     /**
@@ -50,7 +54,7 @@ public class PrintCommand implements Command{
             switch (command) {
             case DEADLINE:
                 Deadline deadlineTask = (Deadline) task;
-                if(time.equals(deadlineTask.getBy())) {
+                if(time.equals(deadlineTask.getByDate())) {
                     ui.displayTaskInList(deadlineTask, count);
                     count++;
                 }

@@ -21,31 +21,29 @@ public class EventCommand implements Command{
      * Parses the input to extract the task description, start time, and end time.
      *
      * @param line the input line containing the command and event task details.
-     * @throws CharlieExceptions if the description or event times are missing or incomplete.
+     * @throws CharlieExceptions if the description or dates or times are missing/
      */
     public EventCommand(String line) throws CharlieExceptions {
         String[] eventParts = line.substring(5).trim().split("from");
 
-        if (eventParts[0].isEmpty()) { //no description
+        if (eventParts[0].isEmpty()) {
             throw CharlieExceptions.missingDescription(CommandType.EVENT);
-        } else if (eventParts.length < 2) { //no from
-            throw CharlieExceptions.missingTimes();
         } else {
             description = eventParts[0].trim();
+        }
+
+        if (eventParts.length < 2) {
+            throw CharlieExceptions.missingDates();
         }
 
         String[] eventTimes = eventParts[1].trim().split(" to ");
 
         if (eventTimes.length < 2) {
-            throw CharlieExceptions.missingTimes(); //change this to no end date
+            throw CharlieExceptions.missingTimes();
         }
 
-        if (eventTimes[0].isEmpty() || eventTimes[1].isEmpty()) {
-            throw CharlieExceptions.missingTimes();
-        } else {
-            from = eventTimes[0].trim();
-            to = eventTimes[1].trim();
-        }
+        from = eventTimes[0].trim();
+        to = eventTimes[1].trim();
     }
 
     /**
@@ -57,7 +55,7 @@ public class EventCommand implements Command{
      * @param storage the storage system to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         Task eventTask = new Event(description, from, to);
         taskList.addTask(eventTask);
         ui.displayTaskAdded(eventTask);

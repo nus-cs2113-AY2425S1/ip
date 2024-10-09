@@ -20,17 +20,18 @@ public class DeadlineCommand implements Command {
      * Parses the input to extract the task description and deadline time.
      *
      * @param line the input line containing the command and task details.
-     * @throws CharlieExceptions if the description or deadline time is missing.
+     * @throws CharlieExceptions if the description or deadline is missing or invalid format.
      */
     public DeadlineCommand(String line) throws CharlieExceptions {
         String[] deadlineParts = line.substring(8).trim().split(" by ");
+
         if (deadlineParts[0].isEmpty()) {
             throw CharlieExceptions.missingDescription(CommandType.DEADLINE);
-        } else if (deadlineParts.length < 2) {
+        } else if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
             throw CharlieExceptions.missingDeadline();
-        } else {
-            this.description = deadlineParts[0].trim();
         }
+
+        this.description = deadlineParts[0].trim();
         this.by = deadlineParts[1].trim();
     }
 
@@ -43,7 +44,7 @@ public class DeadlineCommand implements Command {
      * @param storage the storage system to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
         Task deadlineTask = new Deadline(description, by);
         taskList.addTask(deadlineTask);
         ui.displayTaskAdded(deadlineTask);
