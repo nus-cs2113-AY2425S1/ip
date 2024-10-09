@@ -9,16 +9,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles reading and writing task data from and to a file.
+ */
 public class Storage {
 
     private final String dataFilePath;
     private final UI ui;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param dataFilePath Path to the file for storing task data.
+     * @param ui           The user interface to display messages.
+     */
     public Storage(String dataFilePath, UI ui) {
         this.dataFilePath = dataFilePath;
         this.ui = ui;
     }
 
+    /**
+     * Reads task data from the file and returns a TaskList.
+     *
+     * @return A TaskList containing the tasks from the file.
+     */
     public TaskList readData() {
 
         TaskList tempTaskList = new TaskList();
@@ -44,6 +58,12 @@ public class Storage {
         return tempTaskList;
     }
 
+    /**
+     * Handles each line of the data file and adds the corresponding task to the TaskList.
+     *
+     * @param inputLine The line from the data file.
+     * @param taskList  The TaskList to which the task will be added.
+     */
     private void handleDataLine(String inputLine, TaskList taskList) {
         String[] lineSegments = inputLine.split(" /isdone ");
         String line = lineSegments[0];
@@ -60,7 +80,6 @@ public class Storage {
             try {
                 new ToDo(line.replace(CommandHandling.TODO_COMMAND, ""), taskList, false); // Create a new ToDo object
             } catch (ToDoConstructorException e) {
-                // Handle custom ToDo exception
                 ui.printMessage("CORRUPTED: " + line);
                 taskList.deleteLatestTask();
             }
@@ -68,7 +87,6 @@ public class Storage {
             try {
                 new Deadline(line.replace(CommandHandling.DEADLINE_COMMAND, ""), taskList, false); // Create a new Deadline object
             } catch (DeadlineConstructorException e) {
-                // Handle custom Deadline exception
                 ui.printMessage("CORRUPTED: " + line);
                 taskList.deleteLatestTask();
             }
@@ -76,7 +94,6 @@ public class Storage {
             try {
                 new Event(line.replace(CommandHandling.EVENT_COMMAND, ""), taskList, false); // Create a new Event object
             } catch (EventConstructorException e) {
-                // Handle custom Event exception
                 ui.printMessage("CORRUPTED: " + line);
                 taskList.deleteLatestTask();
             }
@@ -89,6 +106,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the task data to the file.
+     *
+     * @param taskList The TaskList to write to the file.
+     */
     public void writeDate(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(dataFilePath);

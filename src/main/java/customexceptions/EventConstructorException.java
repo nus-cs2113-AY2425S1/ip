@@ -3,48 +3,49 @@ package customexceptions; // Package for custom exceptions
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-// Custom exception class for handling errors in Event task construction
+/**
+ * Custom exception class for handling errors in Event task construction.
+ */
 public class EventConstructorException extends Exception {
 
-    // Constructor that takes an error message as input
+    /**
+     * Constructor that takes an error message as input and generates a custom exception for Event tasks.
+     *
+     * @param message The error message for the exception.
+     */
     public EventConstructorException(String message) {
-        // Call the superclass (Exception) constructor with a detailed error message
-        super("EVENT CONSTRUCTOR EXCEPTION: " + errorMessage(message));
-
+        super("EVENT CONSTRUCTOR EXCEPTION: " + errorMessage(message)); // Call superclass constructor
     }
 
-    // Private helper method to interpret the error message
-    // It checks for specific missing components in the event command
+    /**
+     * Private helper method to interpret and identify specific errors in the event command.
+     *
+     * @param message The input message that caused the error.
+     * @return The interpreted error message.
+     */
     private static String errorMessage(String message) {
-        // Check if the "/from" and "/to" keywords are missing, which are needed for event tasks
         if (!(message.contains(" /from ") || message.contains(" /to "))) {
-            return "MISSING FROM/TO COMMANDS"; // Return specific error if either "/from" or "/to" is missing
+            return "MISSING FROM/TO COMMANDS"; // Error if "/from" or "/to" is missing
         }
 
-        // Split the task input string into task description and the time period starting with "/from"
         String[] taskStringBreakdown = message.replace("event ", "").split(" /from ");
-
-        // Check if the task description before "/from" is empty
         if (taskStringBreakdown[0].isEmpty()) {
-            return "MISSING TASK STATEMENT"; // Return specific error if no task description is provided
+            return "MISSING TASK STATEMENT"; // Error if task description is missing
         }
 
-        // Further split the time period into "from" and "to" parts
         String[] fromToStringBreakdown = taskStringBreakdown[1].split(" /to ");
-
-        // Check if both "from" and "to" components are present
         if (fromToStringBreakdown.length != 2) {
-            return "MISSING FROM/TO DATES"; // Return specific error if either "from" or "to" date is missing
+            return "MISSING FROM/TO DATES"; // Error if either "from" or "to" date is missing
         }
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         try {
             dateTimeFormatter.parse(fromToStringBreakdown[0]);
             dateTimeFormatter.parse(fromToStringBreakdown[1]);
         } catch (DateTimeParseException e) {
-            return "INVALID DATETIME EXCEPTION";
+            return "INVALID DATETIME EXCEPTION"; // Error if the date/time format is invalid
         }
 
-        // If none of the specific errors match, return an unknown error
-        return "UNKNOWN ERROR";
+        return "UNKNOWN ERROR"; // Fallback error message
     }
 }

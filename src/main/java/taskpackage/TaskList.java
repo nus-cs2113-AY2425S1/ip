@@ -2,80 +2,124 @@ package taskpackage;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks, allowing for operations such as adding, deleting, marking, and unmarking tasks.
+ */
 public class TaskList {
-    private ArrayList<Task> tasks;
 
+    private ArrayList<Task> tasks; // List to store tasks
+
+    /**
+     * Constructor for initializing an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
-    public void deleteTask(int taskIndex){
+    /**
+     * Deletes a task from the task list based on the task index.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
+    public void deleteTask(int taskIndex) {
         String taskString = this.tasks.get(taskIndex).checkboxString();
         this.tasks.remove(taskIndex);
         System.out.println("Ay Caramba, Task deleted: " + taskString);
     }
 
-    // Static method to delete the latest task in case of errors
-    public void deleteLatestTask(){
-        this.tasks.remove(tasks.size() - 1); // Remove the latest task from the array
+    /**
+     * Deletes the latest task in the task list in case of errors.
+     */
+    public void deleteLatestTask() {
+        this.tasks.remove(tasks.size() - 1); // Remove the latest task from the list
     }
 
-    public void markLatestTask(){
+    /**
+     * Marks the latest task in the task list as done.
+     */
+    public void markLatestTask() {
         this.tasks.get(tasks.size() - 1).isDone = true;
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns the string representation of a task for storing in a data file.
+     *
+     * @param index The index of the task.
+     * @return The formatted string for storing the task data.
+     */
     public String dataFileEntry(int index) {
         return (this.tasks.get(index).inputString + " /isdone " + this.tasks.get(index).isDone + "\n");
     }
 
-    // Static method to mark a task as done by index
-    public void mark(int taskIndex){
-        tasks.get(taskIndex).isDone = true; // Mark the task as done
-        System.out.println("Fantastica!!!! I marked it:"); // Success message in Spanish
-        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
+    /**
+     * Marks a task as done by its index.
+     *
+     * @param taskIndex The index of the task to be marked as done.
+     */
+    public void mark(int taskIndex) {
+        tasks.get(taskIndex).isDone = true;
+        System.out.println("Fantastica!!!! I marked it:");
+        System.out.println(tasks.get(taskIndex).checkboxString());
     }
 
-    // Static method to unmark a task as undone by index
-    public void unmark(int taskIndex){
-        tasks.get(taskIndex).isDone = false; // Unmark the task as not done
-        System.out.println("Ay Caramba, I unmarked it:"); // Message indicating task was unmarked
-        System.out.println(tasks.get(taskIndex).checkboxString()); // Display the updated task
+    /**
+     * Unmarks a task as not done by its index.
+     *
+     * @param taskIndex The index of the task to be unmarked.
+     */
+    public void unmark(int taskIndex) {
+        tasks.get(taskIndex).isDone = false;
+        System.out.println("Ay Caramba, I unmarked it:");
+        System.out.println(tasks.get(taskIndex).checkboxString());
     }
 
-    // Static method to print all tasks in the list
-    public void printTasksList(){
-        if (tasks.isEmpty()){
-            System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
+    /**
+     * Prints the list of tasks to the console.
+     */
+    public void printTasksList() {
+        if (tasks.isEmpty()) {
+            System.out.println("Por Favor? Nothing Here");
         } else {
-            System.out.println("Si compinche, your " + tasks.size() + " tasks:"); // Message when displaying tasks
-            for (int i = 0; i < tasks.size(); i++){
-                // Print each task with its index and checkbox format
-                System.out.println((i+1) + "." + tasks.get(i).checkboxString());
+            System.out.println("Si compinche, your " + tasks.size() + " tasks:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i).checkboxString());
             }
         }
     }
 
-    // Static method to print all tasks in the list
-    public void findTasksList(String findString){
-        if (tasks.isEmpty()){
-            System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
+    /**
+     * Prints the tasks that contain the specified search string.
+     *
+     * @param findString The string to search for in the tasks.
+     */
+    public void findTasksList(String findString) {
+        if (tasks.isEmpty()) {
+            System.out.println("Por Favor? Nothing Here");
         } else {
-            System.out.println("Si compinche, your tasks with the phrase <" + findString + ">:"); // Message when displaying tasks
+            System.out.println("Si compinche, your tasks with the phrase <" + findString + ">:");
             int foundCount = 0;
-            for (int i = 0; i < tasks.size(); i++){
-                // Check if findString in checkboxString
-                if (tasks.get(i).checkboxString().contains(findString)){
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).checkboxString().contains(findString)) {
                     foundCount++;
-                    // Print each task with its index and checkbox format
-                    System.out.println((i+1) + "." + tasks.get(i).checkboxString());
+                    System.out.println((i + 1) + "." + tasks.get(i).checkboxString());
                 }
             }
 
@@ -84,5 +128,4 @@ public class TaskList {
             }
         }
     }
-
 }

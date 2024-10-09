@@ -1,7 +1,10 @@
 import taskpackage.TaskList;
 
+/**
+ * Main class for the Juan task manager.
+ * This class handles the initialization of the system, including user interface, storage, and task list management.
+ */
 public class Juan {
-
 
     private final static String dataFilePath = "data.text";
     private final UI ui;
@@ -9,9 +12,13 @@ public class Juan {
     private TaskList tasks;
     private final Parser parser;
 
-    // Constructor
+    /**
+     * Constructor for Juan.
+     * Initializes the user interface, storage, and task list.
+     *
+     * @param dataFilePath Path to the file for storing task data.
+     */
     public Juan(String dataFilePath) {
-
         ui = new UI();
         storage = new Storage(dataFilePath, ui);
         try {
@@ -22,28 +29,29 @@ public class Juan {
         parser = new Parser(ui, tasks);
     }
 
-    // Main running function
+    /**
+     * Main running function of Juan.
+     * Displays welcome message, handles user input, and writes task data to the file upon termination.
+     */
     public void run() {
+        ui.helloMessage(); // Display welcome message
 
-        // Display initial line and welcome message
-        ui.helloMessage();
-
-        // Continue chatting as long as user doesn't exit
         boolean continueChatting = true;
         while (continueChatting) {
-            // Chat feature to handle user input
             continueChatting = parser.chatFeature(ui.readUserInput());
         }
 
-        // Add Function to Write Data
-        storage.writeDate(parser.getTasks());
+        storage.writeDate(parser.getTasks()); // Write task data to file
         ui.lineMessage();
-        // Display goodbye message when the chat ends
-        ui.byeMessage();
+        ui.byeMessage(); // Display goodbye message
     }
 
+    /**
+     * Main method to start the Juan application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Juan(dataFilePath).run();
     }
-
 }

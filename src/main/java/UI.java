@@ -1,5 +1,8 @@
 import java.util.Scanner; // Import Scanner for user input
 
+/**
+ * The UI class handles interaction with the user by reading input and displaying output messages.
+ */
 public class UI {
 
     // Constant for common error message to improve code readability and reusability
@@ -25,43 +28,62 @@ public class UI {
 
     private Scanner scanner;
 
+    /**
+     * Constructor for UI.
+     * Initializes the scanner for reading user input.
+     */
     public UI() {
         scanner = new Scanner(System.in); // Initialize the scanner for reading user input
     }
 
-    // Function to read user input
+    /**
+     * Reads the user's input from the console.
+     *
+     * @return The user's input as a String.
+     */
     public String readUserInput() {
         return scanner.nextLine(); // Read user input
     }
 
-    // Function to print out any messages
+    /**
+     * Prints a message to the console.
+     *
+     * @param message The message to be printed.
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }
 
-    // Utility function to print a separator line for clean output formatting
+    /**
+     * Prints a separator line to the console for clean output formatting.
+     */
     public void lineMessage() {
         System.out.print(SEPARATOR);
     }
 
-    // Displays a Message with por favor message
+    /**
+     * Prints a message with a "Por Favor" prefix to the console.
+     *
+     * @param message The message to be printed.
+     */
     public void porFavorMessage(String message) {
         System.out.println(PORFAVOR + message);
     }
 
-
-    // Displays a welcome message when the program starts
+    /**
+     * Displays a welcome message when the program starts.
+     */
     public void helloMessage() {
-
         System.out.print(SEPARATOR);
         System.out.print(GREETINGMESSAGE); // Print the welcome message
         System.out.print(SEPARATOR);
     }
 
-    // Displays a goodbye message when the program ends
+    /**
+     * Displays a goodbye message when the program ends.
+     */
     public void byeMessage() {
         System.out.print(BYEMESSAGE); // Print the goodbye message
         System.out.print(SEPARATOR);
     }
-
 }
