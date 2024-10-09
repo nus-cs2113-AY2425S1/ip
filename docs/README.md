@@ -35,11 +35,23 @@ Example: `todo Buy groceries`
 
 #### Adding a Deadline
 Command: `deadline <description> /by <date> <time>` <br>
-Example: `deadline Submit report /by 2023-06-30 1400`
+Example: `deadline Submit report /by 2023-05-15 1400` <br>
+* For proper recognition of `date` and `time`,
+   * `date` has to be entered first, followed by `time`.
+   * `date` has to be in the format `yyyy-MM-dd` (e.g. `2024-01-21`).
+   * `time` has to be in the format `HHmm` (e.g. `1400`) and can be optional. 
+   * Nonetheless, any other string e.g. 13121995 will still be accepted, albeit not formatted
+   * (i.e. the same exact string "13121995" would be displayed.)
 
 #### Adding an Event
 Command: `event <description> /from <start date> <start time> /to <end date> <end time>` <br>
-Example: `event Team meeting /from 2023-06-15 0900 /to 2023-06-15 1100`
+Example: `event Team meeting /from 2023-06-20 0900 /to 2023-06-20 1100` <br>
+* For proper recognition of `date` and `time`,
+   * `date` has to be entered first, followed by `time`.
+   * `date` has to be in the format `yyyy-MM-dd` (e.g. `2024-01-21`).
+   * `time` has to be in the format `HHmm` (e.g. `1800`) and can be optional.
+   * Nonetheless, any other string e.g. 13121995 will still be accepted, albeit not formatted
+   * (i.e. the same exact string "13121995" would be displayed.)
 
 ### Examples of Tasks Display
 
