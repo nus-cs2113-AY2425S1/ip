@@ -33,12 +33,12 @@ public final class TaskList {
         return tasks;
     }
 
-    public void add(ArrayList<Task> t) {
+    private void add(ArrayList<Task> t) {
         tasks.addAll(t);
         taskCount += t.size();
     }
 
-    public void add(Task t) {
+    private void add(Task t) {
         tasks.add(t);
         taskCount += 1;
     }
@@ -163,6 +163,11 @@ public final class TaskList {
         }
     }
 
+    /**
+     * Find Task(s) based on provided query
+     * @param argString Query represented as a <code>String</code>
+     * @throws InvalidArgumentException If query is empty
+     */
     public void findTask(String argString) throws InvalidArgumentException {
         try {
             argString = argString.strip().toLowerCase();
