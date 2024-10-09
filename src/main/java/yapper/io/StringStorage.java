@@ -96,10 +96,12 @@ public class StringStorage {
             + "todo [todoDesc]" + ", to for a task with no dates. \n"
             + "deadline [deadlineDesc] /by [end]" + ", for a task with an end date. \n"
             + "event [eventDesc] /from [start] /to [end]" + ", for a task with a start date and an end date. ";
-    public static final String START_UP_MESSAGE =
+    public static final String START_UP_MESSAGE_IF_SAVE_FILE_NOT_FOUND =
             "Wassup! \n"
             + "Ya ready for me to yap yer ear off? \n"
             + "Whatchu wanna talk about? ";
+    public static final String START_UP_MESSAGE_IF_SAVE_FILE_FOUND =
+            "Let us resume where we left off, shall we? ";
     public static final String SHUT_DOWN_MESSAGE =
             "Thanks for listenin' to my yappin'. \n"
             + "Call for me whenever ya feel like listening again. \n"
