@@ -30,14 +30,14 @@ public class Task {
     }
 
     /**
-     * Mark task as done
+     * Marks task as done
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark task as undone
+     * Marks task as undone
      */
     public void markAsUndone() {
         this.isDone = false;

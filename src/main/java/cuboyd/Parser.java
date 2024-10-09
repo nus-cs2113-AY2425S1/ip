@@ -25,7 +25,7 @@ public class Parser{
     }
 
     /**
-     * Pack command from words into an existing argument map.
+     * Packs command from words into an existing argument map.
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
@@ -34,7 +34,7 @@ public class Parser{
     }
 
     /**
-     * Pack following arguments from words into an existing argument map.
+     * Packs following arguments from words into an existing argument map.
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
@@ -66,7 +66,7 @@ public class Parser{
     }
 
     /**
-     * Pack words into a new argument map.
+     * Packs words into a new argument map.
      * @param words String list of arguments/words
      */
     private HashMap<String, String> packWordsToArgumentsMap(String[] words) {
