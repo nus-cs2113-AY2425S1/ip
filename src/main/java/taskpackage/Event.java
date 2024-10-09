@@ -1,18 +1,25 @@
 package taskpackage; // Package for Task-related classes
 
+import customexceptions.DeadlineConstructorException;
 import customexceptions.EventConstructorException; // Import custom exception for Event tasks
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 // Event class, a child class of Task, represents a task with a specific start and end time
 public class Event extends Task {
 
     // Variables to store the start and end times of the event
-    private final String fromString;
-    private final String toString;
+    private final LocalDateTime fromDateTime;
+    private final LocalDateTime toDateTime;
+
+    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
     // Constructor for creating an Event task
     public Event(String inputString, TaskList tasks, boolean constructorMessage) throws EventConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/from" keyword)
-        super(inputString.replace("event ", "").split(" /from ")[0], tasks);
+        super(inputString.split(" /from ")[0], tasks);
 
         this.inputString = inputString;
 
@@ -30,8 +37,13 @@ public class Event extends Task {
         }
 
         // Set the from and to times for the event
-        this.fromString = fromToStrings[0];
-        this.toString = fromToStrings[1];
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+            this.fromDateTime = LocalDateTime.parse(fromToStrings[0], dateTimeFormatter);
+            this.toDateTime = LocalDateTime.parse(fromToStrings[1], dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new EventConstructorException(inputString);
+        }
 
         // Display a confirmation message when an Event task is successfully created
         if (constructorMessage) {
@@ -42,7 +54,8 @@ public class Event extends Task {
     // Override the checkboxString method to include the "[E]" tag, start time, and end time
     @Override
     public String checkboxString() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         // Call the parent method and add the "[E]" tag along with the event's start and end times
-        return "[E]" + super.checkboxString() + " (from: " + fromString + " to: " + toString + ")";
+        return "[E]" + super.checkboxString() + " (from: " + fromDateTime.format(dateTimeFormatter) + " to: " + toDateTime.format(dateTimeFormatter) + ")";
     }
 }

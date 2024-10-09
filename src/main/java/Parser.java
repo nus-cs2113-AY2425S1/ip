@@ -24,6 +24,8 @@ public class Parser {
             tasks.printTasksList(); // Print task list from Task class
         } else if (line.startsWith(CommandHandling.DELETE_COMMAND)) {
             CommandHandling.deleteCommand(tasks, line, ui);
+        } else if (line.startsWith(CommandHandling.FIND_COMMAND)) {
+            CommandHandling.findCommand(tasks, line, ui);
         } else if (line.startsWith(CommandHandling.MARK_COMMAND)) {
             CommandHandling.markCommand(tasks, line, ui);
         } else if (line.startsWith(CommandHandling.UNMARK_COMMAND)) {
