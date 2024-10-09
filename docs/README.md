@@ -8,6 +8,7 @@ all while "yapping" at you.
 1. [Getting Started](#getting-started)
 2. [Supported Commands](#supported-commands)
 3. [Command Summary](#command-summary)
+4. [Save File](#save-file)
 
 ---
 
@@ -217,3 +218,16 @@ Command keywords are always in lowercase.
 Do note that parameters must be of a certain type: 
 * desc, date, query are strings.
 * ordinal is an integer.
+
+## Save File
+
+The task list is saved in a file, savedata.txt, located in the data folder.
+This file is updated in real-time, i.e. it updates every time you 
+add (todo, deadline, event), remove, or update (mark/unmark) the list.
+
+When Yapper boots up, it searches for that file and converts its contents into a task list.
+However, it can only convert text in a particular format, so edit the file with caution.
+
+Do note your task list will be lost if the file is deleted while Yapper is running. 
+Yapper only creates a new save file if the file is missing when starting up. 
+It does not create a new save file after that, unless you close and reopen the program.

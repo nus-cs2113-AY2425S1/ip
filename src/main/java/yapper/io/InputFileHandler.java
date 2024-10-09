@@ -131,7 +131,7 @@ public class InputFileHandler {
                         eventArgs[0], eventArgs[1], eventArgs[2]);
                 return new Event(eventArgs[0], isDone, eventArgs[1], eventArgs[2]);
             default:
-                throw new YapperException("loadTask method reached default switch-case");
+                throw new YapperException("Yapper does not know how to load this task. ");
             }
         } catch (YapperException e) {
             throw new YapperException(taskData + ", because " + e.getMessage());
@@ -145,7 +145,7 @@ public class InputFileHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the description and deadline date
      */
-    public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
+    private static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -2);
         String deadlineDesc = deadlineArgs[0].trim();
@@ -158,7 +158,7 @@ public class InputFileHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the event description, start date, and end date
      */
-    public static String[] splitStringByEventKeywords(String instructionArgs) {
+    private static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -3);
         String eventDesc = eventArgs[0].trim();

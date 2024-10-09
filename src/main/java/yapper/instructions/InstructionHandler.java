@@ -176,6 +176,7 @@ public class InstructionHandler {
                 System.out.println(StringStorage.HELP_MESSAGE);
                 break;
             default:
+                throw new YapperException("Yapper doesn't know how to handle this instruction. ");
             }
         } catch (YapperException e) {
             throw new YapperException("when executing instruction. \n" + e.getMessage());

@@ -32,7 +32,7 @@ public class Yapper {
      *
      * @param taskHandler the TaskHandler instance that manages tasks
      */
-    public static void runMainLoop(TaskHandler taskHandler) {
+    private static void runMainLoop(TaskHandler taskHandler) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
