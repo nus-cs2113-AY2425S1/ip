@@ -51,7 +51,7 @@ public class InputFileHandler {
      *
      * @throws FileNotFoundException if the save file is not found
      */
-    public static void loadTasksAndRecordInvalidTasks() throws FileNotFoundException {
+    private static void loadTasksAndRecordInvalidTasks() throws FileNotFoundException {
         int invalidTaskCount = loadTasks();
         if (invalidTaskCount > 0) {
             System.out.println("There were " + invalidTaskCount + " invalid tasks detected in the save file. ");
@@ -71,7 +71,7 @@ public class InputFileHandler {
      * @return the updated count of invalid tasks encountered during the file scan
      * @throws FileNotFoundException if the save file is not found
      */
-    public static int loadTasks() throws FileNotFoundException {
+    private static int loadTasks() throws FileNotFoundException {
         int invalidTaskCount = 0;
         TaskHandler taskHandler = FileHandler.getTaskHandler();
         File file = new File(StringStorage.SAVE_FILE_PATH);
