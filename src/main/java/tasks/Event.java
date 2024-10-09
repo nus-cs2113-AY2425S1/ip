@@ -52,7 +52,7 @@ public class Event extends Task {
                 this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
     @Override
-    public String toString() {
+    public String toFileFormat() {
         return String.format("%s | %b | %s | %s | %s", getTypeMarker(), this.isDone,
                 this.task, this.from, this.to);
     }

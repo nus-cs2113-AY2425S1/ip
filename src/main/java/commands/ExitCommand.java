@@ -8,6 +8,9 @@ import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
+/**
+ * Represents the command to exit the program
+ */
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) throws IllegalCommandException {

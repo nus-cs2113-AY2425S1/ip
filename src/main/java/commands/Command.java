@@ -18,6 +18,7 @@ public abstract class Command {
      * @param taskList the TaskList object being executed on
      * @param ui the Ui object used for user interactions
      * @throws IllegalCommandException if the command cannot be executed
+     * @throws IOException when an input/output error occurs
      */
     public abstract void execute(TaskList taskList, Ui ui) throws IllegalCommandException, IOException;
 }

@@ -8,19 +8,43 @@ import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
+/**
+ * Represents the command to search for tasks within the TaskList
+ */
 public class SearchCommand extends Command {
     private String flag;
     private LocalDate searchDate;
     private String searchTerm;
 
+    /**
+     * For searches based on the date of the of task
+     * @param flag represents the type of search used
+     * @param date represents the date used to search for tasks
+     */
     public SearchCommand(String flag, LocalDate date) {
         this.flag = flag;
         this.searchDate = date;
     }
+
+    /**
+     * For searches based on the description of the task
+     * @param flag represents the type of search used
+     * @param searchTerm represents the term used to search for tasks
+     */
     public SearchCommand(String flag, String searchTerm) {
         this.flag = flag;
         this.searchTerm = searchTerm;
     }
+
+    /**
+     * Executes the search task searching by either date or terms.
+     * /b is used to search for tasks before a date.
+     * /a is used to search for tasks after a date.
+     * /d is used to search for tasks only of that date.
+     * /c is used to search for any tasks that contain the search term.
+     * @param taskList the TaskList object being executed on
+     * @param ui the Ui object used for user interactions
+     */
     @Override
     public void execute(TaskList taskList, Ui ui) {
         boolean isBeforeFlag = flag.equals("/b");

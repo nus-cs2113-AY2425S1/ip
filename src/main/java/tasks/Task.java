@@ -26,6 +26,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * @return a visual representation of whether the task is done or not
+     */
     public String getDoneMarker() {
         if (this.isDone) {
             return "[X]";
@@ -48,8 +51,7 @@ public class Task {
      * Formats tasks into a string object to be encoded onto a text file
      * @return String formatted for ease of decoding in the {@code TaskDecoder}
      */
-    @Override
-    public String toString() {
+    public String toFileFormat() {
         return String.format("%b | %s", this.isDone, this.task);
     }
 }

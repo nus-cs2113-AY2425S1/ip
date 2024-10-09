@@ -4,6 +4,9 @@ import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
+/**
+ * Represents the command to list out all tasks in the TaskList
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {

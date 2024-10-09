@@ -7,6 +7,9 @@ import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
+/**
+ * Represents marking a task in the TaskList as incomplete
+ */
 public class UnmarkCommand extends Command {
     private int index;
     public UnmarkCommand(int index) {

@@ -56,7 +56,7 @@ public class TaskEncoder {
     public static void overrideFile(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(pathName);
         for (Task task : taskList.getTasks()) {
-            writer.write(task.toString() + System.lineSeparator());
+            writer.write(task.toFileFormat() + System.lineSeparator());
         }
         writer.close();
     }

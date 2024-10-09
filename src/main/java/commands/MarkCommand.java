@@ -1,13 +1,15 @@
 package commands;
 
+import java.io.IOException;
+
 import storage.TaskEncoder;
 import tasks.TaskList;
 import ui.Skeleton;
 import ui.Ui;
 
-import java.io.IOException;
-
-
+/**
+ * Represents marking a task in the TaskList as completed
+ */
 public class MarkCommand extends Command {
     private int index;
     public MarkCommand(int index) {

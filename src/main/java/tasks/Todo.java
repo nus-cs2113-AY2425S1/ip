@@ -20,7 +20,7 @@ public class Todo extends Task {
         super.print();
     }
     @Override
-    public String toString() {
+    public String toFileFormat() {
         return String.format("%s | %b | %s", getTypeMarker(), this.isDone, this.task);
     }
 }

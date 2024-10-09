@@ -41,7 +41,7 @@ public class Deadline extends Task {
         System.out.printf(" (by: %s)\n", this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
     @Override
-    public String toString() {
+    public String toFileFormat() {
         return String.format("%s | %b | %s | %s", getTypeMarker(), this.isDone, this.task, this.deadline);
     }
 }

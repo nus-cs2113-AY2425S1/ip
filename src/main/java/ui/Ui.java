@@ -13,7 +13,7 @@ public class Ui {
     /**
      * Scanner object for reading user input.
      */
-    private Scanner scanner;
+    private final Scanner scanner;
     /**
      * Constructs a Ui object and initializes the Scanner.
      */
@@ -51,8 +51,7 @@ public class Ui {
 
     /**
      * Prints an error message when the user enters an invalid task.
-     *
-     * @param task the invalid Task object that caused the error
+     * @param type the invalid Task object that caused the error
      */
     public void printInvalidTaskError(TaskEnum type) {
         switch (type) {
@@ -71,6 +70,8 @@ public class Ui {
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: event <description> /from <from> /to <to>");
             System.out.print((Skeleton.LINE_BREAK));
+        } default -> {
+            return;
         }
         }
     }
@@ -80,7 +81,7 @@ public class Ui {
      */
     public void printFileError() {
         System.out.print((Skeleton.LINE_BREAK));
-        System.out.println("Seems like an error occurred");
+        System.out.println("Seems like a I/O error occurred. Please restart the program.");
         System.out.print(Skeleton.LINE_BREAK);
     }
 
@@ -152,12 +153,20 @@ public class Ui {
         task.print();
         System.out.print(Skeleton.LINE_BREAK);
     }
+
+    /**
+     * Prints the error message when the user inputs a date that is formatted incorrectly
+     */
     public void printDateError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("I think you formatted the date wrong =.=");
         System.out.println("Format: yyyy-mm-dd");
         System.out.print(Skeleton.LINE_BREAK);
     }
+
+    /**
+     * Prints the error message when the user inputs a search command incorrectly
+     */
     public void printSearchError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("I don't think you can search like that....");
