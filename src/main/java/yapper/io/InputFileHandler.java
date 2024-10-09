@@ -121,7 +121,7 @@ public class InputFileHandler {
                         eventArgs[0], eventArgs[1], eventArgs[2]);
                 return new Event(eventArgs[0], isDone, eventArgs[1], eventArgs[2]);
             default:
-                throw new YapperException("loadTask method reached default switch-case");
+                throw new YapperException("Yapper does not know how to load this task. ");
             }
         } catch (YapperException e) {
             throw new YapperException(taskData + ", because " + e.getMessage());
