@@ -1,9 +1,9 @@
 # Quinn Task Manager User Guide
 
-Quinn is a personal assistant chatbot that helps in Task Management.
-It is a desktop application optimized to use from a Command Line Interface (CLI).
-Quinn helps to keep track of your to-dos, deadlines, and events. 
-With Quinn, you can easily add, list, mark, and delete tasks using simple commands.
+Quinn is a personal assistant chatbot that helps in Task Management. <br>
+It is a desktop application optimized to use from a Command Line Interface (CLI). <br>
+Quinn helps to keep track of your to-dos, deadlines, and events. <br>
+With Quinn, you can easily add, list, mark, and delete tasks using simple commands. <br>
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
@@ -29,15 +29,15 @@ With Quinn, you can easily add, list, mark, and delete tasks using simple comman
 Quinn supports three types of tasks: ToDos, Deadlines, and Events.
 
 #### Adding a ToDo
-Command: `todo <description>`
+Command: `todo <description>` <br>
 Example: `todo Buy groceries`
 
 #### Adding a Deadline
-Command: `deadline <description> /by <date> <time>`
+Command: `deadline <description> /by <date> <time>` <br>
 Example: `deadline Submit report /by 2023-06-30 1400`
 
 #### Adding an Event
-Command: `event <description> /from <start date> <start time> /to <end date> <end time>`
+Command: `event <description> /from <start date> <start time> /to <end date> <end time>` <br>
 Example: `event Team meeting /from 2023-06-15 0900 /to 2023-06-15 1100`
 
 ### Examples of Tasks Display
@@ -74,32 +74,32 @@ Command: `bye`
 ## Command Reference
 Here is a quick reference for all available commands:
 
-todo [description]: Add a ToDo task
-deadline [description] /by [date] [time]: Add a Deadline task
-event [description] /from [start date] [start time] /to [end date] [end time]: Add an Event task
-list: Display all tasks
-mark [task number]: Mark a task as done
-unmark [task number]: Mark a task as not done
-delete [task number]: Remove a task
-find [keyword]: Search for tasks containing the keyword
+todo [description]: Add a ToDo task <br>
+deadline [description] /by [date] [time]: Add a Deadline task <br>
+event [description] /from [start date] [start time] /to [end date] [end time]: Add an Event task <br>
+list: Display all tasks <br>
+mark [task number]: Mark a task as done <br>
+unmark [task number]: Mark a task as not done <br>
+delete [task number]: Remove a task <br>
+find [keyword]: Search for tasks containing the keyword <br>
 bye: Exit the application
 
 ## Understanding Task Types
 Quinn supports three types of tasks:
 
-ToDo: A simple task without any date/time constraint.
+• ToDo: A simple task without any date/time constraint.
 
-Displayed as: [T][ ] Description
-
-
-Deadline: A task with a specific due date and time.
-
-Displayed as: [D][ ] Description (by: Date Time)
+Displayed as: [T][ ] <Task Description>
 
 
-Event: A task with a start and end date/time.
+• Deadline: A task with a specific due date and time.
 
-Displayed as: [E][ ] Description (from: Start Date Time to: End Date Time)
+Displayed as: [D][ ] <Task Description> (by: Date Time)
+
+
+• Event: A task with a start and end date/time.
+
+Displayed as: [E][ ] <Task Description> (from: Start Date Time to: End Date Time)
 
 
 
@@ -111,11 +111,11 @@ The square brackets next to the task type indicator (T/D/E) show the task's comp
 ## Error Handling
    Quinn will display error messages if it encounters issues. Here are some common errors and their meanings:
 
-"INVALID COMMAND. Please try again!": The command entered is not recognized.
-"The description of a todo cannot be empty!": You need to provide a description for the ToDo task.
-"INCOMPLETE COMMAND": Some required information is missing from the command.
-"Task not found. Please try again!": The task number provided doesn't exist in the list.
-"Please enter a valid task number to be marked as done!": The mark/unmark command requires a valid task number.
+"INVALID COMMAND. Please try again!": The command entered is not recognized. <br>
+"The description of a todo cannot be empty!": You need to provide a description for the ToDo task. <br>
+"INCOMPLETE COMMAND": Some required information is missing from the command. <br>
+"Task not found. Please try again!": The task number provided doesn't exist in the list. <br>
+"Please enter a valid task number to be marked as done!": The mark/unmark command requires a valid task number. <br>
 
 If you encounter an error, read the error message carefully and adjust your command accordingly.
 
