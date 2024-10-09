@@ -58,7 +58,12 @@ public class InputHandler {
                 OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
                 return Status.RUNNING;
             }
-        }else {
+        }else if (userInput.startsWith(Commands.COMMAND_FIND)) {
+            String description = userInput.substring(userInput.indexOf(" ") + 1);
+            ArrayList<Task> foundTasksList = findTasks(tasksList, description);
+            int numberOfFoundTasks = foundTasksList.size();
+            OutputManager.printFoundTasks(foundTasksList, numberOfFoundTasks);
+        } else {
             addToList(userInput, tasksList, numberOfTasks);
         }
         OutputManager.printLineBreak();
@@ -114,7 +119,7 @@ public class InputHandler {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_EVENT);
             }
-        } else {
+        }else {
             throw new InvalidCommandException(userInput);
         }
         tasksList.add(newTask);
@@ -177,5 +182,15 @@ public class InputHandler {
         }
         OutputManager.printMessageDeletedTask(deletedTask.toString());
         OutputManager.printNumberOfTasks(numberOfTasks);
+    }
+
+    public static ArrayList<Task> findTasks(ArrayList<Task> tasksList, String keyword) {
+        ArrayList<Task> foundTasksList = new ArrayList<>();
+        for (Task task : tasksList) {
+            if (task.getTaskName().contains(keyword)) {
+                foundTasksList.add(task);
+            }
+        }
+        return foundTasksList;
     }
 }

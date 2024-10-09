@@ -16,4 +16,5 @@ public class Commands {
     public static final String COMMAND_INFIX_BY = "/by";
     public static final String COMMAND_INFIX_FROM = "/from";
     public static final String COMMAND_INFIX_TO = "/to";
+    public static final String COMMAND_FIND = "find";
 }
