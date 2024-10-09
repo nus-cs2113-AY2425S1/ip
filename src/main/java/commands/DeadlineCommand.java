@@ -1,12 +1,12 @@
 package commands;
 
-import tasks.Deadlines;
+import tasks.Deadline;
 import tasks.TaskList;
 import ui.Ui;
 
 public class DeadlineCommand extends Command {
-    private Deadlines deadline;
-    public DeadlineCommand(Deadlines deadline) {
+    private Deadline deadline;
+    public DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
     @Override

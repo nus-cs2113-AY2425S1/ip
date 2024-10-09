@@ -1,15 +1,30 @@
 package tasks;
 
+/**
+ * Event class inherits from {@code Task} with similar methods.
+ * Handles tasks with a start and end period.
+ */
 public class Event extends Task {
     private String from;
     private String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
+    /**
+     * Default constructor for new Events
+     * @param task the task description
+     * @param from the start time of the task
+     * @param to the end time of the task
+     */
+    public Event(String task, String from, String to) {
+        super(task);
         this.from = from;
         this.to = to;
     }
-
+    /**
+     * Constructor used when decoding tasks from storage.
+     * @param task the task description
+     * @param isDone the task status
+     * @param from the start time of the task
+     * @param to the end time of the task
+     */
     public Event(String task, boolean isDone, String to, String from) {
         super(task, isDone);
         this.to = to;

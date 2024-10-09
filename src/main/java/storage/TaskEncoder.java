@@ -11,10 +11,18 @@ import tasks.TaskList;
 import ui.Skeleton;
 
 
-
+/**
+ * The TaskEncoder class handles encoding information
+ *  onto the text file located at the {@code pathName}
+ */
 public class TaskEncoder {
     private static final String pathName = "./data/Tasks.txt";
     private static final Path path = Path.of("./data");
+
+    /**
+     * Checks if the text file and directory exists and
+     * creates the directory and text file to be read and written on
+     */
     public static void createFile() {
         try {
             if (!Files.exists(path)) {
@@ -37,6 +45,12 @@ public class TaskEncoder {
         }
     }
 
+    /**
+     * Overrides the text file located at pathName and
+     * copies all the tasks on the given taskList onto the text file
+     * @param taskList the current taskList
+     * @throws IOException when write throws an IOException
+     */
     public static void overrideFile(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(pathName);
         for (Task task : taskList.getTasks()) {

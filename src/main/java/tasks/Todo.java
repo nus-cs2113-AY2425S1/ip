@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * Todo class acts as the basic class for tasks with
+ * only a description: {@code String task} and a {@code boolean isDone}
+ */
 public class Todo extends Task {
     public Todo(String task, boolean isDone) {
         super(task, isDone);

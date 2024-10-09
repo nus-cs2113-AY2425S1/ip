@@ -1,8 +1,10 @@
 package ui;
 
+/**
+ * Skeleton class is a class for constants used in the {@code Ui} class
+ */
 public class Skeleton {
     public static final String SKELETON = """
-                
                                          {    }
                                           K,   }
                                          /  `Y`
@@ -28,5 +30,4 @@ public class Skeleton {
                          `-(_            )
                              ^^\\..___,.--`""";
     public static final String LINE_BREAK = "____________________________________________________________\n";
-
 }

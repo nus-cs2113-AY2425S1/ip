@@ -1,18 +1,39 @@
 package ui;
 
-import tasks.*;
-
 import java.util.Scanner;
 
+import tasks.*;
+
+/**
+ * The Ui class is responsible for handling user interaction,
+ * receiving input, and printing messages to the console.
+ * It provides methods for printing specific messages and handling various errors.
+ */
 public class Ui {
+    /**
+     * Scanner object for reading user input.
+     */
     private Scanner scanner;
+
+    /**
+     * Constructs a Ui object and initializes the Scanner.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
+    /**
+     * Receives a command from the user by reading the next line of input.
+     *
+     * @return the user command as a String
+     */
     public String receiveCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Prints a welcome message to the user.
+     */
     public void printWelcomeMessage() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hello! I'm Nateh.Nateh\nWhat can I do for you?");
@@ -20,19 +41,27 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
     }
 
+    /**
+     * Prints an error message when the user enters an invalid command.
+     */
     public void invalidCommand() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Oops?! I don't know that one >.<");
         System.out.print(Skeleton.LINE_BREAK);
     }
 
+    /**
+     * Prints an error message when the user enters an invalid task.
+     *
+     * @param task the invalid Task object that caused the error
+     */
     public void invalidTask(Task task) {
         if (task instanceof Todo) {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to be missing a description");
             System.out.println("Format: todo <description>");
             System.out.print((Skeleton.LINE_BREAK));
-        } else if (task instanceof Deadlines) {
+        } else if (task instanceof Deadline) {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /by <deadline>");
@@ -44,11 +73,21 @@ public class Ui {
             System.out.print((Skeleton.LINE_BREAK));
         }
     }
+
+    /**
+     * Prints a generic error message when a file error occurs.
+     */
     public void fileError() {
-        System.out.print((Skeleton.LINE_BREAK));
+        System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Seems like an error occurred");
-        System.out.print((Skeleton.LINE_BREAK));
+        System.out.print(Skeleton.LINE_BREAK);
     }
+
+    /**
+     * Prints an error message when an exception occurs during the marking of a task.
+     *
+     * @param e the Exception object that caused the error
+     */
     public void printMarkError(Exception e) {
         if (e instanceof NumberFormatException) {
             System.out.print(Skeleton.LINE_BREAK);
@@ -57,16 +96,22 @@ public class Ui {
             System.out.print(Skeleton.LINE_BREAK);
         } else if (e instanceof ArrayIndexOutOfBoundsException) {
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Uh oh. I think you didn't input a number :/ ");
+            System.out.println("Uh oh. I think you didn't input a number :/");
             System.out.println("format: mark <number>");
             System.out.print(Skeleton.LINE_BREAK);
         } else if (e instanceof NullPointerException) {
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Uh oh. I think you gave too big a number :/ ");
+            System.out.println("Uh oh. I think you gave too big a number :/");
             System.out.println("format: mark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
+
+    /**
+     * Prints an error message when an exception occurs during the unmarking of a task.
+     *
+     * @param e the Exception object that caused the error
+     */
     public void printUnmarkError(Exception e) {
         if (e instanceof NumberFormatException) {
             System.out.print(Skeleton.LINE_BREAK);
@@ -75,21 +120,31 @@ public class Ui {
             System.out.print(Skeleton.LINE_BREAK);
         } else if (e instanceof ArrayIndexOutOfBoundsException) {
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Uh oh. I think you didn't input a number :/ ");
+            System.out.println("Uh oh. I think you didn't input a number :/");
             System.out.println("format: unmark <number>");
             System.out.print(Skeleton.LINE_BREAK);
         } else if (e instanceof NullPointerException) {
             System.out.print(Skeleton.LINE_BREAK);
-            System.out.println("Uh oh. I think you gave too big a number :/ ");
+            System.out.println("Uh oh. I think you gave too big a number :/");
             System.out.println("format: unmark <number smaller than number of tasks>");
             System.out.print(Skeleton.LINE_BREAK);
         }
     }
+
+    /**
+     * Prints an error message when an attempt to delete a task fails.
+     */
     public void printDeleteError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Hmm seems like you tried to delete a task that doesn't exist");
         System.out.print(Skeleton.LINE_BREAK);
     }
+
+    /**
+     * Prints a message confirming that a task has been added.
+     *
+     * @param task the Task object that was added
+     */
     public void printAddMessage(Task task) {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.print("added: ");
@@ -97,3 +152,4 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
     }
 }
+

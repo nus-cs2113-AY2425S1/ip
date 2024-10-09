@@ -1,13 +1,27 @@
 package tasks;
 
-public class Deadlines extends Task {
+/**
+ * Deadline class inherits from {@code Task} and represents tasks with deadlines
+ */
+public class Deadline extends Task {
     private String deadline;
-    public Deadlines(String description, String deadline) {
-        super(description);
+    /**
+     * Default constructor for new Tasks
+     * @param task the task description
+     * @param deadline is the deadline of the task
+     */
+    public Deadline(String task, String deadline) {
+        super(task);
         this.deadline = deadline;
     }
 
-    public Deadlines(String task, boolean isDone, String deadline) {
+    /**
+     * Constructor used when decoding tasks from storage.
+     * @param task the task description
+     * @param isDone the task status
+     * @param deadline is the deadline of the task
+     */
+    public Deadline(String task, boolean isDone, String deadline) {
         super(task, isDone);
         this.deadline = deadline;
     }
