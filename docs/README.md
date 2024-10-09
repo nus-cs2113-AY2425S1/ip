@@ -41,6 +41,18 @@ For details on all available commands, refer to the Features section below.
 
     eg. Do not use `|`, `<`, `>`.
 
+
+- Date/time must be entered in the format DD-MM-YYYY HHMM. 
+
+    eg. In `deadline TASK_DESCRIPTION by DEADLINE_TIME`, you must provide the `DEADLINE_TIME` parameter as such, `05-10-2024 1400`, for 5 October 2024 2:00 PM.
+
+
+- Date adjustments will automatically be made for invalid inputs from 29 to 31
+
+    eg. February dates (29, 30, or 31) will be set to the last valid date of February.
+    
+    eg. 31 will be adjusted to the last valid date for months with only 30 days.
+
 ### Listing all tasks: `list`
 Displays all tasks in the task list, along with their completion status and details. Tasks are shown in the order they were added.
 
@@ -61,17 +73,18 @@ Adds a task with a specific deadline to the task list.
 Format: `deadline TASK_DESCRIPTION by DEADLINE_TIME`
 
 Examples:
-- `deadline Submit assignment by 10 Oct 11:59pm`
-- `deadline Complete peer review by 3/10`
+- `deadline Submit assignment by 10-10-2024 1200`
+- `deadline Complete peer review by 28-02-2024 1500`
 
 ### Adding an Event task: `event`
 Adds an event to the task list, with a specific start and end time.
 
 Format: `event TASK_DESCRIPTION from START_TIME to END_TIME`
+- `START_TIME` must be before `END_TIME`.
 
 Example:
-- `event Team meeting from 5 Oct 2pm to 5 Oct 4pm`
-- `event Europe trip 3 Dec 2024 to 3 Jan 2024`
+- `event Team meeting from 05-10-2024 1400 to 05-10-2024 1600`
+- `event Europe trip 03-12-2024 1015 to 03-01-2025 0900`
 
 ### Marking a task as completed: `mark`
 Marks a task as completed.

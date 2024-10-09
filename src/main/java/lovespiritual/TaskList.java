@@ -112,7 +112,7 @@ public class TaskList {
                     throw new lovespiritualException("Error reading Deadline from file: Missing 'by' date.");
                 }
                 LocalDateTime by = LocalDateTime.parse(parts[3]);
-                task = new Deadline(description, by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+                task = new Deadline(description, by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
                 break;
             case "E":
                 if (parts.length < 5) {
@@ -120,7 +120,7 @@ public class TaskList {
                 }
                 LocalDateTime from = LocalDateTime.parse(parts[3]);
                 LocalDateTime to = LocalDateTime.parse(parts[4]);
-                task = new Event(description, from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+                task = new Event(description, from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")), to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
                 break;
             default:
                 throw new lovespiritualException("Error reading task from file: Unknown task type.");

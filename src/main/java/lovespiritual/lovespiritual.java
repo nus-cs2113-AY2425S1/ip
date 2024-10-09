@@ -109,7 +109,7 @@ public class lovespiritual {
      * Adds a new event task to the task list.
      * Ensures that the task description includes both 'from' and 'to' times.
      *
-     * The expected date format is 'yyyy-MM-dd HHmm' (e.g., 2024-10-05 1800 for 5 October 2024, 6:00 PM).
+     * The expected date format is 'DD-MM-YYYY HHMM' (e.g., 05-10-2024 1800 for 5 October 2024, 6:00 PM).
      * The 'from' time must be before the 'to' time.
      *
      * @param input User input string for adding an event.
@@ -148,8 +148,8 @@ public class lovespiritual {
         from = time[0].trim();
         to = time[1].trim();
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+            LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
             if (!fromDateTime.isBefore(toDateTime)) {
                 throw new lovespiritualException("Hmm (~_~) The start date/time must be before the end date/time.");
             }
@@ -160,7 +160,7 @@ public class lovespiritual {
             System.out.println("Amazing! :D You've got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (DateTimeParseException e) {
-            throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
+            throw new lovespiritualException("Invalid date format! Please use 'dd-MM-yyyy HHmm' format.");
         }
     }
 
@@ -168,7 +168,7 @@ public class lovespiritual {
      * Adds a new deadline task to the task list.
      * Ensures that the task description includes a 'by' time for the deadline.
      *
-     * The expected date format is 'yyyy-MM-dd HHmm' (e.g., 2024-10-05 1800 for 5 October 2024, 6:00 PM).
+     * The expected date format is 'DD-MM-YYYY HHMM' (e.g., 05-10-2024 1800 for 5 October 2024, 6:00 PM).
      *
      * @param input User input string for adding a deadline.
      * @param tasks List of tasks to which the new deadline will be added.
@@ -201,7 +201,7 @@ public class lovespiritual {
             System.out.println("Amazing! :D You've got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (Exception e) {
-            throw new lovespiritualException("Invalid date format! Please use 'yyyy-MM-dd HHmm' format.");
+            throw new lovespiritualException("Invalid date format! Please use 'dd-MM-yyyy HHmm' format.");
         }
     }
 
