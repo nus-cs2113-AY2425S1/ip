@@ -9,6 +9,10 @@ import yapper.tasks.TaskHandler;
  * Initializes save file and task handler for Yapper.
  */
 public class FileHandler {
+    /**
+     * A static instance of {@code TaskHandler} that manages the task list in Yapper.
+     * This instance is shared across all methods in the class.
+     */
     private static TaskHandler taskHandler;
 
     /**
