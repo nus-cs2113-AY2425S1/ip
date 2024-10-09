@@ -12,7 +12,7 @@ public class Deadline extends Task {
     // Constructor for creating a Deadline task
     public Deadline(String inputString, TaskList tasks, boolean constructorMessage) throws DeadlineConstructorException {
         // Call the parent class (Task) constructor with the task description (before the "/by" keyword)
-        super(inputString.replace("deadline ", "").split(" /by ")[0], tasks);
+        super(inputString.split(" /by ")[0], tasks);
         this.inputString = inputString;
         // Check if the "/by" keyword is missing or if the task description is empty
         if (!(inputString.contains(" /by ")) || this.taskString.isEmpty()) {

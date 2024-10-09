@@ -63,4 +63,26 @@ public class TaskList {
         }
     }
 
+    // Static method to print all tasks in the list
+    public void findTasksList(String findString){
+        if (tasks.isEmpty()){
+            System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
+        } else {
+            System.out.println("Si compinche, your tasks with the phrase <" + findString + ">:"); // Message when displaying tasks
+            int foundCount = 0;
+            for (int i = 0; i < tasks.size(); i++){
+                // Check if findString in checkboxString
+                if (tasks.get(i).checkboxString().contains(findString)){
+                    foundCount++;
+                    // Print each task with its index and checkbox format
+                    System.out.println((i+1) + "." + tasks.get(i).checkboxString());
+                }
+            }
+
+            if (foundCount == 0) {
+                System.out.println("Nothing Here");
+            }
+        }
+    }
+
 }
