@@ -1,4 +1,4 @@
-todo go to class /isdone true
-todo say hi /isdone false
-deadline go for meeting /by 01-01-2000 00:00 /isdone true
-event Senior Seminar RC4 /from 10-10-2024 14:00 /to 10-10-2024 17:00 /isdone true
+go to class /isdone true
+say hi /isdone false
+go for meeting /by 01-01-2000 00:00 /isdone true
+Senior Seminar RC4 /from 10-10-2024 14:00 /to 10-10-2024 17:00 /isdone true

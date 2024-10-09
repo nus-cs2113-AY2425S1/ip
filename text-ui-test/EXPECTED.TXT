@@ -1,3 +1,4 @@
+Data File Read
 ____________________________________________________________
                ._-'-_ .
           . '  /_-_-_\   ` .
@@ -10,52 +11,55 @@ ____________________________________________________________
           _-| \___ ___/ /-_
          (_ )__\_)\(_/__( _)
              ))))\X\ ((((
-               \/ \/
-Hola Amigo, I am Juan Cervantes Salamanca from Michoacan
-Welcome to la familia
-How can we help you?
+               \/ \/ 
+Hola Amigo, I am Juan Cervantes Salamanca from Michoacan 
+Welcome to la familia 
+How can we help you? 
 ____________________________________________________________
-event La Familia Meeting /from 5pm /to 6pm
 ____________________________________________________________
-Muy Bien, work hard compadre!
-I've Added the taskpackage.Task:
-[E][ ] La Familia Meeting (from: 5pm to: 6pm)
-You've got 1 tasks, better start working!
+Si compinche, your 4 tasks:
+1.[T][X] go to class
+2.[T][ ] say hi
+3.[D][X] go for meeting (by: 01-01-2000 00:00)
+4.[E][X] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
 ____________________________________________________________
-deadline Fry the Pollo with the Hermanos /by 5th July
 ____________________________________________________________
-Muy Bien, work hard compadre!
-I've Added the taskpackage.Task:
-[D][ ] Fry the Pollo with the Hermanos (by: 5th July)
-You've got 2 tasks, better start working!
+Si compinche, your tasks with the phrase <Senior>:
+4.[E][X] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
 ____________________________________________________________
-todo eat the pollo
 ____________________________________________________________
-Muy Bien, work hard compadre!
-I've Added the taskpackage.Task:
-[T][ ] eat the pollo
-You've got 3 tasks, better start working!
+Ay Caramba, I unmarked it:
+[E][ ] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
 ____________________________________________________________
-list
-____________________________________________________________
-Si compinche, your tasks:
-1.[E][ ] La Familia Meeting (from: 5pm to: 6pm)
-2.[D][ ] Fry the Pollo with the Hermanos (by: 5th July)
-3.[T][ ] eat the pollo
-____________________________________________________________
-mark 2
 ____________________________________________________________
 Fantastica!!!! I marked it:
-[D][X] Fry the Pollo with the Hermanos (by: 5th July)
+[E][X] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
 ____________________________________________________________
-list
 ____________________________________________________________
-Si compinche, your tasks:
-1.[E][ ] La Familia Meeting (from: 5pm to: 6pm)
-2.[D][X] Fry the Pollo with the Hermanos (by: 5th July)
-3.[T][ ] eat the pollo
+Muy Bien, work hard compadre!
+I've Added the Task:
+[T][ ] graduate
 ____________________________________________________________
-bye
+____________________________________________________________
+Si compinche, your 5 tasks:
+1.[T][X] go to class
+2.[T][ ] say hi
+3.[D][X] go for meeting (by: 01-01-2000 00:00)
+4.[E][X] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
+5.[T][ ] graduate
+____________________________________________________________
+____________________________________________________________
+Ay Caramba, Task deleted: [T][ ] graduate
+____________________________________________________________
+____________________________________________________________
+Si compinche, your 4 tasks:
+1.[T][X] go to class
+2.[T][ ] say hi
+3.[D][X] go for meeting (by: 01-01-2000 00:00)
+4.[E][X] Senior Seminar RC4 (from: 10-10-2024 14:00 to: 10-10-2024 17:00)
+____________________________________________________________
+____________________________________________________________
+Data File Written
 ____________________________________________________________
 Adios amigo, la familia will miss you
 ____________________________________________________________
