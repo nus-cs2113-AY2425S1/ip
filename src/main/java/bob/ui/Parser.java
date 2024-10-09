@@ -58,7 +58,7 @@ public class Parser {
             default:
                 UI.printInvalidCommand();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             UI.printInvalidInputTypeMessage();
         }
         return null;

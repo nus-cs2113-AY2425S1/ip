@@ -11,3 +11,4 @@ E | 0 | project meeting | Aug 6th 2pm-4pm
 T | 0 | lecture
 D | 0 | iP | Oct 11
 E | 0 | lecture | 4pm-6pm
+T | 0 | yt
