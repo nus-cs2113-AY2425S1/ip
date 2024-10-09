@@ -1,7 +1,7 @@
 package doug.tasks;
 
 /**
- * Base class for all other task classes to inherit from
+ * Base class for all other task classes to inherit from.
  */
 public class Task {
     protected String description;
@@ -13,52 +13,52 @@ public class Task {
     }
 
     /**
-     * Determines status icon based on isDone status of task
+     * Determines status icon based on isDone status of task.
      *
-     * @return "X" if done, else returns " "
+     * @return "X" if done, else returns " ".
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * Marks the task as done
+     * Marks the task as done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Marks the task as not done
+     * Marks the task as not done.
      */
     public void markAsNotDone() {
         isDone = false;
     }
 
     /**
-     * Returns a custom string representing the task
-     * Is overriden by child classes to add task specific details
+     * Returns a custom string representing the task.
+     * Is overriden by child classes to add task specific details.
      *
-     * @return String describing the task's details
+     * @return String describing the task's details.
      */
     public String toString() {
         return ("[" + getStatusIcon() + "] " + description);
     }
 
     /**
-     * Returns a custom string to be written in save file
-     * Is overriden by child classes to add task specific details
+     * Returns a custom string to be written in save file.
+     * Is overriden by child classes to add task specific details.
      *
-     * @return String describing the task's details in the proper format for save file
+     * @return String describing the task's details in the proper format for save file.
      */
     public String saveString() {
         return getStatusIcon();
     }
 
     /**
-     * Returns the description variable
+     * Returns the description variable.
      *
-     * @return description variable of the task
+     * @return description variable of the task.
      */
     public String getDescription() {
         return description;

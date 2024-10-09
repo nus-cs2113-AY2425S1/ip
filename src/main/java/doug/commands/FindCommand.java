@@ -5,8 +5,8 @@ import doug.tasklist.TaskList;
 import doug.ui.UI;
 
 /**
- * Represents the actions of the Find command
- * Tries to find and print all existing tasks that match the entered keyword
+ * Represents the actions of the Find command.
+ * Tries to find and print all existing tasks that match the entered keyword.
  */
 public class FindCommand extends Command {
 
@@ -17,12 +17,12 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Checks all tasks in current ArrayList to see if they contain the keyword
-     * Prints the matching tasks if any
+     * Checks all tasks in current ArrayList to see if they contain the keyword.
+     * Prints the matching tasks if any.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

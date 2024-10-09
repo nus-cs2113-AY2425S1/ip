@@ -10,9 +10,9 @@ import java.io.FileNotFoundException;
 
 /**
  * Main class for the chatbot Doug.
- * Initializes Parser, UI, TaskList and Storage classes
- * Takes in user inputs from the CLI
- * Read and writes tasks to and from the save file
+ * Initializes Parser, UI, TaskList and Storage classes.
+ * Takes in user inputs from the CLI.
+ * Read and writes tasks to and from the save file.
  */
 public class Doug {
     private static final String saveFilePath = "./data/tasks.txt";
@@ -21,11 +21,11 @@ public class Doug {
     private UI ui;
 
     /**
-     * Initializes the Doug object
-     * Creates new UI, Storage and TaskList objects
-     * Fills TaskList object with tasks from save file, if any
+     * Initializes the Doug object.
+     * Creates new UI, Storage and TaskList objects.
+     * Fills TaskList object with tasks from save file, if any.
      *
-     * @param filePath Relative file path of the save .txt file
+     * @param filePath Relative file path of the save .txt file.
      */
     public Doug(String filePath) {
         ui = new UI();
@@ -43,8 +43,8 @@ public class Doug {
     }
 
     /**
-     * Scans for user input and executes the input command
-     * Loops forever until user types in "bye" command
+     * Scans for user input and executes the input command.
+     * Loops forever until user types in "bye" command.
      */
     public void run() {
         boolean saidBye = false;
@@ -64,9 +64,9 @@ public class Doug {
     }
 
     /**
-     * Starts the Chatbot
+     * Starts the Chatbot.
      *
-     * @param args Command line arguments, which are not used
+     * @param args Command line arguments, which are not used.
      */
     public static void main(String[] args) {
         new Doug(saveFilePath).run();

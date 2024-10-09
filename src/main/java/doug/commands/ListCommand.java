@@ -5,8 +5,8 @@ import doug.tasklist.TaskList;
 import doug.ui.UI;
 
 /**
- * Represents the actions of the List command
- * Lists out all the tasks currently in the ArrayList of tasks
+ * Represents the actions of the List command.
+ * Lists out all the tasks currently in the ArrayList of tasks.
  */
 public class ListCommand extends Command{
 
@@ -15,11 +15,11 @@ public class ListCommand extends Command{
     }
 
     /**
-     * Lists in order, all the existing tasks in the ArrayList of tasks
+     * Lists in order, all the existing tasks in the ArrayList of tasks.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

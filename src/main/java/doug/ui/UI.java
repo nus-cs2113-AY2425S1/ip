@@ -3,7 +3,7 @@ package doug.ui;
 import java.util.Scanner;
 
 /**
- * Class that deals with showing certain UI elements to the user
+ * Class that deals with showing certain UI elements to the user.
  */
 public class UI {
     public static final String DASHED_LINE
@@ -99,57 +99,57 @@ public class UI {
     }
 
     /**
-     * Reads in user input from the CLI
+     * Reads in user input from the CLI.
      *
-     * @return full line from CLI as a String
+     * @return full line from CLI as a String.
      */
     public String readCommand() {
         return input.nextLine().trim();
     }
 
     /**
-     * Returns the dashed line as a string
+     * Returns the dashed line as a string.
      *
-     * @return dashed line string
+     * @return dashed line string.
      */
     public String getDashedLine() {
         return DASHED_LINE;
     }
 
     /**
-     * Prints the dashed line to the CLI
+     * Prints the dashed line to the CLI.
      */
     public void printDashedLine() {
         System.out.println(DASHED_LINE);
     }
 
     /**
-     * Prints a list of all available commands to the CLI
+     * Prints a list of all available commands to the CLI.
      */
     public void printListOfCommands() {
         System.out.println(listOfCommands);
     }
 
     /**
-     * Returns the confused message string
+     * Returns the confused message string.
      *
-     * @return confused message string
+     * @return confused message string.
      */
     public String getConfusedMessage() {
         return confusedMessage;
     }
 
     /**
-     * Returns the missing index message string
+     * Returns the missing index message string.
      *
-     * @return missing index message string
+     * @return missing index message string.
      */
     public String getMissingIndexMessage() {
         return missingIndexMessage;
     }
 
     /**
-     * Prints the Doug Dimmadome ASCII art to the CLI
+     * Prints the Doug Dimmadome ASCII art to the CLI.
      */
     public void printLogo() {
         for (int i = 0; i < hatHeight; i++) {
@@ -159,21 +159,21 @@ public class UI {
     }
 
     /**
-     * Prints the welcome message to new users to the CLI
+     * Prints the welcome message to new users to the CLI.
      */
     public void sayNewUserWelcome() {
         System.out.println(newWelcomeMessage);
     }
 
     /**
-     * Prints the welcome message to existing users to the CLI
+     * Prints the welcome message to existing users to the CLI.
      */
     public void sayExistingUserWelcome() {
         System.out.println(existingWelcomeMessage);
     }
 
     /**
-     * Prints the closing message to the CLI
+     * Prints the closing message to the CLI.
      */
     public void sayGoodbye() {
         System.out.println(goodbyeMessage);

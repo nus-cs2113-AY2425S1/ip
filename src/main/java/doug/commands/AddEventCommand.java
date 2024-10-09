@@ -6,8 +6,8 @@ import doug.ui.UI;
 import doug.tasks.Event;
 
 /**
- * Represents the actions of the Event command
- * Adds a new Event task to the ArrayList of tasks
+ * Represents the actions of the Event command.
+ * Adds a new Event task to the ArrayList of tasks.
  */
 public class AddEventCommand extends Command {
 
@@ -22,11 +22,11 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Creates a new Event object and adds it to the existing TaskList
+     * Creates a new Event object and adds it to the existing TaskList.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

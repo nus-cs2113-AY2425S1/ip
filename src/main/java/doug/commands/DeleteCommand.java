@@ -8,8 +8,8 @@ import doug.tasks.Task;
 import java.io.IOException;
 
 /**
- * Represents the actions of the Delete command
- * Removes the indicated task from the ArrayList of tasks
+ * Represents the actions of the Delete command.
+ * Removes the indicated task from the ArrayList of tasks.
  */
 public class DeleteCommand extends Command {
 
@@ -20,11 +20,11 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Removes the selected task from the existing TaskList object
+     * Removes the selected task from the existing TaskList object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

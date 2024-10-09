@@ -7,8 +7,8 @@ import doug.tasks.Task;
 import java.util.ArrayList;
 
 /**
- * Represents the ArrayList containing all the added Tasks
- * Contains methods to access and modify tasks in the ArrayList
+ * Represents the ArrayList containing all the added Tasks.
+ * Contains methods to access and modify tasks in the ArrayList.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -22,9 +22,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task to the ArrayList
+     * Adds a new task to the ArrayList.
      *
-     * @param task New task object to be added
+     * @param task New task object to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -32,28 +32,28 @@ public class TaskList {
     }
 
     /**
-     * Returns the entire ArrayList as it is
+     * Returns the entire ArrayList.
      *
-     * @return The current ArrayList
+     * @return The current ArrayList.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Returns a specific task based on it's index in the ArrayList
+     * Returns a specific task based on it's index in the ArrayList.
      *
-     * @param id Index of the task to be returned
-     * @return The task object specified by the input index
+     * @param id Index of the task to be returned.
+     * @return The task object specified by the input index.
      */
     public  Task getTask(int id) {
         return tasks.get(id);
     }
 
     /**
-     * Removes a specific task based on it's index in the ArrayList
+     * Removes a specific task based on it's index in the ArrayList.
      *
-     * @param id Index of the task to be removed
+     * @param id Index of the task to be removed.
      */
     public void removeTask(int id) {
         tasks.remove(id);
@@ -61,19 +61,19 @@ public class TaskList {
     }
 
     /**
-     * Returns the number of tasks currently in the ArrayList
+     * Returns the number of tasks currently in the ArrayList.
      *
-     * @return Size of the ArrayList
+     * @return Size of the ArrayList.
      */
     public int getCount() {
         return counter;
     }
 
     /**
-     * Checks if a certain input index is within the current size of the ArrayList
+     * Checks if a certain input index is within the current size of the ArrayList.
      *
-     * @param listIndex Index to check
-     * @throws DougException If the index lies outside the size of the ArrayList
+     * @param listIndex Index to check.
+     * @throws DougException If the index lies outside the size of the ArrayList.
      */
     public void checkOutOfBounds(int listIndex) throws DougException {
         if (listIndex > counter || listIndex <= 0) {

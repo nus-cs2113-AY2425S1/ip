@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class representing Event tasks
- * Inherits from Task class
+ * Class representing Event tasks.
+ * Inherits from Task class.
  */
 public class Event extends Task{
     protected String from; // used if start date and time were not provided for the task
@@ -18,12 +18,12 @@ public class Event extends Task{
     protected LocalDate toDate; // used if task was only given an end date
 
     /**
-     * Constructor to create a new Event task
-     * Checks if there is a Date and/or Time attached to the start and end inputs, and formats it properly
+     * Constructor to create a new Event task.
+     * Checks if there is a Date and/or Time attached to the start and end inputs, and formats it properly.
      *
-     * @param description String representing the description of the task
-     * @param from String representing the start period of the task
-     * @param to String representing the end period of the task
+     * @param description String representing the description of the task.
+     * @param from String representing the start period of the task.
+     * @param to String representing the end period of the task.
      */
     public Event(String description, String from, String to){
         super(description);
@@ -54,9 +54,9 @@ public class Event extends Task{
     }
 
     /**
-     * Returns a custom string representing the task
+     * Returns a custom string representing the task.
      *
-     * @return String describing the task's details
+     * @return String describing the task's details.
      */
     @Override
     public String toString(){
@@ -86,9 +86,9 @@ public class Event extends Task{
     }
 
     /**
-     * To return a custom string to be written in save file
+     * To return a custom string to be written in save file.
      *
-     * @return String describing the task's details in the proper format for save file
+     * @return String describing the task's details in the proper format for save file.
      */
     @Override
     public String saveString() {

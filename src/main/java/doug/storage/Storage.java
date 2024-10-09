@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Class that deals with saving and loading tasks from the local .txt save file
+ * Class that deals with saving and loading tasks from the local .txt save file.
  */
 public class Storage {
 
@@ -25,10 +25,10 @@ public class Storage {
     }
 
     /**
-     * Re-writes the save file by adding all existing tasks to it
+     * Re-writes the save file by adding all existing tasks to it.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @throws IOException If the save file cannot be opened or written to properly
+     * @param tasks The object containing the ArrayList of tasks.
+     * @throws IOException If the save file cannot be opened or written to properly.
      */
     public void saveTasks(TaskList tasks) throws IOException {
         File dir = new File("./data");
@@ -45,12 +45,12 @@ public class Storage {
     }
 
     /**
-     * Reads the save file line by line and adds the saved tasks to the TaskList tasks object
+     * Reads the save file line by line and adds the saved tasks to the TaskList tasks object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
-     * @throws FileNotFoundException If save file cannot be found
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
+     * @throws FileNotFoundException If save file cannot be found.
      */
     public void loadTasks(TaskList tasks, UI ui, Storage storage) throws FileNotFoundException {
         File tasksFile = new File(filePath); 	// create a File object for the given file path
@@ -76,10 +76,10 @@ public class Storage {
     }
 
     /**
-     * Parses the line containing todo task and adds it to the TaskList tasks object
+     * Parses the line containing todo task and adds it to the TaskList tasks object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param line Line from save file storing data on a todo task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param line Line from save file storing data on a todo task.
      */
     public static void loadToDo(TaskList tasks, String line) {
         boolean isMarked = false;
@@ -99,10 +99,10 @@ public class Storage {
     }
 
     /**
-     * Parses the line containing deadline task and adds it to the TaskList tasks object
+     * Parses the line containing deadline task and adds it to the TaskList tasks object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param line Line from save file storing data on a deadline task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param line Line from save file storing data on a deadline task.
      */
     public static void loadDeadline(TaskList tasks, String line) {
         boolean isMarked = false;
@@ -128,10 +128,10 @@ public class Storage {
     }
 
     /**
-     * Parses the line containing event task and adds it to the TaskList tasks object
+     * Parses the line containing event task and adds it to the TaskList tasks object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param line Line from save file storing data on a event task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param line Line from save file storing data on an event task.
      */
     public static void loadEvent(TaskList tasks, String line) {
         boolean isMarked = false;

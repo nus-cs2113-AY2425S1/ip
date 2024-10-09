@@ -6,19 +6,19 @@ import doug.tasklist.TaskList;
 import doug.ui.UI;
 
 /**
- * Class that breaks down the input string from the user
- * Parses and interprets the user input and calls the appropriate command classes
+ * Class that breaks down the input string from the user.
+ * Parses and interprets the user input and calls the appropriate command classes.
  */
 public class Parser {
 
     /**
-     * Deduces which command type has been input by the user
+     * Deduces which command type has been input by the user.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A command object matching the command type entered by the user
-     * @throws DougException If the command entered by user is not of a proper existing format
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A command object matching the command type entered by the user.
+     * @throws DougException If the command entered by user is not of a proper existing format.
      */
     public static Command extractCommandType(TaskList tasks, String command, UI ui) throws DougException {
         Command c = new Command();
@@ -49,14 +49,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details of the todo task to be added
-     * Creates and returns a ToDoCommand object
+     * Parses the user's input to obtain details of the todo task to be added.
+     * Creates and returns a ToDoCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A ToDoCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the name/description of the task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A ToDoCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the name/description of the task.
      */
     public static Command parseToDo(TaskList tasks, String command, UI ui) throws DougException{
         String todoName = command.replaceFirst("todo", "").trim();
@@ -72,14 +72,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details of the deadline task to be added
-     * Creates and returns a DeadlineCommand object
+     * Parses the user's input to obtain details of the deadline task to be added.
+     * Creates and returns a DeadlineCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A DeadlineCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the name or deadline time/date of the task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A DeadlineCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the name or deadline time/date of the task.
      */
     public static Command parseDeadline(TaskList tasks, String command, UI ui) throws DougException{
         command = command.replaceFirst("deadline", "").trim();
@@ -111,14 +111,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details of the event task to be added
-     * Creates and returns an EventCommand object
+     * Parses the user's input to obtain details of the event task to be added.
+     * Creates and returns an EventCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return An EventCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the name or start/end time/date of the task
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return An EventCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the name or start/end time/date of the task.
      */
     public static Command parseEvent(TaskList tasks, String command, UI ui) throws DougException {
         command = command.replaceFirst("event", "").trim();
@@ -172,14 +172,14 @@ public class Parser {
 
 
     /**
-     * Parses the user's input to obtain details of the delete task to be added
-     * Creates and returns a DeleteCommand object
+     * Parses the user's input to obtain details of the delete task to be added.
+     * Creates and returns a DeleteCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A DeleteCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the index of the task to delete
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A DeleteCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the index of the task to delete.
      */
     public static Command parseDelete(TaskList tasks, String command, UI ui) throws DougException {
         if (tasks.getCount() <= 0) {
@@ -212,14 +212,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details of the task to be marked
-     * Creates and returns a MarkCommand object
+     * Parses the user's input to obtain details of the task to be marked.
+     * Creates and returns a MarkCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A MarkCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the index of the task to mark
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A MarkCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the index of the task to mark.
      */
     public static Command parseMark(TaskList tasks, String command, UI ui) throws DougException {
         command = command.replace("mark", "").trim();
@@ -245,14 +245,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details of the task to be unmarked
-     * Creates and returns an UnMarkCommand object
+     * Parses the user's input to obtain details of the task to be unmarked.
+     * Creates and returns an UnMarkCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return An UnMarkCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the index of the task to unmark
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return An UnMarkCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the index of the task to unmark.
      */
     public static Command parseUnmark(TaskList tasks, String command, UI ui) throws DougException {
         command = command.replace("unmark", "").trim();
@@ -278,14 +278,14 @@ public class Parser {
     }
 
     /**
-     * Parses the user's input to obtain details what to tasks to find
-     * Creates and returns a FindCommand object
+     * Parses the user's input to obtain details what to tasks to find.
+     * Creates and returns a FindCommand object.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param command The full line of input from the user
-     * @param ui The UI object
-     * @return A FindCommand object containing the user's input parameters
-     * @throws DougException If the user input is missing the keyword to find in the tasks
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param command The full line of input from the user.
+     * @param ui The UI object.
+     * @return A FindCommand object containing the user's input parameters.
+     * @throws DougException If the user input is missing the keyword to find in the tasks.
      */
     public static Command parseFind(TaskList tasks, String command, UI ui) throws DougException {
         command = command.replaceFirst("find", "").trim();

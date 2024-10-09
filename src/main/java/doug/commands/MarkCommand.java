@@ -7,8 +7,8 @@ import doug.ui.UI;
 import java.io.IOException;
 
 /**
- * Represents the actions of the Mark command
- * Marks the selected task as done
+ * Represents the actions of the Mark command.
+ * Marks the selected task as done.
  */
 public class MarkCommand extends Command {
 
@@ -19,11 +19,11 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Marks the selected task as done
+     * Marks the selected task as done.
      *
-     * @param tasks The object containing the ArrayList of tasks
-     * @param ui The UI object
-     * @param storage The Storage object
+     * @param tasks The object containing the ArrayList of tasks.
+     * @param ui The UI object.
+     * @param storage The Storage object.
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

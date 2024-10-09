@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class representing Deadline tasks
- * Inherits from Task class
+ * Class representing Deadline tasks.
+ * Inherits from Task class.
  */
 public class Deadline extends Task {
     protected String by; // used if date and time were not provided for the task
@@ -15,11 +15,11 @@ public class Deadline extends Task {
     protected LocalDate date; // used if task was only given a date
 
     /**
-     * Constructor to create a new Deadline task
-     * Checks if there is a Date and/or Time attached to the deadline, and formats it properly
+     * Constructor to create a new Deadline task.
+     * Checks if there is a Date and/or Time attached to the deadline, and formats it properly.
      *
-     * @param description String representing the description of the task
-     * @param by String representing deadline of the task
+     * @param description String representing the description of the task.
+     * @param by String representing deadline of the task.
      */
     public Deadline(String description, String by){
         super(description);
@@ -38,9 +38,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a custom string representing the task
+     * Returns a custom string representing the task.
      *
-     * @return String describing the task's details
+     * @return String describing the task's details.
      */
     @Override
     public String toString(){
@@ -59,9 +59,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a custom string to be written in save file
+     * Returns a custom string to be written in save file.
      *
-     * @return String describing the task's details in the proper format for save file
+     * @return String describing the task's details in the proper format for save file.
      */
     @Override
     public String saveString() {

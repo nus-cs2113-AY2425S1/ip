@@ -1,8 +1,8 @@
 package doug.tasks;
 
 /**
- * Class representing Todo tasks
- * Inherits from Task class
+ * Class representing Todo tasks.
+ * Inherits from Task class.
  */
 public class Todo extends Task {
 
@@ -11,9 +11,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a custom string representing the task
+     * Returns a custom string representing the task.
      *
-     * @return String describing the task's details
+     * @return String describing the task's details.
      */
     @Override
     public String toString(){
@@ -21,9 +21,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a custom string to be written in save file
+     * Returns a custom string to be written in save file.
      *
-     * @return String describing the task's details in the proper format for save file
+     * @return String describing the task's details in the proper format for save file.
      */
     @Override
     public String saveString() {

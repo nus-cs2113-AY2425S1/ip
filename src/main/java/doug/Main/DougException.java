@@ -1,7 +1,7 @@
 package doug.Main;
 
 /**
- * Custom exception class
+ * Custom exception class.
  */
 public class DougException extends Exception {
     public DougException(String message) {
