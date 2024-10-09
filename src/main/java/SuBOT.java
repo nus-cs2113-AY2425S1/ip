@@ -91,6 +91,9 @@ public class SuBOT {
             case "delete":
                 taskList.deleteTask(argString);
                 break;
+            case "find":
+                taskList.findTask(argString);
+                break;
             default:
                 throw new InvalidCommandException(TaskList.UsageString.DEFAULT);
             }
