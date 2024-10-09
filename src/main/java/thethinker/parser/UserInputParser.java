@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * Handles the parsing of input other than to-do , deadline , event and date related parsing.
- * Parsing of To-do , deadline , event and date are done by their respective parsers
+ * Parsing of To-do , deadline , event and date are done by their respective parsers.
  */
 public class UserInputParser {
 
@@ -26,9 +26,9 @@ public class UserInputParser {
     }
 
     /**
-     * Used to obtain task number after inputting commands that require task number
+     * Obtains task number after inputting commands that require task number.
      *
-     * @return Task number
+     * @return Task number.
      * @throws NumberFormatException If task number string provided is not a number.
      * @throws FormattingException If no task or multiple task number is provided.
      */
@@ -51,8 +51,10 @@ public class UserInputParser {
     }
 
     /**
-     * @return keyword after removing space on the side
-     * @throws FormattingException If no keyword is provided or keyword is more than one word
+     * Extracts single word from user input after "find".
+     *
+     * @return keyword after removing space on the side.
+     * @throws FormattingException If no keyword is provided or keyword is more than one word.
      */
     public static String parseKeywordAfterFind() throws FormattingException {
 

@@ -29,7 +29,7 @@ public class NewFile {
     }
 
     /**
-     * Read content of a file and adds all task to current task list.
+     * Reads content of a file and adds all task to current task list.
      *
      * @throws FileNotFoundException If the filepath is invalid.
      */
@@ -87,6 +87,8 @@ public class NewFile {
     }
 
     /**
+     * Writes all the task to the specified file.
+     *
      * @throws IOException If the filepath is invalid.
      */
     public void writeTaskListToFile() throws IOException {
@@ -97,7 +99,7 @@ public class NewFile {
     }
 
     /**
-     * Converts task list into a load file format
+     * Converts task list into a load file format.
      * If TaskList is empty , an empty string will be returned.
      *
      * @return A single string of task list in file format.

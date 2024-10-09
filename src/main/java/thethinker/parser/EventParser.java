@@ -11,10 +11,10 @@ public class EventParser extends UserInputParser{
     public static final String EVENT_FORMAT = "Please follow format : event [task] /from [start time] /to [end time]";
 
     /**
-     * Parse user input based on the format of Event and use the result to create Event object.
+     * Parses user input based on the format of Event and use the result to create Event object.
      *
-     * @throws FormattingException If /from , /to , task description , start time and end time
-     * is missing from user input. If /to is in front of /from.
+     * @throws FormattingException If /from, /to, task description, start and end time is missing from user input.
+     * If /to is in front of /from.
      */
     public static Event parseEvent() throws FormattingException {
 

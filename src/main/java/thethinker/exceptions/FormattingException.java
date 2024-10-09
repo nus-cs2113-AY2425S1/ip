@@ -1,7 +1,7 @@
 package thethinker.exceptions;
 
 /**
- * This exception is thrown whenever there are formatting errors in the command given by the user
+ * This exception is thrown whenever there are formatting errors in the command given by the user.
  */
 public class FormattingException extends Exception{
 

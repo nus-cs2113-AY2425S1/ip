@@ -27,7 +27,7 @@ public class DateParser extends UserInputParser {
      * Converts date from format of dd/MM/yyyy HHmm to dd MMMM yyyy , h a.
      * If date is not of dd/MM/yyyy HHmm format, the original string is returned.
      *
-     * @param date deadline of task extracted from user input
+     * @param date deadline of task extracted from user input.
      * @return date of string type with format e.g. 15 October 2019 , 6 pm.
      *
      */
@@ -66,9 +66,9 @@ public class DateParser extends UserInputParser {
     }
 
     /**
-     * Compares date according to the deadline of each task types.
+     * Checks if date matches according to the deadline of each task types.
      *
-     * @param task Task to compare
+     * @param task Task to compare.
      * @param specifiedDate date in format of dd/MM/yyyy.
      */
     public static boolean isMatchingDateByType(Task task , String specifiedDate) {
@@ -95,8 +95,10 @@ public class DateParser extends UserInputParser {
     }
 
     /**
-     * @param taskDate Deadline corresponding to the task
-     * @param specifiedDate Queried date in any format
+     * Checks if the user given date and task date matches.
+     *
+     * @param taskDate Deadline corresponding to the task.
+     * @param specifiedDate Queried date in any format.
      */
     private static boolean isMatchingDate(String taskDate , String specifiedDate) {
 
@@ -155,10 +157,10 @@ public class DateParser extends UserInputParser {
     }
 
     /**
-     * Parse date after get command and checks if queried date is of dd/mm/yyyy format
+     * Parses date after get command and checks if queried date is of dd/mm/yyyy format.
      *
-     * @return date in dd/MM/yyyy format
-     * @throws FormattingException If date is missing or in the wrong format(i.e. not dd/mm/yyyy)
+     * @return date in dd/MM/yyyy format.
+     * @throws FormattingException If date is missing or in the wrong format(i.e. not dd/mm/yyyy).
      */
     public static String parseDateAfterGet() throws FormattingException {
         final int LENGTH_OF_GET = 3;

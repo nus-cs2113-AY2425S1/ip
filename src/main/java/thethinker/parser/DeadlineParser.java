@@ -11,9 +11,9 @@ public class DeadlineParser extends UserInputParser{
     public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
 
     /**
-     * Parse user input based on the format of Deadline and create Deadline object.
+     * Parses user input based on the format of Deadline and create Deadline object.
      *
-     * @throws FormattingException If /by , task description , deadline is missing from user input
+     * @throws FormattingException If /by , task description , deadline is missing from user input.
      */
     public static Deadline parseDeadline() throws FormattingException {
 

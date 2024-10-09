@@ -10,8 +10,8 @@ import java.io.IOException;
 public interface CommandLine {
 
     /**
-     * Checks for user input and do corresponding command
-     * and write task to file till bye command.
+     * Checks for user input and do corresponding command.
+     * Write task to file till bye command.
      */
     static void pollForUserInputTillBye(boolean isWriteTask) {
         String userAction;
@@ -33,7 +33,7 @@ public interface CommandLine {
     /**
      * Checks for user input and do corresponding command and write task to file.
      *
-     * @return the original trimmed user action
+     * @return the original trimmed user action.
      */
     private static String getUserActionAndDoTask() {
         String userInput = UserInputParser.getUserInput();
@@ -43,7 +43,7 @@ public interface CommandLine {
     }
 
     /**
-     * Do corresponding actions depending on the command by the user.
+     * Selects task to do according to the command by the user.
      *
      * @param userAction the first word of the user input.
      */

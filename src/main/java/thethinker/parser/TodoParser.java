@@ -10,9 +10,9 @@ public class TodoParser extends UserInputParser{
     public static final String TODO_FORMAT = "Please follow format : todo [task]";
 
     /**
-     * Parse user input based on the format of To-do and create To-do object
+     * Parses user input based on the format of To-do and create To-do object.
      *
-     * @throws FormattingException if task description is not provided in user input
+     * @throws FormattingException if task description is not provided in user input.
      */
     public static Task parseTodo() throws FormattingException {
 

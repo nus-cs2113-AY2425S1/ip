@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Handles file loading operations when at the start of program
+ * Handles file loading operations when at the start of program.
  */
 public class FileLoader {
 
@@ -16,7 +16,7 @@ public class FileLoader {
 
     /**
      * Loads default filepath and check if it exists.
-     * If file does not exist , create a new file based on user input
+     * If file does not exist , create a new file based on user input.
      *
      * @throws FileNotFoundException If file creation failed.
      */
@@ -95,7 +95,7 @@ public class FileLoader {
     }
 
     /**
-     * Get user input on whether they want to save task to a file
+     * Gets user input on whether they want to save task to a file.
      */
     public static boolean shouldSaveTask() {
         UiControl.printSeparation();

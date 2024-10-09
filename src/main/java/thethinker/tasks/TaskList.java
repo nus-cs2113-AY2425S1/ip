@@ -17,14 +17,19 @@ public class TaskList {
     }
 
     /**
-     * Adds task to task list without printing any information to the console compared to addTask()
+     * Adds task to task list without printing any information to the console.
      */
     public static void addTaskWithoutResponse(Task task) {
         listOfTasks.add(task);
         listLength++;
     }
 
-    public static void deleteTask(int taskNumber) {
+    /**
+     * Deletes task from current task list.
+     *
+     * @throws IndexOutOfBoundsException If number given is more than task list length.
+     */
+    public static void deleteTask(int taskNumber) throws IndexOutOfBoundsException{
 
         Task taskToRemove = listOfTasks.get(taskNumber-1);
         listLength--;
@@ -35,15 +40,25 @@ public class TaskList {
         System.out.printf("Now you have %d tasks in the list.\n" , listLength);
     }
 
-    public static void setAsDone(int listNumber) throws IndexOutOfBoundsException {
-        Task currentTask = listOfTasks.get(listNumber-1);
+    /**
+     * Marks task from current task list.
+     *
+     * @throws IndexOutOfBoundsException If number given is more than task list length.
+     */
+    public static void setAsDone(int taskNumber) throws IndexOutOfBoundsException {
+        Task currentTask = listOfTasks.get(taskNumber-1);
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("  [%c][X] " + currentTask.getTaskDescription() + "\n" , currentTask.getTaskType());
         currentTask.setMarkedAsDone(true);
     }
 
-    public static void setAsNotDone(int listNumber) throws IndexOutOfBoundsException {
-        Task currentTask = listOfTasks.get(listNumber-1);
+    /**
+     * Unmarks task from current task list.
+     *
+     * @throws IndexOutOfBoundsException If number given is more than task list length.
+     */
+    public static void setAsNotDone(int taskNumber) throws IndexOutOfBoundsException {
+        Task currentTask = listOfTasks.get(taskNumber-1);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.printf("  [%c][ ] " + currentTask.getTaskDescription() + "\n" , currentTask.getTaskType());
         currentTask.setMarkedAsDone(false);
@@ -57,6 +72,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all the task with deadline same as date given.
+     *
+     * @param date should be dd/MM/yyyy format.
+     */
     public static void listTasksOfDate(String date){
         System.out.println("Here are the tasks in your list in " + date + " :");
         int counter = 0;
@@ -74,6 +94,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all the task in Task List which contains the keyword.
+     *
+     * @param keyword one single word only.
+     */
     public static void listTasksOfKeyword(String keyword) {
 
         System.out.println("Here are the matching tasks in your list:");
