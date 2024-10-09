@@ -1,13 +1,13 @@
 package yapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import yapper.exceptions.YapperException;
 import yapper.instructions.Instruction;
 import yapper.instructions.InstructionHandler;
-import yapper.io.InputFileHandler;
-import yapper.io.InputStringHandler;
-import yapper.io.StringStorage;
+import yapper.io.*;
 import yapper.tasks.TaskHandler;
 
 /**
@@ -23,6 +23,34 @@ import yapper.tasks.TaskHandler;
 public class Yapper {
 
     /**
+     * Validates the existence of the save folder and file.
+     * If either the folder or the file does not exist, they are created.
+     * After creating or validating their existence, the tasks managed by the
+     * {@code TaskHandler} are stored using {@code OutputFileHandler.storeAllTasks()}.
+     * <p>
+     * If an {@code IOException} or {@code YapperException} occurs during the process, an appropriate message is
+     * printed to the console.
+     *
+     * @param taskHandler the {@code TaskHandler} instance that manages the tasks to be stored.
+     * @throws IOException if an I/O error occurs during file or folder initialization.
+     * @throws YapperException if a Yapper-specific error occurs during task storage.
+     */
+    private static void validateSaveFolderAndFile(TaskHandler taskHandler) {
+        try {
+            if (!FileHandler.saveFolderExists() || !FileHandler.saveFileExists()) {
+                File file = new File(StringStorage.SAVE_FILE_PATH);
+                FileHandler.initSaveFolder(file, false);
+                FileHandler.initSaveFile(file, false);
+                OutputFileHandler.storeAllTasks(taskHandler);
+            }
+        } catch (IOException e) {
+            System.out.println("IOException encountered");
+        } catch (YapperException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
      * Contains the main Chatbot Loop
      *
      * <p>
@@ -36,6 +64,7 @@ public class Yapper {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
+            validateSaveFolderAndFile(taskHandler);
             String userInputString = scanner.nextLine().trim();
 
             System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
@@ -75,7 +104,7 @@ public class Yapper {
             System.out.println(StringStorage.LINE_DIVIDER);
             System.out.println(StringStorage.HELP_MESSAGE);
         } else {
-            System.out.println("let us resume where we left off, shall we?");
+            System.out.println("Let us resume where we left off, shall we?");
         }
 
         runMainLoop(taskHandler);
