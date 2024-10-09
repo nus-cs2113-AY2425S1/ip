@@ -8,6 +8,9 @@ import atom.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that finds tasks in the task list containing specified keyword.
+ */
 public class FindCommand extends Command{
 
     private static final int KEYWORD_START_INDEX = 5;
@@ -20,6 +23,13 @@ public class FindCommand extends Command{
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Finds tasks containing keyword specified by user, adds them to a new task list
+     * and prints out the new task list.
+     * <p>
+     * If the user command only contains the <code>find</code> keyword,
+     * a <code>MissingKeywordException</code> is thrown and caught in the method.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -36,6 +46,9 @@ public class FindCommand extends Command{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
