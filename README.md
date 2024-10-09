@@ -1,6 +1,6 @@
 # Nateh User Guide
 
-// Product screenshot goes here
+
 
 Nateh is a command line application which acts as a digital todo list optimized for fast typers.
 This app is perfect for those in need of a simple todo list that with a good typing speed.
