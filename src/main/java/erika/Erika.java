@@ -43,7 +43,7 @@ public class Erika {
                 Console.printMessage("Error: No line to parse");
                 return;
             } catch (NumberFormatException e) {
-                Console.printMessage("Error: command format error, Invalid delete command format" +
+                Console.printMessage("Error: command format error, Invalid command format" +
                         "\n\tDid you either supply an integer or keyword 'all'?");
             }
         }
