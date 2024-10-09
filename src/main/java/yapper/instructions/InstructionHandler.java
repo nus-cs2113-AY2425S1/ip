@@ -1,8 +1,11 @@
 package yapper.instructions;
 
+import java.io.File;
+import java.io.IOException;
+
 import yapper.exceptions.ExceptionHandler;
 import yapper.exceptions.YapperException;
-import yapper.io.InputStringHandler;
+import yapper.io.FileHandler;
 import yapper.io.OutputFileHandler;
 import yapper.io.OutputStringHandler;
 import yapper.io.StringStorage;
@@ -131,6 +134,13 @@ public class InstructionHandler {
      */
     public static void handleInstruction(TaskHandler taskHandler, Instruction instruction) throws YapperException {
         try {
+            if (!FileHandler.saveFolderExists() || !FileHandler.saveFileExists()) {
+                File file = new File(StringStorage.SAVE_FILE_PATH);
+                FileHandler.initSaveFolder(file, false);
+                FileHandler.initSaveFile(file, false);
+                OutputFileHandler.storeAllTasks(taskHandler);
+            }
+
             Instruction.InstructionType instructionType = instruction.getInstructionType();
             switch (instructionType) {
             case LIST:
@@ -178,6 +188,8 @@ public class InstructionHandler {
             default:
                 throw new YapperException("Yapper doesn't know how to handle this instruction. ");
             }
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e.getMessage());
         } catch (YapperException e) {
             throw new YapperException("when executing instruction. \n" + e.getMessage());
         }
