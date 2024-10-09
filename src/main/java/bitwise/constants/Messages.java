@@ -1,5 +1,9 @@
 package bitwise.constants;
 
+/**
+ * The {@code Messages} class contains constants representing various messages displayed to the user in the application.
+ * These messages are used for user feedback and communication throughout the task management process.
+ */
 public class Messages {
     public static final String MESSAGE_WELCOME = Constants.SECTION_BREAK + Constants.INDENTATION + "Hello from\n" +
             Constants.LOGO + "\n" + Constants.INDENTATION + "How may I help you today?\n" + Constants.LINE_BREAK;

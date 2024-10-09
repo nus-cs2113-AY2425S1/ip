@@ -16,7 +16,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code InputHandler} class is responsible for managing user input,
+ * processing commands, and manipulating the task list in the Bitwise application.
+ */
 public class InputHandler {
+    /**
+     * Processes user input and updates the task list accordingly.
+     *
+     * @param userInput the input string provided by the user
+     * @param tasksList the list of tasks to be modified
+     * @param numberOfTasks the current number of tasks in the task list
+     * @return the current status of the application (RUNNING or EXIT)
+     */
     public static Status handleInput(String userInput, ArrayList<Task> tasksList, int numberOfTasks) {
         if (userInput.equalsIgnoreCase(Commands.COMMAND_END)) {
             return Status.EXIT;
@@ -53,11 +65,23 @@ public class InputHandler {
         return Status.RUNNING;
     }
 
+    /**
+     * Reads a line of input from the user.
+     *
+     * @return the user input as a {@code String}
+     */
     public static String getUserInput() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
 
+    /**
+     * Adds a new task to the task list based on user input.
+     *
+     * @param userInput the input string provided by the user
+     * @param tasksList the list of tasks to which the new task will be added
+     * @param numberOfTasks the current number of tasks in the task list
+     */
     public static void addToList(String userInput, ArrayList<Task> tasksList, int numberOfTasks) {
         Task newTask;
         String description;
@@ -106,6 +130,14 @@ public class InputHandler {
         OutputManager.printNumberOfTasks(numberOfTasks);
     }
 
+    /**
+     * Marks a task as completed or uncompleted based on the task number provided.
+     *
+     * @param taskNumber the number of the task to be marked
+     * @param isCompleted the completion status to set for the task
+     * @param tasksList the list of tasks being modified
+     * @param numberOfTasks the current number of tasks in the task list
+     */
     public static void markCompletionStatus(int taskNumber, boolean isCompleted, ArrayList<Task> tasksList, int numberOfTasks) {
         int taskIndex = taskNumber - 1;
         try {
@@ -125,6 +157,13 @@ public class InputHandler {
         OutputManager.printTasksList(tasksList, numberOfTasks);
     }
 
+    /**
+     * Deletes a task from the task list based on the task number provided.
+     *
+     * @param taskNumber the number of the task to be deleted
+     * @param tasksList the list of tasks from which the task will be removed
+     * @param numberOfTasks the current number of tasks in the task list
+     */
     public static void deleteTask(int taskNumber, ArrayList<Task> tasksList, int numberOfTasks) {
         int taskIndex = taskNumber - 1;
         Task deletedTask = tasksList.remove(taskIndex);

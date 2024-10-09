@@ -1,5 +1,9 @@
 package bitwise.constants;
 
+/**
+ * The {@code Commands} class contains constants representing the various command strings used in the application.
+ * These commands are used to interact with the task manager and handle user input.
+ */
 public class Commands {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";

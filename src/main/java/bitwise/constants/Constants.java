@@ -1,5 +1,9 @@
 package bitwise.constants;
 
+/**
+ * The {@code Constants} class contains static final values used throughout the application.
+ * These values include file paths, ASCII art, formatting strings, command descriptions, and parsing indices.
+ */
 public class Constants {
     // ASCII art from https://ascii-generator.site/t/
     public static final String LOGO = " ____   _  _              _            \n"
