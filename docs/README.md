@@ -61,11 +61,11 @@ The tasks are printed out along with a serial number on the left which can be us
 Finds all the tasks containing a search term in their description.
 The search term is case insensitive.
 
-Format: `find <search_term>`
+Format: `find /match <search_term>`
 
 Examples:
-- `find lecture`
-- `find quiz`
+- `find /match lecture`
+- `find /match quiz`
 
 ## Marking a task: `mark`
 
@@ -105,3 +105,9 @@ Examples:
 
 If the index is out of bounds, Miku print a message asking you to specify a valid index.
 If the index is valid, the task is removed and a message along with the removed task is printed.
+
+## Exiting the program: `bye`
+
+Saves the tasklist and exits the program
+
+Format: `bye`
