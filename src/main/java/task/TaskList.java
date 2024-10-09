@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 
 public final class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
-    private static int taskCount = 0;
+    private final ArrayList<Task> tasks = new ArrayList<>();
+    private int taskCount = 0;
     public static boolean isRunning = true;
     public static final class UsageString {
         public static final String LIST_USAGE = "Usage: list";
@@ -17,7 +17,8 @@ public final class TaskList {
         public static final String TODO_USAGE = "Usage: todo <description>";
         public static final String DEADLINE_USAGE = "Usage: deadline <name> /by <time>";
         public static final String DELETE_USAGE = "Usage: delete <taskNumber>";
-        public static final String DEFAULT = "All commands: list, mark, unmark, event, todo, deadline, delete";
+        public static final String FIND_USAGE = "Usage: find <query>";
+        public static final String DEFAULT = "All commands: list, mark, unmark, event, todo, deadline, delete, find";
     }
 
     public TaskList() {
@@ -32,9 +33,14 @@ public final class TaskList {
         return tasks;
     }
 
-    public void addTasks(ArrayList<Task> t) {
+    public void add(ArrayList<Task> t) {
         tasks.addAll(t);
         taskCount += t.size();
+    }
+
+    public void add(Task t) {
+        tasks.add(t);
+        taskCount += 1;
     }
 
     /**
@@ -153,6 +159,29 @@ public final class TaskList {
             removed.printTask();
         } catch (InvalidArgumentException e) {
             String msg = e.getMessage() + "\n" + UsageString.DELETE_USAGE;
+            throw new InvalidArgumentException(msg);
+        }
+    }
+
+    public void findTask(String argString) throws InvalidArgumentException {
+        try {
+            argString = argString.strip().toLowerCase();
+            Parser.validateToDo(argString);
+
+            System.out.println("Searching for \"" + argString + "\"...");
+            TaskList results = new TaskList();
+
+            for (Task task : tasks) {
+                if (task.getCommand().toLowerCase().contains(argString)) {
+                    results.add(task);
+                }
+            }
+
+            System.out.println("Here are the results: \n");
+            results.listTasks();
+
+        } catch (InvalidArgumentException e) {
+            String msg = e.getMessage() + "\n" + UsageString.FIND_USAGE;
             throw new InvalidArgumentException(msg);
         }
     }
