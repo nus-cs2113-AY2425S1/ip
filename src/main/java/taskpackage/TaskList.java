@@ -55,7 +55,7 @@ public class TaskList {
         if (tasks.isEmpty()){
             System.out.println("Por Favor? Nothing Here"); // Message when there are no tasks
         } else {
-            System.out.println("Si compinche, your tasks:"); // Message when displaying tasks
+            System.out.println("Si compinche, your " + tasks.size() + " tasks:"); // Message when displaying tasks
             for (int i = 0; i < tasks.size(); i++){
                 // Print each task with its index and checkbox format
                 System.out.println((i+1) + "." + tasks.get(i).checkboxString());
