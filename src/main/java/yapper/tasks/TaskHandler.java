@@ -22,6 +22,7 @@ public class TaskHandler {
     public TaskHandler() {
         tasks = new ArrayList<>();
     }
+
     /**
      * Returns the list of all tasks managed by this TaskHandler.
      *
@@ -94,4 +95,17 @@ public class TaskHandler {
         task.setDoneStatus(isDone);
     }
 
+    /**
+     * Converts the list of tasks into an {@code ArrayList} of string representations.
+     * Each task is represented by its string format as defined by the {@code taskToString()} method.
+     *
+     * @return an {@code ArrayList<String>} containing the string representations of all tasks.
+     */
+    public ArrayList<String> tasksToString() {
+        ArrayList<String> taskAsStrings = new ArrayList<>();
+        for (Task task : this.tasks) {
+            taskAsStrings.add(task.taskToString());
+        }
+        return taskAsStrings;
+    }
 }
