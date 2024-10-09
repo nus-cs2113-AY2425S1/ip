@@ -1,15 +1,23 @@
 package atom.exception;
 
+/**
+ * Represents an exception when the task id specified is out of range.
+ */
 public class TaskIdOutOfBoundsException extends RuntimeException {
 
-    protected int taskCount;
-    protected String errorMessage;
+    /** Number of tasks currently in the task list */
+    private int taskCount;
 
     public TaskIdOutOfBoundsException(int taskCount) {
         this.taskCount = taskCount;
-        errorMessage = this.getMessage();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The detailed message returned is the error message corresponding
+     * to the exception.
+     */
     @Override
     public String getMessage() {
         String message = "Invalid task id!!" +
