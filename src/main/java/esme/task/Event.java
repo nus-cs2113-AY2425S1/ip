@@ -18,11 +18,6 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * The task type of the event, which is "event".
-     */
-    private String taskType;
-
-    /**
      * Creates a new event task with the given description, start date, and end date.
      *
      * @param description The description of the event.
@@ -33,7 +28,6 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-        this.taskType = "event";
     }
 
     /**
@@ -54,18 +48,38 @@ public class Event extends Task {
         return this.to;
     }
 
+    /**
+     * Returns the start date of the event in the format "dd MMM yyyy", which is suitable for display.
+     * 
+     * @return The start date of the event in the format "dd MMM yyyy". 
+     */
     public String getDateFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
+    /**
+     * Returns the start date of the event in the format "yyyy-MM-dd", which is suitable for saving to a file.
+     * 
+     * @return The start date of the event in the format "yyyy-MM-dd". 
+     */
     public String getFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Returns the end date of the event in the format "yyyy-MM-dd", which is suitable for saving to a file.
+     * 
+     * @return The end date of the event in the format "yyyy-MM-dd". 
+     */
     public String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Returns the end date of the event in the format "dd MMM yyyy", which is suitable for display.
+     * 
+     * @return The end date of the event in the format "dd MMM yyyy". 
+     */
     public String getDateTo() {
         return this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }

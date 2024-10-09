@@ -1,6 +1,6 @@
 import esme.storage.Storage;
 import esme.ui.Ui;
-import esme.command.CommandManager;
+import esme.parser.Parser;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,14 +8,14 @@ import java.util.Scanner;
 public class ChatBot {
     private final Scanner inputScanner;
     private final Ui ui;
-    private final CommandManager commandManager;
+    private final Parser parser;
     private Storage storage;
 
     public ChatBot(String filePath) {
         this.inputScanner = new Scanner(System.in);
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        this.commandManager = new CommandManager(this.ui, this.storage);
+        this.parser = new Parser(this.ui, this.storage);
     }
 
     /**
@@ -28,7 +28,7 @@ public class ChatBot {
      */
     public void bootUp() {
         try {
-            if (!commandManager.hasLoadSuccessful()) {
+            if (!parser.hasLoadSuccessful()) {
                 storage.createFile();
             }
         } catch (IOException e) {
@@ -52,7 +52,7 @@ public class ChatBot {
 
         while (!toExit) {
             line = inputScanner.nextLine();
-            toExit = commandManager.handleCommand(line);
+            toExit = parser.hashandleCommand(line);
         }
         inputScanner.close();
     }

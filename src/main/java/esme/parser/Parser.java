@@ -1,5 +1,11 @@
-package esme.command;
+package esme.parser;
 
+import esme.command.ActionCommand;
+import esme.command.EntryCommand;
+import esme.command.ExitCommand;
+import esme.command.HelpCommand;
+import esme.command.PrintCommand;
+import esme.command.UnknownCommand;
 import esme.storage.Storage;
 import esme.ui.Ui;
 
@@ -14,7 +20,7 @@ import java.util.ArrayList;
  * The command manager is also responsible for loading and saving the task list to
  * and from the external storage.
  */
-public class CommandManager {
+public class Parser {
     private Storage storage;
     private Ui ui;
 
@@ -24,7 +30,7 @@ public class CommandManager {
      * @param ui The user interface object.
      * @param storage The storage object.
      */
-    public CommandManager(Ui ui, Storage storage) {
+    public Parser(Ui ui, Storage storage) {
         this.storage = storage;
         this.ui = ui;
     }
@@ -40,7 +46,7 @@ public class CommandManager {
             String[] parts = text.split(" /c ");
             System.out.println(parts[0]);
             System.out.println(parts[1]);
-            handleCommand(parts[0],parts[1].equals("true"));
+            hashandleCommand(parts[0],parts[1].equals("true"));
         }
     }
 
@@ -107,12 +113,12 @@ public class CommandManager {
      * @param line The user input to be processed.
      * @return True if the command has been executed successfully, false otherwise.
      */
-    public boolean handleCommand(String line) {
+    public boolean hashandleCommand(String line) {
         if (line.isEmpty()) {
             ui.promptEmptyInput();
             return false;
         }
-        return this.handleCommand(line,false);
+        return this.hashandleCommand(line,false);
     }
 
     /**
@@ -122,7 +128,7 @@ public class CommandManager {
      * @param isTaskCompleted True if the task is completed, false otherwise.
      * @return True if the command has been executed successfully, false otherwise.
      */
-    public boolean handleCommand(String line, boolean isTaskCompleted) {
+    public boolean hashandleCommand(String line, boolean isTaskCompleted) {
         boolean toExit = false;
         String[] words = line.split(" ");
         switch (words[0].toLowerCase()) {

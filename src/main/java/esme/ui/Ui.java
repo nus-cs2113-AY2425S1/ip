@@ -186,9 +186,24 @@ public class Ui {
      */
     public void markTaskInList(int taskIndex) {
         taskList.markTask(taskIndex - 1);
+        printTaskStatusMessage(taskIndex,true);
+    }
+
+    /**
+     * Prints out Ui message on task status when marking or unmarking tasks.
+     *
+     * @param taskIndex The index of the task.
+     * @param isMark True if function is called when marking a task, else false
+     */
+    public void printTaskStatusMessage(int taskIndex, boolean isMark) {
         displayLine(true);
-        System.out.println("\tOutstanding! This task is marked as done, and your destiny shines brighter.");
-        System.out.println("\t  [X] " + taskList.getTask(taskIndex - 1).getDescription());
+        if (isMark) {
+            System.out.println("\tOutstanding! This task is marked as done, and your destiny shines brighter.");
+            System.out.println("\t  [X] " + taskList.getTask(taskIndex - 1).getDescription());
+        } else {
+            System.out.println("\tFear not, for this task remains unfinished. We shall conquer it in due time!");
+            System.out.println("\t  [] " + taskList.getTask(taskIndex - 1).getDescription());
+        }
         displayLine(true);
     }
 
@@ -200,10 +215,7 @@ public class Ui {
      */
     public void unmarkTaskInList(int taskIndex) {
         taskList.unmarkTask(taskIndex - 1);
-        displayLine(true);
-        System.out.println("\tFear not, for this task remains unfinished. We shall conquer it in due time!");
-        System.out.println("\t  [] " + taskList.getTask(taskIndex - 1).getDescription());
-        displayLine(true);
+        printTaskStatusMessage(taskIndex,false);
     }
 
 
@@ -290,6 +302,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out the tasks that are similar to the given line of input.
+     * This method displays the tasks that contain the given keyword, indicating their completion status.
+     * If no similar tasks are found, a message is printed to the user.
+     * If an exception is thrown, an error message is printed to the user.
+     * 
+     * @param line The line of input containing the keyword to search for.
+     */
     public void printTaskFound(String line) {
         try {
             ArrayList<Task> list = taskList.findTask(line);
@@ -309,6 +329,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out the tasks that occur within the given month and year.
+     * The tasks are printed in the format specified in the Task class.
+     * If there are no tasks in the given month and year, a message is printed
+     * to the user.
+     * If the task format is incorrect, an EsmeException is thrown.
+     * If the task format is correct, the tasks are printed and the user is prompted
+     * to type 'list' to see the index of the tasks to delete, mark, unmark.
+     * If an exception is thrown, an error message is printed to the user.
+     * 
+     * @param words The words array containing the task format
+     */
     public void printTasksIn(String[] words) {
         try {
             ArrayList<Task> list = taskList.getTasksIn(words);

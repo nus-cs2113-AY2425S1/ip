@@ -177,6 +177,13 @@ public class TaskList {
         return description;
     }
 
+    /**
+     * Finds all tasks in the task list that contain the given keyword
+     *
+     * @param line The command line input containing the keyword
+     * @return An ArrayList containing all the tasks that contain the keyword
+     * @throws EsmeException If the find format is incorrect
+     */
     public ArrayList<Task> findTask(String line) throws EsmeException {
         String[] parts = line.split(" ", 2);
         if (parts.length != 2) {
@@ -191,6 +198,15 @@ public class TaskList {
         return taskArray;
     }
 
+    /**
+     * Returns an ArrayList containing all the tasks that occur within the month specified.
+     * The method will look for tasks that are due in the given month and year, and if the task is an event,
+     * it will be added if the event starts or ends in the given month and year.
+     *
+     * @param line The command line input containing the task format
+     * @return An ArrayList containing all the tasks that occur within the month specified
+     * @throws EsmeException If the task format is incorrect
+     */
     public ArrayList<Task> getTasksIn(String[] line) throws EsmeException {
         ArrayList<Task> list = new ArrayList<>();
         if (line.length != 3) {
@@ -210,6 +226,15 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Adds a task to the given list if the task is due in the given month and year.
+     * If the task is an event, it will be added if the event is in the given month and year.
+     * 
+     * @param task The task to be added.
+     * @param month The month to look for.
+     * @param year The year to look for.
+     * @param list The list to add the task to.
+     */
     private void getTaskInMonth(Task task, Month month, int year, ArrayList<Task> list) {
         if (task instanceof Deadline chore) {
             if (chore.getLocalDate().getMonth() == month && chore.getLocalDate().getYear() == year) {

@@ -215,7 +215,7 @@ By the light of the moon, these are the tasks that guide your path:
 ------------------------------------------------------------------------------------------------------------------------
 ```
 
-## Viewing help
+## Viewing Help
 Lists out all the available commands and their command format.
 
 Format: `help`
@@ -250,5 +250,5 @@ Au revoir, mon ami! May the cosmos continue to weave a tapestry of fortune in yo
 ------------------------------------------------------------------------------------------------------------------------
 ```
 
-## Saving the data
+## Saving the Data
 Esme's data are saved in an external `.txt` file automatically after the `bye` command is executed. There is no need to save manually.

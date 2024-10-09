@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter;
  * A Deadline task is a type of Task that has a deadline by which it must be completed.
  */
 public class Deadline extends Task {
-    private String taskType;
+    /**
+     * Deadline of the deadline task
+     */
     private LocalDate by;
 
     /**
@@ -19,7 +21,6 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
-        this.taskType = "deadline";
     }
 
     public LocalDate getLocalDate() {
