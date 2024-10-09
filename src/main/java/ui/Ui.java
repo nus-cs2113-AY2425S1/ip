@@ -14,7 +14,9 @@ public class Ui {
      * Scanner object for reading user input.
      */
     private Scanner scanner;
-
+    private enum Type {
+        TODO, DEADLINE, EVENT
+    };
     /**
      * Constructs a Ui object and initializes the Scanner.
      */
@@ -44,7 +46,7 @@ public class Ui {
     /**
      * Prints an error message when the user enters an invalid command.
      */
-    public void invalidCommand() {
+    public void printInvalidCommandError() {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.println("Oops?! I don't know that one >.<");
         System.out.print(Skeleton.LINE_BREAK);
@@ -55,30 +57,32 @@ public class Ui {
      *
      * @param task the invalid Task object that caused the error
      */
-    public void invalidTask(Task task) {
-        if (task instanceof Todo) {
+    public void printInvalidTaskError(Type type) {
+        switch (type) {
+        case TODO -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to be missing a description");
             System.out.println("Format: todo <description>");
             System.out.print((Skeleton.LINE_BREAK));
-        } else if (task instanceof Deadline) {
+        } case DEADLINE -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
             System.out.println("Format: deadline <description> /by <deadline>");
             System.out.print((Skeleton.LINE_BREAK));
-        } else if (task instanceof Event) {
+        } case EVENT -> {
             System.out.print((Skeleton.LINE_BREAK));
             System.out.println("OH NO! You seem to have an invalid input!");
-            System.out.println("Format: deadline <description> /from <from> /to <to>");
+            System.out.println("Format: event <description> /from <from> /to <to>");
             System.out.print((Skeleton.LINE_BREAK));
+        }
         }
     }
 
     /**
      * Prints a generic error message when a file error occurs.
      */
-    public void fileError() {
-        System.out.print(Skeleton.LINE_BREAK);
+    public void printFileError() {
+        System.out.print((Skeleton.LINE_BREAK));
         System.out.println("Seems like an error occurred");
         System.out.print(Skeleton.LINE_BREAK);
     }
@@ -149,6 +153,20 @@ public class Ui {
         System.out.print(Skeleton.LINE_BREAK);
         System.out.print("added: ");
         task.print();
+        System.out.print(Skeleton.LINE_BREAK);
+    }
+    public void printDateError() {
+        System.out.print(Skeleton.LINE_BREAK);
+        System.out.println("I think you formatted the date wrong =.=");
+        System.out.println("Format: yyyy-mm-dd");
+        System.out.print(Skeleton.LINE_BREAK);
+    }
+    public void printSearchError() {
+        System.out.print(Skeleton.LINE_BREAK);
+        System.out.println("I don't think you can search like that....");
+        System.out.println("Searching for tasks with specific date: search /d <date>");
+        System.out.println("Searching for tasks before: search /b <date>");
+        System.out.println("Searching for tasks after: search /a <date>");
         System.out.print(Skeleton.LINE_BREAK);
     }
 }

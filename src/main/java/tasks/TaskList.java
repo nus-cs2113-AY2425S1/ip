@@ -1,7 +1,5 @@
 package tasks;
 
-import storage.TaskDecoder;
-
 import java.util.ArrayList;
 
 public class TaskList {

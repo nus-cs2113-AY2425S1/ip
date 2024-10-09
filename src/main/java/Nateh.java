@@ -1,8 +1,7 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import tasks.Task;
 import commands.Command;
 import exceptions.IllegalCommandException;
 import parser.Parser;
@@ -32,8 +31,9 @@ public class Nateh {
                 input = ui.receiveCommand();
                 Command command = Parser.parse(input);
                 command.execute(taskList, ui);
+                /** catch block is empty as when the exception is thrown a message
+                 will be printed based on which command was inputted incorrectly */
             } catch (IllegalCommandException e) {
-                ui.invalidCommand();
             }
         }
     }

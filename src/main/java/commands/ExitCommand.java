@@ -18,7 +18,7 @@ public class ExitCommand extends Command {
             System.out.print(Skeleton.LINE_BREAK);
             System.exit(0);
         } catch (IOException e) {
-            ui.fileError();
+            ui.printFileError();
         }
     }
 }
