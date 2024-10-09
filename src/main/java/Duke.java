@@ -16,7 +16,7 @@ public class Duke {
     System.out.println("____________________________________________________________");
 
     // Load existing tasks from file
-    loadTasksFromFile();
+    loadTasksFromFile();  
 
     // Initialize a scanner to read user input
     Scanner scanner = new Scanner(System.in);
