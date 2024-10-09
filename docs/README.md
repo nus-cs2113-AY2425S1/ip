@@ -11,6 +11,12 @@ The different types of tasks that Miku can handle are:
 
 Miku is also able to store your data in a text file so that your work is not lost when you close the program.
 
+## Listing out possible commands: `help`
+
+A quick way to list out the syntax.
+
+Format: `help`
+
 ## Adding a todo task: `todo`
 
 Adds a todo task to the list.

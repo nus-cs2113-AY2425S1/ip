@@ -31,6 +31,9 @@ public class InputParser {
             break;
         case "bye":
             break;
+        case "help":
+            new HelpCommand().execute();
+            break;
         case "mark":
             new MarkCommand().execute(taskList,line);
             break;
@@ -53,7 +56,7 @@ public class InputParser {
             new EventCommand().execute(taskList,line);
             break;
         default:
-            System.out.println("Please input a valid command. You can refer to the docs for valid commands.");
+            System.out.println("Please input a valid command. Type help to receive a list of commands.");
             break;
         }
     }
