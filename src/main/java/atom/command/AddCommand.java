@@ -12,6 +12,9 @@ import atom.exception.InvalidEventFormatException;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command that adds different types of tasks to the task list.
+ */
 public class AddCommand extends Command {
 
     private static final int TODO_START_INDEX = 5;
@@ -21,9 +24,9 @@ public class AddCommand extends Command {
     private static final int START_DATE_START_INDEX_OFFSET = 6;
     private static final int END_DATE_START_INDEX_OFFSET = 4;
 
-    protected String[] userInputSplit;
-    protected String fullCommand;
-    protected String command;
+    private String[] userInputSplit;
+    private String fullCommand;
+    private String command;
 
     public AddCommand(String[] words, String fullCommand, String command) {
         userInputSplit = words;
@@ -31,6 +34,10 @@ public class AddCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Adds a <code>todo</code>, <code>deadline</code>, or <code>event</code>
+     * task to the task list depending on the task type specified in the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         switch (command) {
@@ -46,6 +53,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a <code>todo</code> task to the task list.
+     * <p>
+     * If the user command only contains the <code>todo</code> keyword,
+     * an <code>EmptyTodoException</code> is thrown and caught in the method.
+     */
     private void executeTodoCommand(TaskList tasks, Ui ui) {
         try {
             if (userInputSplit.length == 1) {
@@ -60,6 +73,18 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a <code>deadline</code> task to the task list.
+     * <p>
+     * If the user command only contains the <code>deadline</code> keyword,
+     * an <code>EmptyDeadlineException</code> is thrown and caught in the method.
+     * <p>
+     * If the <code>deadline</code> command format is invalid, an
+     * <code>InvalidDeadlineFormatException</code> is thrown and caught in the method.
+     * <p>
+     * If the <code>deadline</code> command format is valid but the date time format is invalid,
+     * the date time related exceptions will be caught in the method.
+     */
     private void executeDeadlineCommand(TaskList tasks, Ui ui) {
         try {
             if (userInputSplit.length == 1) {
@@ -95,6 +120,18 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds an <code>event</code> task to the task list.
+     * <p>
+     * If the user command only contains the <code>event</code> keyword,
+     * an <code>EmptyEventException</code> is thrown and caught in the method.
+     * <p>
+     * If the <code>event</code> command format is invalid, an
+     * <code>InvalidEventFormatException</code> is thrown and caught in the method.
+     * <p>
+     * If the <code>event</code> command format is valid but the date time format is invalid,
+     * the date time related exceptions will be caught in the method.
+     */
     private void executeEventCommand(TaskList tasks, Ui ui) {
         try {
             if (userInputSplit.length == 1) {
@@ -139,6 +176,9 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
         public boolean isExit() {
             return false;
