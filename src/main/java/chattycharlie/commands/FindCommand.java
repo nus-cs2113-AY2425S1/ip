@@ -34,6 +34,7 @@ public class FindCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         int count = 1;
         ui.displaySearchList();
         for(int i = 0; i < taskList.getSize(); i++) {

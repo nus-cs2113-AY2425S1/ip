@@ -1,9 +1,6 @@
 package chattycharlie;
 
 import chattycharlie.commands.CommandType;
-import chattycharlie.userinteractions.Storage;
-
-import java.io.IOException;
 
 /**
  * Represents all the exceptions used in ChattyCharlie task management

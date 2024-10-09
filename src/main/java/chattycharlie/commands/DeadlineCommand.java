@@ -45,6 +45,7 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         Task deadlineTask = new Deadline(description, by);
         taskList.addTask(deadlineTask);
         ui.displayTaskAdded(deadlineTask);

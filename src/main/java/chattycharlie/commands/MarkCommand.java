@@ -38,6 +38,7 @@ public class MarkCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         taskList.markTask(toMarkIndex);
         ui.displayTask(taskList.getTask(toMarkIndex));
     }

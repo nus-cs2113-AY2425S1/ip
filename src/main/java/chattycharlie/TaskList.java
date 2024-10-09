@@ -1,5 +1,6 @@
 package chattycharlie;
 
+import chattycharlie.userinteractions.Storage;
 import chattycharlie.userinteractions.Ui;
 import chattycharlie.task.Deadline;
 import chattycharlie.task.Event;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
     private int size;
-
+    Storage storage;
     /**
      * Contructs an empty <code>TaskList</code> object with no task
      */

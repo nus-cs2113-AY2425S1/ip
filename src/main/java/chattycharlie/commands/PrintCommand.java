@@ -9,7 +9,6 @@ import chattycharlie.userinteractions.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents the command to print tasks based on a specific date.
@@ -45,6 +44,7 @@ public class PrintCommand implements Command{
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         int count = 1;
         ui.displaySearchList();
         for(int i = 0; i < taskList.getSize(); i++ ) {

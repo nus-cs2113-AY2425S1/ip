@@ -39,7 +39,8 @@ public class TodoCommand implements Command{
      * @param storage the storage system to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage){
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         Task todoTask = new Todo(description);
         taskList.addTask(todoTask);
         ui.displayTaskAdded(todoTask);

@@ -38,6 +38,7 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         taskList.unmarkTask(toUnmarkIndex);
         ui.displayTask(taskList.getTask(toUnmarkIndex));
     }

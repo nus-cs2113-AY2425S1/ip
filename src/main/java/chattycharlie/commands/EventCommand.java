@@ -56,6 +56,7 @@ public class EventCommand implements Command{
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieExceptions {
+        storage.saveTasks(taskList);
         Task eventTask = new Event(description, from, to);
         taskList.addTask(eventTask);
         ui.displayTaskAdded(eventTask);
