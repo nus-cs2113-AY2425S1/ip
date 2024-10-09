@@ -71,7 +71,7 @@ Add task which has a specific deadline.
 
 Example: `deadline return book /by 20/10/2025 1800`
 
-Formatting rules :
+Formatting rules :<br>
 1) "deadline" is not Caps-Sensitive. <br>
 2) Dates in the form of `dd/MM/yyyy HHmm` (e.g. 20/10/2025 1800) will be converted
 to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically <br>
@@ -95,7 +95,7 @@ Add task which has a duration.
 
 Example: `event travel /from 20/10/2025 1800 /to 20/11/2025 1800`
 
-Formatting rules :
+Formatting rules :<br>
 1) "event" is not Caps-Sensitive.<br>
 2) Dates in the form of `dd/MM/yyyy HHmm` (e.g. 20/10/2025 1800) will be converted
    to `dd/MMM/yyyy H a` (e.g. 20 October 2025 , 6 pm) automatically<br>
@@ -137,7 +137,7 @@ ____________________________________________________________
 
 Mark task as complete and incomplete.
 
-Formatting rules :
+Formatting rules :<br>
 1) "mark" / "unmark" is not Caps-Sensitive.<br>
 2) Only <b>one</b> task can be marked per command (i.e. `mark 1 2`) is not valid<br>
 
@@ -172,7 +172,7 @@ Prints the format for all the commands available
 
 Example: `help`
 
-Formatting rules :
+Formatting rules :<br>
 1) "help" is not Caps-Sensitive.<br>
 2) Help command will be triggered if first word is "help" and ignores remainder of the commands
    (i.e. `help me with command` , `help 12414`) would work.<br>
@@ -200,7 +200,7 @@ Delete a specific task from the list
 
 Example: `delete 1`
 
-Formatting rules :
+Formatting rules :<br>
 1) "delete" is not Caps-Sensitive.<br>
 2) Deleting a task using a number greater than total of no. of task will not result in any change.<br>
 
@@ -228,7 +228,7 @@ Get all the task which are of specific date
 
 Example: `get 20/10/2025`
 
-Formatting rules :
+Formatting rules :<br>
 1) "get" is not Caps-Sensitive.<br>
 2) Date specified must be of `dd/MM/yyyy` format only<br>
 3) Dates in `dd/MMM/yyyy H a` and `dd/MM/yyyy` format will be compared with and task with same day , month and year
@@ -258,7 +258,7 @@ Get all the task which are of specific keyword
 
 Example: `find travel`
 
-Formatting rules :
+Formatting rules : <br>
 1) "find" is not Caps-Sensitive.<br>
 2) Keyword should only be 1 word.<br>
 4) Multi-word queries are not accepted and would result 0 matching cases.<br>
@@ -287,7 +287,7 @@ Exits the program
 
 Example: `bye`
 
-Formatting rules :
+Formatting rules :<br>
 1) "bye" is not Caps-Sensitive.<br>
 2) Bye command will be triggered if first word is "Bye" and ignores remainder of the commands
    (i.e. `bye me with command` , `bye 12414`) would work.<br>
