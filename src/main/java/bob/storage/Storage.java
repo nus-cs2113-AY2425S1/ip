@@ -16,8 +16,7 @@ import java.util.Scanner;
 
 /**
  * Represents a storage mechanism for managing tasks.
- * This class handles loading and saving tasks to a file,
- * as well as creating necessary directories and files.
+ * Handles loading and saving tasks to a file as well as creating necessary directories and files.
  */
 public class Storage {
 
@@ -47,7 +46,7 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file and returns them as an Arraylist of Task objects.
-     * If the file or directory does not exist, they will be created and a corresponding message will be printed.
+     * Creates the file or directory and displays a message if the file or directory does not exist.
      *
      * @return An ArrayList of Task objects loaded from the file.
      */

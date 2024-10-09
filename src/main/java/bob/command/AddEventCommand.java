@@ -7,8 +7,7 @@ import bob.storage.Storage;
 
 /**
  * Represents a command to add an event task.
- * It parses the input to retrieve the description, start time, and end time,
- * then adds the event task to the task list.
+ * Parses the input to retrieve the description, start time and end time, then adds the event task to the task list.
  */
 public class AddEventCommand extends Command {
     private final String input;
@@ -27,9 +26,8 @@ public class AddEventCommand extends Command {
 
     /**
      * Executes the command to add an event task.
-     * It extracts the description, start time and end time from the input string,
-     * adds the event task to the task list, prints it via the UI,
-     * and stores it in the storage.
+     * Extracts the description, start time and end time from the input string,
+     * adds the event task to the task list, prints it via the UI and stores it in the storage.
      *
      * @param tasks   The TaskList where the new task will be added.
      * @param ui      The Ui object to handle the user interface output.
@@ -60,7 +58,7 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Indicates whether this command should exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
      * @return false, as this command does not exit the program.
      */

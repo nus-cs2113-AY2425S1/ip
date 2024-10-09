@@ -7,8 +7,7 @@ import bob.storage.Storage;
 
 /**
  * Represents a command to add a deadline task.
- * It parses the input to retrieve the description and deadline
- * and adds the deadline task to the task list.
+ * Parses the input to retrieve the description and deadline, adds the deadline task to the task list.
  */
 public class AddDeadlineCommand extends Command {
     private final String input;
@@ -26,9 +25,8 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Executes the command to add a deadline task.
-     * It splits the input string into the task description and deadline,
-     * adds the deadline task to the task list, prints it via the UI,
-     * and stores it in the storage.
+     * Splits the input string into the task description and deadline,
+     * adds the deadline task to the task list, prints it via the UI and stores it in the storage.
      *
      * @param tasks   The TaskList where the new task will be added.
      * @param ui      The Ui object to handle the user interface output.
@@ -56,7 +54,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Indicates whether this command should exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
      * @return false, as this command does not exit the program.
      */

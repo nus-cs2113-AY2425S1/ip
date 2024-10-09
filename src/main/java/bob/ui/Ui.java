@@ -6,8 +6,7 @@ import java.util.Scanner;
 
 /**
  * Represents the user interface of the chatbot.
- * It handles the interactions with the user, including displaying messages
- * and reading user input.
+ * Handles the interactions with the user, including displaying messages and reading user input.
  */
 public class Ui {
     public static final String SEPARATOR = "____________________________________________________________";
@@ -249,7 +248,7 @@ public class Ui {
     }
 
     /**
-     * Informs the user that there are no matching tasks in the task list.
+     * Prints a message if there are no matching tasks in the task list.
      */
     public void printNoMatchingTasks() {
         System.out.println("Sorry! There are no matching tasks in your list.");

@@ -6,18 +6,17 @@ import bob.ui.Parser;
 import bob.command.Command;
 
 /**
- * Represents the main application class for the chatbot task management system.
- * It manages the interaction between the user interface, task storage,
- * and task list.
+ * Represents the main application class for the Bob chatbot task management system.
+ * Manages the interaction between the user interface, task storage and task list.
  */
 public class Bob {
+    private Ui ui;
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     private static final String FILE_PATH = "data/tasks.txt";
 
     /**
-     * Initialises the Bob application with the specified file path for storage.
+     * Initializes the Bob application with the specified file path for storage.
      *
      * @param filePath The path to the file where tasks are stored.
      */
@@ -28,8 +27,8 @@ public class Bob {
     }
 
     /**
-     * Runs the main loop of the application, allowing the user to input commands.
-     * The application continues until the user chooses to exit.
+     * Runs the main loop of the Bob application, allowing the user to input commands.
+     * Continues until the user chooses to exit.
      */
     public void run() {
         this.ui.showWelcome();
@@ -49,7 +48,7 @@ public class Bob {
     }
 
     /**
-     * The main method that starts the Bob application.
+     * Starts the Bob application.
      *
      * @param args Command line arguments (not used).
      */

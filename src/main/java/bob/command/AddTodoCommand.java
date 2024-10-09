@@ -7,7 +7,7 @@ import bob.storage.Storage;
 
 /**
  * Represents a command to add a "To-Do" task.
- * It parses the input to retrieve the description and adds the to-do task to the task list.
+ * Parses the input to retrieve the description and adds the to-do task to the task list.
  */
 public class AddTodoCommand extends Command {
     private static final String COMMAND_TODO = "todo";
@@ -24,8 +24,8 @@ public class AddTodoCommand extends Command {
 
     /**
      * Executes the command to add a "To-Do" task.
-     * It extracts the task description from the input string, adds the task to the task list,
-     * prints it via the UI, and stores it in the storage.
+     * Extracts the task description from the input string, adds the task to the task list,
+     * prints it via the UI and stores it in the storage.
      *
      * @param tasks   The TaskList where the new task will be added.
      * @param ui      The Ui object to handle the user interface output.
@@ -47,7 +47,7 @@ public class AddTodoCommand extends Command {
     }
 
     /**
-     * Indicates whether this command should exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
      * @return false, as this command does not exit the program.
      */

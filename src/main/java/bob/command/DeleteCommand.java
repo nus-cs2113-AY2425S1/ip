@@ -6,7 +6,7 @@ import bob.storage.Storage;
 
 /**
  * Represents a command to delete a task from the task list.
- * This command removes a task based on its index and updates the task list accordingly.
+ * Removes a task based on its index and updates the task list accordingly.
  */
 public class DeleteCommand extends Command {
     private final int taskIndex;
@@ -21,8 +21,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the delete task command, removing a task from the task list.
-     * If the task list is empty or an invalid index is provided, an error message is displayed.
+     * Executes the command to remove a task from the task list.
+     * Displays an error message if the task list is empty or an invalid index is provided.
      *
      * @param tasks   The TaskList that the command will operate on.
      * @param ui      The Ui object to interact with the user interface.
@@ -44,9 +44,9 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Determines whether this command will exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
-     * @return false as the delete command does not exit the program.
+     * @return false as this command does not exit the program.
      */
     @Override
     public boolean isExit() {

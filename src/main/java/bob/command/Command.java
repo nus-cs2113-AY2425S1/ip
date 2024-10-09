@@ -20,7 +20,7 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
-     * Determines whether the command will exit the program.
+     * Returns a boolean value to indicate whether the command will exit the program.
      * Each subclass will define whether the command is an exit command or not.
      *
      * @return true if the command exits the program, false otherwise.

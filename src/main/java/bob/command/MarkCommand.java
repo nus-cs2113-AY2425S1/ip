@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a command to mark a task as done in the task list.
- * This command marks the specified task based on the provided index.
+ * Marks the specified task based on the provided index.
  */
 public class MarkCommand extends Command {
     private int index;
@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command, marking the task at the given index as done.
-     * If the task is already marked, it shows an appropriate message.
+     * Displays an appropriate message if the task is already marked.
      * Handles cases where the task list is empty or the index is invalid.
      *
      * @param tasks   The TaskList that contains all tasks.
@@ -52,9 +52,9 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Determines whether this command will exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
-     * @return false, as marking a task does not terminate the program.
+     * @return false, as this command does not terminate the program.
      */
     @Override
     public boolean isExit() {

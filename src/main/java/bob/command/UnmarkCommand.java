@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a command to unmark a task in the task list.
- * This command unmarks the specified task based on the provided index.
+ * Unmarks the specified task based on the provided index.
  */
 public class UnmarkCommand extends Command {
     private int index;
@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the unmark command, unmarking the task at the given index.
-     * If the task is already unmarked, it shows an appropriate message.
+     * Displays an appropriate message if the task is already unmarked.
      * Handles cases where the task list is empty or the index is invalid.
      *
      * @param tasks   The TaskList that contains all tasks.
@@ -52,9 +52,9 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Determines whether this command will exit the program.
+     * Returns a boolean value to indicate whether this command should exit the program.
      *
-     * @return false, as unmarking a task does not terminate the program.
+     * @return false, as this command does not terminate the program.
      */
     @Override
     public boolean isExit() {
