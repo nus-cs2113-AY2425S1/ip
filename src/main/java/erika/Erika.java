@@ -44,7 +44,7 @@ public class Erika {
                 return;
             } catch (NumberFormatException e) {
                 Console.printMessage("Error: command format error, Invalid command format" +
-                        "\n\tDid you either supply an integer or keyword 'all'?");
+                        "\n\tDid you either supply an integer or keyword 'all' (delete only)?");
             }
         }
     }
