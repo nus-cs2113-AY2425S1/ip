@@ -54,25 +54,28 @@ public class NewFile {
      * @param parameters A string array containing values to initialise different task.
      *
      */
-    private void addTaskAccordingToFileData(String[] parameters){
+    private void addTaskAccordingToFileData(String[] parameters) {
 
         switch (parameters[0]) {
         case "T" :
             TaskList.addTaskWithoutResponse(new Todo(parameters[2]));
-            if(Boolean.parseBoolean(parameters[1])){
+
+            if (Boolean.parseBoolean(parameters[1])) {
                 TaskList.setAsDone(TaskList.listLength);
             }
             break;
         case "E" :
             TaskList.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
-            if(Boolean.parseBoolean(parameters[1])){
+
+            if (Boolean.parseBoolean(parameters[1])) {
                 TaskList.setAsDone(TaskList.listLength);
             }
             break;
 
         case "D" :
             TaskList.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
-            if(Boolean.parseBoolean(parameters[1])){
+
+            if (Boolean.parseBoolean(parameters[1])) {
                 TaskList.setAsDone(TaskList.listLength);
             }
             break;
@@ -99,15 +102,15 @@ public class NewFile {
      *
      * @return A single string of task list in file format.
      */
-    private String convertTaskListToString(){
-        StringBuilder TaskListString = new StringBuilder();
+    private String convertTaskListToString() {
+        StringBuilder taskListString = new StringBuilder();
 
-        for(Task task : TaskList.listOfTasks) {
+        for (Task task : TaskList.listOfTasks) {
             String taskInFileFormat = task.convertToFileFormat();
-            TaskListString.append(taskInFileFormat).append("\n");
+            taskListString.append(taskInFileFormat).append("\n");
         }
 
-        return TaskListString.toString();
+        return taskListString.toString();
     }
 
 

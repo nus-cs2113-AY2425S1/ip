@@ -28,11 +28,11 @@ public class Task {
         return " [" + taskType + "][" + maskingChar + "] " + taskDescription;
     }
 
-    public String convertToFileFormat(){
+    public String convertToFileFormat() {
         return "NIL" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
 
-    public String getTaskDate(){
+    public String getTaskDate() {
         return "NIL";
     }
 }

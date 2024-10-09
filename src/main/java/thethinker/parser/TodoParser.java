@@ -18,7 +18,7 @@ public class TodoParser extends UserInputParser{
 
         String taskDescription = userInput.substring(LENGTH_OF_TODO).trim();
 
-        if(taskDescription.isEmpty()){
+        if (taskDescription.isEmpty()) {
             throw new FormattingException("The task to do is missing. " + TODO_FORMAT);
         }
 

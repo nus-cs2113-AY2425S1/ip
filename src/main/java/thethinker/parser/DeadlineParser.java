@@ -15,24 +15,25 @@ public class DeadlineParser extends UserInputParser{
      *
      * @throws FormattingException If /by , task description , deadline is missing from user input
      */
-    public static Deadline parseDeadline() throws FormattingException{
+    public static Deadline parseDeadline() throws FormattingException {
 
         String remainingTaskDescription = userInput.substring(LENGTH_OF_DEADLINE).trim();
         int indexOfSlash = remainingTaskDescription.indexOf("/by");
 
-        if(indexOfSlash == -1){
+        if (indexOfSlash == -1) {
             throw new FormattingException("/by is missing. " + DEADLINE_FORMAT);
         }
 
         String taskDescription = remainingTaskDescription.substring(0, indexOfSlash).trim();
 
-        if(taskDescription.isEmpty()){
+        if (taskDescription.isEmpty()) {
             throw new FormattingException("task description is missing. " + DEADLINE_FORMAT);
         }
 
-        String deadline = DateParser.convertDateFormat(remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim());
+        String date = remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim();
+        String deadline = DateParser.convertDateFormat(date);
 
-        if(deadline.isEmpty()){
+        if (deadline.isEmpty()) {
             throw new FormattingException("deadline is missing. " + DEADLINE_FORMAT);
         }
 

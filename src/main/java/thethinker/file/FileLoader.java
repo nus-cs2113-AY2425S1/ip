@@ -46,7 +46,9 @@ public class FileLoader {
      */
     private static void inputFileNameAndCreateFile() throws IOException {
         UiControl.printSeparation();
-        System.out.println("Input file name you want to save data to under the Data directory [filename] without .txt");
+        System.out.println("Input file name you want to save "
+                + "data to under the Data directory [filename] without .txt");
+
         UiControl.printSeparation();
 
         String filename = UserInputParser.getUserInput();
@@ -56,7 +58,7 @@ public class FileLoader {
         createNewFile(newFile.file);
     }
 
-    private static void createNewFile(File filename){
+    private static void createNewFile(File filename) {
 
         try {
 
@@ -66,12 +68,12 @@ public class FileLoader {
                 System.out.println("File already exists.");
             }
 
-        } catch (IOException e) {
-            System.err.println("Failed to create file: " + e.getMessage());
+        } catch (IOException exception) {
+            System.err.println("Failed to create file: " + exception.getMessage());
         }
     }
 
-    private static void createFolderIfNotExist(){
+    private static void createFolderIfNotExist() {
 
         File dataDirectory = new File(FILE_DIR);
 
@@ -81,13 +83,13 @@ public class FileLoader {
         }
     }
 
-    private static void createFolder(File directoryName){
+    private static void createFolder(File directoryName) {
 
         boolean isCreated = directoryName.mkdirs();
 
-        if(isCreated){
+        if (isCreated) {
             System.out.println(directoryName + " directory created successfully.");
-        }else{
+        } else {
             System.out.println(directoryName + " directory already exists or failed to create.");
         }
     }

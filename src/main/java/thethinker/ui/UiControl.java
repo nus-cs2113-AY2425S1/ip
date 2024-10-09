@@ -6,13 +6,12 @@ public interface UiControl {
 
     static void printGreeting() {
         UiControl.printSeparation();
-        String asciiArt =
-                "  _______ _       _______ _     _       _              \n"
-                        + " |__   __| |     |__   __| |   (_)     | |             \n"
-                        + "    | |  | |__   ___| |  | |__  _ _ __ | | _____ _ __   \n"
-                        + "    | |  | '_ \\ / _ \\ |  | '_ \\| | '_ \\| |/ / _ \\ '__|  \n"
-                        + "    | |  | | | |  __/ |  | | | | | | | |   <  __/ |     \n"
-                        + "    |_|  |_| |_|\\___|_|  |_| |_|_|_| |_|_|\\_\\___|_|     \n";
+        String asciiArt = "  _______ _       _______ _     _       _              \n"
+                + " |__   __| |     |__   __| |   (_)     | |             \n"
+                + "    | |  | |__   ___| |  | |__  _ _ __ | | _____ _ __   \n"
+                + "    | |  | '_ \\ / _ \\ |  | '_ \\| | '_ \\| |/ / _ \\ '__|  \n"
+                + "    | |  | | | |  __/ |  | | | | | | | |   <  __/ |     \n"
+                + "    |_|  |_| |_|\\___|_|  |_| |_|_|_| |_|_|\\_\\___|_|     \n";
 
         System.out.println(asciiArt);
         System.out.println("Hello! I'm " + TheThinker.NAME);
@@ -29,7 +28,7 @@ public interface UiControl {
         System.out.println("_".repeat(60));
     }
 
-    static void printHelp(){
+    static void printHelp() {
         System.out.println("Formats for the commands are : ");
         System.out.println("mark : mark [number]");
         System.out.println("unmark : unmark [number]");
@@ -41,15 +40,27 @@ public interface UiControl {
         System.out.println("find : find [keyword]");
     }
 
-    static void printCommands(){
+    static void printCommands() {
         System.out.println("Command entered is not valid. Available commands are");
-        String[] commands = {"mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" , "get" , "find", "help (get format)"};
-        for(String command : commands){
+        String[] commands = {
+                "mark" ,
+                "unmark" ,
+                "todo" ,
+                "delete",
+                "event" ,
+                "deadline" ,
+                "list" ,
+                "bye" ,
+                "get" ,
+                "find",
+                "help (get format)"
+        };
+        for (String command : commands) {
             System.out.println("- " + command);
         }
     }
 
-    static void printLoadingText(){
+    static void printLoadingText() {
         System.out.println("Loading file now........");
     }
 }

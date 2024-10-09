@@ -5,7 +5,7 @@ public class Event extends Task{
     public String startTime;
     public String endTime;
 
-    public Event(String taskDescription , String startTime, String endTime){
+    public Event(String taskDescription , String startTime, String endTime) {
         super(taskDescription , 'E');
         this.startTime = startTime;
         this.endTime = endTime;
@@ -18,7 +18,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String convertToFileFormat(){
+    public String convertToFileFormat() {
         return "E" + " | " + isMarkedAsDone + " | " + taskDescription + " | " + startTime + " | " + endTime;
     }
 

@@ -2,7 +2,7 @@ package thethinker.tasks;
 
 public class Todo extends Task{
 
-    public Todo(String taskDescription){
+    public Todo(String taskDescription) {
         super(taskDescription, 'T');
     }
 
@@ -13,12 +13,12 @@ public class Todo extends Task{
     }
 
     @Override
-    public String convertToFileFormat(){
+    public String convertToFileFormat() {
         return "T" + " | " + isMarkedAsDone + " | " + taskDescription;
     }
 
     @Override
-    public String getTaskDate(){
+    public String getTaskDate() {
         return "empty";
     }
 }

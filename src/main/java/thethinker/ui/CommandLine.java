@@ -18,14 +18,16 @@ public interface CommandLine {
         NewFile dataFile = FileLoader.inputFile;
         do{
             userAction = getUserActionAndDoTask();
-            if(isWriteTask) {
+            if (isWriteTask) {
                 try {
                     dataFile.writeTaskListToFile();
-                } catch (IOException e) {
+
+                } catch (IOException exception) {
+
                     System.out.println("Failed to write task to file");
                 }
             }
-        }while(!userAction.equalsIgnoreCase("bye"));
+        } while (!userAction.equalsIgnoreCase("bye"));
     }
 
     /**
@@ -45,7 +47,7 @@ public interface CommandLine {
      *
      * @param userAction the first word of the user input.
      */
-    private static void doTaskAccordingToUserAction(String userAction){
+    private static void doTaskAccordingToUserAction(String userAction) {
         UiControl.printSeparation();
         try {
             switch (userAction.toLowerCase()) {
@@ -106,15 +108,16 @@ public interface CommandLine {
 
             UiControl.printSeparation();
 
-        }catch(FormattingException e){
-            e.printErrorMessage();
+        }catch (FormattingException exception) {
+            exception.printErrorMessage();
 
-        }catch(IndexOutOfBoundsException e){
+        }catch (IndexOutOfBoundsException exception) {
             System.out.println("The task to " + userAction.toLowerCase() + " is outside of number of list" );
 
-        }catch (NumberFormatException e){
-            System.out.println("The task number after " + userAction.toLowerCase() +  " is not a number / not in the correct format");
-
+        }catch (NumberFormatException exception) {
+            System.out.println("The task number after "
+                    + userAction.toLowerCase()
+                    +  " is not a number / not in the correct format");
         }
     }
 }
