@@ -88,6 +88,7 @@ public class Ui {
     public void displayInvalidCommandMessage() {
         System.out.println("No valid command given! Valid Commands are: \n" +
                 "  - list\n" +
+                "  - find\n" +
                 "  - todo\n" +
                 "  - deadline\n" +
                 "  - event\n" +
