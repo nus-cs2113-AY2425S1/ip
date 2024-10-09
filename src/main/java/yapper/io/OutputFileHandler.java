@@ -66,10 +66,15 @@ public class OutputFileHandler {
             FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH, true);
             fileWriter.write(task.taskToString() + "\n");
             fileWriter.close();
+        } catch (FileNotFoundException e) {
+            throw new YapperException(
+                    StringStorage.FILE_NOT_FOUND_ERROR_MESSAGE
+                    + ", when adding task to file: \n"
+                    + e.getMessage());
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when saving task to file: \n"
+                    + ", when adding task to file: \n"
                     + e.getMessage());
         }
     }
