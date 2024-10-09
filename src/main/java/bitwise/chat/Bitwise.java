@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import bitwise.constants.Commands;
 import bitwise.constants.Constants;
+import bitwise.constants.Messages;
 import bitwise.exceptions.*;
 import bitwise.tasks.*;
 import bitwise.utils.FileManager;
@@ -156,7 +157,7 @@ public class Bitwise {
             System.out.println("Error saving task list");
             return;
         }
-        String message = isCompleted ? Constants.MESSAGE_MARKED : Constants.MESSAGE_UNMARKED;
+        String message = isCompleted ? Messages.MESSAGE_MARKED : Messages.MESSAGE_UNMARKED;
         OutputManager.printMessage(message);
         OutputManager.printTasksList(tasksList, numberOfTasks);
     }

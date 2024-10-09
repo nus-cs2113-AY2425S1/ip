@@ -1,6 +1,7 @@
 package bitwise.utils;
 
 import bitwise.constants.Constants;
+import bitwise.constants.Messages;
 import bitwise.tasks.Task;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class OutputManager {
     }
 
     public static void printTasksList(ArrayList<Task> tasksList, int numberOfTasks) {
-        System.out.println(Constants.INDENTATION + Constants.MESSAGE_TASK_LIST);
+        System.out.println(Constants.INDENTATION + Messages.MESSAGE_TASK_LIST);
         for (int i = 0; i < numberOfTasks; i++) {
             System.out.println(Constants.INDENTATION + Integer.toString(i + 1) + ". " + tasksList.get(i).toString());
         }
@@ -20,11 +21,11 @@ public class OutputManager {
     }
 
     public static void printWelcomeMessage() {
-        System.out.println(Constants.MESSAGE_WELCOME);
+        System.out.println(Messages.MESSAGE_WELCOME);
     }
 
     public static void printExitMessage() {
-        System.out.println(Constants.MESSAGE_EXIT);
+        System.out.println(Messages.MESSAGE_EXIT);
     }
 
     public static void printLineBreak() {
@@ -36,11 +37,11 @@ public class OutputManager {
     }
 
     public static void printMessageAddedTask(String taskInfo) {
-        System.out.println(Constants.INDENTATION + Constants.MESSAGE_ADDED + Constants.INDENTATION + taskInfo);
+        System.out.println(Constants.INDENTATION + Messages.MESSAGE_ADDED + Constants.INDENTATION + taskInfo);
     }
 
     public static void printMessageDeletedTask(String taskInfo) {
-        System.out.println(Constants.INDENTATION + Constants.MESSAGE_DELETED + Constants.INDENTATION + taskInfo);
+        System.out.println(Constants.INDENTATION + Messages.MESSAGE_DELETED + Constants.INDENTATION + taskInfo);
     }
 
     public static void printEchoInput(String input) {

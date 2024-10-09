@@ -17,15 +17,6 @@ public class Constants {
     public static final String FILE_NAME = "tasks.txt";
     public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
 
-    public static final String MESSAGE_WELCOME = SECTION_BREAK + INDENTATION + "Hello from\n" +
-            LOGO + "\n" + INDENTATION + "How may I help you today?\n" + LINE_BREAK;
-    public static final String MESSAGE_EXIT = LINE_BREAK + INDENTATION + "Bye, see you soon!\n" + SECTION_BREAK;
-    public static final String MESSAGE_MARKED = "Awesome, I've marked this task as completed!";
-    public static final String MESSAGE_UNMARKED = "I've added the task back in";
-    public static final String MESSAGE_TASK_LIST = "Here are the tasks in your list: ";
-    public static final String MESSAGE_ADDED = "Got it! Added:\n";
-    public static final String MESSAGE_DELETED = "Got it! Deleted:\n";
-
     public static final String DESCRIPTION_COMMAND_MARK = INDENTATION + "mark: use this command to mark a task as completed \n" +
             INDENTATION + "command format: mark task_number \n";
     public static final String DESCRIPTION_COMMAND_UNMARK = INDENTATION + "unmark: use this command to mark a task as not completed \n" +
