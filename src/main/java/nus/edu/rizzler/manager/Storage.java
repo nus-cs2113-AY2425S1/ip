@@ -9,12 +9,13 @@ import java.util.Scanner;
  * Handles reading from and writing to the storage file that contains task data.
  */
 public class Storage {
-    private final String FILE_PATH = "src/main/java/nus/edu/rizzler/data/RizzlerData.txt";
+    private String file_path;
 
     /**
      * Initializes the storage file by creating it if it does not exist.
      */
     public Storage() {
+        this.file_path = System.getProperty("user.dir") + "/data/RizzlerData.txt";
         try {
             createFileIfNotExists();
         } catch (IOException e) {
@@ -29,7 +30,7 @@ public class Storage {
      * @throws IOException If an error occurs during file reading.
      */
     public String readFromFile() throws IOException {
-        File file = new File(FILE_PATH);
+        File file = new File(file_path);
         Scanner scanner = new Scanner(file);
         StringBuilder tasksString = new StringBuilder();
 
@@ -49,7 +50,7 @@ public class Storage {
      * @throws IOException If an error occurs during file writing.
      */
     public void writeToFile(String tasksString) throws IOException {
-        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        FileWriter fileWriter = new FileWriter(file_path);
         fileWriter.write(tasksString);
         fileWriter.close();
     }
@@ -60,7 +61,7 @@ public class Storage {
      * @throws IOException If the directory or file creation fails.
      */
     private void createFileIfNotExists() throws IOException {
-        File dataFile = new File(FILE_PATH);
+        File dataFile = new File(file_path);
         File dataDirectory = dataFile.getParentFile();
 
         if (!dataDirectory.exists()) {
