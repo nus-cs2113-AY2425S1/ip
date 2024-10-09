@@ -45,6 +45,7 @@ No keyword given! Please run the command again with `find <keyword>`!
 3.[E][ ] alpha (from: a beta to: alpha beta)
 > No valid command given! Valid Commands are: 
   - list
+  - find
   - todo
   - deadline
   - event
@@ -52,6 +53,8 @@ No keyword given! Please run the command again with `find <keyword>`!
   - unmark
   - delete
   - bye
+> Here are the matching tasks in your list:
+No keyword given! Please run the command again with `find <keyword>`!
 > Bye. Hope to see you again soon!
 Error when reading from ./savedata.txt! Savefile might be corrupted!
 Hello! I'm Cuboyd
@@ -100,6 +103,7 @@ No keyword given! Please run the command again with `find <keyword>`!
 3.[E][ ] alpha (from: a beta to: alpha beta)
 > No valid command given! Valid Commands are: 
   - list
+  - find
   - todo
   - deadline
   - event
@@ -107,4 +111,6 @@ No keyword given! Please run the command again with `find <keyword>`!
   - unmark
   - delete
   - bye
+> Here are the matching tasks in your list:
+No keyword given! Please run the command again with `find <keyword>`!
 > Bye. Hope to see you again soon!
