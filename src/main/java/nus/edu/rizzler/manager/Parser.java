@@ -1,6 +1,16 @@
 package nus.edu.rizzler.manager;
 
-import nus.edu.rizzler.command.*;
+import nus.edu.rizzler.command.Command;
+import nus.edu.rizzler.command.TodoCommand;
+import nus.edu.rizzler.command.DeadlineCommand;
+import nus.edu.rizzler.command.EventCommand;
+import nus.edu.rizzler.command.MarkCommand;
+import nus.edu.rizzler.command.UnmarkCommand;
+import nus.edu.rizzler.command.DeleteCommand;
+import nus.edu.rizzler.command.ListCommand;
+import nus.edu.rizzler.command.FindCommand;
+import nus.edu.rizzler.command.ExitCommand;
+import nus.edu.rizzler.command.InvalidCommand;
 import nus.edu.rizzler.exception.RizzlerException;
 
 import java.time.LocalDateTime;

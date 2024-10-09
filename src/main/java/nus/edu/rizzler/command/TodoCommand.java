@@ -46,8 +46,8 @@ public class TodoCommand extends Command {
         String taskString = addTask(tasks);
         int taskSize = tasks.getSize();
 
-        String message = String.format("Let's make it happen!%s %s I've added this task:%n  %s%n" +
-                "Now you have %d tasks in the list.", emoji.getRockstarHandEmoji(), emoji.getFireEmoji(), taskString, taskSize);
+        String message = String.format("Let's make it happen!%s I've added this task:%n  %s%n" +
+                "Now you have %d tasks in the list.", emoji.getFireEmoji(), taskString, taskSize);
         userInterface.displayMessage(message);
     }
 }

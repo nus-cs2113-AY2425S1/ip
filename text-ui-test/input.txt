@@ -1,10 +1,19 @@
 list
 todo read book
-deadline read magazine BY 2pm
-event attend obamas's party FROM Mon 3pm TO Mon 9pm
+deadline read magazine /by 2024-10-09 06:00
+event attend obamas's party /from 2024-11-09 17:00 /to 2024-11-09 20:00
 list
 mark 2
 mark 3
 list
-undo 3
+unmark 3
+todo learn how to dance
+delete 2
 list
+deadline submit PR /by 2024-10-09 06:00
+deadline CS2113 iP /by 2024-10-11 16:00
+list
+find Oct
+list
+find [T]
+bye
