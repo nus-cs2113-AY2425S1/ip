@@ -1,5 +1,7 @@
 package customexceptions; // Package for custom exceptions
-import taskpackage.Task; // Import Task class to manage task deletion
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 // Custom exception class for handling errors in Event task construction
 public class EventConstructorException extends Exception {
@@ -33,6 +35,13 @@ public class EventConstructorException extends Exception {
         // Check if both "from" and "to" components are present
         if (fromToStringBreakdown.length != 2) {
             return "MISSING FROM/TO DATES"; // Return specific error if either "from" or "to" date is missing
+        }
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        try {
+            dateTimeFormatter.parse(fromToStringBreakdown[0]);
+            dateTimeFormatter.parse(fromToStringBreakdown[1]);
+        } catch (DateTimeParseException e) {
+            return "INVALID DATETIME EXCEPTION";
         }
 
         // If none of the specific errors match, return an unknown error

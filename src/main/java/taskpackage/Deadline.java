@@ -2,12 +2,17 @@ package taskpackage; // Package for Task-related classes
 
 import customexceptions.DeadlineConstructorException; // Import custom exception for Deadline tasks
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 // Deadline class, a child class of Task, represents a task with a specific deadline
 public class Deadline extends Task {
 
     // Variable to store the deadline date/time string
-    private final String deadlineString;
+    private final LocalDateTime deadlineDateTime;
 
+    private final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
     // Constructor for creating a Deadline task
     public Deadline(String inputString, TaskList tasks, boolean constructorMessage) throws DeadlineConstructorException {
@@ -18,9 +23,13 @@ public class Deadline extends Task {
         if (!(inputString.contains(" /by ")) || this.taskString.isEmpty()) {
             throw new DeadlineConstructorException(inputString); // Throw custom exception if validation fails
         }
-
         // Extract the deadline portion of the input string (after the "/by" keyword)
-        this.deadlineString = inputString.replace("deadline ", "").split(" /by ")[1];
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+            this.deadlineDateTime = LocalDateTime.parse(inputString.replace("deadline ", "").split(" /by ")[1], dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DeadlineConstructorException(inputString);
+        }
 
         // Display a confirmation message when a Deadline task is successfully created
         if (constructorMessage) {
@@ -32,6 +41,7 @@ public class Deadline extends Task {
     @Override
     public String checkboxString() {
         // Call the parent method and add the "[D]" tag and deadline string to the checkbox format
-        return "[D]" + super.checkboxString() + " (by: " + deadlineString + ")";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        return "[D]" + super.checkboxString() + " (by: " + deadlineDateTime.format(dateTimeFormatter) + ")";
     }
 }
