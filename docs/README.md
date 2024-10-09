@@ -20,6 +20,12 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 4. Enter the command on the terminal: `java -jar Ronaldo.jar`
 
 Upon launching the application, you should see the following introduction:
+```
+------------------------------------------------------------------------------ 
+Hello! I'm Cristiano Ronaldo! The greatest footballer of all time.SIUUUUUUU!
+Hehehe what can I do for you?
+------------------------------------------------------------------------------ 
+```
 
 ## Features
 * Ability to add ➕ and delete ❌ goals
