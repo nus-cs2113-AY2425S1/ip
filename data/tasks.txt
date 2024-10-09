@@ -1,0 +1,5 @@
+[T] [X] new
+[T] [ ] new
+[E] [ ] assignment (from: 2pm to: 4pm)
+[E] [ ] go hojmje (from: 1 pm  to: 4 pm)
+[T] [ ] nab

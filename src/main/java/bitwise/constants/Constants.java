@@ -17,18 +17,6 @@ public class Constants {
     public static final String FILE_NAME = "tasks.txt";
     public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
 
-    public static final String COMMAND_MARK = "mark";
-    public static final String COMMAND_UNMARK = "unmark";
-    public static final String COMMAND_END = "bye";
-    public static final String COMMAND_TODO = "todo";
-    public static final String COMMAND_DEADLINE = "deadline";
-    public static final String COMMAND_EVENT = "event";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_DELETE = "delete";
-    public static final String COMMAND_INFIX_BY = "/by";
-    public static final String COMMAND_INFIX_FROM = "/from";
-    public static final String COMMAND_INFIX_TO = "/to";
-
     public static final String MESSAGE_WELCOME = SECTION_BREAK + INDENTATION + "Hello from\n" +
             LOGO + "\n" + INDENTATION + "How may I help you today?\n" + LINE_BREAK;
     public static final String MESSAGE_EXIT = LINE_BREAK + INDENTATION + "Bye, see you soon!\n" + SECTION_BREAK;

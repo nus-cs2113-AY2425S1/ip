@@ -2,6 +2,8 @@ package bitwise.chat;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import bitwise.constants.Commands;
 import bitwise.constants.Constants;
 import bitwise.exceptions.*;
 import bitwise.tasks.*;
@@ -42,27 +44,27 @@ public class Bitwise {
     }
 
     public static Status inputHandler(String userInput) {
-        if (userInput.equalsIgnoreCase(Constants.COMMAND_END)) {
+        if (userInput.equalsIgnoreCase(Commands.COMMAND_END)) {
             return Status.EXIT;
         }
         OutputManager.printLineBreak();
-        if (userInput.equalsIgnoreCase(Constants.COMMAND_LIST)) {
+        if (userInput.equalsIgnoreCase(Commands.COMMAND_LIST)) {
             OutputManager.printTasksList(tasksList, numberOfTasks);
-        } else if (userInput.startsWith(Constants.COMMAND_UNMARK)) {
+        } else if (userInput.startsWith(Commands.COMMAND_UNMARK)) {
             try {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, false);
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_UNMARK);
             }
-        } else if (userInput.startsWith(Constants.COMMAND_MARK)) {
+        } else if (userInput.startsWith(Commands.COMMAND_MARK)) {
             try {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 markCompletionStatus(taskNumber, true);
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_MARK);
             }
-        } else if (userInput.startsWith(Constants.COMMAND_DELETE)) {
+        } else if (userInput.startsWith(Commands.COMMAND_DELETE)) {
             try {
                 int taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
                 deleteTask(taskNumber);
@@ -86,7 +88,7 @@ public class Bitwise {
         String userInput;
         while (true) {
             userInput = getUserInput();
-            if (userInput.equalsIgnoreCase(Constants.COMMAND_END)) {
+            if (userInput.equalsIgnoreCase(Commands.COMMAND_END)) {
                 return;
             }
             OutputManager.printEchoInput(userInput);
@@ -96,29 +98,29 @@ public class Bitwise {
     public static void addToList(String userInput) {
         Task newTask;
         String description;
-        if (userInput.startsWith(Constants.COMMAND_TODO)) {
+        if (userInput.startsWith(Commands.COMMAND_TODO)) {
             description = userInput.substring(userInput.indexOf(" ") + 1);
             if (description.isBlank() || !userInput.contains(" ")) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_TODO);
             }
             newTask = new Todo(description);
-        } else if (userInput.startsWith(Constants.COMMAND_DEADLINE)) {
+        } else if (userInput.startsWith(Commands.COMMAND_DEADLINE)) {
             try {
-                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_BY));
-                String deadline = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_BY) + 4);
-                if (description.isBlank() || deadline.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_BY)) {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Commands.COMMAND_INFIX_BY));
+                String deadline = userInput.substring(userInput.indexOf(Commands.COMMAND_INFIX_BY) + 4);
+                if (description.isBlank() || deadline.isBlank() || !userInput.contains(Commands.COMMAND_INFIX_BY)) {
                     throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
                 }
                 newTask = new Deadline(description, deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
             }
-        } else if (userInput.startsWith(Constants.COMMAND_EVENT)) {
+        } else if (userInput.startsWith(Commands.COMMAND_EVENT)) {
             try {
-                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Constants.COMMAND_INFIX_FROM));
-                String eventFrom = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Constants.COMMAND_INFIX_TO));
-                String eventTo = userInput.substring(userInput.indexOf(Constants.COMMAND_INFIX_TO) + 4);
-                if (description.isBlank() || eventFrom.isBlank() || eventTo.isBlank() || !userInput.contains(Constants.COMMAND_INFIX_FROM) || !userInput.contains(Constants.COMMAND_INFIX_TO)) {
+                description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf(Commands.COMMAND_INFIX_FROM));
+                String eventFrom = userInput.substring(userInput.indexOf(Commands.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Commands.COMMAND_INFIX_TO));
+                String eventTo = userInput.substring(userInput.indexOf(Commands.COMMAND_INFIX_TO) + 4);
+                if (description.isBlank() || eventFrom.isBlank() || eventTo.isBlank() || !userInput.contains(Commands.COMMAND_INFIX_FROM) || !userInput.contains(Commands.COMMAND_INFIX_TO)) {
                     throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
                 }
                 newTask = new Event(description, eventFrom, eventTo);
