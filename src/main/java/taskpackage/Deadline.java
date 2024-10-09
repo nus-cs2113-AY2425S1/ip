@@ -6,7 +6,7 @@ import customexceptions.DeadlineConstructorException; // Import custom exception
 public class Deadline extends Task {
 
     // Variable to store the deadline date/time string
-    private String deadlineString;
+    private final String deadlineString;
 
 
     // Constructor for creating a Deadline task

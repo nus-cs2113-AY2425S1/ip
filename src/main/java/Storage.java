@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String dataFilePath;
-    private UI ui;
+    private final String dataFilePath;
+    private final UI ui;
 
     public Storage(String dataFilePath, UI ui) {
         this.dataFilePath = dataFilePath;
@@ -28,7 +28,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String inputLine = scanner.nextLine();
                 try {
-                    tempTaskList = handleDataLine(inputLine, tempTaskList);
+                    handleDataLine(inputLine, tempTaskList);
 
                 } catch (Exception e) {
                     ui.printMessage("ERROR READING LINE: " + inputLine);
@@ -43,7 +43,7 @@ public class Storage {
         return tempTaskList;
     }
 
-    private TaskList handleDataLine(String inputLine, TaskList tempTaskList) {
+    private void handleDataLine(String inputLine, TaskList tempTaskList) {
         String[] lineSegments = inputLine.split(" /isdone ");
         String line = lineSegments[0];
         boolean isDone;
@@ -53,7 +53,7 @@ public class Storage {
             isDone = false;
         } else {
             ui.printMessage("ERROR READING LINE: " + inputLine);
-            return tempTaskList;
+            return;
         }
         if (line.startsWith("todo ")) {
             try {
@@ -63,9 +63,7 @@ public class Storage {
                 ui.printMessage("CORRUPTED: " + line);
                 tempTaskList.deleteLatestTask();
             }
-        }
-        // Handle "deadline" command to create a new Deadline task
-        else if (line.startsWith("deadline ")) {
+        } else if (line.startsWith("deadline ")) {
             try {
                 new Deadline(line, tempTaskList, false); // Create a new Deadline object
             } catch (DeadlineConstructorException e) {
@@ -73,9 +71,7 @@ public class Storage {
                 ui.printMessage("CORRUPTED: " + line);
                 tempTaskList.deleteLatestTask();
             }
-        }
-        // Handle "event" command to create a new Event task
-        else if (line.startsWith("event ")) {
+        } else if (line.startsWith("event ")) {
             try {
                 new Event(line, tempTaskList, false); // Create a new Event object
             } catch (EventConstructorException e) {
@@ -83,15 +79,13 @@ public class Storage {
                 ui.printMessage("CORRUPTED: " + line);
                 tempTaskList.deleteLatestTask();
             }
-        }
-        else {
+        } else {
             ui.printMessage("CORRUPTED: " + line);
         }
 
         if (isDone) {
             tempTaskList.markLatestTask();
         }
-        return tempTaskList;
     }
 
     public void writeDate(TaskList taskList) {
