@@ -23,6 +23,27 @@ import yapper.tasks.Task;
 public class OutputFileHandler {
 
     /**
+     * Converts a list of tasks to strings and writes them to the file.
+     *
+     * @param taskList the list of tasks to be saved
+     * @throws YapperException if an error occurs during file operations
+     */
+    public static void storeAllTasks(ArrayList<Task> taskList) throws YapperException {
+        try {
+            ArrayList<String> taskLines = new ArrayList<>();
+            for (Task task : taskList) {
+                taskLines.add(task.taskToString());
+            }
+            convertArrayListToFile(taskLines);
+        } catch (IOException e) {
+            throw new YapperException(
+                    StringStorage.SAVING_ERROR_MESSAGE
+                            + "error occurred when saving tasks to file: \n"
+                            + e.getMessage());
+        }
+    }
+
+    /**
      * Reads the content of a file line by line and
      * stores each line in an {@code ArrayList<String>}.
      *
@@ -66,10 +87,15 @@ public class OutputFileHandler {
             FileWriter fileWriter = new FileWriter(StringStorage.SAVE_FILE_PATH, true);
             fileWriter.write(task.taskToString() + "\n");
             fileWriter.close();
+        } catch (FileNotFoundException e) {
+            throw new YapperException(
+                    StringStorage.FILE_NOT_FOUND_ERROR_MESSAGE
+                    + ", when adding task to file: \n"
+                    + e.getMessage());
         } catch (IOException e) {
             throw new YapperException(
                     StringStorage.SAVING_ERROR_MESSAGE
-                    + "error occurred when saving task to file: \n"
+                    + ", when adding task to file: \n"
                     + e.getMessage());
         }
     }
