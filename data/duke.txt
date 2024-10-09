@@ -25,7 +25,7 @@ T | 0 | rgw
 T | 0 | wr
 T | 0 | lisyt
 T | 0 | todo
-T | 0 | blah 
-T | 0 | todo
-T | 0 | blah
-T | 0 | print
+T | 0 | Ayushi attend CS2113 lecture friday 23 feb 2024 from 4 to 6 pm
+T | 0 | Avengers Assemble
+T | 0 | Avengers Assemble
+
