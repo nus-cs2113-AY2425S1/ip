@@ -1,6 +1,7 @@
 package bitwise.utils;
 
 import bitwise.constants.Constants;
+import bitwise.constants.Icons;
 import bitwise.exceptions.InvalidFormatException;
 import bitwise.tasks.Task;
 
@@ -49,17 +50,17 @@ public class FileManager {
             String toProcess = line.substring(line.indexOf(" ") + 1);
             Task newTask;
             switch(line.substring(Constants.PARSE_ICON_INDEX, line.indexOf(" "))) {
-            case Constants.ICON_TODO:
+            case Icons.ICON_TODO:
                 newTask = TextParser.handleTodo(toProcess);
                 tasksList.add(newTask);
                 numberOfTasks++;
                 break;
-            case Constants.ICON_EVENT:
+            case Icons.ICON_EVENT:
                 newTask = TextParser.handleEvent(toProcess);
                 tasksList.add(newTask);
                 numberOfTasks++;
                 break;
-            case Constants.ICON_DEADLINE:
+            case Icons.ICON_DEADLINE:
                 newTask = TextParser.handleDeadline(toProcess);
                 tasksList.add(newTask);
                 numberOfTasks++;

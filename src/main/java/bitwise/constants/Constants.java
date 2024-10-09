@@ -26,12 +26,6 @@ public class Constants {
     public static final String MESSAGE_ADDED = "Got it! Added:\n";
     public static final String MESSAGE_DELETED = "Got it! Deleted:\n";
 
-    public static final String ICON_COMPLETED = "[X]";
-    public static final String ICON_NOT_COMPLETED = "[ ]";
-    public static final String ICON_EVENT = "[E]";
-    public static final String ICON_TODO = "[T]";
-    public static final String ICON_DEADLINE = "[D]";
-
     public static final String DESCRIPTION_COMMAND_MARK = INDENTATION + "mark: use this command to mark a task as completed \n" +
             INDENTATION + "command format: mark task_number \n";
     public static final String DESCRIPTION_COMMAND_UNMARK = INDENTATION + "unmark: use this command to mark a task as not completed \n" +

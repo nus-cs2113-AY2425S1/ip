@@ -1,10 +1,10 @@
 package bitwise.tasks;
 
-import bitwise.constants.Constants;
+import bitwise.constants.Icons;
 
 public class Todo extends Task {
 
-    protected static final String symbol = Constants.ICON_TODO;
+    protected static final String symbol = Icons.ICON_TODO;
 
     public Todo(String description) {
         super(description);

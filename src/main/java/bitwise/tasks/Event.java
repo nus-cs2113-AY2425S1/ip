@@ -1,12 +1,12 @@
 package bitwise.tasks;
 
-import bitwise.constants.Constants;
+import bitwise.constants.Icons;
 
 public class Event extends Task {
 
     protected String eventFrom;
     protected String eventTo;
-    protected static final String symbol = Constants.ICON_EVENT;
+    protected static final String symbol = Icons.ICON_EVENT;
 
     public Event(String description, String eventFrom, String eventTo) {
         super(description);

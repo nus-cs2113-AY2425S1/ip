@@ -1,6 +1,6 @@
 package bitwise.tasks;
 
-import bitwise.constants.Constants;
+import bitwise.constants.Icons;
 
 public class Task {
 
@@ -25,7 +25,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isCompleted ? Constants.ICON_COMPLETED : Constants.ICON_NOT_COMPLETED);
+        return (isCompleted ? Icons.ICON_COMPLETED : Icons.ICON_NOT_COMPLETED);
     }
 
     public void markCompletionStatus(boolean isCompleted) {
