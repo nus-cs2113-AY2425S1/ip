@@ -1,5 +1,5 @@
 # Chatty Charlie User Guide
-![Starting Image](images/img.png)
+![Starting Image](./images/intro.png)
 
 **Chatty Charlie** is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 If you can type fast, Chatty Charlie can track your task faster than traditional GUI apps.
@@ -11,7 +11,7 @@ If you can type fast, Chatty Charlie can track your task faster than traditional
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the command `java -jar ip.jar` to run the application.
 
 5. A GUI similar to the image below should appear in a few seconds.
-![Starting Image](images/img.png)
+![Starting Image](./images/intro.png)
 
 6. Type the command in the command box and press Enter to execute it.
 ### Some example commands you can try: 
