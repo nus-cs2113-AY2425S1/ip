@@ -74,15 +74,15 @@ Command: `bye`
 ## Command Reference
 Here is a quick reference for all available commands:
 
-todo [description]: Add a ToDo task <br>
-deadline [description] /by [date] [time]: Add a Deadline task <br>
-event [description] /from [start date] [start time] /to [end date] [end time]: Add an Event task <br>
-list: Display all tasks <br>
-mark [task number]: Mark a task as done <br>
-unmark [task number]: Mark a task as not done <br>
-delete [task number]: Remove a task <br>
-find [keyword]: Search for tasks containing the keyword <br>
-bye: Exit the application
+• todo [description]: Add a ToDo task <br>
+• deadline [description] /by [date] [time]: Add a Deadline task <br>
+• event [description] /from [start date] [start time] /to [end date] [end time]: Add an Event task <br>
+• list: Display all tasks <br>
+• mark [task number]: Mark a task as done <br>
+• unmark [task number]: Mark a task as not done <br>
+• delete [task number]: Remove a task <br>
+• find [keyword]: Search for tasks containing the keyword <br>
+• bye: Exit the application
 
 ## Understanding Task Types
 Quinn supports three types of tasks:
