@@ -80,7 +80,6 @@ public class TaskList {
      * @return String the String of the task in this TaskList object with index toDoNumber -1
      */
     public String toTaskString(int toDoNumber) {
-
         return this.toDoItemArrayList.get(toDoNumber - 1).toString();
     }
 

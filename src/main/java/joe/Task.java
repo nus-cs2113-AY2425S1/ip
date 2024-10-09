@@ -5,7 +5,6 @@ package joe;
  * Encapsulates basic construction, parsing and modification methods for all Task objects.
  */
 public class Task {
-    private static final String[] TASK_TYPES = {"todo", "deadline", "event"};
     private String itemDescription;
     private boolean isToDo;
 
