@@ -21,11 +21,11 @@ public class UnmarkCommand extends Command {
      * The method then unmarks the task in storage and prints the updated list of tasks.
      * If the task number is invalid or missing, an exception is thrown.
      *
-     * @param storage The storage object that manages the task list.
+     * @param tasklist The storage object that manages the task list.
      * @throws InvalidCommandException If the task number is invalid or missing.
      */
     @Override
-    public void execute(TaskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager tasklist) throws InvalidCommandException {
         String[] parts = userInput.split(" ");
         if (parts.length < 2) {
             throw new InvalidCommandException("Provide index of the task to unmark");
@@ -33,9 +33,14 @@ public class UnmarkCommand extends Command {
 
         try {
             int index = Integer.parseInt(parts[1]);
-            storage.unmarkTask(index);
+
+            if (index <= 0 || index > tasklist.getTaskList().size()) {
+                throw new InvalidCommandException("Task index out of bounds");
+            }
+
+            tasklist.unmarkTask(index);
             System.out.println("____________________________________________________________");
-            storage.printList();
+            tasklist.printList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }

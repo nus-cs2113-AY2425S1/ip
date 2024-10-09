@@ -21,12 +21,12 @@ public class DeleteCommand extends Command {
      * The method then deletes the task from storage and prints the remaining tasks.
      * If the task number is invalid or missing, an exception is thrown.
      *
-     * @param storage The storage object that manages the task list.
+     * @param tasklist The storage object that manages the task list.
      * @throws InvalidCommandException If the task number is invalid or missing.
      */
 
     @Override
-    public void execute(TaskManager storage) throws InvalidCommandException {
+    public void execute(TaskManager tasklist) throws InvalidCommandException {
         String[] parts = userInput.split(" ");
         if (parts.length < 2) {
             throw new InvalidCommandException("Provide index of the task to delete");
@@ -35,11 +35,16 @@ public class DeleteCommand extends Command {
         try {
             // Parse the index and delete the task
             int index = Integer.parseInt(parts[1]);
+
+            if (index <= 0 || index > tasklist.getTaskList().size()) {
+                throw new InvalidCommandException("Task index out of bounds");
+            }
+
             System.out.println("I have removed this task: ");
-            storage.printTask(index);
-            storage.deleteTask(index);
+            tasklist.printTask(index);
+            tasklist.deleteTask(index);
             System.out.println("____________________________________________________________");
-            storage.printList();
+            tasklist.printList();
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task number format");
         }
