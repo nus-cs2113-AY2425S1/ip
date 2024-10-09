@@ -4,6 +4,8 @@ import chattycharlie.task.Deadline;
 import chattycharlie.task.Event;
 import chattycharlie.task.Task;
 import chattycharlie.task.Todo;
+import chattycharlie.userinteractions.StringDesign;
+
 import java.util.ArrayList;
 
 //LIST CLASS
@@ -98,7 +100,7 @@ import java.util.ArrayList;
                 case EVENT:
                     Event eventTask = (Event) task;
                     System.out.println(StringDesign.SPACE + number + ".[E][" + eventTask.getMarkedStatus() + "] "
-                            + eventTask.getDescription() + " (from: " + eventTask.getStart() + " to: " + eventTask.getEnd() + ")");
+                            + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")");
                     break;
                 default:
                     break;

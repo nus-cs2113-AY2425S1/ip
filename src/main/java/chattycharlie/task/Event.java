@@ -63,4 +63,8 @@ public class Event extends Task {
         return "[E]" + super.toSaveFormat() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + startTime + " to: "
                 + endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + endTime + ")";
     }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 }
