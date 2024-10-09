@@ -135,7 +135,7 @@ public class InputFileHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the description and deadline date
      */
-    public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
+    private static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -2);
         String deadlineDesc = deadlineArgs[0].trim();
@@ -148,7 +148,7 @@ public class InputFileHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the event description, start date, and end date
      */
-    public static String[] splitStringByEventKeywords(String instructionArgs) {
+    private static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
                 StringStorage.SPLIT_USING_DELIMITER, -3);
         String eventDesc = eventArgs[0].trim();

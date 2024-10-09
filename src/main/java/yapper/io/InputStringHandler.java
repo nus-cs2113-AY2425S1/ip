@@ -37,7 +37,7 @@ public class InputStringHandler {
      * @return an Instruction object representing the parsed command
      * @throws YapperException if the input is invalid or any required parameters are missing
      */
-    public static Instruction parseAndValidateUserInput(String userInputString) throws YapperException {
+    private static Instruction parseAndValidateUserInput(String userInputString) throws YapperException {
         try {
             ExceptionHandler.checkIfUserInputEmpty(userInputString, false);
             ExceptionHandler.checkIfStartWithInstructionPrefix(userInputString);
@@ -114,7 +114,7 @@ public class InputStringHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the deadline description and date
      */
-    public static String[] splitStringByDeadlineKeyword(String instructionArgs) {
+    private static String[] splitStringByDeadlineKeyword(String instructionArgs) {
         String[] deadlineArgs = instructionArgs.split(
                 StringStorage.DELIMITER_DEADLINE_END_DATE, -2);
         String deadlineDesc = deadlineArgs[0].trim();
@@ -127,7 +127,7 @@ public class InputStringHandler {
      * @param instructionArgs the instruction arguments to split
      * @return an array containing the event description, start date, and end date
      */
-    public static String[] splitStringByEventKeywords(String instructionArgs) {
+    private static String[] splitStringByEventKeywords(String instructionArgs) {
         String[] eventArgs = instructionArgs.split(
                 StringStorage.DELIMITER_EVENT_START_DATE, -2);
         String eventDesc = eventArgs[0].trim();
