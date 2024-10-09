@@ -4,6 +4,7 @@ Quinn is a personal assistant chatbot that helps in Task Management. <br>
 It is a desktop application optimized to use from a Command Line Interface (CLI). <br>
 Quinn helps to keep track of your to-dos, deadlines, and events. <br>
 With Quinn, you can easily add, list, mark, and delete tasks using simple commands. <br>
+This User Guide(UG) is also found at this link : [Quinn User Guide](https://kaboomzxc.github.io/ip/)
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
@@ -101,11 +102,8 @@ Displayed as: [D][ ] <Task Description> (by: Date Time)
 
 Displayed as: [E][ ] <Task Description> (from: Start Date Time to: End Date Time)
 
-
-
-The square brackets next to the task type indicator (T/D/E) show the task's completion status:
-
-[ ]: Task is not done
+The square brackets next to the task type indicator (T/D/E) show the task's completion status: <br>
+[ ]: Task is not done <br>
 [✔]: Task is done
 
 ## Error Handling
