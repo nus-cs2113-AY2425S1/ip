@@ -28,7 +28,6 @@ public class UserInputParser {
     /**
      * Obtains task number after inputting commands that require task number.
      *
-     * @return Task number.
      * @throws NumberFormatException If task number string provided is not a number.
      * @throws FormattingException If no task or multiple task number is provided.
      */
