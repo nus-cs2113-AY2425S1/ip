@@ -2,7 +2,9 @@ package taskpackage; // Package for Task-related classes
 
 import customexceptions.ToDoConstructorException; // Import custom exception for ToDo tasks
 
-// ToDo class, a child class of Task, represents a simple to-do task
+/**
+ * Represents a simple to-do task, extending the Task class.
+ */
 public class ToDo extends Task {
 
 
@@ -17,7 +19,6 @@ public class ToDo extends Task {
      * @throws ToDoConstructorException if the task description is empty.
      */
     public ToDo(String inputString, TaskList tasks, boolean constructorMessage) throws ToDoConstructorException {
-        // Call the parent class (Task) constructor, removing the "todo" prefix from the input
         super(inputString, tasks);
         this.inputString = inputString;
 
@@ -25,18 +26,22 @@ public class ToDo extends Task {
 
         // Check if the task description is empty and throw an exception if true
         if (this.taskString.isEmpty()) {
-            throw new ToDoConstructorException(inputString); // Handle invalid ToDo input
+            throw new ToDoConstructorException(inputString);
         }
 
-        // Display a confirmation message when a ToDo task is successfully created
+        // Display a confirmation message if the constructorMessage flag is true
         if (constructorMessage) {
             constructorMessage();
         }
     }
 
-    // Override the checkboxString method to prefix "[T]" to indicate that the task is a ToDo
+    /**
+     * Returns the task's string with a checkbox, prefixed with "[T]" to indicate it is a ToDo.
+     *
+     * @return The formatted task string.
+     */
     @Override
     public String checkboxString() {
-        return "[T]" + super.checkboxString(); // Call the parent method and add the "[T]" tag
+        return "[T]" + super.checkboxString();
     }
 }

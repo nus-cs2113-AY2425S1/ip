@@ -3,38 +3,43 @@ package customexceptions; // Package for custom exceptions
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-// Custom exception class for handling errors in Deadline task construction
+/**
+ * Custom exception class for handling errors in Deadline task construction.
+ */
 public class DeadlineConstructorException extends Exception {
 
-    // Constructor that takes an error message as input
+    /**
+     * Constructor that takes an error message as input and generates a custom exception for Deadline tasks.
+     *
+     * @param message The error message for the exception.
+     */
     public DeadlineConstructorException(String message) {
-        // Call the superclass (Exception) constructor with a detailed error message
-        super("DEADLINE CONSTRUCTOR EXCEPTION: " + errorMessage(message));
+        super("DEADLINE CONSTRUCTOR EXCEPTION: " + errorMessage(message)); // Call superclass constructor
     }
 
-    // Private helper method to interpret the error message
-    // It checks for specific missing components in the deadline command
+    /**
+     * Private helper method to interpret and identify specific errors in the deadline command.
+     *
+     * @param message The input message that caused the error.
+     * @return The interpreted error message.
+     */
     private static String errorMessage(String message) {
-        // Check if the "/by" keyword is missing, which is needed for deadline tasks
         if (!(message.contains(" /by "))) {
-            return "MISSING BY COMMAND"; // Return specific error if "/by" is not found
+            return "MISSING BY COMMAND"; // Error if "/by" is missing
         }
 
-        // Split the task input string into task description and deadline parts
         String[] taskStringBreakdown = message.replace("deadline ", "").split(" /by ");
-
-        // Check if the task description before "/by" is empty
         if (taskStringBreakdown[0].isEmpty()) {
-            return "MISSING TASK STATEMENT"; // Return specific error if no task description
+            return "MISSING TASK STATEMENT"; // Error if task description is missing
         }
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         try {
             dateTimeFormatter.parse(taskStringBreakdown[1]);
         } catch (DateTimeParseException e) {
-            return "INVALID DATETIME EXCEPTION";
+            return "INVALID DATETIME EXCEPTION"; // Error if the date/time format is invalid
         }
-        // If none of the specific errors match, return an unknown error
-        return "UNKNOWN ERROR";
+
+        return "UNKNOWN ERROR"; // Fallback error message
     }
 }
