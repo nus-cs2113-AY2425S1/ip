@@ -1,15 +1,32 @@
 todo CS tutorial
-deadline class assignment
-deadline class assignment /by Sunday
-event project meeting
-event project meeting /from Monday 2pm
-event project meeting /from Monday 2pm /to Monday 4pm
+todo
+deadline tutorial assignment /by 2024-10-01
+deadline
+deadline tutorial assignment
+deadline tutorial assignment /by Tuesday
+event competition /from 2024-10-02 /to 2024-10-03
+event
+event competition
+event /from Wednesday
+event competition /from 2024-10-02
 tasks
+list
 mark 1
 mark 2
 mark 4
-tasks
+list
 unmark 1
 unmark 0
-tasks
+list
+find tutorial
+find comp
+find
+delete 4
+delete
+delete 3
+list
+delete 2
+list
+delete 1
+list
 bye

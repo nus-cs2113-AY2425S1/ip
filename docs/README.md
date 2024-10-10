@@ -20,7 +20,7 @@
 2. Download the latest .jar file from [here](https://github.com/Yisoong/ip)
 3. Copy the file to the folder you want to use as the *home folder* for the program.
 4. Open a command terminal, `cd` into the folder you put the jar file in,
-   and use the `java -jar Ryan.jar` command to run the application.
+   and use the `java -jar ryan.jar` command to run the application.
 5. Type the command in the terminal window and press Enter to execute it.
 6. Refer to [Features](#Features) below for details of each command.
 
@@ -200,7 +200,7 @@ If there is no existing data file, the program will create a new data file.
 
 ### Editing the data file
 
-Ryan saves past data locally in `./data/ryan.txt` in the same directory as `Ryan.jar`.  
+ryan saves past data locally in `./data/ryan.txt` in the same directory as `ryan.jar`.  
 Users can also manually update data by editing this file.
 
 ## Command summary
