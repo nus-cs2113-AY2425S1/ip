@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -78,7 +79,7 @@ public class Ui {
         } else {
             System.out.println(" Here are your tasks:");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + taskList.getTask(i));
+                System.out.println(" " + (i + 1) + "." + taskList.getTask(i));
             }
         }
         showLine();
@@ -88,6 +89,22 @@ public class Ui {
         // Display an error message if tasks cannot be loaded
         showLine();
         System.out.println(" Error loading tasks from file.");
+        showLine();
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        // Display the list of matching tasks to the user
+        showLine();
+        if (matchingTasks.isEmpty()) {
+            System.out.println(" No matching tasks found.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            int index = 1;
+            for (Task task : matchingTasks) {
+                System.out.println(" " + index + "." + task);
+                index++;
+            }
+        }
         showLine();
     }
 

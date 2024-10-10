@@ -48,4 +48,15 @@ public class TaskList {
         // Check if the task list is empty
         return taskList.isEmpty();
     }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        // Return a list of tasks that contain the keyword
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

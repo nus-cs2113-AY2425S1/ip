@@ -17,6 +17,9 @@ public class Parser {
             return new MarkCommand(userCommand.substring(5).trim(), true);
         } else if (userCommand.startsWith("unmark ")) {
             return new MarkCommand(userCommand.substring(7).trim(), false);
+        } else if (userCommand.startsWith("find ")) {
+            // New condition to handle 'find' command
+            return new FindCommand(userCommand.substring(5).trim());
         } else {
             // Throw an exception if the command is unrecognized
             throw new InvalidCommandException();
