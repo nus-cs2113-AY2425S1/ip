@@ -1,13 +1,12 @@
 package jeff.task;
 
 import jeff.exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline task in the task management system.
+ * Represents a deadline task
  * The <code>Deadline</code> class extends the <code>Task</code> class to provide
  * specific functionalities related to tasks that have a deadline.
  */

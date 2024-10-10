@@ -47,6 +47,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Retrieves the description of a task
+     *
+     * @return A string description of the task
+     */
     public String getDescription() {
         return description;
     }

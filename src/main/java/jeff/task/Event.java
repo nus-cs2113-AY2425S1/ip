@@ -1,13 +1,12 @@
 package jeff.task;
 
 import jeff.exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task in the task management system.
+ * Represents an event task.
  * The <code>Event</code> class extends the <code>Task</code> class to provide
  * specific functionalities related to event tasks, including the start and end times.
  */
