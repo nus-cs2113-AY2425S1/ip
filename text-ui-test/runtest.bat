@@ -7,7 +7,7 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java\ryan -Xlint:none -d ..\bin ..\src\main\java\ryan\*.java
+javac  -cp ..\src\main\java\ryan -Xlint:none -d ..\bin ..\src\main\java\ryan\*.java ..\src\main\java\ryan\commands\*.java ..\src\main\java\ryan\exceptions\*.java ..\src\main\java\ryan\tasks\*.java ..\src\main\java\ryan\utility\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
