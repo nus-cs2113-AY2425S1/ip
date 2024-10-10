@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 /**
  * Represents a manager for handling tasks in the task list.
- * The eva.tasks.TaskManager class is responsible for managing tasks, including adding,
+ * The TaskManager class is responsible for managing tasks, including adding,
  * deleting, marking, unmarking, and finding tasks. It provides methods to interact
- * with the user interface (UI) and stores tasks in a file using the eva.storage.Storage class.
+ * with the user interface (UI) and stores tasks in a file using the Storage class.
  */
 public class TaskManager {
 
@@ -45,12 +45,12 @@ public class TaskManager {
      */
     public void markTask(String line) throws EvaException {
         int taskNumber = Integer.parseInt(line) - 1;
-
         EvaException.validateTaskNumber(taskNumber, count);
 
         tasks.get(taskNumber).setMarkAsDone();
 
-        ui.showTaskAsDone(tasks.get(taskNumber).toString());
+        String description = tasks.get(taskNumber).toString();
+        ui.showTaskAsDone(description);
 
         saveTasks();
     }
@@ -64,12 +64,12 @@ public class TaskManager {
      */
     public void unmarkTask(String line) throws EvaException {
         int taskNumber = Integer.parseInt(line) - 1;
-
         EvaException.validateTaskNumber(taskNumber, count);
 
         tasks.get(taskNumber).setMarkAsNotDone();
 
-        ui.showTaskAsNotDone(tasks.get(taskNumber).toString());
+        String description = tasks.get(taskNumber).toString();
+        ui.showTaskAsNotDone(description);
 
         saveTasks();
     }
@@ -83,7 +83,6 @@ public class TaskManager {
      */
     public void deleteTask(String line) throws EvaException {
         int taskNumber = Integer.parseInt(line) - 1;
-
         EvaException.validateTaskNumber(taskNumber, count);
 
         String taskDescription = tasks.get(taskNumber).toString();
@@ -97,58 +96,61 @@ public class TaskManager {
     }
 
     /**
-     * Adds a new eva.tasks.Todo task to the task list.
-     * Creates a new {@code eva.tasks.Todo} object using the provided task description
+     * Adds a new Todo task to the task list.
+     * Creates a new {@code Todo} object using the provided task description
      * and adds it to the list of tasks.
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and the updated list is saved.
      *
-     * @param line The description of the eva.tasks.Todo task to be added.
+     * @param line The description of the Todo task to be added.
      */
     public void addTodo(String line) {
         tasks.add(new Todo(line));
         count++;
 
-        ui.showAddTodo(tasks.get(count - 1).toString(), count);
+        String todoDescription = tasks.get(count - 1).toString();
+        ui.showAddTodo(todoDescription, count);
 
         saveTasks();
     }
 
     /**
-     * Add a new eva.tasks.Deadline task to the task list.
-     * Creates a new {@code eva.tasks.Deadline} object using the provided task description
+     * Add a new Deadline task to the task list.
+     * Creates a new {@code Deadline} object using the provided task description
      * and adds it to the list of tasks
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and updated list is saved
      *
-     * @param description The description of the eva.tasks.Deadline task to be added
+     * @param description The description of the Deadline task to be added
      * @param by The time by which the eva.tasks.Deadline task needs to be completed
      */
     public void addDeadline(String description, String by) {
         tasks.add(new Deadline(description, by));
         count++;
 
-        ui.showAddDeadline(tasks.get(count - 1).toString(), count);
+        String deadlineDescription = tasks.get(count - 1).toString();
+        ui.showAddDeadline(deadlineDescription, count);
 
         saveTasks();
     }
 
     /**
-     * Add a new eva.tasks.Event task to the task list
-     * Creates a new {@code eva.tasks.Event} object using the provided task description
+     * Add a new Event task to the task list
+     * Creates a new {@code Event} object using the provided task description
      * and adds it to the list of tasks
      * After adding the task, a confirmation message is displayed,
      * the total number of tasks is printed, and updated list is saved
      *
-     * @param description The description of the eva.tasks.Event task to be added
-     * @param from The time when the eva.tasks.Event task starts
-     * @param to The time when the eva.tasks.Event task ends
+     * @param description The description of the Event task to be added
+     * @param from The time when the Event task starts
+     * @param to The time when the Event task ends
      */
     public void addEvent(String description, String from, String to) {
         tasks.add(new Event(description, from, to));
         count++;
 
-        ui.showAddEvent(tasks.get(count - 1).toString(), count);
+        String eventDescription = tasks.get(count - 1).toString();
+        ui.showAddEvent(eventDescription, count);
 
         saveTasks();
     }
@@ -182,7 +184,11 @@ public class TaskManager {
     }
 
     private void saveTasks() {
-        storage.saveTasksToFile(tasks);
+        try {
+            storage.saveTasksToFile(tasks);
+        } catch (EvaException e) {
+            ui.showErrorMessage("Failed to save tasks: " + e.getMessage());
+        }
     }
 
     private void loadTasks() {

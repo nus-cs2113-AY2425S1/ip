@@ -11,7 +11,7 @@ public class CommandHandler {
     }
 
     /**
-     * Executes the specified command with the provided arguments
+     * Executes the specified command with the provided arguments.
      * This method interprets the command and delegates the execution to the
      * appropriate methods in {@code eva.tasks.TaskManager} performing actions such as
      * listing tasks, marking/unmarking tasks, adding new tasks (todo, deadline, event) etc.

@@ -8,38 +8,16 @@ import java. util. ArrayList;
 public class Ui {
 
     public static final String HORIZONTAL_LINE = "---------------------------------------------------------------";
+    public static final String BANNER = """
+                 ________ _______ _____   ______ _______ _______ _______\s
+                |  |  |  |    ___|     |_|      |       |   |   |    ___|
+                |  |  |  |    ___|       |   ---|   -   |       |    ___|
+                |________|_______|_______|______|_______|__|_|__|_______|
+                """;
     private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Displays welcome message when users enter the program.
-     */
-    public void showWelcomeMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm eva.Eva!");
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Displays goodbye messages when users exit the program.
-     */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed to the user
-     */
-    public void showErrorMessage(String message) {
-        System.out.println(message);
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -52,6 +30,35 @@ public class Ui {
     }
 
     /**
+     * Displays welcome message when users enter the program.
+     */
+    public void showWelcomeMessage() {
+        showMessage(HORIZONTAL_LINE);
+        showMessage(BANNER);
+        showMessage("Hello! I'm Eva!");
+        showMessage("What can I do for you?");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Displays goodbye messages when users exit the program.
+     */
+    public void showGoodbyeMessage() {
+        showMessage("Bye. Hope to see you again soon!");
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to be displayed to the user
+     */
+    public void showErrorMessage(String message) {
+        showMessage(message);
+        showMessage(HORIZONTAL_LINE);
+    }
+
+    /**
      * Reads a command input from the user.
      *
      * @return The command input entered by the user.
@@ -61,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Displays confirmation message that a task is marked
+     * Displays message that a task is marked.
      *
      * @param description The description of the task that is marked
      */

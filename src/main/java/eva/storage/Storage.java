@@ -4,6 +4,7 @@ import eva.tasks.Deadline;
 import eva.tasks.Event;
 import eva.tasks.Task;
 import eva.tasks.Todo;
+import eva.exception.EvaException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,9 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The eva.storage.Storage class is responsible for reading from and writing to a file
+ * The Storage class is responsible for reading from and writing to a file
  * that stores task data. It provides methods to save tasks to a file and
- * load tasks from a file into an ArrayList of eva.tasks.Task objects.
+ * load tasks from a file into an ArrayList of Task objects.
  */
 public class Storage {
 
@@ -31,14 +32,13 @@ public class Storage {
      *
      * @param tasks The list of tasks to be saved to the file.
      */
-    public void saveTasksToFile(ArrayList<Task> tasks) {
+    public void saveTasksToFile(ArrayList<Task> tasks) throws EvaException{
         try {
             File directory = new File("data");
             if (!directory.exists()) {
                 boolean dirCreated = directory.mkdirs();
                 if (!dirCreated) {
-                    System.out.println("An error occurred: Could not create the directory.");
-                    return;
+                    throw new EvaException("Could not create the directory for storing tasks.");
                 }
             }
 
@@ -48,15 +48,15 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to file.");
+            throw new EvaException("An error occurred while saving tasks to file: ");
         }
     }
 
     /**
      * Loads tasks from the file specified by filePath and returns them
-     * as an ArrayList of eva.tasks.Task objects.
+     * as an ArrayList of Task objects.
      *
-     * @return An ArrayList of eva.tasks.Task objects loaded from the file.
+     * @return An ArrayList of Task objects loaded from the file.
      *         If the file does not exist, returns an empty ArrayList.
      */
     public ArrayList<Task> loadTasksFromFile() {
@@ -88,41 +88,55 @@ public class Storage {
      * string determines whether the task is a eva.tasks.Todo, eva.tasks.Deadline, or eva.tasks.Event.
      *
      * @param line The string representation of a task.
-     * @return A eva.tasks.Task object parsed from the string, or null if the format is unrecognized.
+     * @return A Task object parsed from the string, or null if the format is unrecognized.
      */
     private Task parseTaskFromString(String line) {
         boolean isDone = line.contains("[X]");
-        String description;
 
         if (line.startsWith("[T]")) {
-            description = line.substring(6).trim();
-            Todo todo = new Todo(description);
-            if (isDone) {
-                todo.setMarkAsDone();
-            }
-            return todo;
+            return parseTodoFromStorage(line, isDone);
         } else if (line.startsWith("[D]")) {
-            String[] parts = line.split("\\(by: ");
-            description = parts[0].substring(6).trim();
-            String by = parts[1].replace(")", "");
-            Deadline deadline = new Deadline(description, by);
-            if (isDone) {
-                deadline.setMarkAsDone();
-            }
-            return deadline;
+            return parseDeadlineFromStorage(line, isDone);
         } else if (line.startsWith("[E]")) {
-            String[] parts = line.split("\\(from: | to: |\\)");
-            description = parts[0].substring(6).trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
-            Event event = new Event(description, from, to);
-            if (isDone) {
-                event.setMarkAsDone();
-            }
-            return event;
+            return parseEventFromStorage(line, isDone);
         } else {
             System.out.println("Warning: Unrecognized task format - " + line);
             return null;
         }
+    }
+
+    private static Event parseEventFromStorage(String line, boolean isDone) {
+        String description;
+        String[] parts = line.split("\\(from: | to: |\\)");
+        description = parts[0].substring(6).trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        Event event = new Event(description, from, to);
+        if (isDone) {
+            event.setMarkAsDone();
+        }
+        return event;
+    }
+
+    private static Deadline parseDeadlineFromStorage(String line, boolean isDone) {
+        String description;
+        String[] parts = line.split("\\(by: ");
+        description = parts[0].substring(6).trim();
+        String by = parts[1].replace(")", "");
+        Deadline deadline = new Deadline(description, by);
+        if (isDone) {
+            deadline.setMarkAsDone();
+        }
+        return deadline;
+    }
+
+    private static Todo parseTodoFromStorage(String line, boolean isDone) {
+        String description;
+        description = line.substring(6).trim();
+        Todo todo = new Todo(description);
+        if (isDone) {
+            todo.setMarkAsDone();
+        }
+        return todo;
     }
 }
