@@ -1,6 +1,10 @@
 package tommi.Task;
 
-public class Task {
+/**
+ * Represents a parent class of Task to use in TaskList. All tasks
+ * contain an isDone to check if it is done and a taskName for user to read
+ */
+public abstract class Task {
 
     protected final boolean isDone;
     protected final String taskName;
@@ -10,9 +14,13 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public Task updateIsDone(boolean newIsDone) {
-        return new Task(newIsDone, this.taskName);
-    }
+    /**
+     * Abstract updateIsDone method to be overwritten in child classes
+     *
+     * @param newIsDone new isDone value
+     * @return New copy of Task with updated isDone
+     */
+    public abstract Task updateIsDone(boolean newIsDone);
 
     @Override
     public String toString() {

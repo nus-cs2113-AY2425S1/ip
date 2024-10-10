@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents Parser of all chat input from the user
+ */
 public class Parser {
 
     public static final String BYE_STRING = "bye";
@@ -21,6 +24,11 @@ public class Parser {
     public static final String DEADLINE_STRING = "deadline";
     public static final String EVENT_STRING = "event";
 
+    /**
+     * Process input and ask for next as long as input is not bye command
+     *
+     * @param scanner scanner used for chat
+     */
     public static void readInputStrings(Scanner scanner) {
         String input = scanner.nextLine();
         while (!input.equals(BYE_STRING)) {
@@ -29,6 +37,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Switch statements for all possibilities of input from the user
+     *
+     * @param input String input from user
+     * @throws IllegalArgumentException If user does not use any of the commands
+     * @throws RuntimeException If search fails to find save file
+     */
     public static void processInputCases(String input) {
         try {
             if (input.equals(LIST_STRING)) {
@@ -90,6 +105,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Throw IllegalArgumentException if "event" command is used without /from or /to
+     *
+     * @param eventContent String of input after keyword "event"
+     * @throws IllegalArgumentException If "event" command is used without /from or /to
+     */
     private static void checkIllegalEventUsage(String eventContent) {
         if (!eventContent.contains(" /from ") || !eventContent.contains(" /to ")) {
             throw new IllegalArgumentException(
@@ -100,6 +121,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Throw IllegalArgumentException if "deadline" command is used without /by
+     *
+     * @param deadlineContent String of input after keyword "deadline"
+     * @throws IllegalArgumentException If "deadline" command is used without /by
+     */
     private static void checkIllegalDeadlineUsage(String deadlineContent) {
         if (!deadlineContent.contains(" /by ")) {
             throw new IllegalArgumentException(
@@ -110,6 +137,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Try and catch for deleting task
+     *
+     * @param words User input split into strings separated by " "
+     * @throws IllegalArgumentException If index is not in TaskList
+     * @throws NumberFormatException If the input is not an integer
+     */
     private static void tryDeleteTask(String[] words) {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
@@ -123,6 +157,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Try and catch for unmarking task
+     *
+     * @param words User input split into strings separated by " "
+     * @throws IllegalArgumentException If index is not in TaskList
+     * @throws NumberFormatException If the input is not an integer
+     */
     private static void tryUnmarkTask(String[] words) {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
@@ -136,6 +177,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Try and catch for marking task
+     *
+     * @param words User input split into strings separated by " "
+     * @throws IllegalArgumentException If index is not in TaskList
+     * @throws NumberFormatException If the input is not an integer
+     */
     private static void tryMarkTask(String[] words) {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
@@ -149,6 +197,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Check if command is used with any content
+     *
+     * @param words User input split into strings separated by " "
+     * @throws IllegalArgumentException If the command has no information
+     */
     private static void checkCommandHasContent(String[] words) {
         if (words.length <= 1 || words[1].isEmpty()) {
             throw new IllegalArgumentException(
@@ -160,6 +214,7 @@ public class Parser {
         }
     }
 
+    // Try and save the updated TaskList
     private static void trySaveTaskData() {
         try {
             Storage.saveTaskData(TaskList.getTaskList());
