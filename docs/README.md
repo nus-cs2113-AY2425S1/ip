@@ -25,7 +25,7 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
 ## Quick Start
 
 1. Ensure you have `Java 17` installed on your Computer.
-2. Download the latest `.jar` file from [here]().
+2. Download the latest `.jar` file from [here](https://github.com/Ridiculouswifi/ip/releases).
 3. Copy the file to the home folder of your Freedom Chatbot. 
 4. Open a command terminal, `cd` into the folder with the `.jar` file 
    and use `java -jar freedom.jar` command to run the application.
