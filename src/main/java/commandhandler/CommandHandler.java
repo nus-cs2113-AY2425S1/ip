@@ -37,23 +37,32 @@ public class CommandHandler {
     public void handleCommand(String input, String command, String[] splitInputs) throws IllegalEmptyException,
             IllegalCommandException, IllegalTaskException, IllegalKeywordException, IllegalIndexException {
 
-        if (command.equals(Utils.LIST)) {
+        switch (command) {
+        case Utils.LIST:
             taskList.printList();
-        } else if (command.equals(Utils.MARK)) {
+            break;
+        case Utils.MARK:
             taskList.markItem(splitInputs);
-        } else if (command.equals(Utils.UNMARK)) {
+            break;
+        case Utils.UNMARK:
             taskList.unmarkItem(splitInputs);
-        } else if (command.equals(Utils.TODO)) {
+            break;
+        case Utils.TODO:
             taskList.addTodo(input);
-        } else if (command.equals(Utils.DEADLINE)) {
+            break;
+        case Utils.DEADLINE:
             taskList.addDeadline(input);
-        } else if (command.equals(Utils.EVENT)) {
+            break;
+        case Utils.EVENT:
             taskList.addEvent(input);
-        } else if (command.equals(Utils.DELETE)) {
+            break;
+        case Utils.DELETE:
             taskList.deleteItem(splitInputs);
-        } else if (command.equals(Utils.FIND)){
+            break;
+        case Utils.FIND:
             taskList.findItem(input);
-        } else {
+            break;
+        default:
             throw new IllegalCommandException(Warnings.VALID_COMMAND_WARNING);
         }
     }
