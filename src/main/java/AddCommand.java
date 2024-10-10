@@ -1,9 +1,8 @@
 public class AddCommand extends Command {
     private String taskType;
     private String taskDetails;
-
+    
     public AddCommand(String taskType, String taskDetails) {
-        // Store the type of task and its details
         this.taskType = taskType;
         this.taskDetails = taskDetails;
     }
