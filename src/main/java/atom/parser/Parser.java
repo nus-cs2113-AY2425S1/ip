@@ -17,6 +17,12 @@ import atom.command.FilterCommand;
  */
 public class Parser {
 
+    /**
+     * Returns the respective <code>Command</code> type object based on parsed command.
+     *
+     * @param fullCommand User input command.
+     * @return <code>Command</code> type object.
+     */
     public static Command parse(String fullCommand) {
         String[] words = fullCommand.split(" ");
         String command = words[0].toLowerCase();
