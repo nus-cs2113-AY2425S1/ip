@@ -97,8 +97,6 @@ public class TaskList {
         }
     }
 
-<<<<<<< Updated upstream
-=======
     public void find(String keyword) {
         int isFound = 0; 
         System.out.println("Here are the matching tasks in your list:");
@@ -112,7 +110,6 @@ public class TaskList {
             System.out.println("No matching tasks found.");
         }
     }
->>>>>>> Stashed changes
 }
 
 
