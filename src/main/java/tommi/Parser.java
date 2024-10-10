@@ -65,7 +65,9 @@ public class Parser {
                 break;
             case SEARCH_STRING:
                 ArrayList<String> foundResults = Storage.search(words[1]);
+                Ui.printLine();
                 Ui.printSearchResults(foundResults);
+                Ui.printLine();
                 break;
             case DELETE_STRING:
                 tryDeleteTask(words);

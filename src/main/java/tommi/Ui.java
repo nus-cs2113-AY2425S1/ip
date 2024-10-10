@@ -81,7 +81,7 @@ public class Ui {
         printLine();
         System.out.println("I've removed the task: " + System.lineSeparator()
                 + tasks.get(index) + System.lineSeparator());
-        System.out.println( "There are now " + tasks.size() + " tasks in the list.");
+        System.out.println( "There are now " + (tasks.size() - 1) + " tasks in the list.");
         printLine();
     }
 
