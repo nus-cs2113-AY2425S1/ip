@@ -7,17 +7,14 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
     public String getStatusIcon() {
         // Return "X" if the task is done, otherwise a space
         return isDone ? "X" : " ";
     }
-
     public void markAsDone() {
         // Mark the task as done
         this.isDone = true;
     }
-
     public void markAsNotDone() {
         // Mark the task as not done
         this.isDone = false;
