@@ -44,6 +44,7 @@ public class Storage {
 
     /**
      * Reads task data from the storage file and loads tasks into the task list.
+     * Displays an error if the storage file is not found.
      */
     public static void readFromStorage() {
         File f = new File(PATHNAME);
@@ -63,6 +64,8 @@ public class Storage {
 
     /**
      * Processes a single line of input and loads the corresponding task into the task list.
+     * Each task is parsed based on its type and loaded into the {@code TaskList}.
+     * Tasks are identified by their type ('T' for Todo, 'D' for Deadline, 'E' for Event).
      *
      * @param line A string array representing the parsed input line.
      */
@@ -88,6 +91,7 @@ public class Storage {
 
     /**
      * Reads the next line of input from the provided {@code Scanner}, and splits the line by the delimiter " | ".
+     * If the line is empty after trimming, the method returns {@code null}.
      *
      * @param s The {@code Scanner} used to read user input.
      * @return A {@code String[]} containing the split elements of the input line, or null if the input is empty.
@@ -103,6 +107,8 @@ public class Storage {
 
     /**
      * Creates the storage file if it does not exist.
+     * If the file exists, it reads and loads the task data into the task list.
+     * If the parent directory does not exist, it creates the directory structure.
      */
     public static void createStorage() {
         File file = new File(PATHNAME);

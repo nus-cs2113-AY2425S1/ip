@@ -30,6 +30,8 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task with the specified status, description, start time, and end time from storage
+     * The task is marked as done if the status string is "X".
+     * This function is used to load Event task from storage
      *
      * @param isDone The status of the task ("X" for done, otherwise not done).
      * @param description The description of the Event task.

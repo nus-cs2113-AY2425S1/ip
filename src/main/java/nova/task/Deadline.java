@@ -26,6 +26,8 @@ public class Deadline extends Task{
 
     /**
      * Constructs a Deadline task with the specified status, description, and due date from storage
+     * The task is marked as done if the status string is "X".
+     * This function is used to load Deadline task from storage
      *
      * @param isDone The status of the task ("X" for done, otherwise not done).
      * @param description The description of the Deadline task.
@@ -62,6 +64,7 @@ public class Deadline extends Task{
 
     /**
      * Checks if the task's deadline date is associated with a given date.
+     * This method compares the task's deadline date to the input date.
      *
      * @param date The date to check against.
      * @return true if the task's deadline matches the input date, false otherwise.

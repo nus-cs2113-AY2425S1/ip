@@ -28,6 +28,7 @@ public class Parser {
 
     /**
      * Parses user input and execute it.
+     * It matches the first element of the input array to a command and invokes the relevant command execution method.
      *
      * @param inputs The array of input strings, where the first string indicates the command.
      */

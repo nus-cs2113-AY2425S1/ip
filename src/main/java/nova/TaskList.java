@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents the entire TaskList. Contains the data of the TaskList.
+ * Represents a list of tasks that can be added, removed, marked, or unmarked.
+ * It manages tasks in memory and updates task information to persistent storage.
+ * Tasks are limited by a maximum number defined by {@code MAX_TASKS}.
  */
 public class TaskList {
 
@@ -38,6 +40,7 @@ public class TaskList {
 
     /**
      * Adds a new task to the task list and appends it to the storage.
+     * Displays a storage error message if an {@code IOException} occurs.
      *
      * @param task The task to be added.
      */
@@ -99,6 +102,7 @@ public class TaskList {
 
     /**
      * Updates the storage with the current task information.
+     * If an {@code IOException} occurs, a storage error message is displayed.
      */
     public void updateStorage() {
         String updatedInfo = "";

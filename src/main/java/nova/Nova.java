@@ -10,7 +10,12 @@ import java.util.Scanner;
 public class Nova {
 
     /**
+     * Runs the program until termination
      * The main method where the program starts.
+     * It displays the welcome message, initializes the task manager and parser,
+     * loads the task storage, and enters a loop to handle user input.
+     *
+     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
         Ui.displayWelcomeMessage();
@@ -24,6 +29,7 @@ public class Nova {
 
     /**
      * Runs the command loop that continues until the user inputs the exit command.
+     * It repeatedly prompts for user input, processes commands and exits the loop if the "bye" command is entered.
      *
      * @param sc The {@code Scanner} to receive user input.
      * @param parser The {@code Parser} object to handle and process commands.

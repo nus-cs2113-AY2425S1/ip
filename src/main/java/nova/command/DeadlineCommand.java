@@ -22,6 +22,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the Deadline command by validating the input and adding a new Deadline task to the task manager.
+     * Ensures that the input has the correct format and contains necessary components.
      *
      * @param inputs The input arguments provided by the user.
      * @param taskManager The {@code TaskList} instance managing the tasks.

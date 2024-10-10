@@ -64,6 +64,7 @@ public class Task {
 
     /**
      * Returns the status icon for the task.
+     * If the task is done, it returns "X". If not, it returns a blank space.
      *
      * @return The status icon ("X" for done, " " for not done).
      */
@@ -91,6 +92,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task for storage purposes.
+     * This method is expected to be overridden by subclasses for specific task types.
      *
      * @return A string representing the task for storage.
      */
@@ -100,6 +102,8 @@ public class Task {
 
     /**
      * Checks if the task is associated with a given date.
+     * By default, this method always returns false.
+     * Subclasses (such as Deadline and Event) should override this method to provide specific date-related checks.
      *
      * @param date The date to check against.
      * @return false by default subclasses should override this method to provide actual date matching logic.
