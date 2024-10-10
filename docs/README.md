@@ -1,71 +1,42 @@
-# User Guide for Lia
+# 🎉 Welcome to Lia, Your Task-Handling Superstar! 🎉
 
-Welcome to Lia, your personal task management chatbot! This user guide will help you understand how to use Lia effectively.
+Hey there, fellow task wrangler! Meet **Lia**, your trusty chatbot sidekick here to help you conquer the chaos of your to-do list with a sprinkle of fun! Whether you're drowning in deadlines or just need a friendly reminder, Lia's got your back. Let’s dive into how you can make the most of your new digital friend!
 
-## Features
+## 🚀 Features
 
-Lia provides a variety of features to help you manage your tasks efficiently:
+### 1. **Say Hello! 👋**
+When you first meet Lia, she’ll greet you with enthusiasm and charm. Just type anything to get the conversation started, and she’ll respond with her signature flair!
 
-### 1. Add Tasks
-- **ToDo Tasks:** 
-  - Command: `todo <task description>`
-  - Example: `todo read book`
+### 2. **Task Management Made Easy! 🗂️**
+With Lia, you can effortlessly manage your tasks:
+- **Add a To-Do:** 
+  Just type `todo <your task>` (e.g., `todo Read a book`) and watch Lia add it to your list!
   
-- **Deadline Tasks:** 
-  - Command: `deadline <task description> /by <yyyy-MM-dd HHmm>`
-  - Example: `deadline return book /by 2023-12-01 1800`
-  
-- **Event Tasks:**
-  - Command: `event <task description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
-  - Example: `event project meeting /from 2023-11-01 1000 /to 2023-11-01 1200`
+- **Set a Deadline:** 
+  Need to remember to finish something by a certain date? Type `deadline <your task> /by <date>` (e.g., `deadline Return book /by 2023-12-01`) and Lia will save it with a deadline!
 
-### 2. Mark Tasks
-- **Mark as Done:**
-  - Command: `mark <task number>`
-  - Example: `mark 1`
-  
-- **Unmark as Done:**
-  - Command: `unmark <task number>`
-  - Example: `unmark 1`
+- **Plan an Event:** 
+  Planning something special? Use `event <your event> /from <start time> /to <end time>` (e.g., `event Project meeting /from 2023-12-01 10:00 /to 2023-12-01 11:00`) to keep your calendar organized.
 
-### 3. Delete Tasks
-- **Delete a Task:**
-  - Command: `delete <task number>`
-  - Example: `delete 2`
+### 3. **Check Your List! 📝**
+Wanna see all your tasks? Just type `list`, and Lia will present you with a beautifully formatted list of everything you’ve got going on!
 
-### 4. List Tasks
-- **List All Tasks:**
-  - Command: `list`
-  
-### 5. Find Tasks
-- **Search for a Task:**
-  - Command: `find <keyword>`
-  - Example: `find book`
+### 4. **Mark Tasks as Done! ✔️**
+Finished something? Simply type `mark <task number>` to give yourself a well-deserved pat on the back! If you change your mind, you can unmark it with `unmark <task number>`. Lia will cheer you on either way!
 
-### 6. Exit the Chatbot
-- **Exit Command:**
-  - Command: `bye`
+### 5. **Delete Tasks with Style! 🗑️**
+Got a task that’s no longer relevant? Type `delete <task number>`, and Lia will handle the rest, reminding you of what you’ve let go!
 
-## Getting Started
+### 6. **Find Your Tasks! 🔍**
+Looking for something specific? Type `find <keyword>` (e.g., `find book`), and Lia will fetch all related tasks for you. It's like a treasure hunt, but for your to-do list!
 
-1. **Installation:**
-   - Ensure that you have Java installed on your machine.
-   - Clone the repository from GitHub.
-   - Navigate to the project directory.
+### 7. **Say Goodbye! 👋**
+When you’re done, just type `bye`, and Lia will bid you farewell with a warm goodbye message. She’s always here when you need her!
 
-2. **Running the Chatbot:**
-   - Open a command window in the project folder.
-   - Run the command: `java -jar lia.jar` (ensure the JAR file is correctly built and available).
+## 🌟 Conclusion
 
-3. **Interacting with Lia:**
-   - Once Lia is running, you can enter commands as outlined in the features section.
-   - Lia will respond accordingly and keep track of your tasks.
+Lia isn’t just a chatbot; she’s your new task management best friend. With her help, you can tackle anything life throws your way, one task at a time. Remember, the key to success is staying organized—and Lia is here to help you every step of the way!
 
-## Tips for Using Lia
-- Always ensure your command follows the specified syntax.
-- Use the `list` command to view all your tasks at any time.
-- Remember to save your tasks, which Lia does automatically after each command.
+---
 
-## Conclusion
-
-Thank you for using Lia! We hope this chatbot helps you manage your tasks effectively. For any issues or feature requests, feel free to reach out to the developer.
+Now get out there and start conquering those tasks! 🎊
