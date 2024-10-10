@@ -5,11 +5,21 @@ import task.TaskList;
 import commands.Command;
 import parser.Parser;
 
+/**
+ * Represents the main application for the Lia chatbot.
+ * This application manages tasks and facilitates user interactions
+ * through a command-line interface.
+ */
 public class Lia {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Lia chatbot instance with the specified file path for storage.
+     *
+     * @param filePath The path to the file where tasks will be loaded from or saved to.
+     */
     public Lia(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +31,10 @@ public class Lia {
         }
     }
 
+    /**
+     * Runs the chatbot, displaying the welcome message and continuously
+     * accepting user input until an exit command is given.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -35,11 +49,16 @@ public class Lia {
             } catch (LiaException e) {
                 ui.showError(e.getMessage());
             } finally {
-               ui.printLine();
+                ui.printLine();
             }
         }
     }
 
+    /**
+     * The main method that starts the Lia chatbot application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Lia("./data/lia.txt").run();
     }

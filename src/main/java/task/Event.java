@@ -27,20 +27,27 @@ public class Event extends Task {
     /**
      * Returns the task information formatted for saving to a file.
      *
-     * @return The Event task as a formatted string suitable for saving to a file.
+     * @return The Event task as a formatted string suitable for saving to a file,
+     *         including its status, description, start time, and end time.
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
+                end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
      * Returns a string representation of the Event task.
      *
-     * @return A string representing the Event task.
+     * @return A string representing the Event task, including its status,
+     *         description, start time, and end time in a readable format.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + "[" + start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "]" + " to: " + "[" + end.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "]" + ")";
+        return "[E]" + super.toString() + " (from: " +
+                "[" + start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "]" +
+                " to: " +
+                "[" + end.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "]" + ")";
     }
 }
