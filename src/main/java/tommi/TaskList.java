@@ -52,8 +52,8 @@ public class TaskList {
      */
     public static void deleteTask(int index) {
         if (index >= 0 && index < tasks.size()) {
-            tasks.remove(index);
             Ui.printDeleteTask(tasks, index);
+            tasks.remove(index);
         } else {
             throw new IllegalArgumentException(
                     """
