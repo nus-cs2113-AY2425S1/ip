@@ -10,6 +10,11 @@ import java.util.Scanner;
 
 public class Ui {
 
+    /**
+     * Print the intro message with ASCII art, and current save file data.
+     *
+     * @throws FileNotFoundException If loading save file fails
+     */
     public static void printIntroMessage() throws FileNotFoundException {
         String introFirstSection = """
                  ______                  \s
@@ -20,10 +25,10 @@ public class Ui {
                 Hello! I'm Tommi!
                 Here's your last-saved task list:
                 """;
-
         System.out.println(introFirstSection);
 
         Storage.loadTaskData();
+
         String introSecondSection = """
                 ____________________________________________________________
                 How can I help you?
@@ -38,6 +43,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print the entire TaskList with indexes.
+     *
+     * @param tasks Represents TaskList
+     */
     public static void printTaskList(ArrayList<Task> tasks) {
         printLine();
         System.out.println("Here are the tasks in your list:");
@@ -47,6 +57,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print the task Added with index and current number of tasks in list
+     *
+     * @param tasks Represents TaskList
+     * @param task Represents Task that was added
+     */
     public static void printAddTask(Task task, ArrayList<Task> tasks) {
         printLine();
         System.out.println("Sure. I've added the task: " + System.lineSeparator()
@@ -55,6 +71,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print the task Deleted with its index and current number of tasks in list
+     *
+     * @param tasks Represents TaskList
+     * @param index Represents index of Task that was deleted
+     */
     public static void printDeleteTask(ArrayList<Task> tasks, int index) {
         printLine();
         System.out.println("I've removed the task: " + System.lineSeparator()
@@ -63,6 +85,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print the task Marked with its index and current number of tasks in list
+     *
+     * @param tasks Represents TaskList
+     * @param index Represents index of Task that was marked
+     */
     public static void printMarkTask(ArrayList<Task> tasks, int index) {
         Ui.printLine();
         System.out.println("Awesomesauce! I've marked this task as done:"
@@ -70,6 +98,12 @@ public class Ui {
         Ui.printLine();
     }
 
+    /**
+     * Print the task Unmarked with its index and current number of tasks in list
+     *
+     * @param tasks Represents TaskList
+     * @param index Represents index of Task that was unmarked
+     */
     public static void printUnmarkTask(ArrayList<Task> tasks, int index) {
         Ui.printLine();
         System.out.println("OK, I've marked this task as undone:"
@@ -77,6 +111,12 @@ public class Ui {
         Ui.printLine();
     }
 
+    /**
+     * Print the ArrayList of Strings in save file containing the keyword.
+     * If no matches let the user know through a special message.
+     *
+     * @param foundResults Represents collection of strings in save file with keyword
+     */
     public static void printSearchResults(ArrayList<String> foundResults) {
         if (foundResults.isEmpty()) {
             System.out.println("No results found!");
