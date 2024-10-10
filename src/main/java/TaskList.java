@@ -1,19 +1,16 @@
 import java.util.ArrayList;
-
 /**
  * The {@code TaskList} class manages a list of tasks and provides methods
  * to manipulate the tasks, such as adding, deleting, and searching.
  */
 public class TaskList {
     private ArrayList<Task> taskList;
-
     /**
      * Creates an empty {@code TaskList}.
      */
     public TaskList() {
         taskList = new ArrayList<>();
     }
-
     /**
      * Creates a {@code TaskList} with an existing list of tasks.
      *
@@ -22,7 +19,6 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
     }
-
     /**
      * Adds a task to the task list.
      *
@@ -31,7 +27,6 @@ public class TaskList {
     public void addTask(Task task) {
         taskList.add(task);
     }
-
     /**
      * Deletes a task from the task list by its index.
      *
@@ -45,7 +40,6 @@ public class TaskList {
         }
         return taskList.remove(index);
     }
-
     /**
      * Retrieves a task from the task list by its index.
      *
@@ -59,7 +53,6 @@ public class TaskList {
         }
         return taskList.get(index);
     }
-
     /**
      * Retrieves all tasks in the task list.
      *
@@ -68,7 +61,6 @@ public class TaskList {
     public ArrayList<Task> getAllTasks() {
         return taskList;
     }
-
     /**
      * Returns the number of tasks in the task list.
      *
@@ -77,7 +69,6 @@ public class TaskList {
     public int size() {
         return taskList.size();
     }
-
     /**
      * Checks if the task list is empty.
      *
@@ -86,7 +77,6 @@ public class TaskList {
     public boolean isEmpty() {
         return taskList.isEmpty();
     }
-
     /**
      * Searches for tasks that contain the specified keyword in their descriptions.
      *
