@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-public class Duke {
+public class Ruhi {
   //class attributes
   /**
    * Inititalises Ruhi with specified file path for load and store tasks
@@ -18,7 +18,7 @@ public class Duke {
   private TaskList tasks;
   private Ui ui;
 
-  public Duke(String filePath) {
+  public Ruhi(String filePath) {
     //constructor implementation
     /**
      filePath is the path of files where tasks are stored.
@@ -126,6 +126,6 @@ public class Duke {
   }
 
   public static void main(String[] args) {
-    new Duke("data/duke.txt").run();
+    new Ruhi("data/Ruhi.txt").run();
   }
 }
