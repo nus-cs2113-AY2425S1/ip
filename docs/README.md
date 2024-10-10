@@ -30,7 +30,7 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
 4. Open a command terminal, `cd` into the folder with the `.jar` file 
    and use `java -jar freedom.jar` command to run the application.
 5. Type the command to the CLI and press `Enter` to execute it.
-6. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.<br>
 
 
 ## Features
