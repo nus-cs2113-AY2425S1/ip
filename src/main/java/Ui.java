@@ -1,6 +1,21 @@
 import java.util.Scanner;
 
 public class Ui {
+
+  private Scanner scanner;
+
+  public Ui() {
+    scanner = new Scanner(System.in);
+  }
+
+  public String readCommand() {
+    return scanner.nextLine();
+  }
+
+  public void showLine() {
+    System.out.println("____________________________________________________________");
+  }
+
   public void showWelcome() {
     System.out.println("____________________________________________________________");
     System.out.println(" Hello! I'm Ruhi.");
@@ -8,20 +23,11 @@ public class Ui {
     System.out.println("____________________________________________________________");
   }
 
-  public void showLine() {
-    System.out.println("____________________________________________________________");
-  }
-
   public void showLoadingError() {
-    System.out.println("Error loading tasks.");
+    System.out.println(" Oops! There was an error loading your tasks.");
   }
 
-  public String readCommand() {
-    Scanner scanner = new Scanner(System.in);
-    return scanner.nextLine();
-  }
-
-  public void showError(String message) {
-    System.out.println(message);
+  public void showError(String errorMessage) {
+    System.out.println(" Oopsy daisy! " + errorMessage);
   }
 }

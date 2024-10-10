@@ -14,6 +14,7 @@ public class Storage {
     TaskList taskList = new TaskList();
     File file = new File(filePath);
     if (!file.exists()) {
+      // Create the file if it does not exist
       File dir = new File("./data");
       if (!dir.exists()) {
         dir.mkdirs();
@@ -24,6 +25,13 @@ public class Storage {
       while (fileScanner.hasNextLine()) {
         String line = fileScanner.nextLine();
         String[] parts = line.split(" \\| ");
+
+        // Check if parts array has the expected length before accessing
+        if (parts.length < 3) {
+          System.out.println("Skipping malformed line: " + line);
+          continue; // Skip this iteration if the line doesn't have enough parts
+        }
+
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task = new Task(description);
