@@ -1,0 +1,12 @@
+todo read book
+deadline return book by 30th October
+event project meeting from 10th August 4pm to 6pm
+todo Run 10km
+list
+mark 1
+mark 3
+list
+unmark 1
+deadline do cs2113 coding by Sunday
+list
+bye
