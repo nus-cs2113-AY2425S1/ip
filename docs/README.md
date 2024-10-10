@@ -1,6 +1,6 @@
 # Miku User Guide
 
-![Picture of Miku Greeting](/images/Miku_greeting.png)
+![Picture of Miku Greeting](./images/Miku_greeting.png)
 
 Miku is a command line chat bot that can be used for managing different types of tasks.
 
@@ -17,7 +17,7 @@ A quick way to list out the syntax.
 
 Format: `help`
 
-![Picture of help command output](/images/Miku_help.png)
+![Picture of help command output](./images/Miku_help.png)
 
 ## Adding a todo task: `todo`
 
@@ -31,7 +31,7 @@ Examples:
 
 If the task was added successfully, Miku will print a message along with a task.
 
-![Picture of todo task being added](/images/Miku_todo.png)
+![Picture of todo task being added](./images/Miku_todo.png)
 
 ## Adding deadlines: `deadline`
 
@@ -45,7 +45,7 @@ Examples:
 
 If the task was added successfully, Miku will print a message along with a task.
 
-![Picture of deadline task being added](/images/Miku_deadline.png)
+![Picture of deadline task being added](./images/Miku_deadline.png)
 
 ## Adding event: `event`
 
@@ -59,7 +59,7 @@ Examples:
 
 If the task was added successfully, Miku will print a message along with a task.
 
-![Picture of event task being added](/images/Miku_event.png)
+![Picture of event task being added](./images/Miku_event.png)
 
 ## Listing the tasks: `list`
 
@@ -70,7 +70,7 @@ Format: `list`
 If there are no tasks, Miku will print a message telling you to add some tasks.
 The tasks are printed out along with a serial number on the left which can be used as index for upcoming commands.
 
-![Picture of tasks being listed](/images/Miku_list.png)
+![Picture of tasks being listed](./images/Miku_list.png)
 
 ## Finding a task: `find`
 
@@ -83,7 +83,7 @@ Examples:
 - `find /match lecture`
 - `find /match quiz`
 
-![Picture of find command output](/images/Miku_find.png)
+![Picture of find command output](./images/Miku_find.png)
 
 ## Marking a task: `mark`
 
@@ -98,7 +98,7 @@ Examples:
 If the index is out of bounds, Miku print a message asking you to specify a valid index.
 If the index is valid, the task is marked and a message along with the marked task is printed.
 
-![Picture of task being marked](/images/Miku_mark.png)
+![Picture of task being marked](./images/Miku_mark.png)
 
 ## Unmarking a task: `unmark`
 
@@ -113,7 +113,7 @@ Examples:
 If the index is out of bounds, Miku print a message asking you to specify a valid index.
 If the index is valid, the task is unmarked and a message along with the unmarked task is printed.
 
-![Picture of task being unmarked](/images/Miku_unmark.png)
+![Picture of task being unmarked](./images/Miku_unmark.png)
 
 ## Deleting a task: `delete`
 
@@ -128,7 +128,7 @@ Examples:
 If the index is out of bounds, Miku print a message asking you to specify a valid index.
 If the index is valid, the task is removed and a message along with the removed task is printed.
 
-![Picture of task being deleted](/images/Miku_delete.png)
+![Picture of task being deleted](./images/Miku_delete.png)
 
 ## Exiting the program: `bye`
 
@@ -136,4 +136,4 @@ Saves the tasklist and exits the program
 
 Format: `bye`
 
-![Picture of program exit](/images/Miku_bye.png)
+![Picture of program exit](./images/Miku_bye.png)
