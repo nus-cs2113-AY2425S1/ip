@@ -99,15 +99,7 @@ public class TaskList {
         //Parse string and remove 'deadline' command from input
         String description = Parser.trimString(input);
 
-        if (!input.contains(" by ")) {
-            throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
-        }
-
-        String[] descriptionSubstrings = description.split(" by ", 2);
-
-        if (descriptionSubstrings.length < 2) {
-            throw new IllegalEmptyException(Warnings.INCOMPLETE_DEADLINE_WARNING);
-        }
+        String[] descriptionSubstrings = parser.validateDeadline(description);
 
         String deadlineDescription = descriptionSubstrings[0].trim();
         String by = descriptionSubstrings[1].trim();
@@ -133,17 +125,9 @@ public class TaskList {
     public void addEvent(String input) throws IllegalEmptyException, IllegalKeywordException {
 
         //Parse string and remove 'event' command from input
-        input = Parser.trimString(input);
+        String description = Parser.trimString(input);
 
-        if (!input.contains(" from ") || !input.contains(" to ")) {
-            throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
-        }
-
-        String[] splitInputs = input.split(" from | to ");
-
-        if (splitInputs.length < 3) {
-            throw new IllegalEmptyException(Warnings.INCOMPLETE_EVENT_WARNING);
-        }
+        String[] splitInputs = parser.validateEvent(description);
 
         String start = splitInputs[1].trim();
         String end = splitInputs[2].trim();
@@ -159,6 +143,7 @@ public class TaskList {
         ui.printEventMessage(event.createTaskList(),items);
         storage.saveNewData(items);
     }
+
 
     /**
      * Deletes a task from the ArrayList.

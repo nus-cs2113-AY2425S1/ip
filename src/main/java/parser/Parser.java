@@ -2,6 +2,7 @@ package parser;
 
 import commands.Task;
 import exceptions.IllegalEmptyException;
+import exceptions.IllegalKeywordException;
 import exceptions.IllegalTaskException;
 import constants.Warnings;
 
@@ -82,7 +83,7 @@ public class Parser {
      * Validate user's find string.
      *
      * @param input user input from command line.
-     * @throws IllegalEmptyException
+     * @throws IllegalEmptyException when there is no find string present.
      */
     public void validateFindString(String input) throws IllegalEmptyException {
         String[] inputSubstrings = input.split(" ");
@@ -90,5 +91,48 @@ public class Parser {
             throw new IllegalEmptyException(Warnings.VALID_DESCRIPTION_WARNING);
         }
     }
+
+    /**
+     * Validates user event input.
+     *
+     * @param input user's string input without "event" command.
+     * @return a String[] of the user's input split by the " " delimiter.
+     * @throws IllegalKeywordException when keywords "form" and "to" are missing
+     * @throws IllegalEmptyException when one or more of the description, start or end time is missing.
+     */
+    public String[] validateEvent(String input) throws IllegalKeywordException, IllegalEmptyException {
+        if (!input.contains(" from ") || !input.contains(" to ")) {
+            throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
+        }
+
+        String[] splitInputs = input.split(" from | to ");
+
+        if (splitInputs.length < 3) {
+            throw new IllegalEmptyException(Warnings.INCOMPLETE_EVENT_WARNING);
+        }
+        return splitInputs;
+    }
+
+    /**
+     * Validates user deadline input.
+     *
+     * @param input user deadline input without "deadline" command.
+     * @return a String[] of the user's input split by the " " delimiter.
+     * @throws IllegalKeywordException when the 'by' keyword is not found in the user's input.
+     * @throws IllegalEmptyException when description or deadline parameters is missing.
+     */
+    public String[] validateDeadline(String input) throws IllegalKeywordException, IllegalEmptyException {
+        if (!input.contains(" by ")) {
+            throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
+        }
+
+        String[] descriptionSubstrings = input.split(" by ", 2);
+
+        if (descriptionSubstrings.length < 2) {
+            throw new IllegalEmptyException(Warnings.INCOMPLETE_DEADLINE_WARNING);
+        }
+        return descriptionSubstrings;
+    }
+
 }
 
