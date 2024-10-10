@@ -194,7 +194,7 @@ public class TaskList {
         System.out.println(Statements.LIST_TASKS);
 
         for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + "." + items.get(i).getStatusIcon() + " " + items.get(i).getDescription());
+            System.out.println((i + 1) + "." + items.get(i).createTaskList());
         }
         ui.printLine();
     }
