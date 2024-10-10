@@ -1,4 +1,4 @@
-# Echo User Guide
+# Echo - User Guide
 
 ## Product Screenshot:
 ![img.png](img.png)
@@ -264,3 +264,30 @@ T | 1 | Joe
 E | 0 | lecture (from: 4pm to: 6pm)
 D | 0 | return book (by: Dec 02 2019)
 ```
+
+## Leave Chat
+
+Allow users to leave the chatbot
+
+Example: `bye`
+
+```
+bye
+______________________________
+Bye. Hope to see you again soon!
+______________________________
+```
+
+## Command Summary
+
+| Action                         | Format, Examples                                                                                                         |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| **List tasks**                 | `list`                                                                                                                   |
+| **Add a todo task**            | `todo Joe`                                                                                                               |
+| **Add a deadline task**        | `deadline return book /by 2/12/2019` or `deadline return book /by Dec 02 2019` or  `deadline return book /by 2019-12-02` |
+| **Add an event task**          | `event lecture /from 4pm /to 6pm`                                                                                        |
+| **Delete a task**              | `delete 4`                                                                                                               |
+| **Mark task as completed**     | `mark 2`                                                                                                                 |
+| **Unmark task as uncompleted** | `unmark 2`                                                                                                               |
+| **Find tasks**                 | `find book`                                                                                                              |
+| **End the chatbot**            | `bye`                                                                                                                    |
