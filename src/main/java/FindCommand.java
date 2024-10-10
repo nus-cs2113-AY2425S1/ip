@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+
 /**
  * The {@code FindCommand} class represents a command to find tasks
  * containing a specific keyword.
  */
 public class FindCommand extends Command {
     private String keyword;
+
     /**
      * Constructs a {@code FindCommand} with the specified keyword.
      *
@@ -13,6 +15,7 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
+
     /**
      * Executes the find command by searching for matching tasks and displaying them.
      *
