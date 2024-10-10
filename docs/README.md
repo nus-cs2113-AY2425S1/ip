@@ -11,7 +11,7 @@ Hey there, fellow task wrangler! Meet **Lia**, your trusty chatbot sidekick here
 
 2. **Running the Chatbot:**
    - Open a command window in the project folder. 💻
-   - Run the command: `java -jar lia.jar` (ensure the JAR file is correctly built and available). 📦
+   - Run the command: `java -jar Lia.jar` (ensure the JAR file is correctly built and available). 📦
 
 3. **Interacting with Lia:**
    - Once Lia is running, you can enter commands as outlined in the features section. 💬
