@@ -1,49 +1,46 @@
 package org.ajay.data.task;
 
+import org.ajay.common.Messages;
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
-import org.ajay.ui.TextUi;
 
 public class Deadline extends Task {
     public final static String COMMAND_STRING = "deadline";
     final static String BY_KEYWORD_STRING = "/by";
-    protected String by;
     public final static String TASK_STRING = "D";
+
+    protected String by;
 
     /**
      * Constructor for the Deadline class.
      *
-     * @param description description of the deadline
+     * @param task description of the deadline
      * @throws EmptyArgumentException
      *
      * @throws InvalidCommandFormatException
      */
-    public Deadline(String description) throws EmptyArgumentException {
-        super(getDescriptionFromString(description));
-        try {
-            setBy(getDayFromString(description));
-        } catch (InvalidCommandFormatException e) {
-            TextUi.printExceptions(e.getMessage());
-        }
+    public Deadline(String task) throws EmptyArgumentException, InvalidCommandFormatException {
+        super(getDescriptionFromString(task));
+        setBy(getDayFromString(task));
 
     }
 
     /**
      * Constructor for the Deadline class.
      *
-     * @param description description of the deadline
-     * @param by          by date
+     * @param task description of the deadline
+     * @param by   by date
      * @throws EmptyArgumentException
      */
-    public Deadline(String description, String by) throws EmptyArgumentException {
-        super(description);
+    public Deadline(String task, String by) throws EmptyArgumentException {
+        super(task);
         setBy(by);
 
     }
 
-    public Deadline(boolean isDone, String description, String by) throws EmptyArgumentException {
-        super(description);
+    public Deadline(boolean isDone, String task, String by) throws EmptyArgumentException {
+        super(task);
         setBy(by);
         super.setDoneState(isDone);
     }
@@ -75,12 +72,16 @@ public class Deadline extends Task {
      */
     public static String getDayFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null) {
-            throw new InvalidCommandFormatException(
-                    "Invalid command format. Please include the by date. " + Error.INVAILD_COMMAND_FORMAT.toString());
-        }
+        int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
+        int indexAfterBy;
 
-        int indexAfterBy = input.indexOf(BY_KEYWORD_STRING) + BY_KEYWORD_STRING.length();
+        if (indexOfBy == -1) {
+            throw new InvalidCommandFormatException(
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + BY_KEYWORD_STRING + "] "
+                            + Error.INVAILD_COMMAND_FORMAT.toString());
+        } else {
+             indexAfterBy = indexOfBy + BY_KEYWORD_STRING.length();
+        }
 
         return input.substring(indexAfterBy).trim();
     }
@@ -93,13 +94,12 @@ public class Deadline extends Task {
      * @return
      */
     public static String getDescriptionFromString(String input) {
-        if (input == null) {
-            return null;
-        }
 
         int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
-        input = input.substring(0, indexOfBy);
 
+        if (indexOfBy != -1) {
+            input = input.substring(0, indexOfBy);
+        }
         return input.trim();
     }
 
@@ -108,8 +108,8 @@ public class Deadline extends Task {
         return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + by;
     }
 
-    public static Deadline loadTaskString(boolean isDone, String description, String by) throws EmptyArgumentException {
-        Deadline deadline = new Deadline(isDone, description, by);
+    public static Deadline loadTaskString(boolean isDone, String task, String by) throws EmptyArgumentException {
+        Deadline deadline = new Deadline(isDone, task, by);
         return deadline;
     }
 
