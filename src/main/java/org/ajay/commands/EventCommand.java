@@ -25,6 +25,7 @@ public class EventCommand extends Command{
             ui.printExceptions(e.getMessage());
         } catch (InvalidCommandFormatException e) {
             ui.printExceptions(e.getMessage());
+            return;
         }
 
         System.out.println("Got it. I've added this task:");

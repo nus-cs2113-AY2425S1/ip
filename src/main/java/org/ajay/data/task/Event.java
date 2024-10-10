@@ -1,5 +1,6 @@
 package org.ajay.data.task;
 
+import org.ajay.common.Messages;
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
@@ -16,15 +17,15 @@ public class Event extends Task {
     /**
      * Constructor for the Event class.
      *
-     * @param description description of the event
+     * @param task description of the event
      *
      * @throws EmptyArgumentException
      * @throws InvalidCommandFormatException
      */
-    public Event(String description) throws EmptyArgumentException, InvalidCommandFormatException {
-        super(getDescriptionFromString(description));
-        setFrom(getFromFromString(description));
-        setTo(getToFromString(description));
+    public Event(String task) throws EmptyArgumentException, InvalidCommandFormatException {
+        super(getDescriptionFromString(task));
+        setFrom(getFromFromString(task));
+        setTo(getToFromString(task));
 
     }
 
@@ -70,7 +71,7 @@ public class Event extends Task {
      *
      * @param from
      */
-    public void setFrom(String from) {
+    private void setFrom(String from) {
         this.from = from;
     }
 
@@ -88,7 +89,7 @@ public class Event extends Task {
      *
      * @param to
      */
-    public void setTo(String to) {
+    private void setTo(String to) {
         this.to = to;
     }
 
@@ -101,13 +102,11 @@ public class Event extends Task {
      */
     public static String getDescriptionFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null) {
-            return null;
-        }
-
         int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
-        input = input.substring(0, indexOfFrom);
 
+        if (indexOfFrom != -1) {
+            input = input.substring(0, indexOfFrom);
+        }
         return input.trim();
     }
 
@@ -120,13 +119,25 @@ public class Event extends Task {
      */
     public static String getFromFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null || !input.contains(FROM_KEYWORD_STRING)) {
+        int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
+        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
+        int indexAfterFrom;
+
+        boolean isFromBeforeTo = indexOfFrom < indexOfTo;
+
+        if (indexOfFrom == -1 || indexOfTo == -1 ) {
             throw new InvalidCommandFormatException(
-                    "Invalid command format. Please include the from date. " + Error.INVAILD_COMMAND_FORMAT.toString());
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD_STRING + " & " +  TO_KEYWORD_STRING +"] "
+                            + Error.INVAILD_COMMAND_FORMAT.toString());
+        } else if (!isFromBeforeTo) {
+            throw new InvalidCommandFormatException(
+                    Messages.MESSAGE_INVALID_KEYWORK_ARRAGEMENT + " [" + FROM_KEYWORD_STRING + " then " +  TO_KEYWORD_STRING +"] "+ Error.INVAILD_COMMAND_FORMAT.toString());
+        } else {
+             indexAfterFrom = indexOfFrom + FROM_KEYWORD_STRING.length();
         }
 
-        int indexAfterFrom = input.indexOf(FROM_KEYWORD_STRING) + FROM_KEYWORD_STRING.length();
-        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
+
+
 
         return input.substring(indexAfterFrom, indexOfTo).trim();
     }
@@ -140,12 +151,18 @@ public class Event extends Task {
      */
     public static String getToFromString(String input) throws InvalidCommandFormatException {
 
-        if (input == null || !input.contains(TO_KEYWORD_STRING)) {
+        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
+        int indexAfterTo;
+
+        if (indexOfTo == -1) {
             throw new InvalidCommandFormatException(
-                    "Invalid command format. Please include the to date. " + Error.INVAILD_COMMAND_FORMAT.toString());
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD_STRING + " & " +  TO_KEYWORD_STRING +"] "
+                            + Error.INVAILD_COMMAND_FORMAT.toString());
+        } else {
+             indexAfterTo = indexOfTo + TO_KEYWORD_STRING.length();
         }
 
-        int indexAfterTo = input.indexOf(TO_KEYWORD_STRING) + TO_KEYWORD_STRING.length();
+
 
         return input.substring(indexAfterTo).trim();
     }
