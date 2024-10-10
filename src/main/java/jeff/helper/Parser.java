@@ -1,7 +1,6 @@
 package jeff.helper;
 
 import jeff.command.*;
-import java.io.IOException;
 
 /**
  * A utility class responsible for parsing user input commands and creating
@@ -10,6 +9,16 @@ import java.io.IOException;
  * command to execute.
  */
 public class Parser {
+
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String LIST_COMMAND = "list";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
+    private static final String BYE_COMMAND = "bye";
 
     /**
      * Returns the first word of a given string.
@@ -41,20 +50,20 @@ public class Parser {
 
         //Carry out different actions based on the first word
         switch (firstWord) {
-        case "todo":
-        case "deadline":
-        case "event":
+        case TODO_COMMAND:
+        case DEADLINE_COMMAND:
+        case EVENT_COMMAND:
             return new AddCommand(firstWord, line);
-        case "list":
+        case LIST_COMMAND:
             return new ListCommand(firstWord, line);
-        case "mark":
-        case "unmark":
+        case MARK_COMMAND:
+        case UNMARK_COMMAND:
             return new MarkCommand(firstWord, line);
-        case "delete":
+        case DELETE_COMMAND:
             return new DeleteCommand(firstWord, line);
-        case "find":
+        case FIND_COMMAND:
             return new FindCommand(firstWord, line);
-        case "bye":
+        case BYE_COMMAND:
             return new ExitCommand();
         default:
             return new InvalidCommand();

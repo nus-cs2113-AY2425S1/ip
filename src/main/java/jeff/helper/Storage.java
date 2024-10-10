@@ -14,8 +14,8 @@ import java.util.Scanner;
 /**
  * The <code>Storage</code> class is responsible for loading and saving tasks
  * to and from a specified text file. It handles the parsing of task data
- * and ensures that tasks are correctly formatted before they are added
- * to the task list.
+ * from the text file. It also ensures that tasks are correctly formatted before
+ * they are added to the task list.
  */
 public class Storage {
 
@@ -31,10 +31,14 @@ public class Storage {
     private static final int FILE_TASK_FIELD1_INDEX = 3;
     private static final int FILE_TASK_FIELD2_INDEX = 4;
 
+    private static final String TODO_STRING = "T";
+    private static final String DEADLINE_STRING = "D";
+    private static final String EVENT_STRING = "E";
+
     /**
      * Constructs a <code>Storage</code> object with the specified file path.
      *
-     * @param filePath The path to the file where tasks are stored.
+     * @param filePath The path to the text file where tasks are stored.
      */
     public Storage(String filePath){
         this.filePath = filePath;
@@ -42,16 +46,16 @@ public class Storage {
 
     /**
      * Processes a Todo task from the given details.
-            *
-            * @param taskDetails An array containing the details of the Todo task.
-            * @return A <code>Todo</code> object representing the task.
-            * @throws InvalidFormatException If the task details are invalid.
+     *
+     * @param taskDetails An array containing the details of the Todo task.
+     * @return A <code>Todo</code> object representing the task.
+     * @throws InvalidFormatException If the task details are invalid.
      */
     private Task processFileTodo(String[] taskDetails) throws InvalidFormatException {
         if (taskDetails.length == TODO_FILE_FIELD_LENGTH) {
             return new Todo(taskDetails[FILE_TASK_DESC_INDEX]);
         } else {
-            throw new InvalidFormatException("todo");
+            throw new InvalidFormatException("Todo description missing");
         }
     }
 
@@ -66,7 +70,7 @@ public class Storage {
         if (taskDetails.length == DEADLINE_FILE_FIELD_LENGTH) {
              return new Deadline(taskDetails[FILE_TASK_DESC_INDEX], taskDetails[FILE_TASK_FIELD1_INDEX]);
         } else {
-            throw new InvalidFormatException("deadline");
+            throw new InvalidFormatException("Deadline field(s) missing");
         }
     }
 
@@ -82,7 +86,7 @@ public class Storage {
             return new Event(taskDetails[FILE_TASK_DESC_INDEX], taskDetails[FILE_TASK_FIELD1_INDEX],
                     taskDetails[FILE_TASK_FIELD2_INDEX]);
         } else {
-            throw new InvalidFormatException("event");
+            throw new InvalidFormatException("Event field(s) missing");
         }
     }
 
@@ -93,15 +97,15 @@ public class Storage {
      * @return A <code>Task</code> object representing the task.
      * @throws InvalidFormatException If the task type is unknown or invalid.
      */
-    private Task processFileTaskTypes(String[] taskDetails) throws InvalidFormatException {
+    private Task processFileTaskType(String[] taskDetails) throws InvalidFormatException {
         String taskType = taskDetails[FILE_TASK_TASK_INDEX];
 
         switch (taskType) {
-        case "T":
+        case TODO_STRING:
             return processFileTodo(taskDetails);
-        case "D":
+        case DEADLINE_STRING:
             return processFileDeadline(taskDetails);
-        case "E":
+        case EVENT_STRING:
             return processFileEvent(taskDetails);
         default:
             throw new InvalidFormatException("Unknown task type");
@@ -138,11 +142,11 @@ public class Storage {
      */
     private void processFileTasks(String taskLine, ArrayList<Task> taskList) throws InvalidFormatException {
         try {
-            //Splits the taskDetails and ensures the fields are not empty
+            //Get details of the task and ensures the fields are not empty
             String[] taskDetails = getFileTaskDetails(taskLine);
 
-            //Processes different the different task types and add them to taskList if valid
-            taskList.add(processFileTaskTypes(taskDetails));
+            //Processes the task and add them to taskList if valid
+            taskList.add(processFileTaskType(taskDetails));
 
             if (taskDetails[FILE_TASK_MARK_INDEX].equals("1")) {
                 taskList.get(taskList.size() - 1).setIsDone(true);
