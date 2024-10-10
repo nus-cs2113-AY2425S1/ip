@@ -4,6 +4,23 @@
 Uranus is an easy-to-use chatbot that helps manage tasks efficiently, 
 providing a simple interface for staying organized.
 ---
+## List of Functionalities:
+
+- [Adding Tasks](#adding-tasks)
+- [Adding Deadlines](#adding-deadlines)
+- [Adding Events](#adding-events)
+- [Adding ToDos](#adding-todos)
+- [Marking Tasks as Done](#marking-tasks-as-done)
+- [Unmarking Tasks](#unmarking-tasks)
+- [Listing All Tasks](#listing-all-tasks)
+- [Deleting Tasks](#deleting-tasks)
+- [Finding Tasks](#finding-tasks)
+- [Echo Mode](#echo-mode)
+- [Clearing the Screen](#clearing-the-screen)
+- [Exiting the Chatbot](#exiting-the-chatbot)
+- [Check all Functionalities](#check-all-functionalities)
+- [Saving and Loading](#saving-and-loading)
+---
 ## Adding Tasks
 
 The `task` command allows users to add tasks without specifying any type.
@@ -278,7 +295,7 @@ Bye. Hope to see you again!
 
 ---
 
-## Help
+## Check all Functionalities
 
 The `help` command lists all available commands that the chatbot can perform.
 
@@ -291,6 +308,24 @@ help
 ```
 Currently, I am able to execute the following functions:
 ...
+```
+
+---
+
+## Saving and Loading
+
+Allows users to automatically save tasks as they are being added.
+Additionally, the tasks are loaded everytime the chatbot starts.
+
+### Usage:
+```
+<No inputs required>
+```
+
+### Expected Output:
+```
+< All tasks stored previously can be viewed using the list command >
+< All tasks are saved in the background >
 ```
 
 ---
