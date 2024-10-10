@@ -14,7 +14,8 @@ public class Event extends Task{
     @Override
     public String toString() {
         char maskingChar = isMarkedAsDone ? 'X' : ' ';
-        return " [" + taskType + "][" + maskingChar + "] " + taskDescription + " (from: " + startTime +" to: " + endTime + ")";
+        return " [" + taskType + "][" + maskingChar + "] " + taskDescription
+                + " (from: " + startTime +" to: " + endTime + ")";
     }
 
     @Override

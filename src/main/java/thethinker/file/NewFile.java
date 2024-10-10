@@ -57,14 +57,14 @@ public class NewFile {
     private void addTaskAccordingToFileData(String[] parameters) {
 
         switch (parameters[0]) {
-        case "T" :
+        case "T":
             TaskList.addTaskWithoutResponse(new Todo(parameters[2]));
 
             if (Boolean.parseBoolean(parameters[1])) {
                 TaskList.setAsDone(TaskList.listLength);
             }
             break;
-        case "E" :
+        case "E":
             TaskList.addTaskWithoutResponse(new Event(parameters[2] , parameters[3] , parameters[4]));
 
             if (Boolean.parseBoolean(parameters[1])) {
@@ -72,7 +72,7 @@ public class NewFile {
             }
             break;
 
-        case "D" :
+        case "D":
             TaskList.addTaskWithoutResponse(new Deadline(parameters[2] , parameters[3]));
 
             if (Boolean.parseBoolean(parameters[1])) {
@@ -80,7 +80,7 @@ public class NewFile {
             }
             break;
 
-        default :
+        default:
             System.out.println("Wrong task type");
             break;
         }

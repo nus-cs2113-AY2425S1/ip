@@ -41,9 +41,8 @@ public interface UiControl {
 
     static void printCommands() {
         System.out.println("Command entered is not valid. Available commands are");
-        String[] commands = {
-                "mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye" ,
-                "get" , "find", "help (get format)"
+        String[] commands = { "mark" , "unmark" , "todo" , "delete", "event" , "deadline" , "list" , "bye"
+                , "get" , "find", "help (get format)"
         };
 
         for (String command : commands) {

@@ -3,7 +3,11 @@ package thethinker.ui;
 import thethinker.exceptions.FormattingException;
 import thethinker.file.FileLoader;
 import thethinker.file.NewFile;
-import thethinker.parser.*;
+import thethinker.parser.UserInputParser;
+import thethinker.parser.DateParser;
+import thethinker.parser.EventParser;
+import thethinker.parser.TodoParser;
+import thethinker.parser.DeadlineParser;
 import thethinker.tasks.TaskList;
 import java.io.IOException;
 
@@ -62,7 +66,7 @@ public interface CommandLine {
                 TaskList.setAsNotDone(numberToUnmark);
                 break;
 
-            case "delete" :
+            case "delete":
                 int numberToDelete = UserInputParser.parseNumberAfterTask("delete");
                 TaskList.deleteTask(numberToDelete);
                 break;

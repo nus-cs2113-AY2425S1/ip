@@ -13,6 +13,7 @@ public class UserInputParser {
     public static Scanner scanner = new Scanner(System.in);
     public static final String GET_FORMAT = "Please follow format : get [dd/mm/yyyy]";
     public static final String FIND_FORMAT = "Please follow format : find [keyword]";
+    public static final int LENGTH_OF_FIND = 4;
 
     public static String getUserInput() {
         userInput = scanner.nextLine();
@@ -57,7 +58,6 @@ public class UserInputParser {
      */
     public static String parseKeywordAfterFind() throws FormattingException {
 
-        final int LENGTH_OF_FIND = 4;
         int indexOfTask = userInput.toLowerCase().indexOf("find");
         String keyword = userInput.substring(indexOfTask + LENGTH_OF_FIND).trim();
         String[] parsedInputs = keyword.split(" ");

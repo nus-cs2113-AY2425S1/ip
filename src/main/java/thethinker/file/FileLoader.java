@@ -28,7 +28,7 @@ public class FileLoader {
         if(!inputFile.isFileExist()) {
 
             try {
-               inputFileNameAndCreateFile();
+                inputFileNameAndCreateFile();
             } catch (IOException e) {
                 System.out.println("File not found. No data loaded. Please create the file under data directory");
                 throw new FileNotFoundException();

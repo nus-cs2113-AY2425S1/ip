@@ -12,6 +12,7 @@ public class DateParser extends UserInputParser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     public static DateTimeFormatter resultDateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy , h a");
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final int LENGTH_OF_GET = 3;
 
     private static LocalDateTime parseIntoDateTimeObject(String date) {
         return LocalDateTime.parse(date, dateTimeFormatter);
@@ -163,7 +164,7 @@ public class DateParser extends UserInputParser {
      * @throws FormattingException If date is missing or in the wrong format(i.e. not dd/mm/yyyy).
      */
     public static String parseDateAfterGet() throws FormattingException {
-        final int LENGTH_OF_GET = 3;
+
         String remainingDescription = userInput.substring(LENGTH_OF_GET).trim();
 
         if (remainingDescription.isEmpty()) {
