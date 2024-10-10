@@ -1,4 +1,4 @@
-# Juan Task Manager
+# Juan User Guide
 
                ._-'-_ .
           . '  /_-_-_\   ` .
