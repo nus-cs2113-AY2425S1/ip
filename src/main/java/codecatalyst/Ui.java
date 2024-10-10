@@ -125,12 +125,7 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints a message indicating that no tasks matched the specified keyword.
-     */
     public void printNoMatchingTask() {
         System.out.println("         No task found matching the keyword.");
     }
-
-
 }

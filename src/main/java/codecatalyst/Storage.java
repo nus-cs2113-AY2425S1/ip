@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles the loading and saving of tasks to and from a file.
- * This class is responsible for reading tasks from storage (a file) and saving tasks back to the file.
+ * Handles the loading and saving of tasks to and from a text file.
+ * This class is responsible for reading tasks from storage (a text file) and saving tasks back to the file.
  */
 public class Storage {
-    // Constants for task types and symbols used in file storage.
     private static final String TODO_TYPE = "T";
     private static final String DEADLINE_TYPE = "D";
     private static final String EVENT_TYPE = "E";
@@ -101,8 +100,8 @@ public class Storage {
                 break;
             default:
                 System.out.println("Invalid task type: " + taskType);
+                // Fallthrough
             }
-
         }
     }
 
@@ -114,8 +113,8 @@ public class Storage {
      * @param description The description of the task.
      * @param isDone Whether the task is marked as done.
      */
-    private static void ConvertLineToEventTask(ArrayList<Task> tasks, String[] parts, String description,
-                                               boolean isDone) {
+    private static void ConvertLineToEventTask(ArrayList<Task> tasks,
+            String[] parts, String description, boolean isDone) {
         String[] timeParts = parts[3].split("-");
         String startTime = timeParts[0];
         String endTime = timeParts[1];
@@ -135,8 +134,8 @@ public class Storage {
      * @param parts The parts of the task line, including the due date.
      * @param isDone Whether the task is marked as done.
      */
-    private static void ConvertLineToDeadlineTask(ArrayList<Task> tasks, String description, String[] parts,
-                                                  boolean isDone) {
+    private static void ConvertLineToDeadlineTask(ArrayList<Task> tasks,
+            String description, String[] parts, boolean isDone) {
         Deadline deadlineTask = new Deadline(description, parts[3]);
         if (isDone) {
             deadlineTask.markAsDone();
@@ -151,7 +150,8 @@ public class Storage {
      * @param description The description of the task.
      * @param isDone Whether the task is marked as done.
      */
-    private static void ConvertLineToTodoTask(ArrayList<Task> tasks, String description, boolean isDone) {
+    private static void ConvertLineToTodoTask(ArrayList<Task> tasks,
+            String description, boolean isDone) {
         Todo todoTask = new Todo(description);
         if (isDone) {
             todoTask.markAsDone();

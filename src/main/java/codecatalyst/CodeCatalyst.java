@@ -4,10 +4,6 @@ import codecatalyst.command.Command;
 
 import java.io.IOException;
 
-/**
- * The main class of the CodeCatalyst program, responsible for initializing and running the task manager.
- * It handles user commands, manages tasks, and interacts with the UI and storage.
- */
 public class CodeCatalyst {
     private static final String FILE_PATH = "data/CodeCatalystData.txt";
     private final Storage storage;
@@ -16,7 +12,7 @@ public class CodeCatalyst {
 
     /**
      * Constructs a {@code CodeCatalyst} object.
-     * It initializes the UI, storage, and task list. If the task list cannot be loaded from the file,
+     * It initializes the UI, storage, and tasklist. If the task list cannot be loaded from the file,
      * an empty task list is initialized.
      *
      * @param filepath The path of the file from which tasks are loaded.

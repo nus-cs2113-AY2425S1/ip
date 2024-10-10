@@ -26,6 +26,7 @@ public class AddTodoCommand extends Command {
         if (description.trim().isEmpty()) {
             throw new EmptyTaskDetailException("Todo task description cannot be empty.");
         }
+
         Todo todo = new Todo(description);
         tasklist.addTask(todo);
         ui.printTaskAdded(todo, tasklist.getSize());
