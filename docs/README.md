@@ -20,6 +20,7 @@ providing a simple interface for staying organized.
 - [Exiting the Chatbot](#exiting-the-chatbot)
 - [Check all Functionalities](#check-all-functionalities)
 - [Saving and Loading](#saving-and-loading)
+
 ---
 ## Adding Tasks
 
