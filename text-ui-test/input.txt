@@ -8,12 +8,17 @@ mark 3
 list
 unmark 3
 todo learn how to dance
-delete 2
+delete 1
 list
 deadline submit PR /by 2024-10-09 06:00
 deadline CS2113 iP /by 2024-10-11 16:00
 list
 find Oct
-list
 find [T]
+delete 5
+delete 4
+delete 3
+delete 2
+delete 1
+list
 bye

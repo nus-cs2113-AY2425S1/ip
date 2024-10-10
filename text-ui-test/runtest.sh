@@ -13,7 +13,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -d ../bin ../src/main/java/nus/edu/rizzler/**/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/nus/edu/rizzler/**/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
@@ -23,13 +23,10 @@ fi
 java -classpath ../bin nus.edu.rizzler.Rizzler < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
-#cp EXPECTED.TXT EXPECTED-UNIX.TXT
-#dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
-
-# Convert to UNIX format using tr
 tr -d '\r' < ACTUAL.TXT > ACTUAL-UNIX.TXT
 tr -d '\r' < EXPECTED.TXT > EXPECTED-UNIX.TXT
-
+#cp EXPECTED.TXT EXPECTED-UNIX.TXT
+#dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED-UNIX.TXT

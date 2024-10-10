@@ -2,14 +2,14 @@ package nus.edu.rizzler.command;
 
 import nus.edu.rizzler.manager.Storage;
 import nus.edu.rizzler.manager.TaskList;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 import nus.edu.rizzler.ui.UserInterface;
 
 /**
  * Represents a command for unrecognized input, signaling an invalid command.
  */
 public class InvalidCommand extends Command {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
 
     /**
      * Executes the command by displaying an error message for invalid input.
@@ -19,7 +19,7 @@ public class InvalidCommand extends Command {
      * @param storage The storage for task data (not used in this command).
      */
     public void execute(TaskList tasks, UserInterface userInterface, Storage storage) {
-        String message = "I don't recognize the command" + emoji.getExclamationMarkEmoji();
+        String message = "I don't recognize the command! " + face.getConfusedFace() + "?";
         userInterface.displayMessage(message);
     }
 }

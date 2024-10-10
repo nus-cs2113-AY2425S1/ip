@@ -4,10 +4,10 @@ package nus.edu.rizzler.ui;
  * Handles interactions with the user, including displaying messages and handling errors.
  */
 public class UserInterface {
-    private Emoji emoji = new Emoji();
-    private final String GREET_MESSAGE = "Yo! I'm Rizzler.";
-    private final String HELLO_MESSAGE = "What can I do to make your day pop? " + emoji.getPartyPopperEmoji() + emoji.getRocketEmoji();
-    private final String GOODBYE_MESSAGE = "Peace out, Rizzler’s got places to be! " + emoji.getCoolFaceEmoji() + emoji.getFistBumpEmoji();
+    private Face face = new Face();
+    private final String GREET_MESSAGE = "Hi! I'm Rizzler.";
+    private final String HELLO_MESSAGE = "What can I do to make your day pop? " + face.getPartyFace();
+    private final String GOODBYE_MESSAGE = "Peace out! <3";
     private final String LOGO = """
                  _____                          _\s
                 |     \\                        | |\s
@@ -47,7 +47,7 @@ public class UserInterface {
      * @param e The exception whose message will be displayed.
      */
     public void displayError(Exception e) {
-        System.out.println(emoji.getCrossMarkEmoji() + " ERROR: " + e.getMessage() + emoji.getCrossMarkEmoji());
+        System.out.println("**** ERROR: " + e.getMessage().toUpperCase() + " ****");
     }
 
     /**

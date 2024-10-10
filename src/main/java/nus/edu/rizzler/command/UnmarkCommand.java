@@ -2,14 +2,14 @@ package nus.edu.rizzler.command;
 
 import nus.edu.rizzler.manager.Storage;
 import nus.edu.rizzler.manager.TaskList;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 import nus.edu.rizzler.ui.UserInterface;
 
 /**
  * Represents a command to unmark a task, indicating it is not completed.
  */
 public class UnmarkCommand extends Command {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
     public static final String COMMAND_WORD = "unmark";
 
     /**
@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
      */
     public void execute(TaskList tasks, UserInterface userInterface, Storage storage) {
         String taskString = tasks.updateTaskStatus(this.getTaskIndex(), false);
-        String message = "No worries! Task unmarked. " + emoji.getReverseEmoji();
+        String message = String.format("Good Job %s! Task unmarked. ", face.getBlushingFace());
         userInterface.displayMessage(String.format("%s:\n  %s", message, taskString));
     }
 }

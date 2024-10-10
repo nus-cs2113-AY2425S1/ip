@@ -1,12 +1,9 @@
 package nus.edu.rizzler.task;
 
-import nus.edu.rizzler.ui.Emoji;
-
 /**
  * Represents a general task with a name and completion status.
  */
 public class Task {
-    private Emoji emoji = new Emoji();
     private String taskName;
     private Boolean isDone;
 
@@ -31,22 +28,14 @@ public class Task {
     }
 
     /**
-     * Returns the status icon based on the task's completion status.
-     *
-     * @return A check mark if the task is done, otherwise an hourglass.
-     */
-    public String getStatusIcon() {
-        return (isDone ? emoji.getTickEmoji() : emoji.getHourglassEmoji());
-    }
-
-    /**
      * Returns a string representation of the task, formatted for display.
      *
      * @return A string representing the task with its status icon and name.
      */
     @Override
     public String toString() {
-        return String.format(" %s %s", getStatusIcon(), taskName);
+        String statusIcon = isDone ? "[X]" : "[ ]";
+        return String.format(" %s %s", statusIcon, taskName);
     }
 
     /**

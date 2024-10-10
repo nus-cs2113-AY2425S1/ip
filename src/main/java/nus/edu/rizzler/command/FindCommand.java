@@ -2,14 +2,14 @@ package nus.edu.rizzler.command;
 
 import nus.edu.rizzler.manager.Storage;
 import nus.edu.rizzler.manager.TaskList;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 import nus.edu.rizzler.ui.UserInterface;
 
 /**
  * Represents a command to find tasks that match a specified keyword.
  */
 public class FindCommand extends Command {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
     public static final String COMMAND_WORD = "find";
 
     private String keyword;
@@ -31,8 +31,7 @@ public class FindCommand extends Command {
      * @param storage The storage for task data (not used in this command).
      */
     public void execute(TaskList tasks, UserInterface userInterface, Storage storage) {
-        String message = String.format("Matching tasks %s:%n%s",
-                emoji.getCoolFaceEmoji(), tasks.findKeyword(keyword));
+        String message = String.format("Matching tasks:%n%s", tasks.findKeyword(keyword));
         userInterface.displayMessage(message);
     }
 }

@@ -1,5 +1,0 @@
-T, false, read book
-E, false, attend obamas's party, 2024-11-09 17:00, 2024-11-09 20:00
-T, false, learn how to dance
-D, false, submit PR, 2024-10-09 06:00
-D, false, CS2113 iP, 2024-10-11 16:00

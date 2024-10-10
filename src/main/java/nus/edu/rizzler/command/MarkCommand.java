@@ -2,14 +2,14 @@ package nus.edu.rizzler.command;
 
 import nus.edu.rizzler.manager.Storage;
 import nus.edu.rizzler.manager.TaskList;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 import nus.edu.rizzler.ui.UserInterface;
 
 /**
  * Represents a command to mark a task as completed in the task list.
  */
 public class MarkCommand extends Command {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
     public static final String COMMAND_WORD = "mark";
 
     /**
@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
      */
     public void execute(TaskList tasks, UserInterface userInterface, Storage storage) {
         String taskString = tasks.updateTaskStatus(this.getTaskIndex(), true);
-        String message = "Good Job! Task marked. " + emoji.getPartyPopperEmoji();
+        String message = String.format("Good Job %s! Task marked. ", face.getBlushingFace());
         userInterface.displayMessage(String.format("%s:\n  %s", message, taskString));
     }
 }

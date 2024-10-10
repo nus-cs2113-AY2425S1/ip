@@ -2,14 +2,14 @@ package nus.edu.rizzler.command;
 
 import nus.edu.rizzler.manager.Storage;
 import nus.edu.rizzler.manager.TaskList;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 import nus.edu.rizzler.ui.UserInterface;
 
 /**
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
     public static final String COMMAND_WORD = "delete";
 
     /**
@@ -33,8 +33,8 @@ public class DeleteCommand extends Command {
         String taskString = tasks.deleteTask(this.getTaskIndex());
         int taskSize = tasks.getSize();
 
-        String message = String.format("Task deleted %s:%n  %s%n" +
-                "Now you have %d tasks in the list.", emoji.getCoolFaceEmoji(), taskString, taskSize);
+        String message = String.format("Task deleted:%n  %s%n" +
+                "Now you have %d tasks in the list.", taskString, taskSize);
         userInterface.displayMessage(message);
     }
 }

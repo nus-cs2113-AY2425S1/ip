@@ -61,13 +61,13 @@ Format:  `event TASKNAME /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm`
 Example: `event GESS1005 team meeting /from 2024-10-15 09:00 /to 2024-10-15 11:00`
 
 ### Mark Done Task: `mark`
-Marks the task corresponding to the index given as completed.
+Marks the task (puts a "X" before the task name) corresponding to the index given as completed.
 
 Format: `mark INDEX`    
 Example: `mark 1`
 
 ### Unmark Done Task: `unmark`
-Marks the task corresponding to the index given as incomplete.
+Marks the task (removes the "X" before the task name) corresponding to the index given as incomplete.
 
 Format: `unmark INDEX`    
 Example: `unmark 2`

@@ -1,0 +1,105 @@
+Hi! I'm Rizzler.
+ _____                          _ 
+|     \                        | | 
+| |_)  |      ______   ______  | |   ____    _  __ 
+|     /  (_) |__   /  |__   /  | | /      \ | |/  \ 
+| |\ \   | |   /  /     /  /   | | |  ____/ |  _/\_\ 
+| | \ \  | |  /  / __  /  / __ | | | |____  | |  
+|_|  \_\ |_| /______/ /______/ |_|  \_____| |_| 
+
+What can I do to make your day pop? \\^o^//
+Here’s the rundown on the tasks so far:
+Nothing in the pipeline yet! Let's get to work! \\^o^//
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [T] [ ] read book
+Now you have 1 tasks in the list.
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [D] [ ] read magazine (by: 9 Oct 2024, 6am)
+Now you have 2 tasks in the list.
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+Now you have 3 tasks in the list.
+------------------------------------------------
+Here’s the rundown on the tasks so far:
+1. [T] [ ] read book
+2. [D] [ ] read magazine (by: 9 Oct 2024, 6am)
+3. [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+------------------------------------------------
+Good Job ^_^! Task marked. :
+  [D] [X] read magazine (by: 9 Oct 2024, 6am)
+------------------------------------------------
+Good Job ^_^! Task marked. :
+  [E] [X] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+------------------------------------------------
+Here’s the rundown on the tasks so far:
+1. [T] [ ] read book
+2. [D] [X] read magazine (by: 9 Oct 2024, 6am)
+3. [E] [X] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+------------------------------------------------
+Good Job ^_^! Task unmarked. :
+  [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [T] [ ] learn how to dance
+Now you have 4 tasks in the list.
+------------------------------------------------
+Task deleted:
+  [T] [ ] read book
+Now you have 3 tasks in the list.
+------------------------------------------------
+Here’s the rundown on the tasks so far:
+1. [D] [X] read magazine (by: 9 Oct 2024, 6am)
+2. [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+3. [T] [ ] learn how to dance
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [D] [ ] submit PR (by: 9 Oct 2024, 6am)
+Now you have 4 tasks in the list.
+------------------------------------------------
+Let's make it happen ^_^! I've added this task:
+  [D] [ ] CS2113 iP (by: 11 Oct 2024, 4pm)
+Now you have 5 tasks in the list.
+------------------------------------------------
+Here’s the rundown on the tasks so far:
+1. [D] [X] read magazine (by: 9 Oct 2024, 6am)
+2. [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+3. [T] [ ] learn how to dance
+4. [D] [ ] submit PR (by: 9 Oct 2024, 6am)
+5. [D] [ ] CS2113 iP (by: 11 Oct 2024, 4pm)
+------------------------------------------------
+Matching tasks:
+1. [D] [X] read magazine (by: 9 Oct 2024, 6am)
+2. [D] [ ] submit PR (by: 9 Oct 2024, 6am)
+3. [D] [ ] CS2113 iP (by: 11 Oct 2024, 4pm)
+------------------------------------------------
+Matching tasks:
+1. [T] [ ] learn how to dance
+------------------------------------------------
+Task deleted:
+  [D] [ ] CS2113 iP (by: 11 Oct 2024, 4pm)
+Now you have 4 tasks in the list.
+------------------------------------------------
+Task deleted:
+  [D] [ ] submit PR (by: 9 Oct 2024, 6am)
+Now you have 3 tasks in the list.
+------------------------------------------------
+Task deleted:
+  [T] [ ] learn how to dance
+Now you have 2 tasks in the list.
+------------------------------------------------
+Task deleted:
+  [E] [ ] attend obamas's party (from: 9 Nov 2024, 5pm to: 9 Nov 2024, 8pm)
+Now you have 1 tasks in the list.
+------------------------------------------------
+Task deleted:
+  [D] [X] read magazine (by: 9 Oct 2024, 6am)
+Now you have 0 tasks in the list.
+------------------------------------------------
+Here’s the rundown on the tasks so far:
+Nothing in the pipeline yet! Let's get to work! \\^o^//
+------------------------------------------------
+Peace out! <3
+------------------------------------------------

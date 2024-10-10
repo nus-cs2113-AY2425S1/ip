@@ -5,7 +5,7 @@ import nus.edu.rizzler.task.Deadline;
 import nus.edu.rizzler.task.Event;
 import nus.edu.rizzler.task.Task;
 import nus.edu.rizzler.task.Todo;
-import nus.edu.rizzler.ui.Emoji;
+import nus.edu.rizzler.ui.Face;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Manages a list of tasks, allowing addition, deletion, status updates, and searching.
  */
 public class TaskList {
-    private Emoji emoji = new Emoji();
+    private Face face = new Face();
     private final ArrayList<Task> tasks;
 
     /**
@@ -51,7 +51,7 @@ public class TaskList {
         int taskCount = getSize();
         if (taskCount == 0) {
             return "Nothing in the pipeline yet! Let's get to work! "
-                    + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji();
+                    + face.getPartyFace();
         }
 
         StringBuilder tasksString = new StringBuilder();
@@ -164,8 +164,7 @@ public class TaskList {
             }
         }
         if (itemCount == 0) {
-            return "Nothing in the pipeline yet! Let's get to work! "
-                    + emoji.getRocketEmoji() + emoji.getHundredPointsEmoji();
+            return "NO TASKS FOUND";
         }
         return matchString.toString();
     }
