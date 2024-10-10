@@ -7,6 +7,8 @@ import Yukee.task.Event;
 import Yukee.exception.YukeeException;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -53,18 +55,19 @@ public class Storage {
                         tasks.add(todo);
                         break;
                     case "D":
-                        Task deadline = new Deadline(parts[2], parts[3]);
+                        Task deadline = new Deadline(parts[2], parts[3], true);
                         if (isDone) deadline.markAsDone();
                         tasks.add(deadline);
                         break;
                     case "E":
-                        Task event = new Event(parts[2], parts[3], parts[4]);
+                        Task event = new Event(parts[2], parts[3], parts[4], true);
                         if (isDone) event.markAsDone();
                         tasks.add(event);
                         break;
                     default:
                         throw new YukeeException("Error loading task from file. Task type not recognized.");
                 }
+
             }
             reader.close();
         } catch (IOException e) {
@@ -82,6 +85,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             for (Task task : tasks) {
                 String taskType = task.getTaskType();
                 String isDone = task.isDone() ? "1" : "0";
@@ -90,9 +94,15 @@ public class Storage {
                 String taskLine = taskType + " | " + isDone + " | " + taskDescription;
 
                 if (task instanceof Deadline) {
-                    taskLine += " | " + ((Deadline) task).getBy();
+                    LocalDateTime by = ((Deadline) task).getBy();
+                    String byString = (by != null) ? by.format(formatter) : "";
+                    taskLine += " | " + byString;
                 } else if (task instanceof Event) {
-                    taskLine += " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+                    LocalDateTime from = ((Event) task).getFrom();
+                    LocalDateTime to = ((Event) task).getTo();
+                    String fromString = (from != null) ? from.format(formatter) : "";
+                    String toString = (to != null) ? to.format(formatter) : "";
+                    taskLine += " | " + fromString + " | " + toString;
                 }
                 writer.write(taskLine);
                 writer.newLine();
@@ -102,4 +112,5 @@ public class Storage {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+
 }

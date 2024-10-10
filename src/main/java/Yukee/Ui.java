@@ -113,8 +113,9 @@ public class Ui {
         System.out.println("2. 'mark <task_number>' - Mark a task as done.");
         System.out.println("3. 'unmark <task_number>' - Mark a task as not done.");
         System.out.println("4. 'todo <task_description>' - Add a todo task.");
-        System.out.println("5. 'deadline <task_description> /by <time>' - Add a deadline task.");
-        System.out.println("6. 'event <task_description> /from <start_time> /to <end_time>' - Add an event task.");
+        System.out.println("5. 'deadline <task_description> /by <time>' - Add a deadline task.(Please use the format:"
+                + "d/M/yyyy HHmm)");
+        System.out.println("6. 'event <task_description> /from <start_time> /to <end_time>' - Add an event task.(Please use the format:d/M/yyyy HHmm)");
         System.out.println("7. 'delete <task_number>' - Delete a task from the list.");
         System.out.println("8. 'help' - Show this help message.");
         System.out.println("9. 'bye' - Exit the program.");
