@@ -35,12 +35,4 @@ public class CommandProcessor {
         }
         textUI.close();
     }
-
-    private Command parseCommand(String commandStr) {
-        try {
-            return Command.valueOf(commandStr.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
-        }
-    }
 }
