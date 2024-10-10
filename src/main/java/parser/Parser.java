@@ -36,14 +36,14 @@ public class Parser {
     }
 
     /**
-     * Checks if the mark is valid.
+     * Checks if the index is valid.
      *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
      * @param items ArrayList that stores all tasks.
      * @throws IllegalTaskException if index is out of range or when the index is not a number.
      * @throws IllegalEmptyException when there is no index written.
      */
-    public void validateMark(String[] splitInputs, ArrayList<Task> items)
+    public void validateIndex(String[] splitInputs, ArrayList<Task> items)
             throws IllegalTaskException, IllegalEmptyException {
 
         try {
@@ -75,6 +75,19 @@ public class Parser {
         int completed = Integer.parseInt(storedTaskSubstrings[1].trim());
         if (completed == 1) {
             task.setDone(true);
+        }
+    }
+
+    /**
+     * Validate user's find string.
+     *
+     * @param input user input from command line.
+     * @throws IllegalEmptyException
+     */
+    public void validateFindString(String input) throws IllegalEmptyException {
+        String[] inputSubstrings = input.split(" ");
+        if (inputSubstrings.length < 2 || inputSubstrings[1].trim().isEmpty()) {
+            throw new IllegalEmptyException(Warnings.VALID_DESCRIPTION_WARNING);
         }
     }
 }

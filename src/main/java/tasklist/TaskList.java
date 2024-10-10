@@ -41,7 +41,7 @@ public class TaskList {
      * @throws IllegalTaskException if there is no index written.
      */
     public void markItem(String[] splitInputs) throws IllegalTaskException, IllegalEmptyException {
-        parser.validateMark(splitInputs,items);
+        parser.validateIndex(splitInputs,items);
 
         //get index of the item to be marked from splitInputs array;
         int index = Integer.parseInt(splitInputs[1]) - 1;
@@ -60,7 +60,7 @@ public class TaskList {
      * @throws IllegalEmptyException if there is no index written.
      */
     public void unmarkItem(String[] splitInputs) throws IllegalTaskException, IllegalEmptyException {
-        parser.validateMark(splitInputs,items);
+        parser.validateIndex(splitInputs,items);
 
         //get index of the item to be unmarked from splitInputs array;
         int index = Integer.parseInt(splitInputs[1]) - 1;
@@ -96,13 +96,19 @@ public class TaskList {
      */
     public void addDeadline(String input) throws IllegalEmptyException, IllegalKeywordException {
 
-        if (!input.contains(" by ")) {
-            throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
-        }
         //Parse string and remove 'deadline' command from input
         String description = Parser.trimString(input);
 
+        if (!input.contains(" by ")) {
+            throw new IllegalKeywordException(Warnings.VALID_DEADLINE_KEYWORD_WARNING);
+        }
+
         String[] descriptionSubstrings = description.split(" by ", 2);
+
+        if (descriptionSubstrings.length < 2) {
+            throw new IllegalEmptyException(Warnings.INCOMPLETE_DEADLINE_WARNING);
+        }
+
         String deadlineDescription = descriptionSubstrings[0].trim();
         String by = descriptionSubstrings[1].trim();
 
@@ -129,7 +135,6 @@ public class TaskList {
         //Parse string and remove 'event' command from input
         input = Parser.trimString(input);
 
-
         if (!input.contains(" from ") || !input.contains(" to ")) {
             throw new IllegalKeywordException(Warnings.VALID_EVENT_KEYWORD_WARNING);
         }
@@ -144,7 +149,7 @@ public class TaskList {
         String end = splitInputs[2].trim();
         String eventDescription = splitInputs[0].trim();
 
-        if(eventDescription.isEmpty() || start.isEmpty() || end.isEmpty()) {
+        if (eventDescription.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new IllegalEmptyException(Warnings.EMPTY_EVENT_WARNING);
         }
 
@@ -160,14 +165,15 @@ public class TaskList {
      *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
      * @throws IllegalIndexException when the index of item is < 0 or > tasks.size().
+     * @throws IllegalEmptyException when there is no index written.
+     * @throws IllegalTaskException if index is out of range or when the index is not a number.
      */
-    public void deleteItem(String[] splitInputs) throws IllegalIndexException {
+    public void deleteItem(String[] splitInputs) throws IllegalIndexException,
+            IllegalEmptyException, IllegalTaskException {
+
+        parser.validateIndex(splitInputs,items);
 
         int deleteIndex = Integer.parseInt(splitInputs[1]) - 1;
-        if (deleteIndex < 0 || deleteIndex >= items.size()) {
-            throw new IllegalIndexException(Warnings.VALID_INDEX_WARNING + items.size());
-        }
-
         Task deleteItem = items.get(deleteIndex);
         items.remove(deleteIndex);
 
@@ -204,7 +210,9 @@ public class TaskList {
      *
      * @param input A String containing the user's input
      */
-    public void findItem(String input) {
+    public void findItem(String input) throws IllegalEmptyException{
+        parser.validateFindString(input);
+
         ui.printLine();
         System.out.println(Statements.LIST_FIND_TASK);
 
