@@ -12,7 +12,7 @@ commands for easy reference.
 ## Quick Start
 
 1. Ensure you have **Java 11** or above installed on your computer.
-2. Download the latest release of CodeCatalyst from [here]().
+2. Download the latest release of CodeCatalyst from [here](https://github.com/CheeKiangg/ip/releases/tag/A-Release).
 3. Open a terminal and `cd` into the folder you put the jar file in, and use the `java -jar .\ip.jar` command
    to run the application.
 
