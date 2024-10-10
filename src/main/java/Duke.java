@@ -115,7 +115,7 @@ public class Duke {
           System.out.println((i + 1) + "." + foundTasks.get(i));
         }
         break;
-      default:
+      default: 
         throw new RuntimeException("Unknown command.");
     }
   }
