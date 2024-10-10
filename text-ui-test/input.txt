@@ -1,0 +1,9 @@
+list
+find Senior
+unmark 4
+mark 4
+todo graduate
+list
+delete 5
+list
+bye
