@@ -6,6 +6,7 @@ import org.ajay.commands.DeadlineCommand;
 import org.ajay.commands.DeleteCommand;
 import org.ajay.commands.EventCommand;
 import org.ajay.commands.ExitCommand;
+import org.ajay.commands.FindCommand;
 import org.ajay.commands.HelpCommand;
 import org.ajay.commands.ListCommand;
 import org.ajay.commands.MarkCommand;
@@ -80,6 +81,10 @@ public class Parser {
                 return new UnmarkCommand();
             case DeleteCommand.COMMAND_WORD: // Delete the task
                 return new DeleteCommand();
+            case HelpCommand.COMMAND_WORD: // Print the help message
+                return new HelpCommand();
+            case FindCommand.COMMAND_WORD: // Find the task
+                return new FindCommand();
             default:
                 return new HelpCommand();
         }

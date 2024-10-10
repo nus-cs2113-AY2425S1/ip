@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
             Exits the program.
             Example: """ + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Exiting program...";
+    // public static final String MESSAGE_SUCCESS = "Exiting program...";
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
