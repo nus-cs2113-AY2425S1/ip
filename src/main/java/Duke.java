@@ -106,7 +106,7 @@ public class Duke {
         } catch (DateTimeParseException e) {
           System.out.println(" Please provide a valid date format (yyyy-mm-dd HH:mm).");
         }
-        break;
+        break; 
       case "find":
         String keyword = parsedCommand[1]; // Get the search keyword
         List<Task> foundTasks = tasks.findTasks(keyword); // Find tasks containing the keyword
