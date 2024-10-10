@@ -1,14 +1,14 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList; 
 
-public class AddList {
+public class TaskList {
 
     private ArrayList<Task> tasks; 
-    public FileClass filePath; 
+    public Storage filePath; 
     
     protected static final String SEPARATOR = "\t ___________________________"; 
 
-    public AddList(FileClass filePath) {
+    public TaskList(Storage filePath) {
         this.filePath = filePath; 
         try {
             this.tasks = filePath.read();  // Attempt to read from the file

@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileClass {
+public class Storage {
     private String filePath; 
 
     // Check if the storage file existed. If not, created a new file 
-    public FileClass(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath; 
         try {
             File file = new File(filePath); 
