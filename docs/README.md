@@ -18,16 +18,18 @@ Juan is a simple command-line task manager that helps users keep track of tasks 
 
 ## Command Overview
 
-| Command      | Description                        | Format                                             | Example                                                             |
-|--------------|------------------------------------|----------------------------------------------------|---------------------------------------------------------------------|
-| Add ToDo     | Adds a to-do task                  | `todo <task_description>`                          | `todo Buy groceries`                                                |
-| Add Deadline | Adds a deadline task               | `deadline <task_description> /by <date>`           | `deadline Submit assignment /by 15-10-2024 23:59`                   |
-| Add Event    | Adds an event with start and end   | `event <task_description> /from <date> /to <date>` | `event Project meeting /from 15-10-2024 10:00 /to 15-10-2024 12:00` |
-| Mark Task    | Marks a task as done               | `mark <task_number>`                               | `mark 2`                                                            |
-| Unmark Task  | Unmarks a task                     | `unmark <task_number>`                             | `unmark 2`                                                          |
-| Delete Task  | Deletes a task                     | `delete <task_number>`                             | `delete 3`                                                          |
-| List Tasks   | Lists all tasks                    | `list`                                             | `list`                                                              |
-| Find Task    | Finds tasks matching a keyword     | `find <keyword>`                                   | `find groceries`                                                    |
+| Command       | Description                                | Format                                             | Example                                                             |
+|---------------|--------------------------------------------|----------------------------------------------------|---------------------------------------------------------------------|
+| Add ToDo      | Adds a to-do task                          | `todo <task_description>`                          | `todo Buy groceries`                                                |
+| Add Deadline  | Adds a deadline task                       | `deadline <task_description> /by <date>`           | `deadline Submit assignment /by 15-10-2024 23:59`                   |
+| Add Event     | Adds an event with start and end           | `event <task_description> /from <date> /to <date>` | `event Project meeting /from 15-10-2024 10:00 /to 15-10-2024 12:00` |
+| Mark Task     | Marks a task as done                       | `mark <task_number>`                               | `mark 2`                                                            |
+| Unmark Task   | Unmarks a task                             | `unmark <task_number>`                             | `unmark 2`                                                          |
+| Delete Task   | Deletes a task                             | `delete <task_number>`                             | `delete 3`                                                          |
+| List Tasks    | Lists all tasks                            | `list`                                             | `list`                                                              |
+| Find Task     | Finds tasks matching a keyword             | `find <keyword>`                                   | `find groceries`                                                    |
+| Exit          | Saves the tasks into a text file and exits | `bye`                                              | `bye`                                                               |
+
 
 ## Commands
 
@@ -168,4 +170,22 @@ find meeting
 
 Si compinche, your tasks with the phrase <meeting>:
 2.[E][ ] Project meeting (from: 15-10-2024 10:00 to: 15-10-2024 12:00)
+5.[T][X] Do Tutorial
+```
+
+### 9. Exit
+
+**Format**:
+```
+bye
+```
+Saves changes done to .txt file and exits program.
+
+Example:
+
+```
+bye
+
+Data File Written
+Adios amigo, la familia will miss you
 ```
