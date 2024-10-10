@@ -160,7 +160,7 @@ public class lovespiritual {
             System.out.println("Amazing! :D You've got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (DateTimeParseException e) {
-            throw new lovespiritualException("Invalid date format! Please use 'dd-MM-yyyy HHmm' format.");
+            throw new lovespiritualException("Invalid date format! Please use 'DD-MM-YYYY HHMM' format.");
         }
     }
 
@@ -201,7 +201,7 @@ public class lovespiritual {
             System.out.println("Amazing! :D You've got " + tasks.size() + " tasks lined up!");
             System.out.println(SEPARATOR);
         } catch (Exception e) {
-            throw new lovespiritualException("Invalid date format! Please use 'dd-MM-yyyy HHmm' format.");
+            throw new lovespiritualException("Invalid date format! Please use 'DD-MM-YYYY HHMM' format.");
         }
     }
 
