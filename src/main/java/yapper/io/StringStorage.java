@@ -107,6 +107,39 @@ public class StringStorage {
             + "Call for me whenever ya feel like listening again. \n"
             + "Cya! ";
 
+    /**
+     * Various status messages used during the startup and runtime for managing the save file folder and save file.
+     *
+     * <p>
+     * These messages provide feedback on whether the save folder or save file
+     * is found, and whether actions such as creating the folder or file are necessary.
+     * </p>
+     *
+     */
+    public static final String STARTUP_FIND_SAVE_FOLDER =
+            "Searching for the save file folder ... ";
+    public static final String RUNTIME_FIND_SAVE_FOLDER =
+            "Confirming the state of save file folder ... ";
+    public static final String STARTUP_IF_SAVE_FOLDER_NOT_FOUND =
+            "No folder has been found. Creating folder now ... ";
+    public static final String RUNTIME_IF_SAVE_FOLDER_NOT_FOUND =
+            "Folder is missing. Creating folder now ... ";
+    public static final String STARTUP_IF_SAVE_FOLDER_FOUND =
+            "Folder has been found. No need to create new folder. ";
+    public static final String RUNTIME_IF_SAVE_FOLDER_FOUND =
+            "Folder is still there. No need to create new folder. ";
+    public static final String STARTUP_FIND_SAVE_FILE =
+            "Searching for the save file ... ";
+    public static final String RUNTIME_FIND_SAVE_FILE =
+            "Confirming the state of save file ... ";
+    public static final String STARTUP_IF_SAVE_FILE_NOT_FOUND =
+            "No save file has been found. Starting with an empty task list. ";
+    public static final String RUNTIME_IF_SAVE_FILE_NOT_FOUND =
+            "Save file is missing. Creating save file now ... ";
+    public static final String STARTUP_IF_SAVE_FILE_FOUND =
+            "A save file has been found. Initialising the task list ... ";
+    public static final String RUNTIME_IF_SAVE_FILE_FOUND =
+            "Save file is still there. No need to create new file. ";
 
     /**
      * Messages that occur when instructions are being executed.

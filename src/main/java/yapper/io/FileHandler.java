@@ -36,20 +36,20 @@ public class FileHandler {
      * @param file the save file for which the parent folder is to be checked or created.
      * @param hasJustStarted a flag to indicate if this is the first time the program is starting up.
      */
-    public static void initSaveFolder(File file, boolean hasJustStarted) {
+    private static void initSaveFolder(File file, boolean hasJustStarted) {
         File parentDir = file.getParentFile();
         System.out.println(hasJustStarted
-                ? "Searching for the save file folder ..."
-                : "Confirming the state of save file folder ...");
+                ? StringStorage.STARTUP_FIND_SAVE_FOLDER
+                : StringStorage.RUNTIME_FIND_SAVE_FOLDER);
         if (!parentDir.exists()) {
             parentDir.mkdirs();
             System.out.println(hasJustStarted
-                    ? "No folder has been found. Creating folder now ..."
-                    : "Folder is missing. Creating folder now ...");
+                    ? StringStorage.STARTUP_IF_SAVE_FOLDER_NOT_FOUND
+                    : StringStorage.RUNTIME_IF_SAVE_FOLDER_NOT_FOUND);
         } else {
             System.out.println(hasJustStarted
-                    ? "Folder has been found. "
-                    : "Folder is still there. ");
+                    ? StringStorage.STARTUP_IF_SAVE_FOLDER_FOUND
+                    : StringStorage.RUNTIME_IF_SAVE_FOLDER_FOUND);
         }
     }
     /**
@@ -60,19 +60,19 @@ public class FileHandler {
      * @param hasJustStarted a flag to indicate if this is the first time the program is starting up.
      * @throws IOException if an I/O error occurs while creating the save file.
      */
-    public static void initSaveFile(File file, boolean hasJustStarted) throws IOException {
+    private static void initSaveFile(File file, boolean hasJustStarted) throws IOException {
         System.out.println(hasJustStarted
-                ? "Searching for the save file ... "
-                : "Confirming the state of save file ...");
+                ? StringStorage.STARTUP_FIND_SAVE_FILE
+                : StringStorage.RUNTIME_FIND_SAVE_FILE);
         if (!file.exists()) {
             file.createNewFile();
             System.out.println(hasJustStarted
-                    ? "No save file has been found. Starting with an empty task list. "
-                    : "Save file is missing. Creating save file now ... ");
+                    ? StringStorage.STARTUP_IF_SAVE_FILE_NOT_FOUND
+                    : StringStorage.RUNTIME_IF_SAVE_FILE_NOT_FOUND);
         } else {
             System.out.println(hasJustStarted
-                    ? "A save file has been found. Initialising the task list ... "
-                    : "Save file is still there. ");
+                    ? StringStorage.STARTUP_IF_SAVE_FILE_FOUND
+                    : StringStorage.RUNTIME_IF_SAVE_FILE_FOUND);
         }
     }
 
