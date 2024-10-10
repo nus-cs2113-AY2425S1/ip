@@ -1,7 +1,15 @@
-todo Kylan: Answer CS2113 tutorial questions
-deadline weekly CS2113 quiz /by Monday 9pm
-list
-event CS2113 lecture /from Friday 4pm /to Friday 6pm
+todo todoDesc
 mark 1
+deadline deadlineDesc /by end date
+list
+event eventDesc /from start date /to end date
+list
+mark 3
+unmark 1
+list
+find Desc
+find deadline
+find unfindable
+delete 2
 list
 bye
