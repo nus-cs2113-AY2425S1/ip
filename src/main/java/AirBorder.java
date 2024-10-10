@@ -3,7 +3,6 @@ public class AirBorder {
     private TaskList tasks;
     private Ui ui;
     public AirBorder(String filePath) {
-        // Initialize the UI, Storage, and TaskList components
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -16,7 +15,6 @@ public class AirBorder {
         }
     }
     public void run() {
-        // Display the welcome message
         ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
@@ -24,7 +22,6 @@ public class AirBorder {
                 // Read the user's input command
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                // Parse and execute the command
                 Command command = Parser.parse(fullCommand);
                 command.execute(tasks, ui, storage);
                 // Check if the command signals an exit
