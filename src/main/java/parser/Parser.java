@@ -3,7 +3,6 @@ package parser;
 import commands.Task;
 import exceptions.IllegalEmptyException;
 import exceptions.IllegalTaskException;
-import ui.Ui;
 import constants.Warnings;
 
 
@@ -11,15 +10,6 @@ import java.util.ArrayList;
 
 /** Represents methods that parse user input before passing it to other methods. */
 public class Parser {
-
-    private final Ui ui;
-
-    /**
-     * Parser constructor.
-     */
-    public Parser() {
-        ui = new Ui();
-    }
 
     /**
      * Returns cleaned string of the trimmed description, without the command.

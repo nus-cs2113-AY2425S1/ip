@@ -13,7 +13,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the todo's status of completion.
+     * Returns the todo status of completion.
      * [T] represents deadline.
      *
      * @return A string containing the todo symbol with the status icon.
