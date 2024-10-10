@@ -14,14 +14,11 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AirBorderException {
-        // Retrieve the specified task
         Task task = tasks.getTask(taskIndex);
         if (isMark) {
-            // Mark the task as done
             task.markAsDone();
             ui.showTaskDone(task);
         } else {
-            // Mark the task as not done
             task.markAsNotDone();
             ui.showTaskUndone(task);
         }
