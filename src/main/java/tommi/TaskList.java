@@ -26,8 +26,15 @@ public class TaskList {
     }
 
     public static void deleteTask(int index) {
-        tasks.remove(index);
-        Ui.printDeleteTask(tasks, index);
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            Ui.printDeleteTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot delete task as it is out of scope!\n" +
+                            "____________________________________________________________");
+        }
     }
 
     public static void markTask(int index) {
@@ -35,6 +42,11 @@ public class TaskList {
             Task updatedTask = tasks.get(index).updateIsDone(true);
             tasks.set(index, updatedTask);
             Ui.printMarkTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot mark task as it is out of scope!\n" +
+                            "____________________________________________________________");
         }
     }
 
@@ -43,6 +55,11 @@ public class TaskList {
             Task updatedTask = tasks.get(index).updateIsDone(false);
             tasks.set(index, updatedTask);
             Ui.printUnmarkTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot unmark task as it is out of scope!\n" +
+                            "____________________________________________________________");
         }
     }
 }
