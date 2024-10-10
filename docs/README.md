@@ -126,8 +126,6 @@ outputs the task that is marked
 
 Example: `mark 2`
 
-// A description of the expected outcome goes here
-
 ```
 ______________________________
 Here are the tasks in your list:
