@@ -9,12 +9,18 @@ import commands.ExitCommand;
 import commands.ListCommand;
 import commands.FindCommand;
 
-
 /**
- * Parses user input commands.
+ * Parses user input commands and creates corresponding command objects.
  */
 public class Parser {
 
+    /**
+     * Parses the given command string and returns the appropriate command object.
+     *
+     * @param commandString The user input command as a string.
+     * @return A Command object corresponding to the user input.
+     * @throws LiaException if the command is invalid or improperly formatted.
+     */
     public static Command parse(String commandString) throws LiaException {
         String[] parts = commandString.split(" ", 2);
         String command = parts[0];

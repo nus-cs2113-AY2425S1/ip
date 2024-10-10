@@ -11,7 +11,7 @@ public class Task {
      * Creates a new Task with the given description.
      * By default, the task is marked as not done.
      *
-     * @param description A description of the task
+     * @param description A description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -22,7 +22,7 @@ public class Task {
      * Returns the status icon of the task.
      * "X" indicates that the task is done, and " " indicates that it is not done.
      *
-     * @return The status icon of the task.
+     * @return A string representing the status icon of the task.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // "X" for done, " " for not done
@@ -38,10 +38,11 @@ public class Task {
     /**
      * Returns the task information formatted for saving to a file.
      *
-     * @return The task as a formatted string suitable for saving to a file.
+     * @return A string representation of the task formatted for file storage,
+     *         or null if the implementation is not provided.
      */
     public String toFileFormat() {
-        return null;
+        return null; // Override in subclasses for specific formatting
     }
 
     /**
@@ -55,7 +56,7 @@ public class Task {
      * Returns a string representation of the task,
      * including its status and description.
      *
-     * @return A string representing the task.
+     * @return A string representing the task in the format "[status_icon] description".
      */
     @Override
     public String toString() {

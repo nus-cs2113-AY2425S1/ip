@@ -17,13 +17,25 @@ import java.time.format.DateTimeFormatter;
 public class AddCommand extends Command {
     private final String taskDetails;
 
+    /**
+     * Constructs an AddCommand with the specified task details.
+     *
+     * @param taskDetails The details of the task to be added.
+     */
     public AddCommand(String taskDetails) {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param tasks The list of tasks to manage.
+     * @param ui The user interface for interactions.
+     * @param storage The storage for saving and loading tasks.
+     * @throws LiaException if an error occurs during task creation.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LiaException {
-        // Add logic to parse the task details and create the corresponding task
         Task newTask;
 
         if (taskDetails.startsWith("todo")) {
@@ -61,5 +73,3 @@ public class AddCommand extends Command {
         }
     }
 }
-
-

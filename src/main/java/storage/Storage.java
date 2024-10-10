@@ -17,13 +17,27 @@ import java.io.BufferedWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles loading and saving tasks from/to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws LiaException if there is an error loading tasks or if the file format is invalid.
+     */
     public ArrayList<Task> load() throws LiaException {
         ArrayList<Task> tasks = new ArrayList<>();
         Path path = Paths.get(filePath);
@@ -86,6 +100,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void save(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {

@@ -1,12 +1,12 @@
 package task;
 
 /**
- * Represents a ToDo task, which is a task without any specific date or time.
+ * Represents a Todo task which is a task without any specific date or time.
  */
 public class ToDo extends Task {
 
     /**
-     * Creates a new ToDo task with the given description.
+     * Creates a new ToDo task with the specified description.
      *
      * @param description A description of the ToDo task.
      */
@@ -16,8 +16,10 @@ public class ToDo extends Task {
 
     /**
      * Returns the task information formatted for saving to a file.
+     * <p>
+     * This format is suitable for storage in a persistent format.
      *
-     * @return The ToDo task as a formatted string suitable for saving to a file.
+     * @return A formatted string representing the ToDo task for saving to a file.
      */
     @Override
     public String toFileFormat() {
@@ -26,8 +28,11 @@ public class ToDo extends Task {
 
     /**
      * Returns a string representation of the ToDo task.
+     * <p>
+     * This representation includes the task's status and description, formatted
+     * for user visibility.
      *
-     * @return A string representing the ToDo task.
+     * @return A string representing the ToDo task, including its status.
      */
     @Override
     public String toString() {
