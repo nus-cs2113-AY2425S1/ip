@@ -2,6 +2,22 @@
 
 Hey there, fellow task wrangler! Meet **Lia**, your trusty chatbot sidekick here to help you conquer the chaos of your to-do list with a sprinkle of fun! Whether you're drowning in deadlines or just need a friendly reminder, Lia's got your back. Let’s dive into how you can make the most of your new digital friend!
 
+## Getting Started 🚀
+
+1. **Installation:**
+   - Ensure that you have Java installed on your machine. ☕️
+   - Download the JAR file from GitHub. 🐙
+   - Navigate to the project directory. 📂
+
+2. **Running the Chatbot:**
+   - Open a command window in the project folder. 💻
+   - Run the command: `java -jar lia.jar` (ensure the JAR file is correctly built and available). 📦
+
+3. **Interacting with Lia:**
+   - Once Lia is running, you can enter commands as outlined in the features section. 💬
+   - Lia will respond accordingly and keep track of your tasks. 📋
+
+
 ## 🚀 Features
 
 ### 1. **Say Hello! 👋**
