@@ -1,6 +1,6 @@
 # Freedom User Guide
 
-![freedom_screenshot.png]()
+![freedom_screenshot.png](https://github.com/Ridiculouswifi/ip/blob/branch-A-UserGuide/assets/product_screenshot.png)
 
 Freedom is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 
@@ -30,8 +30,8 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
    and use `java -jar freedom.jar` command to run the application.
 5. Type the command to the CLI and press `Enter` to execute it.
 6. Refer to the [Features](#features) below for details of each command.
-
 ---
+
 ## Features
 
 
