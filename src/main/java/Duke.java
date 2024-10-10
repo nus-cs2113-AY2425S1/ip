@@ -1,15 +1,28 @@
+/**
+ * Represents the main application for the task management chatbot called Ruhi. This class handles
+ * the main flow of Ruhi, including reading user commands and processing them accordingly.
+ */
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.List;
 
 public class Duke {
+  //class attributes
+  /**
+   * Inititalises Ruhi with specified file path for load and store tasks
+   */
   private Storage storage;
   private TaskList tasks;
   private Ui ui;
 
   public Duke(String filePath) {
+    //constructor implementation
+    /**
+     filePath is the path of files where tasks are stored.
+     */
     ui = new Ui();
     storage = new Storage(filePath);
     try {
@@ -21,6 +34,11 @@ public class Duke {
   }
 
   public void run() {
+    //method implementation
+    /**
+     * Handles the parsed user commands and executes the appropriate
+     * actions based on the command type.
+     */
     ui.showWelcome();
     boolean isExit = false;
     while (!isExit) {
@@ -42,6 +60,11 @@ public class Duke {
   }
 
   private void handleCommand(String[] parsedCommand) {
+    //method implementation
+    /**
+     *  Handles the parsed user commands and executes the appropriate
+     * actions based on the command type.
+     */
     switch (parsedCommand[0]) {
       case "list":
         System.out.println(" Here are the tasks in your list:");
@@ -84,10 +107,19 @@ public class Duke {
           System.out.println(" Please provide a valid date format (yyyy-mm-dd HH:mm).");
         }
         break;
+      case "find":
+        String keyword = parsedCommand[1]; // Get the search keyword
+        List<Task> foundTasks = tasks.findTasks(keyword); // Find tasks containing the keyword
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+          System.out.println((i + 1) + "." + foundTasks.get(i));
+        }
+        break;
       default:
         throw new RuntimeException("Unknown command.");
     }
   }
+  
   private LocalDateTime parseDateTime(String dateTimeStr) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     return LocalDateTime.parse(dateTimeStr, formatter);

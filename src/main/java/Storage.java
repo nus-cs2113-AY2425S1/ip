@@ -1,24 +1,37 @@
+/**
+ * Handles storage of tasks in a file. Storage class is responsible for loading tasks from a file
+ * and saving tasks back to the same file.
+ */
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
+
   private String filePath;
 
+  /**
+   * Constructs a Storage object with the specified file path.
+   */
   public Storage(String filePath) {
     this.filePath = filePath;
   }
 
   public TaskList load() throws IOException {
+    /**
+     * Loads tasks from specified file and returns TaskList
+     * containing loaded tasks.
+     */
     TaskList taskList = new TaskList();
     File file = new File(filePath);
     if (!file.exists()) {
       File dir = new File("./data");
       if (!dir.exists()) {
-        dir.mkdirs();
+        dir.mkdirs(); //creating directory if it does not exist
       }
-      file.createNewFile();
+      file.createNewFile(); //creating file if it does not exist
     } else {
       Scanner fileScanner = new Scanner(file);
       while (fileScanner.hasNextLine()) {
@@ -34,20 +47,23 @@ public class Storage {
         String description = parts[2];
         Task task = new Task(description);
         if (isDone) {
-          task.markAsDone();
+          task.markAsDone(); //mark task as done if it was completed by user
         }
         taskList.addTask(task);
       }
-      fileScanner.close();
+      fileScanner.close(); //closing the scanner to release resources to the system
     }
     return taskList;
   }
 
   public void save(TaskList tasks) throws IOException {
+    /**
+     * Saves current list of tasks to specified file.
+     */
     FileWriter writer = new FileWriter(filePath);
     for (Task task : tasks.getTasks()) {
       writer.write("T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + "\n");
     }
-    writer.close();
+    writer.close(); //closing the writer to release resources to the system
   }
 }
