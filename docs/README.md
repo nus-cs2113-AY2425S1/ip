@@ -54,7 +54,7 @@ Now you have 3 tasks in the list.
 ```
 
 ### 4. List All Tasks
-Lists all tasks in the task list.
+Lists all the tasks in the task list.
 
 **Format:** `list`
 
