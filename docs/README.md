@@ -15,16 +15,6 @@
 
 Juan is a simple command-line task manager that helps users keep track of tasks such as to-dos, deadlines, and events. It allows users to manage their tasks, mark them as complete, and store them for future use. Juan is written in Java and supports basic task operations with a fun user interface.
 
-## Features
-
-- **Add a ToDo task**: Adds a simple to-do task.
-- **Add a Deadline task**: Adds a task with a specific deadline.
-- **Add an Event task**: Adds a task with a start and end time.
-- **Mark tasks as done**: Marks tasks as completed.
-- **Unmark tasks**: Unmarks tasks as not completed.
-- **Delete tasks**: Deletes tasks from the list.
-- **List tasks**: Lists all current tasks.
-- **Find tasks**: Searches for tasks that match a keyword.
 
 ## Command Overview
 
