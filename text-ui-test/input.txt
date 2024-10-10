@@ -1,0 +1,15 @@
+todo CS tutorial
+deadline class assignment
+deadline class assignment /by Sunday
+event project meeting
+event project meeting /from Monday 2pm
+event project meeting /from Monday 2pm /to Monday 4pm
+tasks
+mark 1
+mark 2
+mark 4
+tasks
+unmark 1
+unmark 0
+tasks
+bye
