@@ -2,7 +2,7 @@
 
 ## Quick start
 1. Ensure that you have Java 17 or above installed on your computer.
-2. Download the latest lovespiritual.jar file from here.
+2. Download the latest ip.jar file from here.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application:java -jar lovespiritual.jar
 5. The application will start, and any existing tasks will be loaded from the file data/lovespiritual.txt. If this file doesn't exist, it will be created automatically when tasks are added.
@@ -47,7 +47,7 @@ For details on all available commands, refer to the Features section below.
     eg. In `deadline TASK_DESCRIPTION by DEADLINE_TIME`, you must provide the `DEADLINE_TIME` parameter as such, `05-10-2024 1400`, for 5 October 2024 2:00 PM.
 
 
-- Date adjustments will automatically be made for invalid inputs from 29 to 31
+- Date adjustments to the last date of the month will automatically be made for invalid inputs from 29 to 31
 
     eg. February dates (29, 30, or 31) will be set to the last valid date of February.
     
