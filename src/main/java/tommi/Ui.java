@@ -8,41 +8,31 @@ import java.util.Scanner;
 public class Ui {
 
     public static void printIntroMessage() throws FileNotFoundException {
-        String introFirst = """
+        String introFirstSection = """
                  ______                  \s
                 /_  __/__  __ _  __ _  (_)
                  / / / _ \\/  ' \\/  ' \\/ /\s
                 /_/  \\___/_/_/_/_/_/_/_/ \s
                 ____________________________________________________________
                 Hello! I'm Tommi!
-                Here's your current task list:
+                Here's your last-saved task list:
                 """;
-        System.out.println(introFirst);
+
+        System.out.println(introFirstSection);
+
         Storage.loadTaskData();
-        String introSecond = """
+        String introSecondSection = """
                 ____________________________________________________________
                 How can I help you?
                 ____________________________________________________________
                 """;
-        System.out.println(introSecond);
-    }
-
-    public static void readInputStrings(Scanner scanner) {
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
-            Parser.processInputCases(input);
-            input = scanner.nextLine();
-        }
+        System.out.println(introSecondSection);
     }
 
     public static void printExitMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
-    }
-
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
     }
 
     public static void printSearchResults(ArrayList<String> foundResults) {
@@ -58,5 +48,9 @@ public class Ui {
             index++;
         }
 
+    }
+
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
     }
 }

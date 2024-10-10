@@ -7,8 +7,17 @@ import tommi.Task.ToDo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Parser {
+
+    public static void readInputStrings(Scanner scanner) {
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            processInputCases(input);
+            input = scanner.nextLine();
+        }
+    }
 
     public static void processInputCases(String input) {
         try {
