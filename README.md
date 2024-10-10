@@ -23,7 +23,7 @@ User Guide for Ruhi
 
 Welcome to Ruhi, your personal task management chatbot! Ruhi is designed to help you organize your tasks efficiently - you can add, mark, and search for tasks effortlessly!
 
-*Features*
+Features
 
 1. Adding Tasks
 You can add tasks to your list using the following command:
