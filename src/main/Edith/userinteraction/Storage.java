@@ -1,9 +1,9 @@
-package UserInteraction;
+package userinteraction;
 
-import TaskTypes.Deadline;
-import TaskTypes.Event;
-import TaskTypes.Task;
-import TaskTypes.ToDo;
+import tasktypes.Deadline;
+import tasktypes.Event;
+import tasktypes.Task;
+import tasktypes.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ public class Storage {
     }
 
     public ArrayList<Task> initializeArrayList() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>(); //before return statement it said tasks is never queried
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner s = new Scanner(new File(filePath));
         while (s.hasNext()) {
             String storableString = s.nextLine();
@@ -36,26 +36,41 @@ public class Storage {
     }
 
     public static Task stringToTask(String storableString) {
+        final int indexOfInt = 4;
+        final int nextCharacter = 1;
+        final int nextToNextCharacter = 2;
+
         char taskType = storableString.charAt(0);
-        int isDoneInteger = Integer.parseInt(storableString.substring(4, 5));
+        int isDoneInteger = Integer.parseInt(storableString
+                .substring(indexOfInt, indexOfInt + nextCharacter));
         boolean isDone = isDoneInteger == 1;
-        int indexOfSecondStandingLine = storableString.indexOf('|', 5);
+        int indexOfSecondStandingLine = storableString.indexOf('|', indexOfInt + nextCharacter);
         String description;
         switch (taskType) {
             case 'T' :
-                description = storableString.substring(indexOfSecondStandingLine + 2);
+                description = storableString
+                        .substring(indexOfSecondStandingLine + nextToNextCharacter);
                 return new ToDo(description, isDone);
             case 'D' :
-                int indexOfThirdStandingLine = storableString.indexOf('|', indexOfSecondStandingLine + 1);
-                description = storableString.substring(indexOfSecondStandingLine + 2, indexOfThirdStandingLine - 1);
-                String by = storableString.substring(indexOfThirdStandingLine + 2);
+                int indexOfThirdStandingLine = storableString
+                        .indexOf('|', indexOfSecondStandingLine + nextCharacter);
+                description = storableString
+                        .substring(indexOfSecondStandingLine + nextToNextCharacter,
+                                indexOfThirdStandingLine - nextCharacter);
+                String by = storableString
+                        .substring(indexOfThirdStandingLine + nextToNextCharacter);
                 return new Deadline(description, by, isDone);
             case 'E' :
-                indexOfThirdStandingLine = storableString.indexOf('|', indexOfSecondStandingLine + 1);
-                description = storableString.substring(indexOfSecondStandingLine + 2, indexOfThirdStandingLine - 1);
+                indexOfThirdStandingLine = storableString
+                        .indexOf('|', indexOfSecondStandingLine + nextCharacter);
+                description = storableString
+                        .substring(indexOfSecondStandingLine + nextToNextCharacter,
+                                indexOfThirdStandingLine - nextCharacter);
                 int indexOfHyphen = storableString.indexOf('-');
-                String from = storableString.substring(indexOfThirdStandingLine + 2, indexOfHyphen - 1);
-                String to = storableString.substring(indexOfHyphen + 2);
+                String from = storableString
+                        .substring(indexOfThirdStandingLine + nextToNextCharacter,
+                                indexOfHyphen - nextCharacter);
+                String to = storableString.substring(indexOfHyphen + nextToNextCharacter);
                 return new Event(description, from, to, isDone);
             default:
                 System.out.println("Invalid task type");
@@ -69,7 +84,6 @@ public class Storage {
             for (Task task : tasks) {
                 appendToFile(filePath, task.getStorableString());
             }
-            //initializeArrayList(tasks, new File(filePath));
         } catch (IOException e) {
             System.out.println("IOException");
         }
@@ -81,13 +95,6 @@ public class Storage {
             appendToFile(filePath, task.getStorableString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    public void printFileContents() throws FileNotFoundException {
-        Scanner s = new Scanner(new File(filePath));
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
         }
     }
 

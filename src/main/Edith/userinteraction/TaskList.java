@@ -1,15 +1,16 @@
-package UserInteraction;
+package userinteraction;
 
-import TaskTypes.*;
-
+import tasktypes.Deadline;
+import tasktypes.Task;
+import tasktypes.TaskTypeException;
+import tasktypes.ToDo;
+import tasktypes.Event;
 import java.util.ArrayList;
 
-import static UserInteraction.Storage.*;
-import UserInteraction.Storage.*;
-import static UserInteraction.PrintShape.printHorizontalLine;
+import static userinteraction.PrintShape.printHorizontalLine;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -63,13 +64,15 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
+
     public static void markTask(Task task) {
         task.setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
-    public static Task addNewTask(String enteredString) throws TaskTypeException, StringIndexOutOfBoundsException, Exception {
+    public static Task addNewTask(String enteredString) throws
+            TaskTypeException, StringIndexOutOfBoundsException, Exception {
         Task newTask;
         if (enteredString.startsWith("deadline")) {
             newTask = createDeadlineTask(enteredString);
@@ -84,7 +87,8 @@ public class TaskList {
         return newTask;
     }
 
-    public static Deadline createDeadlineTask(String enteredString) throws StringIndexOutOfBoundsException {
+    public static Deadline createDeadlineTask(String enteredString)
+            throws StringIndexOutOfBoundsException {
         int lengthOfBy = "by".length();
         int lengthOfDeadline = "deadline".length();
         int indexOfBy = enteredString.indexOf("by");
@@ -94,7 +98,8 @@ public class TaskList {
         return new Deadline(taskDescription, deadlineTime);
     }
 
-    public static Event createEventTask(String enteredString) throws StringIndexOutOfBoundsException {
+    public static Event createEventTask(String enteredString)
+            throws StringIndexOutOfBoundsException {
         int lengthOfEvent = "event".length();
         int lengthOfFrom = "from".length();
         int lengthOfTo = "to".length();
@@ -108,10 +113,11 @@ public class TaskList {
         return new Event(taskDescription, eventFromTime, eventToTime);
     }
 
-    public static ToDo createTodoTask(String enteredString) throws StringIndexOutOfBoundsException {
+    public static ToDo createTodoTask(String enteredString)
+            throws StringIndexOutOfBoundsException {
         int lengthOfTodo = "todo".length();
 
-        String taskDescription=enteredString.substring(lengthOfTodo);
+        String taskDescription = enteredString.substring(lengthOfTodo);
 
         return new ToDo(taskDescription);
     }
@@ -178,13 +184,15 @@ public class TaskList {
         }
     }
 
-    public Task getTask(String enteredString) throws NumberFormatException, InvalidTaskNumberException {
+    public Task getTask(String enteredString)
+            throws NumberFormatException, InvalidTaskNumberException {
         int taskNumber = getTaskNumber(enteredString);
         Task task = tasks.get(taskNumber - 1);
         return task;
     }
 
-    public int getTaskNumber(String enteredString) throws NumberFormatException, InvalidTaskNumberException {
+    public int getTaskNumber(String enteredString)
+            throws NumberFormatException, InvalidTaskNumberException {
         int lengthOfString = enteredString.length();
         String taskNumberString = enteredString.substring(lengthOfString - 1);
         int taskNumber = Integer.parseInt(taskNumberString);

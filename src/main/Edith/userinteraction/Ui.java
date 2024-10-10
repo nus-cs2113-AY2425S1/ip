@@ -1,9 +1,7 @@
-package UserInteraction;
+package userinteraction;
 
-import TaskTypes.Task;
-import java.util.ArrayList;
 import java.util.Scanner;
-import static UserInteraction.PrintShape.printHorizontalLine;
+import static userinteraction.PrintShape.printHorizontalLine;
 
 public class Ui {
     private final String MY_NAME = "Edith";

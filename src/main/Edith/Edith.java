@@ -1,10 +1,6 @@
-import UserInteraction.Storage;
-import UserInteraction.TaskList;
-import UserInteraction.Ui;
-import java.io.File;
-
-import static UserInteraction.Storage.getFileProperties;
-
+import userinteraction.Storage;
+import userinteraction.TaskList;
+import userinteraction.Ui;
 
 public class Edith {
     private Storage storage;

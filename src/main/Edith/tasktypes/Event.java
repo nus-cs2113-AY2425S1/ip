@@ -1,8 +1,8 @@
-package TaskTypes;
+package tasktypes;
 
-public class Event extends Task{
-    private String from;
-    private String to;
+public class Event extends Task {
+    private final String from;
+    private final String to;
 
     public Event(String description, String from, String to) {
         super(description, TypeOfTask.Events);
@@ -19,20 +19,14 @@ public class Event extends Task{
     public String getTo() {
         return to;
     }
+
     public String getFrom() {
         return from;
     }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
     public char getTaskCharacter() {
@@ -41,6 +35,7 @@ public class Event extends Task{
 
     public String getStorableString() {
         int isDoneInteger = getIsDone() ? 1 : 0;
-        return getTaskCharacter() + " | " + isDoneInteger + " | " + getDescription() + " | " + getFrom() + " - " + getTo();
+        return getTaskCharacter() + " | " + isDoneInteger +
+                " | " + getDescription() + " | " + getFrom() + " - " + getTo();
     }
 }

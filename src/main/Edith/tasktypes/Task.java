@@ -1,7 +1,7 @@
-package TaskTypes;
+package tasktypes;
 
 abstract public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
     public TypeOfTask typeOfTask;
 
@@ -24,6 +24,7 @@ abstract public class Task {
     public boolean getIsDone() {
         return isDone;
     }
+
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
@@ -34,34 +35,14 @@ abstract public class Task {
     }
 
     public String getIsDoneString() {
-        if (isDone) return "[X]";
-        else return "[ ]";
+        if (isDone) {
+            return "[X]";
+        } else {
+            return "[ ]";
+        }
     }
 
     public abstract char getTaskCharacter();
 
     public abstract String getStorableString();
-
-
-    /*
-    public String printTask(Task task) {
-
-        return getTaskTypeString()+getIsDoneString() + task.getDescription();
-    }
-    */
-
-
-
-    /*
-
-    public String getTaskTypeString() {
-        return switch (typeOfTask) {
-            case Deadlines -> "[D]";
-            case ToDos -> "[T]";
-            case Events -> "[E]";
-        } ;
-    }
-
-    */
-
 }

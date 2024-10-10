@@ -1,4 +1,4 @@
-package UserInteraction;
+package userinteraction;
 
 public class PrintShape {
     private static final String HORIZONTAL_LINE = "______________________________________________";

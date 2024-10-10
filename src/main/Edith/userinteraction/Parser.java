@@ -1,8 +1,4 @@
-package UserInteraction;
-
-import TaskTypes.Task;
-import java.util.ArrayList;
-import static UserInteraction.TaskList.*;
+package userinteraction;
 
 
 public class Parser {
