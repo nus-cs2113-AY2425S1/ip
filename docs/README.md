@@ -143,31 +143,3 @@ lovespiritual data are saved in the hard disk automatically after any command th
 
 ## Editing the data file
 lovespiritual data are saved automatically as a JSON file JAR file location/data/lovespiritual.json. Advanced users are welcome to update data directly by editing that data file.
-
-<!-- // Product screenshot goes here 
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
--->
