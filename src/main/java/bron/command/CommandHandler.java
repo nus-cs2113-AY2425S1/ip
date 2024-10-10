@@ -8,17 +8,31 @@ import bron.parser.Parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import java.util.ArrayList;
-
+/**
+ * Handles the execution of commands and interacts with the TaskList and FileStorage.
+ * It provides methods for various commands such as adding tasks, marking tasks, and finding tasks.
+ */
 public class CommandHandler {
     private TaskList taskList;
     private FileStorage storage;
 
+    /**
+     * Constructs a CommandHandler with the given TaskList and FileStorage.
+     *
+     * @param taskList The TaskList containing tasks.
+     * @param storage The FileStorage for saving and loading tasks.
+     */
     public CommandHandler(TaskList taskList, FileStorage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Processes the given command and line. Delegates to the appropriate handler method based on the command.
+     *
+     * @param command The command to execute.
+     * @param line The full user input line.
+     */
     public void handleCommand(Command command, String line) {
         try {
             switch (command) {
@@ -63,6 +77,12 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles the "find" command, searching for tasks that match the given keyword.
+     *
+     * @param line The full user input line containing the keyword.
+     * @throws EmptyKeywordException If no keyword is provided.
+     */
     private void handleFind(String line) throws EmptyKeywordException {
         String[] parts = line.split(" ");
         if (parts.length < 2) {
@@ -79,20 +99,38 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Displays the goodbye message to the user.
+     */
     private void printByeMessage() {
         TextUI.showByeMessage();
     }
 
+    /**
+     * Parses the index from the user input line.
+     *
+     * @param line The full user input line.
+     * @return The parsed index (zero-based).
+     */
     private int parseIndex(String line) {
         String[] parts = line.split(" ");
         return Integer.parseInt(parts[1]) - 1;
     }
 
+    /**
+     * Handles the "list" command, displaying the current tasks.
+     */
     private void handleList() {
         System.out.printf("You have %d tasks in your list.%n", taskList.size());
         taskList.printTasks();
     }
 
+    /**
+     * Handles the "delete" command, deleting a task at the given index.
+     *
+     * @param index The index of the task to delete.
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds.
+     */
     private void deleteTask(int index) throws TaskIndexOutOfBoundsException {
         if (index < 0 || index >= taskList.size()) {
             throw new TaskIndexOutOfBoundsException();
@@ -102,6 +140,12 @@ public class CommandHandler {
         System.out.println("You have " + taskList.size() + " task(s)");
     }
 
+    /**
+     * Handles the "mark" command, marking a task as done.
+     *
+     * @param index The index of the task to mark as done.
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds.
+     */
     private void handleMark(int index) throws TaskIndexOutOfBoundsException {
         if (index < 0 || index >= taskList.size()) {
             throw new TaskIndexOutOfBoundsException();
@@ -112,6 +156,12 @@ public class CommandHandler {
         System.out.println("  " + taskList.getTask(index));
     }
 
+    /**
+     * Handles the "unmark" command, marking a task as not done.
+     *
+     * @param index The index of the task to mark as not done.
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds.
+     */
     private void handleUnmark(int index) throws TaskIndexOutOfBoundsException {
         if (index < 0 || index >= taskList.size()) {
             throw new TaskIndexOutOfBoundsException();
@@ -122,6 +172,12 @@ public class CommandHandler {
         System.out.println("  " + taskList.getTask(index));
     }
 
+    /**
+     * Handles the "todo" command, adding a ToDo task.
+     *
+     * @param line The full user input line containing the task description.
+     * @throws EmptyTodoDescriptionException If the description is missing.
+     */
     private void handleTodo(String line) throws EmptyTodoDescriptionException {
             if (!line.contains(" ") || line.substring(line.indexOf(" ") + 1).trim().isEmpty()) {
                 throw new EmptyTodoDescriptionException();
@@ -136,6 +192,12 @@ public class CommandHandler {
             System.out.println("You got " + taskList.size() + " task(s)");
     }
 
+    /**
+     * Handles the "deadline" command, adding a Deadline task with a date.
+     *
+     * @param line The full user input line containing the task description and deadline.
+     * @throws InvalidDeadlineFormatException If the format is invalid.
+     */
     private void handleDeadline(String line) throws InvalidDeadlineFormatException {
             if (!line.contains("/by")) {
                 throw new InvalidDeadlineFormatException("The deadline must include '/by' followed by the date.");
@@ -167,6 +229,12 @@ public class CommandHandler {
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Handles the "event" command, adding an Event task with a start and end time.
+     *
+     * @param line The full user input line containing the task description and event timings.
+     * @throws InvalidEventFormatException If the format is invalid.
+     */
     private void handleEvent(String line) throws InvalidEventFormatException {
             if (!line.contains("/from") || !line.contains("/to")) {
                 throw new InvalidEventFormatException("The event must include '/from' and '/to' to specify the time.");

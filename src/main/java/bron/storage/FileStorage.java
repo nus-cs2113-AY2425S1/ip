@@ -10,12 +10,26 @@ import java.util.ArrayList;
 
 import static bron.parser.Parser.parseTask;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * Supports loading tasks from a file at startup and saving tasks to the file when changes are made.
+ */
 public class FileStorage {
     private static final String FILE_PATH = "./storage/data.txt";
 
+    /**
+     * Constructs a new FileStorage object.
+     * The file path is hardcoded as './storage/data.txt'.
+     */
     public FileStorage() {
     }
 
+    /**
+     * Loads tasks from the specified file and returns them as a TaskList.
+     * If the file does not exist, an empty TaskList is returned.
+     *
+     * @return A TaskList containing tasks loaded from the file, or an empty TaskList if the file doesn't exist.
+     */
     public TaskList load() {
         TaskList taskList = new TaskList();
         Path path = Paths.get(FILE_PATH);
@@ -39,43 +53,13 @@ public class FileStorage {
 
         return taskList;
     }
-    /*
-    private Task parseTask(String line) {
-        String[] parts = line.split(" \\| ");
 
-        if (parts.length < 3) {
-            System.out.println("Error parsing line: " + line);
-            return null;
-        }
-
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-
-        switch (type) {
-        case "T":
-            return new ToDo(description, isDone);
-        case "D":
-            if (parts.length < 4) {
-                System.out.println("Error parsing Deadline task (too few parts): " + line);
-                return null;
-            }
-            String by = parts[3];
-            return new Deadline(description, by, isDone);
-        case "E":
-            if (parts.length < 5) {
-                System.out.println("Error parsing Event task (too few parts): " + line);
-                return null;
-            }
-            String from = parts[3];
-            String to = parts[4];
-            return new Event(description, from, to, isDone);
-        default:
-            System.out.println("Unknown task type: " + type);
-            return null;
-        }
-    }
-    */
+    /**
+     * Saves the given TaskList to the file.
+     * If the necessary directory does not exist, it is created before saving.
+     *
+     * @param taskList The TaskList to save to the file.
+     */
     public void save(TaskList taskList) {
         Path directoryPath = Paths.get("./storage");
         try {
