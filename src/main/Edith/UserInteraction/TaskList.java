@@ -202,10 +202,17 @@ public class TaskList {
         return tasks;
     }
 
-    public void findTask(String searchItem) {
+    public void findTask(String enteredString) {
+        int indexOfFind = enteredString.indexOf("find");
+        int lengthOfFind = "find".length();
+        String searchItem = enteredString.substring(indexOfFind + lengthOfFind + 1);
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-
+            String taskDescription = task.getDescription();
+            if (taskDescription.contains(searchItem)) {
+                matchingTasks.add(task);
+            }
         }
+        listTasks(matchingTasks);
     }
 }
