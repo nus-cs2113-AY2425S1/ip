@@ -16,7 +16,7 @@ public class Task {
     }
 
     /**
-     * Returns the status icon of the task
+     * Returns the status icon of the task.
      * The status icon is represented as "X" if the task is done,
      * and this (" ") when the task is not done.
      *
@@ -27,7 +27,7 @@ public class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void setMarkAsDone() {
         isDone = true;
@@ -51,10 +51,10 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the task
-     * The string representation includes the status icon and task description
+     * Returns a string representation of the task.
+     * The string representation includes the status icon and task description.
      *
-     * @return A string representing the task
+     * @return A string representing the task.
      */
     @Override
     public String toString() {

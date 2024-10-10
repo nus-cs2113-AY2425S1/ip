@@ -6,12 +6,12 @@ public class Parser {
 
     /**
      * Extracts and returns the command from the given input string.
-     * Input string is converted to lowercase for case-insensitive matching
-     * If the command is not recognised, a {@code EvaException} is thrown
+     * Input string is converted to lowercase for case-insensitive matching.
+     * If the command is not recognised, a {@code EvaException} is thrown.
      *
-     * @param line The input string from the user containing the command and description
-     * @return The extracted command
-     * @throws EvaException if the command is not recognised
+     * @param line The input string from the user containing the command and description.
+     * @return The extracted command.
+     * @throws EvaException if the command is not recognised.
      */
     public String getCommand(String line) throws EvaException {
 
@@ -34,15 +34,15 @@ public class Parser {
     }
 
     /**
-     * Parse the arguments from the input line based on the provided command.
+     * Parses the arguments from the input line based on the provided command.
      * This method will then split the input line into different argument based on
      * the command type.
      * If the command format is invalid or arguments are missing, a {@code EvaException} is thrown
      *
-     * @param line The input string containing the command and description
-     * @param command The specific command extracted from {@link #getCommand(String)}
-     * @return An array of strings containing the parsed arguments
-     * @throws EvaException if the arguments are missing or improperly formatted for the given command
+     * @param line The input string containing the command and description.
+     * @param command The specific command extracted from {@link #getCommand(String)}.
+     * @return An array of strings containing the parsed arguments.
+     * @throws EvaException if the arguments are missing or improperly formatted for the given command.
      */
     public String[] parseArguments(String line, String command) throws EvaException {
         String[] args;
@@ -69,7 +69,7 @@ public class Parser {
     /**
      * Parses the input line for the "find" command and returns the search keyword.
      *
-     * @param line The line input from user
+     * @param line The line input from user.
      * @return A String array containing the keyword to search for tasks.
      * @throws EvaException If the search keyword is empty, indicating an invalid "find" command input.
      */
@@ -101,9 +101,9 @@ public class Parser {
     /**
      * Parses the input line for Deadline task and returns the description of task.
      *
-     * @param line The line input from user
-     * @return The description of Deadline task
-     * @throws EvaException If there are missing parts in the description of the task
+     * @param line The line input from user.
+     * @return The description of Deadline task.
+     * @throws EvaException If there are missing parts in the description of the task.
      */
     private static String[] parseDeadlineCommand(String line) throws EvaException {
         String[] deadlineParts = line.replaceFirst("deadline", "").split("/by");
@@ -118,9 +118,9 @@ public class Parser {
     /**
      * Parses the input line for Todo Task and returns the description of the task.
      *
-     * @param line The line input from user
-     * @return The description of the Todo task
-     * @throws EvaException If the description of task is empty
+     * @param line The line input from user.
+     * @return The description of the Todo task.
+     * @throws EvaException If the description of task is empty.
      */
     private static String[] parseTodoCommand(String line) throws EvaException {
         String todoDesc = line.replaceFirst("todo", "").trim();
@@ -134,8 +134,8 @@ public class Parser {
      * Parses the input line for "mark", "unmark" and "delete" commands and returns the task number.
      *
      * @param line The line input from user.
-     * @return The task number for the command to proceed
-     * @throws EvaException If task number is not provided
+     * @return The task number for the command to proceed.
+     * @throws EvaException If task number is not provided.
      */
     private static String[] parseTaskCommands(String line) throws EvaException {
         String[] parts = line.split(" ");

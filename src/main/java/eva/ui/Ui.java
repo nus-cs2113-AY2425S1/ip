@@ -51,7 +51,7 @@ public class Ui {
     /**
      * Displays an error message to the user.
      *
-     * @param message The error message to be displayed to the user
+     * @param message The error message to be displayed to the user.
      */
     public void showErrorMessage(String message) {
         showMessage(message);
@@ -70,7 +70,7 @@ public class Ui {
     /**
      * Displays message that a task is marked.
      *
-     * @param description The description of the task that is marked
+     * @param description The description of the task that is marked.
      */
     public void showTaskAsDone(String description) {
         showMessage("Great! This task is marked as done: ");
@@ -80,9 +80,9 @@ public class Ui {
     }
 
     /**
-     * Display message to show that the task has been unmarked
+     * Displays message to show that the task has been unmarked.
      *
-     * @param description The description of the task that is unmarked
+     * @param description The description of the task that is unmarked.
      */
     public void showTaskAsNotDone (String description) {
         showMessage("Ok, This task is marked as not done yet: ");
@@ -91,12 +91,12 @@ public class Ui {
     }
 
     /**
-     * Display message that a task is deleted.
-     * It will also show the number of tasks remaining
+     * Displays message that a task is deleted.
+     * It will also show the number of tasks remaining.
      *
-     * @param taskDescription The description of the task that is deleted
-     * @param taskNumber The task number of task deleted based 0
-     * @param remainingTasks The number of task remaining in the task list
+     * @param taskDescription The description of the task that is deleted.
+     * @param taskNumber The task number of task deleted based 0.
+     * @param remainingTasks The number of task remaining in the task list.
      */
     public void showDeleteTask (String taskDescription, int taskNumber, int remainingTasks) {
         showMessage("Okay. I have deleted task " + (taskNumber + 1) + ".");
@@ -106,11 +106,11 @@ public class Ui {
     }
 
     /**
-     * Show message that a new todo task is added.
-     * Show the total number of task in the list
+     * Shows message that a new todo task is added.
+     * Show the total number of task in the list.
      *
-     * @param todoDescription The description of the todo task added
-     * @param count The number of tasks in the list
+     * @param todoDescription The description of the todo task added.
+     * @param count The number of tasks in the list.
      */
     public void showAddTodo (String todoDescription, int count) {
         showMessage("Okay, I've added this todo: ");
@@ -120,11 +120,11 @@ public class Ui {
     }
 
     /**
-     * Show message that a new deadline task is added.
-     * Shows the total number of tasks in task list
+     * Shows message that a new deadline task is added.
+     * Shows the total number of tasks in task list.
      *
-     * @param deadlineDescription The description of deadline task added
-     * @param count Total number of tasks in the task list
+     * @param deadlineDescription The description of deadline task added.
+     * @param count Total number of tasks in the task list.
      */
     public void showAddDeadline (String deadlineDescription, int count) {
         showMessage("Okay, I've added this deadline: ");
@@ -134,11 +134,11 @@ public class Ui {
     }
 
     /**
-     * Show message that a new event task is added
-     * Shows total number of task in the task list
+     * Shows message that a new event task is added.
+     * Shows total number of task in the task list.
      *
-     * @param eventDescription The description of the event task added
-     * @param count The total number of tasks in the task list
+     * @param eventDescription The description of the event task added.
+     * @param count The total number of tasks in the task list.
      */
     public void showAddEvent (String eventDescription, int count) {
         showMessage("Okay, I've added this event: ");

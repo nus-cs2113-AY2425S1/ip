@@ -85,7 +85,7 @@ public class Storage {
 
     /**
      * Parses a task from a string representation of a task. The format of the
-     * string determines whether the task is a eva.tasks.Todo, eva.tasks.Deadline, or eva.tasks.Event.
+     * string determines whether the task is a Todo, Deadline, or Event.
      *
      * @param line The string representation of a task.
      * @return A Task object parsed from the string, or null if the format is unrecognized.
