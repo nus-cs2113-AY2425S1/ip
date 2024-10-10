@@ -1,99 +1,151 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles interactions with the user,
+ * including displaying messages and reading user input.
+ */
 public class Ui {
     private Scanner inputScanner;
 
+    /**
+     * Initializes the {@code Ui} with a new {@code Scanner} for user input.
+     */
     public Ui() {
-        // Initialize the scanner to read user input
         inputScanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public void showWelcomeMessage() {
-        // Display the welcome message to the user
         System.out.println("____________________________________________________________");
         System.out.println(" Welcome aboard AirBorder.");
         System.out.println(" Ready to assist you with your tasks!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the exit message to the user.
+     */
     public void showExitMessage() {
-        // Display the exit message to the user
         System.out.println("____________________________________________________________");
         System.out.println(" Thank you for flying with AirBorder!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Reads and returns the user's input command.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
-        // Read and return the user's input command
         return inputScanner.nextLine().trim();
     }
 
+    /**
+     * Displays a divider line for better readability.
+     */
     public void showLine() {
-        // Display a divider line for better readability
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
-        // Display an error message to the user
         showLine();
         System.out.println(" ERROR: " + message);
         showLine();
     }
 
+    /**
+     * Displays a message when a task is added.
+     *
+     * @param task      The task that was added.
+     * @param taskCount The current number of tasks.
+     */
     public void showTaskAdded(Task task, int taskCount) {
-        // Display a message when a task is added
         showLine();
         System.out.println(" Task added: " + task);
         System.out.println(" Now you have " + taskCount + " tasks.");
         showLine();
     }
 
+    /**
+     * Displays a message when a task is deleted.
+     *
+     * @param task      The task that was deleted.
+     * @param taskCount The current number of tasks.
+     */
     public void showTaskDeleted(Task task, int taskCount) {
-        // Display a message when a task is deleted
         showLine();
         System.out.println(" Task deleted: " + task);
         System.out.println(" Now you have " + taskCount + " tasks.");
         showLine();
     }
 
+    /**
+     * Displays a message when a task is marked as done.
+     *
+     * @param task The task that was marked as done.
+     */
     public void showTaskDone(Task task) {
-        // Display a message when a task is marked as done
         showLine();
         System.out.println(" Task completed: " + task);
         showLine();
     }
 
+    /**
+     * Displays a message when a task is marked as not done.
+     *
+     * @param task The task that was marked as not done.
+     */
     public void showTaskUndone(Task task) {
-        // Display a message when a task is marked as not done
         showLine();
         System.out.println(" Task marked as incomplete: " + task);
         showLine();
     }
 
+    /**
+     * Displays the list of all tasks to the user.
+     *
+     * @param taskList The {@code TaskList} containing all tasks.
+     */
     public void showTaskList(TaskList taskList) {
-        // Display the list of tasks to the user
         showLine();
         if (taskList.isEmpty()) {
             System.out.println(" No tasks in your list.");
         } else {
             System.out.println(" Here are your tasks:");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.getTask(i));
+                try {
+                    System.out.println(" " + (i + 1) + "." + taskList.getTask(i));
+                } catch (AirBorderException e) {
+                    showError(e.getMessage());
+                }
             }
         }
         showLine();
     }
 
+    /**
+     * Displays an error message if tasks cannot be loaded from the file.
+     */
     public void showLoadingError() {
-        // Display an error message if tasks cannot be loaded
         showLine();
         System.out.println(" Error loading tasks from file.");
         showLine();
     }
 
+    /**
+     * Displays the tasks that match the search keyword.
+     *
+     * @param matchingTasks The list of tasks that match the keyword.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        // Display the list of matching tasks to the user
         showLine();
         if (matchingTasks.isEmpty()) {
             System.out.println(" No matching tasks found.");
@@ -108,8 +160,10 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Closes the {@code Scanner} resource.
+     */
     public void close() {
-        // Close the input scanner resource
         inputScanner.close();
     }
 }

@@ -1,6 +1,17 @@
+/**
+ * The {@code Parser} class is responsible for interpreting user commands
+ * and returning the appropriate {@code Command} objects to be executed.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input command and returns the corresponding {@code Command} object.
+     *
+     * @param userCommand The full command entered by the user.
+     * @return The {@code Command} object representing the user's request.
+     * @throws AirBorderException If the user enters an unrecognized command.
+     */
     public static Command parse(String userCommand) throws AirBorderException {
-        // Interpret the user's input command and return the corresponding Command object
         if (userCommand.equalsIgnoreCase("bye")) {
             return new ExitCommand();
         } else if (userCommand.equalsIgnoreCase("list")) {
@@ -18,10 +29,8 @@ public class Parser {
         } else if (userCommand.startsWith("unmark ")) {
             return new MarkCommand(userCommand.substring(7).trim(), false);
         } else if (userCommand.startsWith("find ")) {
-            // New condition to handle 'find' command
             return new FindCommand(userCommand.substring(5).trim());
         } else {
-            // Throw an exception if the command is unrecognized
             throw new InvalidCommandException();
         }
     }
