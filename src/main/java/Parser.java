@@ -44,6 +44,15 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new AnBotException("The task index for delete must be a number.");
             }
+<<<<<<< Updated upstream
+=======
+        } else if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim(); 
+            if (keyword.isEmpty()) {
+                throw new AnBotException("Find keyword cannot be empty"); 
+            }
+            return new String[]{"find", keyword}; 
+>>>>>>> Stashed changes
         } else {
             throw new AnBotException("Error command. Please enter another input.");
         }

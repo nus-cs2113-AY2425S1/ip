@@ -29,6 +29,13 @@ public abstract class Task {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public String getDescription() {
+        return description; 
+    }
+
+>>>>>>> Stashed changes
     @Override 
     public String toString() { 
         return isDone() + " " + description; 

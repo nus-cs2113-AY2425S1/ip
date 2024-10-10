@@ -70,6 +70,13 @@ public class AnBot {
                         taskList.delete(indexDelete); 
                         storage.write(taskList.getTasks()); 
                         break; 
+<<<<<<< Updated upstream
+=======
+                    case "find": 
+                        String keyword = parsedInput[1]; 
+                        taskList.find(keyword); 
+                        break; 
+>>>>>>> Stashed changes
                     default: 
                         throw new AnBotException("Error command. Please enter another input."); 
                 }
@@ -79,7 +86,10 @@ public class AnBot {
                 System.out.println("Error saving tasks: " + e.getMessage());
             }
         }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
     
     public static void main(String[] args) {
