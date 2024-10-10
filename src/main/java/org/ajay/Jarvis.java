@@ -34,15 +34,21 @@ public class Jarvis {
 
         ui.printLogo();
         ui.printGreetingMsgs();
-        Scanner in = new Scanner(System.in); // Scanner object to read input from the user
-        while (!isExit) {
-            Parser.readInput(in); // Read the input from the user
 
-            Command c = Parser.parseCommand(Parser.command, Parser.task); // Parse the input
-            c.execute(tasks, ui, storage); // Execute the command
-            isExit = c.getExitBool(); // Check if the command is an exit command
+        // Scanner object to read input from the user
+        try (Scanner in = new Scanner(System.in)) {
+            while (!isExit) {
+                Parser.readInput(in); // Read the input from the user
+
+                Command c = Parser.parseCommand(Parser.command, Parser.task); // Parse the input
+                c.execute(tasks, ui, storage); // Execute the command
+                isExit = c.getExitBool(); // Check if the command is an exit command
+            }
         }
-        in.close();
+        // catch (Exception e) {
+        //     // catch if scanner system in fails
+        //     ui.printExceptions("Scanner failed to read input" + " " + e.getMessage());
+        // }
 
     }
 
