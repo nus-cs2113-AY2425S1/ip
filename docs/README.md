@@ -1,30 +1,181 @@
-# Duke User Guide
+# Juan Task Manager
 
-// Update the title above to match the actual product name
+               ._-'-_ .
+          . '  /_-_-_\   ` .
+       .'     |-_-_-_-|      `.
+      (       `.-_-_-.'        )
+      !`.                    .'!
+        ! ` .            . ' !
+          ! ! ! ! ! ! ! !  !
+            / /       \ \
+          _-| \___ ___/ /-_
+         (_ )__\_)\(_/__( _)
+             ))))\X\ ((((
+               \/ \/ 
 
-// Product screenshot goes here
+Juan is a simple command-line task manager that helps users keep track of tasks such as to-dos, deadlines, and events. It allows users to manage their tasks, mark them as complete, and store them for future use. Juan is written in Java and supports basic task operations with a fun user interface.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+- **Add a ToDo task**: Adds a simple to-do task.
+- **Add a Deadline task**: Adds a task with a specific deadline.
+- **Add an Event task**: Adds a task with a start and end time.
+- **Mark tasks as done**: Marks tasks as completed.
+- **Unmark tasks**: Unmarks tasks as not completed.
+- **Delete tasks**: Deletes tasks from the list.
+- **List tasks**: Lists all current tasks.
+- **Find tasks**: Searches for tasks that match a keyword.
 
-// Describe the action and its outcome.
+## Command Overview
 
-// Give examples of usage
+| Command      | Description                        | Format                                             | Example                                                             |
+|--------------|------------------------------------|----------------------------------------------------|---------------------------------------------------------------------|
+| Add ToDo     | Adds a to-do task                  | `todo <task_description>`                          | `todo Buy groceries`                                                |
+| Add Deadline | Adds a deadline task               | `deadline <task_description> /by <date>`           | `deadline Submit assignment /by 15-10-2024 23:59`                   |
+| Add Event    | Adds an event with start and end   | `event <task_description> /from <date> /to <date>` | `event Project meeting /from 15-10-2024 10:00 /to 15-10-2024 12:00` |
+| Mark Task    | Marks a task as done               | `mark <task_number>`                               | `mark 2`                                                            |
+| Unmark Task  | Unmarks a task                     | `unmark <task_number>`                             | `unmark 2`                                                          |
+| Delete Task  | Deletes a task                     | `delete <task_number>`                             | `delete 3`                                                          |
+| List Tasks   | Lists all tasks                    | `list`                                             | `list`                                                              |
+| Find Task    | Finds tasks matching a keyword     | `find <keyword>`                                   | `find groceries`                                                    |
 
-Example: `keyword (optional arguments)`
+## Commands
 
-// A description of the expected outcome goes here
+### 1. Add ToDo Task
 
+**Format**:
 ```
-expected output
+todo <task_description>
 ```
 
-## Feature ABC
+Adds a new to-do task to the task list.
 
-// Feature details
+Example:
+```
+todo Buy groceries
 
+Muy Bien, work hard compadre!
+I've Added the Task:
+[T][ ] Buy groceries
+```
 
-## Feature XYZ
+### 2. Add Deadline Task
 
-// Feature details
+**Format**:
+```
+deadline <task_description> /by <dd-MM-yyyy HH:mm>
+```
+
+Adds a task with a specific deadline.
+
+Example:
+```
+deadline Submit assignment /by 15-10-2024 23:59
+
+Muy Bien, work hard compadre!
+I've Added the Task:
+[D][ ] Submit assignment (by: 15-10-2024 23:59)
+```
+
+### 3. Add Event Task
+
+**Format**:
+```
+event <task_description> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>
+```
+
+Adds a task with a specific start and end time.
+
+Example:
+```
+event Project meeting /from 15-10-2024 10:00 /to 15-10-2024 12:00
+
+Muy Bien, work hard compadre!
+I've Added the Task:
+[E][ ] Project meeting (from: 15-10-2024 10:00 to: 15-10-2024 12:00)
+```
+
+### 4. Mark Task as Done
+
+**Format**:
+```
+mark <task_number>
+```
+
+Marks the specified task as completed.
+
+Example:
+```
+mark 1
+
+Fantastica!!!! I marked it:
+[T][X] Buy groceries
+```
+
+### 5. Unmark Task
+
+**Format**:
+```
+unmark <task_number>
+```
+
+Unmarks the specified task, indicating it is not completed.
+
+Example:
+```
+unmark 1
+
+Ay Caramba, I unmarked it:
+[T][ ] Buy groceries
+```
+
+### 6. Delete Task
+
+**Format**:
+```
+delete <task_number>
+```
+
+Deletes the specified task from the task list.
+
+Example:
+```
+delete 1
+
+Ay Caramba, Task deleted: [T][ ] Buy groceries
+```
+
+### 7. List All Tasks
+
+**Format**:
+```
+list
+```
+
+Lists all current tasks in the task list, including their status (marked as done or not done) and task numbers.
+
+Example:
+```
+list
+
+Si compinche, your 2 tasks:
+1.[D][X] Submit assignment (by: 15-10-2024 23:59)
+2.[E][ ] Project meeting (from: 15-10-2024 10:00 to: 15-10-2024 12:00)
+```
+
+### 8. Find Task
+
+**Format**:
+```
+find <keyword>
+```
+
+Finds all tasks that contain the specified keyword in their description.
+
+Example:
+```
+find meeting
+
+Si compinche, your tasks with the phrase <meeting>:
+2.[E][ ] Project meeting (from: 15-10-2024 10:00 to: 15-10-2024 12:00)
+```
