@@ -1,6 +1,6 @@
 # Freedom User Guide
 
-![freedom_screenshot.png](https://github.com/Ridiculouswifi/ip/blob/branch-A-UserGuide/assets/product_screenshot.png)
+![product_screenshot](https://github.com/Ridiculouswifi/ip/blob/branch-A-UserGuide/assets/product_screenshot.png?raw=true)
 
 Freedom is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 
@@ -20,7 +20,7 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
   - [Saving the data](#saving-the-data)
   - [Editing the data](#editing-the-data)
 - [Command Summary](#command-summary)
----
+
 
 ## Quick Start
 
@@ -30,8 +30,8 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
 4. Open a command terminal, `cd` into the folder with the `.jar` file 
    and use `java -jar freedom.jar` command to run the application.
 5. Type the command to the CLI and press `Enter` to execute it.
-6. Refer to the [Features](#features) below for details of each command.
----
+6. Refer to the [Features](#features) below for details of each command.<br>
+
 
 ## Features
 
@@ -217,7 +217,6 @@ Format: `{task type} | {status} | {description} | {date/time 1} | {date/time 1}`
 > Caution<br>
 > Attempting to run the Freedom chatbot with data that is incorrectly formatted might cause unexpected behaviours.
 
----
 
 ## Command Summary
 
