@@ -217,3 +217,16 @@ Format: `{task type} | {status} | {description} | {date/time 1} | {date/time 1}`
 > Attempting to run the Freedom chatbot with data that is incorrectly formatted might cause unexpected behaviours.
 
 ---
+
+## Command Summary
+
+| Command      | Format                                                            |
+|--------------|-------------------------------------------------------------------|
+| Add ToDo     | `todo {description}`                                              |
+| Add Deadline | `deadline {description} /by {deadline}`                           |
+| Add Event    | `event {description} /from {start date/time} /to {end date/time}` |
+| List         | `list`                                                            |
+| Mark         | `mark {task id}`                                                  |
+| Unmark       | `unmark {task id}`                                                |
+| Delete       | `delete {task id}`                                                |
+| Find         | `find {keyword}`                                                  |
