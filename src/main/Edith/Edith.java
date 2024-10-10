@@ -1,10 +1,12 @@
 import UserInteraction.Storage;
 import UserInteraction.TaskList;
 import UserInteraction.Ui;
+import java.io.File;
+
+import static UserInteraction.Storage.getFileProperties;
 
 
 public class Edith {
-    // private static final String FILE_PATH = "data/listOfTasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -27,6 +29,6 @@ public class Edith {
     }
 
     public static void main(String[] args) {
-        new Edith("data/listOfTasks.txt").run();
+        new Edith("listOfTasks.txt").run();
     }
 }

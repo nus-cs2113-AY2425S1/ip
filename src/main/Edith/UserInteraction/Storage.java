@@ -109,20 +109,3 @@ public class Storage {
         System.out.println("is Directory?: " + f.isDirectory());
     }
 }
-
-/* Testing
-        File f = new File(FILE_PATH);
-        getFileProperties(f);
-        String absolutePath = f.getAbsolutePath();
-
-        try {
-            printFileContents(absolutePath, f);
-            Ui edith = new Ui();
-            initializeArrayList(edith.getTasks(), f);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-        } catch (IOException e) {
-            System.out.println("I/O exception.");
-        }
- */
