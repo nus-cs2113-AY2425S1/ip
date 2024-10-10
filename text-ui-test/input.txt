@@ -10,7 +10,7 @@ get 10/12/2002
 get 10/12/2002 10/12/2002
 gEt 10/12/2002
 get book
-get             10/12/2002
+get            10/12/2002
 get 10 October 2002 , 6 pm
 mark 1
 MaRk 1
