@@ -21,6 +21,16 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public TaskList findTask(String keyword) {
+        TaskList results = new TaskList();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                results.addTask(task);
+            }
+        }
+        return results;
+    }
+
     public void deleteTask(int index) throws IndexOutOfBoundsException {
         Task removedTask = tasks.remove(index);
         System.out.println("Deleted task: " + removedTask);
@@ -31,7 +41,6 @@ public class TaskList {
     }
 
     public void printTasks() {
-        System.out.printf("You have %d tasks in your list.%n", tasks.size());
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
