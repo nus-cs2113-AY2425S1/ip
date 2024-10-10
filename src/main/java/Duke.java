@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -67,9 +70,27 @@ public class Duke {
         tasks.addTask(new Task(parsedCommand[1]));
         System.out.println(" Added: " + parsedCommand[1]);
         break;
+      case "deadline":
+        try {
+          String description = parsedCommand[1];
+          String dateTimeStr = parsedCommand[3];
+          LocalDateTime deadline = parseDateTime(dateTimeStr);
+          tasks.addTask(new Task(description, deadline));
+          System.out.println(" Added: " + description + " (by: " + deadline + ")");
+        } catch (ArrayIndexOutOfBoundsException e) {
+          System.out.println(" Please provide a description and a date.");
+
+        } catch (DateTimeParseException e) {
+          System.out.println(" Please provide a valid date format (yyyy-mm-dd HH:mm).");
+        }
+        break;
       default:
         throw new RuntimeException("Unknown command.");
     }
+  }
+  private LocalDateTime parseDateTime(String dateTimeStr) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    return LocalDateTime.parse(dateTimeStr, formatter);
   }
 
   public static void main(String[] args) {

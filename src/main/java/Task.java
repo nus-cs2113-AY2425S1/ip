@@ -1,14 +1,25 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
   protected String description;
   protected boolean isDone;
+  protected LocalDateTime deadline;
 
   public Task(String description) {
     this.description = description;
     this.isDone = false;
+    this.deadline = null;
+  }
+
+  public Task(String description, LocalDateTime deadline) {
+    this.description = description;
+    this.isDone = false;
+    this.deadline = deadline;
   }
 
   public String getStatusIcon() {
-    return (isDone ? "X" : " "); // mark done task with X
+    return (isDone ? "X" : " ");
   }
 
   public void markAsDone() {
@@ -27,8 +38,21 @@ public class Task {
     return description;
   }
 
+  public LocalDateTime getDeadline() {
+    return deadline;
+  }
+
+  public String formatDeadline() {
+    if (deadline != null) {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+      return deadline.format(formatter);
+    }
+    return "No deadline";
+  }
+
   @Override
   public String toString() {
-    return "[" + getStatusIcon() + "] " + description;
+    String deadlineStr = (deadline != null) ? " (by: " + formatDeadline() + ")" : "";
+    return "[" + getStatusIcon() + "] " + description + deadlineStr;
   }
 }
