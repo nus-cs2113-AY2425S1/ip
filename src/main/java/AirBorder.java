@@ -2,7 +2,6 @@ public class AirBorder {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     public AirBorder(String filePath) {
         // Initialize the UI, Storage, and TaskList components
         ui = new Ui();
@@ -16,7 +15,6 @@ public class AirBorder {
             tasks = new TaskList();
         }
     }
-
     public void run() {
         // Display the welcome message
         ui.showWelcomeMessage();
@@ -42,7 +40,6 @@ public class AirBorder {
         // Close the UI resources
         ui.close();
     }
-
     public static void main(String[] args) {
         // Start the application with the specified file path for storage
         new AirBorder("airborder.txt").run();
