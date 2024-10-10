@@ -1,6 +1,6 @@
 # Freedom User Guide
 
-<img alt="freedom_screenshot.png" src="https://github.com/Ridiculouswifi/ip/blob/branch-A-UserGuide/assets/product_screenshot.png"/>
+![product_screenshot](../assets/product_screenshot.png)
 
 Freedom is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 
