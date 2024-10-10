@@ -27,11 +27,15 @@ public class Parser {
         String[] words = fullCommand.split(" ");
         String command = words[0].toLowerCase();
 
-        switch (command) {
-        case "bye":
+        if (fullCommand.equals("bye")) {
             return new ExitCommand();
-        case "list":
+        }
+
+        if (fullCommand.equals("list")) {
             return new ListCommand();
+        }
+
+        switch (command) {
         case "mark":
         case "unmark":
             return new MarkCommand(words, command);
