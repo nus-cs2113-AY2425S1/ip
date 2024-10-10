@@ -7,6 +7,7 @@ import commands.DeleteCommand;
 import commands.MarkCommand;
 import commands.ExitCommand;
 import commands.ListCommand;
+import commands.FindCommand;
 
 
 /**
@@ -49,6 +50,11 @@ public class Parser {
                 throw new LiaException("Oops! You must specify a task number to delete.");
             }
             return new DeleteCommand(parts[1]);
+        case "find":
+            if (parts.length < 2) {
+                throw new LiaException("Oops! You must specify a keyword to find.");
+            }
+            return new FindCommand(parts[1]);
         case "list":
             return new ListCommand();
         case "bye":
