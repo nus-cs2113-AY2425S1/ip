@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class FileLoader {
 
-    public static final String FILE_DIR = "Data";
+    public static final String FILE_DIR = "data";
     public static NewFile inputFile = new NewFile("TaskContents.txt");
 
     /**
@@ -30,7 +30,7 @@ public class FileLoader {
             try {
                inputFileNameAndCreateFile();
             } catch (IOException e) {
-                System.out.println("File not found. No data loaded. Please create the file under Data directory");
+                System.out.println("File not found. No data loaded. Please create the file under data directory");
                 throw new FileNotFoundException();
             }
 
@@ -42,12 +42,12 @@ public class FileLoader {
     /**
      * Gets user input for file name and create the file.
      *
-     * @throws FileNotFoundException If file name they input does not exist under /Data directory.
+     * @throws FileNotFoundException If file name they input does not exist under /data directory.
      */
     private static void inputFileNameAndCreateFile() throws IOException {
         UiControl.printSeparation();
         System.out.println("Input file name you want to save "
-                + "data to under the Data directory [filename] without .txt");
+                + "data to under the data directory [filename] without .txt");
 
         UiControl.printSeparation();
 
