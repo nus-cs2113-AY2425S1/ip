@@ -9,9 +9,9 @@ import jeff.helper.Ui;
 import java.io.IOException;
 
 /**
- * The <code>Jeff</code> class represents the entry point, and is the chatbot.
- * It initializes the user interface, storage, and task list,
- * and manages the execution of user commands.
+ * The <code>Jeff</code> class represents the entry point.
+ * It initializes the user interface, storage, task list,
+ * and manages the parsing and execution of user commands.
  */
 public class Jeff {
 
@@ -22,7 +22,7 @@ public class Jeff {
     /**
      * Constructs a <code>Jeff</code> object with the specified file path.
      *
-     * @param filePath The file path for loading and saving tasks.
+     * @param filePath The file path to the text file for loading and saving tasks.
      * @throws IOException If an input or output exception occurs while accessing the file.
      */
     public Jeff(String filePath) throws IOException {
@@ -32,7 +32,7 @@ public class Jeff {
         try{
             tasks = new TaskList(storage.loadTaskList());
         } catch (InvalidFormatException errorMessage) {
-            ui.showLoadingError(String.valueOf(errorMessage));
+            ui.showLoadingError(errorMessage.getMessage());
             tasks = new TaskList();
         }
     }
