@@ -3,7 +3,6 @@
  * and returning the appropriate {@code Command} objects to be executed.
  */
 public class Parser {
-
     /**
      * Parses the user's input command and returns the corresponding {@code Command} object.
      *
