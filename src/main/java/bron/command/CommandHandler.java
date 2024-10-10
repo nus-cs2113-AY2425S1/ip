@@ -8,6 +8,8 @@ import bron.parser.Parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import java.util.ArrayList;
+
 public class CommandHandler {
     private TaskList taskList;
     private FileStorage storage;
@@ -50,11 +52,30 @@ public class CommandHandler {
                 handleEvent(line);
                 storage.save(taskList);
                 break;
+            case FIND:
+                handleFind(line);
+                break;
             default:
                 throw new InvalidCommandException();
             }
         } catch (BronException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void handleFind(String line) throws EmptyKeywordException {
+        String[] parts = line.split(" ");
+        if (parts.length < 2) {
+            throw new EmptyKeywordException();
+        }
+
+        String keyword = parts[1];
+        TaskList results = taskList.findTask(keyword);
+        if (results.size() == 0) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        } else {
+            System.out.println("Here are the tasks that have the keyword: " + keyword);
+            results.printTasks();
         }
     }
 
@@ -68,6 +89,7 @@ public class CommandHandler {
     }
 
     private void handleList() {
+        System.out.printf("You have %d tasks in your list.%n", taskList.size());
         taskList.printTasks();
     }
 
