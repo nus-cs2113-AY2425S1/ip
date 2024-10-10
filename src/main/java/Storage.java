@@ -52,7 +52,6 @@ public class Storage {
             ui.printMessage("Data File Read");
         } catch (FileNotFoundException e) {
             ui.printMessage("Data File does not exist");
-            return null;
         }
 
         return tempTaskList;

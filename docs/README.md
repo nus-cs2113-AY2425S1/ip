@@ -15,6 +15,12 @@
 
 Juan is a simple command-line task manager that helps users keep track of tasks such as to-dos, deadlines, and events. It allows users to manage their tasks, mark them as complete, and store them for future use. Juan is written in Java and supports basic task operations with a fun user interface.
 
+## Run
+
+To Run Juan, open Command Prompt and navigate to the directory `ip.jar` is located in and run the following command:
+```
+java -jar ip.jar
+```
 
 ## Command Overview
 
