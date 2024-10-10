@@ -27,8 +27,8 @@ public class Ui {
                       ░ ░    ▒ ░  ░   ▒
                           ░  ░ ░        ░  ░
                       """;
-        System.out.println(INDENTATION + "🎉 Hello there! I'm Lia, your cheerful task management buddy! 🎉\n" + LOGO);
-        System.out.println(INDENTATION + "🌟 What exciting tasks can I help you with today?");
+        System.out.println(INDENTATION + "Hello there! I'm Lia, your cheerful task management buddy!\n" + LOGO);
+        System.out.println(INDENTATION + "What exciting tasks can I help you with today?");
         printLine();
     }
 
@@ -56,9 +56,9 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void addTaskAndPrint(Task task, int taskCount) {
-        System.out.println(INDENTATION + "✨ Hooray! I've added this fabulous task:");
+        System.out.println(INDENTATION + "Hooray! I've added this fabulous task:");
         System.out.println(INDENTATION + task.toString());
-        System.out.println(INDENTATION + "💪 Now you have " + taskCount + " tasks in your super organized list! 🎈");
+        System.out.println(INDENTATION + "Now you have " + taskCount + " tasks in your super organized list!");
     }
 
     /**
@@ -68,9 +68,9 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void showDeleteTask(Task task, int taskCount) {
-        System.out.println(INDENTATION + "🗑️ Oops! I've removed this task for you:");
+        System.out.println(INDENTATION + "Oops! I've removed this task for you:");
         System.out.println(INDENTATION + task.toString());
-        System.out.println(INDENTATION + "📋 Now you have " + taskCount + " tasks left to conquer! 🎉");
+        System.out.println(INDENTATION + "Now you have " + taskCount + " tasks left to conquer!");
     }
 
 
@@ -81,7 +81,7 @@ public class Ui {
      */
     public void printTasks(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(INDENTATION + "🔍 Oops! I couldn't find any tasks matching your search.");
+            System.out.println(INDENTATION + "Oops! I couldn't find any tasks matching your search.");
         } else {
             System.out.println(INDENTATION + "Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
@@ -96,7 +96,7 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void showMarkDone(Task task) {
-        System.out.println(INDENTATION + "🎉 Good Job! I've marked this task as done:");
+        System.out.println(INDENTATION + "Good Job! I've marked this task as done:");
         System.out.println(INDENTATION + task.toString());
     }
 
@@ -106,7 +106,7 @@ public class Ui {
      * @param task The task that was unmarked.
      */
     public void showUnmarkDone(Task task) {
-        System.out.println(INDENTATION + "😅 No worries! I've unmarked this task:");
+        System.out.println(INDENTATION + "No worries! I've unmarked this task:");
         System.out.println(INDENTATION + task.toString());
     }
 
@@ -114,7 +114,7 @@ public class Ui {
      * Displays a farewell message when the application is exiting.
      */
     public void showFarewell() {
-        System.out.println(INDENTATION + "👋 Bye for now! Hope to see you again soon, superstar! 🌟");
+        System.out.println(INDENTATION + "Bye for now! Hope to see you again soon, superstar!");
     }
 
     /**
