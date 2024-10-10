@@ -20,15 +20,30 @@ public class FileHandler {
      */
     public FileHandler() {
         taskHandler = new TaskHandler();
-        File file = new File(StringStorage.SAVE_FILE_PATH);
-        try {
-            initSaveFolder(file, true);
-            initSaveFile(file, true);
-        } catch (IOException e) {
-            System.out.println("IOException occurred: " + e.getMessage());
-        }
+        initSaveFileAndFolder(true);
     }
 
+    /**
+     * Initializes the save file and the folder it is located in for Yapper.
+     * <p>
+     * Checks if the save folder and save file exist, and creates them if necessary.
+     * It differentiates between the initial startup and runtime operations based on the
+     * {@code hasJustStarted} flag.
+     *
+     * @param hasJustStarted A boolean flag indicating whether the application has just started.
+     *                       If {@code true}, startup messages will be printed; otherwise, runtime messages.
+     * @throws IOException If an I/O error occurs while accessing or creating the save file or folder.
+     */
+    public static void initSaveFileAndFolder(boolean hasJustStarted) {
+        try {
+            File file = new File(StringStorage.SAVE_FILE_PATH);
+            initSaveFolder(file, hasJustStarted);
+            initSaveFile(file, hasJustStarted);
+            System.out.println(StringStorage.LINE_DIVIDER);
+        } catch (IOException e) {
+            System.out.println("IOException occurred, with message: " + e.getMessage());
+        }
+    }
     /**
      * Initializes the folder for the save file. If the folder does not exist, it will be created.
      * A message will be printed to the console to indicate the status of the folder creation.
