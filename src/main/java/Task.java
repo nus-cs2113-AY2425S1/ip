@@ -16,7 +16,15 @@ public class Task {
   }
 
   public void markAsNotDone() {
-    this.isDone = false;   
+    this.isDone = false;
+  }
+
+  public boolean isDone() {
+    return isDone;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -24,4 +32,3 @@ public class Task {
     return "[" + getStatusIcon() + "] " + description;
   }
 }
-
