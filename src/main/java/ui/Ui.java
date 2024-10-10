@@ -6,10 +6,11 @@ import constants.Utils;
 
 import java.util.ArrayList;
 
+/** Represents all Ui methods. */
 public class Ui {
 
     /**
-     * Welcome users to the application through the welcome message
+     * Welcomes user to the application through the welcome message.
      */
     public void printWelcomeMessage() {
         printLine();
@@ -20,15 +21,16 @@ public class Ui {
     }
 
     /**
-     * Print a horizontal line to separate between the user inputs and Cy's output.
+     * Prints a horizontal line to separate between the user inputs and Cy's output.
      */
     public void printLine() {
         System.out.println(Utils.HORIZONTAL_LINE);
     }
 
     /**
-     * Print mark or unmark statement based on the task's isDone() parameter.
-     * Print mark when the task is completed, vice versa.
+     * Prints mark or unmark statement based on the task's isDone() parameter.
+     *
+     * @param task passed to mark as done or incomplete.
      */
     public void printMarkOutput(Task task) {
         printLine();
@@ -44,10 +46,10 @@ public class Ui {
     }
 
     /**
-     * Print todo message with the added todo task
+     * Prints todo message with the added todo task.
      *
-     * @param task todo added to the tasks ArrayList
-     * @param items ArrayList that stores the new task
+     * @param task todo added to the tasks ArrayList.
+     * @param items ArrayList that stores the new task.
      */
     public void printTodoMessage(String task, ArrayList<Task> items) {
         printLine();
@@ -55,19 +57,23 @@ public class Ui {
         printListUpdate(task,items);
         printLine();
     }
-    
+
     /**
-     * Print the new task item and the count of task within the list (after adding the item)
+     * Prints the new task item and the count of task within the list (after adding or deleting an item).
+     *
+     * @param task string that contains the newly added/deleted tasks.
+     * @param items Arraylist that contains the list of items.
      */
     public void printListUpdate(String task, ArrayList<Task> items) {
         System.out.println(task);
         System.out.println("Now you have " + (items.size()) + " tasks in the list");
     }
+
     /**
-     * Print deadline message with the added todo task
+     * Prints deadline message with the added todo task.
      *
-     * @param deadline deadline added to the tasks ArrayList
-     * @param items ArrayList that stores the new task
+     * @param deadline deadline added to the tasks ArrayList.
+     * @param items ArrayList that stores the new task.
      */
     public void printDeadlineMessage(String deadline,ArrayList<Task> items) {
         printLine();
@@ -75,10 +81,12 @@ public class Ui {
         printListUpdate(deadline,items);
         printLine();
     }
+
     /**
-     * Print event message with the added the event task
-     * @param event event added to tasks ArrayList
-     * @param items ArrayList to store the items
+     * Prints event message with the added the event task.
+     *
+     * @param event event added to tasks ArrayList.
+     * @param items ArrayList to store the items.
      */
     public void printEventMessage(String event, ArrayList<Task> items) {
         printLine();
@@ -86,9 +94,11 @@ public class Ui {
         printListUpdate(event,items);
         printLine();
     }
+
     /**
-     * Print delete message with the deleted task
-     * @param deleteItem task to be deleted
+     * Prints delete message with the deleted task.
+     *
+     * @param deleteItem task to be deleted.
      */
     public void printDeleteMessage(Task deleteItem) {
         printLine();
@@ -96,8 +106,9 @@ public class Ui {
         System.out.println(deleteItem.getStatusIcon() + " " + deleteItem.getDescription());
         printLine();
     }
+
     /**
-     * End the application through a goodbye message
+     * Ends the application through a goodbye message.
      */
     public void printEndingMessage() {
         printLine();

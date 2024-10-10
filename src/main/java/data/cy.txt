@@ -1,4 +1,0 @@
-
-D | 0 | collect package from lobby | 6pm
-D | 0 | go hobby centre | 7pm
-E | 0 | cs2113 tutorial discussion | 2pm-3pm

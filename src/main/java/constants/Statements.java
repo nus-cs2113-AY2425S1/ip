@@ -1,8 +1,6 @@
 package constants;
 
-/**
- * Class that contain all the dialogue constants
- */
+/** Contains all the dialogue constants. */
 public class Statements {
     public static final String LIST_TASKS = "Here are the tasks in your grocery list";
     public static final String CONFIRM_ADD = "Got it! I've added this task to your grocery list: ";

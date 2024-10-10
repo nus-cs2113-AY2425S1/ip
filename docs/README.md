@@ -33,11 +33,14 @@ ______________________________________
 
 ## Adding Deadlines: `deadline`
 
-Add tasks that needs to be completed before a specific deadline.
+Add tasks that needs to be completed before a specific deadline. 
+Requires 'by' keyword, followed by the task's deadline.
 
-Format: `deadline DESCRIPTION /by DEADLINE`
+Format: `deadline DESCRIPTION by DEADLINE`
 
-Example: `deadline cs2113 quiz /by 2024-11-11`
+Example: `deadline cs2113 quiz by 2024-11-11`
+
+Example: `deadline cs2113 quiz by 6pm`
 
 Expected output: 
 ```
@@ -50,10 +53,11 @@ ______________________________________
 ## Adding Events: `event`
 
 Add tasks that starts and ends at a specific date/time.
+Requires 'from' and 'to' keywords, followed by the start and end times respectively. 
 
-Format: `event DESCRIPTION /from START /to END`
+Format: `event DESCRIPTION from START to END`
 
-Example: `event cs2113 meeting /from 2pm /to 4pm`
+Example: `event cs2113 meeting from 2pm to 4pm`
 
 Expected output: 
 ```

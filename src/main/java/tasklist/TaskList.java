@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-/**
- * Represents all the operations that handle the commands stated in the CommandHandler File
- */
+/** Represents all the operations that handle the commands stated in the CommandHandler File. */
 public class TaskList {
 
     private static ArrayList<Task> items;
@@ -27,7 +25,7 @@ public class TaskList {
     private Parser parser = new Parser();
 
     /**
-     * TaskList constructor
+     * TaskList constructor.
      */
     public TaskList() {
         items = new ArrayList<>();
@@ -36,9 +34,11 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as completed
+     * Marks a task as completed.
      *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
+     * @throws IllegalEmptyException if index is out of range or when the index is not a number.
+     * @throws IllegalTaskException if there is no index written.
      */
     public void markItem(String[] splitInputs) throws IllegalTaskException, IllegalEmptyException {
         parser.validateMark(splitInputs,items);
@@ -53,9 +53,11 @@ public class TaskList {
     }
 
     /**
-     * Remove mark from a task. Task is now uncompleted.
+     * Removes mark from a task. Task is now uncompleted.
      *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
+     * @throws IllegalTaskException if index is out of range or when the index is not a number.
+     * @throws IllegalEmptyException if there is no index written.
      */
     public void unmarkItem(String[] splitInputs) throws IllegalTaskException, IllegalEmptyException {
         parser.validateMark(splitInputs,items);
@@ -68,11 +70,12 @@ public class TaskList {
         storage.saveNewData(items);
     }
     /**
-     * The method adds a 'Todo' task into the ArrayList.
+     * Adds a 'Todo' task into the ArrayList.
      *
-     * @param input A String containing the user's input
+     * @param input A String containing the user's input.
+     * @throws IllegalEmptyException when the input only contains the command with no description,
+     * OR when the description string is empty.
      */
-
     public void addTodo(String input) throws IllegalEmptyException {
         //Execute the trimString() method to extract task from input
         String task = Parser.trimString(input);
@@ -83,12 +86,13 @@ public class TaskList {
         //Stores the new todo task into the txt file
         storage.saveNewData(items);
     }
+
     /**
-     * The method also adds a 'Deadline' task into the ArrayList.
+     * Adds a 'Deadline' task into the ArrayList.
      *
-     * @param input A String containing the user's input
-     * @throws IllegalKeywordException when the 'by' keyword is not found in the user's input
-     * @throws IllegalEmptyException when one of the description and by criteria is empty
+     * @param input A String containing the user's input.
+     * @throws IllegalKeywordException when the 'by' keyword is not found in the user's input.
+     * @throws IllegalEmptyException when one of the description and when the by criteria is empty.
      */
     public void addDeadline(String input) throws IllegalEmptyException, IllegalKeywordException {
 
@@ -102,7 +106,7 @@ public class TaskList {
         String deadlineDescription = descriptionSubstrings[0].trim();
         String by = descriptionSubstrings[1].trim();
 
-        if(deadlineDescription.isEmpty() || by.isEmpty()) {
+        if (deadlineDescription.isEmpty() || by.isEmpty()) {
             throw new IllegalEmptyException(Warnings.VALID_DEADLINE_WARNING);
         }
 
@@ -112,12 +116,13 @@ public class TaskList {
         ui.printDeadlineMessage(deadline.createTaskList(), items);
         storage.saveNewData(items);
     }
+
     /**
-     * The method also adds an 'Event' task into the ArrayList.
+     * Adds an 'Event' task into the ArrayList.
      *
-     * @param input A String containing the user's input
-     * @throws IllegalKeywordException when either the 'from' or 'to' keyword is missing from the user's input
-     * @throws IllegalEmptyException when one of the from, to and description criteria is empty
+     * @param input A String containing the user's input.
+     * @throws IllegalKeywordException when either the 'from' or 'to' keyword is missing from the user's input.
+     * @throws IllegalEmptyException when one of the "from", "to" and description criteria is empty.
      */
     public void addEvent(String input) throws IllegalEmptyException, IllegalKeywordException {
 
@@ -151,10 +156,10 @@ public class TaskList {
     }
 
     /**
-     * The method also deletes a task from the ArrayList.
+     * Deletes a task from the ArrayList.
      *
      * @param splitInputs A String[] containing the user input, split by " " delimiter.
-     * @throws IllegalIndexException when the index of item is < 0 or > tasks.size();
+     * @throws IllegalIndexException when the index of item is < 0 or > tasks.size().
      */
     public void deleteItem(String[] splitInputs) throws IllegalIndexException {
 
@@ -171,10 +176,10 @@ public class TaskList {
     }
 
     /**
-     * Returns an ArrayList containing the pre-existing tasks
-     * Calls the loadExistingData() method in storage class
+     * Returns an ArrayList containing the pre-existing tasks.
+     * Calls the loadExistingData() method in storage class.
      *
-     * @return An ArrayList containing the pre-existing tasks
+     * @return An ArrayList containing the pre-existing tasks.
      */
     public ArrayList<Task> loadTask(){
         items = storage.loadExistingData();
@@ -182,7 +187,7 @@ public class TaskList {
     }
 
     /**
-     * Prints the existing list of tasks when the 'list' command is called
+     * Prints the existing list of tasks when the 'list' command is called.
      */
     public void printList() {
         ui.printLine();
@@ -195,7 +200,7 @@ public class TaskList {
     }
 
     /**
-     * Find tasks in the list containing the specified keyword
+     * Finds tasks in the list containing the specified keyword.
      *
      * @param input A String containing the user's input
      */

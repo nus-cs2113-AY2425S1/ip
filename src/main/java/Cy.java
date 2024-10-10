@@ -12,10 +12,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * This is the main class for the Cy chatbot application!
- * The class initialises the Storage, Ui and CommandHandler.
+ * Initialises the Storage, Ui and CommandHandler.
  * It reads user inputs, parses them, saves data to and from a file.
- * File path is found under constants.Utils
+ * File path is found under constants.Utils.
  */
 public class Cy {
 
@@ -24,7 +23,7 @@ public class Cy {
     private final CommandHandler commandHandler;
 
     /**
-     * Cy constructor
+     * Cy constructor.
      */
     public Cy() {
         ui = new Ui();
@@ -33,13 +32,10 @@ public class Cy {
     }
 
     /**
-     * This method runs the application.
-     * It would first load existing data from the txt file.
-     * Next, it would scan and handle commands until the "bye" command is entered,
-     * which would exit this method.
+     * Runs the application.
      *
      * @throws FileNotFoundException when the file could not be found
-     * when printing existing file contents
+     * when printing existing file contents.
      */
     public void run() throws FileNotFoundException {
 
@@ -57,7 +53,7 @@ public class Cy {
             try {
                 commandHandler.handleCommand(input, command, splitInputs);
             } catch (IllegalEmptyException | IllegalCommandException | IllegalTaskException |
-                     IllegalKeywordException | IllegalIndexException e) {
+                         IllegalKeywordException | IllegalIndexException e) {
                 System.out.println("Error: " + e.getMessage());
             }
 

@@ -1,8 +1,6 @@
 package constants;
 
-/**
- * Class that contains all the warning messages
- */
+/** Contains all the warning messages. */
 public class Warnings {
     public static final String VALID_NUMBER_WARNING = "Please enter a valid number.";
     public static final String VALID_INDEX_WARNING = "Please enter a valid task number from 1 to ";

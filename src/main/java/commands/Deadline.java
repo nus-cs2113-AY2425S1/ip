@@ -1,18 +1,14 @@
 package commands;
 
-/**
- * Represents deadline tasks
- * Inherits description from Task class but include a "by"
- * deadline parameter
- */
+/** Represents deadline tasks. */
 public class Deadline extends Task {
     protected String by;
 
     /**
-     * Deadline constructor
+     * Deadline constructor.
      *
-     * @param description A string containing the task description
-     * @param by A string containing the task deadline
+     * @param description A string containing the task description.
+     * @param by A string containing the task deadline.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -21,8 +17,9 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline's status of completion.
-     * [D] represents deadline
-     * @return A string containing the deadline symbol with the status icon
+     * [D] represents deadline.
+     *
+     * @return A string containing the deadline symbol with the status icon.
      */
     @Override
     public String getStatusIcon() {
@@ -30,9 +27,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a formatted deadline for display in task list
-     * @return A string containing the task status icon, description,
-     * and deadline formatted for the task list.
+     * Returns a formatted deadline for display in task list.
+     *
+     * @return A string containing the task status icon, description,and deadline formatted for the task list.
      */
     @Override
     public String createTaskList() {
@@ -40,9 +37,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a formatted deadline for saving in the txt file
-     * @return A string containing the task status icon, description
-     * and deadline formatted for saving
+     * Returns a formatted deadline for saving in the txt file.
+     *
+     * @return A string containing the task status icon, description and deadline formatted for saving.
      */
     @Override
     public String createTaskTxt() {
