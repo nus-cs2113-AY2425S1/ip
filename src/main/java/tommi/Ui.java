@@ -1,38 +1,35 @@
 package tommi;
 
+import tommi.Task.Task;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
 
     public static void printIntroMessage() throws FileNotFoundException {
-        String introFirst = """
+        String introFirstSection = """
                  ______                  \s
                 /_  __/__  __ _  __ _  (_)
                  / / / _ \\/  ' \\/  ' \\/ /\s
                 /_/  \\___/_/_/_/_/_/_/_/ \s
                 ____________________________________________________________
                 Hello! I'm Tommi!
-                Here's your current task list:
+                Here's your last-saved task list:
                 """;
-        System.out.println(introFirst);
+
+        System.out.println(introFirstSection);
+
         Storage.loadTaskData();
-        String introSecond = """
+        String introSecondSection = """
                 ____________________________________________________________
                 How can I help you?
                 ____________________________________________________________
                 """;
-        System.out.println(introSecond);
-    }
-
-    public static void readInputStrings(Scanner scanner) {
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
-            Parser.processInputCases(input);
-            input = scanner.nextLine();
-        }
+        System.out.println(introSecondSection);
     }
 
     public static void printExitMessage() {
@@ -41,8 +38,43 @@ public class Ui {
         printLine();
     }
 
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
+    public static void printTaskList(ArrayList<Task> tasks) {
+        printLine();
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". "  + tasks.get(i));
+        }
+        printLine();
+    }
+
+    public static void printAddTask(Task task, ArrayList<Task> tasks) {
+        printLine();
+        System.out.println("Sure. I've added the task: " + System.lineSeparator()
+                + task + System.lineSeparator()
+                + "There are now " + tasks.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public static void printDeleteTask(ArrayList<Task> tasks, int index) {
+        printLine();
+        System.out.println("I've removed the task: " + System.lineSeparator()
+                + tasks.get(index) + System.lineSeparator());
+        System.out.println( "There are now " + tasks.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public static void printMarkTask(ArrayList<Task> tasks, int index) {
+        Ui.printLine();
+        System.out.println("Awesomesauce! I've marked this task as done:"
+                + tasks.get(index));
+        Ui.printLine();
+    }
+
+    public static void printUnmarkTask(ArrayList<Task> tasks, int index) {
+        Ui.printLine();
+        System.out.println("OK, I've marked this task as undone:"
+                + tasks.get(index));
+        Ui.printLine();
     }
 
     public static void printSearchResults(ArrayList<String> foundResults) {
@@ -58,5 +90,9 @@ public class Ui {
             index++;
         }
 
+    }
+
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
     }
 }

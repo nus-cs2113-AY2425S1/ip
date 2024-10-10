@@ -13,21 +13,12 @@ public class TaskList {
     }
 
     public static void listTasks() {
-        Ui.printLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". "  + tasks.get(i));
-        }
-        Ui.printLine();
+        Ui.printTaskList(tasks);
     }
 
     public static void addTask(Task task) {
         tasks.add(task);
-        Ui.printLine();
-        System.out.println("Sure. I've added the task: " + System.lineSeparator()
-                + task + System.lineSeparator()
-                + "There are now " + tasks.size() + " tasks in the list.");
-        Ui.printLine();
+        Ui.printAddTask(task, tasks);
     }
 
     public static void addTaskWithoutMessage(Task task) {
@@ -35,33 +26,40 @@ public class TaskList {
     }
 
     public static void deleteTask(int index) {
-        Ui.printLine();
-        System.out.println("I've removed the task: " + System.lineSeparator()
-                + tasks.get(index) + System.lineSeparator());
-        tasks.remove(index);
-        System.out.println( "There are now " + tasks.size() + " tasks in the list.");
-        Ui.printLine();
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            Ui.printDeleteTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot delete task as it is out of scope!\n" +
+                            "____________________________________________________________");
+        }
     }
 
     public static void markTask(int index) {
         if (index >= 0 && index < tasks.size()) {
-            Ui.printLine();
             Task updatedTask = tasks.get(index).updateIsDone(true);
             tasks.set(index, updatedTask);
-            System.out.println("Awesomesauce! I've marked this task as done:");
-            System.out.println(tasks.get(index));
-            Ui.printLine();
+            Ui.printMarkTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot mark task as it is out of scope!\n" +
+                            "____________________________________________________________");
         }
     }
 
     public static void unmarkTask(int index) {
         if (index >= 0 && index < tasks.size()) {
-            Ui.printLine();
             Task updatedTask = tasks.get(index).updateIsDone(false);
             tasks.set(index, updatedTask);
-            System.out.println("OK, I've marked this task as undone:");
-            System.out.println(tasks.get(index));
-            Ui.printLine();
+            Ui.printUnmarkTask(tasks, index);
+        } else {
+            throw new IllegalArgumentException(
+                    "____________________________________________________________\n" +
+                            "ERROR: Cannot unmark task as it is out of scope!\n" +
+                            "____________________________________________________________");
         }
     }
 }

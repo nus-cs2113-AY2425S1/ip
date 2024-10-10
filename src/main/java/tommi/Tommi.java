@@ -9,7 +9,7 @@ public class Tommi {
         Scanner scanner = new Scanner(System.in);
 
         Ui.printIntroMessage();
-        Ui.readInputStrings(scanner);
+        Parser.readInputStrings(scanner);
         Ui.printExitMessage();
     }
 }
