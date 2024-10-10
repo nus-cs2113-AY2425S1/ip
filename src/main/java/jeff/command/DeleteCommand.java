@@ -4,7 +4,6 @@ import jeff.helper.Storage;
 import jeff.helper.TaskList;
 import jeff.helper.Ui;
 import jeff.task.Task;
-
 import java.io.IOException;
 
 /**
@@ -16,8 +15,8 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand with the specified inputs.
      *
-     * @param firstWord The first word of the command, which should indicate deletion (e.g., "delete").
-     * @param line The full line of user input that specifies the task to be deleted.
+     * @param firstWord The first word of the command (e.g., "delete").
+     * @param line The full line of user input
      */
     public DeleteCommand(String firstWord, String line) {
         super(firstWord, line);
@@ -31,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param tasks   The TaskList from which the task will be removed.
      * @param ui      The Ui for user interaction.
      * @param storage The Storage object to handle saving the updated task list.
-     * @throws IOException If an I/O error occurs when updating the task storage.
+     * @throws IOException If an I/O error occurs when updating the file.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
@@ -43,12 +42,14 @@ public class DeleteCommand extends Command {
                     System.lineSeparator() + task);
             storage.writeFileTask(tasks);
 
+            System.out.print(System.lineSeparator() +
+                    "YAYYYY!!! Only " + tasks.getCount() + " task(s) left in ur list!");
+
         } catch(IllegalArgumentException errorMessage) {
             System.out.print("eh how to delete a non-number task...");
         } catch(IndexOutOfBoundsException errorMessage){
             System.out.print("how to delete a non-existent task...");
         }
-        System.out.print(System.lineSeparator() +
-                "YAYYYY!!! Only " + tasks.getCount() + " task(s) left in ur list!");
+
     }
 }

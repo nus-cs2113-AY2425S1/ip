@@ -6,12 +6,12 @@ import jeff.helper.Ui;
 
 /**
  * Represents a command to exit the application.
- * The <code>ExitCommand</code> sets the exit flag to true, terminating the Jeff.
+ * The <code>ExitCommand</code> sets the exit flag to true.
  */
 public class ExitCommand extends Command {
 
     /**
-     * Constructs an ExitCommand with default settings.
+     * Constructs an ExitCommand with default parameters.
      */
     public ExitCommand() {
         super();

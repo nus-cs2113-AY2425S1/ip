@@ -3,14 +3,12 @@ package jeff.command;
 import jeff.helper.Storage;
 import jeff.helper.TaskList;
 import jeff.helper.Ui;
-
 import java.io.IOException;
-
 
 /**
  *  Represents an abstract Command.
  *  A <code>Command</code> object processes user input and performs actions,
- *  potentially interacting with the the task list, ui interface, and storage.
+ *  potentially interacting with the task list, ui interface, and storage.
  */
 public abstract class Command {
     protected String firstWord;
@@ -74,7 +72,7 @@ public abstract class Command {
      *
      * @param tasks The task list to operate on.
      * @param ui The user interface to interact with the user.
-     * @param storage The storage handler to manage data persistence.
+     * @param storage The storage handler to manage data in the specified text file.
      * @throws IOException if an I/O error occurs during execution.
      */
     //Deletes the specified task, catches any error thrown

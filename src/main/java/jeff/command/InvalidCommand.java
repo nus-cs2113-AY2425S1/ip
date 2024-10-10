@@ -4,7 +4,6 @@ import jeff.helper.Storage;
 import jeff.helper.TaskList;
 import jeff.helper.Ui;
 
-
 /**
  * Represents a command that is invalid or unrecognized by the application.
  * The <code>InvalidCommand</code> is used when the user input does not match any known command.
@@ -27,6 +26,6 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){
-        System.out.print("eh can you give me one of the inputs i specified above...");
+        System.out.print("eh can you give me one of the commands i specified above...");
     }
 }

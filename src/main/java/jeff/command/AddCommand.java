@@ -10,9 +10,7 @@ import jeff.task.Deadline;
 import jeff.task.Event;
 import jeff.task.Task;
 import jeff.task.Todo;
-
 import java.io.IOException;
-
 
 /**
  * Represents a Command to add tasks to the task list.
@@ -26,6 +24,10 @@ public class AddCommand extends Command {
     private static final int SLASH_BY_LENGTH = 3;
     private static final int SLASH_FROM_LENGTH = 5;
     private static final int SLASH_TO_LENGTH = 3;
+
+    private static final String TODO_STRING = "todo";
+    private static final String DEADLINE_STRING = "deadline";
+    private static final String EVENT_STRING = "event";
 
     /**
      * Constructs an AddCommand with the specified params.
@@ -77,7 +79,6 @@ public class AddCommand extends Command {
         if(field.isEmpty()){
             return "";
         }
-        //If field is valid, remove the empty space before the field
         return field;
     }
 
@@ -180,13 +181,13 @@ public class AddCommand extends Command {
         Task task;
         try {
             switch (firstWord) {
-            case "todo":
+            case TODO_STRING:
                 task = processTodo(line);
                 break;
-            case "deadline":
+            case DEADLINE_STRING:
                 task = processDeadline(line);
                 break;
-            case "event":
+            case EVENT_STRING:
                 task = processEvent(line);
                 break;
             default:
