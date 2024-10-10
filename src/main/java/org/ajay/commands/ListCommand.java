@@ -16,6 +16,6 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
-        TaskList.printAllTasks();
+       TaskList.printAllTasksWithStreams(tasks.getTaskList());
     }
 }

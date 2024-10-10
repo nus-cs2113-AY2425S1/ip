@@ -1,6 +1,7 @@
 package org.ajay.data;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.task.Task;
 import org.ajay.ui.TextUi;
@@ -13,7 +14,7 @@ public class TaskList {
         return taskList;
     }
 
-    public void setTaskList(ArrayList<Task> taskList) {
+    public final void setTaskList(ArrayList<Task> taskList) {
         TaskList.taskList = taskList;
     }
 
@@ -125,6 +126,43 @@ public class TaskList {
         taskList.trimToSize();
         printNumberOfTasks();
     }
+
+    public static ArrayList<Task> findTaskWithStreams(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        taskList.stream().filter(task -> task.getDescription().contains(keyword)).forEach(foundTasks::add);
+
+        return foundTasks;
+    }
+
+    public static ArrayList<Task> findTaskWithStreams(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        taskList.stream().filter(task -> task.getDescription().contains(keyword)).forEach(foundTasks::add);
+
+        return foundTasks;
+    }
+
+    public static void printAllTasksWithStreams() {
+        if (taskList.isEmpty()) {
+            TextUi.printWarning("The list is empty.");
+        } else {
+            // Solution: https://stackoverflow.com/questions/34118412/numbering-in-some-list-java-streams-foreach
+            AtomicInteger counter = new AtomicInteger(1);
+            System.out.println("Here are the tasks in your list:");
+            taskList.stream().forEach(task -> TextUi.printSuccess(counter.getAndIncrement() + "." + task.toString()));
+        }
+    }
+
+    public static void printAllTasksWithStreams(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            TextUi.printWarning("The list is empty.");
+        } else {
+            AtomicInteger counter = new AtomicInteger(1);
+            System.out.println("Here are the tasks in your list:");
+            tasks.stream().forEach(task -> TextUi.printSuccess(counter.getAndIncrement() + "." + task.toString()));
+        }
+    }
+
+
 
     /**
      * Prints all the tasks in the list.
