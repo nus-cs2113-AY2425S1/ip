@@ -84,8 +84,8 @@ public class Storage {
     }
 
     /**
-     * Parses a task from a string representation of a task. The format of the
-     * string determines whether the task is a Todo, Deadline, or Event.
+     * Parses a task from a string representation of a task.
+     * The format of the string determines whether the task is a Todo, Deadline, or Event.
      *
      * @param line The string representation of a task.
      * @return A Task object parsed from the string, or null if the format is unrecognized.
@@ -105,6 +105,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line and returns an Event task object.
+     *
+     * @param line The string representation of an Event task.
+     * @param isDone A boolean to indicate whether if the task is marked.
+     * @return The Event object created from the parsed line.
+     */
     private static Event parseEventFromStorage(String line, boolean isDone) {
         String description;
         String[] parts = line.split("\\(from: | to: |\\)");
@@ -118,6 +125,13 @@ public class Storage {
         return event;
     }
 
+    /**
+     * Parses a line and returns a Deadline task object.
+     *
+     * @param line The string representation of a Deadline task.
+     * @param isDone A boolean to indicate whether if the task is marked.
+     * @return The Deadline object created from the parsed line.
+     */
     private static Deadline parseDeadlineFromStorage(String line, boolean isDone) {
         String description;
         String[] parts = line.split("\\(by: ");
@@ -130,6 +144,13 @@ public class Storage {
         return deadline;
     }
 
+    /**
+     * Parses a line and returns a Todo task object.
+     *
+     * @param line A string representation of a Todo task.
+     * @param isDone A boolean to indicate whether if the task is marked.
+     * @return The Deadline object created from the parsed line.
+     */
     private static Todo parseTodoFromStorage(String line, boolean isDone) {
         String description;
         description = line.substring(6).trim();

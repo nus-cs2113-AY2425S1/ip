@@ -37,7 +37,7 @@ public class Parser {
      * Parses the arguments from the input line based on the provided command.
      * This method will then split the input line into different argument based on
      * the command type.
-     * If the command format is invalid or arguments are missing, a {@code EvaException} is thrown
+     * If the command format is invalid or arguments are missing, a {@code EvaException} is thrown.
      *
      * @param line The input string containing the command and description.
      * @param command The specific command extracted from {@link #getCommand(String)}.
@@ -84,9 +84,9 @@ public class Parser {
     /**
      * Parses the input line for Event task and returns the description for the task.
      *
-     * @param line The input from user
-     * @return The description of Event task
-     * @throws EvaException If there are missing parts in the description of task
+     * @param line The input from user.
+     * @return The description of Event task.
+     * @throws EvaException If there are missing parts in the description of task.
      */
     private static String[] parseEventCommand(String line) throws EvaException {
         String[] eventParts = line.replaceFirst("event", "").split("/from|/to");
