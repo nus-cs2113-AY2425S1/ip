@@ -1,27 +1,36 @@
 package bron.task;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, String by, Boolean isDone) {
+    public Deadline(String description, LocalDateTime by, Boolean isDone) {
         super(description);
         this.by = by;
         this.isDone = isDone;
     }
 
+    public String getFormattedBy() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return by.format(formatter);
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + getFormattedBy() + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return super.toSaveFormat() + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
     }
 
     @Override

@@ -39,6 +39,8 @@ public class TextUI {
         System.out.println(message);
     }
 
+    public static void showByeMessage() { System.out.println("Catch you on the flip cuh"); }
+
     public void showLoadingError() {
         showError("Failed to load task data.");
     }

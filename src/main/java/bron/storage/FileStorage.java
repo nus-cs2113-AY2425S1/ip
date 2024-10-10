@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import static bron.parser.Parser.parseTask;
+
 public class FileStorage {
     private static final String FILE_PATH = "./storage/data.txt";
 
@@ -37,7 +39,7 @@ public class FileStorage {
 
         return taskList;
     }
-
+    /*
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
 
@@ -73,7 +75,7 @@ public class FileStorage {
             return null;
         }
     }
-
+    */
     public void save(TaskList taskList) {
         Path directoryPath = Paths.get("./storage");
         try {

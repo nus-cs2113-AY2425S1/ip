@@ -25,10 +25,8 @@ public class CommandProcessor {
 
         while (isReadingInput) {
             String line = textUI.readCommand();
-            String[] parts = line.split(" ");
-            String commandStr = parts[0].toLowerCase();
 
-            Command command = parseCommand(commandStr);
+            Command command = Parser.parseCommand(line);
 
             commandHandler.handleCommand(command, line);
             if (command == Command.BYE) {

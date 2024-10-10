@@ -3,7 +3,10 @@ package bron.command;
 import bron.exception.*;
 import bron.task.*;
 import bron.storage.FileStorage;
-
+import bron.ui.TextUI;
+import bron.parser.Parser;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class CommandHandler {
     private TaskList taskList;
@@ -56,7 +59,7 @@ public class CommandHandler {
     }
 
     private void printByeMessage() {
-        System.out.println("Catch you on the flip cuh");
+        TextUI.showByeMessage();
     }
 
     private int parseIndex(String line) {
@@ -125,10 +128,16 @@ public class CommandHandler {
             if (taskDescription.length() < 9) {
                 throw new InvalidDeadlineFormatException("The description of a deadline cannot be empty.");
             }
-            taskDescription = taskDescription.substring(9).trim();  // Extract the task description
+            taskDescription = taskDescription.substring(9).trim();
             String byWhen = deadlineParts[1].trim();
+            LocalDateTime byDateTime;
+            try {
+                byDateTime = Parser.parseDeadline(byWhen);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDeadlineFormatException("Invalid date format! Please use yyyy-MM-dd HHmm.");
+            }
 
-            Deadline deadline = new Deadline(taskDescription, byWhen);
+            Deadline deadline = new Deadline(taskDescription, byDateTime);
             taskList.addTask(deadline);
 
             System.out.println("Got it. I've added this task:");
