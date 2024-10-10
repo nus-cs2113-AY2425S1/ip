@@ -19,6 +19,7 @@ Freedom is a desktop app for managing tasks, optimized for use via a Command Lin
   - [Exit: `bye`](#exit-bye)
   - [Saving the data](#saving-the-data)
   - [Editing the data](#editing-the-data)
+- [Command Summary](#command-summary)
 ---
 
 ## Quick Start
