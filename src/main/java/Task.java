@@ -32,8 +32,7 @@ public class Task {
   }
 
   public String getStatusIcon() {
-    // completion status of the task.
-    return (isDone ? "X" : " ");
+    return isDone ? "[D]" : "[T]"; //  Return "[D]" for done and "[T]" for not done
   }
 
   public void markAsDone() {
@@ -80,11 +79,7 @@ public class Task {
 
   @Override
   public String toString() {
-    /**
-     * Returns a string representation of the task, including its
-     * status icon, description, and deadline if available.
-     */
     String deadlineStr = (deadline != null) ? " (by: " + formatDeadline() + ")" : "";
-    return "[" + getStatusIcon() + "] " + description + deadlineStr;
+    return getStatusIcon() + " " + description + deadlineStr;
   }
 }
