@@ -1,11 +1,15 @@
 package tasks;
 
+import poppy.DateParser;
+
+import java.time.LocalDateTime;
+
 /**
  * The {@code Deadline} class represents a deadline task that must be completed by a specified time.
  * It extends the {@code Task} class and specifies the task type.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a new {@code Deadline} task with the specified description and due date.
@@ -13,7 +17,7 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The time by which the task should be completed.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -31,7 +35,7 @@ public class Deadline extends Task {
      *
      * @return The deadline time as a string.
      */
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
@@ -40,6 +44,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.taskType() + "[" + super.getStatusIcon() + "] " + description + " by: " + by;
+        String dateTime = DateParser.formatDateTime(by);
+        return this.taskType() + "[" + super.getStatusIcon() + "] " + description + " by: " + dateTime;
     }
 }
