@@ -86,11 +86,9 @@ ogei marked task dOnE
 ### 6. Unmarking a task: `unmark`
 **Purpose**: Unmark a task which is uncomplete by specifying its task number.
 
-**Format**:
-- `unmark [task index]`
+**Format**: `unmark [task index]`
 
-**Example**:
-- `unmark 1`
+**Example**: `unmark 1`
 
 **Expected Output**:
 ```
