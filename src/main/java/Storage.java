@@ -57,13 +57,11 @@ public class Storage {
   }
 
   public void save(TaskList tasks) throws IOException {
-    /**
-     * Saves current list of tasks to specified file.
-     */
     FileWriter writer = new FileWriter(filePath);
     for (Task task : tasks.getTasks()) {
-      writer.write("T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + "\n");
+      writer.write((task.isDone() ? "[D]" : "[T]") + " | " + task.getDescription() + "\n");
     }
-    writer.close(); //closing the writer to release resources to the system
+    writer.close();
   }
+
 }
