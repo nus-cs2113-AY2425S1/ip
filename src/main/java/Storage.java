@@ -1,9 +1,18 @@
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the storage of tasks for the KBot application.
+ * This class provides functionality to save tasks to a specified file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/KBot.txt";
 
+    /**
+     * Saves the provided list of tasks to a file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
@@ -20,6 +29,4 @@ public class Storage {
             System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
         }
     }
-
-    // You can also add a load method if needed in the future
 }
