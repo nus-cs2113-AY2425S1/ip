@@ -83,6 +83,14 @@ Format: `find KEYWORD`
 
 Example: `find BOOKS`
 
+### `Bye` 
+
+Function: Exit the chatbot 
+
+Format: `bye` 
+
+Example: `bye`
+
 ## Acknowledgement
 
-This code is created in the CS2113 NUS course, with the assistance of ChatGPT in fixing code bugs and templates from the coure's Coursemology exercises. 
+This code is created in the CS2113 NUS course, with the assistance of ChatGPT in fixing code bugs and the templates from the coure's Coursemology exercises. 
