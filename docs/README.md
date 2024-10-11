@@ -95,8 +95,9 @@ Deletes a task (todo, deadline or event) from the list.
 Format: <code>delete PARAMETER</code>
 
 Where `PARAMETER` can be either
-1. An interger `index` that represents the 1-index position of the entry in the list.
-2. Keyword `all` that will delete <b>all</b> entries in the list.
+1. An interger `index` that represents the 1-index position of the entry in the list or ```-1``` which deletes <b>all</b>
+entries in the ```TaskList```.
+2. Keyword `all` that will also delete <b>all</b> entries in the list.
 
 Example: `delete 1`, `delete all`
 
