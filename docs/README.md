@@ -28,7 +28,7 @@
 ---
 ## Quick Start
 
-Ensure you have Java 17 or above installed on your computer. You may download Java 17 for your respective system [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+Ensure you have `Java 17` or above installed on your computer. You may download `Java 17` for your respective system [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 
 1. Download the latest Jarvis JAR file from the releases page [here](https://github.com/AjayShanker-geek/ip/releases).
 
@@ -48,24 +48,35 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
 
    `java -jar jarvis.jar`
 
-7. After a few seconds, the application will launch in your terminal. You should see the user interface output for Jarvis as shown below:
+7. After a few seconds, the application will launch in your terminal. You should see the user interface output for Jarvis as shown below: Some example commands you can try:
 
 ![Jarvis User-Interface](/ip/assets/ui.png)
 
-8. Type the command in the terminal and press Enter to execute it. Some example commands you can try:
+1. Type the command in the terminal and press Enter to execute it. e.g. typing **`help`** and pressing Enter will print the list of commands available:
     - *list* : Lists all tasks.
     - *todo* Read book : Adds a task named "Read book" to your task list.
-    - *deadline* Submit report /by Aug 20 23:59 : Adds a deadline task for "Submit report".
-    - *event* Team meeting /from Sept 1 14:00 /to 16:00 : Adds an event named "Team meeting" with start and end times.
+    - *deadline* Submit report /by Aug 20 11pm : Adds a deadline task for "Submit report".
+    - *event* Team meeting /from Sept 1 2pm /to 4pm : Adds an event named "Team meeting" with start and end times.
     - *delete* 2 : Deletes the 2rd task shown in the current list.
     - *bye* or *exit* : Exits the application.
 
-9.  Refer to the Features section below for more details about each command.
+2.  Refer to the Features section below for more details about each command.
 
 ---
 
 ## Features
+<div markdown="block" class="alert alert-info">
 
+**ℹ️: Notes about the command format:**<br>
+
+* Parameters cannot be in any order for `event`.<br>
+  e.g. For event, the `/from` is require **comes before** `/to`. Improper ordering will result in an error. Will improve in future versions.
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</div>
 
 ### Adding a Todo Task: `todo`
 
@@ -102,7 +113,7 @@ Adds a task with both a start and end time. Ideal for scheduling events like mee
 
 **Examples**:
 - `event Team lunch /from Dec 13 2pm 4pm` Adds "Team lunch" from 2PM on 13th December 2024 to 4PM on same day.
-- `event dinner with friends /from 18:00 /to 21:00` Adds "dinner with friends" from 6PM to 9PM.
+- `event dinner with friends /from 6pm /to 9pm` Adds "dinner with friends" from 6PM to 9PM.
 
 
 

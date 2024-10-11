@@ -1,6 +1,6 @@
-# J.A.R.V.I.S project template
+# J.A.R.V.I.S project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Jarvis_. Given below are instructions on how to use it.
+This is a project for a greenfield Java project. It's named after the Java mascot _Jarvis_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
