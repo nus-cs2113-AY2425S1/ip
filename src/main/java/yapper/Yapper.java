@@ -1,6 +1,5 @@
 package yapper;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import yapper.exceptions.YapperException;
@@ -56,7 +55,6 @@ public class Yapper {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(StringStorage.LINE_DIVIDER_INPUT);
-            validateSaveFolderAndFile(taskHandler);
             String userInputString = scanner.nextLine().trim();
 
             System.out.println(StringStorage.LINE_DIVIDER_OUTPUT);
@@ -69,6 +67,7 @@ public class Yapper {
             }
 
             try {
+                validateSaveFolderAndFile(taskHandler);
                 Instruction instruction = InputStringHandler.parseUserInput(userInputString);
                 InstructionHandler.handleInstruction(taskHandler, instruction);
             } catch (YapperException e) {
