@@ -19,7 +19,7 @@ Start with the word "todo" and then describe the task.
 Start with the word "deadline" and then describe the task,
 followed by the word "by" and the time of the deadline.
 #### Add a Event task
-Start with the word "deadline" and then describe the task,
+Start with the word "event" and then describe the task,
 followed by the word "from" and the start time of the event
 and end with the word "to" and the end time of the event.
 
