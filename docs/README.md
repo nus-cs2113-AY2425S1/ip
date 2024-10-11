@@ -50,7 +50,7 @@ Now you have 2 tasks in the list.
 ### 3. Event
 
 Allows users to add events to their lists.
-Events tasks that start at a specific date/time and ends at a specific date/time.
+Events are tasks that start at a specific date/time and ends at a specific date/time.
 
 Format: ```event [TASK_NAME] /from [START_TIME] /to [END_TIME]```
 
