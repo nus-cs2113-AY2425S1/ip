@@ -99,7 +99,7 @@ Where `PARAMETER` can be either
 entries in the ```TaskList```.
 2. Keyword `all` that will also delete <b>all</b> entries in the list.
 
-Example: `delete 1`, `delete all`
+Example: `delete 1`, `delete all`/`delete -1`
 
 Erika will then confirm with the following sample message in the case of deletion of a <i>single</i> entry
 
