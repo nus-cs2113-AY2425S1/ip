@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Fenix implements SampleStrings {
@@ -48,7 +49,7 @@ public class Fenix implements SampleStrings {
 
     // Method to handle 'list' command
     public void handleList() {
-        ui.showAllTasks(false);
+        ui.showAllTasks(getTaskArrayList());
     }
 
     // Method to handle 'mark' command
@@ -86,6 +87,10 @@ public class Fenix implements SampleStrings {
         ui.showFenixModification(DELETE, task);
     }
 
+    public void handleFind(String commandInfo) {
+        ArrayList<Task> foundArrayList = taskHandler.findTasks(commandInfo);
+        ui.showAllTasks(foundArrayList);
+    }
     // Fallback for invalid commands
     public void handleInvalidCommand() {
         ui.requestForValidCommand();

@@ -31,6 +31,9 @@ public class Parser {
         case "delete":
             fenix.handleDelete(commandInfo);
             break;
+        case "find":
+            fenix.handleFind(commandInfo);
+            break;
         default:
             fenix.handleInvalidCommand();
         }

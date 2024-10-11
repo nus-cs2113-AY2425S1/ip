@@ -20,11 +20,10 @@ public class UserInterface implements SampleStrings {
         return scanner.nextLine();
     }
 
-    public void showAllTasks(boolean isModified) {
-        String extraSpace = (isModified ? "\t" : "");
-        String space = extraSpace + "\t";
-        for (Task task : fenix.getTaskArrayList()) {
-            String index = (fenix.indexOfTask(task) + 1) + ". ";
+    public void showAllTasks(List<Task> taskArrayList) {
+        String space = "\t";
+        for (Task task : taskArrayList) {
+            String index = (taskArrayList.indexOf(task) + 1) + ". ";
             System.out.println(space + index + task);
         }
     }
