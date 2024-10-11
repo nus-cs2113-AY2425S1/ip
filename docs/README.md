@@ -22,6 +22,8 @@ Get started with Bitwise and take control of your task management today!
 
 ## Table of Contents
 - [Overview](#bitwise-user-guide)
+- [Getting Started](#getting-started)
+- [Quick Reference](#quick-reference)
 - [Types of Tasks](#types-of-tasks)
     - [Deadlines](#deadlines)
     - [Todos](#todos)
@@ -33,10 +35,30 @@ Get started with Bitwise and take control of your task management today!
     - [Tracking Task Status](#tracking-task-status)
     - [Finding Tasks](#finding-tasks)
     - [Viewing Task List](#viewing-task-list)
+    - [Loading Task List](#loading-task-list)
     - [Saving Task List](#saving-task-list)
     - [Exiting the Application](#exiting-the-application)
 
 ---
+
+## Getting Started
+- Check if you have Java SDK 17 or above installed using `java -version` on your terminal
+- Download the [Bitwise.jar](https://github.com/cnivedit/ip/releases/tag/A-Release) file
+- Navigate to the directory and run `java -jar Bitwise.jar` on the terminal
+
+## Quick Reference
+
+| Command              | Description                                          | Parameters                                  | Example                                        |
+|---------------------|------------------------------------------------------|---------------------------------------------|------------------------------------------------|
+| `deadline`          | Adds a deadline task                                 | `<task description> /by <deadline>`        | `deadline complete assignment /by 4pm`        |
+| `event`             | Adds an event                                       | `<event description> /from <begin time> /to <end time>` | `event watch movie /from 4pm /to 6pm`       |
+| `todo`              | Adds a todo item                                    | `<task description>`                        | `todo borrow books`                           |
+| `mark`              | Marks a task as completed                            | `<task number>`                            | `mark 1`                                      |
+| `unmark`            | Marks a task as not completed                        | `<task number>`                            | `unmark 1`                                    |
+| `find`              | Finds tasks with matching keywords                  | `<keyword>`                                | `find assignment`                             |
+| `list`              | Displays the list of tasks                          | N/A                                         | `list`                                        |
+| `bye`               | Exits the application                                | N/A                                         | `bye`                                         |
+
 
 ## Types of tasks
 ### Deadlines: 
@@ -166,6 +188,11 @@ Activities or events of a fixed duration or timespan
         Now you have 2 tasks in the list.
 --------------------------------------------------
 ```
+### Loading task list
+
+Bitwise automatically loads task list from the previously saved text file if present. If the file does
+not exist or is found to be corrupted, a new file is created and the corrupted file is discarded.
+
 ### Saving task list
 
 Bitwise automatically saves the task list to the path `./data/tasks.txt` each time a change is made
