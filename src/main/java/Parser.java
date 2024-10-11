@@ -1,32 +1,25 @@
-/**
- * Parses user input commands and extracts relevant information for processing.
- */
 public class Parser {
 
-  /**
-   * Splits the full command into an array of strings, handling
-   * special cases for commands with additional parameters.
-   */
   public static String[] parse(String fullCommand) {
-    // Split the command into words
-    String[] parts = fullCommand.split(" ");
+    String[] parts = fullCommand.split(" ", 2);  // Split the command into two parts: the command and the rest of the input
 
-    // Handling the case where the command has a specific format (like deadline)
+    // If the command is "add", handle the rest of the input as the task description
+    if (parts[0].equals("add") && parts.length > 1) {
+      return new String[]{"add", parts[1]};
+    }
+
     if (parts[0].equals("deadline") && parts.length > 2) {
-      // Finding the positioning of "/by"
       int byIndex = -1;
-      for (int i = 0; i < parts.length; i++) {
-        if (parts[i].equals("/by")) {
+      String[] tempParts = fullCommand.split(" ");
+      for (int i = 0; i < tempParts.length; i++) {
+        if (tempParts[i].equals("/by")) {
           byIndex = i;
           break;
         }
       }
-
-      // If "/by" is found, combining the description and date parts correctly
-      if (byIndex != -1 && byIndex < parts.length - 1) {
-        String description = String.join(" ", java.util.Arrays.copyOfRange(parts, 1, byIndex));
-        String dateTime =
-            parts[byIndex + 1] + " " + parts[byIndex + 2]; // Adding the time part as well
+      if (byIndex != -1 && byIndex < tempParts.length - 1) {
+        String description = String.join(" ", java.util.Arrays.copyOfRange(tempParts, 1, byIndex));
+        String dateTime = tempParts[byIndex + 1] + " " + tempParts[byIndex + 2];
         return new String[]{"deadline", description, "/by", dateTime};
       }
     }
