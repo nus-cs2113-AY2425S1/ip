@@ -1,6 +1,6 @@
 # PlopBot User Guide
 
-![PlopBot Screenshot](docs/Screenshot.png)
+![PlopBot Screenshot](Screenshot.png)
 
 PlopBot is a user-friendly task management application that helps you keep track of your to-dos, deadlines, and events. With its simple command-line interface, you can easily add, view, and manage your tasks.
 
