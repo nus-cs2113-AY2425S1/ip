@@ -23,9 +23,9 @@ Get started with Bitwise and take control of your task management today!
 ## Table of Contents
 - [Overview](#bitwise-user-guide)
 - [Types of Tasks](#types-of-tasks)
-    - [Deadlines](#deadlines-)
-    - [Todos](#todos-)
-    - [Events](#events-)
+    - [Deadlines](#deadlines)
+    - [Todos](#todos)
+    - [Events](#events)
 - [Commands](#commands)
     - [Adding Deadlines](#adding-deadlines)
     - [Adding Events](#adding-events)
@@ -40,15 +40,15 @@ Get started with Bitwise and take control of your task management today!
 
 ## Types of tasks
 ### Deadlines: 
-Indicated by `[D]`</br>
+Indicated by `[D]` </br>
 Any time-sensitive task with an established due date
 [Go to adding deadlines](#adding-deadlines)
 ### Todos: 
-Indicated by `[T]`</br>
+Indicated by `[T]` </br>
 Simple todo with task description
 [Go to adding todos](#adding-todos)
 ### Events: 
-Indicated by `[E]`</br>
+Indicated by `[E]` </br>
 Activities or events of a fixed duration or timespan
 [Go to adding events](#adding-events)
 
@@ -57,7 +57,7 @@ Activities or events of a fixed duration or timespan
 ## Commands
 ### Adding deadlines
 
-**[deadline](#deadlines-)**: Use this command to add an item with a deadline to the list of tasks
+**[deadline](#deadlines)**: Use this command to add an item with a deadline to the list of tasks
 
 #### Command format: `deadline <task description> /by <deadline>`
 
@@ -72,7 +72,7 @@ Activities or events of a fixed duration or timespan
 
 ### Adding events
 
-**[event](#events-)**: Use this command to add an event to the list of tasks
+**[event](#events)**: Use this command to add an event to the list of tasks
 
 #### Command format: `event <event description> /from <begin time> /to <end time>`
 
@@ -87,7 +87,7 @@ Activities or events of a fixed duration or timespan
 
 ### Adding todos
 
-**[todo](#todos-)**: Use this command to add a todo item to the list of tasks
+**[todo](#todos)**: Use this command to add a todo item to the list of tasks
 
 #### Command format: `todo <task description>`
 
