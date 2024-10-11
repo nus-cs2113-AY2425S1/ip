@@ -40,8 +40,8 @@ public class Parser {
             taskList.add(deadline);
             break;
         case "E":
-            String[] eventParts = description.split("\\| ", 2);
-            Events event = new Events(eventParts[0].trim(), eventParts[1].trim());
+            String[] eventParts = description.split("\\| ", 3);
+            Events event = new Events(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
             taskList.add(event);
             break;
         default:
@@ -92,8 +92,8 @@ public class Parser {
             if (commandArgs.length < 2) {
                 throw new CustomExceptions.MissingArgsException("Description of Deadline cannot be empty");
             }
-            String[] deadlinestring = commandArgs[1].split("/by", 2);
-            Deadline deadline = new Deadline(deadlinestring[0].trim(), deadlinestring[1].trim());
+            String[] deadlineString = commandArgs[1].split("/by", 2);
+            Deadline deadline = new Deadline(deadlineString[0].trim(), deadlineString[1].trim());
             taskList.addTask(deadline);
             System.out.println(deadline.toString());
             System.out.println("You now have " + taskList.getSize() + " tasks");
@@ -102,8 +102,9 @@ public class Parser {
             if (commandArgs.length < 2) {
                 throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
             }
-            String[] eventstring = commandArgs[1].split("/from", 2);
-            Events event = new Events(eventstring[0].trim(), eventstring[1].trim());
+            String[] eventString = commandArgs[1].split("/from", 2);
+            String[] intervalString = eventString[1].split("/to", 2);
+            Events event = new Events(eventString[0].trim(), intervalString[0].trim(), intervalString[1].trim());
             taskList.addTask(event);
             System.out.println(event.toString());
             System.out.println("You now have " + taskList.getSize() + " tasks");

@@ -66,6 +66,7 @@ public class Storage {
                     line += "| " + deadline.getBy();
                 } else if (task instanceof Events event) {
                     line += "| " + event.getFrom();
+                    line += "| " + event.getTo();
                 }
                 fw.write(line + System.lineSeparator());
             }

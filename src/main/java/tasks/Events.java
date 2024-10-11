@@ -6,6 +6,7 @@ package tasks;
  */
 public class Events extends Task {
     protected String from;
+    protected String to;
 
     /**
      * Constructs a new {@code Events} task with the specified description and time.
@@ -13,9 +14,10 @@ public class Events extends Task {
      * @param description The description of the event task.
      * @param from The time at which the event occurs.
      */
-    public Events(String description, String from) {
+    public Events(String description, String from, String to) {
         super(description);
         this.from = from;
+        this.to = to;
     }
 
     /**
@@ -36,11 +38,20 @@ public class Events extends Task {
     }
 
     /**
+     * Returns the time of the event.
+     *
+     * @return The time at which the event ends.
+     */
+    public String getTo() {
+        return to;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return (this.taskType() + "[" + super.getStatusIcon() + "] " + description + " from: " + from);
+        return (this.taskType() + "[" + super.getStatusIcon() + "] " + description + " from: " + from + " to: " + to);
     }
 }
 
