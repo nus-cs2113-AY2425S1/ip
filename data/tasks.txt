@@ -1,3 +1,0 @@
-[T] [X] abc
-[T] [ ] abc
-[E] [ ] h123 (from: 4pm  to: 6pm)
