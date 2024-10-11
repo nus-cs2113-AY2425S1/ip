@@ -93,20 +93,20 @@ public class Ruhi {
         tasks.addTask(new Task(parsedCommand[1]));
         System.out.println(" Added: " + parsedCommand[1]);
         break;
+
       case "deadline":
         try {
-          String description = parsedCommand[1];
-          String dateTimeStr = parsedCommand[3];
-          LocalDateTime deadline = parseDateTime(dateTimeStr);
+          String description = parsedCommand[1]; // Task description
+          String dateTimeStr = parsedCommand[3]; // This will now contain the correct date-time string
+          LocalDateTime deadline = parseDateTime(dateTimeStr); // Ensure you have a method to parse date
           tasks.addTask(new Task(description, deadline));
           System.out.println(" Added: " + description + " (by: " + deadline + ")");
         } catch (ArrayIndexOutOfBoundsException e) {
           System.out.println(" Please provide a description and a date.");
-
         } catch (DateTimeParseException e) {
           System.out.println(" Please provide a valid date format (yyyy-mm-dd HH:mm).");
         }
-        break; 
+        break;
       case "find":
         String keyword = parsedCommand[1]; // Get the search keyword
         List<Task> foundTasks = tasks.findTasks(keyword); // Find tasks containing the keyword
