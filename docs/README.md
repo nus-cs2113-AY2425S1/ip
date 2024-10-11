@@ -216,3 +216,38 @@ Sample output:
 Your search resulted in 0 matches. :(
 ```
 
+## Filtering tasks by date: `filter`
+
+Filters tasks by date in the task list.
+
+Format: `filter <date>`
+
+- Date **must be** in the following format: `DD/MM/YYYY`
+- `DD` and `MM` **must be** a 2 digit value.
+- `YYYY` **must be** a 4 digit value.
+- `YYYY` **must be** from 2024 onwards.
+- For **single digit** date parameter(s) (i.e. 0 to 9),
+  append a 0 at the front.
+
+Example: `filter 11/12/2024`
+
+Sample list:
+
+``` 
+Here is your list:
+
+1.[T][ ] read book
+2.[D][ ] return book (by: 11 Dec 2024, 03:30pm)
+3.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
+```
+
+Sample output:
+
+``` 
+Your search resulted in 2 matches.
+
+Here are the tasks occurring on 11 Dec 2024:
+1.[D][ ] return book (by: 11 Dec 2024, 03:30pm)
+2.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
+```
+
