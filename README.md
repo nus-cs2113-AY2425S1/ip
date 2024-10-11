@@ -19,7 +19,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    ```
 ## Basic commands for the chatbot
 
-### [List] 
+### `List` 
 
 Function: List all the tasks in the storage file
 
