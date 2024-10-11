@@ -1,6 +1,6 @@
 public abstract class Task {
-    protected boolean isDone;
-    protected String taskName;
+    protected boolean isDone = false;
+    protected String taskName = "";
     protected String formattedTaskInfo = "";
 
     public Task() {
@@ -14,6 +14,18 @@ public abstract class Task {
     public Task(boolean isDone, String formattedTaskInfo) {
         this.isDone = isDone;
         this.formattedTaskInfo = formattedTaskInfo;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public String getFormattedTaskInfo () {
+        return formattedTaskInfo;
+    }
+
+    public boolean getIsDone () {
+        return isDone;
     }
 
     public void markAsDone() {

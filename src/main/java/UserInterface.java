@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface implements SampleStrings {
@@ -20,11 +21,10 @@ public class UserInterface implements SampleStrings {
         return scanner.nextLine();
     }
 
-    public void showAllTasks(boolean isModified) {
-        String extraSpace = (isModified ? "\t" : "");
-        String space = extraSpace + "\t";
-        for (Task task : fenix.getTaskArrayList()) {
-            String index = (fenix.indexOfTask(task) + 1) + ". ";
+    public void showAllTasks(List<Task> taskArrayList) {
+        String space = "\t";
+        for (Task task : taskArrayList) {
+            String index = (taskArrayList.indexOf(task) + 1) + ". ";
             System.out.println(space + index + task);
         }
     }
@@ -33,33 +33,48 @@ public class UserInterface implements SampleStrings {
         if (task == null) {
             return;
         }
-        System.out.println(modification[0]);
-        printFenixModification(modification[1], task);
+        String modificationMessage = modification[0];
+        String modificationType = modification[1];
+        System.out.println(modificationMessage);
+        printFenixModification(modificationType, task);
     }
 
-    private void printFenixModification(String modification, Task task) {
+    private void printFenixModification(String modificationType, Task task) {
         int taskIndex = fenix.indexOfTask(task) + 1;
+        // taskIndex == 0 when task has been deleted
         String taskNumber = (taskIndex == 0 ? "" : taskIndex + ". ");
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("\t\t" + modification + taskNumber + task);
+        System.out.println("\t\t" + modificationType + taskNumber + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
-        System.out.println("You now have " + fenix.getSize() + " tasks awaiting your attention.");
+        int numberOfUnfinishedTasks = fenix.getNumberOfUnfinishedTasks();
+        System.out.println("You now have " + fenix.getNumberOfUnfinishedTasks() + " tasks awaiting your attention.");
+        if (numberOfUnfinishedTasks == 0) {
+            printAllTasksDone();
+        }
+    }
+
+    private void printAllTasksDone() {
+        System.out.println(ALL_TASKS_COMPLETED);
+    }
+
+    public void printMatchedTasks() {
+        System.out.println(MATCHED_TASKS);
     }
 
     public void requestForCommand() {
-        System.out.println("Please provide a command");
+        System.out.println(COMMAND_REQUEST);
     }
 
     public void requestForValidCommand() {
-        System.out.println("Please provide a valid command");
+        System.out.println(VALID_COMMAND_REQUEST);
     }
 
     public void requestForTask() {
-        System.out.println("Please provide a task");
+        System.out.println(TASK_REQUEST);
     }
 
     public void requestForValidTask() {
-        System.out.println("Please provide a valid task number");
+        System.out.println(VALID_TASK_REQUEST);
     }
 
     public void bidFarewell() {
