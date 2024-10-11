@@ -1,0 +1,14 @@
+list
+todo somestuff 2
+list
+deadline itsimportant rly /by sunday 2pm
+list
+event somewhat important 2 /from 2938 monday /to 123 sunday 19
+list
+mark 1
+mark 3
+list
+unmark 3
+list
+unmark 1
+list
