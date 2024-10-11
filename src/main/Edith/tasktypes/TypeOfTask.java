@@ -1,8 +1,12 @@
 package tasktypes;
 
 /**
+ * This documents the different types of tasks that can exist
  *
+ * @see Deadline
+ * @see ToDo
+ * @see Event
  */
 public enum TypeOfTask {
-    Deadlines, ToDos, Events
+    Deadline, ToDo, Event
 }

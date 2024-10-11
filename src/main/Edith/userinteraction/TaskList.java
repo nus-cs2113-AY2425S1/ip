@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static userinteraction.PrintShape.printHorizontalLine;
 
 /**
- *
+ * It represents the list of tasks. It contains methods relating to operations on the actual list of tasks.
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -24,8 +24,12 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @param storage
+     * Uses the user input to create a Task object which is added
+     * to the existing list of objects and subsequently written to file.
+     * It also deals with all exceptions thrown.
+     *
+     * @param enteredString The user input
+     * @param storage The storage object which is used to write to the file
      */
     public void addTaskToList(String enteredString, Storage storage) {
         try {
@@ -47,8 +51,12 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @param storage
+     * Modifies the completion status of the task, both in the list of tasks
+     * and in the file, by calling the appropriate methods
+     * It also deals with the exceptions thrown.
+     *
+     * @param enteredString The user input
+     * @param storage The storage object which is used to write to the file
      */
     public void changeTaskStatus(String enteredString, Storage storage) {
 
@@ -71,7 +79,9 @@ public class TaskList {
     }
 
     /**
-     * @param task
+     * Updates the completion status of the task to not completed.
+     *
+     * @param task The Task whose isDone status is to modified
      */
     public static void unmarkTask(Task task) {
         task.setIsDone(false);
@@ -80,7 +90,9 @@ public class TaskList {
     }
 
     /**
-     * @param task
+     * Updates the completion status of the task to completed.
+     *
+     * @param task The Task whose isDone status is to modified
      */
     public static void markTask(Task task) {
         task.setIsDone(true);
@@ -89,11 +101,15 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @return
-     * @throws TaskTypeException
-     * @throws StringIndexOutOfBoundsException
-     * @throws Exception
+     * Returns the Task which was created bu itself.
+     * Determines which type of task is to be created and
+     * invokes the respective appropriate function.
+     *
+     * @param enteredString  The user input
+     * @return Task object which was created using the user input
+     * @throws TaskTypeException If the first word of the userinput is not a type of task
+     * @throws StringIndexOutOfBoundsException If any of the methods it invokes throws to it
+     * @throws Exception If any unforeseen error is encountered
      */
     public static Task addNewTask(String enteredString) throws
             TaskTypeException, StringIndexOutOfBoundsException, Exception {
@@ -112,9 +128,11 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @return
-     * @throws StringIndexOutOfBoundsException
+     * Returns the Event object that it creates by using the user input.
+     *
+     * @param enteredString The user input
+     * @return Deadline object which was created
+     * @throws StringIndexOutOfBoundsException If the input format does not match the required type
      */
     public static Deadline createDeadlineTask(String enteredString)
             throws StringIndexOutOfBoundsException {
@@ -128,9 +146,11 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @return
-     * @throws StringIndexOutOfBoundsException
+     * Returns the Event object that it creates by using the user input.
+     *
+     * @param enteredString The user input
+     * @return Event object which was created
+     * @throws StringIndexOutOfBoundsException If the input format does not match the required type
      */
     public static Event createEventTask(String enteredString)
             throws StringIndexOutOfBoundsException {
@@ -148,12 +168,12 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @return
-     * @throws StringIndexOutOfBoundsException
+     * Returns the Event object that it creates by using the user input.
+     *
+     * @param enteredString The user input
+     * @return ToDoo object which was created
      */
-    public static ToDo createTodoTask(String enteredString)
-            throws StringIndexOutOfBoundsException {
+    public static ToDo createTodoTask(String enteredString) {
         int lengthOfTodo = "todo".length();
 
         String taskDescription = enteredString.substring(lengthOfTodo);
@@ -162,8 +182,13 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @param storage
+     * Deletes a task from the list of tasks and the file by interpreting the user input
+     * It also deals with approriate errors if either no task number is specified
+     * by the user of if a task number, which does not have a corresponding
+     * task in the list of tasks is given.
+     *
+     * @param enteredString The user input
+     * @param storage The storage object which is used to update to the file
      */
     public void deleteTask(String enteredString, Storage storage) {
         try {
@@ -190,7 +215,8 @@ public class TaskList {
     }
 
     /**
-     *
+     * Displays the current list of tasks of the instance variable
+     * that is used to call the function.
      */
     public void listTasks() {
         if (tasks.isEmpty()) {
@@ -212,7 +238,10 @@ public class TaskList {
     }
 
     /**
-     * @param tasks
+     * Displays the list of tasks
+     * of the provided list of tasks.
+     *
+     * @param tasks List of tasks
      */
     public void listTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
@@ -247,10 +276,12 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
-     * @return
-     * @throws NumberFormatException
-     * @throws InvalidTaskNumberException
+     * Returns the task number found in the user input
+     *
+     * @param enteredString The user input
+     * @return the task number
+     * @throws NumberFormatException If no number if found in the user input
+     * @throws InvalidTaskNumberException If task number does not have a corresponding task in the list of tasks.
      */
     public int getTaskNumber(String enteredString)
             throws NumberFormatException, InvalidTaskNumberException {
@@ -272,7 +303,10 @@ public class TaskList {
     }
 
     /**
-     * @param enteredString
+     * Displays all tasks whose description contains the keyword(s)
+     * specified by the user.
+     *
+     * @param enteredString The user input
      */
     public void findTask(String enteredString) {
         int indexOfFind = enteredString.indexOf("find");

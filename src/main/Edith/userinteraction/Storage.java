@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Deals with all operations relating to reading and writing to/from the file.
  */
 public class Storage {
     private final String filePath;
@@ -23,8 +23,13 @@ public class Storage {
     }
 
     /**
-     * @return
-     * @throws IOException
+     * Returns the list of tasks that was read from the file. It converts tasks one by one
+     * from the storable format to the required form to be used by the program.
+     * It collects all these tasks, which is eventually returned.
+     *
+     *
+     * @return The list of tasks that was read from the file
+     * @throws IOException If reading from the file is not possible (e.g. when file does not exist)
      */
     public ArrayList<Task> initializeArrayList() throws IOException, TaskTypeException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -43,8 +48,11 @@ public class Storage {
     }
 
     /**
-     * @param storableString
-     * @return
+     * Returns a Task, which is created by interpreting the storable format
+     * of the task and using those details to create an object of the class Task
+     *
+     * @param storableString The user input
+     * @return The Task which is created
      */
     public static Task stringToTask(String storableString) throws TaskTypeException {
 
@@ -67,7 +75,11 @@ public class Storage {
     }
 
     /**
-     * @param tasks
+     * Used to completely rewrite the list of tasks in the file.
+     * It does so by first erasing the existing task from the file
+     * and then adding each task present in the list of tasks in the
+     * program to the file (by first converting each task to a storable format).
+     * @param tasks The current list of tasks
      */
     public void rewriteArrayList(ArrayList<Task> tasks) {
         try {
@@ -82,7 +94,10 @@ public class Storage {
     }
 
     /**
-     * @param task
+     * Adds a Task to the file by first converting it to
+     * a storable format and then appending to the file.
+     *
+     * @param task The current list of tasks
      */
     public void addTaskToFile(Task task) {
         try {
@@ -93,9 +108,11 @@ public class Storage {
     }
 
     /**
-     * @param filePath
-     * @param textToAdd
-     * @throws IOException
+     * Writes the received string to the file.
+     *
+     * @param filePath The relative path of the file
+     * @param textToAdd The data to be written to the file
+     * @throws IOException If the fileWriter object is not able to write to the file(e.g. when file is not present)
      */
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -104,9 +121,11 @@ public class Storage {
     }
 
     /**
-     * @param filePath
-     * @param textToAppend
-     * @throws IOException
+     * Appends the received string to the file.
+     *
+     * @param filePath The relative path of the file
+     * @param textToAppend The data to be appended to the file
+     * @throws IOException If the fileWriter object is not able to write to the file(e.g. when file is not present)
      */
     public static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
@@ -114,17 +133,20 @@ public class Storage {
         fw.close();
     }
 
-    public static void getFileProperties(File f) {
+    private static void getFileProperties(File f) {
         System.out.println("full path: " + f.getAbsolutePath());
         System.out.println("file exists?: " + f.exists());
         System.out.println("is Directory?: " + f.isDirectory());
     }
 
     /**
-     * @param storableString
-     * @param indexOfSecondStandingLine
-     * @param isDone
-     * @return
+     * Returns an Event object by interpreting the stored data
+     * and creating an Event object based on that data
+     *
+     * @param storableString The details of the task in the stored format
+     * @param indexOfSecondStandingLine The index of the second vertical bar
+     * @param isDone The completion status of the Task
+     * @return The created Event object
      */
     public static Event createNewEvent(String storableString, int indexOfSecondStandingLine, boolean isDone) {
         int indexOfThirdStandingLine = storableString
@@ -141,10 +163,13 @@ public class Storage {
     }
 
     /**
-     * @param storableString
-     * @param indexOfSecondStandingLine
-     * @param isDone
-     * @return
+     * Returns a Deadline object by interpreting the stored data
+     * and creating a Deadline object based on that data
+     *
+     * @param storableString The details of the task in the stored format
+     * @param indexOfSecondStandingLine The index of the second vertical bar
+     * @param isDone The completion status of the Task
+     * @return The created Deadline object
      */
     public static Deadline createNewDeadline(String storableString, int indexOfSecondStandingLine, boolean isDone) {
         int indexOfThirdStandingLine = storableString
@@ -158,10 +183,13 @@ public class Storage {
     }
 
     /**
-     * @param storableString
-     * @param indexOfSecondStandingLine
-     * @param isDone
-     * @return
+     * Returns a ToDo object by interpreting the stored data
+     * and creating an Todo object based on that data
+     *
+     * @param storableString The details of the task in the stored format
+     * @param indexOfSecondStandingLine The index of the second vertical bar
+     * @param isDone The completion status of the Task
+     * @return The created ToDo object
      */
     public static ToDo createNewToDo(String storableString, int indexOfSecondStandingLine, boolean isDone) {
         String description = storableString

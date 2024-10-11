@@ -2,14 +2,17 @@ package userinteraction;
 
 
 /**
- *
+ * Makes sense (understands and interprets) the user input
  */
 public class Parser {
     /**
-     * @param tasks
-     * @param enteredString
-     * @param storage
-     * @return
+     * Interprets which command the user wants to execute and calls
+     * the appropriate function respectively
+     *
+     * @param tasks The current list of tasks
+     * @param enteredString The user input
+     * @param storage The storage object which is used to write to the file
+     * @return If the user wants to exit the program
      */
     public static boolean understandUser(TaskList tasks, String enteredString, Storage storage) {
         if (enteredString.equals("bye")) {
