@@ -162,7 +162,57 @@ Okie Dokie!! Removed task from list:
 You now have 2 tasks in your list.
 ```
 
+## Finding tasks by keyword: `find`
 
-## Feature XYZ
+Finds tasks containing the **keyword** in the task list.
 
-// Feature details
+Format: `find <keyword>`
+
+- The search is **case-sensitive.** (i.e. keyword should be in **lower-case**)
+- Only the task name is searched.
+- The **full keyword is not required.** (i.e. `bo` will match with tasks
+  containing `bo` **anywhere in the task name**).
+
+Examples: 
+
+Sample list:
+
+``` 
+Here is your list:
+
+1.[T][ ] read book
+2.[D][ ] return book (by: 11 Dec 2024, 03:30pm)
+3.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
+```
+
+Example 1: `find book`
+
+Sample output:
+
+``` 
+Your search resulted in 2 matches.
+
+Here are the matching tasks that I found:
+1.[T][ ] read book
+2.[D][ ] return book (by: 11 Dec 2024, 03:30pm)
+```
+Example 2: `find et`
+
+Sample output:
+
+``` 
+Your search resulted in 2 matches.
+
+Here are the matching tasks that I found:
+1.[D][ ] return book (by: 11 Dec 2024, 03:30pm)
+2.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
+```
+
+Example 3: `find BOOK`
+
+Sample output:
+
+``` 
+Your search resulted in 0 matches. :(
+```
+
