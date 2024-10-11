@@ -1,16 +1,23 @@
 package erika.parser;
 
-import erika.command.*;
+import erika.command.Command;
+import erika.command.DeleteCommand;
+import erika.command.ExitCommand;
+import erika.command.FindCommand;
+import erika.command.ListCommand;
+import erika.command.MarkCommand;
+import erika.command.UnmarkCommand;
 import erika.command.addcommand.AddDeadlineCommand;
 import erika.command.addcommand.AddEventCommand;
 import erika.command.addcommand.AddTodoCommand;
-import erika.exception.*;
+import erika.exception.EmptyDescriptionException;
+import erika.exception.ErikaException;
+import erika.exception.FormatErrorException;
+import erika.exception.UnknownCommandException;
 import erika.settings.Settings;
-
-
 import java.io.IOException;
-import java.text.Format;
 
+/** Represents the interface between the application and the user (command line). */
 public class Parser {
 
     private static int extractTaskIndex(String line) throws NumberFormatException {
@@ -25,7 +32,7 @@ public class Parser {
         }
     }
 
-    private AddEventCommand addEvent(String line) throws FormatErrorException, EmptyDescriptionException{
+    private AddEventCommand addEvent(String line) throws FormatErrorException, EmptyDescriptionException {
         if (line.trim().equals("event")) {
             throw new EmptyDescriptionException("event");
         }
@@ -42,7 +49,7 @@ public class Parser {
         }
 
         int substringStart = line.indexOf("event ") + Settings.EVENT_LENGTH_OFFSET;
-        int substringEnd = 0;
+        int substringEnd;
 
         String fromText;
         String toText;
@@ -73,7 +80,7 @@ public class Parser {
         return new AddEventCommand(description, fromText, toText);
     }
 
-    private AddDeadlineCommand addDeadline (String line) throws FormatErrorException, EmptyDescriptionException {
+    private AddDeadlineCommand addDeadline(String line) throws FormatErrorException, EmptyDescriptionException {
         if (line.trim().equals("deadline")) {
             throw new EmptyDescriptionException("deadline");
         }
@@ -94,10 +101,10 @@ public class Parser {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("Deadline");
         }
-        return new AddDeadlineCommand(description,byText);
+        return new AddDeadlineCommand(description, byText);
     }
 
-    private AddTodoCommand addTodo(String line) throws EmptyDescriptionException{
+    private AddTodoCommand addTodo(String line) throws EmptyDescriptionException {
         if (line.trim().equals("todo")) {
             throw new EmptyDescriptionException("todo");
         }
@@ -105,7 +112,7 @@ public class Parser {
             throw new FormatErrorException("Invalid todo command format.\n\tDid you leave a space after keyword 'todo'?");
         }
 
-        String description = line.substring(line.indexOf("todo ")+Settings.TODO_LENGTH_OFFSET).trim();
+        String description = line.substring(line.indexOf("todo ") + Settings.TODO_LENGTH_OFFSET).trim();
         return new AddTodoCommand(description);
     }
 
@@ -142,7 +149,6 @@ public class Parser {
     }
 
     public Command parseInput(String line) throws IOException, ErikaException, NumberFormatException{
-        String errMsg = "";
         if (line.equals("bye")) {
             return new ExitCommand();
         } else if (checkCommand(line, "find")){
