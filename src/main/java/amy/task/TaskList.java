@@ -114,19 +114,18 @@ public class TaskList {
      * @param match The keyword to search for in the tasks.
      */
     public void findTask(String match){
-        ArrayList<Task> matchedTasks = new ArrayList<>();
-        for (Task task : taskList){
+        List<String> matchedTasks = new ArrayList<>();
+        for(int i = 0; i < taskList.size(); i++){
+            Task task = taskList.get(i);
             if(task.getDescription().contains(match)){
-                matchedTasks.add(task);
+                matchedTasks.add(String.valueOf(i + 1)+ "." + task);
             }
         }
         if(matchedTasks.isEmpty()){
             Ui.print("I didn't find any tasks that match your keyword. Try again? (T_T)");
         } else {
             Ui.print("Here are the tasks that match your keyword:");
-            for (int i = 0; i < matchedTasks.size(); i++){
-                Ui.print(String.valueOf(i + 1) + '.' + matchedTasks.get(i));
-            }
+            Ui.print(String.join("\n", matchedTasks));
         }
     }
 }
