@@ -67,7 +67,7 @@ Ensure you have `Java 17` or above installed on your computer. You may download 
 ## Features
 <div markdown="block" class="alert alert-info">
 
-**ℹ️: Notes about the command format:**<br>
+**:information_source:: Notes about the command format:**<br>
 
 * Parameters cannot be in any order for `event`.<br>
   e.g. For event, the `/from` is require **comes before** `/to`. Improper ordering will result in an error. Will improve in future versions.
