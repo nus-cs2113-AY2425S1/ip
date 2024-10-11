@@ -1,13 +1,23 @@
 import exception.FlashException;
-
 import java.util.Scanner;
 
+/**
+ * Main class for the Flash chatbot.
+ * Handles interaction with the user and manages tasks through commands.
+ */
 public class Flash {
 
     private static final String FILE_PATH = "./data/flash.txt";
     private static Storage storage;
     private static TaskList taskList;
 
+    /**
+     * The entry point of the application.
+     * Initializes storage and task list, loads tasks from the file,
+     * and continuously listens for user commands.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         storage = new Storage(FILE_PATH);
         taskList = new TaskList();
@@ -23,39 +33,49 @@ public class Flash {
         Scanner in = UI.readCommand();
         UI.displayWelcomeMessage();
 
-        while(true) {
+        while (true) {
             try {
                 String input = in.nextLine();
                 String command = Parser.parseCommand(input);
 
-                if (command.equalsIgnoreCase("bye")) {
-                    UI.displayByeMessage();
-                    break;
-                } else if (command.equals("list")) {
-                    UI.displayTasks(taskList.tasks);
-                } else if (command.equals("mark")) {
-                    taskList.markTask(input);
-                    storage.save(taskList.tasks);
-                } else if (command.equals("unmark")) {
-                    taskList.unMarkTask(input);
-                    storage.save(taskList.tasks);
-                } else if (command.equals("todo")) {
-                    taskList.addTodo(input);
-                    storage.save(taskList.tasks);
-                } else if (command.equals("deadline")) {
-                    taskList.addDeadline(input);
-                    storage.save(taskList.tasks);
-                } else if (command.equals("event")) {
-                    taskList.addEvent(input);
-                } else if (command.equals("delete")) {
-                    taskList.deleteTask(input);
-                    storage.save(taskList.tasks);
-                } else if (command.equals("find")) {
-                    taskList.listMatchedTasks(input);
-                } else {
-                    throw new FlashException("Uh-oh! I don't know what that means.");
+                switch (command) {
+                    case "bye":
+                        UI.displayByeMessage();
+                        return;
+                    case "list":
+                        UI.displayTasks(taskList.tasks);
+                        break;
+                    case "mark":
+                        taskList.markTask(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "unmark":
+                        taskList.unMarkTask(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "todo":
+                        taskList.addTodo(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "deadline":
+                        taskList.addDeadline(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "event":
+                        taskList.addEvent(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "delete":
+                        taskList.deleteTask(input);
+                        storage.save(taskList.tasks);
+                        break;
+                    case "find":
+                        taskList.listMatchedTasks(input);
+                        break;
+                    default:
+                        throw new FlashException("Uh-oh! I don't know what that means.");
                 }
-            } catch (FlashException e){
+            } catch (FlashException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________");

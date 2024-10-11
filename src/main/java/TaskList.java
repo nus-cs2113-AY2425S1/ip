@@ -7,13 +7,25 @@ import task.ToDo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages the list of tasks and provides methods to add, delete, and modify tasks.
+ */
 public class TaskList {
     public List<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a deadline task to the list.
+     *
+     * @param input the user's input for the deadline
+     * @throws FlashException if the input is invalid or missing details
+     */
     public void addDeadline(String input) throws FlashException {
         try {
             String[] parsedInput = Parser.parseDeadline(input);
@@ -27,6 +39,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an event task to the list.
+     *
+     * @param input the user's input for the event
+     * @throws FlashException if the input is invalid or missing details
+     */
     public void addEvent(String input) throws FlashException {
         try {
             String[] parsedInput = Parser.parseEvent(input);
@@ -41,6 +59,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list by its number.
+     *
+     * @param input the user's input for the task number
+     * @throws FlashException if the task number is invalid
+     */
     public void deleteTask(String input) throws FlashException {
         try {
             int taskNumber = Parser.parseTaskNumber(input);
@@ -48,12 +72,18 @@ public class TaskList {
             tasks.remove(taskNumber);
             UI.displayTaskDeleted(tasks, task);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new FlashException("Uh-oh! task.Task number is needed for deletion. Enter a valid task number.");
+            throw new FlashException("Uh-oh! Task number is needed for deletion. Enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
             throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
     }
 
+    /**
+     * Adds a todo task to the list.
+     *
+     * @param input the user's input for the todo
+     * @throws FlashException if the todo description is empty
+     */
     public void addTodo(String input) throws FlashException {
         if (input.length() <= 5) {
             throw new FlashException("Uh-oh! Description for Todo Needed!! Cannot be left empty.");
@@ -69,6 +99,12 @@ public class TaskList {
         UI.displayTaskAdded(tasks, task);
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param input the user's input for the task number
+     * @throws FlashException if the task number is invalid
+     */
     public void unMarkTask(String input) throws FlashException {
         try {
             int taskNumber = Parser.parseTaskNumber(input);
@@ -80,6 +116,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param input the user's input for the task number
+     * @throws FlashException if the task number is invalid
+     */
     public void markTask(String input) throws FlashException {
         try {
             int taskNumber = Parser.parseTaskNumber(input);
@@ -91,13 +133,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all tasks that match a keyword.
+     *
+     * @param input the user's input for the search keyword
+     * @throws FlashException if the input is invalid
+     */
     public void listMatchedTasks(String input) throws FlashException {
-        try{
+        try {
             String keyword = Parser.parseKeyword(input);
-            int index = 1;
             List<Task> matchedTasks = new ArrayList<>();
             for (Task task : this.tasks) {
-                if(task.getDescription().contains(keyword)) {
+                if (task.getDescription().contains(keyword)) {
                     matchedTasks.add(task);
                 }
             }
