@@ -54,7 +54,8 @@ public class Ui {
      */
     public void showGuide() {
         System.out.println("List your plans in the following format:");
-        System.out.println("todo DESCRIPTION/ deadline DESCRIPTION /by DEADLINE / event DESCRIPTION /at EVENT_DATE, e.g., todo homework");
+        System.out.println("todo DESCRIPTION/ deadline DESCRIPTION /by YYYY-MM-DD / event DESCRIPTION /from YYYY-MM-DD " +
+                "/to YYYY-MM-DD, e.g., todo homework");
         System.out.println("You may also mark/unmark tasks by: mark/unmark INDEX");
         System.out.println("Return to tutorial by entering Q");
     }
