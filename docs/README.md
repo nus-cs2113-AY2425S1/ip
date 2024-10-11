@@ -8,7 +8,7 @@ Well, look no further because **ATOM** is here to help!!
 **ATOM** is a **Command Line Interface** (CLI) app that **manages and tracks all 
 of your tasks** in one place. It is also **simple, fast and intuitive** to use!!
 
-- [Features]()
+- [Features](#features)
   - [Adding a todo task: `todo`](#adding-a-todo-task-todo)
   - [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
   - [Adding an event task: `event`](#adding-an-event-task-event)
