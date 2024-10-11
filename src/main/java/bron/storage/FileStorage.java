@@ -25,7 +25,7 @@ public class FileStorage {
     }
 
     /**
-     * Loads tasks from the specified file and returns them as a TaskList.
+     * Loads tasks from the specified data file and returns them as a TaskList.
      * If the file does not exist, an empty TaskList is returned.
      *
      * @return A TaskList containing tasks loaded from the file, or an empty TaskList if the file doesn't exist.
