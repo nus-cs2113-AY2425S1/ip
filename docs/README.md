@@ -5,21 +5,6 @@ It is named after Tony Stark's voice assistant, Edith - which stands for "Even D
 It is an assistant to help you manage your tasks.
 Given below are instructions on how to use it.
 
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
 ## Interacting with Edith
 
 Edith will first introduce itself.
