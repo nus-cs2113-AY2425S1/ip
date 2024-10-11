@@ -19,69 +19,69 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    ```
 ## Basic commands for the chatbot
 
-### $List$ 
+### `List` 
 
 Function: List all the tasks in the storage file
 
-Format: $list$ 
+Format: `list` 
 
-Example: $list$ 
+Example: `list`
 
-### $Todo$ 
+### `Todo`
 
 Function: Add a todo task
 
-Format: $todo DESCRIPTION$ 
+Format: `todo DESCRIPTION` 
 
-Example: $todo read books$ 
+Example: `todo read books` 
 
-### $Deadline$ 
+### `Deadline` 
 
 Function: Add a deadline task
 
-Format: $deadline DESCRIPTION /by DUE TIME$ 
+Format: `deadline DESCRIPTION /by DUE TIME` 
 
-Example: $deadline return books /by 6pm$ 
+Example: `deadline return books /by 6pm` 
 
-### $Event$ 
+### `Event` 
 
 Function: Add an event task
 
-Format: $event DESCRIPTION /from START TIME /to END TIME$ 
+Format: `event DESCRIPTION /from START TIME /to END TIME`
 
-Example: $event book fair /from 6pm /to /8pm$ 
+Example: `event book fair /from 6pm /to /8pm` 
 
-### $Mark$ 
+### `Mark` 
 
 Function: Mark the completion status of the i-th task
 
-Format: $mark INDEX$ 
+Format: `mark INDEX` 
 
-Example: $mark 1$
+Example: `mark 1`
 
-### $Unmark$ 
+### `Unmark` 
 
 Function: Unmark the completion status of the i-th task
 
-Format: $unmark INDEX$ 
+Format: `unmark INDEX`
 
-Example: $unmark 1$
+Example: `unmark 1`
 
-### $Delete$ 
+### `Delete`
 
 Function: Delete the i-th task
 
-Format: $delete INDEX$ 
+Format: `delete INDEX` 
 
-Example: $delete 1$
+Example: `delete 1`
 
-### $Find$ 
+### `Find` 
 
 Function: Find all the tasks containing the specified keyword 
 
-Format: $find KEYWORD$ 
+Format: `find KEYWORD` 
 
-Example: $find BOOKS$
+Example: `find BOOKS`
 
 ## Acknowledgement
 
