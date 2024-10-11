@@ -23,7 +23,7 @@ public class TaskList {
     public void createTodo(String line) {
         try{
             int beginIndex = 5;
-            String taskName = getTaskName(line, beginIndex, -2);
+            String taskName = getTaskName(line, beginIndex, -2, "todo");
             Task task = new Todo(taskName);
             addTask(task);
         } catch (EmptyTaskException e) {
@@ -41,13 +41,13 @@ public class TaskList {
         try {
             int beginIndex = 9;
             int byIndex = line.indexOf("/by");
-            String taskName = getTaskName(line, beginIndex, byIndex);
+            String taskName = getTaskName(line, beginIndex, byIndex, "deadline");
             Task task = new Deadline(taskName, line.substring(byIndex + 4));
             addTask(task);
         } catch (EmptyTaskException e) {
             ui.printEmptyTaskException();
         } catch (EmptyByOrFromException e) {
-            ui.printEmptyByOrFromException();
+            ui.printEmptyByOrFromException("deadline", "by");
         }
     }
 
@@ -61,14 +61,14 @@ public class TaskList {
             int beginIndex = 6;
             int fromIndex = line.indexOf("/from");
             int toIndex = line.indexOf("/to");
-            String taskName = getTaskName(line, beginIndex, fromIndex);
+            String taskName = getTaskName(line, beginIndex, fromIndex, "event");
             String from = getFrom(line, fromIndex, toIndex);
             Task task = new Event(taskName, from, line.substring(toIndex + 4));
             addTask(task);
         } catch (EmptyTaskException e) {
             ui.printEmptyTaskException();
         } catch (EmptyByOrFromException e) {
-            ui.printEmptyByOrFromException();
+            ui.printEmptyByOrFromException("event", "from");
         } catch (EmptyToException e) {
             ui.printEmptyToException();
         }
@@ -183,7 +183,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(line.substring(beginIndex));
             String state;
-            if (index < 0 || index > Storage.getCount()) {
+            if (index <= 0 || index > Storage.getCount()) {
                 throw new IndexOutOfRangeException();
             }
             if (func == "mark") {
@@ -213,10 +213,10 @@ public class TaskList {
      * @throws EmptyByOrFromException if starting time is empty
      */
     private static String getFrom(String line, int fromIndex, int toIndex) throws EmptyToException, EmptyByOrFromException {
-        if (toIndex == -1 || toIndex + 4 > line.length() - 1) {
-            throw new EmptyToException();
-        } else if (fromIndex + 6 >= toIndex){
+        if (fromIndex + 6 >= toIndex && toIndex != -1) {
             throw new EmptyByOrFromException();
+        } else if (toIndex == -1 || toIndex + 4 > line.length() - 1) {
+            throw new EmptyToException();
         } else {
             return line.substring(fromIndex + 6, toIndex).trim();
         }
@@ -250,7 +250,7 @@ public class TaskList {
      * @throws EmptyByOrFromException if task is of type deadline or event but with empty deadline time or event starting time
      * @throws EmptyTaskException if task description is empty
      */
-    private static String getTaskName(String line, int beginIndex, int endIndex) throws EmptyByOrFromException, EmptyTaskException {
+    private static String getTaskName(String line, int beginIndex, int endIndex, String command) throws EmptyByOrFromException, EmptyTaskException {
         if (endIndex == -1) {
             throw new EmptyByOrFromException();
         } else if (endIndex == -2 && beginIndex + 1 > line.length()) {
@@ -259,6 +259,13 @@ public class TaskList {
             return line.substring(beginIndex).trim();
         } else {
             String trimName = line.substring(beginIndex, endIndex).trim();
+            String ByOrFrom = line.substring(endIndex).trim();
+            if (ByOrFrom.equals("/by") && command.equals("deadline")) {
+                throw new EmptyByOrFromException();
+            }
+            if (ByOrFrom.equals("/from") && command.equals("event")) {
+                throw new EmptyByOrFromException();
+            }
             if (trimName != "") {
                 return trimName;
             } else {

@@ -57,10 +57,10 @@ public class Storage {
                     break;
                 case 'E':
                     data = "event " + line.substring(7);
-                    data = data.replace("(", "/");
+                    data = data.replace("(from:", "/from");
                     data = data.replace(")", "");
-                    data = data.replace("to", "/to");
-                    data = data.replace(":", "");
+                    data = data.replace("to:", "/to");
+                    System.out.println(data);
                     taskList.createEvent(data);
                     break;
                 }

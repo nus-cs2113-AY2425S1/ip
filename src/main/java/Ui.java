@@ -78,7 +78,8 @@ public class Ui {
         System.out.println("deadline {String s1} /by {String s2} : create deadline with description {s1} and due date {s2}");
         System.out.println("event {String s1} /from {String s2} /to {String s3} : create event with description {s1} from {s2} to {s3}");
         System.out.println("delete {int n} : remove task number {n} from the list");
-        System.out.println("find {String s} : find tasks with description containing s as substring\n");
+        System.out.println("find {String s} : find tasks with description containing s as substring");
+        System.out.println("bye : quit the program\n");
     }
 
     /**
@@ -91,8 +92,8 @@ public class Ui {
     /**
      * Display empty deadline time error
      */
-    public void printEmptyByOrFromException() {
-        System.out.println("Please enter the deadline after \"/by\". \n");
+    public void printEmptyByOrFromException(String command, String ByOrFrom) {
+        System.out.println("Please enter the " + command + " after \"/" + ByOrFrom + "\". \n");
     }
 
     /**
@@ -108,7 +109,7 @@ public class Ui {
      * @param command executing upon reaching this error
      */
     public void printNumberFormatException(String command) {
-        System.out.println("Please enter a valid number after"+ command + "\n");
+        System.out.println("Please enter a valid number after "+ command + "\n");
     }
 
     /**
@@ -124,7 +125,7 @@ public class Ui {
      * @param MARK_FLAG indicates marking marked task or unmarking unmarked task situation
      */
     public void TaskSameStateException(String MARK_FLAG) {
-        System.out.println("Task is already" + MARK_FLAG + "ed\n");
+        System.out.println("Task is already " + MARK_FLAG + "ed\n");
     }
 
     /**
