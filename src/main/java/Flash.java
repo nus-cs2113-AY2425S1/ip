@@ -1,3 +1,4 @@
+import exception.FlashException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -13,23 +14,12 @@ public class Flash {
     private static final String FILE_PATH = "./data/flash.txt";
     private static Storage storage;
 
-    public static void displayTasks() {
-        System.out.println("____________________________________________________________");
-        for(int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + "." + tasks.get(i));
-        }
-        System.out.println("____________________________________________________________");
-    }
-
     public static void markTask(String input) throws FlashException {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             Task task = tasks.get(taskNumber);
             task.markDone();
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(" " + task);
-            System.out.println("____________________________________________________________");
+            UI.displayTaskMarked(task);
         } catch (Exception e) {
             throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
@@ -40,10 +30,7 @@ public class Flash {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             Task task = tasks.get(taskNumber);
             task.markNotDone();
-            System.out.println("____________________________________________________________");
-            System.out.println("Ok, I've marked this task as not done yet:");
-            System.out.println(" " + task);
-            System.out.println("____________________________________________________________");
+            UI.displayTaskUnmarked(task);
         } catch (Exception e) {
             throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
@@ -61,10 +48,7 @@ public class Flash {
 
         Task task = new ToDo(description);
         tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        UI.displayTaskAdded(tasks, task);
     }
 
     public static void deadline(String input) throws FlashException {
@@ -74,11 +58,7 @@ public class Flash {
             String by = parts[1].trim();
             Task task = new Deadline(description, by);
             tasks.add(task);
-            System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            UI.displayTaskAdded(tasks, task);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FlashException("Uh-oh! Description for task.Event Needed!! Cannot be left empty.");
         }
@@ -92,11 +72,7 @@ public class Flash {
             String to = parts[2].trim();
             Task task = new Event(description, from, to);
             tasks.add(task);
-            System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            UI.displayTaskAdded(tasks, task);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FlashException("Uh-oh! Description for task.Event Needed!! Cannot be left empty.");
         }
@@ -107,12 +83,7 @@ public class Flash {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             Task task = tasks.get(taskNumber);
             tasks.remove(taskNumber);
-
-            System.out.println("____________________________________________________________");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(" " + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            UI.displayTaskDeleted(tasks, task);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new FlashException("Uh-oh! task.Task number is needed for deletion. Enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
@@ -120,34 +91,28 @@ public class Flash {
         }
     }
 
-
     public static void main(String[] args) {
         storage = new Storage(FILE_PATH);
 
         // Load tasks from file
         try {
             tasks = storage.load();
-            System.out.println("Loaded tasks from file successfully.");
+            UI.displayLoadSuccessMessage();
         } catch (FlashException e) {
             System.out.println("Failed to load tasks: " + e.getMessage());
         }
 
-        Scanner in = new Scanner(System.in);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Flash");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        Scanner in = UI.readCommand();
+        UI.displayWelcomeMessage();
 
         while(true) {
             try {
                 String input = in.nextLine();
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
+                    UI.displayByeMessage();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    displayTasks();
+                    UI.displayTasks(tasks);
                 } else if (input.startsWith("mark")) {
                     markTask(input);
                     storage.save(tasks);
@@ -175,4 +140,5 @@ public class Flash {
             }
         }
     }
+
 }
