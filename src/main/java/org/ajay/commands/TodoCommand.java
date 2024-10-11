@@ -14,7 +14,17 @@ public class TodoCommand extends Command {
             Creates a todo task.
             Example: """ + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Todo has been created!";
+    public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
+
+    private void printSuccessMessage(TaskList tasks, TextUi ui, Storage storage) {
+        ui.printBreakLine();
+        ui.printSuccess(MESSAGE_SUCCESS);
+        ui.printSuccess(tasks.getLatestTask().toString());
+        TaskList.printNumberOfTasks();
+        ui.printBreakLine();
+
+        storage.saveTaskList(tasks.getTaskList());
+    }
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
@@ -25,8 +35,6 @@ public class TodoCommand extends Command {
             ui.printExceptions(e.getMessage());
         }
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.getLatestTask().toString());
-        TaskList.printNumberOfTasks();
+        printSuccessMessage(tasks, ui, storage);
     }
 }

@@ -1,5 +1,6 @@
 package org.ajay.commands;
 
+import org.ajay.common.Constants;
 import org.ajay.data.TaskList;
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
@@ -14,7 +15,17 @@ public class DeadlineCommand extends Command {
                                                Creates a deadline task.
                                                Example: """ + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Deadline has been created!";
+    public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
+
+    private void printSuccessMessage(TaskList tasks, TextUi ui, Storage storage) {
+        ui.printBreakLine();
+        ui.printSuccess(MESSAGE_SUCCESS);
+        ui.printSuccess(Constants.PADDING + tasks.getLatestTask().toString());
+        tasks.printNumberOfTasks();
+        ui.printBreakLine();
+
+        storage.saveTaskList(tasks.getTaskList());
+    }
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
@@ -27,11 +38,7 @@ public class DeadlineCommand extends Command {
             return;
         }
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.getLatestTask().toString());
-        tasks.printNumberOfTasks();
-
-        storage.saveTaskList(tasks.getTaskList());
+        printSuccessMessage(tasks, ui, storage);
     }
 
 }

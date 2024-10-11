@@ -2,6 +2,7 @@ package org.ajay.data.task;
 
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
+import org.ajay.ui.TextUi;
 
 public abstract class Task {
     public final static String MARK_COMMAND_STRING = "mark";
@@ -80,7 +81,7 @@ public abstract class Task {
     public void markAsDone() {
         this.isDone = true;
 
-        System.out.println("Nice! I've marked this task as done: \n  " + toString());
+        TextUi.printSuccess("Nice! I've marked this task as done: \n  " + toString());
     }
 
     /**
@@ -89,7 +90,7 @@ public abstract class Task {
     public void markAsUndone() {
         this.isDone = false;
 
-        System.out.println("OK, I've marked this task as not done yet: \n  " + this.toString());
+        TextUi.printSuccess("OK, I've marked this task as not done yet: \n  " + this.toString());
     }
 
     // public static int setNumberOfTasks(int num) {

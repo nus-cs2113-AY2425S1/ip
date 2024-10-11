@@ -8,4 +8,5 @@ public class Constants {
 
     // Constants for the commands
     public final static String EXIT_COMMAND_ALT = "bye";
+    public final static String PADDING = "  ";
 }

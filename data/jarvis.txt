@@ -1,5 +1,0 @@
-D | 1 | weekly CS2113 quiz | Monday 9pm
-T | 0 | Answer CS2113 tutorial questions
-T | 0 | read book
-D | 0 | return book | June 6th
-T | 0 | todo todo
