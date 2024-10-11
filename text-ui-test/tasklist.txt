@@ -1,0 +1,2 @@
+deadline CS3244 tutorial /by 2024-09-26 /c false
+event sailing regatta /from 2024-09-28 /to 2024-09-29 /c false

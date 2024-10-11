@@ -1,0 +1,3 @@
+todo sailing /c false
+deadline hw /by 2024-07-08 /c true
+event run /from 2024-10-10 /to 2025-12-01 /c false
