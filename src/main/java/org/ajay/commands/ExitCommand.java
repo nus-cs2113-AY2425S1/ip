@@ -4,6 +4,9 @@ import org.ajay.data.TaskList;
 import org.ajay.storage.Storage;
 import org.ajay.ui.TextUi;
 
+/**
+ * Exits the program.
+ */
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
@@ -11,8 +14,13 @@ public class ExitCommand extends Command {
             Exits the program.
             Example: """ + COMMAND_WORD;
 
-    // public static final String MESSAGE_SUCCESS = "Exiting program...";
-
+    /**
+     * Executes the exit command.
+     *
+     * @param tasks   TaskList containing all tasks.
+     * @param ui      TextUi object to interact with the user.
+     * @param storage Storage object to save the task list.
+     */
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         super.setExitBool(true);

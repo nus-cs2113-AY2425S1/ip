@@ -18,38 +18,40 @@ import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.ui.TextUi;
 
+/**
+ * Represents the parser to parse the input from the user.
+ */
 public class Parser {
-
     public static String command = ""; // Variable to store the command
     public static String task = ""; // Variable to store the task
-
-    // public static String lineBufferString = ""; // Buffer to store the input from
-    // the user
 
     /**
      * Splits the command and task from the input.
      *
-     * @param lineBufferString
+     * @param lineBufferString The input from the user
      */
     public static void splitCommandAndTask(String lineBufferString) throws EmptyArgumentException {
         if (lineBufferString.isEmpty()) {
-            throw new EmptyArgumentException( Messages.MESSAGE_LINE_STRING_EMPTY + " " + Error.EMPTY_ARG.toString());
+            throw new EmptyArgumentException(Messages.MESSAGE_LINE_STRING_EMPTY + " " + Error.EMPTY_ARG.toString());
         } else {
-            lineBufferString = lineBufferString.trim(); // Remove any leading or trailing whitespaces
+            lineBufferString = lineBufferString.trim();
         }
 
         command = "";
         task = "";
-        boolean isSingleCommand = (lineBufferString.equals(ListCommand.COMMAND_WORD) || lineBufferString.equals(ExitCommand.COMMAND_WORD) || lineBufferString.equals(HelpCommand.COMMAND_WORD) || lineBufferString.equals(Constants.EXIT_COMMAND_ALT));
+
+        /** Check if the command is a single word command */
+        boolean isSingleCommand = (lineBufferString.equals(ListCommand.COMMAND_WORD)
+                || lineBufferString.equals(ExitCommand.COMMAND_WORD)
+                || lineBufferString.equals(HelpCommand.COMMAND_WORD)
+                || lineBufferString.equals(Constants.EXIT_COMMAND_ALT));
 
         if (lineBufferString.contains(" ")) {
             command = lineBufferString.split(" ")[0];
             task = lineBufferString.substring(command.length() + 1);
         } else if (isSingleCommand) {
-            // single word commands
             command = lineBufferString;
-        }
-        else {
+        } else {
             throw new EmptyArgumentException(Error.INVAILD_COMMAND_FORMAT.toString());
         }
     }
@@ -57,8 +59,8 @@ public class Parser {
     /**
      * Reads the input from the user and processes it.
      *
-     * @param in
-     * @param lineBufferString
+     * @param in               Scanner object to read input from the user
+     * @param lineBufferString The input from the user
      */
     public static void readInput(Scanner in) {
         try {
@@ -68,36 +70,53 @@ public class Parser {
         } catch (EmptyArgumentException e) {
             TextUi.printExceptions(e.getMessage());
         }
-
     }
 
+    /**
+     * Parses the command and returns the appropriate command object.
+     *
+     * @param command The command from the user
+     * @param task    The task from the user
+     *
+     * @return Command object
+     */
     public static Command parseCommand(String command, String task) {
         switch (command) {
-            case ExitCommand.COMMAND_WORD: // Exit the program
+            case ExitCommand.COMMAND_WORD:
+                /** Exit the program */
                 return new ExitCommand();
-            case Constants.EXIT_COMMAND_ALT: // Habit of typing exit to exit the program
+            case Constants.EXIT_COMMAND_ALT:
+                /** Alternative exit to exit the program */
                 return new ExitCommand();
-            case ListCommand.COMMAND_WORD: // List all the tasks
+            case ListCommand.COMMAND_WORD:
+                /** List all the tasks */
                 return new ListCommand();
-            case TodoCommand.COMMAND_WORD: // Add a todo task
+            case TodoCommand.COMMAND_WORD:
+                /** Add a todo task */
                 return new TodoCommand();
-            case DeadlineCommand.COMMAND_WORD: // Add a deadline task
+            case DeadlineCommand.COMMAND_WORD:
+                /** Add a deadline task */
                 return new DeadlineCommand();
-            case EventCommand.COMMAND_WORD: // Add an event task
+            case EventCommand.COMMAND_WORD:
+                /** Add an event task */
                 return new EventCommand();
-            case MarkCommand.COMMAND_WORD: // Mark the task as done
+            case MarkCommand.COMMAND_WORD:
+                /** Mark the task as done */
                 return new MarkCommand();
-            case UnmarkCommand.COMMAND_WORD: // Mark the task as undone
+            case UnmarkCommand.COMMAND_WORD:
+                /** Mark the task as undone */
                 return new UnmarkCommand();
-            case DeleteCommand.COMMAND_WORD: // Delete the task
+            case DeleteCommand.COMMAND_WORD:
+                /** Delete the task */
                 return new DeleteCommand();
-            case HelpCommand.COMMAND_WORD: // Print the help message
+            case HelpCommand.COMMAND_WORD:
+                /** Print the help message */
                 return new HelpCommand();
-            case FindCommand.COMMAND_WORD: // Find the task
+            case FindCommand.COMMAND_WORD:
+                /** Find the task */
                 return new FindCommand();
             default:
                 return new HelpCommand();
         }
-
     }
 }

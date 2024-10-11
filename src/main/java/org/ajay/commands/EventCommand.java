@@ -9,15 +9,25 @@ import org.ajay.parser.Parser;
 import org.ajay.storage.Storage;
 import org.ajay.ui.TextUi;
 
-public class EventCommand extends Command{
+/**
+ * Creates an event task.
+ */
+public class EventCommand extends Command {
 
-    public static final String COMMAND_WORD = Event.COMMAND_STRING;
+    public static final String COMMAND_WORD = Event.COMMAND_WORD;
     public static final String MESSAGE_USAGE = """
-                                               Creates an event task.
-                                               Example: """ + COMMAND_WORD;
+            Creates an event task.
+            Example: """ + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
 
+    /**
+     * Prints success message after adding the task.
+     *
+     * @param tasks   TaskList containing all tasks.
+     * @param ui      TextUi object to interact with the user.
+     * @param storage Storage object to save the task list.
+     */
     private void printSuccessMessage(TaskList tasks, TextUi ui, Storage storage) {
         ui.printBreakLine();
         ui.printSuccess(MESSAGE_SUCCESS);
@@ -28,6 +38,13 @@ public class EventCommand extends Command{
         storage.saveTaskList(tasks.getTaskList());
     }
 
+    /**
+     * Executes the event command.
+     *
+     * @param tasks   TaskList containing all tasks.
+     * @param ui      TextUi object to interact with the user.
+     * @param storage Storage object to save the task list.
+     */
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         try {
@@ -38,7 +55,6 @@ public class EventCommand extends Command{
             ui.printExceptions(e.getMessage());
             return;
         }
-
         printSuccessMessage(tasks, ui, storage);
     }
 

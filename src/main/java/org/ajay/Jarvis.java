@@ -9,6 +9,11 @@ import org.ajay.parser.Parser;
 import org.ajay.storage.Storage;
 import org.ajay.ui.TextUi;
 
+/**
+ * Jarvis is a personal assistant chatbot that helps to keep track of various
+ * tasks application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Jarvis {
     private Storage storage;
     private TextUi ui;
@@ -23,33 +28,28 @@ public class Jarvis {
         } catch (IllegalArgumentException e) {
             ui.printExceptions(e.getMessage());
 
-            // Create empty task list
+            /** Create empty task list if tasks storage file not found */
             tasks = new TaskList();
         }
-
     }
 
+    /** Runs the program until termination. */
     public void run() {
         boolean isExit = false;
 
         ui.printLogo();
         ui.printGreetingMsgs();
 
-        // Scanner object to read input from the user
+        /** Scanner object to read input from the user */
         try (Scanner in = new Scanner(System.in)) {
             while (!isExit) {
-                Parser.readInput(in); // Read the input from the user
+                Parser.readInput(in);
 
                 Command c = Parser.parseCommand(Parser.command, Parser.task); // Parse the input
                 c.execute(tasks, ui, storage); // Execute the command
                 isExit = c.getExitBool(); // Check if the command is an exit command
             }
         }
-        // catch (Exception e) {
-        //     // catch if scanner system in fails
-        //     ui.printExceptions("Scanner failed to read input" + " " + e.getMessage());
-        // }
-
     }
 
     public static void main(String[] args) {

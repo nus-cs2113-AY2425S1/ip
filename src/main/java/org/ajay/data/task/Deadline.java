@@ -5,40 +5,53 @@ import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
-    public final static String COMMAND_STRING = "deadline";
-    final static String BY_KEYWORD_STRING = "/by";
-    public final static String TASK_STRING = "D";
+    public final static String COMMAND_WORD = "deadline";
+    final static String BY_KEYWORD = "/by";
+    public final static String TASK_ID = "D";
+    public final static int TASK_LENGTH = 4;
+
+    public static final int BY_LOAD_INDEX = 3;
 
     protected String by;
 
     /**
      * Constructor for the Deadline class.
      *
-     * @param task description of the deadline
-     * @throws EmptyArgumentException
+     * @param task Description of the deadline.
      *
-     * @throws InvalidCommandFormatException
+     * @throws EmptyArgumentException        If the description is empty.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
     public Deadline(String task) throws EmptyArgumentException, InvalidCommandFormatException {
-        super(getDescriptionFromString(task));
-        setBy(getDayFromString(task));
+        super(getDescriptionInput(task));
+        setBy(getByKeywordInput(task));
 
     }
 
     /**
      * Constructor for the Deadline class.
      *
-     * @param task description of the deadline
-     * @param by   by date
-     * @throws EmptyArgumentException
+     * @param task Description of the deadline.
+     * @param by   By date.
+     * @throws EmptyArgumentException If the description is empty.
      */
     public Deadline(String task, String by) throws EmptyArgumentException {
         super(task);
         setBy(by);
-
     }
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param isDone Done state of the deadline.
+     * @param task   Description of the deadline.
+     * @param by     By date.
+     * @throws EmptyArgumentException If the description is empty.
+     */
     public Deadline(boolean isDone, String task, String by) throws EmptyArgumentException {
         super(task);
         setBy(by);
@@ -46,45 +59,45 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the by date.
+     * Get the by date.
      *
-     * @return
+     * @return By date.
      */
     public String getBy() {
         return by;
     }
 
     /**
-     * Changes the by date.
+     * Set the by date.
      *
-     * @param by
+     * @param by By date.
      */
     private void setBy(String by) {
         this.by = by;
     }
 
     /**
-     * Returns the by date from the input string.
+     * Get the by date from the input.
      *
-     * @param input
-     *
-     * @return
+     * @param input Input string.
+     * @return By date.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
-    public static String getDayFromString(String input) throws InvalidCommandFormatException {
+    public static String getByKeywordInput(String input) throws InvalidCommandFormatException {
 
-        int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
+        int indexOfBy = input.indexOf(BY_KEYWORD);
         int indexAfterBy;
 
         // Check if the by keyword is missing
         if (indexOfBy == -1) {
             throw new InvalidCommandFormatException(
-                    Messages.MESSAGE_MISSING_KEYWORD + " [" + BY_KEYWORD_STRING + "] "
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + BY_KEYWORD + "] "
                             + Error.INVAILD_COMMAND_FORMAT.toString());
         } else {
-            indexAfterBy = indexOfBy + BY_KEYWORD_STRING.length();
+            indexAfterBy = indexOfBy + BY_KEYWORD.length();
         }
 
-        // Check if the by date is empty
+        /** Check if the by date is empty */
         if (indexAfterBy == input.length()) {
             throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
         }
@@ -93,15 +106,14 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the description from the input string.
+     * Get the description from the input.
      *
-     * @param input
-     *
-     * @return
+     * @param input Input string.
+     * @return Description.
      */
-    public static String getDescriptionFromString(String input) {
+    public static String getDescriptionInput(String input) {
 
-        int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
+        int indexOfBy = input.indexOf(BY_KEYWORD);
 
         if (indexOfBy != -1) {
             input = input.substring(0, indexOfBy);
@@ -109,18 +121,37 @@ public class Deadline extends Task {
         return input.trim();
     }
 
+    /**
+     * Saves a deadline task to a string.
+     *
+     * @return String representation of the deadline task.
+     */
     @Override
     public String saveTaskString() {
-        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + by;
+        return TASK_ID + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + by;
     }
 
+    /**
+     * Loads a deadline task from a string.
+     *
+     * @param isDone Done state of the deadline.
+     * @param task   Description of the deadline.
+     * @param by     By date.
+     * @return Deadline task.
+     * @throws EmptyArgumentException If the description is empty.
+     */
     public static Deadline loadTaskString(boolean isDone, String task, String by) throws EmptyArgumentException {
         Deadline deadline = new Deadline(isDone, task, by);
         return deadline;
     }
 
+    /**
+     * Returns the string representation of the deadline task.
+     *
+     * @return String representation of the deadline task.
+     */
     @Override
     public String toString() {
-        return "[" + TASK_STRING + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + TASK_ID + "]" + super.toString() + " (by: " + by + ")";
     }
 }
