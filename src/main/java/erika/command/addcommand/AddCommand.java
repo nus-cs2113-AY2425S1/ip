@@ -10,14 +10,16 @@ import java.io.IOException;
 
 /**
  * Represents a specific "Add" command as interpreted from the user. An <code>AddCommand</code> object
- * corresponds to a user command to append a <code>Task</code> object to the list
+ * corresponds to a user command to append a <code>Task</code> object to the list.
  */
 
 public class AddCommand extends Command {
     protected String description;
+
     /**
-     * Constructor for AddCommand
-     * @param description Textual description of the entry
+     * Constructor for AddCommand.
+     *
+     * @param description Textual description of the entry.
      */
     public AddCommand(String description) {
         super();
@@ -27,23 +29,28 @@ public class AddCommand extends Command {
     /**
      * Overrides the default Command method execute.
      *
-     * @param tasks TaskList object representing the tasks stored
-     * @param fileSystem FileSystem object used to interface with the file system of the host
+     * @param tasks TaskList object representing the tasks stored.
+     * @param fileSystem FileSystem object used to interface with the file system of the host.
      */
     public void execute(TaskList tasks, FileSystem fileSystem) throws IOException, OutOfBoundsException {
 
     }
 
     /**
-     * Executes the required operations to perform the command issued by the user
+     * Executes the required operations to perform the command issued by the user.
      *
-     * @return <code>false</code> since AddCommands are not ExitCommands
+     * @return <code>false</code> since AddCommands are not ExitCommands.
      */
     protected void add(TaskList tasks, Task task) {
         tasks.addTask(task);
         Console.printAddedMessage(task);
     }
 
+    /**
+     * Checks if the command is an exit command.
+     *
+     * @return <code>false</code> since AddCommands are not ExitCommands.
+     */
     public boolean isExit() {
         return false;
     }

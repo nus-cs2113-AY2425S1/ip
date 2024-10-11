@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a deadline task.
- * Inherits Task class
+ * Inherits Task class.
  */
 public class Deadline extends Task {
     protected String deadline = null;
@@ -17,8 +17,8 @@ public class Deadline extends Task {
     /**
      * Constructor for <code>Deadline</code> class.
      *
-     * @param description <code>String</code> that represents the description of the deadline
-     * @param deadline <code>String</code> that represents a textual representation of the deadline
+     * @param description <code>String</code> that represents the description of the deadline.
+     * @param deadline <code>String</code> that represents a textual representation of the deadline.
      */
     public Deadline(String description, String deadline) {
         super(description);
@@ -49,8 +49,8 @@ public class Deadline extends Task {
      */
     @Override
     public String generateFileLine() {
-        return String.format("D,%s,%s,%s\n", isDone ? "1" : "0", description, (deadlineDateTime != null) ?
-                deadlineDateTime.format(Settings.DATE_TIME_IN_FORMATTER) : (deadlineDate != null) ?
-                deadlineDate.format(Settings.DATE_IN_FORMATTER) : deadline);
+        return String.format("D,%s,%s,%s\n", isDone ? "1" : "0", description, (deadlineDateTime != null)
+                ? deadlineDateTime.format(Settings.DATE_TIME_IN_FORMATTER) : (deadlineDate != null)
+                ? deadlineDate.format(Settings.DATE_IN_FORMATTER) : deadline);
     }
 }
