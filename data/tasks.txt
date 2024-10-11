@@ -1,2 +1,0 @@
-D | ngu | false | 1
-T | read book | false

@@ -9,6 +9,9 @@ import java.util.List;
 import task.Task;
 import task.TaskList;
 
+/**
+ * Represents a storage object that is responsible for saving and loading the task list to and from a file.
+ */
 public class Storage {
     private static Path filePath;
 

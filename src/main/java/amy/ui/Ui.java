@@ -1,6 +1,9 @@
 package ui;
 import java.util.Scanner;
-
+/**
+ * Represents the user interface of the chatbot.
+ * The Ui class is responsible for displaying messages to the user and reading user input.
+ */
 public class Ui {
     private static Scanner scanner = new Scanner(System.in);
 
