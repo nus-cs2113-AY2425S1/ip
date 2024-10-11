@@ -142,8 +142,25 @@ Got it. Task successfully marked as UNDONE!
 ```
 
 ## Feature ABC
+## Deleting a task: `delete`
 
-// Feature details
+Deletes a specified task from the task list.
+
+Format: `delete <task id>`
+
+- Deletes the task at the specified task id.
+- The task id refers to **index number of task in the task list.**
+- The task id **must be a postive integer.** (i.e. 1,2,3,..)
+
+Example: `delete 1`
+
+Sample output:
+
+``` 
+Okie Dokie!! Removed task from list:
+> [T][ ] read book
+You now have 2 tasks in your list.
+```
 
 
 ## Feature XYZ
