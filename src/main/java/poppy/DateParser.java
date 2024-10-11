@@ -31,7 +31,7 @@ public class DateParser {
      * @return A string representing the formatted date and time.
      */
     public static String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
         String formattedDate = dateTime.format(dateFormatter);
