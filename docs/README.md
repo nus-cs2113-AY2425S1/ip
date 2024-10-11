@@ -40,7 +40,7 @@ All tasks are automatically saved as you add tasks. They will be loaded when you
 
 ### Prerequisites
 
-Make sure you have Java 11 installed on your computer.
+Make sure you have Java 17 or above installed on your computer.
 
 ### Installation
 
