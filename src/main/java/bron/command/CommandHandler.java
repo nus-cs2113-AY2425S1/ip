@@ -69,12 +69,22 @@ public class CommandHandler {
             case FIND:
                 handleFind(line);
                 break;
+            case HELP:
+                handleHelp();
+                break;
             default:
                 throw new InvalidCommandException();
             }
         } catch (BronException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Handles the help command by calling the TextUI to display help.
+     */
+    private void handleHelp() {
+        TextUI.showHelp();
     }
 
     /**
