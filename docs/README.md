@@ -87,6 +87,20 @@ Gotcha! EVENT task added to list
 You now have 3 tasks in your list!
 ```
 
+## Listing all tasks: `list`
+
+Lists all the tasks in the task list.
+
+Format: `list`
+
+Sample output:
+
+``` 
+Here is your list:
+
+1.[T][ ] read book
+2.[D][X] return book (by: 11 Dec 2024, 03:30pm)
+3.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
 ```
 expected output
 ```
