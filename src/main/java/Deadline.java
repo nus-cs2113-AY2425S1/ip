@@ -24,4 +24,9 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + time;
     }
+
+    @Override
+    public String toString() {
+        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + time + ")";
+    }
 }

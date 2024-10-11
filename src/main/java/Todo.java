@@ -23,4 +23,10 @@ public class Todo extends Task {
     public String toFileString() {
         return "T | " + (isDone ? 1 : 0) + " | " + description;
     }
+
+    @Override
+    public String toString() {
+        return "[T][" + (isDone ? "X" : " ") + "] " + description;
+    }
+
 }

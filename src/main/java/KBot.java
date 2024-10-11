@@ -126,15 +126,18 @@ public class KBot {
 
         String keyword = parts[1];
         ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
+
         if (matchingTasks.isEmpty()) {
             System.out.println("No matching tasks found for keyword: " + keyword);
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+            for (Task task : matchingTasks) {
+                int originalIndex = taskList.getTasks().indexOf(task) + 1; // Get the original index (1-based)
+                System.out.println(originalIndex + "." + task.toString());
             }
         }
     }
+
 
     /**
      * Lists all tasks currently in the task list and displays them to the user.
