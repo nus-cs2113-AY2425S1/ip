@@ -25,7 +25,7 @@ public class InputStringHandler {
      */
     public static Instruction parseUserInput(String userInputString) throws YapperException {
         try {
-            return InputStringHandler.parseAndValidateUserInput(userInputString.trim());
+            return parseAndValidateUserInput(userInputString.trim());
         } catch (YapperException e) {
             throw new YapperException("when parsing user input. \n" + e.getMessage());
         }
