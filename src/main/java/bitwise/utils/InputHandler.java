@@ -113,7 +113,7 @@ public class InputHandler {
                 String eventFrom = userInput.substring(userInput.indexOf(Commands.COMMAND_INFIX_FROM) + 6, userInput.indexOf(Commands.COMMAND_INFIX_TO));
                 String eventTo = userInput.substring(userInput.indexOf(Commands.COMMAND_INFIX_TO) + 4);
                 if (description.isBlank() || eventFrom.isBlank() || eventTo.isBlank() || !userInput.contains(Commands.COMMAND_INFIX_FROM) || !userInput.contains(Commands.COMMAND_INFIX_TO)) {
-                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DEADLINE);
+                    throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_EVENT);
                 }
                 newTask = new Event(description, eventFrom, eventTo);
             } catch (StringIndexOutOfBoundsException e) {
