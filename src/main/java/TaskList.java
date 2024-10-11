@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TaskList {
 
@@ -202,6 +203,30 @@ public class TaskList {
         listCount += 1;
         if (taskStatus.equals("X")) {
             tasks[listCount - 1].isDone = true;
+        }
+    }
+
+    public static void find(String keyword) {
+        try {
+            keyword = keyword.substring(5);
+            ArrayList<Integer> matchingTaskIndices = new ArrayList<>();
+            for (int i = 0; i < listCount; i += 1) {
+                if (tasks[i].description.contains(keyword)) {
+                    matchingTaskIndices.add(i);
+                }
+            }
+            if (matchingTaskIndices.isEmpty()) {
+                Ui.printNoTaskFound();
+            } else {
+                Ui.printSeparator();
+                System.out.println("The following tasks match:");
+                for (int i : matchingTaskIndices) {
+                    System.out.println(tasks[i].toString());
+                }
+                Ui.printSeparator();
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            Ui.printInvalidEvent();
         }
     }
 

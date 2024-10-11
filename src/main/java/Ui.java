@@ -170,4 +170,11 @@ public class Ui {
         System.out.println("To exit: bye");
         printSeparator();
     }
+
+    public static void printNoTaskFound() {
+        printSeparator();
+        System.out.println("I found no matching tasks in the list!");
+        printSeparator();
+    }
+
 }
