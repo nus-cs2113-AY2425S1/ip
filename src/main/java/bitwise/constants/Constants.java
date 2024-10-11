@@ -29,14 +29,16 @@ public class Constants {
             INDENTATION + "command format: todo borrow books \n";
     public static final String DESCRIPTION_COMMAND_EVENT = INDENTATION + "event: use this command to add an event to the list of tasks \n" +
             INDENTATION + "command format: event watch movie /from 4pm /to 6pm \n";
-    public static final String DESCRIPTION_COMMAND_DEADLINE = INDENTATION + "todo: use this command to add an item with a deadline to the list of tasks \n" +
+    public static final String DESCRIPTION_COMMAND_DEADLINE = INDENTATION + "deadline: use this command to add an item with a deadline to the list of tasks \n" +
             INDENTATION + "command format: deadline complete assignment /by 4pm \n";
     public static final String DESCRIPTION_COMMAND_LIST = INDENTATION + "list: use this command to display the list of tasks \n" +
             INDENTATION + "command format: list \n";
+    public static final String DESCRIPTION_COMMAND_FIND = INDENTATION + "find: use this command to find tasks with matching keywords \n" +
+            INDENTATION + "command format: find assignment\n";
     public static final String DESCRIPTION_COMMAND_END = INDENTATION + "bye: use this command to end the chatbot conversation \n" +
             INDENTATION + "command format: bye \n";
 
-    public static final String[] LIST_COMMANDS = {DESCRIPTION_COMMAND_LIST, DESCRIPTION_COMMAND_DEADLINE, DESCRIPTION_COMMAND_EVENT,
+    public static final String[] LIST_COMMANDS = {DESCRIPTION_COMMAND_LIST, DESCRIPTION_COMMAND_FIND, DESCRIPTION_COMMAND_DEADLINE, DESCRIPTION_COMMAND_EVENT,
             DESCRIPTION_COMMAND_TODO, DESCRIPTION_COMMAND_MARK, DESCRIPTION_COMMAND_UNMARK, DESCRIPTION_COMMAND_END};
 
     public static final int PARSE_ICON_INDEX = 0;
