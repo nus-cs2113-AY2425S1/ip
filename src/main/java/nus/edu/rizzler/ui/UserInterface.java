@@ -47,7 +47,7 @@ public class UserInterface {
      * @param e The exception whose message will be displayed.
      */
     public void displayError(Exception e) {
-        System.out.println("**** ERROR: " + e.getMessage().toUpperCase() + " ****");
+        System.out.println("**** ERROR: " + e.getMessage() + " ****");
     }
 
     /**
