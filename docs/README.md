@@ -6,17 +6,17 @@ Welcome to Bron!
 
 1.	Introduction 
 2.  Quick Start
-3.	Features
-•	1. Print User Guide
-•	2. Add a To-Do
-•	3. Add a Deadline
-•	4. Add an Event
-•	5. List Tasks
-•	6. Find Tasks by Keyword
-•	7. Mark a Task as Done
-•	8. Unmark a Task
-•	9. Delete a Task
-•	10. Exit Chatbot
+   3.	Features
+   •	1. Print User Guide
+   •	2. Add a To-Do
+   •	3. Add a Deadline
+   •	4. Add an Event
+   •	5. List Tasks
+   •	6. Find Tasks by Keyword
+   •	7. Mark a Task as Done
+   •	8. Unmark a Task
+   •	9. Delete a Task
+   •	10. Exit Chatbot
 4.	Additional Notes
 
 ## Introduction
@@ -50,7 +50,7 @@ Description: Adds a to-do task to your list.
 
 Example:
 
-	•	`todo Buy groceries` 
+	`todo Buy groceries` 
 adds “Buy groceries” to your task list.
 
 ### 3. Add a Deadline: deadline
@@ -61,7 +61,7 @@ Description: Adds a deadline task with a specified due date and time.
 
 Example:
 
-	•	`deadline Submit assignment /by 2024-10-12 1800`
+	`deadline Submit assignment /by 2024-10-12 1800`
 adds “Submit assignment” with the due date of October 12, 2024, 6:00 PM.
 
 ### 4. Add an Event: event
@@ -72,7 +72,7 @@ Description: Adds an event to your list with start and end times.
 
 Example:
 
-	•	'event Project meeting /from 2024-10-12 0900 /to 2024-10-12 1100'
+	'event Project meeting /from 2024-10-12 0900 /to 2024-10-12 1100'
 adds "Project meeting" event with the timeline from October 12, 2024, 9:00AM to October 12, 2024, 11:00AM
 
 ### 5. List Tasks: list
@@ -89,7 +89,7 @@ Description: Searches and lists tasks containing the specified keyword.
 
 Example:
 
-	•	`find groceries`
+	`find groceries`
 display all tasks that contain the word “groceries”.
 
 
@@ -101,7 +101,7 @@ Description: Marks the specified task as completed.
 
 Example:
 
-	•	'mark 1' 
+	'mark 1' 
 marks the first task in the list as done.
 
 ### 8. Unmark a Task: unmark
@@ -112,7 +112,7 @@ Description: Unmarks the specified task, indicating it is not completed.
 
 Example:
 
-	•	`unmark 1` 
+	`unmark 1` 
 unmarks the first task.
 
 ### 9. Delete a Task: delete
@@ -123,7 +123,7 @@ Description: Deletes the specified task from your list.
 
 Example:
 
-	•	`delete 1` 
+	`delete 1` 
 deletes the first task.
 
 ### 10. Exit Chatbot: bye
