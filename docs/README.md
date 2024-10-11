@@ -1,6 +1,6 @@
 # Anke User Guide
 
-A chat bot
+A chat bot implemented using Java
 
 ## Loading stored data
 Upon running the application, data stored in "./Anke.txt" will be loaded into the application.
