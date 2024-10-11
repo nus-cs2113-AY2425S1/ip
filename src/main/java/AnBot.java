@@ -1,6 +1,12 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This is the driver code of a chatbot that manage the todo, deadlines and events
+ * We can perform basic tasks such as listing, adding, marking, unmarking, deleting and finding 
+ * Tasks are saved in a .txt file 
+ * @author Nguyen Hoang Minh Ngoc.  
+ */
 public class AnBot {
 
     private Storage storage; 
@@ -9,12 +15,21 @@ public class AnBot {
     private Parser parser; 
     private static final String FILE_PATH = "data/AnBot.txt"; 
     
+    /**
+     * Initializes the chatbot with the specified file path for storing tasks.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public AnBot(String filePath) {
         ui = new Ui(); 
         storage = new Storage(filePath); 
         taskList = new TaskList(storage); 
         parser = new Parser(); 
     }
+
+    /** 
+     * The infinite loop that runs the chatbot, receives the user input and executes commands
+     */
 
     public void run() {
         ui.printWelcome();
@@ -83,9 +98,13 @@ public class AnBot {
                 System.out.println("Error saving tasks: " + e.getMessage());
             }
         }
-
     }
     
+    /** 
+     * Main program that launch an instance of the chatbot and run it
+     * 
+     * @param args Command line arguments (not used in this program).
+     */
     public static void main(String[] args) {
         new AnBot(FILE_PATH).run(); 
     }

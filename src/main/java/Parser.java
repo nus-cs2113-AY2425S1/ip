@@ -1,5 +1,15 @@
+/**
+ * This parser processes user input and converts it into commands and details 
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and returns a command and its arguments as an array of strings.
+     *
+     * @param input User's input to be parsed 
+     * @return An array of strings where the first elements is the command, the other elements are detais of the task 
+     * @throws AnBotException If the input format is invalid or a required argument is missing.
+     */
     public String[] parse(String input) throws AnBotException {
         if (input.equals("bye")) {
             return new String[]{"bye"}; 
