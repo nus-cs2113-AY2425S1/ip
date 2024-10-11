@@ -1,4 +1,5 @@
 package Yukee;
+
 import Yukee.task.Todo;
 import Yukee.task.Event;
 import Yukee.task.Task;
@@ -7,6 +8,7 @@ import Yukee.task.TaskList;
 import Yukee.parser.Parser;
 import Yukee.exception.YukeeException;
 import Yukee.task.Deadline;
+
 import java.util.ArrayList;
 
 /**
@@ -51,80 +53,81 @@ public class Yukee {
                 String command = parsedCommand[0].toLowerCase();
 
                 switch (command) {
-                    case "bye":
-                        ui.showGoodbye();
-                        isExit = true;
-                        break;
-                    case "list":
-                        taskList.printTasks();
-                        break;
-                    case "todo":
-                        if (parsedCommand.length < 2) {
-                            throw new YukeeException("The description of a todo cannot be empty.");
-                        }
-                        taskList.addTask(new Todo(parsedCommand[1]));
-                        ui.showAddTask(taskList.getLastTask(), taskList.size());
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "deadline":
-                        if (parsedCommand.length < 2 || !parsedCommand[1].contains("/by")) {
-                            throw new YukeeException("The description of a deadline must contain '/by'.");
-                        }
-                        String[] deadlineParts = parsedCommand[1].split(" /by ");
-                        taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-                        ui.showAddTask(taskList.getLastTask(), taskList.size());
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "event":
-                        if (parsedCommand.length < 2 || !parsedCommand[1].contains("/from") || !parsedCommand[1].contains("/to")) {
-                            throw new YukeeException("The description of an event must contain '/from' and '/to'.");
-                        }
-                        String[] eventParts = parsedCommand[1].split(" /from | /to ");
-                        taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
-                        ui.showAddTask(taskList.getLastTask(), taskList.size());
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "mark":
-                        if (parsedCommand.length < 2) {
-                            throw new YukeeException("Please provide the task number to mark as done.");
-                        }
-                        int markIndex = Integer.parseInt(parsedCommand[1]) - 1;
-                        taskList.markTaskAsDone(markIndex);
-                        ui.showMarkTask(taskList.getTask(markIndex));
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "unmark":
-                        if (parsedCommand.length < 2) {
-                            throw new YukeeException("Please provide the task number to unmark.");
-                        }
-                        int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
-                        taskList.markTaskAsNotDone(unmarkIndex);
-                        ui.showUnmarkTask(taskList.getTask(unmarkIndex));
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "delete":
-                        if (parsedCommand.length < 2) {
-                            throw new YukeeException("Please provide the task number to delete.");
-                        }
-                        int deleteIndex = Integer.parseInt(parsedCommand[1]) - 1;
-                        Task deletedTask = taskList.deleteTask(deleteIndex);
-                        ui.showDeleteTask(deletedTask, taskList.size());
-                        storage.save(taskList.getTasks());
-                        break;
-                    case "find":
-                        if (parsedCommand.length < 2) {
-                            throw new YukeeException("The find command must be followed by a keyword.");
-                        }
-                        String keyword = parsedCommand[1];
-                        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
-                        ui.showFoundTasks(foundTasks);
-                        break;
+                case "bye":
+                    ui.showGoodbye();
+                    isExit = true;
+                    break;
+                case "list":
+                    taskList.printTasks();
+                    break;
+                case "todo":
+                    if (parsedCommand.length < 2) {
+                        throw new YukeeException("The description of a todo cannot be empty.");
+                    }
+                    taskList.addTask(new Todo(parsedCommand[1]));
+                    ui.showAddTask(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
+                    break;
+                case "deadline":
+                    if (parsedCommand.length < 2 || !parsedCommand[1].contains("/by")) {
+                        throw new YukeeException("The description of a deadline must contain '/by'.");
+                    }
+                    String[] deadlineParts = parsedCommand[1].split(" /by ");
+                    taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    ui.showAddTask(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
+                    break;
+                case "event":
+                    if (parsedCommand.length < 2 || !parsedCommand[1].contains("/from")
+                                || !parsedCommand[1].contains("/to")) {
+                        throw new YukeeException("The description of an event must contain '/from' and '/to'.");
+                    }
+                    String[] eventParts = parsedCommand[1].split(" /from | /to ");
+                    taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    ui.showAddTask(taskList.getLastTask(), taskList.size());
+                    storage.save(taskList.getTasks());
+                    break;
+                case "mark":
+                    if (parsedCommand.length < 2) {
+                        throw new YukeeException("Please provide the task number to mark as done.");
+                    }
+                    int markIndex = Integer.parseInt(parsedCommand[1]) - 1;
+                    taskList.markTaskAsDone(markIndex);
+                    ui.showMarkTask(taskList.getTask(markIndex));
+                    storage.save(taskList.getTasks());
+                    break;
+                case "unmark":
+                    if (parsedCommand.length < 2) {
+                        throw new YukeeException("Please provide the task number to unmark.");
+                    }
+                    int unmarkIndex = Integer.parseInt(parsedCommand[1]) - 1;
+                    taskList.markTaskAsNotDone(unmarkIndex);
+                    ui.showUnmarkTask(taskList.getTask(unmarkIndex));
+                    storage.save(taskList.getTasks());
+                    break;
+                case "delete":
+                    if (parsedCommand.length < 2) {
+                        throw new YukeeException("Please provide the task number to delete.");
+                    }
+                    int deleteIndex = Integer.parseInt(parsedCommand[1]) - 1;
+                    Task deletedTask = taskList.deleteTask(deleteIndex);
+                    ui.showDeleteTask(deletedTask, taskList.size());
+                    storage.save(taskList.getTasks());
+                    break;
+                case "find":
+                    if (parsedCommand.length < 2) {
+                        throw new YukeeException("The find command must be followed by a keyword.");
+                    }
+                    String keyword = parsedCommand[1];
+                    ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+                    ui.showFoundTasks(foundTasks);
+                    break;
 
-                    case "help":
-                        ui.showHelp();
-                        break;
-                    default:
-                        ui.showError("Unknown command: " + command);
+                case "help":
+                    ui.showHelp();
+                    break;
+                default:
+                    ui.showError("Unknown command: " + command);
                 }
             } catch (YukeeException e) {
                 ui.showError(e.getMessage());
@@ -142,4 +145,6 @@ public class Yukee {
     public static void main(String[] args) {
         new Yukee("./src/main/java/yukee.txt").run();
     }
+
+
 }

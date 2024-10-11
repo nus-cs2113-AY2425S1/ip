@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * Constructs a Deadline task with the specified description and deadline.
      *
      * @param description the description of the task
-     * @param by the deadline of the task in the format "d/M/yyyy HHmm" (e.g., 2/12/2019 1800)
+     * @param by          the deadline of the task in the format "d/M/yyyy HHmm" (e.g., 2/12/2019 1800)
      */
     public Deadline(String description, String by) {
         super(description);
@@ -26,8 +26,8 @@ public class Deadline extends Task {
      * Constructs a Deadline task for loading from storage.
      *
      * @param description the description of the task
-     * @param by the deadline string from storage
-     * @param isLoading flag indicating loading mode
+     * @param by          the deadline string from storage
+     * @param isLoading   flag indicating loading mode
      */
     public Deadline(String description, String by, boolean isLoading) {
         super(description);
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     /**
      * Parses the date and time from the input string.
      *
-     * @param dateTime the date and time string to parse
+     * @param dateTime      the date and time string to parse
      * @param isInteractive whether to prompt the user for input
      * @return the parsed LocalDateTime object, or null if parsing fails during loading
      */

@@ -4,4 +4,6 @@ event team meeting /from 2pm /to 4pm
 list
 mark 1
 unmark 2
+delete 3
+find book
 bye

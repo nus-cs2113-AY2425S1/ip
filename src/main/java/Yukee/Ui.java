@@ -4,20 +4,22 @@ import Yukee.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Represents the user interface for interacting with the user.
  */
 public class Ui {
     private final Scanner scanner;
+
     /**
      * Constructs a new Ui instance and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     /**
      * Displays the tasks found by the find command.
-     *
      */
     public void showWelcome() {
         String logo = """
@@ -28,25 +30,30 @@ public class Ui {
                    Y     UUU   K   K  EEEEE  EEEEE
                 """;
         System.out.println("Hello! I'm Yukee, your friendly assistant!\n" + logo);
+        System.out.println("Please enter help to see the commands you can use:)");
     }
+
     /**
      * Displays an error message when loading tasks fails.
      */
     public void showLoadingError() {
         System.out.println("No existing data found. Starting with an empty task list.");
     }
+
     /**
      * Displays a goodbye message when the user exits.
      */
     public void showGoodbye() {
         System.out.println("Bye! Hope to see you again soon!");
     }
+
     /**
      * Displays a line divider for better readability.
      */
     public void showLine() {
         System.out.println("____________________________________________");
     }
+
     /**
      * Displays an error message.
      *
@@ -55,6 +62,7 @@ public class Ui {
     public void showError(String message) {
         System.out.println("OOPS!!! " + message);
     }
+
     /**
      * Reads and returns the user command.
      *
@@ -64,6 +72,7 @@ public class Ui {
         System.out.print("Enter command: ");
         return scanner.nextLine().trim();
     }
+
     /**
      * Displays a message indicating that a task has been added.
      *
@@ -75,6 +84,7 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
     }
+
     /**
      * Displays a message indicating that a task has been marked as done.
      *
@@ -84,6 +94,7 @@ public class Ui {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
+
     /**
      * Displays a message indicating that a task has been unmarked.
      *
@@ -93,6 +104,7 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
+
     /**
      * Displays a message indicating that a task has been deleted.
      *
@@ -104,6 +116,7 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
     }
+
     /**
      * Displays a help message to show available commands.
      */
@@ -120,6 +133,7 @@ public class Ui {
         System.out.println("8. 'help' - Show this help message.");
         System.out.println("9. 'bye' - Exit the program.");
     }
+
     /**
      * Displays the tasks found by the find command.
      *

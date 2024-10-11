@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
 /**
  * Represents an event with a start and end time.
  */
@@ -15,8 +16,8 @@ public class Event extends Task {
      * Constructs an Event task with the specified description, start time, and end time.
      *
      * @param description the description of the event
-     * @param from the start time of the event in the format "d/M/yyyy HHmm" (e.g., 10/12/2019 0900)
-     * @param to the end time of the event in the format "d/M/yyyy HHmm" (e.g., 10/12/2019 1100)
+     * @param from        the start time of the event in the format "d/M/yyyy HHmm" (e.g., 10/12/2019 0900)
+     * @param to          the end time of the event in the format "d/M/yyyy HHmm" (e.g., 10/12/2019 1100)
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -28,9 +29,9 @@ public class Event extends Task {
      * Constructs an Event task for loading from storage.
      *
      * @param description the description of the event
-     * @param from the start time string from storage
-     * @param to the end time string from storage
-     * @param isLoading flag indicating loading mode
+     * @param from        the start time string from storage
+     * @param to          the end time string from storage
+     * @param isLoading   flag indicating loading mode
      */
     public Event(String description, String from, String to, boolean isLoading) {
         super(description);
@@ -41,7 +42,7 @@ public class Event extends Task {
     /**
      * Parses the date and time from the input string.
      *
-     * @param dateTime the date and time string to parse
+     * @param dateTime      the date and time string to parse
      * @param isInteractive whether to prompt the user for input
      * @return the parsed LocalDateTime object, or null if parsing fails during loading
      */

@@ -49,23 +49,23 @@ public class Storage {
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 switch (type) {
-                    case "T":
-                        Task todo = new Todo(parts[2]);
-                        if (isDone) todo.markAsDone();
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Task deadline = new Deadline(parts[2], parts[3], true);
-                        if (isDone) deadline.markAsDone();
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        Task event = new Event(parts[2], parts[3], parts[4], true);
-                        if (isDone) event.markAsDone();
-                        tasks.add(event);
-                        break;
-                    default:
-                        throw new YukeeException("Error loading task from file. Task type not recognized.");
+                case "T":
+                    Task todo = new Todo(parts[2]);
+                    if (isDone) todo.markAsDone();
+                    tasks.add(todo);
+                    break;
+                case "D":
+                    Task deadline = new Deadline(parts[2], parts[3], true);
+                    if (isDone) deadline.markAsDone();
+                    tasks.add(deadline);
+                    break;
+                case "E":
+                    Task event = new Event(parts[2], parts[3], parts[4], true);
+                    if (isDone) event.markAsDone();
+                    tasks.add(event);
+                    break;
+                default:
+                    throw new YukeeException("Error loading task from file. Task type not recognized.");
                 }
 
             }
