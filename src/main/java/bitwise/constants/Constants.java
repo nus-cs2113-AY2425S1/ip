@@ -37,9 +37,11 @@ public class Constants {
             INDENTATION + "command format: find assignment\n";
     public static final String DESCRIPTION_COMMAND_END = INDENTATION + "bye: use this command to end the chatbot conversation \n" +
             INDENTATION + "command format: bye \n";
+    public static final String DESCRIPTION_COMMAND_DELETE = INDENTATION + "delete: use this command to delete a task from the list \n" +
+            INDENTATION + "command format: delete 1\n";
 
     public static final String[] LIST_COMMANDS = {DESCRIPTION_COMMAND_LIST, DESCRIPTION_COMMAND_FIND, DESCRIPTION_COMMAND_DEADLINE, DESCRIPTION_COMMAND_EVENT,
-            DESCRIPTION_COMMAND_TODO, DESCRIPTION_COMMAND_MARK, DESCRIPTION_COMMAND_UNMARK, DESCRIPTION_COMMAND_END};
+            DESCRIPTION_COMMAND_TODO, DESCRIPTION_COMMAND_MARK, DESCRIPTION_COMMAND_UNMARK, DESCRIPTION_COMMAND_DELETE, DESCRIPTION_COMMAND_END};
 
     public static final int PARSE_ICON_INDEX = 0;
     public static final int PARSE_IS_COMPLETED_INDEX = 0;

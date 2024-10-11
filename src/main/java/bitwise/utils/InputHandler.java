@@ -57,6 +57,8 @@ public class InputHandler {
             } catch (IndexOutOfBoundsException e) {
                 OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
                 return Status.RUNNING;
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DELETE);
             }
         }else if (userInput.startsWith(Commands.COMMAND_FIND)) {
             String description = userInput.substring(userInput.indexOf(" ") + 1);
