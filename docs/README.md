@@ -41,9 +41,9 @@ Nell is a chatbot that allows users to manage tasks through a command-line inter
     > e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter, like in `todo buy bread`.
 > * Command words are **case-sensitive**.   
     > e.g. the program will interpret `LIST` as an invalid command, even though `list` is valid.
-> * For commands that do not take in parameters (like `list` and `bye`), additional parameters
-    > entered will be ignored by the program.  
-    > e.g. the program will interpret `list 1-10` as `list`.
+> * For commands that do not take in parameters (like `list` and `bye`), if additional parameters
+    > are added, the program will interpret the command as invalid.  
+    > e.g. the program will interpret `list 1-10` as an invalid command.
 
 ### Adding `ToDo` tasks: `todo`
 
