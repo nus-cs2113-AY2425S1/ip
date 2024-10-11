@@ -11,16 +11,26 @@ import task.TaskList;
 
 public class Storage {
     private static Path filePath;
+
+    /**
+     * Constructs a Storage object with a specified file path.
+     * @param filePath The file path to store the chatbot data.
+     */
     public Storage(String filePath){
         this.filePath = Paths.get(filePath);
     }
+
+    /**
+     * Saves the task list to the file path.
+     * @param tasks The task list to be saved.
+     * @throws IOException If an I/O error occurs.
+     */
     public void save(TaskList tasks) throws IOException{
         ArrayList<Task> taskList = tasks.getTaskList();
         List<String> lines = new ArrayList<>();
         for (Task task : taskList){
             lines.add(task.saveAsString());
         }
-
 
         try {
             Files.write(filePath, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -29,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the file path.
+     * @return The task list loaded from the file path.
+     * @throws IOException If an I/O error occurs.
+     */
     public ArrayList<Task> load() throws IOException{
         ArrayList<Task> taskList = new ArrayList<>();
         

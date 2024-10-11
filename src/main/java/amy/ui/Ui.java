@@ -10,8 +10,12 @@ public class Ui {
      */
     public static void print(String text){
         System.out.println(text);
+        printFiller();
     }
 
+    /**
+     * Print a line of filler to separate different sections of the chatbot.
+     */
     public static void printFiller(){
         System.out.println("____________________________________________________________");
     }
@@ -20,6 +24,12 @@ public class Ui {
      * Display the start screen of the chatbot.
      */
     public static void printGreeting(){
+        String logo =    "     /   | |  \\/  |\\ \\ / /\n"
+                    +    "    / /| | | \\  / | \\ V / \n"
+                    +    "   / /_| | | |\\/| |  \\ /\n"     
+                    +    "  /  __  | | |  | |  | |\n"
+                    +    " /_/   |_| |_|  |_|  |_|  ";
+        System.out.println(logo);
         String greet = """
                        Hello! I'm Amy ~ 
                        What can I do for you? (^v^) 
@@ -36,10 +46,20 @@ public class Ui {
         System.out.println(bye);
         printFiller();
     }
+
+    /**
+     * Read the command input by the user.
+     * @return The command input by the user.
+     */
     public static String readCommand(){
-        return scanner.nextLine();
+        String command = scanner.nextLine();
+        System.out.println("");
+        return command;        
     }
 
+    /**
+     * Display the error message when the chatbot is unable to load tasks.
+     */
     public static void showLoadingError(){
         String text = "Unable to load tasks due to some reason T_T";
         print(text);

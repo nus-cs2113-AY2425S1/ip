@@ -18,12 +18,7 @@ public class Task {
     public void markTask(boolean isDone){
         this.isDone = isDone;
     }
-    public void markAsDone(){
-        isDone = true;
-    }
-    public void markAsUndone(){
-        isDone = false;
-    }
+    @Override
     public String toString(){
         return("[" + getStatusIcon() + "] " + description);
     }
@@ -35,15 +30,16 @@ public class Task {
         String type = dataArr[0];
         String description = dataArr[1];
         boolean isDone = Boolean.parseBoolean(dataArr[2]);
-        switch(type){
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                return new Deadline(description, isDone, dataArr[3]);
-            case "E":
-                return new Event(description, isDone, dataArr[3], dataArr[4]);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "T" -> new Todo(description, isDone);
+            case "D" -> new Deadline(description, isDone, dataArr[3]);
+            case "E" -> new Event(description, isDone, dataArr[3], dataArr[4]);
+            default -> null;
+        };
     }
+
+    public String getDescription() {
+        return description;
+    }
+    
 }
