@@ -5,15 +5,17 @@ Poppy is a chatbot designed for task management, enabling users to easily create
 ## Quick Start
 
 ### Features
-- Viewing help: `help`
-- Adding a task: `add`
 - Listing all tasks: `list`
-- Editing a task: `edit`
 - Deleting a task: `delete`
-- Clearing all tasks: `clear`
-- Exiting the program: `exit`
-- Saving your data
-- Editing the data file
+- Exiting the program: `Bye`
+- Finding a task: `Find`
+- Add a todo: `todo`
+- Add a deadline: `deadline`
+- Add an event: `event`
+- Marking a task as done: `mark`
+- Unmarking a task as done: `unmark`
+- Saving your data: 
+- Loading your data
 
 ## Quick Start Instructions
 
@@ -36,15 +38,15 @@ Poppy is a chatbot designed for task management, enabling users to easily create
 
 2. **Add a deadline**
    ```plaintext
-   deadline [description] /by [dd-MM-yyyy]
+   deadline [description] /by [yyyy-MM-dd] [HH:MM:SS]
    ```
-   Example: deadline Submit Homework /by 2359
+   Example: deadline Submit Homework /by 2024-10-11 18:00:00
 
 3. **Add an event**
    ```plaintext
-   event [description] /from [start time]
+   event [description] /from [start time] /to [end time]
    ```
-   Example: event wedding /from 0900
+   Example: event wedding /from 0900 /to 1800
 
 4. **Mark a task as done**
    ```plaintext
