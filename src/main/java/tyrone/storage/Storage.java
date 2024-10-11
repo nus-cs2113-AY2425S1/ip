@@ -129,7 +129,7 @@ public class Storage {
         }
         scanner.close(); 
         } catch (FileNotFoundException e) {
-            System.out.println("    Tasks.txt file not found.");
+            System.out.println("    Tasks.txt does not exist, will create one cuh.");
         }
         return tasks; 
     }    
