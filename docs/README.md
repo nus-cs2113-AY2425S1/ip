@@ -1,5 +1,8 @@
-# KBot User Guide
 
+
+---
+
+# KBot User Guide
 
 KBot is your personal task management bot that helps you organize and track your tasks efficiently. Whether you need to manage deadlines, schedule events, or simply keep track of to-do items, KBot is here to assist you. With a user-friendly command interface, you can quickly add, delete, and find tasks, making task management effortless.
 
@@ -19,7 +22,7 @@ KBot will add a new deadline task to your task list, and you'll receive confirma
 ```
 Got it. I've added this task:
   [D][ ] Submit assignment (by: 2024-10-15)
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 ```
 
 ## Adding events
@@ -67,7 +70,7 @@ To mark a task as completed, use the command `mark` followed by the task number.
 ### Example usage:
 
 ```plaintext
-mark 1
+mark 3
 ```
 
 ### Expected outcome:
@@ -85,7 +88,7 @@ To mark a task as not done, use the command `unmark` followed by the task number
 ### Example usage:
 
 ```plaintext
-unmark 1
+unmark 3
 ```
 
 ### Expected outcome:
@@ -111,7 +114,7 @@ KBot will delete the specified task and confirm the deletion.
 
 ```
 Noted. I've removed this task:
-  [T][X] Read a book
+  [D][ ] Submit assignment (by: 2024-10-15)
 Now you have 2 tasks in the list.
 ```
 
@@ -130,8 +133,26 @@ KBot will display all tasks that match the keyword.
 
 ```
 Here are the matching tasks in your list:
-1. [T][X] Read a book
-2. [D][ ] Submit assignment (by: 2024-10-15)
+2. [T][ ] Read a book
+```
+
+## Listing all tasks
+
+To view all tasks in your list, use the command `list`.
+
+### Example usage:
+
+```plaintext
+list
+```
+
+### Expected outcome:
+KBot will display all tasks currently in your list, showing their status and details.
+
+```
+Here are the tasks in your list:
+1. [E][ ] Project meeting (from: 2024-10-12 14:00 to: 2024-10-12 16:00)
+2. [T][ ] Read a book
 ```
 
 ## Exiting KBot
@@ -150,3 +171,15 @@ bye
 Bye. Hope to see you again soon!
 ```
 
+## Automatic Saving
+
+KBot automatically saves your tasks to a file named `KBot.txt` every time you add, delete, or mark a task. This ensures that your task list is preserved even after you exit the application. 
+
+### Expected outcome:
+You can find your saved tasks in the `data` folder under `KBot.txt`. The file will contain all your tasks in a structured format that KBot can read when you restart the application.
+```
+E | 0 | Project meeting | 2024-10-12 14:00 to: 2024-10-12 16:00
+T | 0 | Read a book
+```
+
+---
