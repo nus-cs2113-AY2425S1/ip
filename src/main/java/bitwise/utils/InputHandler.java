@@ -56,12 +56,16 @@ public class InputHandler {
                 deleteTask(taskNumber, tasksList, numberOfTasks);
             } catch (IndexOutOfBoundsException e) {
                 OutputManager.printMessage("Invalid task number: Current list size is " + numberOfTasks);
+                OutputManager.printLineBreak();
                 return Status.RUNNING;
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_DELETE);
             }
         }else if (userInput.startsWith(Commands.COMMAND_FIND)) {
             String description = userInput.substring(userInput.indexOf(" ") + 1);
+            if (description.isBlank() || !userInput.contains(" ")) {
+                throw new InvalidFormatException(userInput + "\n" + Constants.DESCRIPTION_COMMAND_FIND);
+            }
             ArrayList<Task> foundTasksList = findTasks(tasksList, description);
             int numberOfFoundTasks = foundTasksList.size();
             OutputManager.printFoundTasks(foundTasksList, numberOfFoundTasks);

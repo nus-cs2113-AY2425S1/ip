@@ -77,6 +77,10 @@ public class OutputManager {
     }
 
     public static void printFoundTasks(ArrayList<Task> searchResults, int numberOfResults) {
+        if (numberOfResults == 0) {
+            System.out.println(Constants.INDENTATION + Messages.MESSAGE_NOT_FOUND);
+            return;
+        }
         System.out.println(Constants.INDENTATION + Messages.MESSAGE_FOUND);
         for (int i = 0; i < numberOfResults; i++) {
             System.out.println(Constants.INDENTATION + Integer.toString(i + 1) + ". " + searchResults.get(i).toString());
