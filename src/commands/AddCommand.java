@@ -1,5 +1,6 @@
 package commands;
 import exception.IncompleteCommandException;
+import exception.IncompleteTimeException;
 import exception.InvalidTaskContentException;
 import storage.Storage;
 import tasklist.TaskList;
@@ -9,7 +10,7 @@ import static main.Sirius.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 /**
  * AddCommand is responsible for adding a new task (Todo, Deadline, or Event) based on user input.
@@ -35,7 +36,7 @@ public class AddCommand extends Command {
     public String dealWithTimeFormat(String time){
         DateTimeFormatter inputFormat1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter inputFormat2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         LocalDate date = null;
         try {
             date = LocalDate.parse(time, inputFormat1);
@@ -82,6 +83,9 @@ public class AddCommand extends Command {
                         throw new InvalidTaskContentException("You should declare '/by' for deadline");
                     } else {
                         String byTime = userInput.substring(indexOfBy).replace("/by", EMPTY).trim();;
+                        if (byTime.isEmpty()){
+                            throw new IncompleteTimeException(MISSING_TIME_MESSAGE);
+                        }
                         tasks.addTask(new Deadline(taskName, false, dealWithTimeFormat(byTime)));
                     }
                     break;
@@ -95,12 +99,15 @@ public class AddCommand extends Command {
                     } else {
                         String fromTime = userInput.substring(indexOfFrom, indexOfTo).replace("/from", EMPTY).trim();
                         String toTime = userInput.substring(indexOfTo).replace("/to", EMPTY).trim();;
+                        if (fromTime.isEmpty() || toTime.isEmpty()){
+                            throw new IncompleteTimeException(MISSING_TIME_MESSAGE);
+                        }
                         tasks.addTask(new Event(taskName, false, dealWithTimeFormat(fromTime), dealWithTimeFormat(toTime)));
                     }
             }
             ui.showTaskAdded(tasks, tasks.getListSize());
             ui.showCurrentSizeOfList(tasks);
-        } catch (InvalidTaskContentException | IncompleteCommandException e) {
+        } catch (InvalidTaskContentException | IncompleteCommandException | IncompleteTimeException e) {
             ui.showLine();
             ui.print(e.getMessage());
             ui.showLine();

@@ -156,10 +156,16 @@ public class Ui {
      */
     public void showTaskListed(TaskList tasks){
         System.out.println(SEPARATOR);
-        System.out.println(LIST_TASK_MESSAGE);
-        for (int i = 0; i < tasks.getList().size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.getList().get(i).toString());
+        if (tasks.getListSize() == 0){
+            System.out.println(EMPTY_LIST_MESSAGE);
         }
+        else{
+            System.out.println(LIST_TASK_MESSAGE);
+            for (int i = 0; i < tasks.getListSize(); i++) {
+                System.out.println(i + 1 + ". " + tasks.getList().get(i).toString());
+            }
+        }
+
         System.out.println(SEPARATOR);
     }
 

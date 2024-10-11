@@ -45,6 +45,7 @@ public class Sirius {
     public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:";
     public static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:";
     public static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:";
+    public static final String EMPTY_LIST_MESSAGE = "The list is empty now! You can add some tasks in it.";
     public static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:";
     public static final String NOT_FIND_TASK_MESSAGE = "No tasks found with the keyword: ";
 
@@ -53,6 +54,7 @@ public class Sirius {
     public static final String CREATE_NEW_LIST_MESSAGE ="You have no previous task list. Start with a new task list!";
     public static final String SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks.";
     public static final String ILLEGAL_COMMAND_MESSAGE = "I don't understand it. Please enter an illegal command!";
+    public static final String MISSING_TIME_MESSAGE = "You should specify a byTime for deadline, or a fromTime and a toTime for event!";
 
     /**
      * Constructs a Sirius object with the specified file path.

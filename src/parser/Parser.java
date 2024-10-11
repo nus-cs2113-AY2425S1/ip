@@ -23,14 +23,14 @@ public class Parser {
      * @throws IllegalCommandException     If the command does not match any known command prefix.
      */
     public static Command parse(String userInput) throws InvalidTaskContentException, IncompleteCommandException, IllegalCommandException {
-        String[] commandPieces = userInput.split(" ");
+        String[] commandPieces = userInput.split(SPACE);
         String commandPrefix = commandPieces[0];
 
         switch (commandPrefix) {
             case BYE:
-                return new ByeCommand();
+                return new ByeCommand(userInput);
             case LIST:
-                return new ListCommand();
+                return new ListCommand(userInput);
             case MARK:
                 return new MarkCommand(userInput, true);
             case UNMARK:
