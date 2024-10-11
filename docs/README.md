@@ -16,7 +16,11 @@ Erika is a handy CLI task organizer for your daily tasks, supporting Todos, Dead
 - Commands are case sensitive, <i>i.e <code>find hello</code> is not equivalent to <code>find Hello</code></i>
 - Spaces are <i>optional</i> <b>except</b> for the <b>single</b> space between the <b>command keyword</b> (i.e ```todo```,```deadline```,```event```,```delete``` etc) and the rest of the command. Example: ```deadline sleep/bytonight``` is equivalent to ```deadline sleep /by tonight``` but ```deadlinesleep/bytonight``` will raise an exception.
 - Likewise, additional spaces between parameters other than the aforementioned initial space between the command keyword and the rest of the command will be <b>ignored</b>. 
-Example: <pre>deadline    sleep    /by   tonight</pre>
+Example:
+```plaintext
+deadline     sleep     /by         tonight
+```
+
 will produce output
 ```angular2html
         ____________________________________________________________
@@ -25,6 +29,7 @@ will produce output
 	Now you have 5 tasks in the list.
         ____________________________________________________________
 ```
+
 ## Adding Todos: <code>todo</code>
 Adds a <b>todo</b> to the list of tasks
 
