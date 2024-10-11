@@ -22,12 +22,70 @@ of your tasks** in one place. It is also **simple, fast and intuitive** to use!!
   - [Saving the task list](#saving-the-task-list)
 - [Command Summary](#command-summary)
 
+___
+# Features:
 
-// Give examples of usage
+## Adding a todo task: `todo`
 
-Example: `keyword (optional arguments)`
+Adds a todo task to the task list.
 
-// A description of the expected outcome goes here
+Format: `todo <task name>`
+
+Example: `todo read book`
+
+Sample output:
+
+```
+Gotcha! TODO task added to list!
+> [T][ ] read book
+You now have 1 tasks in your list!
+```
+
+## Adding a deadline task: `deadline`
+
+Adds a deadline task to the task list.
+
+Format: `deadline <task name> /by <date time>`
+
+- Date time **must be** in the following format: `DD/MM/YYYY HOUR:MIN`
+- `DD`, `MM`, `HOUR` and `MIN` **must be** a 2 digit value.
+- `YYYY` **must be** a 4 digit value.
+- `YYYY` **must be** from 2024 onwards.
+- For **single digit** date time parameter(s) (i.e. 0 to 9),
+  append a 0 at the front.
+
+Example: `deadline return book /by 01/12/2024 15:05`
+
+Sample output:
+
+```
+Gotcha! DEADLINE task added to list
+> [D][ ] return book (by: 01 Dec 2024, 03:05pm)
+You now have 2 tasks in your list!
+```
+
+## Adding an event task: `event`
+
+Adds an event task to the task list.
+
+Format: `event <task name> /from <date time> /to <date time>`
+
+- Date time **must be** in the following format: `DD/MM/YYYY HOUR:MIN`
+- `DD`, `MM`, `HOUR` and `MIN` **must be** a 2 digit value.
+- `YYYY` **must be** a 4 digit value.
+- `YYYY` **must be** from 2024 onwards.
+- For **single digit** date time parameter(s) (i.e. 0 to 9), 
+append a 0 at the front.
+
+Example: `event project /from 01/12/2024 15:05 /to 10/12/2024 17:30`
+
+Sample output:
+
+``` 
+Gotcha! EVENT task added to list
+> [E][ ] project (from: 01 Dec 2024, 03:05pm to: 10 Dec 2024, 05:30pm)
+You now have 3 tasks in your list!
+```
 
 ```
 expected output
