@@ -103,16 +103,3 @@ Tasks data are saved in the hard disk automatically after any command that chang
 
 ### Editing the data file
 Tasks data are saved automatically as a .txt file ```[JAR file location]/data/tasks.txt```.
-
-## Command summary
-| **Action**   | **Format, Examples**                                                                                     |
-| ------------ | ---------------------------------------------------------------------------------------------------------|
-| **Todo**     | ```todo DESCRIPTION```e.g., ```todo read book```                                                         |
-| **Deadline** | ```deadline DESCRIPTION /by TIME``` e.g., ```deadline read book /by Thursday```                          |
-| **Event**    | ```event DESCRIPTION /from START_TIME /to END_TIME``` e.g., ```event attend meeting /from 2pm /to 5pm``` |
-| **List**     | ```list```                                                                                               |
-| **Find**     | ```find KEYWORDS``` e.g., ```find read```                                                                |
-| **Delete**   | ```delete INDEX``` e.g., ```delete 2```                                                                  |
-| **Mark**     | ```mark INDEX``` e.g., ```mark 5```                                                                      |
-| **Unmark**   | ```unmark INDEX``` e.g., ```unmark 4```                                                                  |
-| **Exit**     | ```bye```                                                                                                |
