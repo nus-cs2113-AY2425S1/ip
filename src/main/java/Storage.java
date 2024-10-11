@@ -5,10 +5,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/* 
+ * The Storage class reads task from the file and write the updated tasks into the file
+ */
 public class Storage {
+
     private String filePath; 
 
-    // Check if the storage file existed. If not, created a new file 
+    /**  
+     * Check if the storage file is created. If not, then create a new file
+     * 
+     * @param filePath The file path to store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath; 
         try {
@@ -23,7 +31,12 @@ public class Storage {
         }
     }
 
-    // Read the pre-stored tasks in the file into the current Tasks list
+    /**
+     * Reads tasks from the storage file and loads them into the ArrayList of the current chatbot.
+     *
+     * @return An ArrayList of Task objects that were stored in the file.
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     public ArrayList<Task> read() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath); 
@@ -42,7 +55,12 @@ public class Storage {
         return tasks; 
     }
 
-    // Save the tasks into the file
+    /**
+     * Saves the task into the file
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If there is an error during writing to the file.
+     */
     public void write(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath); 
         for (Task task: tasks) {
@@ -51,7 +69,12 @@ public class Storage {
         fw.close(); 
     }
 
-    // Pre-process tasks from the file
+    /**
+     * Parses a task from a line in the storage file.
+     *
+     * @param line A line of text representing the task.
+     * @return A Task object. 
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| "); 
         String type = parts[0]; 
