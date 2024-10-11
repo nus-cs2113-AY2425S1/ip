@@ -16,7 +16,7 @@ public class Flash {
 
     public static void markTask(String input) throws FlashException {
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Parser.parseTaskNumber(input);
             Task task = tasks.get(taskNumber);
             task.markDone();
             UI.displayTaskMarked(task);
@@ -27,7 +27,7 @@ public class Flash {
 
     public static void unMarkTask(String input) throws FlashException {
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Parser.parseTaskNumber(input);
             Task task = tasks.get(taskNumber);
             task.markNotDone();
             UI.displayTaskUnmarked(task);
@@ -41,7 +41,7 @@ public class Flash {
             throw new FlashException("Uh-oh! Description for Todo Needed!! Cannot be left empty.");
         }
 
-        String description = input.substring(5).trim();
+        String description = Parser.parseTodo(input);
         if (description.isEmpty()) {
             throw new FlashException("Uh-oh! Description for task.ToDo Needed!! Cannot be left empty.");
         }
@@ -53,9 +53,9 @@ public class Flash {
 
     public static void deadline(String input) throws FlashException {
         try {
-            String[] parts = input.replaceFirst("deadline ", "").split(" /by ");
-            String description = parts[0].trim();
-            String by = parts[1].trim();
+            String[] parsedInput = Parser.parseDeadline(input);
+            String description = parsedInput[0];
+            String by = parsedInput[1];
             Task task = new Deadline(description, by);
             tasks.add(task);
             UI.displayTaskAdded(tasks, task);
@@ -66,10 +66,10 @@ public class Flash {
 
     public static void event(String input) throws FlashException {
         try {
-            String[] parts = input.replaceFirst("event ", "").split(" /from | /to ");
-            String description = parts[0].trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
+            String[] parsedInput = Parser.parseEvent(input);
+            String description = parsedInput[0];
+            String from = parsedInput[1];
+            String to = parsedInput[2];
             Task task = new Event(description, from, to);
             tasks.add(task);
             UI.displayTaskAdded(tasks, task);
@@ -80,7 +80,7 @@ public class Flash {
 
     public static void deleteTask(String input) throws FlashException {
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            int taskNumber = Parser.parseTaskNumber(input);
             Task task = tasks.get(taskNumber);
             tasks.remove(taskNumber);
             UI.displayTaskDeleted(tasks, task);
@@ -108,26 +108,28 @@ public class Flash {
         while(true) {
             try {
                 String input = in.nextLine();
-                if (input.equalsIgnoreCase("bye")) {
+                String command = Parser.parseCommand(input);
+
+                if (command.equalsIgnoreCase("bye")) {
                     UI.displayByeMessage();
                     break;
-                } else if (input.equalsIgnoreCase("list")) {
+                } else if (command.equalsIgnoreCase("list")) {
                     UI.displayTasks(tasks);
-                } else if (input.startsWith("mark")) {
+                } else if (command.equalsIgnoreCase("mark")) {
                     markTask(input);
                     storage.save(tasks);
-                } else if (input.startsWith("unmark")) {
+                } else if (command.equalsIgnoreCase("unmark")) {
                     unMarkTask(input);
                     storage.save(tasks);
-                } else if (input.startsWith("todo")) {
+                } else if (command.equalsIgnoreCase("todo")) {
                     todo(input);
                     storage.save(tasks);
-                } else if (input.startsWith("deadline")) {
+                } else if (command.equalsIgnoreCase("deadline")) {
                     deadline(input);
                     storage.save(tasks);
-                } else if (input.startsWith("event")) {
+                } else if (command.equalsIgnoreCase("event")) {
                     event(input);
-                } else if (input.startsWith("delete")) {
+                } else if (command.equalsIgnoreCase("delete")) {
                     deleteTask(input);
                     storage.save(tasks);
                 } else {

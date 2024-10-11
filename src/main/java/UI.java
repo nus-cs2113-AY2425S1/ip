@@ -47,8 +47,7 @@ public class UI {
     }
 
     static Scanner readCommand() {
-        Scanner in = new Scanner(System.in);
-        return in;
+        return new Scanner(System.in);
     }
 
     static void displayWelcomeMessage() {
