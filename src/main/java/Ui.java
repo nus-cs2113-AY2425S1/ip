@@ -51,14 +51,14 @@ public class Ui {
     public void showTaskAdded(Task task, int totalTasks) {
         System.out.println(ECHO_LINE);
         System.out.println("    Added: " + task);
-        System.out.println("    Now you have " + totalTasks + " tasks in the list.");
+        System.out.println("    You now have " + totalTasks + " tasks in the list.");
         System.out.println(ECHO_LINE);
     }
 
     public void showTaskRemoved(Task task, int totalTasks) {
         System.out.println(ECHO_LINE);
         System.out.println("    Removed: " + task);
-        System.out.println("    Now you have " + totalTasks + " tasks in the list.");
+        System.out.println("    You now have " + totalTasks + " tasks in the list.");
         System.out.println(ECHO_LINE);
     }
 
@@ -81,12 +81,12 @@ public class Ui {
      */
     public void showTaskMarked(Task task) {
         System.out.println("    I've marked this task as done:");
-        System.out.println("  " + task.toString());
+        System.out.println("    " + task.toString());
     }
 
     public void showTaskUnmarked(Task task) {
         System.out.println("    I've unmarked this task:");
-        System.out.println("  " + task.toString());
+        System.out.println("    " + task.toString());
     }
 
     /**
