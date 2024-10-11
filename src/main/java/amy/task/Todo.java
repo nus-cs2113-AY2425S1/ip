@@ -1,4 +1,4 @@
-package task;
+package amy.task;
 public class Todo extends Task {
 
     public Todo(String description) {

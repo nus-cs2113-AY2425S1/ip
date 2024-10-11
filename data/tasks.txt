@@ -1,5 +1,5 @@
 T |   | false
 D | read book | false | Thursday
 E | attend meeting | false | 2pm | 5pm
-T | read manga | false
+T | read manga | true
 T | Read  | false

@@ -1,4 +1,4 @@
-package ui;
+package amy.ui;
 import java.util.Scanner;
 /**
  * Represents the user interface of the chatbot.

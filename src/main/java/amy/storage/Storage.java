@@ -1,4 +1,4 @@
-package storage;
+package amy.storage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,8 +6,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-import task.Task;
-import task.TaskList;
+import amy.task.Task;
+import amy.task.TaskList;
 
 /**
  * Represents a storage object that is responsible for saving and loading the task list to and from a file.

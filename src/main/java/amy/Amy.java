@@ -1,14 +1,14 @@
 package amy;
-import exception.AmyException;
+import amy.exception.AmyException;
 import java.io.IOException;
-import parser.Parser;
-import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.Todo;
-import ui.Ui;
+import amy.parser.Parser;
+import amy.storage.Storage;
+import amy.task.Deadline;
+import amy.task.Event;
+import amy.task.Task;
+import amy.task.Todo;
+import amy.task.TaskList;
+import amy.ui.Ui;
 
 /**
  * Represents the main class of the Amy chatbot.
@@ -145,5 +145,4 @@ public class Amy {
     public static void main(String[] args) throws AmyException, IOException {
         new Amy("data/tasks.txt").run();
     }
-
 }

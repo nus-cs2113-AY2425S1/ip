@@ -12,7 +12,8 @@ Meet Amy, your cheerful and supportive task management bot! Amy is designed to h
 
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.
 A GUI similar to the below should appear in a few seconds. 
-![data\welcome.png](https://github.com/Metanyu/ip/blob/master/data/welcome.png)
+
+![welcome](/ip/assets/welcome.png)
 
 ## Features
 
@@ -105,7 +106,7 @@ Tasks data are saved automatically as a .txt file ```[JAR file location]/data/ta
 
 ## Command summary
 | **Action** | **Format, Examples** |
-|------|------------|
+| ------ | ------------ |
 | **Todo** | ```todo DESCRIPTION```<br>e.g., ```todo read book``` |
 | **Deadline** | ```deadline DESCRIPTION /by TIME```<br>e.g., ```deadline read book /by Thursday``` |
 | **Event** | ```event DESCRIPTION /from START_TIME /to END_TIME```<br>e.g., ```event attend meeting /from 2pm /to 5pm``` |

@@ -1,8 +1,8 @@
-package task;
-import exception.AmyException;
+package amy.task;
+import amy.exception.AmyException;
 import java.util.ArrayList;
 import java.util.List;
-import ui.Ui;
+import amy.ui.Ui;
 /**
  * Represents a list of tasks and provides methods to manipulate the list.
  * The list is stored as an ArrayList of Task objects.

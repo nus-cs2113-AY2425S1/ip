@@ -1,6 +1,6 @@
-package parser;
+package amy.parser;
 import amy.Amy;
-import exception.AmyException;
+import amy.exception.AmyException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
