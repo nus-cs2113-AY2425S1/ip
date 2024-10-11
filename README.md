@@ -83,7 +83,7 @@ Taylor is a quite simple chatbot that allows you to add, list, mark, unmark, and
 
 - Tasks can be marked as completed or not completed.
 - You can delete tasks from the list when they are no longer needed.
-- The chatbot saves your tasks automatically, so they will be available the next time you start the program.
+- The chatbot saves your tasks automatically; hence, they will be available the next time you start the program.
 
 ### Example Interaction
 
