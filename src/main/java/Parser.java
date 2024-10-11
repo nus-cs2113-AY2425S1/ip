@@ -27,6 +27,8 @@ public class Parser {
                 TaskList.addEvent(command);
             } else if (command.startsWith("delete")) {
                 TaskList.deleteTask(command);
+            } else if (command.startsWith("find")) {
+                TaskList.find(command);
             } else {
                 Ui.printInvalidCommand();
             }
