@@ -251,3 +251,9 @@ Here are the tasks occurring on 11 Dec 2024:
 2.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
 ```
 
+## Exiting the program: `bye`
+
+Exits the program.
+
+Format: `bye`
+
