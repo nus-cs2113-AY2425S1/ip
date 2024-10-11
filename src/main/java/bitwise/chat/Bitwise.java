@@ -2,6 +2,7 @@ package bitwise.chat;
 
 import java.io.IOException;
 
+import bitwise.constants.Constants;
 import bitwise.exceptions.*;
 import bitwise.tasks.*;
 import bitwise.utils.FileManager;
@@ -30,7 +31,11 @@ public class Bitwise {
     public static void main(String[] args) {
         try {
             numberOfTasks = FileManager.getTasks(tasksList);
-        } catch (IOException ignored) {
+        } catch (InvalidFormatException e) {
+            OutputManager.printMessage("File Corrupt: " + e + "\n" + Constants.INDENTATION + "Creating empty file");
+            FileManager.removeCorruptFile();
+        } catch (IOException e) {
+            OutputManager.printMessage("An unexpected error occurred:");
         }
         OutputManager.printWelcomeMessage();
         mainManager();

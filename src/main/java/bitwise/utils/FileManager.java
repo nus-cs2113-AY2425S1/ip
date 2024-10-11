@@ -30,6 +30,16 @@ public class FileManager {
         File tasks = new File(dir, Constants.FILE_NAME);
         tasks.createNewFile();
     }
+
+    public static void removeCorruptFile() {
+        File dir = new File(Constants.FILE_DIR_PATH);
+        File tasks = new File(dir, Constants.FILE_NAME);
+        tasks.delete();
+        try {
+            createFileIfNotExists();
+        } catch (IOException e) {}
+    }
+
     /**
      * Saves the entire list of tasks to the file.
      *
@@ -93,6 +103,7 @@ public class FileManager {
                 numberOfTasks++;
                 break;
             default:
+                s.close();
                 throw new InvalidFormatException("File corrupt: " + line);
             }
         }
