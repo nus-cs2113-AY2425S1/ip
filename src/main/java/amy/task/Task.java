@@ -1,4 +1,7 @@
 package task;
+/**
+ * Represents a task object that is responsible for storing the description and status of a task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -18,32 +21,38 @@ public class Task {
     public void markTask(boolean isDone){
         this.isDone = isDone;
     }
-    public void markAsDone(){
-        isDone = true;
-    }
-    public void markAsUndone(){
-        isDone = false;
-    }
+    @Override
     public String toString(){
         return("[" + getStatusIcon() + "] " + description);
     }
+
+    /**
+     * Returns the task in a format that can be saved to storage.
+     */
     public String saveAsString(){
         return(String.join(" | ", new String[]{description, String.valueOf(isDone)}));
     }
+
+    /**
+     * Returns a Task object from the storage data.
+     * @param data The data to be converted to a Task object.
+     * @return The Task object converted from the storage data.
+     */
     public static Task fromStorage(String data){
         String[] dataArr = data.split(" \\| ");
         String type = dataArr[0];
         String description = dataArr[1];
         boolean isDone = Boolean.parseBoolean(dataArr[2]);
-        switch(type){
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                return new Deadline(description, isDone, dataArr[3]);
-            case "E":
-                return new Event(description, isDone, dataArr[3], dataArr[4]);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "T" -> new Todo(description, isDone);
+            case "D" -> new Deadline(description, isDone, dataArr[3]);
+            case "E" -> new Event(description, isDone, dataArr[3], dataArr[4]);
+            default -> null;
+        };
     }
+
+    public String getDescription() {
+        return description;
+    }
+    
 }
