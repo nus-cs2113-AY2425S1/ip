@@ -1,504 +1,125 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class PlopBot {
-    // Static variables
-    private static final String name = "plopBot";
-    private static final String HORIZONTAL_LINE = "//" + "\u2500".repeat(50);
-    private static final String ECHO_LINE = "    " + "\u2500".repeat(48);
-    private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Task> tasks;
-    private static String userName;
-    private static final String DATA_DIR = "./data";
-    private static final String DATA_FILE = DATA_DIR + "/plopBot.txt";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    public PlopBot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (PlopBotException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+        parser = new Parser();
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+            try {
+                String[] commandParts = parser.parseCommand(fullCommand);
+                switch (commandParts[0]) {
+                    case "bye":
+                    case "exit":
+                    case "quit":
+                        isExit = true;
+                        break;
+                    case "list":
+                        ui.showTasks(tasks.getTasks());
+                        break;
+                    case "todo":
+                        Task newToDo = parser.parseTask(commandParts);
+                        tasks.addTask(newToDo);
+                        storage.save(tasks.getTasks());
+                        ui.showTaskAdded(newToDo, tasks.size());
+                        break;
+                    case "deadline":
+                        try {
+                            Task newDeadline = parser.parseTask(commandParts);
+                            tasks.addTask(newDeadline);
+                            storage.save(tasks.getTasks());
+                            ui.showTaskAdded(newDeadline, tasks.size());
+                        } catch (PlopBotException e) {
+                            ui.showError(e.getMessage() + "\n    Usage: deadline description /by DATE" +
+                                                          "\n    DATE can be 'Sunday', 'Mon', 'Tuesday', or 'YYYY-MM-DD'");
+                        }
+                        break;
+                    case "event":
+                        try {
+                            Task newEvent = parser.parseTask(commandParts);
+                            tasks.addTask(newEvent);
+                            storage.save(tasks.getTasks());
+                            ui.showTaskAdded(newEvent, tasks.size());
+                        } catch (PlopBotException e) {
+                            ui.showError(e.getMessage() + "\n    Usage: event description /from START_TIME /to END_TIME" +
+                                                          "\n    TIME can be 'Mon 2pm', 'Tuesday 14:00', or 'YYYY-MM-DD HH:MM'");
+                        }
+                        break;
+                    case "delete":
+                        int index = Integer.parseInt(commandParts[1]) - 1;
+                        Task removedTask = tasks.removeTask(index);
+                        storage.save(tasks.getTasks());
+                        ui.showTaskRemoved(removedTask, tasks.size());
+                        break;
+                    case "find":
+                        String keyword = commandParts[1];
+                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                        ui.showMatchingTasks(matchingTasks);
+                        break;
+                    case "mark":
+                        handleMarkTask(commandParts);
+                        break;
+                    case "unmark":
+                        handleUnmarkTask(commandParts);
+                        break;
+                    default:
+                        throw new PlopBotException("Unknown command");
+                }
+            } catch (PlopBotException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showExit();
+    }
 
     public static void main(String[] args) {
-        welcomeMessage();
-        tasks = loadTasks();
-        inputReader();
+        new PlopBot("data/tasks.txt").run();
     }
 
-    // Welcome message when the user runs the program.
-    static void welcomeMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm " + name + ".");
-        System.out.println("What can I do for you today?\n");
-    }
-
-    // Farewell message when the user runs the program.
-    static void farewellMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Thank you for choosing " + name + ". Have a great day!\n");
-    }
-
-    /**
-     * Reads the user's inputs and calls processInput().
-     */
-    static void inputReader() {
-        String userInput;
-
-        while (true) {
-            userInput = scanner.nextLine().trim();
-            // processInput(userInput);
-
-            if (processInput(userInput)) {
-                break;
-            }
+    private void handleMarkTask(String[] commandParts) throws PlopBotException {
+        if (commandParts.length != 2) {
+            throw new PlopBotException("Invalid mark command. Usage: mark <task number>");
         }
-
-        scanner.close();
-    }
-
-    /**
-     * Processes the user's inputs.
-     * @param userInput
-     */
-    static boolean processInput(String userInput) {
-       if (userInput.isEmpty()) {
-           printError("The input cannot be empty.");
-           return false;
-       }
-
-        if (userInput.toLowerCase().startsWith("mark") || userInput.toLowerCase().startsWith("unmark")) {
-            toggleMark(userInput);
-            return false;
-        }
-
-        String[] parts = userInput.split(" ", 2);
-        String command = parts[0].toLowerCase();
-        String details = parts.length > 1 ? parts[1] : "";
-
-        switch (command) {
-            case "todo":
-                addTodo(details);
-                break;
-            case "deadline":
-                addDeadline(details);
-                break;
-            case "event":
-                addEvent(details);
-                break;
-            case "list":
-                list();
-                break;
-            case "delete":
-                delete(details);
-                break;
-            case "help":
-                showHelp();
-                break;
-            case "clear":
-                tasks.clear();
-                System.out.println("All tasks cleared.");
-                break;
-            case "find":
-                find(details);
-                break;
-            case "bye", "exit", "quit":
-                farewellMessage();
-                return true;
-            default:
-                printError("Unknown command. Type 'help' for a list of commands.");
-                break;
-        }
-        return false;
-    }
-
-    private static void addTodo(String details) {
-        if (details.isEmpty()) {
-            printError("The description of a To-Do task cannot be empty.");
-            return;
-        }
-
-        Task newToDo = new Task(details);
-        tasks.add(newToDo);
-        saveTasks();
-        System.out.println(ECHO_LINE);
-        System.out.println("    Added the To-Do task: \n      " + newToDo.toString());
-        System.out.printf("    You now have %d tasks in your list.\n", tasks.size());
-        System.out.println(ECHO_LINE);
-        System.out.println("");
-    }
-
-    private static void addDeadline(String details) {
         try {
-            String[] parts = details.split(" /by ", 2);
-
-            if (parts.length != 2) {
-                throw new IllegalArgumentException("Invalid deadline format.");
-            }
-
-            String description = parts[0].trim();
-            String dueDateString = parts[1].trim();
-
-            if (description.isEmpty() || dueDateString.isEmpty()) {
-                printError("The descriptions of a Deadline task cannot be empty.");
-                return;
-            }
-
-
-            LocalDate dueDate = parseDateString(dueDateString);
-            Task newDeadline = new Task(description, dueDate);
-            tasks.add(newDeadline);
-            saveTasks();
-
-            System.out.println(ECHO_LINE);
-            System.out.println("    Added the Deadline task: \n      " + newDeadline.toString());
-            System.out.printf("    You now have %d tasks in your list.\n", tasks.size());
-            System.out.println(ECHO_LINE);
+            int taskIndex = Integer.parseInt(commandParts[1]) - 1;
+            Task task = tasks.getTask(taskIndex);
+            task.markAsDone();
+            storage.save(tasks.getTasks());
+            ui.showTaskMarked(task);
+        } catch (NumberFormatException e) {
+            throw new PlopBotException("Invalid task number. Please provide a number.");
         }
-        catch (Exception e) {
-            printError(e.getMessage() + "\n    Usage: deadline description /by DATE" +
-                                        "\n    DATE can be 'Sunday', 'Mon', 'Tuesday', or 'YYYY-MM-DD'");
-        }
-        System.out.println("");
     }
 
-
-    private static void addEvent(String details) {
+    private void handleUnmarkTask(String[] commandParts) throws PlopBotException {
+        if (commandParts.length != 2) {
+            throw new PlopBotException("Invalid unmark command. Usage: unmark <task number>");
+        }
         try {
-            String[] parts = details.split(" /from | /to ");
-
-            if (parts.length != 3) {
-                throw new IllegalArgumentException("Invalid event format.");
-            }
-
-            String description = parts[0].trim();
-            String startTimeString = parts[1].trim();
-            String endTimeString = parts[2].trim();
-
-            if (description.isEmpty() || startTimeString.isEmpty() || endTimeString.isEmpty()) {
-                printError("The descriptions of an Event task cannot be empty.");
-                return;
-            }
-
-            LocalDateTime startTime = parseDateTimeString(startTimeString, null);
-            LocalDateTime endTime;
-
-            if (!endTimeString.contains(" ")) {
-                LocalDate startDate = startTime.toLocalDate();
-                LocalTime endTime2 = parseTimeString(endTimeString);
-                endTime = LocalDateTime.of(startDate, endTime2);
-            }
-            else {
-                endTime = parseDateTimeString(endTimeString, startTime);
-            }
-
-            Task newEvent = new Task(description, startTime, endTime);
-            tasks.add(newEvent);
-            saveTasks();
-            System.out.println(ECHO_LINE);
-            System.out.println("    Added the Event task: \n      " + newEvent.toString());
-            System.out.printf("    You now have %d tasks in your list.\n", tasks.size());
-            System.out.println(ECHO_LINE);
-            System.out.println("");
+            int taskIndex = Integer.parseInt(commandParts[1]) - 1;
+            Task task = tasks.getTask(taskIndex);
+            task.markAsUndone();
+            storage.save(tasks.getTasks());
+            ui.showTaskUnmarked(task);
+        } catch (NumberFormatException e) {
+            throw new PlopBotException("Invalid task number. Please provide a number.");
         }
-        catch (Exception e) {
-            printError(e.getMessage() + "\n    Usage: event description /from START_TIME /to END_TIME" +
-                                        "\n    TIME can be 'Mon 2pm', 'Tuesday 14:00', or 'YYYY-MM-DD HH:MM'");
-        }
-    }
-
-    /**
-     * Lists the user's inputs.
-     */
-    static void list() {
-        System.out.println(ECHO_LINE);
-        System.out.println("    Your List:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.println("    " + task.toString());
-        }
-        System.out.println("");
-    }
-
-    /**
-     * Toggles the status of the task specified by the user.
-     * @param userInput
-     */
-    static void toggleMark(String userInput) {
-        try {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                Task task = tasks.get(taskNumber);
-                task.toggleStatus();
-                saveTasks();
-                System.out.println(ECHO_LINE);
-                System.out.printf("    Successfully updated task %d.\n", taskNumber + 1);
-                System.out.println("    Your Updated List:");
-
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task t = tasks.get(i);
-                    System.out.println("    " + t.toString());
-                }
-
-                System.out.println("");
-            }
-        }
-        catch (NumberFormatException | ArrayIndexOutOfBoundsException e){
-            System.out.println("Invalid command. Please use 'mark <task number>'.");
-        }
-        System.out.println(ECHO_LINE);
-    }
-
-    /**
-     * Parse helper method to parse date strings for deadline tasks.
-     * @param dateString
-     * @return
-     */
-    private static LocalDate parseDateString(String dateString) {
-        LocalDate now = LocalDate.now();
-        try {
-            return LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
-        }
-        catch (DateTimeParseException e) {
-            String[] shortDays = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-
-            for (int i = 0; i < shortDays.length; i++) {
-                if (shortDays[i].equalsIgnoreCase(dateString)) {
-                    return now.with(TemporalAdjusters.next(DayOfWeek.of(i + 1)));
-                }
-            }
-            try {
-                return now.with(TemporalAdjusters.next(DayOfWeek.valueOf(dateString.toUpperCase())));
-            }
-            catch (IllegalArgumentException ex) {
-                switch (dateString.toLowerCase()) {
-                    case "today":
-                        return now;
-                    case "tomorrow":
-                        return now.plusDays(1);
-                    default:
-                        throw new IllegalArgumentException("Unable to parse date: " + dateString);
-                }
-            }
-        }
-    }
-
-    /**
-     * Parse helper methods to parse date and time strings for event tasks.
-     * @param dateTimeString
-     * @return
-     */
-    private static LocalDateTime parseDateTimeString(String dateTimeString) {
-        return parseDateTimeString(dateTimeString, null);
-    }
-
-    private static LocalDateTime parseDateTimeString(String dateTimeString, LocalDateTime referenceTime) {
-        LocalDate now = LocalDate.now();
-        try {
-            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        }
-        catch (DateTimeParseException e) {
-            String[] parts = dateTimeString.split(" ", 2);
-
-            if (parts.length == 2) {
-                LocalDate date = parseDateString(parts[0]);
-                LocalTime time = parseTimeString(parts[1]);
-                return LocalDateTime.of(date, time);
-            }
-            else if (parts.length == 1) {
-                LocalTime time = parseTimeString(parts[0]);
-                LocalDate date = (referenceTime != null) ? referenceTime.toLocalDate() : now;
-                return LocalDateTime.of(date, time);
-            }
-        }
-        throw new IllegalArgumentException("Unable to parse date and time: " + dateTimeString);
-    }
-
-    private static LocalTime parseTimeString(String timeString) {
-        try {
-            return LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
-        }
-        catch (DateTimeParseException e) {
-            try {
-                return LocalTime.parse(timeString.toUpperCase(), DateTimeFormatter.ofPattern("ha"));
-            }
-            catch (DateTimeParseException e2) {
-                // Handle "2pm" format
-                String formattedTime = timeString.toLowerCase();
-                if (formattedTime.endsWith("am") || formattedTime.endsWith("pm")) {
-                    int hour = Integer.parseInt(formattedTime.substring(0, formattedTime.length() - 2));
-
-                    if (formattedTime.endsWith("pm") && hour < 12) {
-                        hour += 12;
-                    }
-                    else if (formattedTime.endsWith("am") && hour == 12) {
-                        hour = 0;
-                    }
-                    return LocalTime.of(hour, 0);
-                }
-                throw new IllegalArgumentException("Unable to parse time: " + timeString);
-            }
-        }
-    }
-
-    private static void delete (String details) {
-        try {
-            int taskNumber = Integer.parseInt(details.trim());
-
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new IllegalArgumentException("Invalid task number. Please enter a task number between 1 and " + tasks.size() + ".");
-            }
-
-            Task removedTask = tasks.remove(taskNumber - 1);
-            saveTasks();
-            System.out.println(ECHO_LINE);
-            System.out.println("    Understood. Deleted the following task: ");
-            System.out.println("      " + removedTask);
-            System.out.println("    You now have " + tasks.size() + " tasks in the list.");
-            System.out.println(ECHO_LINE);
-
-        }
-        catch (NumberFormatException e) {
-            printError("Please provide a valid task number to delete.");
-        }
-        catch (IllegalArgumentException e) {
-            printError(e.getMessage());
-        }
-    }
-
-    private static void printError (String message) {
-        System.out.println(ECHO_LINE);
-        System.out.println("    Oops! " + message);
-        System.out.println(ECHO_LINE);
-    }
-
-
-    private static void find(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            printError("Please provide a keyword to search for.");
-            return;
-        }
-
-        keyword = keyword.toLowerCase().trim();
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.getName().toLowerCase().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
-        System.out.println(ECHO_LINE);
-        if (matchingTasks.isEmpty()) {
-            System.out.println("    No matching tasks found.");
-        } else {
-            System.out.println("    Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + matchingTasks.get(i).toString());
-            }
-        }
-        System.out.println(ECHO_LINE);
-    }
-
-    private static ArrayList<Task> loadTasks() {
-        ArrayList<Task> loadedTasks = new ArrayList<>();
-        try {
-            Files.createDirectories(Paths.get(DATA_DIR));
-
-            if (Files.exists(Paths.get(DATA_FILE))) {
-                List<String> lines = Files.readAllLines(Paths.get(DATA_FILE));
-
-                for (String line : lines) {
-                    try {
-                        String[] parts = line.split("\\|");
-                        if (parts.length < 3) continue;
-
-                        String type = parts[0].trim();
-                        boolean isDone = parts[1].trim().equals("1");
-                        String description = parts[2].trim();
-
-                        Task task;
-                        switch (type) {
-                            case "T":
-                                task = new Task(description);
-                                break;
-                            case "D":
-                                if (parts.length < 4) continue;
-                                LocalDate deadline = LocalDate.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
-                                task = new Task(description, deadline);
-                                break;
-                            case "E":
-                                if (parts.length < 5) continue;
-                                LocalDateTime startTime = LocalDateTime.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                                LocalDateTime endTime = LocalDateTime.parse(parts[4].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                                task = new Task(description, startTime, endTime);
-                                break;
-                            default:
-                                continue;
-                        }
-
-                        if (isDone) {
-                            task.toggleStatus();
-                        }
-                        loadedTasks.add(task);
-                    }
-                    catch (DateTimeParseException | IndexOutOfBoundsException e) {
-                        System.out.println("    Error parsing task: " + line);
-                        // Continue to next line if there's an error with the current one
-                    }
-                }
-            }
-        }
-        catch (IOException e) {
-            printError("    An error occurred while loading tasks: " + e.getMessage());
-        }
-        return loadedTasks;
-    }
-
-    private static void saveTasks() {
-        try {
-            Files.createDirectories(Paths.get(DATA_DIR));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE));
-
-            for (Task task : tasks) {
-                String line;
-                switch (task.getTypeIcon()) {
-                    case "T":
-                        line = String.format("T | %d | %s", task.getStatus() ? 1 : 0, task.getName());
-                        break;
-                    case "D":
-                        line = String.format("D | %d | %s | %s", task.getStatus() ? 1 : 0, task.getName(),
-                                task.getDeadline().format(DateTimeFormatter.ISO_LOCAL_DATE));
-                        break;
-                    case "E":
-                        line = String.format("E | %d | %s | %s | %s", task.getStatus() ? 1 : 0, task.getName(),
-                                task.getStartTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                                task.getEndTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-                        break;
-                    default:
-                        continue;
-                }
-                writer.write(line);
-                writer.newLine();
-            }
-            writer.close();
-        }
-        catch (IOException e) {
-            printError("An error occurred while saving tasks: " + e.getMessage());
-        }
-    }
-
-    /**
-     * W.I.P Method that displays a 'help menu.'
-     */
-    static void showHelp() {
-        System.out.println("");
     }
 }
-

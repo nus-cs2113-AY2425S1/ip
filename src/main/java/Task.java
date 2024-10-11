@@ -3,7 +3,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    // Static variables
     private String taskName;
     private TaskType type;
     private boolean isDone;
@@ -11,26 +10,22 @@ public class Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    /**
-     * Enum for different task types
-     */
     public enum TaskType {
         TODO, EVENT, DEADLINE
     }
 
     /**
-     * ToDo Task constructor
+     * ToDo task constructor
      * @param taskName
      */
     public Task(String taskName) {
         this.taskName = taskName;
         this.type = TaskType.TODO;
-
-        //this.isDone = false;
+        this.isDone = false;
     }
 
     /**
-     * Deadline Task constructor
+     * Deadline task constructor
      * @param taskName
      * @param deadline
      */
@@ -38,12 +33,11 @@ public class Task {
         this.taskName = taskName;
         this.type = TaskType.DEADLINE;
         this.deadline = deadline;
-
-        //this.isDone = false;
+        this.isDone = false;
     }
 
     /**
-     * Event Task constructor
+     * Event task constructor
      * @param taskName
      * @param startTime
      * @param endTime
@@ -53,28 +47,19 @@ public class Task {
         this.type = TaskType.EVENT;
         this.startTime = startTime;
         this.endTime = endTime;
-
-        //this.isDone = false;
+        this.isDone = false;
     }
 
     /**
-     * Getters and setters for the Tasks.
+     * Getter methods for tasks.
+     * @return
      */
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
     public String getTypeIcon() {
         switch (type) {
-            case TODO:
-                return "T";
-            case DEADLINE:
-                return "D";
-            case EVENT:
-                return "E";
-
-            default:
-                return "?";
+            case TODO: return "T";
+            case DEADLINE: return "D";
+            case EVENT: return "E";
+            default: return "?";
         }
     }
 
@@ -98,25 +83,39 @@ public class Task {
         return isDone;
     }
 
-    /**
-    public void markDone() {
-        isDone = true;
-    }
-
-    public void markUndone() {
-        isDone = false;
-    }
-     */
-
-    // Toggles the isDone status of the specified Task.
     public void toggleStatus() {
         this.isDone = !this.isDone;
     }
 
-    // Returns a String of the specified task.
+    /**
+     * Marks specified task as done.
+     * @throws PlopBotException
+     */
+    public void markAsDone() throws PlopBotException {
+        if (isDone) {
+            throw new PlopBotException("Task is already marked as done.");
+        }
+        isDone = true;
+    }
+
+    /**
+     * Unmarks specified task as not-done.
+     * @throws PlopBotException
+     */
+    public void markAsUndone() throws PlopBotException {
+        if (!isDone) {
+            throw new PlopBotException("Task is not yet done.");
+        }
+        isDone = false;
+    }
+
+    /**
+     * Converts tasks into strings and returns them.
+     * @return
+     */
+    @Override
     public String toString() {
         String base = String.format("[%s][%s] %s", getTypeIcon(), isDone ? "X" : " ", taskName);
-
         switch (type) {
             case DEADLINE:
                 return String.format("%s (by: %s)", base, deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -124,8 +123,8 @@ public class Task {
                 return String.format("%s (from: %s to: %s)", base,
                         startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                         endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            default:
+                return base;
         }
-        return base;
     }
 }
-
