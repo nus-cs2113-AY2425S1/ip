@@ -4,7 +4,7 @@
 ![Product Screenshot](.\Product Screenshot.png)
 
 ## Product Introduction
-The loveSpiritual Task Manager is a task management chatbot developed as part of the CS2113 iP component. It enables users to efficiently manage tasks by allowing them to add, mark, and delete items seamlessly. With built-in functionality for automatic data saving and loading, your task information is preserved and readily available each time you access the command line interface.
+The lovespiritual Task Manager is a task management chatbot developed as part of the CS2113 individual project (iP). It enables users to efficiently manage tasks by allowing them to add, mark, and delete items seamlessly. With built-in functionality for automatic data saving and loading, your task information is preserved and readily available each time you access the command line interface.
 
 ## Quick start
 1. Ensure that you have Java 17 or above installed on your computer.
