@@ -28,9 +28,8 @@ public class AnBot {
     }
 
     /** 
-     * The infinite loop that runs the chatbot, receives the user input and executes commands
+     * The loop that runs the chatbot, receives the user input and executes commands
      */
-
     public void run() {
         ui.printWelcome();
         while (true) {
@@ -48,7 +47,7 @@ public class AnBot {
                         } catch (IOException e) {
                             System.out.println("Error saving tasks to file.");
                         }
-                        break; 
+                        return; 
                     case "list": 
                         taskList.displayEntries(); 
                         break; 
