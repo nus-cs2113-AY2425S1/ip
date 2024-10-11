@@ -69,6 +69,10 @@ public class Taylor {
 
         switch (command) {
             case "list", "ls" -> ui.showTasks(tasks);
+            case "bye" -> {
+                ui.showGoodbye();
+                System.exit(0);
+            }
             case "mark" -> {
                 try {
                     int index = Integer.parseInt(args) - 1;
