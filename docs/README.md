@@ -236,5 +236,5 @@ Yapper will create a new file (and its folder, if necessary) and fill the file i
 However, as much as possible, try to make sure this doesn't happen. 
 The file/folder creation may take a while to reload.
 
-Unless you delete the save file and end the program without saying anything to Yapper, 
-in which case your tasks are gone forever.
+If you both delete the save file and end the program without saying anything to Yapper, 
+your tasks are gone forever and there is no way to get them back.
