@@ -167,4 +167,4 @@ delete *task_number*
 For list of all valid instructions: help
 ____________________________________________________________
 
-``` Feature details
+```
