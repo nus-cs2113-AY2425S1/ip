@@ -15,7 +15,7 @@ tasks efficiently. It supports adding, listing, marking, and deleting tasks such
 ``` 
 java -jar nova.jar
 ``` 
-4. Start Using Nova
+4. Start Using Nova.
 
 ## Adding Todos
 
@@ -89,7 +89,7 @@ Example: `list 2024-09-30`
      1.[D][ ] Submit assignment (by: Sep 30 2024)
     ___________________________________________________________________
 ```
-## Marking  Tasks
+## Marking Tasks
 
 **Mark**: Mark a task as done.
 
@@ -109,7 +109,7 @@ Example: `mark 2`
 
 Format: `unmark [task index]`
 
-Example: `unmark 1`
+Example: `unmark 2`
 
 ```
     ___________________________________________________________________
