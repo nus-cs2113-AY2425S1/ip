@@ -228,8 +228,13 @@ add (todo, deadline, event), remove, or update (mark/unmark) the list.
 When Yapper boots up, it searches for that file and converts its contents into a task list.
 However, it can only convert text in a particular format, so edit the file with caution.
 
+
 Don't worry if you accidentally deleted your save file or the folder that it is in.
-The next time you update the task list in the terminal, Yapper will create a new file (and its folder, if necessary) and fill the file in with the tasks it has.
-So your tasks are safe! 
+The next time you update the task list in the terminal, 
+Yapper will create a new file (and its folder, if necessary) and fill the file in with the tasks it has.
+
+However, as much as possible, try to make sure this doesn't happen. 
+The file/folder creation may take a while to reload.
+
 Unless you delete the save file and end the program without saying anything to Yapper, 
 in which case your tasks are gone forever.
