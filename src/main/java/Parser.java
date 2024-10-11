@@ -37,4 +37,9 @@ public class Parser {
         String to = parts[2].trim();
         return new String[]{description, from, to};
     }
+
+    public static String parseKeyword(String input) {
+        String[] parts = input.split(" ", 2);
+        return parts[1];
+    }
 }

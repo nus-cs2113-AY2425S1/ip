@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class UI {
     public static void displayTasks(List<Task> tasks) {
         System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in you list:");
         for(int i = 0; i < tasks.size(); i++) {
             System.out.println(i+1 + "." + tasks.get(i));
         }
@@ -60,6 +61,15 @@ public class UI {
     static void displayByeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void displayMatchedTasks(List<Task> matchedTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in you list:");
+        for(int i = 0; i < matchedTasks.size(); i++) {
+            System.out.println(i+1 + "." + matchedTasks.get(i));
+        }
         System.out.println("____________________________________________________________");
     }
 }

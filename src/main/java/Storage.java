@@ -11,14 +11,27 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Method to load tasks from file
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws FlashException if an error occurs during file operations or if the file format is corrupted
+     */
     public List<Task> load() throws FlashException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -69,7 +82,12 @@ public class Storage {
         return tasks;
     }
 
-    // Method to save tasks to file
+    /**
+     * Saves the specified tasks to the file.
+     *
+     * @param tasks the list of tasks to save
+     * @throws FlashException if an error occurs during file operations
+     */
     public void save(List<Task> tasks) throws FlashException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
