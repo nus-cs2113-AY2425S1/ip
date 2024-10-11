@@ -102,7 +102,43 @@ Here is your list:
 2.[D][X] return book (by: 11 Dec 2024, 03:30pm)
 3.[E][ ] project meeting (from: 11 Dec 2024, 03:00pm to: 11 Dec 2024, 05:00pm)
 ```
-expected output
+
+## Marking a task: `mark`
+
+Marks a specified task as **done**.
+
+Format: `mark <task id>`
+
+- Marks the task as **done** at the specified task id.
+- The task id refers to **index number of task in the task list**.
+- The task id **must be a postive integer.** (i.e. 1,2,3,..)
+
+Example: `mark 1`
+
+Sample output:
+
+``` 
+Wonderful! Task successfully marked as DONE!
+> [T][X] read book
+```
+
+## Unmarking a task: `unmark`
+
+Marks a specified task as **undone**.
+
+Format: `unmark <task id>`
+
+- Marks the task as **undone** at the specified task id.
+- The task id refers to **index number of task in the task list**.
+- The task id **must be a postive integer.** (i.e. 1,2,3,..)
+
+Example: `unmark 1`
+
+Sample output:
+
+``` 
+Got it. Task successfully marked as UNDONE!
+> [T][ ] read book
 ```
 
 ## Feature ABC
