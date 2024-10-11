@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,15 @@ public class Fenix implements SampleStrings {
      */
     public int getSize() {
         return taskHandler.getTaskArrayList().size();
+    }
+
+    /**
+     * Retrieves the number of unfinished tasks from the task handler.
+     *
+     * @return The number of tasks that are not marked as done.
+     */
+    public int getNumberOfUnfinishedTasks() {
+        return taskHandler.getNumberOfUnfinishedTasks();
     }
 
     /**
@@ -83,7 +93,7 @@ public class Fenix implements SampleStrings {
      * Handles the 'list' command by displaying all tasks in the task list.
      */
     public void handleList() {
-        ui.showAllTasks(false);
+        ui.showAllTasks(getTaskArrayList());
     }
 
     /**
@@ -137,6 +147,18 @@ public class Fenix implements SampleStrings {
     public void handleDelete(String commandInfo) {
         Task task = taskHandler.deleteTask(commandInfo);
         ui.showFenixModification(DELETE, task);
+    }
+
+    /**
+     * Handles the 'find' command by searching for tasks that match the given input.
+     * It retrieves a list of matching tasks and displays them to the user.
+     *
+     * @param commandInfo The search keyword used to find matching tasks.
+     */
+    public void handleFind(String commandInfo) {
+        ArrayList<Task> foundArrayList = taskHandler.findTasks(commandInfo);
+        ui.printMatchedTasks();
+        ui.showAllTasks(foundArrayList);
     }
 
     /**

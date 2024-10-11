@@ -5,8 +5,8 @@
  * additional functionality.
  */
 public abstract class Task {
-    protected boolean isDone;
-    protected String taskName;
+    protected boolean isDone = false;
+    protected String taskName = "";
     protected String formattedTaskInfo = "";
 
     /**
@@ -37,6 +37,34 @@ public abstract class Task {
         this.isDone = isDone;
         this.formattedTaskInfo = formattedTaskInfo;
     }
+
+    /**
+     * Retrieves the name of the task.
+     *
+     * @return The name of the task.
+     */
+    public String getTaskName() {
+        return taskName;
+    }
+
+    /**
+     * Retrieves the formatted task information, which may include additional details about the task.
+     *
+     * @return The formatted task information.
+     */
+    public String getFormattedTaskInfo() {
+        return formattedTaskInfo;
+    }
+
+    /**
+     * Retrieves the completion status of the task.
+     *
+     * @return true if the task is marked as done, false otherwise.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+
 
     /**
      * Marks the task as done by setting the isDone flag to true.
