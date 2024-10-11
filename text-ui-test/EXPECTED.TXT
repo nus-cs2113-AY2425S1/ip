@@ -12,10 +12,10 @@ You may also mark/unmark tasks by: mark/unmark INDEX
 Return to tutorial by entering Q
 Added: [T] [ ] Finish reading book
 Added: [D] [ ] Submit assignment (by: Dec 1 2024)
-Added: [E] [ ] Project meeting (by: Oct 5 2024)
+Added: [E] [ ] Project meeting (from: Oct 5 2024 to: Oct 7 2024)
 1: [T] [ ] Finish reading book
 2: [D] [ ] Submit assignment (by: Dec 1 2024)
-3: [E] [ ] Project meeting (by: Oct 5 2024)
+3: [E] [ ] Project meeting (from: Oct 5 2024 to: Oct 7 2024)
 Marked as done: [T] [X] Finish reading book
 Unmarked: [T] [ ] Finish reading book
 Removed: [D] [ ] Submit assignment (by: Dec 1 2024)

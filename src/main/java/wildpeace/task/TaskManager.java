@@ -89,11 +89,16 @@ public class TaskManager {
                 storage.save(taskList.getTasks());
                 break;
             case "event":
-                if (!arguments.contains("/at")) {
+                if (!arguments.contains("/from") && !arguments.contains("/to")) {
                     throw new InvalidInputException("Event tasks must include '/at <event time>'.");
                 }
-                String[] eventParts = arguments.split("/at", 2);
-                taskList.addTask(new Task(eventParts[0].trim(), eventParts[1].trim(), Task.TaskType.EVENT));
+                String[] fromParts = arguments.split("/from", 2);
+                String description = fromParts[0].trim();
+
+                String[] toParts = fromParts[1].split("/to", 2);
+                String fromDate = toParts[0].trim();
+                String toDate = toParts[1].trim();
+                taskList.addTask(new Task(description, fromDate, toDate, Task.TaskType.EVENT));
                 storage.save(taskList.getTasks());
                 break;
             case "mark":
@@ -114,7 +119,7 @@ public class TaskManager {
                 ui.showGuide();
                 break;
             case "find":
-                if(arguments.isEmpty()) {
+                if (arguments.isEmpty()) {
                     throw new EmptyCommandException("The description of a task cannot be empty.");
                 }
                 taskList.findTask(arguments);

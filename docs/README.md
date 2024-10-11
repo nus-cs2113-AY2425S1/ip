@@ -67,14 +67,14 @@ For tasks that need to be completed by a certain date, you can add a deadline.
 #### Adding an Event Task
 For events that occur at a specific time, use the event task type.
 
-- **Command**: ` event DESCRIPTION /at EVENT_DATE`
+- **Command**: `event DESCRIPTION /from START_TIME /to END_TIME`
 - **Example**:
    ```
-    event Project presentation /at 2024-10-05 
+    event Project presentation /from 2001-03-27 /to 2002-01-22 
    ```
 - **Expected Outcome**: An event task will be added with the event time specified.
    ```
-   Added: [E][ ] Project presentation (at: 2024-10-05)
+   Added: [E][ ] Project presentation (from: Mar 27 2001 to: Jan 22 2002)
    ```
 
 ---
@@ -92,7 +92,7 @@ You can view all the tasks in your task list, including todos, deadlines, and ev
    ```
    1. [T][ ] Finish reading book
    2. [D][ ] Submit assignment (by: 2024-12-01)
-   3. [E][ ] Project presentation (at: 2024-10-05 14:00)
+   3. [E][ ] Project presentation (from: Mar 27 2001 to: Jan 22 2002)
    ```
 
 ---
@@ -205,7 +205,7 @@ Advanced users can directly modify the `tasks.json` file, which is stored in the
 |------------------|-------------------------------------|---------------------------------------------|
 | **Todo**         | `todo DESCRIPTION`                  | `todo Finish reading book`                  |
 | **Deadline**     | `deadline DESCRIPTION /by DEADLINE` | `deadline Submit assignment /by 2024-12-01` |
-| **Event**        | `event DESCRIPTION /at EVENT_TIME`  | `event Project presentation /at 2024-10-05` |
+| **Event**        | `event DESCRIPTION /from START_TIME /to END_TIME`  | `event Project presentation /from 2001-03-27 /to 2002-01-22` |
 | **List Tasks**   | `list`                              | `list`                                       |
 | **Mark Task**    | `mark INDEX`                        | `mark 1`                                    |
 | **Unmark Task**  | `unmark INDEX`                      | `unmark 1`                                  |
