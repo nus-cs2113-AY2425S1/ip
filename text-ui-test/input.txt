@@ -1,0 +1,22 @@
+todo
+todo Answer CS2113 tutorial questions
+deadline weekly CS2113 quiz Monday 9pm
+deadline weekly CS2113 quiz /by
+deadline weekly CS2113 quiz /by Monday 9pm
+list
+event CS2113 lecture /from Friday 4 6 pm
+event CS2113 lecture Friday 4 6 pm
+event CS2113 lecture /from /to 6 pm
+event CS2113 lecture /from Friday 4 /to 6 pm
+find CS2113
+mark 100
+mark -100
+mark 1
+list
+delete 100
+delete -100
+delete 1
+delete 2
+delete 1
+list
+bye
