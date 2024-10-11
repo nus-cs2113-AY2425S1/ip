@@ -1,33 +1,43 @@
 public class Parser {
-    public Parser() {
+    private static TaskList taskList;
 
+    /**
+     * Parses user input and execute corresponding commands
+     */
+    public Parser(Object tasks) {
+        taskList = (TaskList) tasks;
     }
 
+    /**
+     * Process and execute user commands
+     *
+     * @param line user input
+     */
     public static void handle(String line) {
         if (line.equals("list")) {
             Ui.printList();
         } else if (line.length() > 5 && line.startsWith("mark ")) {
-            TaskList.mark(line);
+            taskList.mark(line);
             Storage.saveFile();
         } else if (line.length() > 7 && line.startsWith("unmark ")) {
-            TaskList.unmark(line);
+            taskList.unmark(line);
             Storage.saveFile();
         } else if (line.startsWith("todo")) {
-            TaskList.createTodo(line);
+            taskList.createTodo(line);
             Storage.saveFile();
         } else if (line.length() > 9 && line.startsWith("deadline ")) {
-            TaskList.createDeadline(line);
+            taskList.createDeadline(line);
             Storage.saveFile();
         } else if (line.length() > 6 && line.startsWith("event ")) {
-            TaskList.createEvent(line);
+            taskList.createEvent(line);
             Storage.saveFile();
         } else if (line.length() > 7 && line.startsWith("delete ")) {
-            TaskList.deleteTask(line);
+            taskList.deleteTask(line);
             Storage.saveFile();
         } else if (line.equals("bye")) {
             Anke.isExit = true;
         } else if (line.startsWith("find ")) {
-            TaskList.find(line);
+            taskList.find(line);
         } else {
             Ui.handleWrongFormat();
         }
