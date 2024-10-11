@@ -81,7 +81,7 @@ public class TaskList {
     public static void printNumberOfTasks() {
         taskList.trimToSize();
         int numberOfTasks = taskList.size();
-        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+        TextUi.printSuccess("Now you have " + numberOfTasks + " tasks in the list.");
     }
 
     /**
@@ -132,7 +132,7 @@ public class TaskList {
             + Error.OUT_OF_BOUNDS.toString());
         }
 
-        System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumberDelete - 1).toString());
+        TextUi.printSuccess("Noted. I've removed this task: \n  " + taskList.get(taskNumberDelete - 1).toString());
         taskList.remove(taskNumberDelete - 1);
         taskList.trimToSize();
         printNumberOfTasks();
@@ -145,7 +145,7 @@ public class TaskList {
             + Error.OUT_OF_BOUNDS.toString());
         }
 
-        System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
+        TextUi.printSuccess("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
         taskList.remove(taskNumber - 1);
         taskList.trimToSize();
         printNumberOfTasks();
@@ -158,7 +158,7 @@ public class TaskList {
             + Error.OUT_OF_BOUNDS.toString());
         }
 
-        System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
+        TextUi.printSuccess("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
         taskList.remove(taskNumber - 1);
         taskList.trimToSize();
         printNumberOfTasks();
