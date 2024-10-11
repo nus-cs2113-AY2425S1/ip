@@ -67,7 +67,7 @@ public class Parser {
     public static void markTask(TaskList taskList, String[] words) throws InvalidTaskNumber {
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(words[1].substring(0, 1)) - 1;
+            taskNumber = Integer.parseInt(words[1]) - 1;
         } catch (NumberFormatException e) {
             System.out.println("Invalid format! Please provide a task number >.<");
             return;
