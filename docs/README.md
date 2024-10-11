@@ -1,10 +1,12 @@
-# Duke User Guide
+# ATOM User Guide
 
-// Update the title above to match the actual product name
+![](/./docs/AtomScreenshot.png)
 
-// Product screenshot goes here
+Looking for a **tool** to help you **keep track of your tasks** and stay on track?
+Well, look no further because **ATOM** is here to help!! 
 
-// Product intro goes here
+**ATOM** is a **Command Line Interface** (CLI) app that **manages and tracks all 
+of your tasks** in one place. It is also **simple, fast and intuitive** to use!!
 
 ## Adding deadlines
 
