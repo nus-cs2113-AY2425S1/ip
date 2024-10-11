@@ -1,14 +1,13 @@
 package erika.task;
 
 import erika.settings.Settings;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task
- * Inherits Task class
+ * Represents an event task.
+ * Inherits Task class.
  */
 public class Event extends Task{
     protected String start = null;
@@ -19,9 +18,9 @@ public class Event extends Task{
     protected LocalDateTime endDateTime = null;
 
     /**
-     * @param description <code>String</code> that represents the description of the event
-     * @param start <code>String</code> textual representation of the start time
-     * @param end <code>String</code> textual representation of the end time
+     * @param description <code>String</code> that represents the description of the event.
+     * @param start <code>String</code> textual representation of the start time.
+     * @param end <code>String</code> textual representation of the end time.
      */
     public Event(String description, String start, String end){
         super(description);
