@@ -30,7 +30,7 @@
 
 Ensure you have Java 17 or above installed on your computer. You may download Java 17 for your respective system [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 
-1. Download the latest Jarvis JAR file from the releases page [here](https://github.com/NCF3535/ip/releases).
+1. Download the latest Jarvis JAR file from the releases page [here](https://github.com/AjayShanker-geek/ip/releases).
 
 2. Copy the file to the folder you want to use as the home folder for Jarvis.
 
@@ -49,7 +49,7 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
    `java -jar jarvis.jar`
 
 7. After a few seconds, the application will launch in your terminal. You should see the user interface output for Jarvis as shown below:
-   ![image](./ui.png)
+   ![image](/ip/assets/logo.png)
 
 8. Type the command in the terminal and press Enter to execute it. Some example commands you can try:
     - *list* : Lists all tasks.
@@ -59,7 +59,7 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
     - *delete* 2 : Deletes the 2rd task shown in the current list.
     - *bye* or *exit* : Exits the application.
 
-9. Refer to the Features section below for more details about each command.
+9.  Refer to the Features section below for more details about each command.
 
 ---
 
