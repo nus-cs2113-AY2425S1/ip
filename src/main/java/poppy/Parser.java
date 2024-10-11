@@ -5,6 +5,8 @@ import tasks.ToDo;
 import tasks.Events;
 import tasks.Deadline;
 import exceptions.CustomExceptions;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static commands.Commands.*;
@@ -36,7 +38,7 @@ public class Parser {
             break;
         case "D":
             String[] deadlineParts = description.split("\\|", 2);
-            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            Deadline deadline = new Deadline(deadlineParts[0].trim(), DateParser.parseDateTime(deadlineParts[1].trim()));
             taskList.add(deadline);
             break;
         case "E":
@@ -93,7 +95,7 @@ public class Parser {
                 throw new CustomExceptions.MissingArgsException("Description of Deadline cannot be empty");
             }
             String[] deadlineString = commandArgs[1].split("/by", 2);
-            Deadline deadline = new Deadline(deadlineString[0].trim(), deadlineString[1].trim());
+            Deadline deadline = new Deadline(deadlineString[0].trim(), DateParser.parseDateTime(deadlineString[1].trim()));
             taskList.addTask(deadline);
             System.out.println(deadline.toString());
             System.out.println("You now have " + taskList.getSize() + " tasks");
@@ -112,6 +114,7 @@ public class Parser {
         case "Find":
             System.out.println("Here are the matching results below:");
             findTask(taskList.getTasks(), commandArgs[1]);
+            break;
         case "Bye":
             break;
         default:
@@ -123,6 +126,8 @@ public class Parser {
             System.out.println(e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("You are missing a keyword... read manual please!");
+        } catch (DateTimeParseException e) {
+            System.out.println("Your Date format is wrong!");
         }
     }
 
