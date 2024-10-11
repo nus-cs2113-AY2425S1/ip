@@ -1,13 +1,18 @@
 # AnBot User Guide
 
-
+```
+         ___________________________
+         Hello! Welcome to AnBot
+         What can I do for you? 
+         ___________________________
+```
 AnBot, a basic task management chatbot that allows you to track your todos, deadlines and events. 
 
 ## How to run the jar file 
 
 Step 1: Download the `.jar` file from the lastest release
 
-Step 2: Put the jar file into an empty folder. 
+Step 2: Put the `.jar` file into an empty folder. 
 
 Step 3: Open a command window in that folder.
 
