@@ -20,6 +20,10 @@ public class Fenix implements SampleStrings {
         return taskHandler.getTaskArrayList().size();
     }
 
+    public int getNumberOfUnfinishedTasks() {
+        return taskHandler.getNumberOfUnfinishedTasks();
+    }
+
     public int indexOfTask(Task task) {
         return taskHandler.getTaskArrayList().indexOf(task);
     }

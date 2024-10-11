@@ -71,4 +71,15 @@ public class TaskHandler {
         }
         return foundArrayList;
     }
+
+    public int getNumberOfUnfinishedTasks() {
+        int numberOfUnfinishedTasks = 0;
+        for (Task task : taskArrayList) {
+            boolean isDone = task.getIsDone();
+            if (!isDone) {
+                numberOfUnfinishedTasks++;
+            }
+        }
+        return numberOfUnfinishedTasks;
+    }
 }
