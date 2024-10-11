@@ -1,32 +1,26 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String time; // New field for storing time
 
-    public Task(String description) {
+    public Task(String description, String time) {
         this.description = description;
         this.isDone = false;
+        this.time = time; // Initialize the time
     }
 
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
-    // Converts the task to a string to save to file
-    public String toFileString() {
-        return String.format("T | %d | %s", isDone ? 1 : 0, description);
-    }
-
+    public abstract String toFileString();
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description + (time != null ? " | " + time : "");
+    }
+
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void markAsNotDone() {
+        isDone = false;
     }
 }
