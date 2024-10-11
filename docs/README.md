@@ -257,3 +257,9 @@ Exits the program.
 
 Format: `bye`
 
+## Saving the task list
+
+The tasks in the task list are **automatically saved upon exiting the program.** 
+There is no need to save manually. Leave that to **ATOM**!!
+
+___
