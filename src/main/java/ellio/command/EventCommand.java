@@ -4,11 +4,8 @@ import ellio.BotText;
 import ellio.EllioExceptions;
 import ellio.storage.Storage;
 import ellio.task.Event;
-import ellio.task.Task;
 import ellio.task.TaskList;
 import ellio.ui.Ui;
-
-import static ellio.Ellio.storage;
 
 public class EventCommand extends Command {
 
