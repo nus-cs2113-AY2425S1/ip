@@ -28,7 +28,7 @@ public class Storage {
     }
 
     /**
-     * Obtain the directory when the built JAR file is located.
+     * Obtains the directory when the built JAR file is located.
      * Updated at last stage to ensure the application works outside of IDE.
      * @return a String type the target directory
      */
