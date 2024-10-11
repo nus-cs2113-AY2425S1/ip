@@ -3,10 +3,9 @@ package tyrone.ui;
 import java.util.Scanner;
 
 /**
- * Class to receive user inputs and print to UI
+ * Class to receive user inputs and print to UI.
  */
 public class Ui {
-
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
@@ -42,5 +41,4 @@ public class Ui {
     public String receiveInput() {
         return scanner.nextLine();
     }
-
 }

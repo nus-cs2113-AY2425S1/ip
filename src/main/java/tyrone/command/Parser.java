@@ -10,10 +10,9 @@ import tyrone.task.Todo;
 import tyrone.util.TaskInputConstants;
 
 /**
- * Class to parse user inputs to chatbot through Ui
+ * Class to parse user inputs to chatbot through Ui.
  */
 public class Parser implements TaskInputConstants {
-
     private TaskList taskList;
     private Storage storage;
 
@@ -107,7 +106,7 @@ public class Parser implements TaskInputConstants {
     }
 
     /**
-     * Handles "event" command when input by user
+     * Handles "event" command when input by user.
      *
      * @param input User input to chatbot.
      */
@@ -134,7 +133,7 @@ public class Parser implements TaskInputConstants {
     }
 
     /**
-     * Handles "deadline" command when input by user
+     * Handles "deadline" command when input by user.
      *
      * @param input User input to chatbot.
      */
@@ -159,7 +158,7 @@ public class Parser implements TaskInputConstants {
     }
 
     /**
-     * Handles "todo" command when input by user
+     * Handles "todo" command when input by user.
      *
      * @param input User input to chatbot.
      */

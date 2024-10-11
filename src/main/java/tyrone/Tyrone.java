@@ -6,7 +6,6 @@ import tyrone.task.TaskList;
 import tyrone.ui.Ui;
 
 public class Tyrone {
-
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
@@ -41,7 +40,7 @@ public class Tyrone {
     }
 
     /**
-     * Main method of the chatbot
+     * Main method of the chatbot.
      *
      * @param args
      */

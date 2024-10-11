@@ -1,7 +1,7 @@
 package tyrone.task;
 
 /**
- * Class to store information about single Event task
+ * Class to store information about single Event task.
  */
 public class Event extends Task {
     private String start;

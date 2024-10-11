@@ -15,10 +15,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Class to handle reading data from and writing data to save file
+ * Class to handle reading data from and writing data to save file.
  */
 public class Storage implements TaskInputConstants {
-
     //Constants used by methods to parse inputs
     public static final String PARSE_LINE_ERROR_MESSAGE = "Error parsing line. Skipping entry.";
     public static final int INPUT_START_INDEX = 2;

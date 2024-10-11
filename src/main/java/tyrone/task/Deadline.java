@@ -1,7 +1,7 @@
 package tyrone.task;
 
 /**
- * Class to store information about single Deadline task
+ * Class to store information about single Deadline task.
  */
 public class Deadline extends Task {
     private String deadline;

@@ -1,10 +1,9 @@
 package tyrone.task;
 
 /**
- * Class to store information about single Todo task
+ * Class to store information about single Todo task.
  */
 public class Todo extends Task {
-
     /**
      * Constructor for Todo.
      *
