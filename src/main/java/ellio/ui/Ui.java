@@ -134,7 +134,7 @@ public class Ui {
         return ("Here are the list of commands that I can do:\n" +
                 "1. todo [Description]\n" +
                 "2. deadline [Description] /by [dd-mm-yyyy]\n" +
-                "3. event [Description] /from [dd-mm-yyyy 00:00] /to [dd-mm-yyyy 00:00]\n" +
+                "3. event [Description] /from [dd-mm-yyyy HH:mm] /to [dd-mm-yyyy HH:mm]\n" +
                 "4. mark [Task Number]\n" +
                 "5. unmark [Task Number]\n" +
                 "6. delete [Task Number]\n" +
