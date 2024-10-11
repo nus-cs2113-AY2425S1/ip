@@ -13,7 +13,7 @@ Meet Amy, your cheerful and supportive task management bot! Amy is designed to h
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.
 A GUI similar to the below should appear in a few seconds. 
 
-![welcome](/ip/assets/welcome.png)
+![welcome](/docs/assets/welcome.png)
 
 ## Features
 
@@ -105,14 +105,14 @@ Tasks data are saved in the hard disk automatically after any command that chang
 Tasks data are saved automatically as a .txt file ```[JAR file location]/data/tasks.txt```.
 
 ## Command summary
-| **Action** | **Format, Examples** |
-| ------ | ------------ |
-| **Todo** | ```todo DESCRIPTION```<br>e.g., ```todo read book``` |
-| **Deadline** | ```deadline DESCRIPTION /by TIME```<br>e.g., ```deadline read book /by Thursday``` |
-| **Event** | ```event DESCRIPTION /from START_TIME /to END_TIME```<br>e.g., ```event attend meeting /from 2pm /to 5pm``` |
-| **List**  | ```list``` |
-| **Find**  | ```find KEYWORDS```<br>e.g., ```find read``` |
-| **Delete** | ```delete INDEX```<br>e.g., ```delete 2``` |
-| **Mark**  | ```mark INDEX```<br>e.g., ```mark 5``` |
-| **Unmark** | ```unmark INDEX```<br>e.g., ```unmark 4``` |
-| **Exit**  | ```bye``` |
+| **Action**   | **Format, Examples**                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------|
+| **Todo**     | ```todo DESCRIPTION```<br>e.g., ```todo read book```                                                        |
+| **Deadline** | ```deadline DESCRIPTION /by TIME```<br>e.g., ```deadline read book /by Thursday```                          |
+| **Event**    | ```event DESCRIPTION /from START_TIME /to END_TIME```<br>e.g., ```event attend meeting /from 2pm /to 5pm``` |
+| **List**     | ```list```                                                                                                  |
+| **Find**     | ```find KEYWORDS```<br>e.g., ```find read```                                                                |
+| **Delete**   | ```delete INDEX```<br>e.g., ```delete 2```                                                                  |
+| **Mark**     | ```mark INDEX```<br>e.g., ```mark 5```                                                                      |
+| **Unmark**   | ```unmark INDEX```<br>e.g., ```unmark 4```                                                                  |
+| **Exit**     | ```bye```                                                                                                   |
