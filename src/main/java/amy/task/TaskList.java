@@ -1,8 +1,8 @@
 package task;
-import exception.AmyException;
 import java.util.ArrayList;
-import java.util.List;
+
 import ui.Ui;
+import exception.AmyException;
 /**
  * Represents a list of tasks and provides methods to manipulate the list.
  * The list is stored as an ArrayList of Task objects.
@@ -22,7 +22,7 @@ public class TaskList {
      * Constructs a TaskList object with an empty list of tasks.
      */
     public TaskList(){
-        this.taskList = new ArrayList<>();
+        this.taskList = new ArrayList<Task>();
     }
     public int getTasksSize(){
         return taskList.size();
@@ -42,13 +42,12 @@ public class TaskList {
     public void listTasks(){
         if(taskList.isEmpty()){
             Ui.print("You don't have anything in your TDL! Take some rest for now (uwu)");
+            return;
         } else{
             Ui.print("Let's try to get this done! You got this \\(^o^)/");
-            List<String> tasks = new ArrayList<>();
             for (int i = 0; i < taskList.size(); i++) {
-                tasks.add(String.valueOf(i + 1) + '.' + taskList.get(i));
+                Ui.print(String.valueOf(i + 1) + '.' + taskList.get(i));
             }    
-            Ui.print(String.join("\n", tasks));
         }
     }
 
@@ -90,6 +89,12 @@ public class TaskList {
             Ui.print("Okay, let's do this again (-v-)\n" + task);
         }
     }
+    public void markTaskDone(int taskNo) throws AmyException{
+        getTask(taskNo).markAsDone();
+    }
+    public void markTaskUndone(int taskNo) throws AmyException{
+        getTask(taskNo).markAsUndone();
+    }
     /**
      * Deletes a task from the TaskList object.
      * @param taskNo The index of the task to be deleted.
@@ -101,26 +106,5 @@ public class TaskList {
         }
         Task task = taskList.remove(taskNo);
         Ui.print("Noted. I have removed this task! (^o^)/\n" + task + "\nNow you have " + getTasksSize() + " tasks in the todolist. Good luck! (o_o)");
-    }
-
-    /**
-     * Finds tasks that match the keyword in the TaskList object.
-     * @param match The keyword to search for in the tasks.
-     */
-    public void findTask(String match){
-        ArrayList<Task> matchedTasks = new ArrayList<>();
-        for (Task task : taskList){
-            if(task.getDescription().contains(match)){
-                matchedTasks.add(task);
-            }
-        }
-        if(matchedTasks.isEmpty()){
-            Ui.print("I didn't find any tasks that match your keyword. Try again? (T_T)");
-        } else {
-            Ui.print("Here are the tasks that match your keyword:");
-            for (int i = 0; i < matchedTasks.size(); i++){
-                Ui.print(String.valueOf(i + 1) + '.' + matchedTasks.get(i));
-            }
-        }
     }
 }
