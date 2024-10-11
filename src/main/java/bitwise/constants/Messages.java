@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_TASK_LIST = "Here are the tasks in your list: ";
     public static final String MESSAGE_ADDED = "Got it! Added:\n";
     public static final String MESSAGE_DELETED = "Got it! Deleted:\n";
-    public static final String MESSAGE_FOUND = "Here's what I found!\n";
+    public static final String MESSAGE_FOUND = "Here's what I found!";
+    public static final String MESSAGE_NOT_FOUND = "No matching results :(";
 
 }
