@@ -48,16 +48,16 @@ Get started with Bitwise and take control of your task management today!
 
 ## Quick Reference
 
-| Command              | Description                                          | Parameters                                  | Example                                        |
-|---------------------|------------------------------------------------------|---------------------------------------------|------------------------------------------------|
-| `deadline`          | Adds a deadline task                                 | `<task description> /by <deadline>`        | `deadline complete assignment /by 4pm`        |
-| `event`             | Adds an event                                       | `<event description> /from <begin time> /to <end time>` | `event watch movie /from 4pm /to 6pm`       |
-| `todo`              | Adds a todo item                                    | `<task description>`                        | `todo borrow books`                           |
-| `mark`              | Marks a task as completed                            | `<task number>`                            | `mark 1`                                      |
-| `unmark`            | Marks a task as not completed                        | `<task number>`                            | `unmark 1`                                    |
-| `find`              | Finds tasks with matching keywords                  | `<keyword>`                                | `find assignment`                             |
-| `list`              | Displays the list of tasks                          | N/A                                         | `list`                                        |
-| `bye`               | Exits the application                                | N/A                                         | `bye`                                         |
+| Command                           | Description                        | Parameters                                              | Example                                |
+|-----------------------------------|------------------------------------|---------------------------------------------------------|----------------------------------------|
+| [`deadline`](#deadlines)          | Adds a deadline task               | `<task description> /by <deadline>`                     | `deadline complete assignment /by 4pm` |
+| [`event`](#event)                 | Adds an event                      | `<event description> /from <begin time> /to <end time>` | `event watch movie /from 4pm /to 6pm`  |
+| [`todo`](#todos)                  | Adds a todo item                   | `<task description>`                                    | `todo borrow books`                    |
+| [`mark`](#tracking-task-status)   | Marks a task as completed          | `<task number>`                                         | `mark 1`                               |
+| [`unmark`](#tracking-task-status) | Marks a task as not completed      | `<task number>`                                         | `unmark 1`                             |
+| [`find`](#finding-tasks)          | Finds tasks with matching keywords | `<keyword>`                                             | `find assignment`                      |
+| [`list`](#viewing-task-list)      | Displays the list of tasks         | N/A                                                     | `list`                                 |
+| [`bye`](#exiting-the-application) | Exits the application              | N/A                                                     | `bye`                                  |
 
 
 ## Types of tasks
