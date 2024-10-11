@@ -40,15 +40,15 @@ Get started with Bitwise and take control of your task management today!
 
 ## Types of tasks
 ### Deadlines: 
-Indicated by `[D]` </br>
+Indicated by `[D]` <br>
 Any time-sensitive task with an established due date
 [Go to adding deadlines](#adding-deadlines)
 ### Todos: 
-Indicated by `[T]` </br>
+Indicated by `[T]` <br>
 Simple todo with task description
 [Go to adding todos](#adding-todos)
 ### Events: 
-Indicated by `[E]` </br>
+Indicated by `[E]` <br>
 Activities or events of a fixed duration or timespan
 [Go to adding events](#adding-events)
 
