@@ -1,24 +1,168 @@
-# Duke project template
+# ListBot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ListBot is a task management system designed to help you keep track of your to-dos, deadlines, and events. With simple commands, you can easily add, mark, and organize your tasks directly from the command line.
 
-## Setting up in Intellij
+## Adding To-dos
+The todo command adds a simple task with no deadline.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+**Example:** `todo Get lunch`
 
-1. Open Intellij (if you are not in the welcome screen, click `Storage` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+**Expected output:**
+```
+____________________________________________________________
+Added: 1.[T][ ] Get lunch
+____________________________________________________________
+
+```
+
+## Adding Deadlines
+
+To add a deadline to your task list, use the deadline command, followed by the task description and the /by argument to specify when the deadline is due.
+
+
+**Example:** `deadline Complete quiz /by 25/09/2024 18:00`
+
+**Expected Output:**
+
+```
+____________________________________________________________
+Added: 2.[D][ ] Complete quiz BY: 25/09/2024 18:00
+____________________________________________________________
+```
+
+## Adding Events
+
+To add an event, use the event command along with /from and /to to specify the start and end time.
+
+**Example:** `event Lecture /from Friday 16:00 /to Friday 18:00`
+
+**Expected Output:**
+
+```
+____________________________________________________________
+Added: 3.[E][ ] Lecture FROM: Friday 16:00 TO: Friday 18:00
+____________________________________________________________
+```
+
+
+## Marking and Unmarking Tasks
+
+To mark a task as complete: `mark 2`
+
+This marks the task at index 2 as complete.
+
+**Expected Output:**
+```
+____________________________________________________________
+Marked the following task: 
+2.[D][X] Complete quiz BY: 25/09/2024 18:00
+____________________________________________________________
+```
+
+To unmark a task as complete: `unmark 2`
+
+This unmarks the task at index 2 as complete.
+
+**Expected Output:**
+```
+____________________________________________________________
+Unmarked the following task:
+2.[D][ ] Complete quiz BY: 25/09/2024 18:00
+____________________________________________________________
+```
+
+## Viewing the Task List
+
+To display all tasks:
+
+`list`
+
+**Expected Output:**
+
+```
+____________________________________________________________
+The list has 3 tasks.
+1.[T][ ] Get lunch
+2.[D][ ] Complete quiz BY: 25/09/2024 18:00
+3.[E][ ] Lecture FROM: Friday 16:00 TO: Friday 18:00
+____________________________________________________________
+```
+
+## Deleting Tasks
+To delete a task: `delete 1`
+
+This deletes the task at index 1.
+
+**Expected Output:**
+```
+____________________________________________________________
+Deleted the following task:
+1.[T][ ] get lunch
+____________________________________________________________
+```
+
+## Searching for tasks
+
+To search for tasks by keyword:
+
+**Example Input:** `find quiz`
+
+**Expected Output:**
+```
+____________________________________________________________
+The following tasks match:
+1.[D][ ] Complete quiz BY: 25/09/2024 18:00
+____________________________________________________________
+```
+
+## Listing all Commands
+
+To list all commands: `help`
+
+**Expected Output:**
+```
+____________________________________________________________
+All actions:
+To add a deadline: deadline *task* /by *by*
+To add a todo: todo *task*
+To add an event: event *task* /from *from* /to *to*
+To mark a task: mark *task_number*
+To unmark a task: unmark *task_number*
+To delete a task: delete *task_number*
+To list all tasks: list
+To find a task: find *keyword*
+To exit: bye
+____________________________________________________________
+```
+
+## Exiting the Program
+
+To exit ListBot: `bye`
+
+**Expected Output:**
+```
+____________________________________________________________
+Your list has been saved successfully.
+____________________________________________________________
+Let me know if I can help again!
+Bye!
+____________________________________________________________
+```
+
+
+## Invalid commands
+
+Any unrecognized commands will print an error message and the correct syntax.
+
+**Example:** `delete hello`
+
+**Expected output:**
+```
+____________________________________________________________
+This is an invalid delete statement.
+Here's the delete syntax: 
+delete *task_number*
+For list of all valid instructions: help
+____________________________________________________________
+
+```
