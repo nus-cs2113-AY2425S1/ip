@@ -1,5 +1,8 @@
-import java.io.File;
-import java.sql.Array;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -53,7 +56,7 @@ public class Flash {
 
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
-            throw new FlashException("Uh-oh! Description for ToDo Needed!! Cannot be left empty.");
+            throw new FlashException("Uh-oh! Description for task.ToDo Needed!! Cannot be left empty.");
         }
 
         Task task = new ToDo(description);
@@ -77,7 +80,7 @@ public class Flash {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FlashException("Uh-oh! Description for Event Needed!! Cannot be left empty.");
+            throw new FlashException("Uh-oh! Description for task.Event Needed!! Cannot be left empty.");
         }
     }
 
@@ -95,7 +98,7 @@ public class Flash {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FlashException("Uh-oh! Description for Event Needed!! Cannot be left empty.");
+            throw new FlashException("Uh-oh! Description for task.Event Needed!! Cannot be left empty.");
         }
     }
 
@@ -111,7 +114,7 @@ public class Flash {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new FlashException("Uh-oh! Task number is needed for deletion. Enter a valid task number.");
+            throw new FlashException("Uh-oh! task.Task number is needed for deletion. Enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
             throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
