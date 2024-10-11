@@ -1,6 +1,6 @@
 # ATOM User Guide
 
-![](docs/AtomScreenshot.png)
+![](AtomScreenshot.png)
 
 Looking for a **tool** to help you **keep track of your tasks** and stay on track?
 Well, look no further because **ATOM** is here to help!! 
