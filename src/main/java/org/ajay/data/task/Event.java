@@ -5,11 +5,19 @@ import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.data.exceptions.InvalidCommandFormatException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
-    public final static String COMMAND_STRING = "event"; // Command string for the Event class
-    final static String FROM_KEYWORD_STRING = "/from"; // Keyword string for the from date
-    final static String TO_KEYWORD_STRING = "/to"; // Keyword string for the to date
-    public final static String TASK_STRING = "E";
+    public final static String COMMAND_WORD = "event"; // Command string for the Event class
+    final static String FROM_KEYWORD = "/from"; // Keyword string for the from date
+    final static String TO_KEYWORD = "/to"; // Keyword string for the to date
+    public final static String TASK_ID = "E";
+
+    public final static int TASK_LENGTH = 5;
+
+    public static final int FROM_LOAD_INDEX = 3;
+    public static final int TO_LOAD_INDEX = 4;
 
     protected String from;
     protected String to;
@@ -17,38 +25,39 @@ public class Event extends Task {
     /**
      * Constructor for the Event class.
      *
-     * @param task description of the event
+     * @param task Description of the event.
      *
-     * @throws EmptyArgumentException
-     * @throws InvalidCommandFormatException
+     * @throws EmptyArgumentException        If the description is empty.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
     public Event(String task) throws EmptyArgumentException, InvalidCommandFormatException {
-        super(getDescriptionFromString(task));
-        setFrom(getFromFromString(task));
-        setTo(getToFromString(task));
-
+        super(getDescriptionInput(task));
+        setFrom(getFromKeywordInput(task));
+        setTo(getToKeywordInput(task));
     }
 
     /**
      * Constructor for the Event class.
      *
-     * @param description description of the event
-     * @param from        from date
-     * @param to          to date
+     * @param description Description of the event
+     * @param from        From date
+     * @param to          To date
+     * @throws EmptyArgumentException If the description is empty.
      */
     public Event(String description, String from, String to) throws EmptyArgumentException {
         super(description);
         setFrom(from);
         setTo(to);
-
     }
 
     /**
      * Constructor for the Event class.
      *
-     * @param description description of the event
-     * @param from        from date
-     * @param to          to date
+     * @param isDone      Done state of the event
+     * @param description Description of the event
+     * @param from        From date
+     * @param to          To date
+     * @throws EmptyArgumentException If the description is empty.
      */
     public Event(boolean isDone, String description, String from, String to) throws EmptyArgumentException {
         super(description);
@@ -58,137 +67,154 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the from date.
+     * Gets date from the event.
      *
-     * @return from date
+     * @return From date.
      */
     public String getFrom() {
         return from;
     }
 
     /**
-     * Changes the from date.
+     * Sets date from the event.
      *
-     * @param from
+     * @param from From date.
      */
     private void setFrom(String from) {
         this.from = from;
     }
 
     /**
-     * Returns the to date.
+     * Get the to date.
      *
-     * @return
+     * @return To date.
      */
     public String getTo() {
         return to;
     }
 
     /**
-     * Changes the to date.
+     * Set the to date.
      *
-     * @param to
+     * @param to To date.
      */
     private void setTo(String to) {
         this.to = to;
     }
 
     /**
-     * Returns the description from the input string.
+     * Get the description from the input string.
      *
-     * @param input input string
-     *
-     * @return description
+     * @param input User input string.
+     * @return Description of the event.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
-    public static String getDescriptionFromString(String input) throws InvalidCommandFormatException {
+    private static String getDescriptionInput(String input) throws InvalidCommandFormatException {
 
-        int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
+        int indexOfKeywordFrom = input.indexOf(FROM_KEYWORD);
 
-        if (indexOfFrom != -1) {
-            input = input.substring(0, indexOfFrom);
+        if (indexOfKeywordFrom != -1) {
+            input = input.substring(0, indexOfKeywordFrom);
         }
         return input.trim();
     }
 
     /**
-     * Returns the from date from the input string.
+     * Get the from date from the input string.
      *
-     * @param input input string
-     *
-     * @return
+     * @param input User input string.
+     * @return From date.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
-    public static String getFromFromString(String input) throws InvalidCommandFormatException {
+    private static String getFromKeywordInput(String input) throws InvalidCommandFormatException {
 
-        int indexOfFrom = input.indexOf(FROM_KEYWORD_STRING);
-        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
-        int indexAfterFrom;
+        int indexOfKeywordFrom = input.indexOf(FROM_KEYWORD);
+        int indexOfKeywordTo = input.indexOf(TO_KEYWORD);
+        int indexAfterKeywordFrom;
 
-        boolean isFromBeforeTo = indexOfFrom < indexOfTo;
+        boolean isFromBeforeTo = indexOfKeywordFrom < indexOfKeywordTo;
 
-        if (indexOfFrom == -1 || indexOfTo == -1 ) {
+        if (indexOfKeywordFrom == -1 || indexOfKeywordTo == -1) {
             throw new InvalidCommandFormatException(
-                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD_STRING + " & " +  TO_KEYWORD_STRING +"] "
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD + " & " + TO_KEYWORD + "] "
                             + Error.INVAILD_COMMAND_FORMAT.toString());
         } else if (!isFromBeforeTo) {
             throw new InvalidCommandFormatException(
-                    Messages.MESSAGE_INVALID_KEYWORK_ARRAGEMENT + " [" + FROM_KEYWORD_STRING + " then " +  TO_KEYWORD_STRING +"] "+ Error.INVAILD_COMMAND_FORMAT.toString());
+                    Messages.MESSAGE_INVALID_KEYWORK_ARRAGEMENT + " [" + FROM_KEYWORD + " then " + TO_KEYWORD + "] "
+                            + Error.INVAILD_COMMAND_FORMAT.toString());
         } else {
-             indexAfterFrom = indexOfFrom + FROM_KEYWORD_STRING.length();
+            indexAfterKeywordFrom = indexOfKeywordFrom + FROM_KEYWORD.length();
         }
 
-        // Check if the from date is empty
-        if (indexAfterFrom == indexOfTo - 1) {
+        /** Check if the from date is empty */
+        if (indexAfterKeywordFrom == indexOfKeywordTo - 1) {
             throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
         }
-
-
-        return input.substring(indexAfterFrom, indexOfTo).trim();
+        return input.substring(indexAfterKeywordFrom, indexOfKeywordTo).trim();
     }
 
     /**
-     * Returns the to date from the input string.
+     * Get the to date from the input string.
      *
-     * @param input input string
-     *
-     * @return
+     * @param input User input string.
+     * @return To date.
+     * @throws InvalidCommandFormatException If the command format is invalid.
      */
-    public static String getToFromString(String input) throws InvalidCommandFormatException {
+    private static String getToKeywordInput(String input) throws InvalidCommandFormatException {
 
-        int indexOfTo = input.indexOf(TO_KEYWORD_STRING);
-        int indexAfterTo;
+        int indexOfKeywordTo = input.indexOf(TO_KEYWORD);
+        int indexAfterKeywordTo;
 
-        if (indexOfTo == -1) {
+        if (indexOfKeywordTo == -1) {
             throw new InvalidCommandFormatException(
-                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD_STRING + " & " +  TO_KEYWORD_STRING +"] "
+                    Messages.MESSAGE_MISSING_KEYWORD + " [" + FROM_KEYWORD + " & " + TO_KEYWORD + "] "
                             + Error.INVAILD_COMMAND_FORMAT.toString());
         } else {
-             indexAfterTo = indexOfTo + TO_KEYWORD_STRING.length();
+            indexAfterKeywordTo = indexOfKeywordTo + TO_KEYWORD.length();
         }
 
-        // Check if the to date is empty
-        if (indexAfterTo == input.length()) {
+        /** Check if the from date is empty */
+        if (indexAfterKeywordTo == input.length()) {
             throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
         }
 
-
-
-        return input.substring(indexAfterTo).trim();
+        return input.substring(indexAfterKeywordTo).trim();
     }
 
+    /**
+     * Saves an event task to a string.
+     *
+     * @return String representation of the event task.
+     */
     @Override
     public String saveTaskString() {
-        return TASK_STRING + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + from + " | "
+        return TASK_ID + " | " + (super.getDoneState() ? "1" : "0") + " | " + description + " | " + from + " | "
                 + to;
     }
 
+    /**
+     * Loads an event task from a string.
+     *
+     * @param isDone      Done state of the event.
+     * @param description Description of the event.
+     * @param from        From date.
+     * @param to          To date.
+     * @return Event task.
+     * @throws EmptyArgumentException If the description is empty.
+     */
     public static Event loadTaskString(boolean isDone, String description, String from, String to)
             throws EmptyArgumentException {
         Event event = new Event(isDone, description, from, to);
         return event;
     }
 
+    /**
+     * Returns the string representation of the event task.
+     *
+     * @return String representation of the event task.
+     */
     @Override
     public String toString() {
-        return "[" + TASK_STRING + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + TASK_ID + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

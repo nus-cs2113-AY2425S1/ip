@@ -8,6 +8,7 @@ event CS2113 lecture /from Friday 4 6 pm
 event CS2113 lecture Friday 4 6 pm
 event CS2113 lecture /from /to 6 pm
 event CS2113 lecture /from Friday 4 /to 6 pm
+find CS2113
 mark 100
 mark -100
 mark 1

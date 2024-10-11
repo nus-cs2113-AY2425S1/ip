@@ -37,29 +37,33 @@ What can I do for you?
 [31mInvalid command format found. (Error Code: 2)[0m
 [30m────────────────────────────────────────────────────────────[0m
 [30m────────────────────────────────────────────────────────────[0m
-Here are the list of commands you can use: 
-1. todo <task> - Adds a todo task to the list 
-2. deadline <task> /by <date> - Adds a deadline task to the list 
-3. event <task> /from <date> /to <date> - Adds an event task to the list 
-4. list - Lists all the tasks in the list 
-5. done <task number> - Marks the task as done 
-6. delete <task number> - Deletes the task from the list 
-7. find <keyword> - Finds the tasks with the keyword 
-8. help - Shows the list of commands 
+Here are the list of commands you can use:
+1. todo <task> - Adds a todo task to the list
+2. deadline <task> /by <date> - Adds a deadline task to the list
+3. event <task> /from <date> /to <date> - Adds an event task to the list
+4. list - Lists all the tasks in the list
+5. done <task number> - Marks the task as done
+6. delete <task number> - Deletes the task from the list
+7. find <keyword> - Finds the tasks with the keyword
+8. help - Shows the list of commands
 9. bye | exit - Exits the program
 [30m────────────────────────────────────────────────────────────[0m
-[32m  [0mGot it. I've added this task:
-  [T][ ] Answer CS2113 tutorial questions
-Now you have 1 tasks in the list.
+[32m  [0m[30m────────────────────────────────────────────────────────────[0m
+[32mGot it. I've added this task:[0m
+[32m[T][ ] Answer CS2113 tutorial questions[0m
+[32mNow you have 1 tasks in the list.[0m
+[30m────────────────────────────────────────────────────────────[0m
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mMissing keyword found. [/by] Invalid command format found. (Error Code: 2)[0m
 [30m────────────────────────────────────────────────────────────[0m
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mEmpty date found. Empty argument found. (Error Code: 0)[0m
 [30m────────────────────────────────────────────────────────────[0m
-[32m  [0mGot it. I've added this task:
-  [D][ ] weekly CS2113 quiz (by: Monday 9pm)
-Now you have 2 tasks in the list.
+[32m  [0m[30m────────────────────────────────────────────────────────────[0m
+[32mGot it. I've added this task:[0m
+[32m  [D][ ] weekly CS2113 quiz (by: Monday 9pm)[0m
+[32mNow you have 2 tasks in the list.[0m
+[30m────────────────────────────────────────────────────────────[0m
 [32m  [0mHere are the tasks in your list:
 [32m1.[T][ ] Answer CS2113 tutorial questions[0m
 [32m2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)[0m
@@ -72,17 +76,23 @@ Now you have 2 tasks in the list.
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mEmpty date found. Empty argument found. (Error Code: 0)[0m
 [30m────────────────────────────────────────────────────────────[0m
-[32m  [0mGot it. I've added this task:
-  [E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)
-Now you have 3 tasks in the list.
+[32m  [0m[30m────────────────────────────────────────────────────────────[0m
+[32mGot it. I've added this task:[0m
+[32m  [E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)[0m
+[32mNow you have 3 tasks in the list.[0m
+[30m────────────────────────────────────────────────────────────[0m
+[32m  [0mHere are the tasks in your list:
+[32m1.[T][ ] Answer CS2113 tutorial questions[0m
+[32m2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)[0m
+[32m3.[E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)[0m
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mInvalid task number. Please enter a vaild task number. Number is out of bounds. (Error Code: 3)[0m
 [30m────────────────────────────────────────────────────────────[0m
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mInvalid task number. Please enter a vaild task number. Number is out of bounds. (Error Code: 3)[0m
 [30m────────────────────────────────────────────────────────────[0m
-[32m  [0mNice! I've marked this task as done: 
-  [T][✓] Answer CS2113 tutorial questions
+[32m  [0m[32mNice! I've marked this task as done:
+  [T][✓] Answer CS2113 tutorial questions[0m
 [32m  [0mHere are the tasks in your list:
 [32m1.[T][✓] Answer CS2113 tutorial questions[0m
 [32m2.[D][ ] weekly CS2113 quiz (by: Monday 9pm)[0m
@@ -93,15 +103,15 @@ Now you have 3 tasks in the list.
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 [31mInvalid task number. Please enter a vaild task number. Number is out of bounds. (Error Code: 3)[0m
 [30m────────────────────────────────────────────────────────────[0m
-[32m  [0mNoted. I've removed this task: 
-  [T][✓] Answer CS2113 tutorial questions
-Now you have 2 tasks in the list.
-[32m  [0mNoted. I've removed this task: 
-  [E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)
-Now you have 1 tasks in the list.
-[32m  [0mNoted. I've removed this task: 
-  [D][ ] weekly CS2113 quiz (by: Monday 9pm)
-Now you have 0 tasks in the list.
+[32m  [0m[32mNoted. I've removed this task:
+  [T][✓] Answer CS2113 tutorial questions[0m
+[32mNow you have 2 tasks in the list.[0m
+[32m  [0m[32mNoted. I've removed this task:
+  [E][ ] CS2113 lecture (from: Friday 4 to: 6 pm)[0m
+[32mNow you have 1 tasks in the list.[0m
+[32m  [0m[32mNoted. I've removed this task:
+  [D][ ] weekly CS2113 quiz (by: Monday 9pm)[0m
+[32mNow you have 0 tasks in the list.[0m
 [32m  [0m[33mThe list is empty.[0m
 [32m  [0m[30m────────────────────────────────────────────────────────────[0m
 Bye. Hope to see you again soon!
