@@ -90,4 +90,20 @@ public class TaskList {
             throw new FlashException("Invalid task number. Please enter a valid task number.");
         }
     }
+
+    public void listMatchedTasks(String input) throws FlashException {
+        try{
+            String keyword = Parser.parseKeyword(input);
+            int index = 1;
+            List<Task> matchedTasks = new ArrayList<>();
+            for (Task task : this.tasks) {
+                if(task.getDescription().contains(keyword)) {
+                    matchedTasks.add(task);
+                }
+            }
+            UI.displayMatchedTasks(matchedTasks);
+        } catch (Exception e) {
+            throw new FlashException("Invalid Keyword");
+        }
+    }
 }

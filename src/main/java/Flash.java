@@ -31,25 +31,27 @@ public class Flash {
                 if (command.equalsIgnoreCase("bye")) {
                     UI.displayByeMessage();
                     break;
-                } else if (command.equalsIgnoreCase("list")) {
+                } else if (command.equals("list")) {
                     UI.displayTasks(taskList.tasks);
-                } else if (command.equalsIgnoreCase("mark")) {
+                } else if (command.equals("mark")) {
                     taskList.markTask(input);
                     storage.save(taskList.tasks);
-                } else if (command.equalsIgnoreCase("unmark")) {
+                } else if (command.equals("unmark")) {
                     taskList.unMarkTask(input);
                     storage.save(taskList.tasks);
-                } else if (command.equalsIgnoreCase("todo")) {
+                } else if (command.equals("todo")) {
                     taskList.addTodo(input);
                     storage.save(taskList.tasks);
-                } else if (command.equalsIgnoreCase("deadline")) {
+                } else if (command.equals("deadline")) {
                     taskList.addDeadline(input);
                     storage.save(taskList.tasks);
-                } else if (command.equalsIgnoreCase("event")) {
+                } else if (command.equals("event")) {
                     taskList.addEvent(input);
-                } else if (command.equalsIgnoreCase("delete")) {
+                } else if (command.equals("delete")) {
                     taskList.deleteTask(input);
                     storage.save(taskList.tasks);
+                } else if (command.equals("find")) {
+                    taskList.listMatchedTasks(input);
                 } else {
                     throw new FlashException("Uh-oh! I don't know what that means.");
                 }
