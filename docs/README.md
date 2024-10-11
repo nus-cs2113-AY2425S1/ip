@@ -4,135 +4,127 @@ Welcome to Bron!
 
 ## Table of Content
 
-1.	Introduction 
-2.  Quick Start
-   3.	Features
-   •	1. Print User Guide
-   •	2. Add a To-Do
-   •	3. Add a Deadline
-   •	4. Add an Event
-   •	5. List Tasks
-   •	6. Find Tasks by Keyword
-   •	7. Mark a Task as Done
-   •	8. Unmark a Task
-   •	9. Delete a Task
-   •	10. Exit Chatbot
-4.	Additional Notes
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+    - [1. Print User Guide](#1-print-user-guide-help)
+    - [2. Add a To-Do](#2-add-a-to-do-todo)
+    - [3. Add a Deadline](#3-add-a-deadline-deadline)
+    - [4. Add an Event](#4-add-an-event-event)
+    - [5. List Tasks](#5-list-tasks-list)
+    - [6. Find Tasks by Keyword](#6-find-tasks-by-keyword-find)
+    - [7. Mark a Task as Done](#7-mark-a-task-as-done-mark)
+    - [8. Unmark a Task](#8-unmark-a-task-unmark)
+    - [9. Delete a Task](#9-delete-a-task-delete)
+    - [10. Exit Chatbot](#10-exit-chatbot-bye)
+4. [Additional Notes](#additional-notes)
 
 ## Introduction
 
-Bron is a chatbot designed to help you manage your tasks efficiently with simple commands. 
+Bron is a chatbot designed to help you manage your tasks efficiently with simple commands.
 From adding to-do tasks, deadlines, and events to managing them, Bron has you covered.
 
 ## Quick Start
 
-1.	Ensure Java 17 or above is installed on your system.
-2.	Download the latest .jar file from the repository.
-3.	Copy the .jar file to your preferred folder.
-4.	Open a terminal in the folder and run the command:
-```java -jar Bron.jar```
+1. Ensure Java 17 or above is installed on your system.
+2. Download the latest .jar file from the repository.
+3. Copy the .jar file to your preferred folder.
+4. Open a terminal in the folder and run the command:
+   ```java -jar Bron.jar```
 
-Features
+## Features
 
-	ℹ️ Note: Commands are case-insensitive, and extra spaces between parameters will be ignored.
+ℹ️ **Note:** Commands are case-insensitive, and extra spaces between parameters will be ignored.
 
-### 1. Print User Guide: help
+### 1. Print User Guide: **help**
 
-Syntax: `help`
+**Syntax:** `help`
 
-Description: Displays a guide on how to use Bron and its features.
+**Description:** Displays a guide on how to use Bron and its features.
 
-### 2. Add a To-Do: todo
+### 2. Add a To-Do: **todo**
 
-Syntax: `todo DESCRIPTION`
+**Syntax:** `todo DESCRIPTION`
 
-Description: Adds a to-do task to your list.
+**Description:** Adds a to-do task to your list.
 
-Example:
-
-	`todo Buy groceries` 
+**Example:**
+```todo Buy groceries```
 adds “Buy groceries” to your task list.
 
-### 3. Add a Deadline: deadline
+### 3. Add a Deadline: **deadline**
 
-Syntax: `deadline DESCRIPTION /by YYYY-MM-DD HHMM`
+**Syntax:** `deadline DESCRIPTION /by YYYY-MM-DD HHMM`
 
-Description: Adds a deadline task with a specified due date and time.
+**Description:** Adds a deadline task with a specified due date and time.
 
-Example:
-
-	`deadline Submit assignment /by 2024-10-12 1800`
+**Example:**
+```deadline Submit assignment /by 2024-10-12 1800```
 adds “Submit assignment” with the due date of October 12, 2024, 6:00 PM.
 
-### 4. Add an Event: event
+### 4. Add an Event: **event**
 
-Syntax: `event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM`
+**Syntax:** `event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM`
 
-Description: Adds an event to your list with start and end times.
+**Description:** Adds an event to your list with start and end times.
 
-Example:
+**Example:**
+```event Project meeting /from 2024-10-12 0900 /to 2024-10-12 1100```
+adds "Project meeting" event with the timeline from October 12, 2024, 9:00AM to October 12, 2024, 11:00AM.
 
-	'event Project meeting /from 2024-10-12 0900 /to 2024-10-12 1100'
-adds "Project meeting" event with the timeline from October 12, 2024, 9:00AM to October 12, 2024, 11:00AM
+### 5. List Tasks: **list**
 
-### 5. List Tasks: list
+**Syntax:** `list`
 
-Syntax: `list`
+**Description:** Lists all tasks currently in your task list.
 
-Description: Lists all tasks currently in your task list.
+### 6. Find Tasks by Keyword: **find**
 
-### 6. Find Tasks by Keyword: find
+**Syntax:** `find KEYWORD`
 
-Syntax: `find KEYWORD`
+**Description:** Searches and lists tasks containing the specified keyword.
 
-Description: Searches and lists tasks containing the specified keyword.
+**Example:**
+```find groceries```
+displays all tasks that contain the word “groceries”.
 
-Example:
+### 7. Mark a Task as Done: **mark**
 
-	`find groceries`
-display all tasks that contain the word “groceries”.
+**Syntax:** `mark TASK_INDEX`
 
+**Description:** Marks the specified task as completed.
 
-### 7. Mark a Task as Done: mark
-
-Syntax: `mark TASK_INDEX`
-
-Description: Marks the specified task as completed.
-
-Example:
-
-	'mark 1' 
+**Example:**
+```mark 1```
 marks the first task in the list as done.
 
-### 8. Unmark a Task: unmark
+### 8. Unmark a Task: **unmark**
 
-Syntax: `unmark TASK_INDEX`
+**Syntax:** `unmark TASK_INDEX`
 
-Description: Unmarks the specified task, indicating it is not completed.
+**Description:** Unmarks the specified task, indicating it is not completed.
 
-Example:
-
-	`unmark 1` 
+**Example:**
+```unmark 1```
 unmarks the first task.
 
-### 9. Delete a Task: delete
+### 9. Delete a Task: **delete**
 
-Syntax: `delete TASK_INDEX`
+**Syntax:** `delete TASK_INDEX`
 
-Description: Deletes the specified task from your list.
+**Description:** Deletes the specified task from your list.
 
-Example:
-
-	`delete 1` 
+**Example:**
+```delete 1```
 deletes the first task.
 
-### 10. Exit Chatbot: bye
+### 10. Exit Chatbot: **bye**
 
-Syntax: `bye`
+**Syntax:** `bye`
 
-Description: Exits the chatbot.
+**Description:** Exits the chatbot.
 
 ## Additional Notes
 
-	•	Your tasks are automatically saved after each command.
-	•	Tasks are loaded from the saved file when you restart Bron.
+- Your tasks are automatically saved after each command.
+- Tasks are loaded from the saved file when you restart Bron.
