@@ -1,5 +1,5 @@
 ____________________________________________________________
-Greetings.
-I am Transcendent.
-What do you need assistance with?
+Hello!
+I am ListBot, how can I help?
+For list of all valid instructions: help
 ____________________________________________________________
