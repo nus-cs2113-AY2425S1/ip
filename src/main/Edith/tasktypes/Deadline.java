@@ -1,13 +1,25 @@
 package tasktypes;
 
+/**
+ *
+ */
 public class Deadline extends Task {
     private final String by;
 
+    /**
+     * @param description
+     * @param by
+     */
     public Deadline(String description, String by) {
         super(description, TypeOfTask.Deadlines);
         this.by = by;
     }
 
+    /**
+     * @param description
+     * @param by
+     * @param isDone
+     */
     public Deadline(String description, String by, boolean isDone) {
         super(description, TypeOfTask.Deadlines, isDone);
         this.by = by;

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import static userinteraction.PrintShape.printHorizontalLine;
 
+/**
+ *
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -20,6 +23,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * @param enteredString
+     * @param storage
+     */
     public void addTaskToList(String enteredString, Storage storage) {
         try {
             Task newTask = addNewTask(enteredString);
@@ -39,6 +46,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * @param enteredString
+     * @param storage
+     */
     public void changeTaskStatus(String enteredString, Storage storage) {
 
         try {
@@ -59,18 +70,31 @@ public class TaskList {
 
     }
 
+    /**
+     * @param task
+     */
     public static void unmarkTask(Task task) {
         task.setIsDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
 
+    /**
+     * @param task
+     */
     public static void markTask(Task task) {
         task.setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws TaskTypeException
+     * @throws StringIndexOutOfBoundsException
+     * @throws Exception
+     */
     public static Task addNewTask(String enteredString) throws
             TaskTypeException, StringIndexOutOfBoundsException, Exception {
         Task newTask;
@@ -87,6 +111,11 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws StringIndexOutOfBoundsException
+     */
     public static Deadline createDeadlineTask(String enteredString)
             throws StringIndexOutOfBoundsException {
         int lengthOfBy = "by".length();
@@ -98,6 +127,11 @@ public class TaskList {
         return new Deadline(taskDescription, deadlineTime);
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws StringIndexOutOfBoundsException
+     */
     public static Event createEventTask(String enteredString)
             throws StringIndexOutOfBoundsException {
         int lengthOfEvent = "event".length();
@@ -113,6 +147,11 @@ public class TaskList {
         return new Event(taskDescription, eventFromTime, eventToTime);
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws StringIndexOutOfBoundsException
+     */
     public static ToDo createTodoTask(String enteredString)
             throws StringIndexOutOfBoundsException {
         int lengthOfTodo = "todo".length();
@@ -122,6 +161,10 @@ public class TaskList {
         return new ToDo(taskDescription);
     }
 
+    /**
+     * @param enteredString
+     * @param storage
+     */
     public void deleteTask(String enteredString, Storage storage) {
         try {
             Task removedTask = tasks.remove(getTaskNumber(enteredString) - 1);
@@ -146,6 +189,9 @@ public class TaskList {
         return (!isValidTaskNumber(taskNumber));
     }
 
+    /**
+     *
+     */
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found");
@@ -165,6 +211,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * @param tasks
+     */
     public void listTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found");
@@ -184,6 +233,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws NumberFormatException
+     * @throws InvalidTaskNumberException
+     */
     public Task getTask(String enteredString)
             throws NumberFormatException, InvalidTaskNumberException {
         int taskNumber = getTaskNumber(enteredString);
@@ -191,6 +246,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * @param enteredString
+     * @return
+     * @throws NumberFormatException
+     * @throws InvalidTaskNumberException
+     */
     public int getTaskNumber(String enteredString)
             throws NumberFormatException, InvalidTaskNumberException {
         int lengthOfString = enteredString.length();
@@ -210,6 +271,9 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * @param enteredString
+     */
     public void findTask(String enteredString) {
         int indexOfFind = enteredString.indexOf("find");
         int lengthOfFind = "find".length();

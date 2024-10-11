@@ -1,7 +1,16 @@
 package userinteraction;
 
 
+/**
+ *
+ */
 public class Parser {
+    /**
+     * @param tasks
+     * @param enteredString
+     * @param storage
+     * @return
+     */
     public static boolean understandUser(TaskList tasks, String enteredString, Storage storage) {
         if (enteredString.equals("bye")) {
             return true;

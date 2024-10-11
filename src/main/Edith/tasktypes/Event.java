@@ -1,15 +1,29 @@
 package tasktypes;
 
+/**
+ *
+ */
 public class Event extends Task {
     private final String from;
     private final String to;
 
+    /**
+     * @param description
+     * @param from
+     * @param to
+     */
     public Event(String description, String from, String to) {
         super(description, TypeOfTask.Events);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * @param description
+     * @param from
+     * @param to
+     * @param isDone
+     */
     public Event(String description, String from, String to, boolean isDone) {
         super(description, TypeOfTask.Events, isDone);
         this.from = from;

@@ -2,11 +2,18 @@ import userinteraction.Storage;
 import userinteraction.TaskList;
 import userinteraction.Ui;
 
+/**
+ *
+ */
 public class Edith {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     *
+     * @param filePath
+     */
     public Edith(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
@@ -18,12 +25,18 @@ public class Edith {
         }
     }
 
+    /**
+     *
+     */
     public void run() {
         ui.giveIntroduction();
         ui.interactWithUser(tasks, storage);
         ui.sayGoodbye();
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         new Edith("listOfTasks.txt").run();
     }

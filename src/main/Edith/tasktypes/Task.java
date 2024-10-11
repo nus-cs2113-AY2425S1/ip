@@ -1,16 +1,28 @@
 package tasktypes;
 
+/**
+ *
+ */
 abstract public class Task {
     private final String description;
     private boolean isDone;
     public TypeOfTask typeOfTask;
 
+    /**
+     * @param description
+     * @param typeOfTask
+     */
     public Task(String description, TypeOfTask typeOfTask) {
         this.description = description;
         this.isDone = false;
         this.typeOfTask = typeOfTask; //has potential to create error
     }
 
+    /**
+     * @param description
+     * @param typeOfTask
+     * @param isDone
+     */
     public Task(String description, TypeOfTask typeOfTask, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -34,6 +46,9 @@ abstract public class Task {
         return getIsDoneString() + description;
     }
 
+    /**
+     * @return
+     */
     public String getIsDoneString() {
         if (isDone) {
             return "[X]";
@@ -42,7 +57,13 @@ abstract public class Task {
         }
     }
 
+    /**
+     * @return
+     */
     public abstract char getTaskCharacter();
 
+    /**
+     * @return
+     */
     public abstract String getStorableString();
 }

@@ -1,5 +1,8 @@
 package tasktypes;
 
+/**
+ *
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description, TypeOfTask.ToDos);
@@ -18,6 +21,10 @@ public class ToDo extends Task {
         return 'T';
     }
 
+
+    /**
+     * @return
+     */
     public String getStorableString() {
         int isDoneInteger = getIsDone() ? 1 : 0;
         return getTaskCharacter() + " | " + isDoneInteger + " | " + getDescription();
