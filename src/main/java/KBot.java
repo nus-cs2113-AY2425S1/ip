@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class KBot {
     private TaskList taskList;
@@ -74,12 +75,34 @@ public class KBot {
                 int deleteIndex = parser.parseTaskNumber(argument);
                 deleteTask(deleteIndex);
                 break;
+            case "find":
+                handleFindCommand(input);
+                break;
             default:
                 throw KBotException.unknownCommand();
         }
 
         storage.saveTasksToFile(taskList.getTasks()); // Save the updated task list after each change
         return true;
+    }
+
+    private void handleFindCommand(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            System.out.println("Please provide a keyword to search for.");
+            return;
+        }
+
+        String keyword = parts[1];
+        ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found for keyword: " + keyword);
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+            }
+        }
     }
 
     private void listTasks() {
