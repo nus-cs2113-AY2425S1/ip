@@ -52,6 +52,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the task at the specified index in the TaskList object.
+     * @param taskNo The index of the task to be returned.
+     * @return The task at the specified index.
+     * @throws AmyException If the task number is invalid.
+     */
     public Task getTask(int taskNo) throws AmyException{
         if(!isValidTask(taskNo)){
             throw new AmyException("I didn't find that task on your list. Wanna try again? (T_T)");
