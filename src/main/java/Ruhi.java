@@ -115,7 +115,12 @@ public class Ruhi {
           System.out.println((i + 1) + "." + foundTasks.get(i));
         }
         break;
-      default: 
+      case "bye":
+        // Set exit flag and handle goodbye message
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.exit(0); // This will terminate the program
+        break;
+      default:
         throw new RuntimeException("Unknown command.");
     }
   }
