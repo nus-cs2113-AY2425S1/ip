@@ -44,6 +44,9 @@ public class UserInterface implements SampleStrings {
         System.out.println("\t\t" + modification + taskNumber + task);
         System.out.println(HORIZONTAL_LINE_FENIX_MODIFICATION);
         System.out.println("You now have " + fenix.getSize() + " tasks awaiting your attention.");
+
+    public void printMatchedTasks() {
+        System.out.println(MATCHED_TASKS);
     }
 
     public void requestForCommand() {

@@ -89,8 +89,10 @@ public class Fenix implements SampleStrings {
 
     public void handleFind(String commandInfo) {
         ArrayList<Task> foundArrayList = taskHandler.findTasks(commandInfo);
+        ui.printMatchedTasks();
         ui.showAllTasks(foundArrayList);
     }
+
     // Fallback for invalid commands
     public void handleInvalidCommand() {
         ui.requestForValidCommand();
