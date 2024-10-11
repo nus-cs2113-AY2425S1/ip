@@ -217,6 +217,6 @@ public class Taylor {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Taylor("data/tasks.txt").run();
+        new Taylor("./data/tasks.txt").run();
     }
 }
