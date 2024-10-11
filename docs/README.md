@@ -49,7 +49,7 @@ Ensure you have Java 17 or above installed on your computer. You may download Ja
    `java -jar jarvis.jar`
 
 7. After a few seconds, the application will launch in your terminal. You should see the user interface output for Jarvis as shown below:
-   ![image](/ip/assets/logo.png)
+   ![Jarvis User-Interface](/ip/assets/ui.png)
 
 8. Type the command in the terminal and press Enter to execute it. Some example commands you can try:
     - *list* : Lists all tasks.
