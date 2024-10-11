@@ -262,13 +262,30 @@ public class Ui {
         System.out.println("To unmark a task: unmark *task_number*");
         System.out.println("To delete a task: delete *task_number*");
         System.out.println("To list all tasks: list");
+        System.out.println("To find a task: find *keyword*");
         System.out.println("To exit: bye");
         printSeparator();
     }
 
+    /**
+     * Prints a message indicating that no task in the list contains the specified keyword.
+     */
     public static void printNoTaskFound() {
         printSeparator();
         System.out.println("I found no matching tasks in the list!");
+        printSeparator();
+    }
+
+    /**
+     * Prints an error message when the user provides an invalid find format.
+     * It also shows the correct syntax for searching for a task.
+     */
+    public static void printInvalidFind() {
+        printSeparator();
+        System.out.println("This is an invalid find statement.");
+        System.out.println("Here's the find syntax: ");
+        System.out.println("find *keyword*");
+        System.out.println("For list of all valid instructions: help");
         printSeparator();
     }
 

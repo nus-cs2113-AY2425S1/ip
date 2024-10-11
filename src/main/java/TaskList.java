@@ -320,6 +320,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches the task list for tasks containing the specified keyword in their description.
+     *
+     * @param keyword the search query that will be used to find matching tasks. The keyword is extracted from the full input string.
+     */
     public static void find(String keyword) {
         try {
             keyword = keyword.substring(5);
@@ -340,7 +345,7 @@ public class TaskList {
                 Ui.printSeparator();
             }
         } catch (StringIndexOutOfBoundsException e) {
-            Ui.printInvalidEvent();
+            Ui.printInvalidFind();
         }
     }
 
