@@ -1,6 +1,7 @@
 package org.ajay.commands;
 
 import org.ajay.data.TaskList;
+import org.ajay.data.exceptions.IllegalArgumentException;
 import org.ajay.data.task.Task;
 import org.ajay.parser.Parser;
 import org.ajay.storage.Storage;
@@ -16,7 +17,12 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
-        tasks.markAsUndone(Parser.task);
+        try {
+            tasks.markAsUndone(Parser.task);
+        } catch (IllegalArgumentException e) {
+            ui.printExceptions(e.getMessage());
+            return;
+        }
         storage.saveTaskList(tasks.getTaskList());
     }
 }

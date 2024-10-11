@@ -3,6 +3,7 @@ package org.ajay.data;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.ajay.data.exceptions.Error;
+import org.ajay.data.exceptions.IllegalArgumentException;
 import org.ajay.data.task.Task;
 import org.ajay.ui.TextUi;
 
@@ -39,19 +40,33 @@ public class TaskList {
      *
      * @param taskList   list of tasks
      * @param taskNumber number of the task to be marked as done
+     * @throws IllegalArgumentException
      */
-    public static void markAsDone(int taskNumber) {
+    public static void markAsDone(int taskNumber) throws IllegalArgumentException {
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumber - 1).markAsDone();
     }
 
-    public static void markAsDone(String task) {
+    public static void markAsDone(String task) throws IllegalArgumentException {
         int taskNumberMark = Integer.parseInt(task); // Get the task number
+
+        if (!isValidTaskNumber(taskNumberMark)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumberMark - 1).markAsDone();
     }
 
-    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) {
+    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumber - 1).markAsDone();
     }
@@ -74,27 +89,47 @@ public class TaskList {
      *
      * @param taskList   list of tasks
      * @param taskNumber number of the task to be marked as not done
+     * @throws IllegalArgumentException
      */
-    public static void markAsUndone(int taskNumber) {
+    public static void markAsUndone(int taskNumber) throws IllegalArgumentException {
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumber - 1).markAsUndone();
     }
 
-    public static void markAsUndone(String task) {
+    public static void markAsUndone(String task) throws IllegalArgumentException {
         int taskNumberUnmark = Integer.parseInt(task); // Get the task number
+
+        if (!isValidTaskNumber(taskNumberUnmark)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumberUnmark - 1).markAsUndone();
     }
 
-    public static void markAsUndone(ArrayList<Task> taskList, int taskNumber) {
+    public static void markAsUndone(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
+        }
 
         taskList.get(taskNumber - 1).markAsUndone();
     }
 
-    public static void deleteTask(String task) throws IllegalArgumentException {
+    private static boolean isValidTaskNumber(int taskNumber) {
+        return taskNumber <= taskList.size() && taskNumber > 0;
+    }
+
+    public static void deleteTask(String task) throws IllegalArgumentException  {
         int taskNumberDelete = Integer.parseInt(task);
-        if (taskNumberDelete > taskList.size()) {
-            throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
+
+        if (!isValidTaskNumber(taskNumberDelete)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumberDelete - 1).toString());
@@ -105,8 +140,9 @@ public class TaskList {
 
     public static void deleteTask(int taskNumber) throws IllegalArgumentException {
 
-        if (taskNumber > taskList.size()) {
-            throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());
@@ -117,8 +153,9 @@ public class TaskList {
 
     public static void deleteTask(ArrayList<Task> taskList, int taskNumber) throws IllegalArgumentException {
 
-        if (taskNumber > taskList.size()) {
-            throw new IllegalArgumentException("Out of range index. " + Error.OUT_OF_BOUNDS.toString());
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new IllegalArgumentException("Invalid task number. Please enter a vaild task number. "
+            + Error.OUT_OF_BOUNDS.toString());
         }
 
         System.out.println("Noted. I've removed this task: \n  " + taskList.get(taskNumber - 1).toString());

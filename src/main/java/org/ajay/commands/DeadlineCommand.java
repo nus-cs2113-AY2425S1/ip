@@ -2,6 +2,7 @@ package org.ajay.commands;
 
 import org.ajay.data.TaskList;
 import org.ajay.data.exceptions.EmptyArgumentException;
+import org.ajay.data.exceptions.InvalidCommandFormatException;
 import org.ajay.data.task.Deadline;
 import org.ajay.parser.Parser;
 import org.ajay.storage.Storage;
@@ -19,14 +20,18 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         try {
             tasks.addTask(new Deadline(Parser.task));
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks.getLatestTask().toString());
-            tasks.printNumberOfTasks();
-
-            storage.saveTaskList(tasks.getTaskList());
         } catch (EmptyArgumentException e) {
-            TextUi.printExceptions(e.getMessage());
+            ui.printExceptions(e.getMessage());
+        } catch (InvalidCommandFormatException e) {
+            ui.printExceptions(e.getMessage());
+            return;
         }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.getLatestTask().toString());
+        tasks.printNumberOfTasks();
+
+        storage.saveTaskList(tasks.getTaskList());
     }
 
 }

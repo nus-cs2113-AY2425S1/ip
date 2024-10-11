@@ -13,14 +13,15 @@ import org.ajay.commands.MarkCommand;
 import org.ajay.commands.TodoCommand;
 import org.ajay.commands.UnmarkCommand;
 import org.ajay.common.Constants;
+import org.ajay.common.Messages;
 import org.ajay.data.exceptions.EmptyArgumentException;
 import org.ajay.data.exceptions.Error;
 import org.ajay.ui.TextUi;
 
 public class Parser {
 
-    public static String command; // Variable to store the command
-    public static String task; // Variable to store the task
+    public static String command = ""; // Variable to store the command
+    public static String task = ""; // Variable to store the task
 
     // public static String lineBufferString = ""; // Buffer to store the input from
     // the user
@@ -32,15 +33,24 @@ public class Parser {
      */
     public static void splitCommandAndTask(String lineBufferString) throws EmptyArgumentException {
         if (lineBufferString.isEmpty()) {
-            throw new EmptyArgumentException(Error.EMPTY_ARG.toString());
+            throw new EmptyArgumentException( Messages.MESSAGE_LINE_STRING_EMPTY + " " + Error.EMPTY_ARG.toString());
+        } else {
+            lineBufferString = lineBufferString.trim(); // Remove any leading or trailing whitespaces
         }
+
+        command = "";
+        task = "";
+        boolean isSingleCommand = (lineBufferString.equals(ListCommand.COMMAND_WORD) || lineBufferString.equals(ExitCommand.COMMAND_WORD) || lineBufferString.equals(HelpCommand.COMMAND_WORD) || lineBufferString.equals(Constants.EXIT_COMMAND_ALT));
 
         if (lineBufferString.contains(" ")) {
             command = lineBufferString.split(" ")[0];
             task = lineBufferString.substring(command.length() + 1);
-        } else {
+        } else if (isSingleCommand) {
+            // single word commands
             command = lineBufferString;
-            task = null;
+        }
+        else {
+            throw new EmptyArgumentException(Error.INVAILD_COMMAND_FORMAT.toString());
         }
     }
 
