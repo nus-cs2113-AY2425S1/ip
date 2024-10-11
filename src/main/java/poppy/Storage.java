@@ -63,7 +63,7 @@ public class Storage {
             if (task != null) {
                 String line = getString(task);
                 if (task instanceof Deadline deadline) {
-                    line += "| " + DateParser.formatDateTime(deadline.getBy());
+                    line += "| " + DateParser.savingDateTime(deadline.getBy());
                 } else if (task instanceof Events event) {
                     line += "| " + event.getFrom();
                     line += "| " + event.getTo();

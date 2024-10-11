@@ -101,12 +101,7 @@ public class Parser {
             System.out.println("You now have " + taskList.getSize() + " tasks");
             break;
         case "event":
-            if (commandArgs.length < 2) {
-                throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
-            }
-            String[] eventString = commandArgs[1].split("/from", 2);
-            String[] intervalString = eventString[1].split("/to", 2);
-            Events event = new Events(eventString[0].trim(), intervalString[0].trim(), intervalString[1].trim());
+            Events event = getEvents(commandArgs);
             taskList.addTask(event);
             System.out.println(event.toString());
             System.out.println("You now have " + taskList.getSize() + " tasks");
@@ -130,6 +125,38 @@ public class Parser {
             System.out.println("Your Date format is wrong!");
         }
     }
+
+    /**
+     * A helper method to prevent cluttering of the processCommand method
+     *
+     * @param commandArgs The command argument array generated from the input.
+     * @return An events object to be added to the task list.
+     * @throws CustomExceptions.MissingArgsException Throws an exception due to missing arguments.
+     */
+    private static Events getEvents(String[] commandArgs) throws CustomExceptions.MissingArgsException {
+        if (commandArgs.length < 2) {
+            throw new CustomExceptions.MissingArgsException("Description of Event cannot be empty");
+        }
+
+        // Split the event string based on '/from'
+        String[] eventString = commandArgs[1].split("/from", 2);
+        if (eventString.length < 2) {
+            throw new CustomExceptions.MissingArgsException("You are missing the '/from' part");
+        }
+
+        // Split the interval based on '/to'
+        String[] intervalString = eventString[1].split("/to", 2);
+
+        // Check if the '/to' part is missing
+        if (intervalString.length < 2 || intervalString[1].trim().isEmpty()) {
+            throw new CustomExceptions.MissingArgsException("You are missing the '/to' part");
+        }
+
+        // Create the event object
+        Events event = new Events(eventString[0].trim(), intervalString[0].trim(), intervalString[1].trim());
+        return event;
+    }
+
 
     /**
      * Generates a string representation of a task for file storage.

@@ -39,4 +39,9 @@ public class DateParser {
 
         return formattedDate + " " + formattedTime;
     }
+
+    public static String savingDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(dateFormatter);
+    }
 }
