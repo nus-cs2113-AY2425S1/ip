@@ -75,12 +75,18 @@ public class Deadline extends Task {
         int indexOfBy = input.indexOf(BY_KEYWORD_STRING);
         int indexAfterBy;
 
+        // Check if the by keyword is missing
         if (indexOfBy == -1) {
             throw new InvalidCommandFormatException(
                     Messages.MESSAGE_MISSING_KEYWORD + " [" + BY_KEYWORD_STRING + "] "
                             + Error.INVAILD_COMMAND_FORMAT.toString());
         } else {
-             indexAfterBy = indexOfBy + BY_KEYWORD_STRING.length();
+            indexAfterBy = indexOfBy + BY_KEYWORD_STRING.length();
+        }
+
+        // Check if the by date is empty
+        if (indexAfterBy == input.length()) {
+            throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
         }
 
         return input.substring(indexAfterBy).trim();

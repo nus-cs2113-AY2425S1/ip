@@ -12,9 +12,6 @@ public abstract class Task {
     protected String description; // Description of the task
     private boolean isDone; // Status of the task
 
-    // TODO: Possible to use arraylist length
-    // private static int numberOfTasks = 0; // Number of tasks in the list
-
     /**
      * Constructor for the Task class.
      *

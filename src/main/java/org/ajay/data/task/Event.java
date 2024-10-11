@@ -136,7 +136,10 @@ public class Event extends Task {
              indexAfterFrom = indexOfFrom + FROM_KEYWORD_STRING.length();
         }
 
-
+        // Check if the from date is empty
+        if (indexAfterFrom == indexOfTo - 1) {
+            throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
+        }
 
 
         return input.substring(indexAfterFrom, indexOfTo).trim();
@@ -160,6 +163,11 @@ public class Event extends Task {
                             + Error.INVAILD_COMMAND_FORMAT.toString());
         } else {
              indexAfterTo = indexOfTo + TO_KEYWORD_STRING.length();
+        }
+
+        // Check if the to date is empty
+        if (indexAfterTo == input.length()) {
+            throw new InvalidCommandFormatException(Messages.MESSAGE_EMPTY_DATE + " " + Error.EMPTY_ARG.toString());
         }
 
 

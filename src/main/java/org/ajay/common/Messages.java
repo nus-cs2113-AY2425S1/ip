@@ -59,5 +59,6 @@ public class Messages {
     public static final String MESSAGE_IMPORT_EVENT_FAILED = "Importing Deadline task failed. Data is corrupted.";
     public static final String MESSAGE_MISSING_KEYWORD = "Missing keyword found.";
     public static final String MESSAGE_INVALID_KEYWORK_ARRAGEMENT = "Wrong keyword arrangement found.";
+    public static final String MESSAGE_EMPTY_DATE = "Empty date found.";
 
 }
