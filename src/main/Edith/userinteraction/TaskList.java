@@ -171,7 +171,7 @@ public class TaskList {
      * Returns the Event object that it creates by using the user input.
      *
      * @param enteredString The user input
-     * @return ToDoo object which was created
+     * @return ToDo object which was created
      */
     public static ToDo createTodoTask(String enteredString) {
         int lengthOfTodo = "todo".length();
