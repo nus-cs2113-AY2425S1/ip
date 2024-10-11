@@ -64,12 +64,12 @@ public class Storage {
                     task = new Todo(description);
                     break;
                 case "D":
-                    validatePartsLength(parts, 4, line);
+                    validatePartsLength(parts, line);
                     String deadlineTime = parts[3].substring(3);
                     task = new Deadline(description, deadlineTime);
                     break;
                 case "E":
-                    validatePartsLength(parts, 4, line);
+                    validatePartsLength(parts, line);
                     String[] details = extractEventDetails(parts[3]);
                     task = new Event(description, details[0], details[1]);
                     break;
@@ -91,12 +91,11 @@ public class Storage {
      * Throws StorageInvalidFormat if invalid.
      *
      * @param parts The array of string parts.
-     * @param expectedLength The expected minimum length.
-     * @param line The original line for the error message.
+     * @param line  The original line for the error message.
      * @throws StorageInvalidFormat if the length is insufficient.
      */
-    private void validatePartsLength(String[] parts, int expectedLength, String line) throws StorageInvalidFormat {
-        if (parts.length < expectedLength) {
+    private void validatePartsLength(String[] parts, String line) throws StorageInvalidFormat {
+        if (parts.length < 4) {
             throw new StorageInvalidFormat(line);
         }
     }
@@ -126,6 +125,24 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Ensures that a file at the specified path exists.
+     * If the file does not exist, it will be created.
+     * If the parent directory does not exist, it will be created as well.
+     *
+     * @throws IOException if an I/O error occurs while creating the file or directory.
+     */
+    public void createFileIfNotExists() throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+            file.createNewFile();
         }
     }
 }

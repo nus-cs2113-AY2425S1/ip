@@ -7,7 +7,7 @@ import conglo.storage.Storage;
 import conglo.task.TaskList;
 import conglo.command.Parser;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Main class for the Conglo chatbot.
@@ -29,8 +29,9 @@ public class Conglo {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
+            storage.createFileIfNotExists();
             taskList = new TaskList(storage.loadTasks());
-        } catch (FileNotFoundException | StorageInvalidFormat e) {
+        } catch (StorageInvalidFormat | IOException e) {
             ui.displayLoadingError();
             taskList = new TaskList();
         }
