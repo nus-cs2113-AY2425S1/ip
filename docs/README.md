@@ -141,7 +141,6 @@ Got it. Task successfully marked as UNDONE!
 > [T][ ] read book
 ```
 
-## Feature ABC
 ## Deleting a task: `delete`
 
 Deletes a specified task from the task list.
@@ -263,3 +262,23 @@ The tasks in the task list are **automatically saved upon exiting the program.**
 There is no need to save manually. Leave that to **ATOM**!!
 
 ___
+
+# Command Summary:
+
+Here is a summary of all the important commands!! :)
+
+|  Command   | Format                                                 |
+|:----------:|:-------------------------------------------------------|
+|   `todo`   | `todo <task name>`                                     |
+| `deadline` | `deadline <task name> /by <date time>`                 |
+|  `event`   | `event <task name> /from <date time> /to <date time>`  |
+|   `list`   | `list`                                                 |
+|   `mark`   | `mark <task id>`                                       |
+|  `unmark`  | `unmark <task id>`                                     |
+|  `delete`  | `delete <task id>`                                     |
+|   `find`   | `find <keyword>`                                       |
+|  `filter`  | `filter <date>`                                        |
+|   `bye`    | `bye`                                                  |
+
+
+[Back to Top](#atom-user-guide)
