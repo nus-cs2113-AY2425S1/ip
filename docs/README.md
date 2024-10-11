@@ -46,12 +46,14 @@ Get started with Bitwise and take control of your task management today!
 - Download the [Bitwise.jar](https://github.com/cnivedit/ip/releases/tag/A-Release) file
 - Navigate to the directory and run `java -jar Bitwise.jar` on the terminal
 
+---
+
 ## Quick Reference
 
 | Command                           | Description                        | Parameters                                              | Example                                |
 |-----------------------------------|------------------------------------|---------------------------------------------------------|----------------------------------------|
 | [`deadline`](#deadlines)          | Adds a deadline task               | `<task description> /by <deadline>`                     | `deadline complete assignment /by 4pm` |
-| [`event`](#event)                 | Adds an event                      | `<event description> /from <begin time> /to <end time>` | `event watch movie /from 4pm /to 6pm`  |
+| [`event`](#events)                | Adds an event                      | `<event description> /from <begin time> /to <end time>` | `event watch movie /from 4pm /to 6pm`  |
 | [`todo`](#todos)                  | Adds a todo item                   | `<task description>`                                    | `todo borrow books`                    |
 | [`mark`](#tracking-task-status)   | Marks a task as completed          | `<task number>`                                         | `mark 1`                               |
 | [`unmark`](#tracking-task-status) | Marks a task as not completed      | `<task number>`                                         | `unmark 1`                             |
@@ -59,6 +61,7 @@ Get started with Bitwise and take control of your task management today!
 | [`list`](#viewing-task-list)      | Displays the list of tasks         | N/A                                                     | `list`                                 |
 | [`bye`](#exiting-the-application) | Exits the application              | N/A                                                     | `bye`                                  |
 
+---
 
 ## Types of tasks
 ### Deadlines: 
