@@ -1,95 +1,99 @@
 import java.io.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ */
 public class Storage {
-    private String filePath;
+    private Path path;
 
-    public Storage(String filePath) {
-        // Set the file path for storing tasks
-        this.filePath = filePath;
+    /**
+     * Constructs a Storage object that manages the file used to store task data.
+     * @param filepath Path to the file used for storing task data.
+     */
+    public Storage(String filepath) {
+        this.path = Paths.get(filepath).toAbsolutePath().normalize();
+        ensureDirectoryExists(path.getParent());
     }
 
-    public ArrayList<Task> load() throws AirBorderException {
-        // Load tasks from the specified file and return them as an ArrayList
-        ArrayList<Task> tasks = new ArrayList<>();
+    /**
+     * Ensures that the directory for the storage file exists.
+     * @param directoryPath Path to the directory to check and create if needed.
+     */
+    private void ensureDirectoryExists(Path directoryPath) {
         try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                // If the file doesn't exist, return an empty list
-                return tasks;
-            }
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            // Read each line from the file and parse it into a Task object
-            while ((line = reader.readLine()) != null) {
-                Task task = parseTaskFromFile(line);
-                if (task != null) {
-                    tasks.add(task);
+            Files.createDirectories(directoryPath);
+        } catch (IOException e) {
+            System.err.println("Error creating storage directory: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads tasks from the file into an ArrayList.
+     * @return ArrayList containing all loaded tasks.
+     * @throws IOException If an I/O error occurs reading from the file.
+     */
+    public ArrayList<Task> load() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (Files.exists(path)) {
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = parseTask(line);
+                    if (task != null) tasks.add(task);
                 }
             }
-            reader.close();
-        } catch (IOException e) {
-            // Throw an exception if an error occurs during file reading
-            throw new AirBorderException("Error loading tasks: " + e.getMessage());
         }
         return tasks;
     }
 
-    public void save(TaskList taskList) throws AirBorderException {
-        // Save the current list of tasks to the file
-        try {
-            File file = new File(filePath);
-            file.getParentFile().mkdirs(); // Ensure the directory exists
-            FileWriter writer = new FileWriter(file);
-            // Write each task to the file in a formatted manner
-            for (Task task : taskList.getAllTasks()) {
-                writer.write(formatTaskForSave(task) + System.lineSeparator());
+    /**
+     * Saves the list of tasks to the file.
+     * @param tasks ArrayList of Task objects to save.
+     * @throws IOException If an I/O error occurs writing to the file.
+     */
+    public void save(ArrayList<Task> tasks) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (Task task : tasks) {
+                writer.write(task.toString() + System.lineSeparator());
             }
-            writer.close();
-        } catch (IOException e) {
-            // Throw an exception if an error occurs during file writing
-            throw new AirBorderException("Error saving tasks: " + e.getMessage());
         }
     }
 
-    private String formatTaskForSave(Task task) {
-        // Format a Task object into a string suitable for saving to file
-        if (task instanceof ToDo) {
-            return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
-        } else if (task instanceof Deadline) {
-            Deadline deadline = (Deadline) task;
-            return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by;
-        } else if (task instanceof Event) {
-            Event event = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " | " + event.to;
-        }
-        return "";
-    }
-
-    private Task parseTaskFromFile(String line) {
-        // Parse a line from the file into a Task object
+    /**
+     * Parses a line from the storage file into a Task object.
+     * @param line The line from the file to parse.
+     * @return The Task object represented by the line, or null if the line is invalid.
+     */
+    private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
-        switch (parts[0]) {
+        if (parts.length < 3) return null; // Basic validation to ensure data integrity
+        String type = parts[0].trim(); // 'T', 'D', or 'E' indicating the task type
+        boolean isDone = parts[1].trim().equals("1"); // '1' if done, '0' otherwise
+        String description = parts[2].trim();
+        Task task = null;
+        switch (type) {
             case "T":
-                ToDo todo = new ToDo(parts[2]);
-                if (parts[1].equals("1")) {
-                    todo.markAsDone();
-                }
-                return todo;
+                task = new ToDo(description);
+                break;
             case "D":
-                Deadline deadline = new Deadline(parts[2], parts[3]);
-                if (parts[1].equals("1")) {
-                    deadline.markAsDone();
-                }
-                return deadline;
+                if (parts.length < 4) return null; // Ensure there's a deadline part
+                String deadline = parts[3].trim();
+                task = new Deadline(description, deadline);
+                break;
             case "E":
-                Event event = new Event(parts[2], parts[3], parts[4]);
-                if (parts[1].equals("1")) {
-                    event.markAsDone();
-                }
-                return event;
+                if (parts.length < 5) return null; // Ensure there are start and end times
+                String startTime = parts[3].trim();
+                String endTime = parts[4].trim();
+                task = new Event(description, startTime, endTime);
+                break;
             default:
-                return null;
+                return null; // Invalid task type
         }
+        if (isDone) {
+            task.markAsDone(); // Set the task as done if it was stored as done
+        }
+        return task;
     }
 }
