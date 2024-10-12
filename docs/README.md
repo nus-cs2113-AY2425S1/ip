@@ -129,7 +129,7 @@ Expected output:
 
 ## Exiting PlopBot
 
-To exit the program, simply write:
+To exit the program, simply write one of the following:
 
     bye
     exit
