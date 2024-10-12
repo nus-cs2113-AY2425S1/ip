@@ -92,8 +92,6 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-##
-
 ## Marking and Unmarking tasks
 
 Marks or unmarks the task associated with the given number from the user.
