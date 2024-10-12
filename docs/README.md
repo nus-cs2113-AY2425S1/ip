@@ -36,11 +36,11 @@ AirBorder supports three types of tasks:
   ```
 - **Deadline**: Adds a task that needs to be completed by a specific date.
   ```
-  deadline Check in closes /by 2024-12-31 18:00
+  deadline Check in closes by 2024-12-31 18:00
   ```
 - **Event**: Adds an event with a start and end date.
   ```
-  event Traveldoc validity /from 2024-10-15 /to 2034-10-14
+  event Traveldoc validity from 2024-10-15 to 2034-10-14
   ```
 
 ### Listing Tasks
@@ -80,7 +80,7 @@ find ETA
 
 To exit AirBorder:
 ```
-bye
+exit
 ```
 
 ## Command Summary
@@ -88,14 +88,14 @@ bye
 | Command                                       | Description                                    | Example                                        |
 |-----------------------------------------------|------------------------------------------------|------------------------------------------------|
 | `todo DESCRIPTION`                            | Adds a todo task                               | `Apply for ETA at gov.uk`                            |
-| `deadline DESCRIPTION /by DATE`               | Adds a task with a deadline                    | `deadline `      |
-| `event DESCRIPTION /from START_DATE /to END_DATE` | Adds an event                                 | `Traveldoc validity /from 2024-10-15 /to 2034-10-14` |
+| `deadline DESCRIPTION by DATE`               | Adds a task with a deadline                    | `deadline `      |
+| `event DESCRIPTION from START_DATE to END_DATE` | Adds an event                                 | `Traveldoc validity from 2024-10-15 to 2034-10-14` |
 | `list`                                        | Displays all tasks                             | `list`                                        |
 | `mark INDEX`                                  | Marks the specified task as done               | `mark 1`                                      |
 | `unmark INDEX`                                | Marks the specified task as not done           | `unmark 1`                                    |
 | `delete INDEX`                                | Deletes the specified task                     | `delete 1`                                    |
 | `find KEYWORD`                                | Finds tasks containing the keyword             | `find ETA`                                   |
-| `bye`                                         | Exits the program                              | `bye`                                         |
+| `exit`                                         | Exits the program                              | `exit`                                         |
 
 ## FAQ
 
@@ -109,4 +109,4 @@ A: AirBorder accepts dates in YYYY-MM-DD format. Please ensure you adhere to thi
 
 For support or further assistance, please email us at support@airborder.com or visit our GitHub repository to open an issue.
 
-Thank you for choosing AirBorder for your air travel needs!
+Thank you for choosing AirBorder for your international travel needs!
