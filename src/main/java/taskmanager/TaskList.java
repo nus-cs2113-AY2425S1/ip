@@ -18,7 +18,13 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static final ArrayList<Task> tasks = new ArrayList<>(); // Array to store tasks
+    private static ArrayList<Task> tasksStorage = new ArrayList<>(); // Array to store tasks
+
+    // Static block to initialize tasks from storage
+    static {
+        tasksStorage = Storage.loadTasks(); // Load tasks from the file when TaskList is created
+    }
+
     public static int taskCounter = 0;  // Counter to track current number of tasks
 
     public static void listTasks() {
@@ -26,13 +32,13 @@ public class TaskList {
         for (int i = 1; i <= taskCounter; i++) {
 
             // Print generic task description
-            System.out.print(i+". " + tasks.get(i - 1).getTypeIcon()
-                    + tasks.get(i - 1).getStatusIcon() + tasks.get(i - 1).getTaskName());
+            System.out.print(i+". " + tasksStorage.get(i - 1).getTypeIcon()
+                    + tasksStorage.get(i - 1).getStatusIcon() + tasksStorage.get(i - 1).getTaskName());
 
             // Print specific task-type information
-            switch (tasks.get(i - 1).getTypeIcon()) {
+            switch (tasksStorage.get(i - 1).getTypeIcon()) {
                 case "[D]":
-                    System.out.println(" (By: " + tasks.get(i - 1).getBy() + ")");
+                    System.out.println(" (By: " + tasksStorage.get(i - 1).getBy() + ")");
                     continue;
 
                 case "[T]":
@@ -40,8 +46,8 @@ public class TaskList {
                     continue;
 
                 case "[E]":
-                    System.out.println(" (From: " + tasks.get(i - 1).getEventStart()
-                            + " To: " + tasks.get(i - 1).getEventEnd() + ")");
+                    System.out.println(" (From: " + tasksStorage.get(i - 1).getEventStart()
+                            + " To: " + tasksStorage.get(i - 1).getEventEnd() + ")");
                     continue;
 
                 default:
@@ -54,7 +60,7 @@ public class TaskList {
         if (taskCounter == 1) {
             System.out.println("There is now (1) logged task/event.");
         } else {
-            System.out.println("There are now (" + taskCounter + ") logged tasks/events.");
+            System.out.println("There are now (" + tasksStorage.size() + ") logged tasks/events.");
         }
     }
 
@@ -72,7 +78,7 @@ public class TaskList {
         }
 
         // Throw exception if index referred to does not exist
-        if (taskIndex > TaskList.taskCounter || taskIndex < 0) {
+        if (taskIndex > tasksStorage.size() || taskIndex < 0) {
             throw new TerriException("That index is out of bounds! " +
                     "Call 'list' to see how many tasks are in your list!");
         }
@@ -91,9 +97,11 @@ public class TaskList {
         // Exclude keyword from task description
         String newToDo = extractSubArray(keyWord,1, keyWord.length);
 
-        tasks.add(taskCounter++, new ToDo(newToDo));
+        tasksStorage.add(taskCounter++, new ToDo(newToDo));
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
         printNumberOfTasks();
+
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
@@ -138,9 +146,11 @@ public class TaskList {
 
     public static void addDeadline(String newDeadline, String newBy) throws TerriException {
 
-        tasks.add(taskCounter++, new Deadline(newDeadline, newBy));
+        tasksStorage.add(taskCounter++, new Deadline(newDeadline, newBy));
         System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
+
         printNumberOfTasks();
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
@@ -179,9 +189,11 @@ public class TaskList {
 
     public static void addEvent(String newEvent, String From, String To) throws TerriException {
 
-        tasks.add(taskCounter++, new Event(newEvent, From, To));
+        tasksStorage.add(taskCounter++, new Event(newEvent, From, To));
         System.out.println("Just added: '" + newEvent + "' to your list as an Event!");
+
         printNumberOfTasks();
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
@@ -201,18 +213,18 @@ public class TaskList {
 
         // (un)Mark task as indicated by user
         if (desiredState) {
-            tasks.get(taskIndex).setDone(true);
+            tasksStorage.get(taskIndex).setDone(true);
             System.out.println("Just marked that task completed!");
         } else {
-            tasks.get(taskIndex).setDone(false);
+            tasksStorage.get(taskIndex).setDone(false);
             System.out.println("Just marked that task as not completed!");
         }
 
         // Print summary of new state for user assurance
         System.out.println((taskIndex + 1) + ". "
-                + tasks.get(taskIndex).getTypeIcon()
-                + tasks.get(taskIndex).getStatusIcon()
-                + tasks.get(taskIndex).getTaskName());
+                + tasksStorage.get(taskIndex).getTypeIcon()
+                + tasksStorage.get(taskIndex).getStatusIcon()
+                + tasksStorage.get(taskIndex).getTaskName());
     }
 
     public static void deleteTask(String[] userString) throws TerriException {
@@ -228,14 +240,16 @@ public class TaskList {
 
         // Output the task being deleted
         System.out.println("Sure thing! I've removed this task: ");
-        System.out.println(tasks.get(taskIndex).getTypeIcon()
-                + tasks.get(taskIndex).getStatusIcon()
-                + tasks.get(taskIndex).getTaskName());
+        System.out.println(tasksStorage.get(taskIndex).getTypeIcon()
+                + tasksStorage.get(taskIndex).getStatusIcon()
+                + tasksStorage.get(taskIndex).getTaskName());
 
         // Remove the task using ArrayList's remove method
-        tasks.remove(taskIndex);
+        tasksStorage.remove(taskIndex);
         taskCounter--;
+
         printNumberOfTasks();
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
