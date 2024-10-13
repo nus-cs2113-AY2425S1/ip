@@ -1,0 +1,48 @@
+todo borrow book
+list
+deadline return book /by Sunday
+list
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+list
+unmark 1
+list
+mark <non-int index>
+list
+unmark <non-int index>
+list
+<invalid input>
+todo
+deadline /by <deadline date input>
+event /from <start date> /to <end date>
+
+deadline <description> /by
+event /from /to
+event <event name> /from <start date> /to
+event <event name>/from /to <end date>
+todo todo todo
+deadline deadline deadline /by /by /by
+event event event /from /from /from /to /to /to
+list
+mark 3
+list
+delete 4
+list
+delete 0
+list
+delete 3
+list
+delete 2
+list
+delete 1
+list
+delete 0
+list
+delete 1
+list
+delete 1
+list
+delete 1
+list
+bye

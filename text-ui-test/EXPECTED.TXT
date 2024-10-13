@@ -1,7 +1,287 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	________________________________________
+	Hello! I'm
+	.___  ___.  _______  __      
+	|   \/   | |   ____||  |     
+	|  \  /  | |  |__   |  |     
+	|  |\/|  | |   __|  |  |     
+	|  |  |  | |  |____ |  `----.
+	|__|  |__| |_______||_______|
+	                             
+	What can I do for you?
+	________________________________________
+	________________________________________
 
+	________________________________________
+	Got it. I've added this task:
+	  [T][ ] borrow book
+	Now you have 1 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	________________________________________
+
+	________________________________________
+	Invalid date format, expected: 
+		yyyy-mm-dd HH:mm 
+		yyyy-MM-dd 
+		dd/MM/yyyy HH:mm 
+		dd/MM/yyyy
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Now you have 2 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Nice! I've marked this task as done:
+	  [T][X] borrow book
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][X] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	OK, I've marked this task as not done yet:
+	  [T][ ] borrow book
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Input index was not a integer.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Input index was not a integer.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Invalid command format:
+		todo <task name>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
+		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
+		find <task keyword string>
+		list
+		bye
+	________________________________________
+
+	________________________________________
+	Invalid command format:
+		todo <task name>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
+		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
+		find <task keyword string>
+		list
+		bye
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Invalid command format:
+		todo <task name>
+		deadline <deadline name> /by <yyyy-MM-dd HH:mm>
+		event <event name> /from <start date/time> /end <end date/time>
+		mark <task index>
+		unmark <task index>
+		delete <task index>
+		find <task keyword string>
+		list
+		bye
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Error: The task description cannot be empty.
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Error: Date field(s) cannot be empty
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [T][ ] todo todo
+	Now you have 3 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Invalid date format, expected: 
+		yyyy-mm-dd HH:mm 
+		yyyy-MM-dd 
+		dd/MM/yyyy HH:mm 
+		dd/MM/yyyy
+	________________________________________
+
+	________________________________________
+	Got it. I've added this task:
+	  [E][ ] event event (from: /from /from to: /to /to)
+	Now you have 4 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	3.[T][ ] todo todo
+	4.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Nice! I've marked this task as done:
+	  [T][X] todo todo
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	3.[T][X] todo todo
+	4.[E][ ] event event (from: /from /from to: /to /to)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [E][ ] event event (from: /from /from to: /to /to)
+	Now you have 3 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	3.[T][X] todo todo
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	3.[T][X] todo todo
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [T][X] todo todo
+	Now you have 2 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Now you have 1 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	________________________________________
+
+	________________________________________
+	Noted. I've removed this task:
+	  [T][ ] borrow book
+	Now you have 0 tasks in the list.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Input index number out of range.
+	________________________________________
+
+	________________________________________
+	Here are the tasks in your list:
+	________________________________________
+
+	________________________________________
+	Bye. Hope to see you again soon!
+	________________________________________
