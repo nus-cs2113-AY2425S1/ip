@@ -1,9 +1,18 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
+/** TODO Convert Task Class to an abstract one if possible (no reason for it to exist)
+ *  TODO Refactor dummy methods in Task Class to be abstract if possible too
+ *  TODO Comment all code per JavaDoc specifications
+ */
+
 
 public class Terri {
     final static int MAXTASKS = 100;
+    final static String ERROR_UNRECOGNISED_KEYWORD = "Hey! I don't understand that command. " +
+            "Did you want a refresher on what tasks I can do for ya? Type Y to accept.";
+    final static String REFRESHER_ACCEPTED = "No worries! Here's all the things I can do again.";
+    final static String REFRESHER_DECLINED = "Gotcha - let me know what I can do for ya then!";
 
 
     public static void main(String[] args) {
@@ -67,12 +76,21 @@ public class Terri {
                     TaskList.handleEvent(keyWord);
                     break;
                 case "todo":
-                    TaskList.addToDo(userInput);
+                    TaskList.addToDo(keyWord);
                     break;
 
-                // Create new ToDo
+                // Handle unrecognised keywords by offering instruction page
                 default:
-                    TaskList.addToDo(userInput);
+                    System.out.println(ERROR_UNRECOGNISED_KEYWORD);
+                    if (scanner.nextLine().equals("Y")) {
+                        System.out.println(REFRESHER_ACCEPTED);
+                        printInstructions();
+                        break;
+                    } else {
+                        System.out.println(REFRESHER_DECLINED);
+                        break;
+                    }
+
             }
         }
     }
@@ -84,7 +102,7 @@ public class Terri {
 
     // Print program instructions
     private static void printInstructions() {
-        System.out.println("I can log a ton of different tasks for you " +
+        System.out.println("I can log and manage a ton of different tasks - just " +
                 "use different keywords followed by a description to tell me what to do:");
 
         printDivider();
@@ -96,7 +114,7 @@ public class Terri {
         System.out.println("'event' +  (description) + '/from (start time)' + '/to (end time)' : " +
                 "logs an event occurring during a specified period");
         System.out.println("If I don't see one of the above keywords, " +
-                "I'll just assume you're inputting a ToDo!");
+                "I'll ask ya if you want a refresher!");
 
         printDivider();
 

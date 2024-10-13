@@ -34,15 +34,39 @@ public class TaskList {
         Terri.printDivider();
     }
 
-    public static void addToDo(String newToDo) {
+    private static void printNumberOfTasks() {
+        if (taskCounter == 1) {
+            System.out.println("There is now (1) logged task/event.");
+        } else {
+            System.out.println("There are now (" + taskCounter + ") logged tasks/events.");
+        }
+    }
+
+    // Returns true if at Tasklist capacity has been reached
+    private static boolean checkTasklistCapacity() {
+        if (taskCounter >= MAXTASKS) {
+            System.out.println("Maximum number of items (" + MAXTASKS + ") has been reached");
+            System.out.println("Please delete a task in order to add an item.");
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void addToDo(String[] keyWord) {
         if (checkTasklistCapacity()) {
             return;
         }
+
+        // Exclude keyword from task description
+        String newToDo = Terri.extractSubArray(keyWord,1, keyWord.length);
+
         tasks[taskCounter++] = new ToDo(newToDo);
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
         printNumberOfTasks();
         Terri.printDivider();
     }
+
 
     // Parse deadline information from user input and log Deadline
     public static void handleDeadline(String[] keyWord) {
@@ -74,6 +98,7 @@ public class TaskList {
         Terri.printDivider();
     }
 
+
     // Parse event information from user input and log event
     public static void handleEvent(String[] keyWord) {
         int startIdx = 0;
@@ -95,7 +120,6 @@ public class TaskList {
         TaskList.addEvent(newDescription, newStart, newEnd);
     }
 
-
     public static void addEvent(String newEvent, String From, String To) {
         if (checkTasklistCapacity()) {
             return;
@@ -105,6 +129,7 @@ public class TaskList {
         printNumberOfTasks();
         Terri.printDivider();
     }
+
 
     // Updates task isDone field to be completed
     public static void markDone(int taskIndex) {
@@ -127,24 +152,5 @@ public class TaskList {
                 + tasks[taskIndex].getTaskName());
         Terri.printDivider();
     }
-
-    private static void printNumberOfTasks() {
-        if (taskCounter == 1) {
-            System.out.println("There is now (1) logged task/event.");
-        } else {
-            System.out.println("There are now (" + taskCounter + ") logged tasks/events.");
-        }
-    }
-
-    // Returns true if at Tasklist capacity has been reached
-    private static boolean checkTasklistCapacity() {
-        if (taskCounter >= MAXTASKS) {
-            System.out.println("Maximum number of items (" + MAXTASKS + ") has been reached");
-            System.out.println("Please delete a task in order to add an item.");
-            return true;
-        }
-        return false;
-    }
-
 
 }

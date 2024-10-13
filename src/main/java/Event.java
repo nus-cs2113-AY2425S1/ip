@@ -1,6 +1,6 @@
 public class Event extends Task {
 
-    static String typeIcon = "[E]";
+    static final String typeIcon = "[E]";
 
     String eventStart;
     String eventEnd;
@@ -26,4 +26,11 @@ public class Event extends Task {
     public String getTypeIcon() {
         return typeIcon;
     }
+
+
+    // Irrelevant abstract methods declared in "Task" superclass
+    public String getBy() {
+        return null;
+    }
+
 }

@@ -1,10 +1,9 @@
 
 public class Deadline extends Task {
 
-    static String typeIcon = "[D]";
+    static final String typeIcon = "[D]";
 
     String by;
-
 
     public Deadline(String newName, String newDeadline) {
         super(newName);
@@ -17,11 +16,21 @@ public class Deadline extends Task {
     }
 
     public void setBy(String newBy) {
-        by = newBy;
+        this.by = newBy;
     }
 
     @Override
     public String getTypeIcon() {
         return typeIcon;
     }
+
+    // Irrelevant abstract methods declared in "Task" superclass
+    public String getEventStart() {
+        return null;
+    }
+    public String getEventEnd() {
+        return null;
+    }
+
+
 }
