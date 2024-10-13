@@ -6,14 +6,8 @@ import exceptions.TerriException;
 
 import taskmanager.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-
-/** TODO Convert Task Class to an abstract one if possible (no reason for it to exist)
- *  TODO Refactor dummy methods in Task Class to be abstract if possible too
- *  TODO Comment all code per JavaDoc specifications
- *  TODO Convert TaskList to a extensible array to do away with artificial limitations
- */
-
 
 /**
  * Terri is the main class that facilitates chatbot functionality.
@@ -53,7 +47,7 @@ public class Terri {
         // Initialise a scanner to read input
         Scanner scanner = new Scanner(System.in);
         // Initialise Task array and counter
-        Task[] taskList = new Task[MAXTASKS];
+        ArrayList<Task> taskList = new ArrayList<>();
 
         // Continually check for and process user input
         while (true) {
@@ -87,7 +81,7 @@ public class Terri {
     }
 
 
-    private static void handleInput(String userInput, Task[] taskList) throws TerriException {
+    private static void handleInput(String userInput, ArrayList<Task> taskList) throws TerriException {
 
         // Isolate individual keywords in user input
         String[] keyWord = userInput.split(" ");
@@ -114,6 +108,9 @@ public class Terri {
                 break;
             case "todo":
                 TaskList.addToDo(keyWord);
+                break;
+            case "delete":
+                TaskList.deleteTask(keyWord);
                 break;
             // Handle unrecognised keywords by offering instruction page
             default:
