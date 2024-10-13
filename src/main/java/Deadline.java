@@ -1,28 +1,33 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected String byString;
+    protected LocalDate byDate;
     public Deadline(String description, String by) {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
-        this.by = LocalDate.parse(by, formatter);
+        this.byString = by;
+
+        // to accommodate both string and datetime inputs
+
+        try {
+            this.byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e){
+            this.byDate = null;
+        }
     }
-//    public void setBy(String by) {
-//        this.by = by;
-//    }
-//    public String getBy() {
-//        return by;
-//    }
 
     @Override
     public String toString() {
-        return "[D]" + currentStatus() + " " + description + " (by: " + by + ")";
+        String displayDate = (byDate != null) ? byDate.toString() : byString;
+        return "[D]" + currentStatus() + " " + description + " (by: " + displayDate + ")";
     }
 
     @Override
     public String toSave() {
-        return "D |" + super.toSave() + " | " + by;
+        return "D |" + super.toSave() + " | " + byString;
     }
 
 }

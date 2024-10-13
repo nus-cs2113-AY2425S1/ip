@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
-public class bro {
+public class Bro {
 
     private static final ArrayList<Task> storer = new ArrayList<>();
     private static final String FILE_PATH = "data/duke.txt";
@@ -72,24 +72,6 @@ public class bro {
         } catch (FileNotFoundException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());
         }
-    }
-
-    public static void echo() {
-
-
-        String line;
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            line = in.nextLine();
-
-            if (line.equals("Bye")) {
-                break;
-            }
-            System.out.println(line);
-        }
-
-        System.out.println("Bye. Hope to see you again soon!");
-
     }
 
     public static void addList() {
@@ -222,10 +204,6 @@ public class bro {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-//        level0();
-//        echo();
         addList();
-//        mark();
-
     }
 }
