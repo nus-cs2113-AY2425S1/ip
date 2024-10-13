@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.Scanner;
 
 public class KenChat {
@@ -20,7 +22,7 @@ public class KenChat {
         printLine();
     }
 
-    public static void displayList(String[] doList){
+    public static void displayList(Task[] doList){
         printLine();
         for (int i=0; i< doList.length; i++){
             if(doList[i] != null){
@@ -30,31 +32,56 @@ public class KenChat {
         printLine();
     }
 
-    public static void addList(String[] doList, String item){
+    public static void addList(Task[] doList, String item){
         printLine();
         System.out.println("added: "+item);
         printLine();
+
         for (int i=0; i< doList.length; i++){
             if(doList[i] == null){
-                doList[i] = item;
+                Task doItem = new Task(item);
+                doList[i] = doItem;
                 break;
             }
         }
+    }
+
+    public static void setTaskStatus(boolean isMark, Task item){
+        printLine();
+        if(isMark){
+            item.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+        }
+        else {
+            item.markAsUndone();
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println("  "+item);
+        printLine();
     }
 
     public static void main(String[] args) {
         Scanner sc= new Scanner(System.in);
         boolean running = true;
         int arraySize = 100;
-        String[] doList = new String[arraySize];
+        Task[] doList = new Task[arraySize];
         startProgramme();
         while (running){
             System.out.println();
             String str= sc.nextLine();
-            if (str.equalsIgnoreCase("bye"))
+            String[] command = str.split(" ");
+            if (command[0].equalsIgnoreCase("bye"))
                 running = false;
-            else if(str.equalsIgnoreCase("list"))
+            else if(command[0].equalsIgnoreCase("list"))
                 displayList(doList);
+            else if(command[0].equalsIgnoreCase("mark")){
+                int itemNumber = Integer.parseInt(command[1]) - 1;
+                setTaskStatus(true, doList[itemNumber]);
+            }
+            else if(command[0].equalsIgnoreCase("unmark")){
+                int itemNumber = Integer.parseInt(command[1]) - 1;
+                setTaskStatus(false, doList[itemNumber]);
+            }
             else
                 addList(doList, str);
         }
