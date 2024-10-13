@@ -8,6 +8,7 @@ import tasks.ToDo;
 import exceptions.TerriException;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 
 /**
@@ -16,9 +17,8 @@ import java.util.Arrays;
  */
 
 public class TaskList {
-    private static final int MAXTASKS = 100;
 
-    public static Task[] tasks = new Task[MAXTASKS];  // Array to store tasks
+    private static final ArrayList<Task> tasks = new ArrayList<>(); // Array to store tasks
     public static int taskCounter = 0;  // Counter to track current number of tasks
 
     public static void listTasks() {
@@ -26,13 +26,13 @@ public class TaskList {
         for (int i = 1; i <= taskCounter; i++) {
 
             // Print generic task description
-            System.out.print(i+". " + tasks[i-1].getTypeIcon()
-                    + tasks[i-1].getStatusIcon() + tasks[i-1].getTaskName());
+            System.out.print(i+". " + tasks.get(i - 1).getTypeIcon()
+                    + tasks.get(i - 1).getStatusIcon() + tasks.get(i - 1).getTaskName());
 
             // Print specific task-type information
-            switch (tasks[i-1].getTypeIcon()) {
+            switch (tasks.get(i - 1).getTypeIcon()) {
                 case "[D]":
-                    System.out.println(" (By: " + tasks[i-1].getBy() + ")");
+                    System.out.println(" (By: " + tasks.get(i - 1).getBy() + ")");
                     continue;
 
                 case "[T]":
@@ -40,8 +40,8 @@ public class TaskList {
                     continue;
 
                 case "[E]":
-                    System.out.println(" (From: " + tasks[i-1].getEventStart()
-                            + " To: " + tasks[i-1].getEventEnd() + ")");
+                    System.out.println(" (From: " + tasks.get(i - 1).getEventStart()
+                            + " To: " + tasks.get(i - 1).getEventEnd() + ")");
                     continue;
 
                 default:
@@ -55,14 +55,6 @@ public class TaskList {
             System.out.println("There is now (1) logged task/event.");
         } else {
             System.out.println("There are now (" + taskCounter + ") logged tasks/events.");
-        }
-    }
-
-    // Returns true if at Tasklist capacity has been reached
-    private static void checkTasklistCapacity() throws TerriException {
-        if (taskCounter >= MAXTASKS) {
-            throw new TerriException("Maximum number of items has been reached. \n"+
-                    "Please delete a task in order to add an item.");
         }
     }
 
@@ -91,9 +83,6 @@ public class TaskList {
 
     public static void addToDo(String[] keyWord) throws TerriException {
 
-        // Check tasklist has capacity
-        checkTasklistCapacity();
-
         // Throw exception if input length is not appropriate
         if (keyWord.length < 2) {
             throw new TerriException("Invalid input length. You gotta have a description!");
@@ -102,7 +91,7 @@ public class TaskList {
         // Exclude keyword from task description
         String newToDo = extractSubArray(keyWord,1, keyWord.length);
 
-        tasks[taskCounter++] = new ToDo(newToDo);
+        tasks.add(taskCounter++, new ToDo(newToDo));
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
         printNumberOfTasks();
     }
@@ -110,9 +99,6 @@ public class TaskList {
 
     // Parse deadline information from user input and log Deadline
     public static void handleDeadline(String[] keyWord) throws TerriException {
-
-        // Check tasklist has capacity
-        checkTasklistCapacity();
 
         // Throw exception if input length is not appropriate
         if (keyWord.length < 2) {
@@ -151,9 +137,8 @@ public class TaskList {
     }
 
     public static void addDeadline(String newDeadline, String newBy) throws TerriException {
-        checkTasklistCapacity();
 
-        tasks[taskCounter++] = new Deadline(newDeadline, newBy);
+        tasks.add(taskCounter++, new Deadline(newDeadline, newBy));
         System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
         printNumberOfTasks();
     }
@@ -162,8 +147,6 @@ public class TaskList {
     // Parse event information from user input and log event
     public static void handleEvent(String[] keyWord) throws TerriException {
 
-        // Check tasklist has capacity
-        checkTasklistCapacity();
 
         // Throw exception if input length is not appropriate
         if (keyWord.length < 2) {
@@ -196,7 +179,7 @@ public class TaskList {
 
     public static void addEvent(String newEvent, String From, String To) throws TerriException {
 
-        tasks[taskCounter++] = new Event(newEvent, From, To);
+        tasks.add(taskCounter++, new Event(newEvent, From, To));
         System.out.println("Just added: '" + newEvent + "' to your list as an Event!");
         printNumberOfTasks();
     }
@@ -218,19 +201,43 @@ public class TaskList {
 
         // (un)Mark task as indicated by user
         if (desiredState) {
-            tasks[taskIndex].setDone(true);
+            tasks.get(taskIndex).setDone(true);
             System.out.println("Just marked that task completed!");
         } else {
-            tasks[taskIndex].setDone(false);
+            tasks.get(taskIndex).setDone(false);
             System.out.println("Just marked that task as not completed!");
         }
 
         // Print summary of new state for user assurance
         System.out.println((taskIndex + 1) + ". "
-                + tasks[taskIndex].getTypeIcon()
-                + tasks[taskIndex].getStatusIcon()
-                + tasks[taskIndex].getTaskName());
+                + tasks.get(taskIndex).getTypeIcon()
+                + tasks.get(taskIndex).getStatusIcon()
+                + tasks.get(taskIndex).getTaskName());
     }
+
+    public static void deleteTask(String[] userString) throws TerriException {
+
+        // Throw exception if input length is not appropriate
+        if (userString.length < 2) {
+            throw new TerriException("Invalid input length. " +
+                    "You gotta specify the index of the task you want to delete!");
+        }
+
+        // Verify the user-input string is a valid task index
+        int taskIndex = handleTaskIndex(userString[1]);
+
+        // Output the task being deleted
+        System.out.println("Sure thing! I've removed this task: ");
+        System.out.println(tasks.get(taskIndex).getTypeIcon()
+                + tasks.get(taskIndex).getStatusIcon()
+                + tasks.get(taskIndex).getTaskName());
+
+        // Remove the task using ArrayList's remove method
+        tasks.remove(taskIndex);
+        taskCounter--;
+        printNumberOfTasks();
+    }
+
 
     // Return the contents of a subarray as a concatenated string
     public static String extractSubArray(String[] array, int start, int end) {
