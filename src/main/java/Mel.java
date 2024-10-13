@@ -5,10 +5,11 @@ import main.Ui;
 
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.File;
 
 public class Mel {
 
-    private static final String LIST_FILE_PATH = ".\\data\\Mel.txt";
+    private static final String LIST_FILE_PATH = "data" + File.separator + "Mel.txt"; // Use File.separator for cross-platform compatibility
 
     private Storage storage;
     private TaskList userList;

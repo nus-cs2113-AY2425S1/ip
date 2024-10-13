@@ -95,7 +95,7 @@ public class Ui {
      * Prints a generic error message for unknown issues.
      */
     public void printIndexOutOfBoundsMessage() {
-        System.out.println("Index given was ouf of bounds of the list");
+        System.out.println("Index given was out of bounds of the list");
     }
 
     /**

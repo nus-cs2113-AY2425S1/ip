@@ -43,7 +43,7 @@ public class Storage {
         File listFile = new File(filePath);
         if (!listFile.exists()) {
             File directory = listFile.getParentFile();
-            if (!directory.exists()) {
+            if (directory != null && !directory.exists()) { // Null check for directory
                 directory.mkdirs(); // Create directory if it doesn't exist
             }
             listFile.createNewFile(); // Create file if it doesn't exist

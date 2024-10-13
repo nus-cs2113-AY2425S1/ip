@@ -79,6 +79,8 @@ public class TaskList {
             ui.printInputIndexNotAnIntegerMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.printIndexOutOfBoundsMessage();
+        } catch (Exception e) {
+            ui.printInvalidTaskMessage();
         }
     }
 
@@ -102,6 +104,8 @@ public class TaskList {
             ui.printInputIndexNotAnIntegerMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.printIndexOutOfBoundsMessage();
+        } catch (Exception e) {
+            ui.printInvalidTaskMessage();
         }
     }
 
@@ -126,6 +130,8 @@ public class TaskList {
             ui.printInputIndexNotAnIntegerMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.printIndexOutOfBoundsMessage();
+        } catch (Exception e) {
+            ui.printInvalidTaskMessage();
         }
     }
 
