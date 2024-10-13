@@ -78,7 +78,7 @@ public class TaskList {
         }
 
         // Throw exception if index referred to does not exist
-        if (taskIndex > TaskList.taskCounter || taskIndex < 0) {
+        if (taskIndex > tasksStorage.size() || taskIndex < 0) {
             throw new TerriException("That index is out of bounds! " +
                     "Call 'list' to see how many tasks are in your list!");
         }
