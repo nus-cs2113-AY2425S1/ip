@@ -1,7 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+/**
+ * Class for event objects.
+ */
 public class Event extends Task{
     protected LocalDate fromDate;
 
@@ -10,6 +12,10 @@ public class Event extends Task{
     protected String fromString;
 
     protected String toString;
+
+    /**
+     * Builder class for event object.
+     */
 
     public Event(String description, String from, String to) {
         super(description);
@@ -24,6 +30,9 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Return the string format for the current event.
+     */
     @Override
     public String toString() {
         String displayFrom = (fromDate != null) ? fromDate.toString() : fromString;
@@ -32,6 +41,9 @@ public class Event extends Task{
 
     }
 
+    /**
+     * Return the to be saved format for the current event.
+     */
     @Override
     public String toSave() {
         return "E |" + super.toSave() + " | " + fromString + " | " + toString;

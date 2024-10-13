@@ -5,17 +5,19 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
+
+/**
+ * This class serves as the main class for all methods of the chatbot.
+ */
 public class Bro {
 
     private static final ArrayList<Task> storer = new ArrayList<>();
+
     private static final String FILE_PATH = "data/duke.txt";
 
-    public static void level0() {
-        System.out.println("Hello! I'm bro");
-        System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
+    /**
+     * This class saves the tasks inputted by the user.
+     */
     public static void saveTasks() {
         try {
             File file = new File(FILE_PATH);
@@ -31,6 +33,9 @@ public class Bro {
         }
     }
 
+    /**
+     * This class loads the tasks stored in the file path.
+     */
     public static void loadTasks() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -74,6 +79,10 @@ public class Bro {
         }
     }
 
+
+    /**
+     * This class adds tasks to the list according to user inputs.
+     */
     public static void addList() {
 
         loadTasks();
@@ -196,6 +205,9 @@ public class Bro {
 
     }
 
+    /**
+     * Main class.
+     */
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
