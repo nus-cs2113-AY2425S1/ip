@@ -5,7 +5,7 @@ public class KenChat {
         String line = "____________________________________" ;
         System.out.println(line);
         System.out.println("Hello! I'm " + chatBotName);
-        System.out.println("What can I do for you?");
+        System.out.println("What can I do for u?");
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
