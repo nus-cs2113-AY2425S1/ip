@@ -23,8 +23,33 @@ public class Storage {
      * @throws FileNotFoundException If error accessing save file
      */
     public static void loadTaskData() throws FileNotFoundException{
+        File taskDataFile = new File(FILE_PATH);
+        if (!taskDataFile.exists()) {
+            createSaveFile();  // Create the file if it doesn't exist
+            return;  // Exit early since there's no data to load
+        }
         printSaveFile();
         updateTaskList();
+    }
+
+    public static void createSaveFile() {
+        try {
+            // Create the data directory if it doesn't exist
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdirs();  // Create the directory
+            }
+
+            // Create the save file if it doesn't exist
+            File taskDataFile = new File(FILE_PATH);
+            if (!taskDataFile.exists()) {
+                taskDataFile.createNewFile();
+            }
+
+            System.out.println("Save file successfully created.");
+        } catch (IOException e) {
+            System.out.println("Error creating save file: " + e.getMessage());
+        }
     }
 
     /**
