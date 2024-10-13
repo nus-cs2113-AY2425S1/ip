@@ -53,7 +53,7 @@ public class Task {
     }
 
     // Event class
-    static class Event extends Task {
+    public static class Event extends Task {
         public String startDate;
         public String endDate;
 
