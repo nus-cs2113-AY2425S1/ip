@@ -1,5 +1,12 @@
+package app;
+
+import tasks.Task;
+
+import exceptions.TerriException;
+
+import taskmanager.TaskList;
+
 import java.util.Scanner;
-import java.util.Arrays;
 
 /** TODO Convert Task Class to an abstract one if possible (no reason for it to exist)
  *  TODO Refactor dummy methods in Task Class to be abstract if possible too
@@ -7,6 +14,12 @@ import java.util.Arrays;
  *  TODO Convert TaskList to a extensible array to do away with artificial limitations
  */
 
+
+/**
+ * Terri is the main class that facilitates chatbot functionality.
+ * It handles the main loop of the application, processing user inputs
+ * and logging data until the chatbot is instructed to exit.
+ */
 
 public class Terri {
     final static int MAXTASKS = 100;
@@ -154,10 +167,7 @@ public class Terri {
 
     }
 
-    // Return the contents of a subarray as a concatenated string
-    public static String extractSubArray(String[] array, int start, int end) {
-        return String.join(" ", Arrays.copyOfRange(array, start, end)).trim();
-    }
+
 
 
 }
