@@ -14,8 +14,7 @@ public class Terri {
     final static String REFRESHER_ACCEPTED = "No worries! Here's all the things I can do again.";
     final static String REFRESHER_DECLINED = "Gotcha - let me know what I can do for ya then!";
 
-
-    public static void main(String[] args) {
+    private static void printWelcomeMessage() {
         String logo = "\n" +
                 "$$$$$$$$\\                               $$\\ \n" +
                 "\\__$$  __|                              \\__|\n" +
@@ -28,71 +27,93 @@ public class Terri {
                 "                                            \n";
 
         System.out.println(logo);
-
         System.out.println("Heya! I'm Terri.");
-
         printInstructions();
+    }
+
+
+    public static void main(String[] args) {
+
+        printWelcomeMessage();
 
         // Initialise a scanner to read input
         Scanner scanner = new Scanner(System.in);
-
         // Initialise Task array and counter
         Task[] taskList = new Task[MAXTASKS];
-        int taskCounter = 0;
 
-        // Continually check for user input
+        // Continually check for and process user input
         while (true) {
-            String userInput = scanner.nextLine();
-            printDivider();
+            String userInput = scanner.nextLine().trim();
 
-            // Isolate individual keywords in user input
-
-            String[] keyWord = userInput.split(" ");
-
-            // Define behaviour depending on initial keyword
-            switch (keyWord[0]) {
-                // Short-circuit check for exit input
-                case "bye":
-                    System.out.println("Bye then! See ya soon!\n");
-                    printDivider();
-                    scanner.close();
-                    return;
-                // List all tasks with completion indicators
-                case "list":
-                    TaskList.listTasks();
-                    break;
-                // Mark tasks complete
-                case "mark":
-                    TaskList.markDone(Integer.parseInt(keyWord[1]) - 1);
-                    break;
-                // Mark task not complete
-                case "unmark":
-                    TaskList.markNotDone(Integer.parseInt(keyWord[1]) - 1);
-                    break;
-                case "deadline":
-                    TaskList.handleDeadline(keyWord);
-                    break;
-                case "event":
-                    TaskList.handleEvent(keyWord);
-                    break;
-                case "todo":
-                    TaskList.addToDo(keyWord);
-                    break;
-
-                // Handle unrecognised keywords by offering instruction page
-                default:
-                    System.out.println(ERROR_UNRECOGNISED_KEYWORD);
-                    if (scanner.nextLine().equals("Y")) {
-                        System.out.println(REFRESHER_ACCEPTED);
-                        printInstructions();
-                        break;
-                    } else {
-                        System.out.println(REFRESHER_DECLINED);
-                        break;
-                    }
-
+            // Short-circuit check for exit input.
+            if (userInput.equalsIgnoreCase("bye")) {
+                // Exit Chatbot and close scanner.
+                exitTerri(scanner);
             }
+
+            // Process input and catch exceptions appropriately
+            try {
+                handleInput(userInput, taskList);
+            }
+            catch (InvalidKeyWordException ex) {
+                // Print custom error message
+                System.out.println(ex.getMessage());
+
+                // Offer general refresher on correct Terri keywords
+                if (scanner.nextLine().equalsIgnoreCase("Y")) {
+                    System.out.println(REFRESHER_ACCEPTED);
+                    printInstructions();
+                } else {
+                    System.out.println(REFRESHER_DECLINED);
+                }
+            }
+            printDivider();
         }
+    }
+
+
+    private static void handleInput(String userInput, Task[] taskList) throws InvalidKeyWordException {
+
+        // Isolate individual keywords in user input
+        String[] keyWord = userInput.split(" ");
+
+
+
+        // Define behaviour depending on initial keyword
+        switch (keyWord[0].toLowerCase()) {
+            // List all tasks with completion indicators
+            case "list":
+                TaskList.listTasks();
+                break;
+            // Mark tasks complete
+            case "mark":
+                TaskList.markDone(Integer.parseInt(keyWord[1]) - 1);
+                break;
+            // Mark task not complete
+            case "unmark":
+                TaskList.markNotDone(Integer.parseInt(keyWord[1]) - 1);
+                break;
+            case "deadline":
+                TaskList.handleDeadline(keyWord);
+                break;
+            case "event":
+                TaskList.handleEvent(keyWord);
+                break;
+            case "todo":
+                TaskList.addToDo(keyWord);
+                break;
+            // Handle unrecognised keywords by offering instruction page
+            default:
+                throw new InvalidKeyWordException(ERROR_UNRECOGNISED_KEYWORD);
+        }
+    }
+
+
+    public static void exitTerri(Scanner scanner) {
+    System.out.println("Bye then! See ya soon!\n");
+    printDivider();
+    // Close scanner after loop ends and program terminates
+    scanner.close();
     }
 
     public static void printDivider() {
@@ -134,8 +155,6 @@ public class Terri {
     public static String extractSubArray(String[] array, int start, int end) {
         return String.join(" ", Arrays.copyOfRange(array, start, end)).trim();
     }
-
-
 
 
 }
