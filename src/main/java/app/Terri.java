@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Terri is the main class that facilitates chatbot functionality.
- * It handles the main loop of the application, processing user inputs
- * and logging data until the chatbot is instructed to exit.
+ * The {@code Terri} class is the main entry point of the chatbot application.
+ * It processes user inputs, handles task management commands, and provides
+ * instructions or reminders when needed. The chatbot continues to run in a loop
+ * until the user terminates it with an exit command.
+ *
+ * <p>The class offers functionality for adding tasks, marking tasks as complete or incomplete,
+ * listing tasks, and handling events or deadlines. The chatbot also provides error handling
+ * and user guidance when unrecognized commands are entered.</p>
  */
 
 public class Terri {
@@ -21,6 +26,10 @@ public class Terri {
     final static String REFRESHER_ACCEPTED = "No worries! Here's all the things I can do again.";
     final static String REFRESHER_DECLINED = "Gotcha - let me know what I can do for ya then!";
 
+    /**
+     * Prints a welcome message along with the application logo and instructions.
+     * This method is called at the start of the application.
+     */
     private static void printWelcomeMessage() {
         String logo = "\n" +
                 "$$$$$$$$\\                               $$\\ \n" +
@@ -38,7 +47,13 @@ public class Terri {
         printInstructions();
     }
 
-
+    /**
+     * The main method initializes the chatbot and starts processing user input.
+     * It continually reads user input and processes task-related commands, until
+     * the user types "bye" to exit the application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
 
         printWelcomeMessage();
@@ -79,7 +94,16 @@ public class Terri {
         }
     }
 
-
+    /**
+     * Processes the user input and handles task-related commands.
+     * Recognized commands include listing tasks, marking tasks as complete or incomplete,
+     * adding deadlines or events, and deleting tasks. If an unrecognized command is entered,
+     * a {@code TerriException} is thrown.
+     *
+     * @param userInput The input entered by the user.
+     * @param taskList The current list of tasks managed by the chatbot.
+     * @throws TerriException If the input command is not recognized.
+     */
     private static void handleInput(String userInput, ArrayList<Task> taskList) throws TerriException {
 
         // Isolate individual keywords in user input
@@ -117,6 +141,12 @@ public class Terri {
         }
     }
 
+    /**
+     * Exits the chatbot by printing a goodbye message, closing the scanner,
+     * and terminating the program.
+     *
+     * @param scanner The {@code Scanner} object used to read user input.
+     */
 
     public static void exitTerri(Scanner scanner) {
     System.out.println("Bye then! See ya soon!\n");
@@ -125,12 +155,19 @@ public class Terri {
     scanner.close();
     }
 
+    /**
+     * Prints a divider line used to visually separate sections of output.
+     */
     public static void printDivider() {
         String divider = "____________________________________________________________";
         System.out.println(divider);
     }
 
-    // Print program instructions
+    /**
+     * Prints instructions on how to use the chatbot and the available commands.
+     * This method is called at the beginning of the application and when a refresher
+     * is requested.
+     */
     private static void printInstructions() {
         System.out.println("I can log and manage a ton of different tasks - just " +
                 "use different keywords followed by a description to tell me what to do:");
