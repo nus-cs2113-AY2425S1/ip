@@ -10,3 +10,26 @@ unmark 1
 unmark 2
 unmark 3
 list
+ERRORTEST1
+N
+mark
+N
+mark NinetyNine
+N
+unmark 99
+N
+event
+N
+event TEST 4
+N
+event TEST 4 /from TIME 4
+N
+event TEST 4 /from TIME 4 /to TIME 5
+deadline
+N
+deadline TEST 5
+N
+deadline TEST 5 /by TIME 6
+todo
+N
+todo TEST 6
