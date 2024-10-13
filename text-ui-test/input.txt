@@ -10,3 +10,11 @@ unmark 1
 unmark 2
 unmark 3
 list
+ERRORTEST1
+N
+mark
+N
+mark NinetyNine
+N
+unmark 99
+N

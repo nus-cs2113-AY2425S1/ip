@@ -78,3 +78,20 @@ Here's what you've got in your list:
 2. [D][ ] TEST2 (By: TIME1)
 3. [E][ ] TEST3 (From: TIME2 To: TIME3)
 ____________________________________________________________
+____________________________________________________________
+Hey! I don't understand that command.
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+Invalid input length. You gotta specify the index of the task you want to (un)mark!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+That's... not a numeral, ya know.
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+That index is out of bounds! Call 'list' to see how many tasks are in your list!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________

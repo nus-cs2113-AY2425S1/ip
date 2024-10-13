@@ -19,3 +19,12 @@ java -classpath ..\bin Terri < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM Check the error level to determine if differences were found
+IF ERRORLEVEL 1 (
+    echo Differences found between ACTUAL.TXT and EXPECTED.TXT.
+) ELSE (
+    echo No differences found. Output matches.
+)
+
+pause

@@ -52,6 +52,28 @@ public class TaskList {
         return false;
     }
 
+    // Verifies a user-input string representing a task index
+    public static int handleTaskIndex (String userString) throws TerriException {
+
+        int taskIndex;
+
+        // Throw exception if user has input a non-numeric index string
+        try {
+            // Reduce user input integer by 1 to correspond to actual array index
+            taskIndex = Integer.parseInt(userString) - 1;
+        } catch (NumberFormatException e) {
+            throw new TerriException("That's... not a numeral, ya know.");
+        }
+
+        // Throw exception if index referred to does not exist
+        if (taskIndex > TaskList.taskCounter || taskIndex < 0) {
+            throw new TerriException("That index is out of bounds! " +
+                    "Call 'list' to see how many tasks are in your list!");
+        }
+
+        return taskIndex;
+    }
+
 
     public static void addToDo(String[] keyWord) {
         if (checkTasklistCapacity()) {
@@ -131,25 +153,35 @@ public class TaskList {
     }
 
 
-    // Updates task isDone field to be completed
-    public static void markDone(int taskIndex) {
-        tasks[taskIndex].setDone(true);
-        System.out.println("Just marked that task completed!");
-        System.out.println((taskIndex+1)+". "
-                + tasks[taskIndex].getTypeIcon()
-                + tasks[taskIndex].getStatusIcon()
-                + tasks[taskIndex].getTaskName());
-        Terri.printDivider();
-    }
+    // Updates task isDone field to be (not) completed as indicate by user
+    public static void handleSetDone(String[] keyWord, boolean desiredState) throws TerriException {
 
-    // Updates task isDone field to be not completed
-    public static void markNotDone(int taskIndex) {
-        tasks[taskIndex].setDone(false);
-        System.out.println("Just marked that task as not completed!");
-        System.out.println((taskIndex+1)+". "
+        // Throw exception if input length and type is not appropriate
+        if (keyWord.length < 2) {
+            throw new TerriException("Invalid input length. " +
+                    "You gotta specify the index of the task you want to (un)mark!");
+        }
+
+        /* Throws exception if user-input index is inappropriate,
+            else assigns it for use
+         */
+        int taskIndex = handleTaskIndex(keyWord[1]);
+
+        // (un)Mark task as indicated by user
+        if (desiredState) {
+            tasks[taskIndex].setDone(true);
+            System.out.println("Just marked that task completed!");
+        } else {
+            tasks[taskIndex].setDone(false);
+            System.out.println("Just marked that task as not completed!");
+        }
+
+        // Print summary of new state for user assurance
+        System.out.println((taskIndex + 1) + ". "
                 + tasks[taskIndex].getTypeIcon()
                 + tasks[taskIndex].getStatusIcon()
                 + tasks[taskIndex].getTaskName());
+
         Terri.printDivider();
     }
 
