@@ -9,7 +9,7 @@ public class KenChatException extends Throwable {
     }
 
     public static String getUnknownCommandMessage() {
-        return "Wrong command/Please do not have space(s) before a command! Use <help> for full list of commands. ";
+        return "Wrong Command/Please do not have space(s) before a command! Use <help> for full list of commands. ";
     }
 
     public static String getInvalidDeadlineFormatMessage() {
