@@ -69,7 +69,7 @@ public class Terri {
                     System.out.println(REFRESHER_DECLINED);
                 }
             }
-            printDivider();
+            printDivider(); 
         }
     }
 
