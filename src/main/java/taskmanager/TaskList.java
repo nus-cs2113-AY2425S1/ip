@@ -232,11 +232,9 @@ public class TaskList {
                 + tasks.get(taskIndex).getStatusIcon()
                 + tasks.get(taskIndex).getTaskName());
 
-        // Shift tasks left to fill the gap
-        for (int i = taskIndex; i < taskCounter - 1; i++) {
-            tasks.set(i, tasks.get(i + 1));
-        }
-
+        // Remove the task using ArrayList's remove method
+        tasks.remove(taskIndex);
+        taskCounter--;
         printNumberOfTasks();
     }
 
