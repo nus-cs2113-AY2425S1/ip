@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class KenChat {
     public static void printLine() {
-        String line = "____________________________________" ;
+        String line = "____________________________________";
         System.out.println(line);
     }
 
@@ -22,21 +22,31 @@ public class KenChat {
         printLine();
     }
 
-    public static void displayList(Task[] doList){
+    public static void displayList(Task[] doList) throws KenChatException {
         printLine();
-        for (int i=0; i< doList.length; i++){
-            if(doList[i] != null){
-                System.out.println((i+1)+". "+doList[i]);
+        boolean hasTasks = false;
+        for (int i = 0; i < doList.length; i++) {
+            if (doList[i] != null) {
+                System.out.println((i + 1) + ". " + doList[i]);
+                hasTasks = true;
             }
+        }
+        if (!hasTasks) {
+            throw new KenChatException(KenChatException.getTaskNotExistMessage());
         }
         printLine();
     }
 
-    public static void addList(Task[] doList, String item) {
+    public static void addList(Task[] doList, String item) throws KenChatException {
         printLine();
         String[] parts = item.split(" ", 2); // Split on first space to get command
         String command = parts[0];
         String description = parts.length > 1 ? parts[1] : "";
+
+
+        if (description.isEmpty() && (command.equals("todo") || command.equals("deadline") || command.equals("event"))) {
+            throw new KenChatException(KenChatException.getEmptyDescriptionMessage(command));
+        }
 
         if (command.equalsIgnoreCase("todo")) {
             Task doItem = new Task.ToDo(description);
@@ -47,7 +57,7 @@ public class KenChat {
                 Task doItem = new Task.Deadline(deadlineParts[0], deadlineParts[1]);
                 addTask(doList, doItem);
             } else {
-                System.out.println("Invalid deadline format. Use: deadline <description> /by <date/time>");
+                throw new KenChatException(KenChatException.getInvalidDeadlineFormatMessage());
             }
         } else if (command.equalsIgnoreCase("event")) {
             String[] eventParts = description.split(" /from | /to ", 3);
@@ -55,11 +65,10 @@ public class KenChat {
                 Task doItem = new Task.Event(eventParts[0], eventParts[1], eventParts[2]);
                 addTask(doList, doItem);
             } else {
-                System.out.println("Invalid event format. Use: event <description> /from <start_time> /to <end_time>");
+                throw new KenChatException(KenChatException.getInvalidEventFormatMessage());
             }
         } else {
-            Task doItem = new Task.ToDo(item); // Default to ToDo if no specific type
-            addTask(doList, doItem);
+            throw new KenChatException(KenChatException.getUnknownCommandMessage());
         }
     }
 
@@ -81,44 +90,98 @@ public class KenChat {
         }
     }
 
-    public static void setTaskStatus(boolean isMark, Task item){
+    public static void setTaskStatus(boolean isMark, Task item) throws KenChatException {
         printLine();
-        if(isMark){
+        if (item == null) {
+            throw new KenChatException(KenChatException.getTaskNotExistMessage());
+        }
+        if (isMark) {
             item.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-        }
-        else {
+        } else {
             item.markAsUndone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println("  "+item);
+        System.out.println("  " + item);
+        printLine();
+    }
+
+    public static void showHelp() {
+        printLine();
+        System.out.println("Valid commands:");
+        System.out.println("1. todo <description> - Adds a todo task.");
+        System.out.println("2. deadline <description> /by <date> - Adds a deadline task. <date> can be date and/or time.");
+        System.out.println("3. event <description> /from <date> /to <date> - Adds an event task.  <date> can be date and/or time.");
+        System.out.println("4. list - Displays all tasks in the list.");
+        System.out.println("5. mark <task number> - Marks the specified task as done.");
+        System.out.println("6. unmark <task number> - Marks the specified task as not done.");
+        System.out.println("7. bye - Exits the program.");
+        System.out.println("8. help - Shows this help message.");
         printLine();
     }
 
     public static void main(String[] args) {
-        Scanner sc= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         boolean running = true;
         int arraySize = 100;
         Task[] doList = new Task[arraySize];
         startProgramme();
-        while (running){
-            System.out.println();
-            String str= sc.nextLine();
-            String[] command = str.split(" ");
-            if (command[0].equalsIgnoreCase("bye"))
-                running = false;
-            else if(command[0].equalsIgnoreCase("list"))
-                displayList(doList);
-            else if(command[0].equalsIgnoreCase("mark")){
-                int itemNumber = Integer.parseInt(command[1]) - 1;
-                setTaskStatus(true, doList[itemNumber]);
+
+        while (running) {
+            try {
+                System.out.println();
+                String str = sc.nextLine();
+                String[] command = str.split(" ");
+
+                if (str.trim().isEmpty()) {
+                    throw new KenChatException(KenChatException.emptyCommand());
+                }
+
+                if (command[0].equalsIgnoreCase("bye")) {
+                    running = false;
+                } else if (command[0].equalsIgnoreCase("help")) {
+                    showHelp();
+                }else if (command[0].equalsIgnoreCase("list")) {
+                    displayList(doList);
+                } else if (command[0].equalsIgnoreCase("mark")) {
+                    if (doList[0] == null) {
+                        throw new KenChatException(KenChatException.getTaskNotExistMessage());
+                    } else if (command.length < 2) {
+                        throw new KenChatException(KenChatException.getEmptyTaskNumberMessage("mark"));
+                    }
+                    try {
+                        int itemNumber = Integer.parseInt(command[1]) - 1;
+                        if (itemNumber < 0 || itemNumber >= doList.length || doList[itemNumber] == null) {
+                            throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
+                        } else {
+                            setTaskStatus(true, doList[itemNumber]);
+                        }
+                    } catch (NumberFormatException e) {
+                        throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
+                    }
+                } else if (command[0].equalsIgnoreCase("unmark")) {
+                    if (doList[0] == null) {
+                        throw new KenChatException(KenChatException.getTaskNotExistMessage());
+                    } if (command.length < 2) {
+                        throw new KenChatException(KenChatException.getEmptyTaskNumberMessage("unmark"));
+                    }
+                    try {
+                        int itemNumber = Integer.parseInt(command[1]) - 1;
+                        if (itemNumber < 0 || itemNumber >= doList.length || doList[itemNumber] == null) {
+                            throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
+                        } else {
+                            setTaskStatus(false, doList[itemNumber]);
+                        }
+                    } catch (NumberFormatException e) {
+                        throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
+                    }
+                } else {
+                    addList(doList, str);
+                }
+            } catch (KenChatException e) {
+                System.out.println(e.getMessage());
+                printLine();
             }
-            else if(command[0].equalsIgnoreCase("unmark")){
-                int itemNumber = Integer.parseInt(command[1]) - 1;
-                setTaskStatus(false, doList[itemNumber]);
-            }
-            else
-                addList(doList, str);
         }
         endProgramme();
     }
