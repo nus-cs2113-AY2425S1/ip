@@ -43,14 +43,13 @@ public class TaskList {
     }
 
     // Returns true if at Tasklist capacity has been reached
-    private static boolean checkTasklistCapacity() {
+    private static void checkTasklistCapacity() throws TerriException {
         if (taskCounter >= MAXTASKS) {
-            System.out.println("Maximum number of items (" + MAXTASKS + ") has been reached");
-            System.out.println("Please delete a task in order to add an item.");
-            return true;
+            throw new TerriException("Maximum number of items has been reached. \n"+
+                    "Please delete a task in order to add an item.");
         }
-        return false;
     }
+
 
     // Verifies a user-input string representing a task index
     public static int handleTaskIndex (String userString) throws TerriException {
@@ -75,9 +74,14 @@ public class TaskList {
     }
 
 
-    public static void addToDo(String[] keyWord) {
-        if (checkTasklistCapacity()) {
-            return;
+    public static void addToDo(String[] keyWord) throws TerriException {
+
+        // Check tasklist has capacity
+        checkTasklistCapacity();
+
+        // Throw exception if input length is not appropriate
+        if (keyWord.length < 2) {
+            throw new TerriException("Invalid input length. You gotta have a description!");
         }
 
         // Exclude keyword from task description
@@ -91,29 +95,50 @@ public class TaskList {
 
 
     // Parse deadline information from user input and log Deadline
-    public static void handleDeadline(String[] keyWord) {
+    public static void handleDeadline(String[] keyWord) throws TerriException {
+
+        // Check tasklist has capacity
+        checkTasklistCapacity();
+
+        // Throw exception if input length is not appropriate
+        if (keyWord.length < 2) {
+            throw new TerriException("Invalid input length. You gotta have a description!");
+        }
+
+        // Throw exception if input length is not appropriate
+        if (keyWord.length < 3) {
+            throw new TerriException("Invalid input length. You gotta have a due date!");
+        }
+
         String newBy = null;
         String newDeadline = null;
         StringBuilder tempDeadlineInfo = new StringBuilder();
 
+        boolean dueDateFound = false;
+
         // Iterate through user input to concatenate
         // deadline description/date information
-        for (int i = 1; i <= keyWord.length; i++) {
+        for (int i = 1; i < keyWord.length; i++) {
             if (keyWord[i].equals("/by")) {
                 newBy = Terri.extractSubArray(keyWord, i+1, keyWord.length);
                 newDeadline = tempDeadlineInfo.toString().trim();
+                dueDateFound = true;
                 break;
             }
             tempDeadlineInfo.append(keyWord[i]).append(" ");
         }
 
+        // Throw exception if no /by date provided
+        if (!dueDateFound) {
+            throw new TerriException("You haven't provided a due date!");
+        }
+
         TaskList.addDeadline(newDeadline, newBy);
     }
 
-    public static void addDeadline(String newDeadline, String newBy) {
-        if (checkTasklistCapacity()) {
-            return;
-        }
+    public static void addDeadline(String newDeadline, String newBy) throws TerriException {
+        checkTasklistCapacity();
+
         tasks[taskCounter++] = new Deadline(newDeadline, newBy);
         System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
         printNumberOfTasks();
@@ -122,7 +147,16 @@ public class TaskList {
 
 
     // Parse event information from user input and log event
-    public static void handleEvent(String[] keyWord) {
+    public static void handleEvent(String[] keyWord) throws TerriException {
+
+        // Check tasklist has capacity
+        checkTasklistCapacity();
+
+        // Throw exception if input length is not appropriate
+        if (keyWord.length < 2) {
+            throw new TerriException("Invalid input length. You gotta have a description!");
+        }
+
         int startIdx = 0;
         int endIdx = 0;
 
@@ -135,6 +169,11 @@ public class TaskList {
             }
         }
 
+        // Throw exception if event timing info is missing
+        if (startIdx == 0 || endIdx == 0) {
+            throw new TerriException("You haven't provided a start/end time!");
+        }
+
         String newDescription = Terri.extractSubArray(keyWord, 1, startIdx);
         String newStart = Terri.extractSubArray(keyWord, startIdx + 1, endIdx);
         String newEnd = Terri.extractSubArray(keyWord, endIdx + 1, keyWord.length);
@@ -142,10 +181,8 @@ public class TaskList {
         TaskList.addEvent(newDescription, newStart, newEnd);
     }
 
-    public static void addEvent(String newEvent, String From, String To) {
-        if (checkTasklistCapacity()) {
-            return;
-        }
+    public static void addEvent(String newEvent, String From, String To) throws TerriException {
+
         tasks[taskCounter++] = new Event(newEvent, From, To);
         System.out.println("Just added: '" + newEvent + "' to your list as an Event!");
         printNumberOfTasks();

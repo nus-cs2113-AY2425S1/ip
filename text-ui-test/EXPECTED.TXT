@@ -95,3 +95,39 @@ That index is out of bounds! Call 'list' to see how many tasks are in your list!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
 Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
+Invalid input length. You gotta have a description!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+You haven't provided a start/end time!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+You haven't provided a start/end time!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+Just added: 'TEST 4' to your list as an Event!
+There are now (4) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Invalid input length. You gotta have a description!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+You haven't provided a due date!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+Just added: 'TEST 5' to your list as a Deadline!
+There are now (5) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
+Invalid input length. You gotta have a description!
+Did you want a refresher on what tasks I can do for ya? Type Y to accept.
+Gotcha - let me know what I can do for ya then!
+____________________________________________________________
+Just added: TEST 6 to your list as a ToDo!
+There are now (6) logged tasks/events.
+____________________________________________________________
+____________________________________________________________
