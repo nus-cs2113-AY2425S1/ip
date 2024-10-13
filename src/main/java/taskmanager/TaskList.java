@@ -1,3 +1,20 @@
+package taskmanager;
+
+import tasks.Task;
+import tasks.Event;
+import tasks.Deadline;
+import tasks.ToDo;
+
+import exceptions.TerriException;
+
+import java.util.Arrays;
+
+
+/**
+ * The Tasklist class manages task storage, and handles the validation
+ * and addition of new tasks.
+ */
+
 public class TaskList {
     private static final int MAXTASKS = 100;
 
@@ -31,7 +48,6 @@ public class TaskList {
                     System.out.println(" (ERROR: OTHER TYPE)");
             }
         }
-        Terri.printDivider();
     }
 
     private static void printNumberOfTasks() {
@@ -49,7 +65,6 @@ public class TaskList {
                     "Please delete a task in order to add an item.");
         }
     }
-
 
     // Verifies a user-input string representing a task index
     public static int handleTaskIndex (String userString) throws TerriException {
@@ -85,12 +100,11 @@ public class TaskList {
         }
 
         // Exclude keyword from task description
-        String newToDo = Terri.extractSubArray(keyWord,1, keyWord.length);
+        String newToDo = extractSubArray(keyWord,1, keyWord.length);
 
         tasks[taskCounter++] = new ToDo(newToDo);
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
         printNumberOfTasks();
-        Terri.printDivider();
     }
 
 
@@ -120,7 +134,7 @@ public class TaskList {
         // deadline description/date information
         for (int i = 1; i < keyWord.length; i++) {
             if (keyWord[i].equals("/by")) {
-                newBy = Terri.extractSubArray(keyWord, i+1, keyWord.length);
+                newBy = extractSubArray(keyWord, i+1, keyWord.length);
                 newDeadline = tempDeadlineInfo.toString().trim();
                 dueDateFound = true;
                 break;
@@ -142,7 +156,6 @@ public class TaskList {
         tasks[taskCounter++] = new Deadline(newDeadline, newBy);
         System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
         printNumberOfTasks();
-        Terri.printDivider();
     }
 
 
@@ -174,9 +187,9 @@ public class TaskList {
             throw new TerriException("You haven't provided a start/end time!");
         }
 
-        String newDescription = Terri.extractSubArray(keyWord, 1, startIdx);
-        String newStart = Terri.extractSubArray(keyWord, startIdx + 1, endIdx);
-        String newEnd = Terri.extractSubArray(keyWord, endIdx + 1, keyWord.length);
+        String newDescription = extractSubArray(keyWord, 1, startIdx);
+        String newStart = extractSubArray(keyWord, startIdx + 1, endIdx);
+        String newEnd = extractSubArray(keyWord, endIdx + 1, keyWord.length);
 
         TaskList.addEvent(newDescription, newStart, newEnd);
     }
@@ -186,7 +199,6 @@ public class TaskList {
         tasks[taskCounter++] = new Event(newEvent, From, To);
         System.out.println("Just added: '" + newEvent + "' to your list as an Event!");
         printNumberOfTasks();
-        Terri.printDivider();
     }
 
 
@@ -218,8 +230,11 @@ public class TaskList {
                 + tasks[taskIndex].getTypeIcon()
                 + tasks[taskIndex].getStatusIcon()
                 + tasks[taskIndex].getTaskName());
+    }
 
-        Terri.printDivider();
+    // Return the contents of a subarray as a concatenated string
+    public static String extractSubArray(String[] array, int start, int end) {
+        return String.join(" ", Arrays.copyOfRange(array, start, end)).trim();
     }
 
 }
