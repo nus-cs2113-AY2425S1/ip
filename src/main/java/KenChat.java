@@ -32,15 +32,50 @@ public class KenChat {
         printLine();
     }
 
-    public static void addList(Task[] doList, String item){
+    public static void addList(Task[] doList, String item) {
         printLine();
-        System.out.println("added: "+item);
-        printLine();
+        String[] parts = item.split(" ", 2); // Split on first space to get command
+        String command = parts[0];
+        String description = parts.length > 1 ? parts[1] : "";
 
-        for (int i=0; i< doList.length; i++){
-            if(doList[i] == null){
-                Task doItem = new Task(item);
+        if (command.equalsIgnoreCase("todo")) {
+            Task doItem = new Task.ToDo(description);
+            addTask(doList, doItem);
+        } else if (command.equalsIgnoreCase("deadline")) {
+            String[] deadlineParts = description.split(" /by ", 2);
+            if (deadlineParts.length == 2) {
+                Task doItem = new Task.Deadline(deadlineParts[0], deadlineParts[1]);
+                addTask(doList, doItem);
+            } else {
+                System.out.println("Invalid deadline format. Use: deadline <description> /by <date/time>");
+            }
+        } else if (command.equalsIgnoreCase("event")) {
+            String[] eventParts = description.split(" /from | /to ", 3);
+            if (eventParts.length == 3) {
+                Task doItem = new Task.Event(eventParts[0], eventParts[1], eventParts[2]);
+                addTask(doList, doItem);
+            } else {
+                System.out.println("Invalid event format. Use: event <description> /from <start_time> /to <end_time>");
+            }
+        } else {
+            Task doItem = new Task.ToDo(item); // Default to ToDo if no specific type
+            addTask(doList, doItem);
+        }
+    }
+
+    private static void addTask(Task[] doList, Task doItem) {
+        for (int i = 0; i < doList.length; i++) {
+            if (doList[i] == null) {
                 doList[i] = doItem;
+                int taskCount = 0;
+                for (Task task : doList) {
+                    if (task != null) {
+                        taskCount++;
+                    }
+                }
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + doItem);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 break;
             }
         }
