@@ -166,7 +166,7 @@ public class TaskManager {
      */
     public void deleteTask(int taskIndex) throws SleepyException{
         if (taskIndex <= 0 || taskIndex > tasks.size()) {
-            throw new SleepyException("Invalid task number.");
+            throw new SleepyException("Invalid task number. \n");
         }
 
         System.out.println(LINE_SEPARATOR

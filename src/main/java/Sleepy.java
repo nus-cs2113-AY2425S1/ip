@@ -35,6 +35,7 @@ public class Sleepy {
      */
     public static void main(String[] args) {
         System.out.println(LOGO);
+        System.out.println(getGreeting());
         Sleepy ui = new Sleepy(new TaskManager(Storage.loadTasks()));
         ui.run();
     }
@@ -45,8 +46,6 @@ public class Sleepy {
      * to manage tasks until the 'bye' command is given
      */
     public void run() {
-        System.out.println(getGreeting());
-
         String line = input.nextLine();
         while (!line.equals(CMD_BYE)) {
             try {

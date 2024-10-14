@@ -72,6 +72,12 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] taskInfo = line.split("\\|");
+
+                if (taskInfo.length < 3 || taskInfo[2].trim().isEmpty()) {
+                    System.out.println("Invalid task format found: " + line);
+                    continue; // Skip this line if task information is incomplete
+                }
+
                 Task task;
 
                 switch (taskInfo[0]) {
