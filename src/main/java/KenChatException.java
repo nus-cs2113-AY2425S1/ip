@@ -5,19 +5,19 @@ public class KenChatException extends Throwable {
         super(message);
     }
     public static String getEmptyDescriptionMessage(String command) {
-        return "ERROR!!! Enter a description for the command. Use: " + command + " <descption>";
+        return "ERROR!!! Enter a description for the command. Use: " + command + " <description>";
     }
 
     public static String getUnknownCommandMessage() {
-        return "Wrong Command/Please do not have space(s) before a command! Use <help> for full list of commands. ";
+        return "Wrong Command! Use <help> for full list of commands. ";
     }
 
     public static String getInvalidDeadlineFormatMessage() {
-        return "Wrong deadline format. Use: deadline <description> /by <date/time>";
+        return "Wrong deadline format. Use: deadline <description> /by <date> Note: <date> can be date and/or time.";
     }
 
     public static String getInvalidEventFormatMessage() {
-        return "Wrong event format. Use: event <description> /from <start_time> /to <end_time>";
+        return "Wrong event format. Use: event <description> /from <start_time> /to <end_time> Note: <start_time> and <end_time> can be date and/or time.";
     }
 
     public static String getTaskNotExistMessage() {
@@ -25,7 +25,7 @@ public class KenChatException extends Throwable {
     }
 
     public static String getInvalidTaskNumberMessage() {
-        return "Please enter a valid task number. Use: mark/unmark <number(s)>";
+        return "Please enter a valid task number. Use: mark/unmark/delete <number(s)>";
     }
 
     public static String getTaskNumberDoesNotExistMessage() {
@@ -38,5 +38,9 @@ public class KenChatException extends Throwable {
 
     public static String emptyCommand() {
         return "Empty command! Use <help> for full list of commands.";
+    }
+
+    public static String multipleSpaces() {
+        return "Too many spaces between words! Ensure each word is separated by only a space.";
     }
 }
