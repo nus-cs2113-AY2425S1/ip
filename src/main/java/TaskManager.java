@@ -100,13 +100,13 @@ public class TaskManager {
 
         // Checking if the deadline has a description and by component
         if (parts.length != 2) {
-            throw new SleepyException("Invalid deadline format. Please use: deadline description /by date\n");
+            throw new SleepyException("Invalid deadline format. Please use: deadline description /by yyyy-MM-dd HHmm\n");
         }
 
         String description = parts[0].trim();
         if (description.isEmpty()) {
             throw new SleepyException("Invalid deadline format. The deadline description cannot be empty. "
-                    + "Please use: deadline description /by date\n");
+                    + "Please use: deadline description /by yyyy-MM-dd HHmm\n");
         }
 
         String by = parts[1].trim();
