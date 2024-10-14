@@ -89,6 +89,13 @@ Indices are updated after deleting items. Therefore, we advice to always use the
 
 
 ## Getting an overview of tasks in the list
+### Finding tasks by keyword
+To find a task containing a specific keyword execute
+```
+find keyword
+```
+Note: You can use only one keyword.
+
 ### Showing all tasks
 Execute the following
 ```
