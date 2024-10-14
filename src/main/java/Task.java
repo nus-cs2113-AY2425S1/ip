@@ -176,4 +176,21 @@ class Event extends Task {
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    /**
+ * Searches for tasks containing the specified keyword in their descriptions.
+ *
+ * @param keyword The keyword to search for in the task descriptions.
+ * @return An ArrayList of tasks that contain the keyword in their descriptions.
+ */
+public static ArrayList<Task> findTasks(String keyword) {
+    ArrayList<Task> foundTasks = new ArrayList<>();
+    for (Task task : tasks) {
+        if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+            foundTasks.add(task);
+        }
+    }
+    return foundTasks;
+}
+
 }
