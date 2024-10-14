@@ -1,6 +1,7 @@
 package main.java;
 
 public class KenChatException extends Throwable {
+
     public KenChatException(String message) {
         super(message);
     }
@@ -42,5 +43,8 @@ public class KenChatException extends Throwable {
 
     public static String multipleSpaces() {
         return "Too many spaces between words! Ensure each word is separated by only a space.";
+    }
+    public static String directoryCreationFailure() {
+        return "Failed to create directory.";
     }
 }

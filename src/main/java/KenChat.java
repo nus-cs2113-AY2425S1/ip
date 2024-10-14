@@ -1,5 +1,6 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class KenChat {
         printLine();
     }
 
-    public static void addList(ArrayList<Task> doList, String item) throws KenChatException {
+    public static void addList(ArrayList<Task> doList, String item, Storage storage) throws KenChatException {
         String[] parts = item.split(" ", 2); // Split on first space to get command
         String command = parts[0];
         String description = parts.length > 1 ? parts[1] : "";
@@ -73,6 +74,7 @@ public class KenChat {
         }
 
         doList.add(doItem);  // Add the task to the list
+        storage.save(doList);
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + doItem);
@@ -80,16 +82,18 @@ public class KenChat {
         printLine();
     }
 
-    public static void deleteTask(ArrayList<Task> doList, int index) {
+    public static void deleteTask(ArrayList<Task> doList, int index, Storage storage) throws KenChatException {
         printLine();
         Task removedTask = doList.remove(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + removedTask);
         System.out.println("Now you have " + doList.size() + " tasks in the list.");
         printLine();
+
+        storage.save(doList);
     }
 
-    public static void setTaskStatus(boolean isMark, Task item) throws KenChatException {
+    public static void setTaskStatus(boolean isMark, Task item, Storage storage, ArrayList<Task> doList) throws KenChatException {
         printLine();
         if (item == null) {
             throw new KenChatException(KenChatException.getTaskNotExistMessage());
@@ -103,6 +107,9 @@ public class KenChat {
         }
         System.out.println("  " + item);
         printLine();
+
+        // Save the updated list to the file
+        storage.save(doList);
     }
 
     public static void showHelp() {
@@ -124,6 +131,15 @@ public class KenChat {
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         ArrayList<Task> doList = new ArrayList<>();
+
+        Storage storage = new Storage("./data/KenChat.txt");
+
+        try {
+            doList = storage.load();
+        } catch (KenChatException e) {
+            System.out.println(e.getMessage());
+        }
+
         startProgramme();
 
         while (running) {
@@ -161,7 +177,7 @@ public class KenChat {
                         if (itemNumber < 0 || itemNumber >= doList.size()) {
                             throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
                         } else {
-                            setTaskStatus(true, doList.get(itemNumber));
+                            setTaskStatus(true, doList.get(itemNumber), storage, doList);
                         }
                     } catch (NumberFormatException e) {
                         throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
@@ -179,7 +195,7 @@ public class KenChat {
                         if (itemNumber < 0 || itemNumber >= doList.size()) {
                             throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
                         } else {
-                            setTaskStatus(false, doList.get(itemNumber));
+                            setTaskStatus(false, doList.get(itemNumber), storage, doList);
                         }
                     } catch (NumberFormatException e) {
                         throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
@@ -197,14 +213,14 @@ public class KenChat {
                         if (itemNumber < 0 || itemNumber >= doList.size()) {
                             throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
                         } else {
-                            deleteTask(doList, itemNumber);
+                            deleteTask(doList, itemNumber, storage);
                         }
                     } catch (NumberFormatException e) {
                         throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
                     }
                     break;
                 default:
-                    addList(doList, str);
+                    addList(doList, str, storage);
                     break;
                 }
             } catch (KenChatException e) {
