@@ -54,6 +54,5 @@ public class Deadline extends Task {
     @Override
     public String getEventEnd() {
         return null;
-
-
+    }
 }
