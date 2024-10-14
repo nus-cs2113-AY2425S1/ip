@@ -65,6 +65,10 @@ public class AirBorder {
                 case "unmark":
                     handleMarkCommand(commandWord, arguments);
                     break;
+                case "find":
+                    ArrayList<Task> foundTasks = Task.findTasks(arguments);
+                    ui.showFoundTasks(foundTasks);
+                    break;
                 case "exit":
                     return true; // Signal to exit the application
                 default:
