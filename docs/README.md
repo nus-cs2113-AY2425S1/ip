@@ -12,6 +12,8 @@ bye
 ```
 
 ## Adding items to the list
+Important: To save any items added to your list of tasks close the current session with the `bye` command. Otherwise, they will not be saved. 
+
 ### Adding todos
 Use the `todo` command and write in the todo description. 
 
