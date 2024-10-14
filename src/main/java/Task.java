@@ -1,8 +1,10 @@
 package main.java;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    public abstract String formatForStorage();
 
     public Task(String description) {
         this.description = description;
@@ -36,6 +38,10 @@ public class Task {
         public String toString() {
             return "[T]" + super.toString();
         }
+
+        public String formatForStorage() {
+            return "T | " + (isDone ? "1" : "0") + " | " + description;
+        }
     }
 
     // Deadline class
@@ -49,6 +55,9 @@ public class Task {
 
         public String toString() {
             return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        }
+        public String formatForStorage() {
+            return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + dueDate;
         }
     }
 
@@ -65,6 +74,10 @@ public class Task {
 
         public String toString() {
             return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
+        }
+
+        public String formatForStorage() {
+            return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startDate + " | " + endDate;
         }
     }
 

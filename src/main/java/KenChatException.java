@@ -1,15 +1,16 @@
 package main.java;
 
 public class KenChatException extends Throwable {
+
     public KenChatException(String message) {
         super(message);
     }
     public static String getEmptyDescriptionMessage(String command) {
-        return "ERROR!!! Enter a description for the command. Use: " + command + " <descption>";
+        return "ERROR!!! Enter a description for the command. Use: " + command + " <description>";
     }
 
     public static String getUnknownCommandMessage() {
-        return "Wrong Command/Please do not have space(s) before a command! Use <help> for full list of commands. ";
+        return "Wrong Command! Use <help> for full list of commands. ";
     }
 
     public static String getInvalidDeadlineFormatMessage() {
@@ -38,5 +39,9 @@ public class KenChatException extends Throwable {
 
     public static String emptyCommand() {
         return "Empty command! Use <help> for full list of commands.";
+    }
+
+    public static String directoryCreationFailure() {
+        return "Failed to create directory.";
     }
 }

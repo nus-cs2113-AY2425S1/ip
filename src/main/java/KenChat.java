@@ -1,5 +1,6 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KenChat {
@@ -22,22 +23,18 @@ public class KenChat {
         printLine();
     }
 
-    public static void displayList(Task[] doList) throws KenChatException {
+    public static void displayList(ArrayList<Task> doList) throws KenChatException {
         printLine();
-        boolean hasTasks = false;
-        for (int i = 0; i < doList.length; i++) {
-            if (doList[i] != null) {
-                System.out.println((i + 1) + ". " + doList[i]);
-                hasTasks = true;
-            }
-        }
-        if (!hasTasks) {
+        if (doList.isEmpty()) {
             throw new KenChatException(KenChatException.getTaskNotExistMessage());
+        }
+        for (int i = 0; i < doList.size(); i++) {
+            System.out.println((i + 1) + ". " + doList.get(i));
         }
         printLine();
     }
 
-    public static void addList(Task[] doList, String item) throws KenChatException {
+    public static void addList(ArrayList<Task> doList, String item, Storage storage) throws KenChatException {
         printLine();
         String[] parts = item.split(" ", 2); // Split on first space to get command
         String command = parts[0];
@@ -48,49 +45,41 @@ public class KenChat {
             throw new KenChatException(KenChatException.getEmptyDescriptionMessage(command));
         }
 
+        Task doItem;
+
         if (command.equalsIgnoreCase("todo")) {
-            Task doItem = new Task.ToDo(description);
-            addTask(doList, doItem);
+            doItem = new Task.ToDo(description);
+            doList.add(doItem);
         } else if (command.equalsIgnoreCase("deadline")) {
             String[] deadlineParts = description.split(" /by ", 2);
             if (deadlineParts.length == 2) {
-                Task doItem = new Task.Deadline(deadlineParts[0], deadlineParts[1]);
-                addTask(doList, doItem);
+                doItem = new Task.Deadline(deadlineParts[0], deadlineParts[1]);
+                doList.add(doItem);
             } else {
                 throw new KenChatException(KenChatException.getInvalidDeadlineFormatMessage());
             }
         } else if (command.equalsIgnoreCase("event")) {
             String[] eventParts = description.split(" /from | /to ", 3);
             if (eventParts.length == 3) {
-                Task doItem = new Task.Event(eventParts[0], eventParts[1], eventParts[2]);
-                addTask(doList, doItem);
+                doItem = new Task.Event(eventParts[0], eventParts[1], eventParts[2]);
+                doList.add(doItem);
             } else {
                 throw new KenChatException(KenChatException.getInvalidEventFormatMessage());
             }
         } else {
             throw new KenChatException(KenChatException.getUnknownCommandMessage());
         }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + doList.get(doList.size() - 1));
+        System.out.println("Now you have " + doList.size() + " tasks in the list.");
+        printLine();
+
+        // Save the updated list to the file
+        storage.save(doList);
     }
 
-    private static void addTask(Task[] doList, Task doItem) {
-        for (int i = 0; i < doList.length; i++) {
-            if (doList[i] == null) {
-                doList[i] = doItem;
-                int taskCount = 0;
-                for (Task task : doList) {
-                    if (task != null) {
-                        taskCount++;
-                    }
-                }
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + doItem);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                break;
-            }
-        }
-    }
-
-    public static void setTaskStatus(boolean isMark, Task item) throws KenChatException {
+    public static void setTaskStatus(boolean isMark, Task item, Storage storage, ArrayList<Task> doList) throws KenChatException {
         printLine();
         if (item == null) {
             throw new KenChatException(KenChatException.getTaskNotExistMessage());
@@ -104,6 +93,9 @@ public class KenChat {
         }
         System.out.println("  " + item);
         printLine();
+
+        // Save the updated list to the file
+        storage.save(doList);
     }
 
     public static void showHelp() {
@@ -123,8 +115,15 @@ public class KenChat {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean running = true;
-        int arraySize = 100;
-        Task[] doList = new Task[arraySize];
+        ArrayList<Task> doList = new ArrayList<>();
+        Storage storage = new Storage("./data/KenChat.txt");
+
+        try {
+            doList = storage.load();
+        } catch (KenChatException e) {
+            System.out.println(e.getMessage());
+        }
+
         startProgramme();
 
         while (running) {
@@ -144,39 +143,39 @@ public class KenChat {
                 }else if (command[0].equalsIgnoreCase("list")) {
                     displayList(doList);
                 } else if (command[0].equalsIgnoreCase("mark")) {
-                    if (doList[0] == null) {
+                    if (doList.isEmpty()) {
                         throw new KenChatException(KenChatException.getTaskNotExistMessage());
                     } else if (command.length < 2) {
                         throw new KenChatException(KenChatException.getEmptyTaskNumberMessage("mark"));
                     }
                     try {
                         int itemNumber = Integer.parseInt(command[1]) - 1;
-                        if (itemNumber < 0 || itemNumber >= doList.length || doList[itemNumber] == null) {
+                        if (itemNumber < 0 || itemNumber >= doList.size()) {
                             throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
                         } else {
-                            setTaskStatus(true, doList[itemNumber]);
+                            setTaskStatus(true, doList.get(itemNumber), storage, doList);
                         }
                     } catch (NumberFormatException e) {
                         throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
                     }
                 } else if (command[0].equalsIgnoreCase("unmark")) {
-                    if (doList[0] == null) {
+                    if (doList.isEmpty()) {
                         throw new KenChatException(KenChatException.getTaskNotExistMessage());
                     } if (command.length < 2) {
                         throw new KenChatException(KenChatException.getEmptyTaskNumberMessage("unmark"));
                     }
                     try {
                         int itemNumber = Integer.parseInt(command[1]) - 1;
-                        if (itemNumber < 0 || itemNumber >= doList.length || doList[itemNumber] == null) {
+                        if (itemNumber < 0 || itemNumber >= doList.size()) {
                             throw new KenChatException(KenChatException.getTaskNumberDoesNotExistMessage());
                         } else {
-                            setTaskStatus(false, doList[itemNumber]);
+                            setTaskStatus(false, doList.get(itemNumber), storage, doList);
                         }
                     } catch (NumberFormatException e) {
                         throw new KenChatException(KenChatException.getInvalidTaskNumberMessage());
                     }
                 } else {
-                    addList(doList, str);
+                    addList(doList, str, storage);
                 }
             } catch (KenChatException e) {
                 System.out.println(e.getMessage());
