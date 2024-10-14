@@ -80,6 +80,23 @@ public class Ui {
     }
 
     /**
+ * Displays the tasks found based on the search criteria.
+ *
+ * @param foundTasks The list of tasks that matched the search criteria.
+ */
+public void showFoundTasks(ArrayList<Task> foundTasks) {
+    if (foundTasks.isEmpty()) {
+        System.out.println("No tasks found with your search criteria.");
+    } else {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + foundTasks.get(i));
+        }
+    }
+}
+
+
+    /**
      * Displays an error message.
      *
      * @param message The error message to display.
