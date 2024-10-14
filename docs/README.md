@@ -1,7 +1,5 @@
 ## Sleepy User Guide
 
-// Product screenshot goes here
-
 Sleepy is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 
 Ensure you have Java 17 or above installed in your Computer.
