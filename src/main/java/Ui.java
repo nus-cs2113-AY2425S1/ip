@@ -1,115 +1,112 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles all user interface operations, including displaying messages and reading user input.
+ */
 public class Ui {
-    private Scanner inputScanner;
+    private Scanner scanner;
 
+    /**
+     * Initializes the user interface by setting up the scanner used for input.
+     */
     public Ui() {
-        // Initialize the scanner to read user input
-        inputScanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays a welcome message at the start of the application.
+     */
     public void showWelcomeMessage() {
-        // Display the welcome message to the user
         System.out.println("____________________________________________________________");
         System.out.println(" Welcome aboard AirBorder.");
-        System.out.println(" Ready to assist you with your tasks!");
+        System.out.println(" Ready to assist you with your travel needs!");
         System.out.println("____________________________________________________________");
     }
 
-    public void showExitMessage() {
-        // Display the exit message to the user
-        System.out.println("____________________________________________________________");
-        System.out.println(" Thank you for flying with AirBorder!");
-        System.out.println("____________________________________________________________");
-    }
-
-    public String readCommand() {
-        // Read and return the user's input command
-        return inputScanner.nextLine().trim();
-    }
-
+    /**
+     * Displays a line separator for better readability in the command line interface.
+     */
     public void showLine() {
-        // Display a divider line for better readability
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Shows tasks currently on the list.
+     */
+    public void showTaskList() {
+        System.out.println("____________________________________________________________");
+        if (Task.isEmpty()) {
+            System.out.println(" No tasks to show.");
+        } else {
+            System.out.println(" Here are the tasks in your list:");
+            for (int i = 0; i < Task.size(); i++) {
+                System.out.println((i + 1) + ". " + Task.getTask(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Displays a message indicating successful addition of a task.
+     *
+     * @param task The task that was added.
+     */
+    public void showTaskAdded(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + Task.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Displays a message when a task is successfully deleted.
+     *
+     * @param removedTask The task that was removed.
+     */
+    public void showTaskDeleted(Task removedTask) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + removedTask);
+        System.out.println(" Now you have " + Task.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void showTaskUpdated(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've updated this task:");
+        System.out.println("   " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Displays an error message.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
-        // Display an error message to the user
-        showLine();
         System.out.println(" ERROR: " + message);
-        showLine();
     }
 
-    public void showTaskAdded(Task task, int taskCount) {
-        // Display a message when a task is added
-        showLine();
-        System.out.println(" Task added: " + task);
-        System.out.println(" Now you have " + taskCount + " tasks.");
-        showLine();
+    /**
+     * Displays a goodbye message when the application is closing.
+     */
+    public void showExitMessage() {
+        System.out.println(" Bye. Hope to see you across the border for your on-ground needs/connections!");
     }
 
-    public void showTaskDeleted(Task task, int taskCount) {
-        // Display a message when a task is deleted
-        showLine();
-        System.out.println(" Task deleted: " + task);
-        System.out.println(" Now you have " + taskCount + " tasks.");
-        showLine();
-    }
-
-    public void showTaskDone(Task task) {
-        // Display a message when a task is marked as done
-        showLine();
-        System.out.println(" Task completed: " + task);
-        showLine();
-    }
-
-    public void showTaskUndone(Task task) {
-        // Display a message when a task is marked as not done
-        showLine();
-        System.out.println(" Task marked as incomplete: " + task);
-        showLine();
-    }
-
-    public void showTaskList(TaskList taskList) {
-        // Display the list of tasks to the user
-        showLine();
-        if (taskList.isEmpty()) {
-            System.out.println(" No tasks in your list.");
-        } else {
-            System.out.println(" Here are your tasks:");
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.getTask(i));
-            }
-        }
-        showLine();
-    }
-
-    public void showLoadingError() {
-        // Display an error message if tasks cannot be loaded
-        showLine();
-        System.out.println(" Error loading tasks from file.");
-        showLine();
-    }
-
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        // Display the list of matching tasks to the user
-        showLine();
-        if (matchingTasks.isEmpty()) {
-            System.out.println(" No matching tasks found.");
-        } else {
-            System.out.println(" Here are the matching tasks in your list:");
-            int index = 1;
-            for (Task task : matchingTasks) {
-                System.out.println(" " + index + "." + task);
-                index++;
-            }
-        }
-        showLine();
-    }
-
+    /**
+     * Closes the scanner object and any other resources used for user interaction.
+     */
     public void close() {
-        // Close the input scanner resource
-        inputScanner.close();
+        scanner.close();
+    }
+
+    /**
+     * Reads a command from the user.
+     * @return The command input by the user.
+     */
+    public String readCommand() {
+        return scanner.nextLine().trim();
     }
 }
