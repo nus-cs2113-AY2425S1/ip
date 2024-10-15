@@ -1,6 +1,5 @@
 package main.java;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class FindCommand extends Command {
@@ -12,8 +11,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KenChatException {
-        //ArrayList<Task> matchingTasks = tasks.findTasksByKeywordWithIndex(keyword);
-
         // Use the findTasksByKeywordWithIndex method that returns a Map of <index, task>
         Map<Integer, Task> matchingTasks = tasks.findTasksByKeywordWithIndex(keyword);
         if (matchingTasks.isEmpty()) {

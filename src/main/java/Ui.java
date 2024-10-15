@@ -105,7 +105,7 @@ public class Ui {
         printLine();
         System.out.println();
     }
-    
+
     public void showMessage(String message) {
         System.out.println(message);
     }
