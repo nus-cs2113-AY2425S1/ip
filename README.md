@@ -1,4 +1,4 @@
-# Ruhi project template
+# Ruhi Personal Task Management Chatbot
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Ruhi_. Given below are instructions on how to use it.
 
