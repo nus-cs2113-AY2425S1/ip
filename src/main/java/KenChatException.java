@@ -1,12 +1,12 @@
 package main.java;
 
-public class KenChatException extends Throwable {
+public class KenChatException extends Exception {
 
     public KenChatException(String message) {
         super(message);
     }
     public static String getEmptyDescriptionMessage(String command) {
-        return "ERROR!!! Enter a description for the command. Use: " + command + " <description>";
+        return "Description is missing! Enter a description for the command. Use: " + command + " <description>";
     }
 
     public static String getUnknownCommandMessage() {
@@ -22,7 +22,7 @@ public class KenChatException extends Throwable {
     }
 
     public static String getTaskNotExistMessage() {
-        return "No task exist.";
+        return "No task exists.";
     }
 
     public static String getInvalidTaskNumberMessage() {
@@ -38,7 +38,7 @@ public class KenChatException extends Throwable {
     }
 
     public static String emptyCommand() {
-        return "Empty command! Use <help> for full list of commands.";
+        return "Empty command!! Use <help> for full list of commands.";
     }
 
     public static String multipleSpaces() {
