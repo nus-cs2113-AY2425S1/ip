@@ -85,6 +85,11 @@ public class Parser {
             }
         case "help":
             return new HelpCommand();
+        case "find":
+            if (arguments.isEmpty()) {
+                throw new KenChatException(KenChatException.getKeyWordMissing());
+            }
+            return new FindCommand(arguments);
         default:
             throw new KenChatException(KenChatException.getUnknownCommandMessage());
         }

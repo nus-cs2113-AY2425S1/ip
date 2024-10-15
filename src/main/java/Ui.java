@@ -18,8 +18,9 @@ public class Ui {
      */
     public void showStart() {
         printLine();
-        System.out.println("Hello! I'm DukeBot");
+        System.out.println("Hello! I'm KenChat");
         System.out.println("What can I do for you?");
+        System.out.println("Use <help> to show full list of commands.");
         printLine();
         System.out.println();
     }
@@ -150,10 +151,14 @@ public class Ui {
         System.out.println("5. mark <task number> - Marks the specified task as done.");
         System.out.println("6. unmark <task number> - Marks the specified task as not done.");
         System.out.println("7. delete <task number> - Deletes the specified task from the list.");
-        System.out.println("8. bye - Exits the program.");
-        System.out.println("9. help - Shows this help message.");
+        System.out.println("8. find <keyword> - Find task(s) in the list by searching with keyword(s).");
+        System.out.println("9. bye - Exits the program.");
+        System.out.println("10. help - Shows this help message.");
         printLine();
         System.out.println();
     }
-}
 
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+}

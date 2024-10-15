@@ -2,6 +2,8 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Represents a list of tasks.
@@ -51,5 +53,22 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return (ArrayList<Task>) tasks;
+    }
+
+    /**
+     * Finds and returns a map of tasks that match the specific keyword and their corresponding indices.
+     *
+     * @param keyword The keyword to search for in the tasks.
+     * @return A map where the keys are the 1-based indices of the matching tasks and the values are the matching tasks.
+     */
+    public Map<Integer, Task> findTasksByKeywordWithIndex(String keyword) {
+        Map<Integer, Task> matchingTasks = new HashMap<>();  // Store index-task pairs
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getName().contains(keyword)) {
+                matchingTasks.put(i + 1, task);  // Store the 1-based index
+            }
+        }
+        return matchingTasks;
     }
 }
