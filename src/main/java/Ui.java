@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 /**
  * Handles all user interface operations, including displaying messages and reading user input.
  */

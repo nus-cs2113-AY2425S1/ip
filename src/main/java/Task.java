@@ -61,6 +61,22 @@ public abstract class Task {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
+     * Searches for tasks containing the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return An ArrayList of tasks that contain the keyword in their descriptions.
+     */
+    public static ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    /**
      * Adds a task to the static task list.
      *
      * @param task The task to be added.
@@ -160,7 +176,6 @@ class Event extends Task {
     private String from;
     private String to;
 
-
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -176,21 +191,4 @@ class Event extends Task {
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";
     }
-
-    /**
- * Searches for tasks containing the specified keyword in their descriptions.
- *
- * @param keyword The keyword to search for in the task descriptions.
- * @return An ArrayList of tasks that contain the keyword in their descriptions.
- */
-public static ArrayList<Task> findTasks(String keyword) {
-    ArrayList<Task> foundTasks = new ArrayList<>();
-    for (Task task : tasks) {
-        if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
-            foundTasks.add(task);
-        }
-    }
-    return foundTasks;
-}
-
 }
