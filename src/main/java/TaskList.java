@@ -36,17 +36,6 @@ public class TaskList {
         return (ArrayList<Task>) tasks;
     }
 
-    // New method to find tasks by keyword
-    /*public ArrayList<Task> findTasksByKeywordWithIndex(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getName().contains(keyword)) {
-                matchingTasks.add(task); // Keep task number
-            }
-        }
-        return matchingTasks;
-    }**/
-
     public Map<Integer, Task> findTasksByKeywordWithIndex(String keyword) {
         Map<Integer, Task> matchingTasks = new HashMap<>();  // Store index-task pairs
         for (int i = 0; i < tasks.size(); i++) {
@@ -57,6 +46,4 @@ public class TaskList {
         }
         return matchingTasks;
     }
-
-
 }
