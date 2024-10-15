@@ -1,23 +1,23 @@
 package Entity;
 
+import java.time.LocalDateTime;
+
 public class Message {
     private int type; //1: todo, 2: ddl, 3: event
     private String message;
     private boolean isDone;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     //todo
     public Message(String message) {
         this.message = message;
         this.isDone = false;
-        this.startTime = "";
-        this.endTime = "";
         this.type = 1;
     }
 
     //event
-    public Message(String message, String startTime, String endTime, int type) {
+    public Message(String message, LocalDateTime startTime, LocalDateTime endTime, int type) {
         this.message = message;
         this.isDone = false;
         this.startTime = startTime;
@@ -26,16 +26,16 @@ public class Message {
     }
 
     //ddl
-    public Message(String message, String endTime, int type) {
+    public Message(String message, LocalDateTime endTime, int type) {
         this.message = message;
         this.isDone = false;
-        this.startTime = "";
         this.endTime = endTime;
         this.type = type;
     }
 
     //retrieve
-    public Message(String message, boolean isDone, String startTime, String endTime, int type) {
+
+    public Message(String message, boolean isDone, LocalDateTime startTime, LocalDateTime endTime, int type) {
         this.message = message;
         this.isDone = false;
         this.startTime = startTime;
@@ -51,19 +51,19 @@ public class Message {
         this.type = type;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

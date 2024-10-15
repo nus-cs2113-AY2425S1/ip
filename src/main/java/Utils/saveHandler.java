@@ -7,10 +7,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 public class saveHandler {
+
+    private static int todo = 1;
+    private static int deadline = 2;
+    private static int event = 3;
+    private static final String path = "YukinoData.txt";
 
     /**
      * Converts message to String.
@@ -22,17 +29,23 @@ public class saveHandler {
      */
 
     public static String converter(Message message) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-dd-MM-yyyy");
         String output = null;
         int typeNumber = message.getType();
         String type = null;
-        if (typeNumber == 1) {
+        String startTime = "";
+        String endTime = "";
+        if (typeNumber == todo) {
             type = "T";
         }
-        else if (typeNumber == 2) {
+        else if (typeNumber == deadline) {
             type = "D";
+            endTime = message.getEndTime().format(formatter);
         }
-        else if (typeNumber == 3) {
+        else if (typeNumber == event) {
             type = "E";
+            startTime = message.getStartTime().format(formatter);
+            endTime = message.getEndTime().format(formatter);
         }
 
         String task = message.getMessage();
@@ -43,7 +56,7 @@ public class saveHandler {
         else {
             isDone = "0";
         }
-        output = type + " | " + task + " | " + isDone + " | " + message.getStartTime() + " | " + message.getEndTime();
+        output = type + " | " + task + " | " + isDone + " | " + startTime + " | " + endTime;
         return output;
     }
 
@@ -82,14 +95,20 @@ public class saveHandler {
      */
 
     public static void writeToFile(messageList list) throws IOException {
-        List<Message> messages = list.getMessages();
-        FileWriter fw = new FileWriter("YukinoData.txt");
-        for(int i = 0; i < messages.size(); i++) {
-            Message message = messages.get(i);
-            String toWrite = converter(message);
-            fw.write(toWrite + "\n");
+        try {
+            List<Message> messages = list.getMessages();
+            FileWriter fw = new FileWriter(path);
+            for (int i = 0; i < messages.size(); i++) {
+                Message message = messages.get(i);
+                String toWrite = converter(message);
+                fw.write(toWrite + "\n");
+            }
+            fw.close();
         }
-        fw.close();
+        catch(IOException e){
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -104,7 +123,7 @@ public class saveHandler {
 
     public static void retrieveData(messageList list){
         try {
-            File file = new File("YukinoData.txt");
+            File file = new File(path);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -131,7 +150,21 @@ public class saveHandler {
                 }
                 String startTime = data[3].trim();
                 String endTime = data[4].trim();
-                Message message = new Message(task, isDone, startTime, endTime, typeNumber);
+                LocalDateTime startDate = null;
+                LocalDateTime endDate = null;
+                if (typeNumber == todo) {
+                    startDate = null;
+                    endDate = null;
+                }
+                else if (typeNumber == deadline) {
+                    startDate = null;
+                    endDate = messageHandler.convertToDate(endTime);;
+                }
+                else if (typeNumber == event) {
+                    startDate = messageHandler.convertToDate(startTime);
+                    endDate = messageHandler.convertToDate(endTime);
+                }
+                Message message = new Message(task, isDone, startDate, endDate, typeNumber);
                 list.add(message);
             }
         } catch (FileNotFoundException e) {

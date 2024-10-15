@@ -2,14 +2,29 @@ package Utils;
 
 import Entity.Message;
 import Entity.messageList;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class messageHandler {
+
+    private static int todo = 1;
+    private static int deadline = 2;
+    private static int event = 3;
+
+    /**
+     * Converts time to LocalDateTime format
+     *
+     * <p>This method converts the input time to LocalDateTime format</p>
+     * @param input The input of time to be converted.
+     */
+
+    public static LocalDateTime convertToDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-dd-MM-yyyy");
+        return LocalDateTime.parse(input, formatter);
+    }
 
     /**
      * Prehandles the user input and dispatch task to different methods
@@ -30,16 +45,77 @@ public class messageHandler {
                 System.out.println("-----------------------------------\n");
                 break;
 
-            } else if (input.equals("list")) {
+            }
+            else if (input.equals("list")) {
                 messageHandler.listShow(list);
-            } else if (input.contains("mark") || input.contains("unmark")) {
+            }
+            else if (input.contains("mark") || input.contains("unmark")) {
                 messageHandler.mark(list, input);
-            } else if (input.contains("delete")) {
+            }
+            else if (input.contains("delete")) {
                 messageHandler.delete(list, input);
-            } else {
+            }
+            else if (input.contains("add")) {
                 messageHandler.addList(list, input);
             }
+            else if (input.contains("find")) {
+                messageHandler.find(list, input);
+            }
         }
+    }
+
+    /**
+     * Print an existing item
+     *
+     * <p>This method is to print an input message to the terminal</p>
+     * @param index The index of the item.
+     * @param message The message to be printed.
+     */
+
+    public static void print(Message message, int index) {
+        boolean isDone = message.isDone();
+        String doneSign = "";
+        if(isDone) {
+            doneSign = "X";
+        }
+        else {
+            doneSign = "";
+        }
+        int type = message.getType();
+        String typeSign = "";
+        String startTime = "";
+        String endTime = "";
+        String By = "";
+        String From = "";
+        String task = message.getMessage();
+        String number = "";
+        if(index > 0) {
+            number = String.valueOf(index);
+        }
+
+        String output = "";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-dd-MM-yyyy");
+
+        if(type == todo){
+            typeSign = "[T]";
+            output = number + ". " + typeSign + "[" + doneSign + "] " + task;
+        }
+        else if(type == deadline){
+            By = " By: ";
+            typeSign = "[D]";
+            endTime = message.getEndTime().format(formatter);
+            output = number + ". " + typeSign + "[" + doneSign + "] " + task + By + endTime;
+        }
+        else if(type == event){
+            typeSign = "[E]";
+            By = " By: ";
+            From = " From: ";
+            startTime = message.getStartTime().format(formatter);
+            endTime = message.getEndTime().format(formatter);
+            output = number + ". " + typeSign + "[" + doneSign + "] " + task + From + startTime + By + endTime;
+        }
+        System.out.println(output);
     }
 
     /**
@@ -56,37 +132,12 @@ public class messageHandler {
         int type = 0;
         List<Message> messages = list.getMessages();
         while(i <= messages.size()) {
-            isDone = messages.get(i-1).isDone();
-            String doneSign = "";
-            if(isDone) {
-                doneSign = "X";
-            }
-            else {
-                doneSign = "";
-            }
-            type = messages.get(i-1).getType();
-            String typeSign = "";
-            String startTime = "";
-            String endTime = "";
-            String By = "";
-            String From = "";
-            if(type == 1){
-                typeSign = "[T]";
-            }
-            else if(type == 2){
-                By = " By: ";
-                typeSign = "[D]";
-                endTime = messages.get(i-1).getEndTime();
-            }
-            else if(type == 3){
-                typeSign = "[E]";
-                By = " By: ";
-                From = " From: ";
-                startTime = messages.get(i-1).getStartTime();
-                endTime = messages.get(i-1).getEndTime();
-            }
-            System.out.println(i + ". " + typeSign + "[" + doneSign + "] " + messages.get(i-1).getMessage() + From + startTime + By + endTime );
+            Message message = messages.get(i - 1);
+            print(message, i);
             i++;
+        }
+        if(messages.size() == 0) {
+            System.out.println("No task found");
         }
         System.out.println("-----------------------------------\n");
     }
@@ -104,8 +155,8 @@ public class messageHandler {
         if(input.contains("todo")) {
             List<Message> messages = list.getMessages();
             Message message = new Message(input);
-            String[] strings = input.split(" ");
-            String eventName = strings[1];
+
+            String eventName = input.substring(8).trim();
             message.setMessage(eventName);
             messages.add(message);
             list.setMessages(messages);
@@ -117,8 +168,8 @@ public class messageHandler {
             List<Message> messages = list.getMessages();
             String[] strings = input.split("/");
             String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-2].split(" ")[1];
-            Message message = new Message(eventName, endTime, 2);
+            String eventName = strings[strings.length-2].split(" ")[2];
+            Message message = new Message(eventName, convertToDate(endTime), 2);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
@@ -130,12 +181,16 @@ public class messageHandler {
             String[] strings = input.split("/");
             String startTime = strings[strings.length-2].split(" ")[1];
             String endTime = strings[strings.length-1].split(" ")[1];
-            String eventName = strings[strings.length-3].split(" ")[1];
-            Message message = new Message(eventName, startTime, endTime, 3);
+            String eventName = strings[strings.length-3].split(" ")[2];
+            Message message = new Message(eventName, convertToDate(startTime), convertToDate(endTime), 3);
             messages.add(message);
             list.setMessages(messages);
             System.out.println("-----------------------------------");
             System.out.println("added:" + message.getMessage());
+        }
+        else {
+            System.out.println("Unknown command entered!");
+            return;
         }
         saveHandler.writeToFile(list);
         int taskNumber = list.getMessages().size();
@@ -180,7 +235,7 @@ public class messageHandler {
      *
      * <p>This method is to extract information
      * from the user input and delete corresponding
-     * item fromthe message list</p>
+     * item from the message list</p>
      * @param input The input to be deleted.
      * @param list The message list to delete from.
      * @throws IOException If an error occurs.
@@ -197,7 +252,7 @@ public class messageHandler {
             }
         }
         if(messages.size() == 0 || i > messages.size() - 1) {
-            System.out.println("Sorry, you are marking an event that has not been added");
+            System.out.println("Sorry, you are deleting an event that has not been added");
         }
         else {
             System.out.println("------------------------------------\n");
@@ -206,5 +261,32 @@ public class messageHandler {
         }
         list.setMessages(messages);
         saveHandler.writeToFile(list);
+    }
+
+    /**
+     * Find existing items in message list
+     *
+     * <p>This method is to extract information
+     * from the user input and find items
+     * containing the input from the message list</p>
+     * @param input The input to be searched.
+     * @param list The message list to search from.
+     */
+
+    public static void find(messageList list, String input) {
+        List<Message> messages = list.getMessages();
+        String target = input.substring(4).trim();
+        int number = 0;
+        for(int i = 0; i < messages.size(); i++) {
+            Message message = messages.get(i);
+            String task = message.getMessage();
+            if(task.contains(target)) {
+                number++;
+                print(message, number);
+            }
+        }
+        if(number == 0) {
+            System.out.println("Sorry, no task is found");
+        }
     }
 }
