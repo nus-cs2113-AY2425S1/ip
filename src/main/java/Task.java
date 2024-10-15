@@ -1,5 +1,8 @@
 package main.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -11,7 +14,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    // Check if task description contains a keyword
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+        public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
