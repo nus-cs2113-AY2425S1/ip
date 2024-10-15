@@ -1,10 +1,18 @@
 package main.java;
 
+/**
+ * The main class for KenChat application, managing the UI, task storage and command execution.
+ */
 public class KenChat {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Initialises the KenChat application with the specific file path for storage.
+     *
+     * @param filePath The file path where task list is stored.
+     */
     public KenChat(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,8 +24,11 @@ public class KenChat {
         }
     }
 
+    /**
+     * Runs the KenChat application, processing user commands until exit is prompted.
+     */
     public void run() {
-        ui.start();
+        ui.showStart();
         boolean isRunning = true;
         while (isRunning) {
             try {
@@ -29,10 +40,16 @@ public class KenChat {
                 ui.showError(e.getMessage());
             }
         }
-        ui.end();
+        ui.showEnd();
     }
 
+    /**
+     * The main entry point of the KenChat application.
+     *
+     * @param args Command line arguments (not used).
+     * @throws KenChatException If there is an error during initialization.
+     */
     public static void main(String[] args) throws KenChatException {
-        new KenChat("data/DukeBot.txt").run();
+        new KenChat("data/KenChat.txt").run();
     }
 }

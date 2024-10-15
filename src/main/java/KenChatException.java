@@ -1,10 +1,19 @@
 package main.java;
 
+/**
+ * Exception class for the KenChat application
+ */
 public class KenChatException extends Exception {
 
     public KenChatException(String message) {
         super(message);
     }
+
+    /**
+     * Returns an error message because of an empty description for a specific command
+     * @param command The command that has the missing description.
+     * @return The error message.
+     */
     public static String getEmptyDescriptionMessage(String command) {
         return "Description is missing! Enter a description for the command. Use: " + command + " <description>";
     }
@@ -33,6 +42,12 @@ public class KenChatException extends Exception {
         return "That task number does not exist. Use <list> to see full task list.";
     }
 
+    /**
+     * Returns an error message because of a missing task number for Mark/Unmark/Delete command.
+     *
+     * @param action The command that is supposed to carry out the action of Mark/Unmark/Delete.
+     * @return The error message.
+     */
     public static String getEmptyTaskNumberMessage(String action) {
         return "Task number is missing!! Please specify the task number to " + action + ".";
     }
