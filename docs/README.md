@@ -1,6 +1,8 @@
 # Yukino User Guide
 
-
+<div>
+  <img src="Yukino_Screenshot.png" alt="My Image" width="500">
+</div>
 
 Yukino is a customised chat bot that assits you in your daily time and event management. You can add different types of tasks to Yukino and Yukino will take note for you! But also remember to check your tasks here from time to time.
 
@@ -40,7 +42,7 @@ Expected output:   -----------------------------------
                    3. [E][] test2 From: 11-11-11-1111 By: 12-12-12-1212
                    -----------------------------------
 
-if not taks:       -----------------------------------
+if not task:       -----------------------------------
 
                    No task found
                    -----------------------------------
