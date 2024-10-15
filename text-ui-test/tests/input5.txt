@@ -1,0 +1,24 @@
+todo demoTask1
+todo demoTask2
+todo demoTask3
+delete 1
+delete 5
+delete 10
+delete 123
+delete 
+delete 0
+delete -1
+delete abc
+delete 2.5
+delete 123abc
+delete !1
+delete " "
+delete ""
+delete "5"
+delete @1
+delete #3
+delete 001
+delete 0001
+delete 1!
+list
+bye

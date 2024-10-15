@@ -1,0 +1,15 @@
+todo Finish homework
+todo 
+todo ""
+todo   
+todo a
+todo " "
+todo Task with spaces
+todo @Important!
+todo "Quoted Task"
+todo Mix@of#Special&Characters!
+todo Task/with/slashes
+todo Task:with:colons
+todo Escaped \"quote\" in the task
+list
+bye

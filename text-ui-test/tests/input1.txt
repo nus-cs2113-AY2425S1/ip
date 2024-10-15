@@ -1,0 +1,33 @@
+todo demoTask1
+todo demoTask2
+todo demoTask3
+mark 1
+unmark 1
+mark 5
+unmark 5
+mark 
+unmark 
+mark 0
+unmark 0
+mark -1
+unmark -5
+mark abc
+unmark 2.5
+mark 123abc
+unmark !1
+mark " "
+unmark ""
+mark 1
+unmark 1
+mark Integer.MAX_VALUE
+unmark Integer.MAX_VALUE
+mark "5"
+unmark "10"
+mark @1
+unmark !2
+mark #3
+unmark 3!
+mark 001
+unmark 0001
+list
+bye
