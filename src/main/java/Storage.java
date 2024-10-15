@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+/**
+ * Handles load and save to a file
+ */
 public class Storage {
     private final String filePath;
 
@@ -13,6 +17,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file into an ArrayList
+     *
+     * @return An ArrayList of tasks loaded from the file
+     * @throws KenChatException If there is an error when loading tasks.
+     */
     public ArrayList<Task> load() throws KenChatException {
         ArrayList<Task> doList = new ArrayList<>();
         File file = new File(filePath);
@@ -34,6 +44,13 @@ public class Storage {
         return doList;
     }
 
+    /**
+     * Parses a line from the file and returns a matching Task object
+     *
+     * @param line The line of text from the file which represents a task.
+     * @return The matching task object.
+     * @throws KenChatException If the data format is wrong/corrupted.
+     */
     private static Task getTask(String line) throws KenChatException {
         String[] parts = line.split(" \\| ");
         Task task;
@@ -56,6 +73,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param doList The task list to save.
+     * @throws KenChatException If there is an error when saving tasks.
+     */
     public void save(ArrayList<Task> doList) throws KenChatException {
         File file = new File(filePath);
 

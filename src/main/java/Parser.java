@@ -1,10 +1,20 @@
 package main.java;
 
+/**
+ * Parses user input and creates the matching command objects.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command.
+     *
+     * @param userInput The input command string from the user.
+     * @return The Command object corresponding to the user input.
+     * @throws KenChatException If the input is invalid or commands are wrong.
+     */
     public static Command parse(String userInput) throws KenChatException {
         userInput = userInput.trim();
 
-        if (userInput.isEmpty()) { // Check for null command
+        if (userInput.isEmpty()) { // Check for empty command
             throw new KenChatException(KenChatException.emptyCommand());
         }
 
