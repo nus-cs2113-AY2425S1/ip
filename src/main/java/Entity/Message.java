@@ -34,7 +34,7 @@ public class Message {
         this.type = type;
     }
 
-    //retrive
+    //retrieve
     public Message(String message, boolean isDone, String startTime, String endTime, int type) {
         this.message = message;
         this.isDone = false;

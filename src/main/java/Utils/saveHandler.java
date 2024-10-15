@@ -7,11 +7,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class saveHandler {
+
+    /**
+     * Converts message to String.
+     *
+     * <p>This method takes message stored and convert to form that is
+     * ready for writing into local data file</p>
+     * @param message The message stored
+     * @return The String form of the message ready for writing into file.
+     */
 
     public static String converter(Message message) {
         String output = null;
@@ -39,6 +47,16 @@ public class saveHandler {
         return output;
     }
 
+    /**
+     * Initialise message list when program starts
+     *
+     * <p>This method calls the retrieve data method to retrieve data if the
+     * file is already created at designated path</p>
+     * @param list The message list to store retrieved data into.
+     * @throws Exception If any error occurs.
+     * @see java.io.File;
+     */
+
     public static void initFile(messageList list){
         try {
             File file = new File("YukinoData.txt");
@@ -54,17 +72,35 @@ public class saveHandler {
         }
     }
 
+    /**
+     * writes converted String into file
+     *
+     * <p>This method calls converter to convert message
+     * in the list and writes the converted message into local data file</p>
+     * @param list The message list to convert and write.
+     * @see java.io.FileWriter;
+     */
+
     public static void writeToFile(messageList list) throws IOException {
         List<Message> messages = list.getMessages();
         FileWriter fw = new FileWriter("YukinoData.txt");
         for(int i = 0; i < messages.size(); i++) {
             Message message = messages.get(i);
             String toWrite = converter(message);
-            System.out.println(toWrite);
             fw.write(toWrite + "\n");
         }
         fw.close();
     }
+
+    /**
+     * Retrieves data
+     *
+     * <p>This method retrieves data from the local data file
+     * and store into a new message list when the program starts</p>
+     * @param list The message list to store retrieved data.
+     * @throws FileNotFoundException If no data file is found.
+     * @see java.io.File;
+     */
 
     public static void retrieveData(messageList list){
         try {
