@@ -2,6 +2,8 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -34,4 +36,14 @@ public class TaskList {
         return (ArrayList<Task>) tasks;
     }
 
+    public Map<Integer, Task> findTasksByKeywordWithIndex(String keyword) {
+        Map<Integer, Task> matchingTasks = new HashMap<>();  // Store index-task pairs
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getName().contains(keyword)) {
+                matchingTasks.put(i + 1, task);  // Store the 1-based index
+            }
+        }
+        return matchingTasks;
+    }
 }

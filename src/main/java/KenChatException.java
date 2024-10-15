@@ -47,4 +47,8 @@ public class KenChatException extends Exception {
     public static String directoryCreationFailure() {
         return "Failed to create directory.";
     }
+
+    public static String getKeyWordMissing() {
+        return "Keyword is missing. Use: find <keyword>";
+    }
 }
