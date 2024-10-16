@@ -1,0 +1,111 @@
+___________________ PROGRAM OUTPUT BELOW ___________________
+Searching for the save file folder ...
+Folder has been found. 
+Searching for the save file ... 
+A save file has been found. Initialising the task list ... 
+No invalid tasks were detected in the save file. 
+____________________________________________________________
+Let us resume where we left off, shall we? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Now, I gotta remember this too: 
+  [T][X] todoDesc
+If I counted correctly, you have a task total of 3
+Don't worry, I've already memorized all about it! 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+I know, you told me that this task is done
+  [T][O] todoDesc
+Keep it up! What are you gonna do next? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Now, I gotta remember this too: 
+  [D][X] deadlineDesc, by end date
+If I counted correctly, you have a task total of 4
+Don't worry, I've already memorized all about it! 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+You're forgetting already? Lemme refresh your memory: 
+1.[T][O] todoDesc
+2.[E][O] eventDesc, from end date to end date
+3.[T][X] todoDesc
+4.[D][X] deadlineDesc, by end date
+That should be all of them. Did I forget any? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Now, I gotta remember this too: 
+  [E][X] eventDesc, from end date to end date
+If I counted correctly, you have a task total of 5
+Don't worry, I've already memorized all about it! 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+You're forgetting already? Lemme refresh your memory: 
+1.[T][O] todoDesc
+2.[E][O] eventDesc, from end date to end date
+3.[T][X] todoDesc
+4.[D][X] deadlineDesc, by end date
+5.[E][X] eventDesc, from end date to end date
+That should be all of them. Did I forget any? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+I know, you told me that this task is done
+  [T][O] todoDesc
+Keep it up! What are you gonna do next? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+I know, you told me that this task is not done
+  [T][X] todoDesc
+Keep going, you'll get it done eventually! 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+You're forgetting already? Lemme refresh your memory: 
+1.[T][X] todoDesc
+2.[E][O] eventDesc, from end date to end date
+3.[T][O] todoDesc
+4.[D][X] deadlineDesc, by end date
+5.[E][X] eventDesc, from end date to end date
+That should be all of them. Did I forget any? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Hmmm, let me think. What tasks could you be referring to? 
+1.[T][X] todoDesc
+2.[E][O] eventDesc, from end date to end date
+3.[T][O] todoDesc
+4.[D][X] deadlineDesc, by end date
+5.[E][X] eventDesc, from end date to end date
+5 task(s) found contains your query string. 
+___________________ YAPPING OUTPUT BELOW ___________________
+Is any of them what you were looking for? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Hmmm, let me think. What tasks could you be referring to? 
+4.[D][X] deadlineDesc, by end date
+1 task(s) found contains your query string. 
+___________________ YAPPING OUTPUT BELOW ___________________
+Is any of them what you were looking for? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Hmmm, let me think. What tasks could you be referring to? 
+No tasks found that contains your query string. 
+___________________ YAPPING OUTPUT BELOW ___________________
+Sorry, I don't recall anything that is related to that. 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Now I don't need to remember this one anymore: 
+  [E][O] eventDesc, from end date to end date
+If I counted correctly, you have a task total of 4
+Don't worry, I've already forgotten about it! 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+You're forgetting already? Lemme refresh your memory: 
+1.[T][X] todoDesc
+2.[T][O] todoDesc
+3.[D][X] deadlineDesc, by end date
+4.[E][X] eventDesc, from end date to end date
+That should be all of them. Did I forget any? 
+_____________________ USER INPUT BELOW _____________________
+___________________ PROGRAM OUTPUT BELOW ___________________
+Thanks for listenin' to my yappin'. 
+Call for me whenever ya feel like listening again. 
+Cya! 
+____________________________________________________________

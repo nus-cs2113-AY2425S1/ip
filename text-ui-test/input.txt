@@ -1,0 +1,15 @@
+todo todoDesc
+mark 1
+deadline deadlineDesc /by end date
+list
+event eventDesc /from start date /to end date
+list
+mark 3
+unmark 1
+list
+find Desc
+find deadline
+find unfindable
+delete 2
+list
+bye
