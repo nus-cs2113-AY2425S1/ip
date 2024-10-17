@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static exceptions.ExceptionErrorMessage.EMPTY_DESCRIPTION_MESSAGE;
 import static exceptions.ExceptionErrorMessage.INVALID_DATE_FORMAT;
 
 /**
@@ -35,18 +36,22 @@ public class Task implements Serializable {
         this.isDone = false;
 
         String[] descriptionAndTime = details.split("/", 2);
-        this.description = descriptionAndTime[0];
+        String description = descriptionAndTime[0].trim();
+        if (description.isEmpty()) {
+            throw new IrisException(EMPTY_DESCRIPTION_MESSAGE);
+        }
+        this.description = description;
 
         if (descriptionAndTime.length == 1) {
             return;
         }
-        String[] prepositionAndDate = descriptionAndTime[1].split(" ", 2);
-        this.timePreposition = prepositionAndDate[0];
+        String[] prepositionAndDate = descriptionAndTime[1].trim().split(" ", 2);
+        this.timePreposition = prepositionAndDate[0].trim();
 
         if (prepositionAndDate.length == 1) {
             return;
         }
-        String dateString = prepositionAndDate[1];
+        String dateString = prepositionAndDate[1].trim();
         try {
             this.dueDate = LocalDate.parse(dateString);
         } catch (DateTimeParseException e) {
