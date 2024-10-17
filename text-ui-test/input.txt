@@ -1,0 +1,38 @@
+list
+clear
+N
+list
+clear
+u
+u
+m
+y
+list
+echo hello world
+todo Read lecture note
+event Anime Festival /from 2024-10-10 1000 /to 2024-10-17
+deadline Assignment 1 /by 2024-01-12
+read Niwa/data_external/read.txt
+read Niwa/data_external/random.txt
+list
+mark 1
+save Niwa/data_external/write.txt
+list
+unmark 1
+list
+delete 3
+list
+help
+echo
+todo
+event Anime Festival /from 2024-12-10 1000 /to 2024-10-17
+deadline Assignment 1 /by 2024.11.11
+list 342
+mark 999
+lis
+unmark 133
+delete 33
+list
+help 12
+bye 12
+bye
