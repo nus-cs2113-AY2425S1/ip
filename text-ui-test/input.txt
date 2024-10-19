@@ -1,0 +1,24 @@
+list
+todo read book
+deadline read magazine /by 2024-10-09 06:00
+event attend obamas's party /from 2024-11-09 17:00 /to 2024-11-09 20:00
+list
+mark 2
+mark 3
+list
+unmark 3
+todo learn how to dance
+delete 1
+list
+deadline submit PR /by 2024-10-09 06:00
+deadline CS2113 iP /by 2024-10-11 16:00
+list
+find Oct
+find [T]
+delete 5
+delete 4
+delete 3
+delete 2
+delete 1
+list
+bye
