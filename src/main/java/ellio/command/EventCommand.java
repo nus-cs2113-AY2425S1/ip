@@ -37,6 +37,8 @@ public class EventCommand extends Command {
 
     /**
      * Splits the user input into description, event start time and event end time
+     * If an incorrect start and end time is given [Eg. from 12-10-2024 to 09-09-2024],
+     * it will still recognise a valid event and save it as such.
      * Returns an Event Object to be saved into the list.
      * @param line Input from user
      * @return An Event object to be saved into the list

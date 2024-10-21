@@ -74,4 +74,12 @@ public class EllioExceptions extends Exception{
                     BotText.LINE_BORDER);
         }
     }
+
+    public static class InvalidIndexException extends EllioExceptions{
+        public InvalidIndexException (){
+            super(BotText.LINE_BORDER +
+                    BotText.MESSAGE_INVALID_INDEX +
+                    BotText.LINE_BORDER);
+        }
+    }
 }

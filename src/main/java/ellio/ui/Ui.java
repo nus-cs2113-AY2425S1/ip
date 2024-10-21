@@ -126,6 +126,12 @@ public class Ui {
                 BotText.LINE_BORDER);
     }
 
+    public void showEmptyListMessage(){
+        System.out.println(BotText.LINE_BORDER +
+                "I have no tasks logged. Try again after adding a task.\n" +
+                BotText.LINE_BORDER);
+    }
+
     /**
      * Display the list of commands the application supports
      * @return String of list of commands

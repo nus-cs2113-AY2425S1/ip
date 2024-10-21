@@ -31,7 +31,7 @@ Ellio is a command-line chatbot designed to manage your tasks efficiently.
    ```plaintext
    event [description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]
    ```
-   Example: event New Event /from 13/10/2024 18:00 /to 13/10/2024 24:00
+   Example: event New Event /from 13-10-2024 18:00 /to 13-10-2024 24:00
 
 
 4. **Mark a task as done**

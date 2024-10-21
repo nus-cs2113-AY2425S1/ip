@@ -1,6 +1,5 @@
 package ellio.command;
 
-import ellio.BotText;
 import ellio.EllioExceptions;
 import ellio.storage.Storage;
 import ellio.task.TaskList;
@@ -21,7 +20,12 @@ public class UnmarkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EllioExceptions{
         int index = Integer.parseInt(tasks.getTaskIndex(inputCommand));
-        if(index > tasks.getNumberTask()){
+        if(index <= 0){
+            throw new EllioExceptions.InvalidIndexException();
+        } else if(tasks.getNumberTask() == 0){
+            ui.showEmptyListMessage();
+            return;
+        } else if(index > tasks.getNumberTask()){
             throw new EllioExceptions.OutOfIndexException(tasks.getNumberTask());
         }
         tasks.getTask(index-1).unmarkTaskAsDone();

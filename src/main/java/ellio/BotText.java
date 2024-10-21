@@ -17,4 +17,5 @@ public class BotText {
     public static final String MESSAGE_MISSING_DEADLINE_TIME = "Missing deadline date detected. Remember to add /by to your deadline\n";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format detected. Try again with DD-MM-YYYY & with a valid date\n";
     public static final String MESSAGE_INVALID_DATE_TIME_FORMAT = "Invalid date time format detected. Try again with DD-MM-YYYY HH:MM & with a valid date\n";
+    public static final String MESSAGE_INVALID_INDEX = "You have requested for an invalid index. Try again with a valid index larger than 0\n";
 }
