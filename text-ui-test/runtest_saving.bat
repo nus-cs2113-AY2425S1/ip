@@ -16,10 +16,16 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin\ cuboyd.Cuboyd < input.txt > ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/1_todo.txt     > ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/2_deadline.txt >> ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/3_event.txt    >> ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/4_mark.txt     >> ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/5_unmark.txt   >> ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/6_delete.txt   >> ACTUAL.TXT
+java -classpath ..\bin\ cuboyd.Cuboyd < input_saving/end.txt        >> ACTUAL.TXT
 
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+FC ACTUAL.TXT EXPECTED_SAVING.TXT
 
 REM delete savedata from new run
 if exist savedata.txt del savedata.txt
