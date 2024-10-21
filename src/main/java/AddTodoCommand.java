@@ -3,6 +3,7 @@
  */
 public class AddTodoCommand extends Command {
     private String description;
+
     /**
      * Constructs an AddTodoCommand with the specified description.
      *
@@ -11,11 +12,12 @@ public class AddTodoCommand extends Command {
     public AddTodoCommand(String description) {
         this.description = description;
     }
+
     /**
      * Executes the command to add the todo task to the task list.
      *
-     * @param tasks  The task list to which the task will be added.
-     * @param ui     The user interface for displaying messages to the user.
+     * @param tasks   The task list to which the task will be added.
+     * @param ui      The user interface for displaying messages to the user.
      * @param storage The storage for saving tasks to a file.
      */
     @Override

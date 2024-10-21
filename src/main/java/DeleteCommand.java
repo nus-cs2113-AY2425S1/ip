@@ -3,6 +3,7 @@
  */
 public class DeleteCommand extends Command {
     private int index;
+
     /**
      * Constructs a DeleteCommand with the specified index.
      *
@@ -15,8 +16,8 @@ public class DeleteCommand extends Command {
     /**
      * Executes the command to delete the specified task from the task list.
      *
-     * @param tasks  The task list from which the task will be deleted.
-     * @param ui     The user interface for displaying messages to the user.
+     * @param tasks   The task list from which the task will be deleted.
+     * @param ui      The user interface for displaying messages to the user.
      * @param storage The storage for saving tasks to a file.
      * @throws PoirotException If the index is out of bounds.
      */

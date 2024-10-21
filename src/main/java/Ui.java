@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 /**
  * Handles the user interface interactions for the task management application.
  */
@@ -15,6 +16,7 @@ public class Ui {
         System.out.println("Hello! I'm POIROT\nWhat can I do for you?");
         showLine();
     }
+
     /**
      * Displays a goodbye message when exiting the application.
      */
@@ -28,6 +30,7 @@ public class Ui {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
     /**
      * Displays an error message to the user.
      *
@@ -38,10 +41,11 @@ public class Ui {
         System.out.println(message);
         showLine();
     }
+
     /**
      * Displays a message indicating that a task has been added.
      *
-     * @param task     The task that was added.
+     * @param task      The task that was added.
      * @param taskCount The current count of tasks in the list.
      */
     public void showAddedTask(Task task, int taskCount) {
@@ -51,10 +55,11 @@ public class Ui {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         showLine();
     }
+
     /**
      * Displays a message indicating that a task has been deleted.
      *
-     * @param task     The task that was deleted.
+     * @param task      The task that was deleted.
      * @param taskCount The current count of tasks in the list.
      */
     public void showDeletedTask(Task task, int taskCount) {
@@ -64,6 +69,7 @@ public class Ui {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         showLine();
     }
+
     /**
      * Displays the list of tasks to the user.
      *
@@ -81,6 +87,7 @@ public class Ui {
         }
         showLine();
     }
+
     /**
      * Displays a message indicating that a task has been marked as done.
      *
@@ -93,6 +100,7 @@ public class Ui {
         System.out.println(task.getDescription());
         showLine();
     }
+
     /**
      * Displays a message indicating that a task has been unmarked as done.
      *
@@ -105,6 +113,7 @@ public class Ui {
         System.out.println(task.getDescription());
         showLine();
     }
+
     /**
      * Displays the tasks found that match the keyword.
      *
@@ -116,6 +125,7 @@ public class Ui {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
     }
+
     public void showMessage(String message) {
         System.out.println(message);
     }

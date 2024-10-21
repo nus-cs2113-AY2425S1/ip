@@ -1,7 +1,7 @@
 /**
  * Represents a simple todo task without any specific date or time.
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructs a Todo with the specified description.
      *
@@ -10,6 +10,7 @@ public class Todo extends Task{
     public Todo(String description) {
         super(description);
     }
+
     /**
      * Returns the string representation of the todo task.
      *
@@ -19,6 +20,7 @@ public class Todo extends Task{
     public String toString() {
         return "[T][" + getStatusIcon() + "] " + description;
     }
+
     /**
      * Returns a string representation for saving the todo task to a file.
      *

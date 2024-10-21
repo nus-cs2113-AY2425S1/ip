@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 /**
  * Represents a list of tasks.
  */
@@ -26,6 +27,7 @@ public class TaskList {
         }
         return foundTasks;
     }
+
     /**
      * Deletes a task from the task list at the specified index.
      *
@@ -38,6 +40,7 @@ public class TaskList {
         tasks[lastIndex - 1] = null;
         lastIndex--;
     }
+
     /**
      * Returns the list of tasks.
      *
@@ -46,6 +49,7 @@ public class TaskList {
     public Task[] getTasks() {
         return tasks;
     }
+
     /**
      * Returns the number of tasks in the task list.
      *
@@ -54,6 +58,7 @@ public class TaskList {
     public int getTaskCount() {
         return lastIndex;
     }
+
     /**
      * Returns the task at the specified index.
      *
@@ -63,10 +68,11 @@ public class TaskList {
     public Task getTask(int index) {
         return tasks[index];
     }
+
     /**
      * Marks the specified task as done.
      *
-     * @param index The index of the task to mark.
+     * @param index  The index of the task to mark.
      * @param isDone true to mark as done, false otherwise.
      */
     public void markTask(int index, boolean isDone) {

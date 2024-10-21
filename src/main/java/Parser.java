@@ -1,4 +1,14 @@
+/**
+ * The Parser class is responsible for parsing user input and creating appropriate Command objects.
+ */
 public class Parser {
+    /**
+     * Parses the input string and returns the corresponding Command object.
+     *
+     * @param input The user input string to be parsed.
+     * @return A Command object based on the parsed input.
+     * @throws PoirotException If the input is invalid or cannot be parsed.
+     */
     public static Command parse(String input) throws PoirotException {
         String[] list_input = input.split(" ");
         switch (list_input[0]) {
@@ -24,21 +34,33 @@ public class Parser {
                 throw new PoirotException("Unknown command!");
         }
     }
-
+    /**
+     * Parses the deadline command input and creates an AddDeadlineCommand object.
+     *
+     * @param input The deadline command input string.
+     * @return An AddDeadlineCommand object.
+     * @throws PoirotException If the deadline format is invalid.
+     */
     private static Command parseDeadlineCommand(String input) throws PoirotException {
         try {
             String[] parts = input.split("/by");
             if (parts.length < 2) {
                 throw new PoirotException("Invalid deadline format! Use: deadline <description> /by <yyyy-mm-dd>");
             }
-            String description = parts[0].trim().substring(9).trim();
+            String description = parts[0].trim();
             String by = parts[1].trim();
             return new AddDeadlineCommand(description + " /by " + by);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new PoirotException("Invalid format for deadline command.");
         }
     }
-
+    /**
+     * Parses the event command input and creates an AddEventCommand object.
+     *
+     * @param input The event command input string.
+     * @return An AddEventCommand object.
+     * @throws PoirotException If the event format is invalid.
+     */
     private static Command parseEventCommand(String input) throws PoirotException {
         try {
             if (!input.contains("/from") || !input.contains("/to")) {

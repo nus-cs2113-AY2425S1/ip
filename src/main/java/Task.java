@@ -4,6 +4,7 @@
 abstract class Task {
     protected String description;
     protected boolean isDone;
+
     /**
      * Constructs a Task with the specified description.
      *
@@ -13,9 +14,11 @@ abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+
     public String getDescription() {
         return description;
     }
+
     /**
      * Returns the status icon of the task.
      *
@@ -24,6 +27,7 @@ abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
+
     /**
      * Marks the task as done or not done.
      *
@@ -32,7 +36,9 @@ abstract class Task {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
     public abstract String toString();
+
     /**
      * Returns a string representation for saving the task to a file.
      *
