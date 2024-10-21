@@ -55,7 +55,7 @@ todo Buy groceries
 deadline Submit assignment /by 25/09/2024
 
 - **Event**: 
-event Team meeting /from 25/09/2024T14:00 /to 25/09/2024T16:00
+event Team meeting /from 25/09/2024 1400 /to 25/09/2024 1600
 
 - **Delete Task**: 
 delete 2

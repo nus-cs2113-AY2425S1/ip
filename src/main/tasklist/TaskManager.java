@@ -207,7 +207,10 @@ public class TaskManager {
         }
 
         // Create and return the Event task
-        return new Event(eventDescription, fromDateTime, toDateTime);
+        if (fromDateTime != null && toDateTime != null) {
+            return new Event(eventDescription, fromDateTime, toDateTime);
+        }
+        return new Event(eventDescription, from, to);
     }
 
     /**
