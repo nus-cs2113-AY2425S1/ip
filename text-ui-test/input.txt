@@ -1,0 +1,34 @@
+list
+mark 0
+todo read book
+deadline return book /by June 6th
+deadline return book /by 06/06/2024
+event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 08-06-2024 14:00 /to 08-06-2024 16:00
+mark 1
+list
+todo join sports club
+mark 4
+todo
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /frm Mon 2pm /to 4pm
+event project meeting /from 30/09/2024 14:00 /to 30/09/2024 16:00
+lists
+list
+mark 8
+mark 7
+list
+unmark 4'
+unmark 4
+list
+delete 9
+delete 7
+delete
+delete 2
+list
+find
+find bruh
+find book
+bye
