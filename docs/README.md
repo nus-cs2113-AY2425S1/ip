@@ -12,7 +12,7 @@ CheonsaBot is a simple and intuitive task management tool designed to keep track
      ```
      java -version
      ```
-   - If Java 17 is not installed, you can download it from [Oracle's Java download page](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html).
+   - If Java 17 is not installed, you can download it from [Oracle's Java download page](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 
 2. **Running the application:**
    - Once Java 17 is installed, navigate to the folder where `ip.jar` is located and run:
@@ -49,23 +49,35 @@ CheonsaBot is a simple and intuitive task management tool designed to keep track
 
 ### **Examples**
 
-- **ToDo**: 
+- **ToDo**:
+```
 todo Buy groceries
+```
 
-- **Deadline**: 
+- **Deadline**:
+```
 deadline Submit assignment /by 25/09/2024
+```
 
-- **Event**: 
+- **Event**:
+```
 event Team meeting /from 25/09/2024 1400 /to 25/09/2024 1600
+```
 
-- **Delete Task**: 
+- **Delete Task**:
+```
 delete 2
+```
 
-- **Find Task**: 
+- **Find Task**:
+```
 find groceries
+```
 
-- **Exit**: 
+- **Exit**:
+```
 bye
+```
 
 ---
 
