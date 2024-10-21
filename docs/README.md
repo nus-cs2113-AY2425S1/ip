@@ -30,6 +30,7 @@ CheonsaBot is a simple and intuitive task management tool designed to keep track
   - `event <description> /from <start> /to <end>`: Adds an event task with a start and end time or date. Format is similar to that of a deadline.
 
 - **Other commands:**
+  - `help` : Displays this help message.
   - `list`: Displays all tasks with their respective index.
   - `delete <task_number>`: Deletes a task by its number.
   - `mark <task_number>`: Marks a task as done.
@@ -86,7 +87,7 @@ bye
 - Make sure the program has write permissions to the folder where `ip.jar` is located. The tasks are stored in `tasklist.txt` in the same folder.
 
 - **Q: Why is the date format not being recognized?**
-- Ensure the date is in the format `dd/MM/yyyy`, and if specifying time, include the time in `HH:mm` format, like `25/09/2024 1800`.
+- Ensure the date is in the format `dd/MM/yyyy`, and if specifying time, include the time in `HHmm` format, like `25/09/2024 1800`.
 
 - **Q: What if I make a mistake while adding a task?**
 - You can always delete a task by its number using the `delete` command or unmark it if marked by mistake.
