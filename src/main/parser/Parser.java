@@ -20,7 +20,7 @@ public class Parser {
         String argument = words.length > 1 ? words[1] : "";
 
         switch (command) {
-            case "bye":
+        case "bye":
             UI.sayBye();
             return false;
         case "delete":
@@ -28,6 +28,9 @@ public class Parser {
             break;
         case "find":
             TaskManager.findTask(argument);
+            break;
+        case "help":
+            UI.printResponse(UI.HELP_MESSAGE);
             break;
         case "list":
             TaskManager.printTaskList();

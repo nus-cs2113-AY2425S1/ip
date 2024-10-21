@@ -49,4 +49,20 @@ public class UI {
     public static String getUserInput() {
         return in.nextLine();
     }
+
+    public static final String HELP_MESSAGE = """
+    To add tasks:
+        todo <description> : Adds a basic to-do task.
+        deadline <description> /by <date> : Adds a task with a deadline. 
+        event <description> /from <start> /to <end> : Adds an event task.
+
+    Other commands:
+        help : Displays this help message.
+        list : Displays all tasks with their respective index.
+        delete <task_number> : Deletes a task by its number.
+        mark <task_number> : Marks a task as done.
+        unmark <task_number> : Unmarks a task.
+        find <search_term> : Finds tasks based on their name or description.
+        bye : Exits the program.            
+    """;
 }
