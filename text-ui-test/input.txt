@@ -1,0 +1,7 @@
+todo go swimming
+event lecture /from 1400 /to 1500
+deadline tutorial /by tomorrow
+list
+unmark 2
+list
+bye

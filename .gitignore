@@ -3,6 +3,15 @@
 /out/
 /*.iml
 
+#The task list file
+tasks.txt
+
+#Jar Files
+*.jar
+
+# .class files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
