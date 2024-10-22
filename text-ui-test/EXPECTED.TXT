@@ -1,36 +1,16 @@
+Loaded 4 tasks
 ------------------------------
 Hello, I am Diana! A personal assistant that helps you keep track of your tasks :)
-Here are the list of things that Diana can do for you
+Here are the list of things that Diana can do for you:
 1. Create a todo task eg. [todo read book]
-2. Create an event task eg. [event read book /from 2pm /to 4pm]
-3. Create a deadline task eg. [deadline read book /by 2pm]
-4. Type either mark or unmark to indicate the completion rate of your task
-5. Type list to view the your list of tasks.
-6. Type bye to exit the programme
-------------------------------
-------------------------------
-Got it! I've added this task
-read book
-Now you have 1 tasks in the list
-------------------------------
-1. [T][ ] read book
-------------------------------
-------------------------------
-Got it! I've added this task
-read book
-Now you have 2 tasks in the list
-------------------------------
-1. [T][ ] read book
-2. [E][ ] read book (from: 2pm to: 4pm)
-------------------------------
-------------------------------
-Got it! I've added this task
-read book
-Now you have 3 tasks in the list
-------------------------------
-1. [T][ ] read book
-2. [E][ ] read book (from: 2pm to: 4pm)
-3. [D][ ] read book (by: 2pm)
+2. Create an event task eg. [event read book /from 2/12/2019 1800 /to 3/12/2019 1800]
+3. Create a deadline task eg. [deadline read book /by 2/12/2019 1800]
+4. Type either mark <index> or unmark <index> to indicate the completion rate of your task
+5. Delete a task eg. [delete 1]
+6. Type list to view the your list of tasks.
+7. Type bye to exit the programme.
+8. Type find <task> to find tasks with specific keywords.
+9. Type date <date> to find tasks on specific dates.
 ------------------------------
 ------------------------------
 Nice! I've marked this task as done
@@ -42,10 +22,10 @@ Okay, I've marked this task as not done yet
 ------------------------------
 ------------------------------
 1. [T][ ] read book
-2. [E][ ] read book (from: 2pm to: 4pm)
-3. [D][ ] read book (by: 2pm)
+2. [T][ ] read book
+3. [T][ ] read book
+4. [T][ ] read book
 ------------------------------
-Unknown command
-Please enter a valid event with the correct format:
-Eg: Read book /from 2pm /to 4pm
-Bye! Hope to see you again soon.
+Unknown Command: this is a bad command
+Format Invalid. Please use the following format: event <description> /from <start time> /to <end time>
+Goodbye!
