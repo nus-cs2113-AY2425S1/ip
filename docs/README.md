@@ -32,7 +32,7 @@ Diana is a personal assistant that helps you keep track of our tasks.
 
 Examples: 
 - `mark 1`
-- !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
+- !["Image cannot be loaded"](/../assets/images/mark.png)
 - `unmark 1`
 - !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
 
