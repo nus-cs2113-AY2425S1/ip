@@ -32,33 +32,76 @@ Diana is a personal assistant that helps you keep track of our tasks.
 
 Examples: 
 - `mark 1`
-- !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
+- ![mark](https://github.com/user-attachments/assets/4f3ec920-0cb2-4e1d-822a-d29ce719519c)
 - `unmark 1`
-- !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
+- ![image](https://github.com/user-attachments/assets/6f5329c6-7ac2-496f-961a-7a0436d938f3)
 
-`todo`: creates a todo task without any date specification 
+### Create a todo task: `todo`
+- creates a todo task without any date specification
+- Format: `todo DESCRIPTION`
 
-`deadline`: create a deadline task that you need to complete by a certain date 
+Examples: 
+- `todo read book`
+- ![image](https://github.com/user-attachments/assets/0ac35756-a4eb-4228-9d81-d4b05a46e633)
 
-`event`: create an event task that starts from a certain date and ends on a certain date
+### Create a deadline task: `deadline`
+- create a deadline task that you need to complete by a certain date 
+- Format: `deadline DESCRIPTION /by DD/MM/YYYY HHMM`
 
-`delete`: delete any of the task that is currently within your tasklist 
+Examples: 
+- `deadline read book /by 2/12/2019 1800`
+- ![image](https://github.com/user-attachments/assets/e5f53dc3-a571-4475-a802-6efc084f16a1)
 
-`find`: find tasks based on keywords 
+### Create an event task: `event`
+- create an event task that starts from a certain date and ends on a certain date
+- Format: `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`
 
-`date`: find tasks based on dates 
+Examples:
+- `event read book /from 2/12/2019 1800 /to 3/12/2019 1800`
+- ![image](https://github.com/user-attachments/assets/3553574f-7a74-43e2-a8d4-556ec88a8b90)
 
-`bye`: Exits the programme
+### Delete a task: `delete`
+- delete any of the task that is currently within your tasklist
+- Format: `delete INDEX`
 
-| Commands                                             | Example                                              | Output                                                            |
-|------------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------|
-| `list`                                               | `list`                                               | `1. [T][ ] read book`                                             |
-| `mark <index>`                                       | `mark 1`                                             | `1. [T][X] read book`                                             |
-| `unmark <index>`                                     | `unmark 1`                                           | `1. [T][ ] read book`                                             |
-| `todo <task>`                                        | `todo read book`                                     | `1. [T][ ] read book`                                             |
-| `event <task> /from <date & time> /to <date & time>` | `event read book /from 2/12/2019 1800 /to 3/12/2019` | `1. [E][ ] read book (from: Dec 02 2019 1800 to: Dec 03 2019)`    |
-| `deadline <task> /by <date & time>`                  | `deadline read book /by 2/12/2019 1800`              | `1. [D][ ] read book (by: Dec 02 2019 1800)`                      |
-| `delete <index>`                                     | `delete 7`                                           | `Task: [D][ ] read book (by: Oct 08 2024 15:08) has been deleted` 
-| `find <task>`                                        | `find book`                                          | `1. [D][ ] read book (by: Oct 08 2024 15:08)`                     |
-| `date <date>`                                        | `date Oct 19 2019`                                   | `1. [D][ ] read book (by: Oct 19 2019 15:08)`                     |
-| `bye`                                                | `bye`                                                | `Goodbye!`                                                        |
+Examples: 
+- `delete 1`
+- ![image](https://github.com/user-attachments/assets/0dfd4d36-1fa5-4ed0-af56-de292f10de87)
+
+### Find tasks: `find`
+- find tasks based on keywords
+- Format: `find DESCRIPTION`
+
+Examples: 
+- `find read`
+- ![image](https://github.com/user-attachments/assets/2e5abbe1-9547-4473-b785-176f66786118)
+
+### Find date: `date`
+- find tasks based on due dates 
+- Format: `date MMM DD YYYY`
+
+Examples: 
+- `date Dec 03 2019`
+- ![image](https://github.com/user-attachments/assets/074ef13a-e087-49c9-89a7-0238362901fb)
+
+### Exit programme: `bye`
+- Exits the programme
+- Format: `bye`
+
+Examples: 
+- `bye`
+- ![image](https://github.com/user-attachments/assets/9d9cb751-50a0-4f9c-90a0-f5f8991ae704)
+
+
+| Commands                                             | Example                                              | Output                                                                                    |
+|------------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| `list`                                               | `list`                                               | ![mark](https://github.com/user-attachments/assets/4f3ec920-0cb2-4e1d-822a-d29ce719519c)  |
+| `mark INDEX`                                         | `mark 1`                                             | ![image](https://github.com/user-attachments/assets/6f5329c6-7ac2-496f-961a-7a0436d938f3) |
+| `unmark INDEX`                                       | `unmark 1`                                           | ![image](https://github.com/user-attachments/assets/0ac35756-a4eb-4228-9d81-d4b05a46e633) |
+| `todo <task>`                                        | `todo read book`                                     | ![image](https://github.com/user-attachments/assets/0ac35756-a4eb-4228-9d81-d4b05a46e633) |
+| `event <task> /from <date & time> /to <date & time>` | `event read book /from 2/12/2019 1800 /to 3/12/2019` | ![image](https://github.com/user-attachments/assets/3553574f-7a74-43e2-a8d4-556ec88a8b90) |
+| `deadline <task> /by <date & time>`                  | `deadline read book /by 2/12/2019 1800`              | ![image](https://github.com/user-attachments/assets/e5f53dc3-a571-4475-a802-6efc084f16a1) |
+| `delete <index>`                                     | `delete 1`                                           | ![image](https://github.com/user-attachments/assets/0dfd4d36-1fa5-4ed0-af56-de292f10de87) |
+| `find <task>`                                        | `find read`                                          | ![image](https://github.com/user-attachments/assets/2e5abbe1-9547-4473-b785-176f66786118) |
+| `date <date>`                                        | `date Dec 03 2019`                                   | ![image](https://github.com/user-attachments/assets/074ef13a-e087-49c9-89a7-0238362901fb) |
+| `bye`                                                | `bye`                                                | ![image](https://github.com/user-attachments/assets/9d9cb751-50a0-4f9c-90a0-f5f8991ae704) |
