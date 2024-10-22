@@ -1,7 +1,1 @@
-D | 0 | read book | Dec 01 2019 1800
-E | 0 | read book | 1/12/2019 1800 | 10/12/2019 1800
-T | 0 | read book
-T | 0 | read book
-T | 0 | read book
-D | 0 | read book | Dec 01 2024 1900
-D | 0 | read book | Dec 02 2019 1800
+E | 0 | read | 2/12/2024 1800 | 3/12/2024 1700

@@ -18,37 +18,38 @@ public class Parser {
     }
 
     public void determineCommand(String input) {
+        String inputTrim = input.trim();
         try {
-            switch (processCommand(input)) {
+            switch (processCommand(inputTrim)) {
             case "list":
                 tasklist.printList();
                 break;
             case "mark":
-                tasklist.toMark(input, true);
+                tasklist.toMark(inputTrim, true);
                 break;
             case "unmark":
-                tasklist.toMark(input, false);
+                tasklist.toMark(inputTrim, false);
                 break;
             case "todo":
-                tasklist.addTodo(input);
+                tasklist.addTodo(inputTrim);
                 break;
             case "event":
-                tasklist.addEvent(input);
+                tasklist.addEvent(inputTrim);
                 break;
             case "deadline":
-                tasklist.addDeadline(input);
+                tasklist.addDeadline(inputTrim);
                 break;
             case "delete":
-                tasklist.deleteTask(input);
+                tasklist.deleteTask(inputTrim);
                 break;
             case "find":
                 tasklist.findTasks(input.substring("find".length()).trim());
                 break;
             case "date":
-                tasklist.findDueDate(input);
+                tasklist.findDueDate(inputTrim);
                 break;
             default:
-                throw new DianaException("Unknown Command: " + input);
+                throw new DianaException("Unknown Command: " + inputTrim);
             }
         } catch (DianaException e) {
                 System.out.println(e.getMessage());
