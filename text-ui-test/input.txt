@@ -1,0 +1,38 @@
+todo
+TODO
+todo12345
+deadline
+DEADLINE
+deadline12345
+deadline     /by
+deadline h /by
+event
+EVENT
+event12345
+event   /from
+event   /from   /to
+event # /from   /to
+event # /from # /to
+event   /from # /to
+event   /from # /to #
+event   /from   /to #
+todo read book
+deadline submit CS2113 assignment /by 2023-12-01 1800
+event CS2113 team meeting /from 2023-12-05 1400 /to 1600
+list
+mark test
+mark -1
+mark 1234
+unmark test
+unmark -1
+unmark 1234
+delete test
+delete -1
+delete 1234
+mark 1
+mark 3
+unmark 1
+delete 1
+list
+find CS2113
+bye
