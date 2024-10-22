@@ -1,18 +1,40 @@
 # Diana User Guide
 Diana is a personal assistant that helps you keep track of our tasks.
 
-## Diana's Special Features
+## Quick Start
+1. Ensure you Java 17 installed on your computer. 
+2. Download the latest .jar file from [here](jar link)
+3. Copy the file to the folder you want to use as the home folder for Diana
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar` command to run the application.
+5. Type the command in the terminal and press Enter to execute it.
+    
+    Some example commands you can try:
+   1. `list`: Lists all tasks
+   2. `delete 3` : Deletes the 3rd task in the current list 
+   3. `date Oct 19 2019` : Searches through the task list to look for a task that has a deadline dated on Oct 19 2019. 
+   4. `bye` : Exits the programme
 
-1. It has an autosave feature, you never have to worry about your tasks disappearing when you exit the programme!
+## Features
+> [!NOTE] 
+> - Words in `UPPER_CASE` are the parameters supplied by the user.
+> e.g. `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`
+> 
+> - Extraneous parameters for commands that do no take in parameters (such as `list`, `bye`) will be ignored
 
+### Listing all tasks: `list`
 
-## List of Commands
+- displays all the tasks currently in your tasklist. 
+- Format: `list`
 
-`list`: displays all the tasks currently in your tasklist
+### Completing a task: Mark / Unmark
+- Able to mark a task as completed, or unmark the task. 
+- Format: `mark INDEX`
 
-`mark`: mark the task as completed 
-
-`unmark`: unmarks the task in the case that you make a mistake
+Examples: 
+- `mark 1`
+- !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
+- `unmark 1`
+- !["Image cannot be loaded"](/../ip/docs/assets/images/mark.png)
 
 `todo`: creates a todo task without any date specification 
 
