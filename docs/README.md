@@ -92,7 +92,13 @@ Examples:
 - `bye`
 - ![image](https://github.com/user-attachments/assets/9d9cb751-50a0-4f9c-90a0-f5f8991ae704)
 
+### Saving the data
+- data is automatically saved in the hard disk
 
+### Editing the data file 
+- Advanced users are welcomed to directly edit the data file under `/../data/diana.txt`.
+
+## Summary of Commands
 | Commands                                             | Example                                              | Output                                                                                    |
 |------------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | `list`                                               | `list`                                               | ![mark](https://github.com/user-attachments/assets/4f3ec920-0cb2-4e1d-822a-d29ce719519c)  |
