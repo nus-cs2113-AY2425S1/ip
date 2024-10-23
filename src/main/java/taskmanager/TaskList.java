@@ -82,7 +82,7 @@ public class TaskList {
         // Throw exception if user has input a non-numeric index string
         try {
             // Reduce user input integer by 1 to correspond to actual array index
-            taskIndex = Integer.parseInt(userString) - 1;
+            taskIndex = Integer.parseInt(userString);
         } catch (NumberFormatException e) {
             throw new TerriException("That's... not a numeral, ya know.");
         }
@@ -93,12 +93,12 @@ public class TaskList {
                     "Call 'list' to see how many tasks are in your list!");
         }
 
-        return taskIndex;
+        return taskIndex - 1; // -1 to account for tasksStorage counting from 1
     }
 
     /**
-     * Handles user input to create a new Deadline task. The method extracts both the task description
-     * and the due date from the user input and saves the task to storage.
+     * Handles user input to create a new ToDo task. The method extracts the task description
+     * and saves the task to storage.
      * @param keyWord – the array containing the keyword and description.
      * @throws TerriException if the input is too short to form a valid ToDo task.
      */
@@ -122,14 +122,12 @@ public class TaskList {
 
     /**
      * Adds a new ToDo task to the task list. The task description is extracted from the user input.
-     * The task is then saved to storage.
      *
      * @param newToDo the task description provided by the user.
      */
     public static void addToDo(String newToDo) {
         tasksStorage.add(taskCounter++, new ToDo(newToDo));
     }
-
 
     /**
      * Handles user input to create a new Deadline task. The method extracts both the task description

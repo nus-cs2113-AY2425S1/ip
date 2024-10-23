@@ -20,3 +20,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Program save file for task permenance
 /data/
+text-ui-test/data/terri.txt
