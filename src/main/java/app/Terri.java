@@ -23,8 +23,8 @@ import java.util.Scanner;
 public class Terri {
     final static String UNRECOGNISED_KEYWORD = "Hey! I don't understand that command.";
     final static String OFFER_REFRESHER = "Did you want a refresher on what tasks I can do for ya? Type Y to accept.";
-    final static String REFRESHER_ACCEPTED = "No worries! Here's all the things I can do again.";
-    final static String REFRESHER_DECLINED = "Gotcha - let me know what I can do for ya then!";
+    final static String REFRESHER_ACCEPTED = "Ok! Here's all the things I can do again!";
+    final static String REFRESHER_DECLINED = "No? Gotcha - let me know what I can do for ya then!";
 
     /**
      * Prints a welcome message along with the application logo and instructions.

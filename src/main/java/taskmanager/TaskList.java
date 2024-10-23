@@ -96,6 +96,8 @@ public class TaskList {
         return taskIndex - 1; // -1 to account for tasksStorage counting from 1
     }
 
+
+
     /**
      * Handles user input to create a new ToDo task. The method extracts the task description
      * and saves the task to storage.
@@ -128,6 +130,8 @@ public class TaskList {
     public static void addToDo(String newToDo) {
         tasksStorage.add(taskCounter++, new ToDo(newToDo));
     }
+
+
 
     /**
      * Handles user input to create a new Deadline task. The method extracts both the task description
@@ -191,6 +195,7 @@ public class TaskList {
     }
 
 
+
     /**
      * Handles user input to create a new Event task. It extracts the event description, start time,
      * and end time from the user input, and saves the task to storage.
@@ -248,6 +253,7 @@ public class TaskList {
     }
 
 
+
     /**
      * Marks or unmarks a task as completed based on the user's input. The method modifies the task's
      * completion status and provides feedback to the user. It supports both marking as "done" and
@@ -297,6 +303,8 @@ public class TaskList {
         tasksStorage.get(taskIndex).setDone(desiredState);
     }
 
+
+
     /**
      * Deletes a task from the list based on the user-input task index. The method validates the index,
      * removes the task, and saves the updated list to storage.
@@ -328,7 +336,6 @@ public class TaskList {
         printNumberOfTasks();
         Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
-
 
     /**
      * Extracts a subarray from a given array and returns it as a concatenated string.
