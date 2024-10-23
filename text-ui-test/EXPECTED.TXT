@@ -28,56 +28,44 @@ ____________________________________________________________
 Just added: TEST1 to your list as a ToDo!
 There is now (1) logged task/event.
 ____________________________________________________________
-____________________________________________________________
 Just added: 'TEST2' to your list as a Deadline!
 There are now (2) logged tasks/events.
 ____________________________________________________________
-____________________________________________________________
 Just added: 'TEST3' to your list as an Event!
 There are now (3) logged tasks/events.
-____________________________________________________________
 ____________________________________________________________
 Here's what you've got in your list:
 1. [T][ ] TEST1
 2. [D][ ] TEST2 (By: TIME1)
 3. [E][ ] TEST3 (From: TIME2 To: TIME3)
 ____________________________________________________________
-____________________________________________________________
 Just marked that task completed!
 1. [T][X] TEST1
-____________________________________________________________
 ____________________________________________________________
 Just marked that task completed!
 2. [D][X] TEST2
 ____________________________________________________________
-____________________________________________________________
 Just marked that task completed!
 3. [E][X] TEST3
-____________________________________________________________
 ____________________________________________________________
 Here's what you've got in your list:
 1. [T][X] TEST1
 2. [D][X] TEST2 (By: TIME1)
 3. [E][X] TEST3 (From: TIME2 To: TIME3)
 ____________________________________________________________
-____________________________________________________________
 Just marked that task as not completed!
 1. [T][ ] TEST1
-____________________________________________________________
 ____________________________________________________________
 Just marked that task as not completed!
 2. [D][ ] TEST2
 ____________________________________________________________
-____________________________________________________________
 Just marked that task as not completed!
 3. [E][ ] TEST3
-____________________________________________________________
 ____________________________________________________________
 Here's what you've got in your list:
 1. [T][ ] TEST1
 2. [D][ ] TEST2 (By: TIME1)
 3. [E][ ] TEST3 (From: TIME2 To: TIME3)
-____________________________________________________________
 ____________________________________________________________
 Hey! I don't understand that command.
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
@@ -110,7 +98,6 @@ ____________________________________________________________
 Just added: 'TEST 4' to your list as an Event!
 There are now (4) logged tasks/events.
 ____________________________________________________________
-____________________________________________________________
 Invalid input length. You gotta have a description!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
 Gotcha - let me know what I can do for ya then!
@@ -122,7 +109,6 @@ ____________________________________________________________
 Just added: 'TEST 5' to your list as a Deadline!
 There are now (5) logged tasks/events.
 ____________________________________________________________
-____________________________________________________________
 Invalid input length. You gotta have a description!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
 Gotcha - let me know what I can do for ya then!
@@ -130,4 +116,5 @@ ____________________________________________________________
 Just added: TEST 6 to your list as a ToDo!
 There are now (6) logged tasks/events.
 ____________________________________________________________
+Bye then! See ya soon!
 ____________________________________________________________

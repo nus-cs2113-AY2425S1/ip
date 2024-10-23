@@ -13,6 +13,10 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Files created for testing
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 *.class
+
+# Program save file for task permenance
+/data/

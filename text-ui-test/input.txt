@@ -33,3 +33,4 @@ deadline TEST 5 /by TIME 6
 todo
 N
 todo TEST 6
+bye

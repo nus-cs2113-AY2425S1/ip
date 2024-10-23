@@ -147,9 +147,8 @@ public class Terri {
      *
      * @param scanner The {@code Scanner} object used to read user input.
      */
-
     public static void exitTerri(Scanner scanner) {
-    System.out.println("Bye then! See ya soon!\n");
+    System.out.println("Bye then! See ya soon!");
     printDivider();
     // Close scanner after loop ends and program terminates
     scanner.close();
