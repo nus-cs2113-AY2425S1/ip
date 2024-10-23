@@ -22,6 +22,7 @@ UTILITY:
 'list' : Generates a list of all currently logged tasks/events, ordered oldest-newest. The number before each task is it's 'task number'
 'mark' + '(task number)' : Records that a task has been completed
 'unmark' + '(task number)' : Records that a task has not been completed
+'delete' + '(task number)' : Deletes the indicated task from memory
 ____________________________________________________________
 So - what can I help you with today?
 ____________________________________________________________

@@ -1,3 +1,0 @@
-[T] | 0 | TEST1
-[D] | 0 | TEST2 | TIME1
-[E] | 0 | TEST3 | TIME2 | TIME3

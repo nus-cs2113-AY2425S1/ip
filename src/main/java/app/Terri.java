@@ -45,6 +45,7 @@ public class Terri {
         System.out.println(logo);
         System.out.println("Heya! I'm Terri.");
         printInstructions();
+        printDivider();
     }
 
     /**
@@ -84,6 +85,7 @@ public class Terri {
                 System.out.println(OFFER_REFRESHER);
 
                 if (scanner.nextLine().equalsIgnoreCase("Y")) {
+                    printDivider();
                     System.out.println(REFRESHER_ACCEPTED);
                     printInstructions();
                 } else {
@@ -190,13 +192,11 @@ public class Terri {
 
         System.out.println("'mark' + '(task number)' : Records that a task has been completed");
         System.out.println("'unmark' + '(task number)' : Records that a task has not been completed");
+        System.out.println("'delete' + '(task number)' : Deletes the indicated task from memory");
 
         printDivider();
 
         System.out.println("So - what can I help you with today?");
-
-        printDivider();
-
     }
 
 
