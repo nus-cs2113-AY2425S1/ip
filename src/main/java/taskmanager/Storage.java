@@ -24,8 +24,7 @@ public class Storage {
      *
      * @return an {@code ArrayList<Task>} containing all tasks loaded from the file.
      */
-    public static ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public static void loadTasks() {
         File dataFile = new File(FILE_PATH);
 
         dataFile.getParentFile().mkdirs(); // Ensure parent directories exist
@@ -34,59 +33,67 @@ public class Storage {
             // If the file doesn't exist, create it and return an empty task list
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
-                return tasks;
-            }
-
-            // Reading tasks from the file
-            try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] parts = line.split("\\|");
-
-                    // Skip lines that do not contain sufficient task data
-                    if (parts.length < 3) continue;
-
-                    String type = parts[0].trim();
-                    boolean isDone = parts[1].trim().equals("1");
-                    String description = parts[2].trim();
-                    Task task;
-
-                    // Parse tasks based on their type
-                    switch (type) {
-                        case "T": // ToDo task
-                            ToDo todo = new ToDo(description);
-                            if (isDone) todo.setDone(true);
-                            tasks.add(todo);
-                            break;
-                        case "D": // Deadline task
-                            if (parts.length < 4) continue;
-
-                            String deadline = parts[3].trim();
-                            Deadline deadlineTask = new Deadline(description, deadline);
-
-                            if (isDone) deadlineTask.setDone(true);
-
-                            tasks.add(deadlineTask);
-
-                            break;
-                        case "E": // Event task
-                            if (parts.length < 5) continue;
-                            String start = parts[3].trim();
-                            String end = parts[4].trim();
-                            Event event = new Event(description, start, end);
-                            if (isDone) event.setDone(true);
-                            tasks.add(event);
-                            break;
-                        default:
-                            continue; // Skip unknown task types
-                    }
-                }
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
 
-        return tasks;
+        // Reading tasks from the file
+        try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
+            String line;
+
+            // Counter for number of successfully read tasks/initial tasklist size
+            int tasksRead = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                // Skip lines that do not contain sufficient task data
+                if (parts.length < 3) continue;
+
+                // Parse type, completion, detail information from the three partitions
+                String type = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+
+                Task task;
+
+                // Parse tasks based on their type
+                switch (type) {
+                    case (ToDo.typeIcon): // ToDo task
+
+                        TaskList.addToDo(description);
+                        TaskList.updateIsDone(tasksRead++, isDone);
+
+                        break;
+                    case (Deadline.typeIcon): // Deadline task
+                        if (parts.length < 4) continue;
+
+                        String deadline = parts[3].trim();
+
+                        TaskList.addDeadline(description, deadline);
+                        TaskList.updateIsDone(tasksRead++, isDone);
+
+                        break;
+                    case (Event.typeIcon): // Event task
+                        if (parts.length < 5) continue;
+
+                        String start = parts[3].trim();
+                        String end = parts[4].trim();
+                        Event readEvent = new Event(description, start, end);
+
+                        TaskList.addEvent(description, start, end);
+                        TaskList.updateIsDone(tasksRead++, isDone);
+
+                        break;
+                    default:
+                        continue; // Skip unknown task types
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
     }
 
     /**

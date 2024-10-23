@@ -7,7 +7,7 @@ package tasks;
  */
 public class ToDo extends Task {
 
-    static String typeIcon = "[T]";
+    public static final String typeIcon = "[T]";
 
     /**
      * Constructs a new {@code ToDo} task with the specified name.

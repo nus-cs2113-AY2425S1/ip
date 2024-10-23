@@ -59,10 +59,11 @@ public class Terri {
 
         printWelcomeMessage();
 
+        // Initialise tasks from save file (if present)
+        TaskList.loadTaskData();
+
         // Initialise a scanner to read input
         Scanner scanner = new Scanner(System.in);
-        // Initialise Task array and counter
-        ArrayList<Task> taskList = new ArrayList<>();
 
         // Continually check for and process user input
         while (true) {
@@ -77,7 +78,7 @@ public class Terri {
 
             // Process input and catch exceptions appropriately
             try {
-                handleInput(userInput, taskList);
+                handleInput(userInput);
             }
             catch (TerriException ex) {
                 // Print custom error message and offer general refresher
@@ -106,7 +107,7 @@ public class Terri {
      * @param taskList The current list of tasks managed by the chatbot.
      * @throws TerriException If the input command is not recognized.
      */
-    private static void handleInput(String userInput, ArrayList<Task> taskList) throws TerriException {
+    private static void handleInput(String userInput) throws TerriException {
 
         // Isolate individual keywords in user input
         String[] keyWord = userInput.split(" ");
@@ -132,7 +133,7 @@ public class Terri {
                 TaskList.handleEvent(keyWord);
                 break;
             case "todo":
-                TaskList.addToDo(keyWord);
+                TaskList.handleToDo(keyWord);
                 break;
             case "delete":
                 TaskList.deleteTask(keyWord);

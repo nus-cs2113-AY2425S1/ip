@@ -8,7 +8,7 @@ package tasks;
  */
 public class Event extends Task {
 
-    static final String typeIcon = "[E]";
+    public static final String typeIcon = "[E]";
 
     String eventStart;
     String eventEnd;

@@ -6,7 +6,7 @@ package tasks;
  */
 public class Deadline extends Task {
 
-    static final String typeIcon = "[D]";
+    static public final String typeIcon = "[D]";
 
     String by;
 

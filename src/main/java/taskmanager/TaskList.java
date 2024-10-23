@@ -22,19 +22,21 @@ public class TaskList {
 
     private static ArrayList<Task> tasksStorage = new ArrayList<>(); // Array to store tasks
 
-    /**
-     * Static block to initialize tasks from the external storage when the {@code TaskList} class
-     * is loaded. This ensures that the task list persists across application sessions.
-     */
-    static {
-        tasksStorage = Storage.loadTasks(); // Load tasks from the file when TaskList is created
-    }
 
     /**
      * Counter that tracks the current number of tasks stored in the list.
      */
     public static int taskCounter = 0;  // Counter to track current number of tasks
-//
+
+    /**
+     * Initializes {@code tasksStorage} with tasks from an external storage file at startup.
+     * This ensures that the user's task list can persist across application sessions.
+     */
+    public static void loadTaskData()  {
+        Storage.loadTasks();
+        System.out.println("Loaded " + tasksStorage.size() + " tasks from file");
+    }
+
     /**
      * Displays the current list of tasks with their status and additional task-type-specific details
      * (e.g., deadlines, event times). The tasks are printed in a numbered list, starting from 1.
@@ -95,14 +97,13 @@ public class TaskList {
     }
 
     /**
-     * Adds a new ToDo task to the task list. The task description is extracted from the user input.
-     * The task is then saved to storage.
-     *
-     * @param keyWord the array containing the keyword and description provided by the user.
+     * Handles user input to create a new Deadline task. The method extracts both the task description
+     * and the due date from the user input and saves the task to storage.
+     * @param keyWord – the array containing the keyword and description.
      * @throws TerriException if the input is too short to form a valid ToDo task.
      */
-    public static void addToDo(String[] keyWord) throws TerriException {
 
+    public static void handleToDo (String[] keyWord) throws TerriException {
         // Throw exception if input length is not appropriate
         if (keyWord.length < 2) {
             throw new TerriException("Invalid input length. You gotta have a description!");
@@ -111,11 +112,22 @@ public class TaskList {
         // Exclude keyword from task description
         String newToDo = extractSubArray(keyWord,1, keyWord.length);
 
-        tasksStorage.add(taskCounter++, new ToDo(newToDo));
+        addToDo(newToDo);
+
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
         printNumberOfTasks();
 
         Storage.saveTasks(tasksStorage); // Save tasks after modification
+    }
+
+    /**
+     * Adds a new ToDo task to the task list. The task description is extracted from the user input.
+     * The task is then saved to storage.
+     *
+     * @param newToDo the task description provided by the user.
+     */
+    public static void addToDo(String newToDo) {
+        tasksStorage.add(taskCounter++, new ToDo(newToDo));
     }
 
 
@@ -161,7 +173,12 @@ public class TaskList {
             throw new TerriException("You haven't provided a due date!");
         }
 
-        TaskList.addDeadline(newDeadline, newBy);
+        addDeadline(newDeadline, newBy);
+
+        System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
+
+        printNumberOfTasks();
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
     /**
@@ -170,15 +187,9 @@ public class TaskList {
      *
      * @param newDeadline the description of the Deadline task.
      * @param newBy the due date of the Deadline task.
-     * @throws TerriException if there is an issue adding the task.
      */
-    public static void addDeadline(String newDeadline, String newBy) throws TerriException {
-
+    public static void addDeadline(String newDeadline, String newBy) {
         tasksStorage.add(taskCounter++, new Deadline(newDeadline, newBy));
-        System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
-
-        printNumberOfTasks();
-        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
@@ -219,6 +230,11 @@ public class TaskList {
         String newEnd = extractSubArray(keyWord, endIdx + 1, keyWord.length);
 
         TaskList.addEvent(newDescription, newStart, newEnd);
+
+        System.out.println("Just added: '" + newDescription + "' to your list as an Event!");
+
+        printNumberOfTasks();
+        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
     /**
@@ -228,15 +244,9 @@ public class TaskList {
      * @param newEvent the description of the Event task.
      * @param From the start time of the Event.
      * @param To the end time of the Event.
-     * @throws TerriException if there is an issue adding the task.
      */
-    public static void addEvent(String newEvent, String From, String To) throws TerriException {
-
+    public static void addEvent(String newEvent, String From, String To) {
         tasksStorage.add(taskCounter++, new Event(newEvent, From, To));
-        System.out.println("Just added: '" + newEvent + "' to your list as an Event!");
-
-        printNumberOfTasks();
-        Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
 
@@ -263,11 +273,11 @@ public class TaskList {
         int taskIndex = handleTaskIndex(keyWord[1]);
 
         // (un)Mark task as indicated by user
+        updateIsDone(taskIndex,desiredState);
+
         if (desiredState) {
-            tasksStorage.get(taskIndex).setDone(true);
             System.out.println("Just marked that task completed!");
         } else {
-            tasksStorage.get(taskIndex).setDone(false);
             System.out.println("Just marked that task as not completed!");
         }
 
@@ -276,6 +286,17 @@ public class TaskList {
                 + tasksStorage.get(taskIndex).getTypeIcon()
                 + tasksStorage.get(taskIndex).getStatusIcon()
                 + tasksStorage.get(taskIndex).getTaskName());
+    }
+
+    /**
+     * Helper function that specifically marks/unmarks a task within the {@code tasksStorage} array as (un)completed
+     * based on input.
+     *
+     * @param taskIndex the index of the task to be (un)marked.
+     * @param desiredState {@code true} if marking as done, {@code false} if marking as not done.
+     */
+    public static void updateIsDone(int taskIndex, boolean desiredState) {
+        tasksStorage.get(taskIndex).setDone(desiredState);
     }
 
     /**
