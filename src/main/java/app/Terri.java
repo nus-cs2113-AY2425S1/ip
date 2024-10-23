@@ -1,12 +1,8 @@
 package app;
 
-import tasks.Task;
-
 import exceptions.TerriException;
-
 import taskmanager.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -104,7 +100,6 @@ public class Terri {
      * a {@code TerriException} is thrown.
      *
      * @param userInput The input entered by the user.
-     * @param taskList The current list of tasks managed by the chatbot.
      * @throws TerriException If the input command is not recognized.
      */
     private static void handleInput(String userInput) throws TerriException {
