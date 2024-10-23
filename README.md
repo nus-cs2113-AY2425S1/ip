@@ -50,7 +50,6 @@ todo Complete CS2103T project
 **Expected Outcome**:
 ```
 Added: Complete CS2103T project
-Now you have 1 task in the list.
 ```
 
 ### 3. Add a Deadline Task
