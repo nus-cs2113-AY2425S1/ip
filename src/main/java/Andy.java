@@ -61,18 +61,27 @@ public class Andy {
                     ui.showFoundTasks(foundTasks);  // Display matching tasks
                     break;
                 case "delete":
-                    int index = parser.parseTaskIndex(input);  // Parse the index to delete
-                    Task deletedTask = tasks.getTask(index);  // Get the task to be deleted
-                    tasks.deleteTask(index);  // Delete the task
+                    int deleteIndex = parser.parseTaskIndex(input);  // Parse the index to delete
+                    if (deleteIndex >= tasks.getTasks().size() || deleteIndex < 0) {
+                        throw new AndyException("Invalid task index.");
+                    }
+                    Task deletedTask = tasks.getTask(deleteIndex);  // Get the task to be deleted
+                    tasks.deleteTask(deleteIndex);  // Delete the task
                     ui.showTaskDeletedMessage(deletedTask.getDescription());  // Show confirmation
                     break;
                 case "mark":
                     int markIndex = parser.parseTaskIndex(input);  // Parse the index to mark as done
+                    if (markIndex >= tasks.getTasks().size() || markIndex < 0) {
+                        throw new AndyException("Invalid task index.");
+                    }
                     tasks.getTask(markIndex).setDone(true);  // Mark the task as done
                     ui.showTaskMarkedAsDone(tasks.getTask(markIndex));  // Show confirmation
                     break;
                 case "unmark":
                     int unmarkIndex = parser.parseTaskIndex(input);  // Parse the index to unmark
+                    if (unmarkIndex >= tasks.getTasks().size() || unmarkIndex < 0) {
+                        throw new AndyException("Invalid task index.");
+                    }
                     tasks.getTask(unmarkIndex).setDone(false);  // Unmark the task as not done
                     ui.showTaskUnmarked(tasks.getTask(unmarkIndex));  // Show confirmation
                     break;

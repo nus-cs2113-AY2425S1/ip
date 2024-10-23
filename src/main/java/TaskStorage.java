@@ -21,6 +21,7 @@ public class TaskStorage {
 
                 // Check if the line contains at least 3 parts (taskType, isDone, description)
                 if (parts.length < 3) {
+                    System.out.println("Error: Task format is incorrect. Skipping line.");
                     continue;  // Skip to the next line without printing anything
                 }
 
@@ -30,39 +31,51 @@ public class TaskStorage {
                 String description = parts[2];
 
                 Task task = null;
+
+                // Switch case for different task types (TodoTask, DeadlineTask, EventTask)
                 switch (taskType) {
                 case "T":
+                    // TodoTask doesn't have extra fields, just create it
                     task = new TodoTask(description);
                     break;
+
                 case "D":
-                    // Check if we have enough parts for DeadlineTask
                     if (parts.length >= 4) {
                         String by = parts[3];
                         task = new DeadlineTask(description, by);
+                    } else {
+                        System.out.println("Error: Missing 'by' field for deadline task. Skipping line.");
                     }
                     break;
+
                 case "E":
-                    // Check if we have enough parts for EventTask
                     if (parts.length >= 4) {
-                        String eventDetails = parts[3];  // This holds the "from /to to" format
+                        String eventDetails = parts[3];
                         String[] eventParts = eventDetails.split(" /to ");
 
-                        // Ensure the eventParts contains both "from" and "to"
+                        // Ensure both "from" and "to" are present
                         if (eventParts.length == 2) {
                             String from = eventParts[0].trim();
                             String to = eventParts[1].trim();
                             task = new EventTask(description, from, to);
+                        } else {
+                            System.out.println("Error: Missing 'from' or 'to' field for event task. Skipping line.");
                         }
+                    } else {
+                        System.out.println("Error: Missing event details ('from' and 'to'). Skipping line.");
                     }
                     break;
+
+                default:
+                    System.out.println("Error: Unknown task type. Skipping line.");
                 }
 
                 if (task != null && isDone) {
-                    task.setDone(true);
+                    task.setDone(true);  // Mark task as done if it was previously done
                 }
 
                 if (task != null) {
-                    tasks.add(task);  // Add the task to the list
+                    tasks.add(task);  // Add the task to the list if it's valid
                 }
             }
 
