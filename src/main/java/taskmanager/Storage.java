@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private static final String FILE_PATH = "./data/duke.txt"; // Path to the storage file
+    private static final String FILE_PATH = "./data/terri.txt"; // Path to the storage file
 
     /**
      * Loads tasks from a file into an {@code ArrayList<Task>}.
@@ -60,10 +60,14 @@ public class Storage {
                             break;
                         case "D": // Deadline task
                             if (parts.length < 4) continue;
+
                             String deadline = parts[3].trim();
                             Deadline deadlineTask = new Deadline(description, deadline);
+
                             if (isDone) deadlineTask.setDone(true);
+
                             tasks.add(deadlineTask);
+
                             break;
                         case "E": // Event task
                             if (parts.length < 5) continue;

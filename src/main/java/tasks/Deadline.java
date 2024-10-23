@@ -55,4 +55,10 @@ public class Deadline extends Task {
     public String getEventEnd() {
         return null;
     }
+
+    @Override
+    public String getTaskDetails() {
+        return " (By: " + by + ")";
+    }
+
 }

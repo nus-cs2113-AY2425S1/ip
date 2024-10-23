@@ -51,4 +51,9 @@ public class Event extends Task {
     public String getBy() {
         return null;
     }
+
+    @Override
+    public String getTaskDetails() {
+        return " (From: " + eventStart + " To: " + eventEnd + ")";
+    }
 }

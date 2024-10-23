@@ -23,7 +23,6 @@ public class ToDo extends Task {
         return typeIcon;
     }
 
-
     /**
      * This method is irrelevant for {@code ToDo} tasks and returns {@code null},
      * as {@code ToDo} tasks do not have a due date.
@@ -55,6 +54,11 @@ public class ToDo extends Task {
     @Override
     public String getEventEnd() {
         return null;
+    }
+
+    @Override
+    public String getTaskDetails() {
+        return ""; // todo events have no additional details
     }
 
 }

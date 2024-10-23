@@ -34,7 +34,7 @@ public class TaskList {
      * Counter that tracks the current number of tasks stored in the list.
      */
     public static int taskCounter = 0;  // Counter to track current number of tasks
-
+//
     /**
      * Displays the current list of tasks with their status and additional task-type-specific details
      * (e.g., deadlines, event times). The tasks are printed in a numbered list, starting from 1.
@@ -43,28 +43,12 @@ public class TaskList {
         System.out.println("Here's what you've got in your list:");
         for (int i = 1; i <= taskCounter; i++) {
 
-            // Print generic task description
-            System.out.print(i+". " + tasksStorage.get(i - 1).getTypeIcon()
+            // Print task name/completion in generic format
+            System.out.print(i + ". " + tasksStorage.get(i - 1).getTypeIcon()
                     + tasksStorage.get(i - 1).getStatusIcon() + tasksStorage.get(i - 1).getTaskName());
 
-            // Print specific task-type information
-            switch (tasksStorage.get(i - 1).getTypeIcon()) {
-                case "[D]":
-                    System.out.println(" (By: " + tasksStorage.get(i - 1).getBy() + ")");
-                    continue;
-
-                case "[T]":
-                    System.out.println();
-                    continue;
-
-                case "[E]":
-                    System.out.println(" (From: " + tasksStorage.get(i - 1).getEventStart()
-                            + " To: " + tasksStorage.get(i - 1).getEventEnd() + ")");
-                    continue;
-
-                default:
-                    System.out.println(" (ERROR: OTHER TYPE)");
-            }
+            // Then print task-specific information
+            System.out.println(tasksStorage.get(i-1).getTaskDetails());
         }
     }
 
