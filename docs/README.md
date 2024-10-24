@@ -6,6 +6,9 @@
 
 Yukino is a customised chat bot that assits you in your daily time and event management. You can add different types of tasks to Yukino and Yukino will take note for you! But also remember to check your tasks here from time to time.
 
+Running Guide: Open the terminal and locate the directory of the jar file, enter:
+java -jar ip.jar
+
 ## Adding todos
 
 Example: `add todo [content]`
@@ -28,7 +31,7 @@ expected output:   added:[content]
                    Now you have [number of tasks] tasks
 
 
-Notes: in the above three adding methods, time should be in the form of HH-dd-MM-YYYY, where HH is time, dd is day, MM is month, YYYY is year, all in number form
+Notes: in the above three adding methods, time should be in the form of [HH-dd-MM-YYYY], where HH is time, dd is day, MM is month, YYYY is year, all in number form
 
 ## List items
 
@@ -37,9 +40,9 @@ Example: `list`
 
 Expected output:   -----------------------------------
 
-                   1. [T][] deadline By: 12-09-09-2009
-                   2. [D][X] test By: 12-09-09-2000
-                   3. [E][] test2 From: 11-11-11-1111 By: 12-12-12-1212
+                   1. [T][] test1
+                   2. [D][X] test2 By: 2024-10-24T12:12
+                   3. [E][] test3 From: 2024-10-24T12:00 By: 2024-10-24T13:00
                    -----------------------------------
 
 if not task:       -----------------------------------
