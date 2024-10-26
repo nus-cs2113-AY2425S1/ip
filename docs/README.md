@@ -24,7 +24,7 @@ Andy stores all your tasks in a file called **andy.txt** located in the `data` d
 2. Change directory to the location where the JAR file is stored.
 3. Run the command:
    ```bash
-   java -jar andy.jar.jar
+   java -jar Andy.jar
 
 To exit the application, simply type `bye`.
 
