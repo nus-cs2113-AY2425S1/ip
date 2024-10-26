@@ -15,8 +15,11 @@ public class Event extends Task{
 
     /**
      * Builder class for event object.
+     *
+     * @param description The description of the event task.
+     * @param from The start date of the event in string format.
+     * @param to The end date of the event in string format.
      */
-
     public Event(String description, String from, String to) {
         super(description);
         this.fromString = from;
@@ -32,6 +35,8 @@ public class Event extends Task{
 
     /**
      * Return the string format for the current event.
+     *
+     * @return the string format of the event task.
      */
     @Override
     public String toString() {
@@ -43,6 +48,8 @@ public class Event extends Task{
 
     /**
      * Return the to be saved format for the current event.
+     *
+     * @return the save format of the event task.
      */
     @Override
     public String toSave() {

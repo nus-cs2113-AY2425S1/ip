@@ -4,7 +4,9 @@
 public class Todo extends Task {
 
     /**
-     * Builder method for the current todo.
+     * Creates a Todo task with the specified descrtiption.
+     *
+     * @param task: the description of the todo task.
      */
     public Todo(String task) {
         super(task);
@@ -12,6 +14,8 @@ public class Todo extends Task {
 
     /**
      * Return the string format for the current todo.
+     *
+     * @return string format for the todo task.
      */
     @Override
     public String toString() {
@@ -20,6 +24,8 @@ public class Todo extends Task {
 
     /**
      * Return the to be saved format for the current todo.
+     *
+     * @return the to be saved format for the todo task.
      */
     @Override
     public String toSave() {

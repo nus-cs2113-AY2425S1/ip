@@ -152,3 +152,9 @@ Here are the matching tasks in your list:
 ____________________________________________________________
 ```
 
+## Exiting
+
+Simply type "Bye" to exit the program.
+
+
+

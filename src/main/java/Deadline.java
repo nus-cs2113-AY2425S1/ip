@@ -11,6 +11,9 @@ public class Deadline extends Task {
 
     /**
      * Builder class for a deadline object.
+     *
+     * @param description The description of the deadline task.
+     * @param by The due date of the task in string format.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -24,6 +27,8 @@ public class Deadline extends Task {
     }
     /**
      * Return the string format for the current deadline.
+     *
+     * @return the string format of the deadline task.
      */
     @Override
     public String toString() {
@@ -33,6 +38,8 @@ public class Deadline extends Task {
 
     /**
      * Return the to be saved format for the current deadline.
+     *
+     * @return the save format of the deadline task.
      */
     @Override
     public String toSave() {
