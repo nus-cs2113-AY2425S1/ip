@@ -5,17 +5,35 @@ import java.time.format.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the persistence of task data to and from storage.
+ * This class manages reading and writing tasks to a file in a specified format.
+ * Each task is stored as a single line with fields separated by vertical bars (|).
+ *
+ * The file format for each task type is as follows:
+ * - Todo:     T | isDone | description
+ * - Deadline: D | isDone | description | deadline
+ * - Event:    E | isDone | description | startTime | endTime
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path where task data will be stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Method for loading tasks from a file.
-     * @return
-     * @throws PlopBotException
+     * Loads tasks from the storage file.
+     * Creates necessary directories if they don't exist.
+     * If the file exists, reads and parses each line into a Task object.
+     *
+     * @return                  - ArrayList of Task objects loaded from the file
+     * @throws PlopBotException - If there is an error reading the file or parsing tasks
      */
     public ArrayList<Task> load() throws PlopBotException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -34,9 +52,12 @@ public class Storage {
     }
 
     /**
-     * Method for saving tasks to a file.
-     * @param tasks
-     * @throws PlopBotException
+     * Saves the provided list of tasks to the storage file.
+     * Creates necessary directories if they don't exist.
+     * Each task is converted to a string format before being written.
+     *
+     * @param tasks             - ArrayList of Task objects to be saved
+     * @throws PlopBotException - If there is an error writing to the file
      */
     public void save(ArrayList<Task> tasks) throws PlopBotException {
         try {
@@ -53,10 +74,13 @@ public class Storage {
     }
 
     /**
-     * Parser for loading tasks from strings.
-     * @param line
-     * @return
-     * @throws PlopBotException
+     * Parses a string representation of a task into a Task object.
+     * The string should be in the format: type | isDone | description [| additional fields...]
+     * where type is 'T' for Todo, 'D' for Deadline, or 'E' for Event.
+     *
+     * @param line              - The string representation of the task
+     * @return                  - Task object parsed from the string
+     * @throws PlopBotException - If the string format is invalid or contains invalid data
      */
     private Task parseTaskFromString(String line) throws PlopBotException {
         String[] parts = line.split("\\|");
@@ -91,9 +115,14 @@ public class Storage {
     }
 
     /**
-     * Converts tasks to strings for saving.
-     * @param task
-     * @return
+     * Converts a Task object into its string representation for storage.
+     * The format varies based on the task type:
+     * - Todo:     T | isDone | description
+     * - Deadline: D | isDone | description | deadline
+     * - Event:    E | isDone | description | startTime | endTime
+     *
+     * @param task - The Task object to convert
+     * @return     - String representation of the task
      */
     private String convertTaskToString(Task task) {
         String baseString = String.format("%s | %d | %s",
