@@ -12,12 +12,10 @@ public class Andy {
 
     /**
      * Constructor for Andy. Initializes UI, Storage, TaskList, and Parser.
-     *
-     * @param filePath the file path where the tasks are stored.
      */
-    public Andy(String filePath) {
+    public Andy() {
         ui = new UI();  // Initialize UI
-        storage = new Storage(filePath);  // Initialize Storage with file path
+        storage = new Storage();  // Initialize Storage without file path
         tasks = new TaskList(storage.loadTasks());  // Load tasks from storage
         parser = new Parser();  // Initialize Parser
     }
@@ -36,57 +34,15 @@ public class Andy {
                 String command = parser.parseCommand(input);  // Get the command
 
                 switch (command) {
-                case "list":
-                    ui.showTaskList(tasks);  // Display task list
-                    break;
-                case "todo":
-                    String todoDescription = parser.parseTaskDescription(input, "todo");
-                    tasks.addTask(new TodoTask(todoDescription));  // Add new todo task
-                    ui.showTaskAddedMessage(todoDescription);
-                    break;
-                case "deadline":
-                    String[] parts = parser.parseTaskDescription(input, "deadline").split(" /by ");
-                    tasks.addTask(new DeadlineTask(parts[0], parts[1]));  // Add deadline task
-                    ui.showTaskAddedMessage(parts[0]);
-                    break;
-                case "event":
-                    parts = parser.parseTaskDescription(input, "event").split(" /from ");
-                    String[] timeParts = parts[1].split(" /to ");
-                    tasks.addTask(new EventTask(parts[0], timeParts[0], timeParts[1]));  // Add event task
-                    ui.showTaskAddedMessage(parts[0]);
-                    break;
-                case "find":
-                    String keyword = parser.parseTaskDescription(input, "find");
-                    List<Task> foundTasks = tasks.findTasks(keyword);  // Find tasks by keyword
-                    ui.showFoundTasks(foundTasks);  // Display matching tasks
-                    break;
-                case "delete":
-                    int deleteIndex = parser.parseTaskIndex(input);  // Parse the index to delete
-                    if (deleteIndex >= tasks.getTasks().size() || deleteIndex < 0) {
-                        throw new AndyException("Invalid task index.");
-                    }
-                    Task deletedTask = tasks.getTask(deleteIndex);  // Get the task to be deleted
-                    tasks.deleteTask(deleteIndex);  // Delete the task
-                    ui.showTaskDeletedMessage(deletedTask.getDescription());  // Show confirmation
-                    break;
-                case "mark":
-                    int markIndex = parser.parseTaskIndex(input);  // Parse the index to mark as done
-                    if (markIndex >= tasks.getTasks().size() || markIndex < 0) {
-                        throw new AndyException("Invalid task index.");
-                    }
-                    tasks.getTask(markIndex).setDone(true);  // Mark the task as done
-                    ui.showTaskMarkedAsDone(tasks.getTask(markIndex));  // Show confirmation
-                    break;
-                case "unmark":
-                    int unmarkIndex = parser.parseTaskIndex(input);  // Parse the index to unmark
-                    if (unmarkIndex >= tasks.getTasks().size() || unmarkIndex < 0) {
-                        throw new AndyException("Invalid task index.");
-                    }
-                    tasks.getTask(unmarkIndex).setDone(false);  // Unmark the task as not done
-                    ui.showTaskUnmarked(tasks.getTask(unmarkIndex));  // Show confirmation
-                    break;
-                default:
-                    throw new AndyException("Invalid command.");
+                case "list" -> handleList();
+                case "todo" -> handleTodo(input);
+                case "deadline" -> handleDeadline(input);
+                case "event" -> handleEvent(input);
+                case "find" -> handleFind(input);
+                case "delete" -> handleDelete(input);
+                case "mark" -> handleMark(input);
+                case "unmark" -> handleUnmark(input);
+                default -> throw new AndyException("Invalid command.");
                 }
 
                 // Save updated task list after each command
@@ -101,12 +57,69 @@ public class Andy {
         ui.showGoodbyeMessage();
     }
 
+    private void handleList() {
+        ui.showTaskList(tasks);  // Display task list
+    }
+
+    private void handleTodo(String input) throws AndyException {
+        String todoDescription = parser.parseTaskDescription(input, "todo");
+        tasks.addTask(new TodoTask(todoDescription));  // Add new todo task
+        ui.showTaskAddedMessage(todoDescription);
+    }
+
+    private void handleDeadline(String input) throws AndyException {
+        String[] parts = parser.parseTaskDescription(input, "deadline").split(" /by ");
+        tasks.addTask(new DeadlineTask(parts[0], parts[1]));  // Add deadline task
+        ui.showTaskAddedMessage(parts[0]);
+    }
+
+    private void handleEvent(String input) throws AndyException {
+        String[] parts = parser.parseTaskDescription(input, "event").split(" /from ");
+        String[] timeParts = parts[1].split(" /to ");
+        tasks.addTask(new EventTask(parts[0], timeParts[0], timeParts[1]));  // Add event task
+        ui.showTaskAddedMessage(parts[0]);
+    }
+
+    private void handleFind(String input) throws AndyException {
+        String keyword = parser.parseTaskDescription(input, "find");
+        List<Task> foundTasks = tasks.findTasks(keyword);  // Find tasks by keyword
+        ui.showFoundTasks(foundTasks);  // Display matching tasks
+    }
+
+    private void handleDelete(String input) throws AndyException {
+        int deleteIndex = parser.parseTaskIndex(input);  // Parse the index to delete
+        validateTaskIndex(deleteIndex);
+        Task deletedTask = tasks.getTask(deleteIndex);  // Get the task to be deleted
+        tasks.deleteTask(deleteIndex);  // Delete the task
+        ui.showTaskDeletedMessage(deletedTask.getDescription());  // Show confirmation
+    }
+
+    private void handleMark(String input) throws AndyException {
+        int markIndex = parser.parseTaskIndex(input);  // Parse the index to mark as done
+        validateTaskIndex(markIndex);
+        tasks.getTask(markIndex).setDone(true);  // Mark the task as done
+        ui.showTaskMarkedAsDone(tasks.getTask(markIndex));  // Show confirmation
+    }
+
+    private void handleUnmark(String input) throws AndyException {
+        int unmarkIndex = parser.parseTaskIndex(input);  // Parse the index to unmark
+        validateTaskIndex(unmarkIndex);
+        tasks.getTask(unmarkIndex).setDone(false);  // Unmark the task as not done
+        ui.showTaskUnmarked(tasks.getTask(unmarkIndex));  // Show confirmation
+    }
+
+    private void validateTaskIndex(int index) throws AndyException {
+        if (index >= tasks.getTasks().size() || index < 0) {
+            throw new AndyException("Invalid task index.");
+        }
+    }
+
     /**
      * Main method to start the Andy task manager application.
      *
      * @param args command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Andy("./data/andy.txt").run();  // Run the application
+        new Andy().run();  // Run the application without specifying file path
     }
 }
