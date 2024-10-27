@@ -18,10 +18,10 @@ Welcome to AirBorder, a sophisticated  customer service chatbot designed to stre
 
 ## Getting Started
 
-To use AirBorder, ensure that you have Java 11 or newer installed on your computer. Download the latest version of AirBorder from the releases page, and run it using the following command in your terminal:
+To use AirBorder, ensure that you have Java 17 or newer installed on your computer. Download the latest version of AirBorder from the releases page, and run it using the following command in your terminal:
 
 ```bash
-java -jar airborder.jar
+java -jar main.jar
 ```
 
 ## Features
