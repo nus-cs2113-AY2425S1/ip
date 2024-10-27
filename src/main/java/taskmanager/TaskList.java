@@ -10,6 +10,9 @@ import exceptions.TerriException;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+import static app.UI.printNumberOfTasks;
+
+
 
 /**
  * The {@code TaskList} class is responsible for managing a collection of tasks, including ToDos,
@@ -20,8 +23,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static ArrayList<Task> tasksStorage = new ArrayList<>(); // Array to store tasks
-
+    public static ArrayList<Task> tasksStorage = new ArrayList<>(); // Array to store tasks
 
     /**
      * Counter that tracks the current number of tasks stored in the list.
@@ -37,34 +39,7 @@ public class TaskList {
         System.out.println("Loaded " + tasksStorage.size() + " tasks from file");
     }
 
-    /**
-     * Displays the current list of tasks with their status and additional task-type-specific details
-     * (e.g., deadlines, event times). The tasks are printed in a numbered list, starting from 1.
-     */
-    public static void listTasks() {
-        System.out.println("Here's what you've got in your list:");
-        for (int i = 1; i <= taskCounter; i++) {
 
-            // Print task name/completion in generic format
-            System.out.print(i + ". " + tasksStorage.get(i - 1).getTypeIcon()
-                    + tasksStorage.get(i - 1).getStatusIcon() + tasksStorage.get(i - 1).getTaskName());
-
-            // Then print task-specific information
-            System.out.println(tasksStorage.get(i-1).getTaskDetails());
-        }
-    }
-
-    /**
-     * Prints the total number of tasks currently logged in the list, providing user feedback after
-     * task-related operations such as addition or deletion.
-     */
-    private static void printNumberOfTasks() {
-        if (taskCounter == 1) {
-            System.out.println("There is now (1) logged task/event.");
-        } else {
-            System.out.println("There are now (" + tasksStorage.size() + ") logged tasks/events.");
-        }
-    }
 
     /**
      * Validates the user-input string representing a task index and returns the corresponding
@@ -117,7 +92,7 @@ public class TaskList {
         addToDo(newToDo);
 
         System.out.println("Just added: " + newToDo + " to your list as a ToDo!");
-        printNumberOfTasks();
+        printNumberOfTasks(tasksStorage);
 
         Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
@@ -179,7 +154,7 @@ public class TaskList {
 
         System.out.println("Just added: '" + newDeadline + "' to your list as a Deadline!");
 
-        printNumberOfTasks();
+        printNumberOfTasks(tasksStorage);
         Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
@@ -194,8 +169,6 @@ public class TaskList {
         tasksStorage.add(taskCounter++, new Deadline(newDeadline, newBy));
     }
 
-
-
     /**
      * Handles user input to create a new Event task. It extracts the event description, start time,
      * and end time from the user input, and saves the task to storage.
@@ -204,7 +177,6 @@ public class TaskList {
      * @throws TerriException if the input lacks a description, start time, or end time.
      */
     public static void handleEvent(String[] keyWord) throws TerriException {
-
 
         // Throw exception if input length is not appropriate
         if (keyWord.length < 2) {
@@ -236,7 +208,7 @@ public class TaskList {
 
         System.out.println("Just added: '" + newDescription + "' to your list as an Event!");
 
-        printNumberOfTasks();
+        printNumberOfTasks(tasksStorage);
         Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
@@ -251,8 +223,6 @@ public class TaskList {
     public static void addEvent(String newEvent, String From, String To) {
         tasksStorage.add(taskCounter++, new Event(newEvent, From, To));
     }
-
-
 
     /**
      * Marks or unmarks a task as completed based on the user's input. The method modifies the task's
@@ -303,8 +273,6 @@ public class TaskList {
         tasksStorage.get(taskIndex).setDone(desiredState);
     }
 
-
-
     /**
      * Deletes a task from the list based on the user-input task index. The method validates the index,
      * removes the task, and saves the updated list to storage.
@@ -333,7 +301,7 @@ public class TaskList {
         tasksStorage.remove(taskIndex);
         taskCounter--;
 
-        printNumberOfTasks();
+        printNumberOfTasks(tasksStorage);
         Storage.saveTasks(tasksStorage); // Save tasks after modification
     }
 
@@ -343,7 +311,7 @@ public class TaskList {
      * @param array the array from which to extract the subarray.
      * @param start the start index (inclusive) of the subarray.
      * @param end the end index (exclusive) of the subarray.
-     * @return a concatenated string of the subarray's contents.
+     * @return a concatenated string of the subarray contents.
      */
     public static String extractSubArray(String[] array, int start, int end) {
         return String.join(" ", Arrays.copyOfRange(array, start, end)).trim();

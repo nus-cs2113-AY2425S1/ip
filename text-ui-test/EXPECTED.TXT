@@ -10,22 +10,22 @@ $$$$$$$$\                               $$\
                                             
 
 Heya! I'm Terri.
-I can log and manage a ton of different tasks - just use different keywords followed by a description to tell me what to do:
+I can log and manage a ton of different tasks - just use different keywordsfollowed by a description to tell me what to do:
 ____________________________________________________________
-KEYWORDS:
+COMMANDS:
+help : Prints this help message!
 'todo' + (description) : logs a task with no specific due date
 'deadline' + (description) + '/by (due date)' : logs a task due at a specific point in time
 'event' +  (description) + '/from (start time)' + '/to (end time)' : logs an event occurring during a specified period
-If I don't see one of the above keywords, I'll ask ya if you want a refresher!
-____________________________________________________________
-UTILITY:
 'list' : Generates a list of all currently logged tasks/events, ordered oldest-newest. The number before each task is it's 'task number'
 'mark' + '(task number)' : Records that a task has been completed
 'unmark' + '(task number)' : Records that a task has not been completed
 'delete' + '(task number)' : Deletes the indicated task from memory
+'bye' : Exits the program
 ____________________________________________________________
 So - what can I help you with today?
 ____________________________________________________________
+Loaded 0 tasks from file
 Just added: TEST1 to your list as a ToDo!
 There is now (1) logged task/event.
 ____________________________________________________________
@@ -70,49 +70,49 @@ Here's what you've got in your list:
 ____________________________________________________________
 Hey! I don't understand that command.
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 Invalid input length. You gotta specify the index of the task you want to (un)mark!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 That's... not a numeral, ya know.
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 That index is out of bounds! Call 'list' to see how many tasks are in your list!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 Invalid input length. You gotta have a description!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 You haven't provided a start/end time!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 You haven't provided a start/end time!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 Just added: 'TEST 4' to your list as an Event!
 There are now (4) logged tasks/events.
 ____________________________________________________________
 Invalid input length. You gotta have a description!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 You haven't provided a due date!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 Just added: 'TEST 5' to your list as a Deadline!
 There are now (5) logged tasks/events.
 ____________________________________________________________
 Invalid input length. You gotta have a description!
 Did you want a refresher on what tasks I can do for ya? Type Y to accept.
-Gotcha - let me know what I can do for ya then!
+No? Gotcha - let me know what I can do for ya then!
 ____________________________________________________________
 Just added: TEST 6 to your list as a ToDo!
 There are now (6) logged tasks/events.
