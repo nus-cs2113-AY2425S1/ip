@@ -58,7 +58,7 @@ public abstract class Task {
     }
 
     // Static methods and fields for task list management
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Searches for tasks containing the specified keyword in their descriptions.
@@ -151,7 +151,7 @@ class ToDo extends Task {
  * Represents a task that needs to be completed before a specific date/time.
  */
 class Deadline extends Task {
-    private String by;
+    private final String by;
 
     public Deadline(String description, String by) {
         super(description);
@@ -173,8 +173,8 @@ class Deadline extends Task {
  * Represents an event that starts and ends at specific times.
  */
 class Event extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Event(String description, String from, String to) {
         super(description);

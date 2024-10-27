@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Main application class that orchestrates the running of the AirBorder task manager.
  */
 public class AirBorder {
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     /**
      * Initializes the application by setting up the user interface and storage.

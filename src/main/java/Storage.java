@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Handles loading and saving tasks to and from a file.
  */
 public class Storage {
-    private Path path;
+    private final Path path;
 
     /**
      * Constructs a Storage object that manages the file used to store task data.

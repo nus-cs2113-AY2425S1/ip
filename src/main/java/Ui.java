@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Handles all user interface operations, including displaying messages and reading user input.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Initializes the user interface by setting up the scanner used for input.
