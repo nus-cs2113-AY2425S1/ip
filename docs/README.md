@@ -156,12 +156,12 @@ Filepath: `[JAR file location]/data/terri.txt`<br>
 If desired, you may manually update stored data by directly editing the file.<br>
 
 All stored data is given in the format: `{task type} | {completeion status} | {description} | {date/time 1} | 
-{date/time 2}`<br>.
+{date/time 2}`<br>
 
 If the indicated task type does not require a value (i.e. `todo` tasks do not require start/end times), the field will 
 be blank.
 
-1. Task Type is indicated as below:
+- Task Type is indicated as below:
 
 | Symbol | Event Type                                                            |
 |--------|-------------------------------------------------------------------|
@@ -169,16 +169,17 @@ be blank.
 | `[D]`  | Deadline
 | `[E]`  | Event
 
-2. Completion status is indicated as below:
+- Completion status is indicated as below:
 
 | Symbol | Meaning |
 |--------|---------|
 | `[X]`  | Task is completed
 | `[ ]`  | Task is not completed
 
-3. Description is given in plaintext.
+- Description is given in plaintext.
 
-`date/time 1`: In `dd MMM yyyy HHmm` format. This value represents the due-date for `deadline` type-tasks, and the 
+`date/time 1`: In `dd MMM yyyy HHmm` format. 
+This value represents the due-date for `deadline` type-tasks, and the 
 start time for `event` type tasks<br>
 
 `date/time 2`: In `dd MMM yyyy HHmm` format. This value represents the end-time for `event` type tasks.
