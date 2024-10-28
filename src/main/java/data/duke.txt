@@ -1,0 +1,11 @@
+T | 0 | sleep
+T | 0 | work
+T | 0 | go to work
+D | 0 | t | 2025-04-01 1800
+E | 0 | party | 2025-04-01 1800 | 2025-04-01 2100
+D | 0 | work | 2025-04-01 1800
+T | 0 | mini project
+D | 0 | uation | 2024-10-31 2359
+T | 0 | go to work
+D | 0 | peer evaluation | 2024-10-31 2359
+E | 0 | new party | 2024-11-21 1700 | 2024-11-23 1800
