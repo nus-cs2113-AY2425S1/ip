@@ -14,7 +14,7 @@ public class Storage {
     /**
      * This class saves the tasks inputted by the user.
      *
-     * @param tasks: The list of tasks to be saved.
+     * @param tasks The list of tasks to be saved.
      */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {

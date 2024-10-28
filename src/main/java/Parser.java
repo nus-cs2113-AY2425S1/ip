@@ -10,7 +10,7 @@ public class Parser {
     /**
      * Initializes the parser with a list of tasks.
      *
-     * @param tasks: the list of tasks to be managed.
+     * @param tasks the list of tasks to be managed.
      */
     public Parser(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -20,7 +20,7 @@ public class Parser {
     /**
      * Executes the user command.
      *
-     * @param command: the user string input command.
+     * @param command the user string input command.
      */
     public void execute(String command) {
         if (command.equals("Bye")) {
@@ -77,7 +77,7 @@ public class Parser {
     /**
      * Add a "todo" for a task.
      *
-     * @param command: user input to be executed.
+     * @param command user input to be executed.
      */
     private void addTodoTask(String command) {
         if (command.trim().length() <= 4) {
@@ -96,7 +96,7 @@ public class Parser {
     /**
      * Add a task with a deadline.
      *
-     * @param command: user input to be executed.
+     * @param command user input to be executed.
      */
     private void addDeadlineTask(String command) {
         if (command.trim().length() <= 8) {
@@ -119,7 +119,7 @@ public class Parser {
     /**
      * Add an event with a from and to.
      *
-     * @param command: user input to be executed.
+     * @param command user input to be executed.
      */
     private void addEventTask(String command) {
         if (command.trim().length() <= 5) {
@@ -142,7 +142,7 @@ public class Parser {
     /**
      * Delete a task from the current storage.
      *
-     * @param command: user input to be executed.
+     * @param command user input to be executed.
      */
     private void deleteTask(String command) {
         try {
@@ -168,8 +168,8 @@ public class Parser {
     /**
      * Mark or unmark a task.
      *
-     * @param command: user input to be executed.
-     * @param isDone: to do mark or do unmark execution for a task.
+     * @param command user input to be executed.
+     * @param isDone to do mark or do unmark execution for a task.
      */
     private void markTask(String command, boolean isDone) {
         try {
@@ -194,7 +194,7 @@ public class Parser {
     /**
      * To find a task that contains keyword.
      *
-     * @param command: user input to be executed.
+     * @param command user input to be executed.
      */
     private void findTasks(String command) {
         if (command.equals("find")) {
