@@ -37,8 +37,8 @@ Taylor is a quite simple chatbot that allows you to add, list, mark, unmark, and
 
 3. **Add a Deadline**:
    - Adds a task with a specific deadline.
-   - **Command**: `deadline <description> /by <date>`
-   - **Example**: `deadline submit report /by 2024-12-01`
+   - **Command**: `deadline <description> /by <date> [dd-MM-yyyy]`
+   - **Example**: `deadline submit report /by 31-12-2024`
 
 4. **List All Tasks**:
    - Displays all tasks currently in your list.

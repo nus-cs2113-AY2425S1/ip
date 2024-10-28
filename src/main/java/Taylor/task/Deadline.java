@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     protected LocalDate by;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Constructs a Deadline task with the specified description, completion status, and deadline.
@@ -27,11 +28,11 @@ public class Deadline extends Task {
      * The task is assumed to be not completed.
      *
      * @param description The description of the Deadline task.
-     * @param by The deadline date in the format "yyyy-MM-dd".
+     * @param by The deadline date in the format "dd-MM-yyyy".
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDate.parse(by);
+        this.by = LocalDate.parse(by,formatter);
     }
 
     /**

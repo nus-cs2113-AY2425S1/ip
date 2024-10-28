@@ -80,7 +80,7 @@ public class TaskList {
         if (index < tasks.size() && index >= 0) {
             tasks.get(index).setCompleted(true);
         } else {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Index out of bounds");
         }
     }
 
@@ -94,7 +94,7 @@ public class TaskList {
         if (index < tasks.size() && index >= 0) {
             tasks.get(index).setCompleted(false);
         } else {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("The index is out of bounds");
         }
     }
 

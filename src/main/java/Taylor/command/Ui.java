@@ -24,11 +24,54 @@ public class Ui {
      * Displays the welcome message when the program starts.
      */
     public void showWelcome() {
+        printLogo();
         System.out.println(LINE);
-        System.out.println("Hello! I'm Taylor");
-        System.out.println("What can I do for you?");
+        System.out.println("🤖 Hello! I'm Taylor, your friendly chatbot assistant! 🎉");
+        System.out.println(LINE);
+        printManual();
+        System.out.println(LINE);
+        System.out.println("How can I assist you today? 😊");
         System.out.println(LINE);
     }
+
+    /**
+     * Displays the logo the chatbot Taylor
+     */
+    private void printLogo() {
+        String logo =
+        """
+              _____
+             /     \\
+            |  O O  |
+            |   ^   |
+            |  '-'  |
+             \\_____/
+              | | |
+             /|_|_|\\
+            /  | |  \\
+               / \\
+              /   \\
+        Your Personal Task Manager Bot Taylor💼""";
+        System.out.println(logo);
+    }
+
+    /**
+     * Displays the manual of commands of Taylor
+     */
+    private void printManual() {
+        System.out.println("📝 **Here's what I can do:**");
+        System.out.println("1. `todo <task>` - Add a new todo.");
+        System.out.println("2. `event <desc> /from <start> /to <end>` - Schedule an event.");
+        System.out.println("3. `deadline <desc> /by <date> [dd-MM-yyyy]` - Set a deadline.");
+        System.out.println("4. `list` or `ls` - Show all your tasks.");
+        System.out.println("5. `mark <num>` - Mark a task as done.");
+        System.out.println("6. `unmark <num>` - Mark a task as not done.");
+        System.out.println("7. `delete <num>` - Remove a task.");
+        System.out.println("8. `find <keyword>` - Search for tasks.");
+        System.out.println("9. `clear` - Remove all tasks.");
+        System.out.println("10. `bye` - Exit our chat. See you next time! 👋");
+    }
+
 
     /**
      * Displays the goodbye message when the user exits the program.

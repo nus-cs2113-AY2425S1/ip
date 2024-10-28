@@ -79,7 +79,10 @@ public class Taylor {
                     tasks.markTask(index);
                     ui.showTaskAdded(tasks.get(index), tasks);
                     storage.save(tasks);
-                } catch (IOException e) {
+                } catch (IndexOutOfBoundsException e) {
+                    ui.println(e.getMessage());
+                }
+                catch (IOException e) {
                     ui.println("Unable to write to file");
                 } catch (NumberFormatException e) {
                     ui.println("Unable to read from string");
@@ -87,8 +90,12 @@ public class Taylor {
             }
             case "unmark" -> {
                 int index = Integer.parseInt(args) - 1;
-                tasks.unmarkTask(index);
-                ui.showTaskAdded(tasks.get(index), tasks);
+                try {
+                    tasks.unmarkTask(index);
+                    ui.showTaskAdded(tasks.get(index), tasks);
+                } catch (IndexOutOfBoundsException e) {
+                    ui.println(e.getMessage());
+                }
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
@@ -126,7 +133,7 @@ public class Taylor {
                 } catch (IOException e) {
                     ui.println("Unable to write to file");
                 } catch (DateTimeParseException e) {
-                    ui.println("Unable to parse the date, please the format yyyy-mm-dd");
+                    ui.println("Unable to parse the date, please the format dd-MM-yyyy");
                 } catch (TaylorException e) {
                     ui.println(e.getMessage());
                 }
