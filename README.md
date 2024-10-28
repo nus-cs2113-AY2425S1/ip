@@ -65,18 +65,18 @@ Taylor is a quite simple chatbot that allows you to add, list, mark, unmark, and
    - **Example**: `find book`
 
 9. **Clear all tasks**:
-   - Clear all the tasks in the list 
+   - Clear all the tasks in the list
    - **Command**: `clear` followed by `yes` or `y` or `ok`
    - **Example**: `clear` -> `y`
 
 10. **Exit the Program**:
-   - Exits the chatbot.
-   - **Command**: `bye`
+- Exits the chatbot.
+- **Command**: `bye`
 
 ### Task Types
 
 - **Todo**: A simple task that only contains a description (e.g., "read a book").
-- **Deadline**: A task with a deadline (e.g., "submit report by 2024-12-01").
+- **Deadline**: A task with a deadline (e.g., "submit report by 31-12-2024").
 - **Event**: A task that occurs over a specific time period (e.g., "meeting from 2pm to 4pm").
 
 ### Task Management
@@ -88,21 +88,48 @@ Taylor is a quite simple chatbot that allows you to add, list, mark, unmark, and
 ### Example Interaction
 
 ```
-Hello! I'm Taylor
-What can I do for you?
+      _____
+     /     \
+    |  O O  |
+    |   ^   |
+    |  '-'  |
+     \_____/
+      | | |
+     /|_|_|\
+    /  | |  \
+       / \
+      /   \
+Your Personal Task Manager Bot Taylor💼
+____________________________________________________________
+🤖 Hello! I'm Taylor, your friendly chatbot assistant! 🎉
+____________________________________________________________
+📝 **Here's what I can do:**
+1. `todo <task>` - Add a new todo.
+2. `event <desc> /from <start> /to <end>` - Schedule an event.
+3. `deadline <desc> /by <date> [dd-MM-yyyy]` - Set a deadline.
+4. `list` or `ls` - Show all your tasks.
+5. `mark <num>` - Mark a task as done.
+6. `unmark <num>` - Mark a task as not done.
+7. `delete <num>` - Remove a task.
+8. `find <keyword>` - Search for tasks.
+9. `clear` - Remove all tasks.
+10. `bye` - Exit our chat. See you next time! 👋
+____________________________________________________________
+How can I assist you today? 😊
+____________________________________________________________
 
 todo read book
 Got it. I've added this task:
   [T][ ] read book
 
-deadline submit report /by 2024-12-01
+deadline submit report /by 31-12-2024
 Got it. I've added this task:
-  [D][ ] submit report (by: Dec 1 2024)
+  [D][ ] submit report (by: Dec 31 2024)
 
 list
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] submit report (by: Dec 1 2024)
+2. [D][ ] submit report (by: Dec 31 2024)
 
 mark 1
 Nice! I've marked this task as done:
