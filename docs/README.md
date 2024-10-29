@@ -1,30 +1,82 @@
-# Duke User Guide
+# Ellio User Guide   
 
-// Update the title above to match the actual product name
+Ellio is a command-line chatbot designed to manage your tasks efficiently.
 
-// Product screenshot goes here
+## Features
 
-// Product intro goes here
+1. Add tasks, deadlines, and events.
+2. Mark tasks as done or unmark them.
+3. Delete tasks you no longer need.
+4. View all tasks or search for tasks using keywords.
+5. Persistent task storage: Tasks are saved locally, allowing the chatbot to reload them automatically the next time the application is launched.
+6. Exit the application smoothly by saying 'bye'.
 
-## Adding deadlines
+## Commands
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+1. **Add a todo**
+   ```plaintext
+   todo [description] 
+   ```
+   Example: todo New Task
 
 
-## Feature XYZ
+2. **Add a deadline**
+   ```plaintext
+   deadline [description] /by [dd-MM-yyyy]
+   ```
+   Example: deadline New Deadline /by 12-10-2024
 
-// Feature details
+
+3. **Add an event**
+   ```plaintext
+   event [description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]
+   ```
+   Example: event New Event /from 13-10-2024 18:00 /to 13-10-2024 24:00
+
+
+4. **Mark a task as done**
+   ```plaintext
+   mark [task number]
+   ```
+   Example: mark 1
+
+
+5. **Unmark a task**
+   ```plaintext
+   unmark [task number]
+   ```
+   Example: unmark 1
+
+
+6. **Delete a task**
+   ```plaintext
+   delete [task number]
+   ```
+   Example: delete 2
+
+
+7. **List all tasks**
+   ```plaintext
+   list
+   ```
+
+8. **Find tasks by keyword**
+   ```plaintext
+   find [keyword]
+   ```
+   Example: find Task
+
+
+9. **Exit the application**
+   ```plaintext
+   bye
+   ```
+9. **Get List of Commands**
+   ```plaintext
+   help
+   ```
+
+## Prerequisites
+
+* JDK 17
+* Ellio JAR file (Ensure you have the compiled JAR file to run the application)
