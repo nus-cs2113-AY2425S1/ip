@@ -1,0 +1,20 @@
+list
+todo cs1231 tut
+deadline cs2113 ip /by 2024-10-02 1400
+list
+deadline cs2113 weekly quiz /by 2024-10-08 1200
+list
+mark 1
+event cs1231 lecture /from 2024-10-04 1200 /to 2024-10-04 1300
+todo watch cg2271 lecture video
+find cs1231
+delete 1
+find cs1231
+find
+delete
+mark
+unmark
+mark 10
+mark 2
+list
+bye
