@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
+text-ui-test/*.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/data
+
+# JAR files
+/jar/
+
+# /data save files
+/data
