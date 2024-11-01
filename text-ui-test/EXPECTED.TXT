@@ -1,7 +1,31 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Loaded 4 tasks
+------------------------------
+Hello, I am Diana! A personal assistant that helps you keep track of your tasks :)
+Here are the list of things that Diana can do for you:
+1. Create a todo task eg. [todo read book]
+2. Create an event task eg. [event read book /from 2/12/2019 1800 /to 3/12/2019 1800]
+3. Create a deadline task eg. [deadline read book /by 2/12/2019 1800]
+4. Type either mark <index> or unmark <index> to indicate the completion rate of your task
+5. Delete a task eg. [delete 1]
+6. Type list to view the your list of tasks.
+7. Type bye to exit the programme.
+8. Type find <task> to find tasks with specific keywords.
+9. Type date <date> to find tasks on specific dates.
+------------------------------
+------------------------------
+Nice! I've marked this task as done
+[T][X] read book
+------------------------------
+------------------------------
+Okay, I've marked this task as not done yet
+[T][ ] read book
+------------------------------
+------------------------------
+1. [T][ ] read book
+2. [T][ ] read book
+3. [T][ ] read book
+4. [T][ ] read book
+------------------------------
+Unknown Command: this is a bad command
+Format Invalid. Please use the following format: event <description> /from <start time> /to <end time>
+Goodbye!

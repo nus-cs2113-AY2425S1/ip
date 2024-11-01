@@ -1,0 +1,6 @@
+mark 1
+unmark 1
+list
+this is a bad command
+event this is a bad command
+bye
