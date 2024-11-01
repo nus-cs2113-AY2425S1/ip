@@ -1,24 +1,72 @@
-# Duke project template
+# Gertrude
+### A new intelligent chatbot for all your scheduling needs!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Listing tasks: `list`
+Shows a list of all tasks, their completeness status, and any dates/times attached to them.
 
-## Setting up in Intellij
+Format: `list`
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Adding a todo: `todo`
+Adds a todo to the list of tasks.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Format: `todo NAME`
+
+Examples:
+- `todo Homework`
+- `todo Eat dinner`
+
+## Adding a deadline: `deadline`
+Adds a deadline to the list of tasks.
+
+Format: `deadline NAME /by TIME`
+
+Examples:
+- `deadline Homework /by 7`
+- `deadline Software Engineering Increment /by 11:59 pm`
+
+## Adding an event: `event`
+Adds a event to the list of tasks.
+
+Format: `event NAME /from TIME /to TIME`
+
+Examples:
+- `event Dinner /from 5 /to 7`
+- `event Meeting with prof /from 10 am /to 11 am`
+
+## Marking/Unmarking a task: 'mark'
+If an task is marked, unmark it. Otherwise, mark it.
+
+Format: `mark INDEX`
+
+- A task's index can be found using `list`.
+- If an index that doesn't exist in the list is inputted, the program throws an error.
+
+## Deleting a task: `delete`
+Deletes a task from the list of tasks.
+
+Format: `delete INDEX`
+
+- A task's index can be found using `list`.
+- If an index that doesn't exist in the list is inputted, the program throws an error.
+
+## Searching for a task by name: `find`
+Lists all tasks with matching names to user-inputted keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+- `find` is not sensitive for case. For instance, `homeWork` will match `Homework`.
+- The order of the keywords doesn't matter. For instance, `homework math` is the same as `math homework`.
+- Only the name of the tasks is searched.
+
+Examples:
+
+![image](https://github.com/user-attachments/assets/c3883a01-796e-4529-89e2-94c2ecbc70a9)
+
+## Exiting the program: `exit`
+Exits out of the program and gives a farewell message.
+
+Format: `bye`
+
+## Saving Gertrude:
+Gertrude saves automatically to the user's hard drive after each input. No manual saving is necessary.
+
