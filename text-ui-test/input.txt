@@ -1,0 +1,12 @@
+todo read book
+todo read magazine
+list
+deadline finish report /by Sunday 2pm
+mark 2
+list
+event pool party /from Monday 4pm /to 7pm
+mark 4
+list
+unmark 2
+list
+bye
