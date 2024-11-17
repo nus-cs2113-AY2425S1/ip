@@ -1,0 +1,25 @@
+invalidCommand
+
+list
+deadline
+deadline assignment
+event networking /on 2024-10-10
+todo homework /by 2024-12-12
+list
+mark
+mark string
+mark 1
+mark 3
+list
+unmark
+unmark string
+unmark 1
+list
+date
+date 2024-11-11
+delete 3
+delete 1
+find
+find homework
+find net
+bye
