@@ -1,24 +1,102 @@
-# Duke project template
+# Erika Chatbot
+For more detailed information, please visit the <a href="https://rcpilot1604.github.io/ip/">User Guide</a>.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```angular2html
+	Hello from
+ _______   ________  ___  ___  __    ________     
+|\  ___ \ |\   __  \|\  \|\  \|\  \ |\   __  \    
+\ \   __/|\ \  \|\  \ \  \ \  \/  /|\ \  \|\  \   
+ \ \  \_|/_\ \   _  _\ \  \ \   ___  \ \   __  \  
+  \ \  \_|| \ \  \\  \\ \  \ \  \\ \  \ \  \ \  \ 
+   \ \_______\ \__\\ _\\ \__\ \__\\ \__\ \__\ \__\
+    \|_______|\|__|\|__|\|__|\|__| \|__|\|__|\|__|
 
-## Setting up in Intellij
+	____________________________________________________________
+	Hello! I'm Erika
+ 	What can I do for you?
+	____________________________________________________________
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+## Add ```Todos```, ```Deadlines``` and ```Events```
+
+Add ```Tasks``` to your list of tasks via CLI
+
+Example: `todo/deadline/event DESCRIPTION [optional parameters]`
+
+### Todo:
+```angular2html
+todo mytodo
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] mytodo
+	Now you have 1 task in the list.
+	____________________________________________________________
+```
+### Deadline:
+```angular2html
+deadline mydeadline /by 19/09/2024 23:59
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] mydeadline (by: 19 Sep 2024 11.59PM)
+Now you have 3 tasks in the list.
+____________________________________________________________
+```
+### Event:
+```angular2html
+event myevent /from 19/09/2024 23:59 /to 20/09/2024 23:59
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] myevent (from: 19 Sep 2024 11.59PM to: 20 Sep 2024 11.59PM)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+
+```
+## Delete ```Tasks```
+
+```angular2html
+delete 1
+	____________________________________________________________
+	Nice! I've deleted this task:
+	[T][ ] mytodo
+	Now you have 3 tasks in the list.
+	____________________________________________________________
+```
+```angular2html
+delete all
+	____________________________________________________________
+	All tasks deleted. There are now 0 tasks
+	____________________________________________________________
+```
+
+## Search for ```Tasks```
+```angular2html
+find todo
+	____________________________________________________________
+	Here are the matching items in your list: 
+	1. [T][ ] mytodo
+	2. [T][ ] myothertodo
+	3. [T][ ] todo!
+	____________________________________________________________
+```
+## Marking and Unmarking ```Tasks```
+
+```angular2html
+mark 1
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	[T][X] mytodo
+	____________________________________________________________
+```
+```angular2html
+unmark 1
+	____________________________________________________________
+	Nice! I've marked this task as not done yet:
+		[T][ ] mytodo
+	____________________________________________________________
+```
+
+## Acknowledgements
+I would like to thank @jinzihan2002 for help with smoke testing. 
+
