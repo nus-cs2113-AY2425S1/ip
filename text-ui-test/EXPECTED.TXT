@@ -1,7 +1,160 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+File is empty
+   _____          _        _____ _                
+  / ____|        | |      / ____| |               
+ | |     ___   __| |_   _| |    | |__   ___ _ __  
+ | |    / _ \ / _` | | | | |    | '_ \ / _ \ '_ \ 
+ | |___| (_) | (_| | |_| | |____| | | |  __/ | | |
+  \_____\___/ \__,_|\__, |\_____|_| |_|\___|_| |_|
+                     __/ |                        
+                    |___/                         
+>CodyChen:
+	Cody Chen Welcomes You! Please enter a command:
+>You:
+	todo read book
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this TODO task for you:
+[T][ ] read book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	mark 1
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has marked this task for you:
+[T][X] read book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	deadline return book /by June 6th
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this DEADLINE task for you:
+[D][ ] return book (by: June 6th)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	event project meeting /from Aug 6th /to 4pm
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this EVENT task for you:
+[E][ ] project meeting (by: Aug 6th to: 4pm)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	todo join sports club
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this TODO task for you:
+[T][ ] join sports club
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	mark 4
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has marked this task for you:
+[T][X] join sports club
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	todo borrow book
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this TODO task for you:
+[T][ ] borrow book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	list
+--------------------------------------------------------------
+>CodyChen:
+	CodyChen has returned your list as follows:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (by: Aug 6th to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	find book
+--------------------------------------------------------------
+>CodyChen:
+	Showing relevant searches 
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+5.[T][ ] borrow book
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	find 0
+--------------------------------------------------------------
+>CodyChen:
+	No results were returned
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	deadline return book /by 2023-01-10
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this DEADLINE task for you:
+[D][ ] return book (by: Jan 10 2023)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	event project meeting /from 2023-01-10 /to 2023-01-11
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has added this EVENT task for you:
+[E][ ] project meeting (by: Jan 10 2023 to: Jan 11 2023)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	todo
+--------------------------------------------------------------
+>CodyChen:
+	Oops, CodyChen did not get that
+Kindly specify todo <task>
+>CodyChen: 
+	Please enter a valid command:
+>You:
+	blah
+--------------------------------------------------------------
+>CodyChen: 
+	Please enter a valid command:
+>You:
+	delete 2
+--------------------------------------------------------------
+>CodyChen:
+	 CodyChen has removed this task for you:
+2.[D][ ] return book (by: June 6th)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	list
+--------------------------------------------------------------
+>CodyChen:
+	CodyChen has returned your list as follows:
+1.[T][X] read book
+2.[E][ ] project meeting (by: Aug 6th to: 4pm)
+3.[T][X] join sports club
+4.[T][ ] borrow book
+5.[D][ ] return book (by: Jan 10 2023)
+6.[E][ ] project meeting (by: Jan 10 2023 to: Jan 11 2023)
+>CodyChen:
+	Done! Please enter the next command:
+>You:
+	bye
+--------------------------------------------------------------
+   ▄██████▄   ▄██████▄   ▄██████▄  ████████▄  ▀█████████▄  ▄██   ▄      ▄████████
+  ███    ███ ███    ███ ███    ███ ███   ▀███   ███    ███ ███   ██▄   ███    ███
+  ███    █▀  ███    ███ ███    ███ ███    ███   ███    ███ ███▄▄▄███   ███    █▀
+ ▄███        ███    ███ ███    ███ ███    ███  ▄███▄▄▄██▀  ▀▀▀▀▀▀███  ▄███▄▄▄
+▀▀███ ████▄  ███    ███ ███    ███ ███    ███ ▀▀███▀▀▀██▄  ▄██   ███ ▀▀███▀▀▀
+  ███    ███ ███    ███ ███    ███ ███    ███   ███    ██▄ ███   ███   ███    █▄
+  ███    ███ ███    ███ ███    ███ ███   ▄███   ███    ███ ███   ███   ███    ███
+  ████████▀   ▀██████▀   ▀██████▀  ████████▀  ▄█████████▀   ▀█████▀    ██████████
 
+>CodyChen: 
+	Thank You for using CodyChen. Have a nice day.
