@@ -1,0 +1,42 @@
+package thethinker.parser;
+
+import thethinker.exceptions.FormattingException;
+import thethinker.tasks.Deadline;
+
+public class DeadlineParser extends UserInputParser{
+
+    public static final int LENGTH_OF_SLASH_BY = 3;
+    public static final int LENGTH_OF_DEADLINE = 8;
+
+    public static final String DEADLINE_FORMAT = "Please follow format : deadline [task] /by [time]";
+
+    /**
+     * Parses user input based on the format of Deadline and create Deadline object.
+     *
+     * @throws FormattingException If /by , task description , deadline is missing from user input.
+     */
+    public static Deadline parseDeadline() throws FormattingException {
+
+        String remainingTaskDescription = userInput.substring(LENGTH_OF_DEADLINE).trim();
+        int indexOfSlash = remainingTaskDescription.indexOf("/by");
+
+        if (indexOfSlash == -1) {
+            throw new FormattingException("/by is missing. " + DEADLINE_FORMAT);
+        }
+
+        String taskDescription = remainingTaskDescription.substring(0, indexOfSlash).trim();
+
+        if (taskDescription.isEmpty()) {
+            throw new FormattingException("task description is missing. " + DEADLINE_FORMAT);
+        }
+
+        String date = remainingTaskDescription.substring(indexOfSlash + LENGTH_OF_SLASH_BY).trim();
+        String deadline = DateParser.convertDateFormat(date);
+
+        if (deadline.isEmpty()) {
+            throw new FormattingException("deadline is missing. " + DEADLINE_FORMAT);
+        }
+
+        return new Deadline(taskDescription , deadline);
+    }
+}
