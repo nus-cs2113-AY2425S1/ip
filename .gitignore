@@ -1,3 +1,9 @@
+# savedData files
+tasksBackup.txt
+
+# Class files
+.class
+
 # IDEA files
 /.idea/
 /out/
