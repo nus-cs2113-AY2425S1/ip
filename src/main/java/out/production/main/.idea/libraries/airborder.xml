@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="airborder">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/airborder.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
