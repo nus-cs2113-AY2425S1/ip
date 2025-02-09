@@ -1,0 +1,9 @@
+todo grocery shopping
+deadline CS3244 tutorial /by 26/09/2024 2359
+event Swimming /from Thursday Morning /to Thursday Afternoon
+list
+mark 1
+unmark 1
+delete 1
+priority list
+bye
